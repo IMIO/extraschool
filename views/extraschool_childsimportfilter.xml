@@ -1,0 +1,92 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+        <record model="ir.ui.view" id="extraschool_childsimportfilter_form">
+            <field name="name">childsimportfilter</field>
+            <field name="model">extraschool.childsimportfilter</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="childsimportfilter" >
+                    <group col="6">
+                        <field name="name"/>
+                        <newline/>
+                        <field name="startrow"/>
+                        <newline/>
+                        <field name="childlastnamecolumn"/>
+                        <field name="childlastnamecolumnname"/>
+                        <newline/>
+                        <field name="childfirstnamecolumn"/>
+                        <field name="childfirstnamecolumnname"/>
+                        <newline/>
+                        <field name="childbirthdatecolumn"/>
+                        <field name="childbirthdatecolumnname"/>
+                        <newline/>
+                        <field name="majschoolimplantation"/>
+                        <newline/>
+                        <field name="childclassnamecolumns"/>
+                        <field name="majchildclassname"/>
+                        <field name="childclassnamecolumnsname"/>
+                        <newline/>
+                        <field name="childlevelcolumns"/>
+                        <field name="majchildlevel"/>
+                        <field name="childlevelcolumnsname"/>
+                        <newline/>
+                        <field name="importlevelrule_ids">
+                            <tree string="Importlevelrules" version="7.0">
+                                <field name="levelid"/>
+                                <field name="startpos1"/>
+                                <field name="endpos1"/>
+                                <field name="equalto1"/>
+                            </tree>
+                        </field>
+                        <newline/>
+                        <field name="childotherrefcolumn"/>
+                        <field name="majchildotherref"/>
+                        <field name="childotherrefcolumnname"/>
+                        <newline/>
+                        <field name="parentlastnamecolumn"/>
+                        <field name="majparentlastname"/>
+                        <field name="parentlastnamecolumnname"/>
+                        <newline/>
+                        <field name="parentfirstnamecolumn"/>
+                        <field name="majparentfirstname"/>
+                        <field name="parentfirstnamecolumnname"/>
+                        <newline/>
+                        <field name="parentstreetcolumns"/>
+                        <field name="majparentstreet"/>
+                        <field name="parentstreetcolumnsname"/>
+                        <newline/>
+                        <field name="parentzipcodecolumn"/>
+                        <field name="majparentzipcode"/>
+                        <field name="parentzipcodecolumnname"/>
+                        <newline/>
+                        <field name="parentcitycolumn"/>
+                        <field name="majparentcity"/>
+                        <field name="parentcitycolumnname"/>
+                        <newline/>
+                        <field name="parenthousephonecolumn"/>
+                        <field name="majparenthousephone"/>
+                        <field name="parenthousephonecolumnname"/>
+                        <newline/>
+                        <field name="parentworkphonecolumn"/>
+                        <field name="majparentworkphone"/>
+                        <field name="parentworkphonecolumnname"/>
+                        <newline/>
+                        <field name="parentgsmcolumn"/>
+                        <field name="majparentgsm"/>
+                        <field name="parentgsmcolumnname"/>
+                        <newline/>
+                        <field name="parentemailcolumn"/>
+                        <field name="majparentemail"/>
+                        <field name="parentemailcolumnname"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_extraschool_childsimportfilter">
+			<field name="name">Childsimportfilter</field>
+			<field name="res_model">extraschool.childsimportfilter</field>
+			<field name="view_type">form</field>
+		</record>
+	</data>
+</openerp>

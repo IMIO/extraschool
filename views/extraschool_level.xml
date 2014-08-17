@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>        
+        <record model="ir.ui.view" id="extraschool_level_form">
+            <field name="name">extraschool.level.form</field>
+            <field name="model">extraschool.level</field>    
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            <form string="Levels"> 
+            <group col="4">       
+                <field name="name"/>
+                <newline/>
+                <field name="ordernumber"/> 
+                <newline/>
+                <field name="leveltype"/> 
+            </group>       
+            </form>
+            </field> 
+        </record>        
+	</data>
+</openerp>

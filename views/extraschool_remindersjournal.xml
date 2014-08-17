@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+        <record model="ir.ui.view" id="extraschool_reminders_journal_form">
+            <field name="name">extraschool.remindersjournal.form</field>
+            <field name="model">extraschool.remindersjournal</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Reminders Journal">
+                <group col="4">
+                        <field name="name"/>
+                        <newline/>
+                        <field name="activitycategoryid"/>
+                        <newline/>
+                        <field name="remindertype"/>
+                        <newline/>
+                        <field name="concernedbillers"/>
+                        <newline/>
+                        <field name="minamount"/>
+                        <newline/>
+                        <field name="transmissiondate"/>
+                        <newline/>
+                        <field name="term"/>
+                        <field name="filename" invisible="1" colspan="4"/>
+                        <field name="reminders" nolabel="1" readonly="1" filename="filename" colspan="4"/>
+                </group>                    
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_lbsc_reminders_journal">
+            <field name="name">Reminders Journal</field>
+            <field name="res_model">extraschool.remindersjournal</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>            
+        </record>
+	</data>
+</openerp>

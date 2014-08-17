@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+        <record model="ir.ui.view" id="extraschool_initupdate_wizard_form">
+            <field name="name">extraschool.initupdate.wizard.form</field>
+            <field name="model">extraschool.initupdate_wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Init or Update Wizard">
+                    <group col="4">
+                    <label string="NE CLIQUER SUR CE BOUTTON QUE LORSQU'IL EST NECESSAIRE DE FAIRE UNE MISE A JOUR" colspan="4" />
+                    <newline/>
+                    <label string="ET QUE TOUS LES UTILISATEURS SONT DECONNECTES (REDEMARRAGE DU SERVEUR)" colspan="4" />
+                    <newline/>
+                    <button name="updateapplication" string="Update this application" icon="gtk-apply" type="object"/>
+                    <button name="initdefaultvalues" string="initialize with default values" icon="gtk-apply" type="object"/>
+                    <!-- button name="importpaiements" type="object" string="Importpaiements" / -->
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_lbsc_initupdate_wizard">
+            <field name="name">Init or Update Wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">extraschool.initupdate_wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+	</data>
+</openerp>

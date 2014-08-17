@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>        
+        <record model="ir.ui.view" id="extraschool_quotaadjustment_form">
+            <field name="name">extraschool.quotaadjustment.form</field>
+            <field name="model">extraschool.quotaadjustment</field>    
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            <form string="Quota adjustment">
+            <group col="4">
+                    <field name="quotaadjustment"/>     
+                    <newline/>       
+                    <field name="reason"/>
+            </group>
+            </form>
+            </field> 
+        </record>        
+	</data>
+</openerp>

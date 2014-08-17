@@ -1,0 +1,66 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+        <record model="ir.ui.view" id="extraschool_activitycategory_tree">
+			<field name="name">extraschool.activitycategory.tree</field>
+			<field name="model">extraschool.activitycategory</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Activity category">
+                    <field name="name"/> 
+                    			
+				</tree>
+			</field>
+		</record>
+        
+        <record model="ir.ui.view" id="extraschool_activitycategory_form">
+            <field name="name">extraschool.activitycategory.form</field>
+            <field name="model">extraschool.activitycategory</field>    
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            <form string="Activity category">  
+            <group col="4">
+                <field name="name"/>
+                <newline/>
+                <field name="activities" />
+                <newline/>
+                <field name="placeids" /> 
+                <newline/>
+                <field name="childpositiondetermination"/>
+                <newline/>
+                <field name="priorityorder" />
+                <newline/>
+                <field name="invoicetemplate" />
+                <newline/>
+                <field name="invoicecomstructprefix" />
+                <newline/>
+                <field name="invoicelastcomstruct" />
+                <newline/>
+                <field name="invoiceemailaddress" />
+                <newline/>
+                <field name="invoiceemailsubject" />
+                <newline/>
+                <field name="invoiceemailtext" />
+                <newline/>
+                <field name="remindercomstructprefix" />
+                <newline/>
+                <field name="reminderlastcomstruct" />        
+                <newline/>
+                <field name="reminderemailaddress" />
+                <newline/>
+                <field name="reminderemailsubject" />
+                <newline/>
+                <field name="reminderemailtext" />
+                <newline/>
+                <field name="taxcertificatetemplate" />
+                </group>
+            </form>
+            </field> 
+        </record>
+        <record model="ir.actions.act_window" id="action_extraschool_activitycategory">
+			<field name="name">Activity category</field>
+			<field name="res_model">extraschool.activitycategory</field>
+			<field name="view_type">form</field>
+		</record>
+	</data>
+</openerp>

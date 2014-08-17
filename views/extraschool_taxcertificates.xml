@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+       <record model="ir.ui.view" id="extraschool_taxcertificates_wizard_form">
+            <field name="name">extraschool.taxcertificates.wizard.form</field>
+            <field name="model">extraschool.taxcertificates_wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Tax Certificates Wizard">
+                    <field name="state" invisible="1" />
+                    <group states="init">
+                        <field name="year" />
+                        <field name="activitycategory" />
+                        <field name="parentid" />
+                    </group>
+                    <group states="compute_taxcertificates">
+                        <field name="name" invisible="1" colspan="4"/>
+                        <field name="taxcertificates" nolabel="1" readonly="1" filename="name" colspan="4"/>
+                        <label string="Ok" />
+                    </group>
+                    <separator string="" colspan="4"/>
+                    <group colspan="4" col="3">
+                        <button name="action_compute_taxcertificates" string="Compute taxcertificates" icon="gtk-apply" type="object"
+                            states="init" />
+                    </group>
+                    <label string="" colspan="4" />
+                    <label string="" colspan="4" />
+                    <label string="" colspan="4" />
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_lbsc_taxcertificates_wizard">
+            <field name="name">Tax Certificates Wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">extraschool.taxcertificates_wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+	</data>
+</openerp>

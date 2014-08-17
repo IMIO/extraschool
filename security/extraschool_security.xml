@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+   <openerp>
+      <data>
+         <record id="extraschool_schoolcareadmin" model="res.groups">
+            <field name="name">extraschool Schoolcare admin</field>
+         </record>
+         <record id="extraschool_schoolcareuser" model="res.groups">
+            <field name="name">extraschool Schoolcare user</field>
+         </record>
+      </data>
+   </openerp>

@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+        <record model="ir.ui.view" id="extraschool_smartphone_tree">
+			<field name="name">extraschool.smartphone.tree</field>
+			<field name="model">extraschool.smartphone</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Smartphone">
+                    <field name="id"/>
+                    <field name="name"/> 
+                    			
+				</tree>
+			</field>
+		</record>
+        
+        <record model="ir.ui.view" id="extraschool_smartphone_form">
+            <field name="name">extraschool.smartphone.form</field>
+            <field name="model">extraschool.smartphone</field>    
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            <form string="Smartphone">  
+            	<group col="4">
+                <field name="id"/>
+                <newline/>
+                <field name="name" />
+                <newline/>
+                <field name="placeid" /> 
+                <newline/>
+                <field name="activitycategories_ids" />        
+                <newline/>
+                <field name="lasttransmissiondate"/>
+                <newline/>
+                <field name="maxtimedelta"/>
+                <newline/>
+                <field name="oldversion"/>
+                <newline/>
+                <field name="transmissiontime"/>
+                <newline/>
+                <field name="serveraddress"/>
+                <newline/>
+                <field name="databasename"/>
+                <newline/>
+                <field name="username"/>
+                <newline/>
+                <field name="userpassword"/>
+                <newline/>
+                <field name="scanmethod"/>
+                <newline/>
+                <field name="transfertmethod"/>
+                <newline/>
+                <field name="qrdownload" img_width="400" img_height="400" width="400" height="400" widget="image"/>
+                <newline/>
+                <field name="softwareurl"/>
+                <newline/>
+                <field name="qrconfig" img_width="400" img_height="400" width="400" height="400" widget="image"/>
+                </group>                
+            </form>
+            </field> 
+        </record>
+        <record model="ir.actions.act_window" id="action_extraschool_smartphone">
+			<field name="name">Smartphone</field>
+			<field name="res_model">extraschool.smartphone</field>
+			<field name="view_type">form</field>
+		</record>
+	</data>
+</openerp>

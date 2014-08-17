@@ -1,0 +1,81 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+        <record model="ir.ui.view" id="extraschool_invoice_tree">
+			<field name="name">invoices</field>
+			<field name="model">extraschool.invoice</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="invoice">
+                    <field name="activitycategoryid"/>                    
+                    <field name="period_from"/>
+                    <field name="period_to"/>
+                    <field name="number"/>
+                    <field name="amount_total"/>
+                    <field name="amount_received"/>
+                    <field name="balance"/>
+                    <field name="discount"/>
+                    <field name="no_value"/>
+				</tree>
+			</field>
+		</record>
+        
+		<record model="ir.ui.view" id="extraschool_invoice_form">
+			<field name="name">invoices</field>
+			<field name="model">extraschool.invoice</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="invoice">
+				<group cols="4" colspan="2">
+                    <field name="biller_id"/>
+                    <field name="schoolimplantationid"/>
+                    <field name="parentid"/>
+                    <field name="number"/>
+                    <field name="structcom"/>
+                    <field name="amount_total"/>
+                    <field name="amount_received"/>
+                    <field name="balance"/>
+                    <field name="no_value"/>
+                    <field name="filename" invisible="1"/>
+                    <field name="invoice_file" filename="filename"/>
+                    <newline/>
+                    <field name="payment_ids">
+                        <tree string="Payments" version="7.0">
+                            <field name="paymentdate"/>
+                            <field name="amount"/>
+                            <field name="name"/>
+                            <field name="account"/>                            
+                        </tree>
+                    </field>   
+                    <button name="addpayment" string="Add payment" icon="gtk-apply" type="object"/>
+                    </group>           
+				</form>
+			</field>
+		</record>
+        <record model="ir.actions.act_window" id="action_extraschool_invoices">
+            <field name="name">invoices</field>
+            <field name="res_model">extraschool.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree, form</field>
+            <field name="view_id" ref="extraschool_invoice_tree"/>
+        </record>
+        
+        <record model="ir.actions.act_window.view" id="action_extraschool_invoice_form">
+			<field name="name">invoices</field>
+            <field eval="2" name="sequence"/>
+			<field name="res_model">extraschool.invoice</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="extraschool_invoice_form" />   
+            <field name="act_window_id" ref="action_extraschool_invoices" /> 
+		</record> 
+        
+        <record model="ir.actions.act_window.view" id="action_extraschool_invoice_tree">
+			<field name="name">invoices</field>
+            <field eval="1" name="sequence"/>
+			<field name="res_model">extraschool.invoice</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="extraschool_invoice_tree" />  
+            <field name="act_window_id" ref="action_extraschool_invoices" /> 
+		</record>
+	</data>
+</openerp>

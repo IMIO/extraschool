@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>        
+        <record model="ir.ui.view" id="extraschool_class_form">
+            <field name="name">extraschool.class.form</field>
+            <field name="model">extraschool.class</field>    
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            <form string="Class"> 
+            <group col="4">       
+                <field name="name"/>
+                <newline/>
+                <field name="levelids"/> 
+                <newline/>
+                <field name="schoolimplantation"/>       
+                <newline/>
+                <field name="titular"/> 
+            </group>
+            </form>
+            </field> 
+        </record>        
+	</data>
+</openerp>

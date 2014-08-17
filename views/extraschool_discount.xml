@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+        <record model="ir.ui.view" id="extraschool_discount_form">
+            <field name="name">discount</field>
+            <field name="model">extraschool.discount</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="discount">
+                <group col="4">
+                        <field name="name"/>
+                        <newline/>
+                        <field name="wichactivities"/>
+                        <newline/>
+                        <field name="activities"/>
+                        <newline/>
+                        <field name="childtypes"/>
+                        <newline/>
+                        <field name="period"/>
+                        <newline/>
+                        <field name="discounttype"/>
+                        <newline/>
+                        <field name="discount"/>
+                        <newline/>
+                        <field name="discountrule">
+                            <tree string="discountrule" version="7.0">
+                                <field name="name"/>
+                                <field name="field"/>
+                                <field name="operator"/>
+                                <field name="value"/>
+                            </tree>
+                        </field>
+                   </group>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_extraschool_discount">
+			<field name="name">Discount</field>
+			<field name="res_model">extraschool.discount</field>
+			<field name="view_type">form</field>
+		</record>
+	</data>
+</openerp>

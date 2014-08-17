@@ -1,0 +1,70 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+        <record model="ir.ui.view" id="extraschool_prestationscheck_wizard_form">
+            <field name="name">extraschool.prestationscheck.wizard.form</field>
+            <field name="model">extraschool.prestationscheck_wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Prestationscheck Wizard">
+                    <field name="state" invisible="1" />
+                    <group states="init">
+                        <field name="placeid"/>
+                        <newline />
+                        <field name="period_from" /><field name="period_to" />                        
+                    </group>
+                    <group colspan="2" states="prestations_to_verify">
+                        <field name="childid" nolabel="1"/>
+                        <field name="currentdate" nolabel="1"/>
+                        <!-- field name="prestations_id" widget="one2many_list" options="{'always_reload': true}"/ -->
+                        <field name="prestations_id" on_change="onchange_prestations(prestations_id,childid,currentdate)" colspan="2" nolabel="1">                        
+                        <tree string="Prestations" version="7.0" editable="bottom">
+                            <field name="activitycategoryid"/>
+                            <field name="prestation_time" widget="float_time"/>
+                            <field name="ES"/>
+                            <field name="manualy_encoded" readonly="1"/>
+                            <field name="placeid"/>
+                        </tree>
+                        </field>
+                        
+                        <!--separator string="Ajout d'une prestation" colspan="4"/>
+                        <field name="activitycategory" domain="[('placeids', '=', placeid)]"/>
+                        <newline/>
+                        <field name="prestation_time" widget="float_time"/>
+                        <newline/>
+                        <field name="es"/>                        
+                        <separator colspan="4"/>
+                        <newline/>                        
+                        <button name="action_save_prestation" string="Save" icon="gtk-apply" type="object"/ -->
+                    </group>
+                    <group colspan="2" states="prestations_to_verify">
+                    <separator string="Prestations smartphone"/>
+                    <field name="pdaprestations_id" colspan="2" nolabel="1">
+                            <tree string="PDA Prestations" version="7.0" editable="bottom">
+                            <field name="activitycategoryid"/>
+                            <field name="prestation_time" widget="float_time"/>
+                            <field name="ES"/>
+                            <field name="placeid"/>
+                        </tree>
+                        </field>
+                    </group>
+                    <group states="end_of_verification">
+                        <label string="Ok" />
+                    </group>                     
+                    <group colspan="4" col="3">
+                        <button name="action_prestationscheck" string="Check prestations" icon="gtk-apply" type="object" states="init" />
+                        <button name="action_prestationscheck" string="Next" icon="gtk-apply" type="object" states="prestations_to_verify" />                        
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_lbsc_prestationscheck_wizard">
+            <field name="name">Prestations check Wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">extraschool.prestationscheck_wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+	</data>
+</openerp>

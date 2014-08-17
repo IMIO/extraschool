@@ -1,0 +1,72 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>    
+                
+        <!-- record model="ir.ui.view" id="child_calendar_view">
+			<field name="name">prestdates</field>
+			<field name="model">extraschool.prestationtimes</field>            
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<calendar color="activitycategoryid" date_start="date_from" string="Prestations">
+                    <field name="ES"/>
+                </calendar>
+			</field>
+		</record -->
+ 
+		<record model="ir.actions.act_window" id="action_extraschool_child">
+			<field name="name">Child</field>
+			<field name="res_model">extraschool.child</field>
+			<field name="view_type">form</field>
+		</record>        
+        
+        <record model="ir.actions.act_window" id="action_extraschool_school">
+			<field name="name">School</field>
+			<field name="res_model">extraschool.school</field>
+			<field name="view_type">form</field>
+		</record>
+        
+        <!-- act_window id="extraschool_child_prestation_dates"
+                    name="Prestations"
+                    src_model="extraschool.child"
+                    res_model="extraschool.prestationtimes" 
+                    view_mode="calendar" 
+                    view_id="child_calendar_view" 
+                    domain="[('childid', '=', active_id)]" / -->
+
+        <menuitem name="LB School Care" id="menu_extraschool"/>
+		<menuitem name="Signaletics" id="extraschool_menu_signaletics" parent="menu_extraschool"/>
+		<menuitem name="Childs" parent="extraschool_menu_signaletics" id="extraschool_menu_child" action="action_extraschool_child"/>
+        <menuitem name="Parents" parent="extraschool_menu_signaletics" id="extraschool_menu_parent" action="action_extraschool_parent"/>
+        <menuitem name="Guardians" parent="extraschool_menu_signaletics" id="extraschool_menu_guardian" action="action_extraschool_guardian"/>
+        <menuitem name="Teachers" parent="extraschool_menu_signaletics" id="extraschool_menu_teacher" action="action_extraschool_teacher"/>
+        <menuitem name="Prestations" id="extraschool_menu_prestations" parent="menu_extraschool"/>
+        <menuitem action="action_lbsc_prestations_wizard" id="extraschool_menu_prestations_wizard" parent="extraschool_menu_prestations"/>
+        <menuitem action="action_lbsc_prestationscheck_wizard" id="extraschool_menu_prestationscheck_wizard" parent="extraschool_menu_prestations"/>       
+        <!-- menuitem name="Prestations" parent="extraschool_menu_prestations" id="extraschool_menu_prest" action="action_extraschool_prest"/ -->
+        <menuitem name="Documents" id="extraschool_menu_documents" parent="menu_extraschool"/>
+        <menuitem action="action_lbsc_invoice_wizard" id="extraschool_menu_invoice_wizard" parent="extraschool_menu_documents"/>
+        <menuitem action="action_extraschool_invoices" id="extraschool_menu_invoice" parent="extraschool_menu_documents"/>
+        <menuitem action="action_lbsc_reminders_journal" id="extraschool_menu_reminders_journal" parent="extraschool_menu_documents"/>
+        <menuitem action="action_lbsc_taxcertificates_wizard" id="extraschool_menu_taxcertificates_wizard" parent="extraschool_menu_documents"/>
+        <menuitem action="action_lbsc_statsone_wizard" id="extraschool_menu_statsone_wizard" parent="extraschool_menu_documents"/>
+        <menuitem action="action_lbsc_qrcodes_wizard" id="extraschool_menu_qrcodes_wizard" parent="extraschool_menu_documents"/>
+        <menuitem action="action_lbsc_childsworkbook_wizard" id="extraschool_menu_childsworkbook_wizard" parent="extraschool_menu_documents"/>                
+        <menuitem action="action_lbsc_guardianprestationtimes_wizard" id="extraschool_menu_guardianprestationtimes_wizard" parent="extraschool_menu_documents"/>
+        <menuitem name="Payments" id="extraschool_menu_payments" parent="menu_extraschool"/>
+        <menuitem name="Biller" parent="extraschool_menu_payments" id="extraschool_menu_biller" action="action_extraschool_biller"/>
+        <menuitem name="CODA import" parent="extraschool_menu_payments" id="extraschool_menu_codaimport" action="action_extraschool_coda"/>
+        <menuitem name="Configuration" id="extraschool_menu_configuration" parent="menu_extraschool"/>
+        <menuitem name="Main Settings" parent="extraschool_menu_configuration" id="extraschool_menu_mainsettings" action="action_extraschool_mainsettings"/>
+        <menuitem name="places" parent="extraschool_menu_configuration" id="extraschool_menu_place" action="action_extraschool_place"/>
+        <menuitem name="Smartphones" parent="extraschool_menu_configuration" id="extraschool_menu_smartphone" action="action_extraschool_smartphone"/>
+        <menuitem name="Schools" parent="extraschool_menu_configuration" id="extraschool_menu_school" action="action_extraschool_school"/>
+        <menuitem name="Activities" parent="extraschool_menu_configuration" id="extraschool_menu_activity" action="action_extraschool_activity"/>
+        <menuitem name="Activity categories" parent="extraschool_menu_configuration" id="extraschool_menu_activitycategory" action="action_extraschool_activitycategory"/>
+        <menuitem name="Init or update" parent="extraschool_menu_configuration" id="extraschool_menu_initupdate_wizard" action="action_lbsc_initupdate_wizard"/>
+        <menuitem name="Import childs" parent="extraschool_menu_configuration" id="extraschool_menu_childsimport" action="action_extraschool_childsimport"/>
+        <menuitem name="Childs import filter" parent="extraschool_menu_configuration" id="extraschool_menu_childsimportfilter" action="action_extraschool_childsimportfilter"/>
+        <menuitem name="Discounts" parent="extraschool_menu_configuration" id="extraschool_menu_discount" action="action_extraschool_discount"/>
+        <menuitem action="action_lbsc_timecorrection_wizard" id="extraschool_menu_timecorrection_wizard" parent="extraschool_menu_configuration"/>
+	</data>
+</openerp>
+

@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+		<record model="ir.ui.view" id="extraschool_biller_tree">
+			<field name="name">Biller</field>
+			<field name="model">extraschool.biller</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Biller">
+					<field name="period_from"/>
+					<field name="period_to"/>
+                    <field name="payment_term"/>
+				</tree>
+			</field>
+		</record>
+        
+		<record model="ir.ui.view" id="extraschool_biller_form">
+			<field name="name">Biller</field>
+			<field name="model">extraschool.biller</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Biller">
+				<group col="4">
+                    <field name="period_from"/>
+					<field name="period_to"/>
+                    <newline/>
+                    <field name="payment_term"/>                    
+                    <newline/>
+                    <field name="total"/>
+                    <newline/>
+                    <field name="received"/>
+                    <newline/>
+                    <field name="novalue"/>
+                    <newline/>
+                    <field name="balance"/>
+                    <newline/>
+                    <field name="biller_file" filename="filename"/>
+                    <newline/>
+                    <field name="nbinvoices"/>
+                    <newline/>
+                    <field name="paymentsstats" nolabel="1" widget="html"/>
+                    
+                    <newline/>
+                    <button name="sendmails" type="object" string="Send invoices by email" />
+                    </group>
+				</form>
+			</field>
+		</record>
+        
+        <record model="ir.actions.act_window" id="action_extraschool_biller">
+			<field name="name">Biller</field>
+			<field name="res_model">extraschool.biller</field>
+			<field name="view_type">form</field>
+		</record>
+        
+	</data>
+</openerp>

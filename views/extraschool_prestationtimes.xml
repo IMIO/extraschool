@@ -1,0 +1,68 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+        <record model="ir.ui.view" id="extraschool_prestationtimes_tree">
+			<field name="name">prestationtimes.tree</field>
+			<field name="model">extraschool.prestationtimes</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="prestationtimes">
+					<field name="childid" select="1"/>
+					<field name="prestation_date" select="1"/>
+                    <field name="prestation_time" widget="float_time"/>
+                    <field name="ES"/>
+                    <!-- button name="editprestation" type="object" string="edit" icon="gtk-edit"/>
+                    <button name="deleteprestation" confirm="Supprimer cet enregistement?" type="object" string="delete" icon="gtk-delete"/ -->
+				</tree>
+			</field>
+		</record>
+        
+		<record model="ir.ui.view" id="extraschool_prestationtimes_form">
+			<field name="name">prestationtimes.form</field>
+			<field name="model">extraschool.prestationtimes</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="prestationtimes">
+				<group col="4">
+                    <field name="childid" select="1"/>
+                    <newline/>
+					<field name="prestation_date" select="1"/>
+                    <newline/>
+                    <field name="prestation_time" widget="float_time"/>
+                    <newline/>
+                    <field name="ES"/>
+                    <newline/>
+                </group>
+				</form>
+			</field>
+		</record>
+        
+        <record model="ir.ui.view" id="extraschool_prestationtimes_form2">
+			<field name="name">prestationtimes.form2</field>
+			<field name="model">extraschool.prestationtimes</field>
+            <field name="priority" eval="17"/>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="prestationtimes">
+				<group col="4">
+                    <field name="childid" select="1"/>
+                    <newline/>
+					<field name="prestation_date" select="1"/>
+                    <newline/>
+                    <field name="prestation_time" widget="float_time"/>
+                    <newline/>
+                    <field name="ES"/>
+                    <newline/>
+                    <button name="saveprestation" string="Save" icon="gtk-apply" type="object"/>
+                </group>
+				</form>
+			</field>
+		</record>
+        
+        <record model="ir.actions.act_window" id="action_extraschool_prest">
+			<field name="name">Prestations</field>
+			<field name="res_model">extraschool.prestationtimes</field>
+			<field name="view_type">form</field>
+		</record>
+	</data>
+</openerp>

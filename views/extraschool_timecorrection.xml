@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+        <record model="ir.ui.view" id="extraschool_timecorrection_wizard_form">
+            <field name="name">extraschool.timecorrection.wizard.form</field>
+            <field name="model">extraschool.timecorrection_wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Time correction Wizard">
+                    <field name="state" invisible="1" />
+                    <group states="init">
+                        <label string="ATTENTION!!! Cet assistant modifie définitivement toutes les heures encodées" colspan="4" />
+                        <newline/>
+                        <label string="d'après les paramètres ci-dessous -> PRUDENCE" colspan="4" />
+                        <field name="placeid" />
+                        <newline />
+                        <field name="datefrom" />
+                        <field name="dateto" />
+                        <newline />
+                        <field name="correctiontype" />
+                        <newline />
+                        <field name="correctiontime" widget="float_time"/>
+                    </group>
+                    <group states="compute_correction">                        
+                        <label string="Ok" />
+                    </group>
+                    <separator string="" colspan="4"/>
+                    <group colspan="4" col="3">
+                        <button name="action_compute_correction" string="Compute correction" icon="gtk-apply" type="object"
+                            states="init" />
+                    </group>
+                    <label string="" colspan="4" />
+                    <label string="" colspan="4" />
+                    <label string="" colspan="4" />
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_lbsc_timecorrection_wizard">
+            <field name="name">Time Correction Wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">extraschool.timecorrection_wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+	</data>
+</openerp>

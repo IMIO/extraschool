@@ -1,0 +1,171 @@
+# -*- coding: utf-8 -*-
+##############################################################################
+#
+#    Extraschool
+#    Copyright (C) 2008-2014 
+#    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
+#    Michael Michot - Imio (<http://www.imio.be>).
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+
+from openerp.osv import osv, fields
+import cStringIO
+import base64
+
+class extraschool_coda(osv.osv):
+    _name = 'extraschool.coda'
+    
+    def _compute_amountperyear (self, cr, uid, ids, field_name, arg, context):
+        to_return={}
+        for record in self.browse(cr, uid, ids):     
+            strhtml='<HTML><TABLE border=1 width=30%><TD>ANNEE</TD><TD>MONTANT</TD></TR>'
+            cr.execute("select date_part('year',(select period_from from extraschool_biller where id=biller_id)) AS year, sum(extraschool_payment.amount) AS amount from extraschool_payment left join extraschool_invoice on concernedinvoice = extraschool_invoice.id where coda=%s and paymenttype='1' group by year", (record.id,))                
+            amountperyears=cr.dictfetchall()
+            for amountperyear in amountperyears:
+                strhtml=strhtml+'<TR><TD>'+str(int(amountperyear['year']))+'</TD><TD>'+str(amountperyear['amount'])+'</TD></TR>'
+            strhtml=strhtml+'</TABLE></HTML>'
+            to_return[record.id]=strhtml
+        return to_return
+
+    _columns = {
+        'name' : fields.char('Name', size=20),
+        'codafile': fields.binary('CODA File'),
+        'codadate': fields.date('CODA Date',readonly=True),
+        'amountperyear': fields.function(_compute_amountperyear, method=True, type="text", string="Amount per year"),
+        'paymentids': fields.one2many('extraschool.payment', 'coda','Payments',readonly=True),
+        'rejectids': fields.one2many('extraschool.reject', 'coda','Rejects',readonly=True),
+    }
+    
+    
+    def create(self, cr, uid, vals, *args, **kw):  
+        paymentids = []
+        rejectids = []
+        if not vals['codafile']:
+            raise osv.except_osv('No coda file!','ERROR: No CODA File !!!')
+        lines = unicode(base64.decodestring(vals['codafile']), 'windows-1252', 'strict').split('\n')
+        bankaccount = lines[1][5:21]
+        codadate = '20'+lines[0][9:11]+'-'+lines[0][7:9]+'-'+lines[0][5:7]
+        coda_obj = self.pool.get('extraschool.coda')
+        coda_ids = coda_obj.search(cr,uid,[('codadate','=',codadate)])
+        if coda_ids:
+            raise osv.except_osv('ERROR!','CODA already imported !!!')
+        activitycategory_obj = self.pool.get('extraschool.activitycategory')
+        invoice_obj = self.pool.get('extraschool.invoice')
+        reminder_obj = self.pool.get('extraschool.reminder')
+        payment_obj = self.pool.get('extraschool.payment')
+        reject_obj = self.pool.get('extraschool.reject')
+        activitycategory_ids=activitycategory_obj.search(cr, uid, [('bankaccount', '=', bankaccount)])  
+        if lines[0][127] !='2':
+            raise osv.except_osv('Wrong coda file!','ERROR: Wrong CODA version !!!')
+        if (activitycategory_ids == 0):
+            raise osv.except_osv('Wrong coda file!','ERROR: The account number in this CODA file is not used in this application !!!')
+        reject = False
+        amount = 0.0
+        transfertdate=''
+        communication=''
+        rejectcause=''
+        parentaccount=''
+        name=''
+        adr1=''
+        adr2=''
+        withaddress=False
+        for line in lines:
+            if len(line) > 0:                
+                if line[0]=='3':
+                    withaddress=True        
+        for line in lines:
+            if len(line) > 0:                
+                if line[0]=='2':
+                    if line[1]=='1':
+                        amount=eval(line[31:44]+'.'+line[44:47])
+                        transfertdate=codadate                      
+                        if line[62]=='1':
+                            communication=line[65:77]
+                        else:
+                            reject=True
+                            rejectcause='No structured Communication'
+                            communication=line[62:112]
+                    else:
+                        if line[1]=='3':
+                            parentaccount=line[10:26]
+                            name=line[47:73]                            
+                if (line[0]=='3') and (line[1]=='2'):
+                    adr1=line[10:45]
+                    adr2=line[45:80]
+                if ((withaddress == True) and (len(adr1) > 0)) or ((withaddress == False) and (len(name) > 1)):                    
+                    if reject == False:
+                        cr.execute('select invoicecomstructprefix from extraschool_activitycategory')
+                        prefixes=cr.dictfetchall()
+                        prefixfound=False                    
+                        for prefix in prefixes:
+                                if (len(prefix['invoicecomstructprefix']) > 0) and (len(communication) > len(prefix['invoicecomstructprefix'])):
+                                    if communication[0:len(prefix['invoicecomstructprefix'])] == prefix['invoicecomstructprefix']:
+                                        prefixfound=True
+                        if prefixfound:                            
+                            invoice_ids=invoice_obj.search(cr, uid, [('structcom', '=', communication)])                           
+                            if len(invoice_ids)==1:
+                                invoice=invoice_obj.read(cr, uid, invoice_ids,['amount_received','balance'])[0]
+                                if invoice['balance'] < amount:
+                                    reject=True
+                                    rejectcause='Amount greather than invoice balance'
+                                else:
+                                    invoice_obj.write(cr, uid, invoice_ids,{'amount_received':invoice['amount_received']+amount,'balance':invoice['balance']-amount})
+                                    payment_id = payment_obj.create(cr, uid, {'concernedinvoice': invoice_ids[0],'account':parentaccount,'paymenttype':'1','paymentdate':transfertdate,'structcom':communication,'name':name,'amount':amount,'adr1':adr1,'adr2':adr2})
+                                    paymentids.append(payment_id)
+                            else:
+                                reject=True
+                                rejectcause='No valid structured Communication'
+                        else:
+                            cr.execute('select remindercomstructprefix from extraschool_activitycategory')
+                            prefixes=cr.dictfetchall()
+                            prefixfound=False
+                            for prefix in prefixes:
+                                if prefix['remindercomstructprefix']:
+                                    if len(communication) > len(prefix['remindercomstructprefix']):
+                                        if communication[0:len(prefix['remindercomstructprefix'])] == prefix['remindercomstructprefix']:
+                                            prefixfound=True
+                            if prefixfound:
+                                reminder_ids=reminder_obj.search(cr, uid, [('structcom', '=', communication)])
+                                if len(reminder_ids)==1:
+                                    cr.execute('select sum(balance) from extraschool_reminder_invoice_rel left join extraschool_invoice on invoice_id = extraschool_invoice.id where reminder_id='+str(reminder_ids[0]))
+                                    sumbalance=cr.fetchall()[0][0]
+                                    if amount != sumbalance:
+                                        reject=True
+                                        rejectcause='A reminder has been found but the amount is not corresponding to balances of invoices'
+                                    else:
+                                        reminder=reminder_obj.read(cr, uid, reminder_ids,['concernedinvoices'])[0]
+                                        for concernedinvoice in reminder['concernedinvoices']:
+                                            invoice=invoice_obj.read(cr, uid, [concernedinvoice],['amount_total','balance'])[0]
+                                            invoice_obj.write(cr, uid, [concernedinvoice],{'amount_received':invoice['amount_total'],'balance':0})
+                                            payment_id = payment_obj.create(cr, uid, {'concernedinvoice': concernedinvoice,'account':parentaccount,'paymenttype':'1','paymentdate':transfertdate,'structcom':communication,'name':name,'amount':invoice['balance'],'adr1':adr1,'adr2':adr2})
+                                            paymentids.append(payment_id)
+                            else:
+                                reject=True;
+                                rejectcause='No valid structured Communication'
+                    if reject:
+                        reject_id = reject_obj.create(cr, uid, {'account':parentaccount,'paymenttype':'1','paymentdate':transfertdate,'structcom':communication,'name':name,'amount':amount,'adr1':adr1,'adr2':adr2,'rejectcause':rejectcause})
+                        rejectids.append(reject_id)
+                    reject = False
+                    amount = 0.0
+                    transfertdate=''
+                    communication=''
+                    rejectcause=''
+                    parentaccount=''
+                    name=''
+                    adr1=''
+                    adr2=''
+        return super(extraschool_coda, self).create(cr, uid, {'name':'CODA '+codadate,'codadate':codadate,'codafile':vals['codafile'],'paymentids':[(6,0,paymentids)],'rejectids':[(6,0,rejectids)]})
+extraschool_coda()

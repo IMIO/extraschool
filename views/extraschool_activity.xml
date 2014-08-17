@@ -1,0 +1,80 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+        <record model="ir.ui.view" id="extraschool_activity_tree">
+			<field name="name">extraschool.activity.tree</field>
+			<field name="model">extraschool.activity</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Activity">
+                    <field name="name"/> 
+                    			
+				</tree>
+			</field>
+		</record>
+        
+        <record model="ir.ui.view" id="extraschool_activity_form">
+            <field name="name">extraschool.activity.form</field>
+            <field name="model">extraschool.activity</field>    
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            <form string="Activity">
+            <group col="4">  
+                <field name="name"/>
+                <newline/>
+                <field name="category" />
+                <newline/>
+                <field name="placeids" /> 
+                <newline/>
+                <field name="schoolimplantationids" /> 
+                <newline/>
+                <field name="short_name" />        
+                <newline/>
+                <field name="childtype_ids"/>
+                <newline/>
+                <field name="childposition_ids"/>
+                <newline/>
+                <field name="childregistration_ids"/>
+                <newline/>
+                <field name="autoaddchilds" />  
+                <newline/>
+                <field name="onlyregisteredchilds" />      
+                <newline/>
+                <field name="planneddates_ids"/>
+                <newline/>
+                <field name="exclusiondates_ids"/>
+                <newline/>
+                <field name="days"/>
+                <newline/>
+                <field name="leveltype"/>
+                <newline/>
+                <field name="prest_from" widget="float_time"/>        
+                <newline/>
+                <field name="prest_to" widget="float_time"/>
+                <newline/>
+                <field name="price"/>
+                <newline/>
+                <field name="period_duration"/>
+                <newline/>
+                <field name="fixedperiod"/>
+                <newline/>
+                <field name="default_from" widget="float_time"/>
+                <newline/>
+                <field name="default_to"  widget="float_time"/>   
+                <newline/>
+                <field name="subsidizedbyone"/>     
+                <newline/>
+                <field name="validity_from"/>
+                <newline/>
+                <field name="validity_to"/>
+               </group>
+            </form>
+            </field> 
+        </record>
+        <record model="ir.actions.act_window" id="action_extraschool_activity">
+			<field name="name">Activity</field>
+			<field name="res_model">extraschool.activity</field>
+			<field name="view_type">form</field>
+		</record>
+	</data>
+</openerp>

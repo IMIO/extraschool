@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>        
+        <record model="ir.ui.view" id="extraschool_teacher_form">
+            <field name="name">extraschool.teacher.form</field>
+            <field name="model">extraschool.teacher</field>    
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            <form string="Teachers">
+            	
+                <notebook>
+                <page string="General">
+                    <group col="4">
+                    <field name="name"  invisible="True"/>            
+                    <field name="lastname" on_change="onchange_name(lastname,firstname)"/>            
+					<field name="firstname" on_change="onchange_name(lastname,firstname)"/>
+					</group> 
+                </page>
+                <page string="Copies">
+                    <group col="4">
+                    <field name="copiercodes"/>
+                    </group>
+                </page> 
+            </notebook>
+            </form>
+            </field> 
+        </record>   
+        <record model="ir.actions.act_window" id="action_extraschool_teacher">
+			<field name="name">Teacher</field>
+			<field name="res_model">extraschool.teacher</field>
+			<field name="view_type">form</field>            
+		</record>     
+	</data>
+</openerp>
