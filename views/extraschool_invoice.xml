@@ -26,7 +26,7 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="invoice">
-				<group cols="4" colspan="2">
+					<group col="4">
                     <field name="biller_id"/>
                     <field name="schoolimplantationid"/>
                     <field name="parentid"/>
@@ -48,7 +48,7 @@
                         </tree>
                     </field>   
                     <button name="addpayment" string="Add payment" icon="gtk-apply" type="object"/>
-                    </group>           
+         		   </group>
 				</form>
 			</field>
 		</record>

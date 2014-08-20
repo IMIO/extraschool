@@ -24,9 +24,10 @@
 
 {
     'name' : 'Extraschool',
-    'version' : '0.2',
+    'version' : '0.3',
     'depends' : [],
-    'update_xml' : [
+    'demo' : ['extraschool_demo.xml',],
+    'data' : [
         'views/extraschool_activitycategory.xml',
         'views/extraschool_activity.xml',
         'views/extraschool_biller.xml',
@@ -67,7 +68,6 @@
         'security/extraschool_security.xml',
         'security/ir.model.access.csv',
     ],
-    'demo_xml' : [],
     'active' : False,
     'installable' : True,
     'application': True,
