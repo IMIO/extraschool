@@ -40,7 +40,7 @@
             <field name="street">Rue du Stade</field>
             <field name="zipcode">5080</field>
             <field name="city">La Commune</field>
-            <field name="schoolimplantation_ids" eval="[(6, 0, [extraschool_schoolimplantation_parc,schoolimplantation_village, ])]"/>
+            <field name="schoolimplantation_ids" eval="[(6, 0, [extraschool_schoolimplantation_parc,extraschool_schoolimplantation_village, ])]"/>
         </record>
         <record model="extraschool.childtype" id="extraschool_childtype_aucun">
             <field name="name">aucun</field>
@@ -243,7 +243,7 @@
 			<field name="levelid" eval="str(ref('extraschool_level_m1'))" />
 			<field name="classid" eval="str(ref('extraschool_class_pm1'))" />
 			<field name="parentid" eval="str(ref('extraschool_parent_michot'))" />
-			<field name="birthdate">2012-06-31</field>
+			<field name="birthdate">2012-06-30</field>
         </record>
     </data>
 </openerp>

@@ -31,8 +31,6 @@ class extraschool_class(osv.osv):
     _columns = {
         'name' : fields.char('Name', size=50),
         'levelids' : fields.many2many('extraschool.level','extraschool_class_level_rel', 'class_id', 'level_id','Levels',required=True),
-        'schoolimplantation' : fields.many2one('extraschool.schoolimplantation', 'School implantation', required=False),
-        'titular' : fields.many2one('extraschool.teacher', 'Teacher', required=False),
-        'oldid' : fields.integer('oldid'),       
+        'schoolimplantation' : fields.many2one('extraschool.schoolimplantation', 'School implantation', required=False),      
     }
 extraschool_class()

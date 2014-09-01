@@ -1,17 +1,6 @@
 <?xml version="1.0" ?>
 <openerp>
 	<data>    
-                
-        <!-- record model="ir.ui.view" id="child_calendar_view">
-			<field name="name">prestdates</field>
-			<field name="model">extraschool.prestationtimes</field>            
-			<field name="type">form</field>
-			<field name="arch" type="xml">
-				<calendar color="activitycategoryid" date_start="date_from" string="Prestations">
-                    <field name="ES"/>
-                </calendar>
-			</field>
-		</record -->
  
 		<record model="ir.actions.act_window" id="action_extraschool_child">
 			<field name="name">Child</field>
@@ -24,21 +13,13 @@
 			<field name="res_model">extraschool.school</field>
 			<field name="view_type">form</field>
 		</record>
-        
-        <!-- act_window id="extraschool_child_prestation_dates"
-                    name="Prestations"
-                    src_model="extraschool.child"
-                    res_model="extraschool.prestationtimes" 
-                    view_mode="calendar" 
-                    view_id="child_calendar_view" 
-                    domain="[('childid', '=', active_id)]" / -->
 
-        <menuitem name="LB School Care" id="menu_extraschool"/>
+
+        <menuitem name="Extraschool" id="menu_extraschool"/>
 		<menuitem name="Signaletics" id="extraschool_menu_signaletics" parent="menu_extraschool"/>
 		<menuitem name="Childs" parent="extraschool_menu_signaletics" id="extraschool_menu_child" action="action_extraschool_child"/>
         <menuitem name="Parents" parent="extraschool_menu_signaletics" id="extraschool_menu_parent" action="action_extraschool_parent"/>
         <menuitem name="Guardians" parent="extraschool_menu_signaletics" id="extraschool_menu_guardian" action="action_extraschool_guardian"/>
-        <menuitem name="Teachers" parent="extraschool_menu_signaletics" id="extraschool_menu_teacher" action="action_extraschool_teacher"/>
         <menuitem name="Prestations" id="extraschool_menu_prestations" parent="menu_extraschool"/>
         <menuitem action="action_lbsc_prestations_wizard" id="extraschool_menu_prestations_wizard" parent="extraschool_menu_prestations"/>
         <menuitem action="action_lbsc_prestationscheck_wizard" id="extraschool_menu_prestationscheck_wizard" parent="extraschool_menu_prestations"/>       

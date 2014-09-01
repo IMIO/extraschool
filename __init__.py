@@ -64,10 +64,6 @@ import extraschool_scheduledtasks
 import extraschool_parent
 import extraschool_school
 import extraschool_schoolimplantation
-import extraschool_teacher
-import extraschool_copiercode
-import extraschool_copierquota
-import extraschool_quotaadjustment
 import extraschool_class
 import extraschool_level
 import extraschool_childtype

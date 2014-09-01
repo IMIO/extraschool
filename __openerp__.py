@@ -25,8 +25,10 @@
 {
     'name' : 'Extraschool',
     'version' : '0.3',
-    'depends' : [],
+    'author' : 'Town of La Bruyère and Imio',
+    'depends' : ['base',],
     'demo' : ['extraschool_demo.xml',],
+    'test' : ['test/invoice_test.yml'],
     'data' : [
         'views/extraschool_activitycategory.xml',
         'views/extraschool_activity.xml',
@@ -56,10 +58,6 @@
         'views/extraschool_timecorrection.xml',
         'views/extraschool_school.xml',
         'views/extraschool_schoolimplantation.xml',
-        'views/extraschool_teacher.xml',
-        'views/extraschool_copiercode.xml',
-        'views/extraschool_copierquota.xml',
-        'views/extraschool_quotaadjustment.xml',
         'views/extraschool_class.xml',
         'views/extraschool_level.xml',
         'views/extraschool_child.xml',
@@ -68,8 +66,7 @@
         'security/extraschool_security.xml',
         'security/ir.model.access.csv',
     ],
-    'active' : False,
     'installable' : True,
     'application': True,
-    'description' : "This module is to manage billing attendance at school care",
+    'description' : "This module is to manage billing attendance for extra school activities",
 }
