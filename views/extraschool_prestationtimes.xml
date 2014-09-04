@@ -58,11 +58,32 @@
 				</form>
 			</field>
 		</record>
+		
+		<record model="ir.ui.view" id="extraschool_prestationtimes_tree">
+			<field name="name">prestations.tree.list</field>
+			<field name="model">extraschool.prestationtimes</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Prestations">			
+					<field name="activityid"/>		
+					<field name="childid"/>
+					<field name="prestation_date"/>
+                    <field name="prestation_time"/>
+                    <field name="ES"/>           
+				</tree>
+			</field>
+		</record>		
         
         <record model="ir.actions.act_window" id="action_extraschool_prest">
 			<field name="name">Prestations</field>
 			<field name="res_model">extraschool.prestationtimes</field>
 			<field name="view_type">form</field>
 		</record>
+		
+        <record model="ir.actions.act_window" id="action_extraschool_prest_tree">
+			<field name="name">Prestations</field>
+			<field name="res_model">extraschool.prestationtimes</field>
+			<field name="view_type">tree</field>
+		</record>		
 	</data>
 </openerp>
