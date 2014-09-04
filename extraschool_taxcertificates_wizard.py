@@ -61,6 +61,7 @@ class extraschool_taxcertificates_wizard(osv.osv_memory):
         childattestation = []
         child_obj  = self.pool.get('extraschool.child')
         childattestations = []
+
         for parent in parents:
             cr.execute('select sum(amount_received) as total_received from extraschool_invoice where parentid=%s and no_value<amount_total and amount_received > 0 and biller_id in (select id from extraschool_biller where period_from >= %s and period_to <= %s)', (parent['parentid'], form['year']+'-01-01',form['year']+'-12-31'))
             amount_received = cr.dictfetchone()['total_received']

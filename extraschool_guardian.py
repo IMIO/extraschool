@@ -26,6 +26,16 @@ from openerp.osv import osv, fields
 class extraschool_guardian(osv.osv):
     _name = 'extraschool.guardian'
     _description = 'Guardian'
+    
+    def onchange_name(self, cr, uid, ids, lastname,firstname):        
+        v={}        
+        if lastname:
+            if firstname:
+                v['name']='%s %s' % (lastname, firstname)
+            else:
+                v['name']=lastname
+        return {'value':v}
+    
     _columns = {
         'name' : fields.char('FullName', size=100),
         'firstname' : fields.char('FirstName', size=50),
