@@ -61,12 +61,24 @@ class extraschool_invoice_wizard(osv.osv_memory):
                 strfrommonth='0'+strfrommonth
             return str(fromyear)+'-'+strfrommonth+'-01'            
         except:
-            return False
+            return str(datetime.date(datetime.datetime.now().year,datetime.datetime.now().month,1))
             
     def _get_defaultto(self,cr, uid, ids, context=None):
         #todate=datetime.date(2013,11,1)
-        todate=datetime.date(datetime.datetime.now().year,datetime.datetime.now().month,1)-datetime.timedelta(1)
+        cr.execute('select max(prestation_date) as prestation_date from extraschool_invoicedprestations')
+        lastdate = cr.dictfetchall()[0]['prestation_date']
+        if lastdate and (lastdate < datetime.datetime.now()):
+            todate=datetime.date(datetime.datetime.now().year,datetime.datetime.now().month,1)-datetime.timedelta(1)
+        else:
+            month=datetime.datetime.now().month
+            if month == 12:
+                month=1
+            else:
+                month=month+1
+            todate=datetime.date(datetime.datetime.now().year,month,1)-datetime.timedelta(1)
+            
         return str(todate)
+
         
     def _get_defaultinvdate(cr, uid, ids, context=None):
         invdate=datetime.date(datetime.datetime.now().year,datetime.datetime.now().month,datetime.datetime.now().day)+datetime.timedelta(1)
@@ -133,8 +145,8 @@ class extraschool_invoice_wizard(osv.osv_memory):
                             if discount['wichactivities'] != 'Sum':
                                 if discount['discounttype'] == 'sub':
                                     amount=amount+float(discount['discount'])
-                                elif discount['discounttype'] == 'prc':
-                                    amount=amount+((childactivities[childactivityid] * discount['discount'].split('%')[0]) / 100)
+                                elif discount['discounttype'] == 'prc': 
+                                    amount=amount+((childactivities[childactivityid] * float(discount['discount'].split('%')[0])) / 100)
                                 elif discount['discounttype'] == 'max':
                                     if childactivities[childactivityid] > float(discount['discount']):
                                         amount=amount+(childactivities[childactivityid]-float(discount['discount']))

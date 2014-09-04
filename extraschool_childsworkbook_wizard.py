@@ -63,7 +63,6 @@ class extraschool_childsworkbook_wizard(osv.osv_memory):
             schoolimplantationids=obj_place.read(cr, uid, [form['placeid'][0]],['schoolimplantation_ids'])[0]    
             child_ids=obj_childs.search(cr, uid, [('schoolimplantation', 'in', schoolimplantationids['schoolimplantation_ids'])], order='name')        
         childs = obj_childs.read(cr, uid, child_ids,context=context)
-                
         for child in childs:
             if child['tagid']:
                 childparent =  obj_parents.read(cr, uid, [child['parentid'][0]],context=context)[0]

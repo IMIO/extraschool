@@ -360,7 +360,7 @@
         </record>
         <record model="extraschool.activitycategory" id="extraschool_activitycategory_garderies">
             <field name="name">Garderies</field>
-            <field name="placeids" eval="[(6, 0, [extraschool_place_parc,extraschool_place_village,extraschool_place_centresportif ])]"/>
+            <field name="placeids" eval="[(6, 0, [extraschool_place_parc,extraschool_place_village,extraschool_place_centresportif,extraschool_place_imio ])]"/>
             <field name="childpositiondetermination">byparent</field>
             <field name="priorityorder">1</field>
             <field name="invoicetemplate">facture.odt</field>
@@ -385,7 +385,7 @@
             <field name="prest_to">13</field>
             <field name="price">0.10</field>
             <field name="period_duration">1</field>
-            <field name="default_from">10</field>
+            <field name="default_from">0</field>
             <field name="default_to">13</field>
             <field name="subsidizedbyone">1</field>
             <field name="validity_from">2014-01-01</field>

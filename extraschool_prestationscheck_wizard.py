@@ -86,11 +86,22 @@ class extraschool_prestationscheck_wizard(osv.osv_memory):
                 strfrommonth='0'+strfrommonth
             return str(fromyear)+'-'+strfrommonth+'-01'            
         except:
-            return False
+            return str(datetime.date(datetime.datetime.now().year,datetime.datetime.now().month,1))
             
     def _get_defaultto(self,cr, uid, ids, context=None):
         #todate=datetime.date(2013,11,1)
-        todate=datetime.date(datetime.datetime.now().year,datetime.datetime.now().month,1)-datetime.timedelta(1)
+        cr.execute('select max(prestation_date) as prestation_date from extraschool_invoicedprestations')
+        lastdate = cr.dictfetchall()[0]['prestation_date']
+        if lastdate and (lastdate < datetime.datetime.now()):
+            todate=datetime.date(datetime.datetime.now().year,datetime.datetime.now().month,1)-datetime.timedelta(1)
+        else:
+            month=datetime.datetime.now().month
+            if month == 12:
+                month=1
+            else:
+                month=month+1
+            todate=datetime.date(datetime.datetime.now().year,month,1)-datetime.timedelta(1)
+            
         return str(todate)
         
 
@@ -213,7 +224,7 @@ class extraschool_prestationscheck_wizard(osv.osv_memory):
                 childs = cr.dictfetchall()
                 for child in childs:
                     cr.execute('select * from extraschool_activitycategory where id in (select activitycategory_id from extraschool_activitycategory_place_rel where place_id=%s) order by priorityorder', (placeid,))
-                    activitycategories = cr.dictfetchall()   
+                    activitycategories = cr.dictfetchall()
                     for activitycategory in activitycategories:
                         cr.execute('select * from "extraschool_prestationtimes" where placeid=%s and "prestation_date"=%s and "childid"=%s and activitycategoryid=%s order by prestation_time', (placeid,strcurrentdate,child['childid'],activitycategory['id']))
                         prestations = cr.dictfetchall()
@@ -267,10 +278,9 @@ class extraschool_prestationscheck_wizard(osv.osv_memory):
                                         and id not in (select activity_id from extraschool_activity_activityplanneddate_rel) 
                                         and days like %s 
                                         and id not in (select activity_id from extraschool_activity_activityexclusiondates_rel left join extraschool_activityexclusiondates on activityexclusiondates_id = extraschool_activityexclusiondates.id where date_from <= %s and date_to >= %s)
-                                        and leveltype like %s order by prest_from""", (strcurrentdate,strcurrentdate,activitycategory['id'],placeid,child['schoolimplantation'],child['childtypeid'],'%'+str(weekday)+'%',strcurrentdate,strcurrentdate,'%'+leveltype+'%'))                
+                                        and leveltype like %s order by prest_from""", (strcurrentdate,strcurrentdate,activitycategory['id'],placeid,child['schoolimplantation'],child['childtypeid'],'%'+str(weekday)+'%',strcurrentdate,strcurrentdate,'%'+leveltype+'%'))
                             activities=cr.dictfetchall()
-
-                            
+    
                         for activity in activities:
                             activityok = False
                             cr.execute('select count(*) as nbrchilds from extraschool_activitychildregistration where activity_id = %s', (activity['id'],))
@@ -298,6 +308,9 @@ class extraschool_prestationscheck_wizard(osv.osv_memory):
                                         if (activity['default_to'] > 0):                                     
                                             if (prestation['prestation_time'] >= activity['prest_from']) and (prestation['prestation_time'] < activity['default_to']):                                        
                                                 if not ((prestation['prestation_time'] == activity['prest_from']) and (prestation['ES'] == 'S')):
+                                                    print '-------------------------------------------------'
+                                                    print 'TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT'
+                                                    
                                                     prestactivity.append(prestation)
                                 if prestactivity:
                                     if (activity['fixedperiod']):
