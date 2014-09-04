@@ -12,7 +12,7 @@
                 <newline/>
                 <field name="levelids"/> 
                 <newline/>
-                <field name="schoolimplantation"/>       > 
+                <field name="schoolimplantation"/>
             </group>
             </form>
             </field> 
