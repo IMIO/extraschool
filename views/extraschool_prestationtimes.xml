@@ -58,6 +58,21 @@
 				</form>
 			</field>
 		</record>
+
+        <record id="prestationtimes_search_view" model="ir.ui.view">
+            <field name="name">prestationtimes.search</field>
+            <field name="model">extraschool.prestationtimes</field>
+            <field name="arch" type="xml">
+                <search string="Prestations">
+                    <field name="childid" string="childid"/>
+                    <filter string="Entrées" icon="terp-accessories-archiver" domain="[('ES','=','E')]"/>
+                   <group  expand='0' string='Group by...'>
+                       <filter string='Enfant' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'childid'}"/>
+                       <filter string='Activité' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'activityid'}"/>
+                   </group>                    
+                </search>
+            </field>
+        </record>			
 		
 		<record model="ir.ui.view" id="extraschool_prestationtimes_tree">
 			<field name="name">prestations.tree.list</field>
@@ -81,9 +96,11 @@
 		</record>
 		
         <record model="ir.actions.act_window" id="action_extraschool_prest_tree">
-			<field name="name">Prestations</field>
+			<field name="name">Prestations.tree</field>
 			<field name="res_model">extraschool.prestationtimes</field>
-			<field name="view_type">tree</field>
+			<field name="view_type">form</field>
+			<field name="view_id" ref="extraschool_prestationtimes_tree"/>
+            <field name="search_view_id" ref="prestationtimes_search_view"/>			
 		</record>		
 	</data>
 </openerp>
