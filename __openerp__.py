@@ -27,6 +27,7 @@
     'version' : '0.3',
     'author' : 'Town of La Bruyère and Imio',
     'depends' : ['base',],
+    'init_xml' : ['init.xml',],
     'demo' : ['extraschool_demo.xml',],
     'test' : ['test/invoice_test.yml'],
     'data' : [

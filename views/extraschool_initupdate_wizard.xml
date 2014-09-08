@@ -13,8 +13,6 @@
                     <label string="ET QUE TOUS LES UTILISATEURS SONT DECONNECTES (REDEMARRAGE DU SERVEUR)" colspan="4" />
                     <newline/>
                     <button name="updateapplication" string="Update this application" icon="gtk-apply" type="object"/>
-                    <button name="initdefaultvalues" string="initialize with default values" icon="gtk-apply" type="object"/>
-                    <!-- button name="importpaiements" type="object" string="Importpaiements" / -->
                     </group>
                 </form>
             </field>

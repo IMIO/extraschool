@@ -307,10 +307,7 @@ class extraschool_prestationscheck_wizard(osv.osv_memory):
                                                     prestactivity.append(prestation)
                                         if (activity['default_to'] > 0):                                     
                                             if (prestation['prestation_time'] >= activity['prest_from']) and (prestation['prestation_time'] < activity['default_to']):                                        
-                                                if not ((prestation['prestation_time'] == activity['prest_from']) and (prestation['ES'] == 'S')):
-                                                    print '-------------------------------------------------'
-                                                    print 'TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT'
-                                                    
+                                                if not ((prestation['prestation_time'] == activity['prest_from']) and (prestation['ES'] == 'S')):                                                    
                                                     prestactivity.append(prestation)
                                 if prestactivity:
                                     if (activity['fixedperiod']):

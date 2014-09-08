@@ -57,7 +57,7 @@ class extraschool_statsone_wizard(osv.osv_memory):
         form = self.read(cr,uid,ids,)[-1]
         obj_place = self.pool.get('extraschool.place')  
         year = str(form['year'])
-        place = obj_place.read(cr, uid, [form['placeid'][0]],['name','street','zipcode','city'])[0]
+        place = obj_place.read(cr, uid, [form['placeid'][0]],['name','street','zipcode','city','schedule'])[0]
         
         if form['quarter'] == '1':
             strperiod_from = year + '-01-01'

@@ -34,7 +34,7 @@ class extraschool_guardianprestationtimes_wizard(osv.osv_memory):
     _description = 'Guardian Prestation Times Wizard'
     
     _columns = {        
-        'guardianid' : fields.many2one('extraschool.guardian', 'Guardian', required=True),
+        'guardianid' : fields.many2one('extraschool.guardian', 'Guardian'),
         'prestations_from' : fields.date('Prestations from', required=True),
         'prestations_to' : fields.date('Prestations to', required=True),   
         'name': fields.char('File Name', 16, readonly=True),
@@ -51,41 +51,41 @@ class extraschool_guardianprestationtimes_wizard(osv.osv_memory):
 
     def action_compute_guardianprestationtimes(self, cr, uid, ids, context=None):        
         form = self.read(cr,uid,ids,)[-1]
-        obj_guardian = self.pool.get('extraschool.guardian')          
-        guardian = obj_guardian.read(cr, uid, [form['guardianid'][0]],['name'])[0]
-        lines=[]
-        obj_guardianprest = self.pool.get('extraschool.guardianprestationtimes')
-        #prestids=obj_guardianprest.search(cr,uid,[('guardianid', '=', form['guardianid'][0]),('prestation_date', '>=', form['prestations_from']),('prestation_date', '<=', form['prestations_to'])],order='prestation_date,prestation_time')
-        
-        cr.execute('select * from extraschool_guardianprestationtimes where guardianid = %s and prestation_date >= %s and prestation_date <= %s order by prestation_date,prestation_time', (form['guardianid'][0],form['prestations_from'],form['prestations_to']))
-        
-        #prestobjs = obj_guardianprest.read(cr, uid,prestids,['prestation_date','prestation_time','ES'])
-        prestobjs = cr.dictfetchall()
-        currentdate=''
-        line=''
-        for prestobj in prestobjs:            
-            if currentdate <> prestobj['prestation_date']:
-                lines.append(' ')
-                lines.append(line)
-                line=prestobj['prestation_date']+':'
-                currentdate = prestobj['prestation_date']                
-            strhour=str(int(math.floor(prestobj['prestation_time'])))
-            strmin=str(int((prestobj['prestation_time']-math.floor(prestobj['prestation_time']))*60))
-            if len(strhour)==1:
-                strhour='0'+strhour
-            if len(strmin)==1:
-                strmin='0'+strmin
-            hprest=strhour+':'+strmin
-            line=line+' ['+prestobj['ES']+']'+hprest
-        lines.append(' ')
-        lines.append(line)
+        if form['guardianid']:
+            cr.execute('select * from extraschool_guardian where id = %s', (form['guardianid'][0],))
+        else:
+            cr.execute('select * from extraschool_guardian order by name')
+        guardianobjs=cr.dictfetchall()
+        guardians=[]
+        for guardianobj in guardianobjs:
+            lines=[]
+            cr.execute('select * from extraschool_guardianprestationtimes where guardianid = %s and prestation_date >= %s and prestation_date <= %s order by prestation_date,prestation_time', (guardianobj['id'],form['prestations_from'],form['prestations_to']))
+            prestobjs = cr.dictfetchall()
+            currentdate=''
+            line=''
+            for prestobj in prestobjs:            
+                if currentdate <> prestobj['prestation_date']:
+                    lines.append(line)
+                    line=prestobj['prestation_date']+':'
+                    currentdate = prestobj['prestation_date']                
+                strhour=str(int(math.floor(prestobj['prestation_time'])))
+                strmin=str(int((prestobj['prestation_time']-math.floor(prestobj['prestation_time']))*60))
+                if len(strhour)==1:
+                    strhour='0'+strhour
+                if len(strmin)==1:
+                    strmin='0'+strmin
+                hprest=strhour+':'+strmin
+                line=line+' ['+prestobj['ES']+']'+hprest            
+            lines.append(line)
+            lines.append(' ')
+            guardians.append({'guardianname':guardianobj['name'],'lines':lines})
         obj_config = self.pool.get('extraschool.mainsettings')
         config=obj_config.read(cr, uid, [1],['lastqrcodenbr','qrencode','tempfolder','templatesfolder'])[0] 
         try:
             os.remove(config['tempfolder']+'prestacc.pdf')                   
         except:
             pass
-        renderer = appy.pod.renderer.Renderer(config['templatesfolder']+'prestacc.odt', {'guardianname':guardian['name'],'lines':lines}, config['tempfolder']+'prestacc.pdf')                
+        renderer = appy.pod.renderer.Renderer(config['templatesfolder']+'prestacc.odt', {'guardians':guardians,}, config['tempfolder']+'prestacc.pdf')                
         renderer.run() 
         outfile = open(config['tempfolder']+'prestacc.pdf','r').read()
         out=base64.b64encode(outfile)

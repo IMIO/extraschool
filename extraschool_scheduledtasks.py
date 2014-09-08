@@ -67,7 +67,6 @@ class extraschool_scheduledtasks(osv.osv):
         prestations = cr.dictfetchall()
         for prestation in prestations:
             emailtxt = emailtxt + prestation['placename']+': '+str(prestation['number'])+' pointage(s)\n'
-        print emailtxt
         emails = str(config['emailfornotifications']).split(';')
         for email in emails:
             email = email.strip()

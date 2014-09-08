@@ -33,6 +33,7 @@ import math
 import xlrd
 import lbutils
 import re
+from math import *
 from pyPdf import PdfFileWriter, PdfFileReader
 
 class extraschool_invoice_wizard(osv.osv_memory):
@@ -202,8 +203,6 @@ class extraschool_invoice_wizard(osv.osv_memory):
                             es='E'                        
                     if erreur:
                         cr.execute('select name from extraschool_place where id=%s',(placeid,))    
-                        print '-----------------------------'
-                        print childprests
                         raise osv.except_osv('Error!','re-check prestations of '+cr.dictfetchall()[0]['name'])
                         return False
                     else:
@@ -244,8 +243,6 @@ class extraschool_invoice_wizard(osv.osv_memory):
                             cr.execute('select * from extraschool_child where parentid=%s and isdisabled=FALSE and id in (select childid from extraschool_prestationtimes where prestation_date=%s) order by birthdate',(parent['parentid'],prestation_date))
                         childsforposition=cr.dictfetchall()
                         childpos=1
-                        print str(child['id'])
-                        print '-------------------------------'
                         while child['id'] != childsforposition[childpos-1]['id']:
                             childpos = childpos+1
                         totalday=0.0
@@ -327,16 +324,16 @@ class extraschool_invoice_wizard(osv.osv_memory):
                                         quantity=0
                                         if not (((pin['activityid'] !=0) and (activity['id'] != pin['activityid'])) or ((pout['activityid'] !=0) and (activity['id'] != pout['activityid']))):
                                             if (pin['time'] >= activity['prest_from']) and (pout['time'] <= activity['prest_to']):
-                                                quantity=int(round(((pout['time']-pin['time'])*60)/activity['period_duration']))
+                                                quantity=int(ceil(round((pout['time']-pin['time'])*60)/activity['period_duration']))
                                             else:
                                                 if (pin['time'] >= activity['prest_from']) and (pin['time'] <= activity['prest_to']):
-                                                    quantity=int(round(((activity['prest_to']-pin['time'])*60)/activity['period_duration']))
+                                                    quantity=int(ceil(round((activity['prest_to']-pin['time'])*60)/activity['period_duration']))
                                                 else:
                                                     if (pout['time'] >= activity['prest_from']) and (pout['time'] <= activity['prest_to']):
-                                                        quantity=int(round(((pout['time']-activity['prest_from'])*60)/activity['period_duration']))
+                                                        quantity=int(ceil(round((pout['time']-activity['prest_from'])*60)/activity['period_duration']))
                                                     else:
                                                         if (pin['time'] < activity['prest_from']) and (pout['time'] > activity['prest_to']):
-                                                            quantity=int(round(((activity['prest_to']-activity['prest_from'])*60)/activity['period_duration']))
+                                                            quantity=int(ceil(round((activity['prest_to']-activity['prest_from'])*60)/activity['period_duration']))
                                         if not activity['autoaddchilds']:
                                             cr.execute("""select * from extraschool_activity where validity_from <= %s and validity_to >= %s 
                                                     and category=%s 
@@ -357,13 +354,13 @@ class extraschool_invoice_wizard(osv.osv_memory):
                                                     quantity=0
                                                 else:
                                                     if (pin['time'] <= toinvoiceactivity['prest_from']) and (pout['time'] >= toinvoiceactivity['prest_to']):
-                                                        quantity=quantity-int(round(((toinvoiceactivity['prest_to']-toinvoiceactivity['prest_from'])*60)/activity['period_duration']))
+                                                        quantity=quantity-int(ceil(round((toinvoiceactivity['prest_to']-toinvoiceactivity['prest_from'])*60)/activity['period_duration']))
                                                     else:
                                                         if (pin['time'] < toinvoiceactivity['prest_from']) and (pout['time'] < toinvoiceactivity['prest_to']) and (pout['time'] > toinvoiceactivity['prest_from']):
-                                                            quantity=quantity-int(round(((pout['time']-toinvoiceactivity['prest_from'])*60)/activity['period_duration']))
+                                                            quantity=quantity-int(ceil(round((pout['time']-toinvoiceactivity['prest_from'])*60)/activity['period_duration']))
                                                         else:
                                                             if (pin['time'] > toinvoiceactivity['prest_from']) and (pin['time'] < toinvoiceactivity['prest_to']) and (pout['time'] >= toinvoiceactivity['prest_to']):
-                                                                quantity=quantity-int(round(((toinvoiceactivity['prest_to']-pin['time'])*60)/activity['period_duration']))     
+                                                                quantity=quantity-int(ceil(round((toinvoiceactivity['prest_to']-pin['time'])*60)/activity['period_duration']))     
                                         if quantity < 0:
                                             quantity=0
                                         if quantity > 0:
