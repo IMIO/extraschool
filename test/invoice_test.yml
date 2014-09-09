@@ -1,3 +1,14 @@
 -
   Test calcul
 -
+  !assert {model: extraschool.child, id: extraschool_child_lambillotte, string: Le type devrait être}:
+    - childtypeid.name == 'enfant du personnel communal2'
+
+-
+  Test toto
+- 
+  !python {model: extraschool.child}: | 
+    extraschool_child = self.browse(cr,uid,1)
+    extraschool_child.test()
+    assert extraschool_child.toto == 'tutu', 'Et là tu mets le message que tu veux'
+    

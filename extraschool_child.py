@@ -78,7 +78,8 @@ class extraschool_child(osv.osv):
         'tagid' : fields.char('Tag ID', size=50),
         'otherref' : fields.char('Other ref', size=50),
         'isdisabled' : fields.boolean('Disabled'),
-        'oldid' : fields.integer('oldid'),                
+        'oldid' : fields.integer('oldid'),
+        'toto' : fields.char('toto'),                
     }
     
     def create(self, cr, uid, vals, *args, **kw):
@@ -87,6 +88,11 @@ class extraschool_child(osv.osv):
         if len(child_ids) >0:
             raise osv.except_osv('Erreur','Cet enfant a deja ete encode !!!'+vals['firstname']+' '+vals['lastname'])
         return super(extraschool_child, self).create(cr, uid, vals)
+
+    def test(self, cr, uid, context=None):
+        print '***************************************************************'
+        print '***************************************************************'
+        self.write(cr,uid,[1],{'toto':'tutu',})
 
     def unlink(self, cr, uid, ids, context=None):
         prestationtimes_obj = self.pool.get('extraschool.prestationtimes')

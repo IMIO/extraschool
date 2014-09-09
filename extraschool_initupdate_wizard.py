@@ -28,6 +28,7 @@ class extraschool_initupdate_wizard(osv.osv_memory):
     _name = 'extraschool.initupdate_wizard'
 
     _columns = {
+
     }
 
     _defaults = {
@@ -40,12 +41,13 @@ class extraschool_initupdate_wizard(osv.osv_memory):
         obj_class = self.pool.get('extraschool.class')
         obj_childposition = self.pool.get('extraschool.childposition')
         obj_importlevelrule = self.pool.get('extraschool.importlevelrule')
-        config=obj_config.search(cr, uid, [('id','=','1')])
-        print 'yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy'
+        config=obj_config.search(cr, uid, [('id','=','1')])        
         if not config:
             obj_config.create(cr, uid, {'id':1,'lastqrcodenbr':0,'qrencode':'/opt/qrencode/qrencode','tempfolder':'/opt/garderies/appytemp/','templatesfolder':'/opt/garderies/templates/'}, context=context)
-                
+            
+
+        
     def updateapplication(self, cr, uid, ids, context=None):
         os.system('/opt/garderies/extraschool/update.sh')
-        pass
+    
 extraschool_initupdate_wizard()
