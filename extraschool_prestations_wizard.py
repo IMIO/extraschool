@@ -22,6 +22,7 @@
 ##############################################################################
 
 from openerp.osv import osv, fields
+from openerp import models,api
 
 class extraschool_prestations_wizard(osv.osv_memory):
     _name = 'extraschool.prestations_wizard'
@@ -57,8 +58,20 @@ class extraschool_prestations_wizard(osv.osv_memory):
     }
     _defaults = {
         'activitycategory' : _get_defaultcategory,
+        'schoolimplantationids' : [1],
     }
     
+    @api.onchange('placeid')
+    def dostuff(self, cr, uid):
+        print '-------------------------------------------'
+        print self.placeid
+        print '-------------------------------------------'
+        if self.placeid:
+            obj_place = self.pool.get('extraschool.place')
+            v={}        
+            schoolimplantationids=obj_place.read(cr, uid, [self.placeid],['schoolimplantation_ids'])            
+            return {'domain':{'childid': [('schoolimplantation', 'in', schoolimplantationids[0]['schoolimplantation_ids'])]},}
+        
         
     def onchange_prestations(self, cr, uid, ids, prestations, childid, currentdate, placeid):
         obj_prestation = self.pool.get('extraschool.prestationtimes')
@@ -99,11 +112,11 @@ class extraschool_prestations_wizard(osv.osv_memory):
         return {'value':v}
 
     def onchange_placeid(self, cr, uid, ids, placeid):
-        obj_place = self.pool.get('extraschool.place')
-        v={}        
-        schoolimplantationids=obj_place.read(cr, uid, [placeid],['schoolimplantation_ids'])
-        v['schoolimplantationids']=schoolimplantationids[0]['schoolimplantation_ids']
-        return {'value':v}
+        if placeid:
+            obj_place = self.pool.get('extraschool.place')
+            v={}        
+            schoolimplantationids=obj_place.read(cr, uid, [placeid],['schoolimplantation_ids'])            
+            return {'domain':{'childid': [('schoolimplantation', 'in', schoolimplantationids[0]['schoolimplantation_ids'])]},}
         
     def action_save_prestation(self, cr, uid, ids, context=None):     
         obj_prestation = self.pool.get('extraschool.prestationtimes')           

@@ -8,10 +8,10 @@
             <field name="arch" type="xml">
                 <form string="Prestations Wizard" >
                     <group colspan="2">
-                        <field name="placeid" on_change="onchange_placeid(placeid)"/>
-                        <newline/>
-                        <field name="schoolimplantationids" invisible="1"/>
-                        <field name="childid" default_focus="1" domain="[('schoolimplantation', 'in', schoolimplantationids)]" on_change="onchange_childid(childid,prestation_date)"/>
+                        <!--field name="placeid" on_change="onchange_placeid(placeid)"/ -->
+                        <field name="placeid"/>
+                        <newline/>                        
+                        <field name="childid" default_focus="1"  on_change="onchange_childid(childid,prestation_date)"/>
                         <newline/>
                         <field name="prestation_date" on_change="onchange_prestation_date(prestation_date,childid)"/>
                         <separator string="Prestations"/>
