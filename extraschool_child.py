@@ -92,8 +92,11 @@ class extraschool_child(osv.osv):
     def test(self, cr, uid, context=None):
         print '***************************************************************'
         print '***************************************************************'
-        self.write(cr,uid,[1],{'toto':'tutu',})
-
+        if (False):
+            self.write(cr,uid,[1],{'toto':'tutu',})
+        else:
+            self.write(cr,uid,[1],{'toto':'titi',})
+            
     def unlink(self, cr, uid, ids, context=None):
         prestationtimes_obj = self.pool.get('extraschool.prestationtimes')
         prestation_ids=prestationtimes_obj.search(cr, uid, [('childid', '=', ids[0])])
