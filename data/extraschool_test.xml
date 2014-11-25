@@ -42,21 +42,20 @@
             <field name="city">La Commune</field>
             <field name="schoolimplantation_ids" eval="[(6, 0, [extraschool_schoolimplantation_parc,extraschool_schoolimplantation_village, ])]"/>
         </record>
-        <record model="extraschool.place" id="extraschool_place_imio">
-            <field name="name">Imio</field>
-            <field name="street">Avenue Thomas Edison, 2</field>
-            <field name="zipcode">7000</field>
-            <field name="city">MONS</field>
-            <field name="schoolimplantation_ids" eval="[(6, 0, [extraschool_schoolimplantation_parc,extraschool_schoolimplantation_village, ])]"/>
-        </record>
         <record model="extraschool.childtype" id="extraschool_childtype_aucun">
             <field name="name">aucun</field>
         </record>
+        <!-- gratuit -->
         <record model="extraschool.childtype" id="extraschool_childtype_pc">
             <field name="name">enfant du personnel communal</field>
         </record>
+        <!-- 4h de réduction -->
         <record model="extraschool.childtype" id="extraschool_childtype_enseignant">
             <field name="name">enfant d'enseignant</field>
+        </record>
+        <!-- 50% de réduction -->
+        <record model="extraschool.childtype" id="extraschool_childtype_accueillante">
+            <field name="name">enfant d'accueillante</field>
         </record>
         <record model="extraschool.level" id="extraschool_level_m0">
             <field name="name">accueil</field>
@@ -248,10 +247,10 @@
             <field name="name">10e enfant</field>
             <field name="position">10</field>
         </record>
-        <record model="extraschool.parent" id="extraschool_parent_michot">
-            <field name="name">Alfred MICHOT</field>
+        <record model="extraschool.parent" id="extraschool_parent_standard">
+            <field name="name">Alfred standard</field>
             <field name="firstname">Alfred</field>
-            <field name="lastname">MICHOT</field>
+            <field name="lastname">standard</field>
             <field name="street">Rue des Petites Fleurs, 47</field>
             <field name="zipcode">5080</field>
             <field name="city">La Commune</field>
@@ -259,10 +258,10 @@
             <field name="invoicesendmethod">emailandmail</field>
             <field name="remindersendmethod">emailandmail</field>
         </record>
-        <record model="extraschool.parent" id="extraschool_parent_lambillotte">
-            <field name="name">Papa LAMBILLOTTE</field>
+        <record model="extraschool.parent" id="extraschool_parent_pc">
+            <field name="name">Papa pc</field>
             <field name="firstname">Papa</field>
-            <field name="lastname">LAMBILLOTTE</field>
+            <field name="lastname">pc</field>
             <field name="street">Rue des Tuniques Bleues, 27</field>
             <field name="zipcode">1234</field>
             <field name="city">Sambreville</field>
@@ -270,10 +269,10 @@
             <field name="invoicesendmethod">emailandmail</field>
             <field name="remindersendmethod">emailandmail</field>
         </record>
-        <record model="extraschool.parent" id="extraschool_parent_rasic">
-            <field name="name">Papa RASIC</field>
+        <record model="extraschool.parent" id="extraschool_parent_accueillante">
+            <field name="name">Papa accueillante</field>
             <field name="firstname">Papa</field>
-            <field name="lastname">RASIC</field>
+            <field name="lastname">accueillante</field>
             <field name="street">Rue des Castors, 87</field>
             <field name="zipcode">6000</field>
             <field name="city">Charleroi</field>
@@ -281,10 +280,10 @@
             <field name="invoicesendmethod">emailandmail</field>
             <field name="remindersendmethod">emailandmail</field>
         </record>
-        <record model="extraschool.parent" id="extraschool_parent_mayence">
-            <field name="name">Papa MAYENCE</field>
+        <record model="extraschool.parent" id="extraschool_parent_enseignant">
+            <field name="name">Papa enseignant</field>
             <field name="firstname">Papa</field>
-            <field name="lastname">MAYENCE</field>
+            <field name="lastname">enseignant</field>
             <field name="street">Rue du Barreau, 62</field>
             <field name="zipcode">7000</field>
             <field name="city">Mons</field>
@@ -314,52 +313,141 @@
 			<field name="parentid" eval="str(ref('extraschool_parent_abe'))" />
 			<field name="birthdate">2007-07-31</field>
         </record>
-        <record model="extraschool.child" id="extraschool_child_michot">
-            <field name="name">Michael MICHOT</field>
-            <field name="firstname">Michael</field>
-            <field name="lastname">MICHOT</field>
+        <record model="extraschool.child" id="extraschool_child_standard_1">
+            <field name="name">enfant std 1</field>
+            <field name="firstname">Enfant</field>
+            <field name="lastname">Standard 1</field>
             <field name="childtypeid" eval="str(ref('extraschool_childtype_aucun'))" />
 			<field name="schoolimplantation" eval="str(ref('extraschool_schoolimplantation_parc'))" />
 			<field name="levelid" eval="str(ref('extraschool_level_m1'))" />
 			<field name="classid" eval="str(ref('extraschool_class_pm1'))" />
-			<field name="parentid" eval="str(ref('extraschool_parent_michot'))" />
+			<field name="parentid" eval="str(ref('extraschool_parent_standard'))" />
 			<field name="birthdate">2012-06-30</field>
         </record>
-        <record model="extraschool.child" id="extraschool_child_lambillotte">
-            <field name="name">Joel LAMBILLOTE</field>
-            <field name="firstname">Joel</field>
-            <field name="lastname">LAMBILLOTTE</field>
+        <record model="extraschool.child" id="extraschool_child_standard_2">
+            <field name="name">enfant std 2</field>
+            <field name="firstname">Enfant</field>
+            <field name="lastname">Standard 2</field>
+            <field name="childtypeid" eval="str(ref('extraschool_childtype_aucun'))" />
+			<field name="schoolimplantation" eval="str(ref('extraschool_schoolimplantation_parc'))" />
+			<field name="levelid" eval="str(ref('extraschool_level_m1'))" />
+			<field name="classid" eval="str(ref('extraschool_class_pm1'))" />
+			<field name="parentid" eval="str(ref('extraschool_parent_standard'))" />
+			<field name="birthdate">2013-06-30</field>
+        </record>
+        <record model="extraschool.child" id="extraschool_child_standard_3">
+            <field name="name">enfant std 3</field>
+            <field name="firstname">Enfant</field>
+            <field name="lastname">Standard 3</field>
+            <field name="childtypeid" eval="str(ref('extraschool_childtype_aucun'))" />
+			<field name="schoolimplantation" eval="str(ref('extraschool_schoolimplantation_parc'))" />
+			<field name="levelid" eval="str(ref('extraschool_level_m1'))" />
+			<field name="classid" eval="str(ref('extraschool_class_pm1'))" />
+			<field name="parentid" eval="str(ref('extraschool_parent_standard'))" />
+			<field name="birthdate">2014-08-30</field>
+        </record>
+        <record model="extraschool.child" id="extraschool_child_pc1">
+            <field name="name">Enfant PC 1</field>
+            <field name="firstname">Enfant</field>
+            <field name="lastname">PC 1</field>
             <field name="childtypeid" eval="str(ref('extraschool_childtype_pc'))" />
 			<field name="schoolimplantation" eval="str(ref('extraschool_schoolimplantation_parc'))" />
 			<field name="levelid" eval="str(ref('extraschool_level_m1'))" />
 			<field name="classid" eval="str(ref('extraschool_class_pm1'))" />
-			<field name="parentid" eval="str(ref('extraschool_parent_lambillotte'))" />
+			<field name="parentid" eval="str(ref('extraschool_parent_pc'))" />
 			<field name="birthdate">2012-06-30</field>
+        </record>        
+        <record model="extraschool.child" id="extraschool_child_pc2">
+            <field name="name">Enfant PC 2</field>
+            <field name="firstname">Enfant</field>
+            <field name="lastname">PC 2</field>
+            <field name="childtypeid" eval="str(ref('extraschool_childtype_pc'))" />
+			<field name="schoolimplantation" eval="str(ref('extraschool_schoolimplantation_parc'))" />
+			<field name="levelid" eval="str(ref('extraschool_level_m1'))" />
+			<field name="classid" eval="str(ref('extraschool_class_pm1'))" />
+			<field name="parentid" eval="str(ref('extraschool_parent_pc'))" />
+			<field name="birthdate">2013-06-30</field>
+        </record>        
+        <record model="extraschool.child" id="extraschool_child_pc3">
+            <field name="name">Enfant PC 3</field>
+            <field name="firstname">Enfant</field>
+            <field name="lastname">PC 3</field>
+            <field name="childtypeid" eval="str(ref('extraschool_childtype_pc'))" />
+			<field name="schoolimplantation" eval="str(ref('extraschool_schoolimplantation_parc'))" />
+			<field name="levelid" eval="str(ref('extraschool_level_m1'))" />
+			<field name="classid" eval="str(ref('extraschool_class_pm1'))" />
+			<field name="parentid" eval="str(ref('extraschool_parent_pc'))" />
+			<field name="birthdate">2014-08-30</field>
         </record>
-        <record model="extraschool.child" id="extraschool_child_rasic">
-            <field name="name">Frédéric RASIC</field>
-            <field name="firstname">Frédéric</field>
-            <field name="lastname">RASIC</field>
-            <field name="childtypeid" eval="str(ref('extraschool_childtype_aucun'))" />
+        <record model="extraschool.child" id="extraschool_child_accueillante_1">
+            <field name="name">Enfant accueillante 1</field>
+            <field name="firstname">Enfant</field>
+            <field name="lastname">accueillante 1</field>
+            <field name="childtypeid" eval="str(ref('extraschool_childtype_accueillante'))" />
 			<field name="schoolimplantation" eval="str(ref('extraschool_schoolimplantation_village'))" />
 			<field name="levelid" eval="str(ref('extraschool_level_p2'))" />
 			<field name="classid" eval="str(ref('extraschool_class_vp2'))" />
-			<field name="parentid" eval="str(ref('extraschool_parent_rasic'))" />
+			<field name="parentid" eval="str(ref('extraschool_parent_accueillante'))" />
 			<field name="birthdate">2012-04-24</field>
         </record>
-        <record model="extraschool.child" id="extraschool_child_mayence">
-            <field name="name">Thierry MAYENCE</field>
-            <field name="firstname">Thierry</field>
-            <field name="lastname">MAYENCE</field>
-            <field name="childtypeid" eval="str(ref('extraschool_childtype_aucun'))" />
+        <record model="extraschool.child" id="extraschool_child_accueillante_2">
+            <field name="name">Enfant accueillante 2</field>
+            <field name="firstname">Enfant</field>
+            <field name="lastname">accueillante 2</field>
+            <field name="childtypeid" eval="str(ref('extraschool_childtype_accueillante'))" />
 			<field name="schoolimplantation" eval="str(ref('extraschool_schoolimplantation_village'))" />
 			<field name="levelid" eval="str(ref('extraschool_level_p2'))" />
 			<field name="classid" eval="str(ref('extraschool_class_vp2'))" />
-			<field name="parentid" eval="str(ref('extraschool_parent_mayence'))" />
-			<field name="birthdate">2012-02-24</field>
+			<field name="parentid" eval="str(ref('extraschool_parent_accueillante'))" />
+			<field name="birthdate">2013-04-24</field>
         </record>
-        <record model="extraschool.activitycategory" id="extraschool_activitycategory_garderies">
-            <field name="name">Garderies</field>
+        <record model="extraschool.child" id="extraschool_child_accueillante_3">
+            <field name="name">Enfant accueillante 3</field>
+            <field name="firstname">Enfant</field>
+            <field name="lastname">accueillante 3</field>
+            <field name="childtypeid" eval="str(ref('extraschool_childtype_accueillante'))" />
+			<field name="schoolimplantation" eval="str(ref('extraschool_schoolimplantation_village'))" />
+			<field name="levelid" eval="str(ref('extraschool_level_p2'))" />
+			<field name="classid" eval="str(ref('extraschool_class_vp2'))" />
+			<field name="parentid" eval="str(ref('extraschool_parent_accueillante'))" />
+			<field name="birthdate">2014-07-24</field>
+        </record>
+        <record model="extraschool.child" id="extraschool_child_enseignant_1">
+            <field name="name">Enfant enseignant 1</field>
+            <field name="firstname">Enfant</field>
+            <field name="lastname">enseignant 1</field>
+            <field name="childtypeid" eval="str(ref('extraschool_childtype_enseignant'))" />
+			<field name="schoolimplantation" eval="str(ref('extraschool_schoolimplantation_village'))" />
+			<field name="levelid" eval="str(ref('extraschool_level_p2'))" />
+			<field name="classid" eval="str(ref('extraschool_class_vp2'))" />
+			<field name="parentid" eval="str(ref('extraschool_parent_enseignant'))" />
+			<field name="birthdate">2012-02-24</field>
+        </record> 
+        <record model="extraschool.child" id="extraschool_child_enseignant_2">
+            <field name="name">Enfant enseignant 2</field>
+            <field name="firstname">Enfant</field>
+            <field name="lastname">enseignant 2</field>
+            <field name="childtypeid" eval="str(ref('extraschool_childtype_enseignant'))" />
+			<field name="schoolimplantation" eval="str(ref('extraschool_schoolimplantation_village'))" />
+			<field name="levelid" eval="str(ref('extraschool_level_p2'))" />
+			<field name="classid" eval="str(ref('extraschool_class_vp2'))" />
+			<field name="parentid" eval="str(ref('extraschool_parent_enseignant'))" />
+			<field name="birthdate">2013-02-24</field>
+        </record>        
+        <record model="extraschool.child" id="extraschool_child_enseignant_3">
+            <field name="name">Enfant enseignant 3</field>
+            <field name="firstname">Enfant</field>
+            <field name="lastname">enseignant 3</field>
+            <field name="childtypeid" eval="str(ref('extraschool_childtype_enseignant'))" />
+			<field name="schoolimplantation" eval="str(ref('extraschool_schoolimplantation_village'))" />
+			<field name="levelid" eval="str(ref('extraschool_level_p2'))" />
+			<field name="classid" eval="str(ref('extraschool_class_vp2'))" />
+			<field name="parentid" eval="str(ref('extraschool_parent_enseignant'))" />
+			<field name="birthdate">2014-06-24</field>
+        </record>
+        <!-- by parent -->
+        <record model="extraschool.activitycategory" id="extraschool_activitycategory_garderies_byparent">
+            <field name="name">Garderies byparent</field>
             <field name="placeids" eval="[(6, 0, [extraschool_place_parc,extraschool_place_village,extraschool_place_centresportif,extraschool_place_imio ])]"/>
             <field name="childpositiondetermination">byparent</field>
             <field name="priorityorder">1</field>
@@ -371,8 +459,53 @@
             <field name="bankaccount">BE65122123547800</field>
             <field name="taxcertificatetemplate">attfisc.odt</field>
         </record>
-        <record model="extraschool.activity" id="extraschool_activity_reunionimio">
-            <field name="name">Réunion Imio</field>
+        <!-- by parent (only childs with prestations) -->
+        <record model="extraschool.activitycategory" id="extraschool_activitycategory_garderies_byparentwp">
+            <field name="name">Garderies byparentwp</field>
+            <field name="placeids" eval="[(6, 0, [extraschool_place_parc,extraschool_place_village,extraschool_place_centresportif,extraschool_place_imio ])]"/>
+            <field name="childpositiondetermination">byparentwp</field>
+            <field name="priorityorder">1</field>
+            <field name="invoicetemplate">facture.odt</field>
+            <field name="invoicecomstructprefix">100</field>
+            <field name="invoicelastcomstruct">1</field>
+            <field name="invoiceemailaddress">test@imio.be</field>
+            <field name="invoiceemailsubject">Votre facture de garderie</field>
+            <field name="bankaccount">BE65122123547800</field>
+            <field name="taxcertificatetemplate">attfisc.odt</field>
+        </record>       
+        <!-- by address -->
+        <record model="extraschool.activitycategory" id="extraschool_activitycategory_garderies_byaddress">
+            <field name="name">Garderies byaddress</field>
+            <field name="placeids" eval="[(6, 0, [extraschool_place_parc,extraschool_place_village,extraschool_place_centresportif,extraschool_place_imio ])]"/>
+            <field name="childpositiondetermination">byaddress</field>
+            <field name="priorityorder">1</field>
+            <field name="invoicetemplate">facture.odt</field>
+            <field name="invoicecomstructprefix">100</field>
+            <field name="invoicelastcomstruct">1</field>
+            <field name="invoiceemailaddress">test@imio.be</field>
+            <field name="invoiceemailsubject">Votre facture de garderie</field>
+            <field name="bankaccount">BE65122123547800</field>
+            <field name="taxcertificatetemplate">attfisc.odt</field>
+        </record>       
+        <!-- by address (only childs with prestations)) -->
+        <record model="extraschool.activitycategory" id="extraschool_activitycategory_garderies_byaddresswp">
+            <field name="name">Garderies byaddresswp</field>
+            <field name="placeids" eval="[(6, 0, [extraschool_place_parc,extraschool_place_village,extraschool_place_centresportif,extraschool_place_imio ])]"/>
+            <field name="childpositiondetermination">byaddresswp</field>
+            <field name="priorityorder">1</field>
+            <field name="invoicetemplate">facture.odt</field>
+            <field name="invoicecomstructprefix">100</field>
+            <field name="invoicelastcomstruct">1</field>
+            <field name="invoiceemailaddress">test@imio.be</field>
+            <field name="invoiceemailsubject">Votre facture de garderie</field>
+            <field name="bankaccount">BE65122123547800</field>
+            <field name="taxcertificatetemplate">attfisc.odt</field>
+        </record>
+        <!-- ToDo activité pas trouvée car position enfant pas dans la liste -->
+		
+		<!--  -->
+        <record model="extraschool.activity" id="extraschool_activity_garderie_standard_matin">
+            <field name="name">Garderie Standard Matin</field>
             <field name="category" eval="str(ref('extraschool_activitycategory_garderies'))" />
             <field name="placeids" eval="[(6, 0, [extraschool_place_imio, ])]"/>
             <field name="schoolimplantationids" eval="[(6, 0, [extraschool_schoolimplantation_parc, extraschool_schoolimplantation_village, ])]"/>
