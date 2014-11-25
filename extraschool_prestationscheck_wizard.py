@@ -206,17 +206,17 @@ class extraschool_prestationscheck_wizard(osv.osv_memory):
                        
             obj_prestation.create(cr,uid, {'placeid':placeid,'prestation_date': prestation_date,'childid': childid,'ES':ES,'prestation_time' : prestation_time,'activitycategoryid' : activitycategoryid,'manualy_encoded':manualy_encoded,'activityid':activityid})
             
-    
-    
-    def action_prestationscheck(self, cr, uid, ids, context=None):        
-        form = self.read(cr,uid,ids,)[-1] 
+    def _check(self,cr,uid,form):
+        print "++++++++++++++++++++++++++++++++_check++++++++++++++++++++++"
         obj_prestation = self.pool.get('extraschool.prestationtimes')  
         if form['currentdate']:
             currentdate=datetime.datetime.strptime(form['currentdate'], '%Y-%m-%d')
         else:
             currentdate=datetime.datetime.strptime(form['period_from'], '%Y-%m-%d')
         periodto=datetime.datetime.strptime(form['period_to'], '%Y-%m-%d')
-        for placeid in self._placeids:
+        for placeid in form['placeid']:
+            print "currentdate:" + str(currentdate)
+            print "periodto:" + str(periodto)
             while currentdate <= periodto:
                 weekday = currentdate.weekday()
                 strcurrentdate=str(currentdate)[0:10]
@@ -378,9 +378,10 @@ class extraschool_prestationscheck_wizard(osv.osv_memory):
                         else:
                             if currentactivitycategory!=prestation['activitycategoryid']:
                                 erreur=True
-                            es='E'                        
+                            es='E'
+
                     if erreur:
-                        return self.write(cr, uid, ids,{'state' : 'prestations_to_verify','currentdate':strcurrentdate,'childid':child['childid']}, context=context)
+                        return {'state' : 'prestations_to_verify','currentdate':strcurrentdate,'childid':child['childid']}
                     else:
                         for prestationid in prestationids:
                             cr.execute('update extraschool_prestationtimes set verified = TRUE where id=%s',(str(prestationid),))
@@ -388,5 +389,12 @@ class extraschool_prestationscheck_wizard(osv.osv_memory):
                         
                 currentdate=currentdate+datetime.timedelta(1)
             currentdate=datetime.datetime.strptime(form['period_from'], '%Y-%m-%d')
-        return self.write(cr, uid, ids,{'state' : 'end_of_verification',}, context=context)
+            return {'state' : 'end_of_verification',}        
+    
+    def action_prestationscheck(self, cr, uid, ids, context=None):        
+        form = self.read(cr,uid,ids,)[-1] 
+        
+        return self.write(cr, uid, ids,self._check(cr,uid,form), context=context)
+
+
 extraschool_prestationscheck_wizard()

@@ -18,11 +18,32 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import test_child,test_prestationcheck
 
-checks = [
-    test_child,
-    test_prestationcheck,
-]
+from openerp import tools
+from openerp.tests import common
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+class Test_PrestationCheck(common.TransactionCase):
+
+    def setUp(self):
+        """*****setUp*****"""
+        super(Test_PrestationCheck, self).setUp()
+        cr, uid = self.cr, self.uid
+
+        self.prestationscheck_wizard = self.registry('extraschool.prestationscheck_wizard')
+        
+    def test_00_test_fct(self):
+        """test test _check"""
+        cr, uid = self.cr, self.uid
+        form = {'placeid': [1,2,3],
+                'period_from': '2014-01-01',
+                'period_to': '2014-01-31',
+                'activitycategory': 1,
+                'state': 'init',
+                'currentdate': False,
+                }
+        return_value = self.prestationscheck_wizard._check(cr, uid,form)
+        print "-------------"
+        print str(return_value)
+        print "-------------"
+        
+        self.assertEqual(return_value,'tutu')
