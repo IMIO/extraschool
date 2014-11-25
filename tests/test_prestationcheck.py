@@ -30,20 +30,32 @@ class Test_PrestationCheck(common.TransactionCase):
         cr, uid = self.cr, self.uid
 
         self.prestationscheck_wizard = self.registry('extraschool.prestationscheck_wizard')
+        self.place = self.registry('extraschool.place')
+        self.activitycategory = self.registry('extraschool.activitycategory')
+        self.prestationtimes = self.registry('extraschool.prestationtimes')
+        
         
     def test_00_test_fct(self):
-        """test test _check"""
         cr, uid = self.cr, self.uid
-        form = {'placeid': [1,2,3],
+        form = {'placeid': self.place.search(cr,uid,[('name','in',['Ecole du parc'])]),
                 'period_from': '2014-01-01',
                 'period_to': '2014-01-31',
-                'activitycategory': 1,
+                'activitycategory': self.activitycategory.search(cr,uid,[('name','in',['Garderies byparent'])]),
                 'state': 'init',
                 'currentdate': False,
                 }
         return_value = self.prestationscheck_wizard._check(cr, uid,form)
-        print "-------------"
-        print str(return_value)
-        print "-------------"
         
-        self.assertEqual(return_value,'tutu')
+        #check return
+        self.assertEqual(return_value['state'],'end_of_verification')
+        #check ajout de la presta manquante
+        presta = self.prestationtimes.search(cr,uid,[('childid.name','=','enfant std 1'),
+                                                     ('prestation_date','=','2014-01-01')])
+        self.assertEqual(len(presta),2,'check ajout de la presta manquante')
+        #check verified field is true
+        presta = self.prestationtimes.search(cr,uid,[('childid.name','=','enfant std 1'),
+                                                     ('prestation_date','=','2014-01-01'),
+                                                     ('verified','=',True),
+                                                     ])
+        self.assertEqual(len(presta),2,'check verified field is true')
+        

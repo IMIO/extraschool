@@ -29,7 +29,7 @@
     'depends' : ['base',],
     'init_xml' : ['init.xml',],
     'demo' : ['data/extraschool_test.xml',],
-    'test' : ['test/invoice_test.yml'],
+    'test' : [],
     'data' : [
         'views/extraschool_activitycategory.xml',
         'views/extraschool_activity.xml',

@@ -18,10 +18,9 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import test_child,test_prestationcheck
+from . import test_prestationcheck
 
 checks = [
-    test_child,
     test_prestationcheck,
 ]
 
