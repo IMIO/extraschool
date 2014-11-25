@@ -62,15 +62,25 @@ class extraschool_prestations_wizard(osv.osv_memory):
     }
     
     @api.onchange('placeid')
-    def dostuff(self, cr, uid):
-        print '-------------------------------------------'
-        print self.placeid
-        print '-------------------------------------------'
+    def dostuff(self):
         if self.placeid:
-            obj_place = self.pool.get('extraschool.place')
-            v={}        
-            schoolimplantationids=obj_place.read(cr, uid, [self.placeid],['schoolimplantation_ids'])            
-            return {'domain':{'childid': [('schoolimplantation', 'in', schoolimplantationids[0]['schoolimplantation_ids'])]},}
+            print "------"
+            print str(self.placeid.id)
+            print "------"
+
+            obj_place = self.env['extraschool.place']
+            print "-----"
+            print str(obj_place)
+            print '*********'
+            schoolimplantationids=obj_place.browse(self.placeid.id)
+            schoolimplantation_ids = []
+            for zz in schoolimplantationids.schoolimplantation_ids:
+                schoolimplantation_ids.append(zz.id) 
+                print "----" + str(zz.id)
+            
+            return {'domain':{'childid': [('schoolimplantation', 'in', schoolimplantation_ids)]},}
+            return {}
+        
         
         
     def onchange_prestations(self, cr, uid, ids, prestations, childid, currentdate, placeid):
