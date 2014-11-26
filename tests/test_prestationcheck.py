@@ -43,10 +43,11 @@ class Test_PrestationCheck(common.TransactionCase):
 #        - ajout de la presta manquante
 #        
     def test_00_test_fct(self):
+        print "test_00_test_fct"        
         cr, uid = self.cr, self.uid
         form = {'placeid': self.place.search(cr,uid,[('name','in',['Ecole du parc'])]),
                 'period_from': '2014-01-01',
-                'period_to': '2014-01-31',
+                'period_to': '2014-01-01',
                 'activitycategory': self.activitycategory.search(cr,uid,[('name','in',['Garderies byparent'])]),
                 'state': 'init',
                 'currentdate': False,
@@ -62,7 +63,7 @@ class Test_PrestationCheck(common.TransactionCase):
                                                      ('manualy_encoded','=',False),
                                                      ('verified','=',True),
                                                      ('prestation_time','=',8.5), 
-                                                     ('activityid','=','Garderie Standard Matin'), 
+                                                     ('activityid.name','=','Garderie Standard Matin'), 
                                                                                                                                                              
                                                      ])
         self.assertEqual(len(presta),1,'check ajout de la presta manquante')
@@ -70,7 +71,132 @@ class Test_PrestationCheck(common.TransactionCase):
         presta = self.prestationtimes.search(cr,uid,[('childid.name','=','enfant std 1'),
                                                      ('prestation_date','=','2014-01-01'),
                                                      ('verified','=',True), 
-                                                     ('activityid','=','Garderie Standard Matin'),
+#                                                     ('activityid.name','=','Garderie Standard Matin'),
                                                      ])
         self.assertEqual(len(presta),2,'check verified field is true')
+
+#
+#    presta std matin 
+#        - mercredi 2/1/2014 
+#        - enfant std 1
+#
+#    Vérif :
+#        - ajout de la presta manquante
+#        
+    def test_01_test_fct(self):
+        print "test_01_test_fct"
+        cr, uid = self.cr, self.uid
+        form = {'placeid': self.place.search(cr,uid,[('name','in',['Ecole du parc'])]),
+                'period_from': '2014-01-02',
+                'period_to': '2014-01-02',
+                'activitycategory': self.activitycategory.search(cr,uid,[('name','in',['Garderies byparent'])]),
+                'state': 'init',
+                'currentdate': False,
+                }
+        return_value = self.prestationscheck_wizard._check(cr, uid,form)
+        
+        #check return
+        self.assertNotEqual(return_value['state'],'end_of_verification','Pas d''erreur trouvée')
+        #check PAS ajout de la presta manquante
+        presta = self.prestationtimes.search(cr,uid,[('childid.name','=','enfant std 1'),
+                                                     ('prestation_date','=','2014-01-02'),
+                                                                                                                    
+                                                     ])
+        self.assertEqual(len(presta),1,'check 1 présence')
+        #check verified field is False
+        presta = self.prestationtimes.search(cr,uid,[('childid.name','=','enfant std 1'),
+                                                     ('prestation_date','=','2014-01-02'),
+                                                     ('verified','=',True), 
+#                                                     ('activityid.name','=','Garderie Standard Matin'),
+                                                     ])
+        self.assertEqual(len(presta),0,'check verified field is False')        
+
+#
+#    Triple activité  
+#        - mercredi 3/1/2014 
+#        - enfant std 1
+#
+#    Vérif :
+#        - ajout des presta manquante
+#        
+    def test_02_test_fct(self):
+        print "test_01_test_fct"
+        cr, uid = self.cr, self.uid
+        form = {'placeid': self.place.search(cr,uid,[('name','in',['Ecole du parc'])]),
+                'period_from': '2014-01-03',
+                'period_to': '2014-01-03',
+                'activitycategory': self.activitycategory.search(cr,uid,[('name','in',['Garderies byparent'])]),
+                'state': 'init',
+                'currentdate': False,
+                }
+        return_value = self.prestationscheck_wizard._check(cr, uid,form)
+        
+        #check return
+        self.assertEqual(return_value['state'],'end_of_verification','Pas d''erreur trouvée')
+        #check ajout de la presta manquante
+        presta = self.prestationtimes.search(cr,uid,[('childid.name','=','enfant std 1'),
+                                                     ('prestation_date','=','2014-01-03'),   
+                                                     ('ES','=','E'),
+                                                     ('manualy_encoded','=',False),
+                                                     ('verified','=',True),
+                                                     ('prestation_time','=',16), 
+#                                                     ('activityid.name','=','Garderie Standard Soir'),                                                                                                                                                
+                                                     ])
+        self.assertEqual(len(presta),1,'check 1 présences ajoutée')
+        #check verified field is False
+        presta = self.prestationtimes.search(cr,uid,[('childid.name','=','enfant std 1'),
+                                                     ('prestation_date','=','2014-01-03'),
+                                                     ('verified','=',True), 
+#                                                     ('activityid.name','=','Garderie Standard Matin'),
+                                                     ])
+        self.assertEqual(len(presta),2,'check verified field is True')        
+#
+#    activité pédagogique  
+#        - lundi 6/1/2014 
+#        - enfant std 1
+#
+#    Vérif :
+#        - ajout des presta manquante + remplacement des activité std
+#        
+    def test_03_test_fct(self):
+        print "test_01_test_fct"
+        cr, uid = self.cr, self.uid
+        form = {'placeid': self.place.search(cr,uid,[('name','in',['Ecole du parc'])]),
+                'period_from': '2014-01-06',
+                'period_to': '2014-01-06',
+                'activitycategory': self.activitycategory.search(cr,uid,[('name','in',['Garderies byparent'])]),
+                'state': 'init',
+                'currentdate': False,
+                }
+        return_value = self.prestationscheck_wizard._check(cr, uid,form)
+        
+        #check return
+        self.assertEqual(return_value['state'],'end_of_verification','Pas d''erreur trouvée')
+        #check ajout de la presta d entrée
+        presta = self.prestationtimes.search(cr,uid,[('childid.name','=','enfant std 1'),
+                                                     ('prestation_date','=','2014-01-06'),   
+                                                     ('ES','=','E'),
+                                                     ('manualy_encoded','=',False),
+                                                     ('verified','=',True),
+                                                     ('prestation_time','=',7.5), 
+#                                                     ('activityid.name','=','Garderie Standard Soir'),                                                                                                                                                
+                                                     ])
+        self.assertEqual(len(presta),1,u'check 1 présences corrigée')
+        #check ajout de la presta de sortie
+        presta = self.prestationtimes.search(cr,uid,[('childid.name','=','enfant std 1'),
+                                                     ('prestation_date','=','2014-01-06'),   
+                                                     ('ES','=','S'),
+                                                     ('manualy_encoded','=',False),
+                                                     ('verified','=',True),
+                                                     ('prestation_time','=',18), 
+#                                                     ('activityid.name','=','Garderie Standard Soir'),                                                                                                                                                
+                                                     ])
+        self.assertEqual(len(presta),1,u'check 1 présences ajoutée')
+        #check verified field is False
+        presta = self.prestationtimes.search(cr,uid,[('childid.name','=','enfant std 1'),
+                                                     ('prestation_date','=','2014-01-06'),
+                                                     ('verified','=',True), 
+#                                                     ('activityid.name','=','Garderie Standard Matin'),
+                                                     ])
+        self.assertEqual(len(presta),2,'check verified field is True')        
         

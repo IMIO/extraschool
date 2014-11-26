@@ -129,7 +129,7 @@ class extraschool_prestationscheck_wizard(osv.osv_memory):
     
     def onchange_prestations(self, cr, uid, ids, prestations, childid, currentdate):
         obj_prestation = self.pool.get('extraschool.prestationtimes')
-        for prestation in prestations:
+        for prestation in prestations:            
             if prestation[0]==2:                        
                 res = obj_prestation.unlink(cr, uid, [prestation[1]])
             if prestation[0]==1:
@@ -207,6 +207,7 @@ class extraschool_prestationscheck_wizard(osv.osv_memory):
             obj_prestation.create(cr,uid, {'placeid':placeid,'prestation_date': prestation_date,'childid': childid,'ES':ES,'prestation_time' : prestation_time,'activitycategoryid' : activitycategoryid,'manualy_encoded':manualy_encoded,'activityid':activityid})
             
     def _check(self,cr,uid,form):
+#        print form
         obj_prestation = self.pool.get('extraschool.prestationtimes')  
         if form['currentdate']:
             currentdate=datetime.datetime.strptime(form['currentdate'], '%Y-%m-%d')
