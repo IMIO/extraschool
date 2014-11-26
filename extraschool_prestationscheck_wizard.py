@@ -207,7 +207,6 @@ class extraschool_prestationscheck_wizard(osv.osv_memory):
             obj_prestation.create(cr,uid, {'placeid':placeid,'prestation_date': prestation_date,'childid': childid,'ES':ES,'prestation_time' : prestation_time,'activitycategoryid' : activitycategoryid,'manualy_encoded':manualy_encoded,'activityid':activityid})
             
     def _check(self,cr,uid,form):
-        print "++++++++++++++++++++++++++++++++_check++++++++++++++++++++++"
         obj_prestation = self.pool.get('extraschool.prestationtimes')  
         if form['currentdate']:
             currentdate=datetime.datetime.strptime(form['currentdate'], '%Y-%m-%d')

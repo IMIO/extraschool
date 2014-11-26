@@ -34,7 +34,14 @@ class Test_PrestationCheck(common.TransactionCase):
         self.activitycategory = self.registry('extraschool.activitycategory')
         self.prestationtimes = self.registry('extraschool.prestationtimes')
         
-        
+#
+#    presta std matin 
+#        - mercredi 1/1/2014 
+#        - enfant std 1
+#
+#    Vérif :
+#        - ajout de la presta manquante
+#        
     def test_00_test_fct(self):
         cr, uid = self.cr, self.uid
         form = {'placeid': self.place.search(cr,uid,[('name','in',['Ecole du parc'])]),
@@ -50,12 +57,20 @@ class Test_PrestationCheck(common.TransactionCase):
         self.assertEqual(return_value['state'],'end_of_verification')
         #check ajout de la presta manquante
         presta = self.prestationtimes.search(cr,uid,[('childid.name','=','enfant std 1'),
-                                                     ('prestation_date','=','2014-01-01')])
-        self.assertEqual(len(presta),2,'check ajout de la presta manquante')
+                                                     ('prestation_date','=','2014-01-01'),
+                                                     ('ES','=','S'),
+                                                     ('manualy_encoded','=',False),
+                                                     ('verified','=',True),
+                                                     ('prestation_time','=',8.5), 
+                                                     ('activityid','=','Garderie Standard Matin'), 
+                                                                                                                                                             
+                                                     ])
+        self.assertEqual(len(presta),1,'check ajout de la presta manquante')
         #check verified field is true
         presta = self.prestationtimes.search(cr,uid,[('childid.name','=','enfant std 1'),
                                                      ('prestation_date','=','2014-01-01'),
-                                                     ('verified','=',True),
+                                                     ('verified','=',True), 
+                                                     ('activityid','=','Garderie Standard Matin'),
                                                      ])
         self.assertEqual(len(presta),2,'check verified field is true')
         
