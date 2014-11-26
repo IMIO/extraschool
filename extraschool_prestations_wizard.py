@@ -64,10 +64,7 @@ class extraschool_prestations_wizard(osv.osv_memory):
     @api.onchange('placeid')
     def onchange_placeid(self):
         if self.placeid:
-            obj_place = self.env['extraschool.place']
-            
-            schoolimplantationids=obj_place.browse(self.placeid.id)
-            
+            schoolimplantationids=self.env['extraschool.place'].browse(self.placeid.id)           
             return {'domain':{'childid': [('schoolimplantation', 'in', [impl.id for impl in schoolimplantationids.schoolimplantation_ids])]},}
         
         
