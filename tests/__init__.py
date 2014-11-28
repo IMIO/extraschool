@@ -18,10 +18,14 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import test_prestationcheck
+from extraschool.tests import t_005_test_extraschool_prestationcheck
+from extraschool.tests import t_010_test_extraschool_invoice
+
 
 checks = [
-    test_prestationcheck,
+    t_005_test_extraschool_prestationcheck,          
+    t_010_test_extraschool_invoice,          
+
 ]
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

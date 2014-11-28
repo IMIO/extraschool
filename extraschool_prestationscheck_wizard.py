@@ -206,7 +206,7 @@ class extraschool_prestationscheck_wizard(osv.osv_memory):
                        
             obj_prestation.create(cr,uid, {'placeid':placeid,'prestation_date': prestation_date,'childid': childid,'ES':ES,'prestation_time' : prestation_time,'activitycategoryid' : activitycategoryid,'manualy_encoded':manualy_encoded,'activityid':activityid})
             
-    def _check(self,cr,uid,form):
+    def _check(self,cr,uid,form, context=None):
 #        print form
         obj_prestation = self.pool.get('extraschool.prestationtimes')  
         if form['currentdate']:
@@ -267,7 +267,8 @@ class extraschool_prestationscheck_wizard(osv.osv_memory):
                                         and leveltype like %s order by prest_from""", (strcurrentdate,strcurrentdate,plannedactivity['prest_from'],plannedactivity['prest_to'],activitycategory['id'],placeid,child['schoolimplantation'],child['childtypeid'],'%'+str(weekday)+'%',strcurrentdate,strcurrentdate,'%'+leveltype+'%'))                
                                 addactivities=cr.dictfetchall()
                                 if addactivities:
-                                    activities=activities+addactivities
+                                    activities=addactivities+activities
+                                    print activities
                                 
                         else:
                             cr.execute("""select * from "extraschool_activity" where validity_from <= %s and validity_to >= %s 

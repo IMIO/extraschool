@@ -22,17 +22,21 @@
 from openerp import tools
 from openerp.tests import common
 
-class Test_PrestationCheck(common.TransactionCase):
+class T_005_Test_ExtraSchool_PrestationCheck(common.TransactionCase):
 
     def setUp(self):
         """*****setUp*****"""
-        super(Test_PrestationCheck, self).setUp()
+        super(T_005_Test_ExtraSchool_PrestationCheck, self).setUp()
         cr, uid = self.cr, self.uid
 
         self.prestationscheck_wizard = self.registry('extraschool.prestationscheck_wizard')
         self.place = self.registry('extraschool.place')
+        self.activity = self.registry('extraschool.activity')
         self.activitycategory = self.registry('extraschool.activitycategory')
         self.prestationtimes = self.registry('extraschool.prestationtimes')
+        
+        self.invoice_wizard = self.registry('extraschool.invoice_wizard')
+        self.schoolimplantation = self.registry('extraschool.schoolimplantation')       
         
 #
 #    presta std matin 
@@ -75,6 +79,8 @@ class Test_PrestationCheck(common.TransactionCase):
                                                      ])
         self.assertEqual(len(presta),2,'check verified field is true')
 
+        ids = self.prestationtimes.search(cr,uid,[])
+        
 #
 #    presta std matin 
 #        - mercredi 2/1/2014 
@@ -109,8 +115,8 @@ class Test_PrestationCheck(common.TransactionCase):
                                                      ('verified','=',True), 
 #                                                     ('activityid.name','=','Garderie Standard Matin'),
                                                      ])
-        self.assertEqual(len(presta),0,'check verified field is False')        
-
+        self.assertEqual(len(presta),0,'check verified field is False')      
+        
 #
 #    Triple activité  
 #        - mercredi 3/1/2014 
@@ -120,7 +126,7 @@ class Test_PrestationCheck(common.TransactionCase):
 #        - ajout des presta manquante
 #        
     def test_02_test_fct(self):
-        print "test_01_test_fct"
+        print "test_02_test_fct"
         cr, uid = self.cr, self.uid
         form = {'placeid': self.place.search(cr,uid,[('name','in',['Ecole du parc'])]),
                 'period_from': '2014-01-03',
@@ -159,7 +165,7 @@ class Test_PrestationCheck(common.TransactionCase):
 #        - ajout des presta manquante + remplacement des activité std
 #        
     def test_03_test_fct(self):
-        print "test_01_test_fct"
+        print "test_03_test_fct"
         cr, uid = self.cr, self.uid
         form = {'placeid': self.place.search(cr,uid,[('name','in',['Ecole du parc'])]),
                 'period_from': '2014-01-06',
@@ -199,4 +205,60 @@ class Test_PrestationCheck(common.TransactionCase):
 #                                                     ('activityid.name','=','Garderie Standard Matin'),
                                                      ])
         self.assertEqual(len(presta),2,'check verified field is True')        
+    
+#
+#    activité bricolage  
+#        - lundi 8/1/2014 
+#        - enfant std 1 inscri auto
+#        - enfant std 2 inscri garderie mais pas brico
+#
+#    Vérif :
+#        - ajout des presta manquante + remplacement des activité std
+#        
+    def test_04_test_fct(self):
+        print "test_04_test_fct"
+        cr, uid = self.cr, self.uid
+        form = {'placeid': self.place.search(cr,uid,[('name','in',['Ecole du parc'])]),
+                'period_from': '2014-01-08',
+                'period_to': '2014-01-08',
+                'activitycategory': self.activitycategory.search(cr,uid,[('name','in',['Garderies byparent'])]),
+                'state': 'init',
+                'currentdate': False,
+                }
+        return_value = self.prestationscheck_wizard._check(cr, uid,form)
+        
+        #check return
+        self.assertEqual(return_value['state'],'end_of_verification','Pas d''erreur trouvée')
+        #check ajout de la presta d entrée
+        presta = self.prestationtimes.search(cr,uid,[('childid.name','=','enfant std 3'),
+                                                     ('prestation_date','=','2014-01-08'),   
+                                                     ('ES','=','E'),
+                                                     ('manualy_encoded','=',False),
+                                                     ('verified','=',True),
+                                                     ('prestation_time','=',12), 
+#                                                     ('activityid.name','=','Garderie Standard Soir'),                                                                                                                                                
+                                                     ])
+        self.assertEqual(len(presta),1,u'check 1 présences ajoutée')
+              
+                
+#     #
+#     #
+#     #   !!!!!!!!!!!!!!!!!!!!!!!!!   Must be The LAST One !!!!!!!!!!!!!!!!!!!!!!!
+#     #
+#     #    
+#     def test_9999_test_fct(self):
+#         print "test_9999_test_fct"
+#         cr, uid = self.cr, self.uid
+#         form = {'placeid': self.place.search(cr,uid,[('name','in',['Ecole du parc'])]),
+#                 'period_from': '2014-01-01',
+#                 'period_to': '2099-12-31',
+#                 'activitycategory': self.activitycategory.search(cr,uid,[('name','in',['Garderies byparent'])]),
+#                 'state': 'init',
+#                 'currentdate': False,
+#                 }
+#         return_value = self.prestationscheck_wizard._check(cr, uid,form)
+#         
+#         #check return
+#         self.assertEqual(return_value['state'],'end_of_verification','Ca devrait etre OK')
+    
         

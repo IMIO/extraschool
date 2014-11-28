@@ -162,23 +162,22 @@ class extraschool_invoice_wizard(osv.osv_memory):
                         if totactivities > float(discount['discount']):
                                 amount=amount+(totactivities-float(discount['discount']))
         return amount
-
-    def action_compute_invoices(self, cr, uid, ids, context=None):
+    def _compute_invoices(self, cr, uid, form, context=None):
         obj_config = self.pool.get('extraschool.mainsettings')
         obj_activitycategory = self.pool.get('extraschool.activitycategory')
         config=obj_config.read(cr, uid, [1],['lastqrcodenbr','qrencode','tempfolder','templatesfolder'])[0]         
         month_name=('','Janvier','Fevrier','Mars','Avril','Mai','Juin','Juillet','Aout','Septembre','Octobre','Novembre','Decembre')
         day_name=('Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche')
-        form = self.read(cr,uid,ids,)[-1]
+        
         inv_obj = self.pool.get('extraschool.invoice')
         obj_biller = self.pool.get('extraschool.biller')
         obj_invoicedprest = self.pool.get('extraschool.invoicedprestations')
         obj_parent = self.pool.get('extraschool.parent')
-        cr.execute('select distinct(prestation_date) from extraschool_prestationtimes left join "extraschool_child" on childid="extraschool_child".id where schoolimplantation in '+str(self._schoolimplantationids).replace('[','(').replace(']',')')+' and prestation_date >=%s and prestation_date <= %s and verified = FALSE ',(form['period_from'],form['period_to']))
+        cr.execute('select distinct(prestation_date) from extraschool_prestationtimes left join "extraschool_child" on childid="extraschool_child".id where schoolimplantation in '+str(form['schoolimplantationid']).replace('[','(').replace(']',')')+' and prestation_date >=%s and prestation_date <= %s and verified = FALSE ',(form['period_from'],form['period_to']))
         prestationdatesnotverified=cr.dictfetchall()
         if prestationdatesnotverified:
             for prestdate in prestationdatesnotverified:
-                cr.execute('select distinct(childid) from extraschool_prestationtimes where prestation_date=%s and verified=FALSE and childid in (select id from extraschool_child where schoolimplantation in '+str(self._schoolimplantationids).replace('[','(').replace(']',')')+')',(prestdate['prestation_date'],))
+                cr.execute('select distinct(childid) from extraschool_prestationtimes where prestation_date=%s and verified=FALSE and childid in (select id from extraschool_child where schoolimplantation in '+str(form['schoolimplantationid']).replace('[','(').replace(']',')')+')',(prestdate['prestation_date'],))
                 childs=cr.dictfetchall()
                 for child in childs:
                     cr.execute('select id,prestation_time,"ES",prestation_time,placeid,activitycategoryid from extraschool_prestationtimes where childid=%s and prestation_date=%s order by placeid,prestation_time,"ES" desc',(child['childid'],prestdate['prestation_date']))
@@ -187,12 +186,17 @@ class extraschool_invoice_wizard(osv.osv_memory):
                     if len(childprests)%2 != 0:
                         placeid=childprests[0]['placeid']
                         erreur=True
+                        print child['childid']
+                        print childprests
+                        print 'toto1'+str(prestdate)+str(childprests[0]['prestation_time'])+str(childprests[0]['ES'])
+                    
                     else:
                         currentactivitycategory=childprests[0]['activitycategoryid']
                         erreur=False
                     for prestation in childprests:
                         placeid=prestation['placeid']
                         if prestation['ES']!=es:
+                            print 'toto2'+str(prestdate)+str(prestation['prestation_time'])+str(prestation['ES'])
                             erreur=True
                         if es=='E':
                             currentactivitycategory=prestation['activitycategoryid']
@@ -200,6 +204,7 @@ class extraschool_invoice_wizard(osv.osv_memory):
                         else:
                             if currentactivitycategory!=prestation['activitycategoryid']:
                                 erreur=True
+                                print 'toto3'+str(prestdate)+str(prestation['prestation_time'])+str(prestation['ES'])
                             es='E'                        
                     if erreur:
                         cr.execute('select name from extraschool_place where id=%s',(placeid,))    
@@ -216,7 +221,7 @@ class extraschool_invoice_wizard(osv.osv_memory):
         activitycatid=form['activitycategory'][0]
         
         biller_id = obj_biller.create(cr, uid, {'activitycategoryid':form['activitycategory'][0],'period_from':form['period_from'],'period_to':form['period_to'],'payment_term':form['invoice_term'],'invoice_date':form['invoice_date']}, context=context)
-        for schoolimplantationid in self._schoolimplantationids:
+        for schoolimplantationid in form['schoolimplantationid']:
             cr.execute('select distinct(parentid),schoolimplantation,classid,streetcode from extraschool_child left join extraschool_parent on parentid=extraschool_parent.id where schoolimplantation=%s and extraschool_child.id in (select childid from extraschool_prestationtimes where prestation_date >=%s and prestation_date <= %s and activitycategoryid=%s) and extraschool_child.id not in (select childid from extraschool_invoicedprestations left join extraschool_activity on activityid=extraschool_activity.id where prestation_date >=%s and prestation_date <= %s and category=%s) order by classid',(schoolimplantationid,form['period_from'],form['period_to'],form['activitycategory'][0],form['period_from'],form['period_to'],form['activitycategory'][0]))
             parents=cr.dictfetchall()
             for parent in parents:
@@ -512,5 +517,12 @@ class extraschool_invoice_wizard(osv.osv_memory):
         outfile = open(config['tempfolder']+"factures.pdf","r").read()
         out=base64.b64encode(outfile)
         obj_biller.write(cr, uid, [biller_id],{'filename':'factures.pdf','biller_file':out})
-        return self.write(cr, uid, ids, {'state':'compute_invoices', 'invoices':out, 'name':'factures.pdf'}, context=context)
+        return {'state':'compute_invoices', 'invoices':out, 'name':'factures.pdf'}
+        
+    def action_compute_invoices(self, cr, uid, ids, context=None):   
+        form = self.read(cr,uid,ids,)[-1] 
+        form['schoolimplantationid']=self._schoolimplantationids    
+        return self.write(cr, uid, ids, self._compute_invoices(cr, uid, form))
+
+
 extraschool_invoice_wizard()
