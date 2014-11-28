@@ -520,7 +520,7 @@
             <field name="short_name">Garderie Standard Matin</field>
             <field name="childtype_ids" eval="[(6, 0, [extraschool_childtype_aucun,extraschool_childtype_pc, extraschool_childtype_enseignant,extraschool_childtype_accueillante, ])]" />
             <field name="childposition_ids" eval="[(6, 0, [extraschool_childposition_1,extraschool_childposition_2,extraschool_childposition_3,extraschool_childposition_4,extraschool_childposition_5,extraschool_childposition_6,extraschool_childposition_7,extraschool_childposition_8,extraschool_childposition_9,extraschool_childposition_10, ])]"/>
-            <field name="days">0,1,2,3,4</field>
+            <field name="days">0,1,3,4</field>
             <field name="leveltype">M,P</field>
             <field name="prest_from">16</field>
             <field name="prest_to">17</field>
@@ -540,7 +540,7 @@
             <field name="short_name">Garderie Standard Matin</field>
             <field name="childtype_ids" eval="[(6, 0, [extraschool_childtype_aucun,extraschool_childtype_pc, extraschool_childtype_enseignant,extraschool_childtype_accueillante, ])]" />
             <field name="childposition_ids" eval="[(6, 0, [extraschool_childposition_1,extraschool_childposition_2,extraschool_childposition_3,extraschool_childposition_4,extraschool_childposition_5,extraschool_childposition_6,extraschool_childposition_7,extraschool_childposition_8,extraschool_childposition_9,extraschool_childposition_10, ])]"/>
-            <field name="days">0,1,2,3,4</field>
+            <field name="days">0,1,3,4</field>
             <field name="leveltype">M,P</field>
             <field name="prest_from">16.5</field>
             <field name="prest_to">16.75</field>
@@ -560,7 +560,7 @@
             <field name="short_name">Garderie Standard Matin</field>
             <field name="childtype_ids" eval="[(6, 0, [extraschool_childtype_aucun,extraschool_childtype_pc, extraschool_childtype_enseignant,extraschool_childtype_accueillante, ])]" />
             <field name="childposition_ids" eval="[(6, 0, [extraschool_childposition_1,extraschool_childposition_2,extraschool_childposition_3,extraschool_childposition_4,extraschool_childposition_5,extraschool_childposition_6,extraschool_childposition_7,extraschool_childposition_8,extraschool_childposition_9,extraschool_childposition_10, ])]"/>
-            <field name="days">0,1,2,3,4</field>
+            <field name="days">0,1,3,4</field>
             <field name="leveltype">M,P</field>
             <field name="prest_from">17</field>
             <field name="prest_to">18</field>
@@ -602,7 +602,78 @@
             <field name="subsidizedbyone">1</field>
             <field name="validity_from">2014-01-01</field>
             <field name="validity_to">2014-01-31</field>
-        </record>               
+        </record>     
+		<!-- check activité garderie mercredi après midi  
+				- tarif unique à la 1/2 heure
+				- heure de début par défaut
+				- tarif à la min
+			 -->	
+        <record model="extraschool.activity" id="extraschool_activity_garderie_mercredi">
+            <field name="name">Activité garderie mercredi</field>
+            <field name="category" eval="str(ref('extraschool_activitycategory_garderies_byparent'))" />
+            <field name="placeids" eval="[(6, 0, [extraschool_place_parc, extraschool_place_village, extraschool_place_centresportif, ])]"/>
+            <field name="schoolimplantationids" eval="[(6, 0, [extraschool_schoolimplantation_parc, extraschool_schoolimplantation_village, ])]"/>
+            <field name="short_name">Activité garderie mercredi</field>
+            <field name="childtype_ids" eval="[(6, 0, [extraschool_childtype_aucun,extraschool_childtype_pc, extraschool_childtype_enseignant,extraschool_childtype_accueillante, ])]" />
+            <field name="childposition_ids" eval="[(6, 0, [extraschool_childposition_1,extraschool_childposition_2,extraschool_childposition_3,extraschool_childposition_4,extraschool_childposition_5,extraschool_childposition_6,extraschool_childposition_7,extraschool_childposition_8,extraschool_childposition_9,extraschool_childposition_10, ])]"/>
+            <field name="days">2</field>
+            <field name="leveltype">M,P</field>
+            <field name="prest_from">12</field>
+            <field name="prest_to">18</field>
+            <field name="price">3</field>
+            <field name="period_duration">30</field>
+            <field name="default_from">12</field>
+            <field name="default_to">0</field>
+            <field name="subsidizedbyone">1</field>
+            <field name="validity_from">2014-01-01</field>
+            <field name="validity_to">2014-01-31</field>
+        </record>
+        <!-- check activité bricolage avec inscription forcée  
+				- tarif unique
+				- heure de début et fin par défaut
+				- tarif à la min
+			 -->	
+        <record model="extraschool.activitychildregistration" id="extraschool_activity_registration_enfant_standard_1">
+			<field name="child_id" eval="str(ref('extraschool_child_standard_1'))" /> 
+			<!-- 
+			<field name="activity_id" eval="str(ref('extraschool_activity_garderie_inscription_forcee'))" /> 
+			 -->
+			<field name="registration_from">2014-01-08</field>
+			<field name="registration_to">2014-01-08</field>
+		</record>           
+        <record model="extraschool.activitychildregistration" id="extraschool_activity_registration_enfant_standard_2">
+			<field name="child_id" eval="str(ref('extraschool_child_standard_2'))" /> 
+			<!-- 
+			<field name="activity_id" eval="str(ref('extraschool_activity_garderie_inscription_forcee'))" /> 
+			 -->
+			<field name="registration_from">2014-01-08</field>
+			<field name="registration_to">2014-01-08</field>
+		</record>    		                 
+
+		<record model="extraschool.activity" id="extraschool_activity_garderie_inscription_forcee">
+            <field name="name">Activité bricolage</field>
+            <field name="category" eval="str(ref('extraschool_activitycategory_garderies_byparent'))" />
+            <field name="placeids" eval="[(6, 0, [extraschool_place_parc, extraschool_place_village, extraschool_place_centresportif, ])]"/>
+            <field name="schoolimplantationids" eval="[(6, 0, [extraschool_schoolimplantation_parc, extraschool_schoolimplantation_village, ])]"/>
+            <field name="short_name">Activité bricolage</field>
+            <field name="childtype_ids" eval="[(6, 0, [extraschool_childtype_aucun,extraschool_childtype_pc, extraschool_childtype_enseignant,extraschool_childtype_accueillante, ])]" />
+            <field name="childposition_ids" eval="[(6, 0, [extraschool_childposition_1,extraschool_childposition_2,extraschool_childposition_3,extraschool_childposition_4,extraschool_childposition_5,extraschool_childposition_6,extraschool_childposition_7,extraschool_childposition_8,extraschool_childposition_9,extraschool_childposition_10, ])]"/>
+            <field name="childregistration_ids" eval="[(6, 0, [extraschool_activity_registration_enfant_standard_1,extraschool_activity_registration_enfant_standard_2, ])]"/>
+            <field name="days">2</field>
+            <field name="onlyregisteredchilds">1</field>
+            <field name="leveltype">M,P</field>
+            <field name="autoaddchilds">1</field>
+            <field name="prest_from">14</field>
+            <field name="prest_to">15</field>
+            <field name="price">10</field>
+            <field name="fixedperiod">1</field>
+            <field name="period_duration">60</field>
+            <field name="default_from">14</field>
+            <field name="default_to">15</field>
+            <field name="subsidizedbyone">1</field>
+            <field name="validity_from">2014-01-01</field>
+            <field name="validity_to">2014-01-31</field>
+        </record>          
         <!-- presta std matin 
         	- mercredi 1/1/2014
         -->
@@ -646,7 +717,150 @@
         	<field name="prestation_date">2014-01-06</field>
         	<field name="prestation_time">8</field>
         	<field name="ES">E</field>
-        </record>                   
+        </record>           
+        <!-- activité pégagogique 
+        	- sortie ds la 3eme vendredi 6/1/2014
+        -->        
+        <record model="extraschool.prestationtimes" id="extraschool_prestationtime_inscription_forcee_1">
+			<field name="placeid" eval="str(ref('extraschool_place_parc'))" />
+			<field name="activitycategoryid" eval="str(ref('extraschool_activitycategory_garderies_byparent'))" />
+        	<field name="childid" eval="str(ref('extraschool_child_standard_1'))" />
+        	<field name="prestation_date">2014-01-06</field>
+        	<field name="prestation_time">8</field>
+        	<field name="ES">E</field>
+        </record>              
+        <!-- activité garderie 
+        	- sortie mercredi 8/1/2014
+        -->        
+        <record model="extraschool.prestationtimes" id="extraschool_prestationtime_inscription_garderie_mercredi_1">
+			<field name="placeid" eval="str(ref('extraschool_place_parc'))" />
+			<field name="activitycategoryid" eval="str(ref('extraschool_activitycategory_garderies_byparent'))" />
+        	<field name="childid" eval="str(ref('extraschool_child_standard_1'))" />
+        	<field name="prestation_date">2014-01-08</field>
+        	<field name="prestation_time">17</field>
+        	<field name="ES">S</field>
+        </record>
+        <record model="extraschool.prestationtimes" id="extraschool_prestationtime_inscription_garderie_mercredi_2">
+			<field name="placeid" eval="str(ref('extraschool_place_parc'))" />
+			<field name="activitycategoryid" eval="str(ref('extraschool_activitycategory_garderies_byparent'))" />
+        	<field name="childid" eval="str(ref('extraschool_child_standard_3'))" />
+        	<field name="prestation_date">2014-01-08</field>
+        	<field name="prestation_time">17</field>
+        	<field name="ES">S</field>
+        </record>                           
+       <!-- activité garderie check pas inscri bricolage
+        	- sortie mercredi 15/1/2014
+        -->        
+        <record model="extraschool.prestationtimes" id="extraschool_prestationtime_inscription_garderie_mercredi_3">
+			<field name="placeid" eval="str(ref('extraschool_place_parc'))" />
+			<field name="activitycategoryid" eval="str(ref('extraschool_activitycategory_garderies_byparent'))" />
+        	<field name="childid" eval="str(ref('extraschool_child_standard_1'))" />
+        	<field name="prestation_date">2014-01-15</field>
+        	<field name="prestation_time">17</field>
+        	<field name="ES">S</field>
+        </record>              
+<!--
+*************************************
+
+		 Test facturation 
+
+*************************************
+-->
+        <!-- presta std matin 
+        	- lundi 3/2/2014
+        -->
+        <record model="extraschool.prestationtimes" id="extraschool_prestationtime_standard_matin_1">
+			<field name="placeid" eval="str(ref('extraschool_place_parc'))" />
+			<field name="activitycategoryid" eval="str(ref('extraschool_activitycategory_garderies_byparent'))" />
+        	<field name="childid" eval="str(ref('extraschool_child_standard_1'))" />
+        	<field name="prestation_date">2014-02-03</field>
+        	<field name="prestation_time">7.5</field>
+        	<field name="verified">1</field>
+        	<field name="ES">E</field>
+        </record>
+        <record model="extraschool.prestationtimes" id="extraschool_prestationtime_standard_matin_1">
+			<field name="placeid" eval="str(ref('extraschool_place_parc'))" />
+			<field name="activitycategoryid" eval="str(ref('extraschool_activitycategory_garderies_byparent'))" />
+        	<field name="childid" eval="str(ref('extraschool_child_standard_1'))" />
+        	<field name="prestation_date">2014-02-03</field>
+        	<field name="prestation_time">7.5</field>
+        	<field name="verified">1</field>
+        	<field name="ES">E</field>
+        </record>
+        <!-- presta std matin hors délai Erreur pas d'activité 
+        	- jeudi 2/1/2014
+        -->        
+        <record model="extraschool.prestationtimes" id="extraschool_prestationtime_standard_matin_2">
+			<field name="placeid" eval="str(ref('extraschool_place_parc'))" />
+			<field name="activitycategoryid" eval="str(ref('extraschool_activitycategory_garderies_byparent'))" />
+        	<field name="childid" eval="str(ref('extraschool_child_standard_1'))" />
+        	<field name="prestation_date">2014-01-02</field>
+        	<field name="prestation_time">9</field>
+        	<field name="ES">S</field>
+        </record>        
+        <!-- triple activité consécutives et imbriquée 
+        	- sortie ds la 3eme vendredi 3/1/2014
+        -->        
+        <record model="extraschool.prestationtimes" id="extraschool_prestationtime_standard_matin_3">
+			<field name="placeid" eval="str(ref('extraschool_place_parc'))" />
+			<field name="activitycategoryid" eval="str(ref('extraschool_activitycategory_garderies_byparent'))" />
+        	<field name="childid" eval="str(ref('extraschool_child_standard_1'))" />
+        	<field name="prestation_date">2014-01-03</field>
+        	<field name="prestation_time">17.75</field>
+        	<field name="ES">S</field>
+        </record>  
+        <!-- activité pégagogique 
+        	- sortie ds la 3eme vendredi 6/1/2014
+        -->        
+        <record model="extraschool.prestationtimes" id="extraschool_prestationtime_pedagogique_1">
+			<field name="placeid" eval="str(ref('extraschool_place_parc'))" />
+			<field name="activitycategoryid" eval="str(ref('extraschool_activitycategory_garderies_byparent'))" />
+        	<field name="childid" eval="str(ref('extraschool_child_standard_1'))" />
+        	<field name="prestation_date">2014-01-06</field>
+        	<field name="prestation_time">8</field>
+        	<field name="ES">E</field>
+        </record>           
+        <!-- activité pégagogique 
+        	- sortie ds la 3eme vendredi 6/1/2014
+        -->        
+        <record model="extraschool.prestationtimes" id="extraschool_prestationtime_inscription_forcee_1">
+			<field name="placeid" eval="str(ref('extraschool_place_parc'))" />
+			<field name="activitycategoryid" eval="str(ref('extraschool_activitycategory_garderies_byparent'))" />
+        	<field name="childid" eval="str(ref('extraschool_child_standard_1'))" />
+        	<field name="prestation_date">2014-01-06</field>
+        	<field name="prestation_time">8</field>
+        	<field name="ES">E</field>
+        </record>              
+        <!-- activité garderie 
+        	- sortie mercredi 8/1/2014
+        -->        
+        <record model="extraschool.prestationtimes" id="extraschool_prestationtime_inscription_garderie_mercredi_1">
+			<field name="placeid" eval="str(ref('extraschool_place_parc'))" />
+			<field name="activitycategoryid" eval="str(ref('extraschool_activitycategory_garderies_byparent'))" />
+        	<field name="childid" eval="str(ref('extraschool_child_standard_1'))" />
+        	<field name="prestation_date">2014-01-08</field>
+        	<field name="prestation_time">17</field>
+        	<field name="ES">S</field>
+        </record>
+        <record model="extraschool.prestationtimes" id="extraschool_prestationtime_inscription_garderie_mercredi_2">
+			<field name="placeid" eval="str(ref('extraschool_place_parc'))" />
+			<field name="activitycategoryid" eval="str(ref('extraschool_activitycategory_garderies_byparent'))" />
+        	<field name="childid" eval="str(ref('extraschool_child_standard_3'))" />
+        	<field name="prestation_date">2014-01-08</field>
+        	<field name="prestation_time">17</field>
+        	<field name="ES">S</field>
+        </record>                           
+       <!-- activité garderie check pas inscri bricolage
+        	- sortie mercredi 15/1/2014
+        -->        
+        <record model="extraschool.prestationtimes" id="extraschool_prestationtime_inscription_garderie_mercredi_3">
+			<field name="placeid" eval="str(ref('extraschool_place_parc'))" />
+			<field name="activitycategoryid" eval="str(ref('extraschool_activitycategory_garderies_byparent'))" />
+        	<field name="childid" eval="str(ref('extraschool_child_standard_1'))" />
+        	<field name="prestation_date">2014-01-15</field>
+        	<field name="prestation_time">17</field>
+        	<field name="ES">S</field>
+        </record>   
         
         <!-- 
         <record model="extraschool.discount" id="extraschool_activity_reunionimio">
