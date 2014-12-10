@@ -32,6 +32,7 @@ class extraschool_discount(osv.osv):
         'activities'  : fields.many2many('extraschool.activity','extraschool_discount_activity_rel', 'discount_id', 'activity_id','Activities'),
         'wichactivities' : fields.selection((('OneOf','One of these activities'),('Each','Each of these activities'),('Sum','Sum of these activities')),'Wich activities'),
         'childtypes'  : fields.many2many('extraschool.childtype','extraschool_discount_childtype_rel', 'discount_id', 'childtype_id','Childtypes'),
+        'childposition_ids' : fields.many2many('extraschool.childposition','extraschool_activity_childposition_rel', 'activity_id', 'childposition_id','Child position'),
         'period' : fields.selection((('by_day','By Day'),('by_invoice','By Invoice')),'Period'),
         'discounttype' : fields.selection((('sub','Subtraction'),('prc','Percentage'),('max','Max amount')),'Discount type'),
         'discount' : fields.char('Discount', size=6),

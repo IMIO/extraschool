@@ -16,6 +16,8 @@
                         <newline/>
                         <field name="childtypes"/>
                         <newline/>
+                		<field name="childposition_ids"/>
+                        <newline/>
                         <field name="period"/>
                         <newline/>
                         <field name="discounttype"/>

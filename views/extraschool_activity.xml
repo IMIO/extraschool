@@ -32,8 +32,6 @@
                 <newline/>
                 <field name="childtype_ids"/>
                 <newline/>
-                <field name="childposition_ids"/>
-                <newline/>
                 <field name="childregistration_ids"/>
                 <newline/>
                 <field name="autoaddchilds" />  
