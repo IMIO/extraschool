@@ -205,42 +205,68 @@ class extraschool_prestationscheck_wizard(osv.osv_memory):
                             obj_prestation.create(cr,uid, {'placeid':placeid,'prestation_date': prestation_date,'childid': childid,'ES':'E','prestation_time' : (prestation_time+0.016666667),'activitycategoryid' : firstprest[0]['activitycategoryid'],'manualy_encoded':manualy_encoded,'activityid':activityid})
                        
             obj_prestation.create(cr,uid, {'placeid':placeid,'prestation_date': prestation_date,'childid': childid,'ES':ES,'prestation_time' : prestation_time,'activitycategoryid' : activitycategoryid,'manualy_encoded':manualy_encoded,'activityid':activityid})
+
+    def get_prestation_activityid(self, cr, uid, prestation):
+        obj_activity = self.pool.get('extraschool.activity')
+        activity_ids = obj_activity.search(cr, uid, [('validity_from','<=',prestation.prestation_date),
+                                      ('validity_to','>=',prestation.prestation_date),
+                                      ('category','=',prestation.activitycategoryid),                               
+                                      ('placeids','in', [place.id for place in prestation.placeid])
+                                      ])
+        print '----------------------------'
+        print activity_ids
+        print '----------------------------'
             
     def _check(self,cr,uid,form, context=None):
+        print '-----------------------'
+        print 'tutu'
 #        print form
-        obj_prestation = self.pool.get('extraschool.prestationtimes')  
+        obj_prestation = self.pool.get('extraschool.prestationtimes')
+        
         if form['currentdate']:
             currentdate=datetime.datetime.strptime(form['currentdate'], '%Y-%m-%d')
         else:
             currentdate=datetime.datetime.strptime(form['period_from'], '%Y-%m-%d')
         periodto=datetime.datetime.strptime(form['period_to'], '%Y-%m-%d')
         for placeid in form['placeid']:
-            print "currentdate:" + str(currentdate)
-            print "periodto:" + str(periodto)
             while currentdate <= periodto:
                 weekday = currentdate.weekday()
-                strcurrentdate=str(currentdate)[0:10]
+                strcurrentdate=str(currentdate)[0:10]                
+                #On récupère la liste des enfants qui ont des présences dans la pếriode demandée
                 cr.execute('select distinct("childid"),extraschool_child.name,childtypeid,levelid,schoolimplantation from "extraschool_prestationtimes"  left join "extraschool_child" on childid="extraschool_child".id where placeid=%s and "prestation_date"=%s and verified=FALSE', (placeid,strcurrentdate))
                 childs = cr.dictfetchall()
+                if childs:
+                    print '-----------------------'
+                    print 'boum!'
                 for child in childs:
-                    cr.execute('select * from extraschool_activitycategory where id in (select activitycategory_id from extraschool_activitycategory_place_rel where place_id=%s) order by priorityorder', (placeid,))
-                    activitycategories = cr.dictfetchall()
-                    for activitycategory in activitycategories:
-                        cr.execute('select * from "extraschool_prestationtimes" where placeid=%s and "prestation_date"=%s and "childid"=%s and activitycategoryid=%s order by prestation_time', (placeid,strcurrentdate,child['childid'],activitycategory['id']))
-                        prestations = cr.dictfetchall()
-                    
-                        #suppression des doublons
-                        oldprest={}
-                        for prest in prestations:
-                            if oldprest and oldprest['childid'] == prest['childid'] and oldprest['prestation_date'] == prest['prestation_date'] and oldprest['prestation_time'] == prest['prestation_time'] and oldprest['ES'] == prest['ES'] and oldprest['activitycategoryid'] == prest['activitycategoryid']:
-                                obj_prestation.unlink(cr,uid,[prest['id']])
-                            oldprest = prest
-                    
+                        '''
+                        #On récupère le niveau de l'enfant en cours                    
                         cr.execute('select leveltype from extraschool_level where id=%s',(child['levelid'],))
                         try:
                             leveltype= cr.dictfetchall()[0]['leveltype']
                         except:
-                            raise osv.except_osv('Error','Error '+str(child['name'])+' '+strcurrentdate)
+                            #Si pas de niveau erreur
+                            raise osv.except_osv('Error','Error '+str(child['name'])+' '+strcurrentdate)                                             
+                        #On récupère les présences de l'enfant en cours pour la date en cours
+                        cr.execute('select * from "extraschool_prestationtimes" where placeid=%s and "prestation_date"=%s and "childid"=%s and activitycategoryid=%s order by prestation_time', (placeid,strcurrentdate,child['childid'],form['activitycategory']))
+                        prestations = cr.dictfetchall()
+                        '''
+                        print '-----------------------'
+                        print 'toto'
+                        #On est foutu on fait un browse
+                        prestation_ids = obj_prestation.search(cr, uid, [('placeid','=',placeid),
+                                                        ('prestation_date','=',strcurrentdate),
+                                                        ('childid','=',child['childid']),
+                                                        ('activitycategory','=',form['activitycategory']),])
+                        prestations = obj_prestation.browse(cr, uid, prestation_ids)
+                        
+                        for prestation in prestations:
+                            prestation_activity_id = self.get_prestation_activityid(cr, uid, prestation)
+                currentdate=currentdate+datetime.timedelta(1)
+                        
+                        
+                        
+                '''
                         cr.execute("""select * from "extraschool_activity" where validity_from <= %s and validity_to >= %s 
                                     and category=%s 
                                     and id in (select activity_id from extraschool_activity_place_rel where place_id=%s)
@@ -390,11 +416,13 @@ class extraschool_prestationscheck_wizard(osv.osv_memory):
                         
                 currentdate=currentdate+datetime.timedelta(1)
             currentdate=datetime.datetime.strptime(form['period_from'], '%Y-%m-%d')
+            '''
             return {'state' : 'end_of_verification',}        
     
     def action_prestationscheck(self, cr, uid, ids, context=None):        
         form = self.read(cr,uid,ids,)[-1] 
-        
+        print '-----------------------'
+        print 't88888tu'
         return self.write(cr, uid, ids,self._check(cr,uid,form), context=context)
 
 
