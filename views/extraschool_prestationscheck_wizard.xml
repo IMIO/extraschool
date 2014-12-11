@@ -11,6 +11,8 @@
                     <group states="init">
                         <field name="placeid"/>
                         <newline />
+                        <field name="activitycategory"/>
+                        <newline />
                         <field name="period_from" /><field name="period_to" />                        
                     </group>
                     <group colspan="2" states="prestations_to_verify">

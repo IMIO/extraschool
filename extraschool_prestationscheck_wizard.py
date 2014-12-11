@@ -122,9 +122,12 @@ class extraschool_prestationscheck_wizard(osv.osv_memory):
         ),
     }    
     _defaults = {
-        'state' : lambda *a: 'init',        
-        'period_from' : _get_defaultfrom,
-        'period_to' : _get_defaultto,
+        'state' : lambda *a: 'init',  
+        'period_from' : '2014-01-01',
+        'period_to' : '2014-03-31', 
+        'activitycategory' : 1,     
+        #'period_from' : _get_defaultfrom,
+        #'period_to' : _get_defaultto,
     }
     
     def onchange_prestations(self, cr, uid, ids, prestations, childid, currentdate):
@@ -208,10 +211,14 @@ class extraschool_prestationscheck_wizard(osv.osv_memory):
 
     def get_prestation_activityid(self, cr, uid, prestation):
         obj_activity = self.pool.get('extraschool.activity')
+        import pdb
+        pdb.set_trace()
         activity_ids = obj_activity.search(cr, uid, [('validity_from','<=',prestation.prestation_date),
                                       ('validity_to','>=',prestation.prestation_date),
                                       ('category','=',prestation.activitycategoryid.id),                               
-                                      ('placeids','in', [place.id for place in prestation.placeid])
+                                      ('placeids','in', [place.id for place in prestation.placeid]),
+                                      ('|',(('exclusiondates_ids.date_from','>', prestation.prestation_date),
+                                      ('exclusiondates_ids.date_to','<', prestation.prestation_date))),
                                       ])
         print '----------------------------'
         print activity_ids
@@ -257,9 +264,9 @@ class extraschool_prestationscheck_wizard(osv.osv_memory):
                         prestation_ids = obj_prestation.search(cr, uid, [('placeid','=',placeid),
                                                         ('prestation_date','=',strcurrentdate),
                                                         ('childid','=',child['childid']),
-                                                        ('activitycategoryid','in',form['activitycategory']),])
+                                                        ('activitycategoryid','in',[form['activitycategory'][0]]),])
                         print '-----------------------'
-                        print 'presta du gosse : ' + str(prestation_ids)
+                        print 'presta du gosse ('+str(child['childid'])+') : ' + str(prestation_ids)
                         
                         prestations = obj_prestation.browse(cr, uid, prestation_ids)
                         
