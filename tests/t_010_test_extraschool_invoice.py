@@ -33,6 +33,9 @@ class T_010_Test_ExtraSchool_Invoice(common.TransactionCase):
         self.schoolimplantation = self.registry('extraschool.schoolimplantation')
         self.activitycategory = self.registry('extraschool.activitycategory')
         self.prestationtimes = self.registry('extraschool.prestationtimes')
+        self.parent = self.registry('extraschool.parent')
+        self.invoicedprestations = self.registry('extraschool.invoicedprestations')
+        self.invoice = self.registry('extraschool.invoice')
 
     def test_00_test_compute_invoice(self):
         print "test_00_test_compute_invoice"       
@@ -49,5 +52,16 @@ class T_010_Test_ExtraSchool_Invoice(common.TransactionCase):
         return_value = self.invoice_wizard._compute_invoices(cr,uid,form)
         
         self.assertEqual(return_value['state'],'compute_invoices','Facture boum')           
-          
+        
+        
+        #ici comment ....
+        invoiceline_ids = self.invoicedprestations.search(cr,uid,[('invoiceid.parentid.name','=','Alfred standard'),
+                                                                  ('prestation_date','=','2014-02-04'),
+                                                                  ('childid.name','=','enfant std 3'),
+                                                                  ('quantity','=',15),
+                                                                  ('activityid','=',3),
+                                                                  ('placeid','=',1),                                                                                                        
+                                                     ])
+
+        self.assertEqual(len(invoiceline_ids),1,u'facture enfant std 3 2014-02-04 pas ok')          
      

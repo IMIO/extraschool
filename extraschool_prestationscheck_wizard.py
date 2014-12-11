@@ -210,7 +210,7 @@ class extraschool_prestationscheck_wizard(osv.osv_memory):
         obj_activity = self.pool.get('extraschool.activity')
         activity_ids = obj_activity.search(cr, uid, [('validity_from','<=',prestation.prestation_date),
                                       ('validity_to','>=',prestation.prestation_date),
-                                      ('category','=',prestation.activitycategoryid),                               
+                                      ('category','=',prestation.activitycategoryid.id),                               
                                       ('placeids','in', [place.id for place in prestation.placeid])
                                       ])
         print '----------------------------'
@@ -219,7 +219,7 @@ class extraschool_prestationscheck_wizard(osv.osv_memory):
             
     def _check(self,cr,uid,form, context=None):
         print '-----------------------'
-        print 'tutu'
+        print 'Check'
 #        print form
         obj_prestation = self.pool.get('extraschool.prestationtimes')
         
@@ -237,7 +237,7 @@ class extraschool_prestationscheck_wizard(osv.osv_memory):
                 childs = cr.dictfetchall()
                 if childs:
                     print '-----------------------'
-                    print 'boum!'
+                    print 'Y a des gosses!'
                 for child in childs:
                         '''
                         #On récupère le niveau de l'enfant en cours                    
@@ -252,12 +252,15 @@ class extraschool_prestationscheck_wizard(osv.osv_memory):
                         prestations = cr.dictfetchall()
                         '''
                         print '-----------------------'
-                        print 'toto'
+                        print 'For child in childs'
                         #On est foutu on fait un browse
                         prestation_ids = obj_prestation.search(cr, uid, [('placeid','=',placeid),
                                                         ('prestation_date','=',strcurrentdate),
                                                         ('childid','=',child['childid']),
-                                                        ('activitycategory','=',form['activitycategory']),])
+                                                        ('activitycategoryid','in',form['activitycategory']),])
+                        print '-----------------------'
+                        print 'presta du gosse : ' + str(prestation_ids)
+                        
                         prestations = obj_prestation.browse(cr, uid, prestation_ids)
                         
                         for prestation in prestations:
