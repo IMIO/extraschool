@@ -239,8 +239,18 @@ class T_005_Test_ExtraSchool_PrestationCheck(common.TransactionCase):
 #                                                     ('activityid.name','=','Garderie Standard Soir'),                                                                                                                                                
                                                      ])
         self.assertEqual(len(presta),1,u'check 1 présences ajoutée')
-              
-                
+
+    def test_05_test_fct(self):
+        print "test_00_get_prestation_activityid"        
+        cr, uid = self.cr, self.uid
+        
+        
+        act_id = self.prestationscheck_wizard.get_prestation_activityid(cr,uid,self.prestationtimes.browse(cr,uid,3))
+        print str(act_id)
+        
+        #check return
+        self.assertEqual(act_id,[2],'Activity not selected')
+
 #     #
 #     #
 #     #   !!!!!!!!!!!!!!!!!!!!!!!!!   Must be The LAST One !!!!!!!!!!!!!!!!!!!!!!!

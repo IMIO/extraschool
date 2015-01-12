@@ -211,18 +211,38 @@ class extraschool_prestationscheck_wizard(osv.osv_memory):
 
     def get_prestation_activityid(self, cr, uid, prestation):
         obj_activity = self.pool.get('extraschool.activity')
-        import pdb
-        pdb.set_trace()
+#        import pdb
+#        pdb.set_trace()
+        print "date checked=" + str(prestation.prestation_date)
+        #
+        #   Get activity with exclusion date matching the presta
+        #
+        exclusion_activity_ids = obj_activity.search(cr, uid, ['&',('validity_from','<=',prestation.prestation_date),
+                                                              ('validity_to','>=',prestation.prestation_date),
+                                                              '&',('exclusiondates_ids.date_from','<=', prestation.prestation_date),
+                                                              ('exclusiondates_ids.date_to','>=', prestation.prestation_date),
+                                                              ])
+        #
+        #   Get activity with registration ONLY and presta.childid not in childregistration_ids 
+        #
+        exclusion_activity_on_registeredchild_ids = obj_activity.search(cr, uid, ['&',('validity_from','<=',prestation.prestation_date),
+                                                              ('validity_to','>=',prestation.prestation_date),
+                                                              '&',('onlyregisteredchilds','=', True),
+                                                              ('childregistration_ids','=', prestation.childid.id),
+                                                              ])
+        
         activity_ids = obj_activity.search(cr, uid, [('validity_from','<=',prestation.prestation_date),
                                       ('validity_to','>=',prestation.prestation_date),
                                       ('category','=',prestation.activitycategoryid.id),                               
                                       ('placeids','in', [place.id for place in prestation.placeid]),
-                                      ('|',(('exclusiondates_ids.date_from','>', prestation.prestation_date),
-                                      ('exclusiondates_ids.date_to','<', prestation.prestation_date))),
-                                      ])
-        print '----------------------------'
-        print activity_ids
-        print '----------------------------'
+                                      ('schoolimplantationids','in', [prestation.childid.schoolimplantation.id]),
+                                      '&', ('id', 'not in', exclusion_activity_ids), #on ne prend pas les activité avec une date d'excusion 
+                                      ('id', 'not in', exclusion_activity_on_registeredchild_ids), #on ne prend pas les activité avec inscri uniquement et ou on est pas inscri 
+                                      ('prest_from', '<=', prestation.prestation_time),
+                                      ('prest_to', '>=', prestation.prestation_time),
+                                       ])
+        
+        return activity_ids
             
     def _check(self,cr,uid,form, context=None):
         print '-----------------------'
