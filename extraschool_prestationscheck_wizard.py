@@ -237,13 +237,17 @@ class extraschool_prestationscheck_wizard(osv.osv_memory):
                                       ('placeids','in', [place.id for place in prestation.placeid]),
                                       ('schoolimplantationids','in', [prestation.childid.schoolimplantation.id]),
                                       ('id', 'not in', exclusion_activity_ids), #on ne prend pas les activité avec une date d'excusion 
-                                      ('id', 'not in', exclusion_activity_on_registeredchild_ids), #on ne prend pas les activités avec inscri uniquement et ou on est pas inscri 
+   #                                   ('id', 'not in', exclusion_activity_on_registeredchild_ids), #on ne prend pas les activités avec inscri uniquement et ou on est pas inscri 
                                       ('days','like','%'+str(datetime.datetime.strptime(prestation.prestation_date, '%Y-%m-%d').weekday())+'%'),
                                       ('leveltype','like','%'+prestation.childid.levelid.leveltype+'%'),
                                       ('prest_from', '<=', prestation.prestation_time),
                                       ('prest_to', '>=', prestation.prestation_time),
                                        ],
                                     order='prest_from DESC')
+                                                
+       
+        obj_activity.search(cr, uid, [('id' in activity_ids
+                                       'childid not in'activity_ids
         print "activities finded : " + str(activity_ids)
         
         return activity_ids
