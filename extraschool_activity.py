@@ -22,6 +22,8 @@
 ##############################################################################
 
 from openerp.osv import osv, fields
+from datetime import date, datetime, timedelta as td
+
 
 class extraschool_activity(osv.osv):
     _name = 'extraschool.activity'
@@ -57,4 +59,41 @@ class extraschool_activity(osv.osv):
     _defaults = {
         'fixedperiod' : lambda *a: False,
     }
+    
+    def populate_occurrence(self,cr,uid,ids,date_from = None):
+        activityoccurrence = self.pool.get('extraschool.activityoccurrence')
+        activity_obj = self.pool.get('extraschool.activity')
+        for activity in activity_obj.browse(cr,uid,ids):
+            if (len(activity.planneddates_ids)):
+                for planneddate in activity.planneddates_ids:
+                    activityoccurrence.create(cr,uid,{'occurence_date' : planneddate.activitydate,
+                                                      'activityid' : activity.id,
+                                               })
+            else:
+                d1 = activity.validity_from
+                if (date_from):
+                    if (date_from > activity.validity_from):
+                        d1 = date_from
+                
+                d2 = activity.validity_to
+                
+                d1 = datetime.strptime(d1, '%Y-%m-%d')
+                d2 = datetime.strptime(d2, '%Y-%m-%d')
+
+                delta = d2 - d1
+
+                for day in range(delta.days + 1):
+                    current_day_date = d1 + td(days=day)
+                    if (str(current_day_date.weekday()) in activity.days):
+                        cr.execute('select count(*) from extraschool_activity_activityexclusiondates_rel as ear inner join extraschool_activityexclusiondates as ea on ear.activityexclusiondates_id = ea.id where date_from <= %s and date_to >= %s',(current_day_date, current_day_date))
+                        exclu_activity_id = cr.fetchall()
+                        if (exclu_activity_id[0][0] == 0):
+                            activityoccurrence.create(cr,uid,{'occurence_date' : current_day_date,
+                                                              'activityid' : activity.id,
+                                                              })
+    def write(self,cr,uid,ids,vals,context = None):
+        super(extraschool_activity,self).write(cr,uid,ids,vals)
+        self.populate_occurrence(cr, uid, ids)
+
 extraschool_activity()
+

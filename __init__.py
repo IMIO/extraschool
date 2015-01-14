@@ -26,6 +26,7 @@ import extraschool_activity
 import extraschool_activitycategory
 import extraschool_activitychildregistration
 import extraschool_activityexclusiondates
+import extraschool_activityoccurrence
 import extraschool_activityplanneddate
 import extraschool_biller
 import extraschool_childposition
