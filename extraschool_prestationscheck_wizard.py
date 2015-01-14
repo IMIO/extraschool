@@ -217,17 +217,17 @@ class extraschool_prestationscheck_wizard(osv.osv_memory):
         #
         #   Get activity with exclusion date matching the presta
         #
-        exclusion_activity_ids = obj_activity.search(cr, uid, ['&',('validity_from','<=',prestation.prestation_date),
+        exclusion_activity_ids = obj_activity.search(cr, uid, [('validity_from','<=',prestation.prestation_date),
                                                               ('validity_to','>=',prestation.prestation_date),
-                                                              '&',('exclusiondates_ids.date_from','<=', prestation.prestation_date),
+                                                              ('exclusiondates_ids.date_from','<=', prestation.prestation_date),
                                                               ('exclusiondates_ids.date_to','>=', prestation.prestation_date),
                                                               ])
         #
         #   Get activity with registration ONLY and presta.childid not in childregistration_ids 
         #
-        exclusion_activity_on_registeredchild_ids = obj_activity.search(cr, uid, ['&',('validity_from','<=',prestation.prestation_date),
+        exclusion_activity_on_registeredchild_ids = obj_activity.search(cr, uid, [('validity_from','<=',prestation.prestation_date),
                                                               ('validity_to','>=',prestation.prestation_date),
-                                                              '&',('onlyregisteredchilds','=', True),
+                                                              ('onlyregisteredchilds','=', True),
                                                               ('childregistration_ids','!=', prestation.childid.id),
                                                               ])
         
@@ -236,13 +236,15 @@ class extraschool_prestationscheck_wizard(osv.osv_memory):
                                       ('category','=',prestation.activitycategoryid.id),                               
                                       ('placeids','in', [place.id for place in prestation.placeid]),
                                       ('schoolimplantationids','in', [prestation.childid.schoolimplantation.id]),
-                                      '&', ('id', 'not in', exclusion_activity_ids), #on ne prend pas les activité avec une date d'excusion 
+                                      ('id', 'not in', exclusion_activity_ids), #on ne prend pas les activité avec une date d'excusion 
                                       ('id', 'not in', exclusion_activity_on_registeredchild_ids), #on ne prend pas les activités avec inscri uniquement et ou on est pas inscri 
                                       ('days','like','%'+str(datetime.datetime.strptime(prestation.prestation_date, '%Y-%m-%d').weekday())+'%'),
                                       ('leveltype','like','%'+prestation.childid.levelid.leveltype+'%'),
                                       ('prest_from', '<=', prestation.prestation_time),
                                       ('prest_to', '>=', prestation.prestation_time),
-                                       ])
+                                       ],
+                                    order='prest_from DESC')
+        print "activities finded : " + str(activity_ids)
         
         return activity_ids
             

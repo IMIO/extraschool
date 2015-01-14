@@ -244,12 +244,32 @@ class T_005_Test_ExtraSchool_PrestationCheck(common.TransactionCase):
         print "test_00_get_prestation_activityid"        
         cr, uid = self.cr, self.uid
         
-        
-        act_id = self.prestationscheck_wizard.get_prestation_activityid(cr,uid,self.prestationtimes.browse(cr,uid,3))
+        presta = self.prestationtimes.search(cr,uid,[('childid.name','=','enfant std 1'),
+                                                     ('prestation_date','=','2014-01-03'),   
+                                                     ('ES','=','E'),
+                                                     ('prestation_time','=',7.45), 
+                                                     ])        
+        act_id = self.prestationscheck_wizard.get_prestation_activityid(cr,uid,self.prestationtimes.browse(cr,uid,presta[0]))
         print str(act_id)
         
         #check return
         self.assertEqual(act_id,[2],'Activity not selected')
+
+    def test_10_test_fct(self):
+        print "test_10_get_prestation_activityid_multi_result"        
+        cr, uid = self.cr, self.uid
+        
+        presta = self.prestationtimes.search(cr,uid,[('childid.name','=','enfant std 3'),
+                                                     ('prestation_date','=','2014-02-05'),   
+                                                     ('ES','=','E'),
+                                                     ('prestation_time','=',14), 
+                                                     ])        
+        act_id = self.prestationscheck_wizard.get_prestation_activityid(cr,uid,self.prestationtimes.browse(cr,uid,presta[0]))
+        print str(act_id)
+        
+        #check return
+        self.assertEqual(act_id,[2],'Activity not selected')
+
 
 #     #
 #     #
