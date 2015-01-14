@@ -246,8 +246,8 @@ class extraschool_prestationscheck_wizard(osv.osv_memory):
                                     order='prest_from DESC')
                                                 
        
-        obj_activity.search(cr, uid, [('id' in activity_ids
-                                       'childid not in'activity_ids
+#        obj_activity.search(cr, uid, [('id' in activity_ids
+ #                                      'childid not in'activity_ids
         print "activities finded : " + str(activity_ids)
         
         return activity_ids

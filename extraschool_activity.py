@@ -31,6 +31,8 @@ class extraschool_activity(osv.osv):
         'name' : fields.char('Name', size=50),
         'category' : fields.many2one('extraschool.activitycategory', 'Category'),
         'placeids'  : fields.many2many('extraschool.place','extraschool_activity_place_rel', 'activity_id', 'place_id','Schoolcare place'),
+        'parent_id' : fields.many2one('extraschool.activity', 'Parent'),
+        'activity_child_ids' : fields.one2many('extraschool.activity', 'parent_id','Activity child'),
         'schoolimplantationids'  : fields.many2many('extraschool.schoolimplantation','extraschool_activity_schoolimplantation_rel', 'activity_id', 'schoolimplantation_id','Schoolcare schoolimplantation'),
         'short_name' : fields.char('Short name', size=20),        
         'childtype_ids' : fields.many2many('extraschool.childtype','extraschool_activity_childtype_rel', 'activity_id', 'childtype_id','Child type'),                        
