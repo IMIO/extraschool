@@ -30,20 +30,20 @@ class extraschool_activityoccurrence(osv.osv):
     _description = 'activity occurrence'
 
     _columns = {
-        'occurence_date' : fields.date('Date'),
+        'occurrence_date' : fields.date('Date'),
         'activityid' : fields.many2one('extraschool.activity', 'Activity'),
         'activityname' : fields.related('activityid', 'name', type='char', string='name'),
         'prest_from' : fields.related('activityid', 'prest_from', type='float', string='prest_from'),
         'prest_to' : fields.related('activityid', 'prest_to', type='float', string='prest_to'),
-        'date_start' : fields.datetime('Date start', store=True),
+        'date_start' : fields.datetime('Date start',compute='_compute_date_start', store=True),
         
     }
-    @api.depends('occurence_date', 'prest_from')
+    @api.depends('occurrence_date', 'prest_from')
     def _compute_date_start(self):
         for record in self:
-            hour = record.prest_from.floor
-            minute = (record.prest_from - hour) * 100
-            record.date_start = datetime.strptime(record.occurrence_date + ' ' + str(hour) + ':' + str(minute), '%Y-%m-%d %I:%M')        
+            hour = int(record.prest_from)
+            minute = int((record.prest_from - hour) * 60)
+            record.date_start = datetime.strptime(record.occurrence_date + ' ' + str(hour).zfill(2) + ':' + str(minute).zfill(2), '%Y-%m-%d %H:%M')        
         
     
 

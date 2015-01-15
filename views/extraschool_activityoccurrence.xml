@@ -15,7 +15,7 @@
 			<field name="name">extraschool.activityoccurrence.cal</field>
 			<field name="model">extraschool.activityoccurrence</field>
 			<field name="arch" type="xml">
-                <calendar string="Sales Orders" date_start="date_start">
+                <calendar string="Activity occurences" date_start="date_start">
                     <field name="activityname"/> 			
 				</calendar>
 			</field>

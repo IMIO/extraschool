@@ -66,7 +66,7 @@ class extraschool_activity(osv.osv):
         for activity in activity_obj.browse(cr,uid,ids):
             if (len(activity.planneddates_ids)):
                 for planneddate in activity.planneddates_ids:
-                    activityoccurrence.create(cr,uid,{'occurence_date' : planneddate.activitydate,
+                    activityoccurrence.create(cr,uid,{'occurrence_date' : planneddate.activitydate,
                                                       'activityid' : activity.id,
                                                })
             else:
@@ -88,7 +88,7 @@ class extraschool_activity(osv.osv):
                         cr.execute('select count(*) from extraschool_activity_activityexclusiondates_rel as ear inner join extraschool_activityexclusiondates as ea on ear.activityexclusiondates_id = ea.id where date_from <= %s and date_to >= %s',(current_day_date, current_day_date))
                         exclu_activity_id = cr.fetchall()
                         if (exclu_activity_id[0][0] == 0):
-                            activityoccurrence.create(cr,uid,{'occurence_date' : current_day_date,
+                            activityoccurrence.create(cr,uid,{'occurrence_date' : current_day_date,
                                                               'activityid' : activity.id,
                                                               })
     def write(self,cr,uid,ids,vals,context = None):
