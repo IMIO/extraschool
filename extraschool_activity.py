@@ -92,8 +92,16 @@ class extraschool_activity(osv.osv):
                                                               'activityid' : activity.id,
                                                               })
     def write(self,cr,uid,ids,vals,context = None):
-        super(extraschool_activity,self).write(cr,uid,ids,vals)
-        self.populate_occurrence(cr, uid, ids)
+        res = super(extraschool_activity,self).write(cr,uid,ids,vals)
+        if res:
+            self.populate_occurrence(cr, uid, ids)
+        return res
+
+    def create(self,cr,uid,vals,context = None):
+        res = super(extraschool_activity,self).create(cr,uid,vals)
+        if res:
+            self.populate_occurrence(cr, uid, res)
+        return res
 
 extraschool_activity()
 

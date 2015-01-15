@@ -36,6 +36,7 @@ class extraschool_activityoccurrence(osv.osv):
         'prest_from' : fields.related('activityid', 'prest_from', type='float', string='prest_from'),
         'prest_to' : fields.related('activityid', 'prest_to', type='float', string='prest_to'),
         'date_start' : fields.datetime('Date start',compute='_compute_date_start', store=True),
+        'date_stop' : fields.datetime('Date stop',compute='_compute_date_stop', store=True),
         
     }
     @api.depends('occurrence_date', 'prest_from')
@@ -43,8 +44,16 @@ class extraschool_activityoccurrence(osv.osv):
         for record in self:
             hour = int(record.prest_from)
             minute = int((record.prest_from - hour) * 60)
+            hour = hour -1            
             record.date_start = datetime.strptime(record.occurrence_date + ' ' + str(hour).zfill(2) + ':' + str(minute).zfill(2), '%Y-%m-%d %H:%M')        
-        
-    
+            
+    @api.depends('occurrence_date', 'prest_from')
+    def _compute_date_stop(self):
+        for record in self:
+            hour = int(record.prest_to)
+            minute = int((record.prest_to - hour) * 60)
+            hour = hour -1
+            record.date_stop = datetime.strptime(record.occurrence_date + ' ' + str(hour).zfill(2) + ':' + str(minute).zfill(2), '%Y-%m-%d %H:%M')
+
 
 extraschool_activityoccurrence()

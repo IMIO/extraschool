@@ -24,6 +24,7 @@
 from openerp.osv import osv, fields
 from openerp import models,api
 
+
 class extraschool_prestations_wizard(osv.osv_memory):
     _name = 'extraschool.prestations_wizard'
 

@@ -214,14 +214,7 @@ class extraschool_prestationscheck_wizard(osv.osv_memory):
 #        import pdb
 #        pdb.set_trace()
         print "date checked=" + str(prestation.prestation_date)
-        #
-        #   Get activity with exclusion date matching the presta
-        #
-        exclusion_activity_ids = obj_activity.search(cr, uid, [('validity_from','<=',prestation.prestation_date),
-                                                              ('validity_to','>=',prestation.prestation_date),
-                                                              ('exclusiondates_ids.date_from','<=', prestation.prestation_date),
-                                                              ('exclusiondates_ids.date_to','>=', prestation.prestation_date),
-                                                              ])
+ 
         #
         #   Get activity with registration ONLY and presta.childid not in childregistration_ids 
         #
