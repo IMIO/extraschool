@@ -33,6 +33,7 @@
     'data' : [
         'views/extraschool_activitycategory.xml',
         'views/extraschool_activity.xml',
+        'views/extraschool_activityoccurrence.xml',
         'views/extraschool_biller.xml',
         'views/extraschool_childsimportfilter.xml',
         'views/extraschool_childsimport.xml',

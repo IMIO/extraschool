@@ -22,6 +22,8 @@
 ##############################################################################
 
 from openerp.osv import osv, fields
+from openerp import api, modules
+from datetime import date, datetime, timedelta as td
 
 class extraschool_activityoccurrence(osv.osv):
     _name = 'extraschool.activityoccurrence'
@@ -30,8 +32,19 @@ class extraschool_activityoccurrence(osv.osv):
     _columns = {
         'occurence_date' : fields.date('Date'),
         'activityid' : fields.many2one('extraschool.activity', 'Activity'),
+        'activityname' : fields.related('activityid', 'name', type='char', string='name'),
         'prest_from' : fields.related('activityid', 'prest_from', type='float', string='prest_from'),
         'prest_to' : fields.related('activityid', 'prest_to', type='float', string='prest_to'),
+        'date_start' : fields.datetime('Date start', store=True),
+        
     }
+    @api.depends('occurence_date', 'prest_from')
+    def _compute_date_start(self):
+        for record in self:
+            hour = record.prest_from.floor
+            minute = (record.prest_from - hour) * 100
+            record.date_start = datetime.strptime(record.occurrence_date + ' ' + str(hour) + ':' + str(minute), '%Y-%m-%d %I:%M')        
+        
+    
 
 extraschool_activityoccurrence()
