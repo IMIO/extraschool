@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+        <record model="ir.ui.view" id="extraschool_activityoccurrence_tree">
+			<field name="name">extraschool.activityoccurrence.tree</field>
+			<field name="model">extraschool.activityoccurrence</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="activityoccurrence">
+                    <field name="activityname"/> 			
+				</tree>
+			</field>
+		</record>
+        <record model="ir.ui.view" id="extraschool_activityoccurrence_cal">
+			<field name="name">extraschool.activityoccurrence.cal</field>
+			<field name="model">extraschool.activityoccurrence</field>
+			<field name="arch" type="xml">
+                <calendar string="Sales Orders" date_start="date_start">
+                    <field name="activityname"/> 			
+				</calendar>
+			</field>
+		</record>
+        
+        <record model="ir.actions.act_window" id="action_extraschool_activityoccurrence">
+			<field name="name">activityoccurrence</field>
+			<field name="res_model">extraschool.activityoccurrence</field>
+			<field name="view_type">tree</field>
+            <field name="view_mode">tree,form,calendar</field>
+		</record>
+	</data>
+</openerp>
