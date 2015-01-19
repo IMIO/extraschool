@@ -24,6 +24,9 @@
 from openerp.osv import osv, fields
 from openerp import api, modules
 from datetime import date, datetime, timedelta as td
+from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
+                           DEFAULT_SERVER_DATETIME_FORMAT)
+
 
 class extraschool_activityoccurrence(osv.osv):
     _name = 'extraschool.activityoccurrence'
@@ -45,7 +48,7 @@ class extraschool_activityoccurrence(osv.osv):
             hour = int(record.prest_from)
             minute = int((record.prest_from - hour) * 60)
             hour = hour -1            
-            record.date_start = datetime.strptime(record.occurrence_date + ' ' + str(hour).zfill(2) + ':' + str(minute).zfill(2), '%Y-%m-%d %H:%M')        
+            record.date_start = datetime.strptime(record.occurrence_date + ' ' + str(hour).zfill(2) + ':' + str(minute).zfill(2) + ':00', DEFAULT_SERVER_DATETIME_FORMAT)        
             
     @api.depends('occurrence_date', 'prest_from')
     def _compute_date_stop(self):
@@ -53,7 +56,7 @@ class extraschool_activityoccurrence(osv.osv):
             hour = int(record.prest_to)
             minute = int((record.prest_to - hour) * 60)
             hour = hour -1
-            record.date_stop = datetime.strptime(record.occurrence_date + ' ' + str(hour).zfill(2) + ':' + str(minute).zfill(2), '%Y-%m-%d %H:%M')
+            record.date_stop = datetime.strptime(record.occurrence_date + ' ' + str(hour).zfill(2) + ':' + str(minute).zfill(2) + ':00', DEFAULT_SERVER_DATETIME_FORMAT)
 
 
 extraschool_activityoccurrence()
