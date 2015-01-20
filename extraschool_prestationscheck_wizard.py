@@ -21,7 +21,8 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
+#from openerp.osv import osv, fields
+from openerp import models,api, fields
 from datetime import date
 import datetime
 import calendar
@@ -35,7 +36,7 @@ import re
 from pyPdf import PdfFileWriter, PdfFileReader
 
 
-class extraschool_prestationscheck_wizard(osv.osv_memory):
+class extraschool_prestationscheck_wizard(models.TransientModel):
     _name = 'extraschool.prestationscheck_wizard'
     _placeids = []
 
@@ -106,16 +107,13 @@ class extraschool_prestationscheck_wizard(osv.osv_memory):
         
 
     _columns = {
-        'placeid' : fields.function(fnct=_get_places,fnct_inv=_set_places, method=True, type='many2many', relation='extraschool.place', string='Places'), 
-        'period_from' : fields.date('Period from', required=True),
-        'period_to' : fields.date('Period to', required=True),
-        'currentdate' : fields.date('Current date',readonly=True),
-        'childid' : fields.many2one('extraschool.child', 'Child',readonly=True),        
-        'prestations_id': fields.function(fnct=_get_prestations,fnct_inv=_set_prestations, method=True, type='one2many', relation='extraschool.prestationtimes', string='Prestations'), 
-        'pdaprestations_id': fields.function(fnct=_get_pdaprestations, method=True, type='one2many', relation='extraschool.pdaprestationtimes', string=' PDA Prestations'), 
-        'activitycategory': fields.many2one('extraschool.activitycategory', 'Activity category'),                
-        'prestation_time' : fields.char('Time', size=5),
-        'es' : fields.selection((('E','In'), ('S','Out')),'ES' ),       
+        
+        #'placeid' : fields.function(fnct=_get_places,fnct_inv=_set_places, method=True, type='many2many', relation='extraschool.place', string='Places'),
+        
+        'placeid' : fields.Many2many('extraschool.place'), 
+        'period_from' : fields.Date(required=True),
+        'period_to' : fields.Date(required=True),
+        'activitycategory': fields.Many2one('extraschool.activitycategory'),                       
         'state' : fields.selection(
             [('init', 'Init'),('prestations_to_verify', 'Prestations to verify'),('end_of_verification', 'End of verification')],
             'State', required=True
@@ -211,6 +209,8 @@ class extraschool_prestationscheck_wizard(osv.osv_memory):
 
     def get_prestation_activityid(self, cr, uid, prestation):
         obj_activity = self.pool.get('extraschool.activity')
+        obj_activity_occurrence = self.env['extraschool.activityoccurrence']
+        obj_activity_child_registration = self.pool.get('extraschool.activitychildregistration')
 #        import pdb
 #        pdb.set_trace()
         print "date checked=" + str(prestation.prestation_date)
@@ -218,6 +218,29 @@ class extraschool_prestationscheck_wizard(osv.osv_memory):
         #
         #   Get activity with registration ONLY and presta.childid not in childregistration_ids 
         #
+        
+        activities = obj_activity_occurrence.search([('occurence_date','=',prestation.prestation_date),]).activityid.id
+        print activities
+        
+        '''
+        activity_ids = [occurrence.activityid for occurrence in obj_activity_occurrence.browse(cr,uid,activity_occurrences_ids)]
+        registeredchild_ids = obj_activity_child_registration.search(cr,uid,[('activity_id','in',activity_ids),                                                                             
+                                                                             ('child_id','=',prestation.childid),
+                                                                             ('registration_from','<=',prestation.prestation_date),
+                                                                             ('registration_to','>=',prestation.prestation_date),
+                                                                             ('activity_id.prest_from','<=',prestation.prestation_time),
+                                                                             ('activity_id.prest_to','>=',prestation.prestation_time),
+                                                                             ])
+        if registeredchild_ids:
+            activity_occurrence_id = obj_activity_occurrence.search(cr, uid, [('occurence_date','=',prestation.prestation_date),
+                                                                             ('activity_id','=',obj_activity_child_registration.browse(cr,uid,registeredchild_ids[0]).activity_id.id)
+                                                                             ])
+            return activity_occurrence_id
+        
+        
+            
+            
+        
         exclusion_activity_on_registeredchild_ids = obj_activity.search(cr, uid, [('validity_from','<=',prestation.prestation_date),
                                                               ('validity_to','>=',prestation.prestation_date),
                                                               ('onlyregisteredchilds','=', True),
@@ -242,7 +265,7 @@ class extraschool_prestationscheck_wizard(osv.osv_memory):
 #        obj_activity.search(cr, uid, [('id' in activity_ids
  #                                      'childid not in'activity_ids
         print "activities finded : " + str(activity_ids)
-        
+        '''
         return activity_ids
             
     def _check(self,cr,uid,form, context=None):
