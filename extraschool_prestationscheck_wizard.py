@@ -34,18 +34,15 @@ import math
 import lbutils
 import re
 from pyPdf import PdfFileWriter, PdfFileReader
+from pytz import timezone
+import pytz
+from dateutil.relativedelta import *
+from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
+                           DEFAULT_SERVER_DATETIME_FORMAT)
 
 
 class extraschool_prestationscheck_wizard(models.TransientModel):
     _name = 'extraschool.prestationscheck_wizard'
-    _placeids = []
-
-    def _get_places(self, cr, uid, ids, field_names, arg=None, context=None):
-        result = {ids[0]: self._placeids, 'nodestroy': True}
-        return result
-
-    def _set_places(self, cr, uid, ids, field_names, value, arg=None, context=None):
-        self._placeids=value[0][2]
     
     def _get_prestations(self, cr, uid, ids, field_names, arg=None, context=None):
         obj_prestations = self.pool.get('extraschool.prestationtimes')
@@ -54,124 +51,38 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
         result = {ids[0]:prestations_ids, 'nodestroy': True}
         return result
 
-    def _set_prestations(self, cr, uid, ids, field_names, value, arg=None, context=None):
-        return True
-    
-    def _get_pdaprestations(self, cr, uid, ids, field_names, arg=None, context=None):
-        obj_pdaprestations = self.pool.get('extraschool.pdaprestationtimes')
-        wiz_obj = self.browse(cr, uid, ids)[0]
-        pdaprestations_ids=obj_pdaprestations.search(cr, uid, [('childid', '=', wiz_obj.childid.id),('prestation_date', '=', wiz_obj.currentdate)], order='prestation_time')        
-        result = {ids[0]:pdaprestations_ids, 'nodestroy': True}
-        return result
-
-    
-    def _get_activitycategory(self, cr, uid, ids, field_names, arg=None, context=None):
-        obj_activitycategory = self.pool.get('extraschool.activitycategory')
-        wiz_obj = self.browse(cr, uid, ids)[0]
-        categories_ids=obj_activitycategory.search(cr, uid, [('schoolimplantation_ids', '=', wiz_obj.schoolimplantationid.id),], order='priorityorder')        
-        result = {ids[0]:categories_ids, 'nodestroy': True}
-        return result    
-
-    def _get_defaultfrom(self,cr, uid, ids, context=None):
-        cr.execute('select max(prestation_date) as prestation_date from extraschool_invoicedprestations')
-        rec=cr.dictfetchall()[0]
-        try:
-            fromdate=datetime.datetime.strptime(rec['prestation_date'], '%Y-%m-%d').date()
-            frommonth=fromdate.month+1
-            fromyear=fromdate.year
-            if frommonth == 13:
-                frommonth = 12
-                fromyear = fromyear +1
-            strfrommonth=str(frommonth)
-            if len(strfrommonth) == 1:
-                strfrommonth='0'+strfrommonth
-            return str(fromyear)+'-'+strfrommonth+'-01'            
-        except:
-            return str(datetime.date(datetime.datetime.now().year,datetime.datetime.now().month,1))
+    def _get_defaultfrom(self):
+        #look for first oldest prest NOT verified
+        prestationtimes_rs = self.env['extraschool.prestationtimes'].search([('verified', '=', False)], order='prestation_date ASC', limit=1)
+        
+        if prestationtimes_rs: #If a presta not verified exist 
+            fromdate = datetime.datetime.strptime(prestationtimes_rs[0].prestation_date, DEFAULT_SERVER_DATE_FORMAT).date()
+            user_time_zone = self.env.context.get('tz', False) #self.env.user.tz si ca ne fct pas !!!
+            local = pytz.timezone (user_time_zone) 
+            fromdate = local.localize(fromdate, is_dst=None)
             
-    def _get_defaultto(self,cr, uid, ids, context=None):
-        #todate=datetime.date(2013,11,1)
-        cr.execute('select max(prestation_date) as prestation_date from extraschool_invoicedprestations')
-        lastdate = cr.dictfetchall()[0]['prestation_date']
-        if lastdate and (lastdate < datetime.datetime.now()):
-            todate=datetime.date(datetime.datetime.now().year,datetime.datetime.now().month,1)-datetime.timedelta(1)
+            return fromdate.strftime("%Y-%m-%d")  
         else:
-            month=datetime.datetime.now().month
-            if month == 12:
-                month=1
-            else:
-                month=month+1
-            todate=datetime.date(datetime.datetime.now().year,month,1)-datetime.timedelta(1)
-            
-        return str(todate)
-        
+            date_now = datetime.datetime.now()
+            return str(datetime.date(date_now.year,date_now.month,1))
 
-    _columns = {
-        
-        #'placeid' : fields.function(fnct=_get_places,fnct_inv=_set_places, method=True, type='many2many', relation='extraschool.place', string='Places'),
-        
-        'placeid' : fields.Many2many('extraschool.place'), 
-        'period_from' : fields.Date(required=True),
-        'period_to' : fields.Date(required=True),
-        'activitycategory': fields.Many2one('extraschool.activitycategory'),                       
-        'state' : fields.selection(
-            [('init', 'Init'),('prestations_to_verify', 'Prestations to verify'),('end_of_verification', 'End of verification')],
-            'State', required=True
-        ),
-    }    
-    _defaults = {
-        'state' : lambda *a: 'init',  
-        'period_from' : '2014-01-01',
-        'period_to' : '2014-03-31', 
-        'activitycategory' : 1,     
-        #'period_from' : _get_defaultfrom,
-        #'period_to' : _get_defaultto,
-    }
-    
-    def onchange_prestations(self, cr, uid, ids, prestations, childid, currentdate):
-        obj_prestation = self.pool.get('extraschool.prestationtimes')
-        for prestation in prestations:            
-            if prestation[0]==2:                        
-                res = obj_prestation.unlink(cr, uid, [prestation[1]])
-            if prestation[0]==1:
-                res = obj_prestation.write(cr, uid,[prestation[1]], prestation[2])
-            if prestation[0]==0:
-                values=prestation[2]
-                prestids = obj_prestation.search(cr,uid,[('childid', '=', childid),('prestation_date', '=', currentdate),('prestation_time', '=', values['prestation_time']),('ES', '=', values['ES'])])
-                if not prestids:
-                    values['childid']=childid
-                    values['prestation_date']=currentdate
-                    values['manualy_encoded']=True
-                    res = obj_prestation.create(cr, uid, values)
-        return False        
-    
-    def onchange_schoolimplantation(self, cr, uid, ids, schoolimplantationid):
-        obj_activitycategory = self.pool.get('extraschool.activitycategory')
-        v={}        
-        categories_ids=obj_activitycategory.search(cr, uid, [('schoolimplantation_ids', '=', schoolimplantationid)])
-        v['activitycategory']=categories_ids
-        return {'value':v}
-    
-    def action_save_prestation(self, cr, uid, ids, context=None):     
-        obj_prestation = self.pool.get('extraschool.prestationtimes')           
-        form = self.read(cr,uid,ids,)[-1]
-        if form['es'] and form['prestation_time'] and form['currentdate'] and form['childid'] and form['placeid']:
-            prestation_time=form['prestation_time']
-            prestation_id = obj_prestation.create(cr, uid, {'placeid':form['placeid'][0],'childid':form['childid'][0],'prestation_date':form['currentdate'],'prestation_time':prestation_time,'ES':form['es'],'activitycategoryid' : form['activitycategory'][0],'manualy_encoded':True}, context=context)           
-            return self.write(cr, uid, ids,{'prestation_time' : '', 'prestation_date':None,'es':None,}, context=context)
-        else:
-            return False
-    
-    def onchange_record(self, cr, uid, ids, currentdate,childid):
-        obj_prestations = self.pool.get('extraschool.prestationtimes')
-        obj_pdaprestations = self.pool.get('extraschool.pdaprestationtimes')
-        v={}        
-        prestations_ids=obj_prestations.search(cr, uid, [('childid', '=', childid),('prestation_date', '=', currentdate)])
-        pdaprestations_ids=obj_pdaprestations.search(cr, uid, [('childid', '=', childid),('prestation_date', '=', currentdate)])
-        v['prestations_id']=prestations_ids
-        v['pdaprestations_id']=pdaprestations_ids
-        return {'value':v}
+    def _get_defaultto(self):          
+        return datetime.datetime.now().strftime("%Y-%m-%d")  
 
+    def _default_activitycategory(self):
+        activitycategory_rs = self.env['extraschool.activitycategory']
+        
+        return activitycategory_rs[0].id if activitycategory_rs else None
+    
+    placeid = fields.Many2many('extraschool.place')
+    period_from = fields.Date(required=True, default=_get_defaultfrom)
+    period_to = fields.Date(required=True, default=_get_defaultto)
+    activitycategory = fields.Many2one('extraschool.activitycategory', default=_default_activitycategory),                     
+    state = fields.Selection([('init', 'Init'),
+                                ('prestations_to_verify', 'Prestations to verify'),
+                                ('end_of_verification', 'End of verification')],
+                               'State', default='init', required=True)    
+        
     def insertprestation(self,cr,uid,placeid,prestation_date,childid,ES,prestation_time,activitycategoryid,manualy_encoded,activityid):
         cr.execute('select * from extraschool_prestationtimes where prestation_date = %s and childid = %s and prestation_time = %s and "ES"=%s', (prestation_date,childid,prestation_time,ES))
         prests=cr.dictfetchall()
@@ -207,20 +118,34 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
                        
             obj_prestation.create(cr,uid, {'placeid':placeid,'prestation_date': prestation_date,'childid': childid,'ES':ES,'prestation_time' : prestation_time,'activitycategoryid' : activitycategoryid,'manualy_encoded':manualy_encoded,'activityid':activityid})
 
-    def get_prestation_activityid(self, cr, uid, prestation):
-        obj_activity = self.pool.get('extraschool.activity')
+    def get_prestation_activityid(self, prestation):
+        obj_activity = self.env['extraschool.activity']
         obj_activity_occurrence = self.env['extraschool.activityoccurrence']
-        obj_activity_child_registration = self.pool.get('extraschool.activitychildregistration')
-#        import pdb
-#        pdb.set_trace()
-        print "date checked=" + str(prestation.prestation_date)
+        obj_activity_child_registration = self.env['extraschool.activitychildregistration']
  
-        #
-        #   Get activity with registration ONLY and presta.childid not in childregistration_ids 
-        #
+        #get occurence of the presta day        
+        occurrence_rs = obj_activity_occurrence.search([('occurrence_date','=',prestation.prestation_date)])
+        #extract activity ID from occurence
+        activity_ids = [occurrence.activityid.id for occurrence in occurrence_rs]
+
+        #check if there is a occurrence in witch the child is registered for that date
+        registeredchild_ids = obj_activity_child_registration.search([('activity_id','in',activity_ids),                                                                             
+                                                                      ('child_id','=',prestation.childid.id),
+                                                                      ('registration_from','<=',prestation.prestation_date),
+                                                                      ('registration_to','>=',prestation.prestation_date),
+                                                                      ('activity_id.prest_from','<=',prestation.prestation_time),
+                                                                      ('activity_id.prest_to','>=',prestation.prestation_time),
+                                                                     ])
+ 
+        if registeredchild_ids:
+            activity_occurrence_id = obj_activity_occurrence.search([('occurence_date','=',prestation.prestation_date),
+                                                                     ('activity_id','=',registeredchild_ids[0].activity_id.id)
+                                                                   ])
+            return activity_occurrence_id
         
-        activities = obj_activity_occurrence.search([('occurence_date','=',prestation.prestation_date),]).activityid.id
-        print activities
+        
+    
+        print activity_ids
         
         '''
         activity_ids = [occurrence.activityid for occurrence in obj_activity_occurrence.browse(cr,uid,activity_occurrences_ids)]
@@ -315,7 +240,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
                         prestations = obj_prestation.browse(cr, uid, prestation_ids)
                         
                         for prestation in prestations:
-                            prestation_activity_id = self.get_prestation_activityid(cr, uid, prestation)
+                            prestation_activity_id = self.get_prestation_activityid(prestation)
                 currentdate=currentdate+datetime.timedelta(1)
                         
                         

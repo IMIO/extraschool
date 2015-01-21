@@ -21,19 +21,21 @@
 
 from openerp import tools
 from openerp.tests import common
+from openerp import api
 
 class T_005_Test_ExtraSchool_PrestationCheck(common.TransactionCase):
 
     def setUp(self):
         """*****setUp*****"""
         super(T_005_Test_ExtraSchool_PrestationCheck, self).setUp()
-        cr, uid = self.cr, self.uid
 
         self.prestationscheck_wizard = self.registry('extraschool.prestationscheck_wizard')
+        self.prestationscheck_wizard_rs = self.env['extraschool.prestationscheck_wizard']
         self.place = self.registry('extraschool.place')
         self.activity = self.registry('extraschool.activity')
         self.activitycategory = self.registry('extraschool.activitycategory')
         self.prestationtimes = self.registry('extraschool.prestationtimes')
+        self.prestationtimes_rs = self.env['extraschool.prestationtimes']
         
         self.invoice_wizard = self.registry('extraschool.invoice_wizard')
         self.schoolimplantation = self.registry('extraschool.schoolimplantation')       
@@ -242,14 +244,13 @@ class T_005_Test_ExtraSchool_PrestationCheck(common.TransactionCase):
 
     def test_05_test_fct(self):
         print "test_00_get_prestation_activityid"        
-        cr, uid = self.cr, self.uid
         
-        presta = self.prestationtimes.search(cr,uid,[('childid.name','=','enfant std 1'),
+        presta = self.prestationtimes_rs.search([('childid.name','=','enfant std 1'),
                                                      ('prestation_date','=','2014-01-03'),   
                                                      ('ES','=','E'),
                                                      ('prestation_time','=',7.45), 
                                                      ])        
-        act_id = self.prestationscheck_wizard.get_prestation_activityid(cr,uid,self.prestationtimes.browse(cr,uid,presta[0]))
+        act_id = self.prestationscheck_wizard_rs.get_prestation_activityid(presta[0])
         print str(act_id)
         
         #check return
@@ -257,14 +258,13 @@ class T_005_Test_ExtraSchool_PrestationCheck(common.TransactionCase):
 
     def test_10_test_fct(self):
         print "test_10_get_prestation_activityid_multi_result"        
-        cr, uid = self.cr, self.uid
         
-        presta = self.prestationtimes.search(cr,uid,[('childid.name','=','enfant std 3'),
+        presta = self.prestationtimes.search([('childid.name','=','enfant std 3'),
                                                      ('prestation_date','=','2014-02-05'),   
                                                      ('ES','=','E'),
                                                      ('prestation_time','=',14), 
                                                      ])        
-        act_id = self.prestationscheck_wizard.get_prestation_activityid(cr,uid,self.prestationtimes.browse(cr,uid,presta[0]))
+        act_id = self.prestationscheck_wizard.get_prestation_activityid(presta[0])
         print str(act_id)
         
         #check return
