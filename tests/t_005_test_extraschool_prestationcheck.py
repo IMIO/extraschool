@@ -33,6 +33,7 @@ class T_005_Test_ExtraSchool_PrestationCheck(common.TransactionCase):
         self.prestationscheck_wizard_rs = self.env['extraschool.prestationscheck_wizard']
         self.place = self.registry('extraschool.place')
         self.activity = self.registry('extraschool.activity')
+        self.activityoccurrence = self.env['extraschool.activityoccurrence']
         self.activitycategory = self.registry('extraschool.activitycategory')
         self.prestationtimes = self.registry('extraschool.prestationtimes')
         self.prestationtimes_rs = self.env['extraschool.prestationtimes']
@@ -250,25 +251,30 @@ class T_005_Test_ExtraSchool_PrestationCheck(common.TransactionCase):
                                                      ('ES','=','E'),
                                                      ('prestation_time','=',7.45), 
                                                      ])        
-        act_id = self.prestationscheck_wizard_rs.get_prestation_activityid(presta[0])
-        print str(act_id)
-        
+        return_val = self.prestationscheck_wizard_rs.get_prestation_activityid(presta[0])
+        print str(return_val)
+        occurrence_rs = self.activityoccurrence.browse([return_val['occurrence_id']])
         #check return
-        self.assertEqual(act_id,[2],'Activity not selected')
+        self.assertEqual(occurrence_rs[0].activityid.id,2,'Activity not selected')
+    test_05_test_fct.prestacheck = 1
+    test_05_test_fct.get_prestation_activityid = 1
+        
 
     def test_10_test_fct(self):
         print "test_10_get_prestation_activityid_multi_result"        
         
-        presta = self.prestationtimes.search([('childid.name','=','enfant std 3'),
+        presta = self.prestationtimes_rs.search([('childid.name','=','enfant std 3'),
                                                      ('prestation_date','=','2014-02-05'),   
                                                      ('ES','=','E'),
                                                      ('prestation_time','=',14), 
                                                      ])        
-        act_id = self.prestationscheck_wizard.get_prestation_activityid(presta[0])
-        print str(act_id)
-        
+        return_val = self.prestationscheck_wizard_rs.get_prestation_activityid(presta[0])
+        print str(return_val)
+        occurrence_rs = self.activityoccurrence.browse([return_val['occurrence_id']])
         #check return
-        self.assertEqual(act_id,[2],'Activity not selected')
+        self.assertEqual(occurrence_rs[0].activityid.id,2,'Activity not selected')
+    test_10_test_fct.prestacheck = 1
+    test_10_test_fct.get_prestation_activityid = 1
 
 
 #     #

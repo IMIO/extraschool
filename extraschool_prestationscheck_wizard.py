@@ -22,7 +22,7 @@
 ##############################################################################
 
 #from openerp.osv import osv, fields
-from openerp import models,api, fields
+from openerp import models, api, fields
 from datetime import date
 import datetime
 import calendar
@@ -74,10 +74,13 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
         
         return activitycategory_rs[0].id if activitycategory_rs else None
     
-    placeid = fields.Many2many('extraschool.place')
+    placeid = fields.Many2many(comodel_name='extraschool.place',
+                               relation='extraschool_prestationscheck_wizard_place_rel',
+                               column1='prestationscheck_wizard_id',
+                               column2='place_id')
     period_from = fields.Date(required=True, default=_get_defaultfrom)
     period_to = fields.Date(required=True, default=_get_defaultto)
-    activitycategory = fields.Many2one('extraschool.activitycategory', default=_default_activitycategory),                     
+    activitycategory = fields.Many2one('extraschool.activitycategory', default=_default_activitycategory)                    
     state = fields.Selection([('init', 'Init'),
                                 ('prestations_to_verify', 'Prestations to verify'),
                                 ('end_of_verification', 'End of verification')],
@@ -119,13 +122,25 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
             obj_prestation.create(cr,uid, {'placeid':placeid,'prestation_date': prestation_date,'childid': childid,'ES':ES,'prestation_time' : prestation_time,'activitycategoryid' : activitycategoryid,'manualy_encoded':manualy_encoded,'activityid':activityid})
 
     def get_prestation_activityid(self, prestation):
-        obj_activity = self.env['extraschool.activity']
+        #dico of return value
+        return_val = {'return_code': 0,
+                      'error_msg' : '',
+                      'occurrence_id' : -1}
+        
         obj_activity_occurrence = self.env['extraschool.activityoccurrence']
         obj_activity_child_registration = self.env['extraschool.activitychildregistration']
  
-        #get occurence of the presta day        
-        occurrence_rs = obj_activity_occurrence.search([('occurrence_date','=',prestation.prestation_date)])
-        #extract activity ID from occurence
+        #get occurrence of the presta day matching the time slot      
+        occurrence_rs = obj_activity_occurrence.search([('occurrence_date','=',prestation.prestation_date),
+                                                        ('activityid.prest_from','<=',prestation.prestation_time),
+                                                        ('activityid.prest_to','>=',prestation.prestation_time),
+                                                        ])
+       
+        if not occurrence_rs:  #Error No matching occurrence found
+            return_val['error_msg'] = "No matching occurrence found"
+            return return_val
+            
+        #extract activity ID from occurrence
         activity_ids = [occurrence.activityid.id for occurrence in occurrence_rs]
 
         #check if there is a occurrence in witch the child is registered for that date
@@ -133,65 +148,41 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
                                                                       ('child_id','=',prestation.childid.id),
                                                                       ('registration_from','<=',prestation.prestation_date),
                                                                       ('registration_to','>=',prestation.prestation_date),
-                                                                      ('activity_id.prest_from','<=',prestation.prestation_time),
-                                                                      ('activity_id.prest_to','>=',prestation.prestation_time),
                                                                      ])
- 
+        
         if registeredchild_ids:
-            activity_occurrence_id = obj_activity_occurrence.search([('occurence_date','=',prestation.prestation_date),
-                                                                     ('activity_id','=',registeredchild_ids[0].activity_id.id)
-                                                                   ])
-            return activity_occurrence_id
+            activity_occurrence_id = obj_activity_occurrence.search([('occurrence_date','=',prestation.prestation_date),
+                                                                     ('activityid','=',registeredchild_ids[0].activity_id.id)
+                                                                     ])
+            return_val['return_code'] = 1   
+            return_val['occurrence_id'] = activity_occurrence_id[0].id     
+            return return_val
         
+        #try to find a leaf matching the time slot
+        occurrence_leaf_rs = occurrence_rs.filtered(lambda r: len(r.activityid.activity_child_ids) == 0)
         
-    
-        print activity_ids
+        if len(occurrence_leaf_rs) > 1:  #Error more than 1 occurrence found
+            return_val['error_msg'] = "More than one leaf occurrence found"
+            return return_val
+
+        if occurrence_leaf_rs: #One occurrence found
+            return_val['return_code'] = 1   
+            return_val['occurrence_id'] = occurrence_leaf_rs[0].id     
+            return return_val
         
-        '''
-        activity_ids = [occurrence.activityid for occurrence in obj_activity_occurrence.browse(cr,uid,activity_occurrences_ids)]
-        registeredchild_ids = obj_activity_child_registration.search(cr,uid,[('activity_id','in',activity_ids),                                                                             
-                                                                             ('child_id','=',prestation.childid),
-                                                                             ('registration_from','<=',prestation.prestation_date),
-                                                                             ('registration_to','>=',prestation.prestation_date),
-                                                                             ('activity_id.prest_from','<=',prestation.prestation_time),
-                                                                             ('activity_id.prest_to','>=',prestation.prestation_time),
-                                                                             ])
-        if registeredchild_ids:
-            activity_occurrence_id = obj_activity_occurrence.search(cr, uid, [('occurence_date','=',prestation.prestation_date),
-                                                                             ('activity_id','=',obj_activity_child_registration.browse(cr,uid,registeredchild_ids[0]).activity_id.id)
-                                                                             ])
-            return activity_occurrence_id
+        #try to find a branch matching the time slot
+        occurrence_branch_rs = occurrence_rs.filtered(lambda r: len(r.activityid.activity_child_ids) > 0)
         
-        
-            
-            
-        
-        exclusion_activity_on_registeredchild_ids = obj_activity.search(cr, uid, [('validity_from','<=',prestation.prestation_date),
-                                                              ('validity_to','>=',prestation.prestation_date),
-                                                              ('onlyregisteredchilds','=', True),
-                                                              ('childregistration_ids','!=', prestation.childid.id),
-                                                              ])
-        
-        activity_ids = obj_activity.search(cr, uid, [('validity_from','<=',prestation.prestation_date),
-                                      ('validity_to','>=',prestation.prestation_date),
-                                      ('category','=',prestation.activitycategoryid.id),                               
-                                      ('placeids','in', [place.id for place in prestation.placeid]),
-                                      ('schoolimplantationids','in', [prestation.childid.schoolimplantation.id]),
-                                      ('id', 'not in', exclusion_activity_ids), #on ne prend pas les activité avec une date d'excusion 
-   #                                   ('id', 'not in', exclusion_activity_on_registeredchild_ids), #on ne prend pas les activités avec inscri uniquement et ou on est pas inscri 
-                                      ('days','like','%'+str(datetime.datetime.strptime(prestation.prestation_date, '%Y-%m-%d').weekday())+'%'),
-                                      ('leveltype','like','%'+prestation.childid.levelid.leveltype+'%'),
-                                      ('prest_from', '<=', prestation.prestation_time),
-                                      ('prest_to', '>=', prestation.prestation_time),
-                                       ],
-                                    order='prest_from DESC')
-                                                
-       
-#        obj_activity.search(cr, uid, [('id' in activity_ids
- #                                      'childid not in'activity_ids
-        print "activities finded : " + str(activity_ids)
-        '''
-        return activity_ids
+        if len(occurrence_branch_rs) > 1:  #Error more than 1 occurrence found
+            return_val['error_msg'] = "More than one branch occurrence found"
+            return return_val
+
+        if occurrence_branch_rs: #One occurrence found
+            return_val['return_code'] = 1   
+            return_val['occurrence_id'] = occurrence_branch_rs[0].id     
+            return return_val
+                    
+
             
     def _check(self,cr,uid,form, context=None):
         print '-----------------------'
