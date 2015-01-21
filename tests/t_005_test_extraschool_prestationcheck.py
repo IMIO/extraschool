@@ -256,6 +256,7 @@ class T_005_Test_ExtraSchool_PrestationCheck(common.TransactionCase):
         occurrence_rs = self.activityoccurrence.browse([return_val['occurrence_id']])
         #check return
         self.assertEqual(occurrence_rs[0].activityid.id,2,'Activity not selected')
+        
     test_05_test_fct.prestacheck = 1
     test_05_test_fct.get_prestation_activityid = 1
         
@@ -272,7 +273,8 @@ class T_005_Test_ExtraSchool_PrestationCheck(common.TransactionCase):
         print str(return_val)
         occurrence_rs = self.activityoccurrence.browse([return_val['occurrence_id']])
         #check return
-        self.assertEqual(occurrence_rs[0].activityid.id,2,'Activity not selected')
+        self.assertEqual(occurrence_rs[0].activityid.id,8,'Activity not selected')
+        
     test_10_test_fct.prestacheck = 1
     test_10_test_fct.get_prestation_activityid = 1
 
