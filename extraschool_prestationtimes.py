@@ -72,7 +72,10 @@ class extraschool_prestationtimes(osv.osv):
         'ES' : fields.selection((('E','In'), ('S','Out')),'ES' , select=True, required=True),   
         'manualy_encoded' : fields.boolean('Manualy encoded', readonly=True),   
         'verified' : fields.boolean('Verified'),
-        'activityid' : fields.many2one('extraschool.activity', 'Activity', required=False),        
+        'activityid' : fields.many2one('extraschool.activity', 'Activity', required=False),  
+        'error_msg' : fields.char('Error', size=255),
+        'activity_occurrence_id' : fields.many2one('extraschool.activityoccurrence', 'Activity occurrence'),  
+              
     }
     
     def create(self, cr, uid, vals, *args, **kw):
