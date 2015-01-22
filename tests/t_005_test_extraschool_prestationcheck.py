@@ -278,6 +278,46 @@ class T_005_Test_ExtraSchool_PrestationCheck(common.TransactionCase):
     test_10_test_fct.prestacheck = 1
     test_10_test_fct.get_prestation_activityid = 1
 
+    def test_15_test_fct(self):
+        print "test_15_get_prestation_activityid_NO_result"        
+        
+        presta = self.prestationtimes_rs.search([('childid.name','=','enfant std 1'),
+                                                     ('prestation_date','=','2014-01-02'),   
+                                                     ('ES','=','S'),
+                                                     ('prestation_time','=',9), 
+                                                     ])        
+        print "-----"
+        print presta
+        print "-----"
+        return_val = self.prestationscheck_wizard_rs.get_prestation_activityid(presta[0])
+        print str(return_val)
+        #check return
+        self.assertEqual(return_val['return_code'],0,'Activity found !!!')
+        self.assertEqual(return_val['error_msg'],"No matching occurrence found",'Activity found !!!')
+        
+    test_15_test_fct.prestacheck = 1
+    test_15_test_fct.get_prestation_activityid = 1
+
+    def test_20_test_fct(self):
+        print "test_20_get_prestation_activityid_pas_inscrit_bricolage"        
+        
+        presta = self.prestationtimes_rs.search([('childid.name','=','enfant PC 1'),
+                                                     ('prestation_date','=','2014-02-05'),   
+                                                     ('ES','=','S'),
+                                                     ('prestation_time','=',14), 
+                                                     ])        
+        print "-----"
+        print presta
+        print "-----"
+        return_val = self.prestationscheck_wizard_rs.get_prestation_activityid(presta[0])
+        print str(return_val)
+        occurrence_rs = self.activityoccurrence.browse([return_val['occurrence_id']])
+        #check return
+        self.assertEqual(return_val['return_code'],1,'Activity not found !!!')
+        self.assertEqual(occurrence_rs[0].activityid.id,7,'Activity not selected')
+        
+    test_20_test_fct.prestacheck = 1
+    test_20_test_fct.get_prestation_activityid = 1
 
 #     #
 #     #

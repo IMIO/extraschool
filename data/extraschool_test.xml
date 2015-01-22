@@ -325,7 +325,7 @@
 			<field name="birthdate">2014-08-30</field>
         </record>
         <record model="extraschool.child" id="extraschool_child_pc1">
-            <field name="name">Enfant PC 1</field>
+            <field name="name">enfant PC 1</field>
             <field name="firstname">Enfant</field>
             <field name="lastname">PC 1</field>
             <field name="childtypeid" eval="str(ref('extraschool_childtype_pc'))" />
@@ -936,6 +936,15 @@
 			<field name="placeid" eval="str(ref('extraschool_place_parc'))" />
 			<field name="activitycategoryid" eval="str(ref('extraschool_activitycategory_garderies_byparent'))" />
         	<field name="childid" eval="str(ref('extraschool_child_standard_3'))" />
+        	<field name="prestation_date">2014-02-05</field>
+        	<field name="prestation_time">14</field>
+        	<field name="verified">1</field>
+        	<field name="ES">S</field>
+        </record>        
+        <record model="extraschool.prestationtimes" id="inv_extraschool_prestationtime_inscription_garderie_mercredi_2_pas_inscrit">
+			<field name="placeid" eval="str(ref('extraschool_place_parc'))" />
+			<field name="activitycategoryid" eval="str(ref('extraschool_activitycategory_garderies_byparent'))" />
+        	<field name="childid" eval="str(ref('extraschool_child_pc1'))" />
         	<field name="prestation_date">2014-02-05</field>
         	<field name="prestation_time">14</field>
         	<field name="verified">1</field>
