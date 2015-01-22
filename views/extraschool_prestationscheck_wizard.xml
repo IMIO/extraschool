@@ -1,10 +1,9 @@
-<?xml version="1.0" ?>
+<?xml version="1.0"  encoding="utf-8"?>
 <openerp>
 	<data> 
         <record model="ir.ui.view" id="extraschool_prestationscheck_wizard_form">
             <field name="name">extraschool.prestationscheck.wizard.form</field>
             <field name="model">extraschool.prestationscheck_wizard</field>
-            <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Prestationscheck Wizard">
                     <field name="state" invisible="1" />
@@ -20,10 +19,25 @@
                     </group>                     
                     <group colspan="4" col="3">
                         <button name="action_prestationscheck" string="Check prestations" icon="gtk-apply" type="object" states="init" />
+<!--                        <button name="confirm" string="Confirm Anyway" type="object" class="oe_highlight"/>
+      -->                  
                     </group>
                 </form>
             </field>
         </record>
+<!--      
+        <record id="action_event_confirm" model="ir.actions.act_window">
+            <field name="name">Event Confirmation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">event.confirm</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_event_confirm"/>
+            <field name="context">{'record_id' : active_id}</field>
+            <field name="target">new</field>
+        </record>
+-->        
+        
         <record model="ir.actions.act_window" id="action_lbsc_prestationscheck_wizard">
             <field name="name">Prestations check Wizard</field>
             <field name="type">ir.actions.act_window</field>
@@ -31,6 +45,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="target">inline</field>
+            <field name="context">{'record_id' : active_id}</field>
         </record>
 	</data>
 </openerp>

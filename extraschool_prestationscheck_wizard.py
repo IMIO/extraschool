@@ -231,11 +231,14 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
         
         return {'state' : 'end_of_verification',}        
     
-    def action_prestationscheck(self, cr, uid, ids, context=None):        
-        form = self.read(cr,uid,ids,)[-1] 
-        print '-----------------------'
-        print 't88888tu'
-        return self.write(cr, uid, ids,self._check(cr, uid, form, context), context=context)
+    def action_prestationscheck(self):        
+        print "------------------"
+        print str(self)
+        print "++++++++++++++++++"
+#         form = self.read(cr,uid,ids,)[-1] 
+#         print '-----------------------'
+#         print 't88888tu'
+#         return self.write(cr, uid, ids,self._check(cr, uid, form, context), context=context)
 
 
 extraschool_prestationscheck_wizard()
