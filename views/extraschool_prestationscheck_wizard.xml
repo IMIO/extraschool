@@ -18,25 +18,11 @@
                         <label string="Ok" />
                     </group>                     
                     <group colspan="4" col="3">
-                        <button name="action_prestationscheck" string="Check prestations" icon="gtk-apply" type="object" states="init" />
-<!--                        <button name="confirm" string="Confirm Anyway" type="object" class="oe_highlight"/>
-      -->                  
+                        <button name="action_prestationscheck" string="Check prestations" icon="gtk-apply" type="object" />          
                     </group>
                 </form>
             </field>
-        </record>
-<!--      
-        <record id="action_event_confirm" model="ir.actions.act_window">
-            <field name="name">Event Confirmation</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">event.confirm</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form</field>
-            <field name="view_id" ref="view_event_confirm"/>
-            <field name="context">{'record_id' : active_id}</field>
-            <field name="target">new</field>
-        </record>
--->        
+        </record>       
         
         <record model="ir.actions.act_window" id="action_lbsc_prestationscheck_wizard">
             <field name="name">Prestations check Wizard</field>

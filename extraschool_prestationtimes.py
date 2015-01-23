@@ -23,6 +23,7 @@
 
 from openerp.osv import osv, fields
 
+
 class extraschool_prestationtimes(osv.osv):
     _name = 'extraschool.prestationtimes'
     _description = 'Prestation Times'
@@ -75,12 +76,26 @@ class extraschool_prestationtimes(osv.osv):
         'activityid' : fields.many2one('extraschool.activity', 'Activity', required=False),  
         'error_msg' : fields.char('Error', size=255),
         'activity_occurrence_id' : fields.many2one('extraschool.activityoccurrence', 'Activity occurrence'),  
+        'prestation_times_of_the_day_id' : fields.many2one('extraschool.prestation_times_of_the_day', 'Prestation of the day'),  
               
     }
     
-    def create(self, cr, uid, vals, *args, **kw):
+    def create(self, cr, uid, vals, *args, **kw):        
         if (not vals['childid']) or (not vals['placeid']) or (not vals['activitycategoryid']):  
             raise osv.except_osv('Child, Place and Category must be filled')
+        
+        prestation_times_of_the_day_obj = self.pool.get('extraschool.prestation_times_of_the_day')        #
+        prestation_times_of_the_day_ids = prestation_times_of_the_day_obj.search(cr,uid,[('child_id.id', '=', vals['childid']),
+                                                                                ('date_of_the_day', '=', vals['prestation_date']),
+                                                                                ])
+        if not prestation_times_of_the_day_ids:
+            vals['prestation_times_of_the_day_id'] = prestation_times_of_the_day_obj.create(cr,uid,{'child_id' : vals['childid'],
+                                                           'date_of_the_day' : vals['prestation_date'],
+                                                           'verified' : False,
+                                                           })
+        else :
+            vals['prestation_times_of_the_day_id'] = prestation_times_of_the_day_ids[0]
+        
         return super(extraschool_prestationtimes, self).create(cr, uid, vals)
 
     
@@ -99,3 +114,5 @@ class extraschool_prestationtimes(osv.osv):
                 pass
             return super(extraschool_prestationtimes, self).unlink(cr, uid, ids)
 extraschool_prestationtimes()
+
+

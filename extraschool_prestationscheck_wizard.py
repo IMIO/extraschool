@@ -204,41 +204,37 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
         return return_val
 
             
-    def _check(self,cr, uid, form, context=None):
-        print form
-        env = Environment(cr, uid, context)
-     
+    def _check(self):        
         prestation_search_domain = [('verified', '=', False),]
         
-        if form['placeid']:
-            prestation_search_domain.append(('placeid.id', 'in', form['placeid']))
-        if form['activitycategory']:
-            prestation_search_domain.append(('activitycategoryid.id', '=', form['activitycategory'][0]))
-        if form['period_from']:
-            prestation_search_domain.append(('prestation_date', '>=', form['period_from']))
-        if form['period_to']:
-            prestation_search_domain.append(('prestation_date', '<=', form['period_to']))
+        if self.placeid:
+            prestation_search_domain.append(('placeid.id', 'in', self.placeid))
+        if self.activitycategory:
+            prestation_search_domain.append(('activitycategoryid.id', '=', self.activitycategory[0]))
+        if self.period_from:
+            prestation_search_domain.append(('prestation_date', '>=', self.period_from))
+        if self.period_to:
+            prestation_search_domain.append(('prestation_date', '<=', self.period_to))
                                     
-        obj_prestation_rs = env['extraschool.prestationtimes'].search(prestation_search_domain)
+        obj_prestation_rs = self.env['extraschool.prestationtimes'].search(prestation_search_domain)
+        
         
         print "---------"
         print obj_prestation_rs
         print "---------"
 
         for prestation in obj_prestation_rs:
+                
             self._check_prestation(prestation)
 
+        self.state = 'end_of_verification'
         
-        return {'state' : 'end_of_verification',}        
+        return self        
     
-    def action_prestationscheck(self):        
-        print "------------------"
-        print str(self)
-        print "++++++++++++++++++"
-#         form = self.read(cr,uid,ids,)[-1] 
-#         print '-----------------------'
-#         print 't88888tu'
-#         return self.write(cr, uid, ids,self._check(cr, uid, form, context), context=context)
+    @api.multi    
+    def action_prestationscheck(self):    
+            
+        return self._check()
 
 
 extraschool_prestationscheck_wizard()

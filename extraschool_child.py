@@ -22,6 +22,9 @@
 ##############################################################################
 
 from openerp.osv import osv, fields
+from datetime import date
+import datetime
+
 
 class extraschool_child(osv.osv):
     _name = 'extraschool.child'
