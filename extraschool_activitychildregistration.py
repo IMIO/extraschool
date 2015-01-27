@@ -36,6 +36,7 @@ class extraschool_activitychildregistration(osv.osv):
     _columns = {
         'name' : fields.function(_compute_name, method=True, type="char", string="Name"),
         'child_id' : fields.many2one('extraschool.child', 'Child'),
+        'place_id' : fields.many2one('extraschool.place', 'Place', required=False),        
         'activity_id' : fields.many2one('extraschool.activity', 'Activity'),
         'registration_from' : fields.date('Registration from'),
         'registration_to' : fields.date('Registration to'),

@@ -66,7 +66,7 @@ class extraschool_activity(osv.osv):
         for activity in activity_obj.browse(cr,uid,ids):
             if (len(activity.planneddates_ids)):
                 for planneddate in activity.planneddates_ids:
-                    activityoccurrence.create(cr,uid,{'occurrence_date' : planneddate.activitydate,
+                    activityoccurrence.create(cr,uid,{'occurrence_date' : datetime.strptime(planneddate.activitydate, '%Y-%m-%d'),
                                                       'activityid' : activity.id,
                                                })
             else:

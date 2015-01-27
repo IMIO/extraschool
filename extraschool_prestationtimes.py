@@ -55,21 +55,13 @@ class extraschool_prestationtimes(osv.osv):
         form = self.read(cr,uid,ids,)[-1]
         prestation_id = obj_prestation.write(cr, uid, ids[0], {'childid':form['childid'][0],'prestation_date':form['prestation_date'],'prestation_time':form['prestation_time'],'ES':form['ES'],'manualy_encoded':True}, context=context)
         return {'warning': {'title': 'Record saved','message': 'record saved!',}}
-   
-    def _compute_date_from (self, cr, uid, ids, field_name, arg, context):
-        to_return={}
-        for record in self.browse(cr, uid, ids):            
-            to_return[record.id]= str(datetime.datetime(int(record.prestation_date[0:4]),int(record.prestation_date[5:7]),int(record.prestation_date[8:10]),int(math.floor(record.prestation_time)),int((record.prestation_time-math.floor(record.prestation_time))*60)))
-        return to_return
-
-        
+          
     _columns = {
         'placeid' : fields.many2one('extraschool.place', 'Schoolcare Place', required=False),
         'activitycategoryid' : fields.many2one('extraschool.activitycategory', 'Activity Category', required=False),
         'childid' : fields.many2one('extraschool.child', 'Child', domain="[('isdisabled','=',False)]", required=False, select=True),
         'prestation_date' : fields.date('Date', select=True),
         'prestation_time' : fields.float('Time', select=True, required=True),
-        'date_from' : fields.function(_compute_date_from, method=True, type="datetime", string="Date from"),      
         'ES' : fields.selection((('E','In'), ('S','Out')),'ES' , select=True, required=True),   
         'manualy_encoded' : fields.boolean('Manualy encoded', readonly=True),   
         'verified' : fields.boolean('Verified'),

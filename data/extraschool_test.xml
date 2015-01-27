@@ -571,17 +571,20 @@
         </record>
 
         <record model="extraschool.activitychildregistration" id="extraschool_activity_registration_imb_enfant_standard_1">
-			<field name="child_id" eval="str(ref('extraschool_child_standard_1'))" /> 
+			<field name="child_id" eval="str(ref('extraschool_child_standard_1'))" />
+			<field name="place_id" eval="str(ref('extraschool_place_parc'))" />
 			<field name="registration_from">2014-01-08</field>
 			<field name="registration_to">2014-01-08</field>
 		</record>           
         <record model="extraschool.activitychildregistration" id="extraschool_activity_registration_imb_enfant_standard_2">
 			<field name="child_id" eval="str(ref('extraschool_child_standard_2'))" /> 
+			<field name="place_id" eval="str(ref('extraschool_place_parc'))" />
 			<field name="registration_from">2014-01-08</field>
 			<field name="registration_to">2014-01-08</field>
 		</record>    	
         <record model="extraschool.activitychildregistration" id="extraschool_activity_registration_imb_enfant_standard_3">
 			<field name="child_id" eval="str(ref('extraschool_child_standard_3'))" /> 
+			<field name="place_id" eval="str(ref('extraschool_place_parc'))" />
 			<field name="registration_from">2014-02-01</field>
 			<field name="registration_to">2014-02-28</field>
 		</record>            
@@ -642,16 +645,19 @@
 
 		<record model="extraschool.activitychildregistration" id="extraschool_activity_registration_jp_enfant_standard_1">
 			<field name="child_id" eval="str(ref('extraschool_child_standard_1'))" /> 
+			<field name="place_id" eval="str(ref('extraschool_place_parc'))" />			
 			<field name="registration_from">2014-01-08</field>
 			<field name="registration_to">2014-01-08</field>
 		</record>           
         <record model="extraschool.activitychildregistration" id="extraschool_activity_registration_jp_enfant_standard_2">
 			<field name="child_id" eval="str(ref('extraschool_child_standard_2'))" /> 
+			<field name="place_id" eval="str(ref('extraschool_place_parc'))" />
 			<field name="registration_from">2014-01-08</field>
 			<field name="registration_to">2014-01-08</field>
 		</record>    	
         <record model="extraschool.activitychildregistration" id="extraschool_activity_registration_jp_enfant_standard_3">
 			<field name="child_id" eval="str(ref('extraschool_child_standard_3'))" /> 
+			<field name="place_id" eval="str(ref('extraschool_place_parc'))" />
 			<field name="registration_from">2014-02-01</field>
 			<field name="registration_to">2014-02-28</field>
 		</record>
@@ -712,16 +718,19 @@
 			 -->	
         <record model="extraschool.activitychildregistration" id="extraschool_activity_registration_bricolage_enfant_standard_1">
 			<field name="child_id" eval="str(ref('extraschool_child_standard_1'))" /> 
+			<field name="place_id" eval="str(ref('extraschool_place_parc'))" />
 			<field name="registration_from">2014-01-08</field>
 			<field name="registration_to">2014-01-08</field>
 		</record>           
         <record model="extraschool.activitychildregistration" id="extraschool_activity_registration_bricolage_enfant_standard_2">
 			<field name="child_id" eval="str(ref('extraschool_child_standard_2'))" /> 
+			<field name="place_id" eval="str(ref('extraschool_place_parc'))" />
 			<field name="registration_from">2014-01-08</field>
 			<field name="registration_to">2014-01-08</field>
 		</record>    	
         <record model="extraschool.activitychildregistration" id="extraschool_activity_registration_bricolage_enfant_standard_3">
 			<field name="child_id" eval="str(ref('extraschool_child_standard_3'))" /> 
+			<field name="place_id" eval="str(ref('extraschool_place_parc'))" />
 			<field name="registration_from">2014-02-01</field>
 			<field name="registration_to">2014-02-28</field>
 		</record> 			      

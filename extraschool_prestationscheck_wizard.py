@@ -190,18 +190,23 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
             return_val['occurrence_id'] = occurrence_branch_rs[0].id     
             return return_val
 
-    def _check_prestation(self,prestation):
-        return_val = {'return_code': 0,
-                      'error_msg' : '',
-                      }
+    def _prestation_completion(self,prestation):
+        if prestation.ES == 'E':
+            # Entrance
+            print "Entrance"
+        else:    
+            # exit
+            print "Exit"
+            
+    def _prestation_activity_occurrence_completion(self,prestation):
         #Look for activityoccurrence maching the prestation
         res = self.get_prestation_activityid(prestation)
         if not res['return_code']:
             prestation.error_msg = res['error_msg']
         else:
             prestation.activity_occurrence_id = res['occurrence_id']
-        
-        return return_val
+                
+        return self
 
             
     def _check(self):        
@@ -217,15 +222,14 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
             prestation_search_domain.append(('prestation_date', '<=', self.period_to))
                                     
         obj_prestation_rs = self.env['extraschool.prestationtimes'].search(prestation_search_domain)
-        
-        
-        print "---------"
-        print obj_prestation_rs
-        print "---------"
-
-        for prestation in obj_prestation_rs:
                 
-            self._check_prestation(prestation)
+        #add activity occurrence when missing
+        for prestation in obj_prestation_rs.filtered(lambda r: r.activity_occurrence_id == False):          
+            self._prestation_activity_occurrence_completion(prestation)
+
+        #add activity occurrence when missing
+        for prestation in obj_prestation_rs.filtered(lambda r: r.activity_occurrence_id == False):          
+            self._prestation_activity_occurrence_completion(prestation)
 
         self.state = 'end_of_verification'
         
