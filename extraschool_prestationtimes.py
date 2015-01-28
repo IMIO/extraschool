@@ -82,7 +82,26 @@ class extraschool_prestationtimes(osv.osv):
         if (not vals['childid']) or (not vals['placeid']) or (not vals['activitycategoryid']):  
             raise osv.except_osv('Child, Place and Category must be filled')
         
-        prestation_times_of_the_day_obj = self.pool.get('extraschool.prestation_times_of_the_day')        #
+        prestation_times_of_the_day_obj = self.pool.get('extraschool.prestation_times_of_the_day')
+        prestation_times_obj = self.pool.get('extraschool.prestationtimes')
+        
+        #check if presta allready exist
+        print "------------------"
+        print str(vals)
+        print "------------------"
+        prestaion_times_ids = prestation_times_obj.search(cr,uid,[('placeid.id', '=',vals['placeid']),
+                                                                 ('childid.id', '=',vals['childid']),
+                                                                 ('activitycategoryid.id', '=',vals['activitycategoryid']),
+                                                                 ('prestation_date', '=',vals['prestation_date']),
+                                                                 ('prestation_time', '=',vals['prestation_time']),
+                                                                 ('es', '=',vals['es']),
+                                                                 ])
+        if prestaion_times_ids:
+            #presta allready exist :/
+            print "!!!!!!!!!!!!!!  duplicate   !!!!!!!!!!!!!!!!!!!!!"
+            vals['error_msg'] = 'duplicate'
+            
+        
         prestation_times_of_the_day_ids = prestation_times_of_the_day_obj.search(cr,uid,[('child_id.id', '=', vals['childid']),
                                                                                 ('date_of_the_day', '=', vals['prestation_date']),
                                                                                 ])
@@ -98,7 +117,7 @@ class extraschool_prestationtimes(osv.osv):
 
     
     def write(self, cr, uid, ids, vals, context=None):
-            vals['verified'] = False
+#            vals['verified'] = False
             return super(extraschool_prestationtimes, self).write(cr, uid, ids, vals, context=context)
             
     def unlink(self, cr, uid, ids, context=None):        

@@ -27,7 +27,8 @@
                     <field name="verified" />
                     <newline/>
                     <field name="prestationtime_ids" nolabel="1" colspan="4">
-                    	<tree string="prestation_times">
+                    	<tree string="prestation_times" colors="red:verified==False">
+	                   		<field name="childid" />
                     		<field name="placeid" />
                     		<field name="activitycategoryid" />
                     		<field name="activity_occurrence_id" />
@@ -37,6 +38,19 @@
                     		<field name="verified" />
                     		<field name="error_msg" />
                     	</tree>
+                    	<form string="prestation_times" colors="red:verified==False">
+                    		<group>
+	                    		<field name="childid" />
+	                    		<field name="placeid" />
+	                    		<field name="activitycategoryid" />
+	                    		<field name="activity_occurrence_id" />
+	                    		<field name="prestation_time" />
+	                    		<field name="es" />
+	                    		<field name="exit_all" />
+	                    		<field name="verified" />
+	                    		<field name="error_msg" />
+                    		</group>                    		
+                    	</form>
                     </field>
                 </group>
 				</form>

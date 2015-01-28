@@ -58,6 +58,10 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
         print "_get_defaultfrom"
         if prestationtimes_rs: #If a presta not verified exist 
             fromdate = datetime.datetime.strptime(prestationtimes_rs[0].prestation_date, DEFAULT_SERVER_DATE_FORMAT)
+            print "----------"
+            print str(self.env.context)
+            print "----------"
+            
             user_time_zone = self.env.context.get('tz', False) #self.env.user.tz si ca ne fct pas !!!
             print "--" + str(fromdate) + "---"
             local = pytz.timezone (user_time_zone) 
@@ -128,18 +132,19 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
     def get_prestation_activityid(self, prestation):
         #dico of return value
         return_val = {'return_code': 0,
-                      'error_msg' : '',
+                      'error_msg' : 'Unknown Error',
                       'occurrence_id' : -1}
         
         obj_activity_occurrence = self.env['extraschool.activityoccurrence']
         obj_activity_child_registration = self.env['extraschool.activitychildregistration']
  
         #get occurrence of the presta day matching the time slot      
-        occurrence_rs = obj_activity_occurrence.search([('occurrence_date','=',prestation.prestation_date),
+        occurrence_rs = obj_activity_occurrence.search([('place_id','=',prestation.placeid.id),
+                                                        ('occurrence_date','=',prestation.prestation_date),
                                                         ('activityid.prest_from','<=',prestation.prestation_time),
                                                         ('activityid.prest_to','>=',prestation.prestation_time),
                                                         ])
-       
+        print "yop"
         if not occurrence_rs:  #Error No matching occurrence found
             return_val['error_msg'] = "No matching occurrence found"
             return return_val
@@ -148,15 +153,18 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
         activity_ids = [occurrence.activityid.id for occurrence in occurrence_rs]
 
         #check if there is a occurrence in witch the child is registered for that date
-        registeredchild_ids = obj_activity_child_registration.search([('activity_id','in',activity_ids),                                                                             
-                                                                      ('child_id','=',prestation.childid.id),
+        registeredchild_ids = obj_activity_child_registration.search([('place_id.id','=',prestation.placeid.id),
+                                                                      ('activity_id.id','in',activity_ids),                                                                             
+                                                                      ('child_id.id','=',prestation.childid.id),
                                                                       ('registration_from','<=',prestation.prestation_date),
                                                                       ('registration_to','>=',prestation.prestation_date),
                                                                      ])
+        print "yup"
         
         if registeredchild_ids:
-            activity_occurrence_id = obj_activity_occurrence.search([('occurrence_date','=',prestation.prestation_date),
-                                                                     ('activityid','=',registeredchild_ids[0].activity_id.id)
+            activity_occurrence_id = obj_activity_occurrence.search([('place_id.id','=',prestation.placeid.id),
+                                                                     ('occurrence_date','=',prestation.prestation_date),
+                                                                     ('activityid.id','=',registeredchild_ids[0].activity_id.id)
                                                                      ])
             return_val['return_code'] = 1   
             return_val['occurrence_id'] = activity_occurrence_id[0].id     
@@ -168,6 +176,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
         
         #try to find a leaf matching the time slot
         occurrence_leaf_rs = occurrence_no_register_rs.filtered(lambda r: len(r.activityid.childregistration_ids) == 0)
+        print "yip"
         
         if len(occurrence_leaf_rs) > 1:  #Error more than 1 occurrence found
             return_val['error_msg'] = "More than one leaf occurrence found"
@@ -180,15 +189,19 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
         
         #try to find a branch matching the time slot
         occurrence_branch_rs = occurrence_no_register_rs.filtered(lambda r: len(r.activityid.activity_child_ids) > 0)
+        print "yap"
         
         if len(occurrence_branch_rs) > 1:  #Error more than 1 occurrence found
             return_val['error_msg'] = "More than one branch occurrence found"
             return return_val
+        print "yyyp"
 
         if occurrence_branch_rs: #One occurrence found
             return_val['return_code'] = 1   
             return_val['occurrence_id'] = occurrence_branch_rs[0].id     
             return return_val
+        
+        return return_val
 
     def _prestation_completion(self,prestation):
         if prestation.es == 'E':
@@ -201,7 +214,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
     def _prestation_activity_occurrence_completion(self,prestation):
         #Look for activityoccurrence maching the prestation
         res = self.get_prestation_activityid(prestation)
-        print str(res)
+        print "+++++" + str(res) + "----"
         if not res['return_code']:
             prestation.error_msg = res['error_msg']
         else:

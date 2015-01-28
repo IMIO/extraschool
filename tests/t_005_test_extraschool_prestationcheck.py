@@ -66,7 +66,7 @@ class T_005_Test_ExtraSchool_PrestationCheck(common.TransactionCase):
         #check ajout de la presta manquante
         presta = self.prestationtimes.search(cr,uid,[('childid.name','=','enfant std 1'),
                                                      ('prestation_date','=','2014-01-01'),
-                                                     ('ES','=','S'),
+                                                     ('es','=','S'),
                                                      ('manualy_encoded','=',False),
                                                      ('verified','=',True),
                                                      ('prestation_time','=',8.5), 
@@ -95,14 +95,16 @@ class T_005_Test_ExtraSchool_PrestationCheck(common.TransactionCase):
     def test_01_test_fct(self):
         print "test_01_test_fct"
         cr, uid = self.cr, self.uid
-        form = {'placeid': self.place.search(cr,uid,[('name','in',['Ecole du parc'])]),
-                'period_from': '2014-01-02',
-                'period_to': '2014-01-02',
-                'activitycategory': self.activitycategory.search(cr,uid,[('name','in',['Garderies byparent'])]),
-                'state': 'init',
-                'currentdate': False,
-                }
-        return_value = self.prestationscheck_wizard._check(cr, uid,form)
+
+        self.prestationscheck_wizard_rs = self.prestationscheck_wizard_rs.with_context(tz='Europe/Brussels').create({})
+        self.prestationscheck_wizard_rs.placeid = self.place.search(cr,uid,[('name','in',['Ecole du parc'])])
+        self.prestationscheck_wizard_rs.period_from = '2014-01-02'
+        self.prestationscheck_wizard_rs.period_to = '2014-01-02'
+        self.prestationscheck_wizard_rs.activitycategory = self.activitycategory.search(cr,uid,[('name','in',['Garderies byparent'])])
+        self.prestationscheck_wizard_rs.state = 'init'
+        self.prestationscheck_wizard_rs.currentdate = False
+        
+        return_value = self.prestationscheck_wizard_rs.with_context(tz='Europe/Brussels')._check() 
         
         #check return
         self.assertNotEqual(return_value['state'],'end_of_verification','Pas d''erreur trouvée')
@@ -119,7 +121,8 @@ class T_005_Test_ExtraSchool_PrestationCheck(common.TransactionCase):
 #                                                     ('activityid.name','=','Garderie Standard Matin'),
                                                      ])
         self.assertEqual(len(presta),0,'check verified field is False')      
-        
+    test_01_test_fct.prestacheck = 1
+    test_01_test_fct.check_wizard = 1         
 #
 #    Triple activité  
 #        - mercredi 3/1/2014 
@@ -131,21 +134,23 @@ class T_005_Test_ExtraSchool_PrestationCheck(common.TransactionCase):
     def test_02_test_fct(self):
         print "test_02_test_fct"
         cr, uid = self.cr, self.uid
-        form = {'placeid': self.place.search(cr,uid,[('name','in',['Ecole du parc'])]),
-                'period_from': '2014-01-03',
-                'period_to': '2014-01-03',
-                'activitycategory': self.activitycategory.search(cr,uid,[('name','in',['Garderies byparent'])]),
-                'state': 'init',
-                'currentdate': False,
-                }
-        return_value = self.prestationscheck_wizard._check(cr, uid,form)
+
+        self.prestationscheck_wizard_rs = self.prestationscheck_wizard_rs.with_context(tz='Europe/Brussels').create({})
+        self.prestationscheck_wizard_rs.placeid = self.place.search(cr,uid,[('name','in',['Ecole du parc'])])
+        self.prestationscheck_wizard_rs.period_from = '2014-01-03'
+        self.prestationscheck_wizard_rs.period_to = '2014-01-03'
+        self.prestationscheck_wizard_rs.activitycategory = self.activitycategory.search(cr,uid,[('name','in',['Garderies byparent'])])
+        self.prestationscheck_wizard_rs.state = 'init'
+        self.prestationscheck_wizard_rs.currentdate = False
+        
+        return_value = self.prestationscheck_wizard_rs.with_context(tz='Europe/Brussels')._check()  
         
         #check return
         self.assertEqual(return_value['state'],'end_of_verification','Pas d''erreur trouvée')
         #check ajout de la presta manquante
         presta = self.prestationtimes.search(cr,uid,[('childid.name','=','enfant std 1'),
                                                      ('prestation_date','=','2014-01-03'),   
-                                                     ('ES','=','E'),
+                                                     ('es','=','E'),
                                                      ('manualy_encoded','=',False),
                                                      ('verified','=',True),
                                                      ('prestation_time','=',16), 
@@ -158,7 +163,9 @@ class T_005_Test_ExtraSchool_PrestationCheck(common.TransactionCase):
                                                      ('verified','=',True), 
 #                                                     ('activityid.name','=','Garderie Standard Matin'),
                                                      ])
-        self.assertEqual(len(presta),2,'check verified field is True')        
+        self.assertEqual(len(presta),2,'check verified field is True')  
+
+              
 #
 #    activité pédagogique  
 #        - lundi 6/1/2014 
@@ -170,21 +177,23 @@ class T_005_Test_ExtraSchool_PrestationCheck(common.TransactionCase):
     def test_03_test_fct(self):
         print "test_03_test_fct"
         cr, uid = self.cr, self.uid
-        form = {'placeid': self.place.search(cr,uid,[('name','in',['Ecole du parc'])]),
-                'period_from': '2014-01-06',
-                'period_to': '2014-01-06',
-                'activitycategory': self.activitycategory.search(cr,uid,[('name','in',['Garderies byparent'])]),
-                'state': 'init',
-                'currentdate': False,
-                }
-        return_value = self.prestationscheck_wizard._check(cr, uid,form)
+     
+        self.prestationscheck_wizard_rs = self.prestationscheck_wizard_rs.with_context(tz='Europe/Brussels').create({})
+        self.prestationscheck_wizard_rs.placeid = self.place.search(cr,uid,[('name','in',['Ecole du parc'])])
+        self.prestationscheck_wizard_rs.period_from = '2014-01-06'
+        self.prestationscheck_wizard_rs.period_to = '2014-01-06'
+        self.prestationscheck_wizard_rs.activitycategory = self.activitycategory.search(cr,uid,[('name','in',['Garderies byparent'])])
+        self.prestationscheck_wizard_rs.state = 'init'
+        self.prestationscheck_wizard_rs.currentdate = False
+        
+        return_value = self.prestationscheck_wizard_rs.with_context(tz='Europe/Brussels')._check()        
         
         #check return
         self.assertEqual(return_value['state'],'end_of_verification','Pas d''erreur trouvée')
         #check ajout de la presta d entrée
         presta = self.prestationtimes.search(cr,uid,[('childid.name','=','enfant std 1'),
                                                      ('prestation_date','=','2014-01-06'),   
-                                                     ('ES','=','E'),
+                                                     ('es','=','E'),
                                                      ('manualy_encoded','=',False),
                                                      ('verified','=',True),
                                                      ('prestation_time','=',7.5), 
@@ -194,7 +203,7 @@ class T_005_Test_ExtraSchool_PrestationCheck(common.TransactionCase):
         #check ajout de la presta de sortie
         presta = self.prestationtimes.search(cr,uid,[('childid.name','=','enfant std 1'),
                                                      ('prestation_date','=','2014-01-06'),   
-                                                     ('ES','=','S'),
+                                                     ('es','=','S'),
                                                      ('manualy_encoded','=',False),
                                                      ('verified','=',True),
                                                      ('prestation_time','=',18), 
@@ -207,8 +216,10 @@ class T_005_Test_ExtraSchool_PrestationCheck(common.TransactionCase):
                                                      ('verified','=',True), 
 #                                                     ('activityid.name','=','Garderie Standard Matin'),
                                                      ])
-        self.assertEqual(len(presta),2,'check verified field is True')        
-    
+        self.assertEqual(len(presta),2,'check verified field is True')   
+             
+    test_03_test_fct.prestacheck = 1
+    test_03_test_fct.check_wizard = 1   
 #
 #    activité bricolage  
 #        - lundi 8/1/2014 
@@ -221,21 +232,23 @@ class T_005_Test_ExtraSchool_PrestationCheck(common.TransactionCase):
     def test_04_test_fct(self):
         print "test_04_test_fct"
         cr, uid = self.cr, self.uid
-        form = {'placeid': self.place.search(cr,uid,[('name','in',['Ecole du parc'])]),
-                'period_from': '2014-01-08',
-                'period_to': '2014-01-08',
-                'activitycategory': self.activitycategory.search(cr,uid,[('name','in',['Garderies byparent'])]),
-                'state': 'init',
-                'currentdate': False,
-                }
-        return_value = self.prestationscheck_wizard._check(cr, uid,form)
+        
+        self.prestationscheck_wizard_rs = self.prestationscheck_wizard_rs.with_context(tz='Europe/Brussels').create({})
+        self.prestationscheck_wizard_rs.placeid = self.place.search(cr,uid,[('name','in',['Ecole du parc'])])
+        self.prestationscheck_wizard_rs.period_from = '2014-01-08'
+        self.prestationscheck_wizard_rs.period_to = '2014-01-08'
+        self.prestationscheck_wizard_rs.activitycategory = self.activitycategory.search(cr,uid,[('name','in',['Garderies byparent'])])
+        self.prestationscheck_wizard_rs.state = 'init'
+        self.prestationscheck_wizard_rs.currentdate = False
+        
+        return_value = self.prestationscheck_wizard_rs.with_context(tz='Europe/Brussels')._check()
         
         #check return
         self.assertEqual(return_value['state'],'end_of_verification','Pas d''erreur trouvée')
         #check ajout de la presta d entrée
         presta = self.prestationtimes.search(cr,uid,[('childid.name','=','enfant std 3'),
                                                      ('prestation_date','=','2014-01-08'),   
-                                                     ('ES','=','E'),
+                                                     ('es','=','E'),
                                                      ('manualy_encoded','=',False),
                                                      ('verified','=',True),
                                                      ('prestation_time','=',12), 
@@ -243,12 +256,16 @@ class T_005_Test_ExtraSchool_PrestationCheck(common.TransactionCase):
                                                      ])
         self.assertEqual(len(presta),1,u'check 1 présences ajoutée')
 
+    test_04_test_fct.prestacheck = 1
+    test_04_test_fct.check_wizard = 1
+    
+
     def test_05_test_fct(self):
         print "test_00_get_prestation_activityid"        
         
         presta = self.prestationtimes_rs.search([('childid.name','=','enfant std 1'),
                                                      ('prestation_date','=','2014-01-03'),   
-                                                     ('ES','=','E'),
+                                                     ('es','=','E'),
                                                      ('prestation_time','=',7.45), 
                                                      ])        
         return_val = self.prestationscheck_wizard_rs.get_prestation_activityid(presta[0])
@@ -266,7 +283,7 @@ class T_005_Test_ExtraSchool_PrestationCheck(common.TransactionCase):
         
         presta = self.prestationtimes_rs.search([('childid.name','=','enfant std 3'),
                                                      ('prestation_date','=','2014-02-05'),   
-                                                     ('ES','=','E'),
+                                                     ('es','=','E'),
                                                      ('prestation_time','=',14), 
                                                      ])        
         return_val = self.prestationscheck_wizard_rs.get_prestation_activityid(presta[0])
@@ -283,7 +300,7 @@ class T_005_Test_ExtraSchool_PrestationCheck(common.TransactionCase):
         
         presta = self.prestationtimes_rs.search([('childid.name','=','enfant std 1'),
                                                      ('prestation_date','=','2014-01-02'),   
-                                                     ('ES','=','S'),
+                                                     ('es','=','S'),
                                                      ('prestation_time','=',9), 
                                                      ])        
         print "-----"
@@ -303,7 +320,7 @@ class T_005_Test_ExtraSchool_PrestationCheck(common.TransactionCase):
         
         presta = self.prestationtimes_rs.search([('childid.name','=','enfant PC 1'),
                                                      ('prestation_date','=','2014-02-05'),   
-                                                     ('ES','=','S'),
+                                                     ('es','=','S'),
                                                      ('prestation_time','=',14), 
                                                      ])        
         print "-----"

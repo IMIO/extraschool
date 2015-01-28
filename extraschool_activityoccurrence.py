@@ -63,7 +63,8 @@ class extraschool_activityoccurrence(osv.osv):
     
     def add_presta(self,cr,uid,activity_occurrence,child_id,parent_activity_occurrence = None, verified = True, manualy_encoded = False, entry = True, exit = True):
         prestation_times_obj = self.pool.get('extraschool.prestationtimes')
-        
+        #### !!!!!!!!!!!!!!!!!!! a virer !!!!!!!!!!!!!!!!!!!!!!!
+        verified = False
         prestation_time = {'placeid' : activity_occurrence.place_id.id,
                            'activitycategoryid' : activity_occurrence.activityid.category.id,
                            'childid' : child_id,
