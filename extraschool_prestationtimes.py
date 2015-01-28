@@ -27,6 +27,7 @@ from openerp.osv import osv, fields
 class extraschool_prestationtimes(osv.osv):
     _name = 'extraschool.prestationtimes'
     _description = 'Prestation Times'
+    _order = 'prestation_date,prestation_time,activity_occurrence_id,es'
 
     def editprestation(self, cr, uid, ids, context=None):     
         view_obj = self.pool.get('ir.ui.view')
@@ -62,7 +63,8 @@ class extraschool_prestationtimes(osv.osv):
         'childid' : fields.many2one('extraschool.child', 'Child', domain="[('isdisabled','=',False)]", required=False, select=True),
         'prestation_date' : fields.date('Date', select=True),
         'prestation_time' : fields.float('Time', select=True, required=True),
-        'ES' : fields.selection((('E','In'), ('S','Out')),'ES' , select=True, required=True),   
+        'es' : fields.selection((('E','In'), ('S','Out')),'es' , select=True),  
+        'exit_all' : fields.boolean('Exit all'),
         'manualy_encoded' : fields.boolean('Manualy encoded', readonly=True),   
         'verified' : fields.boolean('Verified'),
         'activityid' : fields.many2one('extraschool.activity', 'Activity', required=False),  
@@ -72,6 +74,10 @@ class extraschool_prestationtimes(osv.osv):
               
     }
     
+    _defaults = {
+        'exit_all' : lambda *a: False,
+        'verified' : lambda *a: False,
+    }    
     def create(self, cr, uid, vals, *args, **kw):        
         if (not vals['childid']) or (not vals['placeid']) or (not vals['activitycategoryid']):  
             raise osv.except_osv('Child, Place and Category must be filled')

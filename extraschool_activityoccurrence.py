@@ -41,7 +41,8 @@ class extraschool_activityoccurrence(osv.osv):
         'date_start' : fields.datetime('Date start',compute='_compute_date_start', store=True),
         'date_stop' : fields.datetime('Date stop',compute='_compute_date_stop', store=True), 
         'child_registration_ids' : fields.many2many('extraschool.child','extraschool_activityoccurrence_cild_rel', 'activityoccurrence_id', 'child_id','Child registration'),        
-        'prestation_times_ids' : fields.one2many('extraschool.prestationtimes', 'activity_occurrence_id','Child prestation times'),        
+        'prestation_times_ids' : fields.one2many('extraschool.prestationtimes', 'activity_occurrence_id','Child prestation times'),   
+        'place_id' : fields.many2one('extraschool.place', 'Place', required=False),                     
     }
     
     @api.depends('occurrence_date', 'prest_from')
@@ -60,42 +61,67 @@ class extraschool_activityoccurrence(osv.osv):
             hour = hour -1
             record.date_stop = datetime.strptime(record.occurrence_date + ' ' + str(hour).zfill(2) + ':' + str(minute).zfill(2) + ':00', DEFAULT_SERVER_DATETIME_FORMAT)
     
+    def add_presta(self,cr,uid,activity_occurrence,child_id,parent_activity_occurrence = None, verified = True, manualy_encoded = False, entry = True, exit = True):
+        prestation_times_obj = self.pool.get('extraschool.prestationtimes')
+        
+        prestation_time = {'placeid' : activity_occurrence.place_id.id,
+                           'activitycategoryid' : activity_occurrence.activityid.category.id,
+                           'childid' : child_id,
+                           'prestation_date' : activity_occurrence.occurrence_date,
+                           'manualy_encoded' : False,
+                           'verified' : verified,
+                           'activityid' : activity_occurrence.activityid.id,
+                           'activity_occurrence_id' : activity_occurrence.id,
+                           }    
+        if parent_activity_occurrence:
+            parent_prestation_time = {'placeid' : parent_activity_occurrence.place_id.id,
+                                      'activitycategoryid' : parent_activity_occurrence.activityid.category.id,
+                                      'childid' : child_id,
+                                      'prestation_date' : parent_activity_occurrence.occurrence_date,
+                                      'manualy_encoded' : False,
+                                      'verified' : verified,
+                                      'activityid' : parent_activity_occurrence.activityid.id,
+                                      'activity_occurrence_id' : parent_activity_occurrence.id,
+                                      }    
+
+        if entry:
+            prestation_time['es'] = 'E'   
+            prestation_time['prestation_time'] = activity_occurrence.prest_from   
+            prestation_times_obj.create(cr,uid,prestation_time)
+            if parent_activity_occurrence:
+                parent_prestation_time['es'] = 'S'   
+                parent_prestation_time['prestation_time'] = activity_occurrence.prest_from   
+                prestation_times_obj.create(cr,uid,parent_prestation_time)
+    
+        if exit:
+            prestation_time['es'] = 'S'   
+            prestation_time['prestation_time'] = activity_occurrence.prest_to   
+            prestation_times_obj.create(cr,uid,prestation_time)
+            if parent_activity_occurrence:
+                parent_prestation_time['es'] = 'E'   
+                parent_prestation_time['prestation_time'] = activity_occurrence.prest_to   
+                prestation_times_obj.create(cr,uid,parent_prestation_time)
+        
     def create(self, cr, uid, vals, context = None): 
-        id = super(extraschool_activityoccurrence, self).create(cr, uid, vals)
+        occurrence_id = super(extraschool_activityoccurrence, self).create(cr, uid, vals)
         
         activity = self.pool.get('extraschool.activity').browse(cr, uid, vals['activityid'])
-        prestation_times_obj = self.pool.get('extraschool.prestationtimes')
+        activity_occurrence_obj = self.pool.get('extraschool.activityoccurrence')
         
         child_ids = []
         occurrence_date_str = vals['occurrence_date'].strftime(DEFAULT_SERVER_DATE_FORMAT)
         for child_registration in activity.childregistration_ids:
-            if child_registration.registration_from <= occurrence_date_str and child_registration.registration_to >= occurrence_date_str:
-                child_ids.append(child_registration.child_id)
+            if child_registration.registration_from <= occurrence_date_str and child_registration.registration_to >= occurrence_date_str and child_registration.place_id.id == vals['place_id']:
+                child_ids.append(child_registration.child_id.id)
                 if activity.autoaddchilds:
-                    prestation_time = {'placeid' : child_registration.place_id.id,
-                                       'activitycategoryid' : activity.category.id,
-                                       'childid' : child_registration.child_id.id,
-                                       'prestation_date' : occurrence_date_str,
-                                       'manualy_encoded' : False,
-                                       'verified' : False,
-                                       'activityid' : activity.id,
-                                       'activity_occurrence_id' : id,
-                                       }    
-                                 
-                    prestation_time['ES'] = 'E'   
-                    prestation_time['prestation_time'] = activity.prest_from   
-                    prestation_times_obj.create(cr,uid,prestation_time)
-
-                    prestation_time['ES'] = 'S'   
-                    prestation_time['prestation_time'] = activity.prest_to   
-                    prestation_times_obj.create(cr,uid,prestation_time)
-
+                    self.add_presta(cr,uid,activity_occurrence_obj.browse(cr,uid,occurrence_id), child_registration.child_id.id, None)
                     
         #use syntax to replace existing records by new records
-        vals['child_registration_ids'] = [(6, False, child_ids)]        
-
+        vals['child_registration_ids'] = [(6, False, child_ids)] 
         
-        return id       
+        activity_occurrence_obj.write(cr,uid,[occurrence_id],vals)       
+        
+        return occurrence_id       
 
 
 extraschool_activityoccurrence()

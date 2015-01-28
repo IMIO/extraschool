@@ -767,7 +767,7 @@
         	<field name="childid" eval="str(ref('extraschool_child_standard_1'))" />
         	<field name="prestation_date">2014-01-01</field>
         	<field name="prestation_time">7.5</field>
-        	<field name="ES">E</field>
+        	<field name="es">E</field>
         </record>
         <!-- presta std matin hors délai Erreur pas d'activité 
         	- jeudi 2/1/2014
@@ -778,7 +778,7 @@
         	<field name="childid" eval="str(ref('extraschool_child_standard_1'))" />
         	<field name="prestation_date">2014-01-02</field>
         	<field name="prestation_time">9</field>
-        	<field name="ES">S</field>
+        	<field name="es">S</field>
         </record>        
         <!-- garderie du matin !! pas la std car date d'exclusion le 3 donc garderie du matin du 3 
         -->        
@@ -788,7 +788,7 @@
         	<field name="childid" eval="str(ref('extraschool_child_standard_1'))" />
         	<field name="prestation_date">2014-01-03</field>
         	<field name="prestation_time">7.45</field>
-        	<field name="ES">E</field>
+        	<field name="es">E</field>
         </record>  
         <!-- triple activité consécutives et imbriquée 
         	- sortie ds la 3eme vendredi 3/1/2014
@@ -799,7 +799,7 @@
         	<field name="childid" eval="str(ref('extraschool_child_standard_1'))" />
         	<field name="prestation_date">2014-01-03</field>
         	<field name="prestation_time">17.75</field>
-        	<field name="ES">S</field>
+        	<field name="es">S</field>
         </record>  
         <!-- activité pégagogique 
         	- sortie ds la 3eme vendredi 6/1/2014
@@ -810,7 +810,7 @@
         	<field name="childid" eval="str(ref('extraschool_child_standard_1'))" />
         	<field name="prestation_date">2014-01-06</field>
         	<field name="prestation_time">8</field>
-        	<field name="ES">E</field>
+        	<field name="es">E</field>
         </record>                   
         <!-- activité garderie 
         	- sortie mercredi 8/1/2014
@@ -821,7 +821,7 @@
         	<field name="childid" eval="str(ref('extraschool_child_standard_1'))" />
         	<field name="prestation_date">2014-01-08</field>
         	<field name="prestation_time">17</field>
-        	<field name="ES">S</field>
+        	<field name="es">S</field>
         </record>
         <record model="extraschool.prestationtimes" id="extraschool_prestationtime_inscription_garderie_mercredi_2">
 			<field name="placeid" eval="str(ref('extraschool_place_parc'))" />
@@ -829,7 +829,7 @@
         	<field name="childid" eval="str(ref('extraschool_child_standard_3'))" />
         	<field name="prestation_date">2014-01-08</field>
         	<field name="prestation_time">17</field>
-        	<field name="ES">S</field>
+        	<field name="es">S</field>
         </record>                           
        <!-- activité garderie check pas inscri bricolage
         	- sortie mercredi 15/1/2014
@@ -840,7 +840,7 @@
         	<field name="childid" eval="str(ref('extraschool_child_standard_1'))" />
         	<field name="prestation_date">2014-01-15</field>
         	<field name="prestation_time">17</field>
-        	<field name="ES">S</field>
+        	<field name="es">S</field>
         </record>              
 <!--
 *************************************
@@ -858,8 +858,8 @@
         	<field name="childid" eval="str(ref('extraschool_child_standard_3'))" />
         	<field name="prestation_date">2014-02-03</field>
         	<field name="prestation_time">7.5</field>
-        	<field name="verified">1</field>
-        	<field name="ES">E</field>
+        	<field name="verified">0</field>
+        	<field name="es">E</field>
         </record>
         <record model="extraschool.prestationtimes" id="inv_extraschool_prestationtime_standard_matin_2">
 			<field name="placeid" eval="str(ref('extraschool_place_parc'))" />
@@ -867,8 +867,8 @@
         	<field name="childid" eval="str(ref('extraschool_child_standard_3'))" />
         	<field name="prestation_date">2014-02-03</field>
         	<field name="prestation_time">8.5</field>
-        	<field name="verified">1</field>
-        	<field name="ES">S</field>
+        	<field name="verified">0</field>
+        	<field name="es">S</field>
         </record>
         <!-- triple activité consécutives et imbriquée 
         	- mardi 4/2/2014
@@ -879,8 +879,8 @@
         	<field name="childid" eval="str(ref('extraschool_child_standard_3'))" />
         	<field name="prestation_date">2014-02-04</field>
         	<field name="prestation_time">16</field>
-        	<field name="verified">1</field>        	
-        	<field name="ES">E</field>
+        	<field name="verified">0</field>        	
+        	<field name="es">E</field>
         </record>    
         <record model="extraschool.prestationtimes" id="inv_extraschool_prestationtime_standard_soir_2">
 			<field name="placeid" eval="str(ref('extraschool_place_parc'))" />
@@ -888,8 +888,8 @@
         	<field name="childid" eval="str(ref('extraschool_child_standard_3'))" />
         	<field name="prestation_date">2014-02-04</field>
         	<field name="prestation_time">16.5</field>
-        	<field name="verified">1</field>        	
-        	<field name="ES">S</field>
+        	<field name="verified">0</field>        	
+        	<field name="es">S</field>
         </record> 
          <record model="extraschool.prestationtimes" id="inv_extraschool_prestationtime_standard_soir_3">
 			<field name="placeid" eval="str(ref('extraschool_place_parc'))" />
@@ -897,9 +897,9 @@
         	<field name="childid" eval="str(ref('extraschool_child_standard_3'))" />
         	<field name="prestation_date">2014-02-04</field>
         	<field name="prestation_time">16.5</field>
-        	<field name="verified">1</field>     
+        	<field name="verified">0</field>     
         	<field name="activityid" eval="str(ref('extraschool_activity_garderie_soir_2_imb'))" />   	
-        	<field name="ES">E</field>
+        	<field name="es">E</field>
         </record>        
          <record model="extraschool.prestationtimes" id="inv_extraschool_prestationtime_standard_soir_4">
 			<field name="placeid" eval="str(ref('extraschool_place_parc'))" />
@@ -907,9 +907,9 @@
         	<field name="childid" eval="str(ref('extraschool_child_standard_3'))" />
         	<field name="prestation_date">2014-02-04</field>
         	<field name="prestation_time">16.75</field>
-        	<field name="verified">1</field>      
+        	<field name="verified">0</field>      
         	<field name="activityid" eval="str(ref('extraschool_activity_garderie_soir_2_imb'))" />  	
-        	<field name="ES">S</field>
+        	<field name="es">S</field>
         </record>                     
         <record model="extraschool.prestationtimes" id="inv_extraschool_prestationtime_standard_soir_5">
 			<field name="placeid" eval="str(ref('extraschool_place_parc'))" />
@@ -917,8 +917,8 @@
         	<field name="childid" eval="str(ref('extraschool_child_standard_3'))" />
         	<field name="prestation_date">2014-02-04</field>
         	<field name="prestation_time">16.75</field>
-        	<field name="verified">1</field>        	
-        	<field name="ES">E</field>
+        	<field name="verified">0</field>        	
+        	<field name="es">E</field>
         </record>  
         <record model="extraschool.prestationtimes" id="inv_extraschool_prestationtime_standard_soir_6">
 			<field name="placeid" eval="str(ref('extraschool_place_parc'))" />
@@ -926,8 +926,8 @@
         	<field name="childid" eval="str(ref('extraschool_child_standard_3'))" />
         	<field name="prestation_date">2014-02-04</field>
         	<field name="prestation_time">17.75</field>
-        	<field name="verified">1</field>
-        	<field name="ES">S</field>
+        	<field name="verified">0</field>
+        	<field name="es">S</field>
         </record>
        <!-- activité garderie 
         	- mercredi 5/2/2014
@@ -938,8 +938,8 @@
         	<field name="childid" eval="str(ref('extraschool_child_standard_3'))" />
         	<field name="prestation_date">2014-02-05</field>
         	<field name="prestation_time">12</field>
-        	<field name="verified">1</field>
-        	<field name="ES">E</field>
+        	<field name="verified">0</field>
+        	<field name="es">E</field>
         </record>
         <record model="extraschool.prestationtimes" id="inv_extraschool_prestationtime_inscription_garderie_mercredi_2">
 			<field name="placeid" eval="str(ref('extraschool_place_parc'))" />
@@ -947,8 +947,8 @@
         	<field name="childid" eval="str(ref('extraschool_child_standard_3'))" />
         	<field name="prestation_date">2014-02-05</field>
         	<field name="prestation_time">14</field>
-        	<field name="verified">1</field>
-        	<field name="ES">S</field>
+        	<field name="verified">0</field>
+        	<field name="es">S</field>
         </record>        
         <record model="extraschool.prestationtimes" id="inv_extraschool_prestationtime_inscription_garderie_mercredi_2_pas_inscrit">
 			<field name="placeid" eval="str(ref('extraschool_place_parc'))" />
@@ -956,8 +956,8 @@
         	<field name="childid" eval="str(ref('extraschool_child_pc1'))" />
         	<field name="prestation_date">2014-02-05</field>
         	<field name="prestation_time">14</field>
-        	<field name="verified">1</field>
-        	<field name="ES">S</field>
+        	<field name="verified">0</field>
+        	<field name="es">S</field>
         </record>        
         <record model="extraschool.prestationtimes" id="inv_extraschool_prestationtime_inscription_garderie_mercredi_3">
 			<field name="placeid" eval="str(ref('extraschool_place_parc'))" />
@@ -966,8 +966,8 @@
         	<field name="prestation_date">2014-02-05</field>
         	<field name="prestation_time">14</field>
         	<field name="activityid" eval="str(ref('extraschool_activity_garderie_inscription_forcee'))" />
-        	<field name="verified">1</field>
-        	<field name="ES">E</field>
+        	<field name="verified">0</field>
+        	<field name="es">E</field>
         </record>
         <record model="extraschool.prestationtimes" id="inv_extraschool_prestationtime_inscription_garderie_mercredi_4">
 			<field name="placeid" eval="str(ref('extraschool_place_parc'))" />
@@ -976,8 +976,8 @@
         	<field name="prestation_date">2014-02-05</field>
         	<field name="prestation_time">15</field>
         	<field name="activityid" eval="str(ref('extraschool_activity_garderie_inscription_forcee'))" />
-        	<field name="verified">1</field>
-        	<field name="ES">S</field>
+        	<field name="verified">0</field>
+        	<field name="es">S</field>
         </record>
         <record model="extraschool.prestationtimes" id="inv_extraschool_prestationtime_inscription_garderie_mercredi_5">
 			<field name="placeid" eval="str(ref('extraschool_place_parc'))" />
@@ -985,8 +985,8 @@
         	<field name="childid" eval="str(ref('extraschool_child_standard_3'))" />
         	<field name="prestation_date">2014-02-05</field>
         	<field name="prestation_time">15</field>
-        	<field name="verified">1</field>
-        	<field name="ES">E</field>
+        	<field name="verified">0</field>
+        	<field name="es">E</field>
         </record>        
         <record model="extraschool.prestationtimes" id="inv_extraschool_prestationtime_inscription_garderie_mercredi_6">
 			<field name="placeid" eval="str(ref('extraschool_place_parc'))" />
@@ -994,8 +994,8 @@
         	<field name="childid" eval="str(ref('extraschool_child_standard_3'))" />
         	<field name="prestation_date">2014-02-05</field>
         	<field name="prestation_time">17</field>
-        	<field name="verified">1</field>
-        	<field name="ES">S</field>
+        	<field name="verified">0</field>
+        	<field name="es">S</field>
         </record>
         <!-- activité pégagogique 
         	- vendredi 7/2/2014
@@ -1006,8 +1006,8 @@
         	<field name="childid" eval="str(ref('extraschool_child_standard_3'))" />
         	<field name="prestation_date">2014-02-07</field>
         	<field name="prestation_time">7.5</field>
-        	<field name="verified">1</field>
-        	<field name="ES">E</field>
+        	<field name="verified">0</field>
+        	<field name="es">E</field>
         </record>       
         <record model="extraschool.prestationtimes" id="inv_extraschool_prestationtime_pedagogique_2">
 			<field name="placeid" eval="str(ref('extraschool_place_parc'))" />
@@ -1015,8 +1015,8 @@
         	<field name="childid" eval="str(ref('extraschool_child_standard_3'))" />
         	<field name="prestation_date">2014-02-07</field>
         	<field name="prestation_time">18</field>
-        	<field name="verified">1</field>
-        	<field name="ES">S</field>
+        	<field name="verified">0</field>
+        	<field name="es">S</field>
         </record>                         
 	    <record model="extraschool.prestationtimes" id="inv_extraschool_prestationtime_standard_soir_accueillante_1">
 			<field name="placeid" eval="str(ref('extraschool_place_parc'))" />
@@ -1024,8 +1024,8 @@
         	<field name="childid" eval="str(ref('extraschool_child_accueillante_3'))" />
         	<field name="prestation_date">2014-02-04</field>
         	<field name="prestation_time">16</field>
-        	<field name="verified">1</field>        	
-        	<field name="ES">E</field>
+        	<field name="verified">0</field>        	
+        	<field name="es">E</field>
         </record>    
         <record model="extraschool.prestationtimes" id="inv_extraschool_prestationtime_standard_soir_accueillante_2">
 			<field name="placeid" eval="str(ref('extraschool_place_parc'))" />
@@ -1033,8 +1033,8 @@
         	<field name="childid" eval="str(ref('extraschool_child_accueillante_3'))" />
         	<field name="prestation_date">2014-02-04</field>
         	<field name="prestation_time">16.5</field>
-        	<field name="verified">1</field>        	
-        	<field name="ES">S</field>
+        	<field name="verified">0</field>        	
+        	<field name="es">S</field>
         </record> 
         <record model="extraschool.prestationtimes" id="inv_extraschool_prestationtime_standard_soir_pc_1">
 			<field name="placeid" eval="str(ref('extraschool_place_parc'))" />
@@ -1042,8 +1042,8 @@
         	<field name="childid" eval="str(ref('extraschool_child_pc3'))" />
         	<field name="prestation_date">2014-02-04</field>
         	<field name="prestation_time">16</field>
-        	<field name="verified">1</field>        	
-        	<field name="ES">E</field>
+        	<field name="verified">0</field>        	
+        	<field name="es">E</field>
         </record>    
         <record model="extraschool.prestationtimes" id="inv_extraschool_prestationtime_standard_soir_pc_2">
 			<field name="placeid" eval="str(ref('extraschool_place_parc'))" />
@@ -1051,8 +1051,8 @@
         	<field name="childid" eval="str(ref('extraschool_child_pc3'))" />
         	<field name="prestation_date">2014-02-04</field>
         	<field name="prestation_time">16.5</field>
-        	<field name="verified">1</field>        	
-        	<field name="ES">S</field>
+        	<field name="verified">0</field>        	
+        	<field name="es">S</field>
         </record>
         
         <record model="extraschool.discount" id="extraschool_discount_child_pc">

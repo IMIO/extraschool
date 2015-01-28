@@ -180,7 +180,7 @@ class extraschool_invoice_wizard(osv.osv_memory):
                 cr.execute('select distinct(childid) from extraschool_prestationtimes where prestation_date=%s and verified=FALSE and childid in (select id from extraschool_child where schoolimplantation in '+str(form['schoolimplantationid']).replace('[','(').replace(']',')')+')',(prestdate['prestation_date'],))
                 childs=cr.dictfetchall()
                 for child in childs:
-                    cr.execute('select id,prestation_time,"ES",prestation_time,placeid,activitycategoryid from extraschool_prestationtimes where childid=%s and prestation_date=%s order by placeid,prestation_time,"ES" desc',(child['childid'],prestdate['prestation_date']))
+                    cr.execute('select id,prestation_time,"es",prestation_time,placeid,activitycategoryid from extraschool_prestationtimes where childid=%s and prestation_date=%s order by placeid,prestation_time,"es" desc',(child['childid'],prestdate['prestation_date']))
                     childprests=cr.dictfetchall()
                     es='E'                                
                     if len(childprests)%2 != 0:
@@ -297,7 +297,7 @@ class extraschool_invoice_wizard(osv.osv_memory):
                                         and id in (select activity_id from extraschool_activity_childposition_rel left join extraschool_childposition on childposition_id=extraschool_childposition.id where position=%s) 
                                         order by prest_from""", (prestation_date,prestation_date,form['activitycategory'][0],child['schoolimplantation'],child['schoolimplantation'],child['childtypeid'],'%'+str(weekday)+'%',prestation_date,prestation_date,'%'+leveltype+'%',childpos))                
                             activities=cr.dictfetchall()  
-                        cr.execute('select * from "extraschool_prestationtimes" where "prestation_date"=%s and "childid"=%s and activitycategoryid=%s order by prestation_time,"ES" desc', (prestation_date[0],child['id'],form['activitycategory'][0]))
+                        cr.execute('select * from "extraschool_prestationtimes" where "prestation_date"=%s and "childid"=%s and activitycategoryid=%s order by prestation_time,"es" desc', (prestation_date[0],child['id'],form['activitycategory'][0]))
                         prestations = cr.dictfetchall()
                         prestactivity=[]
 

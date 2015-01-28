@@ -61,7 +61,7 @@ class extraschool_timecorrection_wizard(osv.osv_memory):
                     pdaprestation_obj.write(cr,uid,[prestationpda['id']],{'prestation_time':prestationpda['prestation_time']+form['correctiontime']})
                 elif form['correctiontype'] == 'remove':
                     pdaprestation_obj.write(cr,uid,[prestationpda['id']],{'prestation_time':prestationpda['prestation_time']-form['correctiontime']})
-                cr.execute('select * from "extraschool_prestationtimes"  where childid=%s and "ES"=%s and placeid=%s and "prestation_date"=%s and "prestation_time" between %s and %s', (prestationpda['childid'],prestationpda['ES'],prestationpda['placeid'],prestationpda['prestation_date'],prestationpda['prestation_time']-0.0000000001,prestationpda['prestation_time']+0.0000000001))
+                cr.execute('select * from "extraschool_prestationtimes"  where childid=%s and "es"=%s and placeid=%s and "prestation_date"=%s and "prestation_time" between %s and %s', (prestationpda['childid'],prestationpda['ES'],prestationpda['placeid'],prestationpda['prestation_date'],prestationpda['prestation_time']-0.0000000001,prestationpda['prestation_time']+0.0000000001))
                 prestations = cr.dictfetchall()
                 for prestation in prestations:
                     if form['correctiontype'] == 'add':

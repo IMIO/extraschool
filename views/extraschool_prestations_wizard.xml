@@ -20,7 +20,7 @@
                             <tree string="Prestations" version="7.0" editable="bottom">
                                 <field name="activitycategoryid"/>
                                 <field name="prestation_time" widget="float_time"/>
-                                <field name="ES"/>
+                                <field name="es"/>
                                 <field name="manualy_encoded"/>
                                 <!-- field name="activityid"/-->
                                 <field name="placeid"/>

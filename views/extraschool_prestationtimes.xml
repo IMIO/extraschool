@@ -10,7 +10,7 @@
 					<field name="childid" select="1"/>
 					<field name="prestation_date" select="1"/>
                     <field name="prestation_time" widget="float_time"/>
-                    <field name="ES"/>
+                    <field name="es"/>
                     <!-- button name="editprestation" type="object" string="edit" icon="gtk-edit"/>
                     <button name="deleteprestation" confirm="Supprimer cet enregistement?" type="object" string="delete" icon="gtk-delete"/ -->
 				</tree>
@@ -30,7 +30,7 @@
                     <newline/>
                     <field name="prestation_time" widget="float_time"/>
                     <newline/>
-                    <field name="ES"/>
+                    <field name="es"/>
                     <newline/>
                 </group>
 				</form>
@@ -51,7 +51,7 @@
                     <newline/>
                     <field name="prestation_time" widget="float_time"/>
                     <newline/>
-                    <field name="ES"/>
+                    <field name="es"/>
                     <newline/>
                     <button name="saveprestation" string="Save" icon="gtk-apply" type="object"/>
                 </group>
@@ -81,13 +81,14 @@
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="Prestations">			
-					<field name="activityid"/>		
+					<field name="activity_occurrence_id"/>		
+					<field name="placeid"/>		
 					<field name="childid"/>
 					<field name="prestation_date"/>
                     <field name="prestation_time"/>
                     <field name="error_msg"/>
                     <field name="activity_occurrence_id"/>
-                    <field name="ES"/>           
+                    <field name="es"/>           
 				</tree>
 			</field>
 		</record>		

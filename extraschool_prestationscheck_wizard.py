@@ -91,7 +91,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
                                'State', default='init', required=True)    
         
     def insertprestation(self,cr,uid,placeid,prestation_date,childid,ES,prestation_time,activitycategoryid,manualy_encoded,activityid):
-        cr.execute('select * from extraschool_prestationtimes where prestation_date = %s and childid = %s and prestation_time = %s and "ES"=%s', (prestation_date,childid,prestation_time,ES))
+        cr.execute('select * from extraschool_prestationtimes where prestation_date = %s and childid = %s and prestation_time = %s and "es"=%s', (prestation_date,childid,prestation_time,ES))
         prests=cr.dictfetchall()
         if not prests:
             obj_prestation = self.pool.get('extraschool.prestationtimes')
@@ -100,25 +100,25 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
             priorityorder=cr.dictfetchall()[0]['priorityorder']        
             if ES=='E':
                 # si c est une entree on va chercher la derniere prestation de priorite inferieure
-                #cr.execute('select max(prestation_time),max("ES") as "ES",max("activitycategoryid") as activitycategoryid from extraschool_prestationtimes left join extraschool_activitycategory on activitycategoryid = extraschool_activitycategory.id where prestation_date = %s and childid = %s and prestation_time < %s and priorityorder < %s', (prestation_date,childid,prestation_time,priorityorder))
-                cr.execute('select prestation_time,"ES",activitycategoryid from extraschool_prestationtimes left join extraschool_activitycategory on activitycategoryid = extraschool_activitycategory.id where prestation_date = %s and childid = %s and prestation_time < %s and priorityorder < %s order by prestation_time desc,"ES" desc,activitycategoryid desc', (prestation_date,childid,prestation_time,priorityorder))
+                #cr.execute('select max(prestation_time),max("es") as "es",max("activitycategoryid") as activitycategoryid from extraschool_prestationtimes left join extraschool_activitycategory on activitycategoryid = extraschool_activitycategory.id where prestation_date = %s and childid = %s and prestation_time < %s and priorityorder < %s', (prestation_date,childid,prestation_time,priorityorder))
+                cr.execute('select prestation_time,"es",activitycategoryid from extraschool_prestationtimes left join extraschool_activitycategory on activitycategoryid = extraschool_activitycategory.id where prestation_date = %s and childid = %s and prestation_time < %s and priorityorder < %s order by prestation_time desc,"es" desc,activitycategoryid desc', (prestation_date,childid,prestation_time,priorityorder))
                 lastprest=cr.dictfetchall()
                 if lastprest:
                     if lastprest[0]['ES']=='E':
                         # si la derniere prestation de priorite inferieure est une entree on insere une sortie
-                        cr.execute('select * from extraschool_prestationtimes where prestation_date = %s and childid = %s and prestation_time = %s and "ES"=%s and activitycategoryid=%s', (prestation_date,childid,(prestation_time-0.016666667),'S',lastprest[0]['activitycategoryid']))
+                        cr.execute('select * from extraschool_prestationtimes where prestation_date = %s and childid = %s and prestation_time = %s and "es"=%s and activitycategoryid=%s', (prestation_date,childid,(prestation_time-0.016666667),'S',lastprest[0]['activitycategoryid']))
                         prests=cr.dictfetchall()
                         if not prests:
                             obj_prestation.create(cr,uid, {'placeid':placeid,'prestation_date': prestation_date,'childid': childid,'ES':'S','prestation_time' : (prestation_time-0.016666667),'activitycategoryid' : lastprest[0]['activitycategoryid'],'manualy_encoded':manualy_encoded,'activityid':activityid})            
                        
             else:
                 # si c est une sortie on va chercher la premiere prestation de priorite inferieure
-                #cr.execute('select min(prestation_time),min("ES") as "ES",max("activitycategoryid") as activitycategoryid from extraschool_prestationtimes left join extraschool_activitycategory on activitycategoryid = extraschool_activitycategory.id where prestation_date = %s and childid = %s and prestation_time > %s and priorityorder < %s', (prestation_date,childid,prestation_time,priorityorder))
-                cr.execute('select prestation_time,"ES",activitycategoryid from extraschool_prestationtimes left join extraschool_activitycategory on activitycategoryid = extraschool_activitycategory.id where prestation_date = %s and childid = %s and prestation_time > %s and priorityorder < %s order by prestation_time asc,"ES" asc,activitycategoryid desc', (prestation_date,childid,prestation_time,priorityorder))
+                #cr.execute('select min(prestation_time),min("es") as "es",max("activitycategoryid") as activitycategoryid from extraschool_prestationtimes left join extraschool_activitycategory on activitycategoryid = extraschool_activitycategory.id where prestation_date = %s and childid = %s and prestation_time > %s and priorityorder < %s', (prestation_date,childid,prestation_time,priorityorder))
+                cr.execute('select prestation_time,"es",activitycategoryid from extraschool_prestationtimes left join extraschool_activitycategory on activitycategoryid = extraschool_activitycategory.id where prestation_date = %s and childid = %s and prestation_time > %s and priorityorder < %s order by prestation_time asc,"es" asc,activitycategoryid desc', (prestation_date,childid,prestation_time,priorityorder))
                 firstprest=cr.dictfetchall()
                 if firstprest:
                     if firstprest[0]['ES']=='S':
-                        cr.execute('select * from extraschool_prestationtimes where prestation_date = %s and childid = %s and prestation_time = %s and "ES"=%s and activitycategoryid=%s', (prestation_date,childid,(prestation_time+0.016666667),'E',firstprest[0]['activitycategoryid']))
+                        cr.execute('select * from extraschool_prestationtimes where prestation_date = %s and childid = %s and prestation_time = %s and "es"=%s and activitycategoryid=%s', (prestation_date,childid,(prestation_time+0.016666667),'E',firstprest[0]['activitycategoryid']))
                         prests=cr.dictfetchall()
                         if not prests:
                             obj_prestation.create(cr,uid, {'placeid':placeid,'prestation_date': prestation_date,'childid': childid,'ES':'E','prestation_time' : (prestation_time+0.016666667),'activitycategoryid' : firstprest[0]['activitycategoryid'],'manualy_encoded':manualy_encoded,'activityid':activityid})
@@ -191,7 +191,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
             return return_val
 
     def _prestation_completion(self,prestation):
-        if prestation.ES == 'E':
+        if prestation.es == 'E':
             # Entrance
             print "Entrance"
         else:    
@@ -201,35 +201,44 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
     def _prestation_activity_occurrence_completion(self,prestation):
         #Look for activityoccurrence maching the prestation
         res = self.get_prestation_activityid(prestation)
+        print str(res)
         if not res['return_code']:
             prestation.error_msg = res['error_msg']
         else:
             prestation.activity_occurrence_id = res['occurrence_id']
                 
         return self
-
-            
+        
+        
+        
+        
     def _check(self):        
         prestation_search_domain = [('verified', '=', False),]
         
         if self.placeid:
-            prestation_search_domain.append(('placeid.id', 'in', self.placeid))
+            prestation_search_domain.append(('placeid.id', 'in', [place.id for place in self.placeid]))
         if self.activitycategory:
-            prestation_search_domain.append(('activitycategoryid.id', '=', self.activitycategory[0]))
+            prestation_search_domain.append(('activitycategoryid.id', '=', self.activitycategory[0].id))
         if self.period_from:
             prestation_search_domain.append(('prestation_date', '>=', self.period_from))
         if self.period_to:
             prestation_search_domain.append(('prestation_date', '<=', self.period_to))
                                     
         obj_prestation_rs = self.env['extraschool.prestationtimes'].search(prestation_search_domain)
-                
+        print "---obj_prestation_rs---"
+        print str(obj_prestation_rs)
+        print "---FILTERED obj_prestation_rs---"
+        print str(obj_prestation_rs.filtered(lambda r: not r.activity_occurrence_id))
+                        
         #add activity occurrence when missing
-        for prestation in obj_prestation_rs.filtered(lambda r: r.activity_occurrence_id == False):          
+        for prestation in obj_prestation_rs.filtered(lambda r: not r.activity_occurrence_id):   
+            print "add activity occurrence id "       
             self._prestation_activity_occurrence_completion(prestation)
 
+        obj_prestation_of_the_day_rs = self.env['extraschool.prestation_times_of_the_day'].search([('prestationtime_ids.verified', '=', False)])
         #add activity occurrence when missing
-        for prestation in obj_prestation_rs.filtered(lambda r: r.activity_occurrence_id == False):          
-            self._prestation_activity_occurrence_completion(prestation)
+        for prestation_of_the_day in obj_prestation_of_the_day_rs:      
+            prestation_of_the_day._check()   
 
         self.state = 'end_of_verification'
         

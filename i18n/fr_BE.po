@@ -697,7 +697,7 @@ msgstr "Du Lundi au Vendredi"
 #: field:extraschool.prestations_wizard,es:0
 #: field:extraschool.prestationscheck_wizard,es:0
 #: field:extraschool.prestationtimes,ES:0
-msgid "ES"
+msgid "es"
 msgstr "Entrée/Sortie"
 
 #. module: extraschool

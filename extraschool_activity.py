@@ -66,9 +66,11 @@ class extraschool_activity(osv.osv):
         for activity in activity_obj.browse(cr,uid,ids):
             if (len(activity.planneddates_ids)):
                 for planneddate in activity.planneddates_ids:
-                    activityoccurrence.create(cr,uid,{'occurrence_date' : datetime.strptime(planneddate.activitydate, '%Y-%m-%d'),
-                                                      'activityid' : activity.id,
-                                               })
+                    for place in activity.placeids:
+                        activityoccurrence.create(cr,uid,{'place_id' : place.id,
+                                                          'occurrence_date' : datetime.strptime(planneddate.activitydate, '%Y-%m-%d'),
+                                                          'activityid' : activity.id,
+                                                   })
             else:
                 d1 = activity.validity_from
                 if (date_from):
@@ -88,9 +90,11 @@ class extraschool_activity(osv.osv):
                         cr.execute('select count(*) from extraschool_activity_activityexclusiondates_rel as ear inner join extraschool_activityexclusiondates as ea on ear.activityexclusiondates_id = ea.id where date_from <= %s and date_to >= %s',(current_day_date, current_day_date))
                         exclu_activity_id = cr.fetchall()
                         if (exclu_activity_id[0][0] == 0):
-                            activityoccurrence.create(cr,uid,{'occurrence_date' : current_day_date,
-                                                              'activityid' : activity.id,
-                                                              })
+                            for place in activity.placeids:
+                                activityoccurrence.create(cr,uid,{'place_id' : place.id,
+                                                                  'occurrence_date' : current_day_date,
+                                                                  'activityid' : activity.id,
+                                                                  })
     def write(self,cr,uid,ids,vals,context = None):
         res = super(extraschool_activity,self).write(cr,uid,ids,vals)
         if res:
