@@ -1,0 +1,66 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+        <record model="ir.ui.view" id="extraschool_prestation_times_of_the_day_tree">
+			<field name="name">prestation_times_of_the_day.tree</field>
+			<field name="model">extraschool.prestation_times_of_the_day</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="prestation_times_of_the_day"  colors="red:verified==False">
+					<field name="child_id"/>
+					<field name="date_of_the_day" />
+                    <field name="verified"/>
+				</tree>
+			</field>
+		</record>
+        
+		<record model="ir.ui.view" id="extraschool_prestation_times_of_the_day_form">
+			<field name="name">prestation_times_of_the_day.form</field>
+			<field name="model">extraschool.prestation_times_of_the_day</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="prestation_times_of_the_day">
+				<group col="4">
+                    <field name="child_id" />
+					<field name="date_of_the_day" />
+                    <newline/>
+                    <field name="verified" />
+                    <newline/>
+                    <field name="prestationtime_ids">
+                    	<tree string="prestation_times">
+                    	</tree>
+                    </field>
+                </group>
+				</form>
+			</field>
+		</record>
+        
+        <record id="prestation_times_of_the_day_search_view" model="ir.ui.view">
+            <field name="name">prestation_times_of_the_day.search</field>
+            <field name="model">extraschool.prestation_times_of_the_day</field>
+            <field name="arch" type="xml">
+                <search string="prestation_times_of_the_day search">
+                   <field name="child_id" string="child"/>
+                   <filter string="verified" icon="terp-accessories-archiver" domain="[('verified','=',True)]"/>
+                   <group  expand='0' string='Group by...'>
+                       <filter string='child' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'child_id'}"/>
+                   </group>                    
+                </search>
+            </field>
+        </record>				
+        
+        <record model="ir.actions.act_window" id="action_extraschool_prestation_times_of_the_day">
+			<field name="name">Prestations_of_the_day</field>
+			<field name="res_model">extraschool.prestation_times_of_the_day</field>
+			<field name="view_type">form</field>
+		</record>
+		
+        <record model="ir.actions.act_window" id="action_extraschool_prestation_times_of_the_day_tree">
+			<field name="name">Prestations_of_the_day.tree</field>
+			<field name="res_model">extraschool.prestation_times_of_the_day</field>
+			<field name="view_type">form</field>
+			<field name="view_id" ref="extraschool_prestation_times_of_the_day_tree"/>
+            <field name="search_view_id" ref="prestation_times_of_the_day_search_view"/>			
+		</record>		
+	</data>
+</openerp>
