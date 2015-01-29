@@ -222,8 +222,43 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
                 
         return self
         
-        
-        
+    def _prestation_default_from_to_completion(self,prestation_ids):
+        #a bit trash but .....
+        #First remove all existing presta 
+        # get occurrence
+        #modify time   
+        prestationtimes_rs = self.env['extraschool.prestationtimes']
+        activity_occurence_rs = self.env['extraschool.activity_occurrence']
+        self.env.cr.execute("select distinct(activity_occurrence_id,childid),activity_occurrence_id,childid,id from extraschool_prestationtimes where id in %s", str(prestation_ids).replace('[', '(').replace(']',')'))
+        prestationtimes = self.env.cr.dictfetchall()
+        ids = [r['id'] for r in prestationtimes['id']]
+        prestationtimes_rs.unlink(ids)
+        print str(ids)
+        for prestationtime in prestationtimes:
+            occurrence = activity_occurence_rs.browse(prestationtime['activity_occurrence_id'])
+            prestationtimes_rs.create({'childid':prestationtime['childid'], 
+                                       'activity_occurrence_id': occurrence.id,
+                                       'placeid': occurrence.place_id,
+                                       'es':'E',
+                                       'prestation_time': occurrence.activityid.prest_from,
+                                       'prestation_date': occurrence.occurrence_date,
+                                       'activitycategoryid': occurrence.activityid.categoryid,
+                                       'activityid': occurrence.activityid.id,
+                                       'manualy_encoded': False,
+                                       'verified': True,
+                                       })
+            prestationtimes_rs.create({'childid':prestationtime['childid'], 
+                                       'activity_occurrence_id': occurrence.id,
+                                       'placeid': occurrence.place_id,
+                                       'es':'S',
+                                       'prestation_time': occurrence.activityid.prest_to,
+                                       'prestation_date': occurrence.occurrence_date,
+                                       'activitycategoryid': occurrence.activityid.categoryid,
+                                       'activityid': occurrence.activityid.id,
+                                       'manualy_encoded': False,
+                                       'verified': True,
+                                       })
+        return self
         
     def _check(self):        
         prestation_search_domain = [('verified', '=', False),]
@@ -249,7 +284,10 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
         for prestation in obj_prestation_rs.filtered(lambda r: not r.activity_occurrence_id):   
             print "add activity occurrence id "       
             self._prestation_activity_occurrence_completion(prestation)
-
+        
+        #replace default from to prestations
+        self._prestation_default_from_to_completion(prestation_ids)
+        
         obj_prestation_of_the_day_rs = self.env['extraschool.prestation_times_of_the_day'].search([('prestationtime_ids.id', 'in', prestation_ids)])
         #add activity occurrence when missing
         for prestation_of_the_day in obj_prestation_of_the_day_rs:      

@@ -68,24 +68,28 @@ class extraschool_activityoccurrence(osv.osv):
                            'activitycategoryid' : activity_occurrence.activityid.category.id,
                            'childid' : child_id,
                            'prestation_date' : activity_occurrence.occurrence_date,
-                           'manualy_encoded' : False,
+                           'manualy_encoded' : manualy_encoded,
                            'verified' : verified,
                            'activityid' : activity_occurrence.activityid.id,
                            'activity_occurrence_id' : activity_occurrence.id,
                            }    
         if parent_activity_occurrence:
-            parent_prestation_time = {'placeid' : parent_activity_occurrence.place_id.id,
-                                      'activitycategoryid' : parent_activity_occurrence.activityid.category.id,
-                                      'childid' : child_id,
-                                      'prestation_date' : parent_activity_occurrence.occurrence_date,
-                                      'manualy_encoded' : False,
-                                      'verified' : verified,
-                                      'activityid' : parent_activity_occurrence.activityid.id,
-                                      'activity_occurrence_id' : parent_activity_occurrence.id,
-                                      }    
+            if parent_activity_occurrence.default_from_to == 'from_to':
+                #Parent activity has default_from_to .... Don't add Parent presta
+                parent_activity_occurrence = None
+            else:
+                parent_prestation_time = {'placeid' : parent_activity_occurrence.place_id.id,
+                                          'activitycategoryid' : parent_activity_occurrence.activityid.category.id,
+                                          'childid' : child_id,
+                                          'prestation_date' : parent_activity_occurrence.occurrence_date,
+                                          'manualy_encoded' : manualy_encoded,
+                                          'verified' : verified,
+                                          'activityid' : parent_activity_occurrence.activityid.id,
+                                          'activity_occurrence_id' : parent_activity_occurrence.id,
+                                          }    
 
         if entry:
-            prestation_time['es'] = 'E'   
+            prestation_time['es'] = 'E'               
             prestation_time['prestation_time'] = activity_occurrence.prest_from   
             prestation_times_obj.create(cr,uid,prestation_time)
             if parent_activity_occurrence:

@@ -513,6 +513,7 @@
             <field name="prest_to">8.5</field>
             <field name="price">0.10</field>
             <field name="period_duration">1</field>
+            <field name="default_from_to">to</field>
             <field name="default_from">0</field>
             <field name="default_to">8.5</field>
             <field name="subsidizedbyone">1</field>
@@ -539,6 +540,7 @@
             <field name="prest_to">8</field>
             <field name="price">0.10</field>
             <field name="period_duration">1</field>
+            <field name="default_from_to">to</field>
             <field name="default_from">0</field>
             <field name="default_to">8</field>
             <field name="subsidizedbyone">1</field>
@@ -563,6 +565,7 @@
             <field name="prest_to">18</field>
             <field name="price">0.10</field>
             <field name="period_duration">1</field>
+            <field name="default_from_to">from</field>
             <field name="default_from">16</field>
             <field name="default_to">0</field>
             <field name="subsidizedbyone">1</field>
@@ -607,6 +610,7 @@
             <field name="prest_to">16.75</field>
             <field name="price">0.20</field>
             <field name="period_duration">1</field>
+            <field name="default_from_to">from_to</field>
             <field name="default_from">16.5</field>
             <field name="default_to">16.75</field>
             <field name="subsidizedbyone">1</field>
@@ -627,6 +631,7 @@
             <field name="prest_to">19</field>
             <field name="price">2</field>
             <field name="period_duration">15</field>
+            <field name="default_from_to">from</field>
             <field name="default_from">16</field>
             <field name="default_to">0</field>
             <field name="subsidizedbyone">1</field>
@@ -683,6 +688,7 @@
             <field name="price">5</field>
             <field name="fixedperiod">1</field>
             <field name="period_duration">690</field>
+            <field name="default_from_to">from_to</field>
             <field name="default_from">7.5</field>
             <field name="default_to">18</field>
             <field name="subsidizedbyone">1</field>
@@ -707,6 +713,7 @@
             <field name="prest_to">18</field>
             <field name="price">3</field>
             <field name="period_duration">30</field>
+            <field name="default_from_to">from</field>
             <field name="default_from">12</field>
             <field name="default_to">0</field>
             <field name="subsidizedbyone">1</field>
@@ -755,6 +762,7 @@
             <field name="price">10</field>
             <field name="fixedperiod">1</field>
             <field name="period_duration">60</field>
+            <field name="default_from_to">from_to</field>
             <field name="default_from">14</field>
             <field name="default_to">15</field>
             <field name="subsidizedbyone">1</field>

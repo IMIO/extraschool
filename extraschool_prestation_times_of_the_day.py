@@ -80,11 +80,13 @@ class extraschool_prestation_times_of_the_day(models.Model):
             add_entry = False
             add_exit = True
             opposite = "S"
+            default_from_to = "to"
         else:
             right = False
             add_entry = True
             add_exit = False
             opposite = "E"
+            default_from_to = "from"
                                    
         next_prestation_times = self._get_left_right(prestation_time,right)
         #no next presta even in an other occurrence
