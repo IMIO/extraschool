@@ -171,11 +171,11 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
             return return_val
         
         #filter occurence to remove occurence with registration
-        occurrence_no_register_rs = occurrence_rs.filtered(lambda r: len(r.activityid.activity_child_ids) == 0)
+        occurrence_no_register_rs = occurrence_rs.filtered(lambda r: not r.child_registration_ids)
         
         
-        #try to find a leaf matching the time slot
-        occurrence_leaf_rs = occurrence_no_register_rs.filtered(lambda r: len(r.activityid.childregistration_ids) == 0)
+        #try to find a leaf matching the time slot !!! We should use occurrence__child_ids
+        occurrence_leaf_rs = occurrence_no_register_rs.filtered(lambda r: not r.activityid.activity_child_ids)
         print "yip"
         
         if len(occurrence_leaf_rs) > 1:  #Error more than 1 occurrence found
@@ -188,7 +188,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
             return return_val
         
         #try to find a branch matching the time slot
-        occurrence_branch_rs = occurrence_no_register_rs.filtered(lambda r: len(r.activityid.activity_child_ids) > 0)
+        occurrence_branch_rs = occurrence_no_register_rs.filtered(lambda r: r.activityid.activity_child_ids)
         print "yap"
         
         if len(occurrence_branch_rs) > 1:  #Error more than 1 occurrence found
@@ -238,6 +238,8 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
             prestation_search_domain.append(('prestation_date', '<=', self.period_to))
                                     
         obj_prestation_rs = self.env['extraschool.prestationtimes'].search(prestation_search_domain)
+        prestation_ids = [prestation_times.id for prestation_times in obj_prestation_rs]
+
         print "---obj_prestation_rs---"
         print str(obj_prestation_rs)
         print "---FILTERED obj_prestation_rs---"
@@ -248,7 +250,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
             print "add activity occurrence id "       
             self._prestation_activity_occurrence_completion(prestation)
 
-        obj_prestation_of_the_day_rs = self.env['extraschool.prestation_times_of_the_day'].search([('prestationtime_ids.verified', '=', False)])
+        obj_prestation_of_the_day_rs = self.env['extraschool.prestation_times_of_the_day'].search([('prestationtime_ids.id', 'in', prestation_ids)])
         #add activity occurrence when missing
         for prestation_of_the_day in obj_prestation_of_the_day_rs:      
             prestation_of_the_day._check()   

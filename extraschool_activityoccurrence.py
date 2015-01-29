@@ -63,8 +63,7 @@ class extraschool_activityoccurrence(osv.osv):
     
     def add_presta(self,cr,uid,activity_occurrence,child_id,parent_activity_occurrence = None, verified = True, manualy_encoded = False, entry = True, exit = True):
         prestation_times_obj = self.pool.get('extraschool.prestationtimes')
-        #### !!!!!!!!!!!!!!!!!!! a virer !!!!!!!!!!!!!!!!!!!!!!!
-        verified = False
+
         prestation_time = {'placeid' : activity_occurrence.place_id.id,
                            'activitycategoryid' : activity_occurrence.activityid.category.id,
                            'childid' : child_id,
@@ -97,6 +96,9 @@ class extraschool_activityoccurrence(osv.osv):
         if exit:
             prestation_time['es'] = 'S'   
             prestation_time['prestation_time'] = activity_occurrence.prest_to   
+            print "--------------"
+            print str(prestation_time)
+            print "--------------"
             prestation_times_obj.create(cr,uid,prestation_time)
             if parent_activity_occurrence:
                 parent_prestation_time['es'] = 'E'   

@@ -65,34 +65,51 @@ class extraschool_prestation_times_of_the_day(models.Model):
                                                            ('activityid', 'in', [activity.id for activity in prestation_time.activity_occurrence_id.activityid.activity_child_ids]),
                                                            ('child_registration_ids', '=', prestation_time.childid.id)                                                           
                                                            ])
+    def _get_left_right(self,prestation_time,right = True):
+        if right:
+            return_prestation_time_rs = self.prestationtime_ids.filtered(lambda r: r.prestation_time >= prestation_time.prestation_time and r.id != prestation_time.id)
+        else:
+            return_prestation_time_rs = self.prestationtime_ids.filtered(lambda r: r.prestation_time <= prestation_time.prestation_time and r.id != prestation_time.id)
                 
     def _completion(self, prestation_time):
         activity_occurrence_obj = self.pool.get('extraschool.activityoccurrence')
-        
-        if prestation_time.es == 'E':           
-            prestation_times_right = self.prestationtime_ids.filtered(lambda r: r.prestation_time > prestation_time.prestation_time)
-            #no Exit presta even in an other occurrence
-            if not prestation_times_right:
-                #add exit presta 
-                print "add exit presta"
-            else :
-                prestation_time_right = prestation_times_right[0]
-                #Exit exit presta in same occurrence
-                if prestation_time.activity_occurrence_id.id == prestation_time_right.activity_occurrence_id.id and prestation_time_right.es == 'S':
-                    #look for child presta in timeslot
-                    for occurrence in self._get_child_activity_occurrence_ids(prestation_time, prestation_time.activity_occurrence_id.activityid.prest_from, prestation_time_right.activity_occurrence_id.prest_to, True):
-                        #add missing presta !!! register conflict must be handled in activity 
-                        print "add"
-                        print str(occurrence)
-                        print "-------"
-                        activity_occurrence_obj.add_presta(occurrence, prestation_time.childid.id, prestation_time.activity_occurrence_id)
-                #Exit in other occurrence
-                elif prestation_time.activity_occurrence_id.id == prestation_time_right.activity_occurrence_id.id and prestation_time_right.es == 'S':
-                    print "else"
-            
+        print "++++++Completion+++++"
+        print str(prestation_time)
+        if prestation_time.es == 'E':
+            right = True
+            add_entry = False
+            add_exit = True
+        else:
+            right = False
+            add_entry = True
+            add_exit = False
+                                   
+        next_prestation_times = self._get_left_right(prestation_time,right)
+        #no next presta even in an other occurrence
+        if not next_prestation_times:
+            #add exit presta 
+            print "add missing presta"
+            activity_occurrence_obj.add_presta(self.env.cr,self.env.uid,prestation_time.activity_occurrence_id, prestation_time.childid.id, None,True,False,add_entry,add_exit)
+        else :
+            next_prestation_time = next_prestation_times[0]
+            #Exist exit presta in same occurrence
+            if prestation_time.activity_occurrence_id.id == next_prestation_time.activity_occurrence_id.id and next_prestation_time.es == 'S':
+                #look for child presta in timeslot
+                for occurrence in self._get_child_activity_occurrence_ids(prestation_time, prestation_time.activity_occurrence_id.activityid.prest_from, next_prestation_time.activity_occurrence_id.prest_to, True):
+                    #add missing presta !!! register conflict must be handled in activity 
+                    print "add"
+                    print str(occurrence)
+                    print "-------"
+                    activity_occurrence_obj.add_presta(self.env.cr,self.env.uid,occurrence, prestation_time.childid.id, prestation_time.activity_occurrence_id)
+            #Exit in other occurrence
+            elif prestation_time.activity_occurrence_id.id == next_prestation_time.activity_occurrence_id.id and next_prestation_time.es == 'S':
+                print "else"
+
         
     def _check(self):
+        print "_check presta of the day" 
         prestation_time_ids = [prestation_time.id for prestation_time in self.prestationtime_ids]
+        print str(prestation_time_ids)
         
         self._check_doublon(False)
         for prestation_time in self.env['extraschool.prestationtimes'].browse(prestation_time_ids):

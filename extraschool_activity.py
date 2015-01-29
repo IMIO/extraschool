@@ -64,7 +64,7 @@ class extraschool_activity(osv.osv):
         activityoccurrence = self.pool.get('extraschool.activityoccurrence')
         activity_obj = self.pool.get('extraschool.activity')
         for activity in activity_obj.browse(cr,uid,ids):
-            if (len(activity.planneddates_ids)):
+            if len(activity.planneddates_ids):
                 for planneddate in activity.planneddates_ids:
                     for place in activity.placeids:
                         activityoccurrence.create(cr,uid,{'place_id' : place.id,
@@ -73,8 +73,8 @@ class extraschool_activity(osv.osv):
                                                    })
             else:
                 d1 = activity.validity_from
-                if (date_from):
-                    if (date_from > activity.validity_from):
+                if date_from:
+                    if date_from > activity.validity_from:
                         d1 = date_from
                 
                 d2 = activity.validity_to
@@ -86,10 +86,10 @@ class extraschool_activity(osv.osv):
 
                 for day in range(delta.days + 1):
                     current_day_date = d1 + td(days=day)
-                    if (str(current_day_date.weekday()) in activity.days):
-                        cr.execute('select count(*) from extraschool_activity_activityexclusiondates_rel as ear inner join extraschool_activityexclusiondates as ea on ear.activityexclusiondates_id = ea.id where date_from <= %s and date_to >= %s',(current_day_date, current_day_date))
+                    if str(current_day_date.weekday()) in activity.days:
+                        cr.execute('select count(*) from extraschool_activity_activityexclusiondates_rel as ear inner join extraschool_activityexclusiondates as ea on ear.activityexclusiondates_id = ea.id where activity_id = %s and date_from <= %s and date_to >= %s',(activity.id, current_day_date, current_day_date))
                         exclu_activity_id = cr.fetchall()
-                        if (exclu_activity_id[0][0] == 0):
+                        if exclu_activity_id[0][0] == 0:
                             for place in activity.placeids:
                                 activityoccurrence.create(cr,uid,{'place_id' : place.id,
                                                                   'occurrence_date' : current_day_date,
