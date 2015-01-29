@@ -103,7 +103,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
                     print str(occurrence)
                     print "-------"
                     activity_occurrence_obj.add_presta(self.env.cr,self.env.uid,occurrence, prestation_time.childid.id, prestation_time.activity_occurrence_id)
-            #Check if next presta is same es type and same occurrence
+            #Check if next presta is same es type and same occurrence ..... it could be an error
             elif prestation_time.activity_occurrence_id.id == next_prestation_time.activity_occurrence_id.id and next_prestation_time.es == prestation_time.es:
                 print "else"
 
