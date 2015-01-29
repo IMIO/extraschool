@@ -79,10 +79,12 @@ class extraschool_prestation_times_of_the_day(models.Model):
             right = True
             add_entry = False
             add_exit = True
+            opposite = "S"
         else:
             right = False
             add_entry = True
             add_exit = False
+            opposite = "E"
                                    
         next_prestation_times = self._get_left_right(prestation_time,right)
         #no next presta even in an other occurrence
@@ -93,7 +95,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
         else :
             next_prestation_time = next_prestation_times[0]
             #Exist exit presta in same occurrence
-            if prestation_time.activity_occurrence_id.id == next_prestation_time.activity_occurrence_id.id and next_prestation_time.es == 'S':
+            if prestation_time.activity_occurrence_id.id == next_prestation_time.activity_occurrence_id.id and next_prestation_time.es == opposite:
                 #look for child presta in timeslot
                 for occurrence in self._get_child_activity_occurrence_ids(prestation_time, prestation_time.activity_occurrence_id.activityid.prest_from, next_prestation_time.activity_occurrence_id.prest_to, True):
                     #add missing presta !!! register conflict must be handled in activity 
