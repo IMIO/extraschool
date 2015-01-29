@@ -89,12 +89,12 @@ class extraschool_prestation_times_of_the_day(models.Model):
         next_prestation_times = self._get_left_right(prestation_time,right)
         #no next presta even in an other occurrence
         if not next_prestation_times:
-            #add exit presta 
+            #add opposite presta in same occurrence 
             print "add missing presta"
             activity_occurrence_obj.add_presta(self.env.cr,self.env.uid,prestation_time.activity_occurrence_id, prestation_time.childid.id, None,True,False,add_entry,add_exit)
         else :
             next_prestation_time = next_prestation_times[0]
-            #Exist exit presta in same occurrence
+            #Check if opposite presta in same occurrence exist
             if prestation_time.activity_occurrence_id.id == next_prestation_time.activity_occurrence_id.id and next_prestation_time.es == opposite:
                 #look for child presta in timeslot
                 for occurrence in self._get_child_activity_occurrence_ids(prestation_time, prestation_time.activity_occurrence_id.activityid.prest_from, next_prestation_time.activity_occurrence_id.prest_to, True):
@@ -103,8 +103,8 @@ class extraschool_prestation_times_of_the_day(models.Model):
                     print str(occurrence)
                     print "-------"
                     activity_occurrence_obj.add_presta(self.env.cr,self.env.uid,occurrence, prestation_time.childid.id, prestation_time.activity_occurrence_id)
-            #Exit in other occurrence
-            elif prestation_time.activity_occurrence_id.id == next_prestation_time.activity_occurrence_id.id and next_prestation_time.es == 'S':
+            #Check if next presta is same es type and same occurrence
+            elif prestation_time.activity_occurrence_id.id == next_prestation_time.activity_occurrence_id.id and next_prestation_time.es == prestation_time.es:
                 print "else"
 
         
