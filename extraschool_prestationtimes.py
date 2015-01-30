@@ -96,10 +96,6 @@ class extraschool_prestationtimes(osv.osv):
                                                                  ('prestation_time', '=',vals['prestation_time']),
                                                                  ('es', '=',vals['es']),
                                                                  ])
-        if prestaion_times_ids:
-            #presta allready exist :/
-            print "!!!!!!!!!!!!!!  duplicate   !!!!!!!!!!!!!!!!!!!!!"
-            vals['error_msg'] = 'duplicate'
             
         
         prestation_times_of_the_day_ids = prestation_times_of_the_day_obj.search(cr,uid,[('child_id.id', '=', vals['childid']),
@@ -112,8 +108,16 @@ class extraschool_prestationtimes(osv.osv):
                                                            })
         else :
             vals['prestation_times_of_the_day_id'] = prestation_times_of_the_day_ids[0]
-        
-        return super(extraschool_prestationtimes, self).create(cr, uid, vals)
+
+        if prestaion_times_ids: #if same presta exist than update
+            if vals['exit_all'] == False:
+                presta_to_update = prestation_times_obj.browse(cr,uid,prestaion_times_ids[0])
+                if presta_to_update.exit_all:
+                    vals['exit_all'] = True
+            
+            return super(extraschool_prestationtimes, self).write(cr, uid, prestaion_times_ids, vals)
+        else:
+            return super(extraschool_prestationtimes, self).create(cr, uid, vals)
 
     
     def write(self, cr, uid, ids, vals, context=None):

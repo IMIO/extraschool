@@ -61,9 +61,11 @@ class extraschool_activityoccurrence(osv.osv):
             hour = hour -1
             record.date_stop = datetime.strptime(record.occurrence_date + ' ' + str(hour).zfill(2) + ':' + str(minute).zfill(2) + ':00', DEFAULT_SERVER_DATETIME_FORMAT)
     
-    def add_presta(self,cr,uid,activity_occurrence,child_id,parent_activity_occurrence = None, verified = True, manualy_encoded = False, entry = True, exit = True):
+    def add_presta(self,cr,uid,activity_occurrence,child_id,parent_activity_occurrence = None, verified = True, manualy_encoded = False, entry = True, exit = True,entry_time = None, exit_time = None,exit_all= False):
         prestation_times_obj = self.pool.get('extraschool.prestationtimes')
-
+        entry_time = entry_time if entry_time else activity_occurrence.prest_from
+        exit_time = exit_time if exit_time else activity_occurrence.prest_to
+        
         prestation_time = {'placeid' : activity_occurrence.place_id.id,
                            'activitycategoryid' : activity_occurrence.activityid.category.id,
                            'childid' : child_id,
@@ -72,10 +74,11 @@ class extraschool_activityoccurrence(osv.osv):
                            'verified' : verified,
                            'activityid' : activity_occurrence.activityid.id,
                            'activity_occurrence_id' : activity_occurrence.id,
+                           'exit_all': exit_all,
                            }    
         if parent_activity_occurrence:
-            if parent_activity_occurrence.default_from_to == 'from_to':
-                #Parent activity has default_from_to .... Don't add Parent presta
+            if parent_activity_occurrence.default_from_to == 'from_to' or exit_all:
+                #Parent activity has default_from_to or exit_all has been found .... Don't add Parent presta
                 parent_activity_occurrence = None
             else:
                 parent_prestation_time = {'placeid' : parent_activity_occurrence.place_id.id,
@@ -86,28 +89,39 @@ class extraschool_activityoccurrence(osv.osv):
                                           'verified' : verified,
                                           'activityid' : parent_activity_occurrence.activityid.id,
                                           'activity_occurrence_id' : parent_activity_occurrence.id,
-                                          }    
+                                          }
 
         if entry:
             prestation_time['es'] = 'E'               
-            prestation_time['prestation_time'] = activity_occurrence.prest_from   
+            prestation_time['prestation_time'] = entry_time
+
             prestation_times_obj.create(cr,uid,prestation_time)
             if parent_activity_occurrence:
-                parent_prestation_time['es'] = 'S'   
-                parent_prestation_time['prestation_time'] = activity_occurrence.prest_from   
-                prestation_times_obj.create(cr,uid,parent_prestation_time)
+                #add only if opposite presta exist in parent occurrence
+                prestation_left = prestation_times_obj.search(cr,uid,[('id', 'in',[prestation.id for prestation in parent_activity_occurrence.prestation_times_ids]),
+                                                    ('prestation_time', '<=', entry_time),
+                                                    ])
+                if len(prestation_left) and prestation_left[0].es == 'E':                             
+                    parent_prestation_time['es'] = 'S'   
+                    parent_prestation_time['prestation_time'] = entry_time   
+                    prestation_times_obj.create(cr,uid,parent_prestation_time)
     
         if exit:
             prestation_time['es'] = 'S'   
-            prestation_time['prestation_time'] = activity_occurrence.prest_to   
+            prestation_time['prestation_time'] = exit_time
             print "--------------"
             print str(prestation_time)
             print "--------------"
             prestation_times_obj.create(cr,uid,prestation_time)
             if parent_activity_occurrence:
-                parent_prestation_time['es'] = 'E'   
-                parent_prestation_time['prestation_time'] = activity_occurrence.prest_to   
-                prestation_times_obj.create(cr,uid,parent_prestation_time)
+                #add only if opposite presta exist in parent occurrence
+                prestation_right = prestation_times_obj.search(cr,uid,[('id', 'in',[prestation.id for prestation in parent_activity_occurrence.prestation_times_ids]),
+                                                    ('prestation_time', '>=', exit_time),
+                                                    ])
+                if len(prestation_right) and prestation_right[0].es == 'S':                   
+                    parent_prestation_time['es'] = 'E'   
+                    parent_prestation_time['prestation_time'] = exit_time   
+                    prestation_times_obj.create(cr,uid,parent_prestation_time)
         
     def create(self, cr, uid, vals, context = None): 
         occurrence_id = super(extraschool_activityoccurrence, self).create(cr, uid, vals)

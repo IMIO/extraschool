@@ -33,7 +33,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
     prestationtime_ids = fields.One2many('extraschool.prestationtimes','prestation_times_of_the_day_id')    
     verified = fields.Boolean()                
 
-    def _check_doublon(self,strict=False):
+    def _check_duplicate(self,strict=False):
         prestation_time_ids = [prestation_time.id for prestation_time in self.prestationtime_ids]
         
         saved_prestation_time = None
@@ -63,8 +63,10 @@ class extraschool_prestation_times_of_the_day(models.Model):
                                                            ('prest_from', '>=', time_from),
                                                            ('prest_to', '<=', time_to),
                                                            ('activityid', 'in', [activity.id for activity in prestation_time.activity_occurrence_id.activityid.activity_child_ids]),
-                                                           ('child_registration_ids', '=', prestation_time.childid.id)                                                           
+                                                           ('child_registration_ids', '=', prestation_time.childid.id)   
+                                                           ('activityid.autoaddchilds', '=', False)                                                        
                                                            ])
+    
     def _get_left_right(self,prestation_time,right = True):
         if right:
             return_prestation_time_rs = self.prestationtime_ids.filtered(lambda r: r.prestation_time >= prestation_time.prestation_time and r.id != prestation_time.id)
@@ -93,20 +95,32 @@ class extraschool_prestation_times_of_the_day(models.Model):
         if not next_prestation_times:
             #add opposite presta in same occurrence 
             print "add missing presta"
-            activity_occurrence_obj.add_presta(self.env.cr,self.env.uid,prestation_time.activity_occurrence_id, prestation_time.childid.id, None,True,False,add_entry,add_exit)
+            if prestation_time.activity_occurrence_id.activityid.default_from_to == default_from_to:
+                activity_occurrence_obj.add_presta(self.env.cr,self.env.uid,prestation_time.activity_occurrence_id, prestation_time.childid.id, None,True,False,add_entry,add_exit)
+            else:
+                prestation_time.error_msg = 'Entry without Exit or Exit without Entry'
+                return self
         else :
             next_prestation_time = next_prestation_times[0]
-            #Check if opposite presta in same occurrence exist
-            if prestation_time.activity_occurrence_id.id == next_prestation_time.activity_occurrence_id.id and next_prestation_time.es == opposite:
-                #look for child presta in timeslot
-                for occurrence in self._get_child_activity_occurrence_ids(prestation_time, prestation_time.activity_occurrence_id.activityid.prest_from, next_prestation_time.activity_occurrence_id.prest_to, True):
-                    #add missing presta !!! register conflict must be handled in activity 
-                    print "add"
-                    print str(occurrence)
-                    print "-------"
-                    activity_occurrence_obj.add_presta(self.env.cr,self.env.uid,occurrence, prestation_time.childid.id, prestation_time.activity_occurrence_id)
-            #Check if next presta is same es type and same occurrence ..... it could be an error
-            elif prestation_time.activity_occurrence_id.id == next_prestation_time.activity_occurrence_id.id and next_prestation_time.es == prestation_time.es:
+            #Check if opposite presta is in same occurrence
+            if prestation_time.activity_occurrence_id.id == next_prestation_time.activity_occurrence_id.id:
+                if next_prestation_time.es != opposite:
+                    #error duplicate presta of same type
+                    prestation_time.error_msg = next_prestation_time.error_msg = "Duplicate"
+                else :                    
+                    #look for child presta in timeslot
+                    for occurrence in self._get_child_activity_occurrence_ids(prestation_time, prestation_time.activity_occurrence_id.activityid.prest_from, next_prestation_time.activity_occurrence_id.prest_to, True):
+                        #add missing presta !!! register conflict must be handled in activity 
+                        print "add"
+                        print str(occurrence)
+                        print "-------"
+                        activity_occurrence_obj.add_presta(self.env.cr,self.env.uid,occurrence, prestation_time.childid.id, prestation_time.activity_occurrence_id)
+            else: #Next presta is not in same occurrence
+                if next_prestation_time.exit_all: #kid go home
+                    
+                    activity_occurrence_obj.add_presta(self.env.cr,self.env.uid,next_prestation_time.activity_occurrence_id, prestation_time.childid.id, prestation_time.activity_occurrence_id,True,False,True,True,None,next_prestation_time.prestation_time)
+                    return self
+                if prestation_time.activity_occurrence_id.id == next_prestation_time.activity_occurrence_id.id and next_prestation_time.es == prestation_time.es:
                 print "else"
 
         
@@ -115,7 +129,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
         prestation_time_ids = [prestation_time.id for prestation_time in self.prestationtime_ids]
         print str(prestation_time_ids)
         
-        self._check_doublon(False)
+        self._check_duplicate(False)
         for prestation_time in self.env['extraschool.prestationtimes'].browse(prestation_time_ids):
             self._completion(prestation_time)
                 

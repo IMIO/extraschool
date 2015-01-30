@@ -229,35 +229,42 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
         #modify time   
         prestationtimes_rs = self.env['extraschool.prestationtimes']
         activity_occurence_rs = self.env['extraschool.activity_occurrence']
-        self.env.cr.execute("select distinct(activity_occurrence_id,childid),activity_occurrence_id,childid,id from extraschool_prestationtimes where id in %s", str(prestation_ids).replace('[', '(').replace(']',')'))
+        self.env.cr.execute("select distinct(activity_occurrence_id,childid,exit_all),activity_occurrence_id,childid,id,exit_all,prestation_time from extraschool_prestationtimes where id in %s ", str(prestation_ids).replace('[', '(').replace(']',')'))
         prestationtimes = self.env.cr.dictfetchall()
         ids = [r['id'] for r in prestationtimes['id']]
         prestationtimes_rs.unlink(ids)
         print str(ids)
         for prestationtime in prestationtimes:
             occurrence = activity_occurence_rs.browse(prestationtime['activity_occurrence_id'])
-            prestationtimes_rs.create({'childid':prestationtime['childid'], 
-                                       'activity_occurrence_id': occurrence.id,
-                                       'placeid': occurrence.place_id,
-                                       'es':'E',
-                                       'prestation_time': occurrence.activityid.prest_from,
-                                       'prestation_date': occurrence.occurrence_date,
-                                       'activitycategoryid': occurrence.activityid.categoryid,
-                                       'activityid': occurrence.activityid.id,
-                                       'manualy_encoded': False,
-                                       'verified': True,
-                                       })
-            prestationtimes_rs.create({'childid':prestationtime['childid'], 
-                                       'activity_occurrence_id': occurrence.id,
-                                       'placeid': occurrence.place_id,
-                                       'es':'S',
-                                       'prestation_time': occurrence.activityid.prest_to,
-                                       'prestation_date': occurrence.occurrence_date,
-                                       'activitycategoryid': occurrence.activityid.categoryid,
-                                       'activityid': occurrence.activityid.id,
-                                       'manualy_encoded': False,
-                                       'verified': True,
-                                       })
+            
+            #Look for parent occurrence
+            parent_occurrence = activity_occurence_rs.search([('activityid.activityid', '=', occurrence.activityid.parent_id.id),])
+            parent_occurrence = parent_occurrence[0] if parent_occurrence else None
+            
+            occurrence.add_presta(self.env.cr,self.env.user.id,occurrence,prestationtime['childid'],parent_occurrence, True, False, True, True, None, None, prestationtime['exit_all'])
+#             prestationtimes_rs.create({'childid':prestationtime['childid'], 
+#                                        'activity_occurrence_id': occurrence.id,
+#                                        'placeid': occurrence.place_id,
+#                                        'es':'E',
+#                                        'prestation_time': occurrence.activityid.prest_from,
+#                                        'prestation_date': occurrence.occurrence_date,
+#                                        'activitycategoryid': occurrence.activityid.categoryid,
+#                                        'activityid': occurrence.activityid.id,
+#                                        'manualy_encoded': False,
+#                                        'verified': True,
+#                                        })
+#             prestationtimes_rs.create({'childid':prestationtime['childid'], 
+#                                        'activity_occurrence_id': occurrence.id,
+#                                        'placeid': occurrence.place_id,
+#                                        'es':'S',
+#                                        'prestation_time': occurrence.activityid.prest_to,
+#                                        'prestation_date': occurrence.occurrence_date,
+#                                        'activitycategoryid': occurrence.activityid.categoryid,
+#                                        'activityid': occurrence.activityid.id,
+#                                        'manualy_encoded': False,
+#                                        'exit_all': prestationtime['exit_all'],
+#                                        'verified': True,
+#                                        })
         return self
         
     def _check(self):        
