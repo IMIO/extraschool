@@ -68,6 +68,7 @@
         'extraschool_report.xml',
         'security/extraschool_security.xml',
         'security/ir.model.access.csv',
+        'report/parent.xml',
     ],
     'installable' : True,
     'application': True,

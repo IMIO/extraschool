@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+		<template id="report_parent">
+			<t t-foreach="docs" t-as="o">
+		        <div class="page">
+		            <h2>Report Parent</h2>
+		            <p>This object's name is <span t-field="o.name"/></p>
+		        </div>
+			</t>
+		</template>
+
+		
+		<report
+		    id="extraschool_parent"
+		    model="extraschool.parent"
+		    string="Parent"
+		    report_type="qweb-pdf"
+		    name="extraschool.report_parent"
+		    attachment_use="False"
+		/>
+	</data>
+</openerp>	
+	
+	
