@@ -144,7 +144,6 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
                                                         ('activityid.prest_from','<=',prestation.prestation_time),
                                                         ('activityid.prest_to','>=',prestation.prestation_time),
                                                         ])
-        print "yop"
         if not occurrence_rs:  #Error No matching occurrence found
             return_val['error_msg'] = "No matching occurrence found"
             return return_val
@@ -159,7 +158,6 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
                                                                       ('registration_from','<=',prestation.prestation_date),
                                                                       ('registration_to','>=',prestation.prestation_date),
                                                                      ])
-        print "yup"
         
         if registeredchild_ids:
             activity_occurrence_id = obj_activity_occurrence.search([('place_id.id','=',prestation.placeid.id),
@@ -176,7 +174,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
         
         #try to find a leaf matching the time slot !!! We should use occurrence__child_ids
         occurrence_leaf_rs = occurrence_no_register_rs.filtered(lambda r: not r.activityid.activity_child_ids)
-        print "yip"
+
         
         if len(occurrence_leaf_rs) > 1:  #Error more than 1 occurrence found
             return_val['error_msg'] = "More than one leaf occurrence found"
@@ -189,12 +187,10 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
         
         #try to find a branch matching the time slot
         occurrence_branch_rs = occurrence_no_register_rs.filtered(lambda r: r.activityid.activity_child_ids)
-        print "yap"
         
         if len(occurrence_branch_rs) > 1:  #Error more than 1 occurrence found
             return_val['error_msg'] = "More than one branch occurrence found"
             return return_val
-        print "yyyp"
 
         if occurrence_branch_rs: #One occurrence found
             return_val['return_code'] = 1   
@@ -266,8 +262,22 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
 #                                        'verified': True,
 #                                        })
         return self
+
+    def _set_root_activity(self):
+        activity_rs = self.env['extraschool.activity'].search([])
+        for activity in activity_rs: 
+            # set root activity_id if 
+            if activity.parent_id:
+                parent = activity.parent_id                
+                while parent.parent_id:
+                    parent = parent.parent_id
+                activity.root_id = parent
+            else:
+                activity.root_id = activity
         
-    def _check(self):        
+        
+    def _check(self): 
+        print "Check from check_wizard"       
         prestation_search_domain = [('verified', '=', False),]
         
         if self.placeid:
@@ -286,19 +296,18 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
         print str(obj_prestation_rs)
         print "---FILTERED obj_prestation_rs---"
         print str(obj_prestation_rs.filtered(lambda r: not r.activity_occurrence_id))
-                        
+        
+        #set activity_root on activity
+        self._set_root_activity()               
         #add activity occurrence when missing
         for prestation in obj_prestation_rs.filtered(lambda r: not r.activity_occurrence_id):   
             print "add activity occurrence id "       
             self._prestation_activity_occurrence_completion(prestation)
         
-        #replace default from to prestations
-        self._prestation_default_from_to_completion(prestation_ids)
-        
-        obj_prestation_of_the_day_rs = self.env['extraschool.prestation_times_of_the_day'].search([('prestationtime_ids.id', 'in', prestation_ids)])
-        #add activity occurrence when missing
-        for prestation_of_the_day in obj_prestation_of_the_day_rs:      
-            prestation_of_the_day._check()   
+        #get distinc presta of the day
+        obj_prestation_of_the_day_rs = self.env['extraschool.prestation_times_of_the_day'].search([('prestationtime_ids', 'in', prestation_ids)])
+        for presta_of_the_day in obj_prestation_of_the_day_rs:
+            presta_of_the_day.check()
 
         self.state = 'end_of_verification'
         

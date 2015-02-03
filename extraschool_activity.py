@@ -34,6 +34,7 @@ class extraschool_activity(osv.osv):
         'category' : fields.many2one('extraschool.activitycategory', 'Category'),
         'placeids'  : fields.many2many('extraschool.place','extraschool_activity_place_rel', 'activity_id', 'place_id','Schoolcare place'),
         'parent_id' : fields.many2one('extraschool.activity', 'Parent'),
+        'root_id' : fields.many2one('extraschool.activity', 'Root'),
         'activity_child_ids' : fields.one2many('extraschool.activity', 'parent_id','Activity child'),
         'schoolimplantationids'  : fields.many2many('extraschool.schoolimplantation','extraschool_activity_schoolimplantation_rel', 'activity_id', 'schoolimplantation_id','Schoolcare schoolimplantation'),
         'short_name' : fields.char('Short name', size=20),        
@@ -98,15 +99,22 @@ class extraschool_activity(osv.osv):
                                                                   })
     def write(self,cr,uid,ids,vals,context = None):
         res = super(extraschool_activity,self).write(cr,uid,ids,vals)
-        if res:
-            self.populate_occurrence(cr, uid, ids)
+#         if res:
+#             self.populate_occurrence(cr, uid, ids)
         return res
 
     def create(self,cr,uid,vals,context = None):
+                    
         res = super(extraschool_activity,self).create(cr,uid,vals)
         if res:
             self.populate_occurrence(cr, uid, res)
         return res
+
+    def get_start(self,activity):
+        if activity.default_from_to == 'from' or activity.default_from_to == 'from_to':
+            return activity.prest_from
+        else:
+            return False
 
 extraschool_activity()
 

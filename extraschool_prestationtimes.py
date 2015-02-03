@@ -110,10 +110,11 @@ class extraschool_prestationtimes(osv.osv):
             vals['prestation_times_of_the_day_id'] = prestation_times_of_the_day_ids[0]
 
         if prestaion_times_ids: #if same presta exist than update
-            if vals['exit_all'] == False:
-                presta_to_update = prestation_times_obj.browse(cr,uid,prestaion_times_ids[0])
-                if presta_to_update.exit_all:
-                    vals['exit_all'] = True
+            if 'exit_all' in vals :
+                if vals['exit_all'] == False:
+                    presta_to_update = prestation_times_obj.browse(cr,uid,prestaion_times_ids[0])
+                    if presta_to_update.exit_all:
+                        vals['exit_all'] = True
             
             return super(extraschool_prestationtimes, self).write(cr, uid, prestaion_times_ids, vals)
         else:

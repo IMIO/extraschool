@@ -142,7 +142,9 @@ class extraschool_activityoccurrence(osv.osv):
         
         activity_occurrence_obj.write(cr,uid,[occurrence_id],vals)       
         
-        return occurrence_id       
+        return occurrence_id
+    
+
 
 
 extraschool_activityoccurrence()
