@@ -70,6 +70,7 @@ class extraschool_prestationtimes(osv.osv):
         'activityid' : fields.many2one('extraschool.activity', 'Activity', required=False),  
         'error_msg' : fields.char('Error', size=255),
         'activity_occurrence_id' : fields.many2one('extraschool.activityoccurrence', 'Activity occurrence'),  
+        'activity_name' : fields.related('activity_occurrence_id', 'activityname', type='char', string='Activity Name'),
         'prestation_times_of_the_day_id' : fields.many2one('extraschool.prestation_times_of_the_day', 'Prestation of the day'),  
               
     }

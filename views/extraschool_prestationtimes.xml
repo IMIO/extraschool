@@ -81,7 +81,7 @@
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="Prestations">			
-					<field name="activity_occurrence_id"/>		
+              		<field name="activity_name" />	
 					<field name="placeid"/>		
 					<field name="childid"/>
 					<field name="prestation_date"/>

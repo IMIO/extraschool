@@ -2,11 +2,30 @@
 <openerp>
 	<data> 
 		<template id="report_parent">
-			<t t-foreach="docs" t-as="o">
-		        <div class="page">
-		            <h2>Report Parent</h2>
-		            <p>This object's name is <span t-field="o.name"/></p>
-		        </div>
+			<t t-call="report.html_container">
+				<t t-foreach="docs" t-as="o">
+					<t t-call="report.external_layout">
+				        <div class="page">
+					        <div class="oe_structure"/>
+				            <h2>Report Parent</h2>
+				            <p>This object's name is <span t-field="o.name"/></p>
+					        <p>
+					        	<span t-field="o.firstname"/>
+					        	<span t-field="o.lastname"/>			        	
+					        </p>
+
+					        <t t-foreach="o.child_ids" t-as="child">
+		    					<p onload="document.write(page);">
+		    						<span t-field="child.firstname"/>
+		    						<span t-field="child.lastname"/>
+		    						<span t-field="child.childtypeid.name"/>
+		    					</p>
+							</t>
+					        
+					        <div class="oe_structure"/>
+				        </div>
+					</t>
+				</t>
 			</t>
 		</template>
 

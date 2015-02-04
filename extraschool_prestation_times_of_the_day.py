@@ -146,6 +146,9 @@ class extraschool_prestation_times_of_the_day(models.Model):
         #check if first presta is an entry
         first_prestation_time = prestation_times_rs[0]
         if first_prestation_time.es == 'E':
+            #correction if default_from_to
+            if first_prestation_time.activity_occurrence_id.activityid.default_from_to == 'from_to':
+                first_prestation_time.prestation_time = first_prestation_time.activity_occurrence_id.prest_from
             return first_prestation_time
         else:
             #get the default start
@@ -174,6 +177,9 @@ class extraschool_prestation_times_of_the_day(models.Model):
         #check if first presta is an exit
         last_prestation_time = prestation_times_rs[len(prestation_times_rs)-1]
         if last_prestation_time.es == 'S':
+            #correction if default_from_to
+            if last_prestation_time.activity_occurrence_id.activityid.default_from_to == 'from_to':
+                last_prestation_time.prestation_time = last_prestation_time.activity_occurrence_id.prest_to            
             return last_prestation_time
         else:
             #get the default start
@@ -192,18 +198,96 @@ class extraschool_prestation_times_of_the_day(models.Model):
             else:
                 self._add_comment("Unable to define an entry")
                 return False
-    def _occu_start_stop_completion(self,occurrence):
-        print occurrence.id
+         
+            
+    def _occu_start_stop_completion(self,start_time,stop_time,occurrence,down,from_occurrence):
+        print "->_occu_start_stop_completion"
+        print occurrence.activityname
+        prestation_times_obj = self.pool.get('extraschool.prestationtimes')
+        occurrence_obj = self.pool.get('extraschool.activityoccurrence')
+        cr,uid = self.env.cr, self.env.user.id
+        
+        #init used to avoid adding presta in parent if not needed
+        prest_from = -1
+        prest_to = -1
+        
+        looked_activity = None
+        #if start occurrence than entry is OK so do something ONLY if it's not entry occurrence
+        if not start_time.activity_occurrence_id.id == occurrence.id:
+            "this is NOT the start occurrence"
+            if not down: #"UP"
+                #if we are going up, start is exit of the occurrence that we are coming from
+                prest_from = from_occurrence.prest_to
+            else:
+                prest_from = from_occurrence.prest_from
+            #delete all occurrence presta but not stop_time presta
+            prestation_times_obj.unlink(cr,uid,occurrence.prestation_times_ids.filtered(lambda r: r.id != stop_time.id).ids)
+            #add entry presta
+            occurrence_obj.add_presta(cr,uid,occurrence,self.child_id.id,None, True, False, True, False,prest_from)
+        
+        #if stop occurrence than exit is OK so do something ONLY if it's not exit occurrence
+        if not stop_time.activity_occurrence_id.id == occurrence.id:
+            "this is NOT the exit occurrence"
+            if not down: #"UP"
+                #in we are not in the root
+                if occurrence.activityid.id != occurrence.activityid.root_id.id:
+                    prest_to = occurrence.prest_to
+                else:
+                    #we are in the root and the exit is in an other occurrence so the exit is the entry of first occurrence in the way to the exit occurrence
+                    #go up from exit occurrence until the last occurrence just before the root"
+                    looked_activity = stop_time.activity_occurrence_id.activityid.parent_id
+                    while looked_activity.parent_id.id != looked_activity.root_id.id:
+                        looked_activity = looked_activity.parent_id
+                                   
+                    prest_to = looked_activity.prest_from                
+            else:
+                prest_to = occurrence.prest_to
+                
+            #add exit presta
+            occurrence_obj.add_presta(cr,uid,occurrence,self.child_id.id,None, True, False, False, True,None,prest_to)
+            
+          
+        #add parent entry and exit if needed
+        if down and occurrence.activityid.id != occurrence.activityid.root_id.id and from_occurrence: #Down and Not in root 
+            #if level >=2
+            if occurrence.activityid.parent_id and occurrence.activityid.parent_id.id != occurrence.activityid.root_id.id:
+               
+                occurrence_obj.add_presta(cr,uid,from_occurrence,self.child_id.id,None, True, False, True if prest_to > 0 else False, True if prest_from > 0 else False,prest_to,prest_from) #from & to are inverted it's normal it's for parent 
+            else: #just under the root level 1
+                if not looked_activity:
+                    looked_activity = stop_time.activity_occurrence_id.activityid.parent_id
+                    while looked_activity.parent_id.id != looked_activity.root_id.id:
+                        looked_activity = looked_activity.parent_id 
+                if occurrence.id !=looked_activity.id:       
+                    occurrence_obj.add_presta(cr,uid,from_occurrence,self.child_id.id,None, True, False, True if prest_to > 0 else False, True if prest_from > 0 else False,prest_to,prest_from) #from & to are inverted it's normal it's for parent             
+
+        print "<-_occu_start_stop_completion"
+        
         
     def _occu_completion(self,start_time,stop_time,occurrence,down,from_occurrence):
         if not occurrence:
             #first call of the fct .... Here we are .... let's go
             down = True
             occurrence = start_time.activity_occurrence_id
-        self._occu_start_stop_completion(occurrence)
+        self._occu_start_stop_completion(start_time,stop_time,occurrence,down,from_occurrence)
+        
+        #compute entry before going down
+        if start_time.activity_occurrence_id.id == occurrence.id:
+            "this is the start"
+            prest_from = start_time.prestation_time
+        else:#
+            if not down:
+                #if we are going up, start is exit of the occurrence that we are comming from
+                prest_from = from_occurrence.prest_to
+            else:
+                prest_from = from_occurrence.prest_from
+
+        #compute exit before going down
         if stop_time.activity_occurrence_id.id == occurrence.id:
-            "this is the end, we have reached the last occurrence"
-            return self
+            "this is almost the end, we have reached the last occurrence"
+            prest_to = stop_time.prestation_time
+        else:            
+            prest_to = occurrence.prest_to if occurrence.prest_to <= stop_time.prestation_time else stop_time.prestation_time
         
         print "down"
         #get child occurrence starting after current occu
@@ -212,14 +296,21 @@ class extraschool_prestation_times_of_the_day(models.Model):
                                                                                ('activityid.id', '!=',from_occurrence_id),
                                                                             ('occurrence_date', '=', self.date_of_the_day),
                                                                             ('place_id.id', '=', occurrence.place_id.id),
-                                                                            ('prest_from', '>=', occurrence.prest_from),
-                                                                            ('prest_to', '<=', occurrence.prest_to)])
+                                                                            ('prest_from', '>=', prest_from),
+                                                                            ('prest_to', '<=', prest_to)])
         for child_occurrence in child_occurrences:
             self._occu_completion(start_time,stop_time,child_occurrence,True,occurrence)
 
         # try to go up         
-        if (from_occurrence == None and occurrence.activityid.parent_id) or (from_occurrence and occurrence.parent_id and occurrence.parent_id.id != from_occurrence.id):
-            self._occu_completion(start_time,stop_time,occurrence.parent_id,False,occurrence)
+        if (from_occurrence == None and occurrence.activityid.parent_id) or (from_occurrence and occurrence.activityid.parent_id and occurrence.activityid.parent_id.id != from_occurrence.activityid.id):
+            from_occurrence_id = from_occurrence.id if from_occurrence else -1
+            parent_occurrences = self.env['extraschool.activityoccurrence'].search([('activityid.id', '=',occurrence.activityid.parent_id.id),
+                                                                               ('activityid.id', '!=',from_occurrence_id),
+                                                                            ('occurrence_date', '=', self.date_of_the_day),
+                                                                            ('place_id.id', '=', occurrence.place_id.id),
+                                                                            ])
+            
+            self._occu_completion(start_time,stop_time,parent_occurrences,False,occurrence)
         else:
             return self      
         

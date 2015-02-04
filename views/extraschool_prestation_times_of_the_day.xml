@@ -30,8 +30,7 @@
                     	<tree string="prestation_times" colors="red:verified==False">
 	                   		<field name="childid" />
                     		<field name="placeid" />
-                    		<field name="activitycategoryid" />
-                    		<field name="activity_occurrence_id" />
+	                   		<field name="activity_name" />
                     		<field name="prestation_time" />
                     		<field name="es" />
                     		<field name="exit_all" />
@@ -42,8 +41,7 @@
                     		<group>
 	                    		<field name="childid" />
 	                    		<field name="placeid" />
-	                    		<field name="activitycategoryid" />
-	                    		<field name="activity_occurrence_id" />
+		                   		<field name="activity_name" />
 	                    		<field name="prestation_time" />
 	                    		<field name="es" />
 	                    		<field name="exit_all" />

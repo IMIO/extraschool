@@ -62,6 +62,7 @@ class extraschool_activityoccurrence(osv.osv):
             record.date_stop = datetime.strptime(record.occurrence_date + ' ' + str(hour).zfill(2) + ':' + str(minute).zfill(2) + ':00', DEFAULT_SERVER_DATETIME_FORMAT)
     
     def add_presta(self,cr,uid,activity_occurrence,child_id,parent_activity_occurrence = None, verified = True, manualy_encoded = False, entry = True, exit = True,entry_time = None, exit_time = None,exit_all= False):
+        print "add_presta " + activity_occurrence.activityname
         prestation_times_obj = self.pool.get('extraschool.prestationtimes')
         entry_time = entry_time if entry_time else activity_occurrence.prest_from
         exit_time = exit_time if exit_time else activity_occurrence.prest_to
