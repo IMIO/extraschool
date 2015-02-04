@@ -115,6 +115,11 @@ class extraschool_activity(osv.osv):
             return activity.prest_from
         else:
             return False
-
+        
+    def get_stop(self,activity):
+        if activity.default_from_to == 'to' or activity.default_from_to == 'from_to':
+            return activity.prest_to
+        else:
+            return False
 extraschool_activity()
 

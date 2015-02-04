@@ -79,11 +79,13 @@
 					</page>
             		<page string="Time">
 			            <group col="4">  
+			                <field name="prest_from"/>
+			                <field name="prest_to"/>
+			                <newline/>
 			                <field name="period_duration"/>
 			                <field name="fixedperiod"/>
 			                <newline/>
-			                <field name="default_from" widget="float_time"/>
-			                <field name="default_to"  widget="float_time"/>   
+			                <field name="default_from_to"/>
 			                <newline/>
 			                <field name="subsidizedbyone"/>     
 			                <newline/>

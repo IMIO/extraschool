@@ -174,7 +174,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
         #get presta matching the root_activity
         prestation_times_rs = self.prestationtime_ids.filtered(lambda r: r.activity_occurrence_id.activityid.root_id.id == root_activity.id)    
         prestation_times_rs = prestation_times_rs.sorted(key=lambda r: r.prestation_time)
-        #check if first presta is an exit
+        #check if last presta is an exit
         last_prestation_time = prestation_times_rs[len(prestation_times_rs)-1]
         if last_prestation_time.es == 'S':
             #correction if default_from_to
@@ -182,14 +182,14 @@ class extraschool_prestation_times_of_the_day(models.Model):
                 last_prestation_time.prestation_time = last_prestation_time.activity_occurrence_id.prest_to            
             return last_prestation_time
         else:
-            #get the default start
-            entry_time = root_activity.get_start(root_activity)
-            if entry_time:
+            #get the default stop
+            exit_time = root_activity.get_stop(root_activity)
+            if exit_time:
                 #get the occurrence of the root activity
                 occurrence = self.env['extraschool.activityoccurrence'].search([('activityid.id', '=',root_activity.id),
                                                                                 ('occurrence_date', '=', self.date_of_the_day),
                                                                                 ('place_id.id', '=', last_prestation_time.placeid.id)])
-                #add missing entry presta
+                #add missing exit presta
                 activity_occurrence_obj.add_presta(self.env.cr,self.env.uid,occurrence, self.child_id.id, None,True,False,False,True)
                 #return presta added
                 prestation_times_rs = self.prestationtime_ids.filtered(lambda r: r.activity_occurrence_id.activityid.id == root_activity.id)  
@@ -220,8 +220,6 @@ class extraschool_prestation_times_of_the_day(models.Model):
                 prest_from = from_occurrence.prest_to
             else:
                 prest_from = from_occurrence.prest_from
-            #delete all occurrence presta but not stop_time presta
-            prestation_times_obj.unlink(cr,uid,occurrence.prestation_times_ids.filtered(lambda r: r.id != stop_time.id).ids)
             #add entry presta
             occurrence_obj.add_presta(cr,uid,occurrence,self.child_id.id,None, True, False, True, False,prest_from)
         
@@ -318,6 +316,8 @@ class extraschool_prestation_times_of_the_day(models.Model):
           
     def check(self):
         print "_check presta of the day" 
+        prestation_times_obj = self.pool.get('extraschool.prestationtimes')
+        cr,uid = self.env.cr, self.env.user.id
         prestation_time_ids = [prestation_time.id for prestation_time in self.prestationtime_ids]
         print str(prestation_time_ids)
         #if no presta than error and exit
@@ -335,17 +335,27 @@ class extraschool_prestation_times_of_the_day(models.Model):
         
         for root_activity in self.env['extraschool.activity'].browse(root_ids):
             print "loop-" + str(root_activity)
-            print "-> IN loop-" + str(root_activity)   
+            print "-> IN loop-" + str(root_activity) 
             start_time = self._completion_entry(root_activity)
             if start_time :
-                print "start_time:" + str(start_time.prestation_time)
+                print "child = " + self.child_id.name  
+                print "date = " + str(self.date_of_the_day)
+                start_time.verified = True
+                print "start_time:" + start_time.childid.name + " " + start_time.activity_occurrence_id.activityname + " " + str(start_time.prestation_time) + " " + str(start_time.verified) 
+                
             stop_time = self._completion_exit(root_activity)
             if stop_time :
                 print "stop_time:" + str(stop_time.prestation_time)
+                
             print "<-----<----"
             
             if start_time and stop_time:
                 print "go"
+                prestation_times_obj.write(cr,uid,stop_time.id,{'verified' : True})
+                #delete all occurrence presta but not stop_time presta
+                prestation_times_obj.unlink(cr,uid,self.prestationtime_ids.filtered(lambda r: r.activity_occurrence_id.activityid.root_id.id == root_activity.id and r.id != start_time.id and r.id != stop_time.id).ids)
+                start_time.verified = True
+                stop_time.verified = True
                 self._occu_completion(start_time,stop_time,None,True,None)
             else:
                 #an error has been found and added to comment field
