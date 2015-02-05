@@ -25,6 +25,7 @@
         <menuitem action="action_lbsc_prestationscheck_wizard" id="extraschool_menu_prestationscheck_wizard" parent="extraschool_menu_prestations"/>       
         <!-- menuitem name="Prestations" parent="extraschool_menu_prestations" id="extraschool_menu_prest" action="action_extraschool_prest"/ -->
         <menuitem name="Prestations" parent="extraschool_menu_prestations" id="extraschool_menu_prest_tree" action="action_extraschool_prest_tree" />
+        <menuitem name="Prestations of the day à corriger" parent="extraschool_menu_prestations" id="extraschool_menu_prestation_times_of_the_day_tree_not_verified" action="action_extraschool_prestation_times_of_the_day_tree_not_verified" />
         <menuitem name="Prestations of the day" parent="extraschool_menu_prestations" id="extraschool_menu_prestation_times_of_the_day_tree" action="action_extraschool_prestation_times_of_the_day_tree" />
         <menuitem name="Documents" id="extraschool_menu_documents" parent="menu_extraschool"/>
         <menuitem action="action_lbsc_invoice_wizard" id="extraschool_menu_invoice_wizard" parent="extraschool_menu_documents"/>

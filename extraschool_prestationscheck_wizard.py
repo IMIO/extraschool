@@ -306,10 +306,21 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
         
         #get distinc presta of the day
         obj_prestation_of_the_day_rs = self.env['extraschool.prestation_times_of_the_day'].search([('prestationtime_ids', 'in', prestation_ids)])
+        zz = 0
         for presta_of_the_day in obj_prestation_of_the_day_rs:
+            zz += 1
             presta_of_the_day.check()
+            if presta_of_the_day.prestationtime_ids.filtered(lambda r: r.verified == False):
+                presta_of_the_day.verified = False
+            else:
+                #check duplicate ... sequence must be E S E S E S
+#                presta_of_the_day.verified = True
+                presta_of_the_day._check_duplicate(True)
+                
+
 
         self.state = 'end_of_verification'
+        print 'end_of_verification ' + str(zz) + " presta_of_the_day verified"
         
         return self        
     

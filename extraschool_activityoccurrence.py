@@ -136,7 +136,7 @@ class extraschool_activityoccurrence(osv.osv):
             if child_registration.registration_from <= occurrence_date_str and child_registration.registration_to >= occurrence_date_str and child_registration.place_id.id == vals['place_id']:
                 child_ids.append(child_registration.child_id.id)
                 if activity.autoaddchilds:
-                    self.add_presta(cr,uid,activity_occurrence_obj.browse(cr,uid,occurrence_id), child_registration.child_id.id, None)
+                    self.add_presta(cr,uid,activity_occurrence_obj.browse(cr,uid,occurrence_id), child_registration.child_id.id, None,False)
                     
         #use syntax to replace existing records by new records
         vals['child_registration_ids'] = [(6, False, child_ids)] 

@@ -52,10 +52,12 @@ class extraschool_prestation_times_of_the_day(models.Model):
                 or (prestation_time.es == saved_prestation_time.es and strict == True):
                     prestation_time.error_msg = "Duplicate"
                     saved_prestation_time.error_msg = "Duplicate"
+                    saved_prestation_time.verified = False
                     verified = False
                 
         self.verified = verified
         return self               
+    
     def _get_child_activity_occurrence_ids(self,prestation_time,time_from,time_to,registered = True):
         #
         # !!!!  Could be better if we handle occurrence child and parent
@@ -69,61 +71,6 @@ class extraschool_prestation_times_of_the_day(models.Model):
                                                            ('activityid.autoaddchilds', '=', False)                                                        
                                                            ])
     
-    def _get_left_right(self,prestation_time,right = True):
-        if right:
-            return_prestation_time_rs = self.prestationtime_ids.filtered(lambda r: r.prestation_time >= prestation_time.prestation_time and r.id != prestation_time.id)
-        else:
-            return_prestation_time_rs = self.prestationtime_ids.filtered(lambda r: r.prestation_time <= prestation_time.prestation_time and r.id != prestation_time.id)
-                
-#     def _completion(self, prestation_time):
-#         activity_occurrence_obj = self.pool.get('extraschool.activityoccurrence')
-#         print "++++++Completion+++++"
-#         print str(prestation_time)
-#         if prestation_time.es == 'E':
-#             right = True
-#             add_entry = False
-#             add_exit = True
-#             opposite = "S"
-#             default_from_to = "to"
-#         else:
-#             right = False
-#             add_entry = True
-#             add_exit = False
-#             opposite = "E"
-#             default_from_to = "from"
-#                                    
-#         next_prestation_times = self._get_left_right(prestation_time,right)
-#         #no next presta even in an other occurrence
-#         if not next_prestation_times:
-#             #add opposite presta in same occurrence 
-#             print "add missing presta"
-#             if prestation_time.activity_occurrence_id.activityid.default_from_to == default_from_to:
-#                 activity_occurrence_obj.add_presta(self.env.cr,self.env.uid,prestation_time.activity_occurrence_id, prestation_time.childid.id, None,True,False,add_entry,add_exit)
-#             else:
-#                 prestation_time.error_msg = 'Entry without Exit or Exit without Entry'
-#                 return self
-#         else :
-#             next_prestation_time = next_prestation_times[0]
-#             #Check if opposite presta is in same occurrence
-#             if prestation_time.activity_occurrence_id.id == next_prestation_time.activity_occurrence_id.id:
-#                 if next_prestation_time.es != opposite:
-#                     #error duplicate presta of same type
-#                     prestation_time.error_msg = next_prestation_time.error_msg = "Duplicate"
-#                 else :                    
-#                     #look for child presta in timeslot
-#                     for occurrence in self._get_child_activity_occurrence_ids(prestation_time, prestation_time.activity_occurrence_id.activityid.prest_from, next_prestation_time.activity_occurrence_id.prest_to, True):
-#                         #add missing presta !!! register conflict must be handled in activity 
-#                         print "add"
-#                         print str(occurrence)
-#                         print "-------"
-#                         activity_occurrence_obj.add_presta(self.env.cr,self.env.uid,occurrence, prestation_time.childid.id, prestation_time.activity_occurrence_id)
-#             else: #Next presta is not in same occurrence
-#                 if next_prestation_time.exit_all: #kid go home
-#                     
-#                     activity_occurrence_obj.add_presta(self.env.cr,self.env.uid,next_prestation_time.activity_occurrence_id, prestation_time.childid.id, prestation_time.activity_occurrence_id,True,False,True,True,None,next_prestation_time.prestation_time)
-#                     return self
-#                 if prestation_time.activity_occurrence_id.id == next_prestation_time.activity_occurrence_id.id and next_prestation_time.es == prestation_time.es:
-#                 print "else"
 
     def _add_comment(self,comment,reset=False):
         tmp_comment = self.comment
@@ -203,7 +150,6 @@ class extraschool_prestation_times_of_the_day(models.Model):
     def _occu_start_stop_completion(self,start_time,stop_time,occurrence,down,from_occurrence):
         print "->_occu_start_stop_completion"
         print occurrence.activityname
-        prestation_times_obj = self.pool.get('extraschool.prestationtimes')
         occurrence_obj = self.pool.get('extraschool.activityoccurrence')
         cr,uid = self.env.cr, self.env.user.id
         
@@ -271,7 +217,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
         
         #compute entry before going down
         if start_time.activity_occurrence_id.id == occurrence.id:
-            "this is the start"
+            #"this is the start"
             prest_from = start_time.prestation_time
         else:#
             if not down:
@@ -299,16 +245,18 @@ class extraschool_prestation_times_of_the_day(models.Model):
         for child_occurrence in child_occurrences:
             self._occu_completion(start_time,stop_time,child_occurrence,True,occurrence)
 
-        # try to go up         
-        if (from_occurrence == None and occurrence.activityid.parent_id) or (from_occurrence and occurrence.activityid.parent_id and occurrence.activityid.parent_id.id != from_occurrence.activityid.id):
-            from_occurrence_id = from_occurrence.id if from_occurrence else -1
-            parent_occurrences = self.env['extraschool.activityoccurrence'].search([('activityid.id', '=',occurrence.activityid.parent_id.id),
-                                                                               ('activityid.id', '!=',from_occurrence_id),
-                                                                            ('occurrence_date', '=', self.date_of_the_day),
-                                                                            ('place_id.id', '=', occurrence.place_id.id),
-                                                                            ])
-            
-            self._occu_completion(start_time,stop_time,parent_occurrences,False,occurrence)
+        # try to go up     
+        # if entry and exit is in the current occurrence STOP
+        if occurrence.id != start_time.activity_occurrence_id.id or occurrence.id != stop_time.activity_occurrence_id.id:
+            if (from_occurrence == None and occurrence.activityid.parent_id) or (from_occurrence and occurrence.activityid.parent_id and occurrence.activityid.parent_id.id != from_occurrence.activityid.id):
+                from_occurrence_id = from_occurrence.id if from_occurrence else -1
+                parent_occurrences = self.env['extraschool.activityoccurrence'].search([('activityid.id', '=',occurrence.activityid.parent_id.id),
+                                                                                   ('activityid.id', '!=',from_occurrence_id),
+                                                                                ('occurrence_date', '=', self.date_of_the_day),
+                                                                                ('place_id.id', '=', occurrence.place_id.id),
+                                                                                ])
+                
+                self._occu_completion(start_time,stop_time,parent_occurrences,False,occurrence)
         else:
             return self      
         
@@ -357,10 +305,11 @@ class extraschool_prestation_times_of_the_day(models.Model):
                 start_time.verified = True
                 stop_time.verified = True
                 self._occu_completion(start_time,stop_time,None,True,None)
+                
             else:
                 #an error has been found and added to comment field
                 self.verified = False
-        
+                
         return self
                 
             

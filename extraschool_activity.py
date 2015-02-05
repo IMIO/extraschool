@@ -97,6 +97,7 @@ class extraschool_activity(osv.osv):
                                                                   'occurrence_date' : current_day_date,
                                                                   'activityid' : activity.id,
                                                                   })
+
     def write(self,cr,uid,ids,vals,context = None):
         res = super(extraschool_activity,self).write(cr,uid,ids,vals)
 #         if res:

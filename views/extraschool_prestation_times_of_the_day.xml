@@ -26,6 +26,7 @@
                     <newline/>
                     <field name="verified" />
                     <newline/>
+                    <field name="comment" />
                     <field name="prestationtime_ids" nolabel="1" colspan="4">
                     	<tree string="prestation_times" colors="red:verified==False">
 	                   		<field name="childid" />
@@ -61,7 +62,7 @@
             <field name="arch" type="xml">
                 <search string="prestation_times_of_the_day search">
                    <field name="child_id" string="child"/>
-                   <filter string="verified" icon="terp-accessories-archiver" domain="[('verified','=',True)]"/>
+                   <filter string="not verified" name="not_verified" icon="terp-accessories-archiver" domain="[('verified','=',False)]"/>
                    <group  expand='0' string='Group by...'>
                        <filter string='child' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'child_id'}"/>
                    </group>                    
@@ -82,5 +83,15 @@
 			<field name="view_id" ref="extraschool_prestation_times_of_the_day_tree"/>
             <field name="search_view_id" ref="prestation_times_of_the_day_search_view"/>			
 		</record>		
+
+        <record model="ir.actions.act_window" id="action_extraschool_prestation_times_of_the_day_tree_not_verified">
+			<field name="name">Prestations_of_the_day.tree</field>
+			<field name="res_model">extraschool.prestation_times_of_the_day</field>
+			<field name="view_type">form</field>
+			<field name="view_id" ref="extraschool_prestation_times_of_the_day_tree"/>
+            <field name="search_view_id" ref="prestation_times_of_the_day_search_view"/>			
+			<field name="context">{'search_default_not_verified':1}</field>   	    
+		</record>		
+		
 	</data>
 </openerp>
