@@ -16,7 +16,7 @@
                         <field name="prestation_date" on_change="onchange_prestation_date(prestation_date,childid)"/>
                         <separator string="Prestations"/>
                         <newline/>
-                        <field name="prestations_id" nolabel="1" on_change="onchange_prestations(prestations_id,childid,prestation_date,placeid)" colspan="2">
+                        <field name="prestations_id" nolabel="1" colspan="2">
                             <tree string="Prestations" version="7.0" editable="bottom">
                                 <field name="activitycategoryid"/>
                                 <field name="prestation_time" widget="float_time"/>

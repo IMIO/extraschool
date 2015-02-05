@@ -68,28 +68,16 @@ class extraschool_prestations_wizard(osv.osv_memory):
             schoolimplantationids=self.env['extraschool.place'].browse(self.placeid.id)           
             return {'domain':{'childid': [('schoolimplantation', 'in', [impl.id for impl in schoolimplantationids.schoolimplantation_ids])]},}
         
-        
-    def onchange_prestations(self, cr, uid, ids, prestations, childid, currentdate, placeid):
-        obj_prestation = self.pool.get('extraschool.prestationtimes')
-        for prestation in prestations:
-            if prestation[0]==2:                        
-                res = obj_prestation.unlink(cr, uid, [prestation[1]])
-            if prestation[0]==1:
-                res = obj_prestation.write(cr, uid,[prestation[1]], prestation[2])
-            if prestation[0]==0:
-                values=prestation[2]
-                prestids = obj_prestation.search(cr,uid,[('childid', '=', childid),('prestation_date', '=', currentdate),('prestation_time', '=', values['prestation_time']),('ES', '=', values['ES'])])
-                if not prestids:
-                    if not values['placeid']:
-                        values['placeid']=placeid
-                    if not values['activitycategoryid']:
-                        values['activitycategoryid']=1
-                    values['childid']=childid
-                    values['prestation_date']=currentdate
-                    values['manualy_encoded']=True
-                    res = obj_prestation.create(cr, uid, values)
-        return False
+    @api.onchange('prestations_id','childid','placeid')
+    def onchange_prestations(self):
 
+        cr,uid = self.env.cr,self.env.user.id
+        for prestation in self.prestations_id:
+            if prestation.exists():
+                prestation.write()
+            else:
+                prestation.create()
+        
     def onchange_childid(self, cr, uid, ids, childid,prestation_date):
         obj_child = self.pool.get('extraschool.child')
         obj_prestations = self.pool.get('extraschool.prestationtimes')

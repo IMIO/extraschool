@@ -2,30 +2,28 @@
 <openerp>
 	<data> 
 		<template id="report_parent">
-			<t t-call="report.html_container">
-				<t t-foreach="docs" t-as="o">
-					<t t-call="report.external_layout">
-				        <div class="page">
-					        <div class="oe_structure"/>
-				            <h2>Report Parent</h2>
-				            <p>This object's name is <span t-field="o.name"/></p>
-					        <p>
-					        	<span t-field="o.firstname"/>
-					        	<span t-field="o.lastname"/>			        	
-					        </p>
-
-					        <t t-foreach="o.child_ids" t-as="child">
-		    					<p onload="document.write(page);">
-		    						<span t-field="child.firstname"/>
-		    						<span t-field="child.lastname"/>
-		    						<span t-field="child.childtypeid.name"/>
-		    					</p>
-							</t>
-					        
-					        <div class="oe_structure"/>
-				        </div>
-					</t>
-				</t>
+		<t t-call="report.html_container">
+			<t t-foreach="docs" t-as="parent">
+				
+		        <div class="page">
+		            <h2>Report Parent</h2>
+		            <p>Parent <span t-field="parent.name"/></p>
+		            <table>
+		            	<t t-foreach="parent.child_ids" t-as="child">
+		            		<tr>
+		            			<td><span t-field="child.name"/></td>
+		            			<td><span t-field="child.firstname"/></td>
+		            			<td><img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', child.firstname, 200, 200)"/></td>		            			
+		            			
+		            		</tr>
+		            	</t>
+		            </table>
+		        </div>
+		        <div class="page">
+		            <h2>2eme page</h2>
+		            
+		        </div>
+			</t>
 			</t>
 		</template>
 
