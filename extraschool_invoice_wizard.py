@@ -162,6 +162,7 @@ class extraschool_invoice_wizard(osv.osv_memory):
                         if totactivities > float(discount['discount']):
                                 amount=amount+(totactivities-float(discount['discount']))
         return amount
+    
     def _compute_invoices(self, cr, uid, form, context=None):
         obj_config = self.pool.get('extraschool.mainsettings')
         obj_activitycategory = self.pool.get('extraschool.activitycategory')
@@ -173,71 +174,52 @@ class extraschool_invoice_wizard(osv.osv_memory):
         obj_biller = self.pool.get('extraschool.biller')
         obj_invoicedprest = self.pool.get('extraschool.invoicedprestations')
         obj_parent = self.pool.get('extraschool.parent')
-        cr.execute('select distinct(prestation_date) from extraschool_prestationtimes left join "extraschool_child" on childid="extraschool_child".id where schoolimplantation in '+str(form['schoolimplantationid']).replace('[','(').replace(']',')')+' and prestation_date >=%s and prestation_date <= %s and verified = FALSE ',(form['period_from'],form['period_to']))
-        prestationdatesnotverified=cr.dictfetchall()
-        if prestationdatesnotverified:
-            for prestdate in prestationdatesnotverified:
-                cr.execute('select distinct(childid) from extraschool_prestationtimes where prestation_date=%s and verified=FALSE and childid in (select id from extraschool_child where schoolimplantation in '+str(form['schoolimplantationid']).replace('[','(').replace(']',')')+')',(prestdate['prestation_date'],))
-                childs=cr.dictfetchall()
-                for child in childs:
-                    cr.execute('select id,prestation_time,"es",prestation_time,placeid,activitycategoryid from extraschool_prestationtimes where childid=%s and prestation_date=%s order by placeid,prestation_time,"es" desc',(child['childid'],prestdate['prestation_date']))
-                    childprests=cr.dictfetchall()
-                    es='E'                                
-                    if len(childprests)%2 != 0:
-                        placeid=childprests[0]['placeid']
-                        erreur=True
-                        print child['childid']
-                        print childprests
-                        print 'toto1'+str(prestdate)+str(childprests[0]['prestation_time'])+str(childprests[0]['ES'])
-                    
-                    else:
-                        currentactivitycategory=childprests[0]['activitycategoryid']
-                        erreur=False
-                    for prestation in childprests:
-                        placeid=prestation['placeid']
-                        if prestation['ES']!=es:
-                            print 'toto2'+str(prestdate)+str(prestation['prestation_time'])+str(prestation['ES'])
-                            erreur=True
-                        if es=='E':
-                            currentactivitycategory=prestation['activitycategoryid']
-                            es='S'
-                        else:
-                            if currentactivitycategory!=prestation['activitycategoryid']:
-                                erreur=True
-                                print 'toto3'+str(prestdate)+str(prestation['prestation_time'])+str(prestation['ES'])
-                            es='E'                        
-                    if erreur:
-                        cr.execute('select name from extraschool_place where id=%s',(placeid,))    
-                        raise osv.except_osv('Error!','re-check prestations of '+cr.dictfetchall()[0]['name'])
-                        return False
-                    else:
-                        cr.execute('update extraschool_prestationtimes set verified=TRUE where childid=%s and prestation_date=%s',(child['childid'],prestdate['prestation_date']))
-                    
+        obj_prestation_times_of_the_day = self.pool.get('extraschool.prestation_times_of_the_day')
+        
+        #a faire: verifier si toutes les prestations sont verifiees
+                             
+        #get las invoice number
         cr.execute('select max(number) as maxnum from extraschool_invoice')
         invoicefiles=[]
         invoicenum=cr.dictfetchall()[0]['maxnum']
         if invoicenum==None:
             invoicenum=0
-        activitycatid=form['activitycategory'][0]
         
+        #creation of new biller
+        activitycatid=form['activitycategory'][0]
         biller_id = obj_biller.create(cr, uid, {'activitycategoryid':form['activitycategory'][0],'period_from':form['period_from'],'period_to':form['period_to'],'payment_term':form['invoice_term'],'invoice_date':form['invoice_date']}, context=context)
+        
         for schoolimplantationid in form['schoolimplantationid']:
+            #Superb sql query to loop on parents to invoice order by classes
             cr.execute('select distinct(parentid),schoolimplantation,classid,streetcode from extraschool_child left join extraschool_parent on parentid=extraschool_parent.id where schoolimplantation=%s and extraschool_child.id in (select childid from extraschool_prestationtimes where prestation_date >=%s and prestation_date <= %s and activitycategoryid=%s) and extraschool_child.id not in (select childid from extraschool_invoicedprestations left join extraschool_activity on activityid=extraschool_activity.id where prestation_date >=%s and prestation_date <= %s and category=%s) order by classid',(schoolimplantationid,form['period_from'],form['period_to'],form['activitycategory'][0],form['period_from'],form['period_to'],form['activitycategory'][0]))
             parents=cr.dictfetchall()
             for parent in parents:
                 toinvoice = False
+                #get parameters of activity category
                 activitycat=obj_activitycategory.read(cr, uid, [activitycatid],['invoicecomstructprefix','invoicelastcomstruct','invoicetemplate','childpositiondetermination'])[0]
+                #get childs of the parent order by birthdate
                 cr.execute('select * from extraschool_child where parentid=%s and isdisabled=FALSE order by birthdate',(parent['parentid'],))
                 childs=cr.dictfetchall()                
                 tmpchilds=[]
                 discountamount = 0.0
                 for child in childs:                    
+                    '''
                     cr.execute('select leveltype from extraschool_level where id=%s',(child['levelid'],))
                     leveltype= cr.dictfetchall()[0]['leveltype']
+                    '''
+                    #loop on prestas_of_the_days
+                    '''
                     cr.execute('select distinct(prestation_date) from extraschool_prestationtimes where childid=%s and prestation_date >=%s and prestation_date <= %s and activitycategoryid=%s and prestation_date not in (select prestation_date from extraschool_invoicedprestations left join extraschool_activity on activityid=extraschool_activity.id where childid=%s and prestation_date >=%s and prestation_date <= %s and category=%s) order by prestation_date',(child['id'],form['period_from'],form['period_to'],form['activitycategory'][0],child['id'],form['period_from'],form['period_to'],form['activitycategory'][0]))
                     prestation_dates=cr.fetchall()
+                    '''
+                    prestation_times_of_the_day_ids = obj_prestation_times_of_the_day.search(cr,uid,[('child_id.id','=',child['id'])],order = 'date_of_the_day')
+                    
+                    
                     childactivities = {}
-                    for prestation_date in prestation_dates:
+                    for prestation_times_of_the_day in obj_prestation_times_of_the_day.browse(cr,uid,prestation_times_of_the_day_ids):
+                        
+                        
+                        #child position detection to extract in a function
                         if activitycat['childpositiondetermination']=='byaddress':
                             cr.execute('select * from extraschool_child where parentid in (select id from extraschool_parent where streetcode ilike %s) and isdisabled=FALSE order by birthdate',(parent['streetcode'],))
                         elif activitycat['childpositiondetermination']=='byaddresswp':
@@ -250,146 +232,52 @@ class extraschool_invoice_wizard(osv.osv_memory):
                         childpos=1
                         while child['id'] != childsforposition[childpos-1]['id']:
                             childpos = childpos+1
+                        
+                        
+                        
                         totalday=0.0
-                        daychildactivities = {}
-                        weekday=datetime.datetime.strptime(prestation_date[0], '%Y-%m-%d').weekday()
-                        cr.execute("""select * from extraschool_activity where validity_from <= %s and validity_to >= %s 
-                                    and category=%s 
-                                    and id in (select activity_id from extraschool_activity_place_rel where place_id in (select place_id from extraschool_place_schoolimplantation_rel where schoolimplantation_id=%s)) 
-                                    and id in (select activity_id from extraschool_activity_schoolimplantation_rel where schoolimplantation_id=%s)
-                                    and id in (select activity_id from extraschool_activity_childtype_rel where childtype_id = %s ) 
-                                    and id in (select activity_id from extraschool_activity_activityplanneddate_rel left join extraschool_activityplanneddate on activityplanneddate_id=extraschool_activityplanneddate.id where activitydate=%s) 
-                                    and id not in (select activity_id from extraschool_activity_activityexclusiondates_rel left join extraschool_activityexclusiondates on activityexclusiondates_id = extraschool_activityexclusiondates.id where date_from <= %s and date_to >= %s)
-                                    and leveltype like %s 
-                                    and id in (select activity_id from extraschool_activity_childposition_rel left join extraschool_childposition on childposition_id=extraschool_childposition.id where position=%s) 
-                                    and ((onlyregisteredchilds = FALSE) or (id in (select activity_id from extraschool_activitychildregistration where child_id=%s and registration_from <= %s and registration_to >= %s)))
-                                    order by prest_from""", (prestation_date,prestation_date,form['activitycategory'][0],child['schoolimplantation'],child['schoolimplantation'],child['childtypeid'],prestation_date,prestation_date,prestation_date,'%'+leveltype+'%',childpos,child['id'],prestation_date,prestation_date))
-                        plannedactivities=cr.dictfetchall()
-                        if plannedactivities:
-                            activities = plannedactivities
-                            for plannedactivity in plannedactivities:
-                                cr.execute("""select * from extraschool_activity where validity_from <= %s and validity_to >= %s 
-                                        and ((prest_from < %s) or (prest_to > %s))
-                                        and category=%s 
-                                        and id in (select activity_id from extraschool_activity_place_rel where place_id in (select place_id from extraschool_place_schoolimplantation_rel where schoolimplantation_id=%s)) 
-                                        and id in (select activity_id from extraschool_activity_schoolimplantation_rel where schoolimplantation_id=%s)
-                                        and id in (select activity_id from extraschool_activity_childtype_rel where childtype_id = %s ) 
-                                        and days like %s
-                                        and id not in (select activity_id from extraschool_activity_activityplanneddate_rel) 
-                                        and id not in (select activity_id from extraschool_activity_activityexclusiondates_rel left join extraschool_activityexclusiondates on activityexclusiondates_id = extraschool_activityexclusiondates.id where date_from <= %s and date_to >= %s)
-                                        and leveltype like %s  
-                                        and id in (select activity_id from extraschool_activity_childposition_rel left join extraschool_childposition on childposition_id=extraschool_childposition.id where position=%s) 
-                                        order by prest_from""", (prestation_date,prestation_date,plannedactivity['prest_from'],plannedactivity['prest_to'],form['activitycategory'][0],child['schoolimplantation'],child['schoolimplantation'],child['childtypeid'],'%'+str(weekday)+'%',prestation_date,prestation_date,'%'+leveltype+'%',childpos))
-                                addactivities=cr.dictfetchall()
-                                if addactivities:
-                                    activities=activities+addactivities
-                                
-                        else:
-                            cr.execute("""select * from extraschool_activity where validity_from <= %s and validity_to >= %s 
-                                        and category=%s 
-                                        and id in (select activity_id from extraschool_activity_place_rel where place_id in (select place_id from extraschool_place_schoolimplantation_rel where schoolimplantation_id=%s)) 
-                                        and id in (select activity_id from extraschool_activity_schoolimplantation_rel where schoolimplantation_id=%s)
-                                        and id in (select activity_id from extraschool_activity_childtype_rel where childtype_id = %s ) 
-                                        and days like %s
-                                        and id not in (select activity_id from extraschool_activity_activityplanneddate_rel) 
-                                        and id not in (select activity_id from extraschool_activity_activityexclusiondates_rel left join extraschool_activityexclusiondates on activityexclusiondates_id = extraschool_activityexclusiondates.id where date_from <= %s and date_to >= %s)
-                                        and leveltype like %s  
-                                        and id in (select activity_id from extraschool_activity_childposition_rel left join extraschool_childposition on childposition_id=extraschool_childposition.id where position=%s) 
-                                        order by prest_from""", (prestation_date,prestation_date,form['activitycategory'][0],child['schoolimplantation'],child['schoolimplantation'],child['childtypeid'],'%'+str(weekday)+'%',prestation_date,prestation_date,'%'+leveltype+'%',childpos))                
-                            activities=cr.dictfetchall()  
-                        cr.execute('select * from "extraschool_prestationtimes" where "prestation_date"=%s and "childid"=%s and activitycategoryid=%s order by prestation_time,"es" desc', (prestation_date[0],child['id'],form['activitycategory'][0]))
-                        prestations = cr.dictfetchall()
-                        prestactivity=[]
+                        
+                        cr.execute('select distinc(occurrenceid) as id from extraschool_prestationtimes where prestation_date=%s and childid=%',(str(prestation_times_of_the_day.date_of_the_day),child['id']))
+                        occurrences=cr.dictfetchall()
+                        for occurrence in self.pool.get('extraschool.activityoccurrence').browse(cr,uid,[occu['id'] for occu in occurrences]):
+                            totalactivity = 0
+                            if toinvoice==False:
+                                invoicenum=invoicenum+1
+                                invoice_id=inv_obj.create(cr, uid, {'filename':'Facture'+str(invoicenum)+'.pdf','schoolimplantationid':schoolimplantationid,'parentid':parent['parentid'],'number':invoicenum,'biller_id':biller_id})
+                                total=0
+                                totalperiods=0
+                                toinvoice = True
+                            cr.execute("select sum(prestation_time) from extraschool_prestationstime where childid=%s and occurrenceid=%s where es='E'", (child['id'],occurrence.id))
+                            sum_of_entry =cr.fetchall()[0][0] * 60
+                            cr.execute("select sum(prestation_time) from extraschool_prestationstime where childid=%s and occurrenceid=%s where es='S'", (child['id'],occurrence.id))
+                            sum_of_exit =cr.fetchall()[0][0] * 60
+                            quantity=int(ceil((sum_of_exit-sum_of_entry)/occurrence.activity_id.period_duration))
+                                                                                                                     
+                            if quantity < 0:
+                                quantity=0
+                            if quantity > 0:
+                                activity={}
+                                activity['price']=2
+                                if (activity['price'] > 0):
+                                    totalactivity=totalactivity+(quantity*activity['price'])
+                                    totalday=totalday+totalactivity
+                                    total=total+(quantity*activity['price'])
+                                    totalperiods=totalperiods+quantity                                           
+                                    cr.execute('select * from extraschool_invoicedprestations where invoiceid=%s and childid=%s and prestation_date=%s and activityid=%s and placeid=%s',(invoice_id,child['id'],prestation_times_of_the_day.date_of_the_day,activity['id'],occurrence.place_id))
+                                    invoicedprestid = cr.dictfetchall()
+                                    if invoicedprestid:
+                                        objid=obj_invoicedprest.write(cr, uid, [invoicedprestid[0]['id']], {'quantity':(invoicedprestid[0]['quantity']+quantity)})
+                                    else:
+                                        objid=obj_invoicedprest.create(cr, uid, {'invoiceid':invoice_id,'childid':child['id'],'prestation_date':prestation_times_of_the_day.date_of_the_day,'activityid':activity['id'],'quantity':quantity,'placeid':occurrence.place_id})                                    
 
-                        for activity in activities:
-                            totalactivity=0.0
-                            pin={}
-                            pout={}
-                            activityok=False
-                            if activity['autoaddchilds']:
-                                cr.execute('select child_id from extraschool_activitychildregistration where activity_id=%s and child_id=%s and registration_from <= %s and registration_to >= %s',(activity['id'],child['id'],prestation_date,prestation_date))                                
-                                activitychilds=cr.dictfetchall()
-                                if activitychilds:
-                                    activityok=True
+                            if str(activity['id']) in childactivities.keys():
+                                childactivities[str(activity['id'])]=childactivities[str(activity['id'])]+totalactivity
                             else:
-                                activityok=True
-                            if activityok:
-                                for prestation in prestations:
-                                    if toinvoice==False:
-                                        invoicenum=invoicenum+1
-                                        invoice_id=inv_obj.create(cr, uid, {'filename':'Facture'+str(invoicenum)+'.pdf','schoolimplantationid':schoolimplantationid,'parentid':parent['parentid'],'number':invoicenum,'biller_id':biller_id})
-                                        total=0
-                                        totalperiods=0
-                                        toinvoice = True
-                                    if prestation['ES']=='E':
-                                        pin={'id':prestation['id'],'time':float(prestation['prestation_time']),'activityid':activity['id']}
-                                    if prestation['ES']=='S':
-                                        pout={'id':prestation['id'],'time':float(prestation['prestation_time']),'activityid':activity['id']}
-                                    if pin and pout:
-                                        quantity=0
-                                        if not (((pin['activityid'] !=0) and (activity['id'] != pin['activityid'])) or ((pout['activityid'] !=0) and (activity['id'] != pout['activityid']))):
-                                            if (pin['time'] >= activity['prest_from']) and (pout['time'] <= activity['prest_to']):
-                                                quantity=int(ceil(round((pout['time']-pin['time'])*60)/activity['period_duration']))
-                                            else:
-                                                if (pin['time'] >= activity['prest_from']) and (pin['time'] <= activity['prest_to']):
-                                                    quantity=int(ceil(round((activity['prest_to']-pin['time'])*60)/activity['period_duration']))
-                                                else:
-                                                    if (pout['time'] >= activity['prest_from']) and (pout['time'] <= activity['prest_to']):
-                                                        quantity=int(ceil(round((pout['time']-activity['prest_from'])*60)/activity['period_duration']))
-                                                    else:
-                                                        if (pin['time'] < activity['prest_from']) and (pout['time'] > activity['prest_to']):
-                                                            quantity=int(ceil(round((activity['prest_to']-activity['prest_from'])*60)/activity['period_duration']))
-                                        if not activity['autoaddchilds']:
-                                            cr.execute("""select * from extraschool_activity where validity_from <= %s and validity_to >= %s 
-                                                    and category=%s 
-                                                    and id in (select activity_id from extraschool_activity_place_rel where place_id in (select place_id from extraschool_place_schoolimplantation_rel where schoolimplantation_id=%s)) 
-                                                    and id in (select activity_id from extraschool_activity_schoolimplantation_rel where schoolimplantation_id=%s)
-                                                    and autoaddchilds = True 
-                                                    and %s in (select child_id from extraschool_activitychildregistration where activity_id = extraschool_activity.id and registration_from <= %s and registration_to >= %s)
-                                                    and id in (select activity_id from extraschool_activity_childtype_rel where childtype_id = %s ) 
-                                                    and ((extraschool_activity.id in (select activity_id from extraschool_activity_activityplanneddate_rel left join extraschool_activityplanneddate on activityplanneddate_id=extraschool_activityplanneddate.id where activitydate = %s )) or (days like %s)) 
-                                                    and id not in (select activity_id from extraschool_activity_activityexclusiondates_rel left join extraschool_activityexclusiondates on activityexclusiondates_id = extraschool_activityexclusiondates.id where date_from <= %s and date_to >= %s)
-                                                    and leveltype like %s  
-                                                    and id in (select activity_id from extraschool_activity_childposition_rel left join extraschool_childposition on childposition_id=extraschool_childposition.id where position=%s) 
-                                                    order by prest_from""", (prestation_date,prestation_date,form['activitycategory'][0],child['schoolimplantation'],child['schoolimplantation'],child['id'],prestation_date,prestation_date,child['childtypeid'],prestation_date,'%'+str(weekday)+'%',prestation_date,prestation_date,'%'+leveltype+'%',childpos))
-                                            toinvoiceactivities=cr.dictfetchall()
-                                        
-                                            for toinvoiceactivity in toinvoiceactivities:
-                                                if (pin['time'] >= toinvoiceactivity['prest_from']) and (pout['time'] <= toinvoiceactivity['prest_to']):
-                                                    quantity=0
-                                                else:
-                                                    if (pin['time'] <= toinvoiceactivity['prest_from']) and (pout['time'] >= toinvoiceactivity['prest_to']):
-                                                        quantity=quantity-int(ceil(round((toinvoiceactivity['prest_to']-toinvoiceactivity['prest_from'])*60)/activity['period_duration']))
-                                                    else:
-                                                        if (pin['time'] < toinvoiceactivity['prest_from']) and (pout['time'] < toinvoiceactivity['prest_to']) and (pout['time'] > toinvoiceactivity['prest_from']):
-                                                            quantity=quantity-int(ceil(round((pout['time']-toinvoiceactivity['prest_from'])*60)/activity['period_duration']))
-                                                        else:
-                                                            if (pin['time'] > toinvoiceactivity['prest_from']) and (pin['time'] < toinvoiceactivity['prest_to']) and (pout['time'] >= toinvoiceactivity['prest_to']):
-                                                                quantity=quantity-int(ceil(round((toinvoiceactivity['prest_to']-pin['time'])*60)/activity['period_duration']))     
-                                        if quantity < 0:
-                                            quantity=0
-                                        if quantity > 0:
-                                            if (activity['price'] > 0):
-                                                totalactivity=totalactivity+(quantity*activity['price'])
-                                                totalday=totalday+totalactivity
-                                                total=total+(quantity*activity['price'])
-                                                totalperiods=totalperiods+quantity                                           
-                                                cr.execute('select * from extraschool_invoicedprestations where invoiceid=%s and childid=%s and prestation_date=%s and activityid=%s and placeid=%s',(invoice_id,child['id'],prestation_date[0],activity['id'],prestation['placeid']))
-                                                invoicedprestid = cr.dictfetchall()
-                                                if invoicedprestid:
-                                                    objid=obj_invoicedprest.write(cr, uid, [invoicedprestid[0]['id']], {'quantity':(invoicedprestid[0]['quantity']+quantity)})
-                                                else:
-                                                    objid=obj_invoicedprest.create(cr, uid, {'invoiceid':invoice_id,'childid':child['id'],'prestation_date':prestation_date[0],'activityid':activity['id'],'quantity':quantity,'placeid':prestation['placeid']})                                    
-                                        pin={}
-                                        pout={}
-                                if str(activity['id']) in childactivities.keys():
-                                    childactivities[str(activity['id'])]=childactivities[str(activity['id'])]+totalactivity
-                                else:
-                                    childactivities[str(activity['id'])]=totalactivity
-                                if str(activity['id']) in daychildactivities.keys():
-                                    daychildactivities[str(activity['id'])]=daychildactivities[str(activity['id'])]+totalactivity
-                                else:
-                                    daychildactivities[str(activity['id'])]=totalactivity
+                                childactivities[str(activity['id'])]=totalactivity
+                            if str(activity['id']) in daychildactivities.keys():
+                                daychildactivities[str(activity['id'])]=daychildactivities[str(activity['id'])]+totalactivity
+                            else:
+                                daychildactivities[str(activity['id'])]=totalactivity
                         
                         discountamount=discountamount+self.computediscount(cr,uid,child['id'],'by_day',child['childtypeid'],daychildactivities)
                     discountamount=discountamount+self.computediscount(cr,uid,child['id'],'by_invoice',child['childtypeid'],childactivities)        
