@@ -224,13 +224,15 @@ class extraschool_prestation_times_of_the_day(models.Model):
                 #if we are going up, start is exit of the occurrence that we are comming from
                 prest_from = from_occurrence.prest_to
             else:
+                #to do check if entry presta exist in occurrence, check it with from_to
                 prest_from = from_occurrence.prest_from
 
         #compute exit before going down
         if stop_time.activity_occurrence_id.id == occurrence.id:
-            "this is almost the end, we have reached the last occurrence"
+            #"this is almost the end, we have reached the last occurrence"
             prest_to = stop_time.prestation_time
-        else:            
+        else:     
+            #to do check if EXIT exist in occurrence and check from_to     
             prest_to = occurrence.prest_to if occurrence.prest_to <= stop_time.prestation_time else stop_time.prestation_time
         
         print "down"
@@ -301,7 +303,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
                 print "go"
                 prestation_times_obj.write(cr,uid,stop_time.id,{'verified' : True})
                 #delete all occurrence presta but not stop_time presta
-                prestation_times_obj.unlink(cr,uid,self.prestationtime_ids.filtered(lambda r: r.activity_occurrence_id.activityid.root_id.id == root_activity.id and r.id != start_time.id and r.id != stop_time.id).ids)
+ #               prestation_times_obj.unlink(cr,uid,self.prestationtime_ids.filtered(lambda r: r.activity_occurrence_id.activityid.root_id.id == root_activity.id and r.id != start_time.id and r.id != stop_time.id).ids)
                 start_time.verified = True
                 stop_time.verified = True
                 self._occu_completion(start_time,stop_time,None,True,None)
