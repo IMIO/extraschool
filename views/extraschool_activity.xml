@@ -98,7 +98,12 @@
 			                <newline/>
 			               	<field name="activity_child_ids"/>
 						</group>
-					</page>				                
+					</page>		
+					<page string="Price list">
+			            <group col="4">  
+							<field name="price_list_id"/>
+						</group>
+					</page>							                
                 </notebook>
             </form>
             </field> 

@@ -49,6 +49,7 @@ class extraschool_activity(osv.osv):
         'prest_from' : fields.float('From'),
         'prest_to' : fields.float('To'),        
         'price' : fields.float('Price',digits=(7,3)),
+        'price_list_id' : fields.many2one('extraschool.price_list', 'Price List'),     
         'period_duration' : fields.integer('Period Duration'),  
         'default_from_to' : fields.selection((('from','From'),('to','To'),('from_to','From and To')),'Default From To'),  
         'default_from' : fields.float('Default from'),
