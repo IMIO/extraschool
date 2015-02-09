@@ -1,0 +1,66 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+        <record model="ir.ui.view" id="extraschool_price_list_tree">
+			<field name="name">extraschool.price_list.tree</field>
+			<field name="model">extraschool.price_list</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Price list">
+                    <field name="name"/> 
+				</tree>
+			</field>
+		</record>
+        
+        <record model="ir.ui.view" id="extraschool_price_list_form">
+            <field name="name">extraschool.price_list.form</field>
+            <field name="model">extraschool.price_list</field>    
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            <form string="Price list">  
+	            <group col="4">
+	                <field name="name"/>
+	            </group>
+	            <group>
+	                <field name="price_list_version_ids" /> 
+                </group>
+	            </form>
+            </field> 
+        </record>
+        
+        <record model="ir.ui.view" id="extraschool_price_list_version_tree">
+			<field name="name">extraschool.price_list_version.tree</field>
+			<field name="model">extraschool.price_list_version</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Price list version">
+                    <field name="name"/> 
+                    <field name="period_duration"/> 
+                    <field name="price"/> 
+                    <field name="validity_from"/> 
+                    <field name="validity_to"/> 
+				</tree>
+			</field>
+		</record>
+        
+        <record model="ir.ui.view" id="extraschool_price_list_version_form">
+            <field name="name">extraschool.price_list_version.form</field>
+            <field name="model">extraschool.price_list_version</field>    
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            <form string="Price list version">  
+	            <group col="4">
+                    <field name="name"/> 
+                    <newline/>
+                    <field name="period_duration"/> 
+                    <field name="price"/> 
+                    <field name="validity_from"/> 
+                    <field name="validity_to"/> 
+                </group>
+	            </form>
+            </field> 
+        </record>
+        
+
+	</data>
+</openerp>
