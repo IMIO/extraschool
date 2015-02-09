@@ -50,6 +50,21 @@
 			</field>
 		</record>
 
+        <record id="extraschool_activityoccurrence_search_view" model="ir.ui.view">
+            <field name="name">extraschool_activityoccurrence.search</field>
+            <field name="model">extraschool.activityoccurrence</field>
+            <field name="arch" type="xml">
+                <search string="extraschool_activityoccurrence search">
+                   <field name="activityname" string="Activity name"/>
+                   <field name="place_id" string="Place"/>
+                   <group  expand='0' string='Group by...'>
+                       <filter string='Activity name' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'activityid'}"/>
+                       <filter string='Place' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'place_id'}"/>
+                       <filter string='Date' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'occurrence_date'}"/>
+                   </group>                    
+                </search>
+            </field>
+        </record>		
         <record model="ir.ui.view" id="extraschool_activityoccurrence_cal">
 			<field name="name">extraschool.activityoccurrence.cal</field>
 			<field name="model">extraschool.activityoccurrence</field>

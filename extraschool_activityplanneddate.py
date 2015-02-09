@@ -27,15 +27,11 @@ class extraschool_activityplanneddate(osv.osv):
     _name = 'extraschool.activityplanneddate'
     _description = 'Activities planned dates'
 
-    def _compute_name (self, cr, uid, ids, field_name, arg, context):
-        to_return={}
-        for record in self.browse(cr, uid, ids):     
-            to_return[record.id]=str(record.activitydate)
-        return to_return
+    _rec_name = 'activitydate'
         
 
     _columns = {
-        'name' : fields.function(_compute_name, method=True, type="char", string="Name"),        
+#        'name' : fields.function(_compute_name, method=True, type="char", string="Name"),        
         'activities' : fields.many2many('extraschool.activity','extraschool_activity_activityplanneddate_rel', 'activityplanneddate_id', 'activity_id','Activities'),        
         'activitydate' : fields.date('Date'),        
     }

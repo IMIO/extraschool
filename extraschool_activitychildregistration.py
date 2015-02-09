@@ -26,15 +26,19 @@ from openerp.osv import osv, fields
 class extraschool_activitychildregistration(osv.osv):
     _name = 'extraschool.activitychildregistration'
     _description = 'activity child registration'
-    def _compute_name (self, cr, uid, ids, field_name, arg, context):
-        to_return={}
-        for record in self.browse(cr, uid, ids):     
-            to_return[record.id]=record.child_id.name
-        return to_return
-        
+
+    def name_get(self, cr, uid, ids, context={}):            
+            if not len(ids):
+                return []
+            
+            res=[]
+            for reg in self.browse(cr, uid, ids,context=context):
+                res.append((reg.id, reg.child_id.name + ' - ' + reg.place_id.name))    
+    
+            return res          
 
     _columns = {
-        'name' : fields.function(_compute_name, method=True, type="char", string="Name"),
+#        'name' : fields.function(_compute_name, method=True, type="char", string="Name"),
         'child_id' : fields.many2one('extraschool.child', 'Child'),
         'place_id' : fields.many2one('extraschool.place', 'Place', required=False),        
         'activity_id' : fields.many2one('extraschool.activity', 'Activity'),

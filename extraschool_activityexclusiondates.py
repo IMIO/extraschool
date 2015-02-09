@@ -27,8 +27,18 @@ class extraschool_activityexclusiondates(osv.osv):
     _name = 'extraschool.activityexclusiondates'
     _description = 'Activity exclusion dates'
 
+    def name_get(self, cr, uid, ids, context={}):            
+            if not len(ids):
+                return []
+            
+            res=[]
+            for exc_date in self.browse(cr, uid, ids,context=context):
+                res.append((exc_date.id, exc_date.date_from + ' - ' + exc_date.date_to))    
+    
+            return res     
+            
     _columns = {
-        'name' : fields.char('Name', size=50),
+#        'name' : fields.char('Name', size=50),
         'date_from' : fields.date('Date from', required=True),
         'date_to' : fields.date('Date to', required=True),
     }

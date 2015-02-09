@@ -44,7 +44,7 @@ class extraschool_prestations_wizard(osv.osv_memory):
     def _set_prestations(self, cr, uid, ids, field_names, value, arg=None, context=None):
         return True
         
-    def _get_defaultcategory(cr, uid, ids, context=None):
+    def _get_defaultcategory(self,cr, uid, ids, context=None):
         return 1 # to modify
     
     _columns = {

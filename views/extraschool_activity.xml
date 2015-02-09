@@ -22,25 +22,17 @@
 	            <group col="4">  
 	                <field name="name"/>
 	                <field name="category" />
-	                <newline/>
 	                <field name="validity_from"/>
-	                <field name="validity_to"/>				
+	                <field name="validity_to"/>	
+	                <field name="leveltype"/>			
 	            </group>
-            	<notebook string="toto">
-            		<page string="Main">
+            	<notebook>
+            		<page string="Registration">
 			            <group col="4">  
-			                <field name="placeids" /> 
-			                <newline/>
-			                <field name="schoolimplantationids" /> 
-			                <newline/>
-			                <field name="short_name" />                  
-						</group>
-            		</page>
-            		<page string="Other">
-			            <group col="4">  
-			                <field name="childtype_ids"/>
-			                <newline/>
-			                <field name="childregistration_ids">
+			                <field name="onlyregisteredchilds" />      
+			                <field name="autoaddchilds" />  
+			                <separator string="Child registration" colspan="4"/> 
+			                <field name="childregistration_ids" nolabel="1" colspan="4">
 			                	<form string="Child registration">
 			                		<group col="4">
 				                		<field name="child_id" />
@@ -56,52 +48,42 @@
 			                		<field name="registration_to" />
 			                	</tree>
 			                </field>
-			                <newline/>
-			                <field name="autoaddchilds" />  
-			                <newline/>
-			                <field name="onlyregisteredchilds" />      
-			                <newline/>
-			                <field name="planneddates_ids"/>
-			                <newline/>
-			                <field name="exclusiondates_ids"/>
-			                <newline/>
-			                <field name="days"/>
-			                <newline/>
-			                <field name="leveltype"/>
-			                <newline/>
-			                <field name="prest_from" widget="float_time"/>        
-			                <newline/>
-			                <field name="prest_to" widget="float_time"/>
-			                <newline/>
-			                <field name="price"/>
-			                <newline/>
 						</group>
-					</page>
-            		<page string="Time">
+			        </page>
+            		<page string="Planification">
 			            <group col="4">  
-			                <field name="prest_from"/>
-			                <field name="prest_to"/>
-			                <newline/>
-			                <field name="period_duration"/>
-			                <field name="fixedperiod"/>
-			                <newline/>
-			                <field name="default_from_to"/>
-			                <newline/>
-			                <field name="subsidizedbyone"/>     
-			                <newline/>
-		               </group>
-	            	</page>
-					<page string="Activity child">
+			                <field name="days"/>       
+			                <field name="default_from_to"/>     		
+			                <field name="prest_from" widget="float_time" />
+			                <field name="prest_to" widget="float_time" />
+			                <separator string="Planned dates" colspan="4"/> 
+			                <field name="planneddates_ids" nolabel="1" colspan="4"/>
+			                <separator string="Exclusion dates dates" colspan="4"/> 
+			                <field name="exclusiondates_ids" nolabel="1" colspan="4"/>
+						</group>
+            		</page>
+            		<page string="Location">
+			            <group col="4">  
+			                <separator string="Places" colspan="4"/>
+			                <field name="placeids" nolabel="1" colspan="4"/> 			            
+			                <separator string="School implantation" colspan="4"/>
+			                <field name="schoolimplantationids" nolabel="1" colspan="4"/>              
+						</group>
+            		</page>
+
+					<page string="Link with other activities">
 			            <group col="4">  
 							<field name="root_id"/>
 							<field name="parent_id"/>
-			                <newline/>
-			               	<field name="activity_child_ids"/>
+			                <separator string="Child activities" colspan="4"/> 
+			               	<field name="activity_child_ids" nolabel="1" colspan="4"/>
 						</group>
 					</page>		
-					<page string="Price list">
+					<page string="Finance">
 			            <group col="4">  
+			                <field name="short_name" />     
 							<field name="price_list_id"/>
+							<field name="subsidizedbyone"/>   
 						</group>
 					</page>							                
                 </notebook>
