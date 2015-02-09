@@ -479,6 +479,33 @@
             <field name="bankaccount">BE65122123547800</field>
             <field name="taxcertificatetemplate">attfisc.odt</field>
         </record>
+
+        <record model="extraschool.price_list" id="extraschool_price_list_garderie">
+            <field name="name">Price List Garderie</field>
+        </record>
+
+        <record model="extraschool.price_list_version" id="extraschool_activity_price_list_garderie_version_1">
+            <field name="name">Price List Garderie 1</field>
+            <field name="price_list_id" eval="str(ref('extraschool_price_list_garderie'))" />
+            <field name="period_duration">1</field>
+            <field name="price">0.01</field>
+            <field name="validity_from">2014-01-01</field>
+            <field name="validity_to">2099-12-31</field>
+        </record>
+            
+        <record model="extraschool.price_list" id="extraschool_price_list_bricolage">
+            <field name="name">Price List Bricolage</field>
+        </record>
+        
+        <record model="extraschool.price_list_version" id="extraschool_activity_price_list_bricolage_version_1">
+            <field name="name">Price List bricolage 1</field>
+            <field name="price_list_id" eval="str(ref('extraschool_price_list_bricolage'))" />
+            <field name="period_duration">1</field>
+            <field name="price">1</field>
+            <field name="validity_from">2014-01-01</field>
+            <field name="validity_to">2099-12-31</field>
+        </record>        
+                
         <!-- ToDo activité pas trouvée car position enfant pas dans la liste -->
         <!-- ToDo un lieu d'accueil mais pas toutes les implantations -->
 		
@@ -512,6 +539,7 @@
             <field name="prest_from">7</field>
             <field name="prest_to">8.5</field>
             <field name="price">0.10</field>
+            <field name="price_list_id" eval="str(ref('extraschool_price_list_garderie'))" />
             <field name="period_duration">1</field>
             <field name="default_from_to">to</field>
             <field name="default_from">0</field>
@@ -539,6 +567,7 @@
             <field name="prest_from">7</field>
             <field name="prest_to">8</field>
             <field name="price">0.10</field>
+            <field name="price_list_id" eval="str(ref('extraschool_price_list_garderie'))" />
             <field name="period_duration">1</field>
             <field name="default_from_to">to</field>
             <field name="default_from">0</field>
@@ -564,6 +593,7 @@
             <field name="prest_from">16</field>
             <field name="prest_to">18</field>
             <field name="price">0.10</field>
+            <field name="price_list_id" eval="str(ref('extraschool_price_list_garderie'))" />
             <field name="period_duration">1</field>
             <field name="default_from_to">from</field>
             <field name="default_from">16</field>
@@ -609,6 +639,7 @@
             <field name="prest_from">16.5</field>
             <field name="prest_to">16.75</field>
             <field name="price">0.20</field>
+            <field name="price_list_id" eval="str(ref('extraschool_price_list_garderie'))" />
             <field name="period_duration">1</field>
             <field name="default_from_to">from_to</field>
             <field name="default_from">16.5</field>
@@ -630,6 +661,7 @@
             <field name="prest_from">18</field>
             <field name="prest_to">19</field>
             <field name="price">2</field>
+            <field name="price_list_id" eval="str(ref('extraschool_price_list_garderie'))" />
             <field name="period_duration">15</field>
             <field name="default_from_to">from</field>
             <field name="default_from">16</field>
@@ -686,6 +718,7 @@
             <field name="prest_from">7.5</field>
             <field name="prest_to">18</field>
             <field name="price">5</field>
+            <field name="price_list_id" eval="str(ref('extraschool_price_list_garderie'))" />
             <field name="fixedperiod">1</field>
             <field name="period_duration">690</field>
             <field name="default_from_to">from_to</field>
@@ -712,6 +745,7 @@
             <field name="prest_from">12</field>
             <field name="prest_to">18</field>
             <field name="price">3</field>
+            <field name="price_list_id" eval="str(ref('extraschool_price_list_garderie'))" />
             <field name="period_duration">30</field>
             <field name="default_from_to">from</field>
             <field name="default_from">12</field>
@@ -760,6 +794,7 @@
             <field name="prest_from">14</field>
             <field name="prest_to">15</field>
             <field name="price">10</field>
+            <field name="price_list_id" eval="str(ref('extraschool_price_list_bricolage'))" />
             <field name="fixedperiod">1</field>
             <field name="period_duration">60</field>
             <field name="default_from_to">from_to</field>

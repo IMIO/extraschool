@@ -165,7 +165,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
                 #if we are going up, start is exit of the occurrence that we are coming from
                 prest_from = from_occurrence.prest_to
             else:
-                prest_from = from_occurrence.prest_from
+                prest_from = occurrence.prest_from
             #add entry presta
             occurrence_obj.add_presta(cr,uid,occurrence,self.child_id.id,None, True, False, True, False,prest_from)
         
@@ -195,7 +195,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
         if down and occurrence.activityid.id != occurrence.activityid.root_id.id and from_occurrence: #Down and Not in root 
             #if level >=2
             if occurrence.activityid.parent_id and occurrence.activityid.parent_id.id != occurrence.activityid.root_id.id:
-               
+                
                 occurrence_obj.add_presta(cr,uid,from_occurrence,self.child_id.id,None, True, False, True if prest_to > 0 else False, True if prest_from > 0 else False,prest_to,prest_from) #from & to are inverted it's normal it's for parent 
             else: #just under the root level 1
                 if not looked_activity:

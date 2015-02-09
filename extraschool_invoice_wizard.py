@@ -242,17 +242,18 @@ class extraschool_invoice_wizard(osv.osv_memory):
                         occurrences=cr.dictfetchall()
                         for occurrence in self.pool.get('extraschool.activityoccurrence').browse(cr,uid,[occu['id'] for occu in occurrences]):
                             totalactivity = 0
+                            price_list = occurrence.activityid.price_list_id.get_price(occurrence.activityid.price_list_id,prestation_times_of_the_day.date_of_the_day)
 
                             #compute presta duration group by occurrence sum(exit) - sum(entry)
                             cr.execute("select sum(prestation_time) from extraschool_prestationtimes where childid=%s and activity_occurrence_id=%s and es='E'", (child['id'],occurrence.id))
                             sum_of_entry =cr.fetchall()[0][0] * 60
                             cr.execute("select sum(prestation_time) from extraschool_prestationtimes where childid=%s and activity_occurrence_id=%s and es='S'", (child['id'],occurrence.id))
                             sum_of_exit =cr.fetchall()[0][0] * 60
-                            quantity=int(ceil((sum_of_exit-sum_of_entry)/occurrence.activityid.period_duration))
+                            quantity=int(ceil((sum_of_exit-sum_of_entry)/price_list.period_duration))
                                                                                                                    
                             activity={}
                             activity['id'] = occurrence.activityid.id
-                            activity['price']=2 #toto call a fct to compute the price
+                            activity['price']= price_list.price #to do Check if date is date of the day or date of invoice
                             if (activity['price'] > 0):
                                 totalactivity=quantity*activity['price']
                                 totalday=totalday+totalactivity

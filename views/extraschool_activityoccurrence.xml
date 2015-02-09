@@ -7,16 +7,55 @@
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="activityoccurrence">
-                    <field name="activityname"/> 			
+                    <field name="activityname"/> 
+                    <field name="place_id"/> 			
+                    <field name="occurrence_date"/> 
+                    <field name="prest_from" widget="float_time" /> 
+                    <field name="prest_to"   widget="float_time" /> 
 				</tree>
 			</field>
 		</record>
+
+        <record model="ir.ui.view" id="extraschool_activityoccurrence_form">
+			<field name="name">extraschool.activityoccurrence.form</field>
+			<field name="model">extraschool.activityoccurrence</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="activityoccurrence">
+					<group col="4">
+	                    <field name="activityname"/>
+	                	<newline/>  
+	                    <field name="place_id"/> 			
+	                    <field name="occurrence_date"/> 
+	                    <field name="prest_from" widget="float_time" /> 
+	                    <field name="prest_to"   widget="float_time" /> 
+					</group>
+	            	<notebook>
+	            		<page string="Registration">
+							<field name="child_registration_ids" nolabel="1" />
+				        </page>
+	            		<page string="Prestation times">
+				            <group col="4">
+								<field name="prestation_times_ids" nolabel="1">
+									<tree>
+										<field name="childid" />
+										<field name="es" />
+					                    <field name="prestation_time" widget="float_time" /> 
+									</tree>
+								</field> 					            
+				            </group>
+				        </page>
+				    </notebook>
+				</form>
+			</field>
+		</record>
+
         <record model="ir.ui.view" id="extraschool_activityoccurrence_cal">
 			<field name="name">extraschool.activityoccurrence.cal</field>
 			<field name="model">extraschool.activityoccurrence</field>
 			<field name="arch" type="xml">
-                <calendar color="activityid" string="Activity occurences" date_start="date_start" date_stop="date_stop">
-                    <field name="activityname"/> 			
+                <calendar color="activityid" string="Activity occurences" date_start="date_start" date_stop="date_stop" event_open_popup="%(extraschool.extraschool_activityoccurrence_form)s" >
+                    <field name="activityname"/>
 				</calendar>
 			</field>
 		</record>
@@ -24,7 +63,7 @@
         <record model="ir.actions.act_window" id="action_extraschool_activityoccurrence">
 			<field name="name">activityoccurrence</field>
 			<field name="res_model">extraschool.activityoccurrence</field>
-			<field name="view_type">tree</field>
+			<field name="view_type">form</field>
             <field name="view_mode">tree,form,calendar</field>
 		</record>
 	</data>

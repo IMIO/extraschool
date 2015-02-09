@@ -33,6 +33,7 @@ class extraschool_activityoccurrence(osv.osv):
     _description = 'activity occurrence'
 
     _columns = {
+        'name' : fields.char('Name', size=50),
         'occurrence_date' : fields.date('Date'),
         'activityid' : fields.many2one('extraschool.activity', 'Activity'),
         'activityname' : fields.related('activityid', 'name', type='char', string='name'),
@@ -44,22 +45,34 @@ class extraschool_activityoccurrence(osv.osv):
         'prestation_times_ids' : fields.one2many('extraschool.prestationtimes', 'activity_occurrence_id','Child prestation times'),   
         'place_id' : fields.many2one('extraschool.place', 'Place', required=False),                     
     }
+
+    def name_get(self, cr, uid, ids, context={}):            
+            if not len(ids):
+                return []
+            
+            res=[]
+            for occurrence in self.browse(cr, uid, ids,context=context):
+                res.append((occurrence.id, occurrence.activityname + ' - ' + occurrence.occurrence_date))    
     
+            return res    
+        
     @api.depends('occurrence_date', 'prest_from')
     def _compute_date_start(self):
         for record in self:
-            hour = int(record.prest_from)
-            minute = int((record.prest_from - hour) * 60)
-            hour = hour -1            
-            record.date_start = datetime.strptime(record.occurrence_date + ' ' + str(hour).zfill(2) + ':' + str(minute).zfill(2) + ':00', DEFAULT_SERVER_DATETIME_FORMAT)        
+            if record.occurrence_date:
+                hour = int(record.prest_from)
+                minute = int((record.prest_from - hour) * 60)
+                hour = hour -1            
+                record.date_start = datetime.strptime(record.occurrence_date + ' ' + str(hour).zfill(2) + ':' + str(minute).zfill(2) + ':00', DEFAULT_SERVER_DATETIME_FORMAT)        
             
     @api.depends('occurrence_date', 'prest_from')
     def _compute_date_stop(self):
         for record in self:
-            hour = int(record.prest_to)
-            minute = int((record.prest_to - hour) * 60)
-            hour = hour -1
-            record.date_stop = datetime.strptime(record.occurrence_date + ' ' + str(hour).zfill(2) + ':' + str(minute).zfill(2) + ':00', DEFAULT_SERVER_DATETIME_FORMAT)
+            if record.occurrence_date:
+                hour = int(record.prest_to)
+                minute = int((record.prest_to - hour) * 60)
+                hour = hour -1
+                record.date_stop = datetime.strptime(record.occurrence_date + ' ' + str(hour).zfill(2) + ':' + str(minute).zfill(2) + ':00', DEFAULT_SERVER_DATETIME_FORMAT)
     
     def add_presta(self,cr,uid,activity_occurrence,child_id,parent_activity_occurrence = None, verified = True, manualy_encoded = False, entry = True, exit = True,entry_time = None, exit_time = None,exit_all= False):
         print "add_presta " + activity_occurrence.activityname

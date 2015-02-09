@@ -314,8 +314,8 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
                 presta_of_the_day.verified = False
             else:
                 #check duplicate ... sequence must be E S E S E S
-#                presta_of_the_day.verified = True
-                presta_of_the_day._check_duplicate(True)
+                presta_of_the_day.verified = True
+#                presta_of_the_day._check_duplicate(True)
                 
 
 

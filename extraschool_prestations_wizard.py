@@ -94,13 +94,6 @@ class extraschool_prestations_wizard(osv.osv_memory):
         prestations_ids=obj_prestations.search(cr, uid, [('childid', '=', childid),('prestation_date', '=', prestation_date)])
         v['prestations_id']=prestations_ids
         return {'value':v}
-
-    def onchange_placeid(self, cr, uid, ids, placeid):
-        if placeid:
-            obj_place = self.pool.get('extraschool.place')
-            v={}        
-            schoolimplantationids=obj_place.read(cr, uid, [placeid],['schoolimplantation_ids'])            
-            return {'domain':{'childid': [('schoolimplantation', 'in', schoolimplantationids[0]['schoolimplantation_ids'])]},}
         
     def action_save_prestation(self, cr, uid, ids, context=None):     
         obj_prestation = self.pool.get('extraschool.prestationtimes')           
