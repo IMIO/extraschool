@@ -65,8 +65,12 @@
             <field name="arch" type="xml">
                 <search string="Prestations">
                     <field name="childid" string="childid"/>
-                    <filter string="Entrées" icon="terp-accessories-archiver" domain="[('ES','=','E')]"/>
-                    <filter string="verified" icon="terp-accessories-archiver" domain="[('verified','=',True)]"/>
+                   <field name="activity_name" string="Activity name"/>
+                   <field name="placeid" string="Place"/>
+                   <field name="prestation_date" string="Date"/>
+                    <filter string="Entry" icon="terp-accessories-archiver" domain="[('es','=','E')]"/>
+                    <filter string="Exit" icon="terp-accessories-archiver" domain="[('es','=','S')]"/>
+                    <filter string="Verified" icon="terp-accessories-archiver" domain="[('verified','=',True)]"/>
                    <group  expand='0' string='Group by...'>
                        <filter string='Enfant' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'childid'}"/>
                        <filter string='Activité' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'activityid'}"/>

@@ -57,6 +57,7 @@
                 <search string="extraschool_activityoccurrence search">
                    <field name="activityname" string="Activity name"/>
                    <field name="place_id" string="Place"/>
+                   <field name="occurrence_date" string="Date"/>
                    <group  expand='0' string='Group by...'>
                        <filter string='Activity name' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'activityid'}"/>
                        <filter string='Place' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'place_id'}"/>

@@ -318,11 +318,21 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
 #                presta_of_the_day._check_duplicate(True)
                 
 
-
-        self.state = 'end_of_verification'
-        print 'end_of_verification ' + str(zz) + " presta_of_the_day verified"
         
-        return self        
+        self.state = 'end_of_verification'
+#        print 'end_of_verification ' + str(zz) + " presta_of_the_day verified"
+        cr,uid = self.env.cr, self.env.user.id
+        view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','extraschool.prestation_times_of_the_day'), ('name','=','Prestations_of_the_day.tree')])
+        return {
+                'type': 'ir.actions.act_window',
+                'res_model': 'extraschool.prestation_times_of_the_day',
+#                'name': _("Prestations_of_the_day.tree"),
+                'view_type': 'form',
+                'view_mode': 'tree,form',
+                'view_id': view_id,
+                'nodestroy': 'current',                        
+                'context': {'search_default_not_verified':1}
+            }        
     
     @api.multi    
     def action_prestationscheck(self):    
