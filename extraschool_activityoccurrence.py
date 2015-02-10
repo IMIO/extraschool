@@ -26,7 +26,7 @@ from openerp import api, modules
 from datetime import date, datetime, timedelta as td
 from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
-import datetime
+#import datetime
 
 
 class extraschool_activityoccurrence(osv.osv):
