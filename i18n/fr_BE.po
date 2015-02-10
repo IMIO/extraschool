@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-09 21:29+0000\n"
-"PO-Revision-Date: 2015-02-09 22:34+0100\n"
+"POT-Creation-Date: 2015-02-10 10:30+0000\n"
+"PO-Revision-Date: 2015-02-10 11:31+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -569,7 +569,7 @@ msgstr "Générer les attestations fiscales"
 #. module: extraschool
 #: view:extraschool.prestation_times_of_the_day:extraschool.extraschool_prestation_times_of_the_day_form
 msgid "Computed prestations"
-msgstr "Computed prestations"
+msgstr "Présences complètées"
 
 #. module: extraschool
 #: field:extraschool.remindersjournal,concernedbillers:0
@@ -808,7 +808,7 @@ msgstr "Documents"
 
 #. module: extraschool
 #: field:extraschool.guardianprestationtimes,ES:0
-#: field:extraschool.pdaprestationtimes,ES:0
+#: field:extraschool.pdaprestationtimes,es:0
 #: field:extraschool.prestations_wizard,es:0
 msgid "ES"
 msgstr "Entrée / Sortie"
@@ -1061,7 +1061,7 @@ msgstr "Régles d'import niveau"
 
 #. module: extraschool
 #: selection:extraschool.guardianprestationtimes,ES:0
-#: selection:extraschool.pdaprestationtimes,ES:0
+#: selection:extraschool.pdaprestationtimes,es:0
 #: selection:extraschool.prestations_wizard,es:0
 #: selection:extraschool.prestationtimes,es:0
 msgid "In"
@@ -1446,7 +1446,7 @@ msgstr "Autre référence"
 
 #. module: extraschool
 #: selection:extraschool.guardianprestationtimes,ES:0
-#: selection:extraschool.pdaprestationtimes,ES:0
+#: selection:extraschool.pdaprestationtimes,es:0
 #: selection:extraschool.prestations_wizard,es:0
 #: selection:extraschool.prestationtimes,es:0
 msgid "Out"
