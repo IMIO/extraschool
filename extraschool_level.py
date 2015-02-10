@@ -31,7 +31,7 @@ class extraschool_level(osv.osv):
     _columns = {
         'name' : fields.char('Name', size=50),
         'ordernumber' : fields.integer('ordernumber',required=True),
-        'leveltype' : fields.selection((('M','Maternelle'),('P','Primaire'),('A','Autre')),'Level Type',required=True),
+        'leveltype' : fields.selection((('M','Maternelle'),('P','Primaire'),('A','Autre')),'Level type',required=True),
         'oldid' : fields.integer('oldid'),       
     }
 extraschool_level()

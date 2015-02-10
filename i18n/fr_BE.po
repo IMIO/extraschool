@@ -1,165 +1,35 @@
-# Translation of OpenERP Server.
+# Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* extraschool
+# 	* extraschool
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 7.0\n"
+"Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-20 09:29+0000\n"
-"PO-Revision-Date: 2014-02-20 10:37+0100\n"
-"Last-Translator: Jean-Michel ABE <jm.abe@labruyere.be>\n"
+"POT-Creation-Date: 2015-02-09 21:29+0000\n"
+"PO-Revision-Date: 2015-02-09 22:34+0100\n"
+"Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.4\n"
+"Language: fr_BE\n"
 
 #. module: extraschool
-#: field:extraschool.importlevelrule,endpos1:0
-msgid "End pos1"
-msgstr "Pos fin"
+#: selection:extraschool.statsone_wizard,quarter:0
+msgid "1er"
+msgstr "1er"
 
 #. module: extraschool
-#: field:extraschool.childsimportfilter,parentzipcodecolumn:0
-msgid "Parent zipcode column"
-msgstr "Colonne CP parent"
+#: selection:extraschool.statsone_wizard,quarter:0
+msgid "2eme"
+msgstr "2eme"
 
 #. module: extraschool
-#: field:extraschool.reminder,transmissiondate:0
-#: field:extraschool.remindersjournal,transmissiondate:0
-#: field:extraschool.statsone_wizard,transmissiondate:0
-msgid "Transmission date"
-msgstr "Date d'envoi"
-
-#. module: extraschool
-#: field:extraschool.activitycategory,invoiceemailtext:0
-msgid "Invoice email text"
-msgstr "Texte email factures"
-
-#. module: extraschool
-#: selection:extraschool.activity,days:0
-msgid "All Fridays"
-msgstr "Tous les Vendredis"
-
-#. module: extraschool
-#: model:ir.actions.act_window,name:extraschool.action_extraschool_parent
-#: view:extraschool.parent:0
-#: field:extraschool.invoice,parentid:0
-#: field:extraschool.reminder,parentid:0
-msgid "Parent"
-msgstr "Parent"
-
-#. module: extraschool
-#: model:ir.actions.act_window,name:extraschool.action_lbsc_statsone_wizard
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_statsone_wizard
-#: view:extraschool.statsone_wizard:0
-msgid "Stats ONE Wizard"
-msgstr "Rapport trimestriel ONE"
-
-#. module: extraschool
-#: field:extraschool.activity,leveltype:0
-msgid "Level type"
-msgstr "Type de niveau"
-
-#. module: extraschool
-#: model:ir.actions.act_window,name:extraschool.action_extraschool_childsimportfilter
-msgid "Childsimportfilter"
-msgstr "Filtre d'importation enfant"
-
-#. module: extraschool
-#: field:extraschool.invoice,amount_total:0
-#: field:extraschool.payment,amount:0
-#: field:extraschool.reject,amount:0
-#: field:extraschool.reminder,amount:0
-#: field:extraschool.remindertype,fees:0
-msgid "Amount"
-msgstr "Montant"
-
-#. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_prestationscheck_wizard
-msgid "extraschool.prestationscheck_wizard"
-msgstr "Vérifier"
-
-#. module: extraschool
-#: selection:extraschool.smartphone,scanmethod:0
-msgid "Tag"
-msgstr "Badge n°"
-
-#. module: extraschool
-#: field:extraschool.childsimportfilter,parentworkphonecolumn:0
-msgid "Parent work phone column"
-msgstr "Colonne tél travail parent"
-
-#. module: extraschool
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_parent
-#: view:extraschool.parent:0
-msgid "Parents"
-msgstr "Parents"
-
-#. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_place
-#: field:extraschool.childsworkbook_wizard,placeid:0
-#: field:extraschool.pdaprestationtimes,placeid:0
-#: field:extraschool.prestations_wizard,placeid:0
-#: field:extraschool.prestationtimes,placeid:0
-#: field:extraschool.smartphone,placeid:0
-#: field:extraschool.statsone_wizard,placeid:0
-msgid "Schoolcare Place"
-msgstr "Lieu d'accueil"
-
-#. module: extraschool
-#: field:extraschool.childsimportfilter,majchildclassname:0
-#: field:extraschool.childsimportfilter,majchildlevel:0
-#: field:extraschool.childsimportfilter,majchildotherref:0
-#: field:extraschool.childsimportfilter,majparentcity:0
-#: field:extraschool.childsimportfilter,majparentemail:0
-#: field:extraschool.childsimportfilter,majparentfirstname:0
-#: field:extraschool.childsimportfilter,majparentgsm:0
-#: field:extraschool.childsimportfilter,majparenthousephone:0
-#: field:extraschool.childsimportfilter,majparentlastname:0
-#: field:extraschool.childsimportfilter,majparentstreet:0
-#: field:extraschool.childsimportfilter,majparentworkphone:0
-#: field:extraschool.childsimportfilter,majparentzipcode:0
-msgid "MAJ"
-msgstr "MAJ"
-
-#. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_childsworkbook_wizard
-msgid "extraschool.childsworkbook_wizard"
-msgstr "Impression des classeurs élèves"
-
-#. module: extraschool
-#: model:ir.actions.act_window,name:extraschool.action_extraschool_childsimport
-msgid "Childsimport"
-msgstr "import des enfants"
-
-#. module: extraschool
-#: model:ir.actions.act_window,name:extraschool.action_extraschool_school
-msgid "School"
-msgstr "Ecole"
-
-#. module: extraschool
-#: field:extraschool.childsworkbook_wizard,state:0
-#: field:extraschool.guardianprestationtimes_wizard,state:0
-#: field:extraschool.invoice_wizard,state:0
-#: field:extraschool.prestationscheck_wizard,state:0
-#: field:extraschool.qrcodes_wizard,state:0
-#: field:extraschool.statsone_wizard,state:0
-#: field:extraschool.taxcertificates_wizard,state:0
-#: field:extraschool.timecorrection_wizard,state:0
-msgid "State"
-msgstr "Etat"
-
-#. module: extraschool
-#: view:extraschool.invoice:0
-msgid "Add payment"
-msgstr "Ajouter un paiement"
-
-#. module: extraschool
-#: selection:extraschool.discount,discounttype:0
-msgid "Percentage"
-msgstr "Pourcentage"
+#: view:website:extraschool.report_parent
+msgid "2eme page"
+msgstr "2eme page"
 
 #. module: extraschool
 #: selection:extraschool.smartphone,transfertmethod:0
@@ -167,143 +37,188 @@ msgid "3G"
 msgstr "3G"
 
 #. module: extraschool
-#: field:extraschool.smartphone,qrconfig:0
-msgid "QR Config"
-msgstr "QR Config"
+#: selection:extraschool.statsone_wizard,quarter:0
+msgid "3eme"
+msgstr "3eme"
 
 #. module: extraschool
-#: model:ir.actions.act_window,name:extraschool.action_extraschool_activitycategory
-#: view:extraschool.activitycategory:0
-#: field:extraschool.invoice_wizard,activitycategory:0
-#: field:extraschool.prestations_wizard,activitycategory:0
-#: field:extraschool.prestationscheck_wizard,activitycategory:0
-#: field:extraschool.statsone_wizard,activitycategory:0
-msgid "Activity category"
-msgstr "Catégorie d'activité"
+#: selection:extraschool.statsone_wizard,quarter:0
+msgid "4eme"
+msgstr "4eme"
 
 #. module: extraschool
-#: field:extraschool.childsimportfilter,importlevelrule_ids:0
-msgid "Import level rules"
-msgstr "Règles d'import niveaux"
-
-#. module: extraschool
-#: field:extraschool.reminder,concernedinvoices:0
-msgid "Concerned invoices"
-msgstr "Factures concernées"
-
-#. module: extraschool
-#: field:extraschool.importreject,line:0
-msgid "Line"
-msgstr "Ligne"
-
-#. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_childsimportfilter
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_childsimportfilter
-#: field:extraschool.childsimport,childsimportfilter:0
-msgid "Childs import filter"
-msgstr "Filtre d'import enfant"
-
-#. module: extraschool
-#: view:extraschool.parent:0
-msgid "Contact"
-msgstr "Contact"
-
-#. module: extraschool
-#: field:extraschool.biller,oldid:0
-#: field:extraschool.guardian,oldid:0
-#: field:extraschool.invoice,oldid:0
-#: field:extraschool.place,oldid:0
-#: field:extraschool.remindersjournal,oldid:0
-msgid "oldid"
-msgstr "oldid"
-
-#. module: extraschool
-#: field:extraschool.childsimportfilter,parentlastnamecolumnname:0
-msgid "Parent lastname column name"
-msgstr "Nom colonne nom parent"
-
-#. module: extraschool
-#: field:extraschool.guardianprestationtimes,manualy_encoded:0
-#: field:extraschool.prestationtimes,manualy_encoded:0
-msgid "Manualy encoded"
-msgstr "Encodé manuellement"
-
-#. module: extraschool
-#: field:extraschool.mainsettings,qrencode:0
-msgid "qrencode"
-msgstr "qrencode"
-
-#. module: extraschool
-#: field:extraschool.childsimportfilter,childlevelcolumns:0
-msgid "Child level column"
-msgstr "Colonne niveau enfant"
-
-#. module: extraschool
-#: field:extraschool.childsimportfilter,childfirstnamecolumn:0
-msgid "Child firstname column"
-msgstr "Colonne prénom enfant"
-
-#. module: extraschool
-#: selection:extraschool.guardianprestationtimes,ES:0
-#: selection:extraschool.pdaprestationtimes,ES:0
-#: selection:extraschool.prestations_wizard,es:0
-#: selection:extraschool.prestationscheck_wizard,es:0
-#: selection:extraschool.prestationtimes,ES:0
-msgid "Out"
-msgstr "Sortie"
-
-#. module: extraschool
-#: selection:extraschool.activitycategory,childpositiondetermination:0
-msgid "by parent (only childs with prestations)"
-msgstr "par parent (seulement enfants avec présences)"
-
-#. module: extraschool
-#: field:extraschool.activity,category:0
-msgid "Category"
-msgstr "Catégorie"
-
-#. module: extraschool
-#: field:extraschool.guardian,firstname:0
-msgid "FirstName"
-msgstr "Prénom"
-
-#. module: extraschool
-#: selection:extraschool.activity,leveltype:0
-msgid "Primaire"
-msgstr "Primaire"
-
-#. module: extraschool
-#: report:extraschool.coda.report:0
-msgid "Fichier CODA du"
-msgstr "Fichier CODA du"
-
-#. module: extraschool
-#: field:extraschool.coda,amountperyear:0
-msgid "Amount per year"
-msgstr "Montant par année"
-
-#. module: extraschool
-#: view:extraschool.childsimportfilter:0
-msgid "Importlevelrules"
-msgstr "Régles d'import niveau"
-
-#. module: extraschool
-#: field:extraschool.biller,period_to:0
-#: field:extraschool.invoice,period_to:0
-#: field:extraschool.invoice_wizard,period_to:0
-#: field:extraschool.prestationscheck_wizard,period_to:0
-msgid "Period to"
-msgstr "au"
-
-#. module: extraschool
-#: field:extraschool.smartphone,transmissiontime:0
-msgid "Transmission time"
-msgstr "Heure de transmission"
+#: selection:extraschool.discountrule,operator:0
+msgid "<="
+msgstr "<="
 
 #. module: extraschool
 #: selection:extraschool.discountrule,operator:0
 msgid "<>"
 msgstr "<>"
+
+#. module: extraschool
+#: selection:extraschool.discountrule,operator:0
+msgid ">="
+msgstr ">="
+
+#. module: extraschool
+#: view:extraschool.timecorrection_wizard:extraschool.extraschool_timecorrection_wizard_form
+msgid ""
+"ATTENTION!!! Cet assistant modifie définitivement toutes les heures encodées"
+msgstr ""
+"ATTENTION!!! Cet assistant modifie définitivement toutes les heures encodées"
+
+#. module: extraschool
+#: field:extraschool.payment,account:0 field:extraschool.reject,account:0
+msgid "Account"
+msgstr "Compte"
+
+#. module: extraschool
+#: field:extraschool.activitycategory,activities:0
+#: field:extraschool.activityplanneddate,activities:0
+#: field:extraschool.discount,activities:0
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_activity
+msgid "Activities"
+msgstr "Activités"
+
+#. module: extraschool
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_activityoccurrence
+msgid "Activities Occurrences"
+msgstr "Calendrier des activités"
+
+#. module: extraschool
+#: model:ir.model,name:extraschool.model_extraschool_activitycategory
+msgid "Activities categories"
+msgstr "Type d'activités"
+
+#. module: extraschool
+#: model:ir.model,name:extraschool.model_extraschool_activityplanneddate
+msgid "Activities planned dates"
+msgstr "Dates planifiées"
+
+#. module: extraschool
+#: model:ir.model,name:extraschool.model_extraschool_price_list
+msgid "Activities price list"
+msgstr "Activities price list"
+
+#. module: extraschool
+#: model:ir.model,name:extraschool.model_extraschool_price_list_version
+msgid "Activities price list version"
+msgstr "Activities price list version"
+
+#. module: extraschool
+#: view:extraschool.activity:extraschool.extraschool_activity_form
+#: view:extraschool.activity:extraschool.extraschool_activity_tree
+#: field:extraschool.activitychildregistration,activity_id:0
+#: field:extraschool.activityoccurrence,activityid:0
+#: field:extraschool.invoicedprestations,activityid:0
+#: field:extraschool.prestationtimes,activityid:0
+#: model:ir.actions.act_window,name:extraschool.action_extraschool_activity
+msgid "Activity"
+msgstr "Activité"
+
+#. module: extraschool
+#: field:extraschool.biller,activitycategoryid:0
+#: field:extraschool.invoice,activitycategoryid:0
+#: field:extraschool.pdaprestationtimes,activitycategoryid:0
+#: field:extraschool.prestationtimes,activitycategoryid:0
+#: field:extraschool.reminder,activitycategoryid:0
+#: field:extraschool.remindersjournal,activitycategoryid:0
+msgid "Activity Category"
+msgstr "Type d'activité"
+
+#. module: extraschool
+#: field:extraschool.prestationtimes,activity_name:0
+msgid "Activity Name"
+msgstr "Activity Name"
+
+#. module: extraschool
+#: field:extraschool.smartphone,activitycategories_ids:0
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_activitycategory
+msgid "Activity categories"
+msgstr "Types d'activité"
+
+#. module: extraschool
+#: view:extraschool.activitycategory:extraschool.extraschool_activitycategory_form
+#: view:extraschool.activitycategory:extraschool.extraschool_activitycategory_tree
+#: field:extraschool.invoice_wizard,activitycategory:0
+#: field:extraschool.prestations_wizard,activitycategory:0
+#: field:extraschool.statsone_wizard,activitycategory:0
+#: field:extraschool.taxcertificates_wizard,activitycategory:0
+#: model:ir.actions.act_window,name:extraschool.action_extraschool_activitycategory
+msgid "Activity category"
+msgstr "Catégorie d'activité"
+
+#. module: extraschool
+#: field:extraschool.activity,activity_child_ids:0
+msgid "Activity child"
+msgstr "Activity child"
+
+#. module: extraschool
+#: model:ir.model,name:extraschool.model_extraschool_activityexclusiondates
+msgid "Activity exclusion dates"
+msgstr "Dates exclues"
+
+#. module: extraschool
+#: view:extraschool.activityoccurrence:extraschool.extraschool_activityoccurrence_search_view
+#: view:extraschool.prestationtimes:extraschool.prestationtimes_search_view
+msgid "Activity name"
+msgstr "Activity name"
+
+#. module: extraschool
+#: view:extraschool.activityoccurrence:extraschool.extraschool_activityoccurrence_cal
+msgid "Activity occurences"
+msgstr "Activity occurences"
+
+#. module: extraschool
+#: field:extraschool.prestationtimes,activity_occurrence_id:0
+msgid "Activity occurrence"
+msgstr "Calendrier des activités"
+
+#. module: extraschool
+#: field:extraschool.prestationscheck_wizard,activitycategory:0
+msgid "Activitycategory"
+msgstr "Activitycategory"
+
+#. module: extraschool
+#: view:extraschool.prestationtimes:extraschool.prestationtimes_search_view
+msgid "Activité"
+msgstr "Activité"
+
+#. module: extraschool
+#: selection:extraschool.timecorrection_wizard,correctiontype:0
+msgid "Add"
+msgstr "Ajouter"
+
+#. module: extraschool
+#: view:extraschool.invoice:extraschool.extraschool_invoice_form
+msgid "Add payment"
+msgstr "Ajouter un paiement"
+
+#. module: extraschool
+#: field:extraschool.payment,addr1:0 field:extraschool.reject,addr1:0
+msgid "Addr1"
+msgstr "Addr1"
+
+#. module: extraschool
+#: field:extraschool.payment,addr2:0 field:extraschool.reject,addr2:0
+msgid "Addr2"
+msgstr "Addr2"
+
+#. module: extraschool
+#: selection:extraschool.activity,days:0
+msgid "All Fridays"
+msgstr "Tous les Vendredis"
+
+#. module: extraschool
+#: selection:extraschool.activity,days:0
+msgid "All Monday to Friday"
+msgstr "Du Lundi au Vendredi"
+
+#. module: extraschool
+#: selection:extraschool.activity,days:0
+msgid "All Mondays"
+msgstr "Tous les lundis"
 
 #. module: extraschool
 #: selection:extraschool.activity,days:0
@@ -312,18 +227,86 @@ msgstr "Tous les  Lundis, Mardis, Jeudis et Vendredis"
 
 #. module: extraschool
 #: selection:extraschool.activity,days:0
-msgid "All Mondays"
-msgstr "Tous les lundis"
+msgid "All Thursdays"
+msgstr "Tous les jeudis"
 
 #. module: extraschool
-#: field:extraschool.biller,paymentsstats:0
-msgid "Payments stats"
-msgstr "Statistiques de paiement"
+#: selection:extraschool.activity,days:0
+msgid "All Tuesdays"
+msgstr "Tous les mardis"
 
 #. module: extraschool
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_smartphone
-msgid "Smartphones"
-msgstr "Smartphones"
+#: selection:extraschool.activity,days:0
+msgid "All Wednesdays"
+msgstr "Tous les mercredis"
+
+#. module: extraschool
+#: field:extraschool.invoice,amount_total:0 field:extraschool.payment,amount:0
+#: field:extraschool.reject,amount:0 field:extraschool.reminder,amount:0
+#: field:extraschool.remindertype,fees:0
+msgid "Amount"
+msgstr "Montant"
+
+#. module: extraschool
+#: field:extraschool.coda,amountperyear:0
+msgid "Amount per year"
+msgstr "Montant par année"
+
+#. module: extraschool
+#: field:extraschool.activity,autoaddchilds:0
+msgid "Auto add registered"
+msgstr "Ajouter automatiquement les inscrits"
+
+#. module: extraschool
+#: selection:extraschool.level,leveltype:0
+msgid "Autre"
+msgstr "Autre"
+
+#. module: extraschool
+#: field:extraschool.biller,balance:0 field:extraschool.invoice,balance:0
+msgid "Balance"
+msgstr "Solde"
+
+#. module: extraschool
+#: field:extraschool.activitycategory,bankaccount:0
+msgid "Bank account"
+msgstr "Compte bancaire"
+
+#. module: extraschool
+#: view:extraschool.biller:extraschool.extraschool_biller_form
+#: view:extraschool.biller:extraschool.extraschool_biller_tree
+#: field:extraschool.invoice,biller_id:0
+#: model:ir.actions.act_window,name:extraschool.action_extraschool_biller
+#: model:ir.model,name:extraschool.model_extraschool_biller
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_biller
+msgid "Biller"
+msgstr "Facturier"
+
+#. module: extraschool
+#: field:extraschool.child,birthdate:0
+msgid "Birthdate"
+msgstr "Date de naissance"
+
+#. module: extraschool
+#: selection:extraschool.discount,period:0
+msgid "By Day"
+msgstr "Par Jour"
+
+#. module: extraschool
+#: selection:extraschool.discount,period:0
+msgid "By Invoice"
+msgstr "Par Facture"
+
+#. module: extraschool
+#: selection:extraschool.parent,invoicesendmethod:0
+#: selection:extraschool.parent,remindersendmethod:0
+msgid "By mail and email"
+msgstr "Par courrier et par email"
+
+#. module: extraschool
+#: field:extraschool.coda,codadate:0
+msgid "CODA Date"
+msgstr "CODA Date"
 
 #. module: extraschool
 #: field:extraschool.coda,codafile:0
@@ -332,29 +315,48 @@ msgid "CODA File"
 msgstr "Fichier CODA"
 
 #. module: extraschool
-#: field:extraschool.childsimportfilter,childotherrefcolumnname:0
-msgid "Child other ref column name"
-msgstr "Nom colonne autre ref"
+#: model:ir.actions.report.xml,name:extraschool.coda_report
+msgid "CODA Import Report"
+msgstr "Rapport ficher CODA"
 
 #. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_statsone_wizard
-msgid "extraschool.statsone_wizard"
-msgstr "Rapport trimestriel ONE"
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_codaimport
+msgid "CODA import"
+msgstr "Import de fichiers CODA"
 
 #. module: extraschool
-#: field:extraschool.guardianprestationtimes,prestation_time:0
-#: field:extraschool.pdaprestationtimes,prestation_time:0
-#: field:extraschool.prestations_wizard,prestation_time:0
-#: field:extraschool.prestationscheck_wizard,prestation_time:0
-#: field:extraschool.prestationtimes,prestation_time:0
-#: field:extraschool.timecorrection_wizard,correctiontime:0
-msgid "Time"
-msgstr "Heure"
+#: selection:extraschool.payment,paymenttype:0
+msgid "Cash"
+msgstr "Espèces"
 
 #. module: extraschool
-#: field:extraschool.invoicedprestations,quantity:0
-msgid "Quantity"
-msgstr "Quantité"
+#: field:extraschool.activity,category:0
+msgid "Category"
+msgstr "Catégorie"
+
+#. module: extraschool
+#: view:extraschool.prestationscheck_wizard:extraschool.extraschool_prestationscheck_wizard_form
+msgid "Check prestations"
+msgstr "Vérifier"
+
+#. module: extraschool
+#: field:extraschool.activitychildregistration,child_id:0
+#: view:extraschool.child:extraschool.extraschool_child_form
+#: view:extraschool.child:extraschool.extraschool_child_tree
+#: field:extraschool.childsworkbook_wizard,child_id:0
+#: field:extraschool.invoicedprestations,childid:0
+#: field:extraschool.pdaprestationtimes,childid:0
+#: field:extraschool.prestations_wizard,childid:0
+#: field:extraschool.prestationtimes,childid:0
+#: model:ir.actions.act_window,name:extraschool.action_extraschool_child
+#: model:ir.model,name:extraschool.model_extraschool_child
+msgid "Child"
+msgstr "Enfant"
+
+#. module: extraschool
+#: view:extraschool.activity:extraschool.extraschool_activity_form
+msgid "Child activities"
+msgstr "Activités enfant"
 
 #. module: extraschool
 #: field:extraschool.childsimportfilter,childbirthdatecolumn:0
@@ -362,93 +364,237 @@ msgid "Child birthdate column"
 msgstr "Colonne date de naissance"
 
 #. module: extraschool
-#: field:extraschool.discount,period:0
-msgid "Period"
-msgstr "Période"
+#: field:extraschool.childsimportfilter,childbirthdatecolumnname:0
+msgid "Child birthdate column name"
+msgstr "Nom colonne date de naissance"
 
 #. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_timecorrection_wizard
-msgid "extraschool.timecorrection_wizard"
-msgstr "Correction des heures"
+#: field:extraschool.childsimportfilter,childclassnamecolumns:0
+msgid "Child class name columns"
+msgstr "Colonnes classe"
 
 #. module: extraschool
-#: selection:extraschool.activity,days:0
-msgid "All Thursdays"
-msgstr "Tous les jeudis"
+#: field:extraschool.childsimportfilter,childclassnamecolumnsname:0
+msgid "Child class name columns name"
+msgstr "Nom colonnes classe"
 
 #. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_prestationtimes
-msgid "Prestation Times"
-msgstr "Présences"
+#: field:extraschool.childsimportfilter,childfirstnamecolumn:0
+msgid "Child firstname column"
+msgstr "Colonne prénom enfant"
 
 #. module: extraschool
-#: field:extraschool.invoice_wizard,invoice_date:0
-msgid "invoice date"
-msgstr "Date de la facture"
+#: field:extraschool.childsimportfilter,childfirstnamecolumnname:0
+msgid "Child firstname column name"
+msgstr "Nom colonne prénom enfant"
 
 #. module: extraschool
-#: selection:extraschool.discountrule,operator:0
-msgid "is not"
-msgstr "is not"
+#: field:extraschool.prestation_times_of_the_day,child_id:0
+msgid "Child id"
+msgstr "Child id"
 
 #. module: extraschool
-#: model:ir.actions.act_window,name:extraschool.action_extraschool_invoices
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_invoice
-#: field:extraschool.biller,invoice_ids:0
-msgid "invoices"
-msgstr "Factures"
+#: model:ir.model,name:extraschool.model_extraschool_importlevelrule
+msgid "Child import level rule"
+msgstr "Régle d'import niveau enfant"
 
 #. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_initupdate_wizard
-msgid "extraschool.initupdate_wizard"
-msgstr "Initialisation et MAJ"
+#: field:extraschool.childsimportfilter,childlastnamecolumn:0
+msgid "Child lastname column"
+msgstr "Colonne nom enfant"
 
 #. module: extraschool
-#: field:extraschool.invoice,structcom:0
-#: field:extraschool.payment,structcom:0
-#: field:extraschool.reject,structcom:0
-#: field:extraschool.reminder,structcom:0
-msgid "Structured Communication"
-msgstr "Communication structurée"
+#: field:extraschool.childsimportfilter,childlastnamecolumnname:0
+msgid "Child lastname column name"
+msgstr "Nom colonne nom enfant"
 
 #. module: extraschool
-#: field:extraschool.activitycategory,invoicecomstructprefix:0
-msgid "Invoice Comstruct prefix"
-msgstr "Préfixe de communication structurée (Factures)"
+#: field:extraschool.childsimportfilter,childlevelcolumns:0
+msgid "Child level column"
+msgstr "Colonne niveau enfant"
 
 #. module: extraschool
-#: field:extraschool.activity,onlyregisteredchilds:0
-msgid "Only registered childs"
-msgstr "Seulement les enfants inscripts"
+#: field:extraschool.childsimportfilter,childlevelcolumnsname:0
+msgid "Child level columns name"
+msgstr "Nom colonne niveau enfant"
 
 #. module: extraschool
-#: field:extraschool.childsimport,schoolimplantation:0
-#: field:extraschool.invoice,schoolimplantationid:0
-#: field:extraschool.reminder,schoolimplantationid:0
-msgid "School implantation"
-msgstr "Implantation scolaire"
+#: field:extraschool.childsimportfilter,childotherrefcolumn:0
+msgid "Child other ref column"
+msgstr "Colonne autre ref enfant"
 
 #. module: extraschool
-#: model:ir.actions.act_window,name:extraschool.action_extraschool_smartphone
-#: model:ir.model,name:extraschool.model_extraschool_smartphone
-#: view:extraschool.smartphone:0
-msgid "Smartphone"
-msgstr "Smartphone"
+#: field:extraschool.childsimportfilter,childotherrefcolumnname:0
+msgid "Child other ref column name"
+msgstr "Nom colonne autre ref"
 
 #. module: extraschool
-#: field:extraschool.activitycategory,bankaccount:0
-msgid "Bank account"
-msgstr "Compte bancaire"
+#: field:extraschool.discount,childposition_ids:0
+#: model:ir.model,name:extraschool.model_extraschool_childposition
+msgid "Child position"
+msgstr "Position de l'enfant"
 
 #. module: extraschool
-#: view:extraschool.initupdate_wizard:0
-msgid "ET QUE TOUS LES UTILISATEURS SONT DECONNECTES (REDEMARRAGE DU SERVEUR)"
-msgstr "ET QUE TOUS LES UTILISATEURS SONT DECONNECTES (REDEMARRAGE DU SERVEUR)"
+#: field:extraschool.activitycategory,childpositiondetermination:0
+msgid "Child position determination"
+msgstr "Détermination de la position de l'enfant"
 
 #. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_activitychildregistration
-msgid "activity child registration"
-msgstr "Inscription"
+#: field:extraschool.activityoccurrence,prestation_times_ids:0
+msgid "Child prestation times"
+msgstr "Child prestation times"
+
+#. module: extraschool
+#: view:extraschool.activity:extraschool.extraschool_activity_form
+#: field:extraschool.activityoccurrence,child_registration_ids:0
+msgid "Child registration"
+msgstr "Child registration"
+
+#. module: extraschool
+#: field:extraschool.activity,childregistration_ids:0
+msgid "Child registrations"
+msgstr "Inscriptions"
+
+#. module: extraschool
+#: field:extraschool.activity,childtype_ids:0
+msgid "Child type"
+msgstr "Statut de l'enfant"
+
+#. module: extraschool
+#: model:ir.model,name:extraschool.model_extraschool_childtype
+msgid "ChildType"
+msgstr "Statut de l'enfant"
+
+#. module: extraschool
+#: view:extraschool.parent:extraschool.extraschool_parent_form
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_child
+msgid "Childs"
+msgstr "Enfants"
+
+#. module: extraschool
+#: field:extraschool.childsimport,childsfile:0
+msgid "Childs File"
+msgstr "Fichier enfants"
+
+#. module: extraschool
+#: view:extraschool.childsworkbook_wizard:extraschool.extraschool_childsworkbook_wizard_form
+#: model:ir.actions.act_window,name:extraschool.action_lbsc_childsworkbook_wizard
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_childsworkbook_wizard
+msgid "Childs Workbook Wizard"
+msgstr "Impression des classeurs élèves"
+
+#. module: extraschool
+#: field:extraschool.importreject,childsimport:0
+msgid "Childs import"
+msgstr "Import des enfants"
+
+#. module: extraschool
+#: field:extraschool.childsimport,childsimportfilter:0
+#: model:ir.model,name:extraschool.model_extraschool_childsimportfilter
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_childsimportfilter
+msgid "Childs import filter"
+msgstr "Filtre d'import enfant"
+
+#. module: extraschool
+#: model:ir.actions.act_window,name:extraschool.action_extraschool_childsimport
+msgid "Childsimport"
+msgstr "Import des enfants"
+
+#. module: extraschool
+#: model:ir.actions.act_window,name:extraschool.action_extraschool_childsimportfilter
+msgid "Childsimportfilter"
+msgstr "Filtre d'importation enfant"
+
+#. module: extraschool
+#: field:extraschool.discount,childtypes:0
+msgid "Childtypes"
+msgstr "Types d'enfant"
+
+#. module: extraschool
+#: field:extraschool.parent,city:0 field:extraschool.place,city:0
+#: field:extraschool.school,city:0 field:extraschool.schoolimplantation,city:0
+msgid "City"
+msgstr "Localité"
+
+#. module: extraschool
+#: field:extraschool.child,classid:0
+#: view:extraschool.class:extraschool.extraschool_class_form
+#: model:ir.model,name:extraschool.model_extraschool_class
+msgid "Class"
+msgstr "Classe"
+
+#. module: extraschool
+#: view:extraschool.coda:extraschool.extraschool_coda_form
+#: view:extraschool.coda:extraschool.extraschool_coda_tree
+#: field:extraschool.payment,coda:0 field:extraschool.reject,coda:0
+#: model:ir.actions.act_window,name:extraschool.action_extraschool_coda
+msgid "Coda"
+msgstr "Fichier CODA"
+
+#. module: extraschool
+#: field:extraschool.prestation_times_of_the_day,comment:0
+msgid "Comment"
+msgstr "Comment"
+
+#. module: extraschool
+#: view:extraschool.timecorrection_wizard:extraschool.extraschool_timecorrection_wizard_form
+#: selection:extraschool.timecorrection_wizard,state:0
+msgid "Compute correction"
+msgstr "Effectuer les corrections"
+
+#. module: extraschool
+#: view:extraschool.invoice_wizard:extraschool.extraschool_invoice_wizard_form
+#: selection:extraschool.invoice_wizard,state:0
+msgid "Compute invoices"
+msgstr "Générer les factures"
+
+#. module: extraschool
+#: view:extraschool.guardianprestationtimes_wizard:extraschool.extraschool_guardianprestationtimes_wizard_form
+#: selection:extraschool.guardianprestationtimes_wizard,state:0
+msgid "Compute prestations report"
+msgstr "Rapport des prestations"
+
+#. module: extraschool
+#: view:extraschool.statsone_wizard:extraschool.extraschool_statsone_wizard_form
+#: selection:extraschool.statsone_wizard,state:0
+msgid "Compute statsone"
+msgstr "Générer le rapport trimestriel"
+
+#. module: extraschool
+#: view:extraschool.taxcertificates_wizard:extraschool.extraschool_taxcertificates_wizard_form
+#: selection:extraschool.taxcertificates_wizard,state:0
+msgid "Compute taxcertificates"
+msgstr "Générer les attestations fiscales"
+
+#. module: extraschool
+#: view:extraschool.prestation_times_of_the_day:extraschool.extraschool_prestation_times_of_the_day_form
+msgid "Computed prestations"
+msgstr "Computed prestations"
+
+#. module: extraschool
+#: field:extraschool.remindersjournal,concernedbillers:0
+msgid "Concerned billers"
+msgstr "Facturiers concernés"
+
+#. module: extraschool
+#: field:extraschool.payment,concernedinvoice:0
+msgid "Concerned invoice"
+msgstr "Facture concernée"
+
+#. module: extraschool
+#: field:extraschool.reminder,concernedinvoices:0
+msgid "Concerned invoices"
+msgstr "Factures concernées"
+
+#. module: extraschool
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_configuration
+msgid "Configuration"
+msgstr "Configuration"
+
+#. module: extraschool
+#: view:extraschool.parent:extraschool.extraschool_parent_form
+msgid "Contact"
+msgstr "Contact"
 
 #. module: extraschool
 #: field:extraschool.timecorrection_wizard,correctiontype:0
@@ -456,25 +602,165 @@ msgid "Correction type"
 msgstr "Type de correction"
 
 #. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_payment
-#: view:extraschool.payment:0
-msgid "Payment"
-msgstr "Paiement"
+#: field:extraschool.activity,create_uid:0
+#: field:extraschool.activitycategory,create_uid:0
+#: field:extraschool.activitychildregistration,create_uid:0
+#: field:extraschool.activityexclusiondates,create_uid:0
+#: field:extraschool.activityoccurrence,create_uid:0
+#: field:extraschool.activityplanneddate,create_uid:0
+#: field:extraschool.biller,create_uid:0 field:extraschool.child,create_uid:0
+#: field:extraschool.childposition,create_uid:0
+#: field:extraschool.childsimport,create_uid:0
+#: field:extraschool.childsimportfilter,create_uid:0
+#: field:extraschool.childsworkbook_wizard,create_uid:0
+#: field:extraschool.childtype,create_uid:0
+#: field:extraschool.class,create_uid:0 field:extraschool.coda,create_uid:0
+#: field:extraschool.discount,create_uid:0
+#: field:extraschool.discountrule,create_uid:0
+#: field:extraschool.guardian,create_uid:0
+#: field:extraschool.guardianprestationtimes,create_uid:0
+#: field:extraschool.guardianprestationtimes_wizard,create_uid:0
+#: field:extraschool.importlevelrule,create_uid:0
+#: field:extraschool.importreject,create_uid:0
+#: field:extraschool.initupdate_wizard,create_uid:0
+#: field:extraschool.invoice,create_uid:0
+#: field:extraschool.invoice_wizard,create_uid:0
+#: field:extraschool.invoicedprestations,create_uid:0
+#: field:extraschool.level,create_uid:0
+#: field:extraschool.mainsettings,create_uid:0
+#: field:extraschool.parent,create_uid:0
+#: field:extraschool.payment,create_uid:0
+#: field:extraschool.pdaprestationtimes,create_uid:0
+#: field:extraschool.place,create_uid:0
+#: field:extraschool.prestation_times_of_the_day,create_uid:0
+#: field:extraschool.prestations_wizard,create_uid:0
+#: field:extraschool.prestationscheck_wizard,create_uid:0
+#: field:extraschool.prestationtimes,create_uid:0
+#: field:extraschool.price_list,create_uid:0
+#: field:extraschool.price_list_version,create_uid:0
+#: field:extraschool.qrcodes_wizard,create_uid:0
+#: field:extraschool.reject,create_uid:0
+#: field:extraschool.reminder,create_uid:0
+#: field:extraschool.remindersjournal,create_uid:0
+#: field:extraschool.remindertype,create_uid:0
+#: field:extraschool.scheduledtasks,create_uid:0
+#: field:extraschool.school,create_uid:0
+#: field:extraschool.schoolimplantation,create_uid:0
+#: field:extraschool.smartphone,create_uid:0
+#: field:extraschool.statsone_wizard,create_uid:0
+#: field:extraschool.taxcertificates_wizard,create_uid:0
+#: field:extraschool.timecorrection_wizard,create_uid:0
+msgid "Created by"
+msgstr "Crée par"
 
 #. module: extraschool
-#: view:extraschool.parent:0
-msgid "Reminders"
-msgstr "Rappels"
+#: field:extraschool.activity,create_date:0
+#: field:extraschool.activitycategory,create_date:0
+#: field:extraschool.activitychildregistration,create_date:0
+#: field:extraschool.activityexclusiondates,create_date:0
+#: field:extraschool.activityoccurrence,create_date:0
+#: field:extraschool.activityplanneddate,create_date:0
+#: field:extraschool.biller,create_date:0
+#: field:extraschool.child,create_date:0
+#: field:extraschool.childposition,create_date:0
+#: field:extraschool.childsimport,create_date:0
+#: field:extraschool.childsimportfilter,create_date:0
+#: field:extraschool.childsworkbook_wizard,create_date:0
+#: field:extraschool.childtype,create_date:0
+#: field:extraschool.class,create_date:0 field:extraschool.coda,create_date:0
+#: field:extraschool.discount,create_date:0
+#: field:extraschool.discountrule,create_date:0
+#: field:extraschool.guardian,create_date:0
+#: field:extraschool.guardianprestationtimes,create_date:0
+#: field:extraschool.guardianprestationtimes_wizard,create_date:0
+#: field:extraschool.importlevelrule,create_date:0
+#: field:extraschool.importreject,create_date:0
+#: field:extraschool.initupdate_wizard,create_date:0
+#: field:extraschool.invoice,create_date:0
+#: field:extraschool.invoice_wizard,create_date:0
+#: field:extraschool.invoicedprestations,create_date:0
+#: field:extraschool.level,create_date:0
+#: field:extraschool.mainsettings,create_date:0
+#: field:extraschool.parent,create_date:0
+#: field:extraschool.payment,create_date:0
+#: field:extraschool.pdaprestationtimes,create_date:0
+#: field:extraschool.place,create_date:0
+#: field:extraschool.prestation_times_of_the_day,create_date:0
+#: field:extraschool.prestations_wizard,create_date:0
+#: field:extraschool.prestationscheck_wizard,create_date:0
+#: field:extraschool.prestationtimes,create_date:0
+#: field:extraschool.price_list,create_date:0
+#: field:extraschool.price_list_version,create_date:0
+#: field:extraschool.qrcodes_wizard,create_date:0
+#: field:extraschool.reject,create_date:0
+#: field:extraschool.reminder,create_date:0
+#: field:extraschool.remindersjournal,create_date:0
+#: field:extraschool.remindertype,create_date:0
+#: field:extraschool.scheduledtasks,create_date:0
+#: field:extraschool.school,create_date:0
+#: field:extraschool.schoolimplantation,create_date:0
+#: field:extraschool.smartphone,create_date:0
+#: field:extraschool.statsone_wizard,create_date:0
+#: field:extraschool.taxcertificates_wizard,create_date:0
+#: field:extraschool.timecorrection_wizard,create_date:0
+msgid "Created on"
+msgstr "Créé sur"
 
 #. module: extraschool
-#: view:extraschool.prestationscheck_wizard:0
-msgid "Prestations smartphone"
-msgstr "Prestations smartphone"
+#: field:extraschool.smartphone,databasename:0
+msgid "Database name"
+msgstr "Nom base de données"
 
 #. module: extraschool
-#: field:extraschool.smartphone,softwareurl:0
-msgid "Software url"
-msgstr "Chemin du logiciel"
+#: view:extraschool.activityoccurrence:extraschool.extraschool_activityoccurrence_search_view
+#: field:extraschool.activityoccurrence,occurrence_date:0
+#: field:extraschool.activityplanneddate,activitydate:0
+#: field:extraschool.guardianprestationtimes,prestation_date:0
+#: field:extraschool.invoicedprestations,prestation_date:0
+#: field:extraschool.payment,paymentdate:0
+#: field:extraschool.pdaprestationtimes,prestation_date:0
+#: view:extraschool.prestationtimes:extraschool.prestationtimes_search_view
+#: field:extraschool.prestationtimes,prestation_date:0
+#: field:extraschool.reject,paymentdate:0
+msgid "Date"
+msgstr "Date"
+
+#. module: extraschool
+#: field:extraschool.activityexclusiondates,date_from:0
+#: field:extraschool.timecorrection_wizard,datefrom:0
+msgid "Date from"
+msgstr "Date du"
+
+#. module: extraschool
+#: field:extraschool.prestation_times_of_the_day,date_of_the_day:0
+msgid "Date of the day"
+msgstr "Date du jour"
+
+#. module: extraschool
+#: field:extraschool.activityoccurrence,date_start:0
+msgid "Date start"
+msgstr "Date de début"
+
+#. module: extraschool
+#: field:extraschool.activityoccurrence,date_stop:0
+msgid "Date stop"
+msgstr "Date de fin"
+
+#. module: extraschool
+#: field:extraschool.activityexclusiondates,date_to:0
+#: field:extraschool.timecorrection_wizard,dateto:0
+msgid "Date to"
+msgstr "Jusqu'au"
+
+#. module: extraschool
+#: field:extraschool.activity,days:0
+msgid "Days"
+msgstr "Jours"
+
+#. module: extraschool
+#: field:extraschool.activity,default_from_to:0
+msgid "Default From To"
+msgstr "Activité forfaitaire"
 
 #. module: extraschool
 #: field:extraschool.activity,default_from:0
@@ -482,24 +768,131 @@ msgid "Default from"
 msgstr "Début par défaut"
 
 #. module: extraschool
-#: view:extraschool.childsworkbook_wizard:0
-msgid "generate workbook"
-msgstr "Générer le classeur"
+#: field:extraschool.activity,default_to:0
+msgid "Default to"
+msgstr "Fin par défaut"
 
 #. module: extraschool
-#: field:extraschool.payment,paymenttype:0
-msgid "Payment type"
-msgstr "Type de paiement"
+#: field:extraschool.child,isdisabled:0
+msgid "Disabled"
+msgstr "Désactivé"
 
 #. module: extraschool
-#: view:extraschool.childsimportfilter:0
-msgid "childsimportfilter"
-msgstr "Filtre d'import enfant"
+#: field:extraschool.discount,discount:0 field:extraschool.invoice,discount:0
+#: field:extraschool.invoicedprestations,discount:0
+#: model:ir.actions.act_window,name:extraschool.action_extraschool_discount
+#: model:ir.model,name:extraschool.model_extraschool_discount
+msgid "Discount"
+msgstr "Réduction"
 
 #. module: extraschool
-#: field:extraschool.prestationscheck_wizard,currentdate:0
-msgid "Current date"
-msgstr "Date"
+#: field:extraschool.discount,discountrule:0
+#: model:ir.model,name:extraschool.model_extraschool_discountrule
+msgid "Discount Rule"
+msgstr "Règles de réductions"
+
+#. module: extraschool
+#: field:extraschool.discount,discounttype:0
+msgid "Discount type"
+msgstr "Type de réduction"
+
+#. module: extraschool
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_discount
+msgid "Discounts"
+msgstr "Réductions"
+
+#. module: extraschool
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_documents
+msgid "Documents"
+msgstr "Documents"
+
+#. module: extraschool
+#: field:extraschool.guardianprestationtimes,ES:0
+#: field:extraschool.pdaprestationtimes,ES:0
+#: field:extraschool.prestations_wizard,es:0
+msgid "ES"
+msgstr "Entrée / Sortie"
+
+#. module: extraschool
+#: view:extraschool.initupdate_wizard:extraschool.extraschool_initupdate_wizard_form
+msgid "ET QUE TOUS LES UTILISATEURS SONT DECONNECTES (REDEMARRAGE DU SERVEUR)"
+msgstr "ET QUE TOUS LES UTILISATEURS SONT DECONNECTES (REDEMARRAGE DU SERVEUR)"
+
+#. module: extraschool
+#: selection:extraschool.discount,wichactivities:0
+msgid "Each of these activities"
+msgstr "Chacune de ces activités"
+
+#. module: extraschool
+#: field:extraschool.parent,email:0
+msgid "Email"
+msgstr "Email"
+
+#. module: extraschool
+#: field:extraschool.mainsettings,emailfornotifications:0
+msgid "Email for notifications"
+msgstr "Email de notifications"
+
+#. module: extraschool
+#: selection:extraschool.prestationscheck_wizard,state:0
+msgid "End of verification"
+msgstr "Fin de la vérification"
+
+#. module: extraschool
+#: field:extraschool.importlevelrule,endpos1:0
+msgid "End pos1"
+msgstr "Pos fin"
+
+#. module: extraschool
+#: view:extraschool.prestationtimes:extraschool.prestationtimes_search_view
+msgid "Enfant"
+msgstr "Enfant"
+
+#. module: extraschool
+#: view:extraschool.prestationtimes:extraschool.prestationtimes_search_view
+msgid "Entry"
+msgstr "Entrée"
+
+#. module: extraschool
+#: field:extraschool.importlevelrule,equalto1:0
+msgid "Equals to1"
+msgstr "égal à 1"
+
+#. module: extraschool
+#: field:extraschool.prestationtimes,error_msg:0
+msgid "Error"
+msgstr "Erreur"
+
+#. module: extraschool
+#: view:extraschool.activity:extraschool.extraschool_activity_form
+#: field:extraschool.activity,exclusiondates_ids:0
+msgid "Exclusion dates"
+msgstr "Dates exclues"
+
+#. module: extraschool
+#: view:extraschool.prestationtimes:extraschool.prestationtimes_search_view
+msgid "Exit"
+msgstr "Sortir"
+
+#. module: extraschool
+#: field:extraschool.prestationtimes,exit_all:0
+msgid "Exit all"
+msgstr "Sortir de tout"
+
+#. module: extraschool
+#: model:ir.ui.menu,name:extraschool.menu_extraschool
+msgid "Extraschool"
+msgstr "AES"
+
+#. module: extraschool
+#: report:extraschool.coda.report:0
+msgid "Fichier CODA du"
+msgstr "Fichier CODA du"
+
+#. module: extraschool
+#: field:extraschool.discountrule,field:0
+msgid "Field"
+msgstr "Champs"
 
 #. module: extraschool
 #: field:extraschool.biller,biller_file:0
@@ -516,340 +909,6 @@ msgid "File"
 msgstr "Fichier"
 
 #. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_activityexclusiondates
-msgid "Activity exclusion dates"
-msgstr "Dates exclues"
-
-#. module: extraschool
-#: field:extraschool.smartphone,scanmethod:0
-msgid "Scan method"
-msgstr "Méthode de scan"
-
-#. module: extraschool
-#: field:extraschool.coda,codadate:0
-msgid "CODA Date"
-msgstr "CODA Date"
-
-#. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_discountrule
-#: field:extraschool.discount,discountrule:0
-msgid "Discount Rule"
-msgstr "Règles de réductions"
-
-#. module: extraschool
-#: field:extraschool.childsimportfilter,parentworkphonecolumnname:0
-msgid "Parent work phone column name"
-msgstr "Nom colonne tél travail parent"
-
-#. module: extraschool
-#: field:extraschool.childsimport,childsfile:0
-msgid "Childs File"
-msgstr "Fichier enfants"
-
-#. module: extraschool
-#: field:extraschool.discount,childtypes:0
-msgid "Childtypes"
-msgstr "Types d'enfant"
-
-#. module: extraschool
-#: field:extraschool.biller,novalue:0
-msgid "No Value"
-msgstr "Non valeur"
-
-#. module: extraschool
-#: selection:extraschool.prestationscheck_wizard,state:0
-msgid "Prestations to verify"
-msgstr "Prestations à vérifier"
-
-#. module: extraschool
-#: field:extraschool.childsimportfilter,childlevelcolumnsname:0
-msgid "Child level columns name"
-msgstr "Nom colonne niveau enfant"
-
-#. module: extraschool
-#: selection:extraschool.qrcodes_wizard,state:0
-msgid "Print QRCodes"
-msgstr "Imprimer les QRCodes"
-
-#. module: extraschool
-#: field:extraschool.biller,nbinvoices:0
-msgid "Nb of invoices"
-msgstr "Nombre de factures"
-
-#. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_childposition
-#: field:extraschool.activity,childposition_ids:0
-msgid "Child position"
-msgstr "Position de l'enfant"
-
-#. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_invoice_wizard
-msgid "extraschool.invoice_wizard"
-msgstr "Facturation"
-
-#. module: extraschool
-#: field:extraschool.biller,payment_term:0
-#: field:extraschool.invoice,payment_term:0
-msgid "Payment term"
-msgstr "Echéance"
-
-#. module: extraschool
-#: field:extraschool.remindertype,name:0
-msgid "name"
-msgstr "Nom"
-
-#. module: extraschool
-#: selection:extraschool.timecorrection_wizard,correctiontype:0
-msgid "Add"
-msgstr "Ajouter"
-
-#. module: extraschool
-#: field:extraschool.childsimportfilter,parentemailcolumnname:0
-msgid "Parent email column name"
-msgstr "Nom colonne email parent"
-
-#. module: extraschool
-#: view:extraschool.invoice_wizard:0
-#: selection:extraschool.invoice_wizard,state:0
-msgid "Compute invoices"
-msgstr "Générer les factures"
-
-#. module: extraschool
-#: field:extraschool.activity,prest_from:0
-msgid "From"
-msgstr "De"
-
-#. module: extraschool
-#: field:extraschool.importreject,rejectcause:0
-#: field:extraschool.reject,rejectcause:0
-msgid "Reject cause"
-msgstr "Cause du rejet"
-
-#. module: extraschool
-#: view:extraschool.prestationscheck_wizard:0
-msgid "Next"
-msgstr "Suivant"
-
-#. module: extraschool
-#: field:extraschool.importlevelrule,startpos1:0
-msgid "Start pos1"
-msgstr "Position de début"
-
-#. module: extraschool
-#: field:extraschool.activity,placeids:0
-#: field:extraschool.activitycategory,placeids:0
-msgid "Schoolcare place"
-msgstr "Lieux d'accueil"
-
-#. module: extraschool
-#: view:extraschool.mainsettings:0
-#: view:extraschool.payment:0
-#: view:extraschool.prestationtimes:0
-msgid "Save"
-msgstr "Enregistrer"
-
-#. module: extraschool
-#: selection:extraschool.prestationscheck_wizard,state:0
-msgid "End of verification"
-msgstr "Fin de la vérification"
-
-#. module: extraschool
-#: selection:extraschool.discount,wichactivities:0
-msgid "Sum of these activities"
-msgstr "La somme de ces activités"
-
-#. module: extraschool
-#: field:extraschool.childsimportfilter,parentcitycolumnname:0
-msgid "Parent city column name"
-msgstr "Nom colonne localité parent"
-
-#. module: extraschool
-#: model:ir.actions.act_window,name:extraschool.action_lbsc_prestations_wizard
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_prestations_wizard
-#: view:extraschool.prestations_wizard:0
-msgid "Prestations Wizard"
-msgstr "Encoder"
-
-#. module: extraschool
-#: field:extraschool.activity,period_duration:0
-msgid "Period Duration"
-msgstr "Durée de la période"
-
-#. module: extraschool
-#: field:extraschool.prestationscheck_wizard,placeid:0
-#: field:extraschool.timecorrection_wizard,placeid:0
-msgid "Places"
-msgstr "Places"
-
-#. module: extraschool
-#: view:extraschool.discount:0
-msgid "discountrule"
-msgstr "Régle de réduction"
-
-#. module: extraschool
-#: selection:extraschool.activity,days:0
-msgid "All Monday to Friday"
-msgstr "Du Lundi au Vendredi"
-
-#. module: extraschool
-#: field:extraschool.guardianprestationtimes,ES:0
-#: field:extraschool.pdaprestationtimes,ES:0
-#: field:extraschool.prestations_wizard,es:0
-#: field:extraschool.prestationscheck_wizard,es:0
-#: field:extraschool.prestationtimes,ES:0
-msgid "es"
-msgstr "Entrée/Sortie"
-
-#. module: extraschool
-#: selection:extraschool.smartphone,transfertmethod:0
-msgid "WIFI"
-msgstr "WIFI"
-
-#. module: extraschool
-#: view:extraschool.prestationscheck_wizard:0
-msgid "Prestationscheck Wizard"
-msgstr "Vérifier"
-
-#. module: extraschool
-#: selection:extraschool.childsworkbook_wizard,state:0
-msgid "Print Childs Workbook"
-msgstr "Imprimer le classeur élèves"
-
-#. module: extraschool
-#: field:extraschool.childsimportfilter,parentfirstnamecolumnname:0
-msgid "Parent firstname column name"
-msgstr "Nom colonne prénom parent"
-
-#. module: extraschool
-#: field:extraschool.invoice_wizard,invoice_term:0
-msgid "invoice term"
-msgstr "Echéance"
-
-#. module: extraschool
-#: selection:extraschool.discountrule,operator:0
-msgid ">="
-msgstr ">="
-
-#. module: extraschool
-#: field:extraschool.remindersjournal,minamount:0
-msgid "Minimum amount"
-msgstr "Montant minimum"
-
-#. module: extraschool
-#: field:extraschool.mainsettings,templatesfolder:0
-msgid "templatesfolder"
-msgstr "Dossier des modèles de document"
-
-#. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_taxcertificates_wizard
-msgid "extraschool.taxcertificates_wizard"
-msgstr "Attestations fiscales"
-
-#. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_reminder
-msgid "Reminder"
-msgstr "Rappel"
-
-#. module: extraschool
-#: field:extraschool.activity,default_to:0
-msgid "Default to"
-msgstr "Fin par défaut"
-
-#. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_childsimport
-msgid "extraschool.childsimport"
-msgstr "Import des enfants"
-
-#. module: extraschool
-#: field:extraschool.mainsettings,tempfolder:0
-msgid "tempfolder"
-msgstr "Dossier des fichiers temporaires"
-
-#. module: extraschool
-#: model:ir.actions.act_window,name:extraschool.action_extraschool_guardian
-#: model:ir.model,name:extraschool.model_extraschool_guardian
-#: view:extraschool.guardian:0
-#: field:extraschool.guardianprestationtimes,guardianid:0
-#: field:extraschool.guardianprestationtimes_wizard,guardianid:0
-msgid "Guardian"
-msgstr "Acceuillante"
-
-#. module: extraschool
-#: field:extraschool.childsimportfilter,parentfirstnamecolumn:0
-msgid "Parent firstname column"
-msgstr "Colonne prénom parent"
-
-#. module: extraschool
-#: field:extraschool.activityplanneddate,activitydate:0
-#: field:extraschool.guardianprestationtimes,prestation_date:0
-#: field:extraschool.invoicedprestations,prestation_date:0
-#: field:extraschool.payment,paymentdate:0
-#: field:extraschool.pdaprestationtimes,prestation_date:0
-#: field:extraschool.prestationtimes,prestation_date:0
-#: field:extraschool.reject,paymentdate:0
-msgid "Date"
-msgstr "Date"
-
-#. module: extraschool
-#: model:ir.actions.report.xml,name:extraschool.coda_report
-msgid "CODA Import Report"
-msgstr "Rapport ficher CODA"
-
-#. module: extraschool
-#: selection:extraschool.statsone_wizard,quarter:0
-msgid "1er"
-msgstr "1er"
-
-#. module: extraschool
-#: model:ir.actions.act_window,name:extraschool.action_extraschool_coda
-#: view:extraschool.coda:0
-#: field:extraschool.payment,coda:0
-#: field:extraschool.reject,coda:0
-msgid "Coda"
-msgstr "Fichier CODA"
-
-#. module: extraschool
-#: field:extraschool.childsimportfilter,startrow:0
-msgid "Start row"
-msgstr "Ligne de début"
-
-#. module: extraschool
-#: view:extraschool.statsone_wizard:0
-#: selection:extraschool.statsone_wizard,state:0
-msgid "Compute statsone"
-msgstr "Générer le rapport trimestriel"
-
-#. module: extraschool
-#: field:extraschool.biller,period_from:0
-#: field:extraschool.invoice,period_from:0
-#: field:extraschool.invoice_wizard,period_from:0
-#: field:extraschool.prestationscheck_wizard,period_from:0
-msgid "Period from"
-msgstr "Période du"
-
-#. module: extraschool
-#: selection:extraschool.activity,days:0
-msgid "All Tuesdays"
-msgstr "Tous les mardis"
-
-#. module: extraschool
-#: field:extraschool.payment,addr2:0
-#: field:extraschool.reject,addr2:0
-msgid "Addr2"
-msgstr "Addr2"
-
-#. module: extraschool
-#: field:extraschool.payment,addr1:0
-#: field:extraschool.reject,addr1:0
-msgid "Addr1"
-msgstr "Addr1"
-
-#. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_importlevelrule
-msgid "Child import level rule"
-msgstr "Régle d'import niveau enfant"
-
-#. module: extraschool
 #: field:extraschool.childsworkbook_wizard,name:0
 #: field:extraschool.guardianprestationtimes_wizard,name:0
 #: field:extraschool.invoice_wizard,name:0
@@ -861,416 +920,15 @@ msgid "File Name"
 msgstr "Fichier"
 
 #. module: extraschool
-#: view:extraschool.prestationscheck_wizard:0
-msgid "Check prestations"
-msgstr "Vérifier"
-
-#. module: extraschool
-#: field:extraschool.discountrule,field:0
-msgid "Field"
-msgstr "Champs"
-
-#. module: extraschool
-#: field:extraschool.prestations_wizard,prestation_date:0
-msgid "Prestation Date"
-msgstr "Date"
-
-#. module: extraschool
-#: field:extraschool.smartphone,oldversion:0
-msgid "Old version"
-msgstr "Ancienne version"
-
-#. module: extraschool
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_activity
-#: field:extraschool.activitycategory,activities:0
-#: field:extraschool.activityplanneddate,activities:0
-#: field:extraschool.discount,activities:0
-msgid "Activities"
-msgstr "Activités"
-
-#. module: extraschool
-#: field:extraschool.activity,price:0
-msgid "Price"
-msgstr "Prix"
-
-#. module: extraschool
-#: field:extraschool.activitychildregistration,registration_to:0
-msgid "Registration to"
-msgstr "au"
-
-#. module: extraschool
-#: field:extraschool.activity,name:0
-#: field:extraschool.activitycategory,name:0
-#: field:extraschool.activitychildregistration,name:0
-#: field:extraschool.activityexclusiondates,name:0
-#: field:extraschool.activityplanneddate,name:0
-#: field:extraschool.biller,name:0
-#: field:extraschool.childposition,name:0
-#: field:extraschool.childsimportfilter,name:0
-#: field:extraschool.coda,name:0
-#: field:extraschool.discount,name:0
-#: field:extraschool.discountrule,name:0
-#: field:extraschool.invoice,name:0
-#: field:extraschool.payment,name:0
-#: field:extraschool.place,name:0
-#: field:extraschool.reject,name:0
-#: field:extraschool.remindersjournal,name:0
-#: field:extraschool.smartphone,name:0
-msgid "Name"
-msgstr "Nom"
-
-#. module: extraschool
-#: view:extraschool.prestationscheck_wizard:0
-msgid "PDA Prestations"
-msgstr "Présences Smartphone"
-
-#. module: extraschool
-#: field:extraschool.smartphone,username:0
-msgid "User name"
-msgstr "Nom d'utilisateur"
-
-#. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_activitycategory
-msgid "Activities categories"
-msgstr "Type d'activités"
-
-#. module: extraschool
-#: field:extraschool.prestations_wizard,schoolimplantationids:0
-msgid "Schoolimplantaions"
-msgstr "Implantations scolaire"
-
-#. module: extraschool
-#: field:extraschool.childsimportfilter,parentcitycolumn:0
-msgid "Parent city column"
-msgstr "Colonne localité parent"
-
-#. module: extraschool
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_guardian
-msgid "Guardians"
-msgstr "Accueillantes"
-
-#. module: extraschool
-#: field:extraschool.reminder,term:0
-#: field:extraschool.remindersjournal,term:0
-msgid "Term"
-msgstr "Echéance"
-
-#. module: extraschool
-#: selection:extraschool.activity,days:0
-msgid "All Wednesdays"
-msgstr "Tous les mercredis"
-
-#. module: extraschool
-#: field:extraschool.activity,validity_to:0
-msgid "Validity to"
-msgstr "Valable jusqu'au"
-
-#. module: extraschool
-#: selection:extraschool.smartphone,scanmethod:0
-msgid "QR"
-msgstr "QR"
-
-#. module: extraschool
-#: selection:extraschool.discount,wichactivities:0
-msgid "One of these activities"
-msgstr "Une de ces activités"
-
-#. module: extraschool
-#: view:extraschool.timecorrection_wizard:0
-msgid "d'après les paramètres ci-dessous -> PRUDENCE"
-msgstr "d'après les paramètres ci-dessous -> PRUDENCE"
-
-#. module: extraschool
-#: field:extraschool.activity,maxamount:0
-msgid "Max Amount"
-msgstr "Montant maximum"
-
-#. module: extraschool
-#: view:extraschool.guardianprestationtimes_wizard:0
-#: selection:extraschool.guardianprestationtimes_wizard,state:0
-msgid "Compute prestations report"
-msgstr "Rapport des prestations"
-
-#. module: extraschool
-#: field:extraschool.activity,short_name:0
-msgid "Short name"
-msgstr "Nom court"
-
-#. module: extraschool
-#: field:extraschool.activity,minamount:0
-msgid "Min Amount"
-msgstr "Montant minimum"
-
-#. module: extraschool
-#: field:extraschool.remindertype,template:0
-msgid "Template"
-msgstr "Modèle"
-
-#. module: extraschool
-#: view:extraschool.initupdate_wizard:0
-msgid "Update this application"
-msgstr "Mettre l'application à jour"
-
-#. module: extraschool
-#: model:ir.actions.act_window,name:extraschool.action_lbsc_reminders_journal
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_reminders_journal
-#: view:extraschool.remindersjournal:0
-msgid "Reminders Journal"
-msgstr "Journal des Rappels"
-
-#. module: extraschool
-#: selection:extraschool.statsone_wizard,quarter:0
-msgid "3eme"
-msgstr "3eme"
-
-#. module: extraschool
-#: field:extraschool.activity,childregistration_ids:0
-msgid "Child registrations"
-msgstr "Inscriptions"
-
-#. module: extraschool
-#: selection:extraschool.activitycategory,childpositiondetermination:0
-msgid "by address (only childs with prestations)"
-msgstr "par adresse (seulement enfants avec présences)"
-
-#. module: extraschool
-#: field:extraschool.activitycategory,invoiceemailaddress:0
-msgid "Invoice email address"
-msgstr "Adresse email factures"
-
-#. module: extraschool
-#: field:extraschool.smartphone,maxtimedelta:0
-msgid "Max time delta"
-msgstr "Ecart de temps maximum"
-
-#. module: extraschool
-#: selection:extraschool.statsone_wizard,quarter:0
-msgid "2eme"
-msgstr "2eme"
-
-#. module: extraschool
-#: field:extraschool.payment,account:0
-#: field:extraschool.reject,account:0
-msgid "Account"
-msgstr "Compte"
-
-#. module: extraschool
-#: field:extraschool.importlevelrule,levelid:0
-msgid "Level"
-msgstr "Niveau"
-
-#. module: extraschool
-#: field:extraschool.activity,days:0
-msgid "Days"
-msgstr "Jours"
-
-#. module: extraschool
-#: field:extraschool.discountrule,value:0
-msgid "Value"
-msgstr "Valeur"
-
-#. module: extraschool
-#: field:extraschool.childsimportfilter,parenthousephonecolumn:0
-msgid "Parent house phone column"
-msgstr "Colonne tél maison parent"
-
-#. module: extraschool
-#: field:extraschool.biller,invoices_date:0
-msgid "Invoices date"
-msgstr "Date factures"
-
-#. module: extraschool
-#: field:extraschool.statsone_wizard,quarter:0
-msgid "Quarter"
-msgstr "Trimestre"
-
-#. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_pdaprestationtimes
-msgid "PDA Prestation Times"
-msgstr "Présences scannées"
-
-#. module: extraschool
-#: field:extraschool.activitychildregistration,registration_from:0
-msgid "Registration from"
-msgstr "Inscription du"
-
-#. module: extraschool
-#: field:extraschool.childsimportfilter,childfirstnamecolumnname:0
-msgid "Child firstname column name"
-msgstr "Nom colonne prénom enfant"
-
-#. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_activityplanneddate
-msgid "Activities planned dates"
-msgstr "Dates planifiées"
-
-#. module: extraschool
-#: field:extraschool.activityexclusiondates,date_from:0
-#: field:extraschool.prestationtimes,date_from:0
-#: field:extraschool.timecorrection_wizard,datefrom:0
-msgid "Date from"
-msgstr "Date du"
-
-#. module: extraschool
-#: field:extraschool.childsimportfilter,childclassnamecolumns:0
-msgid "Child class name columns"
-msgstr "Colonnes classe"
-
-#. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_activity
-msgid "activity"
-msgstr "Activité"
-
-#. module: extraschool
-#: field:extraschool.childsimportfilter,childlastnamecolumn:0
-msgid "Child lastname column"
-msgstr "Colonne nom enfant"
-
-#. module: extraschool
-#: field:extraschool.smartphone,serveraddress:0
-msgid "Server address"
-msgstr "Adresse du serveur"
-
-#. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_qrcodes_wizard
-msgid "extraschool.qrcodes_wizard"
-msgstr "Impression des QRCodes"
-
-#. module: extraschool
-#: selection:extraschool.activitycategory,childpositiondetermination:0
-msgid "by parent"
-msgstr "par parent"
-
-#. module: extraschool
-#: view:extraschool.biller:0
-msgid "Send invoices by email"
-msgstr "Envoyer les factures par email"
-
-#. module: extraschool
-#: view:extraschool.taxcertificates_wizard:0
-#: selection:extraschool.taxcertificates_wizard,state:0
-msgid "Compute taxcertificates"
-msgstr "Générer les attestations fiscales"
-
-#. module: extraschool
-#: field:extraschool.childsimportfilter,parenthousephonecolumnname:0
-msgid "Parent house phone column name"
-msgstr "Nom colonne tél maison parent"
-
-#. module: extraschool
-#: model:ir.actions.act_window,name:extraschool.action_extraschool_biller
-#: model:ir.model,name:extraschool.model_extraschool_biller
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_biller
-#: view:extraschool.biller:0
-#: field:extraschool.invoice,biller_id:0
-msgid "Biller"
-msgstr "Facturier"
-
-#. module: extraschool
-#: field:extraschool.biller,filename:0
-#: field:extraschool.invoice,filename:0
-#: field:extraschool.reminder,filename:0
-msgid "filename"
-msgstr "Fichier"
-
-#. module: extraschool
-#: selection:extraschool.payment,paymenttype:0
-msgid "Non value"
-msgstr "Non-valeur"
-
-#. module: extraschool
-#: model:ir.actions.act_window,name:extraschool.action_lbsc_guardianprestationtimes_wizard
-#: model:ir.model,name:extraschool.model_extraschool_guardianprestationtimes_wizard
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_guardianprestationtimes_wizard
-#: view:extraschool.guardianprestationtimes_wizard:0
-msgid "Guardian Prestation Times Wizard"
-msgstr "Prestations accueillantes"
-
-#. module: extraschool
-#: field:extraschool.activity,subsidizedbyone:0
-msgid "Subsidized by one"
-msgstr "Subsidié par l'ONE"
-
-#. module: extraschool
-#: field:extraschool.guardian,tagid:0
-msgid "Tag ID"
-msgstr "Badge"
-
-#. module: extraschool
-#: model:ir.ui.menu,name:extraschool.menu_extraschool
-msgid "LB School Care"
-msgstr "Garderies"
-
-#. module: extraschool
-#: field:extraschool.smartphone,lasttransmissiondate:0
-msgid "Last Transmission Date"
-msgstr "Dernière date de transmission"
-
-#. module: extraschool
-#: selection:extraschool.discount,period:0
-msgid "By Invoice"
-msgstr "Par Facture"
-
-#. module: extraschool
-#: selection:extraschool.payment,paymenttype:0
-msgid "Ordinary account"
-msgstr "Compte ordinaire"
-
-#. module: extraschool
-#: field:extraschool.activity,autoaddchilds:0
-msgid "Auto add registered"
-msgstr "Ajouter automatiquement les inscrits"
-
-#. module: extraschool
-#: view:extraschool.coda:0
-#: field:extraschool.coda,rejectids:0
-msgid "Rejects"
-msgstr "Rejects"
-
-#. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_reject
-#: selection:extraschool.payment,paymenttype:0
-msgid "Reject"
-msgstr "Reject"
-
-#. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_scheduledtasks
-msgid "Scheduled tasks"
-msgstr "Tâches planifiées"
-
-#. module: extraschool
-#: field:extraschool.childsimportfilter,childclassnamecolumnsname:0
-msgid "Child class name columns name"
-msgstr "Nom colonnes classe"
-
-#. module: extraschool
-#: field:extraschool.guardianprestationtimes_wizard,prestations_to:0
-msgid "Prestations to"
-msgstr "au"
-
-#. module: extraschool
-#: model:ir.actions.act_window,name:extraschool.action_extraschool_discount
-#: model:ir.model,name:extraschool.model_extraschool_discount
-#: field:extraschool.discount,discount:0
-#: field:extraschool.invoice,discount:0
-#: field:extraschool.invoicedprestations,discount:0
-msgid "Discount"
-msgstr "Réduction"
-
-#. module: extraschool
-#: field:extraschool.activity,exclusiondates_ids:0
-msgid "Exclusion dates"
-msgstr "Dates exclues"
-
-#. module: extraschool
-#: field:extraschool.activitycategory,remindercomstructprefix:0
-msgid "Reminder Comstruct prefix"
-msgstr "Préfixe de communication structurée (Rappels)"
-
-#. module: extraschool
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_school
-msgid "Schools"
-msgstr "Ecoles"
+#: view:extraschool.activity:extraschool.extraschool_activity_form
+msgid "Finance"
+msgstr "Finance"
+
+#. module: extraschool
+#: field:extraschool.child,firstname:0 field:extraschool.guardian,firstname:0
+#: field:extraschool.parent,firstname:0
+msgid "FirstName"
+msgstr "Prénom"
 
 #. module: extraschool
 #: field:extraschool.activity,fixedperiod:0
@@ -1278,78 +936,136 @@ msgid "Fixed period"
 msgstr "Période fixe"
 
 #. module: extraschool
-#: field:extraschool.childsimportfilter,childbirthdatecolumnname:0
-msgid "Child birthdate column name"
-msgstr "Nom colonne date de naissance"
+#: selection:extraschool.activity,default_from_to:0
+#: field:extraschool.activity,prest_from:0
+msgid "From"
+msgstr "De"
 
 #. module: extraschool
-#: field:extraschool.invoice,no_value:0
-msgid "No value"
-msgstr "Non valeur"
+#: selection:extraschool.activity,default_from_to:0
+msgid "From and To"
+msgstr "Début et Fin"
 
 #. module: extraschool
-#: view:extraschool.initupdate_wizard:0
-msgid "NE CLIQUER SUR CE BOUTTON QUE LORSQU'IL EST NECESSAIRE DE FAIRE UNE MISE A JOUR"
-msgstr "NE CLIQUER SUR CE BOUTTON QUE LORSQU'IL EST NECESSAIRE DE FAIRE UNE MISE A JOUR"
+#: field:extraschool.child,name:0 field:extraschool.guardian,name:0
+#: field:extraschool.parent,name:0
+msgid "FullName"
+msgstr "Nom complet"
 
 #. module: extraschool
-#: selection:extraschool.activity,leveltype:0
-msgid "Maternelle et Primaire"
-msgstr "Maternelle et Primaire"
+#: field:extraschool.parent,gsm:0
+msgid "GSM"
+msgstr "GSM"
 
 #. module: extraschool
-#: field:extraschool.invoice,number:0
-msgid "Number"
-msgstr "Numéro"
+#: view:extraschool.child:extraschool.extraschool_child_form
+msgid "Generate TagID"
+msgstr "Generer numero de badge"
 
 #. module: extraschool
-#: field:extraschool.childsimportfilter,parentzipcodecolumnname:0
-msgid "Parent zipcode column name"
-msgstr "Nom colonne CP parent"
+#: view:extraschool.activityoccurrence:extraschool.extraschool_activityoccurrence_search_view
+#: view:extraschool.prestation_times_of_the_day:extraschool.prestation_times_of_the_day_search_view
+#: view:extraschool.prestationtimes:extraschool.prestationtimes_search_view
+msgid "Group by..."
+msgstr "Groupé par..."
 
 #. module: extraschool
-#: selection:extraschool.activitycategory,childpositiondetermination:0
-msgid "by address"
-msgstr "par adresse"
+#: view:extraschool.guardian:extraschool.extraschool_guardian_form
+#: view:extraschool.guardian:extraschool.extraschool_guardian_tree
+#: field:extraschool.guardianprestationtimes,guardianid:0
+#: field:extraschool.guardianprestationtimes_wizard,guardianid:0
+#: model:ir.actions.act_window,name:extraschool.action_extraschool_guardian
+#: model:ir.model,name:extraschool.model_extraschool_guardian
+msgid "Guardian"
+msgstr "Acceuillante"
 
 #. module: extraschool
-#: field:extraschool.place,city:0
-msgid "City"
-msgstr "Localité"
+#: model:ir.model,name:extraschool.model_extraschool_guardianprestationtimes
+msgid "Guardian Prestation Times"
+msgstr "Prestations des accueillantes"
 
 #. module: extraschool
-#: field:extraschool.activity,childsregistered_ids:0
-msgid "Childs registered"
-msgstr "Enfants inscrits"
+#: view:extraschool.guardianprestationtimes_wizard:extraschool.extraschool_guardianprestationtimes_wizard_form
+#: model:ir.actions.act_window,name:extraschool.action_lbsc_guardianprestationtimes_wizard
+#: model:ir.model,name:extraschool.model_extraschool_guardianprestationtimes_wizard
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_guardianprestationtimes_wizard
+msgid "Guardian Prestation Times Wizard"
+msgstr "Prestations des accueillantes"
 
 #. module: extraschool
-#: model:ir.actions.act_window,name:extraschool.action_lbsc_invoice_wizard
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_invoice_wizard
-#: view:extraschool.invoice_wizard:0
-msgid "invoice Wizard"
-msgstr "Facturation"
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_guardian
+msgid "Guardians"
+msgstr "Accueillantes"
 
 #. module: extraschool
-#: field:extraschool.biller,received:0
-#: field:extraschool.invoice,amount_received:0
-msgid "Received"
-msgstr "Recu"
+#: field:extraschool.parent,housephone:0
+msgid "House Phone"
+msgstr "Tél. maison"
 
 #. module: extraschool
-#: model:ir.actions.act_window,name:extraschool.action_lbsc_initupdate_wizard
-#: view:extraschool.initupdate_wizard:0
-msgid "Init or Update Wizard"
-msgstr "Initialisation et MAJ"
+#: field:extraschool.activity,id:0 field:extraschool.activitycategory,id:0
+#: field:extraschool.activitychildregistration,id:0
+#: field:extraschool.activityexclusiondates,id:0
+#: field:extraschool.activityoccurrence,id:0
+#: field:extraschool.activityplanneddate,id:0 field:extraschool.biller,id:0
+#: field:extraschool.child,id:0 field:extraschool.childposition,id:0
+#: field:extraschool.childsimport,id:0
+#: field:extraschool.childsimportfilter,id:0
+#: field:extraschool.childsworkbook_wizard,id:0
+#: field:extraschool.childtype,id:0 field:extraschool.class,id:0
+#: field:extraschool.coda,id:0 field:extraschool.discount,id:0
+#: field:extraschool.discountrule,id:0 field:extraschool.guardian,id:0
+#: field:extraschool.guardianprestationtimes,id:0
+#: field:extraschool.guardianprestationtimes_wizard,id:0
+#: field:extraschool.importlevelrule,id:0 field:extraschool.importreject,id:0
+#: field:extraschool.initupdate_wizard,id:0 field:extraschool.invoice,id:0
+#: field:extraschool.invoice_wizard,id:0
+#: field:extraschool.invoicedprestations,id:0 field:extraschool.level,id:0
+#: field:extraschool.mainsettings,id:0 field:extraschool.parent,id:0
+#: field:extraschool.payment,id:0 field:extraschool.pdaprestationtimes,id:0
+#: field:extraschool.place,id:0
+#: field:extraschool.prestation_times_of_the_day,id:0
+#: field:extraschool.prestations_wizard,id:0
+#: field:extraschool.prestationscheck_wizard,id:0
+#: field:extraschool.prestationtimes,id:0 field:extraschool.price_list,id:0
+#: field:extraschool.price_list_version,id:0
+#: field:extraschool.qrcodes_wizard,id:0 field:extraschool.reject,id:0
+#: field:extraschool.reminder,id:0 field:extraschool.remindersjournal,id:0
+#: field:extraschool.remindertype,id:0 field:extraschool.scheduledtasks,id:0
+#: field:extraschool.school,id:0 field:extraschool.schoolimplantation,id:0
+#: field:extraschool.smartphone,id:0 field:extraschool.statsone_wizard,id:0
+#: field:extraschool.taxcertificates_wizard,id:0
+#: field:extraschool.timecorrection_wizard,id:0
+msgid "ID"
+msgstr "ID"
 
 #. module: extraschool
-#: selection:extraschool.discountrule,operator:0
-msgid "is"
-msgstr "is"
+#: model:ir.model,name:extraschool.model_extraschool_importreject
+msgid "Import Reject"
+msgstr "Rejet"
 
 #. module: extraschool
-#: selection:extraschool.discountrule,operator:0
-msgid "<="
-msgstr "<="
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_childsimport
+msgid "Import childs"
+msgstr "Import des enfants"
+
+#. module: extraschool
+#: field:extraschool.childsimportfilter,importlevelrule_ids:0
+msgid "Import level rules"
+msgstr "Règles d'import niveaux"
+
+#. module: extraschool
+#: view:extraschool.childsimportfilter:extraschool.extraschool_childsimportfilter_form
+msgid "Importlevelrules"
+msgstr "Régles d'import niveau"
+
+#. module: extraschool
+#: selection:extraschool.guardianprestationtimes,ES:0
+#: selection:extraschool.pdaprestationtimes,ES:0
+#: selection:extraschool.prestations_wizard,es:0
+#: selection:extraschool.prestationtimes,es:0
+msgid "In"
+msgstr "Entrée"
 
 #. module: extraschool
 #: selection:extraschool.childsworkbook_wizard,state:0
@@ -1364,304 +1080,20 @@ msgid "Init"
 msgstr "Init"
 
 #. module: extraschool
-#: selection:extraschool.discountrule,operator:0
-msgid "in"
-msgstr "in"
+#: view:extraschool.initupdate_wizard:extraschool.extraschool_initupdate_wizard_form
+#: model:ir.actions.act_window,name:extraschool.action_lbsc_initupdate_wizard
+msgid "Init or Update Wizard"
+msgstr "Initialisation et MAJ"
 
 #. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_prestations_wizard
-msgid "extraschool.prestations_wizard"
-msgstr "Encoder"
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_initupdate_wizard
+msgid "Init or update"
+msgstr "Initialisation et MAJ"
 
 #. module: extraschool
-#: model:ir.actions.act_window,name:extraschool.action_extraschool_mainsettings
-#: model:ir.model,name:extraschool.model_extraschool_mainsettings
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_mainsettings
-#: view:extraschool.mainsettings:0
-msgid "Main Settings"
-msgstr "Paramètres généraux"
-
-#. module: extraschool
-#: model:ir.actions.act_window,name:extraschool.action_extraschool_prest
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_prestations
-#: view:extraschool.prestations_wizard:0
-#: field:extraschool.prestations_wizard,prestations_id:0
-#: view:extraschool.prestationscheck_wizard:0
-#: field:extraschool.prestationscheck_wizard,prestations_id:0
-msgid "Prestations"
-msgstr "Présences"
-
-#. module: extraschool
-#: model:ir.actions.act_window,name:extraschool.action_lbsc_prestationscheck_wizard
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_prestationscheck_wizard
-msgid "Prestations check Wizard"
-msgstr "Vérifier"
-
-#. module: extraschool
-#: field:extraschool.childsimportfilter,majschoolimplantation:0
-msgid "MAJ implantation"
-msgstr "MAJ implantation"
-
-#. module: extraschool
-#: model:ir.actions.act_window,name:extraschool.action_lbsc_childsworkbook_wizard
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_childsworkbook_wizard
-#: view:extraschool.childsworkbook_wizard:0
-msgid "Childs Workbook Wizard"
-msgstr "Impression des classeurs élèves"
-
-#. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_invoicedprestations
-msgid "invoiced Prestations"
-msgstr "Présences facturées"
-
-#. module: extraschool
-#: report:extraschool.coda.report:0
-msgid "Rejets:"
-msgstr "Rejets:"
-
-#. module: extraschool
-#: field:extraschool.childsimportfilter,parentstreetcolumnsname:0
-msgid "Parent street columns name"
-msgstr "Nom colonne rue parent"
-
-#. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_coda
-msgid "extraschool.coda"
-msgstr "Fichier CODA"
-
-#. module: extraschool
-#: model:res.groups,name:extraschool.extraschool_schoolcareuser
-msgid "extraschool Schoolcare user"
-msgstr "Utilisateur Garderies"
-
-#. module: extraschool
-#: model:ir.actions.act_window,name:extraschool.action_extraschool_activity
-#: view:extraschool.activity:0
-#: field:extraschool.activitychildregistration,activity_id:0
-#: field:extraschool.invoicedprestations,activityid:0
-#: field:extraschool.prestationtimes,activityid:0
-msgid "Activity"
-msgstr "Activité"
-
-#. module: extraschool
-#: field:extraschool.remindertype,order:0
-msgid "Order"
-msgstr "Ordre"
-
-#. module: extraschool
-#: view:extraschool.timecorrection_wizard:0
-#: selection:extraschool.timecorrection_wizard,state:0
-msgid "Compute correction"
-msgstr "Effectuer les corrections"
-
-#. module: extraschool
-#: selection:extraschool.guardianprestationtimes,ES:0
-#: selection:extraschool.pdaprestationtimes,ES:0
-#: selection:extraschool.prestations_wizard,es:0
-#: selection:extraschool.prestationscheck_wizard,es:0
-#: selection:extraschool.prestationtimes,ES:0
-msgid "In"
-msgstr "Entrée"
-
-#. module: extraschool
-#: field:extraschool.biller,total:0
-msgid "Total"
-msgstr "Total"
-
-#. module: extraschool
-#: field:extraschool.activitycategory,invoiceemailsubject:0
-msgid "Invoice email subject"
-msgstr "Sujet email factures"
-
-#. module: extraschool
-#: field:extraschool.mainsettings,processedcodasfolder:0
-msgid "processedcodasfolder"
-msgstr "Dossier des fichiers coda traités"
-
-#. module: extraschool
-#: model:ir.actions.act_window,name:extraschool.action_lbsc_taxcertificates_wizard
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_taxcertificates_wizard
-#: view:extraschool.taxcertificates_wizard:0
-msgid "Tax Certificates Wizard"
-msgstr "Attestations fiscales"
-
-#. module: extraschool
-#: field:extraschool.childsimportfilter,childlastnamecolumnname:0
-msgid "Child lastname column name"
-msgstr "Nom colonne nom enfant"
-
-#. module: extraschool
-#: field:extraschool.childsimportfilter,parentlastnamecolumn:0
-msgid "Parent lastname column"
-msgstr "Colonne nom parent"
-
-#. module: extraschool
-#: field:extraschool.activityexclusiondates,date_to:0
-#: field:extraschool.timecorrection_wizard,dateto:0
-msgid "Date to"
-msgstr "Jusqu'au"
-
-#. module: extraschool
-#: field:extraschool.mainsettings,codasfolder:0
-msgid "codasfolder"
-msgstr "Dossier des fichiers coda"
-
-#. module: extraschool
-#: selection:extraschool.statsone_wizard,quarter:0
-msgid "4eme"
-msgstr "4eme"
-
-#. module: extraschool
-#: field:extraschool.activity,planneddates_ids:0
-msgid "Planned dates"
-msgstr "Dates planifiées"
-
-#. module: extraschool
-#: view:extraschool.childsworkbook_wizard:0
-#: view:extraschool.guardianprestationtimes_wizard:0
-#: view:extraschool.invoice_wizard:0
-#: view:extraschool.prestationscheck_wizard:0
-#: view:extraschool.qrcodes_wizard:0
-#: view:extraschool.statsone_wizard:0
-#: view:extraschool.taxcertificates_wizard:0
-#: view:extraschool.timecorrection_wizard:0
-msgid "Ok"
-msgstr "Ok"
-
-#. module: extraschool
-#: selection:extraschool.activity,leveltype:0
-msgid "Maternelle"
-msgstr "Maternelle"
-
-#. module: extraschool
-#: model:ir.actions.act_window,name:extraschool.action_lbsc_parent_invoices
-msgid "Parent invoices"
-msgstr "Factures"
-
-#. module: extraschool
-#: field:extraschool.activitycategory,reminderemailaddress:0
-msgid "Reminder email address"
-msgstr "Adresse email pour les rappels"
-
-#. module: extraschool
-#: field:extraschool.activitycategory,invoicelastcomstruct:0
-msgid "Last Invoice structured comunication number"
-msgstr "Dernier n° de communication structurée (Factures)"
-
-#. module: extraschool
-#: field:extraschool.qrcodes_wizard,quantity:0
-msgid "Quantity to print"
-msgstr "Nombre à imprimer"
-
-#. module: extraschool
-#: field:extraschool.childposition,position:0
-msgid "Position"
-msgstr "Position"
-
-#. module: extraschool
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_child
-#: view:extraschool.parent:0
-msgid "Childs"
-msgstr "Enfants"
-
-#. module: extraschool
-#: report:extraschool.coda.report:0
-msgid "Paiements traités:"
-msgstr "Paiements traités:"
-
-#. module: extraschool
-#: field:extraschool.discountrule,operator:0
-msgid "Operator"
-msgstr "Opérateur"
-
-#. module: extraschool
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_documents
-msgid "Documents"
-msgstr "Documents"
-
-#. module: extraschool
-#: field:extraschool.importlevelrule,equalto1:0
-msgid "Equals to1"
-msgstr "égal à"
-
-#. module: extraschool
-#: field:extraschool.discount,discounttype:0
-msgid "Discount type"
-msgstr "Type de réduction"
-
-#. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_invoice
-#: view:extraschool.invoice:0
-#: field:extraschool.invoicedprestations,invoiceid:0
-msgid "invoice"
-msgstr "Facture"
-
-#. module: extraschool
-#: model:res.groups,name:extraschool.extraschool_schoolcareadmin
-msgid "extraschool Schoolcare admin"
-msgstr "Admin Garderies"
-
-#. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_importreject
-msgid "Import Reject"
-msgstr "Rejet"
-
-#. module: extraschool
-#: selection:extraschool.discount,wichactivities:0
-msgid "Each of these activities"
-msgstr "Chacune de ces activités"
-
-#. module: extraschool
-#: field:extraschool.importreject,childsimport:0
-msgid "Childs import"
-msgstr "Import des enfants"
-
-#. module: extraschool
-#: view:extraschool.qrcodes_wizard:0
-msgid "generate qrcodes"
-msgstr "Générer les QRCodes"
-
-#. module: extraschool
-#: selection:extraschool.discountrule,operator:0
-msgid "ilike"
-msgstr "ilike"
-
-#. module: extraschool
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_configuration
-msgid "Configuration"
-msgstr "Configuration"
-
-#. module: extraschool
-#: field:extraschool.guardianprestationtimes_wizard,prestations_from:0
-msgid "Prestations from"
-msgstr "Prestations du"
-
-#. module: extraschool
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_codaimport
-msgid "CODA import"
-msgstr "Import de fichiers CODA"
-
-#. module: extraschool
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_discount
-msgid "Discounts"
-msgstr "Réductions"
-
-#. module: extraschool
-#: field:extraschool.activitycategory,childpositiondetermination:0
-msgid "Child position determination"
-msgstr "Détermination de la position de l'enfant"
-
-#. module: extraschool
-#: view:extraschool.discount:0
-msgid "discount"
-msgstr "discount"
-
-#. module: extraschool
-#: model:ir.actions.act_window,name:extraschool.action_extraschool_place
-#: field:extraschool.invoicedprestations,placeid:0
-#: view:extraschool.place:0
-msgid "Place"
-msgstr "Lieu d'accueil"
+#: field:extraschool.activitycategory,invoicecomstructprefix:0
+msgid "Invoice Comstruct prefix"
+msgstr "Préfixe de communication structurée (Factures)"
 
 #. module: extraschool
 #: field:extraschool.activitycategory,invoicetemplate:0
@@ -1669,368 +1101,19 @@ msgid "Invoice Template"
 msgstr "Modèle de facture"
 
 #. module: extraschool
-#: field:extraschool.discount,wichactivities:0
-msgid "Wich activities"
-msgstr "Quelles activités"
+#: field:extraschool.activitycategory,invoiceemailaddress:0
+msgid "Invoice email address"
+msgstr "Adresse email factures"
 
 #. module: extraschool
-#: field:extraschool.activity,validity_from:0
-msgid "Validity from"
-msgstr "Valide du"
+#: field:extraschool.activitycategory,invoiceemailsubject:0
+msgid "Invoice email subject"
+msgstr "Sujet email factures"
 
 #. module: extraschool
-#: field:extraschool.smartphone,transfertmethod:0
-msgid "Transfert method"
-msgstr "Méthode de transfert"
-
-#. module: extraschool
-#: field:extraschool.remindersjournal,concernedbillers:0
-msgid "Concerned billers"
-msgstr "Facturiers concernés"
-
-#. module: extraschool
-#: field:extraschool.childsimportfilter,childotherrefcolumn:0
-msgid "Child other ref column"
-msgstr "Colonne autre ref enfant"
-
-#. module: extraschool
-#: view:extraschool.parent:0
-msgid "Invoices"
-msgstr "Factures"
-
-#. module: extraschool
-#: field:extraschool.smartphone,qrdownload:0
-msgid "QR Download"
-msgstr "QR Téléchargement"
-
-#. module: extraschool
-#: field:extraschool.place,zipcode:0
-msgid "ZipCode"
-msgstr "CP"
-
-#. module: extraschool
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_activitycategory
-#: field:extraschool.smartphone,activitycategories_ids:0
-msgid "Activity categories"
-msgstr "Types d'activité"
-
-#. module: extraschool
-#: field:extraschool.activitycategory,reminderemailsubject:0
-msgid "Reminder email subject"
-msgstr "Sujet email rappel"
-
-#. module: extraschool
-#: field:extraschool.invoice_wizard,schoolimplantationid:0
-#: field:extraschool.place,schoolimplantation_ids:0
-msgid "School implantations"
-msgstr "Implantations scolaires"
-
-#. module: extraschool
-#: field:extraschool.prestationtimes,verified:0
-msgid "Verified"
-msgstr "Vérifié"
-
-#. module: extraschool
-#: field:extraschool.guardian,lastname:0
-msgid "LastName"
-msgstr "Nom"
-
-#. module: extraschool
-#: field:extraschool.payment,concernedinvoice:0
-msgid "Concerned invoice"
-msgstr "Facture concernée"
-
-#. module: extraschool
-#: field:extraschool.childsimportfilter,parentgsmcolumnname:0
-msgid "Parent gsm column name"
-msgstr "Parent gsm column name"
-
-#. module: extraschool
-#: selection:extraschool.discount,discounttype:0
-msgid "Subtraction"
-msgstr "Soustraction"
-
-#. module: extraschool
-#: model:ir.actions.act_window,name:extraschool.action_extraschool_child
-#: field:extraschool.activitychildregistration,child_id:0
-#: field:extraschool.childsworkbook_wizard,child_id:0
-#: field:extraschool.invoicedprestations,childid:0
-#: field:extraschool.pdaprestationtimes,childid:0
-#: field:extraschool.prestations_wizard,childid:0
-#: field:extraschool.prestationscheck_wizard,childid:0
-#: field:extraschool.prestationtimes,childid:0
-msgid "Child"
-msgstr "Enfant"
-
-#. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_remindersjournal
-#: field:extraschool.reminder,remindersjournalid:0
-msgid "Reminders journal"
-msgstr "Journal des rappels"
-
-#. module: extraschool
-#: field:extraschool.biller,activitycategoryid:0
-#: field:extraschool.invoice,activitycategoryid:0
-#: field:extraschool.pdaprestationtimes,activitycategoryid:0
-#: field:extraschool.prestationtimes,activitycategoryid:0
-#: field:extraschool.reminder,activitycategoryid:0
-#: field:extraschool.remindersjournal,activitycategoryid:0
-msgid "Activity Category"
-msgstr "Type d'activité"
-
-#. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_remindertype
-#: field:extraschool.remindersjournal,remindertype:0
-msgid "Reminder type"
-msgstr "Type de rappel"
-
-#. module: extraschool
-#: field:extraschool.smartphone,userpassword:0
-msgid "User password"
-msgstr "Mot de passe"
-
-#. module: extraschool
-#: view:extraschool.prestationtimes:0
-msgid "prestationtimes"
-msgstr "Heures de prestation"
-
-#. module: extraschool
-#: field:extraschool.activitycategory,priorityorder:0
-msgid "Priority order"
-msgstr "Ordre de priorité"
-
-#. module: extraschool
-#: field:extraschool.biller,balance:0
-#: field:extraschool.invoice,balance:0
-msgid "Balance"
-msgstr "Solde"
-
-#. module: extraschool
-#: field:extraschool.smartphone,databasename:0
-msgid "Database name"
-msgstr "Nom base de données"
-
-#. module: extraschool
-#: field:extraschool.mainsettings,lastqrcodenbr:0
-msgid "lastqrcodenbr"
-msgstr "Dernier QRCode"
-
-#. module: extraschool
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_place
-msgid "places"
-msgstr "Lieux d'accueil"
-
-#. module: extraschool
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_childsimport
-msgid "Import childs"
-msgstr "Import enfants"
-
-#. module: extraschool
-#: view:extraschool.timecorrection_wizard:0
-msgid "ATTENTION!!! Cet assistant modifie définitivement toutes les heures encodées"
-msgstr "ATTENTION!!! Cet assistant modifie définitivement toutes les heures encodées"
-
-#. module: extraschool
-#: field:extraschool.prestationscheck_wizard,pdaprestations_id:0
-msgid " PDA Prestations"
-msgstr "Présences Smartphone"
-
-#. module: extraschool
-#: field:extraschool.guardian,name:0
-msgid "FullName"
-msgstr "Nom complet"
-
-#. module: extraschool
-#: field:extraschool.childsimportfilter,parentemailcolumn:0
-msgid "Parent email column"
-msgstr "Parent email column"
-
-#. module: extraschool
-#: field:extraschool.activitycategory,reminderemailtext:0
-msgid "Reminder email text"
-msgstr "Texte email rappels"
-
-#. module: extraschool
-#: field:extraschool.activity,prest_to:0
-msgid "To"
-msgstr "à"
-
-#. module: extraschool
-#: selection:extraschool.discount,discounttype:0
-msgid "Max amount"
-msgstr "Montant maximum"
-
-#. module: extraschool
-#: model:ir.actions.act_window,name:extraschool.action_lbsc_qrcodes_wizard
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_qrcodes_wizard
-#: view:extraschool.qrcodes_wizard:0
-msgid "QRCodes Wizard"
-msgstr "Impression des QRCodes"
-
-#. module: extraschool
-#: field:extraschool.mainsettings,emailfornotifications:0
-msgid "Email for notifications"
-msgstr "Email for notifications"
-
-#. module: extraschool
-#: field:extraschool.activitycategory,reminderlastcomstruct:0
-msgid "Last Reminder structured comunication number"
-msgstr "Dernier n° de communication structurée (Rappels)"
-
-#. module: extraschool
-#: selection:extraschool.discount,period:0
-msgid "By Day"
-msgstr "Par Jour"
-
-#. module: extraschool
-#: view:extraschool.timecorrection_wizard:0
-msgid "Time correction Wizard"
-msgstr "Correction des heures"
-
-#. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_reminders_wizard
-msgid "extraschool.reminders_wizard"
-msgstr "Rappels"
-
-#. module: extraschool
-#: field:extraschool.childsimportfilter,parentgsmcolumn:0
-msgid "Parent gsm column"
-msgstr "Colonne gsm parent"
-
-#. module: extraschool
-#: field:extraschool.activity,schoolimplantationids:0
-msgid "Schoolcare schoolimplantation"
-msgstr "Implantation scolaire"
-
-#. module: extraschool
-#: selection:extraschool.payment,paymenttype:0
-msgid "Cash"
-msgstr "Espèces"
-
-#. module: extraschool
-#: selection:extraschool.timecorrection_wizard,correctiontype:0
-msgid "Remove"
-msgstr "Retirer"
-
-#. module: extraschool
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_payments
-#: view:extraschool.coda:0
-#: field:extraschool.coda,paymentids:0
-#: view:extraschool.invoice:0
-#: field:extraschool.invoice,payment_ids:0
-msgid "Payments"
-msgstr "Paiements"
-
-#. module: extraschool
-#: model:ir.actions.act_window,name:extraschool.action_lbsc_timecorrection_wizard
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_timecorrection_wizard
-msgid "Time Correction Wizard"
-msgstr "Correction des heures"
-
-#. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_guardianprestationtimes
-msgid "Guardian Prestation Times"
-msgstr "Prestation des accueillantes"
-
-#. module: extraschool
-#: field:extraschool.activity,childtype_ids:0
-msgid "Child type"
-msgstr "Type d'enfant"
-
-#. module: extraschool
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_signaletics
-msgid "Signaletics"
-msgstr "Signalétiques"
-
-#. module: extraschool
-#: field:extraschool.place,street:0
-msgid "Street"
-msgstr "Rue"
-
-#. module: extraschool
-#: field:extraschool.statsone_wizard,year:0
-#: field:extraschool.taxcertificates_wizard,year:0
-msgid "Year"
-msgstr "Année"
-
-#. module: extraschool
-#: field:extraschool.childsimportfilter,parentstreetcolumns:0
-msgid "Parent street columns"
-msgstr "Colonne rue parent"
-
-#. module: extraschool
-#: field:extraschool.parent,city:0
-#: field:extraschool.school,city:0
-#: field:extraschool.schoolimplantation,city:0
-msgid "City"
-msgstr "Localité"
-
-#. module: extraschool
-#: model:ir.actions.act_window,name:extraschool.action_extraschool_teacher
-#: model:ir.model,name:extraschool.model_extraschool_teacher
-#: field:extraschool.class,titular:0
-#: field:extraschool.copiercode,teacherid:0
-msgid "Teacher"
-msgstr "Enseignant"
-
-#. module: extraschool
-#: field:extraschool.parent,child_ids:0
-msgid "childs"
-msgstr "Enfants"
-
-#. module: extraschool
-#: model:res.groups,name:extraschool.extraschool_schoolcareadmin
-msgid "extraschool Schoolcare admin"
-msgstr "extraschool Schoolcare admin"
-
-#. module: extraschool
-#: field:extraschool.child,firstname:0
-#: field:extraschool.parent,firstname:0
-#: field:extraschool.teacher,firstname:0
-msgid "FirstName"
-msgstr "Prénom"
-
-#. module: extraschool
-#: field:extraschool.copierquota,remainingcopies:0
-msgid "Remaining copies"
-msgstr "Copies restantes"
-
-#. module: extraschool
-#: field:extraschool.parent,invoice_ids:0
-msgid "invoices"
-msgstr "Factures"
-
-#. module: extraschool
-#: field:extraschool.child,lastname:0
-#: field:extraschool.parent,lastname:0
-#: field:extraschool.teacher,lastname:0
-msgid "LastName"
-msgstr "Nom"
-
-#. module: extraschool
-#: field:extraschool.copierquota,quotaadjustments:0
-msgid "Quota adjustments"
-msgstr "Ajustements de quota"
-
-#. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_childtype
-msgid "ChildType"
-msgstr "Type d'enfant"
-
-#. module: extraschool
-#: field:extraschool.copiercode,copierquotas:0
-msgid "Copier Quotas"
-msgstr "Quotas de photocopies"
-
-#. module: extraschool
-#: view:extraschool.teacher:0
-msgid "Copies"
-msgstr "Copies"
-
-#. module: extraschool
-#: selection:extraschool.quotaadjustment,reason:0
-msgid "School supplies adaptation"
-msgstr "Adaptation fournitures scolaires"
+#: field:extraschool.activitycategory,invoiceemailtext:0
+msgid "Invoice email text"
+msgstr "Texte email factures"
 
 #. module: extraschool
 #: field:extraschool.parent,invoicesendmethod:0
@@ -2038,325 +1121,291 @@ msgid "Invoice send method"
 msgstr "Mode d'envoi des factures"
 
 #. module: extraschool
-#: selection:extraschool.quotaadjustment,reason:0
-msgid "Alderman authorization"
-msgstr "Autorisation Echevin"
+#: view:extraschool.parent:extraschool.extraschool_parent_form
+msgid "Invoices"
+msgstr "Factures"
 
 #. module: extraschool
-#: selection:extraschool.quotaadjustment,reason:0
-msgid "Other"
-msgstr "Autre"
+#: field:extraschool.biller,invoices_date:0
+msgid "Invoices date"
+msgstr "Date de factures"
 
 #. module: extraschool
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_parent
-#: view:extraschool.parent:0
-msgid "Parents"
-msgstr "Parents"
+#: field:extraschool.activitycategory,invoicelastcomstruct:0
+msgid "Last Invoice structured comunication number"
+msgstr "Dernier n° de communication structurée (Factures)"
 
 #. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_copiercode
-#: field:extraschool.copierquota,copiercodeid:0
-msgid "Copier Code"
-msgstr "Code photocopieur"
+#: field:extraschool.activitycategory,reminderlastcomstruct:0
+msgid "Last Reminder structured comunication number"
+msgstr "Dernier n° de communication structurée (Rappels)"
 
 #. module: extraschool
-#: field:extraschool.parent,zipcode:0
-#: field:extraschool.school,zipcode:0
-#: field:extraschool.schoolimplantation,zipcode:0
-msgid "ZipCode"
-msgstr "Code Postal"
+#: field:extraschool.smartphone,lasttransmissiondate:0
+msgid "Last Transmission Date"
+msgstr "Dernière date de transmission"
 
 #. module: extraschool
-#: field:extraschool.copierquota,totalquota:0
-msgid "Total quota"
-msgstr "Quota total"
+#: field:extraschool.activity,write_uid:0
+#: field:extraschool.activitycategory,write_uid:0
+#: field:extraschool.activitychildregistration,write_uid:0
+#: field:extraschool.activityexclusiondates,write_uid:0
+#: field:extraschool.activityoccurrence,write_uid:0
+#: field:extraschool.activityplanneddate,write_uid:0
+#: field:extraschool.biller,write_uid:0 field:extraschool.child,write_uid:0
+#: field:extraschool.childposition,write_uid:0
+#: field:extraschool.childsimport,write_uid:0
+#: field:extraschool.childsimportfilter,write_uid:0
+#: field:extraschool.childsworkbook_wizard,write_uid:0
+#: field:extraschool.childtype,write_uid:0 field:extraschool.class,write_uid:0
+#: field:extraschool.coda,write_uid:0 field:extraschool.discount,write_uid:0
+#: field:extraschool.discountrule,write_uid:0
+#: field:extraschool.guardian,write_uid:0
+#: field:extraschool.guardianprestationtimes,write_uid:0
+#: field:extraschool.guardianprestationtimes_wizard,write_uid:0
+#: field:extraschool.importlevelrule,write_uid:0
+#: field:extraschool.importreject,write_uid:0
+#: field:extraschool.initupdate_wizard,write_uid:0
+#: field:extraschool.invoice,write_uid:0
+#: field:extraschool.invoice_wizard,write_uid:0
+#: field:extraschool.invoicedprestations,write_uid:0
+#: field:extraschool.level,write_uid:0
+#: field:extraschool.mainsettings,write_uid:0
+#: field:extraschool.parent,write_uid:0 field:extraschool.payment,write_uid:0
+#: field:extraschool.pdaprestationtimes,write_uid:0
+#: field:extraschool.place,write_uid:0
+#: field:extraschool.prestation_times_of_the_day,write_uid:0
+#: field:extraschool.prestations_wizard,write_uid:0
+#: field:extraschool.prestationscheck_wizard,write_uid:0
+#: field:extraschool.prestationtimes,write_uid:0
+#: field:extraschool.price_list,write_uid:0
+#: field:extraschool.price_list_version,write_uid:0
+#: field:extraschool.qrcodes_wizard,write_uid:0
+#: field:extraschool.reject,write_uid:0 field:extraschool.reminder,write_uid:0
+#: field:extraschool.remindersjournal,write_uid:0
+#: field:extraschool.remindertype,write_uid:0
+#: field:extraschool.scheduledtasks,write_uid:0
+#: field:extraschool.school,write_uid:0
+#: field:extraschool.schoolimplantation,write_uid:0
+#: field:extraschool.smartphone,write_uid:0
+#: field:extraschool.statsone_wizard,write_uid:0
+#: field:extraschool.taxcertificates_wizard,write_uid:0
+#: field:extraschool.timecorrection_wizard,write_uid:0
+msgid "Last Updated by"
+msgstr "Last Updated by"
 
 #. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_schoolimplantation
-#: field:extraschool.child,schoolimplantation:0
-#: field:extraschool.class,schoolimplantation:0
-#: field:extraschool.copierquota,schoolimplantationid:0
-msgid "School implantation"
-msgstr "Implantation scolaire"
+#: field:extraschool.activity,write_date:0
+#: field:extraschool.activitycategory,write_date:0
+#: field:extraschool.activitychildregistration,write_date:0
+#: field:extraschool.activityexclusiondates,write_date:0
+#: field:extraschool.activityoccurrence,write_date:0
+#: field:extraschool.activityplanneddate,write_date:0
+#: field:extraschool.biller,write_date:0 field:extraschool.child,write_date:0
+#: field:extraschool.childposition,write_date:0
+#: field:extraschool.childsimport,write_date:0
+#: field:extraschool.childsimportfilter,write_date:0
+#: field:extraschool.childsworkbook_wizard,write_date:0
+#: field:extraschool.childtype,write_date:0
+#: field:extraschool.class,write_date:0 field:extraschool.coda,write_date:0
+#: field:extraschool.discount,write_date:0
+#: field:extraschool.discountrule,write_date:0
+#: field:extraschool.guardian,write_date:0
+#: field:extraschool.guardianprestationtimes,write_date:0
+#: field:extraschool.guardianprestationtimes_wizard,write_date:0
+#: field:extraschool.importlevelrule,write_date:0
+#: field:extraschool.importreject,write_date:0
+#: field:extraschool.initupdate_wizard,write_date:0
+#: field:extraschool.invoice,write_date:0
+#: field:extraschool.invoice_wizard,write_date:0
+#: field:extraschool.invoicedprestations,write_date:0
+#: field:extraschool.level,write_date:0
+#: field:extraschool.mainsettings,write_date:0
+#: field:extraschool.parent,write_date:0
+#: field:extraschool.payment,write_date:0
+#: field:extraschool.pdaprestationtimes,write_date:0
+#: field:extraschool.place,write_date:0
+#: field:extraschool.prestation_times_of_the_day,write_date:0
+#: field:extraschool.prestations_wizard,write_date:0
+#: field:extraschool.prestationscheck_wizard,write_date:0
+#: field:extraschool.prestationtimes,write_date:0
+#: field:extraschool.price_list,write_date:0
+#: field:extraschool.price_list_version,write_date:0
+#: field:extraschool.qrcodes_wizard,write_date:0
+#: field:extraschool.reject,write_date:0
+#: field:extraschool.reminder,write_date:0
+#: field:extraschool.remindersjournal,write_date:0
+#: field:extraschool.remindertype,write_date:0
+#: field:extraschool.scheduledtasks,write_date:0
+#: field:extraschool.school,write_date:0
+#: field:extraschool.schoolimplantation,write_date:0
+#: field:extraschool.smartphone,write_date:0
+#: field:extraschool.statsone_wizard,write_date:0
+#: field:extraschool.taxcertificates_wizard,write_date:0
+#: field:extraschool.timecorrection_wizard,write_date:0
+msgid "Last Updated on"
+msgstr "Last Updated on"
 
 #. module: extraschool
-#: field:extraschool.parent,gsm:0
-msgid "GSM"
-msgstr "GSM"
-
-#. module: extraschool
-#: field:extraschool.parent,email:0
-msgid "Email"
-msgstr "Email"
-
-#. module: extraschool
-#: field:extraschool.parent,streetcode:0
-msgid "Street code"
-msgstr "Code rue"
-
-#. module: extraschool
-#: selection:extraschool.level,leveltype:0
-msgid "Autre"
-msgstr "Autre"
-
-#. module: extraschool
-#: field:extraschool.copierquota,nbchilds:0
-msgid "Number of childs"
-msgstr "Nombre d'élèves"
-
-#. module: extraschool
-#: selection:extraschool.level,leveltype:0
-msgid "Primaire"
-msgstr "Primaire"
-
-#. module: extraschool
-#: model:ir.actions.act_window,name:extraschool.action_extraschool_parent
-#: model:ir.model,name:extraschool.model_extraschool_parent
-#: field:extraschool.child,parentid:0
-msgid "Parent"
-msgstr "Parent"
-
-#. module: extraschool
-#: field:extraschool.quotaadjustment,quotaadjustment:0
-msgid "Adjustment of quota"
-msgstr "Ajustement du quota"
-
-#. module: extraschool
-#: view:extraschool.child:0
-msgid "Generate TagID"
-msgstr "Generer numero de badge"
-
-#. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_copierquota
-#: field:extraschool.quotaadjustment,copierquotaid:0
-msgid "Copier Quota"
-msgstr "Quota de copies"
-
-#. module: extraschool
-#: selection:extraschool.parent,invoicesendmethod:0
-#: selection:extraschool.parent,remindersendmethod:0
-msgid "Only by mail"
-msgstr "Uniquement par courrier"
-
-#. module: extraschool
-#: field:extraschool.parent,workphone:0
-msgid "Work Phone"
-msgstr "Tél. travail"
-
-#. module: extraschool
-#: field:extraschool.copierquota,nbperiods:0
-msgid "Number of periods"
-msgstr "Nombre de périodes"
-
-#. module: extraschool
-#: field:extraschool.quotaadjustment,reason:0
-msgid "Reason"
-msgstr "Raison"
-
-#. module: extraschool
-#: field:extraschool.class,levelids:0
-#: view:extraschool.level:0
-msgid "Levels"
-msgstr "Niveaux"
-
-#. module: extraschool
-#: field:extraschool.child,oldid:0
-#: field:extraschool.childtype,oldid:0
-#: field:extraschool.class,oldid:0
-#: field:extraschool.copiercode,oldid:0
-#: field:extraschool.copierquota,oldid:0
-#: field:extraschool.level,oldid:0
-#: field:extraschool.parent,oldid:0
-#: field:extraschool.quotaadjustment,oldid:0
-#: field:extraschool.school,oldid:0
-#: field:extraschool.schoolimplantation,oldid:0
-#: field:extraschool.teacher,oldid:0
-msgid "oldid"
-msgstr "oldid"
-
-#. module: extraschool
-#: model:ir.actions.act_window,name:extraschool.action_extraschool_child
-#: model:ir.model,name:extraschool.model_extraschool_child
-#: view:extraschool.child:0
-#: view:extraschool.parent:0
-msgid "Child"
-msgstr "Enfant"
-
-#. module: extraschool
-#: view:extraschool.school:0
-msgid "Schools"
-msgstr "Ecoles"
-
-#. module: extraschool
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_configuration
-msgid "Configuration"
-msgstr "Configuration"
-
-#. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_class
-#: field:extraschool.child,classid:0
-#: view:extraschool.class:0
-msgid "Class"
-msgstr "Classe"
-
-#. module: extraschool
-#: model:res.groups,name:extraschool.extraschool_schoolcareuser
-msgid "extraschool Schoolcare user"
-msgstr "extraschool Schoolcare user"
-
-#. module: extraschool
-#: field:extraschool.parent,totalinvoiced:0
-msgid "Total invoiced"
-msgstr "Total des montants facturés"
-
-#. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_school
-#: view:extraschool.school:0
-#: field:extraschool.schoolimplantation,schoolid:0
-msgid "School"
-msgstr "Ecole"
-
-#. module: extraschool
-#: field:extraschool.parent,totalbalance:0
-msgid "Total balance"
-msgstr "Solde restant dû"
-
-#. module: extraschool
-#: field:extraschool.childtype,name:0
-#: field:extraschool.class,name:0
-#: field:extraschool.level,name:0
-#: field:extraschool.school,name:0
-#: field:extraschool.schoolimplantation,name:0
-msgid "Name"
+#: field:extraschool.child,lastname:0 field:extraschool.guardian,lastname:0
+#: field:extraschool.parent,lastname:0
+msgid "LastName"
 msgstr "Nom"
 
 #. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_level
 #: field:extraschool.child,levelid:0
+#: field:extraschool.importlevelrule,levelid:0
+#: model:ir.model,name:extraschool.model_extraschool_level
 msgid "Level"
 msgstr "Niveau"
 
 #. module: extraschool
-#: field:extraschool.child,tagid:0
-msgid "Tag ID"
-msgstr "N° de badge"
+#: field:extraschool.activity,leveltype:0 field:extraschool.level,leveltype:0
+msgid "Level type"
+msgstr "Type de niveau"
 
 #. module: extraschool
+#: field:extraschool.class,levelids:0
+#: view:extraschool.level:extraschool.extraschool_level_form
+msgid "Levels"
+msgstr "Niveaux"
+
+#. module: extraschool
+#: field:extraschool.importreject,line:0
+msgid "Line"
+msgstr "Ligne"
+
+#. module: extraschool
+#: view:extraschool.activity:extraschool.extraschool_activity_form
+msgid "Link with other activities"
+msgstr "Liens avec les autres activités"
+
+#. module: extraschool
+#: view:extraschool.activity:extraschool.extraschool_activity_form
+msgid "Location"
+msgstr "Lieux d'acceuil"
+
+#. module: extraschool
+#: field:extraschool.childsimportfilter,majchildclassname:0
+#: field:extraschool.childsimportfilter,majchildlevel:0
+#: field:extraschool.childsimportfilter,majchildotherref:0
+#: field:extraschool.childsimportfilter,majparentcity:0
+#: field:extraschool.childsimportfilter,majparentemail:0
+#: field:extraschool.childsimportfilter,majparentfirstname:0
+#: field:extraschool.childsimportfilter,majparentgsm:0
+#: field:extraschool.childsimportfilter,majparenthousephone:0
+#: field:extraschool.childsimportfilter,majparentlastname:0
+#: field:extraschool.childsimportfilter,majparentstreet:0
+#: field:extraschool.childsimportfilter,majparentworkphone:0
+#: field:extraschool.childsimportfilter,majparentzipcode:0
+msgid "MAJ"
+msgstr "Mise à Jour"
+
+#. module: extraschool
+#: field:extraschool.childsimportfilter,majschoolimplantation:0
+msgid "MAJ implantation"
+msgstr "MAJ des implantations"
+
+#. module: extraschool
+#: view:extraschool.mainsettings:extraschool.extraschool_mainsettings_form
+#: model:ir.actions.act_window,name:extraschool.action_extraschool_mainsettings
+#: model:ir.model,name:extraschool.model_extraschool_mainsettings
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_mainsettings
+msgid "Main Settings"
+msgstr "Paramètres généraux"
+
+#. module: extraschool
+#: field:extraschool.guardianprestationtimes,manualy_encoded:0
+#: field:extraschool.prestationtimes,manualy_encoded:0
+msgid "Manualy encoded"
+msgstr "Encodé manuellement"
+
+#. module: extraschool
+#: selection:extraschool.activity,leveltype:0
 #: selection:extraschool.level,leveltype:0
 msgid "Maternelle"
 msgstr "Maternelle"
 
 #. module: extraschool
-#: field:extraschool.level,ordernumber:0
-msgid "ordernumber"
-msgstr "Numéro d'ordre"
+#: selection:extraschool.activity,leveltype:0
+msgid "Maternelle et Primaire"
+msgstr "Maternelle et Primaire"
 
 #. module: extraschool
-#: field:extraschool.child,birthdate:0
-msgid "Birthdate"
-msgstr "Date de naissance"
+#: selection:extraschool.discount,discounttype:0
+msgid "Max amount"
+msgstr "Montant maximum"
 
 #. module: extraschool
-#: field:extraschool.parent,remindersendmethod:0
-msgid "Reminder send method"
-msgstr "Mode d'envoi des rappels"
+#: field:extraschool.smartphone,maxtimedelta:0
+msgid "Max time delta"
+msgstr "Ecart de temps maximum"
 
 #. module: extraschool
-#: field:extraschool.school,schoolimplantations:0
-msgid "schoolimplantations"
-msgstr "Implantations scolaires"
+#: field:extraschool.remindersjournal,minamount:0
+msgid "Minimum amount"
+msgstr "Montant minimum"
 
 #. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_file_wizard
-msgid "extraschool.file_wizard"
-msgstr "Fichier"
+#: view:extraschool.initupdate_wizard:extraschool.extraschool_initupdate_wizard_form
+msgid ""
+"NE CLIQUER SUR CE BOUTTON QUE LORSQU'IL EST NECESSAIRE DE FAIRE UNE MISE A "
+"JOUR"
+msgstr ""
+"NE CLIQUER SUR CE BOUTTON QUE LORSQU'IL EST NECESSAIRE DE FAIRE UNE MISE A "
+"JOUR"
 
 #. module: extraschool
-#: selection:extraschool.parent,invoicesendmethod:0
-#: selection:extraschool.parent,remindersendmethod:0
-msgid "By mail and email"
-msgstr "Par courrier et par email"
+#: field:extraschool.activity,name:0 field:extraschool.activitycategory,name:0
+#: field:extraschool.activityoccurrence,name:0 field:extraschool.biller,name:0
+#: field:extraschool.childposition,name:0
+#: field:extraschool.childsimportfilter,name:0
+#: field:extraschool.childtype,name:0 field:extraschool.class,name:0
+#: field:extraschool.coda,name:0 field:extraschool.discount,name:0
+#: field:extraschool.discountrule,name:0 field:extraschool.invoice,name:0
+#: field:extraschool.level,name:0 field:extraschool.payment,name:0
+#: field:extraschool.place,name:0 field:extraschool.price_list,name:0
+#: field:extraschool.price_list_version,name:0 field:extraschool.reject,name:0
+#: field:extraschool.remindersjournal,name:0 field:extraschool.school,name:0
+#: field:extraschool.schoolimplantation,name:0
+#: field:extraschool.smartphone,name:0
+msgid "Name"
+msgstr "Nom"
 
 #. module: extraschool
-#: field:extraschool.copiercode,name:0
-msgid "Code"
-msgstr "Code"
+#: field:extraschool.biller,nbinvoices:0
+msgid "Nb of invoices"
+msgstr "Nombre de factures"
 
 #. module: extraschool
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_teacher
-#: view:extraschool.teacher:0
-msgid "Teachers"
-msgstr "Enseignants"
+#: field:extraschool.biller,novalue:0
+msgid "No Value"
+msgstr "Non valeur"
 
 #. module: extraschool
-#: view:extraschool.child:0
-msgid "Workbook sheet"
-msgstr "Feuille classeur"
+#: field:extraschool.invoice,no_value:0
+msgid "No value"
+msgstr "Non valeur"
 
 #. module: extraschool
-#: field:extraschool.teacher,name:0
-msgid "Fullname"
-msgstr "Nom complet"
+#: selection:extraschool.payment,paymenttype:0
+msgid "Non value"
+msgstr "Non-valeur"
 
 #. module: extraschool
-#: model:ir.ui.menu,name:extraschool.menu_extraschool
-msgid "LB School"
-msgstr "Ecole"
+#: field:extraschool.invoice,number:0
+msgid "Number"
+msgstr "Numéro"
 
 #. module: extraschool
-#: field:extraschool.level,leveltype:0
-msgid "Level Type"
-msgstr "Type de niveau"
+#: field:extraschool.smartphone,oldversion:0
+msgid "Old version"
+msgstr "Ancienne version"
 
 #. module: extraschool
-#: field:extraschool.copierquota,nbcopiesdone:0
-msgid "Number of Copies done"
-msgstr "Nombre de copies réalisées"
-
-#. module: extraschool
-#: field:extraschool.child,childtypeid:0
-msgid "Type"
-msgstr "Type"
-
-#. module: extraschool
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_child
-msgid "Childs"
-msgstr "Enfants"
-
-#. module: extraschool
-#: field:extraschool.child,otherref:0
-msgid "Other ref"
-msgstr "Autre référence"
-
-#. module: extraschool
-#: field:extraschool.copiercode,pin:0
-msgid "Pin"
-msgstr "Code PIN"
-
-#. module: extraschool
-#: field:extraschool.teacher,copiercodes:0
-msgid "Copier Codes"
-msgstr "Codes photocopieuse"
-
-#. module: extraschool
-#: field:extraschool.parent,reminder_ids:0
-msgid "reminders"
-msgstr "Rappels"
-
-#. module: extraschool
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_signaletics
-msgid "Signaletics"
-msgstr "Signalétiques"
-
-#. module: extraschool
-#: view:extraschool.teacher:0
-msgid "General"
-msgstr "General"
-
-#. module: extraschool
-#: field:extraschool.child,isdisabled:0
-msgid "Disabled"
-msgstr "Désactivé"
+#: selection:extraschool.discount,wichactivities:0
+msgid "One of these activities"
+msgstr "Une de ces activités"
 
 #. module: extraschool
 #: selection:extraschool.parent,invoicesendmethod:0
@@ -2365,14 +1414,823 @@ msgid "Only by email"
 msgstr "Uniquement par email"
 
 #. module: extraschool
-#: field:extraschool.parent,housephone:0
-msgid "House Phone"
-msgstr "Tél. maison"
+#: selection:extraschool.parent,invoicesendmethod:0
+#: selection:extraschool.parent,remindersendmethod:0
+msgid "Only by mail"
+msgstr "Uniquement par courrier"
 
 #. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_quotaadjustment
-msgid "Quota adjustment"
-msgstr "Ajustement de quota"
+#: field:extraschool.activity,onlyregisteredchilds:0
+msgid "Only registered childs"
+msgstr "Seulement les enfants inscripts"
+
+#. module: extraschool
+#: field:extraschool.discountrule,operator:0
+msgid "Operator"
+msgstr "Opérateur"
+
+#. module: extraschool
+#: field:extraschool.remindertype,order:0
+msgid "Order"
+msgstr "Ordre"
+
+#. module: extraschool
+#: selection:extraschool.payment,paymenttype:0
+msgid "Ordinary account"
+msgstr "Compte ordinaire"
+
+#. module: extraschool
+#: field:extraschool.child,otherref:0
+msgid "Other ref"
+msgstr "Autre référence"
+
+#. module: extraschool
+#: selection:extraschool.guardianprestationtimes,ES:0
+#: selection:extraschool.pdaprestationtimes,ES:0
+#: selection:extraschool.prestations_wizard,es:0
+#: selection:extraschool.prestationtimes,es:0
+msgid "Out"
+msgstr "Sortie"
+
+#. module: extraschool
+#: model:ir.model,name:extraschool.model_extraschool_pdaprestationtimes
+msgid "PDA Prestation Times"
+msgstr "Présences scannées"
+
+#. module: extraschool
+#: view:extraschool.prestation_times_of_the_day:extraschool.extraschool_prestation_times_of_the_day_form
+msgid "PDA prestations"
+msgstr "Présences du smartphone"
+
+#. module: extraschool
+#: report:extraschool.coda.report:0
+msgid "Paiements traités:"
+msgstr "Paiements traités:"
+
+#. module: extraschool
+#: field:extraschool.activity,parent_id:0 field:extraschool.child,parentid:0
+#: field:extraschool.invoice,parentid:0
+#: view:extraschool.parent:extraschool.extraschool_parent_tree
+#: field:extraschool.reminder,parentid:0
+#: field:extraschool.taxcertificates_wizard,parentid:0
+#: model:ir.actions.act_window,name:extraschool.action_extraschool_parent
+#: model:ir.actions.report.xml,name:extraschool.extraschool_parent
+#: model:ir.model,name:extraschool.model_extraschool_parent
+#: view:website:extraschool.report_parent
+msgid "Parent"
+msgstr "Parent"
+
+#. module: extraschool
+#: field:extraschool.childsimportfilter,parentcitycolumn:0
+msgid "Parent city column"
+msgstr "Colonne localité parent"
+
+#. module: extraschool
+#: field:extraschool.childsimportfilter,parentcitycolumnname:0
+msgid "Parent city column name"
+msgstr "Nom colonne localité parent"
+
+#. module: extraschool
+#: field:extraschool.childsimportfilter,parentemailcolumn:0
+msgid "Parent email column"
+msgstr "Parent email column"
+
+#. module: extraschool
+#: field:extraschool.childsimportfilter,parentemailcolumnname:0
+msgid "Parent email column name"
+msgstr "Nom colonne email parent"
+
+#. module: extraschool
+#: field:extraschool.childsimportfilter,parentfirstnamecolumn:0
+msgid "Parent firstname column"
+msgstr "Colonne prénom parent"
+
+#. module: extraschool
+#: field:extraschool.childsimportfilter,parentfirstnamecolumnname:0
+msgid "Parent firstname column name"
+msgstr "Nom colonne prénom parent"
+
+#. module: extraschool
+#: field:extraschool.childsimportfilter,parentgsmcolumn:0
+msgid "Parent gsm column"
+msgstr "Colonne gsm parent"
+
+#. module: extraschool
+#: field:extraschool.childsimportfilter,parentgsmcolumnname:0
+msgid "Parent gsm column name"
+msgstr "Parent gsm column name"
+
+#. module: extraschool
+#: field:extraschool.childsimportfilter,parenthousephonecolumn:0
+msgid "Parent house phone column"
+msgstr "Colonne tél maison parent"
+
+#. module: extraschool
+#: field:extraschool.childsimportfilter,parenthousephonecolumnname:0
+msgid "Parent house phone column name"
+msgstr "Nom colonne tél maison parent"
+
+#. module: extraschool
+#: model:ir.actions.act_window,name:extraschool.action_lbsc_parent_invoices
+msgid "Parent invoices"
+msgstr "Factures"
+
+#. module: extraschool
+#: field:extraschool.childsimportfilter,parentlastnamecolumn:0
+msgid "Parent lastname column"
+msgstr "Colonne nom parent"
+
+#. module: extraschool
+#: field:extraschool.childsimportfilter,parentlastnamecolumnname:0
+msgid "Parent lastname column name"
+msgstr "Nom colonne nom parent"
+
+#. module: extraschool
+#: field:extraschool.childsimportfilter,parentstreetcolumns:0
+msgid "Parent street columns"
+msgstr "Colonne rue parent"
+
+#. module: extraschool
+#: field:extraschool.childsimportfilter,parentstreetcolumnsname:0
+msgid "Parent street columns name"
+msgstr "Nom colonne rue parent"
+
+#. module: extraschool
+#: field:extraschool.childsimportfilter,parentworkphonecolumn:0
+msgid "Parent work phone column"
+msgstr "Colonne tél travail parent"
+
+#. module: extraschool
+#: field:extraschool.childsimportfilter,parentworkphonecolumnname:0
+msgid "Parent work phone column name"
+msgstr "Nom colonne tél travail parent"
+
+#. module: extraschool
+#: field:extraschool.childsimportfilter,parentzipcodecolumn:0
+msgid "Parent zipcode column"
+msgstr "Colonne CP parent"
+
+#. module: extraschool
+#: field:extraschool.childsimportfilter,parentzipcodecolumnname:0
+msgid "Parent zipcode column name"
+msgstr "Nom colonne CP parent"
+
+#. module: extraschool
+#: view:extraschool.parent:extraschool.extraschool_parent_form
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_parent
+msgid "Parents"
+msgstr "Parents"
+
+#. module: extraschool
+#: view:extraschool.payment:extraschool.extraschool_payment_form2
+#: model:ir.model,name:extraschool.model_extraschool_payment
+msgid "Payment"
+msgstr "Paiement"
+
+#. module: extraschool
+#: field:extraschool.biller,payment_term:0
+#: field:extraschool.invoice,payment_term:0
+msgid "Payment term"
+msgstr "Echéance"
+
+#. module: extraschool
+#: field:extraschool.payment,paymenttype:0
+msgid "Payment type"
+msgstr "Type de paiement"
+
+#. module: extraschool
+#: view:extraschool.coda:extraschool.extraschool_coda_form
+#: field:extraschool.coda,paymentids:0
+#: view:extraschool.invoice:extraschool.extraschool_invoice_form
+#: field:extraschool.invoice,payment_ids:0
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_payments
+msgid "Payments"
+msgstr "Paiements"
+
+#. module: extraschool
+#: field:extraschool.biller,paymentsstats:0
+msgid "Payments stats"
+msgstr "Statistiques de paiement"
+
+#. module: extraschool
+#: field:extraschool.prestation_times_of_the_day,pda_prestationtime_ids:0
+msgid "Pda prestationtime ids"
+msgstr "Présences du smartphone"
+
+#. module: extraschool
+#: selection:extraschool.discount,discounttype:0
+msgid "Percentage"
+msgstr "Pourcentage"
+
+#. module: extraschool
+#: field:extraschool.discount,period:0
+msgid "Period"
+msgstr "Période"
+
+#. module: extraschool
+#: field:extraschool.activity,period_duration:0
+#: field:extraschool.price_list_version,period_duration:0
+msgid "Period Duration"
+msgstr "Durée de la période"
+
+#. module: extraschool
+#: field:extraschool.biller,period_from:0
+#: field:extraschool.invoice,period_from:0
+#: field:extraschool.invoice_wizard,period_from:0
+#: field:extraschool.prestationscheck_wizard,period_from:0
+msgid "Period from"
+msgstr "Période du"
+
+#. module: extraschool
+#: field:extraschool.biller,period_to:0 field:extraschool.invoice,period_to:0
+#: field:extraschool.invoice_wizard,period_to:0
+#: field:extraschool.prestationscheck_wizard,period_to:0
+msgid "Period to"
+msgstr "au"
+
+#. module: extraschool
+#: field:extraschool.activitychildregistration,place_id:0
+#: view:extraschool.activityoccurrence:extraschool.extraschool_activityoccurrence_search_view
+#: field:extraschool.activityoccurrence,place_id:0
+#: field:extraschool.invoicedprestations,placeid:0
+#: view:extraschool.place:extraschool.extraschool_place_form
+#: view:extraschool.place:extraschool.extraschool_place_tree
+#: view:extraschool.prestationtimes:extraschool.prestationtimes_search_view
+#: model:ir.actions.act_window,name:extraschool.action_extraschool_place
+msgid "Place"
+msgstr "Lieu d'accueil"
+
+#. module: extraschool
+#: field:extraschool.prestationscheck_wizard,placeid:0
+msgid "Placeid"
+msgstr "Lieu d'accueil"
+
+#. module: extraschool
+#: view:extraschool.activity:extraschool.extraschool_activity_form
+#: field:extraschool.timecorrection_wizard,placeid:0
+msgid "Places"
+msgstr "Lieux d'accueil"
+
+#. module: extraschool
+#: view:extraschool.activity:extraschool.extraschool_activity_form
+msgid "Planification"
+msgstr "Planification"
+
+#. module: extraschool
+#: view:extraschool.activity:extraschool.extraschool_activity_form
+#: field:extraschool.activity,planneddates_ids:0
+msgid "Planned dates"
+msgstr "Dates planifiées"
+
+#. module: extraschool
+#: field:extraschool.childposition,position:0
+msgid "Position"
+msgstr "Position"
+
+#. module: extraschool
+#: field:extraschool.prestations_wizard,prestation_date:0
+msgid "Prestation Date"
+msgstr "Date"
+
+#. module: extraschool
+#: model:ir.model,name:extraschool.model_extraschool_prestationtimes
+msgid "Prestation Times"
+msgstr "Présences"
+
+#. module: extraschool
+#: field:extraschool.pdaprestationtimes,prestation_times_of_the_day_id:0
+#: field:extraschool.prestationtimes,prestation_times_of_the_day_id:0
+msgid "Prestation of the day"
+msgstr "Présences d'une journée"
+
+#. module: extraschool
+#: view:extraschool.activityoccurrence:extraschool.extraschool_activityoccurrence_form
+msgid "Prestation times"
+msgstr "Heure"
+
+#. module: extraschool
+#: view:extraschool.prestations_wizard:extraschool.extraschool_prestations_wizard_form
+#: field:extraschool.prestations_wizard,prestations_id:0
+#: view:extraschool.prestationtimes:extraschool.extraschool_prestationtimes_tree
+#: view:extraschool.prestationtimes:extraschool.prestationtimes_search_view
+#: model:ir.actions.act_window,name:extraschool.action_extraschool_prest
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_prest_tree
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_prestations
+msgid "Prestations"
+msgstr "Présences"
+
+#. module: extraschool
+#: view:extraschool.prestations_wizard:extraschool.extraschool_prestations_wizard_form
+#: model:ir.actions.act_window,name:extraschool.action_lbsc_prestations_wizard
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_prestations_wizard
+msgid "Prestations Wizard"
+msgstr "Encoder"
+
+#. module: extraschool
+#: model:ir.actions.act_window,name:extraschool.action_lbsc_prestationscheck_wizard
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_prestationscheck_wizard
+msgid "Prestations check Wizard"
+msgstr "Vérifier"
+
+#. module: extraschool
+#: field:extraschool.guardianprestationtimes_wizard,prestations_from:0
+msgid "Prestations from"
+msgstr "Prestations du"
+
+#. module: extraschool
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_prestation_times_of_the_day_tree
+msgid "Prestations of the day"
+msgstr "Présences par jour"
+
+#. module: extraschool
+#: field:extraschool.guardianprestationtimes_wizard,prestations_to:0
+msgid "Prestations to"
+msgstr "au"
+
+#. module: extraschool
+#: selection:extraschool.prestationscheck_wizard,state:0
+msgid "Prestations to verify"
+msgstr "Prestations à vérifier"
+
+#. module: extraschool
+#: model:ir.actions.act_window,name:extraschool.action_extraschool_prest_tree
+msgid "Prestations.tree"
+msgstr "Présences"
+
+#. module: extraschool
+#: model:ir.actions.act_window,name:extraschool.action_extraschool_prestation_times_of_the_day
+msgid "Prestations_of_the_day"
+msgstr "Présences par jour"
+
+#. module: extraschool
+#: model:ir.actions.act_window,name:extraschool.action_extraschool_prestation_times_of_the_day_tree
+#: model:ir.actions.act_window,name:extraschool.action_extraschool_prestation_times_of_the_day_tree_not_verified
+msgid "Prestations_of_the_day.tree"
+msgstr "Présences par jour"
+
+#. module: extraschool
+#: view:extraschool.prestationscheck_wizard:extraschool.extraschool_prestationscheck_wizard_form
+msgid "Prestationscheck Wizard"
+msgstr "Vérifier"
+
+#. module: extraschool
+#: field:extraschool.prestation_times_of_the_day,prestationtime_ids:0
+msgid "Prestationtime ids"
+msgstr "Liste des présences"
+
+#. module: extraschool
+#: field:extraschool.activity,price:0
+#: field:extraschool.price_list_version,price:0
+msgid "Price"
+msgstr "Prix"
+
+#. module: extraschool
+#: field:extraschool.activity,price_list_id:0
+msgid "Price List"
+msgstr "Liste de prix"
+
+#. module: extraschool
+#: view:extraschool.price_list:extraschool.extraschool_price_list_form
+#: view:extraschool.price_list:extraschool.extraschool_price_list_tree
+#: field:extraschool.price_list_version,price_list_id:0
+msgid "Price list"
+msgstr "Liste de prix"
+
+#. module: extraschool
+#: view:extraschool.price_list_version:extraschool.extraschool_price_list_version_form
+#: view:extraschool.price_list_version:extraschool.extraschool_price_list_version_tree
+msgid "Price list version"
+msgstr "Version de liste de prix"
+
+#. module: extraschool
+#: selection:extraschool.activity,leveltype:0
+#: selection:extraschool.level,leveltype:0
+msgid "Primaire"
+msgstr "Primaire"
+
+#. module: extraschool
+#: selection:extraschool.childsworkbook_wizard,state:0
+msgid "Print Childs Workbook"
+msgstr "Imprimer le classeur élèves"
+
+#. module: extraschool
+#: selection:extraschool.qrcodes_wizard,state:0
+msgid "Print QRCodes"
+msgstr "Imprimer les QRCodes"
+
+#. module: extraschool
+#: field:extraschool.activitycategory,priorityorder:0
+msgid "Priority order"
+msgstr "Ordre de priorité"
+
+#. module: extraschool
+#: selection:extraschool.smartphone,scanmethod:0
+msgid "QR"
+msgstr "QR"
+
+#. module: extraschool
+#: field:extraschool.smartphone,qrconfig:0
+msgid "QR Config"
+msgstr "Configuration par QR Code"
+
+#. module: extraschool
+#: field:extraschool.smartphone,qrdownload:0
+msgid "QR Download"
+msgstr "Téléchargement par QR  Code"
+
+#. module: extraschool
+#: view:extraschool.qrcodes_wizard:extraschool.extraschool_qrcodes_wizard_form
+#: model:ir.actions.act_window,name:extraschool.action_lbsc_qrcodes_wizard
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_qrcodes_wizard
+msgid "QRCodes Wizard"
+msgstr "Impression des QRCodes"
+
+#. module: extraschool
+#: field:extraschool.invoicedprestations,quantity:0
+msgid "Quantity"
+msgstr "Quantité"
+
+#. module: extraschool
+#: field:extraschool.qrcodes_wizard,quantity:0
+msgid "Quantity to print"
+msgstr "Nombre à imprimer"
+
+#. module: extraschool
+#: field:extraschool.statsone_wizard,quarter:0
+msgid "Quarter"
+msgstr "Trimestre"
+
+#. module: extraschool
+#: field:extraschool.biller,received:0
+#: field:extraschool.invoice,amount_received:0
+msgid "Received"
+msgstr "Reçu"
+
+#. module: extraschool
+#: view:extraschool.activity:extraschool.extraschool_activity_form
+#: view:extraschool.activityoccurrence:extraschool.extraschool_activityoccurrence_form
+msgid "Registration"
+msgstr "Inscription"
+
+#. module: extraschool
+#: field:extraschool.activitychildregistration,registration_from:0
+msgid "Registration from"
+msgstr "Inscription du"
+
+#. module: extraschool
+#: field:extraschool.activitychildregistration,registration_to:0
+msgid "Registration to"
+msgstr "au"
+
+#. module: extraschool
+#: selection:extraschool.payment,paymenttype:0
+#: model:ir.model,name:extraschool.model_extraschool_reject
+msgid "Reject"
+msgstr "Rejet"
+
+#. module: extraschool
+#: field:extraschool.importreject,rejectcause:0
+#: field:extraschool.reject,rejectcause:0
+msgid "Reject cause"
+msgstr "Cause du rejet"
+
+#. module: extraschool
+#: view:extraschool.coda:extraschool.extraschool_coda_form
+#: field:extraschool.coda,rejectids:0
+msgid "Rejects"
+msgstr "Rejets"
+
+#. module: extraschool
+#: report:extraschool.coda.report:0
+msgid "Rejets:"
+msgstr "Rejets:"
+
+#. module: extraschool
+#: model:ir.model,name:extraschool.model_extraschool_reminder
+msgid "Reminder"
+msgstr "Rappel"
+
+#. module: extraschool
+#: field:extraschool.activitycategory,remindercomstructprefix:0
+msgid "Reminder Comstruct prefix"
+msgstr "Préfixe de communication structurée (Rappels)"
+
+#. module: extraschool
+#: field:extraschool.activitycategory,reminderemailaddress:0
+msgid "Reminder email address"
+msgstr "Adresse email pour les rappels"
+
+#. module: extraschool
+#: field:extraschool.activitycategory,reminderemailsubject:0
+msgid "Reminder email subject"
+msgstr "Sujet email rappel"
+
+#. module: extraschool
+#: field:extraschool.activitycategory,reminderemailtext:0
+msgid "Reminder email text"
+msgstr "Texte email rappels"
+
+#. module: extraschool
+#: field:extraschool.parent,remindersendmethod:0
+msgid "Reminder send method"
+msgstr "Mode d'envoi des rappels"
+
+#. module: extraschool
+#: field:extraschool.remindersjournal,remindertype:0
+#: model:ir.model,name:extraschool.model_extraschool_remindertype
+msgid "Reminder type"
+msgstr "Type de rappel"
+
+#. module: extraschool
+#: view:extraschool.parent:extraschool.extraschool_parent_form
+msgid "Reminders"
+msgstr "Rappels"
+
+#. module: extraschool
+#: view:extraschool.remindersjournal:extraschool.extraschool_reminders_journal_form
+#: model:ir.actions.act_window,name:extraschool.action_lbsc_reminders_journal
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_reminders_journal
+msgid "Reminders Journal"
+msgstr "Journal des Rappels"
+
+#. module: extraschool
+#: field:extraschool.reminder,remindersjournalid:0
+#: model:ir.model,name:extraschool.model_extraschool_remindersjournal
+msgid "Reminders journal"
+msgstr "Journal des rappels"
+
+#. module: extraschool
+#: selection:extraschool.timecorrection_wizard,correctiontype:0
+msgid "Remove"
+msgstr "Retirer"
+
+#. module: extraschool
+#: view:website:extraschool.report_parent
+msgid "Report Parent"
+msgstr "Rapport des parents"
+
+#. module: extraschool
+#: field:extraschool.activity,root_id:0
+msgid "Root"
+msgstr "Activité principale"
+
+#. module: extraschool
+#: view:extraschool.mainsettings:extraschool.extraschool_mainsettings_form
+#: view:extraschool.payment:extraschool.extraschool_payment_form2
+msgid "Save"
+msgstr "Enregistrer"
+
+#. module: extraschool
+#: field:extraschool.smartphone,scanmethod:0
+msgid "Scan method"
+msgstr "Méthode de scan"
+
+#. module: extraschool
+#: field:extraschool.place,schedule:0
+msgid "Schedule"
+msgstr "Plannification"
+
+#. module: extraschool
+#: model:ir.model,name:extraschool.model_extraschool_scheduledtasks
+msgid "Scheduled tasks"
+msgstr "Tâches planifiées"
+
+#. module: extraschool
+#: view:extraschool.school:extraschool.extraschool_school_tree
+#: field:extraschool.schoolimplantation,schoolid:0
+#: model:ir.actions.act_window,name:extraschool.action_extraschool_school
+#: model:ir.model,name:extraschool.model_extraschool_school
+msgid "School"
+msgstr "Ecole"
+
+#. module: extraschool
+#: view:extraschool.schoolimplantation:extraschool.extraschool_schoolimplantation_form
+#: view:extraschool.schoolimplantation:extraschool.extraschool_schoolimplantation_tree
+msgid "School Implantation"
+msgstr "Implantation scolaire"
+
+#. module: extraschool
+#: view:extraschool.activity:extraschool.extraschool_activity_form
+#: field:extraschool.child,schoolimplantation:0
+#: field:extraschool.childsimport,schoolimplantation:0
+#: field:extraschool.class,schoolimplantation:0
+#: field:extraschool.invoice,schoolimplantationid:0
+#: field:extraschool.reminder,schoolimplantationid:0
+#: model:ir.model,name:extraschool.model_extraschool_schoolimplantation
+msgid "School implantation"
+msgstr "Implantation scolaire"
+
+#. module: extraschool
+#: field:extraschool.invoice_wizard,schoolimplantationid:0
+#: field:extraschool.place,schoolimplantation_ids:0
+msgid "School implantations"
+msgstr "Implantations scolaires"
+
+#. module: extraschool
+#: field:extraschool.childsworkbook_wizard,placeid:0
+#: field:extraschool.pdaprestationtimes,placeid:0
+#: field:extraschool.prestations_wizard,placeid:0
+#: field:extraschool.prestationtimes,placeid:0
+#: field:extraschool.smartphone,placeid:0
+#: field:extraschool.statsone_wizard,placeid:0
+#: model:ir.model,name:extraschool.model_extraschool_place
+msgid "Schoolcare Place"
+msgstr "Lieu d'accueil"
+
+#. module: extraschool
+#: field:extraschool.activity,placeids:0
+#: field:extraschool.activitycategory,placeids:0
+msgid "Schoolcare place"
+msgstr "Lieu d'accueil"
+
+#. module: extraschool
+#: field:extraschool.activity,schoolimplantationids:0
+msgid "Schoolcare schoolimplantation"
+msgstr "Implantation scolaire"
+
+#. module: extraschool
+#: field:extraschool.prestations_wizard,schoolimplantationids:0
+msgid "Schoolimplantaions"
+msgstr "Implantations scolaire"
+
+#. module: extraschool
+#: view:extraschool.school:extraschool.extraschool_school_form
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_school
+msgid "Schools"
+msgstr "Ecoles"
+
+#. module: extraschool
+#: view:extraschool.biller:extraschool.extraschool_biller_form
+msgid "Send invoices by email"
+msgstr "Envoyer les factures par email"
+
+#. module: extraschool
+#: field:extraschool.smartphone,serveraddress:0
+msgid "Server address"
+msgstr "Adresse du serveur"
+
+#. module: extraschool
+#: field:extraschool.activity,short_name:0
+msgid "Short name"
+msgstr "Nom court"
+
+#. module: extraschool
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_signaletics
+msgid "Signaletics"
+msgstr "Signalétiques"
+
+#. module: extraschool
+#: view:extraschool.smartphone:extraschool.extraschool_smartphone_form
+#: view:extraschool.smartphone:extraschool.extraschool_smartphone_tree
+#: model:ir.actions.act_window,name:extraschool.action_extraschool_smartphone
+#: model:ir.model,name:extraschool.model_extraschool_smartphone
+msgid "Smartphone"
+msgstr "Smartphone"
+
+#. module: extraschool
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_smartphone
+msgid "Smartphones"
+msgstr "Smartphones"
+
+#. module: extraschool
+#: field:extraschool.smartphone,softwareurl:0
+msgid "Software url"
+msgstr "Chemin du logiciel"
+
+#. module: extraschool
+#: field:extraschool.importlevelrule,startpos1:0
+msgid "Start pos1"
+msgstr "Position de début"
+
+#. module: extraschool
+#: field:extraschool.childsimportfilter,startrow:0
+msgid "Start row"
+msgstr "Ligne de début"
+
+#. module: extraschool
+#: field:extraschool.childsworkbook_wizard,state:0
+#: field:extraschool.guardianprestationtimes_wizard,state:0
+#: field:extraschool.invoice_wizard,state:0
+#: field:extraschool.prestationscheck_wizard,state:0
+#: field:extraschool.qrcodes_wizard,state:0
+#: field:extraschool.statsone_wizard,state:0
+#: field:extraschool.taxcertificates_wizard,state:0
+#: field:extraschool.timecorrection_wizard,state:0
+msgid "State"
+msgstr "Etat"
+
+#. module: extraschool
+#: view:extraschool.statsone_wizard:extraschool.extraschool_statsone_wizard_form
+#: model:ir.actions.act_window,name:extraschool.action_lbsc_statsone_wizard
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_statsone_wizard
+msgid "Stats ONE Wizard"
+msgstr "Rapport trimestriel ONE"
+
+#. module: extraschool
+#: field:extraschool.parent,street:0 field:extraschool.place,street:0
+#: field:extraschool.school,street:0
+#: field:extraschool.schoolimplantation,street:0
+msgid "Street"
+msgstr "Rue"
+
+#. module: extraschool
+#: field:extraschool.parent,streetcode:0
+msgid "Street code"
+msgstr "Code rue"
+
+#. module: extraschool
+#: field:extraschool.invoice,structcom:0 field:extraschool.payment,structcom:0
+#: field:extraschool.reject,structcom:0 field:extraschool.reminder,structcom:0
+msgid "Structured Communication"
+msgstr "Communication structurée"
+
+#. module: extraschool
+#: field:extraschool.activity,subsidizedbyone:0
+msgid "Subsidized by one"
+msgstr "Subsidié par l'ONE"
+
+#. module: extraschool
+#: selection:extraschool.discount,discounttype:0
+msgid "Subtraction"
+msgstr "Soustraction"
+
+#. module: extraschool
+#: selection:extraschool.discount,wichactivities:0
+msgid "Sum of these activities"
+msgstr "La somme de ces activités"
+
+#. module: extraschool
+#: selection:extraschool.smartphone,scanmethod:0
+msgid "Tag"
+msgstr "Badge n°"
+
+#. module: extraschool
+#: field:extraschool.child,tagid:0 field:extraschool.guardian,tagid:0
+msgid "Tag ID"
+msgstr "N° de badge"
+
+#. module: extraschool
+#: field:extraschool.activitycategory,taxcertificatetemplate:0
+msgid "Tax Certificate Template"
+msgstr "Tax Certificate Template"
+
+#. module: extraschool
+#: view:extraschool.taxcertificates_wizard:extraschool.extraschool_taxcertificates_wizard_form
+#: model:ir.actions.act_window,name:extraschool.action_lbsc_taxcertificates_wizard
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_taxcertificates_wizard
+msgid "Tax Certificates Wizard"
+msgstr "Attestations fiscales"
+
+#. module: extraschool
+#: field:extraschool.remindertype,template:0
+msgid "Template"
+msgstr "Modèle"
+
+#. module: extraschool
+#: field:extraschool.reminder,term:0 field:extraschool.remindersjournal,term:0
+msgid "Term"
+msgstr "Echéance"
+
+#. module: extraschool
+#: field:extraschool.guardianprestationtimes,prestation_time:0
+#: field:extraschool.pdaprestationtimes,prestation_time:0
+#: field:extraschool.prestations_wizard,prestation_time:0
+#: field:extraschool.prestationtimes,prestation_time:0
+#: field:extraschool.timecorrection_wizard,correctiontime:0
+msgid "Time"
+msgstr "Heure"
+
+#. module: extraschool
+#: model:ir.actions.act_window,name:extraschool.action_lbsc_timecorrection_wizard
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_timecorrection_wizard
+msgid "Time Correction Wizard"
+msgstr "Correction des heures"
+
+#. module: extraschool
+#: view:extraschool.timecorrection_wizard:extraschool.extraschool_timecorrection_wizard_form
+msgid "Time correction Wizard"
+msgstr "Correction des heures"
+
+#. module: extraschool
+#: selection:extraschool.activity,default_from_to:0
+#: field:extraschool.activity,prest_to:0
+msgid "To"
+msgstr "à"
+
+#. module: extraschool
+#: field:extraschool.biller,total:0
+msgid "Total"
+msgstr "Total"
+
+#. module: extraschool
+#: field:extraschool.parent,totalbalance:0
+msgid "Total balance"
+msgstr "Solde restant dû"
+
+#. module: extraschool
+#: field:extraschool.parent,totalinvoiced:0
+msgid "Total invoiced"
+msgstr "Total des montants facturés"
 
 #. module: extraschool
 #: field:extraschool.parent,totalreceived:0
@@ -2380,20 +2238,379 @@ msgid "Total received"
 msgstr "Total des montants reçus"
 
 #. module: extraschool
-#: field:extraschool.child,name:0
-#: field:extraschool.parent,name:0
-msgid "FullName"
-msgstr "Nom complet"
+#: field:extraschool.smartphone,transfertmethod:0
+msgid "Transfert method"
+msgstr "Méthode de transfert"
 
 #. module: extraschool
-#: view:extraschool.schoolimplantation:0
-msgid "School Implantation"
-msgstr "Implantation scolaire"
+#: field:extraschool.reminder,transmissiondate:0
+#: field:extraschool.remindersjournal,transmissiondate:0
+#: field:extraschool.statsone_wizard,transmissiondate:0
+msgid "Transmission date"
+msgstr "Date d'envoi"
 
 #. module: extraschool
-#: field:extraschool.parent,street:0
-#: field:extraschool.school,street:0
-#: field:extraschool.schoolimplantation,street:0
-msgid "Street"
-msgstr "Rue"
+#: field:extraschool.smartphone,transmissiontime:0
+msgid "Transmission time"
+msgstr "Heure de transmission"
 
+#. module: extraschool
+#: field:extraschool.child,childtypeid:0
+msgid "Type"
+msgstr "Type"
+
+#. module: extraschool
+#: view:extraschool.initupdate_wizard:extraschool.extraschool_initupdate_wizard_form
+msgid "Update this application"
+msgstr "Mettre l'application à jour"
+
+#. module: extraschool
+#: field:extraschool.smartphone,username:0
+msgid "User name"
+msgstr "Nom d'utilisateur"
+
+#. module: extraschool
+#: field:extraschool.smartphone,userpassword:0
+msgid "User password"
+msgstr "Mot de passe"
+
+#. module: extraschool
+#: field:extraschool.activity,validity_from:0
+#: field:extraschool.price_list_version,validity_from:0
+msgid "Validity from"
+msgstr "Valide du"
+
+#. module: extraschool
+#: field:extraschool.activity,validity_to:0
+#: field:extraschool.price_list_version,validity_to:0
+msgid "Validity to"
+msgstr "Valable jusqu'au"
+
+#. module: extraschool
+#: field:extraschool.discountrule,value:0
+msgid "Value"
+msgstr "Valeur"
+
+#. module: extraschool
+#: field:extraschool.prestation_times_of_the_day,verified:0
+#: view:extraschool.prestationtimes:extraschool.prestationtimes_search_view
+#: field:extraschool.prestationtimes,verified:0
+msgid "Verified"
+msgstr "Vérifié"
+
+#. module: extraschool
+#: view:extraschool.price_list:extraschool.extraschool_price_list_form
+#: field:extraschool.price_list,price_list_version_ids:0
+msgid "Versions"
+msgstr "Versions"
+
+#. module: extraschool
+#: selection:extraschool.smartphone,transfertmethod:0
+msgid "WIFI"
+msgstr "WIFI"
+
+#. module: extraschool
+#: field:extraschool.discount,wichactivities:0
+msgid "Wich activities"
+msgstr "Quelles activités"
+
+#. module: extraschool
+#: field:extraschool.parent,workphone:0
+msgid "Work Phone"
+msgstr "Tél. travail"
+
+#. module: extraschool
+#: view:extraschool.child:extraschool.extraschool_child_form
+msgid "Workbook sheet"
+msgstr "Feuille classeur"
+
+#. module: extraschool
+#: field:extraschool.statsone_wizard,year:0
+#: field:extraschool.taxcertificates_wizard,year:0
+msgid "Year"
+msgstr "Année"
+
+#. module: extraschool
+#: field:extraschool.parent,zipcode:0 field:extraschool.place,zipcode:0
+#: field:extraschool.school,zipcode:0
+#: field:extraschool.schoolimplantation,zipcode:0
+msgid "ZipCode"
+msgstr "Code Postal"
+
+#. module: extraschool
+#: model:ir.model,name:extraschool.model_extraschool_activity
+msgid "activity"
+msgstr "Activité"
+
+#. module: extraschool
+#: model:ir.model,name:extraschool.model_extraschool_activitychildregistration
+msgid "activity child registration"
+msgstr "Inscription"
+
+#. module: extraschool
+#: model:ir.model,name:extraschool.model_extraschool_activityoccurrence
+msgid "activity occurrence"
+msgstr "Calendrier des activités"
+
+#. module: extraschool
+#: view:extraschool.activityoccurrence:extraschool.extraschool_activityoccurrence_form
+#: view:extraschool.activityoccurrence:extraschool.extraschool_activityoccurrence_tree
+#: model:ir.actions.act_window,name:extraschool.action_extraschool_activityoccurrence
+msgid "activityoccurrence"
+msgstr "Calendrier des activités"
+
+#. module: extraschool
+#: selection:extraschool.activitycategory,childpositiondetermination:0
+msgid "by address"
+msgstr "par adresse"
+
+#. module: extraschool
+#: selection:extraschool.activitycategory,childpositiondetermination:0
+msgid "by address (only childs with prestations)"
+msgstr "par adresse (seulement enfants avec présences)"
+
+#. module: extraschool
+#: selection:extraschool.activitycategory,childpositiondetermination:0
+msgid "by parent"
+msgstr "par parent"
+
+#. module: extraschool
+#: selection:extraschool.activitycategory,childpositiondetermination:0
+msgid "by parent (only childs with prestations)"
+msgstr "par parent (seulement enfants avec présences)"
+
+#. module: extraschool
+#: view:extraschool.prestation_times_of_the_day:extraschool.prestation_times_of_the_day_search_view
+msgid "child"
+msgstr "Enfant"
+
+#. module: extraschool
+#: view:extraschool.prestationtimes:extraschool.prestationtimes_search_view
+msgid "childid"
+msgstr "Id de l'enfant"
+
+#. module: extraschool
+#: field:extraschool.parent,child_ids:0
+msgid "childs"
+msgstr "Enfants"
+
+#. module: extraschool
+#: view:extraschool.childsimportfilter:extraschool.extraschool_childsimportfilter_form
+msgid "childsimportfilter"
+msgstr "Filtre d'import enfant"
+
+#. module: extraschool
+#: field:extraschool.mainsettings,codasfolder:0
+msgid "codasfolder"
+msgstr "Dossier des fichiers coda"
+
+#. module: extraschool
+#: view:extraschool.timecorrection_wizard:extraschool.extraschool_timecorrection_wizard_form
+msgid "d'après les paramètres ci-dessous -> PRUDENCE"
+msgstr "d'après les paramètres ci-dessous -> PRUDENCE"
+
+#. module: extraschool
+#: view:extraschool.discount:extraschool.extraschool_discount_form
+msgid "discount"
+msgstr "Réduction"
+
+#. module: extraschool
+#: view:extraschool.discount:extraschool.extraschool_discount_form
+msgid "discountrule"
+msgstr "Régle de réduction"
+
+#. module: extraschool
+#: field:extraschool.prestationtimes,es:0
+msgid "es"
+msgstr "Entrée / Sortie"
+
+#. module: extraschool
+#: model:res.groups,name:extraschool.extraschool_schoolcareadmin
+msgid "extraschool Schoolcare admin"
+msgstr "AES Administration"
+
+#. module: extraschool
+#: model:res.groups,name:extraschool.extraschool_schoolcareuser
+msgid "extraschool Schoolcare user"
+msgstr "Utilisateur AES"
+
+#. module: extraschool
+#: view:extraschool.activityoccurrence:extraschool.extraschool_activityoccurrence_search_view
+msgid "extraschool_activityoccurrence search"
+msgstr "Recherche dans le calendrier des activités"
+
+#. module: extraschool
+#: field:extraschool.biller,filename:0 field:extraschool.invoice,filename:0
+#: field:extraschool.reminder,filename:0
+msgid "filename"
+msgstr "Fichier"
+
+#. module: extraschool
+#: view:extraschool.qrcodes_wizard:extraschool.extraschool_qrcodes_wizard_form
+msgid "generate qrcodes"
+msgstr "Générer les QRCodes"
+
+#. module: extraschool
+#: view:extraschool.childsworkbook_wizard:extraschool.extraschool_childsworkbook_wizard_form
+msgid "generate workbook"
+msgstr "Générer le classeur"
+
+#. module: extraschool
+#: selection:extraschool.discountrule,operator:0
+msgid "ilike"
+msgstr "Contient"
+
+#. module: extraschool
+#: selection:extraschool.discountrule,operator:0
+msgid "in"
+msgstr "dans"
+
+#. module: extraschool
+#: view:extraschool.invoice:extraschool.extraschool_invoice_form
+#: view:extraschool.invoice:extraschool.extraschool_invoice_tree
+#: field:extraschool.invoicedprestations,invoiceid:0
+#: model:ir.model,name:extraschool.model_extraschool_invoice
+msgid "invoice"
+msgstr "Facture"
+
+#. module: extraschool
+#: view:extraschool.invoice_wizard:extraschool.extraschool_invoice_wizard_form
+#: model:ir.actions.act_window,name:extraschool.action_lbsc_invoice_wizard
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_invoice_wizard
+msgid "invoice Wizard"
+msgstr "Facturation"
+
+#. module: extraschool
+#: field:extraschool.invoice_wizard,invoice_date:0
+msgid "invoice date"
+msgstr "Date de la facture"
+
+#. module: extraschool
+#: field:extraschool.invoice_wizard,invoice_term:0
+msgid "invoice term"
+msgstr "Echéance"
+
+#. module: extraschool
+#: model:ir.model,name:extraschool.model_extraschool_invoicedprestations
+msgid "invoiced Prestations"
+msgstr "Présences facturées"
+
+#. module: extraschool
+#: field:extraschool.biller,invoice_ids:0
+#: field:extraschool.parent,invoice_ids:0
+#: model:ir.actions.act_window,name:extraschool.action_extraschool_invoices
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_invoice
+msgid "invoices"
+msgstr "Factures"
+
+#. module: extraschool
+#: selection:extraschool.discountrule,operator:0
+msgid "is"
+msgstr "est égal à"
+
+#. module: extraschool
+#: selection:extraschool.discountrule,operator:0
+msgid "is not"
+msgstr "n'est pas égal à "
+
+#. module: extraschool
+#: field:extraschool.mainsettings,lastqrcodenbr:0
+msgid "lastqrcodenbr"
+msgstr "Dernier QRCode"
+
+#. module: extraschool
+#: field:extraschool.activityoccurrence,activityname:0
+#: field:extraschool.remindertype,name:0
+msgid "name"
+msgstr "Nom"
+
+#. module: extraschool
+#: view:extraschool.prestation_times_of_the_day:extraschool.prestation_times_of_the_day_search_view
+msgid "not verified"
+msgstr "Non vérifié"
+
+#. module: extraschool
+#: field:extraschool.biller,oldid:0 field:extraschool.child,oldid:0
+#: field:extraschool.childtype,oldid:0 field:extraschool.guardian,oldid:0
+#: field:extraschool.invoice,oldid:0 field:extraschool.level,oldid:0
+#: field:extraschool.parent,oldid:0 field:extraschool.place,oldid:0
+#: field:extraschool.remindersjournal,oldid:0 field:extraschool.school,oldid:0
+#: field:extraschool.schoolimplantation,oldid:0
+msgid "oldid"
+msgstr "oldid"
+
+#. module: extraschool
+#: field:extraschool.level,ordernumber:0
+msgid "ordernumber"
+msgstr "Numéro d'ordre"
+
+#. module: extraschool
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_place
+msgid "places"
+msgstr "Lieux d'accueil"
+
+#. module: extraschool
+#: field:extraschool.activityoccurrence,prest_from:0
+msgid "prest_from"
+msgstr "de"
+
+#. module: extraschool
+#: field:extraschool.activityoccurrence,prest_to:0
+msgid "prest_to"
+msgstr "à"
+
+#. module: extraschool
+#: view:extraschool.prestation_times_of_the_day:extraschool.extraschool_prestation_times_of_the_day_form
+msgid "prestation_times"
+msgstr "Heure"
+
+#. module: extraschool
+#: view:extraschool.prestation_times_of_the_day:extraschool.extraschool_prestation_times_of_the_day_form
+#: view:extraschool.prestation_times_of_the_day:extraschool.extraschool_prestation_times_of_the_day_tree
+msgid "prestation_times_of_the_day"
+msgstr "Présences d'une journée"
+
+#. module: extraschool
+#: view:extraschool.prestation_times_of_the_day:extraschool.prestation_times_of_the_day_search_view
+msgid "prestation_times_of_the_day search"
+msgstr "Recherche des présences d'une journée"
+
+#. module: extraschool
+#: view:extraschool.prestationtimes:extraschool.extraschool_prestationtimes_form
+msgid "prestationtimes"
+msgstr "Heures de présence"
+
+#. module: extraschool
+#: field:extraschool.mainsettings,processedcodasfolder:0
+msgid "processedcodasfolder"
+msgstr "Dossier des fichiers coda traités"
+
+#. module: extraschool
+#: field:extraschool.mainsettings,qrencode:0
+msgid "qrencode"
+msgstr "qrencode"
+
+#. module: extraschool
+#: field:extraschool.parent,reminder_ids:0
+msgid "reminders"
+msgstr "Rappels"
+
+#. module: extraschool
+#: field:extraschool.school,schoolimplantations:0
+msgid "schoolimplantations"
+msgstr "Implantations scolaires"
+
+#. module: extraschool
+#: field:extraschool.mainsettings,tempfolder:0
+msgid "tempfolder"
+msgstr "Dossier des fichiers temporaires"
+
+#. module: extraschool
+#: field:extraschool.mainsettings,templatesfolder:0
+msgid "templatesfolder"
+msgstr "Dossier des modèles de document"
+
+#. module: extraschool
+#: field:extraschool.child,toto:0
+msgid "toto"
+msgstr "toto"

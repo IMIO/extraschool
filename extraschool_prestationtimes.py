@@ -98,17 +98,17 @@ class extraschool_prestationtimes(osv.osv):
                                                                  ('es', '=',vals['es']),
                                                                  ])
             
-        
-        prestation_times_of_the_day_ids = prestation_times_of_the_day_obj.search(cr,uid,[('child_id.id', '=', vals['childid']),
-                                                                                ('date_of_the_day', '=', vals['prestation_date']),
-                                                                                ])
-        if not prestation_times_of_the_day_ids:
-            vals['prestation_times_of_the_day_id'] = prestation_times_of_the_day_obj.create(cr,uid,{'child_id' : vals['childid'],
-                                                           'date_of_the_day' : vals['prestation_date'],
-                                                           'verified' : False,
-                                                           })
-        else :
-            vals['prestation_times_of_the_day_id'] = prestation_times_of_the_day_ids[0]
+        if not 'prestation_times_of_the_day_id' in vals:
+            prestation_times_of_the_day_ids = prestation_times_of_the_day_obj.search(cr,uid,[('child_id.id', '=', vals['childid']),
+                                                                                    ('date_of_the_day', '=', vals['prestation_date']),
+                                                                                    ])
+            if not prestation_times_of_the_day_ids:
+                vals['prestation_times_of_the_day_id'] = prestation_times_of_the_day_obj.create(cr,uid,{'child_id' : vals['childid'],
+                                                               'date_of_the_day' : vals['prestation_date'],
+                                                               'verified' : False,
+                                                               })
+            else :
+                vals['prestation_times_of_the_day_id'] = prestation_times_of_the_day_ids[0]
 
         if prestaion_times_ids: #if same presta exist than update
             if 'exit_all' in vals :

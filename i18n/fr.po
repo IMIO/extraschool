@@ -362,7 +362,7 @@ msgstr "Ecole"
 
 #. module: extraschool
 #: field:extraschool.level,leveltype:0
-msgid "Level Type"
+msgid "Level type"
 msgstr "Type de niveau"
 
 #. module: extraschool

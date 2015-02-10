@@ -20,27 +20,17 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="prestation_times_of_the_day">
-				<group col="4">
-                    <field name="child_id" />
-					<field name="date_of_the_day" />
-                    <newline/>
-                    <field name="verified" />
-                    <newline/>
-                    <field name="comment" />
-                    <field name="prestationtime_ids" nolabel="1" colspan="4">
-                    	<tree string="prestation_times" colors="red:verified==False">
-	                   		<field name="childid" />
-                    		<field name="placeid" />
-	                   		<field name="activity_name" />
-                    		<field name="prestation_time" />
-                    		<field name="es" />
-                    		<field name="exit_all" />
-                    		<field name="verified" />
-                    		<field name="error_msg" />
-                    	</tree>
-                    	<form string="prestation_times" colors="red:verified==False">
-                    		<group>
-	                    		<field name="childid" />
+					<group col="4">
+	                    <field name="child_id" />
+						<field name="date_of_the_day" />
+	                    <newline/>
+	                    <field name="verified" />
+	                    <newline/>
+	                    <field name="comment" />
+		                <separator string="Computed prestations" colspan="4"/> 
+	                    <field name="prestationtime_ids" nolabel="1" colspan="4">
+	                    	<tree string="prestation_times" colors="red:verified==False">
+		                   		<field name="childid" />
 	                    		<field name="placeid" />
 		                   		<field name="activity_name" />
 	                    		<field name="prestation_time" />
@@ -48,10 +38,32 @@
 	                    		<field name="exit_all" />
 	                    		<field name="verified" />
 	                    		<field name="error_msg" />
-                    		</group>                    		
-                    	</form>
-                    </field>
-                </group>
+	                    	</tree>
+	                    	<form string="prestation_times" colors="red:verified==False">
+	                    		<group>
+		                    		<field name="childid" />
+		                    		<field name="placeid" />
+			                   		<field name="activity_name" />
+		                    		<field name="prestation_time" />
+		                    		<field name="es" />
+		                    		<field name="exit_all" />
+		                    		<field name="verified" />
+		                    		<field name="error_msg" />
+	                    		</group>                    		
+	                    	</form>
+	                    </field>
+		                <separator string="PDA prestations" colspan="4"/> 
+		            </group>
+	                <group expand="1" col="4">
+	                    <field name="pda_prestationtime_ids" nolabel="1" colspan="4">
+	                    	<tree string="prestation_times" readonly="1">
+		                   		<field name="childid" />
+	                    		<field name="placeid" />
+	                    		<field name="prestation_time" />
+	                    		<field name="es" />
+	                    	</tree>
+	                    </field>
+	                </group>
 				</form>
 			</field>
 		</record>

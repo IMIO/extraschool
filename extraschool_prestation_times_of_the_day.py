@@ -31,6 +31,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
     date_of_the_day = fields.Date(required=True)    
     child_id = fields.Many2one('extraschool.child', required=True)                    
     prestationtime_ids = fields.One2many('extraschool.prestationtimes','prestation_times_of_the_day_id')    
+    pda_prestationtime_ids = fields.One2many('extraschool.pdaprestationtimes','prestation_times_of_the_day_id')    
     verified = fields.Boolean()
     comment = fields.Text()
         

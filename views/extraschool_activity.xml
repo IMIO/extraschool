@@ -58,7 +58,7 @@
 			                <field name="prest_to" widget="float_time" />
 			                <separator string="Planned dates" colspan="4"/> 
 			                <field name="planneddates_ids" nolabel="1" colspan="4"/>
-			                <separator string="Exclusion dates dates" colspan="4"/> 
+			                <separator string="Exclusion dates" colspan="4"/> 
 			                <field name="exclusiondates_ids" nolabel="1" colspan="4">
 			                	<tree>
 				                	<field name="date_from" />
