@@ -22,12 +22,28 @@
 ##############################################################################
 
 from openerp import models, api, fields
-
+from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
+                           DEFAULT_SERVER_DATETIME_FORMAT)
+from datetime import date
+import datetime
 
 
 class extraschool_prestation_times_of_the_day(models.Model):
     _name = 'extraschool.prestation_times_of_the_day'
 
+    def name_get(self, cr, uid, ids, context={}):
+        if not len(ids):
+            return []
+        
+        res=[]
+        for presta in self.browse(cr, uid, ids,context=context):
+            res.append((presta.id, presta.child_id.name + ' - ' + datetime.datetime.strptime(presta.date_of_the_day, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y")  ))    
+    
+        print str(res)
+
+        return res      
+
+    
     date_of_the_day = fields.Date(required=True)    
     child_id = fields.Many2one('extraschool.child', required=True)                    
     prestationtime_ids = fields.One2many('extraschool.prestationtimes','prestation_times_of_the_day_id')    

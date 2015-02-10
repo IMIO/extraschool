@@ -26,6 +26,7 @@ from openerp import api, modules
 from datetime import date, datetime, timedelta as td
 from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
+import datetime
 
 
 class extraschool_activityoccurrence(osv.osv):
@@ -52,7 +53,7 @@ class extraschool_activityoccurrence(osv.osv):
             
             res=[]
             for occurrence in self.browse(cr, uid, ids,context=context):
-                res.append((occurrence.id, occurrence.activityname + ' - ' + occurrence.occurrence_date))    
+                res.append((occurrence.id, occurrence.activityname + ' - ' + datetime.datetime.strptime(occurrence.occurrence_date, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y")))    
     
             return res    
         
