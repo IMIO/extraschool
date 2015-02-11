@@ -72,6 +72,7 @@
 			<field name="arch" type="xml">
                 <calendar color="activityid" string="Activity occurences" date_start="date_start" date_stop="date_stop" event_open_popup="%(extraschool.extraschool_activityoccurrence_form)s" >
                     <field name="activityname"/>
+                    <field name="place_id"/> 			
 				</calendar>
 			</field>
 		</record>

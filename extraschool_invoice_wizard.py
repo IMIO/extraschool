@@ -70,7 +70,7 @@ class extraschool_invoice_wizard(osv.osv_memory):
         #todate=datetime.date(2013,11,1)
         cr.execute('select max(prestation_date) as prestation_date from extraschool_invoicedprestations')
         lastdate = cr.dictfetchall()[0]['prestation_date']
-        if lastdate and (lastdate < datetime.datetime.now()):
+        if lastdate and (lastdate < datetime.datetime.now().strftime("%Y-%m-%d")):
             todate=datetime.date(datetime.datetime.now().year,datetime.datetime.now().month,1)-datetime.timedelta(1)
         else:
             month=datetime.datetime.now().month

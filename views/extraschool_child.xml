@@ -46,6 +46,23 @@
                     </group>
 				</form>
 			</field>
-		</record>        
+		</record>  
+
+        <record id="extraschool_child_search_view" model="ir.ui.view">
+            <field name="name">extraschool_child.search</field>
+            <field name="model">extraschool.child</field>
+            <field name="arch" type="xml">
+                <search string="Child Search">
+                   <field name="name"/>            
+                   <field name="parentid"/>
+                   <field name="otherref"/>
+                   <group  expand='0' string='Group by...'>
+                       <filter string='parentid' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'parentid'}"/>
+                       <filter string='classid' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'classid'}"/>
+                       <filter string='levelid' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'levelid'}"/>
+                   </group>                    
+                </search>
+            </field>
+        </record>			      
 	</data>
 </openerp>
