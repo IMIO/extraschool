@@ -62,6 +62,7 @@ class extraschool_prestations_wizard(osv.osv_memory):
         'schoolimplantationids' : [1],
     }
     
+    
     @api.onchange('placeid')
     def onchange_placeid(self):
         if self.placeid:
@@ -70,14 +71,35 @@ class extraschool_prestations_wizard(osv.osv_memory):
         
     @api.onchange('prestations_id','childid','placeid')
     def onchange_prestations(self):
-
+        obj_prestations = self.pool.get('extraschool.prestationtimes')
         cr,uid = self.env.cr,self.env.user.id
+        view_prestations_ids = [prest.id for prest in self.prestations_id]
+        to_delete_prestations_ids=obj_prestations.search(cr, uid, [('childid', '=', self.childid.id),('prestation_date', '=', self.prestation_date),('id','not in',view_prestations_ids)])
+        self.prestations_id.unlink(to_delete_prestations_ids)
         for prestation in self.prestations_id:
-            if prestation.exists():
-                prestation.write()
+            if prestation.id:
+                prestation.write({'activitycategoryid':prestation.activitycategoryid.id,
+                                  'prestation_time':prestation.prestation_time,
+                                  'childid':self.childid.id,
+                                  'placeid':self.placeid.id,
+                                  'prestation_date':self.prestation_date,
+                                  'es':prestation.es,
+                                  'manualy_encoded':False,
+                                  'verified':False
+                                  })
             else:
-                prestation.create()
-        
+                obj_prestations.create(cr,uid,{'activitycategoryid':prestation.activitycategoryid.id,
+                                  'prestation_time':prestation.prestation_time,
+                                  'childid':self.childid.id,
+                                  'placeid':self.placeid.id,
+                                  'prestation_date':self.prestation_date,
+                                  'es':prestation.es,
+                                  'manualy_encoded':False,
+                                  'verified':False
+                                  })
+
+            
+      
     def onchange_childid(self, cr, uid, ids, childid,prestation_date):
         obj_child = self.pool.get('extraschool.child')
         obj_prestations = self.pool.get('extraschool.prestationtimes')
@@ -85,14 +107,14 @@ class extraschool_prestations_wizard(osv.osv_memory):
         if childid:
             #v['schoolimplantationid']=obj_child.read(cr, uid, [childid],['schoolimplantation'])[0]['schoolimplantation'][0]
             prestations_ids=obj_prestations.search(cr, uid, [('childid', '=', childid),('prestation_date', '=', prestation_date)])
-            v['prestations_id']=prestations_ids
+            v['prestations_id']=prestations_ids            
         return {'value':v}
    
     def onchange_prestation_date(self, cr, uid, ids, prestation_date,childid):
         obj_prestations = self.pool.get('extraschool.prestationtimes')
         v={}        
         prestations_ids=obj_prestations.search(cr, uid, [('childid', '=', childid),('prestation_date', '=', prestation_date)])
-        v['prestations_id']=prestations_ids
+        v['prestations_id']=prestations_ids        
         return {'value':v}
         
     def action_save_prestation(self, cr, uid, ids, context=None):     

@@ -51,7 +51,7 @@ class extraschool_smartphone(osv.osv):
     }
     
     _defaults = {
-        'softwareurl' : lambda *a: 'http://intranet.la-bruyere.be/garderies/V2-4/Garderies.apk'
+        'softwareurl' : lambda *a: 'http://intranet.la-bruyere.be/garderies/V3-1/AESAndroid.apk'
     }
     
     
