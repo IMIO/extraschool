@@ -2,7 +2,7 @@
 <openerp>
     <data noupdate="0"> 
         <record model="extraschool.school" id="extraschool_school_communale">
-            <field name="id"  eval="str(ref('base.user_root'))" />
+            <field name="id">1</field>
             <field name="name">Administrator</field>
             <field name="lang">fr_BE</field>
   		</record>    	
