@@ -19,7 +19,18 @@
 				</tree>
 			</field>
 		</record>
-        
+
+        <record id="extraschool_invoice_graph" model="ir.ui.view">
+            <field name="name">invoice.graph</field>
+            <field name="model">extraschool.invoice</field>
+            <field name="arch" type="xml">
+                <graph string="Invoioces" type="bar">
+                     <field name="schoolimplantationid" type="row"/>
+                     <field name="amount_total" type="measure"/>
+                 </graph>
+             </field>
+        </record>
+                
 		<record model="ir.ui.view" id="extraschool_invoice_form">
 			<field name="name">invoices</field>
 			<field name="model">extraschool.invoice</field>
@@ -56,7 +67,7 @@
             <field name="name">invoices</field>
             <field name="res_model">extraschool.invoice</field>
             <field name="view_type">form</field>
-            <field name="view_mode">tree, form</field>
+            <field name="view_mode">graph</field>
             <field name="view_id" ref="extraschool_invoice_tree"/>
         </record>
         

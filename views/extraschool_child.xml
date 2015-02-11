@@ -9,6 +9,7 @@
 				<tree string="Child">					
                     <field name="lastname"/>
                     <field name="firstname"/> 
+					<field name="parentid"/>
                     <field name="schoolimplantation"/>            
 				</tree>
 			</field>

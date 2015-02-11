@@ -249,10 +249,14 @@
             <field name="name">9e enfant</field>
             <field name="position">9</field>
         </record>
+   
         <record model="extraschool.childposition" id="extraschool_childposition_10">
             <field name="name">10e enfant</field>
             <field name="position">10</field>
         </record>
+        
+     
+        
         <record model="extraschool.parent" id="extraschool_parent_standard">
             <field name="name">Albert Einstein</field>
             <field name="firstname">Alfred</field>
@@ -511,7 +515,19 @@
             <field name="validity_from">2014-01-01</field>
             <field name="validity_to">2099-12-31</field>
         </record>        
-                
+        
+        <record model="extraschool.smartphone" id="extraschool_smartphone_ecole_parc">
+            <field name="name">Ecole du parc</field>
+            <field name="placeid"  eval="str(ref('extraschool_place_parc'))" />
+   			<field name="activitycategories_ids" eval="[(6, 0, [extraschool_activitycategory_garderies_byparent, ])]" />
+   			<field name="transmissiontime">22:00</field>
+            <field name="serveraddress">192.168.1.1:8069</field>
+            <field name="databasename">odoo_extraschool</field>
+            <field name="username">admin</field>
+            <field name="userpassword">admin</field>
+            <field name="scanmethod">QR</field>
+            <field name="transfertmethod">WIFI</field>
+		</record>                   
         <!-- ToDo activité pas trouvée car position enfant pas dans la liste -->
         <!-- ToDo un lieu d'accueil mais pas toutes les implantations -->
 		

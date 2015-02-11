@@ -53,7 +53,7 @@ class extraschool_activityoccurrence(osv.osv):
             
             res=[]
             for occurrence in self.browse(cr, uid, ids,context=context):
-                res.append((occurrence.id, occurrence.activityname + ' - ' + datetime.datetime.strptime(occurrence.occurrence_date, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y")))    
+                res.append((occurrence.id, occurrence.activityname + ' - ' + datetime.strptime(occurrence.occurrence_date, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y")))    
     
             return res    
         

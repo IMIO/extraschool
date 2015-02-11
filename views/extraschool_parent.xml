@@ -10,7 +10,8 @@
                     <field name="lastname"/> 
                     <field name="firstname"/>
                     <field name="zipcode"/>			
-				</tree>
+                    <field name="email"/>
+   				</tree>
 			</field>
 		</record>
         
