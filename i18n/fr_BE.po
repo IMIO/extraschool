@@ -6,15 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-10 10:30+0000\n"
-"PO-Revision-Date: 2015-02-10 11:31+0100\n"
+"POT-Creation-Date: 2015-02-11 10:51+0000\n"
+"PO-Revision-Date: 2015-02-11 11:55+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.4\n"
 "Language: fr_BE\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #. module: extraschool
 #: selection:extraschool.statsone_wizard,quarter:0
@@ -130,7 +130,7 @@ msgstr "Type d'activité"
 #. module: extraschool
 #: field:extraschool.prestationtimes,activity_name:0
 msgid "Activity Name"
-msgstr "Activity Name"
+msgstr "Nom de l'activité"
 
 #. module: extraschool
 #: field:extraschool.smartphone,activitycategories_ids:0
@@ -152,7 +152,7 @@ msgstr "Catégorie d'activité"
 #. module: extraschool
 #: field:extraschool.activity,activity_child_ids:0
 msgid "Activity child"
-msgstr "Activity child"
+msgstr "Activités liées"
 
 #. module: extraschool
 #: model:ir.model,name:extraschool.model_extraschool_activityexclusiondates
@@ -163,12 +163,12 @@ msgstr "Dates exclues"
 #: view:extraschool.activityoccurrence:extraschool.extraschool_activityoccurrence_search_view
 #: view:extraschool.prestationtimes:extraschool.prestationtimes_search_view
 msgid "Activity name"
-msgstr "Activity name"
+msgstr "Nom de l'activité"
 
 #. module: extraschool
 #: view:extraschool.activityoccurrence:extraschool.extraschool_activityoccurrence_cal
 msgid "Activity occurences"
-msgstr "Activity occurences"
+msgstr "Calendrier des activités"
 
 #. module: extraschool
 #: field:extraschool.prestationtimes,activity_occurrence_id:0
@@ -178,7 +178,7 @@ msgstr "Calendrier des activités"
 #. module: extraschool
 #: field:extraschool.prestationscheck_wizard,activitycategory:0
 msgid "Activitycategory"
-msgstr "Activitycategory"
+msgstr "Catégorie de l'activité"
 
 #. module: extraschool
 #: view:extraschool.prestationtimes:extraschool.prestationtimes_search_view
@@ -391,7 +391,7 @@ msgstr "Nom colonne prénom enfant"
 #. module: extraschool
 #: field:extraschool.prestation_times_of_the_day,child_id:0
 msgid "Child id"
-msgstr "Child id"
+msgstr "Enfant"
 
 #. module: extraschool
 #: model:ir.model,name:extraschool.model_extraschool_importlevelrule
@@ -724,6 +724,11 @@ msgstr "Nom base de données"
 #: field:extraschool.reject,paymentdate:0
 msgid "Date"
 msgstr "Date"
+
+#. module: extraschool
+#: view:extraschool.prestation_times_of_the_day:extraschool.prestation_times_of_the_day_search_view
+msgid "Date du jour"
+msgstr "Date du jour"
 
 #. module: extraschool
 #: field:extraschool.activityexclusiondates,date_from:0
@@ -1129,6 +1134,11 @@ msgstr "Factures"
 #: field:extraschool.biller,invoices_date:0
 msgid "Invoices date"
 msgstr "Date de factures"
+
+#. module: extraschool
+#: view:extraschool.invoice:extraschool.extraschool_invoice_graph
+msgid "Invoioces"
+msgstr "Invoioces"
 
 #. module: extraschool
 #: field:extraschool.activitycategory,invoicelastcomstruct:0
