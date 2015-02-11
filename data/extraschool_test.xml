@@ -258,9 +258,9 @@
      
         
         <record model="extraschool.parent" id="extraschool_parent_standard">
-            <field name="name">Albert Einstein</field>
-            <field name="firstname">Alfred</field>
-            <field name="lastname">Einstein</field>
+            <field name="name">Michael Jackson</field>
+            <field name="firstname">Michael</field>
+            <field name="lastname">Jackson</field>
             <field name="street">Rue des Petites Fleurs, 47</field>
             <field name="zipcode">5080</field>
             <field name="city">La Commune</field>
@@ -302,9 +302,9 @@
             <field name="remindersendmethod">emailandmail</field>
         </record>
         <record model="extraschool.child" id="extraschool_child_standard_1">
-            <field name="name">Nicolas Einstein</field>
+            <field name="name">Nicolas Jackson</field>
             <field name="firstname">Nicolas</field>
-            <field name="lastname">Einstein</field>
+            <field name="lastname">Jackson</field>
             <field name="childtypeid" eval="str(ref('extraschool_childtype_aucun'))" />
 			<field name="schoolimplantation" eval="str(ref('extraschool_schoolimplantation_parc'))" />
 			<field name="levelid" eval="str(ref('extraschool_level_m1'))" />
@@ -313,9 +313,9 @@
 			<field name="birthdate">2012-06-30</field>
         </record>
         <record model="extraschool.child" id="extraschool_child_standard_2">
-            <field name="name">Antoine Einstein</field>
+            <field name="name">Antoine Jackson</field>
             <field name="firstname">Antoine</field>
-            <field name="lastname">Einstein</field>
+            <field name="lastname">Jackson</field>
             <field name="childtypeid" eval="str(ref('extraschool_childtype_aucun'))" />
 			<field name="schoolimplantation" eval="str(ref('extraschool_schoolimplantation_parc'))" />
 			<field name="levelid" eval="str(ref('extraschool_level_m1'))" />
@@ -324,9 +324,9 @@
 			<field name="birthdate">2013-06-30</field>
         </record>
         <record model="extraschool.child" id="extraschool_child_standard_3">
-            <field name="name">Albert Einstein</field>
+            <field name="name">Albert Jackson</field>
             <field name="firstname">Justin</field>
-            <field name="lastname">Einstein</field>
+            <field name="lastname">Jackson</field>
             <field name="childtypeid" eval="str(ref('extraschool_childtype_aucun'))" />
 			<field name="schoolimplantation" eval="str(ref('extraschool_schoolimplantation_parc'))" />
 			<field name="levelid" eval="str(ref('extraschool_level_m1'))" />
