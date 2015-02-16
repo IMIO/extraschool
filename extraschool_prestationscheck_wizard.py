@@ -176,8 +176,8 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
         occurrence_leaf_rs = occurrence_no_register_rs.filtered(lambda r: not r.activityid.activity_child_ids)
 
         
-        if len(occurrence_leaf_rs) > 1:  #Error more than 1 occurrence found
-            return_val['error_msg'] = "More than one leaf occurrence found"
+        if len(occurrence_leaf_rs) > 1:  #Error more than 1 leaf occurrence found
+            return_val['error_msg'] = "Plusieurs activités trouvées"
             return return_val
 
         if occurrence_leaf_rs: #One occurrence found
@@ -188,8 +188,8 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
         #try to find a branch matching the time slot
         occurrence_branch_rs = occurrence_no_register_rs.filtered(lambda r: r.activityid.activity_child_ids)
         
-        if len(occurrence_branch_rs) > 1:  #Error more than 1 occurrence found
-            return_val['error_msg'] = "More than one branch occurrence found"
+        if len(occurrence_branch_rs) > 1:  #Error more than 1 obranch ccurrence found
+            return_val['error_msg'] = "Plusieurs activités trouvées"
             return return_val
 
         if occurrence_branch_rs: #One occurrence found

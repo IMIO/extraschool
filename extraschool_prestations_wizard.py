@@ -75,7 +75,7 @@ class extraschool_prestations_wizard(osv.osv_memory):
         cr,uid = self.env.cr,self.env.user.id
         view_prestations_ids = [prest.id for prest in self.prestations_id]
         to_delete_prestations_ids=obj_prestations.search(cr, uid, [('childid', '=', self.childid.id),('prestation_date', '=', self.prestation_date),('id','not in',view_prestations_ids)])
-        self.prestations_id.unlink(to_delete_prestations_ids)
+#        self.prestations_id.unlink(to_delete_prestations_ids)
         for prestation in self.prestations_id:
             if prestation.id:
                 prestation.write({'activitycategoryid':prestation.activitycategoryid.id,

@@ -307,7 +307,7 @@ class T_005_Test_ExtraSchool_PrestationCheck(common.TransactionCase):
         print str(return_val)
         #check return
         self.assertEqual(return_val['return_code'],0,'Activity found !!!')
-        self.assertEqual(return_val['error_msg'],"No matching occurrence found",'Activity found !!!')
+        self.assertEqual(return_val['error_msg'],"Pas d'activité trouvée",'Activity found !!!')
         
     test_15_test_fct.prestacheck = 1
     test_15_test_fct.get_prestation_activityid = 1

@@ -48,7 +48,7 @@
                 </page>
                 <page string="Childs">
                     <group col="4">
-                    <field name="child_ids"/>
+                    <field name="child_ids" nolabel="1"/>
                     </group>
                 </page>
                 <page string="Invoices">
@@ -75,7 +75,7 @@
                 </page>
                 <page string="Reminders">
                     <group col="4">
-                    <field name="reminder_ids">
+                    <field name="reminder_ids" nolabel="1">
                     <tree string="Reminders" version="7.0">
                         <field name="activitycategoryid"/>
                         <field name="transmissiondate"/>

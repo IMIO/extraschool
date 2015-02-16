@@ -6,15 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-11 10:51+0000\n"
-"PO-Revision-Date: 2015-02-11 11:55+0100\n"
+"POT-Creation-Date: 2015-02-11 19:57+0000\n"
+"PO-Revision-Date: 2015-02-11 22:25+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr_BE\n"
 "X-Generator: Poedit 1.5.4\n"
+"Language: fr_BE\n"
 
 #. module: extraschool
 #: selection:extraschool.statsone_wizard,quarter:0
@@ -89,7 +89,7 @@ msgstr "Calendrier des activités"
 #. module: extraschool
 #: model:ir.model,name:extraschool.model_extraschool_activitycategory
 msgid "Activities categories"
-msgstr "Type d'activités"
+msgstr "Types d'activités"
 
 #. module: extraschool
 #: model:ir.model,name:extraschool.model_extraschool_activityplanneddate
@@ -354,6 +354,11 @@ msgid "Child"
 msgstr "Enfant"
 
 #. module: extraschool
+#: view:extraschool.child:extraschool.extraschool_child_search_view
+msgid "Child Search"
+msgstr "Child Search"
+
+#. module: extraschool
 #: view:extraschool.activity:extraschool.extraschool_activity_form
 msgid "Child activities"
 msgstr "Activités enfant"
@@ -448,7 +453,7 @@ msgstr "Child prestation times"
 #: view:extraschool.activity:extraschool.extraschool_activity_form
 #: field:extraschool.activityoccurrence,child_registration_ids:0
 msgid "Child registration"
-msgstr "Child registration"
+msgstr "Inscriptions"
 
 #. module: extraschool
 #: field:extraschool.activity,childregistration_ids:0
@@ -765,7 +770,7 @@ msgstr "Jours"
 #. module: extraschool
 #: field:extraschool.activity,default_from_to:0
 msgid "Default From To"
-msgstr "Activité forfaitaire"
+msgstr "Début et/ou fin par défaut"
 
 #. module: extraschool
 #: field:extraschool.activity,default_from:0
@@ -944,7 +949,7 @@ msgstr "Période fixe"
 #: selection:extraschool.activity,default_from_to:0
 #: field:extraschool.activity,prest_from:0
 msgid "From"
-msgstr "De"
+msgstr "Début"
 
 #. module: extraschool
 #: selection:extraschool.activity,default_from_to:0
@@ -965,10 +970,11 @@ msgstr "GSM"
 #. module: extraschool
 #: view:extraschool.child:extraschool.extraschool_child_form
 msgid "Generate TagID"
-msgstr "Generer numero de badge"
+msgstr "Générer numéro de badge"
 
 #. module: extraschool
 #: view:extraschool.activityoccurrence:extraschool.extraschool_activityoccurrence_search_view
+#: view:extraschool.child:extraschool.extraschool_child_search_view
 #: view:extraschool.prestation_times_of_the_day:extraschool.prestation_times_of_the_day_search_view
 #: view:extraschool.prestationtimes:extraschool.prestationtimes_search_view
 msgid "Group by..."
@@ -982,7 +988,7 @@ msgstr "Groupé par..."
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_guardian
 #: model:ir.model,name:extraschool.model_extraschool_guardian
 msgid "Guardian"
-msgstr "Acceuillante"
+msgstr "Accueillante"
 
 #. module: extraschool
 #: model:ir.model,name:extraschool.model_extraschool_guardianprestationtimes
@@ -1293,7 +1299,7 @@ msgstr "Liens avec les autres activités"
 #. module: extraschool
 #: view:extraschool.activity:extraschool.extraschool_activity_form
 msgid "Location"
-msgstr "Lieux d'acceuil"
+msgstr "Lieux d'accueil"
 
 #. module: extraschool
 #: field:extraschool.childsimportfilter,majchildclassname:0
@@ -1432,7 +1438,7 @@ msgstr "Uniquement par courrier"
 #. module: extraschool
 #: field:extraschool.activity,onlyregisteredchilds:0
 msgid "Only registered childs"
-msgstr "Seulement les enfants inscripts"
+msgstr "Seulement les enfants inscrits"
 
 #. module: extraschool
 #: field:extraschool.discountrule,operator:0
@@ -2294,7 +2300,7 @@ msgstr "Valide du"
 #: field:extraschool.activity,validity_to:0
 #: field:extraschool.price_list_version,validity_to:0
 msgid "Validity to"
-msgstr "Valable jusqu'au"
+msgstr "Valide jusqu'au"
 
 #. module: extraschool
 #: field:extraschool.discountrule,value:0
@@ -2355,7 +2361,7 @@ msgstr "Activité"
 #. module: extraschool
 #: model:ir.model,name:extraschool.model_extraschool_activitychildregistration
 msgid "activity child registration"
-msgstr "Inscription"
+msgstr "Inscriptions"
 
 #. module: extraschool
 #: model:ir.model,name:extraschool.model_extraschool_activityoccurrence
@@ -2408,6 +2414,11 @@ msgstr "Enfants"
 #: view:extraschool.childsimportfilter:extraschool.extraschool_childsimportfilter_form
 msgid "childsimportfilter"
 msgstr "Filtre d'import enfant"
+
+#. module: extraschool
+#: view:extraschool.child:extraschool.extraschool_child_search_view
+msgid "classid"
+msgstr "classid"
 
 #. module: extraschool
 #: field:extraschool.mainsettings,codasfolder:0
@@ -2529,6 +2540,11 @@ msgid "lastqrcodenbr"
 msgstr "Dernier QRCode"
 
 #. module: extraschool
+#: view:extraschool.child:extraschool.extraschool_child_search_view
+msgid "levelid"
+msgstr "levelid"
+
+#. module: extraschool
 #: field:extraschool.activityoccurrence,activityname:0
 #: field:extraschool.remindertype,name:0
 msgid "name"
@@ -2553,6 +2569,11 @@ msgstr "oldid"
 #: field:extraschool.level,ordernumber:0
 msgid "ordernumber"
 msgstr "Numéro d'ordre"
+
+#. module: extraschool
+#: view:extraschool.child:extraschool.extraschool_child_search_view
+msgid "parentid"
+msgstr "parentid"
 
 #. module: extraschool
 #: model:ir.ui.menu,name:extraschool.extraschool_menu_place

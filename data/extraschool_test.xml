@@ -521,7 +521,7 @@
             <field name="placeid"  eval="str(ref('extraschool_place_parc'))" />
    			<field name="activitycategories_ids" eval="[(6, 0, [extraschool_activitycategory_garderies_byparent, ])]" />
    			<field name="transmissiontime">22:00</field>
-            <field name="serveraddress">192.168.1.1:8069</field>
+            <field name="serveraddress">192.168.1.3:8069</field>
             <field name="databasename">odoo_extraschool</field>
             <field name="username">admin</field>
             <field name="userpassword">admin</field>
