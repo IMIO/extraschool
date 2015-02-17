@@ -21,28 +21,24 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
+from openerp import models, api, fields
 
-class extraschool_activitychildregistration(osv.osv):
+
+class extraschool_activitychildregistration(models.Model):
     _name = 'extraschool.activitychildregistration'
     _description = 'activity child registration'
 
-    def name_get(self, cr, uid, ids, context={}):            
-            if not len(ids):
-                return []
-            
-            res=[]
-            for reg in self.browse(cr, uid, ids,context=context):
-                res.append((reg.id, reg.child_id.name + ' - ' + reg.place_id.name))    
-    
-            return res          
+    child_id = fields.Many2one('extraschool.child', 'Child', required=True)
+    place_id = fields.Many2one('extraschool.place', 'Place', required=True)        
+    activity_id = fields.Many2one('extraschool.activity', 'Activity', required=True)
+    registration_from = fields.Date('Registration from', required=True)
+    registration_to = fields.Date('Registration to', required=True)
 
-    _columns = {
-#        'name' : fields.function(_compute_name, method=True, type="char", string="Name"),
-        'child_id' : fields.many2one('extraschool.child', 'Child'),
-        'place_id' : fields.many2one('extraschool.place', 'Place', required=False),        
-        'activity_id' : fields.many2one('extraschool.activity', 'Activity'),
-        'registration_from' : fields.date('Registration from'),
-        'registration_to' : fields.date('Registration to'),
-    }
+    def name_get(self):            
+        res=[]
+        for reg in self:
+            res.append((reg.id, reg.child_id.name + ' - ' + reg.place_id.name))    
+
+        return res          
+
 extraschool_activitychildregistration()
