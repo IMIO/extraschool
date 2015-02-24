@@ -37,6 +37,7 @@ class extraschool_child(osv.osv):
             res[obj.id] = str(obj.lastname).encode('utf-8')+' '+str(obj.firstname).encode('utf-8')
 
         return res
+    
     def onchange_name(self, cr, uid, ids, lastname,firstname):
         v={}        
         if lastname:

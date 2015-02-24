@@ -26,12 +26,14 @@
         <menuitem name="Discounts" parent="extraschool_menu_signaletics" id="extraschool_menu_discount" action="action_extraschool_discount"/>
         <menuitem name="Guardians" parent="extraschool_menu_signaletics" id="extraschool_menu_guardian" action="action_extraschool_guardian"/>
         <menuitem name="Prestations" id="extraschool_menu_prestations" parent="menu_extraschool"/>
-        <menuitem action="action_lbsc_prestations_wizard" id="extraschool_menu_prestations_wizard" parent="extraschool_menu_prestations"/>
-        <menuitem action="action_lbsc_prestationscheck_wizard" id="extraschool_menu_prestationscheck_wizard" parent="extraschool_menu_prestations"/>       
+<!--         <menuitem action="action_lbsc_prestations_wizard" id="extraschool_menu_prestations_wizard" parent="extraschool_menu_prestations"/>
+ -->        <menuitem action="action_lbsc_prestationscheck_wizard" id="extraschool_menu_prestationscheck_wizard" parent="extraschool_menu_prestations"/>       
         <!-- menuitem name="Prestations" parent="extraschool_menu_prestations" id="extraschool_menu_prest" action="action_extraschool_prest"/ -->
         <menuitem name="Prestations" parent="extraschool_menu_prestations" id="extraschool_menu_prest_tree" action="action_extraschool_prest_tree" />
 <!--         <menuitem name="Prestations of the day à corriger" parent="extraschool_menu_prestations" id="extraschool_menu_prestation_times_of_the_day_tree_not_verified" action="action_extraschool_prestation_times_of_the_day_tree_not_verified" />
- -->        <menuitem name="Prestations of the day" parent="extraschool_menu_prestations" id="extraschool_menu_prestation_times_of_the_day_tree" action="action_extraschool_prestation_times_of_the_day_tree" />
+ -->
+        <menuitem name="Encodage manuel" parent="extraschool_menu_prestations" id="extraschool_menu_prestation_times_encodage_manuel_tree" action="action_extraschool_prestation_times_encodage_manuel_tree" /> 
+        <menuitem name="Prestations of the day" parent="extraschool_menu_prestations" id="extraschool_menu_prestation_times_of_the_day_tree" action="action_extraschool_prestation_times_of_the_day_tree" />
         <menuitem name="Documents" id="extraschool_menu_documents" parent="menu_extraschool"/>
         <menuitem action="action_lbsc_invoice_wizard" id="extraschool_menu_invoice_wizard" parent="extraschool_menu_documents"/>
         <menuitem action="action_extraschool_invoices" id="extraschool_menu_invoice" parent="extraschool_menu_documents"/>

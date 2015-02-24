@@ -30,7 +30,7 @@ class extraschool_activitychildregistration(models.Model):
 
     child_id = fields.Many2one('extraschool.child', 'Child', required=True)
     place_id = fields.Many2one('extraschool.place', 'Place', required=True)        
-    activity_id = fields.Many2one('extraschool.activity', 'Activity', required=True)
+    activity_id = fields.Many2one('extraschool.activity', 'Activity')
     registration_from = fields.Date('Registration from', required=True)
     registration_to = fields.Date('Registration to', required=True)
 
