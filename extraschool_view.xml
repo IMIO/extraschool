@@ -26,7 +26,6 @@
         <menuitem name="Discounts" parent="extraschool_menu_signaletics" id="extraschool_menu_discount" action="action_extraschool_discount"/>
         <menuitem name="Guardians" parent="extraschool_menu_signaletics" id="extraschool_menu_guardian" action="action_extraschool_guardian"/>
         <menuitem name="Prestations" id="extraschool_menu_prestations" parent="menu_extraschool"/>
-        <menuitem action="action_lbsc_prestations_wizard" id="extraschool_menu_prestations_wizard" parent="extraschool_menu_prestations"/>
         <menuitem action="action_lbsc_prestationscheck_wizard" id="extraschool_menu_prestationscheck_wizard" parent="extraschool_menu_prestations"/>       
         <!-- menuitem name="Prestations" parent="extraschool_menu_prestations" id="extraschool_menu_prest" action="action_extraschool_prest"/ -->
         <menuitem name="Prestations" parent="extraschool_menu_prestations" id="extraschool_menu_prest_tree" action="action_extraschool_prest_tree" />
@@ -37,7 +36,6 @@
         <menuitem action="action_extraschool_invoices" id="extraschool_menu_invoice" parent="extraschool_menu_documents"/>
         <menuitem action="action_lbsc_reminders_journal" id="extraschool_menu_reminders_journal" parent="extraschool_menu_documents"/>
         <menuitem action="action_lbsc_taxcertificates_wizard" id="extraschool_menu_taxcertificates_wizard" parent="extraschool_menu_documents"/>
-        <menuitem action="action_lbsc_statsone_wizard" id="extraschool_menu_statsone_wizard" parent="extraschool_menu_documents"/>
         <menuitem action="action_lbsc_qrcodes_wizard" id="extraschool_menu_qrcodes_wizard" parent="extraschool_menu_documents"/>
         <menuitem action="action_lbsc_childsworkbook_wizard" id="extraschool_menu_childsworkbook_wizard" parent="extraschool_menu_documents"/>                
         <menuitem action="action_lbsc_guardianprestationtimes_wizard" id="extraschool_menu_guardianprestationtimes_wizard" parent="extraschool_menu_documents"/>
