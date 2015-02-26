@@ -21,44 +21,43 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
+from openerp import models, api, fields
+from openerp.api import Environment
 from datetime import date
 import datetime
 
 
-class extraschool_child(osv.osv):
+class extraschool_child(models.Model):
     _name = 'extraschool.child'
     _description = 'Child'
-    def _name_compute(self, cr, uid, ids, fieldname, other, context=None):
 
-        res = dict.fromkeys(ids, '')
+    name = fields.Char(compute='_name_compute',string='FullName', size=100)
+    childtypeid = fields.Many2one('extraschool.childtype', 'Type',required=True)
+    firstname = fields.Char('FirstName', size=50, required=True)
+    lastname = fields.Char('LastName', size=50 , required=True)
+    schoolimplantation = fields.Many2one('extraschool.schoolimplantation', 'School implantation',required=True)
+    levelid = fields.Many2one('extraschool.level', 'Level', required=True)
+    classid = fields.Many2one('extraschool.class', 'Class', required=False)
+    parentid = fields.Many2one('extraschool.parent', 'Parent', required=True, ondelete='RESTRICT')
+    birthdate = fields.Date('Birthdate', required=True)
+    tagid = fields.Char('Tag ID', size=50)
+    otherref = fields.Char('Other ref', size=50)
+    isdisabled = fields.Boolean('Disabled')
+    oldid = fields.Integer('oldid')             
 
-        for obj in self.browse(cr, uid, ids, context=context):
-            res[obj.id] = str(obj.lastname).encode('utf-8')+' '+str(obj.firstname).encode('utf-8')
+    _sql_constraints = [
+        ('firstname_name_uniq', 'unique(name,firstname)',
+            'Name and firstname must be unique !'),
+    ]   
+     
+    @api.depends('firstname','lastname')
+    def _name_compute(self):
+        for record in self:
+            record.name = str(record.lastname).encode('utf-8') + ' ' + str(record.firstname).encode('utf-8')
 
-        return res
-    def onchange_name(self, cr, uid, ids, lastname,firstname):
-        v={}        
-        if lastname:
-            if firstname:
-                v['name']='%s %s' % (lastname, firstname)
-            else:
-                v['name']=lastname
-        return {'value':v}
-        
-    def return_action_to_open(self, cr, uid, ids, context=None):
-        """ This opens the xml view specified in xml_id for the current child """
-        if context is None:
-            context = {}
-        if context.get('xml_id'):
-            res = self.pool.get('ir.actions.act_window').for_xml_id(cr, uid ,'extraschool', context['xml_id'], context=context)
-            res['context'] = context
-            res['context'].update({'default_child_id': ids[0]})
-            res['domain'] = [('child_id','=', ids[0])]
-            return res
-        return False
     
-    def action_gentagid(self, cr, uid, ids, context=None):             
+    def action_gentagid(self, ids, context=None):   
+        cr, uid = self.env.cr, self.env.user.id          
         form = self.read(cr,uid,ids,)[-1]
         if not form['tagid']:
             obj_config = self.pool.get('extraschool.mainsettings')
@@ -67,46 +66,6 @@ class extraschool_child(osv.osv):
             return self.write(cr, uid, ids,{'tagid' : config['lastqrcodenbr']+1,}, context=context)
         else:
             return False
-    
-    _columns = {
-        'name' : fields.char('FullName', size=100),
-        'childtypeid' : fields.many2one('extraschool.childtype', 'Type',required=True),
-        'firstname' : fields.char('FirstName', size=50, required=True),
-        'lastname' : fields.char('LastName', size=50 , required=True),
-        'schoolimplantation' : fields.many2one('extraschool.schoolimplantation', 'School implantation',required=True),
-        'levelid' : fields.many2one('extraschool.level', 'Level', required=True),
-        'classid' : fields.many2one('extraschool.class', 'Class', required=False),
-        'parentid' : fields.many2one('extraschool.parent', 'Parent', required=True),
-        'birthdate' : fields.date('Birthdate', required=True),
-        'tagid' : fields.char('Tag ID', size=50),
-        'otherref' : fields.char('Other ref', size=50),
-        'isdisabled' : fields.boolean('Disabled'),
-        'oldid' : fields.integer('oldid'),
-        'toto' : fields.char('toto'),                
-    }
-    
-    def create(self, cr, uid, vals, *args, **kw):
-        child_obj = self.pool.get('extraschool.child')
-        child_ids=child_obj.search(cr, uid, [('firstname', 'ilike', vals['firstname'].strip()),('lastname', 'ilike', vals['lastname'].strip()),('birthdate', '=', vals['birthdate'])])
-        if len(child_ids) >0:
-            raise osv.except_osv('Erreur','Cet enfant a deja ete encode !!!'+vals['firstname']+' '+vals['lastname'])
-        return super(extraschool_child, self).create(cr, uid, vals)
-
-    def test(self, cr, uid, context=None):
-        print '***************************************************************'
-        print '***************************************************************'
-        if (False):
-            self.write(cr,uid,[1],{'toto':'tutu',})
-        else:
-            self.write(cr,uid,[1],{'toto':'titi',})
-            
-    def unlink(self, cr, uid, ids, context=None):
-        prestationtimes_obj = self.pool.get('extraschool.prestationtimes')
-        prestation_ids=prestationtimes_obj.search(cr, uid, [('childid', '=', ids[0])])
-        if len(prestation_ids) >0:
-            raise osv.except_osv('Error', 'You can not delete a child with prestations.')
-            return False
-        return super(extraschool_child, self).unlink(cr, uid, ids)
 
 extraschool_child()
 
