@@ -50,7 +50,6 @@ import extraschool_payment
 import extraschool_pdaprestationtimes
 import extraschool_place
 import extraschool_prestationscheck_wizard
-import extraschool_prestations_wizard
 import extraschool_prestationtimes
 import extraschool_prestation_times_of_the_day
 import extraschool_price_list
@@ -60,7 +59,6 @@ import extraschool_reminder
 import extraschool_remindersjournal
 import extraschool_remindertype
 import extraschool_smartphone
-import extraschool_statsone_wizard
 import extraschool_taxcertificates_wizard
 import extraschool_timecorrection_wizard
 import extraschool_scheduledtasks
