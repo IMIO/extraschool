@@ -154,19 +154,19 @@ class extraschool_invoice_wizard(models.TransientModel):
                                 amount=amount+(totactivities-float(discount['discount']))
         return amount
     
-    def _compute_invoices(self, cr, uid, form, context=None):
+    def _compute_invoices(self):
+        cr,uid = self.env.cr, self.env.user.id
         print "_compute_invoices"
-        obj_config = self.pool.get('extraschool.mainsettings')
-        obj_activitycategory = self.pool.get('extraschool.activitycategory')
-        config=obj_config.read(cr, uid, [1],['lastqrcodenbr','qrencode','tempfolder','templatesfolder'])[0]         
+        config = self.env['extraschool.mainsettings'].browse([1])
+        obj_activitycategory = self.env['extraschool.activitycategory']
         month_name=('','Janvier','Fevrier','Mars','Avril','Mai','Juin','Juillet','Aout','Septembre','Octobre','Novembre','Decembre')
         day_name=('Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche')
         
-        inv_obj = self.pool.get('extraschool.invoice')
-        obj_biller = self.pool.get('extraschool.biller')
-        obj_invoicedprest = self.pool.get('extraschool.invoicedprestations')
-        obj_parent = self.pool.get('extraschool.parent')
-        obj_prestation_times_of_the_day = self.pool.get('extraschool.prestation_times_of_the_day')
+        inv_obj = self.env['extraschool.invoice']
+        obj_biller = self.env['extraschool.biller']
+        obj_invoicedprest = self.env['extraschool.invoicedprestations']
+        obj_parent = self.env['extraschool.parent']
+        obj_prestation_times_of_the_day = self.env['extraschool.prestation_times_of_the_day']
         
         #a faire: verifier si toutes les prestations sont verifiees
                              
@@ -178,24 +178,33 @@ class extraschool_invoice_wizard(models.TransientModel):
             invoicenum=0
         
         #creation of new biller
-        activitycatid=form['activitycategory'][0]
-        biller_id = obj_biller.create(cr, uid, {'activitycategoryid':form['activitycategory'][0],'period_from':form['period_from'],'period_to':form['period_to'],'payment_term':form['invoice_term'],'invoices_date':form['invoice_date']}, context=context)
-        print "school implantation : " + str(form['schoolimplantationid'])
-        for schoolimplantationid in form['schoolimplantationid']:
-            print "in loop for school : " + str(schoolimplantationid)
+        activitycatid=self.activitycategory
+        biller = obj_biller.create({'activitycategoryid' : self.activitycategory.id,
+                                       'period_from' : self.period_from,
+                                       'period_to' : self.period_to,
+                                       'payment_term' : self.invoice_term,
+                                       'invoices_date' : self.invoice_date})
+
+        print "school implantation : " + str(self.schoolimplantationid)
+        for schoolimplantation in self.schoolimplantationid:
+            print "in loop for school : " + str(schoolimplantation)
             #Superb sql query to loop on parents to invoice order by classes
-            cr.execute('select distinct(parentid),schoolimplantation,classid,streetcode from extraschool_child left join extraschool_parent on parentid=extraschool_parent.id where schoolimplantation=%s and extraschool_child.id in (select childid from extraschool_prestationtimes where prestation_date >=%s and prestation_date <= %s and activitycategoryid=%s) and extraschool_child.id not in (select childid from extraschool_invoicedprestations left join extraschool_activity on activityid=extraschool_activity.id where prestation_date >=%s and prestation_date <= %s and category=%s) order by classid',(schoolimplantationid,form['period_from'],form['period_to'],form['activitycategory'][0],form['period_from'],form['period_to'],form['activitycategory'][0]))
+            cr.execute('select distinct(parentid),schoolimplantation,classid,streetcode from extraschool_child left join extraschool_parent on parentid=extraschool_parent.id where schoolimplantation=%s and extraschool_child.id in (select childid from extraschool_prestationtimes where prestation_date >=%s and prestation_date <= %s and activitycategoryid=%s) and extraschool_child.id not in (select childid from extraschool_invoicedprestations left join extraschool_activity on activityid=extraschool_activity.id where prestation_date >=%s and prestation_date <= %s and category=%s) order by classid',(schoolimplantation.id,self.period_from,self.period_to,self.activitycategory.id,self.period_from,self.period_to,self.activitycategory.id))
             parents=cr.dictfetchall()
             print "parents : " + str(parents)
             totalperiods=0            
             for parent in parents:
                 invoicenum=invoicenum+1
-                invoice_id=inv_obj.create(cr, uid, {'filename':'Facture'+str(invoicenum)+'.pdf','schoolimplantationid':schoolimplantationid,'parentid':parent['parentid'],'number':invoicenum,'biller_id':biller_id})
+                invoice = inv_obj.create({'filename' : 'Facture'+str(invoicenum)+'.pdf',
+                                           'schoolimplantationid' : schoolimplantation.id,
+                                           'parentid' : parent['parentid'],
+                                           'number' : invoicenum,
+                                           'biller_id' : biller.id})
                 total=0
 
                 toinvoice = True                #get parameters of activity category
 
-                activitycat=obj_activitycategory.read(cr, uid, [activitycatid],['invoicecomstructprefix','invoicelastcomstruct','invoicetemplate','childpositiondetermination'])[0]
+                activitycat=obj_activitycategory.browse(activitycatid.id)
                 #get childs of the parent order by birthdate
                 cr.execute('select * from extraschool_child where parentid=%s and isdisabled=FALSE order by birthdate',(parent['parentid'],))
                 childs=cr.dictfetchall()                
@@ -203,21 +212,24 @@ class extraschool_invoice_wizard(models.TransientModel):
                 discountamount = 0.0
                 for child in childs:                    
                     #loop on prestas_of_the_days
-                    prestation_times_of_the_day_ids = obj_prestation_times_of_the_day.search(cr,uid,[('child_id.id','=',child['id']),
+                    prestation_times_of_the_days = obj_prestation_times_of_the_day.search([('child_id.id','=',child['id']),
                                                                                                      ('verified','=',True)],
                                                                                                      order = 'date_of_the_day')
                                   
                     childactivities = {}
                     daychildactivities = {}
-                    for prestation_times_of_the_day in obj_prestation_times_of_the_day.browse(cr,uid,prestation_times_of_the_day_ids):                        
+                    print "-------------------------"
+                    print str(activitycat.childpositiondetermination)
+                    print "+++++++++++++++++++++++++++"
+                    for prestation_times_of_the_day in prestation_times_of_the_days:                        
                         #child position detection to extract in a function
-                        if activitycat['childpositiondetermination']=='byaddress':
+                        if activitycat.childpositiondetermination == 'byaddress':
                             cr.execute('select * from extraschool_child where parentid in (select id from extraschool_parent where streetcode ilike %s) and isdisabled=FALSE order by birthdate',(parent['streetcode'],))
-                        elif activitycat['childpositiondetermination']=='byaddresswp':
+                        elif activitycat.childpositiondetermination =='byaddresswp':
                             cr.execute('select * from extraschool_child where parentid in (select id from extraschool_parent where streetcode ilike %s) and isdisabled=FALSE and id in (select childid from extraschool_prestationtimes where prestation_date=%s) order by birthdate',(parent['streetcode'],prestation_times_of_the_day.date_of_the_day))
-                        elif activitycat['childpositiondetermination']=='byparent':
+                        elif activitycat.childpositiondetermination == 'byparent':
                             cr.execute('select * from extraschool_child where parentid=%s and isdisabled=FALSE order by birthdate',(parent['parentid'],))
-                        elif activitycat['childpositiondetermination']=='byparentwp':
+                        elif activitycat.childpositiondetermination == 'byparentwp':
                             cr.execute('select * from extraschool_child where parentid=%s and isdisabled=FALSE and id in (select childid from extraschool_prestationtimes where prestation_date=%s) order by birthdate',(parent['parentid'],prestation_times_of_the_day.date_of_the_day))
                         childsforposition=cr.dictfetchall()
                         childpos=1
@@ -249,12 +261,12 @@ class extraschool_invoice_wizard(models.TransientModel):
                                 total=total+(quantity*activity['price'])
                                 totalperiods=totalperiods+quantity                                           
 
-                                objid=obj_invoicedprest.create(cr, uid, {'invoiceid':invoice_id,
-                                                                         'childid':child['id'],
-                                                                         'prestation_date':prestation_times_of_the_day.date_of_the_day,
-                                                                         'activityid':activity['id'],
-                                                                         'quantity':quantity,
-                                                                         'placeid':occurrence.place_id.id})                                    
+                                objid=obj_invoicedprest.create({'invoiceid':invoice.id,
+                                                                 'childid':child['id'],
+                                                                 'prestation_date':prestation_times_of_the_day.date_of_the_day,
+                                                                 'activityid':activity['id'],
+                                                                 'quantity':quantity,
+                                                                 'placeid':occurrence.place_id.id})                                    
 #                             childactivities[str(activity['id'])]=totalactivity
 #                             daychildactivities[str(activity['id'])]=daychildactivities[str(activity['id'])]+totalactivity
 
@@ -264,8 +276,8 @@ class extraschool_invoice_wizard(models.TransientModel):
                     discountamount = 0 #to do ... delelete asap when the fct discount amount is ok
                     
                     #get the list of month matching the invoicing period
-                    period_from=datetime.datetime.strptime(form['period_from'], '%Y-%m-%d').date()
-                    period_to=datetime.datetime.strptime(form['period_to'], '%Y-%m-%d').date()
+                    period_from=datetime.datetime.strptime(self.period_from, '%Y-%m-%d').date()
+                    period_to=datetime.datetime.strptime(self.period_to, '%Y-%m-%d').date()
                     start_month=period_from.month
                     end_months=(period_to.year-period_from.year)*12 + period_to.month+1
                     months=[{'year':yr, 'month':mn} for (yr, mn) in (
@@ -343,7 +355,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                 if toinvoice == True:
                     total = total - discountamount
                     if total <=0:
-                        inv_obj.unlink(cr, uid, [invoice_id])
+                        inv_obj.unlink(cr, uid, [invoice.id])
                     else:
                         comstruct=activitycat['invoicecomstructprefix']
                         numstruct=activitycat['invoicelastcomstruct']
@@ -360,16 +372,33 @@ class extraschool_invoice_wizard(models.TransientModel):
                         if (len(numverif)==1):
                             numverif='0'+numverif
                         comstruct=comstruct+numverif
-                        childparent=obj_parent.read(cr, uid, [parent['parentid']],['name','street','zipcode','city','invoicesendmethod'])[0]
-                        tmpinvoice={'date':lbutils.strdate(form['invoice_date']),'term':lbutils.strdate(form['invoice_term']),'parentname':childparent['name'],'parentstreet':childparent['street'],'parentzipcode':childparent['zipcode'],'parentcity':childparent['city'],'discount':'%.2f' % round(discountamount, 2),'structcom':comstruct[0:3]+'/'+comstruct[3:7]+'/'+comstruct[7:12],'amount_total':'%.2f' % round(total, 2),'schoolimplantationid':schoolimplantationid,'number':invoicenum,'totalperiods':totalperiods}
-                        renderer = appy.pod.renderer.Renderer(config['templatesfolder']+activitycat['invoicetemplate'], {'invoice':tmpinvoice,'childs': tmpchilds}, config['tempfolder']+'fact'+str(invoice_id)+'.pdf')                
+                        childparent=obj_parent.browse(parent['parentid']).read(['name','street','zipcode','city','invoicesendmethod'])[0]
+                        tmpinvoice={'date' : lbutils.strdate(self.invoice_date),
+                                    'term' : lbutils.strdate(self.invoice_term),
+                                    'parentname' : childparent['name'],
+                                    'parentstreet':childparent['street'],
+                                    'parentzipcode':childparent['zipcode'],
+                                    'parentcity':childparent['city'],
+                                    'discount':'%.2f' % round(discountamount, 2),
+                                    'structcom':comstruct[0:3]+'/'+comstruct[3:7]+'/'+comstruct[7:12],
+                                    'amount_total':'%.2f' % round(total, 2),
+                                    'schoolimplantationid':schoolimplantation.id,
+                                    'number':invoicenum,
+                                    'totalperiods':totalperiods}
+                        renderer = appy.pod.renderer.Renderer(config['templatesfolder']+activitycat['invoicetemplate'], {'invoice':tmpinvoice,'childs': tmpchilds}, config['tempfolder']+'fact'+str(invoice.id)+'.pdf')                
                         renderer.run()
                         if (childparent['invoicesendmethod'] == 'emailandmail') or (childparent['invoicesendmethod'] == 'onlybymail'):
-                            invoicefiles.append(config['tempfolder']+'fact'+str(invoice_id)+'.pdf')
-                        outfile = open(config['tempfolder']+'fact'+str(invoice_id)+'.pdf','r').read()
+                            invoicefiles.append(config['tempfolder']+'fact'+str(invoice.id)+'.pdf')
+                        outfile = open(config['tempfolder']+'fact'+str(invoice.id)+'.pdf','r').read()
                         out=base64.b64encode(outfile)
-                        objid=inv_obj.write(cr, uid, [invoice_id],{'discount':round(discountamount,2),'structcom':comstruct,'amount_total':round(total,2),'amount_received':0,'balance':round(total,2),'no_value':0,'invoice_file':out})
-                        obj_activitycategory.write(cr, uid, [activitycatid],{'invoicelastcomstruct':numstruct})
+                        invoice.write({'discount' : round(discountamount,2),
+                                       'structcom' : comstruct,
+                                       'amount_total' : round(total,2),
+                                       'amount_received' : 0,
+                                       'balance' : round(total,2),
+                                       'no_value' : 0,
+                                       'invoice_file' : out})
+                        activitycat.invoicelastcomstruct = numstruct
                     total=0                    
                     toinvoice = False                
                     tmpfacture={}
@@ -388,13 +417,17 @@ class extraschool_invoice_wizard(models.TransientModel):
         outfile.close()
         outfile = open(config['tempfolder']+"factures.pdf","r").read()
         out=base64.b64encode(outfile)
-        obj_biller.write(cr, uid, [biller_id],{'filename':'factures.pdf','biller_file':out})
-        return {'state':'compute_invoices', 'invoices':out, 'name':'factures.pdf'}
         
-    def action_compute_invoices(self, cr, uid, ids, context=None):   
-        form = self.read(cr,uid,ids,)[-1] 
-        form['schoolimplantationid']=self._schoolimplantationids    
-        return self.write(cr, uid, ids, self._compute_invoices(cr, uid, form))
+        
+        biller.write({'filename' : 'factures.pdf',
+                      'biller_file' : out})
+
+        return {'state':'compute_invoices', 'invoices':out, 'name':'factures.pdf'}
+    
+    @api.multi    
+    def action_compute_invoices(self):   
+        self.write(self._compute_invoices())
+        
 
 
 extraschool_invoice_wizard()
