@@ -21,28 +21,29 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
+from openerp import models, api, fields
+from openerp.api import Environment
 
-class extraschool_mainsettings(osv.osv):
+class extraschool_mainsettings(models.Model):
     _name = 'extraschool.mainsettings'
     _description = 'Main Settings'
 
-    _columns = {
-        'lastqrcodenbr' : fields.integer('lastqrcodenbr'),
-        'qrencode' : fields.char('qrencode', size=80),
-        'tempfolder' : fields.char('tempfolder', size=80),
-        'templatesfolder' : fields.char('templatesfolder', size=80),
-        'codasfolder' : fields.char('codasfolder', size=80),
-        'processedcodasfolder' : fields.char('processedcodasfolder', size=80),
-        'emailfornotifications': fields.char('Email for notifications', size=80),
-    }
-    
-    def update(self, cr, uid, ids, context=None):
+    lastqrcodenbr = fields.Integer('lastqrcodenbr')
+    qrencode = fields.Char('qrencode', size=80)
+    tempfolder = fields.Char('tempfolder', size=80)
+    templatesfolder = fields.Char('templatesfolder', size=80)
+    codasfolder = fields.Char('codasfolder', size=80)
+    processedcodasfolder = fields.Char('processedcodasfolder', size=80)
+    emailfornotifications = fields.Char('Email for notifications', size=80)
+
+    @api.one
+    def update(self):
         obj_config = self.pool.get('extraschool.mainsettings')
         form = self.read(cr,uid,ids,)[-1]
         mainsettings_id = obj_config.write(cr, uid, ids[0], {'lastqrcodenbr':form['lastqrcodenbr'],'qrencode':form['qrencode'],'tempfolder':form['tempfolder'],'templatesfolder':form['templatesfolder'],'codasfolder':form['codasfolder'],'processedcodasfolder':form['processedcodasfolder']}, context=context)
         return {'warning': {'title': 'Record saved','message': 'record saved!',}}
         
-    def initdef(self, cr, uid, ids, context=None):
+    def initdef(self):
         pass
+    
 extraschool_mainsettings()

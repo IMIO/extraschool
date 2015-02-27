@@ -52,6 +52,8 @@ import extraschool_place
 import extraschool_prestationscheck_wizard
 import extraschool_prestationtimes
 import extraschool_prestation_times_of_the_day
+import extraschool_prestation_times_manuel
+import extraschool_prestation_times_encodage_manuel
 import extraschool_price_list
 import extraschool_qrcodes_wizard
 import extraschool_reject

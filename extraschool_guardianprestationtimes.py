@@ -21,17 +21,17 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
+from openerp import models, api, fields
+from openerp.api import Environment
 
-class extraschool_guardianprestationtimes(osv.osv):
+class extraschool_guardianprestationtimes(models.Model):
     _name = 'extraschool.guardianprestationtimes'
     _description = 'Guardian Prestation Times'
     
-    _columns = {        
-        'guardianid' : fields.many2one('extraschool.guardian', 'Guardian', required=False),
-        'prestation_date' : fields.date('Date'),
-        'prestation_time' : fields.float('Time'),
-        'ES' : fields.selection((('E','In'), ('S','Out')),'ES' ),         
-        'manualy_encoded' : fields.boolean('Manualy encoded'),
-    }
+    guardianid = fields.Many2one('extraschool.guardian', 'Guardian', required=False)
+    prestation_date = fields.Date('Date')
+    prestation_time = fields.Float('Time')
+    es = fields.Selection((('E','In'), ('S','Out')),'ES' )         
+    manualy_encoded = fields.Boolean('Manualy encoded')
+
 extraschool_guardianprestationtimes()

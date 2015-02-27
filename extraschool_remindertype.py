@@ -21,16 +21,16 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
+from openerp import models, api, fields
+from openerp.api import Environment
 
-class extraschool_remindertype(osv.osv):
+class extraschool_remindertype(models.Model):
     _name = 'extraschool.remindertype'
     _description = 'Reminder type'
 
-    _columns = {
-        'name' : fields.char('name', size=50),
-        'order' : fields.integer('Order'),
-        'fees' : fields.float('Amount'),
-        'template' : fields.char('Template', size=50),        
-    }
+    name = fields.Char('name', size=50)
+    order = fields.Integer('Order')
+    fees = fields.Float('Amount')
+    template = fields.Char('Template', size=50)        
+
 extraschool_remindertype()

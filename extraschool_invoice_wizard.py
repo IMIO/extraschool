@@ -21,7 +21,8 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
+from openerp import models, api, fields
+from openerp.api import Environment
 from datetime import date
 import datetime
 import calendar
@@ -36,19 +37,13 @@ import re
 from math import *
 from pyPdf import PdfFileWriter, PdfFileReader
 
-class extraschool_invoice_wizard(osv.osv_memory):
+class extraschool_invoice_wizard(models.TransientModel):
     _name = 'extraschool.invoice_wizard'
     _schoolimplantationids = []
 
-    def _get_schoolimplantations(self, cr, uid, ids, field_names, arg=None, context=None):
-        result = {ids[0]: self._schoolimplantationids, 'nodestroy': True}
-        return result
-
-    def _set_schoolimplantations(self, cr, uid, ids, field_names, value, arg=None, context=None):
-        self._schoolimplantationids=value[0][2]
-    
-    def _get_defaultfrom(self,cr, uid, ids, context=None):
+    def _get_defaultfrom(self):
         #to do remove it when test is finished
+        cr,uid = self.env.cr, self.env.user.id
         return '2014-01-01'
         cr.execute('select max(prestation_date) as prestation_date from extraschool_invoicedprestations')
         rec=cr.dictfetchall()[0]
@@ -66,8 +61,9 @@ class extraschool_invoice_wizard(osv.osv_memory):
         except:
             return str(datetime.date(datetime.datetime.now().year,datetime.datetime.now().month,1))
             
-    def _get_defaultto(self,cr, uid, ids, context=None):
+    def _get_defaultto(self):
         #todate=datetime.date(2013,11,1)
+        cr,uid = self.env.cr, self.env.user.id
         cr.execute('select max(prestation_date) as prestation_date from extraschool_invoicedprestations')
         lastdate = cr.dictfetchall()[0]['prestation_date']
         if lastdate and (lastdate < datetime.datetime.now().strftime("%Y-%m-%d")):
@@ -83,38 +79,31 @@ class extraschool_invoice_wizard(osv.osv_memory):
         return str(todate)
 
         
-    def _get_defaultinvdate(cr, uid, ids, context=None):
+    @api.one
+    def _get_defaultinvdate(self):
         invdate=datetime.date(datetime.datetime.now().year,datetime.datetime.now().month,datetime.datetime.now().day)+datetime.timedelta(1)
-        return str(invdate)
+        self.period_from = str(invdate)
     
-    def _get_defaultinvterm(cr, uid, ids, context=None):
+    @api.one
+    def _get_defaultinvterm(self):
         termdate=datetime.date(datetime.datetime.now().year,datetime.datetime.now().month,datetime.datetime.now().day)+datetime.timedelta(16)
-        return str(termdate)
+        self.period_from = str(termdate)
 
-    _columns = {        
-        'schoolimplantationid' : fields.function(fnct=_get_schoolimplantations,fnct_inv=_set_schoolimplantations, method=True, type='many2many', relation='extraschool.schoolimplantation', string='School implantations'), 
-        'activitycategory' : fields.many2one('extraschool.activitycategory', 'Activity category', required=True),        
-        'period_from' : fields.date('Period from', required=True),
-        'period_to' : fields.date('Period to', required=True),
-        'invoice_date' : fields.date('invoice date', required=True),
-        'invoice_term' : fields.date('invoice term', required=True),
-        'name': fields.char('File Name', 16, readonly=True),
-        'invoices': fields.binary('File', readonly=True),
-        'state' : fields.selection(
-            [('init', 'Init'),('compute_invoices', 'Compute invoices')],
-            'State', required=True
-        ),
-    }
-
-    _defaults = {
-        'state' : lambda *a: 'init',
-        #'schoolimplantationid' : lambda *a: [(6,0,[3])],
-        'activitycategory' : lambda *a: 1,
-        'period_from' : _get_defaultfrom,
-        'period_to' : _get_defaultto,
-        'invoice_date' : _get_defaultinvdate,
-        'invoice_term' : _get_defaultinvterm,
-    }
+    schoolimplantationid = fields.Many2many(comodel_name='extraschool.schoolimplantation',
+                               relation='extraschool_invoice_wizard_schoolimplantation_rel',
+                               column1='invoice_wizard_id',
+                               column2='schoolimplantation_id')
+    activitycategory = fields.Many2one('extraschool.activitycategory', 'Activity category', required=True, default=1)        
+    period_from = fields.Date('Period from', required=True, default=_get_defaultfrom)
+    period_to = fields.Date('Period to', required=True, default=_get_defaultto)
+    invoice_date = fields.Date('invoice date', required=True, default=_get_defaultinvdate)
+    invoice_term = fields.Date('invoice term', required=True, default=_get_defaultinvterm)
+    name = fields.Char('File Name', size=16, readonly=True)
+    invoices = fields.Binary('File', readonly=True)
+    state = fields.Selection([('init', 'Init'),
+                              ('compute_invoices', 'Compute invoices')],
+                             'State', required=True, default='init'
+                             )
 
     def computediscount(self, cr, uid,childid,period,childtypeid,childactivities):
         amount=0.0
@@ -190,7 +179,7 @@ class extraschool_invoice_wizard(osv.osv_memory):
         
         #creation of new biller
         activitycatid=form['activitycategory'][0]
-        biller_id = obj_biller.create(cr, uid, {'activitycategoryid':form['activitycategory'][0],'period_from':form['period_from'],'period_to':form['period_to'],'payment_term':form['invoice_term'],'invoice_date':form['invoice_date']}, context=context)
+        biller_id = obj_biller.create(cr, uid, {'activitycategoryid':form['activitycategory'][0],'period_from':form['period_from'],'period_to':form['period_to'],'payment_term':form['invoice_term'],'invoices_date':form['invoice_date']}, context=context)
         print "school implantation : " + str(form['schoolimplantationid'])
         for schoolimplantationid in form['schoolimplantationid']:
             print "in loop for school : " + str(schoolimplantationid)

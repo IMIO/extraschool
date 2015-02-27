@@ -21,26 +21,23 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
+from openerp import models, api, fields
+from openerp.api import Environment
 
-class extraschool_guardian(osv.osv):
+class extraschool_guardian(models.Model):
     _name = 'extraschool.guardian'
     _description = 'Guardian'
     
-    def onchange_name(self, cr, uid, ids, lastname,firstname):        
-        v={}        
-        if lastname:
-            if firstname:
-                v['name']='%s %s' % (lastname, firstname)
-            else:
-                v['name']=lastname
-        return {'value':v}
-    
-    _columns = {
-        'name' : fields.char('FullName', size=100),
-        'firstname' : fields.char('FirstName', size=50),
-        'lastname' : fields.char('LastName', size=50 , required=True),
-        'tagid' : fields.char('Tag ID', size=50),
-        'oldid' : fields.integer('oldid'),                
-    }
+    name = fields.Char(compute='_name_compute',string='FullName', size=100)
+    firstname = fields.Char('FirstName', size=50)
+    lastname = fields.Char('LastName', size=50 , required=True)
+    tagid = fields.Char('Tag ID', size=50)
+    oldid = fields.Integer('oldid')             
+
+    @api.depends('firstname','lastname')
+    def _name_compute(self):
+        for record in self:
+            record.name = str(record.lastname).encode('utf-8') + ' ' + str(record.firstname).encode('utf-8')
+       
+
 extraschool_guardian()

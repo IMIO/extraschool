@@ -21,58 +21,56 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
+from openerp import models, api, fields
+from openerp.api import Environment
 from datetime import date, datetime, timedelta as td
 
 
-class extraschool_activity(osv.osv):
+class extraschool_activity(models.Model):
     _name = 'extraschool.activity'
     _description = 'activity'
 
-    _columns = {
-        'name' : fields.char('Name', size=50),
-        'category' : fields.many2one('extraschool.activitycategory', 'Category'),
-        'placeids'  : fields.many2many('extraschool.place','extraschool_activity_place_rel', 'activity_id', 'place_id','Schoolcare place'),
-        'parent_id' : fields.many2one('extraschool.activity', 'Parent'),
-        'root_id' : fields.many2one('extraschool.activity', 'Root'),
-        'activity_child_ids' : fields.one2many('extraschool.activity', 'parent_id','Activity child'),
-        'schoolimplantationids'  : fields.many2many('extraschool.schoolimplantation','extraschool_activity_schoolimplantation_rel', 'activity_id', 'schoolimplantation_id','Schoolcare schoolimplantation'),
-        'short_name' : fields.char('Short name', size=20),        
-        'childtype_ids' : fields.many2many('extraschool.childtype','extraschool_activity_childtype_rel', 'activity_id', 'childtype_id','Child type'),                        
-        'childregistration_ids' : fields.one2many('extraschool.activitychildregistration', 'activity_id','Child registrations'),
-        'autoaddchilds' : fields.boolean('Auto add registered'),                
-        'onlyregisteredchilds' : fields.boolean('Only registered childs'),                
-        'planneddates_ids' : fields.many2many('extraschool.activityplanneddate','extraschool_activity_activityplanneddate_rel', 'activity_id', 'activityplanneddate_id','Planned dates'),        
-        'exclusiondates_ids' : fields.many2many('extraschool.activityexclusiondates','extraschool_activity_activityexclusiondates_rel', 'activity_id', 'activityexclusiondates_id','Exclusion dates'),        
-        'days' : fields.selection((('0,1,2,3,4','All Monday to Friday'),('0','All Mondays'),('1','All Tuesdays'),('2','All Wednesdays'),('3','All Thursdays'),('4','All Fridays'),('0,1,3,4','All Mondays, Tuesdays, Thursday and Friday')),'Days'),
-        'leveltype' : fields.selection((('M,P','Maternelle et Primaire'),('M','Maternelle'),('P','Primaire')),'Level type'),
-        'prest_from' : fields.float('From'),
-        'prest_to' : fields.float('To'),        
-        'price' : fields.float('Price',digits=(7,3)),
-        'price_list_id' : fields.many2one('extraschool.price_list', 'Price List'),     
-        'period_duration' : fields.integer('Period Duration'),  
-        'default_from_to' : fields.selection((('from','From'),('to','To'),('from_to','From and To')),'Default From To'),  
-        'default_from' : fields.float('Default from'),
-        'default_to' : fields.float('Default to'),
-        'fixedperiod': fields.boolean('Fixed period'),
-        'subsidizedbyone': fields.boolean('Subsidized by one'),
-        'validity_from' : fields.date('Validity from'),
-        'validity_to' : fields.date('Validity to')
-    }
-    _defaults = {
-        'fixedperiod' : lambda *a: False,
-    }
-    
-    def populate_occurrence(self,cr,uid,ids,date_from = None):
-        activityoccurrence = self.pool.get('extraschool.activityoccurrence')
-        activity_obj = self.pool.get('extraschool.activity')
-        for activity in activity_obj.browse(cr,uid,ids):
+    name = fields.Char('Name', size=100, required=True)
+    category = fields.Many2one('extraschool.activitycategory', 'Category')
+    parent_id = fields.Many2one('extraschool.activity', 'Parent')
+    root_id = fields.Many2one('extraschool.activity', 'Root')
+    activity_child_ids = fields.One2many('extraschool.activity', 'parent_id','Activity child')
+    placeids  = fields.Many2many('extraschool.place','extraschool_activity_place_rel', 'activity_id', 'place_id','Schoolcare place')
+    schoolimplantationids = fields.Many2many('extraschool.schoolimplantation','extraschool_activity_schoolimplantation_rel', 'activity_id', 'schoolimplantation_id','Schoolcare schoolimplantation')
+    short_name = fields.Char('Short name', size=20)        
+    childtype_ids = fields.Many2many('extraschool.childtype','extraschool_activity_childtype_rel', 'activity_id', 'childtype_id','Child type')                        
+    childregistration_ids = fields.One2many('extraschool.activitychildregistration', 'activity_id','Child registrations')
+    autoaddchilds = fields.Boolean('Auto add registered')                
+    onlyregisteredchilds = fields.Boolean('Only registered childs')               
+    planneddates_ids = fields.Many2many('extraschool.activityplanneddate','extraschool_activity_activityplanneddate_rel', 'activity_id', 'activityplanneddate_id','Planned dates')        
+    exclusiondates_ids = fields.Many2many('extraschool.activityexclusiondates','extraschool_activity_activityexclusiondates_rel', 'activity_id', 'activityexclusiondates_id','Exclusion dates')        
+    days = fields.Selection((('0,1,2,3,4','All Monday to Friday'),('0','All Mondays'),('1','All Tuesdays'),('2','All Wednesdays'),('3','All Thursdays'),('4','All Fridays'),('0,1,3,4','All Mondays, Tuesdays, Thursday and Friday')),'Days')
+    leveltype = fields.Selection((('M,P','Maternelle et Primaire'),('M','Maternelle'),('P','Primaire')),'Level type')
+    prest_from = fields.Float('From')
+    prest_to = fields.Float('To')        
+    price = fields.Float('Price',digits=(7,3))
+    price_list_id = fields.Many2one('extraschool.price_list', 'Price List')    
+    period_duration = fields.Integer('Period Duration')  
+    default_from_to = fields.Selection((('from','From'),('to','To'),('from_to','From and To')),'Default From To') 
+    default_from = fields.Float('Default from')
+    default_to = fields.Float('Default to')
+    fixedperiod = fields.Boolean('Fixed period',default=False)
+    subsidizedbyone = fields.Boolean('Subsidized by one')
+    validity_from = fields.Date('Validity from')
+    validity_to = fields.Date('Validity to')
+
+        
+    def populate_occurrence(self,date_from = None):
+        cr,uid = self.env.cr, self.env.user.id
+        
+        activityoccurrence = self.env['extraschool.activityoccurrence']
+        for activity in self:
             if len(activity.planneddates_ids):
                 for planneddate in activity.planneddates_ids:
                     for place in activity.placeids:
-                        activityoccurrence.create(cr,uid,{'place_id' : place.id,
-                                                          'occurrence_date' : datetime.strptime(planneddate.activitydate, '%Y-%m-%d'),
-                                                          'activityid' : activity.id,
+                        activityoccurrence.create({'place_id' : place.id,
+                                                  'occurrence_date' : datetime.strptime(planneddate.activitydate, '%Y-%m-%d'),
+                                                  'activityid' : activity.id,
                                                    })
             else:
                 d1 = activity.validity_from
@@ -94,22 +92,23 @@ class extraschool_activity(osv.osv):
                         exclu_activity_id = cr.fetchall()
                         if exclu_activity_id[0][0] == 0:
                             for place in activity.placeids:
-                                activityoccurrence.create(cr,uid,{'place_id' : place.id,
-                                                                  'occurrence_date' : current_day_date,
-                                                                  'activityid' : activity.id,
-                                                                  })
+                                activityoccurrence.create({'place_id' : place.id,
+                                                          'occurrence_date' : current_day_date,
+                                                          'activityid' : activity.id,
+                                                          })
 
-    def write(self,cr,uid,ids,vals,context = None):
-        res = super(extraschool_activity,self).write(cr,uid,ids,vals)
-#         if res:
-#             self.populate_occurrence(cr, uid, ids)
+    def write(self, vals):
+        res = super(extraschool_activity,self).write(vals)
+        #to do handle changes on occurrences
         return res
 
-    def create(self,cr,uid,vals,context = None):
-                    
-        res = super(extraschool_activity,self).create(cr,uid,vals)
+    @api.model
+    def create(self, vals):                 
+        res = super(extraschool_activity,self).create(vals)
+
         if res:
-            self.populate_occurrence(cr, uid, res)
+            res.populate_occurrence()
+        
         return res
 
     def get_start(self,activity):
@@ -123,5 +122,6 @@ class extraschool_activity(osv.osv):
             return activity.prest_to
         else:
             return False
+        
 extraschool_activity()
 

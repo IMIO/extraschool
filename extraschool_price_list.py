@@ -21,43 +21,36 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
+from openerp import models, api, fields
+from openerp.api import Environment
 
-class extraschool_price_list(osv.osv):
+class extraschool_price_list(models.Model):
     _name = 'extraschool.price_list'
     _description = 'Activities price list'
     
-    _columns = {
-        'name' : fields.char('Name', size=50),  
-        'price_list_version_ids' : fields.one2many('extraschool.price_list_version', 'price_list_id','Versions'),
-    }
+    name = fields.Char('Name', size=50)  
+    price_list_version_ids = fields.One2many('extraschool.price_list_version', 'price_list_id','Versions')
+
     
-    def get_price(self,cr,uid,price_list,presta_date):
-        price_list_obj = self.pool.get('extraschool.price_list_version')
-        ids = price_list_obj.search(cr,uid,[('price_list_id', '=', price_list.price_list_version_ids.id),
-                                            ('validity_from', '<=', presta_date),
-                                            ('validity_to', '>=', presta_date),
-                                            ])
-        if ids:
-            return price_list_obj.browse(cr,uid,ids)[0]
-        else:
-            return False
+    def get_price(self,price_list,presta_date):
+        price_list_obj = self.env['extraschool.price_list_version']
+        ids = price_list_obj.search([('price_list_id', '=', price_list.price_list_version_ids.id),
+                                        ('validity_from', '<=', presta_date),
+                                        ('validity_to', '>=', presta_date),
+                                        ])
+        return ids if ids else False
         
 extraschool_price_list()
 
-class extraschool_price_list_version(osv.osv):
+class extraschool_price_list_version(models.Model):
     _name = 'extraschool.price_list_version'
     _description = 'Activities price list version'
     
-    _columns = {
-        'name' : fields.char('Name', size=50),
-        'price_list_id' : fields.many2one('extraschool.price_list', 'Price list'),          
-        'period_duration' : fields.integer('Period Duration'),  
-        'price' : fields.float('Price',digits=(7,3)),
-        'validity_from' : fields.date('Validity from'),
-        'validity_to' : fields.date('Validity to')
-    }
-    
-
+    name = fields.Char('Name', size=50)
+    price_list_id = fields.Many2one('extraschool.price_list', 'Price list')          
+    period_duration = fields.Integer('Period Duration')  
+    price = fields.Float('Price',digits=(7,3))
+    validity_from = fields.Date('Validity from')
+    validity_to = fields.Date('Validity to')
     
 extraschool_price_list_version()

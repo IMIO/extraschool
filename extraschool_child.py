@@ -55,7 +55,15 @@ class extraschool_child(models.Model):
         for record in self:
             record.name = str(record.lastname).encode('utf-8') + ' ' + str(record.firstname).encode('utf-8')
 
-    
+    def onchange_name(self, cr, uid, ids, lastname,firstname):
+        v={}        
+        if lastname:
+            if firstname:
+                v['name']='%s %s' % (lastname, firstname)
+            else:
+                v['name']=lastname
+        return {'value':v}
+        
     def action_gentagid(self, ids, context=None):   
         cr, uid = self.env.cr, self.env.user.id          
         form = self.read(cr,uid,ids,)[-1]

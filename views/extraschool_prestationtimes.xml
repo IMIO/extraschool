@@ -11,8 +11,6 @@
 					<field name="prestation_date" select="1"/>
                     <field name="prestation_time" widget="float_time"/>
                     <field name="es"/>
-                    <!-- button name="editprestation" type="object" string="edit" icon="gtk-edit"/>
-                    <button name="deleteprestation" confirm="Supprimer cet enregistement?" type="object" string="delete" icon="gtk-delete"/ -->
 				</tree>
 			</field>
 		</record>

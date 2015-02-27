@@ -21,51 +21,32 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
+from openerp import models, api, fields
+from openerp.api import Environment
 
-class extraschool_invoice(osv.osv):
+class extraschool_invoice(models.Model):
     _name = 'extraschool.invoice'
     _description = 'invoice'
 
-    _columns = {
-        'name' : fields.char('Name', size=20,readonly=True),
-        'schoolimplantationid' : fields.many2one('extraschool.schoolimplantation', 'School implantation', required=False,readonly=True),
-        'parentid' : fields.many2one('extraschool.parent', 'Parent', required=False),
-        'number' : fields.integer('Number',readonly=True),
-        'structcom' : fields.char('Structured Communication', size=50,readonly=True),
-        'amount_total' : fields.float('Amount',readonly=True),
-        'amount_received' : fields.float('Received',readonly=True),
-        'balance' : fields.float('Balance',readonly=True),
-        'no_value' : fields.float('No value',readonly=True),
-        'discount' : fields.float('Discount',readonly=True),
-        'biller_id' : fields.many2one('extraschool.biller', 'Biller', required=False,ondelete='cascade',readonly=True),
-        'filename' : fields.char('filename', size=20,readonly=True),
-        'invoice_file' : fields.binary('File', readonly=True),
-        'payment_ids' : fields.one2many('extraschool.payment', 'concernedinvoice','Payments',readonly=True),
-        'oldid' : fields.char('oldid', size=20),
-        'activitycategoryid' : fields.related('biller_id', 'activitycategoryid', type='many2one',relation="extraschool.activitycategory", string='Activity Category'),
-        'period_from' : fields.related('biller_id', 'period_from', type='date', string='Period from'),
-        'period_to' : fields.related('biller_id', 'period_to', type='date', string='Period to'),
-        'payment_term' : fields.related('biller_id', 'payment_term', type='date', string='Payment term'),      
-    }
-    _defaults = {
-        'name' : lambda *a: 'Facture'
-    }
-    def addpayment(self, cr, uid, ids, context=None):
-        view_obj = self.pool.get('ir.ui.view')
-        extraschool_payment_form2 = view_obj.search(cr, uid, [('model', '=', 'extraschool.payment'), \
-                                 ('name', '=', 'payment.form2')])
-        
-        return {
-            'name': "Payment",
-            'view_mode': 'form',
-            'view_type': 'form',
-            'view_id': extraschool_payment_form2,            
-            'res_model': 'extraschool.payment',
-            'type': 'ir.actions.act_window',
-            'nodestroy': True,
-            'target': 'new',
-            'domain': '[]',
-            'context': {'default_concernedinvoice' : ids[0]}
-        }
+    name = fields.Char('Name', size=20,readonly=True, default='Facture')
+    schoolimplantationid = fields.Many2one('extraschool.schoolimplantation', 'School implantation', required=False,readonly=True)
+    parentid = fields.Many2one('extraschool.parent', 'Parent', required=False)
+    number = fields.Integer('Number',readonly=True)
+    structcom = fields.Char('Structured Communication', size=50,readonly=True)
+    amount_total = fields.Float('Amount',readonly=True)
+    amount_received = fields.Float('Received',readonly=True)
+    balance = fields.Float('Balance',readonly=True)
+    no_value = fields.Float('No value',readonly=True)
+    discount = fields.Float('Discount',readonly=True)
+    biller_id = fields.Many2one('extraschool.biller', 'Biller', required=False,ondelete='cascade',readonly=True)
+    filename = fields.Char('filename', size=20,readonly=True)
+    invoice_file = fields.Binary('File', readonly=True)
+    payment_ids = fields.One2many('extraschool.payment', 'concernedinvoice','Payments')
+    oldid = fields.Char('oldid', size=20)
+    activitycategoryid = fields.Many2one('biller_id.activitycategoryid', string='Activity Category')
+    period_from = fields.Date('biller_id.period_from')
+    period_to = fields.Date('biller_id.period_to')
+    payment_term = fields.Date('biller_id.payment_term')      
+
+
 extraschool_invoice()

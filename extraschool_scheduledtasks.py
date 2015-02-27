@@ -21,12 +21,13 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
+from openerp import models, api, fields
+from openerp.api import Environment
 from datetime import datetime
 from datetime import date
 import re
 
-class extraschool_scheduledtasks(osv.osv):
+class extraschool_scheduledtasks(models.Model):
     _name = 'extraschool.scheduledtasks'
     _description = 'Scheduled tasks'
     

@@ -24,8 +24,8 @@
 				    <field name="isdisabled"/>
                     <newline/>        
                     <field name="name"  invisible="True"/>            
-                    <field name="lastname" on_change="onchange_name(lastname,firstname)"/>            
-					<field name="firstname" on_change="onchange_name(lastname,firstname)"/>
+                    <field name="lastname"/>            
+					<field name="firstname"/>
                     <newline/>
                     <field name="schoolimplantation"/>					
                     <newline/>
@@ -42,7 +42,6 @@
                     <newline/>
                     <field name="parentid"/>
                     <newline/>
-                    <button name="return_action_to_open" type="object" context="{'xml_id':'action_lbsc_childsworkbook_wizard'}" string="Workbook sheet" />
                     </group>
 				</form>
 			</field>

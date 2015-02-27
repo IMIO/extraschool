@@ -21,18 +21,16 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
+from openerp import models, api, fields
+from openerp.api import Environment
 
-class extraschool_activityplanneddate(osv.osv):
+class extraschool_activityplanneddate(models.Model):
     _name = 'extraschool.activityplanneddate'
     _description = 'Activities planned dates'
 
     _rec_name = 'activitydate'
         
+    activities = fields.Many2many('extraschool.activity','extraschool_activity_activityplanneddate_rel', 'activityplanneddate_id', 'activity_id','Activities')        
+    activitydate = fields.Date('Date')        
 
-    _columns = {
-#        'name' : fields.function(_compute_name, method=True, type="char", string="Name"),        
-        'activities' : fields.many2many('extraschool.activity','extraschool_activity_activityplanneddate_rel', 'activityplanneddate_id', 'activity_id','Activities'),        
-        'activitydate' : fields.date('Date'),        
-    }
 extraschool_activityplanneddate()

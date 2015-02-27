@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-#from openerp.osv import osv, fields
+
 from openerp import models, api, fields
 from openerp.api import Environment
 from datetime import date

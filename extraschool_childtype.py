@@ -21,14 +21,14 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
+from openerp import models, api, fields
+from openerp.api import Environment
 
-class extraschool_childtype(osv.osv):
+class extraschool_childtype(models.Model):
     _name = 'extraschool.childtype'
     _description = 'ChildType'
 
-    _columns = {
-        'name' : fields.char('Name', size=50),
-        'oldid' : fields.integer('oldid'),        
-    }
+    name = fields.Char('Name', size=50, required=True)
+    oldid = fields.Integer('oldid')        
+
 extraschool_childtype()

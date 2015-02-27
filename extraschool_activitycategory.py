@@ -21,33 +21,31 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
+from openerp import models, api, fields
+from openerp.api import Environment
 
-class extraschool_activitycategory(osv.osv):
+class extraschool_activitycategory(models.Model):
     _name = 'extraschool.activitycategory'
     _description = 'Activities categories'
     
-    _columns = {
-        'name' : fields.char('Name', size=50),         
-        'activities' : fields.one2many('extraschool.activity', 'category','Activities'),               
-        'placeids'  : fields.many2many('extraschool.place','extraschool_activitycategory_place_rel', 'activitycategory_id', 'place_id','Schoolcare place'),
-        'childpositiondetermination' : fields.selection((('byparent','by parent'),('byparentwp','by parent (only childs with prestations)'),('byaddress','by address'),('byaddresswp','by address (only childs with prestations)')),'Child position determination'),
-        'priorityorder': fields.integer('Priority order'),
-        'invoicetemplate': fields.char('Invoice Template', size=50),        
-        'invoicecomstructprefix': fields.char('Invoice Comstruct prefix', size=4),
-        'invoicelastcomstruct' : fields.integer('Last Invoice structured comunication number'),
-        'invoiceemailaddress' : fields.char('Invoice email address', size=50),
-        'invoiceemailsubject' : fields.char('Invoice email subject', size=50),
-        'invoiceemailtext': fields.text('Invoice email text'),        
-        'remindercomstructprefix': fields.char('Reminder Comstruct prefix', size=4),
-        'reminderlastcomstruct' : fields.integer('Last Reminder structured comunication number'),
-        'reminderemailaddress' : fields.char('Reminder email address', size=50),
-        'reminderemailsubject' : fields.char('Reminder email subject', size=50),
-        'reminderemailtext': fields.text('Reminder email text'),
-        'bankaccount': fields.char('Bank account', size=4),
-        'taxcertificatetemplate': fields.char('Tax Certificate Template', size=50)
-    }
-    _defaults = {
-        'invoicetemplate' : lambda *a: 'facture.odt',
-    }
+    name = fields.Char('Name', size=50)         
+    activities = fields.One2many('extraschool.activity', 'category','Activities')               
+    placeids = fields.Many2many('extraschool.place','extraschool_activitycategory_place_rel', 'activitycategory_id', 'place_id','Schoolcare place')
+    childpositiondetermination = fields.Selection((('byparent','by parent'),('byparentwp','by parent (only childs with prestations)'),('byaddress','by address'),('byaddresswp','by address (only childs with prestations)')),'Child position determination')
+    priorityorder = fields.Integer('Priority order')
+    invoicetemplate = fields.Char('Invoice Template', size=50, default='facture.odt')        
+    invoicecomstructprefix = fields.Char('Invoice Comstruct prefix', size=4)
+    invoicelastcomstruct = fields.Integer('Last Invoice structured comunication number')
+    invoiceemailaddress = fields.Char('Invoice email address', size=50)
+    invoiceemailsubject = fields.Char('Invoice email subject', size=50)
+    invoiceemailtext = fields.Text('Invoice email text')        
+    remindercomstructprefix = fields.Char('Reminder Comstruct prefix', size=4)
+    reminderlastcomstruct = fields.Integer('Last Reminder structured comunication number')
+    reminderemailaddress = fields.Char('Reminder email address', size=50)
+    reminderemailsubject = fields.Char('Reminder email subject', size=50)
+    reminderemailtext = fields.Text('Reminder email text')
+    bankaccount = fields.Char('Bank account', size=4)
+    taxcertificatetemplate = fields.Char('Tax Certificate Template', size=50)
+
+    
 extraschool_activitycategory()

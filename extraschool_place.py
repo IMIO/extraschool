@@ -21,19 +21,19 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
+from openerp import models, api, fields
+from openerp.api import Environment
 
-class extraschool_place(osv.osv):
+class extraschool_place(models.Model):
     _name = 'extraschool.place'
     _description = 'Schoolcare Place'
 
-    _columns = {
-        'name' : fields.char('Name', size=50),
-        'street' : fields.char('Street', size=50),
-        'zipcode' : fields.char('ZipCode', size=6),
-        'city' : fields.char('City', size=50),
-        'schoolimplantation_ids' : fields.many2many('extraschool.schoolimplantation','extraschool_place_schoolimplantation_rel', 'place_id', 'schoolimplantation_id','School implantations'),
-        'schedule': fields.text('Schedule'),
-        'oldid' : fields.integer('oldid'),                
-    }
+    name = fields.Char('Name', size=50)
+    street = fields.Char('Street', size=50)
+    zipcode = fields.Char('ZipCode', size=6)
+    city = fields.Char('City', size=50)
+    schoolimplantation_ids = fields.Many2many('extraschool.schoolimplantation','extraschool_place_schoolimplantation_rel', 'place_id', 'schoolimplantation_id','School implantations')
+    schedule = fields.Text('Schedule')
+    oldid = fields.Integer('oldid')                
+
 extraschool_place()

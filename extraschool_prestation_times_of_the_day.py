@@ -102,7 +102,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
         return self
 
     def _completion_entry(self,root_activity):
-        activity_occurrence_obj = self.pool.get('extraschool.activityoccurrence')
+        activity_occurrence_obj = self.env['extraschool.activityoccurrence']
            
         #get presta matching the root_activity
         prestation_times_rs = self.prestationtime_ids.filtered(lambda r: r.activity_occurrence_id.activityid.root_id.id == root_activity.id)    
@@ -123,7 +123,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
                                                                                 ('occurrence_date', '=', self.date_of_the_day),
                                                                                 ('place_id.id', '=', first_prestation_time.placeid.id)])
                 #add missing entry presta
-                activity_occurrence_obj.add_presta(self.env.cr,self.env.uid,occurrence, self.child_id.id, None,True,False,True,False)
+                activity_occurrence_obj.add_presta(occurrence, self.child_id.id, None,True,False,True,False)
                 #return presta added - the first one in prestationtime_ids 
                 prestation_times_rs = self.prestationtime_ids.filtered(lambda r: r.activity_occurrence_id.activityid.id == root_activity.id)    
                 prestation_times_rs = prestation_times_rs.sorted(key=lambda r: r.prestation_time)
@@ -133,7 +133,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
                 return False
                     
     def _completion_exit(self,root_activity):
-        activity_occurrence_obj = self.pool.get('extraschool.activityoccurrence')
+        activity_occurrence_obj = self.env['extraschool.activityoccurrence']
            
         #get presta matching the root_activity
         prestation_times_rs = self.prestationtime_ids.filtered(lambda r: r.activity_occurrence_id.activityid.root_id.id == root_activity.id)    
@@ -154,7 +154,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
                                                                                 ('occurrence_date', '=', self.date_of_the_day),
                                                                                 ('place_id.id', '=', last_prestation_time.placeid.id)])
                 #add missing exit presta
-                activity_occurrence_obj.add_presta(self.env.cr,self.env.uid,occurrence, self.child_id.id, None,True,False,False,True)
+                activity_occurrence_obj.add_presta(occurrence, self.child_id.id, None,True,False,False,True)
                 #return presta added
                 prestation_times_rs = self.prestationtime_ids.filtered(lambda r: r.activity_occurrence_id.activityid.id == root_activity.id)  
                 prestation_times_rs = prestation_times_rs.sorted(key=lambda r: r.prestation_time)  
@@ -167,7 +167,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
     def _occu_start_stop_completion(self,start_time,stop_time,occurrence,down,from_occurrence):
         print "->_occu_start_stop_completion"
         print occurrence.activityname
-        occurrence_obj = self.pool.get('extraschool.activityoccurrence')
+        occurrence_obj = self.env['extraschool.activityoccurrence']
         cr,uid = self.env.cr, self.env.user.id
         
         #init used to avoid adding presta in parent if not needed
@@ -184,7 +184,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
             else:
                 prest_from = occurrence.prest_from
             #add entry presta
-            occurrence_obj.add_presta(cr,uid,occurrence,self.child_id.id,None, True, False, True, False,prest_from)
+            occurrence_obj.add_presta(occurrence,self.child_id.id,None, True, False, True, False,prest_from)
         
         #if stop occurrence than exit is OK so do something ONLY if it's not exit occurrence
         if not stop_time.activity_occurrence_id.id == occurrence.id:
@@ -205,7 +205,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
                 prest_to = occurrence.prest_to
                 
             #add exit presta
-            occurrence_obj.add_presta(cr,uid,occurrence,self.child_id.id,None, True, False, False, True,None,prest_to)
+            occurrence_obj.add_presta(occurrence,self.child_id.id,None, True, False, False, True,None,prest_to)
             
           
         #add parent entry and exit if needed
@@ -213,14 +213,14 @@ class extraschool_prestation_times_of_the_day(models.Model):
             #if level >=2
             if occurrence.activityid.parent_id and occurrence.activityid.parent_id.id != occurrence.activityid.root_id.id:
                 
-                occurrence_obj.add_presta(cr,uid,from_occurrence,self.child_id.id,None, True, False, True if prest_to > 0 else False, True if prest_from > 0 else False,prest_to,prest_from) #from & to are inverted it's normal it's for parent 
+                occurrence_obj.add_presta(from_occurrence,self.child_id.id,None, True, False, True if prest_to > 0 else False, True if prest_from > 0 else False,prest_to,prest_from) #from & to are inverted it's normal it's for parent 
             else: #just under the root level 1
                 if not looked_activity:
                     looked_activity = stop_time.activity_occurrence_id.activityid.parent_id
                     while looked_activity.parent_id.id != looked_activity.root_id.id:
                         looked_activity = looked_activity.parent_id 
                 if occurrence.id !=looked_activity.id:       
-                    occurrence_obj.add_presta(cr,uid,from_occurrence,self.child_id.id,None, True, False, True if prest_to > 0 else False, True if prest_from > 0 else False,prest_to,prest_from) #from & to are inverted it's normal it's for parent             
+                    occurrence_obj.add_presta(from_occurrence,self.child_id.id,None, True, False, True if prest_to > 0 else False, True if prest_from > 0 else False,prest_to,prest_from) #from & to are inverted it's normal it's for parent             
 
         print "<-_occu_start_stop_completion"
         
@@ -283,7 +283,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
           
     def check(self):
         print "_check presta of the day" 
-        prestation_times_obj = self.pool.get('extraschool.prestationtimes')
+        prestation_times_obj = self.env['extraschool.prestationtimes']
         cr,uid = self.env.cr, self.env.user.id
         prestation_time_ids = [prestation_time.id for prestation_time in self.prestationtime_ids]
         print str(prestation_time_ids)
@@ -318,7 +318,6 @@ class extraschool_prestation_times_of_the_day(models.Model):
             
             if start_time and stop_time:
                 print "go"
-                prestation_times_obj.write(cr,uid,stop_time.id,{'verified' : True})
                 #delete all occurrence presta but not stop_time presta
  #               prestation_times_obj.unlink(cr,uid,self.prestationtime_ids.filtered(lambda r: r.activity_occurrence_id.activityid.root_id.id == root_activity.id and r.id != start_time.id and r.id != stop_time.id).ids)
                 start_time.verified = True

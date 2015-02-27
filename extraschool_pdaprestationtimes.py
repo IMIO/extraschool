@@ -20,37 +20,39 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.osv import osv, fields
+from openerp import models, api, fields
+from openerp.api import Environment
 
-class extraschool_pdaprestationtimes(osv.osv):
+class extraschool_pdaprestationtimes(models.Model):
     _name = 'extraschool.pdaprestationtimes'
     _description = 'PDA Prestation Times'
-    
-    _columns = {        
-        'placeid' : fields.many2one('extraschool.place', 'Schoolcare Place', required=True),
-        'activitycategoryid' : fields.many2one('extraschool.activitycategory', 'Activity Category', required=False),
-        'childid' : fields.many2one('extraschool.child', 'Child', required=False),
-        'prestation_date' : fields.date('Date'),
-        'prestation_time' : fields.float('Time'),
-        'es' : fields.selection((('E','In'), ('S','Out')),'ES' ),    
-        'prestation_times_of_the_day_id' : fields.many2one('extraschool.prestation_times_of_the_day', 'Prestation of the day'),           
-    }
-
-    def create(self, cr, uid, vals, *args, **kw):               
-        prestation_times_of_the_day_obj = self.pool.get('extraschool.prestation_times_of_the_day')
-        prestation_times_obj = self.pool.get('extraschool.prestationtimes')
         
-        prestation_times_of_the_day_ids = prestation_times_of_the_day_obj.search(cr,uid,[('child_id.id', '=', vals['childid']),
+    placeid = fields.Many2one('extraschool.place', 'Schoolcare Place', required=True)
+    activitycategoryid = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False)
+    childid = fields.Many2one('extraschool.child', 'Child', required=False)
+    prestation_date = fields.Date('Date')
+    prestation_time = fields.Float('Time')
+    es = fields.Selection((('E','In'),
+                           ('S','Out')),'ES' )    
+    prestation_times_of_the_day_id = fields.Many2one('extraschool.prestation_times_of_the_day', 'Prestation of the day')           
+
+
+    @api.model
+    def create(self,vals):               
+        prestation_times_of_the_day_obj = self.env['extraschool.prestation_times_of_the_day']
+        prestation_times_obj = self.env['extraschool.prestationtimes']
+        
+        prestation_times_of_the_day_ids = prestation_times_of_the_day_obj.search([('child_id.id', '=', vals['childid']),
                                                                                 ('date_of_the_day', '=', vals['prestation_date']),
                                                                                 ])
         if not prestation_times_of_the_day_ids:
-            vals['prestation_times_of_the_day_id'] = prestation_times_of_the_day_obj.create(cr,uid,{'child_id' : vals['childid'],
+            vals['prestation_times_of_the_day_id'] = prestation_times_of_the_day_obj.create({'child_id' : vals['childid'],
                                                            'date_of_the_day' : vals['prestation_date'],
-                                                           })
+                                                           }).id
         else :
-            vals['prestation_times_of_the_day_id'] = prestation_times_of_the_day_ids[0]
+            vals['prestation_times_of_the_day_id'] = prestation_times_of_the_day_ids.id
         
-        prestation_times_obj.create(cr,uid,vals)
-        return super(extraschool_pdaprestationtimes, self).create(cr, uid, vals)    
+        prestation_times_obj.create(vals)
+        return super(extraschool_pdaprestationtimes, self).create(vals)    
     
 extraschool_pdaprestationtimes()

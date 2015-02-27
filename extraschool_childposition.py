@@ -21,14 +21,15 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
+from openerp import models, api, fields
+from openerp.api import Environment
 
-class extraschool_childposition(osv.osv):
+class extraschool_childposition(models.Model):
     _name = 'extraschool.childposition'
     _description = 'Child position'
 
-    _columns = {
-        'name' : fields.char('Name', size=50),
-        'position' : fields.integer('Position'),                
-    }
+
+    name = fields.Char('Name', size=50, required=True)
+    position = fields.Integer('Position', required=True)                
+
 extraschool_childposition()

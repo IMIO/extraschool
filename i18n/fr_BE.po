@@ -6,15 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-11 19:57+0000\n"
-"PO-Revision-Date: 2015-02-11 22:25+0100\n"
+"POT-Creation-Date: 2015-02-24 14:38+0000\n"
+"PO-Revision-Date: 2015-02-24 15:43+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.4\n"
 "Language: fr_BE\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #. module: extraschool
 #: selection:extraschool.statsone_wizard,quarter:0
@@ -394,6 +394,7 @@ msgid "Child firstname column name"
 msgstr "Nom colonne prénom enfant"
 
 #. module: extraschool
+#: field:extraschool.prestation_times_manuel,child_id:0
 #: field:extraschool.prestation_times_of_the_day,child_id:0
 msgid "Child id"
 msgstr "Enfant"
@@ -537,6 +538,8 @@ msgid "Coda"
 msgstr "Fichier CODA"
 
 #. module: extraschool
+#: field:extraschool.prestation_times_encodage_manuel,comment:0
+#: field:extraschool.prestation_times_manuel,comment:0
 #: field:extraschool.prestation_times_of_the_day,comment:0
 msgid "Comment"
 msgstr "Comment"
@@ -637,6 +640,8 @@ msgstr "Type de correction"
 #: field:extraschool.payment,create_uid:0
 #: field:extraschool.pdaprestationtimes,create_uid:0
 #: field:extraschool.place,create_uid:0
+#: field:extraschool.prestation_times_encodage_manuel,create_uid:0
+#: field:extraschool.prestation_times_manuel,create_uid:0
 #: field:extraschool.prestation_times_of_the_day,create_uid:0
 #: field:extraschool.prestations_wizard,create_uid:0
 #: field:extraschool.prestationscheck_wizard,create_uid:0
@@ -690,6 +695,8 @@ msgstr "Crée par"
 #: field:extraschool.payment,create_date:0
 #: field:extraschool.pdaprestationtimes,create_date:0
 #: field:extraschool.place,create_date:0
+#: field:extraschool.prestation_times_encodage_manuel,create_date:0
+#: field:extraschool.prestation_times_manuel,create_date:0
 #: field:extraschool.prestation_times_of_the_day,create_date:0
 #: field:extraschool.prestations_wizard,create_date:0
 #: field:extraschool.prestationscheck_wizard,create_date:0
@@ -742,6 +749,7 @@ msgid "Date from"
 msgstr "Date du"
 
 #. module: extraschool
+#: field:extraschool.prestation_times_encodage_manuel,date_of_the_day:0
 #: field:extraschool.prestation_times_of_the_day,date_of_the_day:0
 msgid "Date of the day"
 msgstr "Date du jour"
@@ -844,6 +852,11 @@ msgid "Email for notifications"
 msgstr "Email de notifications"
 
 #. module: extraschool
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_prestation_times_encodage_manuel_tree
+msgid "Encodage manuel"
+msgstr "Encodage manuel"
+
+#. module: extraschool
 #: selection:extraschool.prestationscheck_wizard,state:0
 msgid "End of verification"
 msgstr "Fin de la vérification"
@@ -862,6 +875,11 @@ msgstr "Enfant"
 #: view:extraschool.prestationtimes:extraschool.prestationtimes_search_view
 msgid "Entry"
 msgstr "Entrée"
+
+#. module: extraschool
+#: field:extraschool.prestation_times_manuel,prestation_time_entry:0
+msgid "Entry Time"
+msgstr "Heure d'entrée"
 
 #. module: extraschool
 #: field:extraschool.importlevelrule,equalto1:0
@@ -883,6 +901,11 @@ msgstr "Dates exclues"
 #: view:extraschool.prestationtimes:extraschool.prestationtimes_search_view
 msgid "Exit"
 msgstr "Sortir"
+
+#. module: extraschool
+#: field:extraschool.prestation_times_manuel,prestation_time_exit:0
+msgid "Exit Time"
+msgstr "Heure de sortie"
 
 #. module: extraschool
 #: field:extraschool.prestationtimes,exit_all:0
@@ -1035,6 +1058,8 @@ msgstr "Tél. maison"
 #: field:extraschool.mainsettings,id:0 field:extraschool.parent,id:0
 #: field:extraschool.payment,id:0 field:extraschool.pdaprestationtimes,id:0
 #: field:extraschool.place,id:0
+#: field:extraschool.prestation_times_encodage_manuel,id:0
+#: field:extraschool.prestation_times_manuel,id:0
 #: field:extraschool.prestation_times_of_the_day,id:0
 #: field:extraschool.prestations_wizard,id:0
 #: field:extraschool.prestationscheck_wizard,id:0
@@ -1190,6 +1215,8 @@ msgstr "Dernière date de transmission"
 #: field:extraschool.parent,write_uid:0 field:extraschool.payment,write_uid:0
 #: field:extraschool.pdaprestationtimes,write_uid:0
 #: field:extraschool.place,write_uid:0
+#: field:extraschool.prestation_times_encodage_manuel,write_uid:0
+#: field:extraschool.prestation_times_manuel,write_uid:0
 #: field:extraschool.prestation_times_of_the_day,write_uid:0
 #: field:extraschool.prestations_wizard,write_uid:0
 #: field:extraschool.prestationscheck_wizard,write_uid:0
@@ -1241,6 +1268,8 @@ msgstr "Last Updated by"
 #: field:extraschool.payment,write_date:0
 #: field:extraschool.pdaprestationtimes,write_date:0
 #: field:extraschool.place,write_date:0
+#: field:extraschool.prestation_times_encodage_manuel,write_date:0
+#: field:extraschool.prestation_times_manuel,write_date:0
 #: field:extraschool.prestation_times_of_the_day,write_date:0
 #: field:extraschool.prestations_wizard,write_date:0
 #: field:extraschool.prestationscheck_wizard,write_date:0
@@ -1677,6 +1706,11 @@ msgid "Place"
 msgstr "Lieu d'accueil"
 
 #. module: extraschool
+#: field:extraschool.prestation_times_encodage_manuel,place_id:0
+msgid "Place id"
+msgstr "Lieu d'accueil"
+
+#. module: extraschool
 #: field:extraschool.prestationscheck_wizard,placeid:0
 msgid "Placeid"
 msgstr "Lieu d'accueil"
@@ -1738,7 +1772,6 @@ msgstr "Présences"
 #. module: extraschool
 #: view:extraschool.prestations_wizard:extraschool.extraschool_prestations_wizard_form
 #: model:ir.actions.act_window,name:extraschool.action_lbsc_prestations_wizard
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_prestations_wizard
 msgid "Prestations Wizard"
 msgstr "Encoder"
 
@@ -1774,11 +1807,13 @@ msgid "Prestations.tree"
 msgstr "Présences"
 
 #. module: extraschool
+#: model:ir.actions.act_window,name:extraschool.action_extraschool_prestation_times_encodage_manuel
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_prestation_times_of_the_day
 msgid "Prestations_of_the_day"
 msgstr "Présences par jour"
 
 #. module: extraschool
+#: model:ir.actions.act_window,name:extraschool.action_extraschool_prestation_times_encodage_manuel_tree
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_prestation_times_of_the_day_tree
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_prestation_times_of_the_day_tree_not_verified
 msgid "Prestations_of_the_day.tree"
@@ -1790,6 +1825,7 @@ msgid "Prestationscheck Wizard"
 msgstr "Vérifier"
 
 #. module: extraschool
+#: field:extraschool.prestation_times_encodage_manuel,prestationtime_ids:0
 #: field:extraschool.prestation_times_of_the_day,prestationtime_ids:0
 msgid "Prestationtime ids"
 msgstr "Liste des présences"
@@ -2441,6 +2477,11 @@ msgid "discountrule"
 msgstr "Régle de réduction"
 
 #. module: extraschool
+#: field:extraschool.prestation_times_manuel,prestation_times_encodage_manuel_id:0
+msgid "encodage manuel"
+msgstr "encodage manuel"
+
+#. module: extraschool
 #: field:extraschool.prestationtimes,es:0
 msgid "es"
 msgstr "Entrée / Sortie"
@@ -2594,6 +2635,17 @@ msgstr "à"
 #: view:extraschool.prestation_times_of_the_day:extraschool.extraschool_prestation_times_of_the_day_form
 msgid "prestation_times"
 msgstr "Heure"
+
+#. module: extraschool
+#: view:extraschool.prestation_times_encodage_manuel:extraschool.extraschool_prestation_times_encodage_manuel_form
+#: view:extraschool.prestation_times_encodage_manuel:extraschool.extraschool_prestation_times_encodage_manuel_tree
+msgid "prestation_times_encodage_manuel"
+msgstr "prestation_times_encodage_manuel"
+
+#. module: extraschool
+#: view:extraschool.prestation_times_encodage_manuel:extraschool.prestation_times_encodage_manuel_search_view
+msgid "prestation_times_encodage_manuel search"
+msgstr "prestation_times_encodage_manuel search"
 
 #. module: extraschool
 #: view:extraschool.prestation_times_of_the_day:extraschool.extraschool_prestation_times_of_the_day_form

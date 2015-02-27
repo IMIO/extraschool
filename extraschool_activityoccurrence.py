@@ -21,41 +21,36 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
-from openerp import api, modules
+from openerp import models, api, fields
+from openerp.api import Environment
 from datetime import date, datetime, timedelta as td
 from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
 #import datetime
 
 
-class extraschool_activityoccurrence(osv.osv):
+class extraschool_activityoccurrence(models.Model):
     _name = 'extraschool.activityoccurrence'
     _description = 'activity occurrence'
 
-    _columns = {
-        'name' : fields.char('Name', size=50),
-        'occurrence_date' : fields.date('Date'),
-        'activityid' : fields.many2one('extraschool.activity', 'Activity'),
-        'activityname' : fields.related('activityid', 'name', type='char', string='name'),
-        'prest_from' : fields.related('activityid', 'prest_from', type='float', string='prest_from'),
-        'prest_to' : fields.related('activityid', 'prest_to', type='float', string='prest_to'),
-        'date_start' : fields.datetime('Date start',compute='_compute_date_start', store=True),
-        'date_stop' : fields.datetime('Date stop',compute='_compute_date_stop', store=True), 
-        'child_registration_ids' : fields.many2many('extraschool.child','extraschool_activityoccurrence_cild_rel', 'activityoccurrence_id', 'child_id','Child registration'),        
-        'prestation_times_ids' : fields.one2many('extraschool.prestationtimes', 'activity_occurrence_id','Child prestation times'),   
-        'place_id' : fields.many2one('extraschool.place', 'Place', required=False),                     
-    }
+    name = fields.Char('Name', size=50)
+    occurrence_date = fields.Date('Date')
+    activityid = fields.Many2one('extraschool.activity', 'Activity')
+    activityname = fields.Char(related='activityid.name')
+    prest_from = fields.Float(related='activityid.prest_from')
+    prest_to = fields.Float(related='activityid.prest_to')
+    date_start = fields.Datetime('Date start',compute='_compute_date_start', store=True)
+    date_stop = fields.Datetime('Date stop',compute='_compute_date_stop', store=True) 
+    child_registration_ids = fields.Many2many('extraschool.child','extraschool_activityoccurrence_cild_rel', 'activityoccurrence_id', 'child_id','Child registration')        
+    prestation_times_ids = fields.One2many('extraschool.prestationtimes', 'activity_occurrence_id','Child prestation times')   
+    place_id = fields.Many2one('extraschool.place', 'Place', required=False)                     
 
-    def name_get(self, cr, uid, ids, context={}):            
-            if not len(ids):
-                return []
-            
-            res=[]
-            for occurrence in self.browse(cr, uid, ids,context=context):
-                res.append((occurrence.id, occurrence.activityname + ' - ' + datetime.strptime(occurrence.occurrence_date, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y")))    
-    
-            return res    
+    def name_get(self):            
+        res=[]
+        for occurrence in self:
+            res.append((occurrence.id, occurrence.activityname + ' - ' + datetime.strptime(occurrence.occurrence_date, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y")))    
+
+        return res    
         
     @api.depends('occurrence_date', 'prest_from')
     def _compute_date_start(self):
@@ -63,7 +58,7 @@ class extraschool_activityoccurrence(osv.osv):
             if record.occurrence_date:
                 hour = int(record.prest_from)
                 minute = int((record.prest_from - hour) * 60)
-                hour = hour -1            
+                hour = hour -1 if hour else 0         
                 record.date_start = datetime.strptime(record.occurrence_date + ' ' + str(hour).zfill(2) + ':' + str(minute).zfill(2) + ':00', DEFAULT_SERVER_DATETIME_FORMAT)        
             
     @api.depends('occurrence_date', 'prest_from')
@@ -72,12 +67,11 @@ class extraschool_activityoccurrence(osv.osv):
             if record.occurrence_date:
                 hour = int(record.prest_to)
                 minute = int((record.prest_to - hour) * 60)
-                hour = hour -1
+                hour = hour -1 if hour else 0
                 record.date_stop = datetime.strptime(record.occurrence_date + ' ' + str(hour).zfill(2) + ':' + str(minute).zfill(2) + ':00', DEFAULT_SERVER_DATETIME_FORMAT)
     
-    def add_presta(self,cr,uid,activity_occurrence,child_id,parent_activity_occurrence = None, verified = True, manualy_encoded = False, entry = True, exit = True,entry_time = None, exit_time = None,exit_all= False):
-        print "add_presta " + activity_occurrence.activityname
-        prestation_times_obj = self.pool.get('extraschool.prestationtimes')
+    def add_presta(self,activity_occurrence,child_id,parent_activity_occurrence = None, verified = True, manualy_encoded = False, entry = True, exit = True,entry_time = None, exit_time = None,exit_all= False):
+        prestation_times_obj = self.env['extraschool.prestationtimes']
         entry_time = entry_time if entry_time else activity_occurrence.prest_from
         exit_time = exit_time if exit_time else activity_occurrence.prest_to
         
@@ -110,39 +104,36 @@ class extraschool_activityoccurrence(osv.osv):
             prestation_time['es'] = 'E'               
             prestation_time['prestation_time'] = entry_time
 
-            prestation_times_obj.create(cr,uid,prestation_time)
+            prestation_times_obj.create(prestation_time)
             if parent_activity_occurrence:
                 #add only if opposite presta exist in parent occurrence
-                prestation_left = prestation_times_obj.search(cr,uid,[('id', 'in',[prestation.id for prestation in parent_activity_occurrence.prestation_times_ids]),
+                prestation_left = prestation_times_obj.search([('id', 'in',[prestation.id for prestation in parent_activity_occurrence.prestation_times_ids]),
                                                     ('prestation_time', '<=', entry_time),
                                                     ])
                 if len(prestation_left) and prestation_left[0].es == 'E':                             
                     parent_prestation_time['es'] = 'S'   
                     parent_prestation_time['prestation_time'] = entry_time   
-                    prestation_times_obj.create(cr,uid,parent_prestation_time)
+                    prestation_times_obj.create(parent_prestation_time)
     
         if exit:
             prestation_time['es'] = 'S'   
             prestation_time['prestation_time'] = exit_time
-            print "--------------"
-            print str(prestation_time)
-            print "--------------"
-            prestation_times_obj.create(cr,uid,prestation_time)
+            prestation_times_obj.create(prestation_time)
             if parent_activity_occurrence:
                 #add only if opposite presta exist in parent occurrence
-                prestation_right = prestation_times_obj.search(cr,uid,[('id', 'in',[prestation.id for prestation in parent_activity_occurrence.prestation_times_ids]),
+                prestation_right = prestation_times_obj.search([('id', 'in',[prestation.id for prestation in parent_activity_occurrence.prestation_times_ids]),
                                                     ('prestation_time', '>=', exit_time),
                                                     ])
                 if len(prestation_right) and prestation_right[0].es == 'S':                   
                     parent_prestation_time['es'] = 'E'   
                     parent_prestation_time['prestation_time'] = exit_time   
-                    prestation_times_obj.create(cr,uid,parent_prestation_time)
+                    prestation_times_obj.create(parent_prestation_time)
         
-    def create(self, cr, uid, vals, context = None): 
-        occurrence_id = super(extraschool_activityoccurrence, self).create(cr, uid, vals)
+    @api.model
+    def create(self, vals): 
+        occurrence = super(extraschool_activityoccurrence, self).create(vals)
         
-        activity = self.pool.get('extraschool.activity').browse(cr, uid, vals['activityid'])
-        activity_occurrence_obj = self.pool.get('extraschool.activityoccurrence')
+        activity = self.env['extraschool.activity'].browse(vals['activityid'])
         
         child_ids = []
         occurrence_date_str = vals['occurrence_date'].strftime(DEFAULT_SERVER_DATE_FORMAT)
@@ -151,14 +142,14 @@ class extraschool_activityoccurrence(osv.osv):
                 child_ids.append(child_registration.child_id.id)
                 
                 if activity.autoaddchilds:
-                    self.add_presta(cr,uid,activity_occurrence_obj.browse(cr,uid,occurrence_id), child_registration.child_id.id, None,False)
+                    self.add_presta(occurrence, child_registration.child_id.id, None,False)
                     
         #use syntax to replace existing records by new records
-        vals['child_registration_ids'] = [(6, False, child_ids)] 
         
-        activity_occurrence_obj.write(cr,uid,[occurrence_id],vals)       
+        occurrence.child_registration_ids = [(6, False, child_ids)] 
         
-        return occurrence_id
+        
+        return occurrence
     
 
 

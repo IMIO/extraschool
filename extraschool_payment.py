@@ -21,24 +21,28 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
+from openerp import models, api, fields
+from openerp.api import Environment
 
-class extraschool_payment(osv.osv):
+class extraschool_payment(models.Model):
     _name = 'extraschool.payment'
     _description = 'Payment'
 
-    _columns = {
-        'paymenttype' : fields.selection((('1','CODA File'),('2','Ordinary account'),('3','Cash'),('4','Non value'),('5','Reject')),'Payment type'),
-        'paymentdate' : fields.date('Date'),
-        'structcom' : fields.char('Structured Communication', size=50),
-        'account' : fields.char('Account', size=20),
-        'name' : fields.char('Name', size=50),
-        'addr1' : fields.char('Addr1', size=50),
-        'addr2' : fields.char('Addr2', size=50),
-        'amount' : fields.float('Amount'),
-        'concernedinvoice' : fields.many2one('extraschool.invoice', 'Concerned invoice', required=False),
-        'coda' : fields.many2one('extraschool.coda', 'Coda', required=False),
-    }
+    paymenttype = fields.Selection((('1','CODA File'),
+                                    ('2','Ordinary account'),
+                                    ('3','Cash'),
+                                    ('4','Non value'),
+                                    ('5','Reject')),'Payment type')
+    paymentdate = fields.Date('Date')
+    structcom = fields.Char('Structured Communication', size=50)
+    account = fields.Char('Account', size=20)
+    name = fields.Char('Name', size=50)
+    addr1 = fields.Char('Addr1', size=50),
+    addr2 = fields.Char('Addr2', size=50),
+    amount = fields.Float('Amount')
+    concernedinvoice = fields.Many2one('extraschool.invoice', 'Concerned invoice', required=False)
+    coda = fields.Many2one('extraschool.coda', 'Coda', required=False)
+
     
     def savepayment(self, cr, uid, ids, context=None):
         obj_payment = self.pool.get('extraschool.payment')

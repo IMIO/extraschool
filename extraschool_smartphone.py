@@ -21,77 +21,44 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
+from openerp import models, api, fields
+from openerp.api import Environment
 import cStringIO
 import base64
 import os
 
 
-class extraschool_smartphone(osv.osv):
+class extraschool_smartphone(models.Model):
     _name = 'extraschool.smartphone'
     _description = 'Smartphone'
 
-    _columns = {
-        'name' : fields.char('Name', size=50),         
-        'placeid' : fields.many2one('extraschool.place', 'Schoolcare Place', required=True),
-        'activitycategories_ids' : fields.many2many('extraschool.activitycategory','extraschool_smartphone_activitycategory_rel', 'smartphone_id', 'activitycategory_id','Activity categories'),
-        'lasttransmissiondate' : fields.datetime('Last Transmission Date'),
-        'softwareurl' : fields.char('Software url', size=100, readonly=True),
-        'transmissiontime' : fields.char('Transmission time', size=5),    
-        'serveraddress' : fields.char('Server address', size=50),
-        'databasename' : fields.char('Database name', size=30),
-        'username' : fields.char('User name', size=30),
-        'userpassword' : fields.char('User password', size=20),
-        'scanmethod' : fields.selection((('Tag','Tag'),('QR','QR')),'Scan method'),
-        'transfertmethod' : fields.selection((('WIFI','WIFI'),('3G','3G')),'Transfert method'),
-        'qrdownload' : fields.binary('QR Download'),
-        'qrconfig' : fields.binary('QR Config'),
-        'oldversion': fields.boolean('Old version'),
-        'maxtimedelta': fields.integer('Max time delta'),
-    }
+    name = fields.Char('Name', size=50)         
+    placeid = fields.Many2one('extraschool.place', 'Schoolcare Place', required=True)
+    activitycategories_ids = fields.Many2many('extraschool.activitycategory','extraschool_smartphone_activitycategory_rel', 'smartphone_id', 'activitycategory_id','Activity categories')
+    lasttransmissiondate = fields.Datetime('Last Transmission Date')
+    softwareurl = fields.Char('Software url', size=100, readonly=True, default='http://intranet.la-bruyere.be/garderies/V3-1/AESAndroid.apk')
+    transmissiontime = fields.Char('Transmission time', size=5)    
+    serveraddress = fields.Char('Server address', size=50)
+    databasename = fields.Char('Database name', size=30)
+    username = fields.Char('User name', size=30)
+    userpassword = fields.Char('User password', size=20)
+    scanmethod = fields.Selection((('Tag','Tag'),('QR','QR')),'Scan method')
+    transfertmethod = fields.Selection((('WIFI','WIFI'),('3G','3G')),'Transfert method')
+    qrdownload = fields.Binary('QR Download')
+    qrconfig = fields.Binary('QR Config')
+    oldversion = fields.Boolean('Old version')
+    maxtimedelta = fields.Integer('Max time delta')
     
-    _defaults = {
-        'softwareurl' : lambda *a: 'http://intranet.la-bruyere.be/garderies/V3-1/AESAndroid.apk'
-    }
-    
-    
-    def write(self, cr, uid, ids, vals, context=None):
-        form = self.read(cr,uid,ids,)[-1]
-        obj_config = self.pool.get('extraschool.mainsettings')
-        config=obj_config.read(cr, uid, [1],['lastqrcodenbr','qrencode','tempfolder','templatesfolder'])[0]            
-        os.system(config['qrencode']+' -o '+config['tempfolder']+'qrdownload.png -s 4 -l Q '+form['softwareurl'])        
-        qrfile = open(config['tempfolder']+'qrdownload.png','r').read()
+    def write(self,vals):
+        config = self.env['extraschool.mainsettings'].browse(1)
+        os.system(config.qrencode + ' -o ' + config.tempfolder + 'qrdownload.png -s 4 -l Q ' + self.softwareurl)        
+        qrfile = open(config.tempfolder + 'qrdownload.png','r').read()
         vals['qrdownload'] = base64.b64encode(qrfile)
-        if form['transmissiontime']:
-            transmissiontime = form['transmissiontime']
-        else:
-            transmissiontime = vals['transmissiontime']
-        if form['serveraddress']:
-            serveraddress = form['serveraddress']
-        else:
-            serveraddress = vals['serveraddress']
-        if form['databasename']:
-            databasename = form['databasename']
-        else:
-            databasename = vals['databasename']
-        if form['username']:
-            username = form['username']
-        else:
-            username = vals['username']
-        if form['userpassword']:
-            userpassword = form['userpassword']
-        else:
-            userpassword = vals['userpassword']
-        if form['scanmethod']:
-            scanmethod = form['scanmethod']
-        else:
-            scanmethod = vals['scanmethod']
-        if form['transfertmethod']:
-            transfertmethod = form['transfertmethod']
-        else:
-            transfertmethod = vals['transfertmethod']
-        os.system(config['qrencode']+' -o '+config['tempfolder']+'qrconfig.png -s 4 -l Q "cfg;'+str(ids[0])+';'+transmissiontime+';'+serveraddress+';'+databasename+';'+username+';'+userpassword+';'+scanmethod+';'+transfertmethod+'"')        
+        
+        self = super(extraschool_smartphone, self).write(vals)
+
+        os.system(config.qrencode + ' -o ' + config.tempfolder + 'qrconfig.png -s 4 -l Q "cfg;' + str(self.ids[0]) + ';' + self.transmissiontime + ';' + self.serveraddress + ';' + self.databasename + ';' + self.username + ';' + self.userpassword + ';' + self.scanmethod + ';' + self.transfertmethod + '"')        
         qrfile = open(config['tempfolder']+'qrconfig.png','r').read()
         vals['qrconfig'] = base64.b64encode(qrfile)
-        return super(extraschool_smartphone, self).write(cr, uid, ids, vals, context=context)  
+        
 extraschool_smartphone()

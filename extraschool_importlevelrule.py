@@ -21,16 +21,16 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
+from openerp import models, api, fields
+from openerp.api import Environment
 
-class extraschool_importlevelrule(osv.osv):
+class extraschool_importlevelrule(models.Model):
     _name = 'extraschool.importlevelrule'
     _description = 'Child import level rule'
 
-    _columns = {
-        'levelid' : fields.many2one('extraschool.level', 'Level', required=True),
-        'startpos1': fields.integer('Start pos1'),
-        'endpos1': fields.integer('End pos1'),
-        'equalto1' : fields.char('Equals to1', size=10),
-    }
+    levelid = fields.Many2one('extraschool.level', 'Level', required=True)
+    startpos1 = fields.Integer('Start pos1')
+    endpos1 = fields.Integer('End pos1')
+    equalto1 = fields.Char('Equals to1', size=10)
+
 extraschool_importlevelrule()

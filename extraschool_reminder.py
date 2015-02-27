@@ -20,23 +20,23 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.osv import osv, fields
+from openerp import models, api, fields
+from openerp.api import Environment
 
-class extraschool_reminder(osv.osv):
+class extraschool_reminder(models.Model):
     _name = 'extraschool.reminder'
     _description = 'Reminder'
 
-    _columns = {
-        'remindersjournalid' : fields.many2one('extraschool.remindersjournal', 'Reminders journal',ondelete='cascade', required=False),
-        'parentid' : fields.many2one('extraschool.parent', 'Parent', required=False),
-        'amount' : fields.float('Amount'),
-        'structcom' : fields.char('Structured Communication', size=50),
-        'schoolimplantationid' : fields.many2one('extraschool.schoolimplantation', 'School implantation', required=False),
-        'concernedinvoices' : fields.many2many('extraschool.invoice','extraschool_reminder_invoice_rel', 'reminder_id', 'invoice_id','Concerned invoices'),
-        'filename' : fields.char('filename', size=30,readonly=True),
-        'reminder_file' : fields.binary('File', readonly=True),
-        'activitycategoryid' : fields.related('remindersjournalid', 'activitycategoryid', type='many2one',relation="extraschool.activitycategory", string='Activity Category'),
-        'term' : fields.related('remindersjournalid', 'term', type='date', string='Term'),
-        'transmissiondate' : fields.related('remindersjournalid', 'transmissiondate', type='date', string='Transmission date'),  
-    }
+    remindersjournalid = fields.Many2one('extraschool.remindersjournal', 'Reminders journal',ondelete='cascade', required=False)
+    parentid = fields.Many2one('extraschool.parent', 'Parent', required=False)
+    amount = fields.Float('Amount')
+    structcom = fields.Char('Structured Communication', size=50)
+    schoolimplantationid = fields.Many2one('extraschool.schoolimplantation', 'School implantation', required=False)
+    concernedinvoices = fields.Many2many('extraschool.invoice','extraschool_reminder_invoice_rel', 'reminder_id', 'invoice_id','Concerned invoices')
+    filename = fields.Char('filename', size=30,readonly=True)
+    reminder_file = fields.Binary('File', readonly=True)
+    activitycategoryid = fields.Many2one('remindersjournalid.activitycategoryid', string='Activity Category')
+    term = fields.Date('remindersjournalid.term')
+    transmissiondate = fields.Date('remindersjournalid.transmissiondate')  
+
 extraschool_reminder()

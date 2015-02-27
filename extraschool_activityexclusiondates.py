@@ -21,26 +21,21 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
+from openerp import models, api, fields
+from openerp.api import Environment
 
-class extraschool_activityexclusiondates(osv.osv):
+class extraschool_activityexclusiondates(models.Model):
     _name = 'extraschool.activityexclusiondates'
     _description = 'Activity exclusion dates'
 
-    def name_get(self, cr, uid, ids, context={}):
-        if not len(ids):
-            return []
-        
+    def name_get(self):
         res=[]
-        for exc_date in self.browse(cr, uid, ids,context=context):
+        for exc_date in self:
             res.append((exc_date.id, exc_date.date_from + ' - ' + exc_date.date_to))    
     
-        print str(res)
-
         return res     
             
-    _columns = {
-        'date_from' : fields.date('Date from', required=True),
-        'date_to' : fields.date('Date to', required=True),
-    }
+    date_from = fields.Date('Date from', required=True)
+    date_to = fields.Date('Date to', required=True)
+
 extraschool_activityexclusiondates()

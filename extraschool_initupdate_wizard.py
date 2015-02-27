@@ -21,10 +21,11 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
+from openerp import models, api, fields
+from openerp.api import Environment
 import os
 
-class extraschool_initupdate_wizard(osv.osv_memory):
+class extraschool_initupdate_wizard(models.TransientModel):
     _name = 'extraschool.initupdate_wizard'
 
     _columns = {
@@ -33,21 +34,21 @@ class extraschool_initupdate_wizard(osv.osv_memory):
 
     _defaults = {
     }
+    
+    @api.model
+    def initdefaultvalues(self):
+        obj_config = self.env['extraschool.mainsettings']
 
-    def initdefaultvalues(self, cr, uid, context=None):
-        obj_config = self.pool.get('extraschool.mainsettings')
-        obj_level = self.pool.get('extraschool.level')
-        obj_childtype = self.pool.get('extraschool.childtype')
-        obj_class = self.pool.get('extraschool.class')
-        obj_childposition = self.pool.get('extraschool.childposition')
-        obj_importlevelrule = self.pool.get('extraschool.importlevelrule')
-        config=obj_config.search(cr, uid, [('id','=','1')])        
+        config=obj_config.search([('id','=','1')])        
         if not config:
-            obj_config.create(cr, uid, {'id':1,'lastqrcodenbr':0,'qrencode':'/opt/qrencode/qrencode','tempfolder':'/opt/garderies/appytemp/','templatesfolder':'/opt/garderies/templates/'}, context=context)
-            
-
-        
-    def updateapplication(self, cr, uid, ids, context=None):
+            obj_config.create({'id':1,
+                               'lastqrcodenbr':0,
+                               'qrencode':'/opt/qrencode/qrencode',
+                               'tempfolder':'/opt/garderies/appytemp/',
+                               'templatesfolder':'/opt/garderies/templates/'
+                               })
+    @api.model
+    def updateapplication(self):
         os.system('/opt/garderies/extraschool/update.sh')
     
 extraschool_initupdate_wizard()

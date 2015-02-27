@@ -21,16 +21,16 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
+from openerp import models, api, fields
+from openerp.api import Environment
 
-class extraschool_class(osv.osv):
+class extraschool_class(models.Model):
     _name = 'extraschool.class'
     _description = 'Class'
     _order = 'name'
 
-    _columns = {
-        'name' : fields.char('Name', size=50),
-        'levelids' : fields.many2many('extraschool.level','extraschool_class_level_rel', 'class_id', 'level_id','Levels',required=True),
-        'schoolimplantation' : fields.many2one('extraschool.schoolimplantation', 'School implantation', required=False),      
-    }
+    name = fields.Char('Name', size=50, required=True)
+    levelids = fields.Many2many('extraschool.level','extraschool_class_level_rel', 'class_id', 'level_id','Levels',required=True)
+    schoolimplantation = fields.Many2one('extraschool.schoolimplantation', 'School implantation', required=False)      
+
 extraschool_class()

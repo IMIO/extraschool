@@ -21,57 +21,58 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
+from openerp import models, api, fields
+from openerp.api import Environment
 import cStringIO
 import base64
 
-class extraschool_coda(osv.osv):
+class extraschool_coda(models.Model):
     _name = 'extraschool.coda'
+
+    name = fields.Char('Name', size=20)
+    codafile = fields.Binary('CODA File')
+    codadate = fields.Date('CODA Date',readonly=True)
+    amountperyear = fields.Text(compute='_compute_amountperyear', string="Amount per year")
+    paymentids = fields.One2many('extraschool.payment', 'coda','Payments',readonly=True)
+    rejectids = fields.One2many('extraschool.reject', 'coda','Rejects',readonly=True)
     
+    @api.depends('paymentids')
     def _compute_amountperyear (self, cr, uid, ids, field_name, arg, context):
-        to_return={}
-        for record in self.browse(cr, uid, ids):     
+        
+        for record in self:     
             strhtml='<HTML><TABLE border=1 width=30%><TD>ANNEE</TD><TD>MONTANT</TD></TR>'
             cr.execute("select date_part('year',(select period_from from extraschool_biller where id=biller_id)) AS year, sum(extraschool_payment.amount) AS amount from extraschool_payment left join extraschool_invoice on concernedinvoice = extraschool_invoice.id where coda=%s and paymenttype='1' group by year", (record.id,))                
             amountperyears=cr.dictfetchall()
             for amountperyear in amountperyears:
                 strhtml=strhtml+'<TR><TD>'+str(int(amountperyear['year']))+'</TD><TD>'+str(amountperyear['amount'])+'</TD></TR>'
             strhtml=strhtml+'</TABLE></HTML>'
-            to_return[record.id]=strhtml
-        return to_return
-
-    _columns = {
-        'name' : fields.char('Name', size=20),
-        'codafile': fields.binary('CODA File'),
-        'codadate': fields.date('CODA Date',readonly=True),
-        'amountperyear': fields.function(_compute_amountperyear, method=True, type="text", string="Amount per year"),
-        'paymentids': fields.one2many('extraschool.payment', 'coda','Payments',readonly=True),
-        'rejectids': fields.one2many('extraschool.reject', 'coda','Rejects',readonly=True),
-    }
-    
-    
-    def create(self, cr, uid, vals, *args, **kw):  
+            record.amountperyear = strhtml
+       
+    @api.model
+    def create(self, vals):  
+        #to do refactoring suite api V8
+        cr, uid = self.env.cr, self.env.user.id
         paymentids = []
         rejectids = []
         if not vals['codafile']:
-            raise osv.except_osv('No coda file!','ERROR: No CODA File !!!')
+            raise Warning('No coda file!','ERROR: No CODA File !!!')
         lines = unicode(base64.decodestring(vals['codafile']), 'windows-1252', 'strict').split('\n')
         bankaccount = lines[1][5:21]
         codadate = '20'+lines[0][9:11]+'-'+lines[0][7:9]+'-'+lines[0][5:7]
-        coda_obj = self.pool.get('extraschool.coda')
-        coda_ids = coda_obj.search(cr,uid,[('codadate','=',codadate)])
+        coda_obj = self.env['extraschool.coda']
+        coda_ids = coda_obj.search([('codadate','=',codadate)]).ids
         if coda_ids:
-            raise osv.except_osv('ERROR!','CODA already imported !!!')
-        activitycategory_obj = self.pool.get('extraschool.activitycategory')
-        invoice_obj = self.pool.get('extraschool.invoice')
-        reminder_obj = self.pool.get('extraschool.reminder')
-        payment_obj = self.pool.get('extraschool.payment')
-        reject_obj = self.pool.get('extraschool.reject')
-        activitycategory_ids=activitycategory_obj.search(cr, uid, [('bankaccount', '=', bankaccount)])  
+            raise Warning('CODA already imported !!!')
+        activitycategory_obj = self.env['extraschool.activitycategory']
+        invoice_obj = self.env['extraschool.invoice']
+        reminder_obj = self.env['extraschool.reminder']
+        payment_obj = self.env['extraschool.payment']
+        reject_obj = self.env['extraschool.reject']
+        activitycategory_ids=activitycategory_obj.search([('bankaccount', '=', bankaccount)]).ids
         if lines[0][127] !='2':
-            raise osv.except_osv('Wrong coda file!','ERROR: Wrong CODA version !!!')
+            raise Warning('ERROR: Wrong CODA version !!!')
         if (activitycategory_ids == 0):
-            raise osv.except_osv('Wrong coda file!','ERROR: The account number in this CODA file is not used in this application !!!')
+            raise Warning('ERROR: The account number in this CODA file is not used in this application !!!')
         reject = False
         amount = 0.0
         transfertdate=''
@@ -167,5 +168,5 @@ class extraschool_coda(osv.osv):
                     name=''
                     adr1=''
                     adr2=''
-        return super(extraschool_coda, self).create(cr, uid, {'name':'CODA '+codadate,'codadate':codadate,'codafile':vals['codafile'],'paymentids':[(6,0,paymentids)],'rejectids':[(6,0,rejectids)]})
+        return super(extraschool_coda, self).create({'name':'CODA '+codadate,'codadate':codadate,'codafile':vals['codafile'],'paymentids':[(6,0,paymentids)],'rejectids':[(6,0,rejectids)]})
 extraschool_coda()

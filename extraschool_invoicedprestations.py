@@ -21,19 +21,19 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
+from openerp import models, api, fields
+from openerp.api import Environment
 
-class extraschool_invoicedprestations(osv.osv):
+class extraschool_invoicedprestations(models.Model):
     _name = 'extraschool.invoicedprestations'
     _description = 'invoiced Prestations'
 
-    _columns = {
-        'invoiceid' : fields.many2one('extraschool.invoice', 'invoice',ondelete='cascade'),
-        'childid' : fields.many2one('extraschool.child', 'Child', required=False, select=True),
-        'placeid' : fields.many2one('extraschool.place', 'Place', select=True),
-        'prestation_date' : fields.date('Date', select=True),
-        'activityid' : fields.many2one('extraschool.activity', 'Activity', required=False, select=True),        
-        'quantity' : fields.integer('Quantity', select=True),
-        'discount' : fields.boolean('Discount'),                            
-    }
+    invoiceid = fields.Many2one('extraschool.invoice', 'invoice',ondelete='cascade')
+    childid = fields.Many2one('extraschool.child', 'Child', required=False, select=True)
+    placeid = fields.Many2one('extraschool.place', 'Place', select=True)
+    prestation_date = fields.Date('Date', select=True)
+    activityid = fields.Many2one('extraschool.activity', 'Activity', required=False, select=True)        
+    quantity = fields.Integer('Quantity', select=True)
+    discount = fields.Boolean('Discount')                            
+
 extraschool_invoicedprestations()

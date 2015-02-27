@@ -21,22 +21,22 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
+from openerp import models, api, fields
+from openerp.api import Environment
 
-class extraschool_reject(osv.osv):
+class extraschool_reject(models.Model):
     _name = 'extraschool.reject'
     _description = 'Reject'
 
-    _columns = {
-        'paymentdate' : fields.date('Date'),
-        'structcom' : fields.char('Structured Communication', size=50),
-        'account' : fields.char('Account', size=20),
-        'name' : fields.char('Name', size=50),
-        'addr1' : fields.char('Addr1', size=50),
-        'addr2' : fields.char('Addr2', size=50),
-        'amount' : fields.float('Amount'),
-        'rejectcause' : fields.char('Reject cause', size=60),
-        'coda' : fields.many2one('extraschool.coda', 'Coda', required=False),
-    }
+    paymentdate = fields.Date('Date')
+    structcom = fields.Char('Structured Communication', size=50)
+    account = fields.Char('Account', size=20)
+    name = fields.Char('Name', size=50)
+    addr1 = fields.Char('Addr1', size=50),
+    addr2 = fields.Char('Addr2', size=50),
+    amount = fields.Float('Amount')
+    rejectcause = fields.Char('Reject cause', size=60)
+    coda = fields.Many2one('extraschool.coda', 'Coda', required=False)
+
 extraschool_reject()
 

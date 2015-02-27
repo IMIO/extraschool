@@ -21,50 +21,51 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
+from openerp import models, api, fields
+from openerp.api import Environment
 import cStringIO
 import base64
 import appy.pod.renderer
 import os
 from pyPdf import PdfFileWriter, PdfFileReader
 
-class extraschool_qrcodes_wizard(osv.osv_memory):
+class extraschool_qrcodes_wizard(models.TransientModel):
     _name = 'extraschool.qrcodes_wizard'
 
-    _columns = {
-        'quantity' : fields.integer('Quantity to print'),
-        'name': fields.char('File Name', 16, readonly=True),
-        'qrcodes': fields.binary('File', readonly=True),
-        'state' : fields.selection(
-            [('init', 'Init'),('print_qrcodes', 'Print QRCodes')],
-            'State', required=True
-        ),
-    }
 
-    _defaults = {
-        'state' : lambda *a: 'init'
-    }
+    quantity = fields.Integer('Quantity to print')
+    name = fields.Char('File Name', size=16, readonly=True)
+    qrcodes = fields.Binary('File', readonly=True)
+    state = fields.Selection([('init', 'Init'),
+                             ('print_qrcodes', 'Print QRCodes')],
+                            'State', required=True, default='init'
+                            )
 
 
-    def action_print_qrcodes(self, cr, uid, ids, context=None):
-        obj_config = self.pool.get('extraschool.mainsettings')
-        config=obj_config.read(cr, uid, [1],['lastqrcodenbr','qrencode','tempfolder','templatesfolder'])[0]             
-        form = self.read(cr,uid,ids,)[-1]
-        files=[]
-        for i in range(config['lastqrcodenbr']+1,config['lastqrcodenbr']+form['quantity']+1):            
-            os.system(config['qrencode']+' -o '+config['tempfolder']+str(i)+'.png -s 4 -l Q '+str(i))        
-            files.append({'fname':config['tempfolder']+str(i)+'.png'})
-        try:
-            os.remove(config['tempfolder']+'codes.pdf')
-        except:
-            pass
-        renderer = appy.pod.renderer.Renderer(config['templatesfolder']+'qrcodes.odt',{'files':files,}, config['tempfolder']+'codes.pdf')                
-        renderer.run()     
-        for i in range(config['lastqrcodenbr']+1,config['lastqrcodenbr']+form['quantity']+1):            
-            os.remove(config['tempfolder']+str(i)+'.png')
-        mainsettings_id = obj_config.write(cr, uid, [1], {'lastqrcodenbr':config['lastqrcodenbr']+form['quantity']+1}, context=context)           
-        outfile = open(config['tempfolder']+'codes.pdf','r').read()
-        out=base64.b64encode(outfile)
-        return self.write(cr, uid, ids, {'state':'print_qrcodes', 'qrcodes':out, 'name':'qrcodes.pdf'}, context=context)
+
+    def action_print_qrcodes(self):
+#         obj_config = self.pool.get('extraschool.mainsettings')
+#         config=obj_config.read(cr, uid, [1],['lastqrcodenbr','qrencode','tempfolder','templatesfolder'])[0]             
+#         form = self.read(cr,uid,ids,)[-1]
+#         files=[]
+#         for i in range(config['lastqrcodenbr']+1,config['lastqrcodenbr']+form['quantity']+1):            
+#             os.system(config['qrencode']+' -o '+config['tempfolder']+str(i)+'.png -s 4 -l Q '+str(i))        
+#             files.append({'fname':config['tempfolder']+str(i)+'.png'})
+#         try:
+#             os.remove(config['tempfolder']+'codes.pdf')
+#         except:
+#             pass
+#         renderer = appy.pod.renderer.Renderer(config['templatesfolder']+'qrcodes.odt',{'files':files,}, config['tempfolder']+'codes.pdf')                
+#         renderer.run()     
+#         for i in range(config['lastqrcodenbr']+1,config['lastqrcodenbr']+form['quantity']+1):            
+#             os.remove(config['tempfolder']+str(i)+'.png')
+#         mainsettings_id = obj_config.write(cr, uid, [1], {'lastqrcodenbr':config['lastqrcodenbr']+form['quantity']+1}, context=context)           
+#         outfile = open(config['tempfolder']+'codes.pdf','r').read()
+#         out=base64.b64encode(outfile)
+#         
+#        return self.write(cr, uid, ids, {'state':'print_qrcodes', 'qrcodes':out, 'name':'qrcodes.pdf'}, context=context)
+        #to do refactoring new report
+        return True
+    
 extraschool_qrcodes_wizard()
 

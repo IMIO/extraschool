@@ -21,15 +21,15 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
+from openerp import models, api, fields
+from openerp.api import Environment
 
-class extraschool_importreject(osv.osv):
+class extraschool_importreject(models.Model):
     _name = 'extraschool.importreject'
     _description = 'Import Reject'
 
-    _columns = {
-        'line' : fields.integer('Line'),
-        'rejectcause' : fields.char('Reject cause', size=60),
-        'childsimport' : fields.many2one('extraschool.childsimport', 'Childs import', required=False),
-    }
+    line = fields.Integer('Line')
+    rejectcause = fields.Char('Reject cause', size=60)
+    childsimport = fields.Many2one('extraschool.childsimport', 'Childs import', required=False)
+
 extraschool_importreject()

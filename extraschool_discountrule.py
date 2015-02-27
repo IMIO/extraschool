@@ -21,16 +21,16 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
+from openerp import models, api, fields
+from openerp.api import Environment
 
-class extraschool_discountrule(osv.osv):
+class extraschool_discountrule(models.Model):
     _name = 'extraschool.discountrule'
     _description = 'Discount Rule'
 
-    _columns = {
-        'name' : fields.char('Name', size=50),
-        'field' : fields.char('Field', size=60),
-        'operator' : fields.selection((('=','='),('= et ignorer case','ilike'),('>','>'),('<','<'),('>=','>='),('<=','<='),('<>','<>'),('in','in'),('is','is'),('is not','is not')),'Operator'),
-        'value' : fields.char('Value', size=50),
-    }
+    name = fields.Char('Name', size=50)
+    field = fields.Char('Field', size=60)
+    operator = fields.Selection((('=','='),('= et ignorer case','ilike'),('>','>'),('<','<'),('>=','>='),('<=','<='),('<>','<>'),('in','in'),('is','is'),('is not','is not')),'Operator')
+    value = fields.Char('Value', size=50)
+
 extraschool_discountrule()

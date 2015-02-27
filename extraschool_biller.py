@@ -21,63 +21,88 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
+from openerp import models, api, fields
+from openerp.api import Environment
 import lbutils
 import re
 
-class extraschool_biller(osv.osv):
+class extraschool_biller(models.Model):
     _name = 'extraschool.biller'
     _description = 'Biller'
 
-    def deletebiller(self, cr, uid, ids, context=None):             
-        obj_biller = self.pool.get('extraschool.biller')        
-        res = obj_biller.unlink(cr, uid, ids)        
-        return True
-
-    def _compute_total (self, cr, uid, ids, field_name, arg, context):
-        to_return={}
-        for record in self.browse(cr, uid, ids):
-            cr.execute('select sum(amount_total) from extraschool_invoice where biller_id=%s',(record.id,))
-            to_return[record.id] = cr.fetchall()[0][0]
-        return to_return
-
-    def _compute_received (self, cr, uid, ids, field_name, arg, context):
-        to_return={}
-        for record in self.browse(cr, uid, ids):
-            cr.execute('select sum(amount_received) from extraschool_invoice where biller_id=%s',(record.id,))
-            to_return[record.id] = cr.fetchall()[0][0]
-        return to_return
+    name = fields.Char('Name', size=100, default='Facturier')
+    activitycategoryid = fields.Many2one('extraschool.activitycategory', 'Activity Category')
+    period_from = fields.Date('Period from')
+    period_to = fields.Date('Period to')
+    payment_term = fields.Date('Payment term')
+    invoices_date = fields.Date('Invoices date')        
+    invoice_ids = fields.One2many('extraschool.invoice', 'biller_id','invoices')
+    total = fields.Float(compute='_compute_total', string="Total")
+    received = fields.Float(compute='_compute_received', string="Received")
+    novalue = fields.Float(compute='_compute_novalue', string="No Value")
+    balance = fields.Float(compute='_compute_balance', string="Balance")
+    nbinvoices = fields.Integer(compute='_compute_nbinvoices', string="Nb of invoices")
+    paymentsstats = fields.Text(compute='_compute_paymentsstats', string="Payments stats")
+    filename = fields.Char('filename', size=20,readonly=True)
+    biller_file = fields.Binary('File', readonly=True)
+    oldid = fields.Integer('oldid')  
     
-    def _compute_balance (self, cr, uid, ids, field_name, arg, context):
-        to_return={}
-        for record in self.browse(cr, uid, ids):
-            cr.execute('select sum(balance) from extraschool_invoice where biller_id=%s',(record.id,))
-            to_return[record.id] = cr.fetchall()[0][0]
-        return to_return
+    @api.depends('invoice_ids.amount_total')
+    def _compute_total(self):
+        for record in self:
+            record.total = sum(invoice.amount_total for invoice in record.invoice_ids)
+            
+    @api.depends('invoice_ids.amount_received')
+    def _compute_received(self):
+        for record in self:
+            record.received = sum(invoice.amount_received for invoice in record.invoice_ids)
+            
+    @api.depends('invoice_ids.balance')
+    def _compute_balance(self):
+        for record in self:
+            record.balance = sum(invoice.balance for invoice in record.invoice_ids)
     
-    def _compute_novalue (self, cr, uid, ids, field_name, arg, context):
-        to_return={}
-        for record in self.browse(cr, uid, ids):
-            cr.execute('select sum(no_value) from extraschool_invoice where biller_id=%s',(record.id,))
-            to_return[record.id] = cr.fetchall()[0][0]
-        return to_return
+    @api.depends('invoice_ids.no_value')
+    def _compute_novalue(self):
+        for record in self:
+            record.novalue = sum(invoice.novalue for invoice in record.invoice_ids)
+    @api.depends('invoice_ids')
+    def _compute_nbinvoices(self, cr, uid, ids, field_name, arg, context):
+        for record in self:
+            record.nbinvoices = len(self.ids)
 
-    def _compute_nbinvoices (self, cr, uid, ids, field_name, arg, context):
-        to_return={}
-        for record in self.browse(cr, uid, ids):
-            cr.execute('select count(id) from extraschool_invoice where biller_id=%s',(record.id,))
-            to_return[record.id] = cr.fetchall()[0][0]
-        return to_return
+    @api.depends('invoice_ids')
+    def _compute_paymentsstats(self):
+        #to do check if it's not possible to use tree view on field invoice_ids
+        cr, uid = self.env.cr, self.env.user.id
 
-    def sendmails(self, cr, uid, ids, context=None):                     
-        mail_mail = self.pool.get('mail.mail')
-        ir_attachment = self.pool.get('ir.attachment')
-        invoice_obj = self.pool.get('extraschool.invoice')
-        parent_obj  = self.pool.get('extraschool.parent')
-        biller_obj  = self.pool.get('extraschool.biller')
-        activitycategory_obj  = self.pool.get('extraschool.activitycategory')
-        mail_ids = []
-        invoice_ids = invoice_obj.search(cr, uid, [('biller_id','=',ids[0])])
+        for record in self:     
+            strhtml='<HTML><TABLE border=1 width=80%><TD>Implantation</TD><TD>Nb Factures</TD><TD>Nb Paiements</TD><TD>Total paiements</TD><TD>Total factures</TD></TR>'
+            cr.execute("select schoolimplantationid,extraschool_schoolimplantation.name as implantationname,count(extraschool_invoice) as nbinvoices from extraschool_invoice left join extraschool_schoolimplantation on schoolimplantationid=extraschool_schoolimplantation.id where biller_id=%s group by schoolimplantationid,extraschool_schoolimplantation.name", (record.id,))
+            schoolimplantations=cr.dictfetchall()
+            for schoolimplantation in schoolimplantations:
+                cr.execute("select count(extraschool_payment.id) as nbpayments,sum(extraschool_payment.amount) as amount from extraschool_payment left join extraschool_invoice on concernedinvoice=extraschool_invoice.id where biller_id=%s and schoolimplantationid=%s", (record.id,schoolimplantation['schoolimplantationid']))                
+                paymentstats=cr.dictfetchall()[0]
+                cr.execute("select sum(amount_total) from extraschool_invoice where biller_id=%s and schoolimplantationid=%s", (record.id,schoolimplantation['schoolimplantationid']))                
+                totinvoices=cr.fetchall()[0][0]
+                strhtml=strhtml+'<TR><TD>'+str(lbutils.genstreetcode(schoolimplantation['implantationname']))+'</TD><TD>'+str(schoolimplantation['nbinvoices'])+'</TD><TD>'+str(paymentstats['nbpayments'])+'</TD><TD>'+str(paymentstats['amount'])+'</TD><TD>'+str(totinvoices)+'</TD></TR>'
+            strhtml=strhtml+'</TABLE></HTML>'
+
+            record.paymentsstats=strhtml
+            
+    @api.one        
+    def sendmails(self):  
+        #to do refactoring et netoyage suite au passage api V8                   
+        cr, uid = self.env.cr, self.env.user.id             
+        ids = [self.id]   
+        
+        mail_mail = self.env['mail.mail']
+        ir_attachment = self.env['ir.attachment']
+        invoice_obj = self.env['extraschool.invoice']
+        parent_obj  = self.env['extraschool.parent']
+        biller_obj  = self.env['extraschool.biller']
+        activitycategory_obj  = self.env['extraschool.activitycategory']
+        invoice_ids = self.invoice_ids.ids
         biller=biller_obj.read(cr, uid, ids,['activitycategoryid'])[0]
         activitycat=activitycategory_obj.read(cr, uid, [biller['activitycategoryid'][0]],['invoiceemailtext','invoiceemailsubject','invoiceemailaddress'])[0]
         for invoice_id in invoice_ids:
@@ -92,7 +117,7 @@ class extraschool_biller(osv.osv):
                             'email_from': activitycat['invoiceemailaddress'],
                             'email_to': email,
                             'subject': activitycat['invoiceemailsubject'],
-                            'body_html': '<pre>%s</pre>' % activitycat['invoiceemailtext']}, context=context)
+                            'body_html': '<pre>%s</pre>' % activitycat['invoiceemailtext']})
                         attachment_data = {
                             'name': invoice['filename'],
                             'datas_fname': invoice['filename'],
@@ -100,50 +125,12 @@ class extraschool_biller(osv.osv):
                             'res_model': mail_mail._name,
                             'res_id': mail_id,
                             }
-                        attachment_id = ir_attachment.create(cr, uid, attachment_data, context=context)
-                        mail_mail.write(cr, uid, mail_id, {'attachment_ids': [(6, 0, [attachment_id])]}, context=context)                    
-                        mail_mail.send(cr, uid, [mail_id], context=context)
+                        attachment_id = ir_attachment.create(cr, uid, attachment_data)
+                        mail_mail.write(cr, uid, mail_id, {'attachment_ids': [(6, 0, [attachment_id])]})                    
+                        mail_mail.send(cr, uid, [mail_id])
                         ir_attachment.unlink(cr, uid, [attachment_id])
                         mail_mail.unlink(cr, uid, [mail_id])
         return False
 
-    def _compute_paymentsstats (self, cr, uid, ids, field_name, arg, context):
-        to_return={}
-        for record in self.browse(cr, uid, ids):     
-            strhtml='<HTML><TABLE border=1 width=80%><TD>Implantation</TD><TD>Nb Factures</TD><TD>Nb Paiements</TD><TD>Total paiements</TD><TD>Total factures</TD></TR>'
-            cr.execute("select schoolimplantationid,extraschool_schoolimplantation.name as implantationname,count(extraschool_invoice) as nbinvoices from extraschool_invoice left join extraschool_schoolimplantation on schoolimplantationid=extraschool_schoolimplantation.id where biller_id=%s group by schoolimplantationid,extraschool_schoolimplantation.name", (record.id,))
-            schoolimplantations=cr.dictfetchall()
-            for schoolimplantation in schoolimplantations:
-                cr.execute("select count(extraschool_payment.id) as nbpayments,sum(extraschool_payment.amount) as amount from extraschool_payment left join extraschool_invoice on concernedinvoice=extraschool_invoice.id where biller_id=%s and schoolimplantationid=%s", (record.id,schoolimplantation['schoolimplantationid']))                
-                paymentstats=cr.dictfetchall()[0]
-                cr.execute("select sum(amount_total) from extraschool_invoice where biller_id=%s and schoolimplantationid=%s", (record.id,schoolimplantation['schoolimplantationid']))                
-                totinvoices=cr.fetchall()[0][0]
-                strhtml=strhtml+'<TR><TD>'+str(lbutils.genstreetcode(schoolimplantation['implantationname']))+'</TD><TD>'+str(schoolimplantation['nbinvoices'])+'</TD><TD>'+str(paymentstats['nbpayments'])+'</TD><TD>'+str(paymentstats['amount'])+'</TD><TD>'+str(totinvoices)+'</TD></TR>'
-            strhtml=strhtml+'</TABLE></HTML>'
-            to_return[record.id]=strhtml
-        return to_return
-
-
-    _columns = {
-        'name' : fields.char('Name', size=20),
-        'activitycategoryid' : fields.many2one('extraschool.activitycategory', 'Activity Category'),
-        'period_from' : fields.date('Period from'),
-        'period_to' : fields.date('Period to'),
-        'payment_term' : fields.date('Payment term'),
-        'invoices_date' : fields.date('Invoices date'),        
-        'invoice_ids' : fields.one2many('extraschool.invoice', 'biller_id','invoices'),
-        'total' : fields.function(_compute_total, method=True, type="float", string="Total"),
-        'received' : fields.function(_compute_received, method=True, type="float", string="Received"),
-        'novalue' : fields.function(_compute_novalue, method=True, type="float", string="No Value"),
-        'balance' : fields.function(_compute_balance, method=True, type="float", string="Balance"),
-        'nbinvoices': fields.function(_compute_nbinvoices, method=True, type="integer", string="Nb of invoices"),
-        'paymentsstats' : fields.function(_compute_paymentsstats, method=True, type="text", string="Payments stats"),
-        'filename' : fields.char('filename', size=20,readonly=True),
-        'biller_file' : fields.binary('File', readonly=True),
-        'oldid' : fields.integer('oldid'),      
-    }
-    _defaults = {
-        'name' : lambda *a: 'Facturier'
-    }
 extraschool_biller()
 

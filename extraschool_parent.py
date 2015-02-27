@@ -21,10 +21,11 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
+from openerp import models, api, fields
+from openerp.api import Environment
 import lbutils
 
-class extraschool_parent(osv.osv):
+class extraschool_parent(models.Model):
     _name = 'extraschool.parent'
     _description = 'Parent'
     def _name_compute(self, cr, uid, ids, fieldname, other, context=None):
@@ -84,48 +85,46 @@ class extraschool_parent(osv.osv):
             cr.execute('select sum(balance) from extraschool_invoice where parentid=%s',(record.id,))
             to_return[record.id] = cr.fetchall()[0][0]
         return to_return
-    
-    _columns = {        
-        'name' : fields.char('FullName', size=100),        
-        'firstname' : fields.char('FirstName', size=50,required=True),
-        'lastname' : fields.char('LastName', size=50,required=True),        
-        'street' : fields.char('Street', size=50,required=True),
-        'zipcode' : fields.char('ZipCode', size=6,required=True),
-        'city' : fields.char('City', size=50,required=True),
-        'housephone' : fields.char('House Phone', size=20),
-        'workphone' : fields.char('Work Phone', size=20),
-        'gsm' : fields.char('GSM', size=20),
-        'email' : fields.char('Email', size=100),
-        'invoicesendmethod' : fields.selection((('emailandmail','By mail and email'),('onlyemail','Only by email'),('onlybymail','Only by mail')),'Invoice send method',required=True),
-        'streetcode': fields.char('Street code', size=50),
-        'child_ids' : fields.one2many('extraschool.child', 'parentid','childs'),
-        'invoice_ids' : fields.one2many('extraschool.invoice', 'parentid','invoices'),
-        'remindersendmethod' : fields.selection((('emailandmail','By mail and email'),('onlyemail','Only by email'),('onlybymail','Only by mail')),'Reminder send method',required=True),
-        'reminder_ids' : fields.one2many('extraschool.reminder', 'parentid','reminders'),
-        'totalinvoiced' : fields.function(_compute_totalinvoiced, method=True, type="float", string="Total invoiced"),
-        'totalreceived' : fields.function(_compute_totalreceived, method=True, type="float", string="Total received"),
-        'totalbalance' : fields.function(_compute_totalbalance, method=True, type="float", string="Total balance"),
-        'oldid' : fields.integer('oldid'),                
-    }
-    
-    _defaults = {
-        'invoicesendmethod' : lambda *a: 'emailandmail',
-        'remindersendmethod' : lambda *a: 'emailandmail',
-    }
-    
-    def create(self, cr, uid, vals, *args, **kw):
         
-        parent_obj = self.pool.get('extraschool.parent')
-        parent_ids=parent_obj.search(cr, uid, [('firstname', 'ilike', vals['firstname'].strip()),('lastname', 'ilike', vals['lastname'].strip()),('streetcode', 'ilike', vals['streetcode'])])
-        if len(parent_ids) >0:
-            raise osv.except_osv('Erreur','Ce parent a deja ete encode !!!')
-        return super(extraschool_parent, self).create(cr, uid, vals)
+    name = fields.Char('FullName', size=100)        
+    firstname = fields.Char('FirstName', size=50,required=True)
+    lastname = fields.Char('LastName', size=50,required=True)        
+    street = fields.Char('Street', size=50,required=True)
+    zipcode = fields.Char('ZipCode', size=6,required=True)
+    city = fields.Char('City', size=50,required=True)
+    housephone = fields.Char('House Phone', size=20)
+    workphone = fields.Char('Work Phone', size=20)
+    gsm = fields.Char('GSM', size=20)
+    email = fields.Char('Email', size=100)
+    invoicesendmethod = fields.Selection((('emailandmail','By mail and email'),
+                                          ('onlyemail','Only by email'),
+                                          ('onlybymail','Only by mail')),
+                                         'Invoice send method',required=True, default='emailandmail')
+    streetcode = fields.Char('Street code', size=50)
+    child_ids = fields.One2many('extraschool.child', 'parentid','childs')
+    invoice_ids = fields.One2many('extraschool.invoice', 'parentid','invoices')
+    remindersendmethod = fields.Selection((('emailandmail','By mail and email'),
+                                           ('onlyemail','Only by email'),
+                                           ('onlybymail','Only by mail')),
+                                          'Reminder send method',required=True, dafaut='emailandmail')
+    reminder_ids = fields.One2many('extraschool.reminder', 'parentid','reminders')
+    totalinvoiced = fields.Float(compute='_compute_totalinvoiced', string="Total invoiced")
+    totalreceived = fields.Float(compute='_compute_totalreceived', string="Total received")
+    totalbalance = fields.Float(compute='_compute_totalbalance', string="Total balance")
+    oldid = fields.Integer('oldid')                
     
-    def unlink(self, cr, uid, ids, context=None):
-        child_obj = self.pool.get('extraschool.child')
-        childs_ids=child_obj.search(cr, uid, [('parentid', '=', ids[0])])
-        if len(childs_ids) >0:
-            raise osv.except_osv('Error', 'You can not delete a parent with childs.')
-            return False
-        return super(extraschool_parent, self).unlink(cr, uid, ids)
+    @api.model        
+    def create(self, vals):
+        #to do replace check par une contraite
+        parent_obj = self.env['extraschool.parent']
+        parents=parent_obj.search([('firstname', 'ilike', vals['firstname'].strip()),
+                                      ('lastname', 'ilike', vals['lastname'].strip()),
+                                      ('streetcode', 'ilike', vals['streetcode'])])
+        
+        if len(parents) >0:
+            raise Warning('Ce parent a deja ete encode !!!')
+        
+        return super(extraschool_parent, self).create(vals)
+    
+
 extraschool_parent()

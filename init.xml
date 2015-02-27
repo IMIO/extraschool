@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <openerp>
     <data noupdate="1">
-        <function model="extraschool.initupdate_wizard" name="initdefaultvalues"/>
-    </data>
+        <function model="extraschool.initupdate_wizard" name="initdefaultvalues"/>     
+ 	</data>
 </openerp>
