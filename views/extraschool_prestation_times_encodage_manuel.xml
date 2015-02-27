@@ -1,0 +1,65 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+        <record model="ir.ui.view" id="extraschool_prestation_times_encodage_manuel_tree">
+			<field name="name">prestation_times_encodage_manuel.tree</field>
+			<field name="model">extraschool.prestation_times_encodage_manuel</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="prestation_times_encodage_manuel">
+					<field name="date_of_the_day" />
+					<field name="place_id"/>
+				</tree>
+			</field>
+		</record>
+        
+		<record model="ir.ui.view" id="extraschool_prestation_times_encodage_manuel_form">
+			<field name="name">prestation_times_encodage_manuel.form</field>
+			<field name="model">extraschool.prestation_times_encodage_manuel</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="prestation_times_encodage_manuel">
+					<group col="4">
+						<field name="date_of_the_day" />
+	                    <field name="place_id" />
+	                    <field name="prestationtime_ids" nolabel="1" colspan="4">
+	                    	<tree editable="bottom">
+								<field name="child_id"/>
+								<field name="prestation_time_entry" widget="float_time"/>
+								<field name="prestation_time_exit" widget="float_time"/>
+	                    	</tree>
+	                    </field>
+		            </group>
+				</form>
+			</field>
+		</record>
+        
+        <record id="prestation_times_encodage_manuel_search_view" model="ir.ui.view">
+            <field name="name">prestation_times_encodage_manuel.search</field>
+            <field name="model">extraschool.prestation_times_encodage_manuel</field>
+            <field name="arch" type="xml">
+                <search string="prestation_times_encodage_manuel search">
+                   <field name="date_of_the_day" />
+                   <field name="place_id" />
+                </search>
+            </field>
+        </record>				
+        
+        <record model="ir.actions.act_window" id="action_extraschool_prestation_times_encodage_manuel">
+			<field name="name">Prestations_of_the_day</field>
+			<field name="res_model">extraschool.prestation_times_encodage_manuel</field>
+			<field name="view_type">form</field>
+		</record>
+		
+        <record model="ir.actions.act_window" id="action_extraschool_prestation_times_encodage_manuel_tree">
+			<field name="name">Prestations_of_the_day.tree</field>
+			<field name="res_model">extraschool.prestation_times_encodage_manuel</field>
+			<field name="view_type">form</field>
+			<field name="view_id" ref="extraschool_prestation_times_encodage_manuel_tree"/>
+            <field name="search_view_id" ref="prestation_times_encodage_manuel_search_view"/>			
+		</record>		
+
+	
+		
+	</data>
+</openerp>
