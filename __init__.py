@@ -71,5 +71,6 @@ import extraschool_class
 import extraschool_level
 import extraschool_childtype
 import extraschool_child
+import extraschool_one_report
 
 

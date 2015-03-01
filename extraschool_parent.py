@@ -106,7 +106,10 @@ class extraschool_parent(models.Model):
     remindersendmethod = fields.Selection((('emailandmail','By mail and email'),
                                            ('onlyemail','Only by email'),
                                            ('onlybymail','Only by mail')),
-                                          'Reminder send method',required=True, dafaut='emailandmail')
+                                          'Reminder send method',required=True, default='emailandmail')
+    one_subvention_type = fields.Selection((('sf','operating grants'),
+                                            ('sdp','positive differentiation grants')),
+                                            required=True, default='sf')
     reminder_ids = fields.One2many('extraschool.reminder', 'parentid','reminders')
     totalinvoiced = fields.Float(compute='_compute_totalinvoiced', string="Total invoiced")
     totalreceived = fields.Float(compute='_compute_totalreceived', string="Total received")

@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+		<template id="report_parent">
+		<t t-call="report.html_container">
+			<t t-foreach="docs" t-as="parent">
+				
+		        <div class="page">
+		            <h2>Report Parent</h2>
+		            <p>Parent <span t-field="parent.name"/></p>
+		            <table>
+		            	<t t-foreach="parent.child_ids" t-as="child">
+		            		<tr>
+		            			<td><span t-field="child.name"/></td>
+		            			<td><span t-field="child.firstname"/></td>
+		            			<td><img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', child.firstname, 200, 200)"/></td>		            			
+		            			
+		            		</tr>
+		            	</t>
+		            </table>
+		        </div>
+		        <div class="page">
+		            <h2>2eme page</h2>
+		            
+		        </div>
+			</t>
+			</t>
+		</template>
+
+		
+		<report
+		    id="extraschool_parent"
+		    model="extraschool.parent"
+		    string="Parent"
+		    report_type="qweb-pdf"
+		    name="extraschool.report_parent"
+		    attachment_use="False"
+		/>
+	</data>
+</openerp>	
+	
+	
