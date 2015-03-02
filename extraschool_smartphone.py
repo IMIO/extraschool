@@ -58,14 +58,9 @@ class extraschool_smartphone(models.Model):
                 humanReadable = 0
             )        
         vals['qrconfig'] = base64.b64encode(barcode)
-        #config = self.env['extraschool.mainsettings'].browse(1)
-        #os.system(config.qrencode + ' -o ' + config.tempfolder + 'qrdownload.png -s 4 -l Q ' + self.softwareurl)                
-        #qrfile = open(config.tempfolder + 'qrdownload.png','r').read()        
-        #vals['qrdownload'] = base64.b64encode(qrfile)        
+      
         self = super(extraschool_smartphone, self).write(vals)        
-        #os.system(config.qrencode + ' -o ' + config.tempfolder + 'qrconfig.png -s 4 -l Q "cfg;' + str(self.ids[0]) + ';' + self.transmissiontime + ';' + self.serveraddress + ';' + self.databasename + ';' + self.username + ';' + self.userpassword + ';' + self.scanmethod + ';' + self.transfertmethod + '"')                
-        #qrfile = open(config['tempfolder']+'qrconfig.png','r').read()        
-        #vals['qrconfig'] = base64.b64encode(qrfile)
+
         return self
         
 extraschool_smartphone()
