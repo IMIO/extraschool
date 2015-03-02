@@ -101,6 +101,7 @@ class extraschool_activity(models.Model):
     def write(self, vals):
         res = super(extraschool_activity,self).write(vals)
         #to do handle changes on occurrences
+        
         return res
 
     @api.model

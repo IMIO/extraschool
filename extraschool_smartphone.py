@@ -49,6 +49,7 @@ class extraschool_smartphone(models.Model):
     oldversion = fields.Boolean('Old version')
     maxtimedelta = fields.Integer('Max time delta')
     
+    @api.multi
     def write(self,vals):
         config = self.env['extraschool.mainsettings'].browse(1)
         os.system(config.qrencode + ' -o ' + config.tempfolder + 'qrdownload.png -s 4 -l Q ' + self.softwareurl)        

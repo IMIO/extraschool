@@ -85,7 +85,7 @@ class extraschool_prestationtimes(models.Model):
         else:
             return super(extraschool_prestationtimes, self).create(vals)
 
-    
+    @api.multi
     def write(self, vals):
 #            vals['verified'] = False
             return super(extraschool_prestationtimes, self).write(vals)
