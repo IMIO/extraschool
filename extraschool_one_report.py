@@ -35,6 +35,7 @@ import xlwt
 
 class extraschool_one_report_day(models.Model):
     _name = 'extraschool.one_report_day'
+    
     one_report_id = fields.Many2one('extraschool.one_report',ondelete='cascade')
     day_date = fields.Date()
     child_ids = fields.Many2many(comodel_name='extraschool.child',

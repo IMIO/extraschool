@@ -97,6 +97,7 @@ class extraschool_activity(models.Model):
                                                           'activityid' : activity.id,
                                                           })
 
+    @api.multi
     def write(self, vals):
         res = super(extraschool_activity,self).write(vals)
         #to do handle changes on occurrences
