@@ -154,21 +154,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
             prestation.activity_occurrence_id = res['occurrence_id']
                 
         return self
-        
-    def _set_root_activity(self):
-        #to do à déplacer ds activity
-        activity_rs = self.env['extraschool.activity'].search([])
-        for activity in activity_rs: 
-            # set root activity_id if 
-            if activity.parent_id:
-                parent = activity.parent_id                
-                while parent.parent_id:
-                    parent = parent.parent_id
-                activity.root_id = parent
-            else:
-                activity.root_id = activity
-        
-        
+            
     def _check(self): 
         print "Check from check_wizard"       
         prestation_search_domain = [('verified', '=', False),]
@@ -184,9 +170,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
                                     
         obj_prestation_rs = self.env['extraschool.prestationtimes'].search(prestation_search_domain)
         prestation_ids = obj_prestation_rs.ids
-       
-        #set activity_root on activity
-        self._set_root_activity()               
+                
         #add activity occurrence when missing
         for prestation in obj_prestation_rs.filtered(lambda r: not r.activity_occurrence_id):   
             print "add activity occurrence id "       
