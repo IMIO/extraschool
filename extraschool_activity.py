@@ -33,7 +33,7 @@ class extraschool_activity(models.Model):
     name = fields.Char('Name', size=100, required=True)
     category = fields.Many2one('extraschool.activitycategory', 'Category')
     parent_id = fields.Many2one('extraschool.activity', 'Parent')
-    root_id = fields.Many2one('extraschool.activity', 'Root')
+    root_id = fields.Many2one('extraschool.activity', 'Root',compute='_compute_root_activity', store=True)
     activity_child_ids = fields.One2many('extraschool.activity', 'parent_id','Activity child')
     placeids  = fields.Many2many('extraschool.place','extraschool_activity_place_rel', 'activity_id', 'place_id','Schoolcare place')
     schoolimplantationids = fields.Many2many('extraschool.schoolimplantation','extraschool_activity_schoolimplantation_rel', 'activity_id', 'schoolimplantation_id','Schoolcare schoolimplantation')
@@ -58,8 +58,21 @@ class extraschool_activity(models.Model):
     subsidizedbyone = fields.Boolean('Subsidized by one')
     validity_from = fields.Date('Validity from')
     validity_to = fields.Date('Validity to')
-
-        
+ 
+    @api.onchange('parent_id')
+    @api.depends('parent_id')
+    def _compute_root_activity(self):
+        #to do à déplacer ds activity
+        for activity in self: 
+            # set root activity_id if 
+            if activity.parent_id:
+                parent = activity.parent_id                
+                while parent.parent_id:
+                    parent = parent.parent_id
+                activity.root_id = parent
+            else:
+                activity.root_id = activity
+                        
     def populate_occurrence(self,date_from = None):
         cr,uid = self.env.cr, self.env.user.id
         
@@ -100,8 +113,9 @@ class extraschool_activity(models.Model):
     @api.multi
     def write(self, vals):
         res = super(extraschool_activity,self).write(vals)
+        print "---------" + str(res)
         #to do handle changes on occurrences
-        
+                  
         return res
 
     @api.model
@@ -109,7 +123,8 @@ class extraschool_activity(models.Model):
         res = super(extraschool_activity,self).create(vals)
 
         if res:
-            res.populate_occurrence()
+            res.populate_occurrence()        
+
         
         return res
 
