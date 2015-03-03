@@ -45,30 +45,15 @@ from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
 class extraschool_prestationscheck_wizard(models.TransientModel):
     _name = 'extraschool.prestationscheck_wizard'
     
-    def _get_prestations(self, cr, uid, ids, field_names, arg=None, context=None):
-        obj_prestations = self.pool.get('extraschool.prestationtimes')
-        wiz_obj = self.browse(cr, uid, ids)[0]
-        prestations_ids=obj_prestations.search(cr, uid, [('childid', '=', wiz_obj.childid.id),('prestation_date', '=', wiz_obj.currentdate)], order='prestation_time')        
-        result = {ids[0]:prestations_ids, 'nodestroy': True}
-        return result
-
     def _get_defaultfrom(self):
         #look for first oldest prest NOT verified
         prestationtimes_rs = self.env['extraschool.prestationtimes'].search([('verified', '=', False)], order='prestation_date ASC', limit=1)
-        print "_get_defaultfrom"
+
         if prestationtimes_rs: #If a presta not verified exist 
-            fromdate = datetime.datetime.strptime(prestationtimes_rs[0].prestation_date, DEFAULT_SERVER_DATE_FORMAT)
-            print "----------"
-            print str(self.env.context)
-            print "----------"
-            
+            fromdate = datetime.datetime.strptime(prestationtimes_rs[0].prestation_date, DEFAULT_SERVER_DATE_FORMAT)        
             user_time_zone = self.env.context.get('tz', False) #self.env.user.tz si ca ne fct pas !!!
-            print "--" + str(fromdate) + "---"
             local = pytz.timezone (user_time_zone) 
-            print "--" + str(local) + "---"
             fromdate = local.localize(fromdate, is_dst=False)
-            print "--" + str(fromdate) + "---"
-            
             return fromdate.strftime("%Y-%m-%d")  
         else:
             date_now = datetime.datetime.now()
@@ -76,11 +61,6 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
 
     def _get_defaultto(self):          
         return datetime.datetime.now().strftime("%Y-%m-%d")  
-
-    def _default_activitycategory(self):
-        activitycategory_rs = self.env['extraschool.activitycategory']
-        
-        return activitycategory_rs[0].id if activitycategory_rs else None
     
     placeid = fields.Many2many(comodel_name='extraschool.place',
                                relation='extraschool_prestationscheck_wizard_place_rel',
@@ -88,47 +68,12 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
                                column2='place_id')
     period_from = fields.Date(default=_get_defaultfrom)
     period_to = fields.Date(default=_get_defaultto)
-    activitycategory = fields.Many2one('extraschool.activitycategory', default=_default_activitycategory)                    
+    activitycategory = fields.Many2one('extraschool.activitycategory')                    
     state = fields.Selection([('init', 'Init'),
                                 ('prestations_to_verify', 'Prestations to verify'),
                                 ('end_of_verification', 'End of verification')],
                                'State', default='init', required=True)    
         
-    def insertprestation(self,cr,uid,placeid,prestation_date,childid,ES,prestation_time,activitycategoryid,manualy_encoded,activityid):
-        cr.execute('select * from extraschool_prestationtimes where prestation_date = %s and childid = %s and prestation_time = %s and "es"=%s', (prestation_date,childid,prestation_time,ES))
-        prests=cr.dictfetchall()
-        if not prests:
-            obj_prestation = self.pool.get('extraschool.prestationtimes')
-            # On recupere le niveau de priorite
-            cr.execute('select priorityorder from extraschool_activitycategory where id=%s',(activitycategoryid,))
-            priorityorder=cr.dictfetchall()[0]['priorityorder']        
-            if ES=='E':
-                # si c est une entree on va chercher la derniere prestation de priorite inferieure
-                #cr.execute('select max(prestation_time),max("es") as "es",max("activitycategoryid") as activitycategoryid from extraschool_prestationtimes left join extraschool_activitycategory on activitycategoryid = extraschool_activitycategory.id where prestation_date = %s and childid = %s and prestation_time < %s and priorityorder < %s', (prestation_date,childid,prestation_time,priorityorder))
-                cr.execute('select prestation_time,"es",activitycategoryid from extraschool_prestationtimes left join extraschool_activitycategory on activitycategoryid = extraschool_activitycategory.id where prestation_date = %s and childid = %s and prestation_time < %s and priorityorder < %s order by prestation_time desc,"es" desc,activitycategoryid desc', (prestation_date,childid,prestation_time,priorityorder))
-                lastprest=cr.dictfetchall()
-                if lastprest:
-                    if lastprest[0]['ES']=='E':
-                        # si la derniere prestation de priorite inferieure est une entree on insere une sortie
-                        cr.execute('select * from extraschool_prestationtimes where prestation_date = %s and childid = %s and prestation_time = %s and "es"=%s and activitycategoryid=%s', (prestation_date,childid,(prestation_time-0.016666667),'S',lastprest[0]['activitycategoryid']))
-                        prests=cr.dictfetchall()
-                        if not prests:
-                            obj_prestation.create(cr,uid, {'placeid':placeid,'prestation_date': prestation_date,'childid': childid,'ES':'S','prestation_time' : (prestation_time-0.016666667),'activitycategoryid' : lastprest[0]['activitycategoryid'],'manualy_encoded':manualy_encoded,'activityid':activityid})            
-                       
-            else:
-                # si c est une sortie on va chercher la premiere prestation de priorite inferieure
-                #cr.execute('select min(prestation_time),min("es") as "es",max("activitycategoryid") as activitycategoryid from extraschool_prestationtimes left join extraschool_activitycategory on activitycategoryid = extraschool_activitycategory.id where prestation_date = %s and childid = %s and prestation_time > %s and priorityorder < %s', (prestation_date,childid,prestation_time,priorityorder))
-                cr.execute('select prestation_time,"es",activitycategoryid from extraschool_prestationtimes left join extraschool_activitycategory on activitycategoryid = extraschool_activitycategory.id where prestation_date = %s and childid = %s and prestation_time > %s and priorityorder < %s order by prestation_time asc,"es" asc,activitycategoryid desc', (prestation_date,childid,prestation_time,priorityorder))
-                firstprest=cr.dictfetchall()
-                if firstprest:
-                    if firstprest[0]['ES']=='S':
-                        cr.execute('select * from extraschool_prestationtimes where prestation_date = %s and childid = %s and prestation_time = %s and "es"=%s and activitycategoryid=%s', (prestation_date,childid,(prestation_time+0.016666667),'E',firstprest[0]['activitycategoryid']))
-                        prests=cr.dictfetchall()
-                        if not prests:
-                            obj_prestation.create(cr,uid, {'placeid':placeid,'prestation_date': prestation_date,'childid': childid,'ES':'E','prestation_time' : (prestation_time+0.016666667),'activitycategoryid' : firstprest[0]['activitycategoryid'],'manualy_encoded':manualy_encoded,'activityid':activityid})
-                       
-            obj_prestation.create(cr,uid, {'placeid':placeid,'prestation_date': prestation_date,'childid': childid,'ES':ES,'prestation_time' : prestation_time,'activitycategoryid' : activitycategoryid,'manualy_encoded':manualy_encoded,'activityid':activityid})
-
     def get_prestation_activityid(self, prestation):
         #dico of return value
         return_val = {'return_code': 0,
@@ -198,15 +143,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
             return return_val
         
         return return_val
-
-    def _prestation_completion(self,prestation):
-        if prestation.es == 'E':
-            # Entrance
-            print "Entrance"
-        else:    
-            # exit
-            print "Exit"
-            
+        
     def _prestation_activity_occurrence_completion(self,prestation):
         #Look for activityoccurrence maching the prestation
         res = self.get_prestation_activityid(prestation)
@@ -218,51 +155,6 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
                 
         return self
         
-    def _prestation_default_from_to_completion(self,prestation_ids):
-        #a bit trash but .....
-        #First remove all existing presta 
-        # get occurrence
-        #modify time   
-        prestationtimes_rs = self.env['extraschool.prestationtimes']
-        activity_occurence_rs = self.env['extraschool.activity_occurrence']
-        self.env.cr.execute("select distinct(activity_occurrence_id,childid,exit_all),activity_occurrence_id,childid,id,exit_all,prestation_time from extraschool_prestationtimes where id in %s ", str(prestation_ids).replace('[', '(').replace(']',')'))
-        prestationtimes = self.env.cr.dictfetchall()
-        ids = [r['id'] for r in prestationtimes['id']]
-        prestationtimes_rs.unlink(ids)
-        print str(ids)
-        for prestationtime in prestationtimes:
-            occurrence = activity_occurence_rs.browse(prestationtime['activity_occurrence_id'])
-            
-            #Look for parent occurrence
-            parent_occurrence = activity_occurence_rs.search([('activityid.activityid', '=', occurrence.activityid.parent_id.id),])
-            parent_occurrence = parent_occurrence[0] if parent_occurrence else None
-            
-            occurrence.add_presta(self.env.cr,self.env.user.id,occurrence,prestationtime['childid'],parent_occurrence, True, False, True, True, None, None, prestationtime['exit_all'])
-#             prestationtimes_rs.create({'childid':prestationtime['childid'], 
-#                                        'activity_occurrence_id': occurrence.id,
-#                                        'placeid': occurrence.place_id,
-#                                        'es':'E',
-#                                        'prestation_time': occurrence.activityid.prest_from,
-#                                        'prestation_date': occurrence.occurrence_date,
-#                                        'activitycategoryid': occurrence.activityid.categoryid,
-#                                        'activityid': occurrence.activityid.id,
-#                                        'manualy_encoded': False,
-#                                        'verified': True,
-#                                        })
-#             prestationtimes_rs.create({'childid':prestationtime['childid'], 
-#                                        'activity_occurrence_id': occurrence.id,
-#                                        'placeid': occurrence.place_id,
-#                                        'es':'S',
-#                                        'prestation_time': occurrence.activityid.prest_to,
-#                                        'prestation_date': occurrence.occurrence_date,
-#                                        'activitycategoryid': occurrence.activityid.categoryid,
-#                                        'activityid': occurrence.activityid.id,
-#                                        'manualy_encoded': False,
-#                                        'exit_all': prestationtime['exit_all'],
-#                                        'verified': True,
-#                                        })
-        return self
-
     def _set_root_activity(self):
         activity_rs = self.env['extraschool.activity'].search([])
         for activity in activity_rs: 
