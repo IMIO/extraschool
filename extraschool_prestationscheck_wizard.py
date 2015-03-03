@@ -156,6 +156,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
         return self
         
     def _set_root_activity(self):
+        #to do à déplacer ds activity
         activity_rs = self.env['extraschool.activity'].search([])
         for activity in activity_rs: 
             # set root activity_id if 
@@ -182,13 +183,8 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
             prestation_search_domain.append(('prestation_date', '<=', self.period_to))
                                     
         obj_prestation_rs = self.env['extraschool.prestationtimes'].search(prestation_search_domain)
-        prestation_ids = [prestation_times.id for prestation_times in obj_prestation_rs]
-
-        print "---obj_prestation_rs---"
-        print str(obj_prestation_rs)
-        print "---FILTERED obj_prestation_rs---"
-        print str(obj_prestation_rs.filtered(lambda r: not r.activity_occurrence_id))
-        
+        prestation_ids = obj_prestation_rs.ids
+       
         #set activity_root on activity
         self._set_root_activity()               
         #add activity occurrence when missing
