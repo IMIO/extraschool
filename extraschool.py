@@ -28,7 +28,6 @@ import datetime
 import calendar
 import cStringIO
 import base64
-import appy.pod.renderer
 import os
 import math
 import xlrd

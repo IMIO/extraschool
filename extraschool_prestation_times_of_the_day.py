@@ -283,10 +283,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
           
     def check(self):
         print "_check presta of the day" 
-        prestation_times_obj = self.env['extraschool.prestationtimes']
-        cr,uid = self.env.cr, self.env.user.id
-        prestation_time_ids = [prestation_time.id for prestation_time in self.prestationtime_ids]
-        print str(prestation_time_ids)
+
         #if no presta than error and exit
         if not self.prestationtime_ids:
             self._add_comment("Error : No presta found",True)
@@ -301,29 +298,13 @@ class extraschool_prestation_times_of_the_day(models.Model):
         root_ids = [r['root_id'] for r in prestationtimes]
         
         for root_activity in self.env['extraschool.activity'].browse(root_ids):
-            print "loop-" + str(root_activity)
-            print "-> IN loop-" + str(root_activity) 
-            start_time = self._completion_entry(root_activity)
-            if start_time :
-                print "child = " + self.child_id.name  
-                print "date = " + str(self.date_of_the_day)
-                start_time.verified = True
-                print "start_time:" + start_time.childid.name + " " + start_time.activity_occurrence_id.activityname + " " + str(start_time.prestation_time) + " " + str(start_time.verified) 
-                
-            stop_time = self._completion_exit(root_activity)
-            if stop_time :
-                print "stop_time:" + str(stop_time.prestation_time)
-                
-            print "<-----<----"
+            start_time = self._completion_entry(root_activity)                
+            stop_time = self._completion_exit(root_activity)              
             
             if start_time and stop_time:
-                print "go"
-                #delete all occurrence presta but not stop_time presta
- #               prestation_times_obj.unlink(cr,uid,self.prestationtime_ids.filtered(lambda r: r.activity_occurrence_id.activityid.root_id.id == root_activity.id and r.id != start_time.id and r.id != stop_time.id).ids)
                 start_time.verified = True
                 stop_time.verified = True
-                self._occu_completion(start_time,stop_time,None,True,None)
-                
+                self._occu_completion(start_time,stop_time,None,True,None)                
             else:
                 #an error has been found and added to comment field
                 self.verified = False

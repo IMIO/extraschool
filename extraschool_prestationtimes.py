@@ -44,8 +44,7 @@ class extraschool_prestationtimes(models.Model):
     activity_occurrence_id = fields.Many2one('extraschool.activityoccurrence', 'Activity occurrence')  
     activity_name = fields.Char('activity_occurrence_id.activityname')
     prestation_times_of_the_day_id = fields.Many2one('extraschool.prestation_times_of_the_day', 'Prestation of the day')  
-              
-      
+             
     @api.model
     def create(self, vals):        
         if (not vals['childid']) or (not vals['placeid']) or (not vals['activitycategoryid']):  

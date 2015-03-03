@@ -25,7 +25,6 @@ from openerp import models, api, fields
 from openerp.api import Environment
 import cStringIO
 import base64
-import appy.pod.renderer
 import os
 import lbutils
 

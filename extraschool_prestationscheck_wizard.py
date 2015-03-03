@@ -29,7 +29,6 @@ import datetime
 import calendar
 import cStringIO
 import base64
-import appy.pod.renderer
 import os
 import math
 import lbutils
@@ -178,9 +177,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
         
         #get distinc presta of the day
         obj_prestation_of_the_day_rs = self.env['extraschool.prestation_times_of_the_day'].search([('prestationtime_ids', 'in', prestation_ids)])
-        zz = 0
         for presta_of_the_day in obj_prestation_of_the_day_rs:
-            zz += 1
             presta_of_the_day.check()
             if presta_of_the_day.prestationtime_ids.filtered(lambda r: r.verified == False):
                 presta_of_the_day.verified = False
@@ -192,7 +189,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
 
         
         self.state = 'end_of_verification'
-#        print 'end_of_verification ' + str(zz) + " presta_of_the_day verified"
+
         cr,uid = self.env.cr, self.env.user.id
         view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','extraschool.prestation_times_of_the_day'), ('name','=','Prestations_of_the_day.tree')])
         return {
