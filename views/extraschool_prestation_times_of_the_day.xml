@@ -32,7 +32,7 @@
 	                    	<tree string="prestation_times" colors="red:verified==False">
 		                   		<field name="childid" />
 	                    		<field name="placeid" />
-		                   		<field name="activity_name" />
+		                   		<field name="activityid" />
 	                    		<field name="prestation_time"  widget="float_time"/>
 	                    		<field name="es" />
 	                    		<field name="exit_all" />
@@ -43,7 +43,8 @@
 	                    		<group>
 		                    		<field name="childid" />
 		                    		<field name="placeid" />
-			                   		<field name="activity_name" />
+			                   		<field name="activityid" />
+			                   		<field name="activity_occurrence_id" />
 		                    		<field name="prestation_time"  widget="float_time"/>
 		                    		<field name="es" />
 		                    		<field name="exit_all" />
