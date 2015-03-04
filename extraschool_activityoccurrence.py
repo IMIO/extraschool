@@ -45,6 +45,7 @@ class extraschool_activityoccurrence(models.Model):
     prestation_times_ids = fields.One2many('extraschool.prestationtimes', 'activity_occurrence_id','Child prestation times')   
     place_id = fields.Many2one('extraschool.place', 'Place', required=False)                     
 
+    @api.multi
     def name_get(self):            
         res=[]
         for occurrence in self:
@@ -150,6 +151,19 @@ class extraschool_activityoccurrence(models.Model):
         
         
         return occurrence
+    
+    def check_if_child_take_part_to(self,child):
+        #check if activity is open or on registration
+        take_part_to = False
+        #activity only for registerd child
+        if self.activityid.onlyregisteredchilds:
+            #check if child is registered 
+            if self.activityid.childregistration_ids.filtered(lambda r: r.child_id.id == child.id):
+                take_part_to = True
+        else:
+            take_part_to = True
+                
+        return take_part_to
     
 
 
