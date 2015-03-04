@@ -39,7 +39,6 @@ class extraschool_prestationtimes(models.Model):
     exit_all = fields.Boolean('Exit all',default=False)
     manualy_encoded = fields.Boolean('Manualy encoded', readonly=True)   
     verified = fields.Boolean('Verified',default=False)
-    activityid = fields.Many2one('extraschool.activity', 'Activity', required=False)  
     error_msg = fields.Char('Error', size=255)
     activity_occurrence_id = fields.Many2one('extraschool.activityoccurrence', 'Activity occurrence')  
     activity_name = fields.Char(related='activity_occurrence_id.activityname')
