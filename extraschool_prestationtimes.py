@@ -31,7 +31,6 @@ class extraschool_prestationtimes(models.Model):
     _order = 'prestation_date,prestation_time,activity_occurrence_id,es'
                
     placeid = fields.Many2one('extraschool.place', 'Schoolcare Place', required=False)
-    activitycategoryid = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False)
     childid = fields.Many2one('extraschool.child', 'Child', domain="[('isdisabled','=',False)]", required=False, select=True, ondelete='RESTRICT')
     prestation_date = fields.Date('Date', select=True)
     prestation_time = fields.Float('Time', select=True, required=True)
@@ -46,8 +45,8 @@ class extraschool_prestationtimes(models.Model):
              
     @api.model
     def create(self, vals):        
-        if (not vals['childid']) or (not vals['placeid']) or (not vals['activitycategoryid']):  
-            raise Warning('Place and Category must be filled')
+        if (not vals['childid']) or (not vals['placeid']):  
+            raise Warning('Child and Place must be filled')
         
         prestation_times_of_the_day_obj = self.env['extraschool.prestation_times_of_the_day']
         prestation_times_obj = self.env['extraschool.prestationtimes']
@@ -55,7 +54,6 @@ class extraschool_prestationtimes(models.Model):
 
         prestaion_times_ids = prestation_times_obj.search([('placeid.id', '=',vals['placeid']),
                                                                  ('childid.id', '=',vals['childid']),
-                                                                 ('activitycategoryid.id', '=',vals['activitycategoryid']),
                                                                  ('prestation_date', '=',vals['prestation_date']),
                                                                  ('prestation_time', '=',vals['prestation_time']),
                                                                  ('es', '=',vals['es']),

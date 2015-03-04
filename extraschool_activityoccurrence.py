@@ -77,7 +77,6 @@ class extraschool_activityoccurrence(models.Model):
         exit_time = exit_time if exit_time else activity_occurrence.prest_to
         
         prestation_time = {'placeid' : activity_occurrence.place_id.id,
-                           'activitycategoryid' : activity_occurrence.activityid.category.id,
                            'childid' : child_id,
                            'prestation_date' : activity_occurrence.occurrence_date,
                            'manualy_encoded' : manualy_encoded,
@@ -92,7 +91,6 @@ class extraschool_activityoccurrence(models.Model):
                 parent_activity_occurrence = None
             else:
                 parent_prestation_time = {'placeid' : parent_activity_occurrence.place_id.id,
-                                          'activitycategoryid' : parent_activity_occurrence.activityid.category.id,
                                           'childid' : child_id,
                                           'prestation_date' : parent_activity_occurrence.occurrence_date,
                                           'manualy_encoded' : manualy_encoded,

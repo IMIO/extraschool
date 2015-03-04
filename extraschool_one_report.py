@@ -56,7 +56,6 @@ extraschool_one_report_day()
 class extraschool_one_report(models.Model):
     _name = 'extraschool.one_report'
 
-
     def _default_activitycategory(self):
         activitycategory_rs = self.env['extraschool.activitycategory']
     

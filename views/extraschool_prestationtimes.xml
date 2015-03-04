@@ -26,7 +26,6 @@
 	                    <field name="placeid" required="1"/>
 						<field name="prestation_date" required="1"/>
 	                    <field name="prestation_time"  required="1" widget="float_time"/>
-	                    <field name="activitycategoryid" required="1"/>
 	                    <field name="es" required="1"/>
 	                </group>
 				</form>
@@ -40,7 +39,7 @@
             <field name="arch" type="xml">
                 <search string="Prestations">
                     <field name="childid" string="childid"/>
-                   <field name="activity_name" string="Activity name"/>
+                   <field name="activity_occurrence_id" string="Activity"/>
                    <field name="placeid" string="Place"/>
                    <field name="prestation_date" string="Date"/>
                     <filter string="Entry" icon="terp-accessories-archiver" domain="[('es','=','E')]"/>
@@ -60,7 +59,7 @@
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="Prestations">			
-              		<field name="activity_name" />	
+              		<field name="activity_occurrence_id" />	
 					<field name="placeid"/>		
 					<field name="childid"/>
 					<field name="prestation_date"/>
