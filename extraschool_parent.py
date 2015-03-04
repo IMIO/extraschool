@@ -65,26 +65,24 @@ class extraschool_parent(models.Model):
             return res
         return False
     
-    def _compute_totalinvoiced (self, cr, uid, ids, field_name, arg, context):
-        to_return={}
-        for record in self.browse(cr, uid, ids):
+    def _compute_totalinvoiced (self):
+        cr = self.env.cr
+        for record in self:
             cr.execute('select sum(amount_total) from extraschool_invoice where parentid=%s',(record.id,))
-            to_return[record.id] = cr.fetchall()[0][0]
-        return to_return
+            record.totalinvoiced = cr.fetchall()[0][0]
         
-    def _compute_totalreceived (self, cr, uid, ids, field_name, arg, context):
-        to_return={}
-        for record in self.browse(cr, uid, ids):
+        
+    def _compute_totalreceived (self):
+        cr = self.env.cr
+        for record in self:
             cr.execute('select sum(amount_received) from extraschool_invoice where parentid=%s',(record.id,))
-            to_return[record.id] = cr.fetchall()[0][0]
-        return to_return
+            record.totalreceived = cr.fetchall()[0][0]
 
-    def _compute_totalbalance (self, cr, uid, ids, field_name, arg, context):
-        to_return={}
-        for record in self.browse(cr, uid, ids):
+    def _compute_totalbalance (self):
+        cr = self.env.cr
+        for record in self:
             cr.execute('select sum(balance) from extraschool_invoice where parentid=%s',(record.id,))
-            to_return[record.id] = cr.fetchall()[0][0]
-        return to_return
+            record.totalbalance = cr.fetchall()[0][0]
         
     name = fields.Char('FullName', size=100)        
     firstname = fields.Char('FirstName', size=50,required=True)
