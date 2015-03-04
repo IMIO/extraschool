@@ -167,6 +167,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
     def _occu_start_stop_completion(self,start_time,stop_time,occurrence,down,from_occurrence):
         print "->_occu_start_stop_completion"
         print occurrence.activityname
+        
         occurrence_obj = self.env['extraschool.activityoccurrence']
         cr,uid = self.env.cr, self.env.user.id
         
@@ -262,7 +263,8 @@ class extraschool_prestation_times_of_the_day(models.Model):
                                                                             ('prest_from', '>=', prest_from),
                                                                             ('prest_to', '<=', prest_to)])
         for child_occurrence in child_occurrences:
-            self._occu_completion(start_time,stop_time,child_occurrence,True,occurrence)
+            if occurrence.check_if_child_take_part_to(self.child_id):
+                self._occu_completion(start_time,stop_time,child_occurrence,True,occurrence)
 
         # try to go up     
         # if entry and exit is in the current occurrence STOP
