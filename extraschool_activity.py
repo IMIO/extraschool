@@ -71,7 +71,7 @@ class extraschool_activity(models.Model):
                     parent = parent.parent_id
                 activity.root_id = parent
             else:
-                activity.root_id = activity
+                activity.root_id = activity.id
                         
     def populate_occurrence(self,date_from = None):
         cr,uid = self.env.cr, self.env.user.id
