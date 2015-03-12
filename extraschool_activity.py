@@ -23,8 +23,12 @@
 
 from openerp import models, api, fields
 from openerp.api import Environment
-from datetime import date, datetime, timedelta as td
+from openerp.exceptions import except_orm, Warning
+from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
+                           DEFAULT_SERVER_DATETIME_FORMAT)
 
+from datetime import date, datetime, timedelta as td
+import time
 
 class extraschool_activity(models.Model):
     _name = 'extraschool.activity'
@@ -58,6 +62,7 @@ class extraschool_activity(models.Model):
     subsidizedbyone = fields.Boolean('Subsidized by one')
     validity_from = fields.Date('Validity from')
     validity_to = fields.Date('Validity to')
+    invoicedprestations_ids = fields.One2many('extraschool.invoicedprestations', 'activityid','Invoiced prestations')
  
     @api.onchange('parent_id')
     @api.depends('parent_id')
@@ -82,7 +87,7 @@ class extraschool_activity(models.Model):
                 for planneddate in activity.planneddates_ids:
                     for place in activity.placeids:
                         activityoccurrence.create({'place_id' : place.id,
-                                                  'occurrence_date' : datetime.strptime(planneddate.activitydate, '%Y-%m-%d'),
+                                                  'occurrence_date' : datetime.strptime(planneddate.activitydate, DEFAULT_SERVER_DATE_FORMAT),
                                                   'activityid' : activity.id,
                                                    })
             else:
@@ -93,8 +98,8 @@ class extraschool_activity(models.Model):
                 
                 d2 = activity.validity_to
                 
-                d1 = datetime.strptime(d1, '%Y-%m-%d')
-                d2 = datetime.strptime(d2, '%Y-%m-%d')
+                d1 = datetime.strptime(d1, DEFAULT_SERVER_DATE_FORMAT)
+                d2 = datetime.strptime(d2, DEFAULT_SERVER_DATE_FORMAT)
 
                 delta = d2 - d1
 
@@ -108,15 +113,40 @@ class extraschool_activity(models.Model):
                                 activityoccurrence.create({'place_id' : place.id,
                                                           'occurrence_date' : current_day_date,
                                                           'activityid' : activity.id,
+                                                          'prest_from' : activity.prest_from,
+                                                          'prest_to' : activity.prest_to,
                                                           })
+    @api.one                            
+    def check_if_modifiable(self):
+        if self.invoicedprestations_ids.filtered(lambda r: r.prestation_date >= time.strftime(DEFAULT_SERVER_DATE_FORMAT)):
+            return False
+        else:
+            return True
 
+                
     @api.multi
     def write(self, vals):
-        res = super(extraschool_activity,self).write(vals)
-        print "---------" + str(res)
-        #to do handle changes on occurrences
-                  
-        return res
+        for activity in self:
+            if not activity.check_if_modifiable() :
+                raise Warning("It's not possible to update the activity because there are invoiced prestations after the current date")
+                return False
+            
+            res = super(extraschool_activity,activity).write(vals)
+            if res:
+                #set all the future presta of this activity as NOT verified
+                prestations = self.env['extraschool.prestationtimes'].search([('activity_occurrence_id.activityid.id', '=', activity.id),
+                                                                              ('prestation_date', '>=', time.strftime(DEFAULT_SERVER_DATE_FORMAT))])
+                prestations.write({'verified' : False})
+                #delete all future occurrence of this activity
+                occurrences = self.env['extraschool.activityoccurrence'].search([('activityid', '=', activity.id),
+                                                                                 ('occurrence_date', '>=', time.strftime(DEFAULT_SERVER_DATE_FORMAT))])
+                occurrences.unlink()
+                #populate occurrence
+                activity.populate_occurrence(time.strftime(DEFAULT_SERVER_DATE_FORMAT))
+            else: 
+                return res
+           
+        return True
 
     @api.model
     def create(self, vals):                 
@@ -125,7 +155,6 @@ class extraschool_activity(models.Model):
         if res:
             res.populate_occurrence()        
 
-        
         return res
 
     def get_start(self,activity):
