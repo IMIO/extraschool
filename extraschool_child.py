@@ -63,17 +63,12 @@ class extraschool_child(models.Model):
             else:
                 v['name']=lastname
         return {'value':v}
-        
-    def action_gentagid(self, ids, context=None):   
-        cr, uid = self.env.cr, self.env.user.id          
-        form = self.read(cr,uid,ids,)[-1]
-        if not form['tagid']:
-            obj_config = self.pool.get('extraschool.mainsettings')
-            config=obj_config.read(cr, uid, [1],['lastqrcodenbr'])[0]
-            mainsettings_id = obj_config.write(cr, uid, [1], {'lastqrcodenbr':config['lastqrcodenbr']+1}, context=context) 
-            return self.write(cr, uid, ids,{'tagid' : config['lastqrcodenbr']+1,}, context=context)
-        else:
-            return False
+    
+    @api.one    
+    def action_gentagid(self):   
+        if not self.tagid :
+            config = self.env['extraschool.mainsettings'].browse([1])
+            self.tagid = config.lastqrcodenbr = config.lastqrcodenbr + 1
 
 extraschool_child()
 
