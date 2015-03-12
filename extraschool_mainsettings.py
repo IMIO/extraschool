@@ -23,6 +23,7 @@
 
 from openerp import models, api, fields
 from openerp.api import Environment
+from openerp.exceptions import Warning
 
 class extraschool_mainsettings(models.Model):
     _name = 'extraschool.mainsettings'
@@ -35,13 +36,12 @@ class extraschool_mainsettings(models.Model):
     codasfolder = fields.Char('codasfolder', size=80)
     processedcodasfolder = fields.Char('processedcodasfolder', size=80)
     emailfornotifications = fields.Char('Email for notifications', size=80)
-
+        
     @api.one
     def update(self):
-        obj_config = self.pool.get('extraschool.mainsettings')
-        form = self.read(cr,uid,ids,)[-1]
-        mainsettings_id = obj_config.write(cr, uid, ids[0], {'lastqrcodenbr':form['lastqrcodenbr'],'qrencode':form['qrencode'],'tempfolder':form['tempfolder'],'templatesfolder':form['templatesfolder'],'codasfolder':form['codasfolder'],'processedcodasfolder':form['processedcodasfolder']}, context=context)
-        return {'warning': {'title': 'Record saved','message': 'record saved!',}}
+        self.write({'lastqrcodenbr':self.lastqrcodenbr, 'qrencode':self.qrencode, 'tempfolder':self.tempfolder,'templatesfolder':self.templatesfolder, 'codasfolder':self.codasfolder,'processedcodasfolder':self.processedcodasfolder})
+
+        raise Warning('record saved!')
         
     def initdef(self):
         pass
