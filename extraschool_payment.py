@@ -37,8 +37,8 @@ class extraschool_payment(models.Model):
     structcom = fields.Char('Structured Communication', size=50)
     account = fields.Char('Account', size=20)
     name = fields.Char('Name', size=50)
-    addr1 = fields.Char('Addr1', size=50),
-    addr2 = fields.Char('Addr2', size=50),
+    addr1 = fields.Char('Addr1', size=50)
+    addr2 = fields.Char('Addr2', size=50)
     amount = fields.Float('Amount')
     concernedinvoice = fields.Many2one('extraschool.invoice', 'Concerned invoice', required=False)
     coda = fields.Many2one('extraschool.coda', 'Coda', required=False)
