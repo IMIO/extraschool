@@ -70,6 +70,7 @@
         'security/extraschool_security.xml',
         'security/ir.model.access.csv',
         'report/parent.xml',
+        'report/qrcode_report.xml',
     ],
     'installable' : True,
     'application': True,

@@ -26,7 +26,6 @@ from openerp.api import Environment
 import cStringIO
 import base64
 import os
-from pyPdf import PdfFileWriter, PdfFileReader
 
 class extraschool_qrcodes_wizard(models.TransientModel):
     _name = 'extraschool.qrcodes_wizard'
@@ -41,7 +40,7 @@ class extraschool_qrcodes_wizard(models.TransientModel):
                             )
 
 
-
+    @api.multi
     def action_print_qrcodes(self):
 #         obj_config = self.pool.get('extraschool.mainsettings')
 #         config=obj_config.read(cr, uid, [1],['lastqrcodenbr','qrencode','tempfolder','templatesfolder'])[0]             
@@ -64,7 +63,24 @@ class extraschool_qrcodes_wizard(models.TransientModel):
 #         
 #        return self.write(cr, uid, ids, {'state':'print_qrcodes', 'qrcodes':out, 'name':'qrcodes.pdf'}, context=context)
         #to do refactoring new report
-        return True
-    
-extraschool_qrcodes_wizard()
+        
+        report = self.env['report']._get_report_from_name('extraschool.tpl_qrcodes_wizard_report')
+#         
+#         docargs = {
+#             'last_id': 0,
+#             'nbr': 5,
+#             'doc_ids': self._ids,
+#             'doc_model': report.model,
+#             'docs': self,            
+#         }
+#         return self.env['report'].render('extraschool.tpl_qrcodes_wizard_report', docargs)
+        datas = {
+        'ids': self.ids,
+        'model': report.model, 
+        }
+        return {
+               'type': 'ir.actions.report.xml',
+               'report_name': 'extraschool.tpl_qrcodes_wizard_report',
+               'datas': datas,
+           }        
 
