@@ -26,9 +26,12 @@
 				<t t-foreach="docs" t-as="qr_report">
 				
 			        <div class="page">
-				   		<t t-foreach="range(qr_report.quantity)" t-as="i">
+				   		<t t-foreach="range(qr_report.last_id,qr_report.last_id+qr_report.quantity)" t-as="i">
 				           	<div class="qrcode">
 				           		<img class="qrcode_img" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', i, 300, 300)" />
+				           		<t t-if="qr_report.print_value">
+					           		<span><t t-esc="i"/></span>
+								</t>
 				           	</div>
 						</t>
 		    	    </div>

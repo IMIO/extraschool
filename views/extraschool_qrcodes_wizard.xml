@@ -10,20 +10,13 @@
                     <field name="state" invisible="1" />
                     <group states="init">
                         <field name="quantity" />
-                    </group>
-                    <group states="print_qrcodes">
-                        <field name="name" invisible="1" colspan="4"/>
-                        <field name="qrcodes" nolabel="1" readonly="1" filename="name" colspan="4"/>
-                        <label string="Ok" />
+                        <field name="print_value" />
                     </group>
                     <separator string="" colspan="4"/>
                     <group colspan="4" col="3">
                         <button name="action_print_qrcodes" string="generate qrcodes" icon="gtk-apply" type="object"
                             states="init" />
                     </group>
-                    <label string="" colspan="4" />
-                    <label string="" colspan="4" />
-                    <label string="" colspan="4" />
                 </form>
             </field>
         </record>

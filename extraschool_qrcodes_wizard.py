@@ -32,8 +32,10 @@ class extraschool_qrcodes_wizard(models.TransientModel):
 
 
     quantity = fields.Integer('Quantity to print')
+    last_id = fields.Integer('Last id')
     name = fields.Char('File Name', size=16, readonly=True)
-    qrcodes = fields.Binary('File', readonly=True)
+    print_value = fields.Boolean('Print QrCode value')
+    
     state = fields.Selection([('init', 'Init'),
                              ('print_qrcodes', 'Print QRCodes')],
                             'State', required=True, default='init'
@@ -42,45 +44,23 @@ class extraschool_qrcodes_wizard(models.TransientModel):
 
     @api.multi
     def action_print_qrcodes(self):
-#         obj_config = self.pool.get('extraschool.mainsettings')
-#         config=obj_config.read(cr, uid, [1],['lastqrcodenbr','qrencode','tempfolder','templatesfolder'])[0]             
-#         form = self.read(cr,uid,ids,)[-1]
-#         files=[]
-#         for i in range(config['lastqrcodenbr']+1,config['lastqrcodenbr']+form['quantity']+1):            
-#             os.system(config['qrencode']+' -o '+config['tempfolder']+str(i)+'.png -s 4 -l Q '+str(i))        
-#             files.append({'fname':config['tempfolder']+str(i)+'.png'})
-#         try:
-#             os.remove(config['tempfolder']+'codes.pdf')
-#         except:
-#             pass
-#         renderer = appy.pod.renderer.Renderer(config['templatesfolder']+'qrcodes.odt',{'files':files,}, config['tempfolder']+'codes.pdf')                
-#         renderer.run()     
-#         for i in range(config['lastqrcodenbr']+1,config['lastqrcodenbr']+form['quantity']+1):            
-#             os.remove(config['tempfolder']+str(i)+'.png')
-#         mainsettings_id = obj_config.write(cr, uid, [1], {'lastqrcodenbr':config['lastqrcodenbr']+form['quantity']+1}, context=context)           
-#         outfile = open(config['tempfolder']+'codes.pdf','r').read()
-#         out=base64.b64encode(outfile)
-#         
-#        return self.write(cr, uid, ids, {'state':'print_qrcodes', 'qrcodes':out, 'name':'qrcodes.pdf'}, context=context)
-        #to do refactoring new report
         
         report = self.env['report']._get_report_from_name('extraschool.tpl_qrcodes_wizard_report')
-#         
-#         docargs = {
-#             'last_id': 0,
-#             'nbr': 5,
-#             'doc_ids': self._ids,
-#             'doc_model': report.model,
-#             'docs': self,            
-#         }
-#         return self.env['report'].render('extraschool.tpl_qrcodes_wizard_report', docargs)
+        config = self.env['extraschool.mainsettings'].browse([1])
+        #get last qrcode value from config
+        self.last_id = config.lastqrcodenbr + 1
+        #SET last qrcode value to config
+        config.lastqrcodenbr = config.lastqrcodenbr + self.quantity
+
         datas = {
         'ids': self.ids,
         'model': report.model, 
         }
+        
         return {
                'type': 'ir.actions.report.xml',
                'report_name': 'extraschool.tpl_qrcodes_wizard_report',
                'datas': datas,
+               'report_type': 'qweb-pdf',
            }        
 
