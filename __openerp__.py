@@ -28,7 +28,7 @@
     'author' : 'Town of La Bruyère and Imio',
     'depends' : ['base',],
     'init_xml' : ['init.xml',],
-    'demo' : ['data/extraschool_test.xml',],
+    'demo' : [],
     'test' : [],
     'data' : [
         'views/extraschool_activitycategory.xml',
