@@ -42,7 +42,7 @@ class extraschool_smartphone(models.Model):
     serveraddress = fields.Char('Server address', size=50)
     databasename = fields.Char('Database name', size=30)
     username = fields.Char('User name', size=30)
-    userpassword = fields.Char('User password', size=20)
+    userpassword = fields.Char('User password', size=40)
     scanmethod = fields.Selection((('Tag','Tag'),('QR','QR')),'Scan method')
     transfertmethod = fields.Selection((('WIFI','WIFI'),('3G','3G')),'Transfert method')
     qrdownload = fields.Binary('QR Download')
