@@ -422,10 +422,44 @@ class extraschool_invoice_wizard(models.TransientModel):
 #                       'biller_file' : out})
 # 
 #         return {'state':'compute_invoices', 'invoices':out, 'name':'factures.pdf'}
+
+    def _new_compute_invoices(self):
+        cr,uid = self.env.cr, self.env.user.id
+        print "_new_compute_invoices"
+        config = self.env['extraschool.mainsettings'].browse([1])
+        obj_activitycategory = self.env['extraschool.activitycategory']
+        month_name=('','Janvier','Fevrier','Mars','Avril','Mai','Juin','Juillet','Aout','Septembre','Octobre','Novembre','Decembre')
+        day_name=('Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche')
+         
+        inv_obj = self.env['extraschool.invoice']
+        obj_biller = self.env['extraschool.biller']
+        obj_invoicedprest = self.env['extraschool.invoicedprestations']
+        obj_parent = self.env['extraschool.parent']
+        obj_prestation_times_of_the_day = self.env['extraschool.prestation_times_of_the_day']
+        
+        #create a bille to store invoice
+        biller = obj_biller.create({'name' : 'test',
+                                    'period_from' : self.period_from,
+                                    'period_to' : self.period_to,
+                                    })
+
+        #search parent to be invoiced
+        parent_ids = obj_prestation_times_of_the_day.read_group([],['parent_id'],['parent_id']) 
+        print str(parent_ids)
+        
+        #loop on parent to create invoice
+        for parent in parent_ids:
+            parent_id = parent['parent_id'][0]
+            print str(parent_id)
+            inv_obj.create({'name' : 'invoice_parent_id_' + str(parent_id), 
+                            'parentid' : parent_id,
+                            'biller_id' : biller.id})
+         
+        #a faire: verifier si toutes les prestations sont verifiees
     
     @api.multi    
     def action_compute_invoices(self):   
-        self.write(self._compute_invoices())
+        self._new_compute_invoices()
         
 
 
