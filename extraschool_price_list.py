@@ -48,9 +48,13 @@ class extraschool_price_list_version(models.Model):
     
     name = fields.Char('Name', size=50)
     price_list_id = fields.Many2one('extraschool.price_list', 'Price list')          
-    period_duration = fields.Integer('Period Duration')  
-    price = fields.Float('Price',digits=(7,3))
     validity_from = fields.Date('Validity from')
     validity_to = fields.Date('Validity to')
+    activity_ids = fields.Many2many('extraschool.activity', 'extraschool_activity_pricelist_rel',string='Activity')
+    child_type_id = fields.Many2one('extraschool.childtype', 'Child type')              
+    child_position_ids = fields.Many2many('extraschool.childposition', 'extraschool_childposition_pricelist_rel',string='Child position')
+    period_duration = fields.Integer('Period Duration')  
+    period_tolerance = fields.Integer('Period Tolerance')  
+    price = fields.Float('Price',digits=(7,3))
     
 extraschool_price_list_version()
