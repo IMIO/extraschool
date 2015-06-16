@@ -32,15 +32,17 @@ class extraschool_prestationtimes(models.Model):
                
     placeid = fields.Many2one('extraschool.place', 'Schoolcare Place', required=False)
     childid = fields.Many2one('extraschool.child', 'Child', domain="[('isdisabled','=',False)]", required=False, select=True, ondelete='RESTRICT')
+    parent_id = fields.Many2one(related='childid.parentid', store=True, select=True)                  
     prestation_date = fields.Date('Date', select=True)
     prestation_time = fields.Float('Time', select=True, required=True)
     es = fields.Selection((('E','In'), ('S','Out')),'es' , select=True)  
     exit_all = fields.Boolean('Exit all',default=False)
     manualy_encoded = fields.Boolean('Manualy encoded', readonly=True)   
-    verified = fields.Boolean('Verified',default=False)
+    verified = fields.Boolean('Verified',default=False, select=True)
     error_msg = fields.Char('Error', size=255)
-    activity_occurrence_id = fields.Many2one('extraschool.activityoccurrence', 'Activity occurrence')  
+    activity_occurrence_id = fields.Many2one('extraschool.activityoccurrence', 'Activity occurrence', select=True)  
     activity_name = fields.Char(related='activity_occurrence_id.activityname')
+    activity_category_id = fields.Many2one(related='activity_occurrence_id.activity_category_id', store=True, select=True)                  
     prestation_times_of_the_day_id = fields.Many2one('extraschool.prestation_times_of_the_day', 'Prestation of the day')  
              
     @api.model
