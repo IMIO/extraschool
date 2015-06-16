@@ -81,7 +81,7 @@ class extraschool_invoice_wizard(models.TransientModel):
     @api.one
     def _get_defaultinvdate(self):
         invdate=datetime.date(datetime.datetime.now().year,datetime.datetime.now().month,datetime.datetime.now().day)+datetime.timedelta(1)
-        self.period_from = str(invdate)
+        self.invoice_date = str(invdate)
     
     @api.one
     def _get_defaultinvterm(self):
@@ -95,8 +95,8 @@ class extraschool_invoice_wizard(models.TransientModel):
     activitycategory = fields.Many2one('extraschool.activitycategory', 'Activity category', required=True, default=1)        
     period_from = fields.Date('Period from', required=True, default=_get_defaultfrom)
     period_to = fields.Date('Period to', required=True, default=_get_defaultto)
-    invoice_date = fields.Date('invoice date', required=True, default=_get_defaultinvdate)
-    invoice_term = fields.Date('invoice term', required=True, default=_get_defaultinvterm)
+    invoice_date = fields.Date('invoice date', required=True, default=_get_defaultto)
+    invoice_term = fields.Date('invoice term', required=True, default=_get_defaultto)
     name = fields.Char('File Name', size=16, readonly=True)
     invoices = fields.Binary('File', readonly=True)
     state = fields.Selection([('init', 'Init'),
@@ -432,10 +432,9 @@ class extraschool_invoice_wizard(models.TransientModel):
         day_name=('Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche')
          
         inv_obj = self.env['extraschool.invoice']
+        inv_line_obj = self.env['extraschool.invoicedprestations']
+        
         obj_biller = self.env['extraschool.biller']
-        obj_invoicedprest = self.env['extraschool.invoicedprestations']
-        obj_parent = self.env['extraschool.parent']
-        obj_prestation_times_of_the_day = self.env['extraschool.prestation_times_of_the_day']
         
         #create a bille to store invoice
         biller = obj_biller.create({'name' : 'test',
@@ -444,16 +443,45 @@ class extraschool_invoice_wizard(models.TransientModel):
                                     })
 
         #search parent to be invoiced
-        parent_ids = obj_prestation_times_of_the_day.read_group([],['parent_id'],['parent_id']) 
-        print str(parent_ids)
+   
+        sql_mega_invoicing = """select parent_id, childid, activity_occurrence_id,
+                                    sum(case when es = 'S' then prestation_time else 0 end) - sum(case when es = 'E' then prestation_time else 0 end) as duration,
+                                    (select count(distinct childid) + 1
+                                     from extraschool_prestationtimes ep
+                                     left join extraschool_child ec on ep.childid = ec.id
+                                     where  parent_id = ept.parent_id 
+                                        and activity_occurrence_id = ept.activity_occurrence_id
+                                        and childid <> ept.childid
+                                        and ec.birthdate < (select birthdate from extraschool_child where id = ept.childid)
+                                        ) as child_position
+                                from extraschool_prestationtimes ept
+                                group by parent_id,childid, activity_occurrence_id
+                                order by parent_id, activity_occurrence_id;"""
+
+        self.env.cr.execute(sql_mega_invoicing)
+        invoice_lines = self.env.cr.dictfetchall()
         
-        #loop on parent to create invoice
-        for parent in parent_ids:
-            parent_id = parent['parent_id'][0]
-            print str(parent_id)
-            inv_obj.create({'name' : 'invoice_parent_id_' + str(parent_id), 
-                            'parentid' : parent_id,
-                            'biller_id' : biller.id})
+        saved_parent_id = -1
+        for invoice_line in invoice_lines:
+            print str(invoice_line)
+            if saved_parent_id != invoice_line['parent_id']:
+                saved_parent_id = invoice_line['parent_id']
+                invoice = inv_obj.create({'name' : 'invoice_parent_id_' + str(saved_parent_id), 
+                                'parentid' : saved_parent_id,
+                                'biller_id' : biller.id})
+            
+            inv_line_obj.create({'invoiceid' : invoice.id,
+                                 'childid': invoice_line['childid']
+                                 })
+#         parent_ids = obj_prestation_times_of_the_day.read_group([],['parent_id'],['parent_id']) 
+#         
+#         #loop on parent to create invoice
+#         for parent in parent_ids:
+#             parent_id = parent['parent_id'][0]
+#             print str(parent_id)
+#             inv_obj.create({'name' : 'invoice_parent_id_' + str(parent_id), 
+#                             'parentid' : parent_id,
+#                             'biller_id' : biller.id})
          
         #a faire: verifier si toutes les prestations sont verifiees
     
