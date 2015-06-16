@@ -37,6 +37,8 @@ class extraschool_activityoccurrence(models.Model):
     occurrence_date = fields.Date('Date')
     activityid = fields.Many2one('extraschool.activity', 'Activity')
     activityname = fields.Char(related='activityid.name')
+    activity_category_id = fields.Many2one(related='activityid.category', store=True, select=True)                  
+
     prest_from = fields.Float('prest_from')
     prest_to = fields.Float('prest_to')
     date_start = fields.Datetime('Date start',compute='_compute_date_start', store=True)
