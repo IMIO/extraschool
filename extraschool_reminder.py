@@ -35,7 +35,7 @@ class extraschool_reminder(models.Model):
     concernedinvoices = fields.Many2many('extraschool.invoice','extraschool_reminder_invoice_rel', 'reminder_id', 'invoice_id','Concerned invoices')
     filename = fields.Char('filename', size=30,readonly=True)
     reminder_file = fields.Binary('File', readonly=True)
-    activitycategoryid = fields.Many2one('remindersjournalid.activitycategoryid', string='Activity Category')
+    activitycategoryid = fields.Many2one(related='remindersjournalid.activitycategoryid', string='Activity Category')
     term = fields.Date('remindersjournalid.term')
     transmissiondate = fields.Date('remindersjournalid.transmissiondate')  
 

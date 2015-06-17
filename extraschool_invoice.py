@@ -42,11 +42,12 @@ class extraschool_invoice(models.Model):
     filename = fields.Char('filename', size=20,readonly=True)
     invoice_file = fields.Binary('File', readonly=True)
     payment_ids = fields.One2many('extraschool.payment', 'concernedinvoice','Payments')
+    invoice_line_ids = fields.One2many('extraschool.invoicedprestations', 'invoiceid','Details')    
     oldid = fields.Char('oldid', size=20)
-    activitycategoryid = fields.Many2one('biller_id.activitycategoryid', string='Activity Category')
-    period_from = fields.Date('biller_id.period_from')
-    period_to = fields.Date('biller_id.period_to')
-    payment_term = fields.Date('biller_id.payment_term')      
+    activitycategoryid = fields.Many2one(related='biller_id.activitycategoryid')
+    period_from = fields.Date(related='biller_id.period_from')
+    period_to = fields.Date(related='biller_id.period_to')
+    payment_term = fields.Date(related='biller_id.payment_term')      
 
 
 extraschool_invoice()

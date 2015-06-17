@@ -470,8 +470,13 @@ class extraschool_invoice_wizard(models.TransientModel):
                                 'parentid' : saved_parent_id,
                                 'biller_id' : biller.id})
             
+            duration_h = int(invoice_line['duration'])
+            duration_m = int((invoice_line['duration']-duration_h)*100)
+            duration = duration_h*60 + duration_m
             inv_line_obj.create({'invoiceid' : invoice.id,
-                                 'childid': invoice_line['childid']
+                                 'childid': invoice_line['childid'],
+                                 'activity_occurrence_id': invoice_line['activity_occurrence_id'],
+                                 'duration': duration,
                                  })
 #         parent_ids = obj_prestation_times_of_the_day.read_group([],['parent_id'],['parent_id']) 
 #         

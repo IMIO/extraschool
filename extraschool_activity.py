@@ -62,7 +62,6 @@ class extraschool_activity(models.Model):
     subsidizedbyone = fields.Boolean('Subsidized by one')
     validity_from = fields.Date('Validity from')
     validity_to = fields.Date('Validity to')
-    invoicedprestations_ids = fields.One2many('extraschool.invoicedprestations', 'activityid','Invoiced prestations')
  
     @api.onchange('parent_id')
     @api.depends('parent_id')
