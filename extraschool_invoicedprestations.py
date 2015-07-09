@@ -30,8 +30,9 @@ class extraschool_invoicedprestations(models.Model):
 
     invoiceid = fields.Many2one('extraschool.invoice', 'invoice',ondelete='cascade')
     childid = fields.Many2one('extraschool.child', 'Child', required=False, select=True)
-    placeid = fields.Many2one(related='activity_occurrence_id.place_id', select=True)
-    prestation_date = fields.Date('Date', select=True)
+    child_position = fields.Many2one('extraschool.childposition', 'Child', required=False, select=True)
+    placeid = fields.Many2one(related='activity_occurrence_id.place_id', store=True, select=True)
+    prestation_date = fields.Date(related='activity_occurrence_id.occurrence_date', store=True, select=True)
     activity_occurrence_id = fields.Many2one('extraschool.activityoccurrence', 'Activity occurrence', required=False, select=True)        
     duration = fields.Integer('Duration')
     quantity = fields.Integer('Quantity')
