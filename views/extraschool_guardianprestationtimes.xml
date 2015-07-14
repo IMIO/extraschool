@@ -81,7 +81,7 @@
                 <graph string="Guardian" type="bar">
                      <field name="guardian_id" type="row"/>
                      <field name="week" type="col"/>
-                     <field name="duration" type="measure"/>
+                     <field name="solde" type="measure"/>
                  </graph>
              </field>
         </record>
