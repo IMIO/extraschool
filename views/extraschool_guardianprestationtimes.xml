@@ -39,5 +39,60 @@
             <field name="view_mode">form</field>
             <field name="target">inline</field>
         </record>
+
+         <record model="ir.ui.view" id="extraschool_guardian_prestationtimes_form">
+            <field name="name">extraschool.guardian_prestationtimes.form</field>
+            <field name="model">extraschool.guardian_prestation_times_report</field>    
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+	            <form string="Guardian">
+					<group col="4">
+		            	<field name="guardian_id"/>
+		                <field name="prestation_date"/>
+		                <field name="week"/>
+		                <field name="duration"/>
+		                <field name="weekly_schedule"/>
+		                <field name="solde"/>	                		                	
+					</group>
+		       </form>
+            </field> 
+        </record>
+                        
+         <record model="ir.ui.view" id="extraschool_guardian_prestationtimes_tree">
+            <field name="name">extraschool.guardian_prestationtimes.tree</field>
+            <field name="model">extraschool.guardian_prestation_times_report</field>    
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+	            <tree string="Guardian">
+	                <field name="guardian_id"/>
+	                <field name="prestation_date"/>
+	                <field name="week"/>
+	                <field name="duration"/>
+	                <field name="weekly_schedule"/>
+	                <field name="solde"/>	                		                	
+	            </tree>
+            </field> 
+        </record>
+
+       <record id="extraschool_guardian_prestationtime_graph" model="ir.ui.view">
+            <field name="name">extraschool.guardian_prestationtimes.graph</field>
+            <field name="model">extraschool.guardian_prestation_times_report</field>
+            <field name="arch" type="xml">
+                <graph string="Guardian" type="bar">
+                     <field name="guardian_id" type="row"/>
+                     <field name="week" type="col"/>
+                     <field name="duration" type="measure"/>
+                 </graph>
+             </field>
+        </record>
+                
+        <record model="ir.actions.act_window" id="action_guardianprestationtimes">
+			<field name="name">Guardian</field>
+			<field name="res_model">extraschool.guardian_prestation_times_report</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,graph</field>
+            <field name="view_id" ref="extraschool_guardian_prestationtimes_tree"/>
+		</record>
+				       
 	</data>
 </openerp>

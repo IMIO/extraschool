@@ -21,10 +21,11 @@
             <field name="arch" type="xml">
             <form string="Guardian">
               <group col="4">
-                <field name="name" invisible="True"/>
-                <field name="firstname" on_change="onchange_name(lastname,firstname)"/>
+                <field name="firstname"/>
                 <newline/>
-                <field name="lastname" on_change="onchange_name(lastname,firstname)"/>
+                <field name="lastname"/>
+                <newline/>
+                <field name="weekly_schedule"/>
                 <newline/>
                 <field name="tagid" /> 
                </group>

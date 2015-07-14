@@ -32,6 +32,7 @@ class extraschool_guardian(models.Model):
     firstname = fields.Char('FirstName', size=50)
     lastname = fields.Char('LastName', size=50 , required=True)
     tagid = fields.Char('Tag ID', size=50)
+    weekly_schedule = fields.Float('Horaire hebdomadaire')
     oldid = fields.Integer('oldid')             
 
     @api.depends('firstname','lastname')

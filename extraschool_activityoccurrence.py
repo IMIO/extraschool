@@ -35,7 +35,7 @@ class extraschool_activityoccurrence(models.Model):
 
     name = fields.Char('Name', size=50)
     occurrence_date = fields.Date('Date')
-    activityid = fields.Many2one('extraschool.activity', 'Activity')
+    activityid = fields.Many2one('extraschool.activity', 'Activity', select=True)
     activityname = fields.Char(related='activityid.name')
     activity_category_id = fields.Many2one(related='activityid.category', store=True, select=True)                  
 
