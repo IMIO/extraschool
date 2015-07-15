@@ -42,7 +42,7 @@ class extraschool_guardian_prestation_times_report(models.Model):
     
     guardian_id = fields.Many2one('extraschool.guardian', 'Guardian', required=False,select=True)
     prestation_date = fields.Date('Date',select=True)
-    duration = fields.Float('Time')
+    duration = fields.Float('Duration')
     week = fields.Integer('Week',select=True)
     weekly_schedule = fields.Float('weekly_schedule')
     solde = fields.Float('solde')

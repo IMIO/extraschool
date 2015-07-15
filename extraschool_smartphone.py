@@ -58,6 +58,12 @@ class extraschool_smartphone(models.Model):
                 humanReadable = 0
             )        
         vals['qrconfig'] = base64.b64encode(barcode)
+        value = self.softwareurl
+        barcode = createBarcodeImageInMemory(
+                'QR', value=value, format='png', width=400, height=400,
+                humanReadable = 0
+            )        
+        vals['qrdownload'] = base64.b64encode(barcode)
       
         self = super(extraschool_smartphone, self).write(vals)        
 
