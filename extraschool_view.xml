@@ -40,7 +40,8 @@
         <menuitem action="action_lbsc_qrcodes_wizard" id="extraschool_menu_qrcodes_wizard" parent="extraschool_menu_documents"/>
         <menuitem action="action_lbsc_childsworkbook_wizard" id="extraschool_menu_childsworkbook_wizard" parent="extraschool_menu_documents"/>                
         <menuitem action="action_lbsc_guardianprestationtimes_wizard" id="extraschool_menu_guardianprestationtimes_wizard" parent="extraschool_menu_documents"/>
-        <menuitem action="action_guardianprestationtimes" id="extraschool_menu_guardianprestationtimes" parent="extraschool_menu_documents"/>
+        <menuitem action="action_extraschool_prestationtimes" id="extraschool_menu_guardianprestationtimes" parent="extraschool_menu_documents"/>
+        <menuitem action="action_guardianprestationtimes_report" id="extraschool_menu_guardianprestationtimes_report" parent="extraschool_menu_documents"/>
         <menuitem name="Payments" id="extraschool_menu_payments" parent="menu_extraschool"/>
         <menuitem name="Biller" parent="extraschool_menu_payments" id="extraschool_menu_biller" action="action_extraschool_biller"/>
         <menuitem name="CODA import" parent="extraschool_menu_payments" id="extraschool_menu_codaimport" action="action_extraschool_coda"/>
