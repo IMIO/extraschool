@@ -52,17 +52,16 @@ class extraschool_guardian_prestation_times_report(models.Model):
         cr.execute("""
             CREATE view extraschool_guardian_prestation_times_report as
             select 
-                egt.id as id,
+                MIN(egt.id) as id,
                 egt.guardianid as guardian_id, 
                 egt.prestation_date as prestation_date,
                 EXTRACT(WEEK FROM egt.prestation_date) as week,
                 eg.weekly_schedule as weekly_schedule,
                 sum(case when egt.es = 'S' then egt.prestation_time else 0 end) - sum(case when egt.es = 'E' then egt.prestation_time else 0 end) as duration,
-                weekly_schedule - sum(case when egt.es = 'S' then egt.prestation_time else 0 end) - sum(case when egt.es = 'E' then egt.prestation_time else 0 end) as Solde
+                weekly_schedule - (sum(case when egt.es = 'S' then egt.prestation_time else 0 end) - sum(case when egt.es = 'E' then egt.prestation_time else 0 end)) as Solde
             from extraschool_guardianprestationtimes egt
             left join extraschool_guardian eg on eg.id = egt.guardianid
             group by 
-                egt.id,
                 guardian_id,
                 egt.prestation_date,
                 weekly_schedule
