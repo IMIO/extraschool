@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+		<template id="report_invoice_std">
+			<t t-call="report.html_container">
+				<t t-foreach="docs" t-as="invoice">
+				
+		        	<div class="page">
+		        		<h2>Invoice</h2>
+		         	    <p>Id : <span t-field="invoice.id"/></p>
+		         	    <p>Invoice Categ : <span t-field="invoice.activitycategoryid"/></p>
+		       		</div>
+				</t>
+			</t>
+		</template>
+
+		
+		<report
+		    id="extraschool_invoice_std"
+		    model="extraschool.invoice"
+		    string="Invoice"
+		    report_type="qweb-pdf"
+		    name="extraschool.report_invoice_std"
+		    attachment_use="False"
+		/>
+	</data>
+</openerp>	
+	
+	
