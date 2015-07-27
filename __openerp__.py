@@ -71,6 +71,7 @@
         'security/ir.model.access.csv',
         'report/parent.xml',
         'report/qrcode_report.xml',
+        'report/invoice/invoice_std.xml',
     ],
     'installable' : True,
     'application': True,
