@@ -58,9 +58,6 @@
                 	<notebook>
 		                <page string="Activities">
 				                <field name="activity_ids"/> 
-		                	<group col="4">
-				            	<field name="child_type_id"/> 
-							</group>
 			            </page>
 		                <page string="Selection">
 		                	<group col="4">
