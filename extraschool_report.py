@@ -30,4 +30,18 @@ class extraschool_report(models.Model):
     _order = 'name'
 
     name = fields.Char('Name', size=50, required=True)
-    schoolimplantation = fields.Many2one('ir.actions.report.xml', 'Report type', required=False)    l_id','Levels',required=True)
+    report_type_id = fields.Many2one('ir.actions.report.xml', 'Report type', required=True)
+    inline_report_ids = fields.Many2many('extraschool.inline_report','extraschool_report_inline_report_rel', 'report_id', 'inline_report_id','Inline reports')
+
+
+class extraschool_inline_report(models.Model):
+    _name = 'extraschool.inline_report'
+    _description = 'Report'
+    _order = 'sequence asc'
+
+
+    name = fields.Char('Name', size=50, required=True)
+    report_id = fields.Many2one('extraschool.report', 'Report')
+    sequence = fields.Integer('Sequence', help="Gives the sequence order when displaying a list of sales order lines.")
+    inline_report_id = fields.Many2one('ir.ui.view', 'Report', required=True)
+    

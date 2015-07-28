@@ -2,15 +2,25 @@
 <openerp>
 	<data> 
 		<template id="report_invoice_std">
+		    <style type="text/css">
+		        .page{
+		    	}
+			</style>			
+
 			<t t-call="report.html_container">
+				<div id="invoice">
 				<t t-foreach="docs" t-as="invoice">
 				
 		        	<div class="page">
-		        		<h2>Invoice</h2>
-		         	    <p>Id : <span t-field="invoice.id"/></p>
-		         	    <p>Invoice Categ : <span t-field="invoice.activitycategoryid"/></p>
+        				<t t-set="logo" t-value="invoice.activitycategoryid.logo"/>
+        				<t t-set="slogan" t-value="invoice.activitycategoryid.slogan"/>
+		         	    
+		        		<t t-foreach="invoice.activitycategoryid.report_id.inline_report_ids" t-as="tmpl">
+		        			<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
+						</t> 	    
 		       		</div>
 				</t>
+				</div>
 			</t>
 		</template>
 

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 		
+		<template id="report_invoice_std_footer">
+		    <style type="text/css">
+		        .invoice_footer{
+		    		position:absolute;
+		    		bottom:0;
+		    		height: 30mm;
+		    	}
+			</style>			
+        	<div class="invoice_footer">
+        		<h2>footer</h2>
+       		</div>
+		</template>
+
+	</data>
+</openerp>	
+	
+	
