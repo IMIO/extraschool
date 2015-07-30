@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 		
+		<template id="report_invoice_std_footer_virement">
+			<style>
+				.invoice_virement{
+					background-color: red;
+				  	min-height: 75mm;
+					height: 100%;
+    				width: 100%;
+					position: absolute; 
+					bottom: 0;
+					overflow: visible;
+					z-index:-1;
+				}
+			</style>
+			<div class="invoice_virement">
+				<span>virement</span>
+			</div>
+		</template>
+
+	</data>
+</openerp>	
+	
+	

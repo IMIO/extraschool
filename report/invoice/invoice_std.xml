@@ -3,25 +3,49 @@
 	<data> 
 		<template id="report_invoice_std">
 		    <style type="text/css">
-		        .page{
-		    	}
+
 			</style>			
 
 			<t t-call="report.html_container">
 				<div id="invoice">
+
 				<t t-foreach="docs" t-as="invoice">
-				
+	  				<t t-set="logo" t-value="invoice.activitycategoryid.logo"/>
+   					<t t-set="slogan" t-value="invoice.activitycategoryid.slogan"/>				
+		        	<div class="header">
+	        			<t t-foreach="invoice.activitycategoryid.report_id.inline_report_ids.filtered(lambda r: r.section == 'a_header')" t-as="tmpl">
+			        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">	         	    
+		        				<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
+							</div>
+							<t t-if="tmpl.visibility == False">
+								<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
+							</t>
+						</t> 	
+		       		</div>				
 		        	<div class="page">
-        				<t t-set="logo" t-value="invoice.activitycategoryid.logo"/>
-        				<t t-set="slogan" t-value="invoice.activitycategoryid.slogan"/>
-		         	    
-		        		<t t-foreach="invoice.activitycategoryid.report_id.inline_report_ids" t-as="tmpl">
-		        			<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
+		        		<t t-foreach="invoice.activitycategoryid.report_id.inline_report_ids.filtered(lambda r: r.section == 'a_body')" t-as="tmpl">
+			        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">	         	    
+		        				<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
+							</div>
+							<t t-if="tmpl.visibility == False">
+								<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
+							</t>
 						</t> 	    
 		       		</div>
-				</t>
+		        	<div class="footer">
+		        		<t t-foreach="invoice.activitycategoryid.report_id.inline_report_ids.filtered(lambda r: r.section == 'a_footer')" t-as="tmpl">
+			        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">	         	    
+		        				<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
+							</div>
+							<t t-if="tmpl.visibility == False">
+								<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
+							</t>
+						</t> 	    
+		       		</div>
+		       	</t>
 				</div>
 			</t>
+	
 		</template>
 
 		
