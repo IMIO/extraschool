@@ -2,6 +2,12 @@
 <openerp>
 	<data> 
         <template id="report_minimal_layout" inherit_id="report.minimal_layout" >
+			<xpath expr="//html" position="attributes">
+			    <attribute name="data-report-margin-top">5</attribute>
+			    <attribute name="t-att-data-report-margin-bottom">7</attribute>
+			    <attribute name="t-att-data-report-header-spacing">0</attribute>
+			</xpath>
+			
             <xpath expr="//head" position="inside">
               <script src="extraschool/static/js/pagination_hide.js"></script>
             </xpath>

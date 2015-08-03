@@ -4,18 +4,33 @@
 		<template id="report_invoice_std_footer_virement">
 			<style>
 				.invoice_virement{
-					background-color: red;
-				  	min-height: 75mm;
-					height: 100%;
-    				width: 100%;
-					position: absolute; 
-					bottom: 0;
-					overflow: visible;
-					z-index:-1;
+					min-height: 84mm;
+					width: 205mm;
+					margin: 0%;
+					border: 0mm;
+					border-style: solid;
+					border-width: thin;
+				}
+				
+				.amount{
+					float:right;
+					width: 50mm;
+					border-style: solid;
+					border-width: thin;
+						}
+				
+				.decimal_amount{
+					margin-left: 5mm;
 				}
 			</style>
 			<div class="invoice_virement">
-				<span>virement</span>
+				<span class="execution_date">22 05 2015</span>
+				<div class="amount">
+					<span >99999999</span>
+					<span class="decimal_amount">99</span>										
+				</div>
+				<span class="account">1234123412341234</span>
+				
 			</div>
 		</template>
 

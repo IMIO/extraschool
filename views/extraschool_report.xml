@@ -10,11 +10,13 @@
 	            <group col="4">       
 	                <field name="name"/>
 	                <field name="report_type_id"/> 
-	                <field name="inline_report_ids" nolabel="1" colspan="4" >
-	                	<tree>
+	                <field name="inline_report_ids" nolabel="1" colspan="4">
+	                	<tree editable="bottom">
 	                		<field name="sequence" widget="handle"/> 
+							<field name="section" />	                			
 	                		<field name="name"/> 
 	                		<field name="inline_report_id"/> 
+	                		<field name="visibility"/> 
 	                	</tree>
 	                </field>	 
 	            </group>

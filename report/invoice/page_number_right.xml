@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 		
+		<template id="report_page_number_right" inherit_id="extraschool.report_page_number_no_style" primary="True">
+
+			<xpath expr="//div[@class='page_number']" position="before">
+				<style>
+					.page_number_container {
+	  					float: right;
+					}										
+				</style>
+			</xpath>		
+		</template>
+
+	</data>
+</openerp>	
+	
+	

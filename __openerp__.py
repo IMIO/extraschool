@@ -70,6 +70,7 @@
         'extraschool_report.xml',
         'security/extraschool_security.xml',
         'security/ir.model.access.csv',
+        'report/extraschool_layout.xml',
         'report/parent.xml',
         'report/qrcode_report.xml',
         'report/invoice/invoice_std.xml',
@@ -77,6 +78,10 @@
         'report/invoice/invoice_std_header_adresse.xml',
         'report/invoice/invoice_std_body.xml',
         'report/invoice/invoice_std_footer.xml',
+        'report/invoice/invoice_std_footer_virement.xml',
+        'report/invoice/page_number_no_style.xml',
+        'report/invoice/page_number_right.xml',        
+        
     ],
     'installable' : True,
     'application': True,

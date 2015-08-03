@@ -31,17 +31,20 @@ class extraschool_report(models.Model):
 
     name = fields.Char('Name', size=50, required=True)
     report_type_id = fields.Many2one('ir.actions.report.xml', 'Report type', required=True)
-    inline_report_ids = fields.Many2many('extraschool.inline_report','extraschool_report_inline_report_rel', 'report_id', 'inline_report_id','Inline reports')
+    inline_report_ids = fields.One2many('extraschool.inline_report','report_id')
 
 
 class extraschool_inline_report(models.Model):
     _name = 'extraschool.inline_report'
     _description = 'Report'
-    _order = 'sequence asc'
+    _order = 'section asc,sequence asc'
 
 
     name = fields.Char('Name', size=50, required=True)
     report_id = fields.Many2one('extraschool.report', 'Report')
-    sequence = fields.Integer('Sequence', help="Gives the sequence order when displaying a list of sales order lines.")
+    sequence = fields.Integer('Sequence', help="Gives the sequence order when displaying a list.")
     inline_report_id = fields.Many2one('ir.ui.view', 'Report', required=True)
+    section = fields.Selection([('a_header','Header'),('b_body','Body'),('c_footer','Footer'),])
+    visibility = fields.Selection([('hide_firstpage','Hidden on first page'),('show_firstpage','First page only'),('show_lastpage','Last page only'),])
+    
     
