@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+		<template id="report_invoice_std_header">
+		    <style type="text/css">
+		        .invoice_header{
+		    		width: 100%;
+		    		height: 30mm;
+		    		display: block;
+		    	}
+				.logo {
+					width: 25mm;
+					height: 25mm;
+					display: inline-block;
+					float: left;        				
+				}
+									
+				.slogan {
+					color: blue;
+					background-color: red;
+		    	  	float: right;
+  					margin-right: 50%;
+				}
+			</style>			
+	    	<div class="invoice_header">
+				<img class="logo" t-attf-src="data:image/jpeg;base64,{{logo}}"/>
+				<span class="slogan"><t t-esc="slogan" /></span>				
+			</div>
+		</template>
+
+	</data>
+</openerp>	
+	
+	

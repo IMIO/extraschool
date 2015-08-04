@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 		
+		<template id="report_invoice_std_footer">
+			<div>
+				<span>std footer</span>
+			</div>
+		</template>
+
+	</data>
+</openerp>	
+	
+	

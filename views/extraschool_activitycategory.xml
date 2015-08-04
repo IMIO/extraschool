@@ -53,7 +53,13 @@
                 <field name="reminderemailtext" />
                 <newline/>
                 <field name="taxcertificatetemplate" />
-                </group>
+                <newline/>
+                <field name="report_id" />
+                <newline/>
+                <field name="logo" widget="image" class="oe_avatar oe_left"/>
+                <newline/>
+                <field name="slogan" />
+              	</group>
             </form>
             </field> 
         </record>
