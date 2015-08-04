@@ -114,6 +114,8 @@ class extraschool_one_report(models.Model):
         month_names=('','Janvier','Fevrier','Mars','Avril','Mai','Juin','Juillet','Aout','Septembre','Octobre','Novembre','Decembre')
         obj_one_report_day = self.env['extraschool.one_report_day']
         new_obj = super(extraschool_one_report, self).create(vals)
+        place_obj = self.env['extraschool.place']
+        place=place_obj.browse([vals['placeid']])
         strperiod_from = str(vals['year']) + '-'+str(vals['quarter']*3-2).zfill(2) +'-01'
         strperiod_to = str(vals['year']) + '-'+str(vals['quarter']*3).zfill(2) +'-'+str(self._monthdays(vals['year'],vals['quarter']*3)).zfill(2)
         period_from=datetime.datetime.strptime(strperiod_from, '%Y-%m-%d').date()
@@ -126,7 +128,9 @@ class extraschool_one_report(models.Model):
         XLSheet = wb.get_sheet(0)
         XLSheet.insert_bitmap('/opt/garderies/templates/one.bmp',0,0)
         self.setXLCell(XLSheet,2,3,u"Détail, pour un lieu d'accueil, des présences du "+("1er" if vals['quarter']==1 else str(vals['quarter'])+"e")+" trimestre "+str(vals['year']))
-        self.setXLCell(XLSheet,5,1,str())
+        self.setXLCell(XLSheet,5,1,str(place.name))
+        self.setXLCell(XLSheet,6,1,'%s\n%s %s' % (place.name,place.zipcode,place.city))  
+        self.setXLCell(XLSheet,7,5,place.schedule)
         for imonth in range(0,3):
             currentmonth=period_from.month+imonth            
             self.setXLCell(XLSheet,14+imonth*2,0,month_names[currentmonth])
@@ -179,5 +183,7 @@ class extraschool_one_report(models.Model):
         wb.save('/opt/garderies/templates/one_report2.xls')
        
         new_obj.write({'nb_m_childs':tot_nb_m,'nb_p_childs':tot_nb_p})
+        
+       
         return new_obj
 extraschool_one_report()
