@@ -3,35 +3,94 @@
 	<data> 		
 		<template id="report_invoice_std_footer_virement">
 			<style>
-				.invoice_virement{
-					min-height: 84mm;
+				#invoice_virement{
+					min-height: 80mm;
 					width: 205mm;
-					margin: 0%;
+					margin: 0px;
 					border: 0mm;
-					border-style: solid;
-					border-width: thin;
+					font-size: 6mm;
 				}
-				
+				#invoice_virement > div{
+					clear: both;
+					display: block;
+				}	
+							
+				.first_row{
+					margin-top: 9mm;
+				}
+
 				.amount{
 					float:right;
 					width: 50mm;
-					border-style: solid;
-					border-width: thin;
-						}
+					text-align: -webkit-right;
+					margin-right: 2mm;
+				}
 				
 				.decimal_amount{
-					margin-left: 5mm;
+					margin-left: 8mm;
+					margin-right: -1mm;
 				}
-			</style>
-			<div class="invoice_virement">
-				<span class="execution_date">22 05 2015</span>
-				<div class="amount">
-					<span >99999999</span>
-					<span class="decimal_amount">99</span>										
-				</div>
-				<span class="account">1234123412341234</span>
 				
-			</div>
+				.virement_row{
+					margin-left: 32mm;
+				}
+												
+				.adresse > span{
+					clear: both;
+					display: block;
+				  	margin-top: -3mm;
+				}
+				
+				.adresse{
+					margin-top: 3mm;
+				  	margin-bottom: 1mm;
+				  	font-size: 5mm;
+				}
+				
+				#execution_date{
+					display: inline;
+					float: left;
+					width: 5cm;
+					margin-left: -2mm;
+				}
+				
+				#execution_date li{
+					display: inline;
+					margin-right: 3mm;
+				}
+				
+				.account_row{
+					padding-top: 30mm;
+				}
+				
+
+			</style>
+			<div id="invoice_virement">
+				<div class="first_row">
+						<ul id="execution_date">
+							<li>22</li>
+							<li>07</li>
+							<li>15</li>
+						</ul>
+					<div class="amount">
+						99999999<span class="decimal_amount">99</span>										
+					</div>
+				</div>
+				<div class="virement_row account_row">
+					<span class="account">1234123412341234</span>					
+				</div>
+				<div class="virement_row">
+					<span class="bic">GKCCBEBB</span>					
+				</div>
+				<div class="virement_row adresse">
+					<span class="street">rue du paradi</span>
+					<span class="zip">666</span>
+					<span class="city">hell city</span>
+				</div>
+				<div class="virement_row">
+					<span class="comstruct">1234123412341234</span>																
+				</div>
+				</div>
 		</template>
 
 	</data>

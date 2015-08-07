@@ -1,67 +1,50 @@
 <?xml version="1.0" ?>
 <openerp>
 	<data> 
-	<template id="aes_invoice_layout">
-	    <t t-raw="'&lt;base href=%s&gt;' % base_url"/>
-	    &lt;!DOCTYPE html&gt;
-	    <html style="height: 0;">
-	        <head>
-	            <link href="/report/static/src/css/reset.min.css" rel="stylesheet"/>
-	            <link href="/web/static/lib/bootstrap/css/bootstrap.css" rel="stylesheet"/>
-	            <link href="/website/static/src/css/website.css" rel="stylesheet"/>
-	            <link href="/web/static/lib/fontawesome/css/font-awesome.css" rel="stylesheet"/>
-	            <style type='text/css'><t t-raw="css"/></style>
-
-	        </head>
-	        <body class="container" onload="subst()">
-	            <t t-raw="0"/>
-	        </body>
-	    </html>
-	</template>		
 		<template id="report_invoice_std">
-			
-		    <style type="text/css">
-		    	.page{
-		    	}
-
-			</style>			
-				<div id="invoice">
+		
+		<t t-call="report.html_container">					
+			<div id="invoice">
 				<t t-foreach="docs" t-as="invoice">
-	  				<t t-set="logo" t-value="invoice.activitycategoryid.logo"/>
-   					<t t-set="slogan" t-value="invoice.activitycategoryid.slogan"/>				
-		        	<div class="header">
-	        			<t t-foreach="invoice.activitycategoryid.report_id.inline_report_ids.filtered(lambda r: r.section == 'a_header')" t-as="tmpl">
-			        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">	         	    
-		        				<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
-							</div>
-							<t t-if="tmpl.visibility == False">
-								<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
-							</t>
-						</t> 	
-		       		</div>				
-		        	<div class="page">
-		        		<t t-foreach="invoice.activitycategoryid.report_id.inline_report_ids.filtered(lambda r: r.section == 'b_body')" t-as="tmpl">
-			        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">	         	    
-		        				<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
-							</div>
-							<t t-if="tmpl.visibility == False">
-								<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
-							</t>
-						</t> 	    
-		       		</div>
-		        	<div class="footer">
-		        		<t t-foreach="invoice.activitycategoryid.report_id.inline_report_ids.filtered(lambda r: r.section == 'c_footer')" t-as="tmpl">
-			        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">	         	    
-		        				<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
-							</div>
-							<t t-if="tmpl.visibility == False">
-								<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
-							</t>
-						</t> 	    
-		       		</div>
-		       	</t>
+					<t t-set="margin-top" t-value="invoice.activitycategoryid.report_id.paper_format_id"/>
+						
+					
+						<t t-set="logo" t-value="invoice.activitycategoryid.logo"/>
+						<t t-set="slogan" t-value="invoice.activitycategoryid.slogan"/>				
+			        	<div class="header">
+		        			<t t-foreach="invoice.activitycategoryid.report_id.inline_report_ids.filtered(lambda r: r.section == 'a_header')" t-as="tmpl">
+				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">	         	    
+			        				<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
+								</div>
+								<t t-if="tmpl.visibility == False">
+									<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
+								</t>
+							</t> 	
+			       		</div>				
+			        	<div class="page">
+			        		<t t-foreach="invoice.activitycategoryid.report_id.inline_report_ids.filtered(lambda r: r.section == 'b_body')" t-as="tmpl">
+				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">	         	    
+			        				<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
+								</div>
+								<t t-if="tmpl.visibility == False">
+									<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
+								</t>
+							</t> 	    
+			       		</div>
+			        	<div class="footer">
+			        		<t t-foreach="invoice.activitycategoryid.report_id.inline_report_ids.filtered(lambda r: r.section == 'c_footer')" t-as="tmpl">
+				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">	         	    
+			        				<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
+								</div>
+								<t t-if="tmpl.visibility == False">
+									<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
+								</t>
+							</t> 	    
+			       		</div>
+			       	</t>
+
 				</div>
-	
+			</t>			
 		</template>
 
 		
