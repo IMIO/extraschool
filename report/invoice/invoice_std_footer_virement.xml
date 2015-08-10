@@ -16,7 +16,7 @@
 				}	
 							
 				.first_row{
-					margin-top: 9mm;
+					margin-top: 0mm;
 				}
 
 				.amount{
@@ -42,8 +42,8 @@
 				}
 				
 				.adresse{
-					margin-top: 3mm;
-				  	margin-bottom: 1mm;
+					margin-top: 6mm;
+				  	margin-bottom: 0mm;
 				  	font-size: 5mm;
 				}
 				
@@ -51,7 +51,6 @@
 					display: inline;
 					float: left;
 					width: 5cm;
-					margin-left: -2mm;
 				}
 				
 				#execution_date li{
@@ -60,7 +59,11 @@
 				}
 				
 				.account_row{
-					padding-top: 30mm;
+					padding-top: 24mm;
+				}
+				
+				.construct_row{
+					margin-top: -1mm;
 				}
 				
 
@@ -83,11 +86,11 @@
 					<span class="bic">GKCCBEBB</span>					
 				</div>
 				<div class="virement_row adresse">
-					<span class="street">rue du paradi</span>
-					<span class="zip">666</span>
-					<span class="city">hell city</span>
+					<span class="street">RUE DE NULLE PART </span>
+					<span class="zip">1234</span>
+					<span class="city">nO nAME</span>
 				</div>
-				<div class="virement_row">
+				<div class="virement_row construct_row">
 					<span class="comstruct">1234123412341234</span>																
 				</div>
 				</div>

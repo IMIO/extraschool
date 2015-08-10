@@ -16,13 +16,14 @@
 		            <t t-call="report.style"/>
 		        </style>									
             </xpath>
-		    <xpath expr="//html" position="attributes">
+		    
+            <xpath expr="//html" position="attributes">
 		    	<attribute name="t-att-data-report-margin-top">docs[0].activitycategoryid.report_id.paper_format_id.margin_top</attribute>
 		        <attribute name="t-att-data-report-margin-bottom">docs[0].activitycategoryid.report_id.paper_format_id.margin_bottom</attribute>
-		        <attribute name="t-att-data-report-margin-right">0</attribute>
-		        <attribute name="t-att-data-report-margin-left">0</attribute>
-		        		        		        		        
+		        <attribute name="data-report-margin-right">2</attribute>
+		        <attribute name="data-report-margin-left">2</attribute>		        		  		        		        
 		    </xpath>            
+		    
             <xpath expr="//body" position="attributes">
 				<attribute name="t-att-class">container</attribute>	      
 		    </xpath>
