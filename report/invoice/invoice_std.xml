@@ -1,16 +1,38 @@
 <?xml version="1.0" ?>
 <openerp>
 	<data> 
-		<template id="report_invoice_std">
-		
-		<t t-call="report.html_container">					
-			<div id="invoice">
-				<t t-foreach="docs" t-as="invoice">
-					<t t-set="margin-top" t-value="invoice.activitycategoryid.report_id.paper_format_id"/>
-						
-					
+		<template id="report_invoice_std" inherit_id="report.layout"  primary="True">
+            <xpath expr="//head" position="inside">
+	            <style type="text/css">
+					body.container {
+					  padding: 0px;
+					  margin: 0px;
+					}
+				</style>
+				<link href="/web/static/lib/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+		        <link href="/website/static/src/css/website.css" rel="stylesheet"/>
+		        <link href="/web/static/lib/fontawesome/css/font-awesome.css" rel="stylesheet"/>
+		        <style type="text/css">
+		            <t t-call="report.style"/>
+		        </style>									
+            </xpath>
+		    <xpath expr="//html" position="attributes">
+		    	<attribute name="t-att-data-report-margin-top">docs[0].activitycategoryid.report_id.paper_format_id.margin_top</attribute>
+		        <attribute name="t-att-data-report-margin-bottom">docs[0].activitycategoryid.report_id.paper_format_id.margin_bottom</attribute>
+		        <attribute name="t-att-data-report-margin-right">0</attribute>
+		        <attribute name="t-att-data-report-margin-left">0</attribute>
+		        		        		        		        
+		    </xpath>            
+            <xpath expr="//body" position="attributes">
+				<attribute name="t-att-class">container</attribute>	      
+		    </xpath>
+		    
+            <xpath expr="//body" position="inside">
+				<div id="invoice">
+					<t t-foreach="docs" t-as="invoice">													
 						<t t-set="logo" t-value="invoice.activitycategoryid.logo"/>
-						<t t-set="slogan" t-value="invoice.activitycategoryid.slogan"/>				
+						<t t-set="slogan" t-value="docs[0].activitycategoryid.report_id.paper_format_id.margin_bottom"/>		
+						<t t-set="margin-bottom" t-value="invoice.activitycategoryid.logo"/>		
 			        	<div class="header">
 		        			<t t-foreach="invoice.activitycategoryid.report_id.inline_report_ids.filtered(lambda r: r.section == 'a_header')" t-as="tmpl">
 				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">	         	    
@@ -41,10 +63,9 @@
 								</t>
 							</t> 	    
 			       		</div>
-			       	</t>
-
-				</div>
-			</t>			
+				    </t>
+				</div>				
+			</xpath>	
 		</template>
 
 		

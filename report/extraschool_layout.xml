@@ -1,23 +1,9 @@
 <?xml version="1.0" ?>
 <openerp>
 	<data> 
-        <template id="report_paper_format" inherit_id="report.layout"  primary="True">
-		    <xpath expr="//html" position="attributes">
-		        <attribute name="t-att-data-report-margin-top">8</attribute>
-		        <attribute name="t-att-data-report-margin-bottom">45</attribute>
-		    </xpath>
-		    		    
-            <xpath expr="//head" position="inside">
-              <script src="toto.js"></script>
-            </xpath>					
-        </template>
+
 
         <template id="report_minimal_layout_hack" inherit_id="report.layout">			
-		    <xpath expr="//html" position="attributes">
-		        <attribute name="t-att-data-report-margin-top">8</attribute>
-		        <attribute name="t-att-data-report-margin-bottom">45</attribute>
-		    </xpath>
-        	
         	<xpath expr="//head" position="inside">
               <script src="extraschool/static/js/pagination_hide.js"></script>
             </xpath>
