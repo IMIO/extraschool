@@ -67,6 +67,7 @@
         'views/extraschool_class.xml',
         'views/extraschool_level.xml',
         'views/extraschool_child.xml',
+        'views/extraschool_settings.xml',
         'extraschool_view.xml',
         'extraschool_report.xml',
         'security/extraschool_security.xml',
