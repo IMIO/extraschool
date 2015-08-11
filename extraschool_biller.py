@@ -66,10 +66,11 @@ class extraschool_biller(models.Model):
     def _compute_novalue(self):
         for record in self:
             record.novalue = sum(invoice.novalue for invoice in record.invoice_ids)
+
     @api.depends('invoice_ids')
-    def _compute_nbinvoices(self, cr, uid, ids, field_name, arg, context):
+    def _compute_nbinvoices(self):
         for record in self:
-            record.nbinvoices = len(self.ids)
+            record.nbinvoices = len(self.invoice_ids)
 
     @api.depends('invoice_ids')
     def _compute_paymentsstats(self):

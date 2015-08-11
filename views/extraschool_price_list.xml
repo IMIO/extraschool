@@ -57,12 +57,10 @@
 	            <group col="4">
                 	<notebook>
 		                <page string="Activities">
-				                <field name="activity_ids"/> 
+			                <field name="activity_ids"/> 
 			            </page>
 		                <page string="Selection">
-		                	<group col="4">
-				            	<field name="child_type_id"/> 
-							</group>
+			            	<field name="child_type_ids"/> 
 			            </page>
   		                <page string="Child position">
 			                <field name="child_position_ids"/> 
