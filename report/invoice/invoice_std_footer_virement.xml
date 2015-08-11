@@ -76,7 +76,7 @@
 							<li>15</li>
 						</ul>
 					<div class="amount">
-						99999999<span class="decimal_amount">99</span>										
+						<t t-esc="amount_int" /><span class="decimal_amount"><t t-esc="amount_dec" /></span>										
 					</div>
 				</div>
 				<div class="virement_row account_row">
