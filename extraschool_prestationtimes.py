@@ -87,12 +87,13 @@ class extraschool_prestationtimes(models.Model):
     def write(self, vals):
 #            vals['verified'] = False
             return super(extraschool_prestationtimes, self).write(vals)
-            
+    
+    @api.multi
     def unlink(self):        
         for record in self:
-                linked_prestation=self.search([('childid', '=', record.childid),('prestation_date', '=', self.prestation_date)])
+                linked_prestation=self.search([('childid', '=', record.childid.id),('prestation_date', '=', record.prestation_date)])
                 res = linked_prestation.write({'verified':False})
-        return super(extraschool_prestationtimes, self).unlink(self.ids)
+        return super(extraschool_prestationtimes, self).unlink()
         
 extraschool_prestationtimes()
 
