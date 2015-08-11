@@ -12,7 +12,8 @@
                     <field name="activitycategory" />
                     <field name="year" />
                     <field name="quarter"/>          
-                    <field name="transmissiondate" />            
+                    <field name="transmissiondate" />  
+					<field name="report" />         
 				</tree>
 			</field>
 		</record>
@@ -32,7 +33,7 @@
                         <newline />
                         <field name="quarter"/>          
                         <newline />
-                        <field name="transmissiondate" />
+                        <field name="transmissiondate" />                        
                    </group>
                 </form>
             </field>
