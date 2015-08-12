@@ -142,6 +142,7 @@ DROP INDEX extraschool_smartphone_activitycategory_rel_activitycategory_i;
 
 DROP INDEX extraschool_smartphone_activitycategory_rel_smartphone_id_inde;
 
+
 DROP TABLE extraschool_quotaadjustment;
 
 DROP TABLE extraschool_copierquota;
@@ -170,25 +171,7 @@ DROP TABLE extraschool_stats_wizard;
 
 DROP TABLE extraschool_statsone_wizard;
 
-DROP SEQUENCE extraschool_copiercode_id_seq;
 
-DROP SEQUENCE extraschool_copierquota_id_seq;
-
-DROP SEQUENCE extraschool_file_wizard_id_seq;
-
-DROP SEQUENCE extraschool_quotaadjustment_id_seq;
-
-DROP SEQUENCE extraschool_teacher_id_seq;
-
-DROP SEQUENCE extraschool_importchildtyperule_id_seq;
-
-DROP SEQUENCE extraschool_prestations_wizard_id_seq;
-
-DROP SEQUENCE extraschool_reminders_wizard_id_seq;
-
-DROP SEQUENCE extraschool_stats_wizard_id_seq;
-
-DROP SEQUENCE extraschool_statsone_wizard_id_seq;
 
 CREATE SEQUENCE extraschool_activityoccurrence_id_seq
 	START WITH 1
@@ -266,6 +249,67 @@ CREATE SEQUENCE extraschool_report_id_seq
 	NO MAXVALUE
 	NO MINVALUE
 	CACHE 1;
+
+ALTER TABLE extraschool_parent
+	DROP COLUMN numrn,
+	ADD COLUMN one_subvention_type character varying;
+
+UPDATE extraschool_parent SET one_subvention_type='sf' where one_subvention_type is NULL;
+
+ALTER TABLE extraschool_parent
+    ALTER COLUMN one_subvention_type SET NOT NULL;
+
+COMMENT ON COLUMN extraschool_parent.remindersendmethod IS 'Reminder send method';
+
+COMMENT ON COLUMN extraschool_parent.write_uid IS 'Last Updated by';
+
+COMMENT ON COLUMN extraschool_parent.one_subvention_type IS 'One subvention type';
+
+COMMENT ON COLUMN extraschool_parent.create_date IS 'Created on';
+
+COMMENT ON COLUMN extraschool_parent.create_uid IS 'Created by';
+
+COMMENT ON COLUMN extraschool_parent.email IS 'Email';
+
+COMMENT ON COLUMN extraschool_parent.write_date IS 'Last Updated on';
+
+COMMENT ON COLUMN extraschool_payment.create_uid IS 'Created by';
+
+COMMENT ON COLUMN extraschool_payment.create_date IS 'Created on';
+
+COMMENT ON COLUMN extraschool_payment.write_uid IS 'Last Updated by';
+
+COMMENT ON COLUMN extraschool_payment.write_date IS 'Last Updated on';
+
+DELETE from extraschool_discount;
+
+DELETE from extraschool_activity;
+
+DELETE from extraschool_activity_activityexclusiondates_rel;
+
+DELETE from extraschool_activity_activityplanneddate_rel;
+
+DELETE from extraschool_activity_childposition_rel;
+
+DELETE from extraschool_activity_childtype_rel;
+
+DELETE from extraschool_activity_place_rel;
+
+DELETE from extraschool_activity_schoolimplantation_rel;
+
+DELETE from extraschool_activitychildregistration;
+
+DELETE from extraschool_activityexclusiondates;
+
+DELETE from extraschool_activityplanneddate;
+
+DELETE from extraschool_discount_activity_rel;
+
+DELETE from  extraschool_discount_childtype_rel;
+
+DELETE from extraschool_discount_discountrule_rel;
+
+DELETE from extraschool_discountrule;
 
 CREATE TABLE extraschool_activity_pricelist_rel (
 	extraschool_price_list_version_id integer NOT NULL,
@@ -1040,32 +1084,6 @@ COMMENT ON COLUMN extraschool_mainsettings.create_date IS 'Created on';
 COMMENT ON COLUMN extraschool_mainsettings.write_uid IS 'Last Updated by';
 
 COMMENT ON COLUMN extraschool_mainsettings.write_date IS 'Last Updated on';
-
-ALTER TABLE extraschool_parent
-	DROP COLUMN numrn,
-	ADD COLUMN one_subvention_type character varying NOT NULL;
-
-COMMENT ON COLUMN extraschool_parent.remindersendmethod IS 'Reminder send method';
-
-COMMENT ON COLUMN extraschool_parent.write_uid IS 'Last Updated by';
-
-COMMENT ON COLUMN extraschool_parent.one_subvention_type IS 'One subvention type';
-
-COMMENT ON COLUMN extraschool_parent.create_date IS 'Created on';
-
-COMMENT ON COLUMN extraschool_parent.create_uid IS 'Created by';
-
-COMMENT ON COLUMN extraschool_parent.email IS 'Email';
-
-COMMENT ON COLUMN extraschool_parent.write_date IS 'Last Updated on';
-
-COMMENT ON COLUMN extraschool_payment.create_uid IS 'Created by';
-
-COMMENT ON COLUMN extraschool_payment.create_date IS 'Created on';
-
-COMMENT ON COLUMN extraschool_payment.write_uid IS 'Last Updated by';
-
-COMMENT ON COLUMN extraschool_payment.write_date IS 'Last Updated on';
 
 ALTER TABLE extraschool_pdaprestationtimes RENAME COLUMN "ES" TO es;
 ALTER TABLE extraschool_pdaprestationtimes

@@ -15,8 +15,8 @@ db_tmp=extraschool_tmp
 db_new=extraschool_mig
 odoo_v8_path=/srv/buildoutaes/bin/start_openerp
 
-part_init=1
-part_restore=0
+part_init=0
+part_restore=1
 rm tmp/*
 if [ "$part_init" = "1" ]
 then
@@ -41,7 +41,7 @@ then
 	sed -i 's/lbschool/extraschool/g' tmp/data_tmp.sql
 	echo "---------------RESTORE TABLES EXTRASCHOOL----------------" >> migration.log
 	echo "---------------RESTORE TABLES EXTRASCHOOL----------------"
-	psql -U $db_user -d $db_tmp < tmp/data_tmp.sql $>> migration.log
+	psql -U $db_user -d $db_tmp < tmp/data_tmp.sql >> migration.log
 
 	#upgrade
 	echo "---------------UPGRADE----------------" >> migration.log
