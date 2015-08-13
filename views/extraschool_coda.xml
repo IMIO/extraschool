@@ -27,7 +27,6 @@
                             <tree string="Payments" version="7.0">
                                 <field name="name"/>
                                 <field name="amount"/>
-                                <field name="concernedinvoice"/>
                             </tree>
                         </field>
                         <newline/>

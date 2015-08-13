@@ -82,7 +82,8 @@
         'report/invoice/invoice_std_footer.xml',
         'report/invoice/invoice_std_footer_virement.xml',
         'report/invoice/page_number_no_style.xml',
-        'report/invoice/page_number_right.xml',        
+        'report/invoice/page_number_right.xml',  
+        'report/payment_invitation_report_layout.xml',      
         
     ],
     'installable' : True,

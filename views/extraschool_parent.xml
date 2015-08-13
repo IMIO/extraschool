@@ -20,7 +20,7 @@
             <field name="model">extraschool.parent</field>    
             <field name="type">form</field>
             <field name="arch" type="xml">
-            <form string="Parents">
+            <form string="Parents">                
                 <notebook>
                 <page string="Contact">
                     <group col="4">        
@@ -85,7 +85,26 @@
                     </field>
                     </group>
                 </page>
-                </notebook>
+                <page string="Payment">
+                	<button name="addpayment" string="Add payment" icon="gtk-apply" type="object"/>
+                    <field name="payment_ids" readonly="True">
+                		<tree editable="top">
+                			<field name="paymentdate" />
+							<field name="paymenttype" />
+							<field name="structcom" readonly="True"/>
+							<field name="amount" sum="True"/>
+                		</tree>
+                    </field>
+                 </page>
+                <page string="Payment status">
+                    <field name="payment_status_ids" readonly="True">
+					<tree colors="red:solde &lt; 0;">
+                			<field name="activity_category_id" />
+							<field name="solde" sum="True"/>
+                		</tree>
+                    </field>
+                 </page>
+                 </notebook>
                 <!-- button name="return_action_to_open" type="object" context="{'xml_id':'action_extraschool_invoices'}" string="invoices" / -->
             </form>
             </field> 

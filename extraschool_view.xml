@@ -45,6 +45,7 @@
         <menuitem name="Payments" id="extraschool_menu_payments" parent="menu_extraschool"/>
         <menuitem name="Biller" parent="extraschool_menu_payments" id="extraschool_menu_biller" action="action_extraschool_biller"/>
         <menuitem name="CODA import" parent="extraschool_menu_payments" id="extraschool_menu_codaimport" action="action_extraschool_coda"/>
+   		<menuitem name="Payments Report" parent="extraschool_menu_payments" id="extraschool_menu_payment_report" action="action_payment_status_report"/>  
         <menuitem name="Configuration" id="extraschool_menu_configuration" parent="menu_extraschool"/>
         <menuitem name="Main Settings" parent="extraschool_menu_configuration" id="extraschool_menu_mainsettings" action="action_extraschool_mainsettings"/>
         <menuitem name="Activity categories" parent="extraschool_menu_configuration" id="extraschool_menu_activitycategory" action="action_extraschool_activitycategory"/>
@@ -54,6 +55,8 @@
         <menuitem name="Childs import filter" parent="extraschool_menu_configuration" id="extraschool_menu_childsimportfilter" action="action_extraschool_childsimportfilter"/>
         <menuitem action="action_lbsc_timecorrection_wizard" id="extraschool_menu_timecorrection_wizard" parent="extraschool_menu_configuration"/>
         <menuitem name="Reports" parent="extraschool_menu_configuration" id="extraschool_menu_report" action="action_extraschool_report"/>
-  	</data>
+        	
+        	
+   	</data>
 </openerp>
 

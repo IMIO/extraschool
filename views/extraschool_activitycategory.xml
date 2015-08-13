@@ -54,7 +54,9 @@
                 <newline/>
                 <field name="taxcertificatetemplate" />
                 <newline/>
-                <field name="report_id" />
+                <field name="invoice_report_id" />
+                <newline/>
+                <field name="payment_invitation_report_id" />                
                 <newline/>
                 <field name="logo" widget="image" class="oe_avatar oe_left"/>
                 <newline/>
