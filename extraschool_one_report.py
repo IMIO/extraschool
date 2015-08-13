@@ -64,10 +64,11 @@ class extraschool_one_report(models.Model):
     activitycategory = fields.Many2one('extraschool.activitycategory', default=1)
     year = fields.Integer(required=True, default=2014)
     quarter = fields.Selection(((1,'1er'), (2,'2eme'), (3,'3eme'), (4,'4eme')), required=True, default=1 )
-    transmissiondate = fields.Date(required=True, default='2015-01-01')
+    transmissiondate = fields.Date(required=True, default='2015-07-01')
     nb_m_childs = fields.Integer()
     nb_p_childs = fields.Integer()
     nb_childs = fields.Integer(compute='_compute_nb_childs')
+    report = fields.Binary()
     
     def compute_tablesf(self):
         return [{'href':'http://www.labruyere.be','value':'1'},{'href':'http://www.labruyere.be','value':'2'},{'href':'http://www.labruyere.be','value':'3'}]
@@ -115,18 +116,31 @@ class extraschool_one_report(models.Model):
         obj_one_report_day = self.env['extraschool.one_report_day']
         new_obj = super(extraschool_one_report, self).create(vals)
         place_obj = self.env['extraschool.place']
+        one_report_settings_obj = self.env['extraschool.onereport_settings']
+        one_report_settings = one_report_settings_obj.search([('validity_from', '<=',vals['transmissiondate']) ,
+                                      ('validity_to', '>=',vals['transmissiondate']),])
+        report_template_filename = '/tmp/one_report_template'+str(datetime.datetime.now())+'.xls'
+        report_logoone_filename = '/tmp/one'+str(datetime.datetime.now())+'.bmp'
+        report_filename = '/tmp/one_report'+str(datetime.datetime.now())+'.xls'
+        report_template_file = file(report_template_filename,'w')
+        report_logoone_file = file(report_logoone_filename,'w')        
+        report_template_file.write(one_report_settings.report_template.decode('base64'))
+        report_logoone_file.write(one_report_settings.one_logo.decode('base64'))
+        report_template_file.close()
+        report_logoone_file.close()
         place=place_obj.browse([vals['placeid']])
         strperiod_from = str(vals['year']) + '-'+str(vals['quarter']*3-2).zfill(2) +'-01'
         strperiod_to = str(vals['year']) + '-'+str(vals['quarter']*3).zfill(2) +'-'+str(self._monthdays(vals['year'],vals['quarter']*3)).zfill(2)
+        
         period_from=datetime.datetime.strptime(strperiod_from, '%Y-%m-%d').date()
         period_to=datetime.datetime.strptime(strperiod_to, '%Y-%m-%d').date()
         tot_nb_m = 0
         tot_nb_p = 0
         currentdate = period_from
-        rb = open_workbook('/opt/garderies/templates/one_report.xls', formatting_info=True, on_demand=True)
+        rb = open_workbook(report_template_filename, formatting_info=True, on_demand=True)
         wb = copy(rb)
         XLSheet = wb.get_sheet(0)
-        XLSheet.insert_bitmap('/opt/garderies/templates/one.bmp',0,0)
+        XLSheet.insert_bitmap(report_logoone_filename,0,0)
         self.setXLCell(XLSheet,2,3,u"Détail, pour un lieu d'accueil, des présences du "+("1er" if vals['quarter']==1 else str(vals['quarter'])+"e")+" trimestre "+str(vals['year']))
         self.setXLCell(XLSheet,5,1,str(place.name))
         self.setXLCell(XLSheet,6,1,'%s\n%s %s' % (place.name,place.zipcode,place.city))  
@@ -180,10 +194,13 @@ class extraschool_one_report(models.Model):
                 self.setXLCell(XLSheet,19+gapTab,i-65,Formula(chr(i)+str(15+gapTab)+'+'+chr(i)+str(17+gapTab)+'+'+chr(i)+str(19+gapTab)+')'))                
             self.setXLCell(XLSheet,20+gapTab,26,Formula('D'+str(20+gapTab)+'+I'+str(20+gapTab)+'+N'+str(20+gapTab)+'+S'+str(20+gapTab)+'+X'+str(20+gapTab)))
         
-        wb.save('/opt/garderies/templates/one_report2.xls')
-       
+        wb.save(report_filename)
+        outfile = open(report_filename,"r").read()
+        attachment_obj = self.env['ir.attachment']
+        attachment_obj.create({'res_model':'extraschool.one_report','res_id':new_obj.id,'datas_fname':'rapport_one_'+vals['transmissiondate']+'.xls','name':'rapport_one_'+vals['transmissiondate']+'.xls','datas':base64.b64encode(outfile),})
         new_obj.write({'nb_m_childs':tot_nb_m,'nb_p_childs':tot_nb_p})
-        
-       
+        os.remove(report_template_filename)
+        os.remove(report_logoone_filename)
+        os.remove(report_filename)
         return new_obj
 extraschool_one_report()
