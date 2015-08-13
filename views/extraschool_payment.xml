@@ -21,12 +21,74 @@
                     <newline/>
                     <field name="structcom"/>
                     <newline/>
-                    <field name="concernedinvoice" invisible="True"/>
-                    <newline/>
                     <button name="savepayment" string="Save" icon="gtk-apply" type="object"/>
                     </group>
 				</form>
 			</field>
+		</record>
+		
+         <record model="ir.ui.view" id="extraschool_payment_status_report_form">
+            <field name="name">extraschool.payment_status_report.form</field>
+            <field name="model">extraschool.payment_status_report</field>    
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+	            <form string="Payment Status">
+					<group col="4">
+		            	<field name="activity_category_id"/>
+		                <field name="parent_id"/>
+		                <field name="solde"/>
+					</group>
+		       </form>
+            </field> 
+        </record>
+                                
+         <record model="ir.ui.view" id="extraschool_payment_status_report_tree">
+            <field name="name">extraschool.payment_status_report.tree</field>
+            <field name="model">extraschool.payment_status_report</field>    
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+	            <tree string="Payment Status">
+		            	<field name="activity_category_id"/>
+		                <field name="parent_id"/>
+		                <field name="solde"/>
+	            </tree>
+            </field> 
+        </record>
+
+       <record id="extraschool_payment_status_report_graph" model="ir.ui.view">
+            <field name="name">extraschool.payment_status_report.graph</field>
+            <field name="model">extraschool.payment_status_report</field>
+            <field name="arch" type="xml">
+                <graph string="Payment Status" type="bar">
+		            	<field name="activity_category_id" type="row"/>
+		                <field name="parent_id"/>
+		                <field name="solde" type="measure"/>
+                 </graph>
+             </field>
+        </record>
+        
+         <record id="extraschool_payment_status_report_search_view" model="ir.ui.view">
+            <field name="name">extraschool.payment_status_report.search</field>
+            <field name="model">extraschool.payment_status_report</field>
+            <field name="arch" type="xml">
+                <search string="Guardian prestationtimes Search">
+	            	<field name="activity_category_id"/>
+	                <field name="parent_id"/>
+	                <field name="solde"/>
+                   <group  expand='0' string='Group by...'>
+                       <filter string='activity_category_id' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'activity_category_id'}"/>
+                       <filter string='parent_id' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'parent_id'}"/>
+                   </group>                    
+                </search>
+            </field>
+        </record>
+                       
+        <record model="ir.actions.act_window" id="action_payment_status_report">
+			<field name="name">Payment Status Report</field>
+			<field name="res_model">extraschool.payment_status_report</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,graph</field>
+            <field name="view_id" ref="extraschool_payment_status_report_tree"/>
 		</record>
 	</data>
 </openerp>

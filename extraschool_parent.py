@@ -112,6 +112,8 @@ class extraschool_parent(models.Model):
     totalinvoiced = fields.Float(compute='_compute_totalinvoiced', string="Total invoiced")
     totalreceived = fields.Float(compute='_compute_totalreceived', string="Total received")
     totalbalance = fields.Float(compute='_compute_totalbalance', string="Total balance")
+    payment_ids = fields.One2many('extraschool.payment','parent_id')
+    payment_status_ids = fields.One2many('extraschool.payment_status_report','parent_id')
     oldid = fields.Integer('oldid')                
     
     @api.model        
@@ -127,5 +129,23 @@ class extraschool_parent(models.Model):
         
         return super(extraschool_parent, self).create(vals)
     
+    def addpayment(self, cr, uid, ids, context=None):
+        view_obj = self.pool.get('ir.ui.view')
+        extraschool_payment_form2 = view_obj.search(cr, uid, [('model', '=', 'extraschool.payment'), \
+                                 ('name', '=', 'payment.form2')])
+        
+        return {
+            'name': "Payment",
+            'view_mode': 'form',
+            'view_type': 'form',
+            'view_id': extraschool_payment_form2,            
+            'res_model': 'extraschool.payment',
+            'type': 'ir.actions.act_window',
+            'nodestroy': True,
+            'target': 'new',
+            'domain': '[]',
+            'context': {'parent_id' : ids[0]}
+        }
+
 
 extraschool_parent()

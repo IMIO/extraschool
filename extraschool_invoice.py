@@ -41,7 +41,7 @@ class extraschool_invoice(models.Model):
     biller_id = fields.Many2one('extraschool.biller', 'Biller', required=False,ondelete='cascade',readonly=True)
     filename = fields.Char('filename', size=20,readonly=True)
     invoice_file = fields.Binary('File', readonly=True)
-    payment_ids = fields.One2many('extraschool.payment', 'concernedinvoice','Payments')
+    payment_ids = fields.One2many('extraschool.payment_reconciliation', 'invoice_id','Payments')
     invoice_line_ids = fields.One2many('extraschool.invoicedprestations', 'invoiceid','Details')    
     oldid = fields.Char('oldid', size=20)
     activitycategoryid = fields.Many2one(related='biller_id.activitycategoryid')

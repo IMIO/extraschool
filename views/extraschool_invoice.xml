@@ -71,7 +71,6 @@
 			                        <tree string="Payments">
 			                            <field name="paymentdate"/>
 			                            <field name="amount"/>
-			                            <field name="name"/>
 			                            <field name="account"/>                            
 			                        </tree>
 			                    </field>
