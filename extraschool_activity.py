@@ -76,7 +76,12 @@ class extraschool_activity(models.Model):
                 activity.root_id = parent
             else:
                 activity.root_id = activity.id
-                        
+    def build_timestamp(self,tsdate,tstime):
+        hour = int(tstime)
+        minute = int((tstime - hour) * 60)
+        hour = hour -1 if hour else 0         
+        return datetime.strptime(tsdate + ' ' + str(hour).zfill(2) + ':' + str(minute).zfill(2) + ':00', DEFAULT_SERVER_DATETIME_FORMAT)
+           
     def populate_occurrence(self,date_from = None):
         cr,uid = self.env.cr, self.env.user.id
         
@@ -101,7 +106,9 @@ class extraschool_activity(models.Model):
                 d2 = datetime.strptime(d2, DEFAULT_SERVER_DATE_FORMAT)
 
                 delta = d2 - d1
-
+                insert_data=''
+                print str(datetime.now())+" START"
+                args=[]
                 for day in range(delta.days + 1):
                     current_day_date = d1 + td(days=day)
                     if str(current_day_date.weekday()) in activity.days:
@@ -109,12 +116,35 @@ class extraschool_activity(models.Model):
                         exclu_activity_id = cr.fetchall()
                         if exclu_activity_id[0][0] == 0:
                             for place in activity.placeids:
+                                if insert_data:
+                                    insert_data.join(',')
+                                '''
                                 activityoccurrence.create({'place_id' : place.id,
                                                           'occurrence_date' : current_day_date,
                                                           'activityid' : activity.id,
                                                           'prest_from' : activity.prest_from,
                                                           'prest_to' : activity.prest_to,
                                                           })
+                                '''
+                                str_current_day_date = str(current_day_date)[:10]
+                                args.append((uid,
+                                             self.build_timestamp(str_current_day_date,activity.prest_to),
+                                             self.build_timestamp(str_current_day_date,activity.prest_from),
+                                             activity.name + ' - ' + str_current_day_date,
+                                             uid,
+                                             activity.category.id,
+                                             place.id,
+                                             current_day_date,
+                                             activity.id,
+                                             activity.prest_from,
+                                             activity.prest_to))
+                                
+                                #insert_data = insert_data.join('('+str(place.id)+','+str(current_day_date)+','+str(activity.id)+','+str(activity.prest_from)+','+str(activity.prest_to)+')')
+                args_str = ','.join(cr.mogrify("(%s,%s,%s,current_timestamp,%s,%s,current_timestamp,%s,%s,%s,%s,%s,%s)", x) for x in args)
+                print str(datetime.now())+" START QUERY" 
+                #print insert_data               
+                occurrence_ids = cr.execute("insert into extraschool_activityoccurrence (create_uid,date_stop,date_start,create_date,name,write_uid,write_date,activity_category_id,place_id,occurrence_date,activityid,prest_from,prest_to) VALUES "+args_str)
+                print str(datetime.now())+" END"
     @api.one                            
     def check_if_modifiable(self):
         if self.invoicedprestations_ids.filtered(lambda r: r.prestation_date >= time.strftime(DEFAULT_SERVER_DATE_FORMAT)):

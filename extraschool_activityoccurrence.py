@@ -132,6 +132,7 @@ class extraschool_activityoccurrence(models.Model):
         
     @api.model
     def create(self, vals): 
+        
         occurrence = super(extraschool_activityoccurrence, self).create(vals)
         
         activity = self.env['extraschool.activity'].browse(vals['activityid'])
@@ -148,7 +149,6 @@ class extraschool_activityoccurrence(models.Model):
         #use syntax to replace existing records by new records
         
         occurrence.child_registration_ids = [(6, False, child_ids)] 
-        
         
         return occurrence
     

@@ -229,20 +229,6 @@ CREATE SEQUENCE extraschool_prestation_times_of_the_day_id_seq
 	NO MINVALUE
 	CACHE 1;
 
-CREATE SEQUENCE extraschool_price_list_id_seq
-	START WITH 1
-	INCREMENT BY 1
-	NO MAXVALUE
-	NO MINVALUE
-	CACHE 1;
-
-CREATE SEQUENCE extraschool_price_list_version_id_seq
-	START WITH 1
-	INCREMENT BY 1
-	NO MAXVALUE
-	NO MINVALUE
-	CACHE 1;
-
 CREATE SEQUENCE extraschool_report_id_seq
 	START WITH 1
 	INCREMENT BY 1
@@ -311,12 +297,6 @@ DELETE from extraschool_discount_discountrule_rel;
 
 DELETE from extraschool_discountrule;
 
-CREATE TABLE extraschool_activity_pricelist_rel (
-	extraschool_price_list_version_id integer NOT NULL,
-	extraschool_activity_id integer NOT NULL
-);
-
-COMMENT ON TABLE extraschool_activity_pricelist_rel IS 'RELATION BETWEEN extraschool_price_list_version AND extraschool_activity';
 
 CREATE TABLE extraschool_activityoccurrence (
 	id integer DEFAULT nextval('extraschool_activityoccurrence_id_seq'::regclass) NOT NULL,
@@ -370,12 +350,6 @@ CREATE TABLE extraschool_activityoccurrence_cild_rel (
 
 COMMENT ON TABLE extraschool_activityoccurrence_cild_rel IS 'RELATION BETWEEN extraschool_activityoccurrence AND extraschool_child';
 
-CREATE TABLE extraschool_childposition_pricelist_rel (
-	extraschool_price_list_version_id integer NOT NULL,
-	extraschool_childposition_id integer NOT NULL
-);
-
-COMMENT ON TABLE extraschool_childposition_pricelist_rel IS 'RELATION BETWEEN extraschool_price_list_version AND extraschool_childposition';
 
 CREATE TABLE extraschool_inline_report (
 	id integer DEFAULT nextval('extraschool_inline_report_id_seq'::regclass) NOT NULL,
@@ -632,69 +606,6 @@ CREATE TABLE extraschool_prestationscheck_wizard_place_rel (
 
 COMMENT ON TABLE extraschool_prestationscheck_wizard_place_rel IS 'RELATION BETWEEN extraschool_prestationscheck_wizard AND extraschool_place';
 
-CREATE TABLE extraschool_price_list (
-	id integer DEFAULT nextval('extraschool_price_list_id_seq'::regclass) NOT NULL,
-	create_uid integer,
-	create_date timestamp without time zone,
-	name character varying(50),
-	write_uid integer,
-	write_date timestamp without time zone
-);
-
-COMMENT ON TABLE extraschool_price_list IS 'Activities price list';
-
-COMMENT ON COLUMN extraschool_price_list.create_uid IS 'Created by';
-
-COMMENT ON COLUMN extraschool_price_list.create_date IS 'Created on';
-
-COMMENT ON COLUMN extraschool_price_list.name IS 'Name';
-
-COMMENT ON COLUMN extraschool_price_list.write_uid IS 'Last Updated by';
-
-COMMENT ON COLUMN extraschool_price_list.write_date IS 'Last Updated on';
-
-CREATE TABLE extraschool_price_list_version (
-	id integer DEFAULT nextval('extraschool_price_list_version_id_seq'::regclass) NOT NULL,
-	price_list_id integer,
-	name character varying(50),
-	create_uid integer,
-	price numeric,
-	period_duration integer,
-	validity_from date,
-	write_date timestamp without time zone,
-	period_tolerance integer,
-	create_date timestamp without time zone,
-	write_uid integer,
-	validity_to date,
-	child_type_id integer
-);
-
-COMMENT ON TABLE extraschool_price_list_version IS 'Activities price list version';
-
-COMMENT ON COLUMN extraschool_price_list_version.price_list_id IS 'Price list';
-
-COMMENT ON COLUMN extraschool_price_list_version.name IS 'Name';
-
-COMMENT ON COLUMN extraschool_price_list_version.create_uid IS 'Created by';
-
-COMMENT ON COLUMN extraschool_price_list_version.price IS 'Price';
-
-COMMENT ON COLUMN extraschool_price_list_version.period_duration IS 'Period Duration';
-
-COMMENT ON COLUMN extraschool_price_list_version.validity_from IS 'Validity from';
-
-COMMENT ON COLUMN extraschool_price_list_version.write_date IS 'Last Updated on';
-
-COMMENT ON COLUMN extraschool_price_list_version.period_tolerance IS 'Period Tolerance';
-
-COMMENT ON COLUMN extraschool_price_list_version.create_date IS 'Created on';
-
-COMMENT ON COLUMN extraschool_price_list_version.write_uid IS 'Last Updated by';
-
-COMMENT ON COLUMN extraschool_price_list_version.validity_to IS 'Validity to';
-
-COMMENT ON COLUMN extraschool_price_list_version.child_type_id IS 'Child type';
-
 CREATE TABLE extraschool_report (
 	id integer DEFAULT nextval('extraschool_report_id_seq'::regclass) NOT NULL,
 	create_uid integer,
@@ -730,7 +641,6 @@ ALTER TABLE extraschool_activity
 	DROP COLUMN minamount,
 	DROP COLUMN maxamount,
 	ADD COLUMN parent_id integer,
-	ADD COLUMN price_list_id integer,
 	ADD COLUMN root_id integer,
 	ADD COLUMN default_from_to character varying,
 	ALTER COLUMN name TYPE character varying(100) /* TYPE change - table: extraschool_activity original: character varying(50) new: character varying(100) */,
@@ -743,8 +653,6 @@ COMMENT ON COLUMN extraschool_activity.write_uid IS 'Last Updated by';
 COMMENT ON COLUMN extraschool_activity.create_uid IS 'Created by';
 
 COMMENT ON COLUMN extraschool_activity.parent_id IS 'Parent';
-
-COMMENT ON COLUMN extraschool_activity.price_list_id IS 'Price List';
 
 COMMENT ON COLUMN extraschool_activity.short_name IS 'Short name';
 
@@ -1027,11 +935,10 @@ COMMENT ON COLUMN extraschool_invoice_wizard.write_uid IS 'Last Updated by';
 COMMENT ON COLUMN extraschool_invoice_wizard.write_date IS 'Last Updated on';
 
 ALTER TABLE extraschool_invoicedprestations
-	ADD COLUMN child_position integer,
+   DROP COLUMN activityid,
 	ADD COLUMN activity_occurrence_id integer,
 	ADD COLUMN duration integer,
 	ADD COLUMN unit_price numeric,
-	ADD COLUMN price_list_version_id integer,
 	ADD COLUMN total_price numeric,
 	ADD COLUMN period_tolerance integer,
 	ADD COLUMN child_position_id integer,
@@ -1053,13 +960,9 @@ COMMENT ON COLUMN extraschool_invoicedprestations.duration IS 'Duration';
 
 COMMENT ON COLUMN extraschool_invoicedprestations.unit_price IS 'Price';
 
-COMMENT ON COLUMN extraschool_invoicedprestations.price_list_version_id IS 'Price list version id';
-
 COMMENT ON COLUMN extraschool_invoicedprestations.total_price IS 'Price';
 
 COMMENT ON COLUMN extraschool_invoicedprestations.period_tolerance IS 'Period Tolerance';
-
-COMMENT ON COLUMN extraschool_invoicedprestations.child_position_id IS 'Child';
 
 COMMENT ON COLUMN extraschool_invoicedprestations.period_duration IS 'Period Duration';
 
@@ -1310,12 +1213,6 @@ ALTER SEQUENCE extraschool_prestation_times_manuel_id_seq
 ALTER SEQUENCE extraschool_prestation_times_of_the_day_id_seq
 	OWNED BY extraschool_prestation_times_of_the_day.id;
 
-ALTER SEQUENCE extraschool_price_list_id_seq
-	OWNED BY extraschool_price_list.id;
-
-ALTER SEQUENCE extraschool_price_list_version_id_seq
-	OWNED BY extraschool_price_list_version.id;
-
 ALTER SEQUENCE extraschool_report_id_seq
 	OWNED BY extraschool_report.id;
 
@@ -1343,20 +1240,11 @@ ALTER TABLE extraschool_prestation_times_manuel
 ALTER TABLE extraschool_prestation_times_of_the_day
 	ADD CONSTRAINT extraschool_prestation_times_of_the_day_pkey PRIMARY KEY (id);
 
-ALTER TABLE extraschool_price_list
-	ADD CONSTRAINT extraschool_price_list_pkey PRIMARY KEY (id);
-
-ALTER TABLE extraschool_price_list_version
-	ADD CONSTRAINT extraschool_price_list_version_pkey PRIMARY KEY (id);
-
 ALTER TABLE extraschool_report
 	ADD CONSTRAINT extraschool_report_pkey PRIMARY KEY (id);
 
 ALTER TABLE extraschool_activity
 	ADD CONSTRAINT extraschool_activity_parent_id_fkey FOREIGN KEY (parent_id) REFERENCES extraschool_activity(id) ON DELETE SET NULL;
-
-ALTER TABLE extraschool_activity
-	ADD CONSTRAINT extraschool_activity_price_list_id_fkey FOREIGN KEY (price_list_id) REFERENCES extraschool_price_list(id) ON DELETE SET NULL;
 
 ALTER TABLE extraschool_activity
 	ADD CONSTRAINT extraschool_activity_root_id_fkey FOREIGN KEY (root_id) REFERENCES extraschool_activity(id) ON DELETE SET NULL;
@@ -1384,15 +1272,6 @@ ALTER TABLE extraschool_activity_childposition_rel
 
 ALTER TABLE extraschool_activity_childtype_rel
 	ADD CONSTRAINT extraschool_activity_childtype_rel_activity_id_childtype_id_key UNIQUE (activity_id, childtype_id);
-
-ALTER TABLE extraschool_activity_pricelist_rel
-	ADD CONSTRAINT extraschool_activity_pricelis_extraschool_price_list_versio_key UNIQUE (extraschool_price_list_version_id, extraschool_activity_id);
-
-ALTER TABLE extraschool_activity_pricelist_rel
-	ADD CONSTRAINT extraschool_activity_pricelis_extraschool_price_list_versi_fkey FOREIGN KEY (extraschool_price_list_version_id) REFERENCES extraschool_price_list_version(id) ON DELETE CASCADE;
-
-ALTER TABLE extraschool_activity_pricelist_rel
-	ADD CONSTRAINT extraschool_activity_pricelist_rel_extraschool_activity_id_fkey FOREIGN KEY (extraschool_activity_id) REFERENCES extraschool_activity(id) ON DELETE CASCADE;
 
 ALTER TABLE extraschool_activity_schoolimplantation_rel
 	ADD CONSTRAINT extraschool_activity_schoolim_activity_id_schoolimplantatio_key UNIQUE (activity_id, schoolimplantation_id);
@@ -1438,15 +1317,6 @@ ALTER TABLE extraschool_activityoccurrence_cild_rel
 
 ALTER TABLE extraschool_child
 	ADD CONSTRAINT extraschool_child_parentid_fkey FOREIGN KEY (parentid) REFERENCES extraschool_parent(id) ON DELETE RESTRICT;
-
-ALTER TABLE extraschool_childposition_pricelist_rel
-	ADD CONSTRAINT extraschool_childposition_pri_extraschool_price_list_versio_key UNIQUE (extraschool_price_list_version_id, extraschool_childposition_id);
-
-ALTER TABLE extraschool_childposition_pricelist_rel
-	ADD CONSTRAINT extraschool_childposition_pri_extraschool_childposition_id_fkey FOREIGN KEY (extraschool_childposition_id) REFERENCES extraschool_childposition(id) ON DELETE CASCADE;
-
-ALTER TABLE extraschool_childposition_pricelist_rel
-	ADD CONSTRAINT extraschool_childposition_pri_extraschool_price_list_versi_fkey FOREIGN KEY (extraschool_price_list_version_id) REFERENCES extraschool_price_list_version(id) ON DELETE CASCADE;
 
 ALTER TABLE extraschool_childsimportfilter_importlevelrule_rel
 	ADD CONSTRAINT extraschool_childsimportfilte_childsimportfilter_id_importl_key UNIQUE (childsimportfilter_id, importlevelrule_id);
@@ -1498,15 +1368,6 @@ ALTER TABLE extraschool_invoice_wizard_schoolimplantation_rel
 
 ALTER TABLE extraschool_invoicedprestations
 	ADD CONSTRAINT extraschool_invoicedprestations_activity_occurrence_id_fkey FOREIGN KEY (activity_occurrence_id) REFERENCES extraschool_activityoccurrence(id) ON DELETE SET NULL;
-
-ALTER TABLE extraschool_invoicedprestations
-	ADD CONSTRAINT extraschool_invoicedprestations_child_position_fkey FOREIGN KEY (child_position) REFERENCES extraschool_childposition(id) ON DELETE SET NULL;
-
-ALTER TABLE extraschool_invoicedprestations
-	ADD CONSTRAINT extraschool_invoicedprestations_child_position_id_fkey FOREIGN KEY (child_position_id) REFERENCES extraschool_childposition(id) ON DELETE SET NULL;
-
-ALTER TABLE extraschool_invoicedprestations
-	ADD CONSTRAINT extraschool_invoicedprestations_price_list_version_id_fkey FOREIGN KEY (price_list_version_id) REFERENCES extraschool_price_list_version(id) ON DELETE SET NULL;
 
 ALTER TABLE extraschool_one_report
 	ADD CONSTRAINT extraschool_one_report_activitycategory_fkey FOREIGN KEY (activitycategory) REFERENCES extraschool_activitycategory(id) ON DELETE SET NULL;
@@ -1613,24 +1474,6 @@ ALTER TABLE extraschool_prestationtimes
 ALTER TABLE extraschool_prestationtimes
 	ADD CONSTRAINT extraschool_prestationtimes_prestation_times_of_the_day_id_fkey FOREIGN KEY (prestation_times_of_the_day_id) REFERENCES extraschool_prestation_times_of_the_day(id) ON DELETE SET NULL;
 
-ALTER TABLE extraschool_price_list
-	ADD CONSTRAINT extraschool_price_list_create_uid_fkey FOREIGN KEY (create_uid) REFERENCES res_users(id) ON DELETE SET NULL;
-
-ALTER TABLE extraschool_price_list
-	ADD CONSTRAINT extraschool_price_list_write_uid_fkey FOREIGN KEY (write_uid) REFERENCES res_users(id) ON DELETE SET NULL;
-
-ALTER TABLE extraschool_price_list_version
-	ADD CONSTRAINT extraschool_price_list_version_child_type_id_fkey FOREIGN KEY (child_type_id) REFERENCES extraschool_childtype(id) ON DELETE SET NULL;
-
-ALTER TABLE extraschool_price_list_version
-	ADD CONSTRAINT extraschool_price_list_version_create_uid_fkey FOREIGN KEY (create_uid) REFERENCES res_users(id) ON DELETE SET NULL;
-
-ALTER TABLE extraschool_price_list_version
-	ADD CONSTRAINT extraschool_price_list_version_price_list_id_fkey FOREIGN KEY (price_list_id) REFERENCES extraschool_price_list(id) ON DELETE SET NULL;
-
-ALTER TABLE extraschool_price_list_version
-	ADD CONSTRAINT extraschool_price_list_version_write_uid_fkey FOREIGN KEY (write_uid) REFERENCES res_users(id) ON DELETE SET NULL;
-
 ALTER TABLE extraschool_remindersjournal_biller_rel
 	ADD CONSTRAINT extraschool_remindersjournal__remindersjournal_id_biller_id_key UNIQUE (remindersjournal_id, biller_id);
 
@@ -1673,10 +1516,6 @@ CREATE INDEX extraschool_activity_activityexclusiondates_rel_activityexclusi ON 
 
 CREATE INDEX extraschool_activity_activityplanneddate_rel_activityplanneddat ON extraschool_activity_activityplanneddate_rel USING btree (activityplanneddate_id);
 
-CREATE INDEX extraschool_activity_pricelist_rel_extraschool_activity_id_inde ON extraschool_activity_pricelist_rel USING btree (extraschool_activity_id);
-
-CREATE INDEX extraschool_activity_pricelist_rel_extraschool_price_list_versi ON extraschool_activity_pricelist_rel USING btree (extraschool_price_list_version_id);
-
 CREATE INDEX extraschool_activity_schoolimplantation_rel_schoolimplantation_ ON extraschool_activity_schoolimplantation_rel USING btree (schoolimplantation_id);
 
 CREATE INDEX extraschool_activitycategory_place_rel_activitycategory_id_inde ON extraschool_activitycategory_place_rel USING btree (activitycategory_id);
@@ -1691,10 +1530,6 @@ CREATE INDEX extraschool_activityoccurrence_cild_rel_child_id_index ON extrascho
 
 CREATE INDEX extraschool_childposition_position_index ON extraschool_childposition USING btree ("position");
 
-CREATE INDEX extraschool_childposition_pricelist_rel_extraschool_childpositi ON extraschool_childposition_pricelist_rel USING btree (extraschool_childposition_id);
-
-CREATE INDEX extraschool_childposition_pricelist_rel_extraschool_price_list_ ON extraschool_childposition_pricelist_rel USING btree (extraschool_price_list_version_id);
-
 CREATE INDEX extraschool_childsimportfilter_importlevelrule_rel_childsimport ON extraschool_childsimportfilter_importlevelrule_rel USING btree (childsimportfilter_id);
 
 CREATE INDEX extraschool_childsimportfilter_importlevelrule_rel_importlevelr ON extraschool_childsimportfilter_importlevelrule_rel USING btree (importlevelrule_id);
@@ -1704,10 +1539,6 @@ CREATE INDEX extraschool_invoice_wizard_schoolimplantation_rel_invoice_wizar ON 
 CREATE INDEX extraschool_invoice_wizard_schoolimplantation_rel_schoolimplant ON extraschool_invoice_wizard_schoolimplantation_rel USING btree (schoolimplantation_id);
 
 CREATE INDEX extraschool_invoicedprestations_activity_occurrence_id_index ON extraschool_invoicedprestations USING btree (activity_occurrence_id);
-
-CREATE INDEX extraschool_invoicedprestations_child_position_id_index ON extraschool_invoicedprestations USING btree (child_position_id);
-
-CREATE INDEX extraschool_invoicedprestations_child_position_index ON extraschool_invoicedprestations USING btree (child_position);
 
 CREATE INDEX extraschool_one_report_day_child_rel_child_id_index ON extraschool_one_report_day_child_rel USING btree (child_id);
 

@@ -46,7 +46,7 @@ class extraschool_child(models.Model):
     oldid = fields.Integer('oldid')             
 
     _sql_constraints = [
-        ('firstname_name_uniq', 'unique(name,firstname)',
+        ('firstname_name_uniq', 'unique(lastname,firstname)',
             'Name and firstname must be unique !'),
     ]   
      

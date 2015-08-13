@@ -15,7 +15,7 @@ db_tmp=extraschool_tmp
 db_new=extraschool_mig
 odoo_v8_path=/srv/buildoutaes/bin/start_openerp
 
-part_init=0
+part_init=1
 part_restore=1
 rm tmp/*
 if [ "$part_init" = "1" ]
