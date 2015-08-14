@@ -98,7 +98,9 @@
             <field name="model_id" ref="model_extraschool_payment_status_report"/>
             <field name="auto_delete" eval="True"/>
             <field name="partner_to">${object.id}</field>
-            <field name="email_from">${(object.activity_category_id.email_from or 'noreply@localhost')|safe}</field>
+            <field name="email_from">${(object.activity_category_id.invoiceemailaddress or 'noreply@localhost')|safe}</field>
+            <field name="reply_to">${(object.activity_category_id.invoiceemailaddress or 'noreply@localhost')|safe}</field>
+            
         </record>
 
         <!--  Replace the default mass-mailing wizard in base with the composition wizard -->
