@@ -67,18 +67,6 @@
 				</div>				
 			</xpath>	
 		</template>
-
-		<template id="report_payment_invitation_report_simple">
-			<t t-call="report.html_container">
-				
-				
-				<t t-foreach="docs" t-as="payment">
-					<div class="page">
-						<p>Hello World !! </p>
-					</div>
-				</t>
-			</t>	
-		</template>
 		
 		<report
 		    id="extraschool_payment_invitation_report"
