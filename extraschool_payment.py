@@ -43,7 +43,7 @@ class extraschool_payment(models.Model):
     addr1 = fields.Char('Addr1', size=50)
     addr2 = fields.Char('Addr2', size=50)
     amount = fields.Float('Amount')
-    solde = fields.Float('Solde')
+    solde = fields.Float(compute='compute_solde', string='Solde', store=True)
     payment_reconciliation_ids = fields.One2many('extraschool.payment_reconciliation','payment_id')
     coda = fields.Many2one('extraschool.coda', 'Coda', required=False)
 
@@ -55,6 +55,11 @@ class extraschool_payment(models.Model):
                 if len(self.structcom) > 3:
                     record.structcom_prefix = self.structcom[0:3]
 
+    @api.depends('amount', 'payment_reconciliation_ids')
+    def compute_solde(self):
+        for record in self:
+            record.solde = record.amount - sum(reconciliation.amount for reconciliation in record.payment_reconciliation_ids)
+ 
     
     def savepayment(self, cr, uid, ids, context=None):
         print "savepayment context : %s" % (context,)
