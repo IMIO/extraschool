@@ -9,8 +9,10 @@
                 <form string="QRCodes Wizard">
                     <field name="state" invisible="1" />
                     <group states="init">
+                        <field name="print_type" />
                         <field name="quantity" />
-                        <field name="print_value" />
+                        <field name="print_value"  attrs="{'invisible':[('print_type', '!=', 'qrcode')]}"/>
+                        <field name="logo" widget="image" class="oe_avatar oe_left" attrs="{'invisible':[('print_type', '!=', 'logo')]}"/>
                     </group>
                     <separator string="" colspan="4"/>
                     <group colspan="4" col="3">

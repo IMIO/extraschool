@@ -3,20 +3,24 @@
 	<data> 
 		<template id="tpl_qrcodes_wizard_report">
 			    <style type="text/css">
-			          				
+			        .page {
+			        	margin-left: 3mm; 
+			        }  				
 					.qrcode {
-        				width: 70mm;
-        				height: 70mm;
+        				width: 33%;
+        				height: 57mm;
         				display: inline-block;
-        				padding: 2cm;
         				border: 1px solid;
-        				margin-left: -1px;
-        				float: left;        				
+        				float: left;  
+        				position: relative;      				
       				}
       				
       				.qrcode_img {
-      					width: 100%;
-      					height: 100%;
+  						position: absolute;
+  						top: 18mm;
+  						left: 19mm;
+      					width: 25mm;
+      					height: 25mm;
       					}
       					
       				h2 {
@@ -24,13 +28,16 @@
       					background-color: red;
       				}
     			</style>
-   			
 				<t t-foreach="docs" t-as="qr_report">
-				
 			        <div class="page">
 				   		<t t-foreach="range(qr_report.last_id,qr_report.last_id+qr_report.quantity)" t-as="i">
 				           	<div class="qrcode">
-				           		<img class="qrcode_img" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', i, 300, 300)" />
+				           		<t t-if="qr_report.print_type == 'qrcode'">
+				           			<img class="qrcode_img" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', i, 300, 300)" />
+				           		</t>
+				           		<t t-if="qr_report.print_type == 'logo'">
+				           			<img class="qrcode_img" t-att-src="'data:image/jpeg;base64,%s' % qr_report.logo" />
+				           		</t>
 				           		<t t-if="qr_report.print_value">
 					           		<span><t t-esc="i"/></span>
 								</t>
@@ -40,15 +47,33 @@
 				</t>
 		</template>
 
+		<record id="paperformat_aes_qr_code" model="report.paperformat">
+    		<field name="name">QR Code</field>
+    		<field name="default" eval="True"/>
+   			<field name="format">A4</field>
+    		<field name="orientation">Portrait</field>
+    		<field name="margin_top">1</field>
+    		<field name="margin_bottom">1</field>
+    		<field name="margin_left">3</field>
+    		<field name="margin_right">3</field>
+    		<field name="header_line" eval="False"/>
+    		<field name="header_spacing">3</field>
+    		<field name="dpi">80</field>
+		</record>
 		
 		<report
 		    id="qrcodes_wizard_report"
 		    model="extraschool.qrcodes_wizard"
 		    string="QrCode"
-		    report_type="qweb-pdf"
+		    report_type="qweb-html"
 		    name="extraschool.tpl_qrcodes_wizard_report"
 		    attachment_use="False"
 		/>
+
+		<record id="qrcodes_wizard_report" model="ir.actions.report.xml">
+    		<field name="paperformat_id" ref="paperformat_aes_qr_code"/>
+		</record>		
+		
 	</data>
 </openerp>	
 	

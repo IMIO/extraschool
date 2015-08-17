@@ -30,11 +30,13 @@ import os
 class extraschool_qrcodes_wizard(models.TransientModel):
     _name = 'extraschool.qrcodes_wizard'
 
-
+    
     quantity = fields.Integer('Quantity to print')
+    print_type = fields.Selection((('qrcode','Qr Code'),('logo','Logo'),),'Print Type', required=True)
     last_id = fields.Integer('Last id')
     name = fields.Char('File Name', size=16, readonly=True)
     print_value = fields.Boolean('Print QrCode value')
+    logo = fields.Binary()
     
     state = fields.Selection([('init', 'Init'),
                              ('print_qrcodes', 'Print QRCodes')],
@@ -49,8 +51,9 @@ class extraschool_qrcodes_wizard(models.TransientModel):
         config = self.env['extraschool.mainsettings'].browse([1])
         #get last qrcode value from config
         self.last_id = config.lastqrcodenbr + 1
-        #SET last qrcode value to config
-        config.lastqrcodenbr = config.lastqrcodenbr + self.quantity
+        if self.print_type == 'qrcode':
+            #SET last qrcode value to config
+            config.lastqrcodenbr = config.lastqrcodenbr + self.quantity
 
         datas = {
         'ids': self.ids,
