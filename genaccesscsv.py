@@ -26,13 +26,13 @@ import psycopg2
 import psycopg2.extras
 import os
 
-conn = psycopg2.connect("dbname='recreagiquelb' user=postgres host='localhost' password=GtMsgSQL");
+conn = psycopg2.connect("dbname='aes_dev' user=openerp host='localhost' password=openerp");
 dict_cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
 dict_cur.execute("SELECT table_name FROM information_schema.tables WHERE table_schema='public' and table_name ILIKE 'extraschool_%' and not (table_name ILIKE '%rel') order by table_name;")
 results = dict_cur.fetchall()
 #results.append({'table_name':'ir_attachment'})
-groups = ['extraschool_schoolcareadmin','extraschool_schoolcareuser']
+groups = ['extraschool_admin','extraschool_user']
 try:
     os.remove('security/ir.model.access.csv')
 except:
