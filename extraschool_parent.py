@@ -83,6 +83,7 @@ class extraschool_parent(models.Model):
         for record in self:
             cr.execute('select sum(balance) from extraschool_invoice where parentid=%s',(record.id,))
             record.totalbalance = cr.fetchall()[0][0]
+
         
     name = fields.Char('FullName', size=100)        
     firstname = fields.Char('FirstName', size=50,required=True)

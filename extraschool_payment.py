@@ -89,6 +89,7 @@ class extraschool_payment_reconciliation(models.Model):
         activity_category_id = fields.Many2one('extraschool.activitycategory',select=True)
         parent_id = fields.Many2one('extraschool.parent',select=True)  
         solde = fields.Float('solde',select=True)
+        com_struct = fields.Char('Structured Communicationt')
         
         def init(self, cr):
             tools.sql.drop_view_if_exists(cr, 'extraschool_payment_status_report')
@@ -100,8 +101,12 @@ class extraschool_payment_reconciliation(models.Model):
                             WHEN sum(pay.solde) is NULL 
                                THEN 0
                                ELSE sum(pay.solde) 
-                        END as solde 
-                                            
+                        END as solde,
+                        '+++' || LPAD(case when ac.payment_invitation_com_struct_prefix is NULL then '0' else ac.payment_invitation_com_struct_prefix end, 3, '0') 
+                        || '/' || LPAD(p.id::TEXT,7,'0') || '/'
+                        || LPAD(((LPAD(case when ac.payment_invitation_com_struct_prefix is NULL then '0' else ac.payment_invitation_com_struct_prefix end, 3, '0'))::INT % 97)::TEXT,2,'0')
+                        || '+++' as com_struct 
+                        
                     from extraschool_activitycategory ac, extraschool_parent p
                     left join extraschool_payment pay on p.id = pay.parent_id
                     group by ac.id,p.id

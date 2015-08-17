@@ -30,6 +30,8 @@
                 <newline/>
                 <field name="priorityorder" />
                 <newline/>
+                <field name="bankaccount" />
+                <newline/>
                 <field name="invoicetemplate" />
                 <newline/>
                 <field name="invoicecomstructprefix" />
@@ -58,6 +60,10 @@
                 <newline/>
                 <field name="payment_invitation_report_id" />                
                 <newline/>
+                <field name="payment_invitation_email_subject" />                
+                <newline/>
+                <field name="payment_invitation_com_struct_prefix" />                
+                <newline/>                	
                 <field name="logo" widget="image" class="oe_avatar oe_left"/>
                 <newline/>
                 <field name="slogan" />

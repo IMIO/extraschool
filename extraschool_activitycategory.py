@@ -44,10 +44,12 @@ class extraschool_activitycategory(models.Model):
     reminderemailaddress = fields.Char('Reminder email address', size=50)
     reminderemailsubject = fields.Char('Reminder email subject', size=50)
     reminderemailtext = fields.Text('Reminder email text')
-    bankaccount = fields.Char('Bank account', size=4)
+    bankaccount = fields.Char('Bank account')
     taxcertificatetemplate = fields.Char('Tax Certificate Template', size=50)
     invoice_report_id = fields.Many2one('extraschool.report', 'Invoice report')
     payment_invitation_report_id = fields.Many2one('extraschool.report', 'Payment invitation report')
+    payment_invitation_email_subject = fields.Char('Payment invitation Email subject')
+    payment_invitation_com_struct_prefix = fields.Char('Payment invitation Comstruct prefix', size=4)
 
     logo = fields.Binary()
     slogan = fields.Char('Slogan', size=50)

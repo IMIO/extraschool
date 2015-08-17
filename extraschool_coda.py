@@ -169,4 +169,15 @@ class extraschool_coda(models.Model):
                     adr1=''
                     adr2=''
         return super(extraschool_coda, self).create({'name':'CODA '+codadate,'codadate':codadate,'codafile':vals['codafile'],'paymentids':[(6,0,paymentids)],'rejectids':[(6,0,rejectids)]})
-extraschool_coda()
+
+    def com_struct_builder(self,prefix, val):
+        #padding 
+        val = val.zfill(7)
+        comstruct=prefix+str(val)
+        numverif=str(int(comstruct) % 97)
+        if (int(numverif)==0):
+            numverif='97'
+        if (len(numverif)==1):
+            numverif='0'+numverif
+            
+        return comstruct+numverif
