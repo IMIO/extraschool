@@ -49,5 +49,3 @@ class extraschool_invoice(models.Model):
     period_to = fields.Date(related='biller_id.period_to')
     payment_term = fields.Date(related='biller_id.payment_term')      
 
-
-extraschool_invoice()
