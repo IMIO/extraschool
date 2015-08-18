@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+		<template id="report_adresse_no_style">
+		    <style type="text/css">
+		        .aes_adresse{
+		    		width: 100%;
+		    		height: 30mm;
+		    		display: block;
+		    	}
+		    	
+		    	.aes_adresse_block{
+		    		float: right;
+		    	}
+		    	
+				.aes_adresse_block > span{
+		    		display: block;
+		    		clear: both;
+		    	}
+
+			</style>			
+	    	<div class="aes_adresse">
+				<div class="aes_adresse_block">
+					<span t-field="addresse.name" />									
+					<span t-field="addresse.street" />
+					<span><t t-esc="addresse.zipcode" /> <t t-esc="addresse.city" /></span>
+					<span t-field="addresse.email" />									
+				</div>
+			</div>
+		</template>
+
+	</data>
+</openerp>	
+	
+	

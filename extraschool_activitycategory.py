@@ -45,6 +45,11 @@ class extraschool_activitycategory(models.Model):
     reminderemailsubject = fields.Char('Reminder email subject', size=50)
     reminderemailtext = fields.Text('Reminder email text')
     bankaccount = fields.Char('Bank account')
+    bank_bic = fields.Char('Bank BIC')
+    bank_address = fields.Char('Bank address')
+    bank_zip = fields.Char('Bank zip')
+    bank_city = fields.Char('Bank city')
+
     taxcertificatetemplate = fields.Char('Tax Certificate Template', size=50)
     invoice_report_id = fields.Many2one('extraschool.report', 'Invoice report')
     payment_invitation_report_id = fields.Many2one('extraschool.report', 'Payment invitation report')

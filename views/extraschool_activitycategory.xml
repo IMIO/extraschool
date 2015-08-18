@@ -32,6 +32,14 @@
                 <newline/>
                 <field name="bankaccount" />
                 <newline/>
+                <field name="bank_bic" />
+                <newline/>
+                <field name="bank_address" />
+                <newline/>
+                <field name="bank_zip" />
+                <newline/>
+                <field name="bank_city" />
+                <newline/>                	                	                	
                 <field name="invoicetemplate" />
                 <newline/>
                 <field name="invoicecomstructprefix" />
