@@ -238,5 +238,5 @@ class extraschool_childsimport(models.Model):
                         if importfilter['majparentemail']:
                             obj_parent.write(cr,uid,[parentid],{'email':parentemail})
                             
-        return False
+        return super(extraschool_childsimport, self).create(vals)
 extraschool_childsimport()

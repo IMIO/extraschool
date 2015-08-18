@@ -140,6 +140,7 @@ class extraschool_activity(models.Model):
                                              activity.prest_to))
                                 
                                 #insert_data = insert_data.join('('+str(place.id)+','+str(current_day_date)+','+str(activity.id)+','+str(activity.prest_from)+','+str(activity.prest_to)+')')
+                print str(datetime.now())+" Build query2"
                 args_str = ','.join(cr.mogrify("(%s,%s,%s,current_timestamp,%s,%s,current_timestamp,%s,%s,%s,%s,%s,%s)", x) for x in args)
                 print str(datetime.now())+" START QUERY" 
                 #print insert_data               

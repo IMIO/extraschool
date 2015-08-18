@@ -28,14 +28,13 @@ import lbutils
 class extraschool_parent(models.Model):
     _name = 'extraschool.parent'
     _description = 'Parent'
-    def _name_compute(self, cr, uid, ids, fieldname, other, context=None):
+    
+    @api.depends('firstname','lastname')
+    def _name_compute(self):
+        for record in self:
+            record.name = '%s %s'  % (record.lastname, record.firstname)
+            #res[obj.id] = str(obj.lastname).encode('utf-8')+' '+str(obj.firstname).encode('utf-8')
 
-        res = dict.fromkeys(ids, '')
-
-        for obj in self.browse(cr, uid, ids, context=context):
-            res[obj.id] = str(obj.lastname).encode('utf-8')+' '+str(obj.firstname).encode('utf-8')
-
-        return res
     def onchange_name(self, cr, uid, ids, lastname,firstname):        
         v={}        
         if lastname:

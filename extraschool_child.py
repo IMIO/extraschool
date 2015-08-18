@@ -42,8 +42,7 @@ class extraschool_child(models.Model):
     birthdate = fields.Date('Birthdate', required=True)
     tagid = fields.Char('Tag ID', size=50)
     otherref = fields.Char('Other ref', size=50)
-    isdisabled = fields.Boolean('Disabled')
-    oldid = fields.Integer('oldid')             
+    isdisabled = fields.Boolean('Disabled')             
 
     _sql_constraints = [
         ('firstname_name_uniq', 'unique(lastname,firstname)',
@@ -53,7 +52,8 @@ class extraschool_child(models.Model):
     @api.depends('firstname','lastname')
     def _name_compute(self):
         for record in self:
-            record.name = str(record.lastname).encode('utf-8') + ' ' + str(record.firstname).encode('utf-8')
+            record.name = '%s %s'  % (record.lastname, record.firstname)
+            #record.name = str(record.lastname).encode('utf-8') + ' ' + str(record.firstname).encode('utf-8')
 
     def onchange_name(self, cr, uid, ids, lastname,firstname):
         v={}        
