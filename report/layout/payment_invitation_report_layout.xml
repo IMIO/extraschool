@@ -32,7 +32,22 @@
 				<div id="payment_status">
 					<t t-foreach="docs" t-as="payment_status">													
 						<t t-set="logo" t-value="payment_status.activity_category_id.logo"/>
-						<t t-set="slogan" t-value="payment_status.activity_category_id.slogan"/>		
+						<t t-set="slogan" t-value="payment_status.activity_category_id.slogan"/>	
+						
+						<t t-set="amount_int" t-value="''"/>
+						<t t-set="amount_dec" t-value="''"/>			
+						<t t-set="execution_date_day" t-value="''"/>
+						<t t-set="execution_date_month" t-value="''"/>
+						<t t-set="execution_date_year" t-value="''"/>
+						<t t-set="bankaccount" t-value="payment_status.activity_category_id.bankaccount"/>			
+						<t t-set="bank_bic" t-value="payment_status.activity_category_id.bank_bic"/>			
+						<t t-set="bank_address" t-value="payment_status.activity_category_id.bank_address"/>			
+						<t t-set="bank_zip" t-value="payment_status.activity_category_id.bank_zip"/>			
+						<t t-set="bank_city" t-value="payment_status.activity_category_id.bank_city"/>	
+						<t t-set="addresse" t-value="payment_status.parent_id"/>	
+						<t t-set="com_struct" t-value="payment_status.com_struct"/>	
+															
+																																																		
 			        	<div class="header">
 		        			<t t-foreach="payment_status.activity_category_id.payment_invitation_report_id.inline_report_ids.filtered(lambda r: r.section == 'a_header')" t-as="tmpl">
 				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">	         	    

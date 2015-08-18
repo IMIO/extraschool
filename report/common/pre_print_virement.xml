@@ -13,6 +13,7 @@
 				#pre_print_virement > div{
 					clear: both;
 					display: block;
+					min-height: 10mm;
 				}	
 							
 				.first_row{
@@ -71,29 +72,29 @@
 			<div id="pre_print_virement">
 				<div class="first_row">
 						<ul id="execution_date">
-							<li>22</li>
-							<li>07</li>
-							<li>15</li>
+							<li><t t-esc="execution_date_day" /></li>
+							<li><t t-esc="execution_date_month" /></li>
+							<li><t t-esc="execution_date_year" /></li>
 						</ul>
 					<div class="amount">
 						<t t-esc="amount_int" /><span class="decimal_amount"><t t-esc="amount_dec" /></span>										
 					</div>
 				</div>
 				<div class="virement_row account_row">
-					<span class="account">1234123412341234</span>					
+					<span class="account"><t t-esc="bankaccount" /></span>					
 				</div>
 				<div class="virement_row">
-					<span class="bic">GKCCBEBB</span>					
+					<span class="bic"><t t-esc="bank_bic" /></span>					
 				</div>
 				<div class="virement_row adresse">
-					<span class="street">RUE DE NULLE PART </span>
-					<span class="zip">1234</span>
-					<span class="city">nO nAME</span>
+					<span class="street"><t t-esc="bank_address" /></span>
+					<span class="zip"><t t-esc="bank_zip" /></span>
+					<span class="city"><t t-esc="bank_city" /></span>
 				</div>
 				<div class="virement_row construct_row">
-					<span class="comstruct">1234123412341234</span>																
+					<span class="comstruct"><t t-esc="com_struct" /></span>																
 				</div>
-				</div>
+			</div>
 		</template>
 
 	</data>
