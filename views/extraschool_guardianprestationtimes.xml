@@ -70,6 +70,21 @@
             </field> 
         </record>        
 
+        <record id="extraschool_guardian_prestationtime_search_view" model="ir.ui.view">
+            <field name="name">extraschool.guardian_prestationtimes.search</field>
+            <field name="model">extraschool.guardianprestationtimes</field>
+            <field name="arch" type="xml">
+                <search string="Guardian prestationtimes Search">
+                   <field name="guardianid"/>            
+                   <field name="prestation_date"/>
+                   <group  expand='0' string='Group by...'>
+                       <filter string='Guardian' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'guardianid'}"/>
+                       <filter string='Date' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'prestation_date'}"/>
+                   </group>                    
+                </search>
+            </field>
+        </record>
+        
 		<record model="ir.actions.act_window" id="action_extraschool_prestationtimes">
 			<field name="name">Guardian prestationtimes</field>
 			<field name="res_model">extraschool.guardianprestationtimes</field>
