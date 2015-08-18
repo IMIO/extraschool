@@ -35,33 +35,37 @@
 						<t t-set="slogan" t-value="docs[0].activitycategoryid.invoice_report_id.paper_format_id.margin_bottom"/>		
 						<t t-set="amount_int" t-value="int(invoice.amount_total)"/>
 						<t t-set="amount_dec" t-value="int(round((invoice.amount_total-int(invoice.amount_total))*100))"/>			
-			        	<div class="header">
-		        			<t t-foreach="invoice.activitycategoryid.invoice_report_id.inline_invoice_report_ids.filtered(lambda r: r.section == 'a_header')" t-as="tmpl">
+			        	
+						<t t-set="addresse" t-value="invoice.parentid"/>	
+							
+							
+						<div class="header">
+		        			<t t-foreach="invoice.activitycategoryid.invoice_report_id.inline_report_ids.filtered(lambda r: r.section == 'a_header')" t-as="tmpl">
 				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">	         	    
-			        				<t t-call="extraschool.{{tmpl.inline_invoice_report_id.name}}" />
+			        				<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
 								</div>
 								<t t-if="tmpl.visibility == False">
-									<t t-call="extraschool.{{tmpl.inline_invoice_report_id.name}}" />
+									<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
 								</t>
 							</t> 	
 			       		</div>				
 			        	<div class="page">
-			        		<t t-foreach="invoice.activitycategoryid.invoice_report_id.inline_invoice_report_ids.filtered(lambda r: r.section == 'b_body')" t-as="tmpl">
+			        		<t t-foreach="invoice.activitycategoryid.invoice_report_id.inline_report_ids.filtered(lambda r: r.section == 'b_body')" t-as="tmpl">
 				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">	         	    
-			        				<t t-call="extraschool.{{tmpl.inline_invoice_report_id.name}}" />
+			        				<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
 								</div>
 								<t t-if="tmpl.visibility == False">
-									<t t-call="extraschool.{{tmpl.inline_invoice_report_id.name}}" />
+									<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
 								</t>
 							</t> 	    
 			       		</div>
 			        	<div class="footer">
-			        		<t t-foreach="invoice.activitycategoryid.invoice_report_id.inline_invoice_report_ids.filtered(lambda r: r.section == 'c_footer')" t-as="tmpl">
+			        		<t t-foreach="invoice.activitycategoryid.invoice_report_id.inline_report_ids.filtered(lambda r: r.section == 'c_footer')" t-as="tmpl">
 				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">	         	    
-			        				<t t-call="extraschool.{{tmpl.inline_invoice_report_id.name}}" />
+			        				<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
 								</div>
 								<t t-if="tmpl.visibility == False">
-									<t t-call="extraschool.{{tmpl.inline_invoice_report_id.name}}" />
+									<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
 								</t>
 							</t> 	    
 			       		</div>

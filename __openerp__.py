@@ -85,6 +85,7 @@
         'report/common/page_number_right.xml',  
         'report/common/std_header.xml',
         'report/common/adresse_no_style.xml',
+        'report/common/html_text.xml',
         
     ],
     'installable' : True,

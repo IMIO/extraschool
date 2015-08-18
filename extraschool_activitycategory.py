@@ -55,6 +55,7 @@ class extraschool_activitycategory(models.Model):
     payment_invitation_report_id = fields.Many2one('extraschool.report', 'Payment invitation report')
     payment_invitation_email_subject = fields.Char('Payment invitation Email subject')
     payment_invitation_com_struct_prefix = fields.Char('Payment invitation Comstruct prefix', size=4)
+    payment_invitation_courrier_text = fields.Text('Payment invitation courrier text')
 
     logo = fields.Binary()
     slogan = fields.Char('Slogan', size=50)

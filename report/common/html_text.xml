@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+		<template id="report_html_text_no_style">
+		    <style type="text/css">
+		    	.aes_html_text{
+		    		display: block;
+		    		clear: both;
+		    		width: 100%;
+		    		padding-left: 3cm;
+		    	}
+			</style>			
+	    	<div class="aes_html_text">
+				<p><t t-raw="html_text" /></p> 									
+			</div>
+		</template>
+
+	</data>
+</openerp>	
+	
+	

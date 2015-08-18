@@ -44,9 +44,11 @@
 						<t t-set="bank_address" t-value="payment_status.activity_category_id.bank_address"/>			
 						<t t-set="bank_zip" t-value="payment_status.activity_category_id.bank_zip"/>			
 						<t t-set="bank_city" t-value="payment_status.activity_category_id.bank_city"/>	
-						<t t-set="addresse" t-value="payment_status.parent_id"/>	
 						<t t-set="com_struct" t-value="payment_status.com_struct"/>	
-															
+
+						<t t-set="addresse" t-value="payment_status.parent_id"/>								
+																						
+						<t t-set="html_text" t-value="payment_status.activity_category_id.payment_invitation_courrier_text"/>			
 																																																		
 			        	<div class="header">
 		        			<t t-foreach="payment_status.activity_category_id.payment_invitation_report_id.inline_report_ids.filtered(lambda r: r.section == 'a_header')" t-as="tmpl">
