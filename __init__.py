@@ -46,7 +46,6 @@ import extraschool_invoice
 import extraschool_invoicedprestations
 import extraschool_invoice_wizard
 import extraschool_mainsettings
-import extraschool_payment
 import extraschool_pdaprestationtimes
 import extraschool_place
 import extraschool_prestationscheck_wizard
@@ -75,5 +74,6 @@ import extraschool_childtype
 import extraschool_child
 import extraschool_one_report
 import extraschool_settings
+import extraschool_payment
 
 
