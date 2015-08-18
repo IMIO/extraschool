@@ -110,7 +110,7 @@
 
     <p>Bonjour ${object.parent_id.name},</p>
 
-    <p>Nous vous invitons à pré-payer l'activité ${object.activity_category_id.name} de vos enfant</p>
+    <p>Nous vous invitons à pré-payer l'activité ${object.activity_category_id.name} de vos enfants</p>
     <h2>Informations de paiement</h2>
     <p>
     	Num de compte : ${object.activity_category_id.bankaccount}
