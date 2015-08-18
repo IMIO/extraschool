@@ -33,7 +33,9 @@ class extraschool_parent(models.Model):
     def _name_compute(self):
         for record in self:
             record.name = '%s %s'  % (record.lastname, record.firstname)
-            #res[obj.id] = str(obj.lastname).encode('utf-8')+' '+str(obj.firstname).encode('utf-8')
+
+    def _search_fullname(self, operator, value):
+        return ['|',('firstname', operator, value),('lastname', operator, value)]
 
     def onchange_name(self, cr, uid, ids, lastname,firstname):        
         v={}        
@@ -83,8 +85,8 @@ class extraschool_parent(models.Model):
             cr.execute('select sum(balance) from extraschool_invoice where parentid=%s',(record.id,))
             record.totalbalance = cr.fetchall()[0][0]
 
-        
-    name = fields.Char('FullName', size=100)        
+             
+    name = fields.Char(compute='_name_compute',string='FullName', search='_search_fullname', size=100)   
     firstname = fields.Char('FirstName', size=50,required=True)
     lastname = fields.Char('LastName', size=50,required=True)        
     street = fields.Char('Street', size=50,required=True)

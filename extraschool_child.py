@@ -31,7 +31,7 @@ class extraschool_child(models.Model):
     _name = 'extraschool.child'
     _description = 'Child'
 
-    name = fields.Char(compute='_name_compute',string='FullName', size=100)
+    name = fields.Char(compute='_name_compute',string='FullName', search='_search_fullname', size=100)
     childtypeid = fields.Many2one('extraschool.childtype', 'Type',required=True)
     firstname = fields.Char('FirstName', size=50, required=True)
     lastname = fields.Char('LastName', size=50 , required=True)
@@ -48,12 +48,15 @@ class extraschool_child(models.Model):
         ('firstname_name_uniq', 'unique(lastname,firstname)',
             'Name and firstname must be unique !'),
     ]   
-     
+    
+    def _search_fullname(self, operator, value):
+        return ['|',('firstname', operator, value),('lastname', operator, value)]
+    
+    
     @api.depends('firstname','lastname')
     def _name_compute(self):
         for record in self:
-            record.name = '%s %s'  % (record.lastname, record.firstname)
-            #record.name = str(record.lastname).encode('utf-8') + ' ' + str(record.firstname).encode('utf-8')
+            record.name = '%s %s'  % (record.lastname, record.firstname)        
 
     def onchange_name(self, cr, uid, ids, lastname,firstname):
         v={}        
