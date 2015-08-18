@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <openerp>
 	<data> 
-		<template id="report_invoice_std" inherit_id="report.layout"  primary="True">
+		<template id="invoice_report_layout" inherit_id="report.layout"  primary="True">
             <xpath expr="//head" position="inside">
 	            <style type="text/css">
 					body.container {
@@ -76,7 +76,7 @@
 		    model="extraschool.invoice"
 		    string="Invoice"
 		    report_type="qweb-pdf"
-		    name="extraschool.report_invoice_std"
+		    name="extraschool.invoice_report_layout"
 		    attachment_use="False"
 		/>
 	</data>

@@ -1,16 +1,16 @@
 <?xml version="1.0" ?>
 <openerp>
 	<data> 		
-		<template id="report_invoice_std_footer_virement">
+		<template id="report_pre_print_virement">
 			<style>
-				#invoice_virement{
+				#pre_print_virement{
 					min-height: 80mm;
 					width: 205mm;
 					margin: 0px;
 					border: 0mm;
 					font-size: 6mm;
 				}
-				#invoice_virement > div{
+				#pre_print_virement > div{
 					clear: both;
 					display: block;
 				}	
@@ -68,7 +68,7 @@
 				
 
 			</style>
-			<div id="invoice_virement">
+			<div id="pre_print_virement">
 				<div class="first_row">
 						<ul id="execution_date">
 							<li>22</li>
