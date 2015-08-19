@@ -156,7 +156,19 @@ class extraschool_invoice_wizard(models.TransientModel):
     
     def _compute_invoices(self):
         cr,uid = self.env.cr, self.env.user.id
-        
+    def get_sql_position_querry(self):
+        sql = {'1' : """(select min(id) 
+                            from extraschool_childposition
+                            where position = (select count(distinct childid) + 1
+                             from extraschool_prestationtimes ep
+                             left join extraschool_child ec on ep.childid = ec.id
+                             where  parent_id = ept.parent_id 
+                                and activity_occurrence_id = ept.activity_occurrence_id
+                                and childid <> ept.childid
+                                and ec.birthdate < (select birthdate from extraschool_child where id = ept.childid)
+                                )) as child_position_id
+                        """
+               }    
     def _new_compute_invoices(self):
         cr,uid = self.env.cr, self.env.user.id
         print "_new_compute_invoices"
@@ -201,23 +213,25 @@ class extraschool_invoice_wizard(models.TransientModel):
         #search parent to be invoiced
         sql_mega_invoicing = """select parent_id, childid, activity_occurrence_id,
                                     sum(case when es = 'S' then prestation_time else 0 end) - sum(case when es = 'E' then prestation_time else 0 end) as duration,
-                                    (select id 
+                                    (select min(id)
                                     from extraschool_childposition
                                     where position = (select count(distinct childid) + 1
                                      from extraschool_prestationtimes ep
                                      left join extraschool_child ec on ep.childid = ec.id
-                                     where  parent_id = ept.parent_id 
+                                     left join extraschool_parent pp on pp.id = ec.parentid
+                                     where  pp.streetcode = p.streetcode
                                         and activity_occurrence_id = ept.activity_occurrence_id
                                         and childid <> ept.childid
                                         and ec.birthdate < (select birthdate from extraschool_child where id = ept.childid)
                                         )) as child_position_id
                                 from extraschool_prestationtimes ept
                                 left join extraschool_child c on ept.childid = c.id
+                                left join extraschool_parent p on p.id = c.parentid
                                 where ept.prestation_date between %s and %s
                                         and verified = True
                                         and activity_category_id = %s
                                         and c.schoolimplantation in (""" + ','.join(map(str, self.schoolimplantationid.ids))+ """)  
-                                group by parent_id,childid, activity_occurrence_id
+                                group by parent_id,childid, activity_occurrence_id,p.streetcode
                                 order by parent_id, activity_occurrence_id;"""
 
         print sql_mega_invoicing % (self.period_from, self.period_to, self.activitycategory.id,)
