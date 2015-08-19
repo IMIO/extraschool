@@ -161,7 +161,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
         if self.placeid:
             prestation_search_domain.append(('placeid.id', 'in', [place.id for place in self.placeid]))
         if self.activitycategory:
-            prestation_search_domain.append(('activitycategoryid.id', '=', self.activitycategory[0].id))
+            prestation_search_domain.append(('activity_category_id', '=', self.activitycategory[0].id))
         if self.period_from:
             prestation_search_domain.append(('prestation_date', '>=', self.period_from))
         if self.period_to:
