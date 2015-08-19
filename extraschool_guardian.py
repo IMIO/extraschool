@@ -38,7 +38,7 @@ class extraschool_guardian(models.Model):
     @api.depends('firstname','lastname')
     def _name_compute(self):
         for record in self:
-            record.name = str(record.lastname).encode('utf-8') + ' ' + str(record.firstname).encode('utf-8')
+            record.name = '%s %s'  % (record.lastname, record.firstname) 
        
 
 extraschool_guardian()
