@@ -29,6 +29,8 @@ from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
 
 from datetime import date, datetime, timedelta as td
 import time
+from openerp.exceptions import except_orm, Warning, RedirectWarning
+
 
 class extraschool_activity(models.Model):
     _name = 'extraschool.activity'

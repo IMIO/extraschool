@@ -26,6 +26,8 @@ from openerp.api import Environment
 import xlrd
 import lbutils
 import base64
+from openerp.exceptions import except_orm, Warning, RedirectWarning
+
 
 class extraschool_childsimport(models.Model):
     _name = 'extraschool.childsimport'
