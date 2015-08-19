@@ -94,7 +94,7 @@ class extraschool_payment_reconciliation(models.Model):
         activity_category_id = fields.Many2one('extraschool.activitycategory',select=True)
         parent_id = fields.Many2one('extraschool.parent',select=True)  
         solde = fields.Float('solde',select=True)
-        com_struct = fields.Char('Structured Communicationt')
+        com_struct = fields.Char('Structured Communication')
         
         def init(self, cr):
             tools.sql.drop_view_if_exists(cr, 'extraschool_payment_status_report')

@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+        <record model="ir.ui.view" id="extraschool_payment_wizard_form">
+            <field name="name">extraschool.payment.wizard.form</field>
+            <field name="model">extraschool.payment_wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="payment Wizard">
+                    <field name="state" invisible="1" />
+                    <group states="init">
+                        <field name="parent_id" />
+                        <field name="payment_type" />
+                        <field name="activity_category_id" attrs="{'invisible':[('payment_type', '!=', '1')], 'required':[('payment_type', '==', '1')]}"/>
+                        <field name="payment_date" />
+                        <field name="amount" />
+                    </group>
+                    <separator string="" colspan="4"/>
+                    <group colspan="4" col="3">
+                        <button name="create_payment" string="generate payment" icon="gtk-apply" type="object"
+                            states="init" />
+                    </group>
+                </form>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="action_lbsc_payment_wizard">
+            <field name="name">payment Wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">extraschool.payment_wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+	</data>
+</openerp>
