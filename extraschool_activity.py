@@ -34,7 +34,7 @@ class extraschool_activity(models.Model):
     _name = 'extraschool.activity'
     _description = 'activity'
 
-    name = fields.Char('Name', size=100, required=True)
+    name = fields.Char('Name', required=True)
     category = fields.Many2one('extraschool.activitycategory', 'Category')
     parent_id = fields.Many2one('extraschool.activity', 'Parent')
     root_id = fields.Many2one('extraschool.activity', 'Root',compute='_compute_root_activity', store=True)
@@ -179,7 +179,7 @@ class extraschool_activity(models.Model):
         return True
 
     @api.model
-    def create(self, vals):                 
+    def create(self, vals):                
         res = super(extraschool_activity,self).create(vals)
 
         if res:
