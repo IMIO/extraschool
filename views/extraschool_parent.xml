@@ -86,8 +86,8 @@
                     </group>
                 </page>
                 <page string="Payment">
-                	<button name="addpayment" string="Add payment" icon="gtk-apply" type="object"/>
-                    <field name="payment_ids" readonly="True">
+                	<button name="extraschool.action_lbsc_payment_wizard" string="Add payment Wizard" icon="gtk-apply" type="action" context="{'parent_id': id}"/>
+                	<field name="payment_ids" readonly="True">
                 		<tree editable="top">
                 			<field name="paymentdate" />
 							<field name="paymenttype" />

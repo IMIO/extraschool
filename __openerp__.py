@@ -50,6 +50,7 @@
         'views/extraschool_mainsettings.xml',
         'views/extraschool_parent.xml',
         'views/extraschool_payment.xml',
+        'views/extraschool_payment_wizard.xml',
         'views/extraschool_place.xml',
         'views/extraschool_one_report.xml',
         'views/extraschool_prestationscheck_wizard.xml',

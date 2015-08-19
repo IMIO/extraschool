@@ -75,5 +75,6 @@ import extraschool_child
 import extraschool_one_report
 import extraschool_settings
 import extraschool_payment
+import extraschool_payment_wizard
 
 
