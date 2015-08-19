@@ -38,7 +38,6 @@ import extraschool_discount
 import extraschool_discountrule
 import extraschool_guardian
 import extraschool_guardianprestationtimes
-import extraschool_guardianprestationtimes_wizard
 import extraschool_importlevelrule
 import extraschool_importreject
 import extraschool_initupdate_wizard

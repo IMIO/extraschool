@@ -45,7 +45,8 @@ class extraschool_activityoccurrence(models.Model):
     date_stop = fields.Datetime('Date stop',compute='_compute_date_stop', store=True) 
     child_registration_ids = fields.Many2many('extraschool.child','extraschool_activityoccurrence_cild_rel', 'activityoccurrence_id', 'child_id','Child registration')        
     prestation_times_ids = fields.One2many('extraschool.prestationtimes', 'activity_occurrence_id','Child prestation times')   
-    place_id = fields.Many2one('extraschool.place', 'Place', required=False)                     
+    place_id = fields.Many2one('extraschool.place', 'Place', required=False)      
+    invoicedprestations_ids = fields.One2many('extraschool.invoicedprestations', 'activity_occurrence_id','Invoiced prestation')                  
 
     @api.multi
     def name_get(self):            

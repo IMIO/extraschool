@@ -29,6 +29,8 @@ from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
 
 from datetime import date, datetime, timedelta as td
 import time
+from openerp.exceptions import except_orm, Warning, RedirectWarning
+
 
 class extraschool_activity(models.Model):
     _name = 'extraschool.activity'
@@ -110,6 +112,7 @@ class extraschool_activity(models.Model):
                 print str(datetime.now())+" START"
                 args=[]
                 for day in range(delta.days + 1):
+                    print "day %s" % day
                     current_day_date = d1 + td(days=day)
                     if str(current_day_date.weekday()) in activity.days:
                         cr.execute('select count(*) from extraschool_activity_activityexclusiondates_rel as ear inner join extraschool_activityexclusiondates as ea on ear.activityexclusiondates_id = ea.id where activity_id = %s and date_from <= %s and date_to >= %s',(activity.id, current_day_date, current_day_date))
@@ -140,15 +143,18 @@ class extraschool_activity(models.Model):
                                              activity.prest_to))
                                 
                                 #insert_data = insert_data.join('('+str(place.id)+','+str(current_day_date)+','+str(activity.id)+','+str(activity.prest_from)+','+str(activity.prest_to)+')')
-                print str(datetime.now())+" Build query2"
-                args_str = ','.join(cr.mogrify("(%s,%s,%s,current_timestamp,%s,%s,current_timestamp,%s,%s,%s,%s,%s,%s)", x) for x in args)
-                print str(datetime.now())+" START QUERY" 
-                #print insert_data               
-                occurrence_ids = cr.execute("insert into extraschool_activityoccurrence (create_uid,date_stop,date_start,create_date,name,write_uid,write_date,activity_category_id,place_id,occurrence_date,activityid,prest_from,prest_to) VALUES "+args_str)
-                print str(datetime.now())+" END"
+                if len(args):
+                    print str(datetime.now())+" Build query2"
+                    args_str = ','.join(cr.mogrify("(%s,%s,%s,current_timestamp,%s,%s,current_timestamp,%s,%s,%s,%s,%s,%s)", x) for x in args)
+                    print str(datetime.now())+" START QUERY" 
+                    #print insert_data               
+                    occurrence_ids = cr.execute("insert into extraschool_activityoccurrence (create_uid,date_stop,date_start,create_date,name,write_uid,write_date,activity_category_id,place_id,occurrence_date,activityid,prest_from,prest_to) VALUES "+args_str)
+                    print str(datetime.now())+" END"
     @api.one                            
     def check_if_modifiable(self):
-        if self.invoicedprestations_ids.filtered(lambda r: r.prestation_date >= time.strftime(DEFAULT_SERVER_DATE_FORMAT)):
+        invoicedprestations = self.env['extraschool.invoicedprestations'].search([('activity_occurrence_id.activityid', '=', self.id),
+                                                                                ('prestation_date', '>=', time.strftime(DEFAULT_SERVER_DATE_FORMAT))])
+        if len(invoicedprestations):
             return False
         else:
             return True

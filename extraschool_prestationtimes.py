@@ -23,6 +23,7 @@
 
 from openerp import models, api, fields
 from openerp.api import Environment
+from openerp.exceptions import except_orm, Warning, RedirectWarning
 
 
 class extraschool_prestationtimes(models.Model):
