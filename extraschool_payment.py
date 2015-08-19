@@ -37,7 +37,7 @@ class extraschool_payment(models.Model):
     parent_id = fields.Many2one("extraschool.parent")
     paymentdate = fields.Date('Date', required=True)
     structcom = fields.Char('Structured Communication', size=50)
-    structcom_prefix = fields.Char(compute='compute_prefix', string='Structured communication prefix', size=3)
+    structcom_prefix = fields.Char('Structured communication prefix', size=3)
     account = fields.Char('Account', size=20)
     name = fields.Char('Name', size=50)
     addr1 = fields.Char('Addr1', size=50)
@@ -47,7 +47,7 @@ class extraschool_payment(models.Model):
     payment_reconciliation_ids = fields.One2many('extraschool.payment_reconciliation','payment_id')
     coda = fields.Many2one('extraschool.coda', 'Coda', required=False)
 
-    @api.depends('structcom')
+    @api.onchange('structcom')
     def compute_prefix(self):
         for record in self:
             print "structcom : %s" % (self.structcom)
@@ -100,22 +100,22 @@ class extraschool_payment_reconciliation(models.Model):
             tools.sql.drop_view_if_exists(cr, 'extraschool_payment_status_report')
             cr.execute("""
                 CREATE view extraschool_payment_status_report as
-                    select min((ac.id*10+p.id)) as id, ac.id as activity_category_id,
-                           p.id as parent_id, 
+                    select min((zz.ac_id*10+zz.p_id)) as id, zz.ac_id as activity_category_id,
+                           zz.p_id as parent_id, 
                            CASE 
                             WHEN sum(pay.solde) is NULL 
                                THEN 0
                                ELSE sum(pay.solde) 
                         END as solde,
-                        '+++' || LPAD(case when ac.payment_invitation_com_struct_prefix is NULL then '0' else ac.payment_invitation_com_struct_prefix end, 3, '0') 
-                        || '/' || LPAD(p.id::TEXT,7,'0') || '/'
-                        || LPAD(((LPAD(case when ac.payment_invitation_com_struct_prefix is NULL then '0' else ac.payment_invitation_com_struct_prefix end, 3, '0'))::INT % 97)::TEXT,2,'0')
+                        '+++' || LPAD(case when zz.ac_com_struct_prefix is NULL then '0' else zz.ac_com_struct_prefix end, 3, '0') 
+                        || '/' || LPAD(zz.p_id::TEXT,7,'0') || '/'
+                        || LPAD(((LPAD(case when zz.ac_com_struct_prefix is NULL then '0' else zz.ac_com_struct_prefix end, 3, '0'))::INT % 97)::TEXT,2,'0')
                         || '+++' as com_struct 
                         
-                    from extraschool_activitycategory ac, extraschool_parent p
-                    left join extraschool_payment pay on p.id = pay.parent_id
-                    group by ac.id,p.id
-                    order by ac.id,p.id 
+                    from (select ac.id as ac_id, p.id as p_id, ac.payment_invitation_com_struct_prefix as ac_com_struct_prefix from extraschool_activitycategory ac, extraschool_parent p) zz
+                    left join extraschool_payment pay on zz.p_id = pay.parent_id and zz.ac_com_struct_prefix = pay.structcom_prefix
+                    group by zz.ac_id,zz.p_id, zz.ac_com_struct_prefix
+                    order by zz.ac_id,zz.p_id 
             """)
    
     
