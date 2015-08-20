@@ -27,7 +27,7 @@ class extraschool_report_hack(osv.Model):
     _inherit = 'report'
     
     def _build_wkhtmltopdf_args(self, paperformat, specific_paperformat_args=None):
-        """Hack the parent fct to remove dpi arg from the return value."""
+        
         res = super(extraschool_report_hack,self)._build_wkhtmltopdf_args(paperformat, specific_paperformat_args)
         if '--dpi' in res:
             i = res.index('--dpi')
