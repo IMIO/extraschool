@@ -44,7 +44,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
         return res      
 
     
-    date_of_the_day = fields.Date(required=True)    
+    date_of_the_day = fields.Date(required=True, select=True)    
     child_id = fields.Many2one('extraschool.child', required=True, select=True)
     parent_id = fields.Many2one(related='child_id.parentid', store=True, select=True)                  
     prestationtime_ids = fields.One2many('extraschool.prestationtimes','prestation_times_of_the_day_id')    
