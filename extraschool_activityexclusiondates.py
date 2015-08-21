@@ -35,7 +35,7 @@ class extraschool_activityexclusiondates(models.Model):
     
         return res     
             
-    date_from = fields.Date('Date from', required=True)
-    date_to = fields.Date('Date to', required=True)
+    date_from = fields.Date('Date from', required=True, index=True)
+    date_to = fields.Date('Date to', required=True, index=True)
 
 extraschool_activityexclusiondates()

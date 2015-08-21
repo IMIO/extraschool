@@ -38,7 +38,7 @@ class extraschool_child(models.Model):
     schoolimplantation = fields.Many2one('extraschool.schoolimplantation', 'School implantation',required=True)
     levelid = fields.Many2one('extraschool.level', 'Level', required=True)
     classid = fields.Many2one('extraschool.class', 'Class', required=False)
-    parentid = fields.Many2one('extraschool.parent', 'Parent', required=True, ondelete='RESTRICT')
+    parentid = fields.Many2one('extraschool.parent', 'Parent', required=True, ondelete='RESTRICT', select=True)
     birthdate = fields.Date('Birthdate', required=True)
     tagid = fields.Char('Tag ID', size=50)
     otherref = fields.Char('Other ref', size=50)

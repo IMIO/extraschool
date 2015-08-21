@@ -34,14 +34,14 @@ class extraschool_activityoccurrence(models.Model):
     _description = 'activity occurrence'
 
     name = fields.Char('Name')
-    occurrence_date = fields.Date('Date')
+    occurrence_date = fields.Date('Date', select=True)
     activityid = fields.Many2one('extraschool.activity', 'Activity', select=True)
     activityname = fields.Char(related='activityid.name')
     activity_category_id = fields.Many2one(related='activityid.category', store=True, select=True)                  
 
-    prest_from = fields.Float('prest_from')
-    prest_to = fields.Float('prest_to')
-    date_start = fields.Datetime('Date start',compute='_compute_date_start', store=True)
+    prest_from = fields.Float('prest_from', select=True)
+    prest_to = fields.Float('prest_to', select=True)
+    date_start = fields.Datetime('Date start',compute='_compute_date_start', store=True, select=True)
     date_stop = fields.Datetime('Date stop',compute='_compute_date_stop', store=True) 
     child_registration_ids = fields.Many2many('extraschool.child','extraschool_activityoccurrence_cild_rel', 'activityoccurrence_id', 'child_id','Child registration')        
     prestation_times_ids = fields.One2many('extraschool.prestationtimes', 'activity_occurrence_id','Child prestation times')   
