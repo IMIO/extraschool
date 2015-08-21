@@ -109,7 +109,7 @@ class extraschool_payment_reconciliation(models.Model):
                         END as solde,
                         '+++' || LPAD(case when zz.ac_com_struct_prefix is NULL then '0' else zz.ac_com_struct_prefix end, 3, '0') 
                         || '/' || LPAD(zz.p_id::TEXT,7,'0') || '/'
-                        || LPAD(((LPAD(case when zz.ac_com_struct_prefix is NULL then '0' else zz.ac_com_struct_prefix end, 3, '0'))::INT % 97)::TEXT,2,'0')
+                        || LPAD(((LPAD(case when zz.ac_com_struct_prefix is NULL then '0' else zz.ac_com_struct_prefix end, 3, '0') || LPAD(zz.p_id::TEXT,7,'0'))::bigint % 97)::TEXT,2,'0')
                         || '+++' as com_struct 
                         
                     from (select ac.id as ac_id, p.id as p_id, ac.payment_invitation_com_struct_prefix as ac_com_struct_prefix from extraschool_activitycategory ac, extraschool_parent p) zz
