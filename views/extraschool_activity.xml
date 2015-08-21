@@ -71,8 +71,6 @@
 			            <group col="4">  
 			                <separator string="Places" colspan="4"/>
 			                <field name="placeids" nolabel="1" colspan="4"/> 			            
-			                <separator string="School implantation" colspan="4"/>
-			                <field name="schoolimplantationids" nolabel="1" colspan="4"/>              
 						</group>
             		</page>
 
@@ -87,7 +85,6 @@
 					<page string="Finance">
 			            <group col="4">  
 			                <field name="short_name" />     
-							<field name="price_list_id"/>
 							<field name="subsidizedbyone"/>   
 						</group>
 					</page>							                
