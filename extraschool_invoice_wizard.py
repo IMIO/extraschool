@@ -264,14 +264,18 @@ class extraschool_invoice_wizard(models.TransientModel):
         saved_parent_id = -1
         invoice_ids = []
         invoice_line_ids = []
+        
+        next_invoice_num = self.activitycategory.invoicelastcomstruct
         for invoice_line in invoice_lines:
             print str(invoice_line)
             if saved_parent_id != invoice_line['parent_id']:
                 saved_parent_id = invoice_line['parent_id']
-                invoice = inv_obj.create({'name' : 'invoice_parent_id_' + str(saved_parent_id), 
+                next_invoice_num += 1
+                invoice = inv_obj.create({'name' : 'invoice_parent_id_%s' % (str(next_invoice_num).zfill(7),), 
                                 'parentid' : saved_parent_id,
                                 'biller_id' : biller.id,
-                                'activitycategoryid': self.activitycategory.id})
+                                'activitycategoryid': self.activitycategory.id,
+                                'structcom': "+++%s/%s/%s+++" % (self.activitycategory.invoicecomstructprefix,str(next_invoice_num).zfill(7),long(self.activitycategory.invoicecomstructprefix+str(next_invoice_num).zfill(7)) % 97)})
                 invoice_ids.append(invoice.id)
 
             duration_h = int(invoice_line['duration'])
@@ -354,14 +358,25 @@ class extraschool_invoice_wizard(models.TransientModel):
         
         self.env.cr.execute(sql_update_invoice_total_price)
 
-        #Mise à zero du total sur invoice gegative
+
+        #Mise à zero du total sur invoice negegative
         sql_update_invoice_total_price = """update extraschool_invoice i
-                                        set amount_total = 0
+                                        set amount_total = 0,
+                                        balance = amount_total
                                     where i.id in (""" + ','.join(map(str, invoice_ids))+ """)
                                     and amount_total <= 0
                                     ;"""
         
         self.env.cr.execute(sql_update_invoice_total_price)
+
+        #Mise à jour de la balance
+        sql_update_invoice_total_price = """update extraschool_invoice i
+                                        set balance = amount_total
+                                    where i.id in (""" + ','.join(map(str, invoice_ids))+ """)
+                                    ;"""
+        
+        self.env.cr.execute(sql_update_invoice_total_price)
+
         
     @api.multi    
     def action_compute_invoices(self):   
