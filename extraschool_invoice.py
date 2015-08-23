@@ -30,9 +30,9 @@ class extraschool_invoice(models.Model):
 
     name = fields.Char('Name', size=20,readonly=True, default='Facture')
     schoolimplantationid = fields.Many2one('extraschool.schoolimplantation', 'School implantation', required=False,readonly=True)
-    parentid = fields.Many2one('extraschool.parent', 'Parent', required=False)
+    parentid = fields.Many2one('extraschool.parent', 'Parent', required=False, index = True)
     number = fields.Integer('Number',readonly=True)
-    structcom = fields.Char('Structured Communication', size=50,readonly=True)
+    structcom = fields.Char('Structured Communication', size=50,readonly=True, index = True)
     amount_total = fields.Float('Amount',readonly=True)
     amount_received = fields.Float('Received',readonly=True)
     balance = fields.Float('Balance',readonly=True)
