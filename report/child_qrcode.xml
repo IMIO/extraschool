@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+		<template id="report_child">
+			<t t-call="report.html_container">
+				<t t-foreach="docs" t-as="child">
+				
+			        <div class="page">
+			            <div class="row">	        
+				            <div class="col-xs-6 col-xs-offset-3">
+				            	<img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', child.tagid, 200, 200)"/>
+				            </div>
+				        </div>
+			            <div class="row">
+				            <h2><span t-field="child.name" /></h2>
+			            </div>
+			            <div class="row">
+				            Class : <span t-field="child.classid.name" />
+			            </div>
+			            <div class="row">
+				            Personne responsable : <span t-field="child.parentid.name" />
+			            </div>
+			            <div class="row">
+				            Tél. maison : <span t-field="child.parentid.housephone" />
+			            </div>
+			            <div class="row">
+				            Tél du travail : <span t-field="child.parentid.workphone" />
+			            </div>
+			            <div class="row">
+				            Gsm : <span t-field="child.parentid.gsm" />
+			            </div>
+			            
+		    	    </div>
+		    	</t>
+			</t>
+		</template>
+
+		
+		<report
+		    id="extraschool_child"
+		    model="extraschool.child"
+		    string="Child book"
+		    report_type="qweb-pdf"
+		    name="extraschool.report_child"
+		    attachment_use="False"
+		/>
+	</data>
+</openerp>	
+	
+	

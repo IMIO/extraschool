@@ -40,6 +40,7 @@
         'views/extraschool_childsimportfilter.xml',
         'views/extraschool_childsimport.xml',
         'views/extraschool_childsworkbook_wizard.xml',
+        'report/child_qrcode.xml',
         'views/extraschool_coda.xml',
         'views/extraschool_discount.xml',
         'views/extraschool_guardianprestationtimes.xml',
