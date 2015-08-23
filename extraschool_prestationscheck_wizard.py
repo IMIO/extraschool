@@ -39,6 +39,7 @@ import pytz
 from dateutil.relativedelta import *
 from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
+import pdb
 
 
 class extraschool_prestationscheck_wizard(models.TransientModel):
@@ -81,12 +82,14 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
         
         obj_activity_occurrence = self.env['extraschool.activityoccurrence']
         obj_activity_child_registration = self.env['extraschool.activitychildregistration']
- 
+
+         
         #get occurrence of the presta day matching the time slot      
         occurrence_rs = obj_activity_occurrence.search([('place_id','=',prestation.placeid.id),
                                                         ('occurrence_date','=',prestation.prestation_date),
                                                         ('activityid.prest_from','<=',prestation.prestation_time),
                                                         ('activityid.prest_to','>=',prestation.prestation_time),
+                                                        ('activityid.leveltype', 'like', prestation.childid.levelid.leveltype),
                                                         ])
         if not occurrence_rs:  #Error No matching occurrence found
             return_val['error_msg'] = "No matching occurrence found"
@@ -112,8 +115,9 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
             return_val['occurrence_id'] = activity_occurrence_id[0].id     
             return return_val
         
-        #filter occurence to remove occurence with registration
-        occurrence_no_register_rs = occurrence_rs.filtered(lambda r: not r.child_registration_ids)
+        #filter occurence to remove occurence with registration if "only registered"
+        if prestation.activity_occurrence_id.activityid.onlyregisteredchilds:
+            occurrence_no_register_rs = occurrence_rs.filtered(lambda r: not r.child_registration_ids)
         
         
         #try to find a leaf matching the time slot !!! We should use occurrence__child_ids
@@ -205,7 +209,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
     
     @api.multi    
     def action_prestationscheck(self):    
-            
+        pdb.set_trace()
         return self._check()
 
 
