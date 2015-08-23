@@ -95,6 +95,8 @@ class extraschool_activity(models.Model):
                         activityoccurrence.create({'place_id' : place.id,
                                                   'occurrence_date' : datetime.strptime(planneddate.activitydate, DEFAULT_SERVER_DATE_FORMAT),
                                                   'activityid' : activity.id,
+                                                  'prest_from' : activity.prest_from,
+                                                  'prest_to' : activity.prest_to,
                                                    })
             else:
                 d1 = activity.validity_from
