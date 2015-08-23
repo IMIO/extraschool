@@ -118,7 +118,8 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
         #filter occurence to remove occurence with registration if "only registered"
         if prestation.activity_occurrence_id.activityid.onlyregisteredchilds:
             occurrence_no_register_rs = occurrence_rs.filtered(lambda r: not r.child_registration_ids)
-        
+        else:
+            occurrence_no_register_rs = occurrence_rs
         
         #try to find a leaf matching the time slot !!! We should use occurrence__child_ids
         occurrence_leaf_rs = occurrence_no_register_rs.filtered(lambda r: not r.activityid.activity_child_ids)
