@@ -159,12 +159,10 @@ class extraschool_invoice_wizard(models.TransientModel):
     def get_sql_position_querry(self):
         sql = {'byparent' : """(select min(id) 
                                 from extraschool_childposition
-                                where position = (select count(distinct childid) + 1
-                                 from extraschool_prestationtimes ep
-                                 left join extraschool_child ec on ep.childid = ec.id
-                                 where  parent_id = ept.parent_id 
-                                    and activity_occurrence_id = ept.activity_occurrence_id
-                                    and childid <> ept.childid
+                                where position = (select count(*) + 1
+                                 from extraschool_child ec 
+                                 where  parent_id = ec.parentid
+                                    and id <> ept.childid
                                     and ec.birthdate < (select birthdate from extraschool_child where id = ept.childid)
                                     )) as child_position_id
                             """,
@@ -181,13 +179,11 @@ class extraschool_invoice_wizard(models.TransientModel):
                             """,
                'byaddress' : """(select min(id)
                                     from extraschool_childposition
-                                    where position = (select count(distinct childid) + 1
-                                     from extraschool_prestationtimes ep
-                                     left join extraschool_child ec on ep.childid = ec.id
+                                    where position = (select count(*) + 1
+                                     from extraschool_child ec
                                      left join extraschool_parent pp on pp.id = ec.parentid
                                      where  pp.streetcode = p.streetcode
-                                        and activity_occurrence_id = ept.activity_occurrence_id
-                                        and childid <> ept.childid
+                                        and ec.id <> ept.childid
                                         and ec.birthdate < (select birthdate from extraschool_child where id = ept.childid)
                                         )) as child_position_id
                             """,
