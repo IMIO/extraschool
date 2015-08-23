@@ -34,7 +34,7 @@ class extraschool_prestationtimes(models.Model):
     placeid = fields.Many2one('extraschool.place', 'Schoolcare Place', required=False)
     childid = fields.Many2one('extraschool.child', 'Child', domain="[('isdisabled','=',False)]", required=False, select=True, ondelete='RESTRICT')
     parent_id = fields.Many2one(related='childid.parentid', store=True, select=True)                  
-    prestation_date = fields.Date('Date', select=True)
+    prestation_date = fields.Date('Date', select=True, Index=True)
     prestation_time = fields.Float('Time', select=True, required=True)
     es = fields.Selection((('E','In'), ('S','Out')),'es' , select=True)  
     exit_all = fields.Boolean('Exit all',default=False)
