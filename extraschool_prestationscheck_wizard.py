@@ -39,7 +39,7 @@ import pytz
 from dateutil.relativedelta import *
 from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
-import pdb
+
 
 
 class extraschool_prestationscheck_wizard(models.TransientModel):
@@ -209,7 +209,6 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
     
     @api.multi    
     def action_prestationscheck(self):    
-        pdb.set_trace()
         return self._check()
 
 
