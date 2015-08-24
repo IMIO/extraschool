@@ -83,14 +83,25 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
         obj_activity_occurrence = self.env['extraschool.activityoccurrence']
         obj_activity_child_registration = self.env['extraschool.activitychildregistration']
 
-         
-        #get occurrence of the presta day matching the time slot      
-        occurrence_rs = obj_activity_occurrence.search([('place_id','=',prestation.placeid.id),
-                                                        ('occurrence_date','=',prestation.prestation_date),
-                                                        ('activityid.prest_from','<=',prestation.prestation_time),
-                                                        ('activityid.prest_to','>=',prestation.prestation_time),
-                                                        ('activityid.leveltype', 'like', prestation.childid.levelid.leveltype),
-                                                        ])
+        
+        if prestation.es == 'E':
+            #get occurrence of the presta day matching the time slot      
+            occurrence_rs = obj_activity_occurrence.search([('place_id','=',prestation.placeid.id),
+                                                            ('occurrence_date','=',prestation.prestation_date),
+                                                            ('activityid.prest_from','<=',prestation.prestation_time),
+                                                            ('activityid.prest_to','>',prestation.prestation_time),
+                                                            ('activityid.leveltype', 'like', prestation.childid.levelid.leveltype),
+                                                            ])
+        else:
+            #get occurrence of the presta day matching the time slot      
+            occurrence_rs = obj_activity_occurrence.search([('place_id','=',prestation.placeid.id),
+                                                            ('occurrence_date','=',prestation.prestation_date),
+                                                            ('activityid.prest_from','<',prestation.prestation_time),
+                                                            ('activityid.prest_to','>=',prestation.prestation_time),
+                                                            ('activityid.leveltype', 'like', prestation.childid.levelid.leveltype),
+                                                            ])
+            
+            
         if not occurrence_rs:  #Error No matching occurrence found
             return_val['error_msg'] = "No matching occurrence found"
             return return_val
