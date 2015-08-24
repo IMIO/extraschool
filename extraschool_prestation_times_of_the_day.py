@@ -235,7 +235,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
         print "**************************************************"
         print "_occu_completion %s" % (occurrence.activityid.name)
         print "**************************************************"
-
+        last_occu = False
         self._occu_start_stop_completion(start_time,stop_time,occurrence,down,from_occurrence)
         
         #compute entry before going down
@@ -254,6 +254,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
         #compute exit before going down
         if stop_time.activity_occurrence_id.id == occurrence.id:
             #"this is almost the end, we have reached the last occurrence"
+            last_occu = True
             prest_to = stop_time.prestation_time
         else:     
             #to do check if EXIT exist in occurrence and check from_to     
@@ -262,12 +263,22 @@ class extraschool_prestation_times_of_the_day(models.Model):
         print "down"
         #get child occurrence starting after current occu
         from_occurrence_id = from_occurrence.id if from_occurrence else -1
-        child_occurrences = self.env['extraschool.activityoccurrence'].search([('activityid.id', 'in',occurrence.activityid.activity_child_ids.ids),
-                                                                               ('activityid.id', '!=',from_occurrence_id),
-                                                                            ('occurrence_date', '=', self.date_of_the_day),
-                                                                            ('place_id.id', '=', occurrence.place_id.id),
-                                                                            ('prest_from', '>=', prest_from),
-                                                                            ])
+        if not last_occu:
+            child_occurrences = self.env['extraschool.activityoccurrence'].search([('activityid.id', 'in',occurrence.activityid.activity_child_ids.ids),
+                                                                                   ('activityid.id', '!=',from_occurrence_id),
+                                                                                ('occurrence_date', '=', self.date_of_the_day),
+                                                                                ('place_id.id', '=', occurrence.place_id.id),
+                                                                                ('prest_from', '>=', prest_from),
+                                                                                ])
+        else:
+            child_occurrences = self.env['extraschool.activityoccurrence'].search([('activityid.id', 'in',occurrence.activityid.activity_child_ids.ids),
+                                                                                   ('activityid.id', '!=',from_occurrence_id),
+                                                                                ('occurrence_date', '=', self.date_of_the_day),
+                                                                                ('place_id.id', '=', occurrence.place_id.id),
+                                                                                ('prest_from', '>=', prest_from),
+                                                                                ('prest_to', '<=', prest_to),                                                                        
+                                                                                ])
+            
         for child_occurrence in child_occurrences:
             if occurrence.check_if_child_take_part_to(self.child_id):
                 self._occu_completion(start_time,stop_time,child_occurrence,True,occurrence)
