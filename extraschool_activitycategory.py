@@ -23,6 +23,8 @@
 
 from openerp import models, api, fields
 from openerp.api import Environment
+from openerp.exceptions import except_orm, Warning, RedirectWarning
+
 
 class extraschool_activitycategory(models.Model):
     _name = 'extraschool.activitycategory'
@@ -34,12 +36,12 @@ class extraschool_activitycategory(models.Model):
     childpositiondetermination = fields.Selection((('byparent','by parent'),('byparentwp','by parent (only childs with prestations)'),('byaddress','by address'),('byaddresswp','by address (only childs with prestations)')),'Child position determination', required = True)
     priorityorder = fields.Integer('Priority order')
     invoicetemplate = fields.Char('Invoice Template', size=50, default='facture.odt')        
-    invoicecomstructprefix = fields.Char('Invoice Comstruct prefix', size=4)
+    invoicecomstructprefix = fields.Char('Invoice Comstruct prefix', size=3, required = True)
     invoicelastcomstruct = fields.Integer('Last Invoice structured comunication number')
     invoiceemailaddress = fields.Char('Invoice email address', size=50)
     invoiceemailsubject = fields.Char('Invoice email subject', size=50)
     invoiceemailtext = fields.Text('Invoice email text')        
-    remindercomstructprefix = fields.Char('Reminder Comstruct prefix', size=4)
+    remindercomstructprefix = fields.Char('Reminder Comstruct prefix', size=3, required = True)
     reminderlastcomstruct = fields.Integer('Last Reminder structured comunication number')
     reminderemailaddress = fields.Char('Reminder email address', size=50)
     reminderemailsubject = fields.Char('Reminder email subject', size=50)
@@ -54,12 +56,91 @@ class extraschool_activitycategory(models.Model):
     invoice_report_id = fields.Many2one('extraschool.report', 'Invoice report')
     payment_invitation_report_id = fields.Many2one('extraschool.report', 'Payment invitation report')
     payment_invitation_email_subject = fields.Char('Payment invitation Email subject')
-    payment_invitation_com_struct_prefix = fields.Char('Payment invitation Comstruct prefix', size=4)
+    payment_invitation_com_struct_prefix = fields.Char('Payment invitation Comstruct prefix', size=3, required = True)
     payment_invitation_courrier_text = fields.Text('Payment invitation courrier text')
 
     logo = fields.Binary()
     slogan = fields.Char('Slogan', size=50)
 
 
+    def check_invoice_prefix(self,invoicecomstructprefix):
+        res = {'return_val' : True,
+               'msg' : ''}
+        # search for activity category that have invoicecomstructprefix = payment_invitation_com_struct_prefix or remindercomstructprefix = payment_invitation_com_struct_prefix
+        if len(self.search(['|',('payment_invitation_com_struct_prefix', '=', invoicecomstructprefix), ('remindercomstructprefix', '=', invoicecomstructprefix)])) :
+            res = {'return_val' : False,
+                   'msg' : "It's not possible to update the activity_categ because there are other activity category with the same prefix used for pre-paid or reminder "}
+        if len(self.env['extraschool.payment'].search([('structcom_prefix', '=', invoicecomstructprefix),])) :
+            res = {'return_val' : False,
+                   'msg' : "It's not possible to update the activity_categ because there are payment with the old invoice prefix"}
+        
+        return res
     
-extraschool_activitycategory()
+    def check_pay_invit_prefix(self,payment_invitation_com_struct_prefix):
+        res = {'return_val' : True,
+               'msg' : ''}
+        # search for activity category that have invoicecomstructprefix = payment_invitation_com_struct_prefix or remindercomstructprefix = payment_invitation_com_struct_prefix
+        if len(self.search(['|',('invoicecomstructprefix', '=', payment_invitation_com_struct_prefix), ('remindercomstructprefix', '=', payment_invitation_com_struct_prefix)])) :
+            res = {'return_val' : False,
+                   'msg' : "It's not possible to update the activity_categ because there are other activity category with the same prefix used for invoicing or reminder"}
+        if len(self.env['extraschool.payment'].search([('structcom_prefix', '=', payment_invitation_com_struct_prefix),])) :
+            res = {'return_val' : False,
+                   'msg' : "It's not possible to update the activity_categ because there are payment with the old pre-paid prefix"}            
+        return res
+    
+    def check_reminder_prefix(self,remindercomstructprefix):
+        res = {'return_val' : True,
+               'msg' : ''}
+        # search for activity category that have invoicecomstructprefix = payment_invitation_com_struct_prefix or remindercomstructprefix = payment_invitation_com_struct_prefix
+        if len(self.search(['|',('invoicecomstructprefix', '=', remindercomstructprefix), ('payment_invitation_com_struct_prefix', '=', remindercomstructprefix)])) :
+            res = {'return_val' : False,
+                   'msg' : "It's not possible to update the activity_categ because there are other activity category with the same prefix used for invoicing or pre-paid"}
+        if len(self.env['extraschool.payment'].search([('structcom_prefix', '=', remindercomstructprefix),])) :
+            res = {'return_val' : False,
+                   'msg' : "It's not possible to update the activity_categ because there are payment with the old reminder prefix"}            
+        return res
+    
+
+            
+        return res
+
+    @api.multi
+    def write(self, vals):
+        print "vals = %s" % (vals)
+        for activity_categ in self:
+            if 'invoicecomstructprefix' in vals:
+                res = activity_categ.check_invoice_prefix(vals['invoicecomstructprefix'])
+                if not res['return_val']:
+                    raise Warning(res['msg'])
+            if 'remindercomstructprefix' in vals:
+                res = activity_categ.check_reminder_prefix(vals['remindercomstructprefix'])
+                if not res['return_val']:
+                    raise Warning(res['msg'])
+            if 'payment_invitation_com_struct_prefix' in vals:
+                res = activity_categ.check_pay_invit_prefix(vals['payment_invitation_com_struct_prefix'])
+                if not res['return_val']:
+                    raise Warning(res['msg'])
+                                
+            super(extraschool_activitycategory,activity_categ).write(vals)
+        
+        return True
+            
+
+
+    @api.model
+    def create(self, vals):  
+        res = self.check_pay_invit_prefix(vals['payment_invitation_com_struct_prefix'])
+        if not res['return_val']:
+            raise Warning(res['msg'])     
+        res = self.check_pay_invit_prefix(vals['payment_invitation_com_struct_prefix'])
+        if not res['return_val']:
+            raise Warning(res['msg'])     
+        res = self.check_pay_invit_prefix(vals['payment_invitation_com_struct_prefix'])
+        if not res['return_val']:
+            raise Warning(res['msg'])     
+                                
+        res = super(extraschool_activitycategory,self).create(vals)
+
+        return res
+    
+
