@@ -8,6 +8,10 @@
 			<field name="arch" type="xml">
 				<tree string="Activity category">
                     <field name="name"/> 
+                    <field name="invoicecomstructprefix" />
+                    <field name="remindercomstructprefix" />
+                    <field name="payment_invitation_com_struct_prefix" />
+                    
                     			
 				</tree>
 			</field>
