@@ -232,6 +232,10 @@ class extraschool_prestation_times_of_the_day(models.Model):
             #first call of the fct .... Here we are .... let's go
             down = True
             occurrence = start_time.activity_occurrence_id
+        print "**************************************************"
+        print "_occu_completion %s" % (occurrence.activityid.name)
+        print "**************************************************"
+
         self._occu_start_stop_completion(start_time,stop_time,occurrence,down,from_occurrence)
         
         #compute entry before going down
@@ -263,7 +267,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
                                                                             ('occurrence_date', '=', self.date_of_the_day),
                                                                             ('place_id.id', '=', occurrence.place_id.id),
                                                                             ('prest_from', '>=', prest_from),
-                                                                            ('prest_to', '<=', prest_to)])
+                                                                            ])
         for child_occurrence in child_occurrences:
             if occurrence.check_if_child_take_part_to(self.child_id):
                 self._occu_completion(start_time,stop_time,child_occurrence,True,occurrence)
