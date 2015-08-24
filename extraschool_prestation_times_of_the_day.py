@@ -252,7 +252,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
             prest_to = stop_time.prestation_time
         else:     
             #to do check if EXIT exist in occurrence and check from_to     
-            prest_to = occurrence.prest_to if occurrence.prest_to <= stop_time.prestation_time else stop_time.prestation_time
+            prest_to = stop_time.prestation_time if occurrence.prest_to <= stop_time.prestation_time else occurrence.prest_to
         
         print "down"
         #get child occurrence starting after current occu
