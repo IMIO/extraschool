@@ -29,7 +29,7 @@
 	                    <field name="comment" />
 		                <separator string="Computed prestations" colspan="4"/> 
 	                    <field name="prestationtime_ids" nolabel="1" colspan="4">
-	                    	<tree string="prestation_times" colors="red:verified==False">
+	                    	<tree string="prestation_times" colors="red:verified==False" editable="bottom">
 		                   		<field name="childid" />
 	                    		<field name="placeid" />
 		                   		<field name="activity_occurrence_id" />
