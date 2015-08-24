@@ -244,7 +244,8 @@ class extraschool_prestation_times_of_the_day(models.Model):
                 prest_from = from_occurrence.prest_to
             else:
                 #to do check if entry presta exist in occurrence, check it with from_to
-                prest_from = from_occurrence.prest_from
+#                prest_from = from_occurrence.prest_from
+                prest_from = occurrence.prest_from
 
         #compute exit before going down
         if stop_time.activity_occurrence_id.id == occurrence.id:
