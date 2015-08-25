@@ -86,7 +86,7 @@
 							<newline/>
 							<field name="payment_invitation_com_struct_prefix" />                
 							<newline/>
-							<field name="payment_invitation_courrier_text" widget="text_ckeditor4"/>                
+							<field name="payment_invitation_courrier_text" widget="html"/>                
 						</group>
 					</page>
               	</notebook>
