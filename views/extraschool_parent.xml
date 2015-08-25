@@ -59,16 +59,18 @@
                     <newline/>
                     <field name="totalbalance"/>
                     <newline/>
-                    <field name="invoice_ids">
-	                    <tree string="Invoices" version="7.0">
+					<separator string="Factures" colspan="4"/>                    
+                    <field name="invoice_ids" nolabel="1" colspan="4">
+	                    <tree string="Invoices">
 	                        <field name="activitycategoryid"/>
+							<field name="structcom"/>	                        
 	                        <field name="period_from"/>
 	                        <field name="period_to"/>
 	                        <field name="payment_term"/>
 	                        <field name="amount_total" sum="True"/>
 	                        <field name="amount_received" sum="True"/>
 	                        <field name="balance"  sum="True"/>
-	                        <field name="no_value"/>
+	                        <field name="no_value"/>	                        
 	                    </tree>
                     </field>
                     </group>
