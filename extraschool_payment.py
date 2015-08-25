@@ -68,15 +68,22 @@ class extraschool_payment(models.Model):
         payment_id = obj_payment.write(cr, uid, ids[0], {'parent_id':context['parent_id'],'account':form['account'],'paymenttype':form['paymenttype'],'paymentdate':form['paymentdate'],'structcom':form['structcom'],'name':form['name'],'amount':form['amount']}, context=context)
 
     def _get_reconciliation_list(self,parent_id,com_struct_prefix,payment_type,amount):
-        if payment_type == 1: #pre-paid
+        print "payment type : %s" % (payment_type)
+        print "com_struct : %s" % (com_struct_prefix)
+        
+        if payment_type == '1': #pre-paid
+            print "pre paid !!!!!!!!!!!"
             invoices = self.env['extraschool.invoice'].search([('parentid', '=', parent_id.id),
-                                                               ('activitycategoryid.payment_invitation_com_struct_prefix', '=',com_struct_prefix),
+                                                               ('structcom', 'like',"+++" + com_struct_prefix),
                                                                ('balance', '>', 0)])
         else:
+            print "invoice !!!!!!!!!!!!!!"
             invoices = self.env['extraschool.invoice'].search([('parentid', '=', parent_id.id),
-                                                               ('structcom', 'not in',[activity_categ.activity_category_id.payment_invitation_com_struct_prefix for activity_categ in self.env['extraschool.activitycategory']]),
                                                                ('balance', '>', 0)])
+            print "categ : %s" % ([activity_categ.payment_invitation_com_struct_prefix for activity_categ in self.env['extraschool.activitycategory'].search([])])
+            invoices = invoices.filtered(lambda r: r.structcom[3:6] not in [activity_categ.payment_invitation_com_struct_prefix for activity_categ in self.env['extraschool.activitycategory'].search([])])
         
+        print "-------invoices : %s" % (invoices)
         #sort result on date 
         invoices.sorted(key=lambda r: r.number)
         print "invoices %s" % (invoices)  
