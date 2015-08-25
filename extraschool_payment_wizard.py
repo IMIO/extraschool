@@ -26,6 +26,8 @@ from openerp.api import Environment
 import cStringIO
 import base64
 import os
+from openerp.exceptions import except_orm, Warning, RedirectWarning
+
 
 class extraschool_payment_wizard(models.TransientModel):
     _name = 'extraschool.payment_wizard'
@@ -51,31 +53,21 @@ class extraschool_payment_wizard(models.TransientModel):
     @api.onchange('payment_type','amount','activity_category_id')
     @api.one
     def _on_change_payment_type(self):
-        if self.payment_type == 1:
-            invoices = self.env['extraschool.invoice'].search([('parentid', '=', self.parent_id.id),
-                                                               ('activitycategoryid.payment_invitation_com_struct_prefix', '=',self.activity_category_id.payment_invitation_com_struct_prefix),
-                                                               ('balance', '>', 0)])
+        
+        self.payment_reconciliation_ids = [(5, 0, 0)]
+        print "self.activity_category_id : %s" % (self.activity_category_id)
+        reconciliations = []
+        if self.payment_type == '1':
+            if len(self.activity_category_id):
+                reconciliations = self.env['extraschool.payment']._get_reconciliation_list(self.parent_id,self.activity_category_id.payment_invitation_com_struct_prefix,self.payment_type,self.amount)
         else:
-            invoices = self.env['extraschool.invoice'].search([('parentid', '=', self.parent_id.id),
-                                                               ('structcom', 'not in',[activity_categ.activity_category_id.payment_invitation_com_struct_prefix for activity_categ in self.env['extraschool.activitycategory']]),
-                                                               ('balance', '>', 0)])
-        
-        #sort result on date 
-        invoices.sorted(key=lambda r: r.number)
-        print "invoices %s" % (invoices)  
-        reste = self.amount      
-        tmp_payment_reconciliation_ids = []
-        for invoice in invoices:
-            #compute reconcil amount
-            if reste >= invoice.balance:
-                reconcil_amout = invoice.balance
-            else:
-                reconcil_amout = reste
-            reste -= reconcil_amout
+                reconciliations = self.env['extraschool.payment']._get_reconciliation_list(self.parent_id,self.activity_category_id.payment_invitation_com_struct_prefix,self.payment_type,self.amount)
             
-            tmp_payment_reconciliation_ids = [(0,0,{'invoice_id': invoice.id,
-                                                     'amount': reconcil_amout})]
-        
+        tmp_payment_reconciliation_ids = []
+        for reconciliation in reconciliations:           
+            tmp_payment_reconciliation_ids.append((0,0,reconciliation))
+            
+        print "reconcil : %s" % (tmp_payment_reconciliation_ids)
         self.payment_reconciliation_ids = tmp_payment_reconciliation_ids
 
 
@@ -105,32 +97,14 @@ class extraschool_payment_wizard(models.TransientModel):
 
     @api.multi
     def next(self):
-#         if self.payment_type == 1:
-#             invoices = self.env['extraschool.invoice'].search([('parentid', '=', self.parent_id.id),
-#                                                                ('activitycategoryid.payment_invitation_com_struct_prefix', '=',self.activity_category_id.payment_invitation_com_struct_prefix),
-#                                                                ('balance', '>', 0)])
-#         else:
-#             invoices = self.env['extraschool.invoice'].search([('parentid', '=', self.parent_id.id),
-#                                                                ('structcom', 'not in',[activity_categ.activity_category_id.payment_invitation_com_struct_prefix for activity_categ in self.env['extraschool.activitycategory']]),
-#                                                                ('balance', '>', 0)])
-#         
-#         #sort result on date 
-#         invoices.sorted(key=lambda r: r.number)
-#         print "invoices %s" % (invoices)  
-#         reste = self.amount      
-#         tmp_payment_reconciliation_ids = []
-#         for invoice in invoices:
-#             #compute reconcil amount
-#             if reste >= invoice.balance:
-#                 reconcil_amout = invoice.balance
-#             else:
-#                 reconcil_amout = reste
-#             reste -= reconcil_amout
-#             
-#             tmp_payment_reconciliation_ids = [(0,0,{'invoice_id': invoice.id,
-#                                                      'amount': reconcil_amout})]
-#         
-#         self.payment_reconciliation_ids = tmp_payment_reconciliation_ids
+
+        #check if reconcil amount on line is never greater than balance
+        
+#         if len(self.payment_reconciliation_ids.filter(lambda r: r.amount > r.invoice_balance)):
+#             raise Warning("At least one reconciliation line is not correct : amount greater than balance")
+#         self.create_payment()
+
+        
         self.state = 'print_payment'  
 #         
 #         return {
