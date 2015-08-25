@@ -36,13 +36,62 @@ class extraschool_payment_wizard(models.TransientModel):
                                     ),'Payment type', required=True)
     payment_date = fields.Date('Date', required=True)
     amount = fields.Float('Amount', required=True)
+    reconciliation_amount_balance = fields.Float(compute="_compute_reconciliation_amount_balance", string='Amount to reconcil')    
+    reconciliation_amount = fields.Float(compute="_compute_reconciliation_amount", string='Amount reconcilied')
     parent_id = fields.Many2one("extraschool.parent")
     activity_category_id = fields.Many2one("extraschool.activitycategory")
+    payment_reconciliation_ids = fields.One2many('extraschool.payment_wizard_reconcil','payment_wizard_id')
+
     state = fields.Selection([('init', 'Init'),
                              ('print_payment', 'Print payment'),
                              ('print_reconciliation', 'Print reconciliation')],
                             'State', required=True, default='init'
                             )
+
+    @api.onchange('payment_type','amount','activity_category_id')
+    @api.one
+    def _on_change_payment_type(self):
+        if self.payment_type == 1:
+            invoices = self.env['extraschool.invoice'].search([('parentid', '=', self.parent_id.id),
+                                                               ('activitycategoryid.payment_invitation_com_struct_prefix', '=',self.activity_category_id.payment_invitation_com_struct_prefix),
+                                                               ('balance', '>', 0)])
+        else:
+            invoices = self.env['extraschool.invoice'].search([('parentid', '=', self.parent_id.id),
+                                                               ('structcom', 'not in',[activity_categ.activity_category_id.payment_invitation_com_struct_prefix for activity_categ in self.env['extraschool.activitycategory']]),
+                                                               ('balance', '>', 0)])
+        
+        #sort result on date 
+        invoices.sorted(key=lambda r: r.number)
+        print "invoices %s" % (invoices)  
+        reste = self.amount      
+        tmp_payment_reconciliation_ids = []
+        for invoice in invoices:
+            #compute reconcil amount
+            if reste >= invoice.balance:
+                reconcil_amout = invoice.balance
+            else:
+                reconcil_amout = reste
+            reste -= reconcil_amout
+            
+            tmp_payment_reconciliation_ids = [(0,0,{'invoice_id': invoice.id,
+                                                     'amount': reconcil_amout})]
+        
+        self.payment_reconciliation_ids = tmp_payment_reconciliation_ids
+
+
+    @api.onchange('reconciliation_amount')
+    @api.depends('reconciliation_amount')
+    def _compute_reconciliation_amount_balance(self):
+        for payment in self:
+            payment.reconciliation_amount_balance = payment.amount - payment.reconciliation_amount
+
+    @api.onchange('payment_reconciliation_ids')
+    @api.depends('payment_reconciliation_ids')
+    def _compute_reconciliation_amount(self):
+        for payment in self:
+            payment.reconciliation_amount = sum(reconcil_line.amount for reconcil_line in payment.payment_reconciliation_ids)
+
+
     @api.model
     def default_get(self,fields):
         print "----------------"
@@ -53,7 +102,47 @@ class extraschool_payment_wizard(models.TransientModel):
         print "return : %s" % {'parent_id': self.env.context.get('parent_id'),}
         return {'state': 'init',
                 'parent_id': self.env.context.get('parent_id'),}
-        
+
+    @api.multi
+    def next(self):
+#         if self.payment_type == 1:
+#             invoices = self.env['extraschool.invoice'].search([('parentid', '=', self.parent_id.id),
+#                                                                ('activitycategoryid.payment_invitation_com_struct_prefix', '=',self.activity_category_id.payment_invitation_com_struct_prefix),
+#                                                                ('balance', '>', 0)])
+#         else:
+#             invoices = self.env['extraschool.invoice'].search([('parentid', '=', self.parent_id.id),
+#                                                                ('structcom', 'not in',[activity_categ.activity_category_id.payment_invitation_com_struct_prefix for activity_categ in self.env['extraschool.activitycategory']]),
+#                                                                ('balance', '>', 0)])
+#         
+#         #sort result on date 
+#         invoices.sorted(key=lambda r: r.number)
+#         print "invoices %s" % (invoices)  
+#         reste = self.amount      
+#         tmp_payment_reconciliation_ids = []
+#         for invoice in invoices:
+#             #compute reconcil amount
+#             if reste >= invoice.balance:
+#                 reconcil_amout = invoice.balance
+#             else:
+#                 reconcil_amout = reste
+#             reste -= reconcil_amout
+#             
+#             tmp_payment_reconciliation_ids = [(0,0,{'invoice_id': invoice.id,
+#                                                      'amount': reconcil_amout})]
+#         
+#         self.payment_reconciliation_ids = tmp_payment_reconciliation_ids
+        self.state = 'print_payment'  
+#         
+#         return {
+#             'type': 'ir.actions.act_window',
+#             'res_model': 'extraschool.payment_wizard',
+#             'view_mode': 'form',
+#             'view_type': 'form',
+#             'res_id': self.id,
+#             'views': [(False, 'form')],
+#             'target': 'new',
+#             } 
+
     @api.multi
     def create_payment(self):
         payment = self.env['extraschool.payment']
@@ -62,22 +151,12 @@ class extraschool_payment_wizard(models.TransientModel):
                         'structcom_prefix': self.activity_category_id.payment_invitation_com_struct_prefix,
                         'amount': self.amount})
         return {}
-    
-#         #get last qrcode value from config
-#         self.last_id = config.lastqrcodenbr + 1
-#         if self.print_type == 'qrcode':
-#             #SET last qrcode value to config
-#             config.lastqrcodenbr = config.lastqrcodenbr + self.quantity
-# 
-#         datas = {
-#         'ids': self.ids,
-#         'model': report.model, 
-#         }
-#         
-#         return {
-#                'type': 'ir.actions.report.xml',
-#                'report_name': 'extraschool.tpl_payment_wizard_report',
-#                'datas': datas,
-#                'report_type': 'qweb-pdf',
-#            }        
+         
+class extraschool_payment_wizard_reconcil(models.TransientModel):
+    _name = 'extraschool.payment_wizard_reconcil'
 
+    payment_wizard_id = fields.Many2one("extraschool.payment_wizard")
+    invoice_id = fields.Many2one("extraschool.invoice")
+    invoice_balance = fields.Float(related="invoice_id.balance", string = "Balance")
+    amount = fields.Float('Amount', required=True)
+    
