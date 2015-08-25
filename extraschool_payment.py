@@ -66,6 +66,33 @@ class extraschool_payment(models.Model):
         obj_payment = self.pool.get('extraschool.payment')
         form = self.read(cr,uid,ids,)[-1]
         payment_id = obj_payment.write(cr, uid, ids[0], {'parent_id':context['parent_id'],'account':form['account'],'paymenttype':form['paymenttype'],'paymentdate':form['paymentdate'],'structcom':form['structcom'],'name':form['name'],'amount':form['amount']}, context=context)
+
+    def _get_reconciliation_list(self,parent_id,com_struct_prefix,payment_type,amount):
+        if payment_type == 1: #pre-paid
+            invoices = self.env['extraschool.invoice'].search([('parentid', '=', parent_id.id),
+                                                               ('activitycategoryid.payment_invitation_com_struct_prefix', '=',com_struct_prefix),
+                                                               ('balance', '>', 0)])
+        else:
+            invoices = self.env['extraschool.invoice'].search([('parentid', '=', parent_id.id),
+                                                               ('structcom', 'not in',[activity_categ.activity_category_id.payment_invitation_com_struct_prefix for activity_categ in self.env['extraschool.activitycategory']]),
+                                                               ('balance', '>', 0)])
+        
+        #sort result on date 
+        invoices.sorted(key=lambda r: r.number)
+        print "invoices %s" % (invoices)  
+        reste = amount      
+        tmp_payment_reconciliation_ids = []
+        for invoice in invoices:
+            #compute reconcil amount
+            if reste >= invoice.balance:
+                reconcil_amout = invoice.balance
+            else:
+                reconcil_amout = reste
+            reste -= reconcil_amout
+            
+            tmp_payment_reconciliation_ids.append({'invoice_id': invoice.id,
+                                                   'amount': reconcil_amout})
+        return tmp_payment_reconciliation_ids
         
     
 class extraschool_payment_reconciliation(models.Model):
