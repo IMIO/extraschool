@@ -65,9 +65,9 @@
 	                        <field name="period_from"/>
 	                        <field name="period_to"/>
 	                        <field name="payment_term"/>
-	                        <field name="amount_total"/>
-	                        <field name="amount_received"/>
-	                        <field name="balance"/>
+	                        <field name="amount_total" sum="True"/>
+	                        <field name="amount_received" sum="True"/>
+	                        <field name="balance"  sum="True"/>
 	                        <field name="no_value"/>
 	                    </tree>
                     </field>
@@ -80,7 +80,7 @@
                         <field name="activitycategoryid"/>
                         <field name="transmissiondate"/>
                         <field name="term"/>
-                        <field name="amount"/>
+                        <field name="amount" sum="True"/>
                     </tree>
                     </field>
                     </group>
