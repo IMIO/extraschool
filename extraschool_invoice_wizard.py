@@ -271,11 +271,12 @@ class extraschool_invoice_wizard(models.TransientModel):
             if saved_parent_id != invoice_line['parent_id']:
                 saved_parent_id = invoice_line['parent_id']
                 next_invoice_num += 1
-                invoice = inv_obj.create({'name' : 'invoice_parent_id_%s' % (str(next_invoice_num).zfill(7),), 
-                                'parentid' : saved_parent_id,
-                                'biller_id' : biller.id,
-                                'activitycategoryid': self.activitycategory.id,
-                                'structcom': "+++%s/%s/%s+++" % (self.activitycategory.invoicecomstructprefix,str(next_invoice_num).zfill(7),long(self.activitycategory.invoicecomstructprefix+str(next_invoice_num).zfill(7)) % 97)})
+                invoice = inv_obj.create({'name' : 'invoice_%s' % (str(next_invoice_num).zfill(7),),
+                                            'number' : next_invoice_num,
+                                            'parentid' : saved_parent_id,
+                                            'biller_id' : biller.id,
+                                            'activitycategoryid': self.activitycategory.id,
+                                            'structcom': "+++%s/%s/%s+++" % (self.activitycategory.invoicecomstructprefix,str(next_invoice_num).zfill(7),long(self.activitycategory.invoicecomstructprefix+str(next_invoice_num).zfill(7)) % 97)})
                 invoice_ids.append(invoice.id)
 
             duration_h = int(invoice_line['duration'])
