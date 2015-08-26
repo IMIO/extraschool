@@ -29,21 +29,32 @@
       				}
     			</style>
 				<t t-foreach="docs" t-as="qr_report">
-			        <div class="page">
-				   		<t t-foreach="range(qr_report.last_id,qr_report.last_id+qr_report.quantity)" t-as="i">
-				           	<div class="qrcode">
-				           		<t t-if="qr_report.print_type == 'qrcode'">
-				           			<img class="qrcode_img" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', i, 300, 300)" />
-				           		</t>
-				           		<t t-if="qr_report.print_type == 'logo'">
-				           			<img class="qrcode_img" t-att-src="'data:image/jpeg;base64,%s' % qr_report.logo" />
-				           		</t>
-				           		<t t-if="qr_report.print_value">
-					           		<span><t t-esc="i"/></span>
-								</t>
-				           	</div>
-						</t>
-		    	    </div>
+					<t t-set="zz" t-value="0" />
+					<t t-set="nbr_page" t-value="qr_report.quantity / 15" />
+					<t t-if="qr_report.quantity % 15 != 0">
+						<t t-set="nbr_page" t-value="nbr_page + 1" />
+					</t>
+					<t t-foreach="range(0,nbr_page)" t-as="zz">
+						<div class="page">					
+							<t t-set="zz" t-value="0" />
+					   		<t t-foreach="range(qr_report.last_id+15*zz,qr_report.last_id+15*(zz+1))" t-as="i">
+					           	<div class="qrcode">
+					           		<t t-if="qr_report.print_type == 'qrcode'">
+					           			<img class="qrcode_img" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', i, 300, 300)" />
+					           		</t>
+					           		<t t-if="qr_report.print_type == 'logo'">
+					           			<img class="qrcode_img" t-att-src="'data:image/jpeg;base64,%s' % qr_report.logo" />
+					           		</t>
+					           		<t t-if="qr_report.print_value">
+						           		<span><t t-esc="i"/></span>
+									</t>
+									
+					           	</div>
+					       
+								
+							</t>			
+						</div>	
+					</t>	
 				</t>
 		</template>
 
