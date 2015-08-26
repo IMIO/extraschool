@@ -99,31 +99,33 @@ class extraschool_payment_wizard(models.TransientModel):
     def next(self):
 
         #check if reconcil amount on line is never greater than balance
+        print "************************"
+        zz = 0
+        for r in self.payment_reconciliation_ids:
+            if r.amount > r.invoice_balance : 
+                zz += 1
+                
+        print str(self.payment_reconciliation_ids.ids)
         
-#         if len(self.payment_reconciliation_ids.filter(lambda r: r.amount > r.invoice_balance)):
-#             raise Warning("At least one reconciliation line is not correct : amount greater than balance")
-#         self.create_payment()
-
+        print "************************"
         
-        self.state = 'print_payment'  
-#         
-#         return {
-#             'type': 'ir.actions.act_window',
-#             'res_model': 'extraschool.payment_wizard',
-#             'view_mode': 'form',
-#             'view_type': 'form',
-#             'res_id': self.id,
-#             'views': [(False, 'form')],
-#             'target': 'new',
-#             } 
+        if zz:
+            raise Warning("At least one reconciliation line is not correct : amount greater than balance")
+        self.create_payment()
 
     @api.multi
     def create_payment(self):
         payment = self.env['extraschool.payment']
-        payment.create({'parent_id': self.parent_id.id,
+        payment = payment.create({'parent_id': self.parent_id.id,
                         'paymentdate': self.payment_date,
                         'structcom_prefix': self.activity_category_id.payment_invitation_com_struct_prefix,
                         'amount': self.amount})
+        
+        payment_reconciliation = self.env['extraschool.payment_reconciliation']
+        for reconciliation in self.payment_reconciliation_ids:
+            payment_reconciliation.create({'payment_id' : payment.id,
+                                           'invoice_id' : reconciliation.invoice_id.id,
+                                           'amount' : reconciliation.amount})
         return {}
          
 class extraschool_payment_wizard_reconcil(models.TransientModel):
