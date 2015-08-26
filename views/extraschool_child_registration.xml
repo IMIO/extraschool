@@ -1,0 +1,76 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>        
+		<record model="ir.ui.view" id="extraschool_child_registration_tree">
+			<field name="name">child_registration</field>
+			<field name="model">extraschool.child_registration</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="child registration">					
+                    <field name="school_id"/>
+                    <field name="class_id"/>
+					<field name="place_id"/>
+                    <field name="activity_id"/>
+					<field name="week"/>                    	
+                    <field name="date_from"/> 
+					<field name="date_to"/>
+				</tree>
+			</field>
+		</record>
+		<record model="ir.ui.view" id="extraschool_child_registration_form">
+			<field name="name">child_registration</field>
+			<field name="model">extraschool.child_registration</field>            
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="child_registration">
+					<group col="4">
+	                    <field name="school_id"/>
+	                    <field name="class_id"/>						
+					    <field name="activity_id"/>
+						<field name="place_id"/>
+						<field name="week"/>
+        	            <newline/>
+						<field name="date_from"/> 
+						<field name="date_to"/>
+					</group>
+					<separator string="Registrations" />
+					<field name="child_registration_line_ids" colspan="4" >
+						<tree editable="bottom">
+						    <field name="child_id"/>
+							<field name="monday"/>
+		                    <field name="tuesday"/> 
+							<field name="wednesday"/>						
+						    <field name="thursday"/>
+							<field name="friday"/>
+		                    <field name="saterday"/> 
+							<field name="sunday"/>								
+						</tree>							
+					</field>
+				</form>
+			</field>
+		</record>  
+
+        <record id="extraschool_child_registration_search_view" model="ir.ui.view">
+            <field name="name">extraschool_child_registration.search</field>
+            <field name="model">extraschool.child_registration</field>
+            <field name="arch" type="xml">
+                <search string="child_registration Search">
+                   <field name="activity_id"/>                	
+                   <field name="place_id"/>            
+                   <field name="date_from"/>
+                   <field name="date_to"/>
+                   <group  expand='0' string='Group by...'>
+                       <filter string='place_id' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'place_id'}"/>
+                       <filter string='activity_id' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'activity_id'}"/>
+                   </group>                    
+                </search>
+            </field>
+        </record>
+        
+		<record model="ir.actions.act_window" id="action_extraschool_child_registration">
+			<field name="name">Child registration</field>
+			<field name="res_model">extraschool.child_registration</field>
+			<field name="view_type">form</field>
+		</record>            			      
+	</data>
+</openerp>

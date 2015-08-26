@@ -18,7 +18,8 @@
         <menuitem name="Extraschool" id="menu_extraschool"/>
 		<menuitem name="Signaletics" id="extraschool_menu_signaletics" parent="menu_extraschool"/>
 		<menuitem name="Childs" parent="extraschool_menu_signaletics" id="extraschool_menu_child" action="action_extraschool_child"/>
-        <menuitem name="Parents" parent="extraschool_menu_signaletics" id="extraschool_menu_parent" action="action_extraschool_parent"/>
+		<menuitem name="Childs registration" parent="extraschool_menu_signaletics" id="extraschool_menu_child_registration" action="action_extraschool_child_registration"/>			
+		<menuitem name="Parents" parent="extraschool_menu_signaletics" id="extraschool_menu_parent" action="action_extraschool_parent"/>
         <menuitem name="Schools" parent="extraschool_menu_signaletics" id="extraschool_menu_school" action="action_extraschool_school"/>
         <menuitem name="places" parent="extraschool_menu_signaletics" id="extraschool_menu_place" action="action_extraschool_place"/>
         <menuitem name="Activities" parent="extraschool_menu_signaletics" id="extraschool_menu_activity" action="action_extraschool_activity"/>

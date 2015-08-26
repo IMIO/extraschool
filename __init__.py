@@ -71,6 +71,7 @@ import extraschool_class
 import extraschool_level
 import extraschool_childtype
 import extraschool_child
+import extraschool_child_registration
 import extraschool_one_report
 import extraschool_settings
 import extraschool_payment
