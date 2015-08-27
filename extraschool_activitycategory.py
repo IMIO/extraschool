@@ -33,7 +33,13 @@ class extraschool_activitycategory(models.Model):
     name = fields.Char('Name', size=50)         
     activities = fields.One2many('extraschool.activity', 'category','Activities')               
     placeids = fields.Many2many('extraschool.place','extraschool_activitycategory_place_rel', 'activitycategory_id', 'place_id','Schoolcare place')
-    childpositiondetermination = fields.Selection((('byparent','by parent'),('byparentwp','by parent (only childs with prestations)'),('byaddress','by address'),('byaddresswp','by address (only childs with prestations)')),'Child position determination', required = True)
+    childpositiondetermination = fields.Selection((('byparent','by parent'),
+                                                   ('byparentwp','by parent (only childs with prestations)'),
+                                                   ('byparent_nb_childs_wp','by parent (position replaced by nbr childs with prestations'),                                                   
+                                                   ('byaddress','by address'),
+                                                   ('byaddresswp','by address (only childs with prestations)'),
+                                                   ('byaddress_nb_childs_wp','by address (position replaced by nbr childs with prestations'),
+                                                   ),'Child position determination', required = True)
     priorityorder = fields.Integer('Priority order')
     invoicetemplate = fields.Char('Invoice Template', size=50, default='facture.odt')        
     invoicecomstructprefix = fields.Char('Invoice Comstruct prefix', size=3, required = True)
