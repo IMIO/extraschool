@@ -29,6 +29,7 @@ class extraschool_school(models.Model):
     _description = 'School'
 
     name = fields.Char('Name', size=50)
+    logo = fields.Binary()
     street = fields.Char('Street', size=50)
     zipcode = fields.Char('ZipCode', size=6)
     city = fields.Char('City', size=50)

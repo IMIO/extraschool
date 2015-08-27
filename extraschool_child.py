@@ -72,6 +72,8 @@ class extraschool_child(models.Model):
         if not self.tagid :
             config = self.env['extraschool.mainsettings'].browse([1])
             self.tagid = config.lastqrcodenbr = config.lastqrcodenbr + 1
+        
+        return long(self.tagid)
 
 extraschool_child()
 
