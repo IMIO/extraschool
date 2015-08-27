@@ -38,9 +38,9 @@
                             </tree>
                         </field>
                     </group>
-                    <group colspan="1">
+                    <!--  group colspan="1">
                         <field name="amountperyear" nolabel="1" widget="html"/>
-                    </group>
+                    </group -->
                 </form>
             </field>
         </record>

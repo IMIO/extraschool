@@ -59,9 +59,9 @@ class extraschool_payment_wizard(models.TransientModel):
         reconciliations = []
         if self.payment_type == '1':
             if len(self.activity_category_id):
-                reconciliations = self.env['extraschool.payment']._get_reconciliation_list(self.parent_id,self.activity_category_id.payment_invitation_com_struct_prefix,self.payment_type,self.amount)
+                reconciliations = self.env['extraschool.payment']._get_reconciliation_list(self.parent_id.id,self.activity_category_id.payment_invitation_com_struct_prefix,self.payment_type,self.amount)
         else:
-                reconciliations = self.env['extraschool.payment']._get_reconciliation_list(self.parent_id,self.activity_category_id.payment_invitation_com_struct_prefix,self.payment_type,self.amount)
+                reconciliations = self.env['extraschool.payment']._get_reconciliation_list(self.parent_id.id,self.activity_category_id.payment_invitation_com_struct_prefix,self.payment_type,self.amount)
             
         tmp_payment_reconciliation_ids = []
         for reconciliation in reconciliations:           

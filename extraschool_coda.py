@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from openerp import models, api, fields, _
 from openerp.api import Environment
 import cStringIO
 import base64
@@ -33,10 +33,11 @@ class extraschool_coda(models.Model):
     name = fields.Char('Name', size=20)
     codafile = fields.Binary('CODA File')
     codadate = fields.Date('CODA Date',readonly=True)
-    amountperyear = fields.Text(compute='_compute_amountperyear', string="Amount per year")
+    #amountperyear = fields.Text(compute='_compute_amountperyear', string="Amount per year")
     paymentids = fields.One2many('extraschool.payment', 'coda','Payments',readonly=True)
     rejectids = fields.One2many('extraschool.reject', 'coda','Rejects',readonly=True)
     
+    '''
     @api.depends('paymentids')
     def _compute_amountperyear (self, cr, uid, ids, field_name, arg, context):
         
@@ -48,6 +49,7 @@ class extraschool_coda(models.Model):
                 strhtml=strhtml+'<TR><TD>'+str(int(amountperyear['year']))+'</TD><TD>'+str(amountperyear['amount'])+'</TD></TR>'
             strhtml=strhtml+'</TABLE></HTML>'
             record.amountperyear = strhtml
+    '''
        
     @api.model
     def create(self, vals):  
@@ -68,6 +70,7 @@ class extraschool_coda(models.Model):
         invoice_obj = self.env['extraschool.invoice']
         reminder_obj = self.env['extraschool.reminder']
         payment_obj = self.env['extraschool.payment']
+        payment_reconciliation_obj = self.env['extraschool.payment_reconciliation']
         reject_obj = self.env['extraschool.reject']
         activitycategory_ids=activitycategory_obj.search([('bankaccount', '=', bankaccount)]).ids
         if lines[0][127] !='2':
@@ -98,7 +101,7 @@ class extraschool_coda(models.Model):
                             communication=line[65:77]
                         else:
                             reject=True
-                            rejectcause='No structured Communication'
+                            rejectcause=_('No structured Communication')
                             communication=line[62:112]
                     else:
                         if line[1]=='3':
@@ -117,19 +120,30 @@ class extraschool_coda(models.Model):
                                     if communication[0:len(prefix['invoicecomstructprefix'])] == prefix['invoicecomstructprefix']:
                                         prefixfound=True
                         if prefixfound:                            
-                            invoice_ids=invoice_obj.search(cr, uid, [('structcom', '=', communication)])                           
-                            if len(invoice_ids)==1:
-                                invoice=invoice_obj.read(cr, uid, invoice_ids,['amount_received','balance'])[0]
-                                if invoice['balance'] < amount:
+                            invoice=invoice_obj.search([('structcom', '=', communication)])                           
+                            if invoice.ensure_one():
+                                if invoice.balance < amount:
                                     reject=True
-                                    rejectcause='Amount greather than invoice balance'
-                                else:
-                                    invoice_obj.write(cr, uid, invoice_ids,{'amount_received':invoice['amount_received']+amount,'balance':invoice['balance']-amount})
-                                    payment_id = payment_obj.create(cr, uid, {'concernedinvoice': invoice_ids[0],'account':parentaccount,'paymenttype':'1','paymentdate':transfertdate,'structcom':communication,'name':name,'amount':amount,'adr1':adr1,'adr2':adr2})
-                                    paymentids.append(payment_id)
+                                    rejectcause=_('Amount greather than invoice balance')
+                                else:            
+                                    payment_id = payment_obj.create({'parent_id': invoice.parentid,
+                                                                  'paymentdate': transfertdate,
+                                                                  'structcom_prefix': prefix['invoicecomstructprefix'],
+                                                                  'structcom':communication,
+                                                                  'paymenttype':'1',
+                                                                  'account':parentaccount,
+                                                                  'name':name,
+                                                                  'adr1':adr1,
+                                                                  'adr2':adr2,
+                                                                  'amount': amount})
+                                                                            
+                                    payment_reconciliation_obj.create({'payment_id' : payment_id.id,
+                                                                           'invoice_id' : invoice.id,
+                                                                           'amount' : amount})
+                                    paymentids.append(payment_id.id)                                    
                             else:
                                 reject=True
-                                rejectcause='No valid structured Communication'
+                                rejectcause=_('No valid structured Communication')
                         else:
                             cr.execute('select remindercomstructprefix from extraschool_activitycategory')
                             prefixes=cr.dictfetchall()
@@ -146,7 +160,7 @@ class extraschool_coda(models.Model):
                                     sumbalance=cr.fetchall()[0][0]
                                     if amount != sumbalance:
                                         reject=True
-                                        rejectcause='A reminder has been found but the amount is not corresponding to balances of invoices'
+                                        rejectcause=_('A reminder has been found but the amount is not corresponding to balances of invoices')
                                     else:
                                         reminder=reminder_obj.read(cr, uid, reminder_ids,['concernedinvoices'])[0]
                                         for concernedinvoice in reminder['concernedinvoices']:
@@ -155,10 +169,37 @@ class extraschool_coda(models.Model):
                                             payment_id = payment_obj.create(cr, uid, {'concernedinvoice': concernedinvoice,'account':parentaccount,'paymenttype':'1','paymentdate':transfertdate,'structcom':communication,'name':name,'amount':invoice['balance'],'adr1':adr1,'adr2':adr2})
                                             paymentids.append(payment_id)
                             else:
-                                reject=True;
-                                rejectcause='No valid structured Communication'
+                                cr.execute('select payment_invitation_com_struct_prefix from extraschool_activitycategory')
+                                prefixes=cr.dictfetchall()
+                                prefixfound=False
+                                for prefix in prefixes:
+                                    if prefix['payment_invitation_com_struct_prefix']:
+                                        if len(communication) > len(prefix['payment_invitation_com_struct_prefix']):
+                                            if communication[0:len(prefix['payment_invitation_com_struct_prefix'])] == prefix['payment_invitation_com_struct_prefix']:
+                                                prefixfound=True
+                                if prefixfound:
+                                        parentid = int(communication[3:10])                                
+                                        payment_id = payment_obj.create({'parent_id': parentid,
+                                                                  'paymentdate': transfertdate,
+                                                                  'structcom_prefix': prefix['payment_invitation_com_struct_prefix'],
+                                                                  'structcom':communication,
+                                                                  'paymenttype':'1',
+                                                                  'account':parentaccount,
+                                                                  'name':name,
+                                                                  'adr1':adr1,
+                                                                  'adr2':adr2,
+                                                                  'amount': amount})
+                                        
+                                        for reconciliation in payment_id._get_reconciliation_list(parentid,prefix['payment_invitation_com_struct_prefix'],1,amount):
+                                            payment_reconciliation_obj.create({'payment_id' : payment_id.id,
+                                                                           'invoice_id' : reconciliation.invoice_id.id,
+                                                                           'amount' : reconciliation.amount})
+                                        paymentids.append(payment_id.id)
+                                else:
+                                    reject=True;
+                                    rejectcause=_('No valid structured Communication')
                     if reject:
-                        reject_id = reject_obj.create(cr, uid, {'account':parentaccount,'paymenttype':'1','paymentdate':transfertdate,'structcom':communication,'name':name,'amount':amount,'adr1':adr1,'adr2':adr2,'rejectcause':rejectcause})
+                        reject_id = reject_obj.create({'account':parentaccount,'paymenttype':'1','paymentdate':transfertdate,'structcom':communication,'name':name,'amount':amount,'adr1':adr1,'adr2':adr2,'rejectcause':rejectcause}).id
                         rejectids.append(reject_id)
                     reject = False
                     amount = 0.0
