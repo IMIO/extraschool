@@ -57,7 +57,7 @@ class extraschool_activity(models.Model):
     price = fields.Float('Price',digits=(7,3))
     price_list_id = fields.Many2one('extraschool.price_list', 'Price List')    
     period_duration = fields.Integer('Period Duration')  
-    default_from_to = fields.Selection((('from','From'),('to','To'),('from_to','From and To')),'Default From To') 
+    default_from_to = fields.Selection((('from','default_from_to From'),('to','default_from_to To'),('from_to','default_from_to From and To')),'default_from_to Default From To') 
     default_from = fields.Float('Default from')
     default_to = fields.Float('Default to')
     fixedperiod = fields.Boolean('Fixed period',default=False)
