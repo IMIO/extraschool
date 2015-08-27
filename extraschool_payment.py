@@ -45,7 +45,7 @@ class extraschool_payment(models.Model):
     amount = fields.Float('Amount')
     solde = fields.Float(compute='compute_solde', string='Solde', store=True)
     payment_reconciliation_ids = fields.One2many('extraschool.payment_reconciliation','payment_id')
-    coda = fields.Many2one('extraschool.coda', 'Coda', required=False)
+    coda = fields.Many2one('extraschool.coda', 'Coda', required=False,ondelete='cascade')
 
     @api.onchange('structcom')
     def compute_prefix(self):
@@ -59,7 +59,6 @@ class extraschool_payment(models.Model):
     def compute_solde(self):
         for record in self:
             record.solde = record.amount - sum(reconciliation.amount for reconciliation in record.payment_reconciliation_ids)
- 
     
     def savepayment(self, cr, uid, ids, context=None):
         obj_payment = self.pool.get('extraschool.payment')
@@ -68,11 +67,11 @@ class extraschool_payment(models.Model):
 
     def _get_reconciliation_list(self,parent_id,com_struct_prefix,payment_type,amount):
         if payment_type == '1': #pre-paid
-            invoices = self.env['extraschool.invoice'].search([('parentid', '=', parent_id.id),
+            invoices = self.env['extraschool.invoice'].search([('parentid', '=', parent_id),
                                                                ('structcom', 'like',"+++" + com_struct_prefix),
                                                                ('balance', '>', 0)])
         else:
-            invoices = self.env['extraschool.invoice'].search([('parentid', '=', parent_id.id),
+            invoices = self.env['extraschool.invoice'].search([('parentid', '=', parent_id),
                                                                ('balance', '>', 0)])
             invoices = invoices.filtered(lambda r: r.structcom[3:6] not in [activity_categ.payment_invitation_com_struct_prefix for activity_categ in self.env['extraschool.activitycategory'].search([])])
         
@@ -97,7 +96,7 @@ class extraschool_payment_reconciliation(models.Model):
     _name = 'extraschool.payment_reconciliation'
     _description = 'Payment reconciliation'
     
-    payment_id = fields.Many2one("extraschool.payment", required=True)
+    payment_id = fields.Many2one("extraschool.payment", required=True,ondelete='cascade')
     invoice_id = fields.Many2one("extraschool.invoice", required=True)
     amount = fields.Float('Amount')
     account = fields.Char(related='payment_id.account')

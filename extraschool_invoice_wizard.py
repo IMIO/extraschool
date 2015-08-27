@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from openerp import models, api, fields, _
 from openerp.api import Environment
 from datetime import date
 import datetime
@@ -323,7 +323,20 @@ class extraschool_invoice_wizard(models.TransientModel):
         self.env.cr.execute(sql_check_verified, (self.activitycategory.id,))
         verified_count = self.env.cr.dictfetchall()
         if verified_count[0]['verified_count']:
-            raise Warning("At least one price list is missing !!!\n ")
+            sql_check_missing_pl = """select extraschool_activityoccurrence.name
+                                from extraschool_invoicedprestations ip left join extraschool_activityoccurrence 
+                                on activity_occurrence_id = extraschool_activityoccurrence.id
+                                where ip.id in (""" + ','.join(map(str, invoice_line_ids))+ """)
+                                    and price_list_version_id is null
+                                ;"""
+
+            self.env.cr.execute(sql_check_missing_pl, (self.activitycategory.id,))
+            missing_pls = self.env.cr.dictfetchall()
+            message = _("At least one price list is missing !!!\n ")
+            for missing_pl in missing_pls:
+                message = message + missing_pl['name'] + '\n'
+            
+            raise Warning(message)
         #Mise à jour des prix et unité de tps
         invoice_line_ids_sql = (tuple(invoice_line_ids),)
         print str(invoice_line_ids_sql)
