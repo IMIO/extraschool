@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-27 07:39+0000\n"
-"PO-Revision-Date: 2015-08-27 09:41+0200\n"
+"POT-Creation-Date: 2015-08-27 08:49+0000\n"
+"PO-Revision-Date: 2015-08-27 10:59+0200\n"
 "Last-Translator: Mike <michael.michot@imio.be>\n"
 "Language-Team: French <>\n"
 "MIME-Version: 1.0\n"
@@ -920,11 +920,6 @@ msgid "Days"
 msgstr "Jours"
 
 #. module: extraschool
-#: field:extraschool.activity,default_from_to:0
-msgid "Default From To"
-msgstr "Forfaitaire"
-
-#. module: extraschool
 #: field:extraschool.activity,default_from:0
 msgid "Default from"
 msgstr "Début par défaut"
@@ -1145,15 +1140,9 @@ msgid "Friday"
 msgstr "Vendredi"
 
 #. module: extraschool
-#: selection:extraschool.activity,default_from_to:0
 #: field:extraschool.activity,prest_from:0
 msgid "From"
 msgstr "Début"
-
-#. module: extraschool
-#: selection:extraschool.activity,default_from_to:0
-msgid "From and To"
-msgstr "Forfait"
 
 #. module: extraschool
 #: field:extraschool.parent,gsm:0
@@ -2824,7 +2813,6 @@ msgid "Time correction Wizard"
 msgstr "Correction des heures"
 
 #. module: extraschool
-#: selection:extraschool.activity,default_from_to:0
 #: field:extraschool.activity,prest_to:0
 msgid "To"
 msgstr "à"
@@ -3022,6 +3010,11 @@ msgstr "par adresse (seulement enfants avec présences)"
 
 #. module: extraschool
 #: selection:extraschool.activitycategory,childpositiondetermination:0
+msgid "by address (position replaced by nbr childs with prestations"
+msgstr "by address (position replaced by nbr childs with prestations"
+
+#. module: extraschool
+#: selection:extraschool.activitycategory,childpositiondetermination:0
 msgid "by parent"
 msgstr "par parent"
 
@@ -3029,6 +3022,11 @@ msgstr "par parent"
 #: selection:extraschool.activitycategory,childpositiondetermination:0
 msgid "by parent (only childs with prestations)"
 msgstr "par parent (seulement enfants avec présences)"
+
+#. module: extraschool
+#: selection:extraschool.activitycategory,childpositiondetermination:0
+msgid "by parent (position replaced by nbr childs with prestations"
+msgstr "by parent (position replaced by nbr childs with prestations"
 
 #. module: extraschool
 #: view:extraschool.prestation_times_of_the_day:extraschool.prestation_times_of_the_day_search_view
@@ -3085,6 +3083,26 @@ msgstr "container"
 #: view:extraschool.timecorrection_wizard:extraschool.extraschool_timecorrection_wizard_form
 msgid "d'après les paramètres ci-dessous -> PRUDENCE"
 msgstr "d'après les paramètres ci-dessous -> PRUDENCE"
+
+#. module: extraschool
+#: field:extraschool.activity,default_from_to:0
+msgid "default_from_to Default From To"
+msgstr "Heure par défaut"
+
+#. module: extraschool
+#: selection:extraschool.activity,default_from_to:0
+msgid "default_from_to From"
+msgstr "Entrée"
+
+#. module: extraschool
+#: selection:extraschool.activity,default_from_to:0
+msgid "default_from_to From and To"
+msgstr "Entrée et sortie"
+
+#. module: extraschool
+#: selection:extraschool.activity,default_from_to:0
+msgid "default_from_to To"
+msgstr "Sortie"
 
 #. module: extraschool
 #: view:extraschool.discount:extraschool.extraschool_discount_form
