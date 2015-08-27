@@ -280,7 +280,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                 invoice_ids.append(invoice.id)
 
             duration_h = int(invoice_line['duration'])
-            duration_m = int((invoice_line['duration']-duration_h)*100)
+            duration_m = int((invoice_line['duration']-duration_h)*60)
             duration = duration_h*60 + duration_m
             invoice_line_ids.append(inv_line_obj.create({'invoiceid' : invoice.id,
                                  'childid': invoice_line['childid'],
