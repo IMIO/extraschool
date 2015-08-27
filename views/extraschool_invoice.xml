@@ -61,8 +61,11 @@
 	   		                    		<field name="placeid" />
 	   		                    		<field name="prestation_date" />
 	   		                    		<field name="duration"/>
+	   		                    		<field name="period_duration"/>
+	   		                    		<field name="period_tolerance"/>
 	   		                    		<field name="quantity"/>
-	   		                    		
+	   		                    		<field name="unit_price"/>
+	   		                    		<field name="total_price"/>	   		                    		
 	   		                    	</tree>
 	                			</field>
 	   		                </page>
