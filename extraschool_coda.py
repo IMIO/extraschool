@@ -50,7 +50,8 @@ class extraschool_coda(models.Model):
             strhtml=strhtml+'</TABLE></HTML>'
             record.amountperyear = strhtml
     '''
-       
+    def format_comstruct(self,comstruct):
+        return ('+++%s/%s/%s+++' % (comstruct[0:3],comstruct[3:7],comstruct[7:12]))
     @api.model
     def create(self, vals):  
         #to do refactoring suite api V8
@@ -98,7 +99,7 @@ class extraschool_coda(models.Model):
                         amount=eval(line[31:44]+'.'+line[44:47])
                         transfertdate=codadate                      
                         if line[62]=='1':
-                            communication=line[65:77]
+                            communication=self.format_comstruct(line[65:77])                            
                         else:
                             reject=True
                             rejectcause=_('No structured Communication')
@@ -178,7 +179,7 @@ class extraschool_coda(models.Model):
                                             if communication[0:len(prefix['payment_invitation_com_struct_prefix'])] == prefix['payment_invitation_com_struct_prefix']:
                                                 prefixfound=True
                                 if prefixfound:
-                                        parentid = int(communication[3:10])                                
+                                        parentid = int(communication[7:12]+communication[13:16])                                
                                         payment_id = payment_obj.create({'parent_id': parentid,
                                                                   'paymentdate': transfertdate,
                                                                   'structcom_prefix': prefix['payment_invitation_com_struct_prefix'],

@@ -315,7 +315,8 @@ class extraschool_invoice_wizard(models.TransientModel):
                                  }).id)
 
         print str(invoice_line_ids)
-
+        
+        self.activitycategory.invoicelastcomstruct = next_invoice_num
         #Mise à jour des pricelist
         sql_update_price_list = """UPDATE extraschool_invoicedprestations ip
                                 SET price_list_version_id = 
