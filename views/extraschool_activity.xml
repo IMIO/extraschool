@@ -1,6 +1,18 @@
 <?xml version="1.0" ?>
 <openerp>
 	<data> 
+        <record model="ir.ui.view" id="extraschool_activityexclusiondates_tree">
+			<field name="name">extraschool.activityexclusiondates.tree</field>
+			<field name="model">extraschool.activityexclusiondates</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Activity">
+	            	<field name="date_from" />
+	            	<field name="date_to" />		
+				</tree>
+			</field>
+		</record>
+				
         <record model="ir.ui.view" id="extraschool_activity_tree">
 			<field name="name">extraschool.activity.tree</field>
 			<field name="model">extraschool.activity</field>
@@ -64,6 +76,11 @@
 				                	<field name="date_from" />
 				                	<field name="date_to" />
 			                	</tree>
+			                	<form>
+				                	<field name="date_from" />
+				                	<field name="date_to" />
+			                	</form>
+			                	
 			                </field>
 						</group>
             		</page>
