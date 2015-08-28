@@ -305,7 +305,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                 invoice_ids.append(invoice.id)
 
             duration_h = int(invoice_line['duration'])
-            duration_m = int((invoice_line['duration']-duration_h)*60)
+            duration_m = int(ceil(round((invoice_line['duration']-duration_h)*60)))
             duration = duration_h*60 + duration_m
             invoice_line_ids.append(inv_line_obj.create({'invoiceid' : invoice.id,
                                  'childid': invoice_line['childid'],
@@ -315,7 +315,8 @@ class extraschool_invoice_wizard(models.TransientModel):
                                  }).id)
 
         print str(invoice_line_ids)
-
+        
+        self.activitycategory.invoicelastcomstruct = next_invoice_num
         #Mise à jour des pricelist
         sql_update_price_list = """UPDATE extraschool_invoicedprestations ip
                                 SET price_list_version_id = 
