@@ -301,7 +301,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                             'biller_id' : biller.id,
                                             'activitycategoryid': self.activitycategory.id,
                                             'schoolimplantationid': saved_schoolimplantation_id,
-                                            'structcom': "+++%s/%s/%s+++" % (self.activitycategory.invoicecomstructprefix,str(next_invoice_num).zfill(7),long(self.activitycategory.invoicecomstructprefix+str(next_invoice_num).zfill(7)) % 97)})
+                                            'structcom': self.env['extraschool.coda'].format_comstruct(self.activitycategory.invoicecomstructprefix  + str(next_invoice_num).zfill(7) + str(long(self.activitycategory.invoicecomstructprefix+str(next_invoice_num).zfill(7)) % 97))})
                 invoice_ids.append(invoice.id)
 
             duration_h = int(invoice_line['duration'])
