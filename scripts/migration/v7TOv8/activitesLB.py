@@ -29,7 +29,7 @@ ids = models.execute_kw(db, uid, password, 'extraschool.childposition', 'unlink'
 placeids = models.execute_kw(db, uid, password, 'extraschool.place', 'search', [[]])
 
 childtypeidaucun = models.execute_kw(db, uid, password, 'extraschool.childtype', 'search', [[['name','=','aucun']]])
-childtypeidpers = models.execute_kw(db, uid, password, 'extraschool.childtype', 'search', [[['name','=','Personnel']]])
+childtypeidpers = models.execute_kw(db, uid, password, 'extraschool.childtype', 'search', [[['name','like','Personnel%']]])
 priceliststandardid = models.execute_kw(db, uid, password, 'extraschool.price_list', 'create', [{
    'name':'Prix standard',
 }])
@@ -58,6 +58,7 @@ pricelistversionstandardid = models.execute_kw(db, uid, password, 'extraschool.p
    'validity_from':'2013-09-01',
    'validity_to':'2016-12-31',
    'child_position_ids':[[6,0,childpositionids]],
+   'child_type_ids':[[6,0,childtypeidaucun]],
    'period_duration':1,
    'period_tolerance':0,
    'price':0.03,
@@ -71,6 +72,7 @@ pricelistversiongratuitid = models.execute_kw(db, uid, password, 'extraschool.pr
    'validity_from':'2013-09-01',
    'validity_to':'2016-12-31',
    'child_position_ids':[[6,0,childpositionids]],
+   'child_type_ids':[[6,0,childtypeidaucun]],
    'period_duration':1,
    'period_tolerance':0,
    'price':0.0,
@@ -84,6 +86,7 @@ pricelistversionpersid = models.execute_kw(db, uid, password, 'extraschool.price
    'validity_from':'2013-09-01',
    'validity_to':'2016-12-31',
    'child_position_ids':[[6,0,childpositionids]],
+   'child_type_ids':[[6,0,childtypeidpers]],
    'period_duration':1,
    'period_tolerance':0,
    'price':0.0,
@@ -97,6 +100,7 @@ pricelistversion18051815id = models.execute_kw(db, uid, password, 'extraschool.p
    'validity_from':'2013-09-01',
    'validity_to':'2016-12-31',
    'child_position_ids':[[6,0,childpositionids]],
+   'child_type_ids':[[6,0,(childtypeidpers+childtypeidaucun)]],
    'period_duration':5,
    'period_tolerance':0,
    'price':5,
@@ -110,9 +114,10 @@ pricelistversion181523id = models.execute_kw(db, uid, password, 'extraschool.pri
    'validity_from':'2013-09-01',
    'validity_to':'2016-12-31',
    'child_position_ids':[[6,0,childpositionids]],
+   'child_type_ids':[[6,0,(childtypeidpers+childtypeidaucun)]],
    'period_duration':285,
    'period_tolerance':0,
-   'price':5,
+   'price':10,
 }])
 
 schoolimplantationids = models.execute_kw(db, uid, password, 'extraschool.schoolimplantation', 'search', [[['name','not ilike','%meux%']]])
