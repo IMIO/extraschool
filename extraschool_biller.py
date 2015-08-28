@@ -42,7 +42,7 @@ class extraschool_biller(models.Model):
     novalue = fields.Float(compute='_compute_novalue', string="No Value")
     balance = fields.Float(compute='_compute_balance', string="Balance")
     nbinvoices = fields.Integer(compute='_compute_nbinvoices', string="Nb of invoices")
-    paymentsstats = fields.Text(compute='_compute_paymentsstats', string="Payments stats")
+#    paymentsstats = fields.Text(compute='_compute_paymentsstats', string="Payments stats")
     filename = fields.Char('filename', size=20,readonly=True)
     biller_file = fields.Binary('File', readonly=True)
     oldid = fields.Integer('oldid')  
@@ -65,31 +65,31 @@ class extraschool_biller(models.Model):
     @api.depends('invoice_ids.no_value')
     def _compute_novalue(self):
         for record in self:
-            record.novalue = sum(invoice.novalue for invoice in record.invoice_ids)
+            record.novalue = sum(invoice.no_value for invoice in record.invoice_ids)
 
     @api.depends('invoice_ids')
     def _compute_nbinvoices(self):
         for record in self:
             record.nbinvoices = len(self.invoice_ids)
 
-    @api.depends('invoice_ids')
-    def _compute_paymentsstats(self):
-        #to do check if it's not possible to use tree view on field invoice_ids
-        cr, uid = self.env.cr, self.env.user.id
-
-        for record in self:     
-            strhtml='<HTML><TABLE border=1 width=80%><TD>Implantation</TD><TD>Nb Factures</TD><TD>Nb Paiements</TD><TD>Total paiements</TD><TD>Total factures</TD></TR>'
-            cr.execute("select schoolimplantationid,extraschool_schoolimplantation.name as implantationname,count(extraschool_invoice) as nbinvoices from extraschool_invoice left join extraschool_schoolimplantation on schoolimplantationid=extraschool_schoolimplantation.id where biller_id=%s group by schoolimplantationid,extraschool_schoolimplantation.name", (record.id,))
-            schoolimplantations=cr.dictfetchall()
-            for schoolimplantation in schoolimplantations:
-                cr.execute("select count(extraschool_payment.id) as nbpayments,sum(extraschool_payment.amount) as amount from extraschool_payment left join extraschool_invoice on concernedinvoice=extraschool_invoice.id where biller_id=%s and schoolimplantationid=%s", (record.id,schoolimplantation['schoolimplantationid']))                
-                paymentstats=cr.dictfetchall()[0]
-                cr.execute("select sum(amount_total) from extraschool_invoice where biller_id=%s and schoolimplantationid=%s", (record.id,schoolimplantation['schoolimplantationid']))                
-                totinvoices=cr.fetchall()[0][0]
-                strhtml=strhtml+'<TR><TD>'+str(lbutils.genstreetcode(schoolimplantation['implantationname']))+'</TD><TD>'+str(schoolimplantation['nbinvoices'])+'</TD><TD>'+str(paymentstats['nbpayments'])+'</TD><TD>'+str(paymentstats['amount'])+'</TD><TD>'+str(totinvoices)+'</TD></TR>'
-            strhtml=strhtml+'</TABLE></HTML>'
-
-            record.paymentsstats=strhtml
+#     @api.depends('invoice_ids')
+#     def _compute_paymentsstats(self):
+#         #to do check if it's not possible to use tree view on field invoice_ids
+#         cr, uid = self.env.cr, self.env.user.id
+# 
+#         for record in self:     
+#             strhtml='<HTML><TABLE border=1 width=80%><TD>Implantation</TD><TD>Nb Factures</TD><TD>Nb Paiements</TD><TD>Total paiements</TD><TD>Total factures</TD></TR>'
+#             cr.execute("select schoolimplantationid,extraschool_schoolimplantation.name as implantationname,count(extraschool_invoice) as nbinvoices from extraschool_invoice left join extraschool_schoolimplantation on schoolimplantationid=extraschool_schoolimplantation.id where biller_id=%s group by schoolimplantationid,extraschool_schoolimplantation.name", (record.id,))
+#             schoolimplantations=cr.dictfetchall()
+#             for schoolimplantation in schoolimplantations:
+#                 cr.execute("select count(extraschool_payment.id) as nbpayments,sum(extraschool_payment.amount) as amount from extraschool_payment left join extraschool_invoice on concernedinvoice=extraschool_invoice.id where biller_id=%s and schoolimplantationid=%s", (record.id,schoolimplantation['schoolimplantationid']))                
+#                 paymentstats=cr.dictfetchall()[0]
+#                 cr.execute("select sum(amount_total) from extraschool_invoice where biller_id=%s and schoolimplantationid=%s", (record.id,schoolimplantation['schoolimplantationid']))                
+#                 totinvoices=cr.fetchall()[0][0]
+#                 strhtml=strhtml+'<TR><TD>'+str(lbutils.genstreetcode(schoolimplantation['implantationname']))+'</TD><TD>'+str(schoolimplantation['nbinvoices'])+'</TD><TD>'+str(paymentstats['nbpayments'])+'</TD><TD>'+str(paymentstats['amount'])+'</TD><TD>'+str(totinvoices)+'</TD></TR>'
+#             strhtml=strhtml+'</TABLE></HTML>'
+# 
+#             record.paymentsstats=strhtml
             
     @api.one        
     def sendmails(self):  

@@ -36,13 +36,24 @@
                     <newline/>
                     <field name="biller_file" filename="filename"/>
                     <newline/>
-                    <field name="nbinvoices"/>
-                    <newline/>
-                    <field name="paymentsstats" nolabel="1" widget="html"/>
-                    
+                    <field name="nbinvoices"/>                    
                     <newline/>
                     <button name="sendmails" type="object" string="Send invoices by email" />
                     </group>
+                    <separator string="Invoices" />
+					<field name="invoice_ids">
+						<tree>
+	                        <field name="activitycategoryid"/>
+							<field name="structcom"/>	                        
+	                        <field name="period_from"/>
+	                        <field name="period_to"/>
+	                        <field name="payment_term"/>
+	                        <field name="amount_total" sum="True"/>
+	                        <field name="amount_received" sum="True"/>
+	                        <field name="balance"  sum="True"/>
+	                        <field name="no_value"/>	                        								
+						</tree>
+					</field>                    
 				</form>
 			</field>
 		</record>
