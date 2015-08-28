@@ -63,7 +63,7 @@
 					<field name="placeid"/>		
 					<field name="childid"/>
 					<field name="prestation_date"/>
-                    <field name="prestation_time"/>
+                    <field name="prestation_time" widget="float_time"/>
                     <field name="error_msg"/>
                     <field name="activity_occurrence_id"/>
                     <field name="es"/>           
