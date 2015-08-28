@@ -132,7 +132,7 @@ class extraschool_payment_reconciliation(models.Model):
                                ELSE sum(pay.solde) 
                         END as solde,
                         '+++' || LPAD(case when zz.ac_com_struct_prefix is NULL then '0' else zz.ac_com_struct_prefix end, 3, '0') 
-                        || '/' || LPAD(zz.p_id::TEXT,7,'0') || '/'
+                        || '/' || substring(LPAD(zz.p_id::TEXT,7,'0') from 1 for 4) || '/' || substring(LPAD(zz.p_id::TEXT,7,'0') from 5 for 3)
                         || LPAD(((LPAD(case when zz.ac_com_struct_prefix is NULL then '0' else zz.ac_com_struct_prefix end, 3, '0') || LPAD(zz.p_id::TEXT,7,'0'))::bigint % 97)::TEXT,2,'0')
                         || '+++' as com_struct 
                         
