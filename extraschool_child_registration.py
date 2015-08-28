@@ -31,7 +31,7 @@ class extraschool_child_registration(models.Model):
     _name = 'extraschool.child_registration'
     _description = 'Child registration'
 
-    school_id = fields.Many2one('extraschool.school', required=True)
+    school_implantation_id = fields.Many2one('extraschool.schoolimplantation', required=True)
     class_id = fields.Many2one('extraschool.class', required=True)
     place_id = fields.Many2one('extraschool.place', required=True)
     activity_id = fields.Many2one('extraschool.activity', required=True)
@@ -39,6 +39,12 @@ class extraschool_child_registration(models.Model):
     date_from = fields.Date('Date from', required=True)
     date_to = fields.Date('Date to', required=True)
     child_registration_line_ids = fields.One2many('extraschool.child_registration_line','child_registration_id')
+    
+    @api.onchange('school_implantation_id')
+    @api.one
+    def _on_change_school_implantation_id(self):
+        print "_on_change_school_implantation_id"
+        return {'domain' : {'class_id' : [('schoolimplantation', '=', self.school_implantation_id.id)]}}
     
 class extraschool_child_registration_line(models.Model):
     _name = 'extraschool.child_registration_line'
