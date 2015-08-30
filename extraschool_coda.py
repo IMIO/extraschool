@@ -118,7 +118,7 @@ class extraschool_coda(models.Model):
                         prefixfound=False                    
                         for prefix in prefixes:
                                 if (len(prefix['invoicecomstructprefix']) > 0) and (len(communication) > len(prefix['invoicecomstructprefix'])):
-                                    if communication[0:len(prefix['invoicecomstructprefix'])] == prefix['invoicecomstructprefix']:
+                                    if communication[3:3+len(prefix['invoicecomstructprefix'])] == prefix['invoicecomstructprefix']:
                                         prefixfound=True
                         if prefixfound:                            
                             invoice=invoice_obj.search([('structcom', '=', communication)])                           
@@ -127,7 +127,7 @@ class extraschool_coda(models.Model):
                                     reject=True
                                     rejectcause=_('Amount greather than invoice balance')
                                 else:            
-                                    payment_id = payment_obj.create({'parent_id': invoice.parentid,
+                                    payment_id = payment_obj.create({'parent_id': invoice.parentid.id,
                                                                   'paymentdate': transfertdate,
                                                                   'structcom_prefix': prefix['invoicecomstructprefix'],
                                                                   'structcom':communication,
@@ -143,6 +143,9 @@ class extraschool_coda(models.Model):
                                                                            'amount' : amount})
                                     paymentids.append(payment_id.id)                                    
                             else:
+                                print '---------INVOICE----'
+                                print communication
+                                print '--------------------'
                                 reject=True
                                 rejectcause=_('No valid structured Communication')
                         else:
@@ -152,7 +155,7 @@ class extraschool_coda(models.Model):
                             for prefix in prefixes:
                                 if prefix['remindercomstructprefix']:
                                     if len(communication) > len(prefix['remindercomstructprefix']):
-                                        if communication[0:len(prefix['remindercomstructprefix'])] == prefix['remindercomstructprefix']:
+                                        if communication[3:3+len(prefix['remindercomstructprefix'])] == prefix['remindercomstructprefix']:
                                             prefixfound=True
                             if prefixfound:
                                 reminder_ids=reminder_obj.search(cr, uid, [('structcom', '=', communication)])
@@ -176,10 +179,10 @@ class extraschool_coda(models.Model):
                                 for prefix in prefixes:
                                     if prefix['payment_invitation_com_struct_prefix']:
                                         if len(communication) > len(prefix['payment_invitation_com_struct_prefix']):
-                                            if communication[0:len(prefix['payment_invitation_com_struct_prefix'])] == prefix['payment_invitation_com_struct_prefix']:
+                                            if communication[3:3+len(prefix['payment_invitation_com_struct_prefix'])] == prefix['payment_invitation_com_struct_prefix']:
                                                 prefixfound=True
                                 if prefixfound:
-                                        parentid = int(communication[7:12]+communication[13:16])                                
+                                        parentid = int(communication[7:11]+communication[12:15])                                
                                         payment_id = payment_obj.create({'parent_id': parentid,
                                                                   'paymentdate': transfertdate,
                                                                   'structcom_prefix': prefix['payment_invitation_com_struct_prefix'],
@@ -198,6 +201,9 @@ class extraschool_coda(models.Model):
                                         paymentids.append(payment_id.id)
                                 else:
                                     reject=True;
+                                    print '---------PREPAY-----'
+                                    print communication
+                                    print '--------------------'
                                     rejectcause=_('No valid structured Communication')
                     if reject:
                         reject_id = reject_obj.create({'account':parentaccount,'paymenttype':'1','paymentdate':transfertdate,'structcom':communication,'name':name,'amount':amount,'adr1':adr1,'adr2':adr2,'rejectcause':rejectcause}).id
