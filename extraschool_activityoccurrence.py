@@ -218,5 +218,8 @@ class extraschool_activity_occurrence_child_registration(models.Model):
     child_id = fields.Many2one('extraschool.child', 'child', select=True)
     child_registration_line_id = fields.Many2one('extraschool.child_registration_line', 'Child registration line', select=True, ondelete="cascade")
 
-
+    _sql_constraints = [
+        ('occu_child_uniq', 'unique(activity_occurrence_id,child_id)',
+            "It's not allowed to register a child more than once to the same occurrence!"),
+    ]   
 
