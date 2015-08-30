@@ -75,20 +75,6 @@ class extraschool_prestation_times_of_the_day(models.Model):
                 
         self.verified = verified
         return self               
-    
-    def _get_child_activity_occurrence_ids(self,prestation_time,time_from,time_to,registered = True):
-        #
-        # !!!!  Could be better if we handle occurrence child and parent
-        #
-        #get occurrence in time slot
-        return self.env['extraschool.activityoccurrence'].search([('occurrence_date', '=', prestation_time.prestation_date),
-                                                           ('prest_from', '>=', time_from),
-                                                           ('prest_to', '<=', time_to),
-                                                           ('activityid', 'in', [activity.id for activity in prestation_time.activity_occurrence_id.activityid.activity_child_ids]),
-                                                           ('child_registration_ids', '=', prestation_time.childid.id)   
-                                                           ('activityid.autoaddchilds', '=', False)                                                        
-                                                           ])
-    
 
     def _add_comment(self,comment,reset=False):
         tmp_comment = self.comment
