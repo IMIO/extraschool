@@ -23,15 +23,22 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="child_registration">
+					<field name="state" invisible="True" />
+					<header>
+						<button name="validate" String="Set to validate" type="object" states='draft'/>	
+						<button name="validate" String="Validate" type="object" states='to_validate'/>	
+					</header>
 					<group col="4">
 	                    <field name="school_implantation_id"/>
 	                    <field name="class_id"/>						
-					    <field name="activity_id"/>
 						<field name="place_id"/>
-						<field name="week"/>
+	                    <field name="activity_id"/>
+	                    <field name="week"/>
         	            <newline/>
 						<field name="date_from"/> 
 						<field name="date_to"/>
+						<newline />
+						<button name="update_child_list" String="Update list of child" type="object"  states='draft'/>					
 					</group>
 					<separator string="Registrations" />
 					<field name="child_registration_line_ids" colspan="4" >
@@ -42,7 +49,7 @@
 							<field name="wednesday"/>						
 						    <field name="thursday"/>
 							<field name="friday"/>
-		                    <field name="saterday"/> 
+		                    <field name="saturday"/> 
 							<field name="sunday"/>								
 						</tree>							
 					</field>

@@ -43,7 +43,8 @@ class extraschool_activityoccurrence(models.Model):
     prest_to = fields.Float('prest_to', select=True)
     date_start = fields.Datetime('Date start',compute='_compute_date_start', store=True, select=True)
     date_stop = fields.Datetime('Date stop',compute='_compute_date_stop', store=True) 
-    child_registration_ids = fields.Many2many('extraschool.child','extraschool_activityoccurrence_cild_rel', 'activityoccurrence_id', 'child_id','Child registration')        
+#    child_registration_ids = fields.Many2many('extraschool.child','extraschool_activityoccurrence_cild_rel', 'activityoccurrence_id', 'child_id','Child registration')        
+    child_registration_ids = fields.One2many('extraschool.activity_occurrence_child_registration','activity_occurrence_id','Child registration')        
     prestation_times_ids = fields.One2many('extraschool.prestationtimes', 'activity_occurrence_id','Child prestation times')   
     place_id = fields.Many2one('extraschool.place', 'Place', required=False)      
     invoicedprestations_ids = fields.One2many('extraschool.invoicedprestations', 'activity_occurrence_id','Invoiced prestation')                  
@@ -52,7 +53,7 @@ class extraschool_activityoccurrence(models.Model):
     def name_get(self):            
         res=[]
         for occurrence in self:
-            res.append((occurrence.id, occurrence.activityname + ' - ' + datetime.strptime(occurrence.occurrence_date, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y")))    
+            res.append((occurrence.id, "%s - %s" % (occurrence.activityname, datetime.strptime(occurrence.occurrence_date, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y"))))    
 
         return res    
         
@@ -145,13 +146,56 @@ class extraschool_activityoccurrence(models.Model):
                 child_ids.append(child_registration.child_id.id)
                 
                 if activity.autoaddchilds:
-                    self.add_presta(occurrence, child_registration.child_id.id, None,False)
-                    
+#                    self.add_presta(occurrence, child_registration.child_id.id, None,False)
+                    self.env['extraschool.prestationtimes'].create({'placeid' : self.place_id.id,
+                                       'childid' : child_registration.child_id.id,
+                                       'prestation_date' : self.occurrence_date,
+                                       'manualy_encoded' : False,
+                                       'verified' : False,
+                                       'activityid' : self.activityid.id,
+                                       'activity_occurrence_id' : self.id,
+                                       'exit_all': False,
+                                       'es': 'S',
+                                       'prestation_time': self.activityid.prest_to
+                                       
+                                       })                     
         #use syntax to replace existing records by new records
         
         occurrence.child_registration_ids = [(6, False, child_ids)] 
         
         return occurrence
+    
+    def auto_add_registered_childs(self):
+        print "auto_add_registered_childs ids=%s" % (self.ids)
+        for occu in self:
+            child_ids = []
+#            occurrence_date_str = vals['occurrence_date'].strftime(DEFAULT_SERVER_DATE_FORMAT)
+            occurrence_date_str = self.occurrence_date
+
+            for child_registration in occu.activityid.childregistration_ids:
+                if child_registration.registration_from <= occurrence_date_str and child_registration.registration_to >= occurrence_date_str and child_registration.place_id.id == self.place_id.id:
+                    child_ids.append(child_registration.child_id.id)
+                    self.child_registration_ids = [(0, 0, {'child_id': child_registration.child_id.id})] 
+                    if self.activityid.autoaddchilds:
+                        self.add_presta(self, child_registration.child_id.id, None,False)
+
+#                         self.env['extraschool.prestationtimes'].create({'placeid' : self.place_id.id,
+#                                            'childid' : child_registration.child_id.id,
+#                                            'prestation_date' : self.occurrence_date,
+#                                            'manualy_encoded' : False,
+#                                            'verified' : False,
+#                                            'activityid' : self.activityid.id,
+#                                            'activity_occurrence_id' : self.id,
+#                                            'exit_all': False,
+#                                            'es': 'S',
+#                                            'prestation_time': self.activityid.prest_to
+#                                            
+#                                            })   
+                        
+            #use syntax to replace existing records by new records
+            
+            
+        
     
     def check_if_child_take_part_to(self,child):
         #check if activity is open or on registration
@@ -166,7 +210,13 @@ class extraschool_activityoccurrence(models.Model):
                 
         return take_part_to
     
+class extraschool_activity_occurrence_child_registration(models.Model):
+    _name = 'extraschool.activity_occurrence_child_registration'
+    _description = 'activity occurrence child registration'
+
+    activity_occurrence_id = fields.Many2one('extraschool.activityoccurrence', 'Activity occurrence', select=True)
+    child_id = fields.Many2one('extraschool.child', 'child', select=True)
+    child_registration_line_id = fields.Many2one('extraschool.child_registration_line', 'Child registration line', select=True, ondelete="cascade")
 
 
 
-extraschool_activityoccurrence()

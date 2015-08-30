@@ -32,8 +32,12 @@
 					</group>
 	            	<notebook>
 	            		<page string="Registration">
-							<field name="child_registration_ids" nolabel="1" />
-				        </page>
+							<field name="child_registration_ids" nolabel="1">
+				        		<tree>
+				        			<field name="child_id" />
+				        		</tree>
+							</field>
+						</page>
 	            		<page string="Prestation times">
 				            <group col="4">
 								<field name="prestation_times_ids" nolabel="1">

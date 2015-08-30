@@ -152,6 +152,16 @@ class extraschool_activity(models.Model):
                     #print insert_data               
                     occurrence_ids = cr.execute("insert into extraschool_activityoccurrence (create_uid,date_stop,date_start,create_date,name,write_uid,write_date,activity_category_id,place_id,occurrence_date,activityid,prest_from,prest_to) VALUES "+args_str)
                     print str(datetime.now())+" END"
+                    #get ids of created occu
+                    occurrence_ids = cr.execute("""select id 
+                                                   from extraschool_activityoccurrence 
+                                                   where create_uid = %s
+                                                     and activityid = %s
+                                                """,(uid, activity.id))
+                    occurrence_ids = [id['id'] for id in cr.dictfetchall()]
+                    print "ids created : %s" % (occurrence_ids)
+                    for occu in self.env['extraschool.activityoccurrence'].search([('id', 'in', occurrence_ids)]): 
+                        occu.auto_add_registered_childs()
     @api.one                            
     def check_if_modifiable(self):
         invoicedprestations = self.env['extraschool.invoicedprestations'].search([('activity_occurrence_id.activityid', '=', self.id),
@@ -164,6 +174,7 @@ class extraschool_activity(models.Model):
                 
     @api.multi
     def write(self, vals):
+        print "----- activity  write ----"
         for activity in self:
             if not activity.check_if_modifiable() :
                 raise Warning("It's not possible to update the activity because there are invoiced prestations after the current date")
@@ -177,10 +188,12 @@ class extraschool_activity(models.Model):
                 prestations.write({'verified' : False})
                 #delete all future occurrence of this activity
                 occurrences = self.env['extraschool.activityoccurrence'].search([('activityid', '=', activity.id),
-                                                                                 ('occurrence_date', '>=', time.strftime(DEFAULT_SERVER_DATE_FORMAT))])
+                                                                                  ('occurrence_date', '>=', time.strftime(DEFAULT_SERVER_DATE_FORMAT))])
+                print "delete occu !!!!"
                 occurrences.unlink()
                 #populate occurrence
                 activity.populate_occurrence(time.strftime(DEFAULT_SERVER_DATE_FORMAT))
+ 
             else: 
                 return res
            

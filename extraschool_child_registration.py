@@ -23,8 +23,12 @@
 
 from openerp import models, api, fields
 from openerp.api import Environment
-from datetime import date
-import datetime
+
+#import datetime
+from datetime import date, datetime, timedelta as td
+
+from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
+                           DEFAULT_SERVER_DATETIME_FORMAT)
 
 
 class extraschool_child_registration(models.Model):
@@ -32,32 +36,152 @@ class extraschool_child_registration(models.Model):
     _description = 'Child registration'
 
     school_implantation_id = fields.Many2one('extraschool.schoolimplantation', required=True)
-    class_id = fields.Many2one('extraschool.class', required=True)
-    place_id = fields.Many2one('extraschool.place', required=True)
-    activity_id = fields.Many2one('extraschool.activity', required=True)
+    class_id = fields.Many2one('extraschool.class', required=True, domain="[('schoolimplantation','=',school_implantation_id)]")
+    place_id = fields.Many2one('extraschool.place', required=True, domain="[('schoolimplantation_ids','in',school_implantation_id)]")
+    activity_id = fields.Many2one('extraschool.activity', required=True, domain="[('placeids','in',place_id)]")
     week = fields.Integer('Week', required=True)
     date_from = fields.Date('Date from', required=True)
     date_to = fields.Date('Date to', required=True)
-    child_registration_line_ids = fields.One2many('extraschool.child_registration_line','child_registration_id')
+    child_registration_line_ids = fields.One2many('extraschool.child_registration_line','child_registration_id',copy=True)
+    state = fields.Selection([('draft', 'Draft'),
+                              ('to_validate', 'Ready'),
+                              ('validated', 'Validated')],
+                              'validated', required=True, default='draft'
+                              )
+
+    def _getWeekDates(self,_Year = 0, _weekStart = 2, _weekNo = 0):
+        """
+            Returns a list with all the 7 dates of provided week and year (or any supplied week number)
+            _year , example 2010. will be computed, if not provided
+            _weekStart, (0 is Saturday, 6 is Friday) to start day of week
+            _weekNo, will be computed, if not provided
+        """
+        _weekNo -= 1
+        now = datetime.datetime.now()
+        if _Year == 0 :
+            _Year = now.year
     
-    @api.onchange('school_implantation_id')
+        if _weekNo == 0:
+            _weekNo = datetime.date(now.year,now.month,now.day).isocalendar()[1]
+        WeekDates = []
+        janOne = datetime.strptime('%s-01-01' % _Year, '%Y-%m-%d')
+    
+        dayOfFirstWeek = ((7-int((datetime.strftime("%u",janOne)))+ int(_weekStart)) % 7)
+    
+        if dayOfFirstWeek == 0:
+            dayOfFirstWeek = 7
+        dateOfFirstWeek = datetime.strptime('%s-01-%s' % (_Year, dayOfFirstWeek), '%Y-%m-%d')
+        dayOne = datetime.datetime( dateOfFirstWeek.tm_year, dateOfFirstWeek.tm_mon, dateOfFirstWeek.tm_mday )
+        daysToGo = 7*(int(_weekNo)-1)
+        lastDay = daysToGo+6
+        dayX = None
+        while daysToGo <= lastDay:
+            dayX = dayOne + datetime.timedelta(days = daysToGo)
+            resultDateX = datetime.strptime('%s-%s-%s' % (dayX.year, dayX.month, dayX.day), '%Y-%m-%d')
+            WeekDates.append(datetime.strftime("%Y-%m-%d", resultDateX))
+            daysToGo += 1
+            
+        return WeekDates    
+    
+    @api.onchange('week')
+    def onchange_week(self):
+        print "onchange_week"
+        if self.week > 53:
+            self.week = 53
+        if self.week < 1:
+            self.week = 1
+        
+
+        days = self._getWeekDates(0, 2, self.week)
+        print str(days)
+        print "monday : %s" % (days[0])
+        print "sunday : %s" % (days[6])
+        self.date_from = days[0]
+        self.date_to = days[6]
+    
     @api.one
-    def _on_change_school_implantation_id(self):
-        print "_on_change_school_implantation_id"
-        return {'domain' : {'class_id' : [('schoolimplantation', '=', self.school_implantation_id.id)]}}
+    def update_child_list(self):
+        print "update_child_list"
+        childs = self.env['extraschool.child'].search([('schoolimplantation.id', '=', self.school_implantation_id.id),
+                                                       ('classid.id', '=',self.class_id.id)])
+        self.child_registration_line_ids.unlink()
+        #clear child list
+        self.child_registration_line_ids = [(5, 0, 0)]
+        child_reg = []
+        print "clear child list done"
+        for child in childs:
+            print "add child : %s" % (child)
+            child_reg.append((0,0,{'child_id': child,
+                                   }))
+        self.child_registration_line_ids = child_reg
+
+    @api.one
+    def validate(self):
+        print "validate"
+        if self.state == 'draft':
+            self.state = 'to_validate'
+        elif self.state == 'to_validate':
+            self.state = 'validated'
+            
+            line_days = [self.child_registration_line_ids.filtered(lambda r: r.monday),
+                         self.child_registration_line_ids.filtered(lambda r: r.tuesday),
+                         self.child_registration_line_ids.filtered(lambda r: r.wednesday),
+                         self.child_registration_line_ids.filtered(lambda r: r.thursday),
+                         self.child_registration_line_ids.filtered(lambda r: r.friday),
+                         self.child_registration_line_ids.filtered(lambda r: r.saturday),
+                         self.child_registration_line_ids.filtered(lambda r: r.sunday),
+                         ] 
+
+            d1 = datetime.strptime(self.date_from, DEFAULT_SERVER_DATE_FORMAT)
+            d2 = datetime.strptime(self.date_to, DEFAULT_SERVER_DATE_FORMAT)
+
+            delta = d2 - d1
+            
+            occu = self.env['extraschool.activityoccurrence']
+            occu_reg = self.env['extraschool.activity_occurrence_child_registration']
+            for day in range(delta.days + 1):
+                current_day_date = d1 + td(days=day)
+                if str(current_day_date.weekday()) in self.activity_id.days:
+                    occu = occu.search([('activityid','=', self.activity_id.id),
+                                           ('place_id','=', self.place_id.id),
+                                           ('occurrence_date','=', current_day_date)])
+                    for line in line_days[current_day_date.weekday()]:
+                        print "create reg for child : %s" % (line.child_id)
+                        occu_reg.create({'activity_occurrence_id': occu.id,
+                                         'child_id' :line.child_id.id,
+                                         'child_registration_line_id': line.id
+                                         })
+                        if self.activity_id.autoaddchilds:
+                            occu.add_presta(occu, line.child_id.id, None,False)
+                        
+                        
+#         childs = self.env['extraschool.child'].search([('schoolimplantation.id', '=', self.school_implantation_id.id),
+#                                                        ('classid.id', '=',self.class_id.id)])
+#         self.child_registration_line_ids.unlink()
+#         #clear child list
+#         self.child_registration_line_ids = [(5, 0, 0)]
+#         child_reg = []
+#         print "clear child list done"
+#         for child in childs:
+#             print "add child : %s" % (child)
+#             child_reg.append((0,0,{'child_id': child,
+#                                    }))
+#         self.child_registration_line_ids = child_reg
+            
+        
     
 class extraschool_child_registration_line(models.Model):
     _name = 'extraschool.child_registration_line'
     _description = 'Child registration line'
     
-    child_registration_id = fields.Many2one('extraschool.child_registration', required=True)
+    child_registration_id = fields.Many2one('extraschool.child_registration', required=True, ondelete="cascade")
     child_id = fields.Many2one('extraschool.child', required=True)
     monday = fields.Boolean('Monday')
     tuesday = fields.Boolean('Tuesday')
     wednesday = fields.Boolean('Wednesday')
     thursday = fields.Boolean('Thursday')
     friday = fields.Boolean('Friday')
-    saterday = fields.Boolean('Saterday')
+    saturday = fields.Boolean('Saturday')
     sunday = fields.Boolean('Sunday')
 
     
