@@ -145,23 +145,23 @@ class extraschool_activityoccurrence(models.Model):
             if child_registration.registration_from <= occurrence_date_str and child_registration.registration_to >= occurrence_date_str and child_registration.place_id.id == vals['place_id']:
                 child_ids.append(child_registration.child_id.id)
                 
-                if activity.autoaddchilds:
+#                if activity.autoaddchilds:
 #                    self.add_presta(occurrence, child_registration.child_id.id, None,False)
-                    self.env['extraschool.prestationtimes'].create({'placeid' : self.place_id.id,
-                                       'childid' : child_registration.child_id.id,
-                                       'prestation_date' : self.occurrence_date,
-                                       'manualy_encoded' : False,
-                                       'verified' : False,
-                                       'activityid' : self.activityid.id,
-                                       'activity_occurrence_id' : self.id,
-                                       'exit_all': False,
-                                       'es': 'S',
-                                       'prestation_time': self.activityid.prest_to
-                                       
-                                       })                     
+#                     self.env['extraschool.prestationtimes'].create({'placeid' : self.place_id.id,
+#                                        'childid' : child_registration.child_id.id,
+#                                        'prestation_date' : self.occurrence_date,
+#                                        'manualy_encoded' : False,
+#                                        'verified' : False,
+#                                        'activityid' : self.activityid.id,
+#                                        'activity_occurrence_id' : self.id,
+#                                        'exit_all': False,
+#                                        'es': 'S',
+#                                        'prestation_time': self.activityid.prest_to
+#                                        
+#                                        })                     
         #use syntax to replace existing records by new records
         
-        occurrence.child_registration_ids = [(6, False, child_ids)] 
+#        occurrence.child_registration_ids = [(6, False, child_ids)] 
         
         return occurrence
     
