@@ -214,7 +214,7 @@ class extraschool_activity_occurrence_child_registration(models.Model):
     _name = 'extraschool.activity_occurrence_child_registration'
     _description = 'activity occurrence child registration'
 
-    activity_occurrence_id = fields.Many2one('extraschool.activityoccurrence', 'Activity occurrence', select=True)
+    activity_occurrence_id = fields.Many2one('extraschool.activityoccurrence', 'Activity occurrence', select=True, ondelete='cascade')
     child_id = fields.Many2one('extraschool.child', 'child', select=True)
     child_registration_line_id = fields.Many2one('extraschool.child_registration_line', 'Child registration line', select=True, ondelete="cascade")
 
