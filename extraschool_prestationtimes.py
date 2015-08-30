@@ -49,7 +49,7 @@ class extraschool_prestationtimes(models.Model):
     @api.model
     def create(self, vals):        
         if (not vals['childid']) or (not vals['placeid']):  
-            raise Warning('Child and Place must be filled')
+            raise Warning('Create Prestation time - Child and Place must be filled')
         
         prestation_times_of_the_day_obj = self.env['extraschool.prestation_times_of_the_day']
         prestation_times_obj = self.env['extraschool.prestationtimes']
