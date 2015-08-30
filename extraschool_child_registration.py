@@ -24,7 +24,6 @@
 from openerp import models, api, fields
 from openerp.api import Environment
 
-#import datetime
 from datetime import date, datetime, timedelta as td
 
 from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
@@ -49,39 +48,14 @@ class extraschool_child_registration(models.Model):
                               'validated', required=True, default='draft'
                               )
 
-    def _getWeekDates(self,_Year = 0, _weekStart = 2, _weekNo = 0):
-        """
-            Returns a list with all the 7 dates of provided week and year (or any supplied week number)
-            _year , example 2010. will be computed, if not provided
-            _weekStart, (0 is Saturday, 6 is Friday) to start day of week
-            _weekNo, will be computed, if not provided
-        """
-        _weekNo -= 1
-        now = datetime.datetime.now()
-        if _Year == 0 :
-            _Year = now.year
-    
-        if _weekNo == 0:
-            _weekNo = datetime.date(now.year,now.month,now.day).isocalendar()[1]
-        WeekDates = []
-        janOne = datetime.strptime('%s-01-01' % _Year, '%Y-%m-%d')
-    
-        dayOfFirstWeek = ((7-int((datetime.strftime("%u",janOne)))+ int(_weekStart)) % 7)
-    
-        if dayOfFirstWeek == 0:
-            dayOfFirstWeek = 7
-        dateOfFirstWeek = datetime.strptime('%s-01-%s' % (_Year, dayOfFirstWeek), '%Y-%m-%d')
-        dayOne = datetime.datetime( dateOfFirstWeek.tm_year, dateOfFirstWeek.tm_mon, dateOfFirstWeek.tm_mday )
-        daysToGo = 7*(int(_weekNo)-1)
-        lastDay = daysToGo+6
-        dayX = None
-        while daysToGo <= lastDay:
-            dayX = dayOne + datetime.timedelta(days = daysToGo)
-            resultDateX = datetime.strptime('%s-%s-%s' % (dayX.year, dayX.month, dayX.day), '%Y-%m-%d')
-            WeekDates.append(datetime.strftime("%Y-%m-%d", resultDateX))
-            daysToGo += 1
-            
-        return WeekDates    
+    def get_week_days(self,year, week):
+        d = date(year,1,1)
+        if(d.weekday()>3):
+            d = d+td(7-d.weekday())
+        else:
+            d = d - td(d.weekday())
+        dlt = td(days = (week-1)*7)
+        return d + dlt,  d + dlt + td(days=6)    
     
     @api.onchange('week')
     def onchange_week(self):
@@ -92,12 +66,12 @@ class extraschool_child_registration(models.Model):
             self.week = 1
         
 
-        days = self._getWeekDates(0, 2, self.week)
-        print str(days)
-        print "monday : %s" % (days[0])
-        print "sunday : %s" % (days[6])
-        self.date_from = days[0]
-        self.date_to = days[6]
+        monday,sunday = self.get_week_days(2015, self.week)
+        print "week days : %s - %s" % (monday,sunday)
+        print "monday : %s" % (monday)
+        print "sunday : %s" % (sunday)
+        self.date_from = monday
+        self.date_to = sunday
     
     @api.one
     def update_child_list(self):
@@ -145,14 +119,15 @@ class extraschool_child_registration(models.Model):
                     occu = occu.search([('activityid','=', self.activity_id.id),
                                            ('place_id','=', self.place_id.id),
                                            ('occurrence_date','=', current_day_date)])
-                    for line in line_days[current_day_date.weekday()]:
-                        print "create reg for child : %s" % (line.child_id)
-                        occu_reg.create({'activity_occurrence_id': occu.id,
-                                         'child_id' :line.child_id.id,
-                                         'child_registration_line_id': line.id
-                                         })
-                        if self.activity_id.autoaddchilds:
-                            occu.add_presta(occu, line.child_id.id, None,False)
+                    if len(occu) == 1:
+                        for line in line_days[current_day_date.weekday()]:
+                            print "create reg for child : %s" % (line.child_id)
+                            occu_reg.create({'activity_occurrence_id': occu.id,
+                                             'child_id' :line.child_id.id,
+                                             'child_registration_line_id': line.id
+                                             })
+                            if self.activity_id.autoaddchilds:
+                                occu.add_presta(occu, line.child_id.id, None,False)
                         
                         
 #         childs = self.env['extraschool.child'].search([('schoolimplantation.id', '=', self.school_implantation_id.id),
@@ -184,5 +159,4 @@ class extraschool_child_registration_line(models.Model):
     saturday = fields.Boolean('Saturday')
     sunday = fields.Boolean('Sunday')
 
-    
 
