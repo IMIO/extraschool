@@ -49,7 +49,8 @@
         <menuitem name="Configuration" id="extraschool_menu_configuration" parent="menu_extraschool"/>
         <menuitem name="Main Settings" parent="extraschool_menu_configuration" id="extraschool_menu_mainsettings" action="action_extraschool_mainsettings"/>
         <menuitem name="Activity categories" parent="extraschool_menu_configuration" id="extraschool_menu_activitycategory" action="action_extraschool_activitycategory"/>
-        <menuitem name="Smartphones" parent="extraschool_menu_configuration" id="extraschool_menu_smartphone" action="action_extraschool_smartphone"/>
+        <menuitem name="Child Type" parent="extraschool_menu_configuration" id="extraschool_menu_childtype" action="action_extraschool_childtype"/>
+		<menuitem name="Smartphones" parent="extraschool_menu_configuration" id="extraschool_menu_smartphone" action="action_extraschool_smartphone"/>
         <menuitem name="Init or update" parent="extraschool_menu_configuration" id="extraschool_menu_initupdate_wizard" action="action_lbsc_initupdate_wizard"/>
         <menuitem name="Import childs" parent="extraschool_menu_configuration" id="extraschool_menu_childsimport" action="action_extraschool_childsimport"/>
         <menuitem name="Childs import filter" parent="extraschool_menu_configuration" id="extraschool_menu_childsimportfilter" action="action_extraschool_childsimportfilter"/>
