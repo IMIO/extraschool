@@ -9,7 +9,9 @@
 				<tree string="Smartphone">
                     <field name="id"/>
                     <field name="name"/> 
-                    			
+                    <field name="placeid" /> 
+                    <field name="lasttransmissiondate"/>
+                    <field name="softwareurl"/>                    			
 				</tree>
 			</field>
 		</record>
