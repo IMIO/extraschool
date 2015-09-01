@@ -32,7 +32,7 @@ class extraschool_child(models.Model):
     _description = 'Child'
 
     name = fields.Char(compute='_name_compute',string='FullName', search='_search_fullname', size=100)
-    childtypeid = fields.Many2one('extraschool.childtype', 'Type',required=True)
+    childtypeid = fields.Many2one('extraschool.childtype', 'Type',required=True, ondelete='restrict')
     firstname = fields.Char('FirstName', size=50, required=True)
     lastname = fields.Char('LastName', size=50 , required=True)
     schoolimplantation = fields.Many2one('extraschool.schoolimplantation', 'School implantation',required=True)
