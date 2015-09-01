@@ -124,7 +124,7 @@ class extraschool_payment_reconciliation(models.Model):
             tools.sql.drop_view_if_exists(cr, 'extraschool_payment_status_report')
             cr.execute("""
                 CREATE view extraschool_payment_status_report as
-                    select min((zz.ac_id*10+zz.p_id)) as id, zz.ac_id as activity_category_id,
+                    select min((zz.ac_id*10000000000+zz.p_id)) as id, zz.ac_id as activity_category_id,
                            zz.p_id as parent_id, 
                            CASE 
                             WHEN sum(pay.solde) is NULL 
