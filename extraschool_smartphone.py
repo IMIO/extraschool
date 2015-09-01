@@ -48,11 +48,17 @@ class extraschool_smartphone(models.Model):
     qrdownload = fields.Binary('QR Download')
     qrconfig = fields.Binary('QR Config')
     oldversion = fields.Boolean('Old version')
+    manualok = fields.Boolean('Authorize manual encoding')
+    cfgpassword = fields.Char('Config password', required=True,default='1234')
     maxtimedelta = fields.Integer('Max time delta')
     
     @api.multi
     def write(self,vals):
-        value='cfg;' + str(self.ids[0]) + ';' + self.transmissiontime + ';' + self.serveraddress + ';' + self.databasename + ';' + self.username + ';' + self.userpassword + ';' + self.scanmethod + ';' + self.transfertmethod
+        value='cfg;' + str(self.ids[0]) + ';' + self.transmissiontime + ';' + self.serveraddress + ';' + self.databasename + ';' + self.username + ';' + self.userpassword + ';' + self.scanmethod + ';' + self.transfertmethod+ ';' + self.cfgpassword+ ';'
+        if self.manualok:
+            value=value+'1'
+        else:
+            value=value+'0'
         barcode = createBarcodeImageInMemory(
                 'QR', value=value, format='png', width=400, height=400,
                 humanReadable = 0
