@@ -28,7 +28,7 @@ class extraschool_childtype(models.Model):
     _name = 'extraschool.childtype'
     _description = 'ChildType'
 
-    name = fields.Char('Name', size=50, required=True)
+    name = fields.Char('Name', size=50, required=True, select=True)
     oldid = fields.Integer('oldid')        
 
 extraschool_childtype()
