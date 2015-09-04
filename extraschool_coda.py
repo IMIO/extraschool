@@ -120,6 +120,7 @@ class extraschool_coda(models.Model):
                                 if (len(prefix['invoicecomstructprefix']) > 0) and (len(communication) > len(prefix['invoicecomstructprefix'])):
                                     if communication[3:3+len(prefix['invoicecomstructprefix'])] == prefix['invoicecomstructprefix']:
                                         prefixfound=True
+                                        _prefix = prefix['invoicecomstructprefix']
                         if prefixfound:                            
                             invoice=invoice_obj.search([('structcom', '=', communication)])                           
                             if invoice.ensure_one():
@@ -129,7 +130,7 @@ class extraschool_coda(models.Model):
                                 else:            
                                     payment_id = payment_obj.create({'parent_id': invoice.parentid.id,
                                                                   'paymentdate': transfertdate,
-                                                                  'structcom_prefix': prefix['invoicecomstructprefix'],
+                                                                  'structcom_prefix': _prefix,
                                                                   'structcom':communication,
                                                                   'paymenttype':'1',
                                                                   'account':parentaccount,
@@ -157,6 +158,7 @@ class extraschool_coda(models.Model):
                                     if len(communication) > len(prefix['remindercomstructprefix']):
                                         if communication[3:3+len(prefix['remindercomstructprefix'])] == prefix['remindercomstructprefix']:
                                             prefixfound=True
+                                            _prefix = prefix['remindercomstructprefix']
                             if prefixfound:
                                 reminder_ids=reminder_obj.search(cr, uid, [('structcom', '=', communication)])
                                 if len(reminder_ids)==1:
@@ -170,7 +172,16 @@ class extraschool_coda(models.Model):
                                         for concernedinvoice in reminder['concernedinvoices']:
                                             invoice=invoice_obj.read(cr, uid, [concernedinvoice],['amount_total','balance'])[0]
                                             invoice_obj.write(cr, uid, [concernedinvoice],{'amount_received':invoice['amount_total'],'balance':0})
-                                            payment_id = payment_obj.create(cr, uid, {'concernedinvoice': concernedinvoice,'account':parentaccount,'paymenttype':'1','paymentdate':transfertdate,'structcom':communication,'name':name,'amount':invoice['balance'],'adr1':adr1,'adr2':adr2})
+                                            payment_id = payment_obj.create(cr, uid, {'concernedinvoice': concernedinvoice,
+                                                                                      'account':parentaccount,
+                                                                                      'paymenttype':'1',
+                                                                                      'paymentdate':transfertdate,
+                                                                                      'structcom':communication,
+                                                                                      'structcom_prefix': _prefix,
+                                                                                      'name':name,
+                                                                                      'amount':invoice['balance'],
+                                                                                      'adr1':adr1,
+                                                                                      'adr2':adr2})
                                             paymentids.append(payment_id)
                             else:
                                 cr.execute('select payment_invitation_com_struct_prefix from extraschool_activitycategory')
@@ -181,11 +192,12 @@ class extraschool_coda(models.Model):
                                         if len(communication) > len(prefix['payment_invitation_com_struct_prefix']):
                                             if communication[3:3+len(prefix['payment_invitation_com_struct_prefix'])] == prefix['payment_invitation_com_struct_prefix']:
                                                 prefixfound=True
+                                                _prefix = prefix['payment_invitation_com_struct_prefix']
                                 if prefixfound:
                                         parentid = int(communication[7:11]+communication[12:15])                                
                                         payment_id = payment_obj.create({'parent_id': parentid,
                                                                   'paymentdate': transfertdate,
-                                                                  'structcom_prefix': prefix['payment_invitation_com_struct_prefix'],
+                                                                  'structcom_prefix': _prefix,
                                                                   'structcom':communication,
                                                                   'paymenttype':'1',
                                                                   'account':parentaccount,
