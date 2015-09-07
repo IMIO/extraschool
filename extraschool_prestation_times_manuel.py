@@ -37,4 +37,3 @@ class extraschool_prestation_times_manuel(models.Model):
     prestation_time_exit = fields.Float('Exit Time')                
     comment = fields.Text()
 
-extraschool_prestation_times_manuel()   

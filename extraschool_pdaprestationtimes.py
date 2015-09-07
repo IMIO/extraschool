@@ -32,6 +32,9 @@ class extraschool_pdaprestationtimes(models.Model):
     childid = fields.Many2one('extraschool.child', 'Child', required=False)
     prestation_date = fields.Date('Date')
     prestation_time = fields.Float('Time')
+    type = fields.Selection((('pda','Smartphone'),
+                           ('manuel','Encodage manuel')),'Type', default='pda' )    
+    prestation_times_encodage_manuel_id = fields.Many2one('extraschool.prestation_times_encodage_manuel', 'Encodage Manuel')    
     es = fields.Selection((('E','In'),
                            ('S','Out')),'ES' )    
     prestation_times_of_the_day_id = fields.Many2one('extraschool.prestation_times_of_the_day', 'Prestation of the day')           

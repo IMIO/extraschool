@@ -47,5 +47,36 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
     place_id = fields.Many2one('extraschool.place', required=True)                    
     prestationtime_ids = fields.One2many('extraschool.prestation_times_manuel','prestation_times_encodage_manuel_id')    
     comment = fields.Text()
+    state = fields.Selection([('draft', 'Draft'),
+                              ('validated', 'Validated')],
+                              'State', required=True, default='draft'
+                              )
+    
+    @api.one
+    def validate(self):
+        print "validate"
 
-extraschool_prestation_times_encodage_manuel()   
+        presta_obj = self.env['extraschool.pdaprestationtimes']
+        
+        if self.state == 'draft':
+            for presta in self.prestationtime_ids:
+                if presta.prestation_time_entry > 0:
+                    presta_obj.create({'placeid': self.place_id.id,
+                                       'childid': presta.child_id.id,
+                                       'prestation_date': self.date_of_the_day,
+                                       'prestation_time': presta.prestation_time_entry,
+                                       'type': 'manuel',
+                                       'prestation_times_encodage_manuel_id': self.id,
+                                       'es': 'E'})
+                elif presta.prestation_time_exit > 0:
+                    presta_obj.create({'placeid': self.place_id.id,
+                                       'childid': presta.child_id.id,
+                                       'prestation_date': self.date_of_the_day,
+                                       'prestation_time': presta.prestation_time_exit,
+                                       'type': 'manuel',
+                                       'prestation_times_encodage_manuel_id': self.id,
+                                       'es': 'S'})
+                        
+        if self.state == 'draft':
+            self.state = 'validated'
+    
