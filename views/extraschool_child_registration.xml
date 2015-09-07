@@ -14,6 +14,7 @@
 					<field name="week"/>                    	
                     <field name="date_from"/> 
 					<field name="date_to"/>
+					<field name="state" />					
 				</tree>
 			</field>
 		</record>
@@ -23,14 +24,14 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="child_registration">
-					<field name="state" invisible="True" />
 					<header>
-						<button name="validate" String="Set to validate" type="object" states='draft'/>	
-						<button name="validate" String="Validate" type="object" states='to_validate'/>	
+						<button name="validate" String="Set to validate" type="object" states='draft' class="oe_highlight" groups="extraschool.extraschool_school"/>	
+						<button name="validate" String="Validate" type="object" states='to_validate' class="oe_highlight" groups="extraschool.extraschool_admin, extraschool.extraschool_accounting"/>	
+						<field name="state" widget="statusbar" statusbar_visible="draft,to_validate,validated"/>													
 					</header>
 					<group col="4">
-	                    <field name="school_implantation_id"/>
-	                    <field name="class_id"/>						
+	                    <field name="school_implantation_id" class="oe_no_button" />
+	                    <field name="class_id" class="oe_no_button"/>						
 						<field name="place_id"/>
 	                    <field name="activity_id"/>
 	                    <field name="week"/>
