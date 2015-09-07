@@ -34,14 +34,14 @@ class extraschool_child_registration(models.Model):
     _name = 'extraschool.child_registration'
     _description = 'Child registration'
 
-    school_implantation_id = fields.Many2one('extraschool.schoolimplantation', required=True)
-    class_id = fields.Many2one('extraschool.class', required=True, domain="[('schoolimplantation','=',school_implantation_id)]")
-    place_id = fields.Many2one('extraschool.place', required=True, domain="[('schoolimplantation_ids','in',school_implantation_id)]")
-    activity_id = fields.Many2one('extraschool.activity', required=True, domain="[('placeids','in',place_id)]")
-    week = fields.Integer('Week', required=True)
-    date_from = fields.Date('Date from', required=True)
-    date_to = fields.Date('Date to', required=True)
-    child_registration_line_ids = fields.One2many('extraschool.child_registration_line','child_registration_id',copy=True)
+    school_implantation_id = fields.Many2one('extraschool.schoolimplantation', required=True, readonly=True, states={'draft': [('readonly', False)]})
+    class_id = fields.Many2one('extraschool.class', required=True, readonly=True, states={'draft': [('readonly', False)]}, domain="[('schoolimplantation','=',school_implantation_id)]")
+    place_id = fields.Many2one('extraschool.place', required=True, readonly=True, states={'draft': [('readonly', False)]}, domain="[('schoolimplantation_ids','in',school_implantation_id)]")
+    activity_id = fields.Many2one('extraschool.activity', required=True, readonly=True, states={'draft': [('readonly', False)]}, domain="[('placeids','in',place_id)]")
+    week = fields.Integer('Week', required=True, readonly=True, states={'draft': [('readonly', False)]})
+    date_from = fields.Date('Date from', required=True, readonly=True, states={'draft': [('readonly', False)]})
+    date_to = fields.Date('Date to', required=True, readonly=True, states={'draft': [('readonly', False)]})
+    child_registration_line_ids = fields.One2many('extraschool.child_registration_line','child_registration_id',copy=True, readonly=True, states={'draft': [('readonly', False)]})
     state = fields.Selection([('draft', 'Draft'),
                               ('to_validate', 'Ready'),
                               ('validated', 'Validated')],
@@ -92,11 +92,8 @@ class extraschool_child_registration(models.Model):
     @api.one
     def validate(self):
         print "validate"
-        if self.state == 'draft':
-            self.state = 'to_validate'
-        elif self.state == 'to_validate':
-            self.state = 'validated'
-            
+
+        if self.state == 'to_validate':
             line_days = [self.child_registration_line_ids.filtered(lambda r: r.monday),
                          self.child_registration_line_ids.filtered(lambda r: r.tuesday),
                          self.child_registration_line_ids.filtered(lambda r: r.wednesday),
@@ -130,18 +127,10 @@ class extraschool_child_registration(models.Model):
                                 occu.add_presta(occu, line.child_id.id, None,False)
                         
                         
-#         childs = self.env['extraschool.child'].search([('schoolimplantation.id', '=', self.school_implantation_id.id),
-#                                                        ('classid.id', '=',self.class_id.id)])
-#         self.child_registration_line_ids.unlink()
-#         #clear child list
-#         self.child_registration_line_ids = [(5, 0, 0)]
-#         child_reg = []
-#         print "clear child list done"
-#         for child in childs:
-#             print "add child : %s" % (child)
-#             child_reg.append((0,0,{'child_id': child,
-#                                    }))
-#         self.child_registration_line_ids = child_reg
+        if self.state == 'draft':
+            self.state = 'to_validate'
+        elif self.state == 'to_validate':
+            self.state = 'validated'
             
         
     

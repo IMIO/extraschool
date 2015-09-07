@@ -2,10 +2,16 @@
    <openerp>
       <data>
          <record id="extraschool_admin" model="res.groups">
-            <field name="name">extraschool admin</field>
+            <field name="name">AES admin</field>
          </record>
          <record id="extraschool_user" model="res.groups">
-            <field name="name">extraschool user</field>
+            <field name="name">AES user</field>
          </record>
+         <record id="extraschool_school" model="res.groups">
+            <field name="name">AES school</field>
+         </record>   
+         <record id="extraschool_accounting" model="res.groups">
+            <field name="name">AES accounting</field>
+         </record>                   
       </data>
    </openerp>

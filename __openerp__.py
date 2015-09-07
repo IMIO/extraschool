@@ -72,7 +72,6 @@
         'views/extraschool_child.xml',
         'views/extraschool_child_registration.xml',
         'views/extraschool_settings.xml',
-        'extraschool_view.xml',
         'extraschool_report.xml',
         'security/extraschool_security.xml',
         'security/ir.model.access.csv',
@@ -89,6 +88,9 @@
         'report/common/std_header.xml',
         'report/common/adresse_no_style.xml',
         'report/common/html_text.xml',
+
+
+        'extraschool_view.xml',
         
     ],
     'installable' : True,
