@@ -8,7 +8,9 @@
 			<field name="arch" type="xml">
 				<tree string="Coda">
                     <field name="codadate"/>					
-				</tree>
+                    <field name="amount_accepted"/>					
+                    <field name="amount_rejected"/>					
+                </tree>
 			</field>
 		</record>
         
@@ -18,26 +20,28 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Coda">
-                    <group colspan="3">
+                    <group cols="4">
                         <field name="codadate"/>
                         <newline/>
                         <field name="codafile"/>
-                        <newline/>
-                        <field name="paymentids">
-                            <tree string="Payments" version="7.0">
-                                <field name="name"/>
-                                <field name="amount"/>
-                            </tree>
-                        </field>
-                        <newline/>
-                        <field name="rejectids">
-                            <tree string="Rejects" version="7.0">
-                                <field name="name"/>
-                                <field name="amount"/>
-                                <field name="rejectcause"/>
-                            </tree>
-                        </field>
-                    </group>
+                    </group>                       
+                    <separator string="Accepted payments" colspan="4"/>
+                    <field name="paymentids" nolabel="1" colspan="4"  context="{'group_by': 'structcom_prefix'}">
+                        <tree string="Payments" version="7.0">
+                            <field name="name"/>
+                            <field name="structcom"/>
+                            <field name="structcom_prefix"/>
+                            <field name="amount" sum="True"/>
+                        </tree>
+                    </field>
+                    <separator string="Rejected payments" colspan="4"/>
+                    <field name="rejectids" nolabel="1" colspan="4">
+                        <tree string="Rejects" version="7.0">
+                            <field name="name"/>
+                            <field name="rejectcause"/>
+                            <field name="amount" sum="True"/>
+                        </tree>
+                    </field>
                     <!--  group colspan="1">
                         <field name="amountperyear" nolabel="1" widget="html"/>
                     </group -->
