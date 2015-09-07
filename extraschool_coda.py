@@ -34,22 +34,23 @@ class extraschool_coda(models.Model):
     codafile = fields.Binary('CODA File')
     codadate = fields.Date('CODA Date',readonly=True)
     #amountperyear = fields.Text(compute='_compute_amountperyear', string="Amount per year")
+    amount_accepted = fields.Float(compute='_compute_amount_accepted', string="Amount accepted")
+    amount_rejected = fields.Float(compute='_compute_amount_rejected', string="Amount rejected")
+
     paymentids = fields.One2many('extraschool.payment', 'coda','Payments',readonly=True)
     rejectids = fields.One2many('extraschool.reject', 'coda','Rejects',readonly=True)
-    
-    '''
+
+                
     @api.depends('paymentids')
-    def _compute_amountperyear (self, cr, uid, ids, field_name, arg, context):
-        
-        for record in self:     
-            strhtml='<HTML><TABLE border=1 width=30%><TD>ANNEE</TD><TD>MONTANT</TD></TR>'
-            cr.execute("select date_part('year',(select period_from from extraschool_biller where id=biller_id)) AS year, sum(extraschool_payment.amount) AS amount from extraschool_payment left join extraschool_invoice on concernedinvoice = extraschool_invoice.id where coda=%s and paymenttype='1' group by year", (record.id,))                
-            amountperyears=cr.dictfetchall()
-            for amountperyear in amountperyears:
-                strhtml=strhtml+'<TR><TD>'+str(int(amountperyear['year']))+'</TD><TD>'+str(amountperyear['amount'])+'</TD></TR>'
-            strhtml=strhtml+'</TABLE></HTML>'
-            record.amountperyear = strhtml
-    '''
+    def _compute_amount_accepted (self):       
+        for r in self:
+            r.amount_accepted = sum(p.amount for p in r.paymentids)
+
+    @api.depends('paymentids')
+    def _compute_amount_rejected (self):       
+        for r in self:
+            r.amount_rejected = sum(rej.amount for rej in r.rejectids)
+            
     def format_comstruct(self,comstruct):
         return ('+++%s/%s/%s+++' % (comstruct[0:3],comstruct[3:7],comstruct[7:12]))
     @api.model
