@@ -18,8 +18,6 @@
 				}
 									
 				.slogan {
-					color: blue;
-					background-color: red;
 		    	  	float: right;
   					margin-right: 50%;
 				}
