@@ -1,6 +1,43 @@
 <?xml version="1.0" ?>
 <openerp>
 	<data> 
+         <record model="ir.ui.view" id="extraschool_payment_tree">
+            <field name="name">extraschool.payment.tree</field>
+            <field name="model">extraschool.payment</field>    
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+	            <tree string="Payment Status">
+                    <field name="name"/>
+                    <field name="structcom"/>
+                    <field name="structcom_prefix"/>
+                    <field name="amount" sum="True"/>
+	            </tree>
+            </field> 
+        </record>
+        
+         <record id="extraschool_payment_search_view" model="ir.ui.view">
+            <field name="name">extraschool.payment.search</field>
+            <field name="model">extraschool.payment</field>
+            <field name="arch" type="xml">
+                <search string="Guardian prestationtimes Search">
+	            	<field name="structcom"/>
+	                <field name="structcom_prefix"/>
+	                <field name="amount" />
+                   <group  expand='0' string='Group by...'>
+                       <filter string='structcom_prefix' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'structcom_prefix'}"/>
+                   	   <filter string='structcom' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'structcom'}"/>
+                   </group>                    
+                </search>
+            </field>
+        </record>        
+       
+        <record model="ir.actions.act_window" id="action_extraschool_payment">
+			<field name="name">Payments</field>
+			<field name="res_model">extraschool.payment</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record> 
+        		
         <record model="ir.ui.view" id="extraschool_payment_form2">
 			<field name="name">payment.form2</field>
 			<field name="model">extraschool.payment</field>
