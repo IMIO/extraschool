@@ -20,10 +20,10 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Child">
+				<field name="name"  invisible="True"/> 
 				<group col="4">
 				    <field name="isdisabled"/>
                     <newline/>        
-                    <field name="name"  invisible="True"/>            
                     <field name="lastname"/>            
 					<field name="firstname"/>
                     <newline/>
