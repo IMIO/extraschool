@@ -9,6 +9,7 @@
 				<tree string="prestation_times_encodage_manuel">
 					<field name="date_of_the_day" />
 					<field name="place_id"/>
+					<field name="state" />				
 				</tree>
 			</field>
 		</record>
@@ -20,7 +21,7 @@
 			<field name="arch" type="xml">
 				<form string="prestation_times_encodage_manuel">
 					<header>
-						<button name="validate" String="Validate" type="object" states='draft' class="oe_highlight" groups="extraschool.extraschool_admin, extraschool.extraschool_accounting, extraschool.extraschool_user"/>	
+						<button name="validate" String="Validate" type="object" states='draft' class="oe_highlight" groups="extraschool.extraschool_user"/>	
 						<field name="state" widget="statusbar" statusbar_visible="draft,validated"/>													
 					</header>
 					<group col="4">
@@ -30,7 +31,7 @@
 	                    	<tree editable="bottom">
 								<field name="child_id"/>
 								<field name="prestation_time_entry" widget="float_time"/>
-								<field name="prestation_time_exit" widget="float_time"/>
+								<field name="prestation_time_exit" widget="float_time"/>								
 	                    	</tree>
 	                    </field>
 		            </group>

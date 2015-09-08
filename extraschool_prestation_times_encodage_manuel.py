@@ -43,9 +43,9 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
 
         return res      
      
-    date_of_the_day = fields.Date(required=True)    
-    place_id = fields.Many2one('extraschool.place', required=True)                    
-    prestationtime_ids = fields.One2many('extraschool.prestation_times_manuel','prestation_times_encodage_manuel_id')    
+    date_of_the_day = fields.Date(required=True, readonly=True, states={'draft': [('readonly', False)]})    
+    place_id = fields.Many2one('extraschool.place', required=True, readonly=True, states={'draft': [('readonly', False)]})                    
+    prestationtime_ids = fields.One2many('extraschool.prestation_times_manuel','prestation_times_encodage_manuel_id', readonly=True, states={'draft': [('readonly', False)]})    
     comment = fields.Text()
     state = fields.Selection([('draft', 'Draft'),
                               ('validated', 'Validated')],
