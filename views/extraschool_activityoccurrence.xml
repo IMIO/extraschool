@@ -82,7 +82,7 @@
 		</record>
         
         <record model="ir.actions.act_window" id="action_extraschool_activityoccurrence">
-			<field name="name">activityoccurrence</field>
+			<field name="name">Activity occurrence calendar</field>
 			<field name="res_model">extraschool.activityoccurrence</field>
 			<field name="view_type">form</field>
             <field name="view_mode">tree,form,calendar</field>

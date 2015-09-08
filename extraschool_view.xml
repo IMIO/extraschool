@@ -22,7 +22,7 @@
         <menuitem name="Schools" parent="extraschool_menu_signaletics" id="extraschool_menu_school" action="action_extraschool_school"/>
         <menuitem name="places" parent="extraschool_menu_signaletics" id="extraschool_menu_place" action="action_extraschool_place"/>
         <menuitem name="Activities" parent="extraschool_menu_signaletics" id="extraschool_menu_activity" action="action_extraschool_activity"/>
-        <menuitem name="Activities Occurrences" parent="extraschool_menu_signaletics" id="extraschool_menu_activityoccurrence" action="action_extraschool_activityoccurrence"/>
+        <menuitem name="Activities calendar " parent="extraschool_menu_signaletics" id="extraschool_menu_activityoccurrence" action="action_extraschool_activityoccurrence"/>
         <menuitem name="Price list" parent="extraschool_menu_signaletics" id="extraschool_menu_price_list" action="action_extraschool_price_list"/>
         <menuitem name="Discounts" parent="extraschool_menu_signaletics" id="extraschool_menu_discount" action="action_extraschool_discount"/>
        	<menuitem name="Guardians" parent="extraschool_menu_signaletics" id="extraschool_menu_guardian" action="action_extraschool_guardian"/>
