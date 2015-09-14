@@ -65,7 +65,7 @@ class extraschool_activity(models.Model):
     validity_from = fields.Date('Validity from')
     validity_to = fields.Date('Validity to')
     selectable_on_registration = fields.Boolean('Selectable on registration form')
-    registration_only = fields.Boolean('Selectable on registration form') 
+    registration_only = fields.Boolean('Registration only') 
  
     @api.onchange('parent_id')
     @api.depends('parent_id')

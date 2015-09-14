@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-12 16:22+0000\n"
-"PO-Revision-Date: 2015-09-12 19:28+0200\n"
+"POT-Creation-Date: 2015-09-14 07:28+0000\n"
+"PO-Revision-Date: 2015-09-14 09:29+0200\n"
 "Last-Translator: Mike <michael.michot@imio.be>\n"
 "Language-Team: French <>\n"
 "MIME-Version: 1.0\n"
@@ -2539,6 +2539,11 @@ msgid "Registration from"
 msgstr "Inscription du"
 
 #. module: extraschool
+#: field:extraschool.activity,registration_only:0
+msgid "Registration only"
+msgstr "Uniquement sur inscription"
+
+#. module: extraschool
 #: field:extraschool.activitychildregistration,registration_to:0
 msgid "Registration to"
 msgstr "au"
@@ -2772,7 +2777,6 @@ msgid "Section"
 msgstr "Section"
 
 #. module: extraschool
-#: field:extraschool.activity,registration_only:0
 #: field:extraschool.activity,selectable_on_registration:0
 msgid "Selectable on registration form"
 msgstr "sélectionnable sur le formulaire d'inscription"
