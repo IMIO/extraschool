@@ -183,7 +183,7 @@ Journée pédagogique.
 
 * Avez-vous déjà les dates ?
 * Faut il être inscrit ?
-* Y a t'il des garderie avant et/ou après la journée pédagogique ?
+* Y a t'il des garderies avant et/ou après la journée pédagogique ?
 * Ou est organisé l'accueil ces jours là ?
 
 

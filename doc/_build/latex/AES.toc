@@ -10,8 +10,9 @@
 \contentsline {subsection}{\numberline {1.2.6}Enfant.}{4}{subsection.1.2.6}
 \contentsline {subsection}{\numberline {1.2.7}Activit\IeC {\'e}.}{5}{subsection.1.2.7}
 \contentsline {subsection}{\numberline {1.2.8}Cat\IeC {\'e}gorie d'activit\IeC {\'e}.}{6}{subsection.1.2.8}
-\contentsline {section}{\numberline {1.3}Liste de prix.}{6}{section.1.3}
-\contentsline {section}{\numberline {1.4}Smartphone.}{7}{section.1.4}
-\contentsline {section}{\numberline {1.5}QR-Codes.}{7}{section.1.5}
-\contentsline {subsection}{\numberline {1.5.1}Communication}{7}{subsection.1.5.1}
+\contentsline {section}{\numberline {1.3}Journ\IeC {\'e}e p\IeC {\'e}dagogique.}{6}{section.1.3}
+\contentsline {section}{\numberline {1.4}Liste de prix.}{6}{section.1.4}
+\contentsline {section}{\numberline {1.5}Smartphone.}{7}{section.1.5}
+\contentsline {section}{\numberline {1.6}QR-Codes.}{8}{section.1.6}
+\contentsline {subsection}{\numberline {1.6.1}Communication}{8}{subsection.1.6.1}
 \contentsline {chapter}{\numberline {2}Indices and tables}{9}{chapter.2}
