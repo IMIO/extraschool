@@ -203,7 +203,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
   ('index', 'AES.tex', 'AES Documentation',
-   'Michael Michot \\& Jean-Michel Abe', 'manual'),
+   'IMIO', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of

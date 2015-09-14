@@ -1,9 +1,17 @@
 \select@language {english}
-\contentsline {chapter}{\numberline {1}1\IeC {\nobreakspace }\IeC {\nobreakspace }\IeC {\nobreakspace }Checklist avant lancement de projet!}{3}{chapter.1}
-\contentsline {section}{\numberline {1.1}1.1\IeC {\nobreakspace }\IeC {\nobreakspace }\IeC {\nobreakspace }Introduction.}{3}{section.1.1}
-\contentsline {section}{\numberline {1.2}1.2\IeC {\nobreakspace }\IeC {\nobreakspace }\IeC {\nobreakspace }Signal\IeC {\'e}tique.}{3}{section.1.2}
-\contentsline {section}{\numberline {1.3}1.3\IeC {\nobreakspace }\IeC {\nobreakspace }\IeC {\nobreakspace }Import des donn\IeC {\'e}es.}{3}{section.1.3}
-\contentsline {section}{\numberline {1.4}1.4\IeC {\nobreakspace }\IeC {\nobreakspace }\IeC {\nobreakspace }Smartphone.}{4}{section.1.4}
-\contentsline {section}{\numberline {1.5}1.5\IeC {\nobreakspace }\IeC {\nobreakspace }\IeC {\nobreakspace }Import des donn\IeC {\'e}es.}{4}{section.1.5}
-\contentsline {section}{\numberline {1.6}1.6\IeC {\nobreakspace }\IeC {\nobreakspace }\IeC {\nobreakspace }Liste de prix.}{4}{section.1.6}
-\contentsline {chapter}{\numberline {2}Indices and tables}{5}{chapter.2}
+\contentsline {chapter}{\numberline {1}Checklist avant lancement de projet !}{3}{chapter.1}
+\contentsline {section}{\numberline {1.1}Introduction.}{3}{section.1.1}
+\contentsline {section}{\numberline {1.2}Signal\IeC {\'e}tique.}{3}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}Import des donn\IeC {\'e}es.}{3}{subsection.1.2.1}
+\contentsline {subsection}{\numberline {1.2.2}Ecole.}{3}{subsection.1.2.2}
+\contentsline {subsection}{\numberline {1.2.3}Implantation.}{4}{subsection.1.2.3}
+\contentsline {subsection}{\numberline {1.2.4}Lieu d'accueil.}{4}{subsection.1.2.4}
+\contentsline {subsection}{\numberline {1.2.5}Parent.}{4}{subsection.1.2.5}
+\contentsline {subsection}{\numberline {1.2.6}Enfant.}{4}{subsection.1.2.6}
+\contentsline {subsection}{\numberline {1.2.7}Activit\IeC {\'e}.}{5}{subsection.1.2.7}
+\contentsline {subsection}{\numberline {1.2.8}Cat\IeC {\'e}gorie d'activit\IeC {\'e}.}{6}{subsection.1.2.8}
+\contentsline {section}{\numberline {1.3}Liste de prix.}{6}{section.1.3}
+\contentsline {section}{\numberline {1.4}Smartphone.}{7}{section.1.4}
+\contentsline {section}{\numberline {1.5}QR-Codes.}{7}{section.1.5}
+\contentsline {subsection}{\numberline {1.5.1}Communication}{7}{subsection.1.5.1}
+\contentsline {chapter}{\numberline {2}Indices and tables}{9}{chapter.2}

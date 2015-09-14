@@ -14,9 +14,9 @@
 
 
 \title{AES Documentation}
-\date{September 10, 2015}
+\date{September 14, 2015}
 \release{0.5}
-\author{Michael Michot \& Jean-Michel Abe}
+\author{IMIO}
 \newcommand{\sphinxlogo}{}
 \renewcommand{\releasename}{Release}
 \makeindex
@@ -32,67 +32,67 @@
     \PYG@it{\PYG@bf{\PYG@ff{#1}}}}}}}
 \def\PYG#1#2{\PYG@reset\PYG@toks#1+\relax+\PYG@do{#2}}
 
-\expandafter\def\csname PYG@tok@sc\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.25,0.44,0.63}{##1}}}
-\expandafter\def\csname PYG@tok@w\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
-\expandafter\def\csname PYG@tok@cs\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.25,0.50,0.56}{##1}}\def\PYG@bc##1{\setlength{\fboxsep}{0pt}\colorbox[rgb]{1.00,0.94,0.94}{\strut ##1}}}
-\expandafter\def\csname PYG@tok@bp\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.00,0.44,0.13}{##1}}}
-\expandafter\def\csname PYG@tok@gt\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
-\expandafter\def\csname PYG@tok@gu\endcsname{\let\PYG@bf=\textbf\def\PYG@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
-\expandafter\def\csname PYG@tok@mh\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.13,0.50,0.31}{##1}}}
-\expandafter\def\csname PYG@tok@err\endcsname{\def\PYG@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
-\expandafter\def\csname PYG@tok@gd\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
 \expandafter\def\csname PYG@tok@cm\endcsname{\let\PYG@it=\textit\def\PYG@tc##1{\textcolor[rgb]{0.25,0.50,0.56}{##1}}}
+\expandafter\def\csname PYG@tok@s1\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.25,0.44,0.63}{##1}}}
 \expandafter\def\csname PYG@tok@k\endcsname{\let\PYG@bf=\textbf\def\PYG@tc##1{\textcolor[rgb]{0.00,0.44,0.13}{##1}}}
-\expandafter\def\csname PYG@tok@kp\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.00,0.44,0.13}{##1}}}
-\expandafter\def\csname PYG@tok@ss\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.32,0.47,0.09}{##1}}}
-\expandafter\def\csname PYG@tok@s\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.25,0.44,0.63}{##1}}}
-\expandafter\def\csname PYG@tok@ge\endcsname{\let\PYG@it=\textit}
-\expandafter\def\csname PYG@tok@kd\endcsname{\let\PYG@bf=\textbf\def\PYG@tc##1{\textcolor[rgb]{0.00,0.44,0.13}{##1}}}
-\expandafter\def\csname PYG@tok@il\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.13,0.50,0.31}{##1}}}
-\expandafter\def\csname PYG@tok@sx\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.78,0.36,0.04}{##1}}}
-\expandafter\def\csname PYG@tok@sh\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.25,0.44,0.63}{##1}}}
-\expandafter\def\csname PYG@tok@m\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.13,0.50,0.31}{##1}}}
-\expandafter\def\csname PYG@tok@si\endcsname{\let\PYG@it=\textit\def\PYG@tc##1{\textcolor[rgb]{0.44,0.63,0.82}{##1}}}
-\expandafter\def\csname PYG@tok@sd\endcsname{\let\PYG@it=\textit\def\PYG@tc##1{\textcolor[rgb]{0.25,0.44,0.63}{##1}}}
-\expandafter\def\csname PYG@tok@mf\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.13,0.50,0.31}{##1}}}
-\expandafter\def\csname PYG@tok@o\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
-\expandafter\def\csname PYG@tok@sr\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.14,0.33,0.53}{##1}}}
-\expandafter\def\csname PYG@tok@nb\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.00,0.44,0.13}{##1}}}
-\expandafter\def\csname PYG@tok@no\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.38,0.68,0.84}{##1}}}
-\expandafter\def\csname PYG@tok@nt\endcsname{\let\PYG@bf=\textbf\def\PYG@tc##1{\textcolor[rgb]{0.02,0.16,0.45}{##1}}}
-\expandafter\def\csname PYG@tok@vc\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.73,0.38,0.84}{##1}}}
-\expandafter\def\csname PYG@tok@nv\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.73,0.38,0.84}{##1}}}
-\expandafter\def\csname PYG@tok@gp\endcsname{\let\PYG@bf=\textbf\def\PYG@tc##1{\textcolor[rgb]{0.78,0.36,0.04}{##1}}}
-\expandafter\def\csname PYG@tok@nn\endcsname{\let\PYG@bf=\textbf\def\PYG@tc##1{\textcolor[rgb]{0.05,0.52,0.71}{##1}}}
-\expandafter\def\csname PYG@tok@gr\endcsname{\def\PYG@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
-\expandafter\def\csname PYG@tok@ni\endcsname{\let\PYG@bf=\textbf\def\PYG@tc##1{\textcolor[rgb]{0.84,0.33,0.22}{##1}}}
-\expandafter\def\csname PYG@tok@nl\endcsname{\let\PYG@bf=\textbf\def\PYG@tc##1{\textcolor[rgb]{0.00,0.13,0.44}{##1}}}
-\expandafter\def\csname PYG@tok@nc\endcsname{\let\PYG@bf=\textbf\def\PYG@tc##1{\textcolor[rgb]{0.05,0.52,0.71}{##1}}}
-\expandafter\def\csname PYG@tok@gi\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
-\expandafter\def\csname PYG@tok@c1\endcsname{\let\PYG@it=\textit\def\PYG@tc##1{\textcolor[rgb]{0.25,0.50,0.56}{##1}}}
-\expandafter\def\csname PYG@tok@c\endcsname{\let\PYG@it=\textit\def\PYG@tc##1{\textcolor[rgb]{0.25,0.50,0.56}{##1}}}
-\expandafter\def\csname PYG@tok@se\endcsname{\let\PYG@bf=\textbf\def\PYG@tc##1{\textcolor[rgb]{0.25,0.44,0.63}{##1}}}
-\expandafter\def\csname PYG@tok@ow\endcsname{\let\PYG@bf=\textbf\def\PYG@tc##1{\textcolor[rgb]{0.00,0.44,0.13}{##1}}}
 \expandafter\def\csname PYG@tok@kc\endcsname{\let\PYG@bf=\textbf\def\PYG@tc##1{\textcolor[rgb]{0.00,0.44,0.13}{##1}}}
 \expandafter\def\csname PYG@tok@sb\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.25,0.44,0.63}{##1}}}
-\expandafter\def\csname PYG@tok@mo\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.13,0.50,0.31}{##1}}}
-\expandafter\def\csname PYG@tok@mb\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.13,0.50,0.31}{##1}}}
-\expandafter\def\csname PYG@tok@vg\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.73,0.38,0.84}{##1}}}
-\expandafter\def\csname PYG@tok@vi\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.73,0.38,0.84}{##1}}}
-\expandafter\def\csname PYG@tok@mi\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.13,0.50,0.31}{##1}}}
+\expandafter\def\csname PYG@tok@o\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PYG@tok@sx\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.78,0.36,0.04}{##1}}}
+\expandafter\def\csname PYG@tok@nd\endcsname{\let\PYG@bf=\textbf\def\PYG@tc##1{\textcolor[rgb]{0.33,0.33,0.33}{##1}}}
 \expandafter\def\csname PYG@tok@nf\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.02,0.16,0.49}{##1}}}
+\expandafter\def\csname PYG@tok@no\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.38,0.68,0.84}{##1}}}
+\expandafter\def\csname PYG@tok@cs\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.25,0.50,0.56}{##1}}\def\PYG@bc##1{\setlength{\fboxsep}{0pt}\colorbox[rgb]{1.00,0.94,0.94}{\strut ##1}}}
+\expandafter\def\csname PYG@tok@se\endcsname{\let\PYG@bf=\textbf\def\PYG@tc##1{\textcolor[rgb]{0.25,0.44,0.63}{##1}}}
+\expandafter\def\csname PYG@tok@mh\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.13,0.50,0.31}{##1}}}
+\expandafter\def\csname PYG@tok@m\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.13,0.50,0.31}{##1}}}
+\expandafter\def\csname PYG@tok@ni\endcsname{\let\PYG@bf=\textbf\def\PYG@tc##1{\textcolor[rgb]{0.84,0.33,0.22}{##1}}}
+\expandafter\def\csname PYG@tok@mb\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.13,0.50,0.31}{##1}}}
+\expandafter\def\csname PYG@tok@gi\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PYG@tok@vg\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.73,0.38,0.84}{##1}}}
+\expandafter\def\csname PYG@tok@kd\endcsname{\let\PYG@bf=\textbf\def\PYG@tc##1{\textcolor[rgb]{0.00,0.44,0.13}{##1}}}
+\expandafter\def\csname PYG@tok@gr\endcsname{\def\PYG@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PYG@tok@nl\endcsname{\let\PYG@bf=\textbf\def\PYG@tc##1{\textcolor[rgb]{0.00,0.13,0.44}{##1}}}
+\expandafter\def\csname PYG@tok@c\endcsname{\let\PYG@it=\textit\def\PYG@tc##1{\textcolor[rgb]{0.25,0.50,0.56}{##1}}}
+\expandafter\def\csname PYG@tok@mi\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.13,0.50,0.31}{##1}}}
+\expandafter\def\csname PYG@tok@cp\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.00,0.44,0.13}{##1}}}
+\expandafter\def\csname PYG@tok@gh\endcsname{\let\PYG@bf=\textbf\def\PYG@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PYG@tok@ne\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.00,0.44,0.13}{##1}}}
+\expandafter\def\csname PYG@tok@bp\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.00,0.44,0.13}{##1}}}
+\expandafter\def\csname PYG@tok@nv\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.73,0.38,0.84}{##1}}}
+\expandafter\def\csname PYG@tok@kp\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.00,0.44,0.13}{##1}}}
+\expandafter\def\csname PYG@tok@il\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.13,0.50,0.31}{##1}}}
+\expandafter\def\csname PYG@tok@ss\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.32,0.47,0.09}{##1}}}
+\expandafter\def\csname PYG@tok@kt\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.56,0.13,0.00}{##1}}}
+\expandafter\def\csname PYG@tok@gt\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PYG@tok@gd\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PYG@tok@sd\endcsname{\let\PYG@it=\textit\def\PYG@tc##1{\textcolor[rgb]{0.25,0.44,0.63}{##1}}}
+\expandafter\def\csname PYG@tok@vi\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.73,0.38,0.84}{##1}}}
+\expandafter\def\csname PYG@tok@vc\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.73,0.38,0.84}{##1}}}
+\expandafter\def\csname PYG@tok@sc\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.25,0.44,0.63}{##1}}}
+\expandafter\def\csname PYG@tok@nt\endcsname{\let\PYG@bf=\textbf\def\PYG@tc##1{\textcolor[rgb]{0.02,0.16,0.45}{##1}}}
+\expandafter\def\csname PYG@tok@s\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.25,0.44,0.63}{##1}}}
+\expandafter\def\csname PYG@tok@nn\endcsname{\let\PYG@bf=\textbf\def\PYG@tc##1{\textcolor[rgb]{0.05,0.52,0.71}{##1}}}
+\expandafter\def\csname PYG@tok@nc\endcsname{\let\PYG@bf=\textbf\def\PYG@tc##1{\textcolor[rgb]{0.05,0.52,0.71}{##1}}}
+\expandafter\def\csname PYG@tok@w\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PYG@tok@c1\endcsname{\let\PYG@it=\textit\def\PYG@tc##1{\textcolor[rgb]{0.25,0.50,0.56}{##1}}}
+\expandafter\def\csname PYG@tok@sr\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.14,0.33,0.53}{##1}}}
 \expandafter\def\csname PYG@tok@na\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.25,0.44,0.63}{##1}}}
 \expandafter\def\csname PYG@tok@kn\endcsname{\let\PYG@bf=\textbf\def\PYG@tc##1{\textcolor[rgb]{0.00,0.44,0.13}{##1}}}
-\expandafter\def\csname PYG@tok@s2\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.25,0.44,0.63}{##1}}}
-\expandafter\def\csname PYG@tok@cp\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.00,0.44,0.13}{##1}}}
-\expandafter\def\csname PYG@tok@kt\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.56,0.13,0.00}{##1}}}
+\expandafter\def\csname PYG@tok@gp\endcsname{\let\PYG@bf=\textbf\def\PYG@tc##1{\textcolor[rgb]{0.78,0.36,0.04}{##1}}}
+\expandafter\def\csname PYG@tok@gu\endcsname{\let\PYG@bf=\textbf\def\PYG@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PYG@tok@sh\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.25,0.44,0.63}{##1}}}
 \expandafter\def\csname PYG@tok@go\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.20,0.20,0.20}{##1}}}
-\expandafter\def\csname PYG@tok@ne\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.00,0.44,0.13}{##1}}}
-\expandafter\def\csname PYG@tok@nd\endcsname{\let\PYG@bf=\textbf\def\PYG@tc##1{\textcolor[rgb]{0.33,0.33,0.33}{##1}}}
-\expandafter\def\csname PYG@tok@s1\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.25,0.44,0.63}{##1}}}
+\expandafter\def\csname PYG@tok@ge\endcsname{\let\PYG@it=\textit}
+\expandafter\def\csname PYG@tok@si\endcsname{\let\PYG@it=\textit\def\PYG@tc##1{\textcolor[rgb]{0.44,0.63,0.82}{##1}}}
+\expandafter\def\csname PYG@tok@nb\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.00,0.44,0.13}{##1}}}
 \expandafter\def\csname PYG@tok@kr\endcsname{\let\PYG@bf=\textbf\def\PYG@tc##1{\textcolor[rgb]{0.00,0.44,0.13}{##1}}}
+\expandafter\def\csname PYG@tok@mo\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.13,0.50,0.31}{##1}}}
+\expandafter\def\csname PYG@tok@s2\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.25,0.44,0.63}{##1}}}
+\expandafter\def\csname PYG@tok@err\endcsname{\def\PYG@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PYG@tok@ow\endcsname{\let\PYG@bf=\textbf\def\PYG@tc##1{\textcolor[rgb]{0.00,0.44,0.13}{##1}}}
 \expandafter\def\csname PYG@tok@gs\endcsname{\let\PYG@bf=\textbf}
-\expandafter\def\csname PYG@tok@gh\endcsname{\let\PYG@bf=\textbf\def\PYG@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PYG@tok@mf\endcsname{\def\PYG@tc##1{\textcolor[rgb]{0.13,0.50,0.31}{##1}}}
 
 \def\PYGZbs{\char`\\}
 \def\PYGZus{\char`\_}
@@ -127,64 +127,33 @@
 Contents:
 
 
-\chapter{1   Checklist avant lancement de projet!}
-\label{checklist:checklist-avant-lancement-de-projet}\label{checklist:welcome-to-aes-s-documentation}\label{checklist::doc}\setbox0\vbox{
-\begin{minipage}{0.95\linewidth}
-\textbf{Contents}
+\chapter{Checklist avant lancement de projet !}
+\label{checklist:checklist-avant-lancement-de-projet}\label{checklist::doc}\label{checklist:welcome-to-aes-s-documentation}
 
-\medskip
-
-\begin{itemize}
-\item {} 
-{\hyperref[checklist:checklist-avant-lancement-de-projet]{1   Checklist avant lancement de projet!}}
-\begin{itemize}
-\item {} 
-{\hyperref[checklist:introduction]{1.1   Introduction.}}
-
-\item {} 
-{\hyperref[checklist:signaletique]{1.2   Signalétique.}}
-
-\item {} 
-{\hyperref[checklist:import-des-donnees]{1.3   Import des données.}}
-
-\item {} 
-{\hyperref[checklist:smartphone]{1.4   Smartphone.}}
-
-\item {} 
-{\hyperref[checklist:id1]{1.5   Import des données.}}
-
-\item {} 
-{\hyperref[checklist:liste-de-prix]{1.6   Liste de prix.}}
-
-\end{itemize}
-
-\end{itemize}
-\end{minipage}}
-\begin{center}\setlength{\fboxsep}{5pt}\shadowbox{\box0}\end{center}
-
-
-\section{1.1   Introduction.}
+\section{Introduction.}
 \label{checklist:introduction}
 Avant de se lancer dans l'implémentation de la solution AES, il est important de se poser les bonnes questions qui feront de ce projet une success story.
 
+Certaines réponses se trouvent dans le règlement communal.
 
-\section{1.2   Signalétique.}
+
+\section{Signalétique.}
 \label{checklist:signaletique}
 
-\section{1.3   Import des données.}
+\subsection{Import des données.}
 \label{checklist:import-des-donnees}
 Il est possible d'importer les signalétiques enfant et parent venant de fichiers xls.
 Les logiciels de gestion d'école peuvent exporter ce genre de fichiers, il faut cependant faire attention à quelques détails.
 \begin{itemize}
 \item {} 
-Est-ce que les données sont à jour
+Est-ce que les données sont à jour ?
 \begin{quote}
 \begin{itemize}
 \item {} 
 En septembre, c'est rarrement le cas !
 
 \item {} 
-Il peut être intéressant d'utiliser un formulaire d'inscription
+Il peut être intéressant d'utiliser un formulaire d'inscription.
 
 \end{itemize}
 
@@ -219,8 +188,340 @@ Libellé des colonnes
 \end{itemize}
 
 
-\section{1.4   Smartphone.}
-\label{checklist:smartphone}\begin{itemize}
+\subsection{Ecole.}
+\label{checklist:ecole}
+On parle ici de l'entité administrative (direction), dont dépendent une ou plusieurs implantations
+
+Champs obligatoires :
+\begin{itemize}
+\item {} 
+Nom
+
+\item {} 
+Adresse
+
+\end{itemize}
+
+
+\subsection{Implantation.}
+\label{checklist:implantation}
+On parle ici du batiment qui dépend d'une école (direction)
+
+Champs obligatoires :
+\begin{itemize}
+\item {} 
+Nom
+
+\item {} 
+Adresse
+
+\item {} 
+Nom de l'école dont elle dépend
+
+\end{itemize}
+
+
+\subsection{Lieu d'accueil.}
+\label{checklist:lieu-d-accueil}
+Le lieu d'accueil est l'endroit ou se déroule une activité, il peut être partagé par plusieurs implantations scolaire.
+
+Champs obligatoires :
+\begin{itemize}
+\item {} 
+Nom
+
+\item {} 
+Adresse
+
+\item {} 
+Liste des implantations scolaire qui sont suceptiblent d'y organiser des activités
+
+\end{itemize}
+
+
+\subsection{Parent.}
+\label{checklist:parent}
+Personne responable à qui les documents seront adressés
+\begin{itemize}
+\item {} 
+Nom
+
+\item {} 
+Prénom
+
+\item {} 
+Adresse
+
+\item {} 
+Diférenciation positive (Rapport ONE)
+
+\item {} 
+Mode d'envoie des documents (facture, invitation à payer ...)
+\begin{quote}
+
+Valeurs possibles
+\begin{itemize}
+\item {} 
+courrier
+
+\item {} 
+email
+
+\item {} 
+courrier et email
+
+\end{itemize}
+\end{quote}
+
+\end{itemize}
+
+
+\subsection{Enfant.}
+\label{checklist:enfant}
+Dans le cas d'enfant de parents séparés, l'enfant est encodé 2 fois dans l'application afin de simplifier la gestion administratives.
+\begin{itemize}
+\item {} 
+Factures séparées papan et maman.
+
+\item {} 
+attestations fiscale séparées.
+
+\item {} 
+les parents n'on pas de visibilité sur la facturation de leur ex conjoint.
+
+\end{itemize}
+
+Champs obligatoires :
+\begin{itemize}
+\item {} 
+Nom
+
+\item {} 
+Prénom
+
+\item {} 
+Implantation scolaire
+
+\item {} 
+Niveau
+\begin{quote}
+
+Valeurs possibles
+\begin{itemize}
+\item {} 
+1ère maternelle
+
+\item {} 
+2ème maternelle
+
+\item {} 
+3ème maternelle
+
+\item {} 
+1ère primaire
+
+\item {} 
+2ère primaire
+
+\item {} 
+3ère primaire
+
+\item {} 
+...
+
+\item {} 
+6ème primaire
+
+\end{itemize}
+\end{quote}
+
+\item {} 
+Date de naissance
+
+\item {} 
+Parent responsable
+
+\end{itemize}
+
+
+\subsection{Activité.}
+\label{checklist:activite}
+On entend par activité, toute période de temps nécéssitant le suivi de la présence de l'enfant
+ex. Accueil du matin, repas de midi, bricolage du mercredi ...
+
+Champs obligatoires :
+\begin{itemize}
+\item {} 
+Nom
+
+\item {} 
+Niveau auquel s'adresse l'activité
+\begin{quote}
+
+Valeurs possibles
+\begin{itemize}
+\item {} 
+maternelle
+
+\item {} 
+primaire
+
+\item {} 
+maternelle et primaire
+
+\end{itemize}
+\end{quote}
+
+\item {} 
+Est-ce une activité sur inscription uniquement ?
+
+\item {} 
+Quand est-ce que l'activité a lieu ?
+\begin{itemize}
+\item {} 
+jour de la semaine
+
+\item {} 
+horaire (heure de début et heure de fin)
+
+\end{itemize}
+
+\item {} 
+Lieux d'accueil (plusieurs valeurs possibles)
+
+\item {} 
+Est-ce subsidié par l'ONE ?
+
+\item {} 
+Est-ce que cette activité doit apparaître sur l'attestation fiscale ?
+
+\item {} 
+Catégorie d'activité
+
+\end{itemize}
+
+
+\subsection{Catégorie d'activité.}
+\label{checklist:categorie-d-activite}
+Les activités sont gérées par des pouvoirs organisateurs qui sont parfois indépendants et qui ont leurs propres règles,
+c'est ici que nous allons les définir.
+\begin{itemize}
+\item {} 
+Logo à utiliser sur les documents
+
+\item {} 
+Numéro de compte bancaire
+
+\item {} 
+Communication structurée
+\begin{itemize}
+\item {} 
+Préfixe (les 3 premiers chiffres)
+\begin{quote}
+
+il peut être différent pour :
+\begin{itemize}
+\item {} 
+l'invitation à pré-payer
+
+\item {} 
+la facture
+
+\item {} 
+le rappel
+
+\end{itemize}
+\end{quote}
+
+\item {} 
+Format du document, le mieux est de demander un exemple au responssable financier
+\begin{itemize}
+\item {} 
+invitation à pré-payer
+
+\item {} 
+facture
+
+\item {} 
+rappel
+
+\end{itemize}
+
+\end{itemize}
+
+\end{itemize}
+
+
+\section{Liste de prix.}
+\label{checklist:liste-de-prix}\begin{itemize}
+\item {} 
+Quel prix est associé à quelle activité ?
+
+\item {} 
+Réduction en fonction de la position de l'enfant
+\begin{itemize}
+\item {} 
+Lister ces réductions
+
+\item {} 
+Comment est calculée la position de l'enfant
+\begin{itemize}
+\item {} 
+Regroupement
+\begin{quote}
+\begin{itemize}
+\item {} 
+Par parent
+
+\end{itemize}
+
+En cas de famille recomposée habitant sous le même toit, les 2 familles sont prises séparément
+\begin{itemize}
+\item {} 
+Par adresse
+
+\end{itemize}
+
+En cas de famille recomposée habitant sous le même toit, les 2 familles sont considérées comme une fammille unique
+\end{quote}
+
+\item {} 
+Calcul de la position
+\begin{quote}
+\begin{itemize}
+\item {} 
+Absolue
+
+\end{itemize}
+
+la position de l'enfant est sa position par ordre décroissant sur la date de naissance
+\begin{itemize}
+\item {} 
+Par présence à l'activité
+
+\end{itemize}
+
+la position de l'enfant est sa position par ordre d'arrivée à l'activité
+\begin{itemize}
+\item {} 
+Par nombre
+
+\end{itemize}
+
+la position de l'enfant est déterminée par le nombre d'enfants présents à l'activité
+\end{quote}
+
+\end{itemize}
+
+\end{itemize}
+
+\end{itemize}
+
+
+\section{Smartphone.}
+\label{checklist:smartphone}
+Le smartphone est utilisé par les accueillantes pour enregistrer les présences des enfants.
+\begin{itemize}
 \item {} 
 Un smartphone minimum par lieu d'accueil
 
@@ -231,11 +532,11 @@ Le smartphone reste sur le lieu d'accueil
 Penser à sécuriser le smartphone pour le protéger du vol
 
 \item {} 
-Penser à la connection internet
+Penser à la connexion internet
 \begin{quote}
 
 Le smartphone s'utilise en mode déconnecté d'internet,
-cependant il faut absolument une connection une fois par jour pour transmettre les données au serveur.
+cependant il faut absolument une connexion une fois par jour pour transmettre les données au serveur.
 \begin{itemize}
 \item {} 
 wifi
@@ -249,34 +550,93 @@ Attention,
 Pas toujours disponible.
 
 \item {} 
-Certain directeur d'école sont contre pour des raisons de santé.
+Certains directeurs d'école sont contre pour des raisons de santé.
 
 \end{itemize}
 
-Dans ce cas, il possible d'utiliser une prise minuteur qui active le wifi la nuit pour la transmition
-et qui le désactive quand les enfant sont à l'école
+Dans ce cas, il possible d'utiliser une prise avec minuteur qui active le wifi la nuit pour la transmission
+et qui le désactive quand les enfants sont à l'école
 \end{quote}
 \begin{itemize}
-\item {} \begin{description}
-\item[{3G}] \leavevmode\begin{itemize}
 \item {} 
+3G
+\begin{itemize}
+\item {} 
+Pas toujours disponible
+
+\item {} 
+un abonnement est obligatoires, le plus petit convient parfaitement
+
+\end{itemize}
+
+\end{itemize}
+\end{quote}
+
+\end{itemize}
+
+
+\section{QR-Codes.}
+\label{checklist:qr-codes}
+Il en faut un par enfant
+\begin{itemize}
+\item {} 
+il sont habituellement distibué dans les écoles, par classe afin de ne pas désorganiser l'accueil les premiers jours
+
+\item {} 
+il n'est pas forcément nominatif, le nom de l'enfant apparait sur le smartphone au moment du scan,
+
+\end{itemize}
+
+il est donc très facile pour l'accueillante de vérifier que le QR-Code appartient bien à l'enfant.
+* Fabruication
+\begin{itemize}
+\item {} \begin{description}
+\item[{Il est possible de les imprimer via l'application}] \leavevmode\begin{itemize}
+\item {} 
+plastifié
+
+\item {} \begin{description}
+\item[{papier indéchirable (utilisé dans les aéroports)}] \leavevmode
+voir site
+
+\end{description}
+
+\item {} 
+prévoir des anneaux (porte clef)
+
+\item {} 
+prévoir des rivets (utilisé au service population
+
 \end{itemize}
 
 \end{description}
 
 \end{itemize}
-\end{quote}
+
+
+\subsection{Communication}
+\label{checklist:communication}
+Communiquer sur les changements est primordial pour la réussite du projet, la difficulté n'est pas sur la technique mais bien sur l'aspect humain.
+\begin{itemize}
+\item {} 
+Le QR-Code contient uniquement un identifiant interne qui ne représente rien en dehors du contexte de l'application.
+
+\item {} 
+Inssister sur les avantages
+\begin{itemize}
+\item {} 
+Gain de temps pour les accueillantes qui peuvent ainsi mieux se consacrer à l'accueil des enfants.
+
+\item {} 
+Transparence pour la facturation.
+
+\item {} 
+Gain de temps pour les coordinateurs qui peuvent dès lors mieux se concentrer sur leur projet ATL.
 
 \end{itemize}
 
+\end{itemize}
 
-\section{1.5   Import des données.}
-\label{checklist:id1}
-...
-
-
-\section{1.6   Liste de prix.}
-\label{checklist:liste-de-prix}
 ...
 
 
