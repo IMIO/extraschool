@@ -51,6 +51,7 @@
 	                    <field name="school_implantation_id" class="oe_no_button" />
 	                    <field name="class_id" class="oe_no_button"/>						
 						<field name="place_id"/>
+						<newline/>						
 	                    <field name="week"/>
         	            <newline/>
 						<field name="date_from"/> 
