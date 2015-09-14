@@ -18,6 +18,63 @@
 				</tree>
 			</field>
 		</record>
+
+		<record model="ir.ui.view" id="extraschool_child_registration_tree_multi">
+			<field name="name">child_registration</field>
+			<field name="model">extraschool.child_registration</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="child registration">					
+                    <field name="school_implantation_id"/>
+                    <field name="class_id"/>
+					<field name="place_id"/>
+					<field name="week"/>                    	
+                    <field name="date_from"/> 
+					<field name="date_to"/>
+					<field name="state" />					
+				</tree>
+			</field>
+		</record>
+						
+		<record model="ir.ui.view" id="extraschool_child_registration_form_multi">
+			<field name="name">child_registration_multi</field>
+			<field name="model">extraschool.child_registration</field>            
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="child_registration">
+					<header>
+						<button name="validate_multi" String="Set to validate" type="object" states='draft' class="oe_highlight" groups="extraschool.extraschool_school"/>	
+						<button name="validate_multi" String="Validate" type="object" states='to_validate' class="oe_highlight" groups="extraschool.extraschool_admin, extraschool.extraschool_accounting"/>	
+						<field name="state" widget="statusbar" statusbar_visible="draft,to_validate,validated"/>													
+					</header>
+					<group col="4">
+	                    <field name="school_implantation_id" class="oe_no_button" />
+	                    <field name="class_id" class="oe_no_button"/>						
+						<field name="place_id"/>
+	                    <field name="week"/>
+        	            <newline/>
+						<field name="date_from"/> 
+						<field name="date_to"/>
+						<newline />
+						<button name="update_child_list" String="Update list of child" type="object"  states='draft'/>					
+					</group>
+					<separator string="Registrations" />
+					<field name="child_registration_line_ids" colspan="4" >
+						<tree editable="bottom">
+						    <field name="child_id"/>
+							<field name="monday_activity_id"/>
+							<field name="tuesday_activity_id"/> 
+							<field name="wednesday_activity_id"/>						
+						    <field name="thursday_activity_id"/>
+							<field name="friday_activity_id"/>
+		                    <field name="saturday_activity_id"/> 
+							<field name="sunday_activity_id"/>								
+						</tree>							
+					</field>
+				</form>
+			</field>
+		</record>  
+
 		<record model="ir.ui.view" id="extraschool_child_registration_form">
 			<field name="name">child_registration</field>
 			<field name="model">extraschool.child_registration</field>            
@@ -33,7 +90,7 @@
 	                    <field name="school_implantation_id" class="oe_no_button" />
 	                    <field name="class_id" class="oe_no_button"/>						
 						<field name="place_id"/>
-	                    <field name="activity_id"/>
+	                    <field name="activity_id" required="True"/>
 	                    <field name="week"/>
         	            <newline/>
 						<field name="date_from"/> 
@@ -46,7 +103,7 @@
 						<tree editable="bottom">
 						    <field name="child_id"/>
 							<field name="monday"/>
-		                    <field name="tuesday"/> 
+							<field name="tuesday"/> 
 							<field name="wednesday"/>						
 						    <field name="thursday"/>
 							<field name="friday"/>
@@ -57,6 +114,7 @@
 				</form>
 			</field>
 		</record>  
+		
 
         <record id="extraschool_child_registration_search_view" model="ir.ui.view">
             <field name="name">extraschool_child_registration.search</field>
@@ -74,11 +132,56 @@
                 </search>
             </field>
         </record>
+
+        <!--
+			Register MONO Action		
+		-->
         
+                
 		<record model="ir.actions.act_window" id="action_extraschool_child_registration">
 			<field name="name">Child registration</field>
 			<field name="res_model">extraschool.child_registration</field>
 			<field name="view_type">form</field>
-		</record>            			      
+			<field name="domain">[('activity_id','!=',False),]</field>
+		</record>  
+
+		<record model="ir.actions.act_window.view"	id="action_extraschool_child_registration_tree">
+			<field name="sequence" eval="2"/>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="extraschool_child_registration_tree"/>
+			<field name="act_window_id" ref="action_extraschool_child_registration"/>
+		</record>		
+				
+		<record model="ir.actions.act_window.view"	id="action_extraschool_child_registration_form">
+			<field name="sequence" eval="2"/>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="extraschool_child_registration_form"/>
+			<field name="act_window_id" ref="action_extraschool_child_registration"/>
+		</record>
+
+		<!--
+			Register MULTI		
+		-->
+		<record model="ir.actions.act_window" id="action_extraschool_child_registration_multi">
+			<field name="name">Child registration multi-activity</field>
+			<field name="res_model">extraschool.child_registration</field>
+			<field name="view_type">form</field>
+			<field name="domain">[('activity_id','=',False),]</field>
+		</record>  	
+
+		<record model="ir.actions.act_window.view"	id="action_extraschool_child_registration_tree_multi">
+			<field name="sequence" eval="2"/>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="extraschool_child_registration_tree_multi"/>
+			<field name="act_window_id" ref="action_extraschool_child_registration_multi"/>
+		</record>	
+		
+		<record model="ir.actions.act_window.view"	id="action_extraschool_child_registration_form_multi">
+			<field name="sequence" eval="2"/>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="extraschool_child_registration_form_multi"/>
+			<field name="act_window_id" ref="action_extraschool_child_registration_multi"/>
+		</record>	
+			          			      
 	</data>
 </openerp>

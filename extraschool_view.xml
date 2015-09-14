@@ -29,7 +29,8 @@
 		
        	<menuitem name="Registrations" id="extraschool_menu_registrations" parent="menu_extraschool"  sequence="20"/>
        	<menuitem name="Childs registration" parent="extraschool_menu_registrations" id="extraschool_menu_child_registration" action="action_extraschool_child_registration"/>			
-       		
+       	<menuitem name="Childs registration Multi" parent="extraschool_menu_registrations" id="extraschool_menu_child_registration_multi" action="action_extraschool_child_registration_multi"/>			
+       		       		
         <menuitem name="Prestations" id="extraschool_menu_prestations" parent="menu_extraschool"  sequence="30"/>
         <menuitem action="action_lbsc_prestationscheck_wizard" id="extraschool_menu_prestationscheck_wizard" parent="extraschool_menu_prestations"/>       
         <menuitem name="Prestations" parent="extraschool_menu_prestations" id="extraschool_menu_prest_tree" action="action_extraschool_prest_tree" />

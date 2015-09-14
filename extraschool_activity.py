@@ -64,6 +64,8 @@ class extraschool_activity(models.Model):
     subsidizedbyone = fields.Boolean('Subsidized by one')
     validity_from = fields.Date('Validity from')
     validity_to = fields.Date('Validity to')
+    selectable_on_registration = fields.Boolean('Selectable on registration form')
+    registration_only = fields.Boolean('Selectable on registration form') 
  
     @api.onchange('parent_id')
     @api.depends('parent_id')
@@ -175,7 +177,11 @@ class extraschool_activity(models.Model):
     @api.multi
     def write(self, vals):
         print "----- activity  write ----"
+        print "vals: %s" % (vals)
         for activity in self:
+            if 'validity_from' not in vals and 'validity_to' not in vals:
+                return super(extraschool_activity,activity).write(vals)
+            print "update occu ..."
             if not activity.check_if_modifiable() :
                 raise Warning("It's not possible to update the activity because there are invoiced prestations after the current date")
                 return False

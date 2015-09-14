@@ -91,6 +91,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
                                                             ('activityid.prest_from','<=',prestation.prestation_time),
                                                             ('activityid.prest_to','>',prestation.prestation_time),
                                                             ('activityid.leveltype', 'like', prestation.childid.levelid.leveltype),
+                                                            ('activityid.registration_only','=',False),
                                                             ])
         else:
             #get occurrence of the presta day matching the time slot      
@@ -99,6 +100,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
                                                             ('activityid.prest_from','<',prestation.prestation_time),
                                                             ('activityid.prest_to','>=',prestation.prestation_time),
                                                             ('activityid.leveltype', 'like', prestation.childid.levelid.leveltype),
+                                                            ('activityid.registration_only','=',False),
                                                             ])
             
             

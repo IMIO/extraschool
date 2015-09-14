@@ -42,7 +42,9 @@
             		<page string="Registration">
 			            <group col="4">  
 			                <field name="onlyregisteredchilds" />      
-			                <field name="autoaddchilds" />  
+			                <field name="autoaddchilds" /> 
+			                <field name="selectable_on_registration" /> 
+			                <field name="registration_only" />  
 						</group>
 			        </page>
             		<page string="Planification">
