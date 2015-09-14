@@ -1,0 +1,9 @@
+\select@language {english}
+\contentsline {chapter}{\numberline {1}1\IeC {\nobreakspace }\IeC {\nobreakspace }\IeC {\nobreakspace }Checklist avant lancement de projet!}{3}{chapter.1}
+\contentsline {section}{\numberline {1.1}1.1\IeC {\nobreakspace }\IeC {\nobreakspace }\IeC {\nobreakspace }Introduction.}{3}{section.1.1}
+\contentsline {section}{\numberline {1.2}1.2\IeC {\nobreakspace }\IeC {\nobreakspace }\IeC {\nobreakspace }Signal\IeC {\'e}tique.}{3}{section.1.2}
+\contentsline {section}{\numberline {1.3}1.3\IeC {\nobreakspace }\IeC {\nobreakspace }\IeC {\nobreakspace }Import des donn\IeC {\'e}es.}{3}{section.1.3}
+\contentsline {section}{\numberline {1.4}1.4\IeC {\nobreakspace }\IeC {\nobreakspace }\IeC {\nobreakspace }Smartphone.}{4}{section.1.4}
+\contentsline {section}{\numberline {1.5}1.5\IeC {\nobreakspace }\IeC {\nobreakspace }\IeC {\nobreakspace }Import des donn\IeC {\'e}es.}{4}{section.1.5}
+\contentsline {section}{\numberline {1.6}1.6\IeC {\nobreakspace }\IeC {\nobreakspace }\IeC {\nobreakspace }Liste de prix.}{4}{section.1.6}
+\contentsline {chapter}{\numberline {2}Indices and tables}{5}{chapter.2}
