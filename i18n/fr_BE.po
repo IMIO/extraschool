@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-08 11:07+0000\n"
-"PO-Revision-Date: 2015-09-08 13:07+0200\n"
+"POT-Creation-Date: 2015-09-12 16:22+0000\n"
+"PO-Revision-Date: 2015-09-12 19:28+0200\n"
 "Last-Translator: Mike <michael.michot@imio.be>\n"
 "Language-Team: French <>\n"
 "MIME-Version: 1.0\n"
@@ -113,7 +113,7 @@ msgid ""
 "A reminder has been found but the amount is not corresponding to balances of "
 "invoices"
 msgstr ""
-"Un rappel a été trouvé, mais le montant ne correspond pas aux montants "
+"Un rappel a été trouvé mais le montant ne correspond pas aux montants "
 "ouverts des factures."
 
 #. module: extraschool
@@ -212,13 +212,13 @@ msgstr "Activité"
 #: field:extraschool.pdaprestationtimes,activitycategoryid:0
 #: field:extraschool.remindersjournal,activitycategoryid:0
 msgid "Activity Category"
-msgstr "Type d'activité"
+msgstr "Catégorie d'activité"
 
 #. module: extraschool
 #: field:extraschool.smartphone,activitycategories_ids:0
 #: model:ir.ui.menu,name:extraschool.extraschool_menu_activitycategory
 msgid "Activity categories"
-msgstr "Types d'activité"
+msgstr "Catégories d'activités"
 
 #. module: extraschool
 #: view:extraschool.activitycategory:extraschool.extraschool_activitycategory_form
@@ -258,7 +258,7 @@ msgstr "Nom de l'activité"
 #. module: extraschool
 #: view:extraschool.activityoccurrence:extraschool.extraschool_activityoccurrence_cal
 msgid "Activity occurences"
-msgstr "Occurrence de l'activité"
+msgstr "Occurrences de l'activité"
 
 #. module: extraschool
 #: field:extraschool.activity_occurrence_child_registration,activity_occurrence_id:0
@@ -297,22 +297,22 @@ msgstr "Assistant d'ajout de paiement\n"
 #. module: extraschool
 #: field:extraschool.payment,addr1:0 field:extraschool.reject,addr1:0
 msgid "Addr1"
-msgstr "Addr1"
+msgstr "Adr1"
 
 #. module: extraschool
 #: field:extraschool.payment,addr2:0 field:extraschool.reject,addr2:0
 msgid "Addr2"
-msgstr "Addr2"
+msgstr "Adr2"
 
 #. module: extraschool
 #: selection:extraschool.activity,days:0
 msgid "All Fridays"
-msgstr "Tous les Vendredis"
+msgstr "Tous les vendredis"
 
 #. module: extraschool
 #: selection:extraschool.activity,days:0
 msgid "All Monday to Friday"
-msgstr "Du Lundi au Vendredi"
+msgstr "Du lundi au vendredi"
 
 #. module: extraschool
 #: selection:extraschool.activity,days:0
@@ -362,7 +362,7 @@ msgid ""
 "At least one price list is missing !!!\n"
 " "
 msgstr ""
-"Au moins une liste de prix est manquante\n"
+"Au moins une liste de prix est manquante !!!\n"
 " "
 
 #. module: extraschool
@@ -438,7 +438,7 @@ msgstr "Corps du rapport"
 #. module: extraschool
 #: selection:extraschool.discount,period:0
 msgid "By Day"
-msgstr "Par Jour"
+msgstr "Par jour"
 
 #. module: extraschool
 #: selection:extraschool.discount,period:0
@@ -465,7 +465,7 @@ msgstr "Fichier CODA"
 #. module: extraschool
 #: model:ir.actions.report.xml,name:extraschool.coda_report
 msgid "CODA Import Report"
-msgstr "Rapport ficher CODA"
+msgstr "Rapport d'import CODA"
 
 #. module: extraschool
 #: model:ir.ui.menu,name:extraschool.extraschool_menu_codaimport
@@ -639,12 +639,17 @@ msgstr "Inscription"
 #: field:extraschool.activity_occurrence_child_registration,child_registration_line_id:0
 #: model:ir.model,name:extraschool.model_extraschool_child_registration_line
 msgid "Child registration line"
-msgstr "Ligne d'inscriptions"
+msgstr "Ligne d'inscription"
 
 #. module: extraschool
 #: field:extraschool.child_registration,child_registration_line_ids:0
 msgid "Child registration line ids"
 msgstr "Liste des inscriptions"
+
+#. module: extraschool
+#: model:ir.actions.act_window,name:extraschool.action_extraschool_child_registration_multi
+msgid "Child registration multi-activity"
+msgstr "Child registration multi-activity"
 
 #. module: extraschool
 #: field:extraschool.activity,childregistration_ids:0
@@ -699,6 +704,11 @@ msgid "Childs registration"
 msgstr "Inscriptions des enfants"
 
 #. module: extraschool
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_child_registration_multi
+msgid "Childs registration Multi"
+msgstr "Inscriptions multiactivités"
+
+#. module: extraschool
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_childsimport
 msgid "Childsimport"
 msgstr "Import des enfants"
@@ -711,7 +721,7 @@ msgstr "Filtre d'importation enfant"
 #. module: extraschool
 #: field:extraschool.discount,childtypes:0
 msgid "Childtypes"
-msgstr "Status de l'enfant"
+msgstr "Catégorie tarifaire de l'enfant"
 
 #. module: extraschool
 #: field:extraschool.parent,city:0 field:extraschool.place,city:0
@@ -752,7 +762,7 @@ msgstr "Fichier CODA"
 #: field:extraschool.prestation_times_manuel,comment:0
 #: field:extraschool.prestation_times_of_the_day,comment:0
 msgid "Comment"
-msgstr "Comment"
+msgstr "Commentaire"
 
 #. module: extraschool
 #: view:extraschool.timecorrection_wizard:extraschool.extraschool_timecorrection_wizard_form
@@ -994,7 +1004,7 @@ msgstr "Jusqu'au"
 #. module: extraschool
 #: field:extraschool.one_report_day,day_date:0
 msgid "Day date"
-msgstr "Day date"
+msgstr "Date du jour"
 
 #. module: extraschool
 #: field:extraschool.activity,days:0
@@ -1015,7 +1025,7 @@ msgstr "Fin par défaut"
 #: view:extraschool.invoice:extraschool.extraschool_invoice_form
 #: field:extraschool.invoice,invoice_line_ids:0
 msgid "Details"
-msgstr "Détailles"
+msgstr "Détails"
 
 #. module: extraschool
 #: field:extraschool.child,isdisabled:0
@@ -1092,7 +1102,7 @@ msgstr "Email de notifications"
 #. module: extraschool
 #: field:extraschool.pdaprestationtimes,prestation_times_encodage_manuel_id:0
 msgid "Encodage Manuel"
-msgstr "Encodage Manuel"
+msgstr "Encodage manuel"
 
 #. module: extraschool
 #: selection:extraschool.pdaprestationtimes,type:0
@@ -1230,6 +1240,7 @@ msgstr "Pied de page"
 
 #. module: extraschool
 #: field:extraschool.child_registration_line,friday:0
+#: field:extraschool.child_registration_line,friday_activity_id:0
 msgid "Friday"
 msgstr "Vendredi"
 
@@ -1414,7 +1425,7 @@ msgstr "Règles d'import niveaux"
 #. module: extraschool
 #: view:extraschool.childsimportfilter:extraschool.extraschool_childsimportfilter_form
 msgid "Importlevelrules"
-msgstr "Régles d'import niveau"
+msgstr "Régles d'import niveaux"
 
 #. module: extraschool
 #: selection:extraschool.guardianprestationtimes,es:0
@@ -1519,7 +1530,7 @@ msgstr "Date de factures"
 #: sql_constraint:extraschool.activity_occurrence_child_registration:0
 msgid ""
 "It's not allowed to register a child more than once to the same occurrence!"
-msgstr "Un enfant ne peut être inscrit qu'une seul fois à la même activité"
+msgstr "Un enfant ne peut être inscrit qu'une seule fois à la même activité"
 
 #. module: extraschool
 #: field:extraschool.activitycategory,invoicelastcomstruct:0
@@ -1779,6 +1790,7 @@ msgstr "Montant minimum"
 
 #. module: extraschool
 #: field:extraschool.child_registration_line,monday:0
+#: field:extraschool.child_registration_line,monday_activity_id:0
 msgid "Monday"
 msgstr "Lundi"
 
@@ -1788,7 +1800,7 @@ msgid ""
 "NE CLIQUER SUR CE BOUTTON QUE LORSQU'IL EST NECESSAIRE DE FAIRE UNE MISE A "
 "JOUR"
 msgstr ""
-"NE CLIQUER SUR CE BOUTTON QUE LORSQU'IL EST NECESSAIRE DE FAIRE UNE MISE A "
+"NE CLIQUER SUR CE BOUTON QUE LORSQU'IL EST NECESSAIRE DE FAIRE UNE MISE A "
 "JOUR"
 
 #. module: extraschool
@@ -1847,7 +1859,7 @@ msgstr "Non valeur"
 #. module: extraschool
 #: selection:extraschool.payment,paymenttype:0
 msgid "Non value"
-msgstr "Non-valeur"
+msgstr "Non valeur"
 
 #. module: extraschool
 #: field:extraschool.invoice,number:0
@@ -2220,7 +2232,7 @@ msgstr "Durée de la période"
 #: field:extraschool.invoicedprestations,period_tolerance:0
 #: field:extraschool.price_list_version,period_tolerance:0
 msgid "Period Tolerance"
-msgstr "Period Tolerance"
+msgstr "Tolérance"
 
 #. module: extraschool
 #: field:extraschool.biller,period_from:0
@@ -2296,7 +2308,7 @@ msgstr "Prépaiement"
 #. module: extraschool
 #: model:ir.ui.menu,name:extraschool.extraschool_menu_payment_report
 msgid "Pre-Payments Report"
-msgstr "Pre-Payments Report"
+msgstr "Rapport des prépaiements"
 
 #. module: extraschool
 #: selection:extraschool.payment_wizard,payment_type:0
@@ -2533,6 +2545,7 @@ msgstr "au"
 
 #. module: extraschool
 #: view:extraschool.child_registration:extraschool.extraschool_child_registration_form
+#: view:extraschool.child_registration:extraschool.extraschool_child_registration_form_multi
 #: model:ir.ui.menu,name:extraschool.extraschool_menu_registrations
 msgid "Registrations"
 msgstr "Inscriptions"
@@ -2552,7 +2565,7 @@ msgstr "Cause du rejet"
 #. module: extraschool
 #: view:extraschool.coda:extraschool.extraschool_coda_form
 msgid "Rejected payments"
-msgstr "Rejected payments"
+msgstr "paiements rejetés"
 
 #. module: extraschool
 #: view:extraschool.coda:extraschool.extraschool_coda_form
@@ -2649,7 +2662,7 @@ msgstr "Report template"
 #. module: extraschool
 #: field:extraschool.report,report_type_id:0
 msgid "Report type"
-msgstr "Report type"
+msgstr "Type de rapport"
 
 #. module: extraschool
 #: model:ir.ui.menu,name:extraschool.extraschool_menu_report
@@ -2663,6 +2676,7 @@ msgstr "Activité principale"
 
 #. module: extraschool
 #: field:extraschool.child_registration_line,saturday:0
+#: field:extraschool.child_registration_line,saturday_activity_id:0
 msgid "Saturday"
 msgstr "Saturday"
 
@@ -2680,7 +2694,7 @@ msgstr "Méthode de scan"
 #. module: extraschool
 #: field:extraschool.place,schedule:0
 msgid "Schedule"
-msgstr "Plannification"
+msgstr "Planification"
 
 #. module: extraschool
 #: model:ir.model,name:extraschool.model_extraschool_scheduledtasks
@@ -2758,9 +2772,15 @@ msgid "Section"
 msgstr "Section"
 
 #. module: extraschool
+#: field:extraschool.activity,registration_only:0
+#: field:extraschool.activity,selectable_on_registration:0
+msgid "Selectable on registration form"
+msgstr "sélectionnable sur le formulaire d'inscription"
+
+#. module: extraschool
 #: view:extraschool.price_list_version:extraschool.extraschool_price_list_version_form
 msgid "Selection"
-msgstr "Selection"
+msgstr "Sélection"
 
 #. module: extraschool
 #: view:extraschool.biller:extraschool.extraschool_biller_form
@@ -2770,7 +2790,7 @@ msgstr "Envoyer les factures par email"
 #. module: extraschool
 #: field:extraschool.inline_report,sequence:0
 msgid "Sequence"
-msgstr "Sequence"
+msgstr "Séquence"
 
 #. module: extraschool
 #: field:extraschool.smartphone,serveraddress:0
@@ -2884,6 +2904,7 @@ msgstr "La somme de ces activités"
 
 #. module: extraschool
 #: field:extraschool.child_registration_line,sunday:0
+#: field:extraschool.child_registration_line,sunday_activity_id:0
 msgid "Sunday"
 msgstr "Dimanche"
 
@@ -2926,6 +2947,7 @@ msgstr "Echéance"
 
 #. module: extraschool
 #: field:extraschool.child_registration_line,thursday:0
+#: field:extraschool.child_registration_line,thursday_activity_id:0
 msgid "Thursday"
 msgstr "Mardi"
 
@@ -2990,6 +3012,7 @@ msgstr "Vrai"
 
 #. module: extraschool
 #: field:extraschool.child_registration_line,tuesday:0
+#: field:extraschool.child_registration_line,tuesday_activity_id:0
 msgid "Tuesday"
 msgstr "Mardi"
 
@@ -3079,6 +3102,7 @@ msgstr "WIFI"
 
 #. module: extraschool
 #: field:extraschool.child_registration_line,wednesday:0
+#: field:extraschool.child_registration_line,wednesday_activity_id:0
 msgid "Wednesday"
 msgstr "Mercredi"
 
@@ -3186,11 +3210,13 @@ msgstr "Enfant"
 
 #. module: extraschool
 #: view:extraschool.child_registration:extraschool.extraschool_child_registration_tree
+#: view:extraschool.child_registration:extraschool.extraschool_child_registration_tree_multi
 msgid "child registration"
 msgstr "Inscriptions"
 
 #. module: extraschool
 #: view:extraschool.child_registration:extraschool.extraschool_child_registration_form
+#: view:extraschool.child_registration:extraschool.extraschool_child_registration_form_multi
 msgid "child_registration"
 msgstr "Inscriptions"
 
@@ -3223,7 +3249,7 @@ msgstr "Catégorie tarifaire"
 #. module: extraschool
 #: view:extraschool.childtype:extraschool.extraschool_childtype_search_view
 msgid "childtype Search"
-msgstr "childtype Search"
+msgstr "recherche de la catégorie tarifaire de l'enfant"
 
 #. module: extraschool
 #: view:extraschool.child:extraschool.extraschool_child_search_view
@@ -3477,7 +3503,7 @@ msgstr "Parent"
 #: view:extraschool.payment_wizard:extraschool.extraschool_payment_wizard_form
 #: model:ir.actions.act_window,name:extraschool.action_lbsc_payment_wizard
 msgid "payment Wizard"
-msgstr "Wizard de création de paiment"
+msgstr "Wizard de création de paiement"
 
 #. module: extraschool
 #: view:extraschool.child_registration:extraschool.extraschool_child_registration_search_view
@@ -3493,7 +3519,7 @@ msgstr "Lieux d'accueil"
 #: selection:extraschool.one_report_day,subvention_type:0
 #: selection:extraschool.parent,one_subvention_type:0
 msgid "positive differentiation grants"
-msgstr "positive differentiation grants"
+msgstr "différenciation positive"
 
 #. module: extraschool
 #: field:extraschool.activityoccurrence,prest_from:0
@@ -3519,7 +3545,7 @@ msgstr "Encodage manuel des présences"
 #. module: extraschool
 #: view:extraschool.prestation_times_encodage_manuel:extraschool.prestation_times_encodage_manuel_search_view
 msgid "prestation_times_encodage_manuel search"
-msgstr "Recherche des encodages manuel"
+msgstr "Recherche des encodages manuels"
 
 #. module: extraschool
 #: view:extraschool.prestation_times_of_the_day:extraschool.extraschool_prestation_times_of_the_day_form
@@ -3545,12 +3571,12 @@ msgstr "Dossier des fichiers coda traités"
 #. module: extraschool
 #: field:extraschool.mainsettings,qrencode:0
 msgid "qrencode"
-msgstr "qrencode"
+msgstr "qr code"
 
 #. module: extraschool
 #: field:extraschool.parent,reminder_ids:0
 msgid "reminders"
-msgstr "Rappels"
+msgstr "rappels"
 
 #. module: extraschool
 #: field:extraschool.reminder,term:0
@@ -3581,12 +3607,12 @@ msgstr "Pieds de page standard"
 #. module: extraschool
 #: view:extraschool.payment:extraschool.extraschool_payment_search_view
 msgid "structcom"
-msgstr "structcom"
+msgstr "communication structurée"
 
 #. module: extraschool
 #: view:extraschool.payment:extraschool.extraschool_payment_search_view
 msgid "structcom_prefix"
-msgstr "structcom_prefix"
+msgstr "préfixe"
 
 #. module: extraschool
 #: field:extraschool.mainsettings,tempfolder:0
@@ -3596,7 +3622,7 @@ msgstr "Dossier des fichiers temporaires"
 #. module: extraschool
 #: field:extraschool.mainsettings,templatesfolder:0
 msgid "templatesfolder"
-msgstr "Dossier des modèles de document"
+msgstr "Dossier des modèles de documents"
 
 #. module: extraschool
 #: view:extraschool.child:extraschool.extraschool_child_search_view
@@ -3606,7 +3632,7 @@ msgstr "type"
 #. module: extraschool
 #: field:extraschool.child_registration,state:0
 msgid "validated"
-msgstr "Validé"
+msgstr "validé"
 
 #. module: extraschool
 #: field:extraschool.guardian_prestation_times_report,weekly_schedule:0
