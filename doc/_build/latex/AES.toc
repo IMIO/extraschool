@@ -14,5 +14,5 @@
 \contentsline {section}{\numberline {1.4}Liste de prix.}{6}{section.1.4}
 \contentsline {section}{\numberline {1.5}Smartphone.}{7}{section.1.5}
 \contentsline {section}{\numberline {1.6}QR-Codes.}{8}{section.1.6}
-\contentsline {subsection}{\numberline {1.6.1}Communication}{8}{subsection.1.6.1}
-\contentsline {chapter}{\numberline {2}Indices and tables}{9}{chapter.2}
+\contentsline {section}{\numberline {1.7}Communication}{8}{section.1.7}
+\contentsline {chapter}{\numberline {2}Indices and tables}{11}{chapter.2}

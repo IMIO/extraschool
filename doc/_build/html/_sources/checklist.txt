@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 Checklist avant lancement de projet !
-====================================
+=====================================
 
 .. toctree::
    :maxdepth: 3
@@ -183,7 +183,7 @@ Journée pédagogique.
 
 * Avez-vous déjà les dates ?
 * Faut il être inscrit ?
-* Y a t'il des garderie avant et/ou après la journée pédagogique ?
+* Y a t'il des garderies avant et/ou après la journée pédagogique ?
 * Ou est organisé l'accueil ces jours là ?
 
 
@@ -282,24 +282,32 @@ Il en faut un par enfant
 
 	il est donc très facile pour l'accueillante de vérifier que le QR-Code appartient bien à l'enfant. 
 
-* Fabruication
+* Fabrication
 	
 	* Il est possible de les imprimer via l'application
 		* plastifié
 		* papier indéchirable (utilisé dans les aéroports)
-			voir site
+
+			`PAPIER POLYESTER INDECHIRABLE EN 195µ FORMAT A4 <https://www.google.be/search?q=PAPIER+POLYESTER+INDECHIRABLE+EN+195%C2%B5+FORMAT+A4>`_
+
 		* prévoir des anneaux (porte clef)
 		* prévoir des rivets (utilisé au service population 
 		 
 			
 
-*************
+#############
 Communication
-*************
+#############
 
 Communiquer sur les changements est primordial pour la réussite du projet, la difficulté n'est pas sur la technique mais bien sur l'aspect humain.
+Il faut prévoir un courrier qui explique aux parents les changements.
 
 * Le QR-Code contient uniquement un identifiant interne qui ne représente rien en dehors du contexte de l'application.
+	
+	.. image:: img/qrcode.png
+	
+	ce QR-Code contient juste l'identifiant : "1"
+	
 * Inssister sur les avantages
 
 	* Gain de temps pour les accueillantes qui peuvent ainsi mieux se consacrer à l'accueil des enfants.
