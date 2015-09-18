@@ -60,7 +60,7 @@ class extraschool_coda(models.Model):
         paymentids = []
         rejectids = []
         if not vals['codafile']:
-            raise Warning('No coda file!','ERROR: No CODA File !!!')
+            raise Warning(_('No coda file!','ERROR: No CODA File !!!'))
         lines = unicode(base64.decodestring(vals['codafile']), 'windows-1252', 'strict').split('\n')
         bankaccount = lines[1][5:21]
         codadate = '20'+lines[0][9:11]+'-'+lines[0][7:9]+'-'+lines[0][5:7]
@@ -76,13 +76,14 @@ class extraschool_coda(models.Model):
         reject_obj = self.env['extraschool.reject']
         activitycategory_ids=activitycategory_obj.search([('bankaccount', '=', bankaccount)]).ids
         if lines[0][127] !='2':
-            raise Warning('ERROR: Wrong CODA version !!!')
+            raise Warning(_('ERROR: Wrong CODA version !!!'))
         if (activitycategory_ids == 0):
-            raise Warning('ERROR: The account number in this CODA file is not used in this application !!!')
+            raise Warning(_('ERROR: The account number in this CODA file is not used in this application !!!'))
         reject = False
         amount = 0.0
         transfertdate=''
         communication=''
+        free_communication=''
         rejectcause=''
         parentaccount=''
         name=''
@@ -104,7 +105,7 @@ class extraschool_coda(models.Model):
                         else:
                             reject=True
                             rejectcause=_('No structured Communication')
-                            communication=line[62:112]
+                            free_communication=line[62:112]
                     else:
                         if line[1]=='3':
                             parentaccount=line[10:26]
@@ -195,23 +196,28 @@ class extraschool_coda(models.Model):
                                                 prefixfound=True
                                                 _prefix = prefix['payment_invitation_com_struct_prefix']
                                 if prefixfound:
-                                        parentid = int(communication[7:11]+communication[12:15])                                
-                                        payment_id = payment_obj.create({'parent_id': parentid,
-                                                                  'paymentdate': transfertdate,
-                                                                  'structcom_prefix': _prefix,
-                                                                  'structcom':communication,
-                                                                  'paymenttype':'1',
-                                                                  'account':parentaccount,
-                                                                  'name':name,
-                                                                  'adr1':adr1,
-                                                                  'adr2':adr2,
-                                                                  'amount': amount})
-                                        
-                                        for reconciliation in payment_id._get_reconciliation_list(parentid,prefix['payment_invitation_com_struct_prefix'],1,amount):
-                                            payment_reconciliation_obj.create({'payment_id' : payment_id.id,
-                                                                           'invoice_id' : reconciliation.invoice_id.id,
-                                                                           'amount' : reconciliation.amount})
-                                        paymentids.append(payment_id.id)
+                                        parentid = int(communication[7:11]+communication[12:15])
+                                        if len(self.env['extraschool.parent'].search([('id', '=',parentid)])) == 0:
+                                            reject=True;
+                                            print communication
+                                            rejectcause=_('Parent not found')
+                                        else:                              
+                                            payment_id = payment_obj.create({'parent_id': parentid,
+                                                                      'paymentdate': transfertdate,
+                                                                      'structcom_prefix': _prefix,
+                                                                      'structcom':communication,
+                                                                      'paymenttype':'1',
+                                                                      'account':parentaccount,
+                                                                      'name':name,
+                                                                      'adr1':adr1,
+                                                                      'adr2':adr2,
+                                                                      'amount': amount})
+                                            
+                                            for reconciliation in payment_id._get_reconciliation_list(parentid,prefix['payment_invitation_com_struct_prefix'],1,amount):
+                                                payment_reconciliation_obj.create({'payment_id' : payment_id.id,
+                                                                               'invoice_id' : reconciliation.invoice_id.id,
+                                                                               'amount' : reconciliation.amount})
+                                            paymentids.append(payment_id.id)
                                 else:
                                     reject=True;
                                     print '---------PREPAY-----'
@@ -219,7 +225,16 @@ class extraschool_coda(models.Model):
                                     print '--------------------'
                                     rejectcause=_('No valid structured Communication')
                     if reject:
-                        reject_id = reject_obj.create({'account':parentaccount,'paymenttype':'1','paymentdate':transfertdate,'structcom':communication,'name':name,'amount':amount,'adr1':adr1,'adr2':adr2,'rejectcause':rejectcause}).id
+                        reject_id = reject_obj.create({'account':parentaccount,
+                                                       'paymenttype':'1',
+                                                       'paymentdate':transfertdate,
+                                                       'structcom':communication,
+                                                       'freecom': free_communication,
+                                                       'name':name,
+                                                       'amount':amount,
+                                                       'adr1':adr1,
+                                                       'adr2':adr2,
+                                                       'rejectcause':rejectcause}).id
                         rejectids.append(reject_id)
                     reject = False
                     amount = 0.0

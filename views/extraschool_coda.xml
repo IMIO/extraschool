@@ -37,8 +37,10 @@
                     <separator string="Rejected payments" colspan="4"/>
                     <field name="rejectids" nolabel="1" colspan="4">
                         <tree string="Rejects" version="7.0">
-                            <field name="name"/>
+                            <field name="name"/>                            
                             <field name="rejectcause"/>
+                            <field name="structcom"/>
+                            <field name="freecom"/>                            	                            	                            
                             <field name="amount" sum="True"/>
                         </tree>
                     </field>

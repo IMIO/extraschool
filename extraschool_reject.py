@@ -30,6 +30,7 @@ class extraschool_reject(models.Model):
 
     paymentdate = fields.Date('Date')
     structcom = fields.Char('Structured Communication', size=50)
+    freecom = fields.Char('Free communication', size=50)
     account = fields.Char('Account', size=20)
     name = fields.Char('Name', size=50)
     addr1 = fields.Char('Addr1', size=50)
