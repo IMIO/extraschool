@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-14 07:28+0000\n"
-"PO-Revision-Date: 2015-09-14 09:29+0200\n"
+"POT-Creation-Date: 2015-09-18 10:16+0000\n"
+"PO-Revision-Date: 2015-09-18 12:19+0200\n"
 "Last-Translator: Mike <michael.michot@imio.be>\n"
 "Language-Team: French <>\n"
 "MIME-Version: 1.0\n"
@@ -107,7 +107,7 @@ msgid ">="
 msgstr ">="
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_coda.py:170
+#: code:addons/extraschool/extraschool_coda.py:171
 #, python-format
 msgid ""
 "A reminder has been found but the amount is not corresponding to balances of "
@@ -350,7 +350,7 @@ msgid "Amount"
 msgstr "Montant"
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_coda.py:130
+#: code:addons/extraschool/extraschool_coda.py:131
 #, python-format
 msgid "Amount greather than invoice balance"
 msgstr "Montant supérieur à la balance de la facture"
@@ -466,6 +466,12 @@ msgstr "Fichier CODA"
 #: model:ir.actions.report.xml,name:extraschool.coda_report
 msgid "CODA Import Report"
 msgstr "Rapport d'import CODA"
+
+#. module: extraschool
+#: code:addons/extraschool/extraschool_coda.py:70
+#, python-format
+msgid "CODA already imported !!!"
+msgstr "Fichier CODA déjà importé !!!"
 
 #. module: extraschool
 #: model:ir.ui.menu,name:extraschool.extraschool_menu_codaimport
@@ -758,6 +764,8 @@ msgid "Coda"
 msgstr "Fichier CODA"
 
 #. module: extraschool
+#: field:extraschool.payment,comment:0
+#: field:extraschool.payment_wizard,comment:0
 #: field:extraschool.prestation_times_encodage_manuel,comment:0
 #: field:extraschool.prestation_times_manuel,comment:0
 #: field:extraschool.prestation_times_of_the_day,comment:0
@@ -1074,6 +1082,22 @@ msgid "Duration"
 msgstr "Durée"
 
 #. module: extraschool
+#: code:addons/extraschool/extraschool_coda.py:81
+#, python-format
+msgid ""
+"ERROR: The account number in this CODA file is not used in this "
+"application !!!"
+msgstr ""
+"ERROR: Le numéro de compte de ce fichier CODA n'est pas utilisé dans cette "
+"application !!!"
+
+#. module: extraschool
+#: code:addons/extraschool/extraschool_coda.py:79
+#, python-format
+msgid "ERROR: Wrong CODA version !!!"
+msgstr "ERROR: Mauvaise version de fichier CODA !!!"
+
+#. module: extraschool
 #: field:extraschool.guardianprestationtimes,es:0
 #: field:extraschool.pdaprestationtimes,es:0
 msgid "ES"
@@ -1239,6 +1263,11 @@ msgid "Footer"
 msgstr "Pied de page"
 
 #. module: extraschool
+#: field:extraschool.reject,freecom:0
+msgid "Free communication"
+msgstr "Free communication"
+
+#. module: extraschool
 #: field:extraschool.child_registration_line,friday:0
 #: field:extraschool.child_registration_line,friday_activity_id:0
 msgid "Friday"
@@ -1257,7 +1286,7 @@ msgstr "GSM"
 #. module: extraschool
 #: view:extraschool.child:extraschool.extraschool_child_form
 msgid "Generate TagID"
-msgstr "Générer numéro de badge"
+msgstr "Generer numero de badge"
 
 #. module: extraschool
 #: help:extraschool.inline_report,sequence:0
@@ -1839,14 +1868,20 @@ msgid "Nb p childs"
 msgstr "Nb p childs"
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_coda.py:106
+#: code:addons/extraschool/extraschool_coda.py:63
 #, python-format
-msgid "No structured Communication"
-msgstr "Communication structurée"
+msgid "No coda file!"
+msgstr "Pas de fichier CODA!"
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_coda.py:152
-#: code:addons/extraschool/extraschool_coda.py:220
+#: code:addons/extraschool/extraschool_coda.py:107
+#, python-format
+msgid "No structured Communication"
+msgstr "Pas de communication structurée"
+
+#. module: extraschool
+#: code:addons/extraschool/extraschool_coda.py:153
+#: code:addons/extraschool/extraschool_coda.py:226
 #, python-format
 msgid "No valid structured Communication"
 msgstr "Communication structurée non valide"
@@ -2057,6 +2092,12 @@ msgstr "Colonne nom parent"
 #: field:extraschool.childsimportfilter,parentlastnamecolumnname:0
 msgid "Parent lastname column name"
 msgstr "Nom colonne nom parent"
+
+#. module: extraschool
+#: code:addons/extraschool/extraschool_coda.py:203
+#, python-format
+msgid "Parent not found"
+msgstr "Parent not found"
 
 #. module: extraschool
 #: field:extraschool.childsimportfilter,parentstreetcolumns:0

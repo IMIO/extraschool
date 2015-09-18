@@ -67,7 +67,7 @@ class extraschool_coda(models.Model):
         coda_obj = self.env['extraschool.coda']
         coda_ids = coda_obj.search([('codadate','=',codadate)]).ids
         if coda_ids:
-            raise Warning('CODA already imported !!!')
+            raise Warning(_('CODA already imported !!!'))
         activitycategory_obj = self.env['extraschool.activitycategory']
         invoice_obj = self.env['extraschool.invoice']
         reminder_obj = self.env['extraschool.reminder']
