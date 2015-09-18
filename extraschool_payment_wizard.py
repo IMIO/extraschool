@@ -43,7 +43,7 @@ class extraschool_payment_wizard(models.TransientModel):
     parent_id = fields.Many2one("extraschool.parent")
     activity_category_id = fields.Many2one("extraschool.activitycategory")
     payment_reconciliation_ids = fields.One2many('extraschool.payment_wizard_reconcil','payment_wizard_id')
-
+    comment = fields.Char('Comment')
     state = fields.Selection([('init', 'Init'),
                              ('print_payment', 'Print payment'),
                              ('print_reconciliation', 'Print reconciliation')],
@@ -119,7 +119,8 @@ class extraschool_payment_wizard(models.TransientModel):
         payment = payment.create({'parent_id': self.parent_id.id,
                         'paymentdate': self.payment_date,
                         'structcom_prefix': self.activity_category_id.payment_invitation_com_struct_prefix,
-                        'amount': self.amount})
+                        'amount': self.amount,
+                        'comment': self.comment})
         
         payment_reconciliation = self.env['extraschool.payment_reconciliation']
         for reconciliation in self.payment_reconciliation_ids:

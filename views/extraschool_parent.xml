@@ -89,12 +89,13 @@
                 </page>
                 <page string="Payment">
                 	<button name="extraschool.action_lbsc_payment_wizard" string="Add payment Wizard" icon="gtk-apply" type="action" context="{'parent_id': id}"/>
-                	<field name="payment_ids" readonly="True">
-                		<tree editable="top">
-                			<field name="paymentdate" />
-							<field name="paymenttype" />
+                	<field name="payment_ids">
+                		<tree editable="top" create="false" delete="false">
+                			<field name="paymentdate"  readonly="True"/>
+							<field name="paymenttype"  readonly="True"/>
 							<field name="structcom" readonly="True"/>
-							<field name="amount" sum="True"/>
+							<field name="comment" />															
+							<field name="amount" sum="True"  readonly="True"/>
                 		</tree>
                     </field>
                  </page>

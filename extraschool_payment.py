@@ -43,6 +43,7 @@ class extraschool_payment(models.Model):
     addr1 = fields.Char('Addr1', size=50)
     addr2 = fields.Char('Addr2', size=50)
     amount = fields.Float('Amount')
+    comment = fields.Char('Comment')
     solde = fields.Float(compute='compute_solde', string='Solde', store=True)
     payment_reconciliation_ids = fields.One2many('extraschool.payment_reconciliation','payment_id')
     coda = fields.Many2one('extraschool.coda', 'Coda', required=False,ondelete='cascade')

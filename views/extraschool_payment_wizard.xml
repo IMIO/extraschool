@@ -13,6 +13,7 @@
                         <field name="payment_type" />
                         <field name="activity_category_id" attrs="{'invisible':[('payment_type', '!=', '1')], 'required':[('payment_type', '==', '1')]}"/>
                         <field name="payment_date" />
+                        <field name="comment" />                        	
                         <field name="amount" />
                     </group>
                 	<group col="4"  states="init">
