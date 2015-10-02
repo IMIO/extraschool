@@ -43,8 +43,8 @@
 			<field name="arch" type="xml">
 				<form string="child_registration">
 					<header>
-						<button name="validate_multi" String="Set to validate" type="object" states='draft' class="oe_highlight" groups="extraschool.extraschool_school"/>	
-						<button name="validate_multi" String="Validate" type="object" states='to_validate' class="oe_highlight" groups="extraschool.extraschool_admin, extraschool.extraschool_accounting"/>	
+						<button name="validate_multi" String="Prêt à être validé" type="object" states='draft' class="oe_highlight" groups="extraschool.extraschool_school"/>	
+						<button name="validate_multi" String="Valider" type="object" states='to_validate' class="oe_highlight" groups="extraschool.extraschool_user, extraschool.extraschool_admin, extraschool.extraschool_accounting"/>	
 						<field name="state" widget="statusbar" statusbar_visible="draft,to_validate,validated"/>													
 					</header>
 					<group col="4">
