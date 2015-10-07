@@ -60,7 +60,7 @@ Rapport des présences.
 
 .. image:: img/screenshot/accueillante_rapport_des_presences.png
 
-Le rapport des présences des accueillantes présentes les présences cumulées par accuueillante et par jour, on y retrouve les informations suivantes :
+Le rapport des présences des accueillantes présente les présences cumulées par accueillante et par jour, on y retrouve les informations suivantes :
 
   * semaine : ex. 30/19 -> semaine 30 pour laquelle l'accueillante devait prester un total de 19h
   * Horaire du jour : le nombre d'heures prestées sur la journée
