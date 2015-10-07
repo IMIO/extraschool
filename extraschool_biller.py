@@ -21,16 +21,18 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from openerp import models, api, fields, _
 from openerp.api import Environment
 import lbutils
 import re
+from datetime import date, datetime, timedelta as td
+from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
+                           DEFAULT_SERVER_DATETIME_FORMAT)
 
 class extraschool_biller(models.Model):
     _name = 'extraschool.biller'
     _description = 'Biller'
 
-    name = fields.Char('Name', size=100, default='Facturier')
     activitycategoryid = fields.Many2one('extraschool.activitycategory', 'Activity Category')
     period_from = fields.Date('Period from')
     period_to = fields.Date('Period to')
@@ -46,7 +48,15 @@ class extraschool_biller(models.Model):
     filename = fields.Char('filename', size=20,readonly=True)
     biller_file = fields.Binary('File', readonly=True)
     oldid = fields.Integer('oldid')  
-    
+
+    @api.multi
+    def name_get(self):            
+        res=[]
+        for biller in self:
+            res.append((biller.id, _("Biller from %s to %s") % (datetime.strptime(biller.period_from, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y"), datetime.strptime(biller.period_to, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y"))))    
+
+        return res   
+        
     @api.depends('invoice_ids.amount_total')
     def _compute_total(self):
         for record in self:

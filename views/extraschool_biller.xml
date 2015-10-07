@@ -10,7 +10,11 @@
 					<field name="period_from"/>
 					<field name="period_to"/>
                     <field name="payment_term"/>
-				</tree>
+                    <field name="total"/>
+                    <field name="received"/>
+                    <field name="novalue"/>
+                    <field name="balance"/>                    	
+                </tree>
 			</field>
 		</record>
         
@@ -43,6 +47,7 @@
                     <separator string="Invoices" />
 					<field name="invoice_ids">
 						<tree>
+							<field name="parentid" />
 	                        <field name="activitycategoryid"/>
 							<field name="structcom"/>	                        
 	                        <field name="period_from"/>

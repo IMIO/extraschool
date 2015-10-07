@@ -238,9 +238,9 @@ class extraschool_invoice_wizard(models.TransientModel):
         obj_biller = self.env['extraschool.biller']
         
         #create a bille to store invoice
-        biller = obj_biller.create({'name' : 'test',
-                                    'period_from' : self.period_from,
+        biller = obj_biller.create({'period_from' : self.period_from,
                                     'period_to' : self.period_to,
+                                    'payment_term': self.invoice_term,
                                     })
 
         
@@ -262,7 +262,7 @@ class extraschool_invoice_wizard(models.TransientModel):
         verified_count = self.env.cr.dictfetchall()
         print "verified_count:" + str(verified_count[0]['verified_count'])
         if verified_count[0]['verified_count']:
-            raise Warning("At least one prestations is not verified !!!")
+            raise Warning(_("At least one prestations is not verified !!!"))
 
         
         #search parent to be invoiced
