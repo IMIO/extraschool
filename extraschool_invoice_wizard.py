@@ -295,13 +295,19 @@ class extraschool_invoice_wizard(models.TransientModel):
                 saved_parent_id = invoice_line['parent_id']
                 saved_schoolimplantation_id = invoice_line['schoolimplantation']
                 next_invoice_num += 1
-                invoice = inv_obj.create({'name' : 'invoice_%s' % (str(next_invoice_num).zfill(7),),
+                com_struct_prefix_str = self.activitycategory.invoicecomstructprefix
+                com_struct_id_str = str(next_invoice_num).zfill(7)
+                com_struct_check_str = str(long(com_struct_prefix_str+com_struct_id_str) % 97)
+                com_struct_check_str = com_struct_check_str if com_struct_check_str != '00' else '97'
+                
+                
+                invoice = inv_obj.create({'name' : _('invoice_%s') % (str(next_invoice_num).zfill(7),),
                                             'number' : next_invoice_num,
                                             'parentid' : saved_parent_id,
                                             'biller_id' : biller.id,
                                             'activitycategoryid': self.activitycategory.id,
                                             'schoolimplantationid': saved_schoolimplantation_id,
-                                            'structcom': self.env['extraschool.coda'].format_comstruct(self.activitycategory.invoicecomstructprefix  + str(next_invoice_num).zfill(7) + str(long(self.activitycategory.invoicecomstructprefix+str(next_invoice_num).zfill(7)) % 97))})
+                                            'structcom': "%s%s%s" % (com_struct_prefix_str,com_struct_id_str,com_struct_check_str)})
                 invoice_ids.append(invoice.id)
 
             duration_h = int(invoice_line['duration'])
