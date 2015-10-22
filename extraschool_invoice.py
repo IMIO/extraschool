@@ -23,6 +23,7 @@
 
 from openerp import models, api, fields
 from openerp.api import Environment
+import openerp.addons.decimal_precision as dp
 
 class extraschool_invoice(models.Model):
     _name = 'extraschool.invoice'
@@ -33,9 +34,9 @@ class extraschool_invoice(models.Model):
     parentid = fields.Many2one('extraschool.parent', 'Parent', required=False, index = True)
     number = fields.Integer('Number',readonly=True)
     structcom = fields.Char('Structured Communication', size=50,readonly=True, index = True)
-    amount_total = fields.Float('Amount',readonly=True)
+    amount_total = fields.Float(compute="_compute_amount_total",string='Amount',digits_compute=dp.get_precision('extraschool_invoice'),readonly=True)
     amount_received = fields.Float(compute="_compute_amount_received", string='Received',readonly=True,store=True)
-    balance = fields.Float(compute="_compute_balance",string='Balance',readonly=True, store=True)
+    balance = fields.Float(compute="_compute_balance",digits_compute=dp.get_precision('extraschool_invoice'), string='Balance',readonly=True, store=True)
     no_value = fields.Float('No value',readonly=True)
     discount = fields.Float('Discount',readonly=True)
     biller_id = fields.Many2one('extraschool.biller', 'Biller', required=False,ondelete='cascade',readonly=True)
@@ -49,14 +50,51 @@ class extraschool_invoice(models.Model):
     period_to = fields.Date(related='biller_id.period_to')
     payment_term = fields.Date(related='biller_id.payment_term')  
         
-
+    @api.depends('invoice_line_ids')
+    def _compute_amount_total(self):
+        for invoice in self:
+            invoice.amount_total = sum(invoice_line.total_price for invoice_line in invoice.invoice_line_ids)
+            
     @api.onchange('payment_ids')
     @api.depends('payment_ids')
     def _compute_amount_received(self):
         for invoice in self:
             invoice.amount_received = sum(reconcil_line.amount for reconcil_line in invoice.payment_ids)
 
-    @api.depends('amount_received')
+    @api.depends('amount_total' ,'amount_received')
     def _compute_balance(self):
         for invoice in self:
-            invoice.balance = invoice.amount_total - invoice.amount_received
+
+            total = 0 if len(invoice.invoice_line_ids) == 0 else sum(line.total_price for line in invoice.invoice_line_ids)
+            reconcil = 0 if len(invoice.payment_ids) == 0 else sum(reconcil_line.amount for reconcil_line in invoice.payment_ids)            
+            invoice.balance = 0 if total == 0 or total < 0 else total - reconcil
+            print "total = %s reconcil = %s balance = %s" % (total, reconcil, invoice.balance)
+    
+    @api.multi
+    def reconcil(self):
+        payment_obj = self.env['extraschool.payment']
+        payment_reconcil_obj = self.env['extraschool.payment_reconciliation']
+        self._compute_balance()
+        for invoice in self:
+            #search for open payment
+            payments = payment_obj.search([('parent_id','=',invoice.parentid.id),
+                                        ('structcom_prefix','=',invoice.activitycategoryid.payment_invitation_com_struct_prefix),
+                                        ('solde','>',0),
+                                        ]).sorted(key=lambda r: r.paymentdate)
+            print "%s payments found for invoice %s" % (len(payments),invoice.id)
+            print payments
+            zz = 0
+            print "invoice balance = %s" % (invoice.amount_total)
+            
+            solde = invoice.balance
+            while zz < len(payments) and solde > 0:
+                amount = solde if payments[zz].solde >= solde else payments[zz].solde
+                print "Add payment reconcil - amount : %s" % (amount)
+                payment_reconcil_obj.create({'payment_id': payments[zz].id,
+                                         'invoice_id': invoice.id,
+                                         'amount': amount,
+                                         })
+                solde -= amount
+                zz += 1
+            invoice.balance = solde
+            

@@ -23,6 +23,7 @@
 
 from openerp import models, api, fields
 from openerp.api import Environment
+import openerp.addons.decimal_precision as dp
 
 class extraschool_invoicedprestations(models.Model):
     _name = 'extraschool.invoicedprestations'
@@ -33,14 +34,14 @@ class extraschool_invoicedprestations(models.Model):
     child_position_id = fields.Many2one('extraschool.childposition', 'Child', required=False, select=True)
     placeid = fields.Many2one(related='activity_occurrence_id.place_id', store=True, select=True)
     prestation_date = fields.Date(related='activity_occurrence_id.occurrence_date', store=True, select=True)
-    activity_occurrence_id = fields.Many2one('extraschool.activityoccurrence', 'Activity occurrence', required=False, select=True)        
+    activity_occurrence_id = fields.Many2one('extraschool.activityoccurrence', 'Activity occurrence', required=False, select=True)
+    description = fields.Char('Description')        
     duration = fields.Integer('Duration')
     quantity = fields.Integer('Quantity')
     period_duration = fields.Integer('Period Duration')  
     period_tolerance = fields.Integer('Period Tolerance')  
-    unit_price = fields.Float('Price',digits=(7,3))    
-    total_price = fields.Float('Price',digits=(7,3))    
+    unit_price = fields.Float('Price',digits_compute=dp.get_precision('extraschool_invoice_line'))    
+    total_price = fields.Float('Price',digits_compute=dp.get_precision('extraschool_invoice_line'))    
     discount = fields.Boolean('Discount') 
     price_list_version_id = fields.Many2one('extraschool.price_list_version')                     
 
-extraschool_invoicedprestations()

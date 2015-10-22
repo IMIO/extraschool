@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+        <record model="ir.ui.view" id="extraschool_manuel_invoice_wizard_form">
+            <field name="name">extraschool.manuel.invoice.wizard.form</field>
+            <field name="model">extraschool.manuel_invoice_wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Manuel invoice wizard">
+                    <field name="state" invisible="1" />
+                    <group states="init">
+                        <field name="activity_category_id" />
+                        <field name="invoice_date" />
+						<field name="payment_term" />                        
+                        <field name="description" />                        	
+                        <field name="invoice_child" />                        	
+                        <field name="leveltype"  attrs="{'invisible':[('invoice_child', '!=', True)], 'required':[('invoice_child', '==', True)]}"/>                       	
+                        <field name="amount" />
+                    </group>
+                    <group colspan="4" col="3">
+                        <button name="generate_invoice" string="Facturation" icon="gtk-apply" type="object" />
+                    </group>
+                </form>
+            </field>
+        </record>        
+
+        <act_window id="parent_manuel_invoice_wizard_action"
+            name="Manuel invoice"
+            src_model="extraschool.parent"
+            res_model="extraschool.manuel_invoice_wizard"
+            view_type="form" view_mode="form"
+            key2="client_action_multi" target="new"
+            />
+                        
+	</data>
+</openerp>

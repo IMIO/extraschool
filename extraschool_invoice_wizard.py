@@ -37,6 +37,7 @@ from math import *
 from pyPdf import PdfFileWriter, PdfFileReader
 from openerp.exceptions import except_orm, Warning, RedirectWarning
 
+
 class extraschool_invoice_wizard(models.TransientModel):
     _name = 'extraschool.invoice_wizard'
     _schoolimplantationids = []
@@ -290,7 +291,6 @@ class extraschool_invoice_wizard(models.TransientModel):
         
         next_invoice_num = self.activitycategory.invoicelastcomstruct
         for invoice_line in invoice_lines:
-            print str(invoice_line)
             if saved_parent_id != invoice_line['parent_id'] or saved_schoolimplantation_id != invoice_line['schoolimplantation']:
                 saved_parent_id = invoice_line['parent_id']
                 saved_schoolimplantation_id = invoice_line['schoolimplantation']
@@ -319,8 +319,6 @@ class extraschool_invoice_wizard(models.TransientModel):
                                  'duration': duration,
                                  'child_position_id': invoice_line['child_position_id'],
                                  }).id)
-
-        print str(invoice_line_ids)
         
         self.activitycategory.invoicelastcomstruct = next_invoice_num
         #Mise à jour des pricelist
@@ -420,19 +418,58 @@ class extraschool_invoice_wizard(models.TransientModel):
         
         self.env.cr.execute(sql_update_invoice_total_price)
 
-        #Mise à jour de la balance
-        sql_update_invoice_total_price = """update extraschool_invoice i
-                                        set balance = amount_total
-                                    where i.id in (""" + ','.join(map(str, invoice_ids))+ """)
-                                    ;"""
+#         #Mise à jour de la balance
+#         sql_update_invoice_total_price = """update extraschool_invoice i
+#                                         set balance = amount_total
+#                                     where i.id in (""" + ','.join(map(str, invoice_ids))+ """)
+#                                     ;"""
         
         self.env.cr.execute(sql_update_invoice_total_price)
 
+
+        self.env.invalidate_all()
+        
+        #payment reconcil
+        payment = self.env['extraschool.payment']
+        payment_reconcil = self.env['extraschool.payment_reconciliation']
+        print "%s invoices to reconcil" % (len(invoice_ids))
+        #get invoice amount
+
+                
+        sql_select_invoice_amount_total = """    select i.id as id, i.parentid as parentid, amount_total, ac.payment_invitation_com_struct_prefix as payment_invitation_com_struct_prefix
+                                                from extraschool_invoice i
+                                                left join extraschool_biller b on i.biller_id = b.id
+                                                left join extraschool_activitycategory ac on b.activitycategoryid = ac.id
+                                                where i.id in (""" + ','.join(map(str, invoice_ids))+ """)
+                                            ;"""
+        
+
+        
+        self.env.cr.execute(sql_select_invoice_amount_total)
+        invoices = self.env.cr.dictfetchall()
+        for invoice in invoices:
+            #search for open payment
+            payments = payment.search([('parent_id','=',invoice['parentid']),
+                            ('structcom_prefix','=',invoice['payment_invitation_com_struct_prefix']),
+                            ('solde','>',0),
+                            ]).sorted(key=lambda r: r.paymentdate)
+            print "%s payments found for invoice %s" % (len(payments),invoice['id'])
+            print payments
+            zz = 0
+            print "invoice balance = %s" % (invoice['amount_total'])
+            solde = invoice['amount_total']
+            while zz < len(payments) and solde > 0:
+                amount = solde if payments[zz].solde >= solde else payments[zz].solde
+                print "Add payment reconcil - amount : %s" % (amount)
+                payment_reconcil.create({'payment_id': payments[zz].id,
+                                         'invoice_id': invoice['id'],
+                                         'amount': amount,
+                                         })
+                solde -= amount
+                zz += 1
+                                    
         
     @api.multi    
     def action_compute_invoices(self):   
         self._new_compute_invoices()
-        
-
-
-extraschool_invoice_wizard()
+            

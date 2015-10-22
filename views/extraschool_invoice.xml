@@ -17,6 +17,7 @@
                     <field name="balance"/>
                     <field name="discount"/>
                     <field name="no_value"/>
+                    <button name="reconcil" type="object" string="Reconcil"/>
 				</tree>
 			</field>
 		</record>
@@ -60,6 +61,7 @@
 	   		                    	<tree>
 	   		                    		<field name="childid" />
 	   		                    		<field name="activity_occurrence_id" />
+	   		                    		<field name="description"/>                    
 	   		                    		<field name="placeid" />
 	   		                    		<field name="prestation_date" />
 	   		                    		<field name="duration"/>

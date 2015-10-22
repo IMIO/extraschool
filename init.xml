@@ -95,5 +95,13 @@
             <field name="name">10e enfant</field>
             <field name="position">10</field>
         </record>
+		<record forcecreate= "True" id= "decimal_extraschool_invoice" model= "decimal.precision">
+			<field name="name">extraschool_invoice</field>
+			<field name="digits">2</field>
+		</record>        
+		<record forcecreate= "True" id= "decimal_extraschool_invoice_line" model= "decimal.precision">
+			<field name="name">extraschool_invoice_line</field>
+			<field name="digits">3</field>
+		</record>   		
  	</data>
 </openerp>

@@ -70,7 +70,8 @@
 	                        <field name="amount_total" sum="True"/>
 	                        <field name="amount_received" sum="True"/>
 	                        <field name="balance"  sum="True"/>
-	                        <field name="no_value"/>	                        
+	                        <field name="no_value"/>	
+	                        <button name="reconcil" type="object" string="Reconcil"/>	                        
 	                    </tree>
                     </field>
                     </group>
