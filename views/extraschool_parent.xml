@@ -97,6 +97,7 @@
 							<field name="structcom" readonly="True"/>
 							<field name="comment" />															
 							<field name="amount" sum="True"  readonly="True"/>
+							<field name="solde" />															
                 		</tree>
                     </field>
                  </page>
