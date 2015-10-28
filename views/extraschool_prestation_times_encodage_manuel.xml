@@ -22,6 +22,7 @@
 				<form string="prestation_times_encodage_manuel">
 					<header>
 						<button name="validate" String="Validate" type="object" states='draft' class="oe_highlight" groups="extraschool.extraschool_user"/>	
+						<button name="validate" String="Force Validate" type="object" class="oe_highlight" groups="base.group_erp_manager"/>	
 						<field name="state" widget="statusbar" statusbar_visible="draft,validated"/>													
 					</header>
 					<group col="4">

@@ -41,7 +41,21 @@ class extraschool_pdaprestationtimes(models.Model):
 
 
     @api.model
-    def create(self,vals):               
+    def create(self,vals):       
+        
+        search_domain = [('childid.id', '=', vals['childid']),
+                            ('placeid.id', '=', vals['placeid']),
+                            ('prestation_date', '=', vals['prestation_date']),
+                            ('prestation_time', '=', vals['prestation_time']),
+                            ('type', '=', vals['type']),
+                            ('es', '=', vals['es']),                        
+                             ]
+
+        presta = self.search(search_domain)
+        # if the same presta already exist than exit
+        if len(presta):
+            return True   
+             
         prestation_times_of_the_day_obj = self.env['extraschool.prestation_times_of_the_day']
         prestation_times_obj = self.env['extraschool.prestationtimes']
         

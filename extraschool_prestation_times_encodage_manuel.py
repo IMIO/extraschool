@@ -58,7 +58,7 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
 
         presta_obj = self.env['extraschool.pdaprestationtimes']
         
-        if self.state == 'draft':
+        if self.state == 'draft' or self.env.user.id == 1:
             for presta in self.prestationtime_ids:
                 if presta.prestation_time_entry > 0:
                     presta_obj.create({'placeid': self.place_id.id,
@@ -68,7 +68,7 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
                                        'type': 'manuel',
                                        'prestation_times_encodage_manuel_id': self.id,
                                        'es': 'E'})
-                elif presta.prestation_time_exit > 0:
+                if presta.prestation_time_exit > 0:
                     presta_obj.create({'placeid': self.place_id.id,
                                        'childid': presta.child_id.id,
                                        'prestation_date': self.date_of_the_day,
