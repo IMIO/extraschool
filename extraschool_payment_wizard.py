@@ -86,12 +86,7 @@ class extraschool_payment_wizard(models.TransientModel):
 
     @api.model
     def default_get(self,fields):
-        print "----------------"
-        print "context : %s" % (self.env.context,)
-        print "----------------"
-        print "fields : %s" % (fields,)
-        print "----------------"
-        print "return : %s" % {'parent_id': self.env.context.get('parent_id'),}
+
         return {'state': 'init',
                 'parent_id': self.env.context.get('parent_id'),}
 
