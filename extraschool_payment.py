@@ -51,7 +51,6 @@ class extraschool_payment(models.Model):
     @api.onchange('structcom')
     def compute_prefix(self):
         for record in self:
-            print "structcom : %s" % (self.structcom)
             if self.structcom:
                 if len(self.structcom) > 3:
                     record.structcom_prefix = self.structcom[0:3]
@@ -68,13 +67,14 @@ class extraschool_payment(models.Model):
 
     def _get_reconciliation_list(self,parent_id,com_struct_prefix,payment_type,amount):
         if payment_type == '1': #pre-paid
+            activity_category_ids = self.env['extraschool.activitycategory'].search([('payment_invitation_com_struct_prefix', '=', com_struct_prefix)]).ids
             invoices = self.env['extraschool.invoice'].search([('parentid', '=', parent_id),
-                                                               ('structcom', 'like',"+++" + com_struct_prefix),
+                                                               ('activitycategoryid', 'in',activity_category_ids),
                                                                ('balance', '>', 0)])
         else:
             invoices = self.env['extraschool.invoice'].search([('parentid', '=', parent_id),
                                                                ('balance', '>', 0)])
-            invoices = invoices.filtered(lambda r: r.structcom[3:6] not in [activity_categ.payment_invitation_com_struct_prefix for activity_categ in self.env['extraschool.activitycategory'].search([])])
+#            invoices = invoices.filtered(lambda r: r.structcom[3:6] not in [activity_categ.payment_invitation_com_struct_prefix for activity_categ in self.env['extraschool.activitycategory'].search([])])
         
         #sort result on date 
         invoices.sorted(key=lambda r: r.number)
@@ -143,6 +143,28 @@ class extraschool_payment_reconciliation(models.Model):
                     order by zz.ac_id,zz.p_id 
             """)
    
+    class extraschool_payment_report(models.Model):
+        _name = 'extraschool.payment_report'
+        _description = 'Payment report'
+        _auto = False
+        
+        parent_id = fields.Many2one('extraschool.parent',select=True)  
+        amount = fields.Float('amount',select=True)
+        solde = fields.Float('solde',select=True)
+        structcom = fields.Char('Structured Communication')
+        structcom_prefix = fields.Char('Structured Communication Prefix')
+        payment_date = fields.Date('Payment Date')
+        comment = fields.Char('Comment')
+        
+        
+        
+        def init(self, cr):
+            tools.sql.drop_view_if_exists(cr, 'extraschool_payment_report')
+            cr.execute("""
+                CREATE view extraschool_payment_report as
+                    select id, amount, solde, parent_id, comment,paymentdate as payment_date, structcom, structcom_prefix
+                    from extraschool_payment; 
+            """)
     
 
     
