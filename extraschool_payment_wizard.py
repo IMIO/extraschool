@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from openerp import models, api, fields, _
 from openerp.api import Environment
 import cStringIO
 import base64
@@ -94,18 +94,26 @@ class extraschool_payment_wizard(models.TransientModel):
     def next(self):
 
         #check if reconcil amount on line is never greater than balance
-        print "************************"
         zz = 0
+        total = 0
         for r in self.payment_reconciliation_ids:
+            total += r.amount
             if r.amount > r.invoice_balance : 
-                zz += 1
-                
-        print str(self.payment_reconciliation_ids.ids)
-        
-        print "************************"
+                zz += 1             
         
         if zz:
-            raise Warning("At least one reconciliation line is not correct : amount greater than balance")
+            raise Warning(_("At least one reconciliation line is not correct : amount greater than balance"))
+        
+        #if invoice payment amount reconcil MUST be equal to payment amount
+        print "type: %s amount: %s total: %s" % (self.payment_type,self.amount,total)
+        if self.payment_type == '2' and total != self.amount:
+            raise Warning(_("Reconcil amount MUST be equal to payment amount"))
+        
+        #Amount must be >= reconcil
+        if total > self.amount:
+            raise Warning(_("Reconcil amount MUST be less than payment amount"))
+        
+        
         self.create_payment()
 
     @api.multi
