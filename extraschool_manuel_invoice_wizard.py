@@ -77,7 +77,7 @@ class extraschool_manuel_invoice_wizard(models.TransientModel):
                                     'biller_id' : biller.id,
                                     'activitycategoryid': self.activity_category_id.id,
                                     'schoolimplantationid': child.schoolimplantation.id,
-                                    'structcom': "%s%s%s" % (com_struct_prefix_str,com_struct_id_str,com_struct_check_str)})
+                                    'structcom': "+++%s/%s/%s+++" % (com_struct_prefix_str,com_struct_id_str,com_struct_check_str)})
                         inv_line_obj.create({'invoiceid' : invoice.id,
                             'childid': child.id,
                             'description' : self.description,
@@ -99,7 +99,7 @@ class extraschool_manuel_invoice_wizard(models.TransientModel):
                                 'parentid' : parent.id,
                                 'biller_id' : biller.id,
                                 'activitycategoryid': self.activity_category_id.id,
-                                'structcom': "%s%s%s" % (com_struct_prefix_str,com_struct_id_str,com_struct_check_str)})
+                                'structcom': "+++%s/%s/%s+++" % (com_struct_prefix_str,com_struct_id_str,com_struct_check_str)})
                 inv_line_obj.create({'invoiceid' : invoice.id,
                     'description' : self.description,
                     'unit_price': self.amount,
