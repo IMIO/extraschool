@@ -307,7 +307,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                             'biller_id' : biller.id,
                                             'activitycategoryid': self.activitycategory.id,
                                             'schoolimplantationid': saved_schoolimplantation_id,
-                                            'structcom': "%s%s%s" % (com_struct_prefix_str,com_struct_id_str,com_struct_check_str)})
+                                            'structcom': "+++%s/%s/%s+++" % (com_struct_prefix_str,com_struct_id_str,com_struct_check_str)})
                 invoice_ids.append(invoice.id)
 
             duration_h = int(invoice_line['duration'])
@@ -435,6 +435,13 @@ class extraschool_invoice_wizard(models.TransientModel):
         print "%s invoices to reconcil" % (len(invoice_ids))
         #get invoice amount
 
+        #Mise à jour balance
+        sql_update_invoice_balance = """update extraschool_invoice i                                        
+                                        set balance = amount_total
+                                    where i.id in (""" + ','.join(map(str, invoice_ids))+ """)                                    
+                                    ;"""
+        
+        self.env.cr.execute(sql_update_invoice_balance)
                 
         sql_select_invoice_amount_total = """    select i.id as id, i.parentid as parentid, amount_total, ac.payment_invitation_com_struct_prefix as payment_invitation_com_struct_prefix
                                                 from extraschool_invoice i
