@@ -7,6 +7,7 @@
             <field name="type">tree</field>
             <field name="arch" type="xml">
 	            <tree string="Payment Status">
+	            	<field name="paymentdate"/>
                     <field name="name"/>
                     <field name="structcom"/>
                     <field name="structcom_prefix"/>
@@ -14,14 +15,36 @@
 	            </tree>
             </field> 
         </record>
+
+        <record model="ir.ui.view" id="extraschool_payment_form2">
+			<field name="name">payment.form2</field>
+			<field name="model">extraschool.payment</field>
+            <field name="priority" eval="17"/>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Payment">
+					<group col="4">
+	                    <field name="paymentdate" readonly="True"/>
+						<field name="amount" readonly="True"/>
+	                    <field name="paymenttype" attrs="{'readonly':[('paymenttype', '==', '1')]}"/>
+	                    <field name="name" readonly="True"/>
+	                    <field name="account" readonly="True"/>
+	                    <field name="structcom" readonly="True"/>
+	                    <field name="structcom_prefix" readonly="True"/>	
+	                    <newline />               		                    
+						<field name="comment" />      
+                    </group>
+				</form>
+			</field>
+		</record>                
         
          <record id="extraschool_payment_search_view" model="ir.ui.view">
             <field name="name">extraschool.payment.search</field>
             <field name="model">extraschool.payment</field>
             <field name="arch" type="xml">
-                <search string="Guardian prestationtimes Search">
+                <search string="Payment Search">
 	            	<field name="structcom"/>
-	                <field name="structcom_prefix"/>
+	                <field name="paymentdate"/>
 	                <field name="amount" />
                    <group  expand='0' string='Group by...'>
                        <filter string='structcom_prefix' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'structcom_prefix'}"/>
@@ -36,33 +59,9 @@
 			<field name="res_model">extraschool.payment</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
-		</record> 
-        		
-        <record model="ir.ui.view" id="extraschool_payment_form2">
-			<field name="name">payment.form2</field>
-			<field name="model">extraschool.payment</field>
-            <field name="priority" eval="17"/>
-			<field name="type">form</field>
-			<field name="arch" type="xml">
-				<form string="Payment">
-					<group col="4">
-                    <field name="paymentdate"/>
-                    <newline/>
-					<field name="amount"/>
-                    <newline/>
-                    <field name="paymenttype"/>
-                    <newline/>
-                    <field name="name"/>
-                    <newline/>
-                    <field name="account"/>
-                    <newline/>
-                    <field name="structcom"/>
-                    <newline/>
-                    <button name="savepayment" string="Save" icon="gtk-apply" type="object"/>
-                    </group>
-				</form>
-			</field>
 		</record>
+        		
+
 		
          <record model="ir.ui.view" id="extraschool_payment_status_report_form">
             <field name="name">extraschool.payment_status_report.form</field>
@@ -188,6 +187,7 @@
             <field name="type">tree</field>
             <field name="arch" type="xml">
 	            <tree string="Payment Status">
+                    <field name="payment_date"/>
                     <field name="parent_id"/>
                     <field name="structcom"/>
                     <field name="structcom_prefix"/>
@@ -203,6 +203,7 @@
             <field name="model">extraschool.payment_report</field>
             <field name="arch" type="xml">
                 <search string="Payment Search">
+                	<field name="payment_date"/>
 					<field name="parent_id"/>
 					<field name="structcom"/>
 					<field name="amount" />
