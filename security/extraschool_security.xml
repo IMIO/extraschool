@@ -12,6 +12,9 @@
          </record>   
          <record id="extraschool_accounting" model="res.groups">
             <field name="name">AES accounting</field>
-         </record>                   
+         </record> 
+         <record id="extraschool_payment_correction" model="res.groups">
+            <field name="name">AES Payment Correction</field>
+         </record>                             
       </data>
    </openerp>
