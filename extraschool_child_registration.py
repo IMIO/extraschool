@@ -197,6 +197,11 @@ class extraschool_child_registration(models.Model):
             self.state = 'to_validate'
         elif self.state == 'to_validate':
             self.state = 'validated'
+
+    @api.one
+    def set_to_draft(self):
+        if self.state == 'to_validate':
+            self.state = 'draft'
         
     
 class extraschool_child_registration_line(models.Model):
