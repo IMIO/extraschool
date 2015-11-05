@@ -52,7 +52,10 @@ class extraschool_prestation_times_of_the_day(models.Model):
     verified = fields.Boolean(select=True)
     comment = fields.Text()
         
-
+    @api.onchange('prestationtime_ids', 'pda_prestationtime_ids')
+    def on_change_prestationtime_ids(self):
+        self.verified = False
+        
     def _check_duplicate(self,strict=False):
         prestation_time_ids = [prestation_time.id for prestation_time in self.prestationtime_ids]
         
