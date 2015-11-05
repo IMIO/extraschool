@@ -68,7 +68,8 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
                                column2='place_id')
     period_from = fields.Date(default=_get_defaultfrom)
     period_to = fields.Date(default=_get_defaultto)
-    activitycategory = fields.Many2one('extraschool.activitycategory')                    
+    activitycategory = fields.Many2one('extraschool.activitycategory')      
+    force = fields.Boolean(string="Force verification")              
     state = fields.Selection([('init', 'Init'),
                                 ('prestations_to_verify', 'Prestations to verify'),
                                 ('end_of_verification', 'End of verification')],
@@ -172,10 +173,13 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
                 
         return self
             
-    def _check(self): 
-        print "Check from check_wizard"       
-        prestation_search_domain = [('verified', '=', False),]
-        
+    def _check(self, force = False): 
+        print "Check from check_wizard"   
+        if not force:    
+            prestation_search_domain = [('verified', '=', False),]
+        else:
+            prestation_search_domain = []
+            
         if self.placeid:
             prestation_search_domain.append(('placeid.id', 'in', [place.id for place in self.placeid]))
         if self.activitycategory:
@@ -223,7 +227,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
     
     @api.multi    
     def action_prestationscheck(self):    
-        return self._check()
+        return self._check(self.force)
 
 
 extraschool_prestationscheck_wizard()
