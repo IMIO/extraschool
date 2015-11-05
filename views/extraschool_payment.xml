@@ -61,7 +61,26 @@
 			<field name="view_mode">tree,form</field>
 		</record>
         		
-
+         <record model="ir.ui.view" id="extraschool_payment_reconciliation_tree">
+            <field name="name">extraschool.payment_reconciliation.tree</field>
+            <field name="model">extraschool.payment_reconciliation</field>    
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+	            <tree string="Payment reconciliation">
+	            	<field name="payment_id"/>
+                    <field name="invoice_id"/>
+                    <field name="paymentdate"/>
+                    <field name="amount" sum="True"/>
+	            </tree>
+            </field> 
+        </record>
+        
+        <record model="ir.actions.act_window" id="action_extraschool_payment_reconciliation">
+			<field name="name">Payments reconciliation</field>
+			<field name="res_model">extraschool.payment_reconciliation</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>        
 		
          <record model="ir.ui.view" id="extraschool_payment_status_report_form">
             <field name="name">extraschool.payment_status_report.form</field>
