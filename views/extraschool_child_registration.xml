@@ -126,9 +126,12 @@
                    <field name="place_id"/>            
                    <field name="date_from"/>
                    <field name="date_to"/>
+                   <field name="week"/>
+				   <filter string="Not validated" name="not_validated" icon="terp-accessories-archiver" domain="[('state','!=','validated')]"/>                   
                    <group  expand='0' string='Group by...'>
                        <filter string='place_id' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'place_id'}"/>
                        <filter string='activity_id' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'activity_id'}"/>
+                       <filter string='week' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'week'}"/>
                    </group>                    
                 </search>
             </field>
