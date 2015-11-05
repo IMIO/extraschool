@@ -24,7 +24,7 @@
 
 {
     'name' : 'Extraschool',
-    'version' : '0.8',
+    'version' : '0.9',
     'author' : 'Town of La Bruyère and Imio',
     'depends' : ['base', 
                  'report',
