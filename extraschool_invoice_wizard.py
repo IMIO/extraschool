@@ -253,13 +253,13 @@ class extraschool_invoice_wizard(models.TransientModel):
         sql_check_verified = """select count(*) as verified_count
                                     from extraschool_prestationtimes ept
                                     left join extraschool_child c on ept.childid = c.id
-                                    where ept.prestation_date between '2014-01-01' and '2014-12-31'
+                                    where ept.prestation_date between %s and %s
                                         and verified = False
                                         and activity_category_id = %s
                                         and c.schoolimplantation in (""" + ','.join(map(str, self.schoolimplantationid.ids))+ """)  
                                 ;"""
 
-        self.env.cr.execute(sql_check_verified, (self.activitycategory.id,))
+        self.env.cr.execute(sql_check_verified, (self.period_from, self.period_to, self.activitycategory.id,))
         verified_count = self.env.cr.dictfetchall()
         print "verified_count:" + str(verified_count[0]['verified_count'])
         if verified_count[0]['verified_count']:

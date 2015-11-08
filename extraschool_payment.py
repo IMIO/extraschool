@@ -59,7 +59,10 @@ class extraschool_payment(models.Model):
     def compute_solde(self):
         for record in self:
             record.solde = record.amount - sum(reconciliation.amount for reconciliation in record.payment_reconciliation_ids)
-    
+
+    def format_comstruct(self,comstruct):
+        return ('+++%s/%s/%s+++' % (comstruct[0:3],comstruct[3:7],comstruct[7:12]))
+        
     def savepayment(self, cr, uid, ids, context=None):
         obj_payment = self.pool.get('extraschool.payment')
         form = self.read(cr,uid,ids,)[-1]
@@ -134,13 +137,14 @@ class extraschool_payment_reconciliation(models.Model):
                         END as solde,
                         '+++' || LPAD(case when zz.ac_com_struct_prefix is NULL then '0' else zz.ac_com_struct_prefix end, 3, '0') 
                         || '/' || substring(LPAD(zz.p_id::TEXT,7,'0') from 1 for 4) || '/' || substring(LPAD(zz.p_id::TEXT,7,'0') from 5 for 3)
-                        || LPAD(((LPAD(case when zz.ac_com_struct_prefix is NULL then '0' else zz.ac_com_struct_prefix end, 3, '0') || LPAD(zz.p_id::TEXT,7,'0'))::bigint % 97)::TEXT,2,'0')
+                        || case when LPAD(((LPAD(case when zz.ac_com_struct_prefix is NULL then '0' else zz.ac_com_struct_prefix end, 3, '0') || LPAD(zz.p_id::TEXT,7,'0'))::bigint % 97)::TEXT,2,'0') = '00' then '97' 
+                        else LPAD(((LPAD(case when zz.ac_com_struct_prefix is NULL then '0' else zz.ac_com_struct_prefix end, 3, '0') || LPAD(zz.p_id::TEXT,7,'0'))::bigint % 97)::TEXT,2,'0') end
                         || '+++' as com_struct 
                         
                     from (select ac.id as ac_id, p.id as p_id, ac.payment_invitation_com_struct_prefix as ac_com_struct_prefix from extraschool_activitycategory ac, extraschool_parent p) zz
                     left join extraschool_payment pay on zz.p_id = pay.parent_id and zz.ac_com_struct_prefix = pay.structcom_prefix
                     group by zz.ac_id,zz.p_id, zz.ac_com_struct_prefix
-                    order by zz.ac_id,zz.p_id 
+                    order by zz.ac_id,zz.p_id
             """)
    
     class extraschool_payment_report(models.Model):
