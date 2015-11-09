@@ -320,7 +320,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                  'child_position_id': invoice_line['child_position_id'],
                                  }).id)
         
-        self.activitycategory.invoicelastcomstruct = next_invoice_num
+        self.activitycategory.invoicelastcomstruct = next_invoice_num + 1
         #Mise à jour des pricelist
         sql_update_price_list = """UPDATE extraschool_invoicedprestations ip
                                 SET price_list_version_id = 
