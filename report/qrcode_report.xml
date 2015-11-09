@@ -167,7 +167,11 @@
 			    <style type="text/css">
 			        .page {
 			        	margin-left: 3mm; 
-			        }  				
+			        }  	
+			        .page_logo {
+			        	margin-left: -0.5mm; 
+			        	margin-right: 2.5mm; 
+			        }  			        			
 					.qrcode {
         				width: 33%;
         				height: 57mm;
@@ -176,6 +180,15 @@
         				float: left;  
         				position: relative;      				
       				}
+
+					.qrcode_logo {
+        				width: 33%;
+        				height: 57mm;
+        				display: inline-block;
+        				border: 1px solid;
+        				float: right;  
+        				position: relative;      				
+      				}      				
       				
       				.qrcode_img {
   						position: absolute;
@@ -215,9 +228,9 @@
 				           	</div>
 						</t>
 					</div>
-					<div class="page">
+					<div class="page_logo page">
 						<t t-foreach="range(15*zz,15*(zz+1))" t-as="i">
-				           	<div class="qrcode">
+				           	<div class="qrcode_logo">
 				           		<t t-if="i &lt; len(docs)">
 				           			<img class="qrcode_img" t-att-src="'data:image/jpeg;base64,%s' % docs[i].get_qr_logo()[0]" />				           		
 								</t>									
