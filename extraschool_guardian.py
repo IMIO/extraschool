@@ -39,6 +39,21 @@ class extraschool_guardian(models.Model):
     def _name_compute(self):
         for record in self:
             record.name = '%s %s'  % (record.lastname, record.firstname) 
+
+    @api.one    
+    def action_gentagid(self):   
+        if not self.tagid :
+            config = self.env['extraschool.mainsettings'].browse([1])
+            self.tagid = config.lastqrcodenbr = config.lastqrcodenbr + 1
+        
+        return long(self.tagid)
+    
+    @api.one    
+    def get_qr_logo(self):   
+        config = self.env['extraschool.mainsettings'].browse([1])
+        logo = config.logo
+        
+        return logo
        
 
 extraschool_guardian()

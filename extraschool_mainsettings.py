@@ -37,7 +37,8 @@ class extraschool_mainsettings(models.Model):
     codasfolder = fields.Char('codasfolder', size=80)
     processedcodasfolder = fields.Char('processedcodasfolder', size=80)
     emailfornotifications = fields.Char('Email for notifications', size=80)
-        
+    logo = fields.Binary()
+            
     @api.one
     def update(self):
         self.write({'lastqrcodenbr':self.lastqrcodenbr, 'qrencode':self.qrencode, 'tempfolder':self.tempfolder,'templatesfolder':self.templatesfolder, 'codasfolder':self.codasfolder,'processedcodasfolder':self.processedcodasfolder})

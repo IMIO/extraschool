@@ -19,6 +19,8 @@
                     <newline/>
                     <field name="emailfornotifications"/>
                     <newline/>
+                	<field name="logo" widget="image" class="oe_avatar oe_left" />
+					<newline/>                	
                     <button name="update" string="Save" icon="gtk-apply" type="object"/>
                 </group>
 				</form>
