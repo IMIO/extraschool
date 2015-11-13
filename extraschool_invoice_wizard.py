@@ -288,7 +288,7 @@ class extraschool_invoice_wizard(models.TransientModel):
         saved_parent_id = -1
         invoice_ids = []
         invoice_line_ids = []
-        
+        payment_obj = self.env['extraschool.payment']
         next_invoice_num = self.activitycategory.invoicelastcomstruct
         for invoice_line in invoice_lines:
             if saved_parent_id != invoice_line['parent_id'] or saved_schoolimplantation_id != invoice_line['schoolimplantation']:
@@ -299,15 +299,14 @@ class extraschool_invoice_wizard(models.TransientModel):
                 com_struct_id_str = str(next_invoice_num).zfill(7)
                 com_struct_check_str = str(long(com_struct_prefix_str+com_struct_id_str) % 97)
                 com_struct_check_str = com_struct_check_str if com_struct_check_str != '00' else '97'
-                
-                
+                             
                 invoice = inv_obj.create({'name' : _('invoice_%s') % (str(next_invoice_num).zfill(7),),
                                             'number' : next_invoice_num,
                                             'parentid' : saved_parent_id,
                                             'biller_id' : biller.id,
                                             'activitycategoryid': self.activitycategory.id,
                                             'schoolimplantationid': saved_schoolimplantation_id,
-                                            'structcom': "+++%s/%s/%s+++" % (com_struct_prefix_str,com_struct_id_str,com_struct_check_str)})
+                                            'structcom': payment_obj.format_comstruct('%s%s%s' % (com_struct_prefix_str,com_struct_id_str,com_struct_check_str))})
                 invoice_ids.append(invoice.id)
 
             duration_h = int(invoice_line['duration'])
