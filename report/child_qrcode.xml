@@ -29,6 +29,9 @@
 			            <div class="row">
 				            Gsm : <span t-field="child.parentid.gsm" />
 			            </div>
+			            <div class="row">
+				            Email : <span t-field="child.parentid.email" />
+			            </div>
 			            
 		    	    </div>
 		    	</t>
