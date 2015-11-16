@@ -27,7 +27,15 @@
 	 			    <field name="name"/>
 	                <field name="childpositiondetermination"/>
 	                <field name="logo" widget="image" class="oe_avatar oe_left"/>
-	                <field name="slogan" />	                
+	                <field name="slogan" />	     
+	                <field name="po_name" />
+	                <newline />	     
+	                <field name="po_street" />	
+	                <newline />	     
+	                <field name="po_zipcode" />	     
+	                <field name="po_city" />	     
+	                <field name="po_sign" widget="image" class="oe_avatar oe_left"/>
+	                <field name="po_resp_name" />  
 				</group>
             	<notebook>
     	            <page string="Activities">

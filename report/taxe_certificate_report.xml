@@ -1,0 +1,158 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+		<template id="tpl_taxe_certificate_wizard_report">
+			    <style type="text/css">
+			        .frame {
+			        	border-style: solid;
+    					border-width: 1px;
+    					padding: 5mm;
+			        }  	
+			        
+			        .frame>div {
+			        	margin-left : 5mm;
+			        }
+			        
+			        .frame>ol>li>div {
+			        	margin-left : 1cm;
+			        }
+			        
+			        .parent_adr{
+			        	display: block;
+			        	float: right;	
+			        	width: 7cm;
+			        }
+			        
+			        .signature {
+			        	display: block;
+			        	float: right;
+			        	width: 10cm;
+			        }
+			        
+			        ol>li {counter-increment:item; list-style:none inside}
+      				
+      				ol>li:before {content:"(" counter(item) ")"; padding-right:0.5em}
+      				
+      				ol>li>div {
+      					margin-left: 2cm;
+      				}
+      				
+      				ol.main_list>li{
+      					margin: 15px 0;
+      				}
+			        
+			        .po>span {
+			        	display: block;
+			        	clear: both;
+			        }
+			        
+			        .signature>span {
+			        	display: block;
+			        	clear: both;
+			        }
+			        
+			        .po_sign {
+			        	display: block;
+			        	clear: both;			        	
+			        }
+			        
+    			</style>
+
+				<t t-foreach="docs" t-as="qr_report">
+					<t t-foreach="docs.get_taxe_certificates()" t-as="attest">						
+						<div class="page">		
+							<div class="frame">
+								<span>Cadre II</span> (A remplir par l'institution, le milieu d'accueil, la crèche, la famille d'accueil, l'école maternelle ou primaire, le pouvoir organisateur de l'école maternelle ou primaire, le pouvoir public local, communautaire ou régional)
+								<ol class="main_list">
+									<li>Numéro d'ordre de l'attestation :</li>
+									<li>Nom, prénom et adresse du débiteur des frais de garde d'enfant :
+										<div class="row">
+											<div class="parent_adr">
+												<div class="row">
+													<t t-esc="attest['parent_firstname']"/> <t t-esc="attest['parent_lastname']"/>
+												</div>
+												<div class="row">
+													<t t-esc="attest['parent_street']"/>
+												</div>
+												<div class="row">
+													<t t-esc="attest['parent_zipcode']"/> <t t-esc="attest['parent_city']"/>
+												</div>												
+											</div>
+										</div>
+									</li>						
+									<li>Nom et prénom de l'enfant : <t t-esc="attest['child_lastname']"/> <t t-esc="attest['child_firstname']"/></li>
+									<li>Date de naissance de l'enfant  <t t-esc="attest['child_birthdate']"/> </li>
+									<li>Période pendant laquelle l'enfant a été gardé (1) : 
+										<div class="row">du <t t-esc="attest['period_from']"/> au <t t-esc="attest['period_to']"/></div>
+									</li>
+									<li>Nombre de jours de garde :  <t t-esc="attest['nbdays']"/> </li>
+									<li>Tarif journalier (2) : </li>
+									<li>Montant total perçu :  <t t-esc="attest['amount']"/>  EUR</li>
+								</ol>
+								<div class="row">
+								Le soussigné certifie exacts les renseignements mentionnés ci-avant.
+								</div>
+								<div class="row">
+									<div class="signature">
+										<span>Fait à <t t-esc="docs.activitycategory.po_city"/>, le <t t-esc="docs.get_date()" /></span>
+										<span class="po_resp_name"><t t-esc="docs.activitycategory.po_resp_name"/></span>
+										<img class="po_sign" t-att-src="'data:image/jpeg;base64,%s' % docs.activitycategory.po_sign" />
+										(Nom, qualité et signature de la personne habilitée à représenter l'institution, le milieu d'accueil, la crèche, la famille   d'accueil,   l'école   maternelle   ou   primaire,   le pouvoir organisateur de l'école maternelle ou primaire, le pouvoir public local, communautaire ou régional)
+									</div>
+								</div>
+								<div class="row">
+									Nom et adresse complète de l'école maternelle ou primaire, du pouvoir organisateur de l'école maternelle ou primaire, du pouvoir public local, communautaire ou régional (3) :
+								</div>
+								<div class="po">
+									<span><t t-esc="docs.activitycategory.po_name"/></span>
+									<span><t t-esc="docs.activitycategory.po_street"/></span>
+									<span><t t-esc="docs.activitycategory.po_zipcode"/> <t t-esc="docs.activitycategory.po_city"/></span>
+								</div>
+							</div>
+							<ol>
+								<li>Les données mentionnées sur l'attestation ne peuvent concerner que la partie de l'année précédant le 12ème anniversaire de l'enfant.</li>
+								<li>Si plusieurs tarifs sont appliqués, il convient de fournir le détail du nombre total de jours de garde par tarif
+appliqué.   Ce   détail   peut,   le   cas   échéant,   être   joint   dans   une   annexe   à   la   présente   attestation.
+Pour les frais de garde payés soit aux écoles maternelles ou primaires, soit aux pouvoirs organisateurs de ces
+écoles maternelles ou  primaires,  soit aux institutions ou  milieux d'accueil  ayant un  lien  avec ces écoles
+maternelles ou primaires ou les pouvoirs organisateurs des écoles maternelles ou primaires, le tarif journalier
+ne doit cependant être mentionné que s'il est supérieur au montant maximum de 11,20 EUR par jour de garde.
+								</li>
+								<li>A ne compléter que lorsque les frais de garde sont payés directement aux instances mentionnées.</li>
+							</ol>
+						</div>
+					</t>
+				</t>
+		</template>
+
+		<record id="paperformat_aes_taxe_certificate" model="report.paperformat">
+    		<field name="name">Tax certificate</field>
+    		<field name="default" eval="True"/>
+   			<field name="format">A4</field>
+    		<field name="orientation">Portrait</field>
+    		<field name="margin_top">10</field>
+    		<field name="margin_bottom">20</field>
+    		<field name="margin_left">10</field>
+    		<field name="margin_right">10</field>
+    		<field name="header_line" eval="False"/>
+    		<field name="header_spacing">3</field>
+    		<field name="dpi">80</field>
+		</record>
+				
+		<report
+		    id="taxe_certificate_wizard_report"
+		    model="extraschool.taxcertificates_wizard"
+		    string="Tax certificate"
+		    report_type="qweb-pdf"
+		    name="extraschool.tpl_taxe_certificate_wizard_report"
+		    attachment_use="False"
+		/>
+		
+		<record id="taxe_certificate_wizard_report" model="ir.actions.report.xml">
+    		<field name="paperformat_id" ref="paperformat_aes_taxe_certificate"/>
+		</record>		
+		
+  </data>
+</openerp>	
+	
+	

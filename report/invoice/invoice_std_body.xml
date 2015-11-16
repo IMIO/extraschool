@@ -39,7 +39,9 @@
         			<tr>
 	        			<th>Activité</th>
 	        			<th>Enfant</th>
+	        			<th>Durée</th>
 	        			<th>Unité de tps</th>
+	        			<th>Quantité</th>
 	        			<th>Prix unit.</th>
 	        			<th>Total</th>
 					</tr>
@@ -47,7 +49,9 @@
         				<tr>
 	       					<td><span t-field="invoice_line.activity_occurrence_id" /></td> 
 	       					<td><span t-field="invoice_line.childid" /></td> 
+	       					<td><span t-field="invoice_line.duration" /></td> 
 	       					<td><span t-field="invoice_line.period_duration" /></td> 
+	       					<td><span t-field="invoice_line.quantity" /></td> 
 	       					<td><span t-field="invoice_line.unit_price" /></td> 
 	       					<td><span t-field="invoice_line.total_price" /></td> 
 	       				</tr>

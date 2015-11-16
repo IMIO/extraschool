@@ -91,6 +91,7 @@
         'report/common/std_header.xml',
         'report/common/adresse_no_style.xml',
         'report/common/html_text.xml',
+        'report/taxe_certificate_report.xml',
 
 
         'extraschool_view.xml',

@@ -2,6 +2,7 @@
 <openerp>
 	<data> 
 		<template id="invoice_report_layout" inherit_id="report.layout"  primary="True">
+
             <xpath expr="//head" position="inside">
 	            <style type="text/css">
 					body.container {
@@ -16,6 +17,13 @@
 		            <t t-call="report.style"/>
 		        </style>									
             </xpath>
+        	<xpath expr="//head" position="inside">
+              <script src="/extraschool/static/src/js/pagination_hide.js"></script>
+            </xpath>
+
+            <xpath expr="//body" position="attributes">
+                <attribute t-translation="off" name="onload">subst(); pagination_hide();</attribute>
+            </xpath>            
 		    
             <xpath expr="//html" position="attributes">
 		    	<attribute name="t-att-data-report-margin-top">docs[0].activitycategoryid.invoice_report_id.paper_format_id.margin_top</attribute>
@@ -32,10 +40,16 @@
 				<div id="invoice">
 					<t t-foreach="docs" t-as="invoice">													
 						<t t-set="logo" t-value="invoice.activitycategoryid.logo"/>
-						<t t-set="slogan" t-value="docs[0].activitycategoryid.invoice_report_id.paper_format_id.margin_bottom"/>		
+						<t t-set="slogan" t-value="docs[0].activitycategoryid.slogan"/>		
 						<t t-set="amount_int" t-value="int(invoice.amount_total)"/>
 						<t t-set="amount_dec" t-value="int(round((invoice.amount_total-int(invoice.amount_total))*100))"/>			
-			        	
+			        	<t t-set="bankaccount" t-value="docs[0].activitycategoryid.bankaccount"/>
+						<t t-set="bank_bic" t-value="docs[0].activitycategoryid.bank_bic"/>
+						<t t-set="bank_address" t-value="docs[0].activitycategoryid.bank_address"/>
+						<t t-set="bank_zip" t-value="docs[0].activitycategoryid.bank_zip"/>
+						<t t-set="bank_city" t-value="docs[0].activitycategoryid.bank_city"/>
+						<t t-set="com_struct" t-value="docs[0].structcom"/>
+																											
 						<t t-set="addresse" t-value="invoice.parentid"/>	
 							
 							
@@ -80,7 +94,7 @@
    			<field name="format">A4</field>
     		<field name="orientation">Portrait</field>
     		<field name="margin_top">40</field>
-    		<field name="margin_bottom">76</field>
+    		<field name="margin_bottom">78</field>
     		<field name="margin_left">0</field>
     		<field name="margin_right">0</field>
     		<field name="header_line" eval="False"/>

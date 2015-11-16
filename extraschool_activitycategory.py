@@ -30,7 +30,14 @@ class extraschool_activitycategory(models.Model):
     _name = 'extraschool.activitycategory'
     _description = 'Activities categories'
     
-    name = fields.Char('Name', size=50)         
+    name = fields.Char('Name', size=50)    
+    po_name = fields.Char('Name of PO')    
+    po_street = fields.Char('Street')
+    po_zipcode = fields.Char('ZipCode')
+    po_city = fields.Char('City')   
+    po_sign = fields.Binary('Signature')
+    po_resp_name = fields.Char('Name of resp')
+    
     activities = fields.One2many('extraschool.activity', 'category','Activities')               
     placeids = fields.Many2many('extraschool.place','extraschool_activitycategory_place_rel', 'activitycategory_id', 'place_id','Schoolcare place')
     childpositiondetermination = fields.Selection((('byparent','by parent'),

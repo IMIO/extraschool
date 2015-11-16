@@ -12,7 +12,6 @@
 		    	}
 				.logo {
 					width: 25mm;
-					height: 25mm;
 					display: inline-block;
 					float: left;        				
 				}

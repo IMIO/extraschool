@@ -37,7 +37,7 @@ class extraschool_invoice(models.Model):
     amount_total = fields.Float(compute="_compute_amount_total",string='Amount',digits_compute=dp.get_precision('extraschool_invoice'),readonly=True, store=True)
     amount_received = fields.Float(compute="_compute_amount_received", string='Received',readonly=True,store=True)
     balance = fields.Float(compute="_compute_balance",digits_compute=dp.get_precision('extraschool_invoice'), string='Balance',readonly=True, store=True)
-    no_value = fields.Float('No value',readonly=True)
+    no_value = fields.Float('No value',default=0.0,readonly=True)
     discount = fields.Float('Discount',readonly=True)
     biller_id = fields.Many2one('extraschool.biller', 'Biller', required=False,ondelete='cascade',readonly=True)
     filename = fields.Char('filename', size=20,readonly=True)
