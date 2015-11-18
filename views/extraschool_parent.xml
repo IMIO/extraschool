@@ -20,7 +20,11 @@
             <field name="model">extraschool.parent</field>    
             <field name="type">form</field>
             <field name="arch" type="xml">
-            <form string="Parents">                
+            <form string="Parents">
+            	<group col="4">        
+	            	<field name="isdisabled"/>
+	                <newline/>
+	            </group>            
                 <notebook>
                 <page string="Contact">
                     <group col="4">        
@@ -120,7 +124,8 @@
             <field name="model">extraschool.parent</field>
             <field name="arch" type="xml">
                 <search string="Parent Search">
-                   <field name="name"/>                
+                   <field name="name"/>       
+                   <filter string="Actif" name="actif" icon="terp-accessories-archiver" domain="[('isdisabled','=',False)]"/>                   	                                      	                   	         
                 </search>
             </field>
         </record>
@@ -139,6 +144,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree, form</field>
             <field name="view_id" ref="extraschool_parent_tree"/>
+            <field name="context">{"search_default_actif":1}</field>            	            
         </record>
         
         <record model="ir.actions.act_window.view" id="action_extraschool_parent_form">

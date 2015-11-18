@@ -117,6 +117,7 @@ class extraschool_parent(models.Model):
     totalbalance = fields.Float(compute='_compute_totalbalance', string="Total balance")
     payment_ids = fields.One2many('extraschool.payment','parent_id')
     payment_status_ids = fields.One2many('extraschool.payment_status_report','parent_id')
+    isdisabled = fields.Boolean('Disabled')            
     oldid = fields.Integer('oldid')                
     
     @api.model        
@@ -150,5 +151,7 @@ class extraschool_parent(models.Model):
             'context': {'parent_id' : ids[0]}
         }
 
+    @api.one
+    def unlink(self):
+        self.isdisabled = True
 
-extraschool_parent()

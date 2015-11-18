@@ -74,6 +74,10 @@ class extraschool_child(models.Model):
             self.tagid = config.lastqrcodenbr = config.lastqrcodenbr + 1
         
         return long(self.tagid)
+    
+    @api.one
+    def unlink(self):
+        self.isdisabled = True
 
 extraschool_child()
 
