@@ -42,11 +42,18 @@ class extraschool_pdaprestationtimes(models.Model):
 
     @api.model
     def create(self,vals):       
+        if len(self.env['extraschool.child'].search([('id', '=',vals['childid']),])) == 0:
+            #child deleted ...
+            print "warning p)da_presta of child deleted !!"
+            return self
+        
+        if 'type' not in vals:
+            vals['type'] = 'pda'
         
         search_domain = [('childid.id', '=', vals['childid']),
                             ('placeid.id', '=', vals['placeid']),
                             ('prestation_date', '=', vals['prestation_date']),
-                            ('prestation_time', '=', vals['prestation_time']),
+                            ('prestation_time', '=', vals['prestation_time']),                            
                             ('type', '=', vals['type']),
                             ('es', '=', vals['es']),                        
                              ]
@@ -54,7 +61,7 @@ class extraschool_pdaprestationtimes(models.Model):
         presta = self.search(search_domain)
         # if the same presta already exist than exit
         if len(presta):
-            return True   
+            return self
              
         prestation_times_of_the_day_obj = self.env['extraschool.prestation_times_of_the_day']
         prestation_times_obj = self.env['extraschool.prestationtimes']
@@ -72,4 +79,3 @@ class extraschool_pdaprestationtimes(models.Model):
         prestation_times_obj.create(vals)
         return super(extraschool_pdaprestationtimes, self).create(vals)    
     
-extraschool_pdaprestationtimes()
