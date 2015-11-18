@@ -21,8 +21,10 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from openerp import models, api, fields, _
 from openerp.api import Environment
+from openerp.exceptions import except_orm, Warning, RedirectWarning
+
 
 from datetime import date, datetime, timedelta as td
 
@@ -210,8 +212,12 @@ class extraschool_child_registration(models.Model):
             occu_reg_ids = occu_reg_obj.search([('child_registration_line_id', 'in', self.child_registration_line_ids.ids)])
             for occu_reg in occu_reg_ids:
                 if occu_reg.activity_occurrence_id.activityid.autoaddchilds:
-                    prestation_times_obj.search([('childid', '=', occu_reg.child_id.id),
-                                                 ('activity_occurrence_id', '=',occu_reg.activity_occurrence_id.id)]).unlink()
+                    presta_ids = prestation_times_obj.search([('childid', '=', occu_reg.child_id.id),
+                                                 ('activity_occurrence_id', '=',occu_reg.activity_occurrence_id.id)])
+                    if len(presta_ids.filtered(lambda record: record.invoiced_prestation_id.id > 0)):
+                        raise Warning(_("At least one registration line is already invoiced !"))
+        
+                    presta_ids.unlink()
             occu_reg_ids.unlink()     
             self.state = 'draft'                                
                     
