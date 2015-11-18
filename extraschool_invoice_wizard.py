@@ -179,6 +179,14 @@ class extraschool_invoice_wizard(models.TransientModel):
                                     and ec.birthdate < (select birthdate from extraschool_child where id = ept.childid)
                                     )) as child_position_id
                             """,
+                'byparent_nb_childs' : """(select min(id) 
+                                from extraschool_childposition
+                                where position = (select count(*)
+                                 from extraschool_child ec 
+                                 where  parent_id = ec.parentid
+                                    )) as child_position_id
+                            """,
+
                 'byparent_nb_childs_wp' : """(select min(id) 
                                 from extraschool_childposition
                                 where position = (select count(distinct childid)
@@ -211,6 +219,15 @@ class extraschool_invoice_wizard(models.TransientModel):
                                         and ec.birthdate < (select birthdate from extraschool_child where id = ept.childid)
                                         )) as child_position_id
                             """,
+               'byaddress_nb_childs' : """(select min(id)
+                                    from extraschool_childposition
+                                    where position = (select count(*)
+                                     from extraschool_child ec
+                                     left join extraschool_parent pp on pp.id = ec.parentid
+                                     where  pp.streetcode = p.streetcode
+                                        )) as child_position_id
+                            """,
+                                                        
                'byaddress_nb_childs_wp' : """(select min(id)
                                     from extraschool_childposition
                                     where position = (select count(distinct childid)

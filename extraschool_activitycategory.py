@@ -42,9 +42,11 @@ class extraschool_activitycategory(models.Model):
     placeids = fields.Many2many('extraschool.place','extraschool_activitycategory_place_rel', 'activitycategory_id', 'place_id','Schoolcare place')
     childpositiondetermination = fields.Selection((('byparent','by parent'),
                                                    ('byparentwp','by parent (only childs with prestations)'),
+                                                   ('byparent_nb_childs','by parent (position replaced by nbr childs'),                                                   
                                                    ('byparent_nb_childs_wp','by parent (position replaced by nbr childs with prestations'),                                                   
                                                    ('byaddress','by address'),
                                                    ('byaddresswp','by address (only childs with prestations)'),
+                                                   ('byaddress_nb_childs','by address (position replaced by nbr childs'),
                                                    ('byaddress_nb_childs_wp','by address (position replaced by nbr childs with prestations'),
                                                    ),'Child position determination', required = True)
     priorityorder = fields.Integer('Priority order')
