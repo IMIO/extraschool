@@ -45,6 +45,7 @@ class extraschool_prestationtimes(models.Model):
     activity_name = fields.Char(related='activity_occurrence_id.activityname')
     activity_category_id = fields.Many2one(related='activity_occurrence_id.activity_category_id', store=True, select=True)                  
     prestation_times_of_the_day_id = fields.Many2one('extraschool.prestation_times_of_the_day', 'Prestation of the day',ondelete='cascade')  
+    invoiced_prestation_id = fields.Many2one('extraschool.invoicedprestations', string='Invoiced prestation')                  
              
     @api.model
     def create(self, vals):        

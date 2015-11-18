@@ -297,7 +297,6 @@ class extraschool_invoice_wizard(models.TransientModel):
                                 group by c.schoolimplantation,parent_id,childid, activity_occurrence_id,p.streetcode
                                 order by c.schoolimplantation,parent_id, activity_occurrence_id;"""
 
-        print sql_mega_invoicing % (self.period_from, self.period_to, self.activitycategory.id,)
         self.env.cr.execute(sql_mega_invoicing, (self.period_from, self.period_to, self.activitycategory.id,))
         invoice_lines = self.env.cr.dictfetchall()
 
@@ -337,6 +336,19 @@ class extraschool_invoice_wizard(models.TransientModel):
                                  }).id)
         
         self.activitycategory.invoicelastcomstruct = next_invoice_num + 1
+        #Mise à jour lien entre invoice line et presta
+        sql_update_link_to_presta = """update extraschool_prestationtimes ept
+                                    set invoiced_prestation_id = (select id from extraschool_invoicedprestations where childid = ept.childid and activity_occurrence_id = ept.activity_occurrence_id)
+                                    from extraschool_child c 
+                                    where c.id = ept.childid and
+                                        ept.prestation_date between %s and %s
+                                        and verified = True
+                                        and activity_category_id = %s
+                                        and c.schoolimplantation in (""" + ','.join(map(str, self.schoolimplantationid.ids))+ """);
+                                    """     
+        self.env.cr.execute(sql_update_link_to_presta, (self.period_from, self.period_to, self.activitycategory.id,))
+
+        
         #Mise à jour des pricelist
         sql_update_price_list = """UPDATE extraschool_invoicedprestations ip
                                 SET price_list_version_id = 

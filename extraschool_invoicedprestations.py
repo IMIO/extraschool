@@ -43,5 +43,6 @@ class extraschool_invoicedprestations(models.Model):
     unit_price = fields.Float('Price',digits_compute=dp.get_precision('extraschool_invoice_line'))    
     total_price = fields.Float('Price',digits_compute=dp.get_precision('extraschool_invoice_line'))    
     discount = fields.Boolean('Discount') 
-    price_list_version_id = fields.Many2one('extraschool.price_list_version')                     
+    price_list_version_id = fields.Many2one('extraschool.price_list_version')   
+    prestation_ids = fields.One2many('extraschool.prestationtimes','invoiced_prestation_id',ondelete='restrict')                  
 
