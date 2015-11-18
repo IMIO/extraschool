@@ -202,6 +202,24 @@ class extraschool_child_registration(models.Model):
     def set_to_draft(self):
         if self.state == 'to_validate':
             self.state = 'draft'
+        elif self.state == 'validated':            
+            #delete all related records
+            occu_reg_obj = self.env['extraschool.activity_occurrence_child_registration']
+            prestation_times_obj = self.env['extraschool.prestationtimes']
+            
+            occu_reg_ids = occu_reg_obj.search([('child_registration_line_id', 'in', self.child_registration_line_ids.ids)])
+            for occu_reg in occu_reg_ids:
+                if occu_reg.activity_occurrence_id.activityid.autoaddchilds:
+                    prestation_times_obj.search([('childid', '=', occu_reg.child_id.id),
+                                                 ('activity_occurrence_id', '=',occu_reg.activity_occurrence_id.id)]).unlink()
+            occu_reg_ids.unlink()     
+            self.state = 'draft'                                
+                    
+                    
+                
+                
+                
+            
         
     
 class extraschool_child_registration_line(models.Model):
