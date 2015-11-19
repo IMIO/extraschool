@@ -14,6 +14,7 @@
 					<field name="week"/>                    	
                     <field name="date_from"/> 
 					<field name="date_to"/>
+					<field name="comment"/>											
 					<field name="state" />					
 				</tree>
 			</field>
@@ -31,6 +32,7 @@
 					<field name="week"/>                    	
                     <field name="date_from"/> 
 					<field name="date_to"/>
+					<field name="comment"/>											
 					<field name="state" />					
 				</tree>
 			</field>
@@ -58,7 +60,8 @@
 						<field name="date_from"/> 
 						<field name="date_to"/>
 						<newline />
-						<button name="update_child_list" String="Update list of child" type="object"  states='draft'/>					
+						<field name="comment"/>							
+						<button name="update_child_list" String="Update list of child" type="object"  states='draft'/>	
 					</group>
 					<separator string="Registrations" />
 					<field name="child_registration_line_ids" colspan="4" >

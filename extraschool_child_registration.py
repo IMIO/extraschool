@@ -44,6 +44,7 @@ class extraschool_child_registration(models.Model):
     date_from = fields.Date('Date from', required=True, readonly=True, states={'draft': [('readonly', False)]})
     date_to = fields.Date('Date to', required=True, readonly=True, states={'draft': [('readonly', False)]})
     child_registration_line_ids = fields.One2many('extraschool.child_registration_line','child_registration_id',copy=True, readonly=True, states={'draft': [('readonly', False)]})
+    comment = fields.Char('Comment')
     state = fields.Selection([('draft', 'Draft'),
                               ('to_validate', 'Ready'),
                               ('validated', 'Validated')],
