@@ -44,6 +44,8 @@
                     <field name="gsm"/>
                     <field name="email"/>
                     <newline/>
+                    <field name="one_subvention_type"/>
+                    <newline/>
                     <field name="invoicesendmethod"/>
                     <newline/>
                     <field name="remindersendmethod"/>
@@ -52,7 +54,7 @@
                 </page>
                 <page string="Childs">
                     <group col="4">
-                    <field name="child_ids" nolabel="1"/>
+                    <field name="child_ids" nolabel="1" />
                     </group>
                 </page>
                 <page string="Invoices">
