@@ -37,7 +37,8 @@ class extraschool_pdaprestationtimes(models.Model):
     prestation_times_encodage_manuel_id = fields.Many2one('extraschool.prestation_times_encodage_manuel', 'Encodage Manuel')    
     es = fields.Selection((('E','In'),
                            ('S','Out')),'ES' )    
-    prestation_times_of_the_day_id = fields.Many2one('extraschool.prestation_times_of_the_day', 'Prestation of the day')           
+    prestation_times_of_the_day_id = fields.Many2one('extraschool.prestation_times_of_the_day', 'Prestation of the day')
+    pda_transmission_id = fields.Many2one('extraschool.pda_transmission', 'Transmission')           
 
 
     @api.model
@@ -78,4 +79,4 @@ class extraschool_pdaprestationtimes(models.Model):
         
         prestation_times_obj.create(vals)
         return super(extraschool_pdaprestationtimes, self).create(vals)    
-    
+

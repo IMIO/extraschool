@@ -51,6 +51,7 @@ class extraschool_smartphone(models.Model):
     manualok = fields.Boolean('Authorize manual encoding')
     cfgpassword = fields.Char('Config password', required=True,default='1234')
     maxtimedelta = fields.Integer('Max time delta')
+    pda_transmission_ids = fields.One2many('extraschool.pda_transmission', 'smartphone_id')
     
     @api.multi
     def write(self,vals):
@@ -75,4 +76,21 @@ class extraschool_smartphone(models.Model):
 
         return self
         
-extraschool_smartphone()
+class extraschool_pda_transmission(models.Model):
+    _name = 'extraschool.pda_transmission'
+    _description = 'PDA pda_transmission'
+    
+    transmission_date_from = fields.Datetime('Date from', required=True)
+    transmission_date_to = fields.Datetime('Date to', required=True)
+    smartphone_id = fields.Many2one('extraschool.smartphone', 'Smartphone', required=True)
+    pda_prestation_times_ids = fields.One2many('extraschool.pdaprestationtimes','pda_transmission_id')
+    state = fields.Selection([('init', 'Init'),
+                              ('in_progress', 'In progress'),
+                              ('warning', 'Warning'),
+                              ('error', 'error'),
+                              ('pending', 'Pending'),
+                              ('ended', 'Ended')],
+                              'validated', required=True, default='init'
+                              )        
+        
+
