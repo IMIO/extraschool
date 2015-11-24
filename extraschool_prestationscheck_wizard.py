@@ -190,6 +190,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
             prestation_search_domain.append(('prestation_date', '<=', self.period_to))
                                     
         obj_prestation_rs = self.env['extraschool.prestationtimes'].search(prestation_search_domain)
+        
         prestation_ids = obj_prestation_rs.ids
                 
         #add activity occurrence when missing
@@ -199,6 +200,11 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
         
         #get distinc presta of the day
         obj_prestation_of_the_day_rs = self.env['extraschool.prestation_times_of_the_day'].search([('prestationtime_ids', 'in', prestation_ids)])
+        
+        if force:
+            obj_prestation_rs.write({'verified': False,})
+            obj_prestation_of_the_day_rs.write({'verified': False,})
+            
         for presta_of_the_day in obj_prestation_of_the_day_rs:
             presta_of_the_day.check()
             if presta_of_the_day.prestationtime_ids.filtered(lambda r: r.verified == False):
