@@ -58,11 +58,13 @@
 			                <separator string="Exclusion dates" colspan="4"/> 
 			                <field name="exclusiondates_ids" nolabel="1" colspan="4">
 			                	<tree>
-				                	<field name="date_from" />
+				                	<field name="name" />
+			                		<field name="date_from" />
 				                	<field name="date_to" />
 			                	</tree>
 			                	<form>
-				                	<field name="date_from" />
+				                	<field name="name" />
+			                		<field name="date_from" />
 				                	<field name="date_to" />
 			                	</form>
 			                	

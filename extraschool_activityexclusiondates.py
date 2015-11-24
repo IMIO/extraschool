@@ -34,7 +34,8 @@ class extraschool_activityexclusiondates(models.Model):
             res.append((exc_date.id, exc_date.date_from + ' - ' + exc_date.date_to))    
     
         return res     
-            
+    
+    name = fields.Char('Name', required=True, default='***')        
     date_from = fields.Date('Date from', required=True, index=True)
     date_to = fields.Date('Date to', required=True, index=True)
 
