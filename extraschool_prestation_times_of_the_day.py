@@ -221,9 +221,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
             #first call of the fct .... Here we are .... let's go
             down = True
             occurrence = start_time.activity_occurrence_id
-        print "**************************************************"
-        print "_occu_completion %s" % (occurrence.activityid.name)
-        print "**************************************************"
+
         last_occu = False
         self._occu_start_stop_completion(start_time,stop_time,occurrence,down,from_occurrence)
         
