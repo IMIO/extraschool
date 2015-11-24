@@ -174,6 +174,8 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
         return self
             
     def _check(self, force = False): 
+        cr,uid = self.env.cr, self.env.user.id
+        
         print "Check from check_wizard"   
         if not force:    
             prestation_search_domain = [('verified', '=', False),]
@@ -207,18 +209,45 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
             
         for presta_of_the_day in obj_prestation_of_the_day_rs:
             presta_of_the_day.check()
-            if presta_of_the_day.prestationtime_ids.filtered(lambda r: r.verified == False):
+            
+            if len(presta_of_the_day.prestationtime_ids.filtered(lambda r: r.verified == False))  > 0:
                 presta_of_the_day.verified = False
             else:
                 #check duplicate ... sequence must be E S E S E S
-                presta_of_the_day.verified = True
+                if len(presta_of_the_day.prestationtime_ids) % 2 == 0:
+                    presta_of_the_day.verified = True
+                else:
+                    presta_of_the_day.verified = False
 #                presta_of_the_day._check_duplicate(True)
-                
-
+        
+       # self.env.invalidate_all()
+        
+#         sql_update_verified_on_presta = """update extraschool_prestation_times_of_the_day pod
+#                                     set verified = True
+#                                     where id in (""" + ','.join(map(str, obj_prestation_of_the_day_rs.ids))+ """)
+#                                     and (select count(*) from extraschool_prestationtimes pt where pt.prestation_times_of_the_day_id = pod.id and verified = False) = 0
+#                                     ;
+#                                 """
+#         print sql_update_verified_on_presta
+#         
+#         self.env.cr.execute(sql_update_verified_on_presta)
+#         
+#         sql_update_verified = """update extraschool_prestation_times_of_the_day
+#                                     set verified = False
+#                                     where id in (
+#                                     select prestation_times_of_the_day_id
+#                                     from extraschool_prestationtimes
+#                                     where id in (""" + ','.join(map(str, obj_prestation_of_the_day_rs.ids))+ """)
+#                                     group by prestation_times_of_the_day_id
+#                                     having count(*) % 2 <> 0
+#                                     );
+#                                 """
+#                 
+#         self.env.cr.execute(sql_update_verified)
         
         self.state = 'end_of_verification'
 
-        cr,uid = self.env.cr, self.env.user.id
+        
         view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','extraschool.prestation_times_of_the_day'), ('name','=','Prestations_of_the_day.tree')])
         return {
                 'type': 'ir.actions.act_window',
