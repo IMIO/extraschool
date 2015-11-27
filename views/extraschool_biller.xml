@@ -41,8 +41,6 @@
                     <field name="biller_file" filename="filename"/>
                     <newline/>
                     <field name="nbinvoices"/>                    
-                    <newline/>
-                    <button name="sendmails" type="object" string="Send invoices by email" />
                     </group>
                     <separator string="Invoices" />
 					<field name="invoice_ids">

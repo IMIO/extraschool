@@ -102,9 +102,10 @@ class extraschool_payment_reconciliation(models.Model):
     
     payment_id = fields.Many2one("extraschool.payment", required=True,ondelete='cascade')
     invoice_id = fields.Many2one("extraschool.invoice", required=True)
+    biller_id = fields.Many2one(related='invoice_id.biller_id', store=True)
     amount = fields.Float('Amount')
     account = fields.Char(related='payment_id.account')
-    paymentdate = fields.Date(related='payment_id.paymentdate')
+    paymentdate = fields.Date(related='payment_id.paymentdate', store=True)
     
     def name_get(self):            
         res=[]

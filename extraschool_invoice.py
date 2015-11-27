@@ -32,6 +32,7 @@ class extraschool_invoice(models.Model):
     name = fields.Char('Name', size=20,readonly=True, default='Facture')
     schoolimplantationid = fields.Many2one('extraschool.schoolimplantation', 'School implantation', required=False,readonly=True)
     parentid = fields.Many2one('extraschool.parent', 'Parent', required=False, index = True)
+    invoicesendmethod = fields.Selection(related="parentid.invoicesendmethod")
     number = fields.Integer('Number',readonly=True)
     structcom = fields.Char('Structured Communication', size=50,readonly=True, index = True)
     amount_total = fields.Float(compute="_compute_amount_total",string='Amount',digits_compute=dp.get_precision('extraschool_invoice'),readonly=True, store=True)

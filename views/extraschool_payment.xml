@@ -74,12 +74,37 @@
 	            </tree>
             </field> 
         </record>
+
         
+       <record id="extraschool_payment_reconciliation_graph" model="ir.ui.view">
+            <field name="name">extraschool.payment_reconciliation.graph</field>
+            <field name="model">extraschool.payment_reconciliation</field>
+            <field name="arch" type="xml">
+                <graph string="Payment reconciliation" type="bar">
+		            	<field name="biller_id" type="col"/>
+		                <field name="paymentdate" interval="month"/>
+		                <field name="amount" type="measure"/>
+                 </graph>
+             </field>
+        </record>
+        
+         <record id="extraschool_payment_reconciliation_search_view" model="ir.ui.view">
+            <field name="name">extraschool.payment_reconciliation.search</field>
+            <field name="model">extraschool.payment_reconciliation</field>
+            <field name="arch" type="xml">
+                <search string="Payment Reconciliation Search">
+                   <group  expand='0' string='Group by...'>
+                       <filter string='biller_id' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'biller_id'}"/>
+                   </group>                    
+                </search>
+            </field>
+        </record> 
+                        
         <record model="ir.actions.act_window" id="action_extraschool_payment_reconciliation">
 			<field name="name">Payments reconciliation</field>
 			<field name="res_model">extraschool.payment_reconciliation</field>
 			<field name="view_type">form</field>
-			<field name="view_mode">tree,form</field>
+			<field name="view_mode">tree,graph</field>
 		</record>        
 		
          <record model="ir.ui.view" id="extraschool_payment_status_report_form">
