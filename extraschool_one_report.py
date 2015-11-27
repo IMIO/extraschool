@@ -158,20 +158,25 @@ class extraschool_one_report(models.Model):
                     
                     if iday==currentdate.weekday():
                         self.setXLCell(wb.get_sheet(0),13+imonth*2,(iday+1)+(iweek*5),currentdate.day)
-                        day_nb_m = 0
-                        day_nb_p = 0
+                        
                         for subvention_type in ['sf','sdp']:
+                            day_nb_m = 0
+                            day_nb_p = 0
                             childidsm = self.search_childs(vals['placeid'],vals['activitycategory'],currentdate,'M',subvention_type)
                             day_nb_m = day_nb_m + len(childidsm)
                             childidsp = self.search_childs(vals['placeid'],vals['activitycategory'],currentdate,'P',subvention_type)                
                             day_nb_p = day_nb_p + len(childidsp)
                             obj_one_report_day.create({'one_report_id':new_obj.id,'day_date':str(currentdate),'child_ids':[(6, 0,(childidsm + childidsp))],'subvention_type':subvention_type,'nb_m_childs':day_nb_m,'nb_p_childs':day_nb_p})
                             tot_nb_m = tot_nb_m + day_nb_m
-                            tot_nb_p = tot_nb_p + day_nb_p                        
+                            tot_nb_p = tot_nb_p + day_nb_p   
+                            if subvention_type == 'sf':
+                                ligne = 14
+                            else:         
+                                ligne = 30      
                             if (day_nb_m + day_nb_p) != 0:
-                                self.setXLCell(XLSheet,14+imonth*2,(iday+1)+(iweek*5),day_nb_m + day_nb_p)
+                                self.setXLCell(XLSheet,ligne+imonth*2,(iday+1)+(iweek*5),day_nb_m + day_nb_p)
                             else:
-                                self.setXLCell(XLSheet,14+imonth*2,(iday+1)+(iweek*5),str(''))
+                                self.setXLCell(XLSheet,ligne+imonth*2,(iday+1)+(iweek*5),str(''))
                         nextdate = currentdate+datetime.timedelta(1)
                         if nextdate.month == currentmonth:
                             currentdate=nextdate
