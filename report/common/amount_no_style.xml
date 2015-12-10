@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 		
+		<template id="report_amount_no_style">
+			<style>
+				#total>div{
+					display: block;
+					clear: both;
+					border-width: 1px;
+					border-style: solid;
+				
+				}
+
+				#total>div {
+					padding: 8px;
+				}
+								
+				#total>div>span.amount {
+					float : right;
+				}
+
+			</style>
+			<div id="total">
+				<div id="amount">
+				  <span class="zz_label">Total</span><span class="amount"><t t-esc="total" /></span>															
+				</div>
+				<div class="amount">
+				  <span class="zz_label">Reçu</span><span class="amount"><t t-esc="received" /></span>															
+				</div>
+				<div class="amount">
+				  <span class="zz_label">A payer</span><span class="amount"><t t-esc="balance" /></span>															
+				</div>
+			</div>
+		</template>
+
+	</data>
+</openerp>	
+	
+	

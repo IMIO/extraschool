@@ -87,6 +87,7 @@
         'report/invoice/invoice_regroup_by_activity_by_child.xml',
         'report/invoice/invoice_std_footer.xml',
         'report/common/pre_print_virement.xml',
+        'report/common/amount_no_style.xml',
         'report/common/page_number_no_style.xml',
         'report/common/page_number_right.xml',  
         'report/common/std_header.xml',
