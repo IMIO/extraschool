@@ -215,8 +215,8 @@ class extraschool_coda(models.Model):
                                             
                                             for reconciliation in payment_id._get_reconciliation_list(parentid,prefix['payment_invitation_com_struct_prefix'],1,amount):
                                                 payment_reconciliation_obj.create({'payment_id' : payment_id.id,
-                                                                               'invoice_id' : reconciliation.invoice_id.id,
-                                                                               'amount' : reconciliation.amount})
+                                                                               'invoice_id' : reconciliation['invoice_id'],
+                                                                               'amount' : reconciliation['amount']})
                                             paymentids.append(payment_id.id)
                                 else:
                                     reject=True;
