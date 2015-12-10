@@ -90,7 +90,8 @@
 				</div>				
 			</xpath>	
 		</template>
-
+	</data>
+	<data noupdate="1">
 		<record id="paperformat_aes_invoice" model="report.paperformat">
     		<field name="name">Invoice</field>
     		<field name="default" eval="True"/>
@@ -104,7 +105,8 @@
     		<field name="header_spacing">35</field>
     		<field name="dpi">90</field>
 		</record>
-		
+	</data>
+	<data>	
 		<report
 		    id="extraschool_invoice_std"
 		    model="extraschool.invoice"
