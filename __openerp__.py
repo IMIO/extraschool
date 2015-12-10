@@ -84,6 +84,7 @@
         'report/layout/invoice_report_layout.xml',
         'report/layout/payment_invitation_report_layout.xml',      
         'report/invoice/invoice_std_body.xml',
+        'report/invoice/invoice_regroup_by_activity_by_child.xml',
         'report/invoice/invoice_std_footer.xml',
         'report/common/pre_print_virement.xml',
         'report/common/page_number_no_style.xml',

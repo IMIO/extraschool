@@ -28,8 +28,8 @@
             <xpath expr="//html" position="attributes">
 		    	<attribute name="t-att-data-report-margin-top">docs[0].activitycategoryid.invoice_report_id.paper_format_id.margin_top</attribute>
 		        <attribute name="t-att-data-report-margin-bottom">docs[0].activitycategoryid.invoice_report_id.paper_format_id.margin_bottom</attribute>
-		        <attribute name="data-report-margin-right">2</attribute>
-		        <attribute name="data-report-margin-left">2</attribute>		        		  		        		        
+		        <attribute name="t-att-data-report-margin-right">docs[0].activitycategoryid.invoice_report_id.paper_format_id.margin_right</attribute>
+		        <attribute name="t-att-data-report-margin-left">docs[0].activitycategoryid.invoice_report_id.paper_format_id.margin_left</attribute>		        		  		        		        
 		    </xpath>            
 		    
             <xpath expr="//body" position="attributes">
