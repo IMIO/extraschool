@@ -32,6 +32,10 @@
 					background-color: #ffffff;
 				}
 
+				.invoice_body table td.amount {
+		    		text-align: right;
+				}
+		    			    	
 			</style>
 						
         	<div class="invoice_body">
@@ -51,8 +55,8 @@
 	       					<t t-if="activity_count != 0">
 		        				<tr>
 			       					<td><span t-esc="saved_activity" /></td> 
-			       					<td><span t-esc="activity_count" /></td> 
-			       					<td><span t-esc="activity_amount" /></td> 
+			       					<td class="amount"><span t-esc="activity_count" /></td> 
+			       					<td class="amount"><span t-esc="activity_amount" /></td> 
 			       				</tr>	       							
 	       					</t>
 	       					<t t-set="saved_activity" t-value="invoice_line.activity_occurrence_id.activityid.short_name"/>
@@ -69,8 +73,8 @@
    					<t t-if="activity_count != 0">
         				<tr>
 	       					<td><span t-esc="saved_activity" /></td> 
-	       					<td><span t-esc="activity_count" /></td> 
-	       					<td><span t-esc="activity_amount" /></td> 
+	       					<td class="amount"><span t-esc="activity_count" /></td> 
+	       					<td class="amount"><span t-esc="activity_amount" /></td> 
 	       				</tr>	       							
    					</t>
 	        		 	            			        			
