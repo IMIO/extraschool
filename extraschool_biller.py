@@ -44,6 +44,8 @@ class extraschool_biller(models.Model):
     novalue = fields.Float(compute='_compute_novalue', string="No Value")
     balance = fields.Float(compute='_compute_balance', string="Balance")
     nbinvoices = fields.Integer(compute='_compute_nbinvoices', string="Nb of invoices")
+    other_ref = fields.Char("Ref")
+    comment = fields.Text("Comment",default="")
 #    paymentsstats = fields.Text(compute='_compute_paymentsstats', string="Payments stats")
     filename = fields.Char('filename', size=20,readonly=True)
     biller_file = fields.Binary('File', readonly=True)
