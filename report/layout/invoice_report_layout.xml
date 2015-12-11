@@ -51,8 +51,9 @@
 						<t t-set="com_struct" t-value="docs[0].structcom"/>
 						<t t-set="total" t-value="invoice.amount_total"/>
 						<t t-set="received" t-value="invoice.amount_received"/>
-						<t t-set="balance" t-value="invoice.balance"/>							
-																																									
+						<t t-set="balance" t-value="invoice.balance"/>	
+						<t t-set="comment" t-value="'%s%s' % (invoice.biller_id.comment if invoice.biller_id.comment != False else '',invoice.comment if invoice.comment != False else '')"/>	
+																																																				
 						<t t-set="addresse" t-value="invoice.parentid"/>	
 							
 							

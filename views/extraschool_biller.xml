@@ -41,6 +41,11 @@
                     <field name="biller_file" filename="filename"/>
                     <newline/>
                     <field name="nbinvoices"/>                    
+                    <newline/>
+                    <field name="other_ref"/>
+                    <newline/>
+                    <field name="comment" widget="html"/>                    
+                    	                   
                     </group>
                     <separator string="Invoices" />
 					<field name="invoice_ids">

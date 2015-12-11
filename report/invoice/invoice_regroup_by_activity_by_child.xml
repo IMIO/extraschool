@@ -34,6 +34,7 @@
 
 				.invoice_body table td.amount {
 		    		text-align: right;
+		    		width: 20%;
 				}
 		    			    	
 			</style>
@@ -46,6 +47,7 @@
 	        			<th>Total</th>
 					</tr>
 					<t t-set="saved_activity" t-value="'******'"/>
+					<t t-set="saved_description" t-value="'******'"/>										
 					<t t-set="activity_count" t-value="0"/>
 					<t t-set="activity_amount" t-value="0"/>
 					<t t-set="activity_time" t-value="0"/>
@@ -54,12 +56,13 @@
 	       				<t t-if="saved_activity != invoice_line.activity_occurrence_id.activityid.short_name">
 	       					<t t-if="activity_count != 0">
 		        				<tr>
-			       					<td><span t-esc="saved_activity" /></td> 
+			       					<td><span t-esc="'%s %s' % (saved_activity if saved_activity != False else '',saved_description if saved_description != False else '')" /></td> 
 			       					<td class="amount"><span t-esc="activity_count" /></td> 
 			       					<td class="amount"><span t-esc="activity_amount" /></td> 
 			       				</tr>	       							
 	       					</t>
 	       					<t t-set="saved_activity" t-value="invoice_line.activity_occurrence_id.activityid.short_name"/>
+	       					<t t-set="saved_description" t-value="invoice_line.description"/>								        					
 							<t t-set="activity_count" t-value="0"/>
 							<t t-set="activity_amount" t-value="0"/>
 							<t t-set="activity_time" t-value="0"/>
@@ -72,7 +75,7 @@
 	        		</t>
    					<t t-if="activity_count != 0">
         				<tr>
-	       					<td><span t-esc="saved_activity" /></td> 
+	       					<td><span t-esc="'%s %s' % (saved_activity if saved_activity != False else '',saved_description if saved_description != False else '')" /></td> 
 	       					<td class="amount"><span t-esc="activity_count" /></td> 
 	       					<td class="amount"><span t-esc="activity_amount" /></td> 
 	       				</tr>	       							
