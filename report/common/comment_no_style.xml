@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 		
+		<template id="report_comment_no_style">
+			<style>
+				#invoice_comment{
+					display: block;
+					clear: both;
+					padding: 8px;			
+				}
+
+			</style>
+			<div id="invoice_comment">
+				<p>
+					<t t-raw="comment" />
+				</p>
+			</div>
+		</template>
+
+	</data>
+</openerp>	
+	
+	

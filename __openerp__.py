@@ -88,6 +88,7 @@
         'report/invoice/invoice_std_footer.xml',
         'report/common/pre_print_virement.xml',
         'report/common/amount_no_style.xml',
+        'report/common/comment_no_style.xml',
         'report/common/page_number_no_style.xml',
         'report/common/page_number_right.xml',  
         'report/common/std_header.xml',
