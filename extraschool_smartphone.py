@@ -80,9 +80,9 @@ class extraschool_pda_transmission(models.Model):
     _name = 'extraschool.pda_transmission'
     _description = 'PDA pda_transmission'
     
-    transmission_date_from = fields.Datetime('Date from', required=True)
-    transmission_date_to = fields.Datetime('Date to', required=True)
-    smartphone_id = fields.Many2one('extraschool.smartphone', 'Smartphone', required=True)
+    transmission_date_from = fields.Datetime('Date from')
+    transmission_date_to = fields.Datetime('Date to')
+    smartphone_id = fields.Many2one('extraschool.smartphone', 'Smartphone')
     pda_prestation_times_ids = fields.One2many('extraschool.pdaprestationtimes','pda_transmission_id')
     state = fields.Selection([('init', 'Init'),
                               ('in_progress', 'In progress'),
@@ -90,7 +90,7 @@ class extraschool_pda_transmission(models.Model):
                               ('error', 'error'),
                               ('pending', 'Pending'),
                               ('ended', 'Ended')],
-                              'validated', required=True, default='init'
+                              'validated', default='init'
                               )        
         
 
