@@ -37,7 +37,10 @@ class extraschool_qrcodes_wizard(models.TransientModel):
     name = fields.Char('File Name', size=16, readonly=True)
     print_value = fields.Boolean('Print QrCode value')
     logo = fields.Binary()
-    
+    format = fields.Selection([('extraschool.tpl_qrcodes_wizard_report', 'Standard'),
+                             ('extraschool.tpl_qrcodes_precut_wizard_report', 'Precut')],
+                            'Format', required=True, default='extraschool.tpl_qrcodes_wizard_report'
+                            )  
     state = fields.Selection([('init', 'Init'),
                              ('print_qrcodes', 'Print QRCodes')],
                             'State', required=True, default='init'
@@ -62,7 +65,7 @@ class extraschool_qrcodes_wizard(models.TransientModel):
         
         return {
                'type': 'ir.actions.report.xml',
-               'report_name': 'extraschool.tpl_qrcodes_wizard_report',
+               'report_name': self.format,
                'datas': datas,
                'report_type': 'qweb-pdf',
            }        

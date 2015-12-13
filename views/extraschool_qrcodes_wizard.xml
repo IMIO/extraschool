@@ -11,6 +11,7 @@
                     <group states="init">
                         <field name="print_type" />
                         <field name="quantity" />
+                        <field name="format" />
                         <field name="print_value"  attrs="{'invisible':[('print_type', '!=', 'qrcode')]}"/>
                         <field name="logo" widget="image" class="oe_avatar oe_left" attrs="{'invisible':[('print_type', '!=', 'logo')]}"/>
                     </group>

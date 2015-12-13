@@ -193,8 +193,104 @@
 
 		<record id="child_qrcodes_wizard_report" model="ir.actions.report.xml">
     		<field name="paperformat_id" ref="paperformat_aes_qr_code"/>
-		</record>			
+		</record>	
+		
+		<template id="tpl_qrcodes_precut_wizard_report">
+			    <style type="text/css">
+			        .page {
+			        	margin-left: 6mm; 
+			        }  	
+			        
+			        .page_logo {
+			        	margin-left: -0.5mm; 
+			        	margin-right: 2.5mm; 
+			        }  			
+					
+					.qrcode {
+        				width: 33%;
+        				height: 85mm;
+        				display: inline-block;
+        				border: 1px solid;
+        				float: left;  
+        				position: relative;      				
+      				}
+					
+					.qrcode_logo {
+        				width: 33%;
+        				height: 85mm;
+        				display: inline-block;
+        				border: 1px solid;
+        				float: right;  
+        				position: relative;      				
+      				}    
+      				      				
+      				.qrcode_img {
+  						position: absolute;
+  						top: 48mm;
+  						left: 15mm;
+      					width: 25mm;
+      					height: 25mm;
+      					}
+       				.logo_img {
+  						position: absolute;
+  						top: 10mm;
+  						left: 10.5mm;
+      					width: 35mm;
+      					height: 35mm;
+      					}
+      						
+      				h2 {
+      					color: blue;
+      					background-color: red;
+      				}
+    			</style>
+				<t t-foreach="docs" t-as="qr_report">
+					<t t-set="zz" t-value="0" />
+					<t t-set="nbr_page" t-value="qr_report.quantity / 9" />
+					<t t-if="qr_report.quantity % 9 != 0">
+						<t t-set="nbr_page" t-value="nbr_page + 1" />
+					</t>
+					<t t-foreach="range(0,nbr_page)" t-as="zz">
+						<div class="page">					
+					   		<t t-foreach="range(qr_report.last_id+9*zz,qr_report.last_id+9*(zz+1))" t-as="i">
+					           	<div class="qrcode">
+					           		<t t-if="i &lt;= qr_report.last_id + qr_report.quantity">
+						           		<img class="logo_img" t-att-src="'data:image/jpeg;base64,%s' % qr_report.logo" />
+							           	<img class="qrcode_img" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', i, 300, 300)" />
+						           		<t t-if="qr_report.print_value">
+							           		<span><t t-esc="i"/></span>
+										</t>
+									</t>									
+					           	</div>					       								
+							</t>			
+						</div>
+						<t t-if="qr_report.print_type == 'logo'">	
+							<div class="page_logo page">					
+						   		<t t-foreach="range(qr_report.last_id+9*zz,qr_report.last_id+9*(zz+1))" t-as="i">
+						           	<div class="qrcode_logo">
+						           		<t t-if="i &lt;= qr_report.last_id + qr_report.quantity">
+							           		<t t-if="qr_report.print_type == 'logo'">
+							           			<img class="logo_img" t-att-src="'data:image/jpeg;base64,%s' % qr_report.logo" />
+							           		</t>
+										</t>									
+						           	</div>					       								
+								</t>			
+							</div>
+						</t>							
+					</t>	
+				</t>
+		</template>
+		
+		<report
+		    id="qrcodes_wizard_precut_report"
+		    model="extraschool.qrcodes_wizard"
+		    string="QrCode"
+		    report_type="qweb-pdf"
+		    name="extraschool.tpl_qrcodes_precut_wizard_report"
+		    attachment_use="False"
+		/>				
 	</data>
+	
 	<data>
 		<template id="tpl_guardian_qrcodes_wizard_report">
 			    <style type="text/css">
