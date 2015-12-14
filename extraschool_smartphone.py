@@ -53,6 +53,7 @@ class extraschool_smartphone(models.Model):
     cfgpassword = fields.Char('Config password', required=True,default='1234')
     maxtimedelta = fields.Integer('Max time delta')
     pda_transmission_ids = fields.One2many('extraschool.pda_transmission', 'smartphone_id')
+    softwareversion = fields.Char('Software version')
     
     @api.one
     def get_currenttime(self):
