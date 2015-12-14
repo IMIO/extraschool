@@ -27,6 +27,7 @@ from reportlab.graphics.barcode import createBarcodeImageInMemory
 import cStringIO
 import base64
 import os
+from datetime import datetime
 
 
 class extraschool_smartphone(models.Model):
