@@ -37,6 +37,8 @@ class extraschool_activitycategory(models.Model):
     po_city = fields.Char('City')   
     po_sign = fields.Binary('Signature')
     po_resp_name = fields.Char('Name of resp')
+    po_email = fields.Char('email')
+
     
     activities = fields.One2many('extraschool.activity', 'category','Activities')               
     placeids = fields.Many2many('extraschool.place','extraschool_activitycategory_place_rel', 'activitycategory_id', 'place_id','Schoolcare place')
