@@ -53,6 +53,11 @@ class extraschool_smartphone(models.Model):
     maxtimedelta = fields.Integer('Max time delta')
     pda_transmission_ids = fields.One2many('extraschool.pda_transmission', 'smartphone_id')
     
+    @api.one
+    def get_currenttime(self):
+        print str(datetime.today())
+        return datetime.today()
+    
     @api.multi
     def write(self,vals):
         value='cfg;' + str(self.ids[0]) + ';' + self.transmissiontime + ';' + self.serveraddress + ';' + self.databasename + ';' + self.username + ';' + self.userpassword + ';' + self.scanmethod + ';' + self.transfertmethod+ ';' + self.cfgpassword+ ';'
