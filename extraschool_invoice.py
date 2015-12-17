@@ -99,4 +99,6 @@ class extraschool_invoice(models.Model):
                 solde -= amount
                 zz += 1
             invoice.balance = solde
+    
+
             

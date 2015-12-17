@@ -3,12 +3,19 @@
 	<data> 
 		<template id="report_invoice_regroup_by_activity_by_child">
 		    <style type="text/css">
-		        .invoice_body{
+		        #invoice_body{
 		    		width: 100%;
+		    		display: block;
+		    		margin: 2cm 0cm 0cm 0cm;
+		    	}
+		    	
+		    	#invoice_body div.your_ref{
+		    		width: 100%;
+		    		padding: 5mm 0mm 5mm 0mm;
 		    		display: block;
 		    	}
 		    			    	
-				.invoice_body table {
+				#invoice_body table {
 		    		width: 100%;
 					font-family: verdana,arial,sans-serif;
 					font-size:11px;
@@ -17,14 +24,14 @@
 					border-color: #666666;
 					border-collapse: collapse;
 				}
-				.invoice_body table th {
+				#invoice_body table th {
 					border-width: 1px;
 					padding: 8px;
 					border-style: solid;
 					border-color: #666666;
 					background-color: #dedede;
 				}
-				.invoice_body table td {
+				#invoice_body table td {
 					border-width: 1px;
 					padding: 8px;
 					border-style: solid;
@@ -32,14 +39,17 @@
 					background-color: #ffffff;
 				}
 
-				.invoice_body table td.amount {
+				#invoice_body table td.amount {
 		    		text-align: right;
 		    		width: 20%;
 				}
 		    			    	
 			</style>
 						
-        	<div class="invoice_body">
+        	<div id="invoice_body">
+        		<div class="your_ref">
+        			<span>Notre référence : </span><span t-field="invoice.name" />        			
+        		</div>
         		<table>
         			<tr>
 	        			<th>Activité</th>

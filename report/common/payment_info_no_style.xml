@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 		
+		<template id="report_payment_info_no_style">
+			<style>
+				#payment_info{
+					display: block;
+					width: 100%;
+					padding: 8px;			
+				}
+				
+				#payment_info>span{
+					display: inline-block;
+					width: 5cm;
+				}
+
+			</style>
+			<div id="payment_info">
+				<span>Compte :</span><t t-esc="categ_id.bankaccount" />
+				<br />					
+				<span>BIC : </span><t t-esc="categ_id.bank_bic" />
+				<br />							
+				<span>Communication structurée : </span><t t-esc="parent_id.get_prepaid_comstruct(categ_id)" />
+			</div>
+		</template>
+
+	</data>
+</openerp>	
+	
+	

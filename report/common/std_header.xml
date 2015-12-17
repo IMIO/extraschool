@@ -3,13 +3,17 @@
 	<data> 
 		<template id="report_std_header">
 		    <style type="text/css">
-		        .aes_header{
+		        #aes_header{
 		    		width: 100%;
 		    		height: 30mm;
 		    		display: block;
 		    		clear: both;
 		    		padding: 5mm;
 		    	}
+		    	#aes_header>div.row{
+		    		width: 100%;
+		    	}
+		    	
 				.logo {
 					width: 25mm;
 					display: inline-block;
@@ -17,13 +21,23 @@
 				}
 									
 				.slogan {
-		    	  	float: right;
-  					margin-right: 50%;
+		    	  	float: left;
 				}
-			</style>			
-	    	<div class="aes_header">
-				<img class="logo" t-attf-src="data:image/jpeg;base64,{{logo}}"/>
-				<span class="slogan"><t t-esc="slogan" /></span>				
+		    	
+				.doc_date {
+		    	  	float: right;
+		    		margin-left: 5mm;
+				}
+		    </style>			
+	    	
+		    <div id="aes_header">
+		    	<div class="row">
+					<span class="doc_date"><t t-esc="doc_date" /></span>	
+					<img class="logo" t-attf-src="data:image/jpeg;base64,{{logo}}"/>					    				    		
+		    	</div>
+		    	<div class="row">
+			    	<span class="slogan"><t t-esc="slogan" /></span>
+				</div>
 			</div>
 		</template>
 

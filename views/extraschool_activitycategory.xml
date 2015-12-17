@@ -70,6 +70,8 @@
 			                <field name="invoiceemailsubject" />
 			                <newline/>
 			                <field name="invoiceemailtext" />
+			                <newline/>
+			                <field name="invoice_comment" widget="html"/>
 			                <newline/>						
 			                <field name="invoice_report_id" />
 						</group>

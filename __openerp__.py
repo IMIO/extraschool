@@ -95,6 +95,8 @@
         'report/common/adresse_no_style.xml',
         'report/common/html_text.xml',
         'report/taxe_certificate_report.xml',
+        'report/common/activity_categ_invoice_comment_no_style.xml',
+        'report/common/payment_info_no_style.xml',
 
 
         'extraschool_view.xml',

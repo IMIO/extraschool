@@ -53,9 +53,14 @@
 						<t t-set="received" t-value="invoice.amount_received"/>
 						<t t-set="balance" t-value="invoice.balance"/>	
 						<t t-set="comment" t-value="'%s%s' % (invoice.biller_id.comment if invoice.biller_id.comment != False else '',invoice.comment if invoice.comment != False else '')"/>	
+						<t t-set="doc_date" t-value="'%s, le %s' % ('Neufchateau',time.strftime('%d-%m-%Y',time.strptime(invoice.biller_id.period_to,'%Y-%m-%d')))"/>	
 																																																				
-						<t t-set="addresse" t-value="invoice.parentid"/>	
-							
+						<t t-set="addresse" t-value="invoice.parentid"/>
+						<t t-set="po_addresse" t-value="invoice.biller_id.activitycategoryid"/>
+						
+						<t t-set="parent_id" t-value="invoice.parentid"/>
+						<t t-set="categ_id" t-value="invoice.biller_id.activitycategoryid"/>
+																						
 							
 						<div class="header">
 		        			<t t-foreach="invoice.activitycategoryid.invoice_report_id.inline_report_ids.filtered(lambda r: r.section == 'a_header')" t-as="tmpl">

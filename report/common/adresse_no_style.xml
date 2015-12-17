@@ -8,9 +8,19 @@
 		    		height: 30mm;
 		    		display: block;
 		    		clear: both;
+		    		padding: 1cm 0cm 0cm 0cm;
 		    	}
 		    	
-		    	.aes_adresse_block{
+		    	.customer{
+		    		width: 60%;
+		    	}
+		    	
+		    	.po{
+		    		float: left;
+		    		width: 40%;		    	
+		    	}
+		    	
+		    	.customer{
 		    		float: right;
 		    	}
 		    	
@@ -21,7 +31,14 @@
 
 			</style>			
 	    	<div class="aes_adresse">
-				<div class="aes_adresse_block">
+				<div class="aes_adresse_block po">
+					<span t-field="po_addresse.po_name" />									
+					<span t-field="po_addresse.po_street" />
+					<span><t t-esc="po_addresse.po_zipcode" /> <t t-esc="po_addresse.po_city" /></span>
+					<span t-field="po_addresse.po_email" />									
+				</div>	    		
+				
+				<div class="aes_adresse_block customer">
 					<span t-field="addresse.name" />									
 					<span t-field="addresse.street" />
 					<span><t t-esc="addresse.zipcode" /> <t t-esc="addresse.city" /></span>

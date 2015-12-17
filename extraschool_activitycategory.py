@@ -58,6 +58,7 @@ class extraschool_activitycategory(models.Model):
     invoiceemailaddress = fields.Char('Invoice email address', size=50)
     invoiceemailsubject = fields.Char('Invoice email subject', size=50)
     invoiceemailtext = fields.Text('Invoice email text')        
+    invoice_comment = fields.Text('Invoice comment')        
     remindercomstructprefix = fields.Char('Reminder Comstruct prefix', size=3, required = True)
     reminderlastcomstruct = fields.Integer('Last Reminder structured comunication number')
     reminderemailaddress = fields.Char('Reminder email address', size=50)

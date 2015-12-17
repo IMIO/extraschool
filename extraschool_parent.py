@@ -154,4 +154,13 @@ class extraschool_parent(models.Model):
     @api.one
     def unlink(self):
         self.isdisabled = True
+        
+    def get_prepaid_comstruct(self, categ):
+        com_struct_prefix_str = categ.payment_invitation_com_struct_prefix
+        com_struct_id_str = str(self.id).zfill(7)
+        com_struct_check_str = str(long(com_struct_prefix_str+com_struct_id_str) % 97)
+        com_struct_check_str = com_struct_check_str if com_struct_check_str != '00' else '97'
+
+        
+        return self.env['extraschool.payment'].format_comstruct('%s%s%s' % (com_struct_prefix_str,com_struct_id_str,com_struct_check_str))
 
