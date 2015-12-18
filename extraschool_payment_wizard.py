@@ -27,6 +27,9 @@ import cStringIO
 import base64
 import os
 from openerp.exceptions import except_orm, Warning, RedirectWarning
+import openerp.addons.decimal_precision as dp
+from openerp.tools import float_compare, float_round
+
 
 
 class extraschool_payment_wizard(models.TransientModel):
@@ -37,7 +40,7 @@ class extraschool_payment_wizard(models.TransientModel):
                                     ('2','Invoice'),
                                     ),'Payment type', required=True)
     payment_date = fields.Date('Date', required=True)
-    amount = fields.Float('Amount', required=True)
+    amount = fields.Float('Amount', digits_compute=dp.get_precision('extraschool_invoice'), required=True)
     reconciliation_amount_balance = fields.Float(compute="_compute_reconciliation_amount_balance", string='Amount to reconcil')    
     reconciliation_amount = fields.Float(compute="_compute_reconciliation_amount", string='Amount reconcilied')
     parent_id = fields.Many2one("extraschool.parent")
@@ -96,21 +99,27 @@ class extraschool_payment_wizard(models.TransientModel):
         #check if reconcil amount on line is never greater than balance
         zz = 0
         total = 0
+        print "*********"
         for r in self.payment_reconciliation_ids:
             total += r.amount
-            if r.amount > r.invoice_balance : 
+            print "total = %s, amount = %s" % (r.amount,r.invoice_balance)
+            if float_compare(r.amount,r.invoice_balance,2) > 0  : 
+                print "boum !!"
                 zz += 1             
         
         if zz:
+            print "At least one reconciliation line is not correct : amount greater than balance"
             raise Warning(_("At least one reconciliation line is not correct : amount greater than balance"))
         
         #if invoice payment amount reconcil MUST be equal to payment amount
         print "type: %s amount: %s total: %s" % (self.payment_type,self.amount,total)
         if self.payment_type == '2' and total != self.amount:
+            print "Reconcil amount MUST be equal to payment amount"
             raise Warning(_("Reconcil amount MUST be equal to payment amount"))
         
         #Amount must be >= reconcil
         if total > self.amount:
+            print "Reconcil amount MUST be less than payment amount"
             raise Warning(_("Reconcil amount MUST be less than payment amount"))
         
         
@@ -138,5 +147,5 @@ class extraschool_payment_wizard_reconcil(models.TransientModel):
     payment_wizard_id = fields.Many2one("extraschool.payment_wizard")
     invoice_id = fields.Many2one("extraschool.invoice")
     invoice_balance = fields.Float(related="invoice_id.balance", string = "Balance")
-    amount = fields.Float('Amount', required=True)
+    amount = fields.Float('Amount', digits_compute=dp.get_precision('extraschool_invoice'), required=True)
     
