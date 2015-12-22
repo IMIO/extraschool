@@ -37,6 +37,7 @@ class extraschool_activitycategory(models.Model):
     po_city = fields.Char('City')   
     po_sign = fields.Binary('Signature')
     po_resp_name = fields.Char('Name of resp')
+    po_resp_fct = fields.Char('Fct of resp')
     po_email = fields.Char('email')
 
     

@@ -61,7 +61,10 @@
 						<t t-set="parent_id" t-value="invoice.parentid"/>
 						<t t-set="categ_id" t-value="invoice.biller_id.activitycategoryid"/>
 																						
-							
+						<t t-set="resp_fct" t-value="invoice.biller_id.activitycategoryid.po_resp_name"/>
+						<t t-set="resp_name" t-value="invoice.biller_id.activitycategoryid.po_resp_fct"/>
+													
+														
 						<div class="header">
 		        			<t t-foreach="invoice.activitycategoryid.invoice_report_id.inline_report_ids.filtered(lambda r: r.section == 'a_header')" t-as="tmpl">
 				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">	         	    

@@ -24,7 +24,7 @@
 
 {
     'name' : 'Extraschool',
-    'version' : '1.0.2',
+    'version' : '1.0.3',
     'author' : 'Town of La Bruyère and Imio',
     'depends' : ['base', 
                  'report',
@@ -97,6 +97,7 @@
         'report/taxe_certificate_report.xml',
         'report/common/activity_categ_invoice_comment_no_style.xml',
         'report/common/payment_info_no_style.xml',
+        'report/common/sign_no_style.xml',
 
 
         'extraschool_view.xml',

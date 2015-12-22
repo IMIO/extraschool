@@ -17,11 +17,11 @@
 		        </style>									
             </xpath>
 		    
-            <xpath expr="//html" position="attributes">
+            <xpath expr="//html" position="attributes">	
 		    	<attribute name="t-att-data-report-margin-top">docs[0].activity_category_id.payment_invitation_report_id.paper_format_id.margin_top</attribute>
 		        <attribute name="t-att-data-report-margin-bottom">docs[0].activity_category_id.payment_invitation_report_id.paper_format_id.margin_bottom</attribute>
-		        <attribute name="data-report-margin-right">2</attribute>
-		        <attribute name="data-report-margin-left">2</attribute>		        		  		        		        
+		        <attribute name="t-att-data-report-margin-right">docs[0].activity_category_id.payment_invitation_report_id.paper_format_id.margin_right</attribute>
+		        <attribute name="t-att-data-report-margin-left">docs[0].activity_category_id.payment_invitation_report_id.paper_format_id.margin_left</attribute>		        		  		        		        		        		                		  		        		        
 		    </xpath>            
 		    
             <xpath expr="//body" position="attributes">
@@ -47,7 +47,14 @@
 						<t t-set="com_struct" t-value="payment_status.com_struct"/>	
 
 						<t t-set="addresse" t-value="payment_status.parent_id"/>								
+						<t t-set="po_addresse" t-value="payment_status.activity_category_id"/>
+						
+						<t t-set="parent_id" t-value="payment_status.parent_id"/>
+						<t t-set="categ_id" t-value="payment_status.activity_category_id"/>
 																						
+						<t t-set="resp_fct" t-value="payment_status.activity_category_id.po_resp_name"/>
+						<t t-set="resp_name" t-value="payment_status.activity_category_id.po_resp_fct"/>
+																												
 						<t t-set="html_text" t-value="payment_status.activity_category_id.payment_invitation_courrier_text"/>			
 																																																		
 			        	<div class="header">
