@@ -8,10 +8,11 @@
 		    		height: 30mm;
 		    		display: block;
 		    		clear: both;
-		    		padding: 5mm;
+		    		padding: 5mm 5mm 5mm 0mm;
 		    	}
 		    	#aes_header>div.row{
 		    		width: 100%;
+		    		margin-left: 0mm;
 		    	}
 		    	
 				.logo {
@@ -25,8 +26,9 @@
 				}
 		    	
 				.doc_date {
-		    	  	float: right;
-		    		margin-left: 5mm;
+		    	  	float: right;		    		
+		    		text-align: right;
+		    		width: 9cm;
 				}
 		    </style>			
 	    	

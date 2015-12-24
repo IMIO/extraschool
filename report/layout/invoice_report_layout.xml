@@ -5,9 +5,13 @@
 
             <xpath expr="//head" position="inside">
 	            <style type="text/css">
+					body {
+					  font-family: arial !important;	            	 	  
+					}
+	            		            	
 					body.container {
-					  padding: 0px;
-					  margin: 0px;
+	            	  margin: 0px;
+	            	  padding: 0px;	            	  
 					}
 				</style>
 				<link href="/web/static/lib/bootstrap/css/bootstrap.css" rel="stylesheet"/>
@@ -53,7 +57,7 @@
 						<t t-set="received" t-value="invoice.amount_received"/>
 						<t t-set="balance" t-value="invoice.balance"/>	
 						<t t-set="comment" t-value="'%s%s' % (invoice.biller_id.comment if invoice.biller_id.comment != False else '',invoice.comment if invoice.comment != False else '')"/>	
-						<t t-set="doc_date" t-value="'%s, le %s' % ('Neufchateau',time.strftime('%d-%m-%Y',time.strptime(invoice.biller_id.period_to,'%Y-%m-%d')))"/>	
+						<t t-set="doc_date" t-value="'%s, le %s' % (invoice.biller_id.activitycategoryid.po_city,time.strftime('%d-%m-%Y',time.strptime(invoice.biller_id.period_to,'%Y-%m-%d')))"/>	
 																																																				
 						<t t-set="addresse" t-value="invoice.parentid"/>
 						<t t-set="po_addresse" t-value="invoice.biller_id.activitycategoryid"/>

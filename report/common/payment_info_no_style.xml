@@ -11,7 +11,7 @@
 				
 				#payment_info>span{
 					display: inline-block;
-					width: 5cm;
+					width: 6cm;
 				}
 
 			</style>

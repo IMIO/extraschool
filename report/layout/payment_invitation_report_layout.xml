@@ -51,7 +51,8 @@
 						
 						<t t-set="parent_id" t-value="payment_status.parent_id"/>
 						<t t-set="categ_id" t-value="payment_status.activity_category_id"/>
-																						
+						<t t-set="doc_date" t-value="'%s, le %s' % (payment_status.activity_category_id.po_city,payment_status.get_date_now())"/>	
+																							
 						<t t-set="resp_fct" t-value="payment_status.activity_category_id.po_resp_name"/>
 						<t t-set="resp_name" t-value="payment_status.activity_category_id.po_resp_fct"/>
 																												

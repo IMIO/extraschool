@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+		<template id="report_spacer_2cm">
+		    <style type="text/css">
+		    	.aes_spacer2cm{
+		    		display: block;
+		    		width: 100%;
+		    		height: 2cm;
+		    	}
+			</style>			
+
+			<div class="aes_spacer2cm">
+			</div>
+		</template>
+
+	</data>
+</openerp>	
+	
+	

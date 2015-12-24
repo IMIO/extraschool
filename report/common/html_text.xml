@@ -7,7 +7,7 @@
 		    		display: block;
 		    		clear: both;
 		    		width: 100%;
-		    		padding-left: 3cm;
+		    		margin: 1cm 0cm 1cm 0cm;
 		    	}
 			</style>			
 	    	<div class="aes_html_text">

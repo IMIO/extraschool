@@ -25,6 +25,7 @@ from openerp import models, api, fields
 from openerp.api import Environment
 from openerp.exceptions import except_orm, Warning, RedirectWarning
 from openerp import tools
+from datetime import datetime
 
 class extraschool_payment(models.Model):
     _name = 'extraschool.payment'
@@ -147,6 +148,9 @@ class extraschool_payment_reconciliation(models.Model):
                     group by zz.ac_id,zz.p_id, zz.ac_com_struct_prefix
                     order by zz.ac_id,zz.p_id
             """)
+            
+        def get_date_now(self):
+            return datetime.now().strftime('%d-%m-%Y')
    
     class extraschool_payment_report(models.Model):
         _name = 'extraschool.payment_report'

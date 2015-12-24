@@ -10,26 +10,20 @@
 		    			    	
 				.invoice_body table {
 		    		width: 100%;
-					font-family: verdana,arial,sans-serif;
 					font-size:11px;
-					color:#333333;
 					border-width: 1px;
-					border-color: #666666;
 					border-collapse: collapse;
 				}
 				.invoice_body table th {
 					border-width: 1px;
 					padding: 8px;
 					border-style: solid;
-					border-color: #666666;
 					background-color: #dedede;
 				}
 				.invoice_body table td {
 					border-width: 1px;
 					padding: 8px;
 					border-style: solid;
-					border-color: #666666;
-					background-color: #ffffff;
 				}
 
 			</style>
