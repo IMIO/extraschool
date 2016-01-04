@@ -4,6 +4,10 @@
 		<template id="report_payment_invitation_report_layout" inherit_id="report.layout"  primary="True">
             <xpath expr="//head" position="inside">
 	            <style type="text/css">
+	            	body {
+					  font-family: arial !important;	            	 	  
+					}
+	            	
 					body.container {
 					  padding: 0px;
 					  margin: 0px;
@@ -92,7 +96,9 @@
 				</div>				
 			</xpath>	
 		</template>
-
+	</data>
+	
+	<data noupdate="1">
 		<record id="paperformat_aes_payment_invitation" model="report.paperformat">
     		<field name="name">Payment invitation</field>
     		<field name="default" eval="True"/>
@@ -100,8 +106,8 @@
     		<field name="orientation">Portrait</field>
     		<field name="margin_top">40</field>
     		<field name="margin_bottom">76</field>
-    		<field name="margin_left">1</field>
-    		<field name="margin_right">1</field>
+    		<field name="margin_left">15</field>
+    		<field name="margin_right">15</field>
     		<field name="header_line" eval="False"/>
     		<field name="header_spacing">35</field>
     		<field name="dpi">90</field>
