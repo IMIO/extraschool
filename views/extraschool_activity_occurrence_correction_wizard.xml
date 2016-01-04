@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+        <record model="ir.ui.view" id="extraschool_activity_occurrence_correction_wizard_form">
+            <field name="name">extraschool.activity.occurrence.wizard.form</field>
+            <field name="model">extraschool.activity_occurrence_correction_wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Activity occurrences correction">
+                    <field name="state" invisible="1" />
+                    <group states="init">
+                        <field name="date_from" />
+						<field name="date_to" />                        
+                    </group>
+                    <group colspan="4" col="3">
+                        <button name="reset_populate" group="admin" string="Correction" icon="gtk-apply" type="object" />
+                    </group>
+                </form>
+            </field>
+        </record>        
+
+        <act_window id="parent_activity_occurrence_correction_wizard_action"
+            name="Occurrences correction"
+            src_model="extraschool.activity"
+            res_model="extraschool.activity_occurrence_correction_wizard"
+            view_type="form" view_mode="form"
+            key2="client_action_multi" target="new"
+            />
+                        
+	</data>
+</openerp>

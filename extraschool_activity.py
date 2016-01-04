@@ -86,7 +86,7 @@ class extraschool_activity(models.Model):
         hour = hour -1 if hour else 0         
         return datetime.strptime(tsdate + ' ' + str(hour).zfill(2) + ':' + str(minute).zfill(2) + ':00', DEFAULT_SERVER_DATETIME_FORMAT)
            
-    def populate_occurrence(self,date_from = None):
+    def populate_occurrence(self,date_from = None, date_to = None):
         cr,uid = self.env.cr, self.env.user.id
         
         activityoccurrence = self.env['extraschool.activityoccurrence']
@@ -106,8 +106,8 @@ class extraschool_activity(models.Model):
                     if date_from > activity.validity_from:
                         d1 = date_from
                 
-                d2 = activity.validity_to
-                
+                d2 = date_to if date_to else activity.validity_to
+                print "populate_occurrence date_to : %s" % (d2)
                 d1 = datetime.strptime(d1, DEFAULT_SERVER_DATE_FORMAT)
                 d2 = datetime.strptime(d2, DEFAULT_SERVER_DATE_FORMAT)
 
