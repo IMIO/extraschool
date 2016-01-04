@@ -156,15 +156,16 @@
             <field name="arch" type="xml">
                 <search string="Guardian prestationtimes Search">
 	            	<field name="activity_category_id"/>
-	                <field name="parent_id"/>
-	                <field name="solde"/>
-                   <group  expand='0' string='Group by...'>
+	               	<field name="parent_id"/>
+	               	<field name="solde"/>
+					<filter string="Actif" name="actif" icon="terp-accessories-archiver" domain="[('parent_id.isdisabled','=',False)]"/> 	               	
+                   	<group  expand='0' string='Group by...'>
                        <filter string='activity_category_id' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'activity_category_id'}"/>
                        <filter string='parent_id' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'parent_id'}"/>
-                   </group>                    
+                   	</group>                    
                 </search>
             </field>
-        </record>
+        </record>           
                        
         <record model="ir.actions.act_window" id="action_payment_status_report">
 			<field name="name">Payment Status Report</field>
@@ -172,7 +173,9 @@
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,graph</field>
             <field name="view_id" ref="extraschool_payment_status_report_tree"/>
+			<field name="context">{"search_default_actif":1}</field>             
 		</record>
+        				
 	</data>
 	<data noupdate="1">
         <!--Definition of an email template with an empty body that will be used in payment mailing. Used to give a
