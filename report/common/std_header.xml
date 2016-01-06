@@ -23,6 +23,7 @@
 									
 				.slogan {
 		    	  	float: left;
+		    		width: 10cm;
 				}
 		    	
 				.doc_date {
