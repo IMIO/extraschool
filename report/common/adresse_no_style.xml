@@ -35,7 +35,8 @@
 					<span t-field="po_addresse.po_name" />									
 					<span t-field="po_addresse.po_street" />
 					<span><t t-esc="po_addresse.po_zipcode" /> <t t-esc="po_addresse.po_city" /></span>
-					<span t-field="po_addresse.po_email" />									
+					<span t-field="po_addresse.po_email" />	
+					<span t-field="po_addresse.po_tel" />									
 				</div>	    		
 				
 				<div class="aes_adresse_block customer">
