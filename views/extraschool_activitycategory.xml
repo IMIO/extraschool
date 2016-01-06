@@ -10,9 +10,7 @@
                     <field name="name"/> 
                     <field name="invoicecomstructprefix" />
                     <field name="remindercomstructprefix" />
-                    <field name="payment_invitation_com_struct_prefix" />
-                    
-                    			
+                    <field name="payment_invitation_com_struct_prefix" />		
 				</tree>
 			</field>
 		</record>
@@ -35,13 +33,15 @@
 			                <field name="po_name" />
 			                <newline />	     
 			                <field name="po_street" />	
-			                <newline />	     
+			                			                <field name="po_email" />       
 			                <field name="po_zipcode" />	     
 			                <field name="po_city" />	     
 			                <field name="po_sign" widget="image" class="oe_avatar oe_left"/>
+			                <newline />	     
 			                <field name="po_resp_name" />  
 			            	<field name="po_resp_fct" />
-			                <field name="po_email" />              		
+			                <field name="po_email" />  
+			               	<field name="po_tel" />              		
 			        	</group>
             		</page>
     	            <page string="Activities">

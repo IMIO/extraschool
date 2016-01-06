@@ -39,6 +39,7 @@ class extraschool_activitycategory(models.Model):
     po_resp_name = fields.Char('Name of resp')
     po_resp_fct = fields.Char('Fct of resp')
     po_email = fields.Char('email')
+    po_tel = fields.Char('tel')
 
     
     activities = fields.One2many('extraschool.activity', 'category','Activities')               
