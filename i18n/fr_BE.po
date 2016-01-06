@@ -3348,7 +3348,7 @@ msgstr "Echéance"
 #: field:extraschool.child_registration_line,thursday:0
 #: field:extraschool.child_registration_line,thursday_activity_id:0
 msgid "Thursday"
-msgstr "Mardi"
+msgstr "Jeudi"
 
 #. module: extraschool
 #: field:extraschool.guardianprestationtimes,prestation_time:0

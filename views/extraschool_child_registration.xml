@@ -61,7 +61,7 @@
 						<field name="date_to"/>
 						<newline />
 						<field name="comment"/>							
-						<button name="update_child_list" String="Update list of child" type="object"  states='draft'/>	
+						<button name="update_child_list" string="Mettre à jour la liste des enfants" type="object"  states='draft'/>	
 					</group>
 					<separator string="Registrations" />
 					<field name="child_registration_line_ids" colspan="4" >
@@ -102,7 +102,7 @@
 						<field name="date_from"/> 
 						<field name="date_to"/>
 						<newline />
-						<button name="update_child_list" String="Update list of child" type="object"  states='draft'/>					
+						<button name="update_child_list" string="Mettre à jour la liste des enfants" type="object"  states='draft'/>					
 					</group>
 					<separator string="Registrations" />
 					<field name="child_registration_line_ids" colspan="4" >
