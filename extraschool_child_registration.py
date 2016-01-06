@@ -233,8 +233,12 @@ class extraschool_child_registration_line(models.Model):
     _name = 'extraschool.child_registration_line'
     _description = 'Child registration line'
     
+    _order = "child_lastname,child_firstname"
+    
     child_registration_id = fields.Many2one('extraschool.child_registration', required=True, ondelete="cascade")
     child_id = fields.Many2one('extraschool.child', required=True)
+    child_firstname = fields.Char(related="child_id.firstname", store=True)
+    child_lastname = fields.Char(related="child_id.lastname", store=True)
     monday = fields.Boolean('Monday')    
     monday_activity_id = fields.Many2one('extraschool.activity' ,string="Monday", domain="[('selectable_on_registration','=',True)]")
     tuesday = fields.Boolean('Tuesday')
