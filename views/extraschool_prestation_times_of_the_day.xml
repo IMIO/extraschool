@@ -7,9 +7,9 @@
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="prestation_times_of_the_day"  colors="red:verified==False">
-					<field name="child_id"/>
 					<field name="date_of_the_day" />
-                    <field name="verified"/>
+					<field name="child_id"/>
+					<field name="verified"/>
 				</tree>
 			</field>
 		</record>

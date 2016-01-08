@@ -30,6 +30,8 @@ import datetime
 
 class extraschool_prestation_times_of_the_day(models.Model):
     _name = 'extraschool.prestation_times_of_the_day'
+    
+    _order = 'date_of_the_day desc, child_lastname, child_firstname'
 
     def name_get(self, cr, uid, ids, context={}):
         if not len(ids):
@@ -46,11 +48,14 @@ class extraschool_prestation_times_of_the_day(models.Model):
     
     date_of_the_day = fields.Date(required=True, select=True)    
     child_id = fields.Many2one('extraschool.child', required=True, select=True)
+    child_firstname = fields.Char(related="child_id.firstname", store=True)
+    child_lastname = fields.Char(related="child_id.lastname", store=True)
     parent_id = fields.Many2one(related='child_id.parentid', store=True, select=True)                  
     prestationtime_ids = fields.One2many('extraschool.prestationtimes','prestation_times_of_the_day_id')    
     pda_prestationtime_ids = fields.One2many('extraschool.pdaprestationtimes','prestation_times_of_the_day_id')    
     verified = fields.Boolean(select=True)
     comment = fields.Text()
+    
         
     @api.onchange('prestationtime_ids', 'pda_prestationtime_ids')
     def on_change_prestationtime_ids(self):
@@ -319,4 +324,4 @@ class extraschool_prestation_times_of_the_day(models.Model):
                 
             
 
-extraschool_prestation_times_of_the_day()   
+
