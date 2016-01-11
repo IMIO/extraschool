@@ -12,7 +12,7 @@
 		    	}
 		    	
 		    	.customer{
-		    		width: 60%;
+		    		width: 50%;
 		    	}
 		    	
 		    	.po{
@@ -37,13 +37,13 @@
 					<span><t t-esc="po_addresse.po_zipcode" /> <t t-esc="po_addresse.po_city" /></span>
 					<span t-field="po_addresse.po_email" />	
 					<span t-field="po_addresse.po_tel" />									
+					<span t-raw="po_addresse.po_addresse_free_text" />															
 				</div>	    		
 				
 				<div class="aes_adresse_block customer">
 					<span t-field="addresse.name" />									
 					<span t-field="addresse.street" />
 					<span><t t-esc="addresse.zipcode" /> <t t-esc="addresse.city" /></span>
-					<span t-field="addresse.email" />									
 				</div>
 			</div>
 		</template>
