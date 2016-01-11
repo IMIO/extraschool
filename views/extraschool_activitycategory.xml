@@ -42,6 +42,7 @@
 			            	<field name="po_resp_fct" />
 			                <field name="po_email" />  
 			               	<field name="po_tel" />              		
+			               	<field name="po_addresse_free_text"  widget="html" />              		
 			        	</group>
             		</page>
     	            <page string="Activities">
