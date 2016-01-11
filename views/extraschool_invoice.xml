@@ -81,7 +81,9 @@
 	   		                    	<tree>
 	   		                    		<field name="childid" />
 	   		                    		<field name="activity_occurrence_id" />
-	   		                    		<field name="description"/>                    
+	   		                    		<field name="description"/>    
+	   		                    		<field name="child_position_id"/>
+	   		                    		<field name="price_list_version_id"/>                
 	   		                    		<field name="placeid" />
 	   		                    		<field name="prestation_date" />
 	   		                    		<field name="duration"/>
