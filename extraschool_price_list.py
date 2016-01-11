@@ -29,7 +29,7 @@ class extraschool_price_list(models.Model):
     _description = 'Activities price list'
     
     name = fields.Char('Name', size=50)  
-    price_list_version_ids = fields.One2many('extraschool.price_list_version', 'price_list_id','Versions')
+    price_list_version_ids = fields.One2many('extraschool.price_list_version', 'price_list_id',string='Versions',copy=True)
 
     
     def get_price(self,price_list,presta_date):
