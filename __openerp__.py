@@ -79,6 +79,7 @@
         'extraschool_report.xml',
         'security/extraschool_security.xml',
         'security/ir.model.access.csv',
+        'report/child_registration.xml',        
         'report/parent.xml',
         'report/qrcode_report.xml',
         'report/layout/extraschool_layout.xml',

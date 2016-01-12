@@ -220,7 +220,22 @@ class extraschool_child_registration(models.Model):
         
                     presta_ids.unlink()
             occu_reg_ids.unlink()     
-            self.state = 'draft'                                
+            self.state = 'draft'   
+            
+    def get_summary(self):
+        print "get_summary"
+        result = {}
+        for line in self.child_registration_line_ids:
+            zz = 0
+            for day in [line.monday_activity_id,line.tuesday_activity_id,line.wednesday_activity_id,line.thursday_activity_id,line.friday_activity_id]:
+                if day.id:
+                    if day.name not in result:
+                        result[day.name] = [0,0,0,0,0]
+                    
+                    result[day.name][zz] += 1
+                zz+=1    
+                
+        return result                          
                     
                     
                 
@@ -253,6 +268,13 @@ class extraschool_child_registration_line(models.Model):
     saturday_activity_id = fields.Many2one('extraschool.activity',string="Saturday", domain="[('selectable_on_registration','=',True)]")
     sunday = fields.Boolean('Sunday')
     sunday_activity_id = fields.Many2one('extraschool.activity',string="Sunday", domain="[('selectable_on_registration','=',True)]")
+    
+    def child_must_be_printed(self):
+        if not any((self.monday_activity_id.id, self.tuesday_activity_id.id, self.wednesday_activity_id.id, self.thursday_activity_id.id, self.friday_activity_id.id)):
+            return False
+        else:
+            return True
+    
     
 
 
