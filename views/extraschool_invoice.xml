@@ -120,6 +120,23 @@
 			                        </tree>
 			                    </field>
 			                </page>   
+	   		                <page string="Refounds">
+	   		                    <field name="refound_line_ids">
+			                        <tree string="Refounds">
+			                            <field name="date"/>
+			                            <field name="description"/>
+			                            <field name="amount"/>                            
+			                        </tree>
+   			                        <form string="Refounds">
+			                            <group col="4">
+				                            <field name="date"/>
+				                            <field name="description"/>
+				                            <field name="amount"/> 				                                                     
+				                    	</group>
+			                        </form>
+			                    </field>
+			                </page>   
+			                
 			       		</notebook>
 					</group>	                    
 				</form>

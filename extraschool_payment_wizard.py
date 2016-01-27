@@ -139,6 +139,7 @@ class extraschool_payment_wizard(models.TransientModel):
             payment_reconciliation.create({'payment_id' : payment.id,
                                            'invoice_id' : reconciliation.invoice_id.id,
                                            'amount' : reconciliation.amount})
+            reconciliation.invoice_id._compute_balance()
         return {}
          
 class extraschool_payment_wizard_reconcil(models.TransientModel):

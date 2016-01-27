@@ -111,7 +111,7 @@ class extraschool_payment_reconciliation(models.Model):
     def name_get(self):            
         res=[]
         for reg in self:
-            res.append((reg.id, "%s - %s" % (reg.structcom.name, reg.invoice_id.name)))    
+            res.append((reg.id, "%s" % (reg.invoice_id.name)))    
 
         return res       
     

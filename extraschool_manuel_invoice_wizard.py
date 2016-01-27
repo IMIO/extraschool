@@ -86,7 +86,7 @@ class extraschool_manuel_invoice_wizard(models.TransientModel):
                             'quantity': 1,
                             'total_price': self.amount,
                             })
-                        
+                                                
                         next_invoice_num += 1
                         invoice_ids.append(invoice.id)
                     

@@ -35,8 +35,8 @@ class extraschool_invoice(models.Model):
     invoicesendmethod = fields.Selection(related="parentid.invoicesendmethod", store=True)
     number = fields.Integer('Number',readonly=True)
     structcom = fields.Char('Structured Communication', size=50,readonly=True, index = True)
-    amount_total = fields.Float(compute="_compute_amount_total",string='Amount',digits_compute=dp.get_precision('extraschool_invoice'),readonly=True, store=True)
-    amount_received = fields.Float(compute="_compute_amount_received", string='Received',readonly=True,store=True)
+    amount_total = fields.Float(string='Amount',digits_compute=dp.get_precision('extraschool_invoice'),readonly=True, store=True)
+    amount_received = fields.Float( string='Received',readonly=True,store=True)
     balance = fields.Float(compute="_compute_balance",digits_compute=dp.get_precision('extraschool_invoice'), string='Balance',readonly=True, store=True)
     no_value = fields.Float('No value',default=0.0,readonly=True)
     discount = fields.Float('Discount',readonly=True)
@@ -45,6 +45,7 @@ class extraschool_invoice(models.Model):
     invoice_file = fields.Binary('File', readonly=True)
     payment_ids = fields.One2many('extraschool.payment_reconciliation', 'invoice_id','Payments')
     invoice_line_ids = fields.One2many('extraschool.invoicedprestations', 'invoiceid','Details')    
+    refound_line_ids = fields.One2many('extraschool.refound_line', 'invoiceid','Refound')    
     oldid = fields.Char('oldid', size=20)
     activitycategoryid = fields.Many2one(related='biller_id.activitycategoryid', auto_join=True)
     period_from = fields.Date(related='biller_id.period_from')
@@ -52,24 +53,33 @@ class extraschool_invoice(models.Model):
     payment_term = fields.Date(related='biller_id.payment_term')  
     comment = fields.Text("Comment",default="")
         
-    @api.depends('invoice_line_ids')
-    def _compute_amount_total(self):
-        for invoice in self:
-            invoice.amount_total = sum(invoice_line.total_price for invoice_line in invoice.invoice_line_ids)
-            
-    @api.onchange('payment_ids')
-    @api.depends('payment_ids')
-    def _compute_amount_received(self):
-        for invoice in self:
-            invoice.amount_received = sum(reconcil_line.amount for reconcil_line in invoice.payment_ids)
+#     @api.depends('invoice_line_ids')
+#     def _compute_amount_total(self):
+#         for invoice in self:
+#             invoice.amount_total = sum(invoice_line.total_price for invoice_line in invoice.invoice_line_ids)
+#             
+#     @api.onchange('payment_ids')
+#     @api.depends('payment_ids')
+#     def _compute_amount_received(self):
+#         for invoice in self:
+#             invoice.amount_received = sum(reconcil_line.amount for reconcil_line in invoice.payment_ids)
 
-    @api.depends('amount_total' ,'amount_received')
+#    @api.depends('amount_total' ,'amount_received')
     def _compute_balance(self):
         for invoice in self:
 
             total = 0 if len(invoice.invoice_line_ids) == 0 else sum(line.total_price for line in invoice.invoice_line_ids)
-            reconcil = 0 if len(invoice.payment_ids) == 0 else sum(reconcil_line.amount for reconcil_line in invoice.payment_ids)            
-            invoice.balance = 0 if total == 0 or total < 0 else total - reconcil
+            reconcil = 0 if len(invoice.payment_ids) == 0 else sum(reconcil_line.amount for reconcil_line in invoice.payment_ids) 
+            refound = 0 if len(invoice.refound_line_ids) == 0 else sum(refound_line.amount for refound_line in invoice.refound_line_ids)
+            balance = total - reconcil - refound
+            balance = 0 if balance == 0 or balance < 0 else total - reconcil - refound
+            
+            invoice.write({'amount_total' : total,
+                           'amount_received' : reconcil,
+                           'no_value' : refound,
+                           'balance' : balance
+                           })
+            
             print "total = %s reconcil = %s balance = %s" % (total, reconcil, invoice.balance)
     
     @api.multi
@@ -98,7 +108,8 @@ class extraschool_invoice(models.Model):
                                          })
                 solde -= amount
                 zz += 1
-            invoice.balance = solde
+            
+            invoice._compute_balance()
     
 
             

@@ -457,51 +457,54 @@ class extraschool_invoice_wizard(models.TransientModel):
 
         self.env.invalidate_all()
         
-        #payment reconcil
-        payment = self.env['extraschool.payment']
-        payment_reconcil = self.env['extraschool.payment_reconciliation']
-        print "%s invoices to reconcil" % (len(invoice_ids))
-        #get invoice amount
-
-        #Mise à jour balance
-        sql_update_invoice_balance = """update extraschool_invoice i                                        
-                                        set balance = amount_total
-                                    where i.id in (""" + ','.join(map(str, invoice_ids))+ """)                                    
-                                    ;"""
+        inv_obj.browse(invoice_ids).reconcil()
         
-        self.env.cr.execute(sql_update_invoice_balance)
-                
-        sql_select_invoice_amount_total = """    select i.id as id, i.parentid as parentid, amount_total, ac.payment_invitation_com_struct_prefix as payment_invitation_com_struct_prefix
-                                                from extraschool_invoice i
-                                                left join extraschool_biller b on i.biller_id = b.id
-                                                left join extraschool_activitycategory ac on b.activitycategoryid = ac.id
-                                                where i.id in (""" + ','.join(map(str, invoice_ids))+ """)
-                                            ;"""
         
-
-        
-        self.env.cr.execute(sql_select_invoice_amount_total)
-        invoices = self.env.cr.dictfetchall()
-        for invoice in invoices:
-            #search for open payment
-            payments = payment.search([('parent_id','=',invoice['parentid']),
-                            ('structcom_prefix','=',invoice['payment_invitation_com_struct_prefix']),
-                            ('solde','>',0),
-                            ]).sorted(key=lambda r: r.paymentdate)
-            print "%s payments found for invoice %s" % (len(payments),invoice['id'])
-            print payments
-            zz = 0
-            print "invoice balance = %s" % (invoice['amount_total'])
-            solde = invoice['amount_total']
-            while zz < len(payments) and solde > 0:
-                amount = solde if payments[zz].solde >= solde else payments[zz].solde
-                print "Add payment reconcil - amount : %s" % (amount)
-                payment_reconcil.create({'payment_id': payments[zz].id,
-                                         'invoice_id': invoice['id'],
-                                         'amount': amount,
-                                         })
-                solde -= amount
-                zz += 1
+#         #payment reconcil
+#         payment = self.env['extraschool.payment']
+#         payment_reconcil = self.env['extraschool.payment_reconciliation']
+#         print "%s invoices to reconcil" % (len(invoice_ids))
+#         #get invoice amount
+# 
+#         #Mise à jour balance
+#         sql_update_invoice_balance = """update extraschool_invoice i                                        
+#                                         set balance = amount_total
+#                                     where i.id in (""" + ','.join(map(str, invoice_ids))+ """)                                    
+#                                     ;"""
+#         
+#         self.env.cr.execute(sql_update_invoice_balance)
+#                 
+#         sql_select_invoice_amount_total = """    select i.id as id, i.parentid as parentid, amount_total, ac.payment_invitation_com_struct_prefix as payment_invitation_com_struct_prefix
+#                                                 from extraschool_invoice i
+#                                                 left join extraschool_biller b on i.biller_id = b.id
+#                                                 left join extraschool_activitycategory ac on b.activitycategoryid = ac.id
+#                                                 where i.id in (""" + ','.join(map(str, invoice_ids))+ """)
+#                                             ;"""
+#         
+# 
+#         
+#         self.env.cr.execute(sql_select_invoice_amount_total)
+#         invoices = self.env.cr.dictfetchall()
+#         for invoice in invoices:
+#             #search for open payment
+#             payments = payment.search([('parent_id','=',invoice['parentid']),
+#                             ('structcom_prefix','=',invoice['payment_invitation_com_struct_prefix']),
+#                             ('solde','>',0),
+#                             ]).sorted(key=lambda r: r.paymentdate)
+#             print "%s payments found for invoice %s" % (len(payments),invoice['id'])
+#             print payments
+#             zz = 0
+#             print "invoice balance = %s" % (invoice['amount_total'])
+#             solde = invoice['amount_total']
+#             while zz < len(payments) and solde > 0:
+#                 amount = solde if payments[zz].solde >= solde else payments[zz].solde
+#                 print "Add payment reconcil - amount : %s" % (amount)
+#                 payment_reconcil.create({'payment_id': payments[zz].id,
+#                                          'invoice_id': invoice['id'],
+#                                          'amount': amount,
+#                                          })
+#                 solde -= amount
+#                 zz += 1
                                     
         
     @api.multi    
