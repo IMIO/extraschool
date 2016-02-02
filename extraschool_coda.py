@@ -40,6 +40,16 @@ class extraschool_coda(models.Model):
     paymentids = fields.One2many('extraschool.payment', 'coda','Payments',readonly=True)
     rejectids = fields.One2many('extraschool.reject', 'coda','Rejects',readonly=True)
 
+    state = fields.Selection([('todo', 'To Do'),
+                              ('handled', 'Handled')],
+                              'validated', required=True, default='todo'
+                              )
+    @api.one
+    def validate(self):
+        print "validate"
+
+        if self.state == 'todo':
+            self.state = 'handled'
                 
     @api.depends('paymentids')
     def _compute_amount_accepted (self):       

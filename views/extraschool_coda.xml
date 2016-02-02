@@ -9,7 +9,8 @@
 				<tree string="Coda">
                     <field name="codadate"/>					
                     <field name="amount_accepted"/>					
-                    <field name="amount_rejected"/>					
+                    <field name="amount_rejected"/>
+                    <field name="state"/>					                    	                    					
                 </tree>
 			</field>
 		</record>
@@ -20,6 +21,11 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Coda">
+					<header>
+						<button name="validate" string="Traiter" type="object" states='todo' class="oe_highlight" />	
+						<field name="state" widget="statusbar" statusbar_visible="todo,handled"/>												
+					</header>
+                	                	
                     <group cols="4">
                         <field name="codadate"/>
                         <newline/>
