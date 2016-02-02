@@ -75,6 +75,7 @@ class extraschool_activitycategory(models.Model):
 
     taxcertificatetemplate = fields.Char('Tax Certificate Template', size=50)
     invoice_report_id = fields.Many2one('extraschool.report', 'Invoice report')
+    invoice_detail_report_id = fields.Many2one('extraschool.report', 'Invoice detail report')
     payment_invitation_report_id = fields.Many2one('extraschool.report', 'Payment invitation report')
     payment_invitation_email_subject = fields.Char('Payment invitation Email subject')
     payment_invitation_com_struct_prefix = fields.Char('Payment invitation Comstruct prefix', size=3, required = True)

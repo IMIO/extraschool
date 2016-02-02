@@ -76,6 +76,7 @@
 			                <field name="invoice_comment" widget="html"/>
 			                <newline/>						
 			                <field name="invoice_report_id" />
+			                <field name="invoice_detail_report_id" />
 						</group>
 					</page>
 					<page string="Reminder">
