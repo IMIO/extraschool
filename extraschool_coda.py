@@ -144,6 +144,7 @@ class extraschool_coda(models.Model):
                                     payment_reconciliation_obj.create({'payment_id' : payment_id.id,
                                                                            'invoice_id' : invoice.id,
                                                                            'amount' : amount})
+                                    invoice._compute_balance()
                                     paymentids.append(payment_id.id)                                    
                             else:
                                 print '---------INVOICE----'
@@ -217,6 +218,7 @@ class extraschool_coda(models.Model):
                                                 payment_reconciliation_obj.create({'payment_id' : payment_id.id,
                                                                                'invoice_id' : reconciliation['invoice_id'],
                                                                                'amount' : reconciliation['amount']})
+                                                invoice._compute_balance()
                                             paymentids.append(payment_id.id)
                                 else:
                                     reject=True;
