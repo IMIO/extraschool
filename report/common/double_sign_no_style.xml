@@ -50,6 +50,7 @@
 				</div>
 				<div>
 					<t t-if="logo">	
+						<span class="sign_elem">Par le Collège :</span>			
 						<img class="stamp" t-attf-src="data:image/jpeg;base64,{{po_stamp}}"/>
 					</t>						
 				</div>
