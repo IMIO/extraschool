@@ -67,8 +67,13 @@
 																						
 						<t t-set="resp_fct" t-value="invoice.biller_id.activitycategoryid.po_resp_name"/>
 						<t t-set="resp_name" t-value="invoice.biller_id.activitycategoryid.po_resp_fct"/>
-													
-														
+						<t t-set="resp_sign" t-value="invoice.biller_id.activitycategoryid.po_sign"/>
+						<t t-set="po_stamp" t-value="invoice.biller_id.activitycategoryid.po_stamp"/>
+							
+						<t t-set="resp2_fct" t-value="invoice.biller_id.activitycategoryid.po_resp2_name"/>
+						<t t-set="resp2_name" t-value="invoice.biller_id.activitycategoryid.po_resp2_fct"/>													
+						<t t-set="resp2_sign" t-value="invoice.biller_id.activitycategoryid.po_resp2_sign"/>													
+																					
 						<div class="header">
 		        			<t t-foreach="invoice.activitycategoryid.invoice_report_id.inline_report_ids.filtered(lambda r: r.section == 'a_header')" t-as="tmpl">
 				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">	         	    

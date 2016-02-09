@@ -38,6 +38,12 @@ class extraschool_activitycategory(models.Model):
     po_sign = fields.Binary('Signature')
     po_resp_name = fields.Char('Name of resp')
     po_resp_fct = fields.Char('Fct of resp')
+    po_resp2_sign = fields.Binary('Signature of resp2')
+    po_resp2_name = fields.Char('Name of resp2')
+    po_resp2_fct = fields.Char('Fct of resp2')
+
+    po_stamp = fields.Binary('stamp')
+    
     po_email = fields.Char('email')
     po_tel = fields.Char('tel')
     po_addresse_free_text = fields.Char('Adresse texte libre')

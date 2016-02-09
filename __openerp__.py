@@ -100,6 +100,7 @@
         'report/common/activity_categ_invoice_comment_no_style.xml',
         'report/common/payment_info_no_style.xml',
         'report/common/sign_no_style.xml',
+        'report/common/double_sign_no_style.xml',
         'report/common/spacer_2cm.xml',
 
 

@@ -1,0 +1,72 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 		
+		<template id="report_double_sign_no_style">
+			<style>
+				#doc_resp_sign{
+					display: block;
+					width: 100%;
+				}
+				
+				#doc_resp_sign>div{				
+					float: left;
+					width : 33%;							
+				}
+
+				#doc_resp_sign>div>div{
+					display: block;
+    				margin-top: 8mm;						
+				}								
+
+				.sign_elem {
+					display:block;
+					width: 100%;
+					text-align: center;
+					font-size: 5mm;
+				}
+				
+				.stamp{
+					display: block;
+    				margin: auto;
+				}			
+				
+				.sign_img{
+					display: block;
+					margin-left: auto;
+					margin-right: auto;
+					vertical-align: bottom;								
+				}
+				
+			</style>
+			<div id="doc_resp_sign">
+				<div id="sign_resp1">
+					<div>
+						<span class="sign_elem" t-esc="resp2_fct" />										
+						<span class="sign_elem" t-esc="resp2_name" />
+						<t t-if="resp2_sign">						
+							<img class="sign_img" t-attf-src="data:image/jpeg;base64,{{resp2_sign}}"/>
+						</t>																		
+					</div>
+				</div>
+				<div>
+					<t t-if="logo">	
+						<img class="stamp" t-attf-src="data:image/jpeg;base64,{{po_stamp}}"/>
+					</t>						
+				</div>
+				
+				<div id="sign_resp2">
+					<div>
+						<span class="sign_elem" t-esc="resp_fct" />										
+						<span class="sign_elem" t-esc="resp_name" />
+						<t t-if="resp_sign">					
+							<img class="sign_img" t-attf-src="data:image/jpeg;base64,{{resp_sign}}"/>
+						</t>																		
+					</div>
+				</div>
+			</div>
+		</template>
+
+	</data>
+</openerp>	
+	
+	
