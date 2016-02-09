@@ -1,6 +1,19 @@
 <?xml version="1.0" ?>
 <openerp>
 	<data> 
+		<template id="report_spacer_1cm">
+		    <style type="text/css">
+		    	.aes_spacer1cm{
+		    		display: block;
+		    		width: 100%;
+		    		height: 1cm;
+		    	}
+			</style>			
+
+			<div class="aes_spacer1cm">
+			</div>
+		</template>
+				
 		<template id="report_spacer_2cm">
 		    <style type="text/css">
 		    	.aes_spacer2cm{
@@ -13,6 +26,7 @@
 			<div class="aes_spacer2cm">
 			</div>
 		</template>
+		
 
 	</data>
 </openerp>	
