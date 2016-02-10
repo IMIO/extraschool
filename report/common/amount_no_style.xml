@@ -24,7 +24,7 @@
 				
 				#total>div{
 					display: block;
-					padding: 8px;
+					padding: 0px 8px 0px 8px;
 					width: 100%;
 					float: right;			
 				
@@ -44,7 +44,7 @@
 			</style>
 			<div id="total_row">
 				<div id="total">
-					<div id="amount">
+					<div class="amount">
 					  <span class="zz_label">Total</span><span class="amount"><t t-esc="total" /></span>															
 					</div>
 					<div class="amount">
