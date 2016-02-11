@@ -4,8 +4,9 @@
 		<template id="report_pre_print_virement">
 			<style>
 				#pre_print_virement{
+					display: block;
 					min-height: 80mm;
-					width: 205mm;
+					width: 100%;
 					margin: 0px;
 					border: 0mm;
 					font-size: 6mm;
@@ -18,22 +19,30 @@
 							
 				.first_row{
 					margin-top: 0mm;
+					padding-top: 2mm;
 				}
 
-				.amount{
+				.virment_amount{
 					float:right;
-					width: 50mm;
-					text-align: -webkit-right;
+					width: 70mm;
+					text-align: right;
 					margin-right: 2mm;
 				}
-				
+
+				.int_amount{
+					float:left;
+					text-align: right;
+					width: 5.7cm;
+				}				
+								
 				.decimal_amount{
-					margin-left: 8mm;
-					margin-right: -1mm;
+					float:left;
+					padding-left: 5mm;
+					text-align: left;
 				}
 				
 				.virement_row{
-					margin-left: 32mm;
+					margin-left: 22mm;
 				}
 												
 				.adresse > span{
@@ -43,7 +52,7 @@
 				}
 				
 				.adresse{
-					margin-top: 6mm;
+					margin-top: 3mm;
 				  	margin-bottom: 0mm;
 				  	font-size: 5mm;
 				}
@@ -60,7 +69,7 @@
 				}
 				
 				.account_row{
-					padding-top: 24mm;
+					padding-top: 26mm;
 				}
 				
 				.construct_row{
@@ -76,8 +85,9 @@
 							<li><t t-esc="execution_date_month" /></li>
 							<li><t t-esc="execution_date_year" /></li>
 						</ul>
-					<div class="amount">
-						<t t-esc="amount_int" /><span class="decimal_amount"><t t-esc="amount_dec" /></span>										
+					<div class="virment_amount">						
+						<span class="int_amount"><t t-esc="amount_int" /></span>
+						<span class="decimal_amount"><t t-esc="amount_dec" /></span>										
 					</div>
 				</div>
 				<div class="virement_row account_row">

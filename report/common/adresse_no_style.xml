@@ -4,14 +4,18 @@
 		<template id="report_adresse_no_style">
 		    <style type="text/css">
 		        .aes_adresse{
-		    		width: 100%;
-		    		height: 30mm;
+		    		width: 100%;		    
 		    		display: block;
-		    		clear: both;
-		    		padding: 1cm 0cm 0cm 0cm;
 		    	}
 		    	
+		    	.aes_adresse::after {
+   				   clear: both;
+				    content: "";
+				    display: block;
+				}
+		    	
 		    	.customer{
+		    		float: left;
 		    		width: 50%;
 		    	}
 		    	

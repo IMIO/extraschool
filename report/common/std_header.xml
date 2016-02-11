@@ -5,14 +5,17 @@
 		    <style type="text/css">
 		        #aes_header{
 		    		width: 100%;
-		    		height: 30mm;
 		    		display: block;
 		    		clear: both;
-		    		padding: 5mm 5mm 5mm 0mm;
 		    	}
 		    	#aes_header>div.row{
 		    		width: 100%;
 		    		margin-left: 0mm;
+		    	}
+		    	.doc_date:after{
+		    		display:block;
+		    		content:"";
+		    		clear:both;
 		    	}
 		    	
 				.logo {

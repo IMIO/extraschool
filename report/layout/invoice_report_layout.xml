@@ -10,11 +10,20 @@
 					}
 	            		            	
 					body.container {
-	            	  margin: 0px;
+	            	  margin: 0px 15mm 0px Opx;
 	            	  padding: 0px;	            	  
 					}
-				</style>
-				<link href="/web/static/lib/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+	            	
+	            	.header{
+	            		padding-right: 15mm;
+	            	}
+	            	
+	            	.page{
+	            		padding-right: 15mm;
+	            	}
+	            </style>
+				
+	            <link href="/web/static/lib/bootstrap/css/bootstrap.css" rel="stylesheet"/>
 		        <link href="/website/static/src/css/website.css" rel="stylesheet"/>
 		        <link href="/web/static/lib/fontawesome/css/font-awesome.css" rel="stylesheet"/>
 		        <style type="text/css">

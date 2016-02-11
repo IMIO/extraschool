@@ -7,6 +7,7 @@
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="prestationtimes">
+					<field name="verified"/>
 					<field name="childid" select="1"/>
 					<field name="prestation_date" select="1"/>
                     <field name="prestation_time" widget="float_time"/>
@@ -22,7 +23,9 @@
 			<field name="arch" type="xml">
 				<form string="prestationtimes">
 					<group col="4">
-	                    <field name="childid" required="1"/>
+	                    <field name="verified"/>
+	                    <field name="prestation_times_of_the_day_id"/>
+						<field name="childid" required="1"/>
 	                    <field name="placeid" required="1"/>
 						<field name="prestation_date" required="1"/>
 	                    <field name="prestation_time"  required="1" widget="float_time"/>
@@ -66,7 +69,8 @@
 					<field name="prestation_date"/>
                     <field name="prestation_time" widget="float_time"/>
                     <field name="error_msg"/>
-                    <field name="es"/>           
+                    <field name="es"/>  
+                    <field name="verified"/>         
 				</tree>
 			</field>
 		</record>		

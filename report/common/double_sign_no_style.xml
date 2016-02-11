@@ -22,7 +22,7 @@
 					display:block;
 					width: 100%;
 					text-align: center;
-					font-size: 5mm;
+					font-size: 4mm;
 				}
 				
 				.sign_img{
@@ -55,13 +55,12 @@
 						</t>																		
 					</div>					
 				</div>
-				<t t-if="po_stamp">	
-					<div id="stamp"  t-attf-style='background-image:url("data:image/jpeg;base64,{{po_stamp}}");'>
-						<div>					
-							<span class="sign_elem">Par le Collège :</span>									
-						</div>						
-					</div>
-				</t>				
+				<t t-if="not po_stamp">	
+					<div>					
+						<span class="sign_elem">Par le Collège :</span>									
+					</div>						
+				</t>
+								
 				<div id="sign_resp2">
 					<div>
 						<span class="sign_elem" t-esc="resp2_fct" />										
