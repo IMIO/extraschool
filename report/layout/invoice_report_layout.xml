@@ -61,7 +61,7 @@
 						<t t-set="bank_address" t-value="docs[0].activitycategoryid.bank_address"/>
 						<t t-set="bank_zip" t-value="docs[0].activitycategoryid.bank_zip"/>
 						<t t-set="bank_city" t-value="docs[0].activitycategoryid.bank_city"/>
-						<t t-set="com_struct" t-value="docs[0].structcom"/>
+						<t t-set="com_struct" t-value="invoice.structcom"/>
 						<t t-set="total" t-value="invoice.amount_total"/>
 						<t t-set="received" t-value="invoice.amount_received"/>
 						<t t-set="balance" t-value="invoice.balance"/>	
@@ -202,7 +202,7 @@
 						<t t-set="bank_address" t-value="docs[0].activitycategoryid.bank_address"/>
 						<t t-set="bank_zip" t-value="docs[0].activitycategoryid.bank_zip"/>
 						<t t-set="bank_city" t-value="docs[0].activitycategoryid.bank_city"/>
-						<t t-set="com_struct" t-value="docs[0].structcom"/>
+						<t t-set="com_struct" t-value="invoice.structcom"/>
 						<t t-set="total" t-value="invoice.amount_total"/>
 						<t t-set="received" t-value="invoice.amount_received"/>
 						<t t-set="balance" t-value="invoice.balance"/>	
