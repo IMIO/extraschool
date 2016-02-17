@@ -59,8 +59,10 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
         presta_obj = self.env['extraschool.pdaprestationtimes']
         
         if self.state == 'draft' or self.env.user.id == 1:
+            print "validate !!"
             for presta in self.prestationtime_ids:
                 if presta.prestation_time_entry > 0:
+                    print "presta in %s" % (presta)
                     presta_obj.create({'placeid': self.place_id.id,
                                        'childid': presta.child_id.id,
                                        'prestation_date': self.date_of_the_day,
@@ -69,6 +71,7 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
                                        'prestation_times_encodage_manuel_id': self.id,
                                        'es': 'E'})
                 if presta.prestation_time_exit > 0:
+                    print "presta out %s" % (presta)                    
                     presta_obj.create({'placeid': self.place_id.id,
                                        'childid': presta.child_id.id,
                                        'prestation_date': self.date_of_the_day,

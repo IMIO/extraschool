@@ -82,8 +82,14 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
                       'occurrence_id' : -1}
         
         obj_activity_occurrence = self.env['extraschool.activityoccurrence']
-        obj_activity_child_registration = self.env['extraschool.activitychildregistration']
+        obj_activity_child_registration = self.env['extraschool.activity_occurrence_child_registration']
 
+        #
+        # on devrait commencer par les presta avec registration ... voir plus loin c'est mal pris encompte
+        #
+        # voir si il ne fut pas ajouter le critère de selection en fonction de l'entree par defaut
+        # si entree  on cherche les activité avec sortie par defaut ou forfaitaire
+        #
         
         if prestation.es == 'E':
             #get occurrence of the presta day matching the time slot      
@@ -92,7 +98,10 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
                                                             ('activityid.prest_from','<=',prestation.prestation_time),
                                                             ('activityid.prest_to','>',prestation.prestation_time),
                                                             ('activityid.leveltype', 'like', prestation.childid.levelid.leveltype),
-                                                            ('activityid.registration_only','=',False),
+#                                                           ('activityid.onlyregisteredchilds','=',False),
+#                                                            '|',
+#                                                            ('activityid.default_from_to', '=', 'from_to'),
+#                                                            ('activityid.default_from_to', '=', 'to'),
                                                             ])
         else:
             #get occurrence of the presta day matching the time slot      
@@ -101,39 +110,29 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
                                                             ('activityid.prest_from','<',prestation.prestation_time),
                                                             ('activityid.prest_to','>=',prestation.prestation_time),
                                                             ('activityid.leveltype', 'like', prestation.childid.levelid.leveltype),
-                                                            ('activityid.registration_only','=',False),
+#                                                            ('activityid.onlyregisteredchilds','=',False),
+#                                                            '|',
+#                                                            ('activityid.default_from_to', '=', 'from_to'),
+#                                                            ('activityid.default_from_to', '=', 'from'),                                                            
                                                             ])
             
             
         if not occurrence_rs:  #Error No matching occurrence found
             return_val['error_msg'] = "No matching occurrence found"
             return return_val
-            
-        #extract activity ID from occurrence
-        activity_ids = [occurrence.activityid.id for occurrence in occurrence_rs]
-
-        #check if there is a occurrence in witch the child is registered for that date
-        registeredchild_ids = obj_activity_child_registration.search([('place_id.id','=',prestation.placeid.id),
-                                                                      ('activity_id.id','in',activity_ids),                                                                             
-                                                                      ('child_id.id','=',prestation.childid.id),
-                                                                      ('registration_from','<=',prestation.prestation_date),
-                                                                      ('registration_to','>=',prestation.prestation_date),
-                                                                     ])
         
-        if registeredchild_ids:
-            activity_occurrence_id = obj_activity_occurrence.search([('place_id.id','=',prestation.placeid.id),
-                                                                     ('occurrence_date','=',prestation.prestation_date),
-                                                                     ('activityid.id','=',registeredchild_ids[0].activity_id.id)
-                                                                     ])
+        
+        occu_reg = occurrence_rs.filtered(lambda r: prestation.childid.id in [reg.child_id.id for reg in r.child_registration_ids])
+#        print "occu reg = %s" % (occu_reg)
+        
+        if occu_reg:
             return_val['return_code'] = 1   
-            return_val['occurrence_id'] = activity_occurrence_id[0].id     
+            return_val['occurrence_id'] = occu_reg[0].id 
             return return_val
+                            
         
         #filter occurence to remove occurence with registration if "only registered"
-        if prestation.activity_occurrence_id.activityid.onlyregisteredchilds:
-            occurrence_no_register_rs = occurrence_rs.filtered(lambda r: not r.child_registration_ids)
-        else:
-            occurrence_no_register_rs = occurrence_rs
+        occurrence_no_register_rs = occurrence_rs.filtered(lambda r: not r.activityid.onlyregisteredchilds)
         
         #try to find a leaf matching the time slot !!! We should use occurrence__child_ids
         occurrence_leaf_rs = occurrence_no_register_rs.filtered(lambda r: not r.activityid.activity_child_ids)

@@ -85,7 +85,7 @@ class extraschool_activityoccurrence(models.Model):
                            'prestation_date' : activity_occurrence.occurrence_date,
                            'manualy_encoded' : manualy_encoded,
                            'verified' : verified,
-                           'activityid' : activity_occurrence.activityid.id,
+#                           'activityid' : activity_occurrence.activityid.id,
                            'activity_occurrence_id' : activity_occurrence.id,
                            'exit_all': exit_all,
                            }    
@@ -99,7 +99,7 @@ class extraschool_activityoccurrence(models.Model):
                                           'prestation_date' : parent_activity_occurrence.occurrence_date,
                                           'manualy_encoded' : manualy_encoded,
                                           'verified' : verified,
-                                          'activityid' : parent_activity_occurrence.activityid.id,
+#                                          'activityid' : parent_activity_occurrence.activityid.id,
                                           'activity_occurrence_id' : parent_activity_occurrence.id,
                                           }
 

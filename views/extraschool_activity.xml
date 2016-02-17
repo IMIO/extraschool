@@ -44,8 +44,8 @@
 			                <field name="onlyregisteredchilds" />      
 			                <field name="autoaddchilds" /> 
 			                <field name="selectable_on_registration" /> 
-			                <field name="registration_only" />  
-						</group>
+<!--			                <field name="registration_only" />  
+-->						</group>
 			        </page>
             		<page string="Planification">
 			            <group col="4">  
