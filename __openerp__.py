@@ -34,7 +34,6 @@
     'demo' : [],
     'test' : [],
     'data' : [
-        'scripts/structcom_correction.sql',
         'views/extraschool_activitycategory.xml',
         'views/extraschool_activity.xml',
         'views/extraschool_activityoccurrence.xml',
