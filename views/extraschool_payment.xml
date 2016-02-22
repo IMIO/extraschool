@@ -7,6 +7,7 @@
             <field name="type">tree</field>
             <field name="arch" type="xml">
 	            <tree string="Payment Status">
+	            	<field name="parent_id"></field>
 	            	<field name="paymentdate"/>
                     <field name="name"/>
                     <field name="structcom"/>
@@ -24,6 +25,7 @@
 			<field name="arch" type="xml">
 				<form string="Payment">
 					<group col="4">
+						<field name="parent_id"></field>
 	                    <field name="paymentdate" attrs="{'readonly':[('paymenttype', '==', '1')]}"/>
 						<field name="amount" attrs="{'readonly':[('payment_reconciliation_ids', '=', [(6, False, [])])]}"/>
 	                    <field name="paymenttype" attrs="{'readonly':[('paymenttype', '==', '1')]}"/>

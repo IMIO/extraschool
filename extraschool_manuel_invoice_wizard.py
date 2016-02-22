@@ -70,7 +70,7 @@ class extraschool_manuel_invoice_wizard(models.TransientModel):
                     if child.levelid.leveltype in self.leveltype:
                         com_struct_prefix_str = self.activity_category_id.invoicecomstructprefix
                         com_struct_id_str = str(next_invoice_num).zfill(7)
-                        com_struct_check_str = str(long(com_struct_prefix_str+com_struct_id_str) % 97)
+                        com_struct_check_str = str(long(com_struct_prefix_str+com_struct_id_str) % 97).zfill(2)
                         com_struct_check_str = com_struct_check_str if com_struct_check_str != '00' else '97'
                         invoice = inv_obj.create({'name' : _('invoice_%s') % (str(next_invoice_num).zfill(7),),
                                     'number' : next_invoice_num,
@@ -93,7 +93,7 @@ class extraschool_manuel_invoice_wizard(models.TransientModel):
             else:
                 com_struct_prefix_str = self.activity_category_id.invoicecomstructprefix
                 com_struct_id_str = str(next_invoice_num).zfill(7)
-                com_struct_check_str = str(long(com_struct_prefix_str+com_struct_id_str) % 97)
+                com_struct_check_str = str(long(com_struct_prefix_str+com_struct_id_str) % 97).zfill(2)
                 com_struct_check_str = com_struct_check_str if com_struct_check_str != '00' else '97'
                 invoice = inv_obj.create({'name' : _('invoice_%s') % (str(next_invoice_num).zfill(7),),
                                 'number' : next_invoice_num,
