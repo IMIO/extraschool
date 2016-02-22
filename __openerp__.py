@@ -33,8 +33,8 @@
     'init_xml' : ['init.xml',],
     'demo' : [],
     'test' : [],
-    'update_xml': ["scripts/structcom_correction.sql",],
     'data' : [
+        'scripts/structcom_correction.sql',
         'views/extraschool_activitycategory.xml',
         'views/extraschool_activity.xml',
         'views/extraschool_activityoccurrence.xml',
