@@ -13,16 +13,31 @@
 					display: inline-block;
 					width: 6cm;
 				}
+				
+				.com_struct > span{
+					display: inline-block;
+					width: 6cm;
+				}
 
 			</style>
 			<div id="payment_info">
 				<span>Compte :</span><t t-esc="categ_id.bankaccount" />
 				<br />					
 				<span>BIC : </span><t t-esc="categ_id.bank_bic" />
-				<br />							
-				<span>Communication structurée : </span><t t-esc="parent_id.get_prepaid_comstruct(categ_id)" />
+				<br />	
+				<div class="com_struct">
+					<span>Communication structurée : </span><t t-esc="parent_id.get_prepaid_comstruct(categ_id)" />					
+				</div>						
 			</div>
 		</template>
+		
+		<template id="report_payment_info_invoice_no_style" inherit_id="extraschool.report_payment_info_no_style" primary="True">
+			<xpath expr="//div[@class='com_struct']" position="replace">
+				<div class="com_struct">
+					<span >Communication structurée : </span><t t-esc="com_struct" />					
+				</div>	
+			</xpath>		
+		</template>		
 
 	</data>
 </openerp>	
