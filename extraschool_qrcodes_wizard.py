@@ -54,9 +54,9 @@ class extraschool_qrcodes_wizard(models.TransientModel):
         config = self.env['extraschool.mainsettings'].browse([1])
         #get last qrcode value from config
         self.last_id = config.lastqrcodenbr + 1
-        if self.print_type == 'qrcode':
-            #SET last qrcode value to config
-            config.lastqrcodenbr = config.lastqrcodenbr + self.quantity
+
+        #SET last qrcode value to config
+        config.lastqrcodenbr = config.lastqrcodenbr + self.quantity
 
         datas = {
         'ids': self.ids,
