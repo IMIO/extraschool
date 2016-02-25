@@ -75,6 +75,7 @@
         'views/extraschool_level.xml',
         'views/extraschool_child.xml',
         'views/extraschool_child_registration.xml',
+        'views/extraschool_child_registration_wizard.xml',        
         'views/extraschool_settings.xml',
         'extraschool_report.xml',
         'security/extraschool_security.xml',

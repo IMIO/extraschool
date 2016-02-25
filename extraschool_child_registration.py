@@ -100,10 +100,10 @@ class extraschool_child_registration(models.Model):
         self.child_registration_line_ids = child_reg
 
     @api.one
-    def validate(self):
+    def validate(self, wizard = False):
         print "validate"
 
-        if self.state == 'to_validate':
+        if self.state == 'to_validate' or wizard:
             line_days = [self.child_registration_line_ids.filtered(lambda r: r.monday),
                          self.child_registration_line_ids.filtered(lambda r: r.tuesday),
                          self.child_registration_line_ids.filtered(lambda r: r.wednesday),
