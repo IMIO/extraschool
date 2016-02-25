@@ -56,21 +56,18 @@ class extraschool_smartphone(models.Model):
     softwareversion = fields.Char('Software version')
     
     @api.one
-    def get_currenttime(self):
-        print str(datetime.today())
-        return datetime.today()
-    
-    @api.multi
-    def write(self,vals):
-        value='cfg;' + str(self.ids[0]) + ';' + self.transmissiontime + ';' + self.serveraddress + ';' + self.databasename + ';' + self.username + ';' + self.userpassword + ';' + self.scanmethod + ';' + self.transfertmethod+ ';' + self.cfgpassword+ ';'
+    def update_qr_code(self,vals):
+        print "smartphone.update_qr_code"
+        value='cfg;' + str(self.id) + ';' + self.transmissiontime + ';' + self.serveraddress + ';' + self.databasename + ';' + self.username + ';' + self.userpassword + ';' + self.scanmethod + ';' + self.transfertmethod+ ';' + self.cfgpassword+ ';'
         if self.manualok:
             value=value+'1'
         else:
             value=value+'0'
+            
         barcode = createBarcodeImageInMemory(
                 'QR', value=value, format='png', width=400, height=400,
                 humanReadable = 0
-            )        
+            )         
         vals['qrconfig'] = base64.b64encode(barcode)
         value = self.softwareurl
         barcode = createBarcodeImageInMemory(
@@ -78,10 +75,32 @@ class extraschool_smartphone(models.Model):
                 humanReadable = 0
             )        
         vals['qrdownload'] = base64.b64encode(barcode)
-      
-        self = super(extraschool_smartphone, self).write(vals)        
+        
+        
+    @api.one
+    def get_currenttime(self):
+        print str(datetime.today())
+        return datetime.today()
+    
+    @api.model
+    def create(self,vals):
+        res = super(extraschool_smartphone, self).create(vals)
+        res.write({})
+        return res       
 
-        return self
+    @api.multi
+    def write(self,vals):
+        print "smartphone.write"
+        super(extraschool_smartphone, self).write(vals)  
+        print "call self.update_qr_code"             
+        self.update_qr_code(vals)
+        return super(extraschool_smartphone, self).write(vals)               
+
+    @api.multi
+    def copy(self,vals):
+        res = super(extraschool_smartphone, self).copy(vals)               
+        res.write({})
+        return res          
         
 class extraschool_pda_transmission(models.Model):
     _name = 'extraschool.pda_transmission'
