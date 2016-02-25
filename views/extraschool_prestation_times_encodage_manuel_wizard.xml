@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+        <record model="ir.ui.view" id="extraschool_prestation_times_encodage_manuel_validation_wizard_form">
+            <field name="name">extraschool.prestation.times.encodage.manuel.validation.wizard.form</field>
+            <field name="model">extraschool.encodage_manuel_validation_wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Manuel encodage validation wizard">
+                    <group colspan="4" col="3">
+                        <button name="validate" group="admin" string="Validation" icon="gtk-apply" type="object" />
+                    </group>
+                </form>
+            </field>
+        </record>        
+
+        <act_window id="prestation_times_encodage_manuel_validation_wizard_action"
+            name="Manuel encodage validation wizard"
+            src_model="extraschool.prestation_times_encodage_manuel"
+            res_model="extraschool.encodage_manuel_validation_wizard"
+            view_type="form" view_mode="form"
+            key2="client_action_multi" target="new"
+            />
+                        
+	</data>
+</openerp>

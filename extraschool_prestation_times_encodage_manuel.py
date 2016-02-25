@@ -53,12 +53,12 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
                               )
     
     @api.one
-    def validate(self):
+    def validate(self, wizard = False):
         print "validate"
 
         presta_obj = self.env['extraschool.pdaprestationtimes']
         
-        if self.state == 'draft' or self.env.user.id == 1:
+        if self.state == 'draft' or wizard or self.env.user.id == 1:
             print "validate !!"
             for presta in self.prestationtime_ids:
                 if presta.prestation_time_entry > 0:
