@@ -109,6 +109,26 @@ class extraschool_one_report(models.Model):
         extraschool_one_report_childs = self.env.cr.dictfetchall()
 
         return [extraschool_one_report_child['childid'] for extraschool_one_report_child in extraschool_one_report_childs]
+
+    def count_childs_quarter(self,placeid,activitycategory,date_from,date_to,level):
+        self.env.cr.execute('''
+                                select count(distinct(childid)) as count_child from extraschool_invoicedprestations left join extraschool_child on childid=extraschool_child.id where 
+                                placeid=%s 
+                                and prestation_date>=%s and prestation_date<=%s  
+                                and activity_occurrence_id in (select id from extraschool_activityoccurrence where activityid in (select id from extraschool_activity where category=%s and subsidizedbyone=true)) 
+                                and levelid in (select id from extraschool_level where leveltype=%s)                                 
+                                ''', (placeid,date_from,date_to,activitycategory,level))
+        
+        extraschool_one_report_childs = self.env.cr.dictfetchall()
+        print '''
+                                select count(distinct(childid)) as count_child from extraschool_invoicedprestations left join extraschool_child on childid=extraschool_child.id where 
+                                placeid=%s 
+                                and prestation_date>=%s and prestation_date<=%s  
+                                and activity_occurrence_id in (select id from extraschool_activityoccurrence where activityid in (select id from extraschool_activity where category=%s and subsidizedbyone=true)) 
+                                and levelid in (select id from extraschool_level where leveltype=%s)                                 
+                                ''' % (placeid,date_from,date_to,activitycategory,level)
+        print "count_child : %s" % (extraschool_one_report_childs[0]['count_child'])
+        return extraschool_one_report_childs[0]['count_child']
     
     @api.model
     def create(self,vals):
@@ -143,7 +163,7 @@ class extraschool_one_report(models.Model):
         XLSheet.insert_bitmap(report_logoone_filename,0,0)
         self.setXLCell(XLSheet,2,3,u"Détail, pour un lieu d'accueil, des présences du "+("1er" if vals['quarter']==1 else str(vals['quarter'])+"e")+" trimestre "+str(vals['year']))
         self.setXLCell(XLSheet,5,1,str(place.name))
-        self.setXLCell(XLSheet,6,1,'%s\n%s %s' % (place.name,place.zipcode,place.city))  
+        self.setXLCell(XLSheet,6,1,'%s\n%s\n%s %s' % (place.name,place.street, place.zipcode,place.city))  
         self.setXLCell(XLSheet,7,5,place.schedule)
         for imonth in range(0,3):
             currentmonth=period_from.month+imonth            
@@ -188,6 +208,11 @@ class extraschool_one_report(models.Model):
                 iweek=iweek+1
             currentdate = currentdate+datetime.timedelta(1)
         
+        tot_nb_m = self.count_childs_quarter(place.id, vals['activitycategory'],period_from, period_to,'M')
+        tot_nb_p = self.count_childs_quarter(place.id, vals['activitycategory'],period_from, period_to,'P')
+        print "nbr_mat : %s" % (tot_nb_m)
+        print "nbr_prim : %s" % (tot_nb_p)
+
         #Formules
         self.setXLCell(XLSheet,8,19,tot_nb_m)
         self.setXLCell(XLSheet,8,22,tot_nb_p)
