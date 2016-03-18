@@ -35,8 +35,11 @@ class extraschool_child_registration_validation_wizard(models.TransientModel):
     @api.multi
     def validate(self):        
         for reg in self.env['extraschool.child_registration'].browse(self._context.get('active_ids')):
-            reg.validate(True)
-        
+            if reg.activity_id:
+                reg.validate()
+            else:
+                reg.validate_multi()
+                
         return True
 
 

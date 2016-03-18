@@ -133,9 +133,11 @@ class extraschool_coda(models.Model):
                                     if communication[3:3+len(prefix['invoicecomstructprefix'])] == prefix['invoicecomstructprefix']:
                                         prefixfound=True
                                         _prefix = prefix['invoicecomstructprefix']
-                        if prefixfound:                            
-                            invoice=invoice_obj.search([('structcom', '=', communication)])                           
-                            if invoice.ensure_one():
+                        if prefixfound:   
+                            print "structcom : %s" % (communication)                         
+                            invoice=invoice_obj.search([('structcom', '=', communication)])  
+                            print "invoice : %s" % (invoice.ids)                         
+                            if len(invoice.ids) == 1:
                                 if invoice.balance < amount:
                                     reject=True
                                     rejectcause=_('Amount greather than invoice balance')

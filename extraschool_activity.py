@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from openerp import models, api, fields, _
 from openerp.api import Environment
 from openerp.exceptions import except_orm, Warning
 from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
@@ -173,12 +173,28 @@ class extraschool_activity(models.Model):
         else:
             return True
 
-                
+    def check_validity_date(self, validity_from, validity_to):
+        if validity_from > validity_to:
+            raise Warning(_("Validity from must be greater than validity from"))
+                        
     @api.multi
     def write(self, vals):
         print "----- activity  write ----"
         print "vals: %s" % (vals)
         for activity in self:
+            #get validity_date
+            if 'validity_from' not in vals:
+                validity_from = activity.validity_from
+            else:
+                validity_from = vals['validity_from']
+            if 'validity_to' not in vals:
+                validity_to = activity.validity_to
+            else:
+                validity_to = vals['validity_to']
+
+            #check validity date
+            activity.check_validity_date(validity_from, validity_to) 
+                
             if 'validity_from' not in vals and 'validity_to' not in vals:
                 return super(extraschool_activity,activity).write(vals)
             print "update occu ..."
@@ -203,10 +219,11 @@ class extraschool_activity(models.Model):
             else: 
                 return res
            
-        return True
+        return True                
 
     @api.model
-    def create(self, vals):                
+    def create(self, vals):
+        self.check_validity_date(vals['validity_from'], vals['validity_to'])                
         res = super(extraschool_activity,self).create(vals)
 
         if res:

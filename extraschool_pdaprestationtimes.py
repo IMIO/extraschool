@@ -34,10 +34,10 @@ class extraschool_pdaprestationtimes(models.Model):
     prestation_time = fields.Float('Time')
     type = fields.Selection((('pda','Smartphone'),
                            ('manuel','Encodage manuel')),'Type', default='pda' )    
-    prestation_times_encodage_manuel_id = fields.Many2one('extraschool.prestation_times_encodage_manuel', 'Encodage Manuel')    
+    prestation_times_encodage_manuel_id = fields.Many2one('extraschool.prestation_times_encodage_manuel', 'Encodage Manuel',ondelete='cascade')    
     es = fields.Selection((('E','In'),
                            ('S','Out')),'ES' )    
-    prestation_times_of_the_day_id = fields.Many2one('extraschool.prestation_times_of_the_day', 'Prestation of the day')
+    prestation_times_of_the_day_id = fields.Many2one('extraschool.prestation_times_of_the_day', 'Prestation of the day',ondelete='cascade')
     pda_transmission_id = fields.Many2one('extraschool.pda_transmission', 'Transmission')           
 
 
@@ -51,7 +51,10 @@ class extraschool_pdaprestationtimes(models.Model):
         if 'type' not in vals:
             vals['type'] = 'pda'
         
-        search_domain = [('childid.id', '=', vals['childid']),
+        vals['prestation_time'] = '%.6f' % round(vals['prestation_time'], 6)
+        
+        search_domain = [   ('activitycategoryid', '=', vals['activitycategoryid']),
+                            ('childid.id', '=', vals['childid']),
                             ('placeid.id', '=', vals['placeid']),
                             ('prestation_date', '=', vals['prestation_date']),
                             ('prestation_time', '=', vals['prestation_time']),                            
@@ -59,24 +62,40 @@ class extraschool_pdaprestationtimes(models.Model):
                             ('es', '=', vals['es']),                        
                              ]
 
+        print "search_domain : %s" % (search_domain)
         presta = self.search(search_domain)
         # if the same presta already exist than exit
+        print "len(presta) %s" % (len(presta))
         if len(presta):
-            return self
+            print "presta already exist"
+            return presta[0]
              
         prestation_times_of_the_day_obj = self.env['extraschool.prestation_times_of_the_day']
         prestation_times_obj = self.env['extraschool.prestationtimes']
         
-        prestation_times_of_the_day_ids = prestation_times_of_the_day_obj.search([('child_id.id', '=', vals['childid']),
+        prestation_times_of_the_day_ids = prestation_times_of_the_day_obj.search([('activity_category_id', '=', vals['activitycategoryid']),
+                                                                                  ('child_id.id', '=', vals['childid']),
                                                                                 ('date_of_the_day', '=', vals['prestation_date']),
                                                                                 ])
-        if not prestation_times_of_the_day_ids:
-            vals['prestation_times_of_the_day_id'] = prestation_times_of_the_day_obj.create({'child_id' : vals['childid'],
-                                                           'date_of_the_day' : vals['prestation_date'],
-                                                           }).id
-        else :
-            vals['prestation_times_of_the_day_id'] = prestation_times_of_the_day_ids.id
         
-        prestation_times_obj.create(vals)
+        if not prestation_times_of_the_day_ids:
+            print "pod doesn't exist"
+            vals['prestation_times_of_the_day_id'] = prestation_times_of_the_day_obj.create({'activity_category_id' : vals['activitycategoryid'],                                                                                             
+                                                                                             'child_id' : vals['childid'],
+                                                                                             'date_of_the_day' : vals['prestation_date'],
+                                                                                             }).id
+        else :
+            print "presta of day already exist"
+            vals['prestation_times_of_the_day_id'] = prestation_times_of_the_day_ids[0].id
+        
+        prestation_times_obj.create({'prestation_times_of_the_day_id': vals['prestation_times_of_the_day_id'],
+                                     'activity_category_id': vals['activitycategoryid'],
+                                    'childid': vals['childid'],
+                                    'placeid': vals['placeid'],
+                                    'prestation_date': vals['prestation_date'],
+                                    'prestation_time': vals['prestation_time'],                            
+                                    'type': vals['type'],
+                                    'es': vals['es'],
+                                    })
         return super(extraschool_pdaprestationtimes, self).create(vals)    
 

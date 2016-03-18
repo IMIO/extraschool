@@ -34,6 +34,12 @@
     'demo' : [],
     'test' : [],
     'data' : [
+        
+#         'scripts/update_activity_category_in_extraschool_prestation_times_of_the_day.sql',
+#         'scripts/update_activity_category_in_extraschool_prestationtimes.sql',
+#         'scripts/update_activity_category_in_pdaprestationtimes.sql',
+#         'scripts/update_activity_category_in_encodage_manuel.sql',        
+ 
         'views/extraschool_activitycategory.xml',
         'views/extraschool_activity.xml',
         'views/extraschool_activityoccurrence.xml',
@@ -58,9 +64,11 @@
         'views/extraschool_payment_wizard.xml',
         'views/extraschool_place.xml',
         'views/extraschool_one_report.xml',
+        'views/extraschool_pda_prestation_times.xml',
         'views/extraschool_prestationscheck_wizard.xml',
         'views/extraschool_prestationtimes.xml',
         'views/extraschool_prestation_times_of_the_day.xml',
+        'views/extraschool_prestation_times_of_the_day_wizard.xml',
         'views/extraschool_prestation_times_encodage_manuel.xml',
         'views/extraschool_prestation_times_encodage_manuel_wizard.xml',
         'views/extraschool_price_list.xml',        

@@ -79,7 +79,7 @@ class extraschool_activityoccurrence(models.Model):
         prestation_times_obj = self.env['extraschool.prestationtimes']
         entry_time = entry_time if entry_time else activity_occurrence.prest_from
         exit_time = exit_time if exit_time else activity_occurrence.prest_to
-        
+        pod_modified = []
         prestation_time = {'placeid' : activity_occurrence.place_id.id,
                            'childid' : child_id,
                            'prestation_date' : activity_occurrence.occurrence_date,
@@ -87,6 +87,7 @@ class extraschool_activityoccurrence(models.Model):
                            'verified' : verified,
 #                           'activityid' : activity_occurrence.activityid.id,
                            'activity_occurrence_id' : activity_occurrence.id,
+                           'activity_category_id' : activity_occurrence.activity_category_id.id,
                            'exit_all': exit_all,
                            }    
         if parent_activity_occurrence:
@@ -101,13 +102,18 @@ class extraschool_activityoccurrence(models.Model):
                                           'verified' : verified,
 #                                          'activityid' : parent_activity_occurrence.activityid.id,
                                           'activity_occurrence_id' : parent_activity_occurrence.id,
+                                          'activity_category_id' : parent_activity_occurrence.activity_category_id,
                                           }
 
         if entry:
             prestation_time['es'] = 'E'               
             prestation_time['prestation_time'] = entry_time
 
-            prestation_times_obj.create(prestation_time)
+            new_presta = prestation_times_obj.create(prestation_time)
+            if new_presta:
+                if new_presta.prestation_times_of_the_day_id.id not in pod_modified:
+                    pod_modified.append(new_presta.prestation_times_of_the_day_id.id)
+                
             if parent_activity_occurrence:
                 #add only if opposite presta exist in parent occurrence
                 prestation_left = prestation_times_obj.search([('id', 'in',[prestation.id for prestation in parent_activity_occurrence.prestation_times_ids]),
@@ -116,12 +122,20 @@ class extraschool_activityoccurrence(models.Model):
                 if len(prestation_left) and prestation_left[0].es == 'E':                             
                     parent_prestation_time['es'] = 'S'   
                     parent_prestation_time['prestation_time'] = entry_time   
-                    prestation_times_obj.create(parent_prestation_time)
+                    new_presta = prestation_times_obj.create(parent_prestation_time)
+                    if new_presta:
+                        if new_presta.prestation_times_of_the_day_id.id not in pod_modified:
+                            pod_modified.append(new_presta.prestation_times_of_the_day_id.id)
     
         if exit:
             prestation_time['es'] = 'S'   
             prestation_time['prestation_time'] = exit_time
-            prestation_times_obj.create(prestation_time)
+            new_presta = prestation_times_obj.create(prestation_time)
+            print "-----------------"
+            print new_presta
+            if new_presta:
+                if new_presta.prestation_times_of_the_day_id.id not in pod_modified:
+                    pod_modified.append(new_presta.prestation_times_of_the_day_id.id)
             if parent_activity_occurrence:
                 #add only if opposite presta exist in parent occurrence
                 prestation_right = prestation_times_obj.search([('id', 'in',[prestation.id for prestation in parent_activity_occurrence.prestation_times_ids]),
@@ -130,8 +144,13 @@ class extraschool_activityoccurrence(models.Model):
                 if len(prestation_right) and prestation_right[0].es == 'S':                   
                     parent_prestation_time['es'] = 'E'   
                     parent_prestation_time['prestation_time'] = exit_time   
-                    prestation_times_obj.create(parent_prestation_time)
+                    new_presta = prestation_times_obj.create(parent_prestation_time)
+                    if new_presta:
+                        if new_presta.prestation_times_of_the_day_id.id not in pod_modified:
+                            pod_modified.append(new_presta.prestation_times_of_the_day_id.id)
         
+        return pod_modified
+
     @api.model
     def create(self, vals): 
         

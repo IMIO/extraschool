@@ -90,6 +90,19 @@ class extraschool_smartphone(models.Model):
 
     @api.multi
     def write(self,vals):
+        #transmission is finished
+        if 'transmissiontime' in vals:
+            #reset presta of the day if needed
+            for smartphone in self:
+                if smartphone.pda_transmission_ids:
+                    pod_allready_reseted_ids = []
+                    for presta in smartphone.pda_transmission_ids.pda_prestation_times_ids:
+                        if presta.prestation_times_of_the_day_id.id not in pod_allready_reseted_ids:
+                            pod_allready_reseted_ids.append(presta.prestation_times_of_the_day_id.id)
+                            presta.prestation_times_of_the_day_id.reset()
+                            
+            return super(extraschool_smartphone, self).write(vals)
+        
         print "smartphone.write"
         super(extraschool_smartphone, self).write(vals)  
         print "call self.update_qr_code"             

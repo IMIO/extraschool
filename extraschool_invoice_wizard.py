@@ -282,7 +282,23 @@ class extraschool_invoice_wizard(models.TransientModel):
         if verified_count[0]['verified_count']:
             raise Warning(_("At least one prestations is not verified !!!"))
 
-        
+        #check if there are presta to invoice
+        sql_check_presta_to_invoice = """select count(*) as to_invoice_count
+                                    from extraschool_prestationtimes ept
+                                    left join extraschool_child c on ept.childid = c.id
+                                    where ept.prestation_date between %s and %s
+                                        and verified = True
+                                        and invoiced_prestation_id is NULL
+                                        and activity_category_id = %s
+                                        and c.schoolimplantation in (""" + ','.join(map(str, self.schoolimplantationid.ids))+ """)  
+                                ;"""
+
+        self.env.cr.execute(sql_check_presta_to_invoice, (self.period_from, self.period_to, self.activitycategory.id,))
+        to_invoice_count = self.env.cr.dictfetchall()
+        print "to_invoice_count:" + str(to_invoice_count[0]['to_invoice_count'])
+        if not to_invoice_count[0]['to_invoice_count']:
+            raise Warning(_("There is no presta to invoice !!!"))
+                
         #search parent to be invoiced
         sql_mega_invoicing = """select c.schoolimplantation as schoolimplantation, parent_id, childid, activity_occurrence_id,
                                     sum(case when es = 'S' then prestation_time else 0 end) - sum(case when es = 'E' then prestation_time else 0 end) as duration,

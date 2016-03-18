@@ -45,6 +45,7 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
      
     date_of_the_day = fields.Date(required=True, readonly=True, states={'draft': [('readonly', False)]})    
     place_id = fields.Many2one('extraschool.place', required=True, readonly=True, states={'draft': [('readonly', False)]})                    
+    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False)
     prestationtime_ids = fields.One2many('extraschool.prestation_times_manuel','prestation_times_encodage_manuel_id', readonly=True, states={'draft': [('readonly', False)]})    
     comment = fields.Text()
     state = fields.Selection([('draft', 'Draft'),
@@ -53,32 +54,48 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
                               )
     
     @api.one
-    def validate(self, wizard = False):
+    def validate(self):
         print "validate"
 
+        if self.env.context == None:
+            self.env.context = {}
+        
+        if "wizard" not in self.env.context:
+            self.env.context["wizard"]= False
+            
         presta_obj = self.env['extraschool.pdaprestationtimes']
         
-        if self.state == 'draft' or wizard or self.env.user.id == 1:
+        if self.state == 'draft' or self.env.user.id == 1:
             print "validate !!"
+            pod_allready_reseted_ids = []
             for presta in self.prestationtime_ids:
                 if presta.prestation_time_entry > 0:
                     print "presta in %s" % (presta)
-                    presta_obj.create({'placeid': self.place_id.id,
+                    new_presate = presta_obj.create({'activitycategoryid': self.activity_category_id.id,
+                                       'placeid': self.place_id.id,
                                        'childid': presta.child_id.id,
                                        'prestation_date': self.date_of_the_day,
                                        'prestation_time': presta.prestation_time_entry,
                                        'type': 'manuel',
                                        'prestation_times_encodage_manuel_id': self.id,
                                        'es': 'E'})
+                    if new_presate.prestation_times_of_the_day_id.id not in pod_allready_reseted_ids:
+                        pod_allready_reseted_ids.append(new_presate.prestation_times_of_the_day_id.id)
+                        new_presate.prestation_times_of_the_day_id.reset()
+                        
                 if presta.prestation_time_exit > 0:
                     print "presta out %s" % (presta)                    
-                    presta_obj.create({'placeid': self.place_id.id,
+                    new_presate = presta_obj.create({'activitycategoryid': self.activity_category_id.id,
+                                       'placeid': self.place_id.id,
                                        'childid': presta.child_id.id,
                                        'prestation_date': self.date_of_the_day,
                                        'prestation_time': presta.prestation_time_exit,
                                        'type': 'manuel',
                                        'prestation_times_encodage_manuel_id': self.id,
                                        'es': 'S'})
+                    if new_presate.prestation_times_of_the_day_id.id not in pod_allready_reseted_ids:
+                        pod_allready_reseted_ids.append(new_presate.prestation_times_of_the_day_id.id)
+                        new_presate.prestation_times_of_the_day_id.reset()
                         
         if self.state == 'draft':
             self.state = 'validated'

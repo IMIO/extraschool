@@ -35,7 +35,7 @@ class extraschool_encodage_manuel_validation_wizard(models.TransientModel):
     @api.multi
     def validate(self):        
         for reg in self.env['extraschool.prestation_times_encodage_manuel'].browse(self._context.get('active_ids')):
-            reg.validate(True)
+            reg.validate()
         
         return True
 

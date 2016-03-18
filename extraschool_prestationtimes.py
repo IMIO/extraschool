@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from openerp import models, api, fields, _
 from openerp.api import Environment
 from openerp.exceptions import except_orm, Warning, RedirectWarning
 
@@ -31,11 +31,11 @@ class extraschool_prestationtimes(models.Model):
     _description = 'Prestation Times'
     _order = 'prestation_date,prestation_time,activity_occurrence_id,es'
                
-    placeid = fields.Many2one('extraschool.place', 'Schoolcare Place', required=False)
-    childid = fields.Many2one('extraschool.child', 'Child', domain="[('isdisabled','=',False)]", required=False, select=True, ondelete='RESTRICT')
+    placeid = fields.Many2one('extraschool.place', 'Schoolcare Place', required=False, Index=True)
+    childid = fields.Many2one('extraschool.child', 'Child', domain="[('isdisabled','=',False)]", required=False, select=True, ondelete='restrict')
     parent_id = fields.Many2one(related='childid.parentid', store=True, select=True)                  
     prestation_date = fields.Date('Date', select=True, Index=True)
-    prestation_time = fields.Float('Time', select=True, required=True)
+    prestation_time = fields.Float('Time', select=True, Index=True, required=True)
     es = fields.Selection((('E','In'), ('S','Out')),'es' , select=True)  
     exit_all = fields.Boolean('Exit all',default=False)
     manualy_encoded = fields.Boolean('Manualy encoded', readonly=True)   
@@ -43,8 +43,8 @@ class extraschool_prestationtimes(models.Model):
     error_msg = fields.Char('Error', size=255)
     activity_occurrence_id = fields.Many2one('extraschool.activityoccurrence', 'Activity occurrence', select=True)  
     activity_name = fields.Char(related='activity_occurrence_id.activityname')
-    activity_category_id = fields.Many2one(related='activity_occurrence_id.activity_category_id', store=True, select=True)                  
-    prestation_times_of_the_day_id = fields.Many2one('extraschool.prestation_times_of_the_day', 'Prestation of the day',ondelete='cascade')  
+    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=True, select=True)            
+    prestation_times_of_the_day_id = fields.Many2one('extraschool.prestation_times_of_the_day', 'Prestation of the day',ondelete='restrict')  
     invoiced_prestation_id = fields.Many2one('extraschool.invoicedprestations', string='Invoiced prestation')                  
              
     @api.model
@@ -64,13 +64,15 @@ class extraschool_prestationtimes(models.Model):
                                                                  ])
             
         if not 'prestation_times_of_the_day_id' in vals:
-            prestation_times_of_the_day_ids = prestation_times_of_the_day_obj.search([('child_id.id', '=', vals['childid']),
-                                                                                    ('date_of_the_day', '=', vals['prestation_date']),
+            prestation_times_of_the_day_ids = prestation_times_of_the_day_obj.search([('activity_category_id', '=', vals['activity_category_id']),
+                                                                                      ('child_id.id', '=', vals['childid']),
+                                                                                      ('date_of_the_day', '=', vals['prestation_date']),
                                                                                     ])
             if not prestation_times_of_the_day_ids:
-                vals['prestation_times_of_the_day_id'] = prestation_times_of_the_day_obj.create({'child_id' : vals['childid'],
-                                                               'date_of_the_day' : vals['prestation_date'],
-                                                               'verified' : False,
+                vals['prestation_times_of_the_day_id'] = prestation_times_of_the_day_obj.create({'activity_category_id' : vals['activity_category_id'],
+                                                                                                 'child_id' : vals['childid'],
+                                                                                                 'date_of_the_day' : vals['prestation_date'],
+                                                                                                 'verified' : False,
                                                                }).id
             else :
                 vals['prestation_times_of_the_day_id'] = prestation_times_of_the_day_ids.id
@@ -80,9 +82,11 @@ class extraschool_prestationtimes(models.Model):
                 if vals['exit_all'] == False:
                     if prestaion_times_ids.exit_all:
                         vals['exit_all'] = True
-            
-            return prestaion_times_ids.write(vals)
+            print "return write"
+            prestaion_times_ids.write(vals)
+            return prestaion_times_ids
         else:
+            print "super_create"
             return super(extraschool_prestationtimes, self).create(vals)
 
     @api.multi
@@ -91,7 +95,10 @@ class extraschool_prestationtimes(models.Model):
             return super(extraschool_prestationtimes, self).write(vals)
     
     @api.multi
-    def unlink(self):        
+    def unlink(self):      
+        if len(self.filtered(lambda r: r.invoiced_prestation_id.id is not False).ids):
+            raise Warning(_("It's not allowed to delete invoiced presta !!!"))
+        
         for record in self:
                 linked_prestation=self.search([('childid', '=', record.childid.id),('prestation_date', '=', record.prestation_date)])
                 res = linked_prestation.write({'verified':False})

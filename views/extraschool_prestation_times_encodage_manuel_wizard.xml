@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <form string="Manuel encodage validation wizard">
                     <group colspan="4" col="3">
-                        <button name="validate" group="admin" string="Validation" icon="gtk-apply" type="object" />
+                        <button name="validate" group="admin" string="Validation" icon="gtk-apply" type="object"  context="{'wizard': True}"/>
                     </group>
                 </form>
             </field>

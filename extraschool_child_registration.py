@@ -100,10 +100,19 @@ class extraschool_child_registration(models.Model):
         self.child_registration_line_ids = child_reg
 
     @api.one
-    def validate(self, wizard = False):
-        print "validate"
-
-        if self.state == 'to_validate' or wizard:
+    def validate(self):
+        if self.env.context == None:
+            self.env.context = {}
+        
+        if "wizard" not in self.env.context:
+            self.env.context["wizard"]= False
+            
+        print "validate wizard-mode : %s" % (self.env.context["wizard"])
+        
+        pod_to_reset = []
+        
+        if self.state == 'to_validate' or self.env.context["wizard"]:
+            print "validate - registration"
             line_days = [self.child_registration_line_ids.filtered(lambda r: r.monday),
                          self.child_registration_line_ids.filtered(lambda r: r.tuesday),
                          self.child_registration_line_ids.filtered(lambda r: r.wednesday),
@@ -134,8 +143,10 @@ class extraschool_child_registration(models.Model):
                                              'child_registration_line_id': line.id
                                              })
                             if self.activity_id.autoaddchilds:
-                                occu.add_presta(occu, line.child_id.id, None,False)
-                        
+                                pod_to_reset = list(set(pod_to_reset + occu.add_presta(occu, line.child_id.id, None,False)))
+             
+            for pod in self.env['extraschool.prestation_times_of_the_day'].browse(pod_to_reset):
+                pod.reset()           
                         
         if self.state == 'draft':
             self.state = 'to_validate'
@@ -144,9 +155,15 @@ class extraschool_child_registration(models.Model):
             
     @api.one
     def validate_multi(self):
-        print "validate"
+        if self.env.context == None:
+            self.env.context = {}
+        
+        if "wizard" not in self.env.context:
+            self.env.context["wizard"]= False
+            
+        print "validate MULTI wizard-mode : %s" % (self.env.context)
 
-        if self.state == 'to_validate':
+        if self.state == 'to_validate' or self.env.context["wizard"]:
             line_days = [self.child_registration_line_ids.filtered(lambda r: r.monday_activity_id),
                          self.child_registration_line_ids.filtered(lambda r: r.tuesday_activity_id),
                          self.child_registration_line_ids.filtered(lambda r: r.wednesday_activity_id),
@@ -161,6 +178,7 @@ class extraschool_child_registration(models.Model):
 
             delta = d2 - d1
             
+            pod_to_reset = []
             occu = self.env['extraschool.activityoccurrence']
             occu_reg = self.env['extraschool.activity_occurrence_child_registration']
             for day in range(delta.days + 1):
@@ -193,7 +211,9 @@ class extraschool_child_registration(models.Model):
                                              })
                             if activity_id.autoaddchilds:
                                 print "auto add child    "
-                                occu.add_presta(occu, line.child_id.id, None,False)
+                                pod_to_reset = list(set(pod_to_reset + occu.add_presta(occu, line.child_id.id, None,False)))
+            for pod in self.env['extraschool.prestation_times_of_the_day'].browse(pod_to_reset):
+                pod.reset()           
                         
                         
         if self.state == 'draft':
