@@ -24,7 +24,7 @@
 
 {
     'name' : 'Extraschool',
-    'version' : '1.1.7',
+    'version' : '1.2.0',
     'author' : 'Town of La Bruyère and Imio',
     'depends' : ['base', 
                  'report',
@@ -35,10 +35,10 @@
     'test' : [],
     'data' : [
         
-#         'scripts/update_activity_category_in_extraschool_prestation_times_of_the_day.sql',
-#         'scripts/update_activity_category_in_extraschool_prestationtimes.sql',
-#         'scripts/update_activity_category_in_pdaprestationtimes.sql',
-#         'scripts/update_activity_category_in_encodage_manuel.sql',        
+         'scripts/update_activity_category_in_extraschool_prestation_times_of_the_day.sql',
+         'scripts/update_activity_category_in_extraschool_prestationtimes.sql',
+         'scripts/update_activity_category_in_pdaprestationtimes.sql',
+         'scripts/update_activity_category_in_encodage_manuel.sql',        
  
         'views/extraschool_activitycategory.xml',
         'views/extraschool_activity.xml',
