@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+        <record model="ir.ui.view" id="extraschool_prestation_times_of_the_day_wizard_form">
+            <field name="name">extraschool.prestation.times.of.the.day.wizard.form</field>
+            <field name="model">extraschool.prestation_times_of_the_day_wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Presta of the day wizard">
+                    <group colspan="4" col="3">
+                        <button name="reset" group="admin" string="Reset" icon="gtk-apply" type="object"/>
+                        <button name="check" group="admin" string="Check" icon="gtk-apply" type="object"/>                        	                        
+                    </group>
+                    <group col="4">
+                    	<field name="query_sql"/>
+                        <button name="execute_sql" group="admin" string="Execute sql" icon="gtk-apply" type="object"/>
+                    		                    	
+                    </group>
+                </form>
+            </field>
+        </record>        
+
+        <act_window id="prestation_times_of_the_day_wizard_action"
+            name="Presta of the day wizard"
+            src_model="extraschool.prestation_times_of_the_day"
+            res_model="extraschool.prestation_times_of_the_day_wizard"
+            view_type="form" view_mode="form"
+            key2="client_action_multi" target="new"
+            />
+                        
+	</data>
+</openerp>

@@ -1,0 +1,66 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+        <record model="ir.ui.view" id="extraschool_pda_prestation_times_tree">
+			<field name="name">pda_prestation_times.tree</field>
+			<field name="model">extraschool.pdaprestationtimes</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="pda_prestation_times">
+					<field name="activitycategoryid" />
+					<field name="childid" select="1"/>
+					<field name="prestation_date" select="1"/>
+                    <field name="prestation_time" widget="float_time"/>
+                    <field name="es"/>
+				</tree>
+			</field>
+		</record>
+        
+		<record model="ir.ui.view" id="extraschool_pda_prestation_times_form">
+			<field name="name">pda_prestation_times.form</field>
+			<field name="model">extraschool.pdaprestationtimes</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="pda_prestation_times">
+					<group col="4">
+						<field name="activitycategoryid" />
+	                    <field name="prestation_times_of_the_day_id"/>
+						<field name="childid" required="1"/>
+	                    <field name="placeid" required="1"/>
+						<field name="prestation_date" required="1"/>
+	                    <field name="prestation_time"  required="1" widget="float_time"/>
+	                    <field name="es" required="1"/>
+	                </group>
+				</form>
+			</field>
+		</record>
+      
+
+        <record id="pda_prestation_times_search_view" model="ir.ui.view">
+            <field name="name">pda_prestation_times.search</field>
+            <field name="model">extraschool.pdaprestationtimes</field>
+            <field name="arch" type="xml">
+                <search string="Prestations">
+                    <field name="childid" string="childid"/>
+                   <field name="activitycategoryid" />
+                   <field name="placeid" string="Place"/>
+                   <field name="prestation_date" string="Date"/>
+                    <filter string="Entry" icon="terp-accessories-archiver" domain="[('es','=','E')]"/>
+                    <filter string="Exit" icon="terp-accessories-archiver" domain="[('es','=','S')]"/>
+                   <group  expand='0' string='Group by...'>
+                       <filter string='Enfant' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'childid'}"/>
+                       <filter string="Lieux d&apos;accueil" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'placeid'}"/>                       	                       
+                       <filter string='Category' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'activitycategoryid'}"/>
+                   </group>                    
+                </search>
+            </field>
+        </record>			
+        
+        <record model="ir.actions.act_window" id="action_pda_extraschool_prest">
+			<field name="name">PDA Prestations</field>
+			<field name="res_model">extraschool.pdaprestationtimes</field>
+			<field name="view_type">form</field>
+		</record>
+		
+	</data>
+</openerp>
