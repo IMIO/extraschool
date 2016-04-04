@@ -55,6 +55,7 @@ class extraschool_manuel_invoice_wizard(models.TransientModel):
             biller = self.env['extraschool.biller'].create({'period_from' : self.invoice_date,
                                                             'period_to' : self.invoice_date,
                                                             'payment_term': self.payment_term,
+                                                            'invoices_date': self.invoice_date,
                                                             })
         else:
             return True

@@ -259,6 +259,7 @@ class extraschool_invoice_wizard(models.TransientModel):
         biller = obj_biller.create({'period_from' : self.period_from,
                                     'period_to' : self.period_to,
                                     'payment_term': self.invoice_term,
+                                    'invoices_date': self.invoice_date,
                                     })
 
         

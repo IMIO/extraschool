@@ -50,6 +50,7 @@ class extraschool_negatif_payment_correction_wizard(models.TransientModel):
                                                             'period_to' : self.invoice_date,
                                                             'payment_term': self.payment_term,
                                                             'activitycategoryid': self.activity_category_id.id,
+                                                            'invoices_date': self.invoice_date,
                                                             })
         else:
             return True
