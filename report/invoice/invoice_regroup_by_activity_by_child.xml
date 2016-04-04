@@ -40,9 +40,6 @@
 			</style>
 						
         	<div id="invoice_body">
-        		<div class="your_ref">
-        			<span>Notre référence : </span><span t-field="invoice.name" />        			
-        		</div>
         		<table>
         			<tr>
 	        			<th>Activité</th>
