@@ -99,6 +99,7 @@
         'report/invoice/invoice_regroup_by_activity.xml',
         'report/invoice/invoice_regroup_by_activity_by_child.xml',
         'report/invoice/invoice_std_footer.xml',
+        'report/invoice/invoice_ref_and_period_no style.xml',
         'report/common/pre_print_virement.xml',
         'report/common/amount_no_style.xml',
         'report/common/comment_no_style.xml',
