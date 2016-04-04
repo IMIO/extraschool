@@ -165,7 +165,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                  from extraschool_child ec 
                                  where  parent_id = ec.parentid
                                     and id <> ept.childid
-                                    and ec.birthdate < (select birthdate from extraschool_child where id = ept.childid)
+                                    and ec.birthdate <= (select birthdate from extraschool_child where id = ept.childid)
                                     )) as child_position_id
                             """,
                'byparentwp' : """(select min(id) 
@@ -176,7 +176,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                  where  parent_id = ept.parent_id 
                                     and activity_occurrence_id = ept.activity_occurrence_id
                                     and childid <> ept.childid
-                                    and ec.birthdate < (select birthdate from extraschool_child where id = ept.childid)
+                                    and ec.birthdate <= (select birthdate from extraschool_child where id = ept.childid)
                                     )) as child_position_id
                             """,
                 'byparent_nb_childs' : """(select min(id) 
@@ -204,7 +204,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                      left join extraschool_parent pp on pp.id = ec.parentid
                                      where  pp.streetcode = p.streetcode
                                         and ec.id <> ept.childid
-                                        and ec.birthdate < (select birthdate from extraschool_child where id = ept.childid)
+                                        and ec.birthdate <= (select birthdate from extraschool_child where id = ept.childid)
                                         )) as child_position_id
                             """,
                'byaddresswp' : """(select min(id)
@@ -216,7 +216,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                      where  pp.streetcode = p.streetcode
                                         and activity_occurrence_id = ept.activity_occurrence_id
                                         and childid <> ept.childid
-                                        and ec.birthdate < (select birthdate from extraschool_child where id = ept.childid)
+                                        and ec.birthdate <= (select birthdate from extraschool_child where id = ept.childid)
                                         )) as child_position_id
                             """,
                'byaddress_nb_childs' : """(select min(id)
