@@ -59,7 +59,7 @@
 		        				<tr>
 			       					<td><span t-esc="'%s %s' % (saved_activity if saved_activity != False else '',saved_description if saved_description != False else '')" /></td> 
 			       					<td class="amount"><span t-esc="activity_count" /></td> 
-			       					<td class="amount"><span t-esc="activity_amount" /></td> 
+			       					<td class="amount"><span t-esc="'%.2f' %  (activity_amount)" /></td> 
 			       				</tr>	       							
 	       					</t>
 	       					<t t-set="saved_activity" t-value="invoice_line.activity_occurrence_id.activityid.short_name"/>
@@ -78,7 +78,7 @@
         				<tr>
 	       					<td><span t-esc="'%s %s' % (saved_activity if saved_activity != False else '',saved_description if saved_description != False else '')" /></td> 
 	       					<td class="amount"><span t-esc="activity_count" /></td> 
-	       					<td class="amount"><span t-esc="activity_amount" /></td> 
+	       					<td class="amount"><span t-esc="'%.2f' %  (activity_amount)" /></td> 
 	       				</tr>	       							
    					</t>
 	        		 	            			        			

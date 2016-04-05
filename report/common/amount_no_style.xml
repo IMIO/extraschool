@@ -45,13 +45,13 @@
 			<div id="total_row">
 				<div id="total">
 					<div class="amount">
-					  <span class="zz_label">Total</span><span class="amount"><t t-esc="total" /></span>															
+					  <span class="zz_label">Total</span><span class="amount"><t t-esc="'%.2f' %  (total)" /></span>															
 					</div>
 					<div class="amount">
-					  <span class="zz_label">Reçu</span><span class="amount"><t t-esc="received" /></span>															
+					  <span class="zz_label">Reçu</span><span class="amount"><t t-esc="'%.2f' %  (received)" /></span>															
 					</div>
 					<div class="amount">
-					  <span class="zz_label">A payer</span><span class="amount"><t t-esc="balance" /></span>															
+					  <span class="zz_label">A payer</span><span class="amount"><t t-esc="'%.2f' %  (balance)" /></span>															
 					</div>
 				</div>								
 			</div>

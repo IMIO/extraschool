@@ -43,7 +43,7 @@
         		<table>
         			<tr>
 	        			<th>Activité</th>
-	        			<th>Quantité</th>
+	        			<th class="col_quantity">Quantité</th>
 	        			<th>Total</th>
 					</tr>
 					<t t-set="saved_child_id" t-value="'******'"/>										
@@ -58,8 +58,8 @@
 	       					<t t-if="activity_count != 0">
 		        				<tr>
 			       					<td><span t-esc="'%s - %s %s' % (saved_child_id.name if saved_child_id != False else '',saved_activity if saved_activity != False else '',saved_description if saved_description != False else '')" /></td> 
-			       					<td class="amount"><span t-esc="activity_count" /></td> 
-			       					<td class="amount"><span t-esc="activity_amount" /></td> 
+			       					<td class="col_quantity amount"><span t-esc="activity_count" /></td> 
+			       					<td class="amount"><span t-esc="'%.2f' %  (activity_amount)" /></td> 
 			       				</tr>	       							
 	       					</t>
 	       					<t t-set="saved_child_id" t-value="invoice_line.childid"/>
@@ -78,8 +78,8 @@
    					<t t-if="activity_count != 0">
         				<tr>
 	       					<td><span t-esc="'%s - %s %s' % (saved_child_id.name if saved_child_id != False else '',saved_activity if saved_activity != False else '',saved_description if saved_description != False else '')" /></td> 
-	       					<td class="amount"><span t-esc="activity_count" /></td> 
-	       					<td class="amount"><span t-esc="activity_amount" /></td> 
+	       					<td class="col_quantity amount"><span t-esc="activity_count" /></td> 
+	       					<td class="amount"><span t-esc="'%.2f' %  (activity_amount)" /></td> 
 	       				</tr>	       							
    					</t>
 	        		 	            			        			
@@ -87,6 +87,17 @@
        		</div>
 		</template>
 
+		<template id="report_invoice_regroup_by_activity_by_child_no_quantity" inherit_id="extraschool.report_invoice_regroup_by_activity_by_child" primary="True">
+
+			<xpath expr="//div[@id='invoice_body']" position="before">
+				<style>
+					.col_quantity {
+	  					display: none;
+					}										
+				</style>
+			</xpath>		
+		</template>
+				
 	</data>
 </openerp>	
 	
