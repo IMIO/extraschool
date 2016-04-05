@@ -33,9 +33,7 @@
     'init_xml' : ['init.xml',],
     'demo' : [],
     'test' : [],
-    'data' : [
-        'scripts/update_biller_invoices_date.sql',
-        
+    'data' : [        
         'views/extraschool_activitycategory.xml',
         'views/extraschool_activity.xml',
         'views/extraschool_activityoccurrence.xml',
