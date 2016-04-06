@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 		
+		<template id="report_biller_summary_no_style">
+			<style>
+				#biller_summary{
+					display:block;
+					width: 100%;
+				}
+				
+				
+				#biller_summary>div{
+					display: block;
+					width: 100%;				
+				}								
+
+			</style>
+			<div id="biller_summary">
+				<div id="period">
+					<span class="zz_label">Période de facturation du </span><span t-field="biller.period_from" /> au <span t-field="biller.period_to" />	
+				</div>								
+				<div id="fact_dates">
+					<span class="zz_label">Date de facture : </span><span t-field="biller.invoices_date" />
+				</div>
+				<div id="fact_dates">
+					<span class="zz_label">Date d'échéance : </span><span t-field="biller.payment_term" />	
+				</div>
+				<div id="nbr_fact">
+					<span class="zz_label">Nombre de factures : </span><span t-field="biller.nbinvoices" />							
+				</div>
+				<div id="total">
+					<span class="zz_label">Total : </span><span t-esc="'%.2f €' %  (biller.total)" />	
+				</div>
+			</div>			
+		</template>
+
+	</data>
+</openerp>	
+	
+	

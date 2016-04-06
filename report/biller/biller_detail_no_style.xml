@@ -1,0 +1,62 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 		
+		<template id="report_biller_detail_no_style">
+			<style>
+				#biller_detail{
+					display:block;
+					width: 100%;
+				}
+								
+				#biller_detail>div{
+					display: block;
+					padding: 0px 8px 0px 8px;
+					width: 100%;				
+				}
+				   	
+				#biller_detail>table {
+		    		width: 100%;
+					font-size:11px;
+					border-width: 1px;
+					border-collapse: collapse;
+				}
+				#biller_detail>table th {
+					border-width: 1px;
+					padding: 8px;
+					border-style: solid;
+					background-color: #dedede;
+				}
+				#biller_detail>table td {
+					border-width: 1px;
+					padding: 8px;
+					border-style: solid;
+				}
+				
+				#biller_detail table td.amount {
+		    		text-align: right;
+		    		width: 20%;
+				}				
+			</style>
+			
+			<div id="biller_detail">
+        		<table>
+        			<tr>
+	        			<th>Parent</th>
+	        			<th>Catégorie d'activité</th>
+	        			<th>Total</th>
+					</tr>
+	       			<t t-foreach="biller.invoice_ids" t-as="biller_line">
+        				<tr>
+	       					<td><span t-field="biller_line.parentid.name" /></td> 
+	       					<td><span t-field="biller_line.activitycategoryid.name" /></td> 
+	       					<td class="amount"><span t-esc="'%.2f €' %  (biller_line.amount_total)" /></td> 
+	       				</tr>
+	        		</t> 	            			        			
+        		</table>
+			</div>			
+		</template>
+
+	</data>
+</openerp>	
+	
+	

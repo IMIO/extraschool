@@ -83,6 +83,7 @@
 			                <newline/>						
 			                <field name="invoice_report_id" />
 			                <field name="invoice_detail_report_id" />
+			                <field name="biller_report_id" />
 						</group>
 					</page>
 					<page string="Reminder">
