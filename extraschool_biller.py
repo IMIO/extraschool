@@ -144,6 +144,43 @@ class extraschool_biller(models.Model):
                         ir_attachment.unlink(cr, uid, [attachment_id])
                         mail_mail.unlink(cr, uid, [mail_id])
         return False
+    
+    @api.multi
+    def print_invoices(self): 
+        print "!!! print_invoices !!!"
+        cr,uid = self.env.cr, self.env.user.id  
+        view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','extraschool.invoice'),
+                                                             ('name','=','invoices.tree')])
+        return {'name': 'toto',
+                'type': 'ir.actions.act_window',
+                'res_model': 'extraschool.invoice',
+                'view_type': 'form',
+                'view_mode': 'tree,form',
+#                'view_id': view_id,
+                'nodestroy': False,     
+                'target': 'current',                   
+                'domain': [('biller_id.id', '=',self.id),
+                           '|',('invoicesendmethod','=','onlybymail'),('invoicesendmethod','=','emailandmail')]
+            }  
+
+    @api.multi
+    def email_invoices(self): 
+        print "!!! print_invoices !!!"
+        cr,uid = self.env.cr, self.env.user.id  
+        view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','extraschool.invoice'),
+                                                             ('name','=','invoices.tree')])
+        return {'name': 'toto',
+                'type': 'ir.actions.act_window',
+                'res_model': 'extraschool.invoice',
+                'view_type': 'form',
+                'view_mode': 'tree,form',
+#                'view_id': view_id,
+                'nodestroy': False,     
+                'target': 'current',                   
+                'domain': [('biller_id.id', '=',self.id),
+                           '|',('invoicesendmethod','=','onlyemail'),('invoicesendmethod','=','emailandmail')]
+            }          
+                        
 
 extraschool_biller()
 
