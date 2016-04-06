@@ -59,7 +59,7 @@
 		        				<tr>
 			       					<td><span t-esc="'%s - %s %s' % (saved_child_id.name if saved_child_id != False else '',saved_activity if saved_activity != False else '',saved_description if saved_description != False else '')" /></td> 
 			       					<td class="col_quantity amount"><span t-esc="activity_count" /></td> 
-			       					<td class="amount"><span t-esc="'%.2f' %  (activity_amount)" /></td> 
+			       					<td class="amount"><span t-esc="'%.2f €' %  (activity_amount)" /></td> 
 			       				</tr>	       							
 	       					</t>
 	       					<t t-set="saved_child_id" t-value="invoice_line.childid"/>
@@ -79,7 +79,7 @@
         				<tr>
 	       					<td><span t-esc="'%s - %s %s' % (saved_child_id.name if saved_child_id != False else '',saved_activity if saved_activity != False else '',saved_description if saved_description != False else '')" /></td> 
 	       					<td class="col_quantity amount"><span t-esc="activity_count" /></td> 
-	       					<td class="amount"><span t-esc="'%.2f' %  (activity_amount)" /></td> 
+	       					<td class="amount"><span t-esc="'%.2f €' %  (activity_amount)" /></td> 
 	       				</tr>	       							
    					</t>
 	        		 	            			        			

@@ -40,19 +40,24 @@
 					float : left;
 					width: 50%;					
 				}
+				
+				#total>div.to_pay {
+					font-weight: bold;
+				}
 
 			</style>
 			<div id="total_row">
 				<div id="total">
 					<div class="amount">
-					  <span class="zz_label">Total</span><span class="amount"><t t-esc="'%.2f' %  (total)" /></span>															
+					  <span class="zz_label">Total</span><span class="amount"><t t-esc="'%.2f' %  (total)" /> €</span>															
 					</div>
 					<div class="amount">
-					  <span class="zz_label">Reçu</span><span class="amount"><t t-esc="'%.2f' %  (received)" /></span>															
+					  <span class="zz_label">Reçu</span><span class="amount"><t t-esc="'%.2f' %  (received)" /> €</span>															
 					</div>
-					<div class="amount">
-					  <span class="zz_label">A payer</span><span class="amount"><t t-esc="'%.2f' %  (balance)" /></span>															
+					<div class="amount to_pay">
+					  <span class="zz_label">A payer avant le <t t-esc="payment_term" /></span><span class="amount"><t t-esc="'%.2f' %  (balance)" /> €</span>															
 					</div>
+										
 				</div>								
 			</div>
 		</template>

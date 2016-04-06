@@ -65,12 +65,14 @@
 						<t t-set="total" t-value="invoice.amount_total"/>
 						<t t-set="received" t-value="invoice.amount_received"/>
 						<t t-set="balance" t-value="invoice.balance"/>	
+						<t t-set="payment_term" t-value="'%s' % (time.strftime('%d-%m-%Y',time.strptime(invoice.biller_id.payment_term,'%Y-%m-%d')))"/>
+							
 						<t t-set="comment" t-value="'%s%s' % (invoice.biller_id.comment if invoice.biller_id.comment != False else '',invoice.comment if invoice.comment != False else '')"/>	
 						<t t-set="doc_date" t-value="'%s, le %s' % (invoice.biller_id.activitycategoryid.po_city,time.strftime('%d-%m-%Y',time.strptime(invoice.biller_id.invoices_date,'%Y-%m-%d')))"/>	
 																																																				
 						<t t-set="addresse" t-value="invoice.parentid"/>
 						<t t-set="po_addresse" t-value="invoice.biller_id.activitycategoryid"/>
-						
+									
 						<t t-set="parent_id" t-value="invoice.parentid"/>
 						<t t-set="categ_id" t-value="invoice.biller_id.activitycategoryid"/>
 																						
