@@ -2,7 +2,7 @@
 <openerp>
 	<data> 
 		<record model="ir.ui.view" id="extraschool_biller_tree">
-			<field name="name">Biller</field>
+			<field name="name">Biller.tree</field>
 			<field name="model">extraschool.biller</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
@@ -19,7 +19,7 @@
 		</record>
         
 		<record model="ir.ui.view" id="extraschool_biller_form">
-			<field name="name">Biller</field>
+			<field name="name">Biller.form</field>
 			<field name="model">extraschool.biller</field>
 			<field name="type">form</field>
 			<field name="arch" type="xml">

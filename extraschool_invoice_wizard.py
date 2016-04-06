@@ -310,6 +310,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                 where ept.prestation_date between %s and %s
                                         and verified = True
                                         and activity_category_id = %s
+                                        and invoiced_prestation_id is NULL
                                         and c.schoolimplantation in (""" + ','.join(map(str, self.schoolimplantationid.ids))+ """)  
                                 group by c.schoolimplantation,parent_id,childid, activity_occurrence_id,p.streetcode
                                 order by c.schoolimplantation,parent_id, activity_occurrence_id;"""
@@ -476,55 +477,25 @@ class extraschool_invoice_wizard(models.TransientModel):
         
         inv_obj.browse(invoice_ids).reconcil()
         
+        self.env['report'].get_pdf(inv_obj.browse(invoice_ids),'extraschool.invoice_report_layout')
         
-#         #payment reconcil
-#         payment = self.env['extraschool.payment']
-#         payment_reconcil = self.env['extraschool.payment_reconciliation']
-#         print "%s invoices to reconcil" % (len(invoice_ids))
-#         #get invoice amount
-# 
-#         #Mise à jour balance
-#         sql_update_invoice_balance = """update extraschool_invoice i                                        
-#                                         set balance = amount_total
-#                                     where i.id in (""" + ','.join(map(str, invoice_ids))+ """)                                    
-#                                     ;"""
-#         
-#         self.env.cr.execute(sql_update_invoice_balance)
-#                 
-#         sql_select_invoice_amount_total = """    select i.id as id, i.parentid as parentid, amount_total, ac.payment_invitation_com_struct_prefix as payment_invitation_com_struct_prefix
-#                                                 from extraschool_invoice i
-#                                                 left join extraschool_biller b on i.biller_id = b.id
-#                                                 left join extraschool_activitycategory ac on b.activitycategoryid = ac.id
-#                                                 where i.id in (""" + ','.join(map(str, invoice_ids))+ """)
-#                                             ;"""
-#         
-# 
-#         
-#         self.env.cr.execute(sql_select_invoice_amount_total)
-#         invoices = self.env.cr.dictfetchall()
-#         for invoice in invoices:
-#             #search for open payment
-#             payments = payment.search([('parent_id','=',invoice['parentid']),
-#                             ('structcom_prefix','=',invoice['payment_invitation_com_struct_prefix']),
-#                             ('solde','>',0),
-#                             ]).sorted(key=lambda r: r.paymentdate)
-#             print "%s payments found for invoice %s" % (len(payments),invoice['id'])
-#             print payments
-#             zz = 0
-#             print "invoice balance = %s" % (invoice['amount_total'])
-#             solde = invoice['amount_total']
-#             while zz < len(payments) and solde > 0:
-#                 amount = solde if payments[zz].solde >= solde else payments[zz].solde
-#                 print "Add payment reconcil - amount : %s" % (amount)
-#                 payment_reconcil.create({'payment_id': payments[zz].id,
-#                                          'invoice_id': invoice['id'],
-#                                          'amount': amount,
-#                                          })
-#                 solde -= amount
-#                 zz += 1
+        view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','extraschool.biller'),
+                                                             ('name','=','Biller.form')])
+        return {
+                'type': 'ir.actions.act_window',
+                'res_model': 'extraschool.biller',
+#                'name': _("Prestations_of_the_day.tree"),
+                'res_id': biller.id,
+                'view_type': 'form',
+                'view_mode': 'form',
+                'view_id': view_id,
+                'nodestroy': True,     
+                'target': 'current',                   
+#                'context': {'search_default_not_verified':1}
+            }  
                                     
         
     @api.multi    
     def action_compute_invoices(self):   
-        self._new_compute_invoices()
+        return self._new_compute_invoices()
             
