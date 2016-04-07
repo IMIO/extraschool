@@ -156,7 +156,8 @@ class extraschool_biller(models.Model):
                 'view_type': 'form',
                 'view_mode': 'tree,form',
                 'nodestroy': False,     
-                'target': 'current',                   
+                'target': 'current',
+                'limit': 50000,                                    
                 'domain': [('biller_id.id', '=',self.id),
                            '|',('invoicesendmethod','=','onlybymail'),('invoicesendmethod','=','emailandmail')]
             }  
@@ -172,7 +173,8 @@ class extraschool_biller(models.Model):
                 'view_type': 'form',
                 'view_mode': 'tree,form',
                 'nodestroy': False,     
-                'target': 'current',                   
+                'target': 'current',
+                'limit': 50000,                 
                 'domain': [('biller_id.id', '=',self.id),
                            '|',('invoicesendmethod','=','onlyemail'),('invoicesendmethod','=','emailandmail')]
             }          
@@ -188,7 +190,8 @@ class extraschool_biller(models.Model):
                 'view_type': 'form',
                 'view_mode': 'tree,form',
                 'nodestroy': False,     
-                'target': 'current',                   
+                'target': 'current',
+                'limit': 50000,                                    
                 'domain': [('biller_id.id', '=',self.id)]
             }           
                         
