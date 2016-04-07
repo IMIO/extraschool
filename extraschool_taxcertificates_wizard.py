@@ -145,21 +145,3 @@ class extraschool_taxcertificates_wizard(models.TransientModel):
                'datas': datas,
                'report_type': 'qweb-pdf',
            }     
-        
-#         try:
-#             os.remove(config.tempfolder+'taxcertificates.pdf')
-#         except:
-#             pass
-#         
-#         print "childattestations:%s" % (childattestations)
-#         renderer = appy.pod.renderer.Renderer(config.templatesfolder+activitycat.taxcertificatetemplate, {'childattestations':childattestations}, config.tempfolder+'taxcertificates.pdf')                
-#         renderer.run()
-#         outfile = open(config.tempfolder+"taxcertificates.pdf","r").read()
-#         out=base64.b64encode(outfile)
-#         
-# #        return self.write(cr, uid, ids,{'state' : 'compute_taxcertificates','name':'taxcertificates.pdf','taxcertificates':out}, context=context)
-#         return self.write({'state' : 'compute_taxcertificates','name':'taxcertificates.pdf','taxcertificates':out})
-#         
-#         return True
-    
-extraschool_taxcertificates_wizard()
