@@ -19,8 +19,7 @@
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="Activity">
-                    <field name="name"/> 
-                    			
+                    <field name="name"/>                     			
 				</tree>
 			</field>
 		</record>
@@ -89,7 +88,8 @@
 					<page string="Finance">
 			            <group col="4">  
 			                <field name="short_name" />     
-							<field name="subsidizedbyone"/>   
+							<field name="subsidizedbyone"/> 
+							<field name="on_tax_certificate" />  
 						</group>
 					</page>							                
                 </notebook>
