@@ -146,8 +146,7 @@ class extraschool_biller(models.Model):
         return False
     
     @api.multi
-    def print_invoices(self): 
-        print "!!! print_invoices !!!"
+    def mail_invoices(self): 
         cr,uid = self.env.cr, self.env.user.id  
         view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','extraschool.invoice'),
                                                              ('name','=','invoices.tree')])
@@ -156,7 +155,6 @@ class extraschool_biller(models.Model):
                 'res_model': 'extraschool.invoice',
                 'view_type': 'form',
                 'view_mode': 'tree,form',
-#                'view_id': view_id,
                 'nodestroy': False,     
                 'target': 'current',                   
                 'domain': [('biller_id.id', '=',self.id),
@@ -164,8 +162,7 @@ class extraschool_biller(models.Model):
             }  
 
     @api.multi
-    def email_invoices(self): 
-        print "!!! print_invoices !!!"
+    def email_invoices(self):         
         cr,uid = self.env.cr, self.env.user.id  
         view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','extraschool.invoice'),
                                                              ('name','=','invoices.tree')])
@@ -174,12 +171,26 @@ class extraschool_biller(models.Model):
                 'res_model': 'extraschool.invoice',
                 'view_type': 'form',
                 'view_mode': 'tree,form',
-#                'view_id': view_id,
                 'nodestroy': False,     
                 'target': 'current',                   
                 'domain': [('biller_id.id', '=',self.id),
                            '|',('invoicesendmethod','=','onlyemail'),('invoicesendmethod','=','emailandmail')]
             }          
+
+    @api.multi
+    def all_invoices(self): 
+        cr,uid = self.env.cr, self.env.user.id  
+        view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','extraschool.invoice'),
+                                                             ('name','=','invoices.tree')])
+        return {'name': 'toto',
+                'type': 'ir.actions.act_window',
+                'res_model': 'extraschool.invoice',
+                'view_type': 'form',
+                'view_mode': 'tree,form',
+                'nodestroy': False,     
+                'target': 'current',                   
+                'domain': [('biller_id.id', '=',self.id)]
+            }           
                         
 
 extraschool_biller()
