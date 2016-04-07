@@ -150,7 +150,7 @@ class extraschool_biller(models.Model):
         cr,uid = self.env.cr, self.env.user.id  
         view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','extraschool.invoice'),
                                                              ('name','=','invoices.tree')])
-        return {'name': 'toto',
+        return {'name': 'Invoices',
                 'type': 'ir.actions.act_window',
                 'res_model': 'extraschool.invoice',
                 'view_type': 'form',
@@ -167,7 +167,7 @@ class extraschool_biller(models.Model):
         cr,uid = self.env.cr, self.env.user.id  
         view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','extraschool.invoice'),
                                                              ('name','=','invoices.tree')])
-        return {'name': 'toto',
+        return {'name': 'Invoices',
                 'type': 'ir.actions.act_window',
                 'res_model': 'extraschool.invoice',
                 'view_type': 'form',
@@ -184,7 +184,7 @@ class extraschool_biller(models.Model):
         cr,uid = self.env.cr, self.env.user.id  
         view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','extraschool.invoice'),
                                                              ('name','=','invoices.tree')])
-        return {'name': 'toto',
+        return {'name': 'Invoices',
                 'type': 'ir.actions.act_window',
                 'res_model': 'extraschool.invoice',
                 'view_type': 'form',
