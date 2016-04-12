@@ -134,11 +134,14 @@ class extraschool_payment_wizard(models.TransientModel):
                         'amount': self.amount,
                         'comment': self.comment})
         
+        print "payment id : %s" % (payment.id)
+        
         payment_reconciliation = self.env['extraschool.payment_reconciliation']
         for reconciliation in self.payment_reconciliation_ids:
             payment_reconciliation.create({'payment_id' : payment.id,
                                            'invoice_id' : reconciliation.invoice_id.id,
-                                           'amount' : reconciliation.amount})
+                                           'amount' : reconciliation.amount,
+                                           'date' : fields.Date.today()})
             reconciliation.invoice_id._compute_balance()
         return {}
          

@@ -80,7 +80,6 @@ class extraschool_invoice(models.Model):
                            'balance' : balance
                            })
             
-            print "total = %s reconcil = %s balance = %s" % (total, reconcil, invoice.balance)
     
     @api.multi
     def reconcil(self):
@@ -93,8 +92,8 @@ class extraschool_invoice(models.Model):
                                         ('structcom_prefix','=',invoice.activitycategoryid.payment_invitation_com_struct_prefix),
                                         ('solde','>',0),
                                         ]).sorted(key=lambda r: r.paymentdate)
-            print "%s payments found for invoice %s" % (len(payments),invoice.id)
-            print payments
+#            print "%s payments found for invoice %s" % (len(payments),invoice.id)
+#            print payments
             zz = 0
             print "invoice balance = %s" % (invoice.amount_total)
             
@@ -105,6 +104,7 @@ class extraschool_invoice(models.Model):
                 payment_reconcil_obj.create({'payment_id': payments[zz].id,
                                          'invoice_id': invoice.id,
                                          'amount': amount,
+                                         'date': fields.Date.today(),
                                          })
                 solde -= amount
                 zz += 1

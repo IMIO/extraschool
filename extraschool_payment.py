@@ -93,7 +93,8 @@ class extraschool_payment(models.Model):
             reste -= reconcil_amout
             
             tmp_payment_reconciliation_ids.append({'invoice_id': invoice.id,
-                                                   'amount': reconcil_amout})
+                                                   'amount': reconcil_amout,
+                                                   'date': fields.Date.today()})
         return tmp_payment_reconciliation_ids
         
     
@@ -107,6 +108,7 @@ class extraschool_payment_reconciliation(models.Model):
     amount = fields.Float('Amount')
     account = fields.Char(related='payment_id.account')
     paymentdate = fields.Date(related='payment_id.paymentdate', store=True)
+    date = fields.Date("Reconcil date")
     
     def name_get(self):            
         res=[]

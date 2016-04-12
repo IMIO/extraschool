@@ -33,7 +33,8 @@
     'init_xml' : ['init.xml',],
     'demo' : [],
     'test' : [],
-    'data' : [        
+    'data' : [  
+        'scripts/update_reconcil_date.sql',      
         'views/extraschool_activitycategory.xml',
         'views/extraschool_activity.xml',
         'views/extraschool_activityoccurrence.xml',

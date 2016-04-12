@@ -74,6 +74,7 @@
 	            	<field name="payment_id"/>
                     <field name="invoice_id"/>
                     <field name="paymentdate"/>
+					<field name="date"/>
                     <field name="amount" sum="True"/>
 	            </tree>
             </field> 
@@ -86,7 +87,7 @@
             <field name="arch" type="xml">
                 <graph string="Payment reconciliation" type="bar">
 		            	<field name="biller_id" type="col"/>
-		                <field name="paymentdate" interval="month"/>
+		                <field name="date" interval="month"/>		                		                
 		                <field name="amount" type="measure"/>
                  </graph>
              </field>
