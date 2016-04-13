@@ -63,6 +63,7 @@ class extraschool_activity(models.Model):
     fixedperiod = fields.Boolean('Fixed period',default=False)
     subsidizedbyone = fields.Boolean('Subsidized by one')
     on_tax_certificate = fields.Boolean('On tax certificate', select=True)
+    tarif_group_name = fields.Char('Tarif group name')        
     validity_from = fields.Date('Validity from')
     validity_to = fields.Date('Validity to')
     selectable_on_registration = fields.Boolean('Selectable on registration form')
