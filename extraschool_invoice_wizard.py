@@ -173,8 +173,11 @@ class extraschool_invoice_wizard(models.TransientModel):
                                 where position = (select count(distinct childid) + 1
                                  from extraschool_prestationtimes ep
                                  left join extraschool_child ec on ep.childid = ec.id
-                                 where  parent_id = ept.parent_id 
+                                 left join extraschool_activityoccurrence aao on aao.id = ep.activity_occurrence_id
+                                 left join extraschool_activity aa on aa.id = aao.activityid                                                                  
+                                 where  ep.parent_id = ept.parent_id 
                                     and activity_occurrence_id = ept.activity_occurrence_id
+                                    and a.tarif_group_name = aa.tarif_group_name
                                     and childid <> ept.childid
                                     and ec.birthdate <= (select birthdate from extraschool_child where id = ept.childid)
                                     )) as child_position_id
@@ -192,7 +195,10 @@ class extraschool_invoice_wizard(models.TransientModel):
                                 where position = (select count(distinct childid)
                                  from extraschool_prestationtimes ep
                                  left join extraschool_child ec on ep.childid = ec.id
-                                 where  parent_id = ept.parent_id 
+                                 left join extraschool_activityoccurrence aao on aao.id = ep.activity_occurrence_id
+                                 left join extraschool_activity aa on aa.id = aao.activityid   
+                                 where  ep.parent_id = ept.parent_id 
+                                    and a.tarif_group_name = aa.tarif_group_name
                                     and activity_occurrence_id = ept.activity_occurrence_id
                                     )) as child_position_id
                             """,
@@ -213,8 +219,11 @@ class extraschool_invoice_wizard(models.TransientModel):
                                      from extraschool_prestationtimes ep
                                      left join extraschool_child ec on ep.childid = ec.id
                                      left join extraschool_parent pp on pp.id = ec.parentid
+                                     left join extraschool_activityoccurrence aao on aao.id = ep.activity_occurrence_id
+                                     left join extraschool_activity aa on aa.id = aao.activityid   
                                      where  pp.streetcode = p.streetcode
                                         and activity_occurrence_id = ept.activity_occurrence_id
+                                        and a.tarif_group_name = aa.tarif_group_name
                                         and childid <> ept.childid
                                         and ec.birthdate <= (select birthdate from extraschool_child where id = ept.childid)
                                         )) as child_position_id
@@ -234,8 +243,11 @@ class extraschool_invoice_wizard(models.TransientModel):
                                      from extraschool_prestationtimes ep
                                      left join extraschool_child ec on ep.childid = ec.id
                                      left join extraschool_parent pp on pp.id = ec.parentid
+                                     left join extraschool_activityoccurrence aao on aao.id = ep.activity_occurrence_id
+                                     left join extraschool_activity aa on aa.id = aao.activityid   
                                      where  pp.streetcode = p.streetcode
                                         and activity_occurrence_id = ept.activity_occurrence_id
+                                        and a.tarif_group_name = aa.tarif_group_name
                                         )) as child_position_id
                             """,
 
@@ -301,18 +313,20 @@ class extraschool_invoice_wizard(models.TransientModel):
             raise Warning(_("There is no presta to invoice !!!"))
                 
         #search parent to be invoiced
-        sql_mega_invoicing = """select c.schoolimplantation as schoolimplantation, parent_id, childid, activity_occurrence_id,
+        sql_mega_invoicing = """select c.schoolimplantation as schoolimplantation, ept.parent_id as parent_id, childid, activity_occurrence_id,
                                     sum(case when es = 'S' then prestation_time else 0 end) - sum(case when es = 'E' then prestation_time else 0 end) as duration,
                                     """ + self.get_sql_position_querry() + """
                                 from extraschool_prestationtimes ept
                                 left join extraschool_child c on ept.childid = c.id
                                 left join extraschool_parent p on p.id = c.parentid
+                                left join extraschool_activityoccurrence ao on ao.id = ept.activity_occurrence_id
+                                left join extraschool_activity a on a.id = ao.activityid
                                 where ept.prestation_date between %s and %s
                                         and verified = True
-                                        and activity_category_id = %s
+                                        and ept.activity_category_id = %s
                                         and invoiced_prestation_id is NULL
                                         and c.schoolimplantation in (""" + ','.join(map(str, self.schoolimplantationid.ids))+ """)  
-                                group by c.schoolimplantation,parent_id,childid, activity_occurrence_id,p.streetcode
+                                group by c.schoolimplantation,ept.parent_id,childid, activity_occurrence_id,p.streetcode,case when tarif_group_name = '' then a.name else tarif_group_name  end
                                 order by c.schoolimplantation,parent_id, activity_occurrence_id;"""
 
         self.env.cr.execute(sql_mega_invoicing, (self.period_from, self.period_to, self.activitycategory.id,))
