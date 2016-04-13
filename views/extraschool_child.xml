@@ -39,6 +39,7 @@
                     <button name="action_gentagid" type="object" string="Generate TagID" />
                     <newline/>
                     <field name="otherref"/>
+					<field name="rn"/>                         
                     <newline/>
                     <field name="parentid"/>
                     <newline/>
@@ -55,6 +56,7 @@
                    <field name="name"/>            
                    <field name="parentid"/>
                    <field name="otherref"/>
+				   <field name="rn"/>                   
                    <filter string="Actif" name="actif" icon="terp-accessories-archiver" domain="[('isdisabled','=',False)]"/>                   	                   
                    <group  expand='0' string='Group by...'>
                        <filter string='parentid' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'parentid'}"/>

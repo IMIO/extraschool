@@ -32,7 +32,9 @@
                     <field name="streetcode" invisible="True"/>
                     <field name="lastname" on_change="onchange_name(lastname,firstname)"/> 
                     <field name="firstname" on_change="onchange_name(lastname,firstname)"/>        
-                    <newline/>
+                    <newline/>					
+					<field name="rn"/>
+					<newline/>                   
                     <field name="street" on_change="onchange_address(street,city)"/>
                     <newline/>
                     <field name="zipcode"/>        
@@ -148,6 +150,7 @@
         <record id="extraschool_parent_search_view" model="ir.ui.view">
             <field name="name">extraschool_parent.search</field>
             <field name="model">extraschool.parent</field>
+            <field name="rn" />
             <field name="arch" type="xml">
                 <search string="Parent Search">
                    <field name="name"/>       

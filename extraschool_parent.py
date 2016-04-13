@@ -88,6 +88,7 @@ class extraschool_parent(models.Model):
 
              
     name = fields.Char(compute='_name_compute',string='FullName', search='_search_fullname', size=100)   
+    rn = fields.Char('RN')
     firstname = fields.Char('FirstName', size=50,required=True)
     lastname = fields.Char('LastName', size=50,required=True)        
     street = fields.Char('Street', size=50,required=True)
