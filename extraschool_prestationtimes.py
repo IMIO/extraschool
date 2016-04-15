@@ -64,7 +64,7 @@ class extraschool_prestationtimes(models.Model):
                                                                  ])
             
         if not 'prestation_times_of_the_day_id' in vals:
-            prestation_times_of_the_day_ids = prestation_times_of_the_day_obj.search([('activity_category_id', '=', vals['activity_category_id']),
+            prestation_times_of_the_day_ids = prestation_times_of_the_day_obj.search([('activity_category_id.id', '=', vals['activity_category_id']),
                                                                                       ('child_id.id', '=', vals['childid']),
                                                                                       ('date_of_the_day', '=', vals['prestation_date']),
                                                                                     ])

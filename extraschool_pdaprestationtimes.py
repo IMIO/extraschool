@@ -73,11 +73,10 @@ class extraschool_pdaprestationtimes(models.Model):
         prestation_times_of_the_day_obj = self.env['extraschool.prestation_times_of_the_day']
         prestation_times_obj = self.env['extraschool.prestationtimes']
         
-        prestation_times_of_the_day_ids = prestation_times_of_the_day_obj.search([('activity_category_id', '=', vals['activitycategoryid']),
+        prestation_times_of_the_day_ids = prestation_times_of_the_day_obj.search([('activity_category_id.id', '=', vals['activitycategoryid']),
                                                                                   ('child_id.id', '=', vals['childid']),
-                                                                                ('date_of_the_day', '=', vals['prestation_date']),
+                                                                                  ('date_of_the_day', '=', vals['prestation_date']),
                                                                                 ])
-        
         if not prestation_times_of_the_day_ids:
             print "pod doesn't exist"
             vals['prestation_times_of_the_day_id'] = prestation_times_of_the_day_obj.create({'activity_category_id' : vals['activitycategoryid'],                                                                                             
