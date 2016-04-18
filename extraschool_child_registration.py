@@ -152,6 +152,10 @@ class extraschool_child_registration(models.Model):
             self.state = 'to_validate'
         elif self.state == 'to_validate':
             self.state = 'validated'
+        
+        if self.env.context["wizard"]:
+            self.state = 'validated'
+            
             
     @api.one
     def validate_multi(self):
