@@ -34,7 +34,7 @@
     'demo' : [],
     'test' : [],
     'data' : [  
-        'scripts/update_reconcil_date.sql',      
+        'scripts/update_pod_bug_split.sql',      
         'views/extraschool_activitycategory.xml',
         'views/extraschool_activity.xml',
         'views/extraschool_activityoccurrence.xml',

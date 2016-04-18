@@ -62,10 +62,6 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
     def _get_defaultto(self):          
         return datetime.datetime.now().strftime("%Y-%m-%d")  
     
-    placeid = fields.Many2many(comodel_name='extraschool.place',
-                               relation='extraschool_prestationscheck_wizard_place_rel',
-                               column1='prestationscheck_wizard_id',
-                               column2='place_id')
     period_from = fields.Date(default=_get_defaultfrom)
     period_to = fields.Date(default=_get_defaultto)
     activitycategory = fields.Many2one('extraschool.activitycategory')      
@@ -181,10 +177,8 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
         else:
             prestation_search_domain = []
             
-        if self.placeid:
-            prestation_search_domain.append(('placeid.id', 'in', [place.id for place in self.placeid]))
         if self.activitycategory:
-            prestation_search_domain.append(('activity_category_id', '=', self.activitycategory[0].id))
+            prestation_search_domain.append(('activity_category_id.id', '=', self.activitycategory[0].id))
         if self.period_from:
             prestation_search_domain.append(('prestation_date', '>=', self.period_from))
         if self.period_to:
@@ -217,36 +211,18 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
                     presta_of_the_day.verified = True
                 else:
                     presta_of_the_day.verified = False
-#                presta_of_the_day._check_duplicate(True)
-        
-       # self.env.invalidate_all()
-        
-#         sql_update_verified_on_presta = """update extraschool_prestation_times_of_the_day pod
-#                                     set verified = True
-#                                     where id in (""" + ','.join(map(str, obj_prestation_of_the_day_rs.ids))+ """)
-#                                     and (select count(*) from extraschool_prestationtimes pt where pt.prestation_times_of_the_day_id = pod.id and verified = False) = 0
-#                                     ;
-#                                 """
-#         print sql_update_verified_on_presta
-#         
-#         self.env.cr.execute(sql_update_verified_on_presta)
-#         
-#         sql_update_verified = """update extraschool_prestation_times_of_the_day
-#                                     set verified = False
-#                                     where id in (
-#                                     select prestation_times_of_the_day_id
-#                                     from extraschool_prestationtimes
-#                                     where id in (""" + ','.join(map(str, obj_prestation_of_the_day_rs.ids))+ """)
-#                                     group by prestation_times_of_the_day_id
-#                                     having count(*) % 2 <> 0
-#                                     );
-#                                 """
-#                 
-#         self.env.cr.execute(sql_update_verified)
-        
+
         self.state = 'end_of_verification'
 
         
+        #construct domain for redirect user to unverified presta matching his selection
+        prestation_search_domain = []
+        if self.activitycategory:
+            prestation_search_domain.append(('activity_category_id.id', '=', self.activitycategory[0].id))
+        if self.period_from:
+            prestation_search_domain.append(('date_of_the_day', '>=', self.period_from))
+        if self.period_to:
+            prestation_search_domain.append(('date_of_the_day', '<=', self.period_to))
         view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','extraschool.prestation_times_of_the_day'), ('name','=','Prestations_of_the_day.tree')])
         return {
                 'type': 'ir.actions.act_window',
@@ -255,7 +231,8 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
                 'view_type': 'form',
                 'view_mode': 'tree,form',
                 'view_id': view_id,
-                'nodestroy': 'current',                        
+                'nodestroy': 'current',                     
+                'domain': prestation_search_domain,
                 'context': {'search_default_not_verified':1}
             }        
     
