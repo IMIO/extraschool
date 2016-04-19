@@ -31,7 +31,7 @@
 			<t t-foreach="docs" t-as="child_registration">
 				
 		        <div class="page">
-		            <h2>Inscription</h2>
+		            <h2>Inscription Maternelle</h2>
 		            <div>
 		            	<span>Implantation :</span> 
 		            	<span t-field="child_registration.school_implantation_id.name"/>
@@ -50,7 +50,41 @@
 	            			<th>Jeudi</th>
 	            			<th>Vendredi</th>
 		            	</tr>
-		            	<t t-foreach="child_registration.child_registration_line_ids" t-as="child">
+		            	<t t-foreach="child_registration.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['M'])" t-as="child">
+		            		<t t-if="child.child_must_be_printed()">
+			            		<tr>
+			            			<td><span t-field="child.child_id.name"/></td>
+			            			<td><span t-field="child.monday_activity_id.name"/></td>
+			            			<td><span t-field="child.tuesday_activity_id.name"/></td>
+			            			<td><span t-field="child.wednesday_activity_id.name"/></td>
+			            			<td><span t-field="child.thursday_activity_id.name"/></td>
+			            			<td><span t-field="child.friday_activity_id.name"/></td>		            			
+			            		</tr>
+							</t>
+		            	</t>
+		            </table>
+		        </div>
+		        <div class="page">
+		            <h2>Inscription Primaire</h2>
+		            <div>
+		            	<span>Implantation :</span> 
+		            	<span t-field="child_registration.school_implantation_id.name"/>
+		            </div>
+		            <div>
+		            	<span>semaine :</span> 
+		            	<span t-field="child_registration.week"/> du : <span t-field="child_registration.date_from"/> au : <span t-field="child_registration.date_to"/>
+		            </div>
+
+		            <table>
+		            	<tr>
+	            			<th>Nom</th>
+	            			<th>Lundi</th>
+	            			<th>Mardi</th>
+	            			<th>Mercredi</th>
+	            			<th>Jeudi</th>
+	            			<th>Vendredi</th>
+		            	</tr>
+		            	<t t-foreach="child_registration.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['P','A'])" t-as="child">
 		            		<t t-if="child.child_must_be_printed()">
 			            		<tr>
 			            			<td><span t-field="child.child_id.name"/></td>
