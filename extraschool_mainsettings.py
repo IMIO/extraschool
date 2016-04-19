@@ -48,4 +48,12 @@ class extraschool_mainsettings(models.Model):
     def initdef(self):
         pass
     
+    @api.one
+    def update_parent_send_method(self):
+        parent = self.env['extraschool.parent'].search([('email', '!=', ''),]).write({'invoicesendmethod': 'onlyemail',
+                                                                                      'remindersendmethod': 'onlyemail'})
+        parent = self.env['extraschool.parent'].search(['|',('email', '=', False),
+                                                            ('email', '=', '')]).write({'invoicesendmethod': 'onlybymail',
+                                                                                        'remindersendmethod': 'onlybymail'})
+    
 extraschool_mainsettings()

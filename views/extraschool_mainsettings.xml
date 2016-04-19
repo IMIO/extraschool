@@ -8,21 +8,23 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Main Settings">
-				<group col="4">
-                    <field name="lastqrcodenbr"/>
-                    <newline/>
-					<field name="qrencode"/>
-                    <newline/>
-                    <field name="tempfolder"/>
-                    <newline/>
-                    <field name="templatesfolder"/>
-                    <newline/>
-                    <field name="emailfornotifications"/>
-                    <newline/>
-                	<field name="logo" widget="image" class="oe_avatar oe_left" />
-					<newline/>                	
-                    <button name="update" string="Save" icon="gtk-apply" type="object"/>
-                </group>
+					<group col="4">
+	                    <field name="lastqrcodenbr"/>
+	                    <newline/>
+						<field name="qrencode"/>
+	                    <newline/>
+	                    <field name="tempfolder"/>
+	                    <newline/>
+	                    <field name="templatesfolder"/>
+	                    <newline/>
+	                    <field name="emailfornotifications"/>
+	                    <newline/>
+	                	<field name="logo" widget="image" class="oe_avatar oe_left" />
+						<newline/>                	
+	                    <button name="update" string="Save" icon="gtk-apply" type="object"/>
+						<newline/>                	
+	                    <button name="update_parent_send_method" string="Update parent send method" icon="gtk-apply" type="object"/>
+					</group>
 				</form>
 			</field>
 		</record>
