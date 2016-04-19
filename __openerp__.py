@@ -24,7 +24,7 @@
 
 {
     'name' : 'Extraschool',
-    'version' : '1.2.6',
+    'version' : '1.2.7',
     'author' : 'Town of La Bruyère and Imio',
     'depends' : ['base', 
                  'report',
@@ -34,7 +34,6 @@
     'demo' : [],
     'test' : [],
     'data' : [  
-        'scripts/update_pod_bug_split.sql',      
         'views/extraschool_activitycategory.xml',
         'views/extraschool_activity.xml',
         'views/extraschool_activityoccurrence.xml',
