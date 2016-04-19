@@ -85,7 +85,7 @@ class extraschool_taxcertificates_wizard(models.TransientModel):
         
         
         sql_concerned_attest = """
-                                    select i.parentid,par.firstname as parent_firstname,par.lastname as parent_lastname,par.street as parent_street,par.zipcode as parent_zipcode,par.city as parent_city,ip.childid,c.firstname as child_firstname,c.lastname as child_lastname,c.birthdate as child_birthdate, sum(total_price) as amount,min(ao.occurrence_date) as period_from,max(ao.occurrence_date) as period_to,
+                                    select i.parentid,par.firstname as parent_firstname,par.lastname as parent_lastname,par.street as parent_street,par.zipcode as parent_zipcode,par.city as parent_city,ip.childid,c.firstname as child_firstname,c.lastname as child_lastname,c.birthdate as child_birthdate,si.name as implantation,sc.name as classe, sum(total_price) as amount,min(ao.occurrence_date) as period_from,max(ao.occurrence_date) as period_to,
                                     (select count(distinct(aao.occurrence_date)) as nbdays
                                     from extraschool_invoicedprestations iip
                                     left join extraschool_activityoccurrence aao on aao.id = iip.activity_occurrence_id
@@ -101,11 +101,14 @@ class extraschool_taxcertificates_wizard(models.TransientModel):
                                     left join extraschool_invoice i on i.id = ip.invoiceid
                                     left join extraschool_parent par on par.id = i.parentid
                                     left join extraschool_child c on c.id = ip.childid
+                                    left join extraschool_schoolimplantation si on si.id = c.schoolimplantation
+                                    left join extraschool_class sc on sc.id = c.classid
                                     where invoiceid in (""" + sql_concerned_invoice + """)
                                            and a.on_tax_certificate = true
-                                    group by i.parentid,par.firstname,par.lastname,par.street,par.zipcode,par.city,ip.childid,c.firstname,c.lastname,c.birthdate
+                                    group by i.parentid,par.firstname,par.lastname,par.street,par.zipcode,par.city,ip.childid,c.firstname,c.lastname,c.birthdate,si.name,sc.name
                                     having sum(total_price) > 0
-                                    order by i.parentid;
+                                    order by si.name,sc.name,i.parentid;
+                                
                                 """
                                 
         if not self.parentid:   

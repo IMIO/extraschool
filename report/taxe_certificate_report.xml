@@ -80,7 +80,7 @@
 											</div>
 										</div>
 									</li>						
-									<li>Nom et prénom de l'enfant : <t t-esc="attest['child_lastname']"/> <t t-esc="attest['child_firstname']"/></li>
+									<li>Nom et prénom de l'enfant : <t t-esc="attest['child_lastname']"/> <t t-esc="attest['child_firstname']"/> (<t t-esc="attest['implantation']"/> - <t t-esc="attest['classe']"/>)</li>
 									<li>Date de naissance de l'enfant  <t t-esc="attest['child_birthdate']"/> </li>
 									<li>Période pendant laquelle l'enfant a été gardé (1) : 
 										<div class="row">du <t t-esc="attest['period_from']"/> au <t t-esc="attest['period_to']"/></div>
