@@ -163,7 +163,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                 from extraschool_childposition
                                 where position = (select count(*) + 1
                                  from extraschool_child ec 
-                                 where  parent_id = ec.parentid
+                                 where  ept.parent_id = ec.parentid
                                     and id <> ept.childid
                                     and ec.birthdate <= (select birthdate from extraschool_child where id = ept.childid)
                                     )) as child_position_id
