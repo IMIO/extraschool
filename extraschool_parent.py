@@ -130,7 +130,7 @@ class extraschool_parent(models.Model):
                                       ('streetcode', 'ilike', vals['streetcode'])])
         
         if len(parents) >0:
-            raise Warning('Ce parent a deja ete encode !!!')
+            raise Warning('Ce parent %s %s %s a deja ete encode !!!' % (vals['firstname'].strip(),vals['lastname'].strip(),vals['streetcode']))
         
         return super(extraschool_parent, self).create(vals)
     
