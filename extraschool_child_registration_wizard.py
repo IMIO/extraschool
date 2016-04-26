@@ -41,6 +41,13 @@ class extraschool_child_registration_validation_wizard(models.TransientModel):
                 reg.validate_multi()
                 
         return True
+    
+    @api.multi
+    def force_set_to_draft(self):        
+        for reg in self.env['extraschool.child_registration'].browse(self._context.get('active_ids')):
+            reg.force_set_to_draft()
+                
+        return True
 
 
 

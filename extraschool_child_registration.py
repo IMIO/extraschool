@@ -224,27 +224,34 @@ class extraschool_child_registration(models.Model):
             self.state = 'to_validate'
         elif self.state == 'to_validate':
             self.state = 'validated'
+            
+        if self.env.context["wizard"]:
+            self.state = 'validated'            
 
+    @api.one
+    def force_set_to_draft(self):
+        #delete all related records
+        occu_reg_obj = self.env['extraschool.activity_occurrence_child_registration']
+        prestation_times_obj = self.env['extraschool.prestationtimes']
+        
+        occu_reg_ids = occu_reg_obj.search([('child_registration_line_id', 'in', self.child_registration_line_ids.ids)])
+        for occu_reg in occu_reg_ids:
+            if occu_reg.activity_occurrence_id.activityid.autoaddchilds:
+                presta_ids = prestation_times_obj.search([('childid', '=', occu_reg.child_id.id),
+                                             ('activity_occurrence_id', '=',occu_reg.activity_occurrence_id.id)])
+                if len(presta_ids.filtered(lambda record: record.invoiced_prestation_id.id > 0)):
+                    raise Warning(_("At least one registration line is already invoiced !"))
+    
+                presta_ids.unlink()
+        occu_reg_ids.unlink()     
+        self.state = 'draft'   
+            
     @api.one
     def set_to_draft(self):
         if self.state == 'to_validate':
             self.state = 'draft'
         elif self.state == 'validated':            
-            #delete all related records
-            occu_reg_obj = self.env['extraschool.activity_occurrence_child_registration']
-            prestation_times_obj = self.env['extraschool.prestationtimes']
-            
-            occu_reg_ids = occu_reg_obj.search([('child_registration_line_id', 'in', self.child_registration_line_ids.ids)])
-            for occu_reg in occu_reg_ids:
-                if occu_reg.activity_occurrence_id.activityid.autoaddchilds:
-                    presta_ids = prestation_times_obj.search([('childid', '=', occu_reg.child_id.id),
-                                                 ('activity_occurrence_id', '=',occu_reg.activity_occurrence_id.id)])
-                    if len(presta_ids.filtered(lambda record: record.invoiced_prestation_id.id > 0)):
-                        raise Warning(_("At least one registration line is already invoiced !"))
-        
-                    presta_ids.unlink()
-            occu_reg_ids.unlink()     
-            self.state = 'draft'   
+            self.force_set_to_draft()
             
     def get_summary(self):
         print "get_summary"
