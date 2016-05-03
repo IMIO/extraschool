@@ -46,9 +46,9 @@
 	        			<th class="col_quantity">Quantité</th>
 	        			<th>Total</th>
 					</tr>
-					<t t-set="saved_child_id" t-value="'******'"/>										
+					<t t-set="saved_child_id" t-value="0"/>										
 					<t t-set="saved_activity" t-value="'******'"/>
-					<t t-set="saved_description" t-value="'******'"/>										
+					<t t-set="saved_description" t-value="'*****'"/>										
 					<t t-set="activity_count" t-value="0"/>
 					<t t-set="activity_amount" t-value="0"/>
 					<t t-set="activity_time" t-value="0"/>
