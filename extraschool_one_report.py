@@ -139,6 +139,9 @@ class extraschool_one_report(models.Model):
         one_report_settings_obj = self.env['extraschool.onereport_settings']
         one_report_settings = one_report_settings_obj.search([('validity_from', '<=',vals['transmissiondate']) ,
                                       ('validity_to', '>=',vals['transmissiondate']),])
+        print "----------"
+        print one_report_settings
+        print "----------"
         report_template_filename = '/tmp/one_report_template'+str(datetime.datetime.now())+'.xls'
         report_logoone_filename = '/tmp/one'+str(datetime.datetime.now())+'.bmp'
         report_filename = '/tmp/one_report'+str(datetime.datetime.now())+'.xls'
@@ -162,7 +165,7 @@ class extraschool_one_report(models.Model):
         XLSheet = wb.get_sheet(0)
         XLSheet.insert_bitmap(report_logoone_filename,0,0)
         self.setXLCell(XLSheet,2,3,u"Détail, pour un lieu d'accueil, des présences du "+("1er" if vals['quarter']==1 else str(vals['quarter'])+"e")+" trimestre "+str(vals['year']))
-        self.setXLCell(XLSheet,5,1,str(place.name))
+        self.setXLCell(XLSheet,5,1,"%s" % (place.name))
         self.setXLCell(XLSheet,6,1,'%s\n%s\n%s %s' % (place.name,place.street, place.zipcode,place.city))  
         self.setXLCell(XLSheet,7,5,place.schedule)
         for imonth in range(0,3):
@@ -232,5 +235,6 @@ class extraschool_one_report(models.Model):
         os.remove(report_template_filename)
         os.remove(report_logoone_filename)
         os.remove(report_filename)
+        
         return new_obj
-extraschool_one_report()
+
