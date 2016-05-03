@@ -177,7 +177,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                  left join extraschool_activity aa on aa.id = aao.activityid                                                                  
                                  where  ep.parent_id = ept.parent_id 
                                     and activity_occurrence_id = ept.activity_occurrence_id
-                                    and a.tarif_group_name = aa.tarif_group_name
+                                    and tarif_group_name = aa.tarif_group_name
                                     and childid <> ept.childid
                                     and ec.birthdate <= (select birthdate from extraschool_child where id = ept.childid)
                                     )) as child_position_id
@@ -198,7 +198,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                  left join extraschool_activityoccurrence aao on aao.id = ep.activity_occurrence_id
                                  left join extraschool_activity aa on aa.id = aao.activityid   
                                  where  ep.parent_id = ept.parent_id 
-                                    and a.tarif_group_name = aa.tarif_group_name
+                                    and tarif_group_name = aa.tarif_group_name
                                     and activity_occurrence_id = ept.activity_occurrence_id
                                     )) as child_position_id
                             """,
@@ -223,7 +223,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                      left join extraschool_activity aa on aa.id = aao.activityid   
                                      where  pp.streetcode = p.streetcode
                                         and activity_occurrence_id = ept.activity_occurrence_id
-                                        and a.tarif_group_name = aa.tarif_group_name
+                                        and tarif_group_name = aa.tarif_group_name
                                         and childid <> ept.childid
                                         and ec.birthdate <= (select birthdate from extraschool_child where id = ept.childid)
                                         )) as child_position_id
@@ -247,7 +247,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                      left join extraschool_activity aa on aa.id = aao.activityid   
                                      where  pp.streetcode = p.streetcode
                                         and activity_occurrence_id = ept.activity_occurrence_id
-                                        and a.tarif_group_name = aa.tarif_group_name
+                                        and tarif_group_name = aa.tarif_group_name
                                         )) as child_position_id
                             """,
 
