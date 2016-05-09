@@ -176,8 +176,9 @@ class extraschool_invoice_wizard(models.TransientModel):
                                  left join extraschool_activityoccurrence aao on aao.id = ep.activity_occurrence_id
                                  left join extraschool_activity aa on aa.id = aao.activityid                                                                  
                                  where  ep.parent_id = ept.parent_id 
-                                    and activity_occurrence_id = ept.activity_occurrence_id
-                                    and tarif_group_name = aa.tarif_group_name
+                                    and (activity_occurrence_id = ept.activity_occurrence_id
+                                            or tarif_group_name = aa.tarif_group_name
+                                        )
                                     and childid <> ept.childid
                                     and ec.birthdate <= (select birthdate from extraschool_child where id = ept.childid)
                                     )) as child_position_id
@@ -198,8 +199,9 @@ class extraschool_invoice_wizard(models.TransientModel):
                                  left join extraschool_activityoccurrence aao on aao.id = ep.activity_occurrence_id
                                  left join extraschool_activity aa on aa.id = aao.activityid   
                                  where  ep.parent_id = ept.parent_id 
-                                    and tarif_group_name = aa.tarif_group_name
-                                    and activity_occurrence_id = ept.activity_occurrence_id
+                                    and (tarif_group_name = aa.tarif_group_name
+                                            or activity_occurrence_id = ept.activity_occurrence_id
+                                        )
                                     )) as child_position_id
                             """,
 
@@ -222,8 +224,9 @@ class extraschool_invoice_wizard(models.TransientModel):
                                      left join extraschool_activityoccurrence aao on aao.id = ep.activity_occurrence_id
                                      left join extraschool_activity aa on aa.id = aao.activityid   
                                      where  pp.streetcode = p.streetcode
-                                        and activity_occurrence_id = ept.activity_occurrence_id
-                                        and tarif_group_name = aa.tarif_group_name
+                                        and (activity_occurrence_id = ept.activity_occurrence_id
+                                            or tarif_group_name = aa.tarif_group_name
+                                            )
                                         and childid <> ept.childid
                                         and ec.birthdate <= (select birthdate from extraschool_child where id = ept.childid)
                                         )) as child_position_id
@@ -246,8 +249,9 @@ class extraschool_invoice_wizard(models.TransientModel):
                                      left join extraschool_activityoccurrence aao on aao.id = ep.activity_occurrence_id
                                      left join extraschool_activity aa on aa.id = aao.activityid   
                                      where  pp.streetcode = p.streetcode
-                                        and activity_occurrence_id = ept.activity_occurrence_id
-                                        and tarif_group_name = aa.tarif_group_name
+                                        and (activity_occurrence_id = ept.activity_occurrence_id
+                                                or tarif_group_name = aa.tarif_group_name
+                                            )
                                         )) as child_position_id
                             """,
 
@@ -329,6 +333,10 @@ class extraschool_invoice_wizard(models.TransientModel):
                                 group by c.schoolimplantation,ept.parent_id,childid, activity_occurrence_id,p.streetcode,case when tarif_group_name = '' then a.name else tarif_group_name  end
                                 order by c.schoolimplantation,parent_id, activity_occurrence_id;"""
 
+#         print "---------------"
+#         print (sql_mega_invoicing) % (self.period_from, self.period_to, self.activitycategory.id)
+#         print "---------------"
+        
         self.env.cr.execute(sql_mega_invoicing, (self.period_from, self.period_to, self.activitycategory.id,))
         invoice_lines = self.env.cr.dictfetchall()
 
