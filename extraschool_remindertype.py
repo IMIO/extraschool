@@ -30,11 +30,10 @@ class extraschool_remindertype(models.Model):
 
     name = fields.Char('name', required=True)
     sequence = fields.Integer('Order')
-    fees_type = fields.Selection('Reminder cost type',[('free','Free'),('fix','Fixed amount'),], required=True)
+#    fees_type = fields.Selection('Reminder cost type',[('free','Free'),('fix','Fixed amount'),], required=True)
     fees_amount = fields.Char('name')
     mail_template_id = fields.Many2one('email.template', 'Email template', required=True)
     out_of_accounting = fields.Boolean(string="Out of accounting")
-    condition =       
     
 #    mail_template = fields.Char('Template', size=50)        
 
