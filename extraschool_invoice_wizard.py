@@ -24,6 +24,7 @@
 from openerp import models, api, fields, _
 from openerp.api import Environment
 from datetime import date
+from dateutil.relativedelta import relativedelta
 import datetime
 import calendar
 import cStringIO
@@ -45,7 +46,7 @@ class extraschool_invoice_wizard(models.TransientModel):
     def _get_defaultfrom(self):
         #to do remove it when test is finished
         cr,uid = self.env.cr, self.env.user.id
-        return '2014-01-01'
+        #return '2014-01-01'
         cr.execute('select max(prestation_date) as prestation_date from extraschool_invoicedprestations')
         rec=cr.dictfetchall()[0]
         try:
@@ -68,7 +69,7 @@ class extraschool_invoice_wizard(models.TransientModel):
         cr.execute('select max(prestation_date) as prestation_date from extraschool_invoicedprestations')
         lastdate = cr.dictfetchall()[0]['prestation_date']
         if lastdate and (lastdate < datetime.datetime.now().strftime("%Y-%m-%d")):
-            todate=datetime.date(datetime.datetime.now().year,datetime.datetime.now().month,1)-datetime.timedelta(1)
+            todate=datetime.date(datetime.datetime.now().year,datetime.datetime.now().month,1)+relativedelta(months=1)-relativedelta(days=1)
         else:
             month=datetime.datetime.now().month
             if month == 12:
@@ -88,7 +89,7 @@ class extraschool_invoice_wizard(models.TransientModel):
     @api.one
     def _get_defaultinvterm(self):
         termdate=datetime.date(datetime.datetime.now().year,datetime.datetime.now().month,datetime.datetime.now().day)+datetime.timedelta(16)
-        self.period_from = str(termdate)
+        self.invoice_term = str(termdate)
 
     schoolimplantationid = fields.Many2many(comodel_name='extraschool.schoolimplantation',
                                relation='extraschool_invoice_wizard_schoolimplantation_rel',
