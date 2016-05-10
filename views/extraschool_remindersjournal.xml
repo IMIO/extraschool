@@ -1,6 +1,39 @@
 <?xml version="1.0" ?>
 <openerp>
 	<data> 
+        <record model="ir.ui.view" id="extraschool_reminder_type_form">
+            <field name="name">extraschool.reminder_type.form</field>
+            <field name="model">extraschool.remindertype</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Reminders Type">
+	                <group col="4">
+	                        <field name="name"/>
+	                        <newline/>
+	                        <field name="fees_type"/>
+	                        <field name="fees_amount"/>
+	                        <field name="mail_template_id"/>
+	                        <field name="out_of_accounting"/>
+	                </group>                    
+                </form>
+            </field>
+        </record>
+		<record model="ir.ui.view" id="extraschool_reminder_type_tree">
+            <field name="name">extraschool.reminder.type.tree</field>
+            <field name="model">extraschool.remindertype</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Reminders Type">
+            	    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="fees_type"/>
+                    <field name="fees_amount"/>
+                    <field name="mail_template_id"/>
+                    <field name="out_of_accounting"/>
+                </tree>
+            </field>
+        </record>
+				        
         <record model="ir.ui.view" id="extraschool_reminders_journal_form">
             <field name="name">extraschool.remindersjournal.form</field>
             <field name="model">extraschool.remindersjournal</field>

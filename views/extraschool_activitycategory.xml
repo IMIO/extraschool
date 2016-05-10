@@ -95,7 +95,8 @@
 			                <field name="reminderemailsubject" />
 			                <newline/>
 			                <field name="reminderemailtext" />
-			                <newline/>						
+			                <separator string="Reminder type" colspan="4"/> 	
+			                <field name="reminer_type_ids"  nolabel="1" colspan="4"/>				
 						</group>
 					</page>
 					<page string="Tax certificate">

@@ -73,6 +73,8 @@ class extraschool_activitycategory(models.Model):
     reminderemailaddress = fields.Char('Reminder email address', size=50)
     reminderemailsubject = fields.Char('Reminder email subject', size=50)
     reminderemailtext = fields.Text('Reminder email text')
+    reminer_type_ids = fields.One2many('extraschool.remindertype','activity_category_id', 'Reminder type')
+
     bankaccount = fields.Char('Bank account')
     bank_bic = fields.Char('Bank BIC')
     bank_address = fields.Char('Bank address')
