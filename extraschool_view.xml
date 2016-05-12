@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <openerp>
 	<data>    
- 
+ 		
 		<record model="ir.actions.act_window" id="action_extraschool_child">
 			<field name="name">Child</field>
 			<field name="res_model">extraschool.child</field>
