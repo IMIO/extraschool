@@ -35,6 +35,10 @@ class extraschool_remindertype(models.Model):
     fees_amount = fields.Char('fees_amount')
     mail_template_id = fields.Many2one('email.template', 'Email template')
     report_id = fields.Many2one('extraschool.report', 'Document report')
+    selected_type_id = fields.Many2one('extraschool.remindertype', 'Reminder type to select')
+    delay = fields.Integer('Delay')
+    payment_term_in_day = fields.Integer('payment_term_in_day')
+    minimum_balance = fields.Float('Minimum balance')
     
     out_of_accounting = fields.Boolean(string="Out of accounting")
          

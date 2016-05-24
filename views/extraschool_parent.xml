@@ -112,9 +112,9 @@
                     <group col="4">
                     <field name="reminder_ids" nolabel="1">
                     <tree string="Reminders" version="7.0">
-                        <field name="activitycategoryid"/>
-                        <field name="transmissiondate"/>
-                        <field name="term"/>
+                        <field name="activity_category_id"/>
+                        <field name="transmission_date"/>
+                        <field name="payment_term"/>
                         <field name="amount" sum="True"/>
                     </tree>
                     </field>

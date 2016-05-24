@@ -21,149 +21,178 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from openerp import models, api, fields, _
 from openerp.api import Environment
 import cStringIO
 import base64
 import os
 import lbutils
 from pyPdf import PdfFileWriter, PdfFileReader
+import datetime
 
 class extraschool_remindersjournal(models.Model):
     _name = 'extraschool.remindersjournal'
     _description = 'Reminders journal'
 
-    name = fields.Char('Name', size=80, required=True)
-    activitycategoryid = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=True)
-    remindertype = fields.Many2one('extraschool.remindertype', 'Reminder type', required=True)
-    concernedbillers = fields.Many2many('extraschool.biller','extraschool_remindersjournal_biller_rel', 'remindersjournal_id', 'biller_id','Concerned billers', required=True)
-    minamount = fields.Float('Minimum amount', required=True)
-    transmissiondate = fields.Date('Transmission date', required=True)
-    term = fields.Date('Term', required=True)
-    filename = fields.Char('File Name', size=16, readonly=True)
-    reminders = fields.Binary('File', readonly=True)
-    oldid = fields.Integer('oldid') 
- 
-    @api.model
-    def create(self, vals):
-#         obj_config = self.env['extraschool.mainsettings']
-#         obj_activitycategory = self.env['extraschool.activitycategory']
-#         obj_parent = self.env['extraschool.parent']
-#         obj_remindersjournal = self.env['extraschool.remindersjournal']
-#         config=obj_config.browse([1])   
-#         reminderfiles=[]
-#         paymentids = []
-#         rejectids = []                
-#         activitycategory_obj = self.env['extraschool.activitycategory']
-#         invoice_obj = self.env['extraschool.invoice']
-#         reminder_obj = self.env['extraschool.reminder']
-#         
-#         cr.execute("select * from extraschool_invoice where (biller_id in ("+str(vals['concernedbillers'][0][2]).replace('[','').replace(']','').strip()+")) and (balance >= " + str(vals['minamount'])+' and balance <> 0) order by parentid')                
-#         invoices = cr.dictfetchall()
-#         if len(invoices) > 0:
-#             currentparentid=invoices[0]['parentid']
-#             currentinvoice=invoices[0]
-#             amount=0.0
-#             concernedinvoiceids = []
-#             remindersjournalid = super(extraschool_remindersjournal, self).create(cr, uid,{'name':vals['name'],'activitycategoryid': vals['activitycategoryid'],'remindertype': vals['remindertype'],'concernedbillers': vals['concernedbillers'],'minamount': vals['minamount'],'transmissiondate': vals['transmissiondate'],'term': vals['term']})
-#             for invoice in invoices:
-#                 if invoice['parentid'] != currentparentid:
-#                     amount=amount+remindertype['fees']
-#                     if amount > vals['minamount']:
-#                         
-#                         activitycat=obj_activitycategory.read(cr, uid, [vals['activitycategoryid']],['remindercomstructprefix','reminderlastcomstruct'])[0]
-#                         comstruct=activitycat['remindercomstructprefix']
-#                         numstruct=activitycat['reminderlastcomstruct']
-#                         if numstruct==None:
-#                             numstruct=1
-#                         numstruct=numstruct+1
-#                         nbz=7-len(str(numstruct))
-#                         for i in range(0,nbz):
-#                             comstruct=comstruct+'0'
-#                         comstruct=comstruct+str(numstruct)
-#                         numverif=str(int(comstruct) % 97)
-#                         if (int(numverif)==0):
-#                             numverif='97'
-#                         if (len(numverif)==1):
-#                             numverif='0'+numverif
-#                         comstruct=comstruct+numverif
-#                         reminderid = reminder_obj.create(cr, uid,{'remindersjournalid':remindersjournalid,'parentid':currentparentid,'amount':amount,'structcom':comstruct,'schoolimplantationid':currentinvoice['schoolimplantationid'],'concernedinvoices':[(6,0,concernedinvoiceids)]})
-#                         childparent=obj_parent.read(cr, uid, [currentinvoice['parentid']],['name','street','zipcode','city','remindersendmethod'])[0]
-#                         cr.execute("select number,to_char(payment_term,'DD/MM/YYYY') as term, balance,period_from,period_to from extraschool_invoice left join extraschool_biller on extraschool_invoice.biller_id = extraschool_biller.id where extraschool_invoice.id in (select invoice_id from extraschool_reminder_invoice_rel where reminder_id=%s)  order by payment_term",(reminderid,))
-#                         concernedinvoices=cr.dictfetchall()
-#                         tmpreminder={'name':vals['name'],'date':lbutils.strdate(vals['transmissiondate']),'term':lbutils.strdate(vals['term']),'parentname':childparent['name'],'parentstreet':childparent['street'],'parentzipcode':childparent['zipcode'],'parentcity':childparent['city'],'structcom':comstruct[0:3]+'/'+comstruct[3:7]+'/'+comstruct[7:12],'amount':'%.2f' % round(amount, 2),'fees': '%.2f' % round(remindertype['fees'],2),'schoolimplantationid':currentinvoice['schoolimplantationid']}
-#                         renderer = appy.pod.renderer.Renderer(config['templatesfolder']+remindertype['template'], {'reminder':tmpreminder,'invoices': concernedinvoices}, config['tempfolder']+'rem'+str(reminderid)+'.pdf')                
-#                         renderer.run()
-#                         
-#                         outfile = open(config['tempfolder']+'rem'+str(reminderid)+'.pdf','r').read()
-#                         out=base64.b64encode(outfile)
-#                         objid=reminder_obj.write(cr, uid, [reminderid],{'filename':'rem'+str(reminderid)+'.pdf','reminder_file':out})
-#                         obj_activitycategory.write(cr, uid, [vals['activitycategoryid']],{'reminderlastcomstruct':numstruct})
-#                         if (childparent['remindersendmethod'] == 'emailandmail') or (childparent['remindersendmethod'] == 'onlybymail'):
-#                             reminderfiles.append(config['tempfolder']+'rem'+str(reminderid)+'.pdf')
-#                         else:
-#                             os.remove(config['tempfolder']+'rem'+str(reminderid)+'.pdf')
-#                     currentparentid=invoice['parentid']
-#                     amount=0.0
-#                     concernedinvoiceids = []
-#                 amount=amount+invoice['balance']                
-#                 concernedinvoiceids.append(invoice['id'])
-#                 currentinvoice=invoice
-#             amount=amount+remindertype['fees']
-#             if amount > vals['minamount']:
-#                 activitycat=obj_activitycategory.read(cr, uid, [vals['activitycategoryid']],['remindercomstructprefix','reminderlastcomstruct'])[0]
-#                 comstruct=activitycat['remindercomstructprefix']
-#                 numstruct=activitycat['reminderlastcomstruct']
-#                 if numstruct==None:
-#                     numstruct=1
-#                 numstruct=numstruct+1
-#                 nbz=7-len(str(numstruct))
-#                 for i in range(0,nbz):
-#                     comstruct=comstruct+'0'
-#                 comstruct=comstruct+str(numstruct)
-#                 numverif=str(int(comstruct) % 97)
-#                 if (int(numverif)==0):
-#                     numverif='97'
-#                 if (len(numverif)==1):
-#                     numverif='0'+numverif
-#                 comstruct=comstruct+numverif
-#                 reminderid = reminder_obj.create(cr, uid,{'remindersjournalid':remindersjournalid,'parentid':currentparentid,'amount':amount,'structcom':comstruct,'schoolimplantationid':invoice['schoolimplantationid'],'concernedinvoices':[(6,0,concernedinvoiceids)]})
-#                 childparent=obj_parent.read(cr, uid, [invoice['parentid']],['name','street','zipcode','city','remindersendmethod'])[0]
-#                 cr.execute("select number,to_char(payment_term,'DD/MM/YYYY') as term, balance,period_from,period_to from extraschool_invoice left join extraschool_biller on extraschool_invoice.biller_id = extraschool_biller.id where extraschool_invoice.id in (select invoice_id from extraschool_reminder_invoice_rel where reminder_id=%s) order by payment_term",(reminderid,))
-#                 concernedinvoices=cr.dictfetchall()
-#                 tmpreminder={'name':vals['name'],'date':lbutils.strdate(vals['transmissiondate']),'term':lbutils.strdate(vals['term']),'parentname':childparent['name'],'parentstreet':childparent['street'],'parentzipcode':childparent['zipcode'],'parentcity':childparent['city'],'structcom':comstruct[0:3]+'/'+comstruct[3:7]+'/'+comstruct[7:12],'amount':'%.2f' % round(amount, 2),'fees': '%.2f' % round(remindertype['fees'],2),'schoolimplantationid':invoice['schoolimplantationid']}                
-#                 renderer = appy.pod.renderer.Renderer(config['templatesfolder']+remindertype['template'], {'reminder':tmpreminder,'invoices': concernedinvoices}, config['tempfolder']+'rem'+str(reminderid)+'.pdf')                
-#                 renderer.run()
-#                 outfile = open(config['tempfolder']+'rem'+str(reminderid)+'.pdf','r').read()
-#                 out=base64.b64encode(outfile)
-#                 objid=reminder_obj.write(cr, uid, [reminderid],{'filename':'rem'+str(reminderid)+'.pdf','reminder_file':out})
-#                 obj_activitycategory.write(cr, uid, [vals['activitycategoryid']],{'reminderlastcomstruct':numstruct})
-#                 if (childparent['remindersendmethod'] == 'emailandmail') or (childparent['remindersendmethod'] == 'onlybymail'):
-#                     reminderfiles.append(config['tempfolder']+'rem'+str(reminderid)+'.pdf')
-#                 else:
-#                     os.remove(config['tempfolder']+'rem'+str(reminderid)+'.pdf')
-#             blank_page = PdfFileReader(file(config['templatesfolder']+'blank.pdf','rb')).pages[0]
-#             dest = PdfFileWriter()
-#             for reminderfile in reminderfiles:
-#                 PDF = PdfFileReader(file(reminderfile,'rb'))
-#                 for page in PDF.pages:
-#                     dest.addPage(page)
-#                 os.remove(reminderfile)
-#                 if PDF.numPages % 2: 
-#                     dest.addPage(blank_page)
-#             outfile = file(config['tempfolder']+"reminders.pdf","wb")
-#             dest.write(outfile)
-#             outfile.close()
-#             outfile = open(config['tempfolder']+"reminders.pdf","r").read()
-#             out=base64.b64encode(outfile)
-#             obj_remindersjournal.write(cr, uid, [remindersjournalid],{'filename':'reminders.pdf','reminders':out})
-#             return remindersjournalid
-#         else:
-#             return False
-        #to do refactoring new report
-        return True
+    name = fields.Char('Name', required=True)
+    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=True, readonly=True, states={'draft': [('readonly', False)]})
+    transmission_date = fields.Date('Transmission date', required=True, readonly=True, states={'draft': [('readonly', False)]})    
+    concerned_biller_ids = fields.Many2many('extraschool.biller','extraschool_remindersjournal_biller_rel', 'remindersjournal_id', 'biller_id','Concerned billers')
+    reminders_journal_item_ids = fields.One2many('extraschool.reminders_journal_item', 'reminders_journal_id','Reminder journal item')   
+    reminder_ids = fields.One2many('extraschool.reminder', 'reminders_journal_id','Reminders')                 
+    biller_id = fields.Many2one('extraschool.biller', 'Biller', readonly=True, states={'draft': [('readonly', False)]})
+    state = fields.Selection([('draft', 'Draft'),
+                              ('to_validate', 'Ready'),
+                              ('validated', 'Validated')],
+                              'validated', required=True, default='draft'
+                              ) 
+    @api.one
+    def validate(self):
+        if len(self.activity_category_id.reminer_type_ids.ids) == 0 : 
+            return False
         
-extraschool_remindersjournal()
+        print "reminer_type_ids : %s" % (self.activity_category_id.reminer_type_ids)
+        inv_obj = self.env['extraschool.invoice']
+        payment_obj = self.env['extraschool.payment']
+        inv_line_obj = self.env['extraschool.invoicedprestations']  
+        biller_id = -1        
+        #browse activivity categ reminder type 
+        for reminder_type in self.activity_category_id.reminer_type_ids.sorted(key=lambda r: r.sequence, reverse=True):            
+            #select invoices
+            invoice_search_domain = [('activitycategoryid.id', '=',self.activity_category_id.id),                                    
+                                    ('balance', '>=',reminder_type.minimum_balance)]
+            
+            #compute pa
+            to_date = datetime.date.today() - datetime.timedelta(days=reminder_type.delay)
+            print "to date : %s" % (to_date)
+                    
+            #filter on payterm depend on reminder_type (no reminder_type = invoice_payment_term)                       
+            if reminder_type.selected_type_id.id == False:
+                #payterm is taken from invoice 
+                invoice_search_domain+= [('payment_term', '<=',to_date),
+                                             ('last_reminder_id', '=', False)
+                                             ]
+            else:
+                #payterm is taken from reminder_journal
+                invoice_search_domain+= [('last_reminder_id.reminders_journal_item_id.reminder_type_id','=', reminder_type.selected_type_id.id),
+                                             ('last_reminder_id.reminders_journal_item_id.payment_term', '<=',to_date)]
+            
+            print "invoice_search_domain : %s" % (invoice_search_domain)    
+            invoice_ids = self.env['extraschool.invoice'].search(invoice_search_domain).sorted(key=lambda r: r.parentid.id)
+            
+            for invoice in invoice_ids:
+                print "invocie id : %s parent : %s" % (invoice.id, invoice.parentid)
+                 
+            reminders_journal_item_id = self.env['extraschool.reminders_journal_item'].create({'name' : "%s - %s" % (self.name,reminder_type.name),
+                                                                   'reminder_type_id' : reminder_type.id,
+                                                                   'reminders_journal_id' : self.id,
+                                                                   'payment_term' : datetime.date.today() + datetime.timedelta(days=reminder_type.payment_term_in_day),
+                                                                   'amount' : sum([invoice.balance for invoice in invoice_ids])})
+            reminder = False
+            parent_id = -1
+            total_amount = 0.0
+            amount = 0.0
+            next_invoice_num = self.activity_category_id.invoicelastcomstruct
+            concerned_invoice_ids = []
+
+            for invoice in invoice_ids:
+                if invoice.parentid.id != parent_id:                    
+                    if parent_id > 0:
+                        if amount > reminder_type.minimum_balance:                            
+                            print "yop %s" % (concerned_invoice_ids)
+                            total_amount += amount
+                            reminder.write({'amount' : amount,
+                                            'concerned_invoice_ids': [(6, 0, concerned_invoice_ids)]})
+                            inv_obj.browse(concerned_invoice_ids).write({'last_reminder_id': reminder.id})
+                        else:
+                            print "yup"
+                            reminder.unlink()
+                            
+                    amount = 0    
+                    parent_id = invoice.parentid.id
+                    concerned_invoice_ids = []
+                    
+                    reminder = self.env['extraschool.reminder'].create({'reminders_journal_item_id': reminders_journal_item_id.id,
+                                                                        'reminders_journal_id': self.id,
+                                                                        'parentid': parent_id,
+                                                                        'school_implantation_id': invoice.schoolimplantationid.id,                                                                        
+                                                                        })                    
+                    #print "reminder_type.fees_type : %s" % (reminder_type.fees_type)
+                    if reminder_type.fees_type == 'fix':
+#                        print "self.biller_id.id : %s" % (self.biller_id.id)
+                        if biller_id == -1:
+#                            print "yop"
+                            self.biller_id = self.env['extraschool.biller'].create({'period_from' : self.transmission_date,
+                                                                            'period_to' : self.transmission_date,
+                                                                            'activitycategoryid': self.activity_category_id.id,
+                                                                            'invoices_date': self.transmission_date,
+                                                                            })
+                            biller_id = self.biller_id.id
+                            print "new biller : %s" % (biller_id)
+                            
+                        next_invoice_num += 1
+                        com_struct_prefix_str = self.activity_category_id.invoicecomstructprefix
+                        com_struct_id_str = str(next_invoice_num).zfill(7)
+                        com_struct_check_str = str(long(com_struct_prefix_str+com_struct_id_str) % 97).zfill(2)
+                        com_struct_check_str = com_struct_check_str if com_struct_check_str != '00' else '97'
+                        fees_invoice = inv_obj.create({'name' : _('invoice_%s') % (str(next_invoice_num).zfill(7),),
+                                                    'number' : next_invoice_num,
+                                                    'parentid' : parent_id,
+                                                    'biller_id' : biller_id,
+                                                    'activitycategoryid': self.activity_category_id.id,
+                                                    'structcom': payment_obj.format_comstruct('%s%s%s' % (com_struct_prefix_str,com_struct_id_str,com_struct_check_str)),
+                                                    'last_reminder_id': reminder.id,
+                                                    })
+                        concerned_invoice_ids.append(fees_invoice.id)
+                        inv_line_obj.create({'invoiceid' : fees_invoice.id,
+                                            'description' : 'Frais de rappel',
+                                            'unit_price': reminder_type.fees_amount,
+                                            'quantity': 1,
+                                            'total_price': reminder_type.fees_amount,
+                                            })
+                    
+
+                amount += invoice.balance
+                concerned_invoice_ids.append(invoice.id)
+            
+            if len(concerned_invoice_ids) > 0:
+                if amount > reminder_type.minimum_balance:
+                    print "Last yop %s" % (concerned_invoice_ids)
+                    total_amount += amount
+                    reminder.write({'amount' : amount,
+                                    'concerned_invoice_ids': [(6, 0, concerned_invoice_ids)]})
+                    inv_obj.browse(concerned_invoice_ids).write({'last_reminder_id': reminder.id})
+                else:
+                    print "last yup"
+                    reminder.unlink()
+            else:
+                print "nothing to DO"
+            if total_amount > 0:      
+                reminders_journal_item_id.amount = total_amount
+            else:
+                reminders_journal_item_id.unlink()
+                                
+            if biller_id > 0 :
+                self.biller_id.invoice_ids._compute_balance()
+                
+                
+            print "invoice_ids : %s" % (invoice_ids.ids)
+            
+        
+        return True
+
+    
+class extraschool_remindersjournal_item(models.Model):
+    _name = 'extraschool.reminders_journal_item'
+    _description = 'Reminders journal item'
+
+    name = fields.Char('Name', required=True)
+    reminder_type_id = fields.Many2one('extraschool.remindertype', 'Reminder type', required=True)
+    reminders_journal_id = fields.Many2one('extraschool.remindersjournal', 'Reminder journal', required=True)
+    payment_term = fields.Date('Payment term', required=True)
+    amount = fields.Float('Amount', required=True)
+     
+
 
 
         

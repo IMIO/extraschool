@@ -115,7 +115,10 @@ class extraschool_taxcertificates_wizard(models.TransientModel):
             parent_select = ""
         else:
             parent_select = "p.parent_id = %s" % (self.parentid.id)
-            
+        
+#         sql = sql_concerned_attest
+#         print "sql_concerned_attest : %s" % (sql)   
+         
         cr.execute(sql_concerned_attest,(sql_concerned_invoice,sql_concerned_invoice))
 
         childattestations = cr.dictfetchall()

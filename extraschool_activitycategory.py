@@ -94,7 +94,7 @@ class extraschool_activitycategory(models.Model):
     slogan = fields.Char('Slogan', size=50)
 
 
-    def check_invoice_prefix(self,invoicecomstructprefix):
+    def check_invoice_prefix(self,invoicecomstructprefix):            
         res = {'return_val' : True,
                'msg' : ''}
         # search for activity category that have invoicecomstructprefix = payment_invitation_com_struct_prefix or remindercomstructprefix = payment_invitation_com_struct_prefix

@@ -69,6 +69,7 @@ class extraschool_negatif_payment_correction_wizard(models.TransientModel):
                             'number' : next_invoice_num,
                             'parentid' : payment.parent_id.id,
                             'biller_id' : biller.id,
+                            'payment_term': biller.payment_term,
                             'activitycategoryid': self.activity_category_id.id,
                             'structcom': payment_obj.format_comstruct('%s%s%s' % (com_struct_prefix_str,com_struct_id_str,com_struct_check_str))})
             inv_line_obj.create({'invoiceid' : invoice.id,

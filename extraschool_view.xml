@@ -108,6 +108,10 @@
     										(4,ref('extraschool_user')),
     										(4,ref('extraschool_school')),]"/>
 		</record> 	
+		<record id="extraschool_menu_reminders_journal" model="ir.ui.menu">
+    		<field name="groups_id" eval="[(4,ref('extraschool_admin')),
+    										]"/>
+		</record> 				
 		      
     	    	
    	</data>

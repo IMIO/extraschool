@@ -363,6 +363,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                             'biller_id' : biller.id,
                                             'activitycategoryid': self.activitycategory.id,
                                             'schoolimplantationid': saved_schoolimplantation_id,
+                                            'payment_term': biller.payment_term,
                                             'structcom': payment_obj.format_comstruct('%s%s%s' % (com_struct_prefix_str,com_struct_id_str,com_struct_check_str))})
                 invoice_ids.append(invoice.id)
 

@@ -189,7 +189,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
             
     def _occu_start_stop_completion(self,start_time,stop_time,occurrence,down,from_occurrence):
         print "->_occu_start_stop_completion"
-        print occurrence.activityname
+        print "%s" % (occurrence.activityname)
         
         occurrence_obj = self.env['extraschool.activityoccurrence']
         cr,uid = self.env.cr, self.env.user.id

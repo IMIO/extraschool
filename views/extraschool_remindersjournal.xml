@@ -8,12 +8,18 @@
             <field name="arch" type="xml">
                 <form string="Reminders Type">
 	                <group col="4">
-	                        <field name="name"/>
-	                        <newline/>
-	                        <field name="fees_type"/>
-	                        <field name="fees_amount"/>
-	                        <field name="mail_template_id"/>
-	                        <field name="out_of_accounting"/>
+                        <field name="name"/>
+                        <newline/>
+                        <field name="fees_type"/>
+                        <field name="fees_amount"/>
+                        <field name="mail_template_id"/>
+						<field name="report_id" /> 
+						<separator string="Selection" colspan="4"/> 	
+						<field name="selected_type_id" />                   	                        		                        
+						<field name="delay" />        							                  	                        		                        
+						<field name="minimum_balance" />
+						<field name="payment_term_in_day" />  	           	                        		                        
+                        <field name="out_of_accounting"/>
 	                </group>                    
                 </form>
             </field>
@@ -27,12 +33,45 @@
             	    <field name="sequence" widget="handle"/>
                     <field name="name"/>
                     <field name="fees_type"/>
-                    <field name="fees_amount"/>
-                    <field name="mail_template_id"/>
+                    <field name="fees_amount"/>					                    
                     <field name="out_of_accounting"/>
                 </tree>
             </field>
         </record>
+        
+        <record model="ir.ui.view" id="extraschool_reminder_form">
+            <field name="name">extraschool.reminder.form</field>
+            <field name="model">extraschool.reminder</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Reminder">
+	                <group col="4">
+                        <field name="parentid"/>
+						<newline/>                        
+						<field name="activity_category_id" />                        
+                        <field name="school_implantation_id"/>
+                        <field name="amount"/>
+                        <field name="structcom"/>						 
+						<separator string="Invoices" colspan="4"/> 	
+						<field name="concerned_invoice_ids"  colspan="4" nolabel="1" />                   	                        		                        					                  	                        		                        
+	                </group>                    
+                </form>
+            </field>
+        </record>
+		<record model="ir.ui.view" id="extraschool_reminder_tree">
+            <field name="name">extraschool.reminder.tree</field>
+            <field name="model">extraschool.reminder</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Reminder">
+                    <field name="parentid"/>
+					<field name="activity_category_id" />                        
+                    <field name="school_implantation_id"/>
+                    <field name="amount"/>
+                    <field name="structcom"/>
+                </tree>
+            </field>
+        </record>        
 				        
         <record model="ir.ui.view" id="extraschool_reminders_journal_form">
             <field name="name">extraschool.remindersjournal.form</field>
@@ -40,23 +79,41 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Reminders Journal">
-                <group col="4">
+                	<header>
+						<button name="validate" string="Prêt à être validé" type="object" states='draft' class="oe_highlight" context="{'wizard': False}"/>	
+						<field name="state" widget="statusbar" statusbar_visible="draft,to_validate,validated"/>												
+					</header>
+                	
+	                <group col="4">
                         <field name="name"/>
-                        <newline/>
-                        <field name="activitycategoryid"/>
-                        <newline/>
-                        <field name="remindertype"/>
-                        <newline/>
-                        <field name="concernedbillers"/>
-                        <newline/>
-                        <field name="minamount"/>
-                        <newline/>
-                        <field name="transmissiondate"/>
-                        <newline/>
-                        <field name="term"/>
-                        <field name="filename" invisible="1" colspan="4"/>
-                        <field name="reminders" nolabel="1" readonly="1" filename="filename" colspan="4"/>
-                </group>                    
+                        <field name="activity_category_id"/>
+                        <field name="transmission_date"/>
+                        <field name="biller_id"/>           
+    	            </group>                    
+                    <notebook>
+            			<page string="Reminders type">
+            				<group col="4">
+                				<field name="reminders_journal_item_ids" nolabel="1" >                		
+                            		<tree create="false" delete="false">
+				                        <field name="name"/>
+				                        <field name="reminder_type_id"/>
+				                        <field name="payment_term"/>
+				                        <field name="amount"/>                            			
+                            		</tree>
+                				</field>
+                			</group>            
+                    	</page>
+                    	<page string="Reminders">
+            				<group col="4">
+                				<field name="reminder_ids" nolabel="1" readonly="True" />                		
+                            </group>            
+                    	</page>
+            			<page string="Billers">
+            				<group col="4">
+                				<field name="concerned_biller_ids" nolabel="1" readonly="True"/>                		
+                            </group>            
+                    	</page>
+                    </notebook>            	            
                 </form>
             </field>
         </record>

@@ -50,8 +50,9 @@ class extraschool_invoice(models.Model):
     activitycategoryid = fields.Many2one(related='biller_id.activitycategoryid', auto_join=True)
     period_from = fields.Date(related='biller_id.period_from')
     period_to = fields.Date(related='biller_id.period_to')
-    payment_term = fields.Date(related='biller_id.payment_term')  
+    payment_term = fields.Date('Payment term')  
     comment = fields.Text("Comment",default="")
+    last_reminder_id = fields.Many2one('extraschool.reminder', 'Last reminder',readonly=True, index = True)
         
 #     @api.depends('invoice_line_ids')
 #     def _compute_amount_total(self):

@@ -60,6 +60,7 @@
 				<form string="invoice">
 					<group col="4">
 	                    <field name="biller_id"/>
+	                    <field name="last_reminder_id"/>
 	                    <field name="payment_term" readonly="True"/>
 	                    <field name="schoolimplantationid"/>
 	                    <field name="parentid" readonly="True"/>
