@@ -241,4 +241,4 @@ class extraschool_childsimport(models.Model):
                             obj_parent.write(cr,uid,[parentid],{'email':parentemail})
                             
         return super(extraschool_childsimport, self).create(vals)
-extraschool_childsimport()
+
