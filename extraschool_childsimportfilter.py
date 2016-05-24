@@ -75,4 +75,3 @@ class extraschool_childsimportfilter(models.Model):
     parentemailcolumnname = fields.Char('Parent email column name', size=30)
     majschoolimplantation = fields.Boolean('MAJ implantation')
 
-extraschool_childsimportfilter()
