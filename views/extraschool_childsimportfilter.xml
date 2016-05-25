@@ -6,11 +6,14 @@
             <field name="model">extraschool.childsimportfilter</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <form string="childsimportfilter" >
+                <form string="childs import filter" >
                     <group col="6">
                         <field name="name"/>
                         <newline/>
                         <field name="startrow"/>
+                        <newline/>
+                        <field name="childrncolumn"/>
+                        <field name="childrncolumnname"/>
                         <newline/>
                         <field name="childlastnamecolumn"/>
                         <field name="childlastnamecolumnname"/>
@@ -47,6 +50,9 @@
                         <field name="parentlastnamecolumn"/>
                         <field name="majparentlastname"/>
                         <field name="parentlastnamecolumnname"/>
+                        <newline/>
+                        <field name="parentrncolumn"/>
+                        <field name="parentrncolumnname"/>
                         <newline/>
                         <field name="parentfirstnamecolumn"/>
                         <field name="majparentfirstname"/>

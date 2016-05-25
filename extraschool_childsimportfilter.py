@@ -30,6 +30,8 @@ class extraschool_childsimportfilter(models.Model):
 
     name = fields.Char('Name', size=50)
     startrow = fields.Integer('Start row')
+    childrncolumn = fields.Integer('Child rn column')
+    childrncolumnname = fields.Char('Child rn column name')
     childlastnamecolumn = fields.Integer('Child lastname column')
     childlastnamecolumnname = fields.Char('Child lastname column name',size=30)
     childfirstnamecolumn = fields.Integer('Child firstname column')
@@ -46,6 +48,8 @@ class extraschool_childsimportfilter(models.Model):
     majchildotherref = fields.Boolean('MAJ')
     childotherrefcolumn = fields.Integer('Child other ref column')
     childotherrefcolumnname = fields.Char('Child other ref column name', size=30)
+    parentrncolumn = fields.Integer('Parent rn column')
+    parentrncolumnname = fields.Char('Parent rn column name')
     majparentlastname = fields.Boolean('MAJ')
     parentlastnamecolumn = fields.Integer('Parent lastname column')
     parentlastnamecolumnname = fields.Char('Parent lastname column name',size=30)

@@ -54,13 +54,63 @@ class extraschool_childsimport(models.Model):
         obj_levelrule = self.pool.get('extraschool.importlevelrule')
         obj_childtype = self.pool.get('extraschool.childtype')
         childtypeid = obj_childtype.search(cr, uid, [('name', '=', 'aucun')])[0]
-        importfilter=obj_filter.read(cr, uid, [vals['childsimportfilter']],['startrow','childlastnamecolumn','childlastnamecolumnname','childfirstnamecolumn','childfirstnamecolumnname','childbirthdatecolumn','childbirthdatecolumnname','childclassnamecolumns','childclassnamecolumnsname','childlevelcolumns','childlevelcolumnsname','importlevelrule_ids','childotherrefcolumn','childotherrefcolumnname','parentlastnamecolumn','parentlastnamecolumnname','parentfirstnamecolumn','parentfirstnamecolumnname','parentstreetcolumns','parentstreetcolumnsname','parentzipcodecolumn','parentzipcodecolumnname','parentcitycolumn','parentcitycolumnname','parenthousephonecolumn','parenthousephonecolumnname','parentworkphonecolumn','parentworkphonecolumnname','parentgsmcolumn','parentgsmcolumnname','parentemailcolumn','parentemailcolumnname','majchildclassname','majchildlevel','majchildotherref','majparentlastname','majparentfirstname','majparentstreet','majparentzipcode','majparentcity','majparenthousephone','majparentworkphone','majparentgsm','majparentemail','majschoolimplantation'])[0]
+        importfilter=obj_filter.read(cr, uid, [vals['childsimportfilter']],
+                                                    ['startrow',
+                                                     'childrncolumn',
+                                                     'childrncolumnname',
+                                                     'childlastnamecolumn',
+                                                     'childlastnamecolumnname',
+                                                     'childfirstnamecolumn',
+                                                     'childfirstnamecolumnname',
+                                                     'childbirthdatecolumn',
+                                                     'childbirthdatecolumnname',
+                                                     'childclassnamecolumns',
+                                                     'childclassnamecolumnsname',
+                                                     'childlevelcolumns',
+                                                     'childlevelcolumnsname',
+                                                     'importlevelrule_ids',
+                                                     'childotherrefcolumn',
+                                                     'childotherrefcolumnname',
+                                                     'parentrncolumn',
+                                                     'parentrncolumnname',
+                                                     'parentlastnamecolumn',
+                                                     'parentlastnamecolumnname',
+                                                     'parentfirstnamecolumn',
+                                                     'parentfirstnamecolumnname',
+                                                     'parentstreetcolumns',
+                                                     'parentstreetcolumnsname',
+                                                     'parentzipcodecolumn',
+                                                     'parentzipcodecolumnname',
+                                                     'parentcitycolumn',
+                                                     'parentcitycolumnname',
+                                                     'parenthousephonecolumn',
+                                                     'parenthousephonecolumnname',
+                                                     'parentworkphonecolumn',
+                                                     'parentworkphonecolumnname',
+                                                     'parentgsmcolumn',
+                                                     'parentgsmcolumnname',
+                                                     'parentemailcolumn',
+                                                     'parentemailcolumnname',
+                                                     'majchildclassname',
+                                                     'majchildlevel',
+                                                     'majchildotherref',
+                                                     'majparentlastname',
+                                                     'majparentfirstname',
+                                                     'majparentstreet',
+                                                     'majparentzipcode',
+                                                     'majparentcity',
+                                                     'majparenthousephone',
+                                                     'majparentworkphone',
+                                                     'majparentgsm',
+                                                     'majparentemail',
+                                                     'majschoolimplantation'])[0]
         startrow = importfilter['startrow']-1
         curr_row = startrow
         
         while curr_row < num_rows:
             curr_row += 1
             row = worksheet.row(curr_row)
+            childrn=''
             childlastname=''
             childfirstname=''
             childbirthdate=''
@@ -68,6 +118,7 @@ class extraschool_childsimport(models.Model):
             childlevel=''
             childlevelid=0
             childotherref=''
+            parentrn=''
             parentlastname=''
             parentfirstname=''
             parentstreet=''
@@ -76,8 +127,13 @@ class extraschool_childsimport(models.Model):
             parenthousephone=''
             parentworkphone=''
             parentgsm=''
-            parentemail=''
+            parentemail=''            
             error=False
+            if importfilter['childrncolumn'] <> 0:
+                if lbutils.genstreetcode(worksheet.cell_value(startrow, importfilter['childrncolumn']-1)) == lbutils.genstreetcode(importfilter['childrncolumnname']):
+                    childrn=lbutils.strcell(worksheet.cell_type(curr_row, importfilter['childrncolumn']-1),worksheet.cell_value(curr_row, importfilter['childrncolumn']-1))
+                else:
+                    raise Warning('Error columns does not match childRN')
             if importfilter['childlastnamecolumn'] <> 0:
                 if lbutils.genstreetcode(worksheet.cell_value(startrow, importfilter['childlastnamecolumn']-1)) == lbutils.genstreetcode(importfilter['childlastnamecolumnname']):
                     childlastname=lbutils.strcell(worksheet.cell_type(curr_row, importfilter['childlastnamecolumn']-1),worksheet.cell_value(curr_row, importfilter['childlastnamecolumn']-1))
@@ -130,6 +186,11 @@ class extraschool_childsimport(models.Model):
                     childotherref=lbutils.strcell(worksheet.cell_type(curr_row, importfilter['childotherrefcolumn']-1),worksheet.cell_value(curr_row, importfilter['childotherrefcolumn']-1))
                 else:
                     raise Warning('Error columns does not match childotherref')
+            if importfilter['parentrncolumn'] <> 0:
+                if lbutils.genstreetcode(worksheet.cell_value(startrow, importfilter['parentrncolumn']-1)) == lbutils.genstreetcode(importfilter['parentrncolumnname']):
+                    parentrn=lbutils.strcell(worksheet.cell_type(curr_row, importfilter['parentrncolumn']-1),worksheet.cell_value(curr_row, importfilter['parentrncolumn']-1))
+                else:
+                    raise Warning('Error columns does not match parentrn')
             if importfilter['parentlastnamecolumn'] <> 0:
                 if lbutils.genstreetcode(worksheet.cell_value(startrow, importfilter['parentlastnamecolumn']-1)) == lbutils.genstreetcode(importfilter['parentlastnamecolumnname']):
                     parentlastname=lbutils.strcell(worksheet.cell_type(curr_row, importfilter['parentlastnamecolumn']-1),worksheet.cell_value(curr_row, importfilter['parentlastnamecolumn']-1))
@@ -186,13 +247,38 @@ class extraschool_childsimport(models.Model):
             
             if not ((childlastname == '') and (childfirstname == '') and (childbirthdate == '') and (childlevelid == 0) and (parentlastname == '')):
                 if (childlastname == '') or (childfirstname == '') or (childbirthdate == '') or (childlevelid == 0) or (parentlastname == ''):
-                    raise Warning('Error at line: '+str(curr_row+1))
+                    raise Warning("""Error at line: %s
+                                     childlastname:%s
+                                     childfirstname:%s
+                                     childbirthdate:%s
+                                     childlevelid:%s
+                                     parentlastname:%s                                     
+                                    """ % (curr_row+1,childlastname,childfirstname,childbirthdate,childlevelid,parentlastname))
                 else:
-                    childid = obj_child.search(cr, uid, [('lastname', 'ilike', childlastname.strip()),('firstname', 'ilike', childfirstname.strip()),('birthdate', '=', childbirthdate)])
+                    if importfilter['childrncolumn'] <> 0:
+                        childid = obj_child.search(cr, uid, [('rn', '=', childrn.strip())
+                                                             ])                    
+                    else:
+                        childid = obj_child.search(cr, uid, [('lastname', 'ilike', childlastname.strip()),('firstname', 'ilike', childfirstname.strip()),('birthdate', '=', childbirthdate)])
+                    
                     if not childid:
-                        parentids = obj_parent.search(cr, uid, [('lastname', 'ilike', parentlastname),('firstname', 'ilike', parentfirstname),('streetcode', 'ilike', lbutils.genstreetcode(parentstreet+parentcity))])
+                        if importfilter['parentrncolumn'] <> 0:
+                            parentids = obj_parent.search(cr, uid, [('rn', '=', parentrn),                                                                    ])
+                        else:
+                            parentids = obj_parent.search(cr, uid, [('lastname', 'ilike', parentlastname),('firstname', 'ilike', parentfirstname),('streetcode', 'ilike', lbutils.genstreetcode(parentstreet+parentcity))])
                         if not parentids:
-                            parentid = obj_parent.create(cr, uid, {'name':parentlastname+' '+parentfirstname,'lastname':parentlastname,'firstname':parentfirstname,'streetcode':lbutils.genstreetcode(parentstreet+parentcity),'street':parentstreet,'zipcode':parentzipcode,'city':parentcity,'housephone':parenthousephone,'workphone':parentworkphone,'gsm':parentgsm,'email':parentemail})
+                            parentid = obj_parent.create(cr, uid, {'name':parentlastname+' '+parentfirstname,
+                                                                   'rn':parentrn,
+                                                                   'lastname':parentlastname,
+                                                                   'firstname':parentfirstname,
+                                                                   'streetcode':lbutils.genstreetcode(parentstreet+parentcity),
+                                                                   'street':parentstreet,
+                                                                   'zipcode':parentzipcode,
+                                                                   'city':parentcity,
+                                                                   'housephone':parenthousephone,
+                                                                   'workphone':parentworkphone,
+                                                                   'gsm':parentgsm,
+                                                                   'email':parentemail})
                         else:
                             parentid=parentids[0]
                         classids = obj_class.search(cr, uid, [('name', 'ilike', childclassname),('schoolimplantation', '=', schoolimplantationid)])
@@ -202,7 +288,17 @@ class extraschool_childsimport(models.Model):
                             classid = obj_class.create(cr, uid, {'name':childclassname,'schoolimplantation':schoolimplantationid,'levelids':levelids})
                         else:
                             classid = classids[0]
-                        obj_child.create(cr, uid, {'name':childlastname+' '+childfirstname,'lastname':childlastname,'firstname':childfirstname,'schoolimplantation':schoolimplantationid,'levelid':childlevelid,'classid':classid,'parentid':parentid,'birthdate':childbirthdate,'otherref':childotherref,'childtypeid':childtypeid})
+                        obj_child.create(cr, uid, {'name':childlastname+' '+childfirstname,
+                                                   'lastname':childlastname,
+                                                   'firstname':childfirstname,
+                                                   'rn':childrn,
+                                                   'schoolimplantation':schoolimplantationid,
+                                                   'levelid':childlevelid,
+                                                   'classid':classid,
+                                                   'parentid':parentid,
+                                                   'birthdate':childbirthdate,
+                                                   'otherref':childotherref,
+                                                   'childtypeid':childtypeid})
                     else:
                         child = obj_child.read(cr, uid, [childid[0]],['parentid'])
                         parentid = child[0]['parentid'][0]
