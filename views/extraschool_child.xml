@@ -20,30 +20,33 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Child">
-				<field name="name"  invisible="True"/> 
-				<group col="4">
-				    <field name="isdisabled"/>
-                    <newline/>        
-                    <field name="lastname"/>            
-					<field name="firstname"/>
-                    <newline/>
-                    <field name="schoolimplantation"/>					
-                    <newline/>
-                    <field name="childtypeid"/>
-                    <newline/>
-                    <field name="levelid"/>
-                    <newline/>
-                    <field name="classid"/>
-                    <field name="birthdate"/>
-                    <field name="tagid"/>
-                    <button name="action_gentagid" type="object" string="Generate TagID" />
-                    <newline/>
-                    <field name="otherref"/>
-					<field name="rn"/>                         
-                    <newline/>
-                    <field name="parentid"/>
-                    <newline/>
-                    </group>
+					<field name="name"  invisible="True"/> 
+					<group col="4">
+					    <field name="isdisabled"/>
+	                    <newline/>        
+	                    <field name="lastname"/>            
+						<field name="firstname"/>
+	                    <newline/>
+	                    <field name="schoolimplantation"/>					
+	                    <newline/>
+	                    <field name="childtypeid"/>
+	                    <newline/>
+	                    <field name="levelid"/>
+	                    <newline/>
+	                    <field name="classid"/>
+	                    <field name="birthdate"/>
+	                    <field name="tagid"/>
+	                    <button name="action_gentagid" type="object" string="Generate TagID" />
+	                    <newline/>
+	                    <field name="otherref"/>
+						<field name="rn"/>                         
+	                    <newline/>
+	                    <field name="parentid"/>
+	                    <newline/>
+	                    <field name="last_import_date" readonly="True"/>
+	                    <field name="modified_since_last_import"/>
+	                    <newline/>
+					</group>
 				</form>
 			</field>
 		</record>  

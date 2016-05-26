@@ -41,6 +41,8 @@ class extraschool_child(models.Model):
     classid = fields.Many2one('extraschool.class', 'Class', required=False)
     parentid = fields.Many2one('extraschool.parent', 'Parent', required=True, ondelete='RESTRICT', select=True)
     birthdate = fields.Date('Birthdate', required=True)
+    last_import_date = fields.Datetime('Import date', readonly=True)
+    modified_since_last_import = fields.Boolean('Modified since last import')    
     tagid = fields.Char('Tag ID', size=50)
     otherref = fields.Char('Other ref', size=50)
     isdisabled = fields.Boolean('Disabled')             
@@ -76,6 +78,16 @@ class extraschool_child(models.Model):
         
         return long(self.tagid)
     
+    @api.multi
+    def write(self, vals):
+        fields_to_find = set(['firstname',
+                              'lastname'])
+        
+        if fields_to_find.intersection(set([k for k,v in vals.iteritems()])):
+            vals['modified_since_last_import'] = True
+                    
+        return super(extraschool_child,self).write(vals)
+            
     @api.one
     def unlink(self):
         self.isdisabled = True

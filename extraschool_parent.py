@@ -118,6 +118,8 @@ class extraschool_parent(models.Model):
     totalbalance = fields.Float(compute='_compute_totalbalance', string="Total balance")
     payment_ids = fields.One2many('extraschool.payment','parent_id')
     payment_status_ids = fields.One2many('extraschool.payment_status_report','parent_id')
+    last_import_date = fields.Datetime('Import date', readonly=True)
+    modified_since_last_import = fields.Boolean('Modified since last import')
     isdisabled = fields.Boolean('Disabled')            
     oldid = fields.Integer('oldid')                
     
@@ -152,6 +154,24 @@ class extraschool_parent(models.Model):
             'context': {'parent_id' : ids[0]}
         }
 
+    @api.multi
+    def write(self, vals):
+        fields_to_find = set(['firstname',
+                              'lastname',
+                              'street',
+                              'zipcode',
+                              'city',
+                              'housephone',
+                              'workphone',
+                              'gsm',
+                              'email',
+                              ])
+        
+        if fields_to_find.intersection(set([k for k,v in vals.iteritems()])):
+            vals['modified_since_last_import'] = True
+                    
+        return super(extraschool_parent,self).write(vals)
+            
     @api.one
     def unlink(self):
         self.isdisabled = True

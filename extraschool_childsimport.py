@@ -278,7 +278,10 @@ class extraschool_childsimport(models.Model):
                                                                    'housephone':parenthousephone,
                                                                    'workphone':parentworkphone,
                                                                    'gsm':parentgsm,
-                                                                   'email':parentemail})
+                                                                   'email':parentemail,
+                                                                   'modified_since_last_import': False,
+                                                                   'last_import_date':fields.datetime.now(),
+                                                                    })
                         else:
                             parentid=parentids[0]
                         classids = obj_class.search(cr, uid, [('name', 'ilike', childclassname),('schoolimplantation', '=', schoolimplantationid)])
@@ -298,43 +301,61 @@ class extraschool_childsimport(models.Model):
                                                    'parentid':parentid,
                                                    'birthdate':childbirthdate,
                                                    'otherref':childotherref,
-                                                   'childtypeid':childtypeid})
+                                                   'childtypeid':childtypeid,
+                                                   'modified_since_last_import': False,
+                                                   'last_import_date':fields.datetime.now(),
+                                                   })
                     else:
-                        child = obj_child.read(cr, uid, [childid[0]],['parentid'])
-                        parentid = child[0]['parentid'][0]
-                        if importfilter['majschoolimplantation']:
-                            obj_child.write(cr,uid,[childid[0]],{'schoolimplantation':schoolimplantationid})
-                        if importfilter['majchildclassname']:
-                            classids = obj_class.search(cr, uid, [('name', 'ilike', childclassname),('schoolimplantation', '=', schoolimplantationid)])
-                            if not classids:
-                                levelids=[]
-                                levelids.append((6,0,[childlevelid]))
-                                classid = obj_class.create(cr, uid, {'name':childclassname,'schoolimplantation':schoolimplantationid,'levelids':levelids})
-                            else:
-                                classid = classids[0]
-                            obj_child.write(cr,uid,[childid[0]],{'classid':classid})
-                        if importfilter['majchildlevel']:
-                            obj_child.write(cr,uid,[childid[0]],{'levelid':childlevelid})
-                        if importfilter['majchildotherref']:
-                            obj_child.write(cr,uid,[childid[0]],{'otherref':childotherref})
-                        if importfilter['majparentlastname']:                            
-                            obj_parent.write(cr,uid,[parentid],{'lastname':parentlastname})
-                        if importfilter['majparentfirstname']:
-                            obj_parent.write(cr,uid,[parentid],{'firstname':parentfirstname})
-                        if importfilter['majparentstreet']:
-                            obj_parent.write(cr,uid,[parentid],{'street':parentstreet,'streetcode':lbutils.genstreetcode(parentstreet+parentcity)})
-                        if importfilter['majparentzipcode']:
-                            obj_parent.write(cr,uid,[parentid],{'zipcode':parentzipcode})
-                        if importfilter['majparentcity']:
-                            obj_parent.write(cr,uid,[parentid],{'city':parentcity,'streetcode':lbutils.genstreetcode(parentstreet+parentcity)})                            
-                        if importfilter['majparenthousephone']:
-                            obj_parent.write(cr,uid,[parentid],{'housephone':parenthousephone})
-                        if importfilter['majparentworkphone']:
-                            obj_parent.write(cr,uid,[parentid],{'workphone':parentworkphone})
-                        if importfilter['majparentgsm']:
-                            obj_parent.write(cr,uid,[parentid],{'gsm':parentgsm})
-                        if importfilter['majparentemail']:
-                            obj_parent.write(cr,uid,[parentid],{'email':parentemail})
+                        #MAJ Child
+                        for child_id in childid:
+                            child = obj_child.read(cr, uid, [child_id],['parentid','modified_since_last_import'])[0]
+                            if child['modified_since_last_import'] == False:
+                                parentid = child['parentid'][0]
+                                if importfilter['majschoolimplantation']:
+                                    obj_child.write(cr,uid,[child_id],{'schoolimplantation':schoolimplantationid})
+                                if importfilter['majchildclassname']:
+                                    classids = obj_class.search(cr, uid, [('name', 'ilike', childclassname),('schoolimplantation', '=', schoolimplantationid)])
+                                    if not classids:
+                                        levelids=[]
+                                        levelids.append((6,0,[childlevelid]))
+                                        classid = obj_class.create(cr, uid, {'name':childclassname,'schoolimplantation':schoolimplantationid,'levelids':levelids})
+                                    else:
+                                        classid = classids[0]
+                                    obj_child.write(cr,uid,[child_id],{'classid':classid})
+                                if importfilter['majchildlevel']:
+                                    obj_child.write(cr,uid,[child_id],{'levelid':childlevelid})
+                                if importfilter['majchildotherref']:
+                                    obj_child.write(cr,uid,[child_id],{'otherref':childotherref})
+                                    
+                                    
+                                obj_parent.write(cr,uid,[parentid],{'modified_since_last_import':False,
+                                                                    'last_import_date':fields.datetime.now()})
+                        
+                            #MAJ PARENT   
+                            parent = obj_parent.read(cr, uid, [parentid],['firstname','lastname','modified_since_last_import'])[0]
+                            if  parent['firstname'] == parentfirstname and parent['lastname'] == parentlastname:
+                                if parent['modified_since_last_import'] == False:
+                                    if importfilter['majparentlastname']:                            
+                                        obj_parent.write(cr,uid,[parentid],{'lastname':parentlastname})
+                                    if importfilter['majparentfirstname']:
+                                        obj_parent.write(cr,uid,[parentid],{'firstname':parentfirstname})
+                                    if importfilter['majparentstreet']:
+                                        obj_parent.write(cr,uid,[parentid],{'street':parentstreet,'streetcode':lbutils.genstreetcode(parentstreet+parentcity)})
+                                    if importfilter['majparentzipcode']:
+                                        obj_parent.write(cr,uid,[parentid],{'zipcode':parentzipcode})
+                                    if importfilter['majparentcity']:
+                                        obj_parent.write(cr,uid,[parentid],{'city':parentcity,'streetcode':lbutils.genstreetcode(parentstreet+parentcity)})                            
+                                    if importfilter['majparenthousephone']:
+                                        obj_parent.write(cr,uid,[parentid],{'housephone':parenthousephone})
+                                    if importfilter['majparentworkphone']:
+                                        obj_parent.write(cr,uid,[parentid],{'workphone':parentworkphone})
+                                    if importfilter['majparentgsm']:
+                                        obj_parent.write(cr,uid,[parentid],{'gsm':parentgsm})
+                                    if importfilter['majparentemail']:
+                                        obj_parent.write(cr,uid,[parentid],{'email':parentemail})
+
+                                    obj_parent.write(cr,uid,[parentid],{'modified_since_last_import':False,
+                                                                        'last_import_date':fields.datetime.now()})
                             
         return super(extraschool_childsimport, self).create(vals)
 

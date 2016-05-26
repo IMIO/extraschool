@@ -1,6 +1,19 @@
 <?xml version="1.0" ?>
 <openerp>
 	<data> 
+		<record model="ir.ui.view" id="extraschool_child_import_tree">
+			<field name="name">Child import</field>
+			<field name="model">extraschool.childsimport</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Child import">					
+                    <field name="schoolimplantation"/>
+                    <field name="childsimportfilter"/> 
+					<field name="childsfile"/>
+				</tree>
+			</field>
+		</record>
+				
         <record model="ir.actions.act_window" id="action_extraschool_childsimport">
 			<field name="name">Childsimport</field>
 			<field name="res_model">extraschool.childsimport</field>
