@@ -257,14 +257,16 @@ class extraschool_childsimport(models.Model):
                 else:
                     if importfilter['childrncolumn'] <> 0:
                         childid = obj_child.search(cr, uid, [('rn', '=', childrn.strip())
-                                                             ])                    
-                    else:
+                                                             ])
+                    # if no rn or child not found on RN try to find on firstname,lastname,birthday
+                    if not childid or importfilter['childrncolumn'] == 0:
                         childid = obj_child.search(cr, uid, [('lastname', 'ilike', childlastname.strip()),('firstname', 'ilike', childfirstname.strip()),('birthdate', '=', childbirthdate)])
                     
                     if not childid:
                         if importfilter['parentrncolumn'] <> 0:
-                            parentids = obj_parent.search(cr, uid, [('rn', '=', parentrn),                                                                    ])
-                        else:
+                            parentids = obj_parent.search(cr, uid, [('rn', '=', parentrn),]) 
+                        # if no rn or child not found on RN try to find on firstname,lastname,birthday                                                                                                             ])
+                        if not parentids or importfilter['parentrncolumn'] == 0:
                             parentids = obj_parent.search(cr, uid, [('lastname', 'ilike', parentlastname),('firstname', 'ilike', parentfirstname),('streetcode', 'ilike', lbutils.genstreetcode(parentstreet+parentcity))])
                         if not parentids:
                             parentid = obj_parent.create(cr, uid, {'name':parentlastname+' '+parentfirstname,
@@ -308,7 +310,9 @@ class extraschool_childsimport(models.Model):
                     else:
                         #MAJ Child
                         for child_id in childid:
-                            child = obj_child.read(cr, uid, [child_id],['parentid','modified_since_last_import'])[0]
+                            child = obj_child.read(cr, uid, [child_id],['parentid','modified_since_last_import','rn'])[0]
+                            if child['rn'] == '04093039347':
+                                print "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
                             if child['modified_since_last_import'] == False:
                                 parentid = child['parentid'][0]
                                 if importfilter['majschoolimplantation']:
@@ -332,8 +336,12 @@ class extraschool_childsimport(models.Model):
                                                                     'last_import_date':fields.datetime.now()})
                         
                             #MAJ PARENT   
-                            parent = obj_parent.read(cr, uid, [parentid],['firstname','lastname','modified_since_last_import'])[0]
-                            if  parent['firstname'] == parentfirstname and parent['lastname'] == parentlastname:
+                            parent = obj_parent.read(cr, uid, [parentid],['firstname','lastname','rn','modified_since_last_import'])[0]
+                            if  parent['firstname'].lower() == parentfirstname.lower() and parent['lastname'].lower() == parentlastname.lower():
+                                print "check rn %s vs %s" % (parent['rn'],parentrn) 
+                                if (parent['rn'] == False or parent['rn'] == '') and (parentrn != False and parentrn != ''):
+                                    print "upate rn"
+                                    obj_parent.write(cr,uid,[parentid],{'rn':parentrn})
                                 if parent['modified_since_last_import'] == False:
                                     if importfilter['majparentlastname']:                            
                                         obj_parent.write(cr,uid,[parentid],{'lastname':parentlastname})
