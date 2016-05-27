@@ -48,7 +48,7 @@ class extraschool_child(models.Model):
     isdisabled = fields.Boolean('Disabled')             
 
     _sql_constraints = [
-        ('firstname_name_uniq', 'unique(lastname,firstname)',
+        ('firstname_name_uniq', 'unique(lastname,firstname,birthdate)',
             'Name and firstname must be unique !'),
     ]   
     
