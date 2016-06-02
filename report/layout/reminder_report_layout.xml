@@ -1,0 +1,158 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+		<template id="reminder_report_layout" inherit_id="report.layout"  primary="True">
+
+            <xpath expr="//head" position="inside">
+	            <style type="text/css">
+					body {
+					  font-family: arial !important;	            	 	  
+					}
+	            		            	
+					body.container {
+	            	  margin: 0px 15mm 0px Opx;
+	            	  padding: 0px;	            	  
+					}
+	            	
+	            	.header{
+	            		padding-right: 15mm;
+	            	}
+	            	
+	            	.page{
+	            		padding-right: 15mm;
+	            	}
+	            </style>
+				
+	            <link href="/web/static/lib/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+		        <link href="/website/static/src/css/website.css" rel="stylesheet"/>
+		        <link href="/web/static/lib/fontawesome/css/font-awesome.css" rel="stylesheet"/>
+		        <style type="text/css">
+		            <t t-call="report.style"/>
+		        </style>									
+            </xpath>
+        	<xpath expr="//head" position="inside">
+              <script src="/extraschool/static/src/js/pagination_hide.js"></script>
+            </xpath>
+
+            <xpath expr="//body" position="attributes">
+                <attribute t-translation="off" name="onload">subst(); pagination_hide();</attribute>
+            </xpath>            
+		    
+            <xpath expr="//html" position="attributes">
+		    	<attribute name="t-att-data-report-margin-top">docs[0].reminders_journal_item_id.reminder_type_id.report_id.paper_format_id.margin_top</attribute>
+		        <attribute name="t-att-data-report-margin-bottom">docs[0].reminders_journal_item_id.reminder_type_id.report_id.paper_format_id.margin_bottom</attribute>
+		        <attribute name="t-att-data-report-margin-right">docs[0].reminders_journal_item_id.reminder_type_id.report_id.paper_format_id.margin_right</attribute>
+		        <attribute name="t-att-data-report-margin-left">docs[0].reminders_journal_item_id.reminder_type_id.report_id.paper_format_id.margin_left</attribute>		        		  		        		        
+		    </xpath>            
+		    
+            <xpath expr="//body" position="attributes">
+				<attribute name="t-att-class">container</attribute>	      
+		    </xpath>
+		    
+            <xpath expr="//body" position="inside">
+				<div id="reminder">
+					<t t-foreach="docs" t-as="reminder">													
+						<t t-set="logo" t-value="reminder.reminders_journal_id.activity_category_id.logo"/>
+						<t t-set="slogan" t-value="reminder.reminders_journal_id.activity_category_id.slogan"/>		
+						<t t-set="amount_int" t-value="int(reminder.amount)"/>
+						<t t-set="amount_dec" t-value="int(round((reminder.amount-int(reminder.amount))*100))"/>			
+			        	<t t-set="bankaccount" t-value="reminder.reminders_journal_id.activity_category_id.bankaccount"/>
+						<t t-set="bank_bic" t-value="reminder.reminders_journal_id.activity_category_id.bank_bic"/>
+						<t t-set="bank_address" t-value="reminder.reminders_journal_id.activity_category_id.bank_address"/>
+						<t t-set="bank_zip" t-value="reminder.reminders_journal_id.activity_category_id.bank_zip"/>
+						<t t-set="bank_city" t-value="reminder.reminders_journal_id.activity_category_id.bank_city"/>
+						<t t-set="com_struct" t-value="reminder.structcom"/>
+						<t t-set="total" t-value="reminder.amount"/>
+						<t t-set="received" t-value="reminder.amount"/>
+						<t t-set="balance" t-value="reminder.amount"/>	
+						<t t-set="payment_term" t-value="'%s' % (time.strftime('%d-%m-%Y',time.strptime(reminder.reminders_journal_item_id.payment_term,'%Y-%m-%d')))"/>
+							
+						<t t-set="comment" t-value="'%s%s' % ('','')"/>	
+						<t t-set="doc_date" t-value="'%s, le %s' % (reminder.reminders_journal_id.activity_category_id.po_city,time.strftime('%d-%m-%Y',time.strptime(reminder.reminders_journal_id.transmission_date,'%Y-%m-%d')))"/>	
+																																																				
+						<t t-set="addresse" t-value="reminder.parentid"/>
+						<t t-set="po_addresse" t-value="reminder.reminders_journal_id.activity_category_id"/>
+									
+						<t t-set="parent_id" t-value="reminder.parentid"/>
+						<t t-set="categ_id" t-value="reminder.reminders_journal_id.activity_category_id"/>
+																						
+						<t t-set="resp_fct" t-value="reminder.reminders_journal_id.activity_category_id.po_resp_name"/>
+						<t t-set="resp_name" t-value="reminder.reminders_journal_id.activity_category_id.po_resp_fct"/>
+						<t t-set="resp_sign" t-value="reminder.reminders_journal_id.activity_category_id.po_sign"/>
+						<t t-set="po_stamp" t-value="reminder.reminders_journal_id.activity_category_id.po_stamp"/>
+							
+						<t t-set="resp2_fct" t-value="reminder.reminders_journal_id.activity_category_id.po_resp2_name"/>
+						<t t-set="resp2_name" t-value="reminder.reminders_journal_id.activity_category_id.po_resp2_fct"/>													
+						<t t-set="resp2_sign" t-value="reminder.reminders_journal_id.activity_category_id.po_resp2_sign"/>		
+						
+						<t t-set="html_text" t-value="reminder.reminders_journal_item_id.reminder_type_id.text"/>		
+																	
+																					
+						<div class="header">
+		        			<t t-foreach="reminder.reminders_journal_item_id.reminder_type_id.report_id.inline_report_ids.filtered(lambda r: r.section == 'a_header')" t-as="tmpl">
+				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">	         	    
+			        				<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
+								</div>
+								<t t-if="tmpl.visibility == False">
+									<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
+								</t>
+							</t> 	
+			       		</div>				
+			        	<div class="page">
+			        		<t t-foreach="reminder.reminders_journal_item_id.reminder_type_id.report_id.inline_report_ids.filtered(lambda r: r.section == 'b_body')" t-as="tmpl">
+				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">	         	    
+			        				<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
+								</div>
+								<t t-if="tmpl.visibility == False">
+									<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
+								</t>
+							</t> 	    
+			       		</div>
+			        	<div class="footer">
+			        		<t t-foreach="reminder.reminders_journal_item_id.reminder_type_id.report_id.inline_report_ids.filtered(lambda r: r.section == 'c_footer')" t-as="tmpl">
+				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">	         	    
+			        				<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
+								</div>
+								<t t-if="tmpl.visibility == False">
+									<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
+								</t>
+							</t> 	    
+			       		</div>
+				    </t>
+				</div>				
+			</xpath>	
+		</template>
+	</data>
+	<data noupdate="1">
+		<record id="paperformat_aes_reminder" model="report.paperformat">
+    		<field name="name">reminder</field>
+    		<field name="default" eval="True"/>
+   			<field name="format">A4</field>
+    		<field name="orientation">Portrait</field>
+    		<field name="margin_top">40</field>
+    		<field name="margin_bottom">15</field>
+    		<field name="margin_left">15</field>
+    		<field name="margin_right">15</field>
+    		<field name="header_line" eval="False"/>
+    		<field name="header_spacing">35</field>
+    		<field name="dpi">90</field>
+		</record>
+	</data>
+	<data>	
+		<report
+		    id="extraschool_reminder_std"
+		    model="extraschool.reminder"
+		    string="reminder"
+		    report_type="qweb-pdf"
+		    name="extraschool.reminder_report_layout"
+		    attachment_use="False"
+		/>
+
+		<record id="extraschool_reminder_std" model="ir.actions.report.xml">
+    		<field name="paperformat_id" ref="paperformat_aes_reminder"/>
+		</record>		
+						
+	</data>	
+</openerp>	
+	
+	

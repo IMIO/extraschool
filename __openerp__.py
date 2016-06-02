@@ -35,7 +35,7 @@
     'demo' : [],
     'test' : [],
     'data' : [  
-        'scripts/update_invoice_payment_term.sql',
+#        'scripts/update_invoice_payment_term.sql',
         
         'views/extraschool_activitycategory.xml',
         'views/extraschool_activity.xml',
@@ -95,7 +95,8 @@
         'report/layout/extraschool_layout.xml',
         'report/layout/biller_report_layout.xml',
         'report/layout/invoice_report_layout.xml',
-        'report/layout/payment_invitation_report_layout.xml',      
+        'report/layout/payment_invitation_report_layout.xml',
+        'report/layout/reminder_report_layout.xml',      
         'report/invoice/invoice_std_body.xml',
         'report/invoice/invoice_regroup_by_activity.xml',
         'report/invoice/invoice_regroup_by_activity_by_child.xml',
