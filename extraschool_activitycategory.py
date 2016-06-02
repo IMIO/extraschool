@@ -156,7 +156,25 @@ class extraschool_activitycategory(models.Model):
         
         return True
             
-
+    def get_next_comstruct(self,type):
+        if type == 'reminder':
+            self.reminderlastcomstruct += 1
+            com_struct_prefix_str = self.remindercomstructprefix 
+            com_struct_id_str = self.reminderlastcomstruct
+        if type == 'invoice':
+            self.invoicelastcomstruct += 1
+            com_struct_prefix_str = self.invoicecomstructprefix 
+            com_struct_id_str = self.invoicelastcomstruct        
+        
+        com_struct_prefix_str = com_struct_prefix_str.zfill(3)
+        com_struct_id_str = ("%s" % (com_struct_id_str)).zfill(7)
+        
+        com_struct_check_str = str(long(com_struct_prefix_str+com_struct_id_str) % 97).zfill(2)
+        com_struct_check_str = com_struct_check_str if com_struct_check_str != '00' else '97'
+        
+        comstruct = '%s%s%s' % (com_struct_prefix_str,com_struct_id_str,com_struct_check_str)
+        
+        return ('+++%s/%s/%s+++' % (comstruct[0:3],comstruct[3:7],comstruct[7:12]))            
 
     @api.model
     def create(self, vals):  

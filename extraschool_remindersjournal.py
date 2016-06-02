@@ -37,12 +37,11 @@ class extraschool_remindersjournal(models.Model):
     name = fields.Char('Name', required=True)
     activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=True, readonly=True, states={'draft': [('readonly', False)]})
     transmission_date = fields.Date('Transmission date', required=True, readonly=True, states={'draft': [('readonly', False)]})    
-    concerned_biller_ids = fields.Many2many('extraschool.biller','extraschool_remindersjournal_biller_rel', 'remindersjournal_id', 'biller_id','Concerned billers')
     reminders_journal_item_ids = fields.One2many('extraschool.reminders_journal_item', 'reminders_journal_id','Reminder journal item')   
     reminder_ids = fields.One2many('extraschool.reminder', 'reminders_journal_id','Reminders')                 
     biller_id = fields.Many2one('extraschool.biller', 'Biller', readonly=True, states={'draft': [('readonly', False)]})
+    remindersjournal_biller_item_ids = fields.One2many('extraschool.reminders_journal_biller_item', 'reminders_journal_id','Reminders biller item')       
     state = fields.Selection([('draft', 'Draft'),
-                              ('to_validate', 'Ready'),
                               ('validated', 'Validated')],
                               'validated', required=True, default='draft'
                               ) 
@@ -51,7 +50,6 @@ class extraschool_remindersjournal(models.Model):
         if len(self.activity_category_id.reminer_type_ids.ids) == 0 : 
             return False
         
-        print "reminer_type_ids : %s" % (self.activity_category_id.reminer_type_ids)
         inv_obj = self.env['extraschool.invoice']
         payment_obj = self.env['extraschool.payment']
         inv_line_obj = self.env['extraschool.invoicedprestations']  
@@ -64,8 +62,7 @@ class extraschool_remindersjournal(models.Model):
             
             #compute pa
             to_date = datetime.date.today() - datetime.timedelta(days=reminder_type.delay)
-            print "to date : %s" % (to_date)
-                    
+                  
             #filter on payterm depend on reminder_type (no reminder_type = invoice_payment_term)                       
             if reminder_type.selected_type_id.id == False:
                 #payterm is taken from invoice 
@@ -77,11 +74,9 @@ class extraschool_remindersjournal(models.Model):
                 invoice_search_domain+= [('last_reminder_id.reminders_journal_item_id.reminder_type_id','=', reminder_type.selected_type_id.id),
                                              ('last_reminder_id.reminders_journal_item_id.payment_term', '<=',to_date)]
             
-            print "invoice_search_domain : %s" % (invoice_search_domain)    
             invoice_ids = self.env['extraschool.invoice'].search(invoice_search_domain).sorted(key=lambda r: r.parentid.id)
             
-            for invoice in invoice_ids:
-                print "invocie id : %s parent : %s" % (invoice.id, invoice.parentid)
+
                  
             reminders_journal_item_id = self.env['extraschool.reminders_journal_item'].create({'name' : "%s - %s" % (self.name,reminder_type.name),
                                                                    'reminder_type_id' : reminder_type.id,
@@ -99,13 +94,13 @@ class extraschool_remindersjournal(models.Model):
                 if invoice.parentid.id != parent_id:                    
                     if parent_id > 0:
                         if amount > reminder_type.minimum_balance:                            
-                            print "yop %s" % (concerned_invoice_ids)
                             total_amount += amount
+                            if reminder_type.out_of_accounting:
+                                amount = 0
                             reminder.write({'amount' : amount,
                                             'concerned_invoice_ids': [(6, 0, concerned_invoice_ids)]})
                             inv_obj.browse(concerned_invoice_ids).write({'last_reminder_id': reminder.id})
                         else:
-                            print "yup"
                             reminder.unlink()
                             
                     amount = 0    
@@ -115,20 +110,17 @@ class extraschool_remindersjournal(models.Model):
                     reminder = self.env['extraschool.reminder'].create({'reminders_journal_item_id': reminders_journal_item_id.id,
                                                                         'reminders_journal_id': self.id,
                                                                         'parentid': parent_id,
-                                                                        'school_implantation_id': invoice.schoolimplantationid.id,                                                                        
+                                                                        'school_implantation_id': invoice.schoolimplantationid.id,
+                                                                        'structcom': invoice.activitycategoryid.get_next_comstruct('reminder')                                                                        
                                                                         })                    
-                    #print "reminder_type.fees_type : %s" % (reminder_type.fees_type)
                     if reminder_type.fees_type == 'fix':
-#                        print "self.biller_id.id : %s" % (self.biller_id.id)
                         if biller_id == -1:
-#                            print "yop"
                             self.biller_id = self.env['extraschool.biller'].create({'period_from' : self.transmission_date,
                                                                             'period_to' : self.transmission_date,
                                                                             'activitycategoryid': self.activity_category_id.id,
                                                                             'invoices_date': self.transmission_date,
                                                                             })
-                            biller_id = self.biller_id.id
-                            print "new biller : %s" % (biller_id)
+                            biller_id = self.biller_id.id                            
                             
                         next_invoice_num += 1
                         com_struct_prefix_str = self.activity_category_id.invoicecomstructprefix
@@ -159,11 +151,13 @@ class extraschool_remindersjournal(models.Model):
                 if amount > reminder_type.minimum_balance:
                     print "Last yop %s" % (concerned_invoice_ids)
                     total_amount += amount
+                    if reminder_type.out_of_accounting:
+                        amount = 0
+
                     reminder.write({'amount' : amount,
                                     'concerned_invoice_ids': [(6, 0, concerned_invoice_ids)]})
                     inv_obj.browse(concerned_invoice_ids).write({'last_reminder_id': reminder.id})
-                else:
-                    print "last yup"
+                else:                    
                     reminder.unlink()
             else:
                 print "nothing to DO"
@@ -174,13 +168,97 @@ class extraschool_remindersjournal(models.Model):
                                 
             if biller_id > 0 :
                 self.biller_id.invoice_ids._compute_balance()
-                
-                
-            print "invoice_ids : %s" % (invoice_ids.ids)
-            
+                                        
+        #update invoice to exit from accounting
+        get_invoice_exit_sql = """select r.id as reminder_id, i.id as invoice_id,balance
+                                    from extraschool_reminder r
+                                    left join extraschool_invoice i on i.last_reminder_id = r.id
+                                    left join extraschool_reminders_journal_item ji on ji.id = r.reminders_journal_item_id
+                                    left join extraschool_remindertype rt on rt.id = ji.reminder_type_id
+                                    where r.reminders_journal_id = %s and rt.out_of_accounting = True                                    
+                                """
+        self.env.cr.execute(get_invoice_exit_sql, (self.id,))
+        invoice_ids = self.env.cr.dictfetchall()
         
+        for invoice in invoice_ids:
+            self.env['extraschool.refound_line'].create({'invoiceid': invoice['invoice_id'],
+                                                         'date': datetime.date.today(),
+                                                         'description': _("exit from accounting"),
+                                                         'amount': invoice['balance'],
+                                                         'reminder_id': invoice['reminder_id']
+                                                         })
+            
+        #update biller summary
+        get_biller_summary_sql = """select distinct(i.biller_id) as biller_id,sum(balance) as reminder_amount,
+                                        case when sum(rl.amount) is null then 0 else sum(rl.amount) end as refound_amount
+                                    from extraschool_reminder r
+                                    left join extraschool_invoice i on i.last_reminder_id = r.id
+                                    left join extraschool_refound_line rl on i.id = rl.invoiceid and rl.reminder_id = r.id
+                                    where r.reminders_journal_id = %s
+                                    group by i.biller_id
+                                """
+        self.env.cr.execute(get_biller_summary_sql, (self.id,))
+        biller_summary_ids = self.env.cr.dictfetchall()
+        
+        for biller_summary in biller_summary_ids:
+            self.env['extraschool.reminders_journal_biller_item']. create({'name': "%s - %s" % (self.name,biller_summary['reminder_amount']),
+                                                                           'reminders_journal_id': self.id,
+                                                                           'biller_id': biller_summary['biller_id'],
+                                                                           'reminder_amount': biller_summary['reminder_amount'],
+                                                                           'exit_accounting_amount': biller_summary['refound_amount']})
+            
+        self.state = "validated"
         return True
 
+    @api.multi
+    def mail_reminders(self): 
+        cr,uid = self.env.cr, self.env.user.id  
+        view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','extraschool.invoice'),
+                                                             ('name','=','invoices.tree')])
+        return {'name': 'Reminders',
+                'type': 'ir.actions.act_window',
+                'res_model': 'extraschool.reminder',
+                'view_type': 'form',
+                'view_mode': 'tree,form',
+                'nodestroy': False,     
+                'target': 'current',
+                'limit': 50000,                                    
+                'domain': [('reminders_journal_id.id', '=',self.id),
+                           '|',('remindersendmethod','=','onlybymail'),('remindersendmethod','=','emailandmail')]
+            }  
+
+    @api.multi
+    def email_reminders(self):         
+        cr,uid = self.env.cr, self.env.user.id  
+        view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','extraschool.invoice'),
+                                                             ('name','=','invoices.tree')])
+        return {'name': 'Reminders',
+                'type': 'ir.actions.act_window',
+                'res_model': 'extraschool.reminder',
+                'view_type': 'form',
+                'view_mode': 'tree,form',
+                'nodestroy': False,     
+                'target': 'current',
+                'limit': 50000,                 
+                'domain': [('reminders_journal_id.id', '=',self.id),
+                           '|',('remindersendmethod','=','onlyemail'),('remindersendmethod','=','emailandmail')]
+            }          
+
+    @api.multi
+    def all_reminders(self): 
+        cr,uid = self.env.cr, self.env.user.id  
+        view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','extraschool.invoice'),
+                                                             ('name','=','invoices.tree')])
+        return {'name': 'Reminders',
+                'type': 'ir.actions.act_window',
+                'res_model': 'extraschool.reminder',
+                'view_type': 'form',
+                'view_mode': 'tree,form',
+                'nodestroy': False,     
+                'target': 'current',
+                'limit': 50000,                                    
+                'domain': [('reminders_journal_id.id', '=',self.id)]
+            }     
     
 class extraschool_remindersjournal_item(models.Model):
     _name = 'extraschool.reminders_journal_item'
@@ -192,7 +270,16 @@ class extraschool_remindersjournal_item(models.Model):
     payment_term = fields.Date('Payment term', required=True)
     amount = fields.Float('Amount', required=True)
      
+class extraschool_reminders_journal_biller_item(models.Model):
+    _name = 'extraschool.reminders_journal_biller_item'
+    _description = 'Reminders journal biller item'
 
+    name = fields.Char('Name', required=True)
+    reminders_journal_id = fields.Many2one('extraschool.remindersjournal', 'Reminder journal')
+    biller_id = fields.Many2one('extraschool.biller', 'Biller', required=True)     
+    reminder_amount = fields.Float('Reminder amount', required=True)
+    exit_accounting_amount = fields.Float('Exit accounting amount', required=True)
+    
 
 
         
