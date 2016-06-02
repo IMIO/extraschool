@@ -32,7 +32,8 @@ class extraschool_remindertype(models.Model):
     sequence = fields.Integer('Order')
     activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity category')
     fees_type = fields.Selection([('free','Free'),('fix','Fixed amount'),], 'Reminder cost type',required=True)
-    fees_amount = fields.Char('fees_amount')
+    fees_amount = fields.Char('Fees amount')
+    fees_description = fields.Char('Fees description')
     mail_template_id = fields.Many2one('email.template', 'Email template')
     report_id = fields.Many2one('extraschool.report', 'Document report')
     text = fields.Text('Text')
@@ -46,6 +47,7 @@ class extraschool_remindertype(models.Model):
     def onchange_week(self):    
         self.fees_type = 'free'
         self.fees_amount = 0
+        self.fees_description = False
     
     
          

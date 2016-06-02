@@ -63,7 +63,7 @@
 						<t t-set="bank_city" t-value="reminder.reminders_journal_id.activity_category_id.bank_city"/>
 						<t t-set="com_struct" t-value="reminder.structcom"/>
 						<t t-set="total" t-value="reminder.amount"/>
-						<t t-set="received" t-value="reminder.amount"/>
+						<t t-set="received" t-value="0"/>
 						<t t-set="balance" t-value="reminder.amount"/>	
 						<t t-set="payment_term" t-value="'%s' % (time.strftime('%d-%m-%Y',time.strptime(reminder.reminders_journal_item_id.payment_term,'%Y-%m-%d')))"/>
 							
@@ -86,8 +86,8 @@
 						<t t-set="resp2_sign" t-value="reminder.reminders_journal_id.activity_category_id.po_resp2_sign"/>		
 						
 						<t t-set="html_text" t-value="reminder.reminders_journal_item_id.reminder_type_id.text"/>		
-																	
-																					
+						<t t-set="reminder_com_struct" t-value="reminder.structcom"/>
+																																								
 						<div class="header">
 		        			<t t-foreach="reminder.reminders_journal_item_id.reminder_type_id.report_id.inline_report_ids.filtered(lambda r: r.section == 'a_header')" t-as="tmpl">
 				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">	         	    

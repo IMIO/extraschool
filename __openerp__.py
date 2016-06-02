@@ -116,7 +116,7 @@
         'report/common/sign_no_style.xml',
         'report/common/double_sign_no_style.xml',
         'report/common/spacer_2cm.xml',
-
+        'report/reminder/reminder_invoice_summary.xml',        
 
         'extraschool_view.xml',
         

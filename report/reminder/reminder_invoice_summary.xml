@@ -1,0 +1,86 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+		<template id="report_reminder_reminder_summary">
+		    <style type="text/css">
+		        #reminder_body{
+		    		width: 100%;
+		    		display: block;
+		    		margin: 1cm 0cm 0cm 0cm;
+		    	}
+		    	
+		    	#reminder_body div.your_ref{
+		    		width: 100%;
+		    		padding: 5mm 0mm 5mm 0mm;
+		    		display: block;
+		    	}
+		    			    	
+				#reminder_body table {
+		    		width: 100%;
+					font-size:11px;
+					border-width: 1px;
+					border-collapse: collapse;
+				}
+				#reminder_body table th {
+					border-width: 1px;
+					padding: 8px;
+					border-style: solid;
+					background-color: #dedede;
+				}
+				#reminder_body table td {
+					border-width: 1px;
+					padding: 8px;
+					border-style: solid;
+				}
+
+				#reminder_body table td.amount {
+		    		text-align: right;
+		    		width: 20%;
+				}
+		    			    	
+			</style>
+						
+        	<div id="reminder_body">
+        		<table>
+        			<tr>
+	        			<th>Période</th>
+	        			<th>Facture</th>
+	        			<th>Echéance</th>
+	        			<th>Montant</th>	        			
+					</tr>
+
+																
+	       			<t t-foreach="reminder.concerned_invoice_ids.sorted(key=lambda r: r.number)" t-as="reminder_invoice">
+        				<tr>
+        					<t t-if="reminder_invoice.reminder_fees == False">
+        						<tr>
+			       					<td><span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(reminder_invoice.biller_id.period_from,'%Y-%m-%d')))" /> - <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(reminder_invoice.biller_id.period_to,'%Y-%m-%d')))" /></td> 
+		        					<td><span t-field="reminder_invoice.number" /></td> 
+			       					<td><span t-field="reminder_invoice.payment_term" /></td> 
+			       					<td class="amount"><span t-esc="'%.2f €' %  (reminder_invoice.balance)" /></td> 
+        							        							
+        						</tr>
+							</t>
+        					<t t-if="reminder_invoice.reminder_fees == True">
+        						<t t-foreach="reminder_invoice.invoice_line_ids" t-as="invoice_line">
+        							<tr>
+				       					<td></td> 
+			        					<td><span t-field="invoice_line.description" /></td> 
+				       					<td><span t-field="reminder_invoice.payment_term" /></td> 
+				       					<td class="amount"><span t-esc="'%.2f €' %  (invoice_line.total_price)" /></td>
+			       					</tr>         							
+        						</t>
+							</t>							
+	       					
+	       					
+	       				</tr>	       												
+	        		</t>
+       			        			
+        		</table>
+       		</div>
+		</template>
+
+	</data>
+</openerp>	
+	
+	

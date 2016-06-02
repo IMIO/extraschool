@@ -38,6 +38,14 @@
 				</div>	
 			</xpath>		
 		</template>		
+		
+		<template id="report_payment_info_reminder_no_style" inherit_id="extraschool.report_payment_info_no_style" primary="True">
+			<xpath expr="//div[@class='com_struct']" position="replace">
+				<div class="com_struct">
+					<span >Communication structurée : </span><t t-esc="reminder_com_struct" />					
+				</div>	
+			</xpath>		
+		</template>				
 
 	</data>
 </openerp>	

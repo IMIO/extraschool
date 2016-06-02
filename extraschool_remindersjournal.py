@@ -134,10 +134,11 @@ class extraschool_remindersjournal(models.Model):
                                                     'activitycategoryid': self.activity_category_id.id,
                                                     'structcom': payment_obj.format_comstruct('%s%s%s' % (com_struct_prefix_str,com_struct_id_str,com_struct_check_str)),
                                                     'last_reminder_id': reminder.id,
+                                                    'reminder_fees': True,
                                                     })
                         concerned_invoice_ids.append(fees_invoice.id)
                         inv_line_obj.create({'invoiceid' : fees_invoice.id,
-                                            'description' : 'Frais de rappel',
+                                            'description' : reminder_type.fees_description if reminder_type.fees_description != False else 'Frais de rappel',
                                             'unit_price': reminder_type.fees_amount,
                                             'quantity': 1,
                                             'total_price': reminder_type.fees_amount,
