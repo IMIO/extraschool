@@ -136,6 +136,7 @@
                 <form string="Reminders Journal">
                 	<header>
 						<button name="validate" string="Valider" type="object" states='draft' class="oe_highlight" context="{'wizard': False}"/>	
+						<button name="test_go" string="Test Go" type="object" class="oe_highlight" />	
 						<field name="state" widget="statusbar" statusbar_visible="draft,to_validate,validated"/>												
 					</header>
 					<div class="oe_right oe_button_box" name="buttons"> 

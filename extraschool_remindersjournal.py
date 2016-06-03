@@ -29,7 +29,22 @@ import os
 import lbutils
 from pyPdf import PdfFileWriter, PdfFileReader
 import datetime
+import threading
+from openerp.api import Environment
 
+class reminder_report_pdf_thread (threading.Thread):
+   def __init__(self, cr, uid, reminder_ids, context=None):
+      self.cr = cr
+      self.uid = uid
+      self.reminder_ids = reminder_ids
+      self.context = context
+      threading.Thread.__init__(self)
+
+   def run(self):
+       reminder = self.env['extraschool.reminder']
+       report = self.env['report']
+       report.get_pdf(reminder.browse(self.reminder_ids),'extraschool.reminder_report_layout')
+      
 class extraschool_remindersjournal(models.Model):
     _name = 'extraschool.remindersjournal'
     _description = 'Reminders journal'
@@ -44,7 +59,8 @@ class extraschool_remindersjournal(models.Model):
     state = fields.Selection([('draft', 'Draft'),
                               ('validated', 'Validated')],
                               'validated', required=True, default='draft'
-                              ) 
+                              )
+       
     @api.one
     def validate(self):
         if len(self.activity_category_id.reminer_type_ids.ids) == 0 : 
@@ -143,7 +159,7 @@ class extraschool_remindersjournal(models.Model):
                                             'quantity': 1,
                                             'total_price': reminder_type.fees_amount,
                                             })
-                    
+                        total_amount += reminder_type.fees_amount
 
                 amount += invoice.balance
                 concerned_invoice_ids.append(invoice.id)
@@ -206,11 +222,56 @@ class extraschool_remindersjournal(models.Model):
                                                                            'reminders_journal_id': self.id,
                                                                            'biller_id': biller_summary['biller_id'],
                                                                            'reminder_amount': biller_summary['reminder_amount'],
-                                                                           'exit_accounting_amount': biller_summary['refound_amount']})
-            
-        self.state = "validated"
+                                                                           'exit_accounting_amount': biller_summary['refound_amount']})                    
+
+
+#             cr.commit()
+#             cr.close()
+
         return True
 
+        cr,uid = self.env.cr, self.env.user.id 
+    #    threading.Thread(target=self.go, args=(id, uid, self.reminder_ids.ids)).start()
+        self.state = "validated"
+        return True
+    
+    @api.model
+    def _go(self, cr, uid, reminders, context=None):
+        """
+        @param self: The object pointer.
+        @param cr: A database cursor
+        @param uid: ID of the user currently logged in
+        @param ids: List of IDs selected
+        @param context: A standard dictionary
+        """
+        with Environment.manage():
+            
+            #As this function is in a new thread, i need to open a new cursor, because the old one may be closed
+            new_cr = self.pool.cursor()
+            env = Environment(new_cr, uid,context)
+            print "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+            print "****************coucou**********************"
+            print "%s" % (reminders.ids)
+            print "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+            #reminder = self.pool.get('extraschool.reminder')
+            report = self.pool.get('report')
+            for reminder in reminders:
+                print "generate pdf %s" % (reminder.id)
+                env['report'].get_pdf(reminder ,'extraschool.reminder_report_layout')
+            print "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+            print "****************Beuhhhhhhhhhh***************"
+            print "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+        
+            new_cr.close()
+            return {}
+    
+    @api.one
+    def test_go(self):    
+        cr,uid = self.env.cr, self.env.user.id 
+
+        threaded_report = threading.Thread(target=self._go, args=(cr, uid, self.reminder_ids,self.env.context))
+        threaded_report.start()
+                                                        
     @api.multi
     def mail_reminders(self): 
         cr,uid = self.env.cr, self.env.user.id  
