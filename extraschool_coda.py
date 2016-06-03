@@ -66,7 +66,7 @@ class extraschool_coda(models.Model):
     @api.model
     def create(self, vals):  
         #to do refactoring suite api V8
-        cr, uid = self.env.cr, self.env.user.id
+        cr = self.env.cr
         paymentids = []
         rejectids = []
         if not vals['codafile']:
@@ -165,6 +165,7 @@ class extraschool_coda(models.Model):
                                 reject=True
                                 rejectcause=_('No valid structured Communication')
                         else:
+                            #Rappels
                             cr.execute('select remindercomstructprefix from extraschool_activitycategory')
                             prefixes=cr.dictfetchall()
                             prefixfound=False
@@ -175,30 +176,40 @@ class extraschool_coda(models.Model):
                                             prefixfound=True
                                             _prefix = prefix['remindercomstructprefix']
                             if prefixfound:
-                                reminder_ids=reminder_obj.search(cr, uid, [('structcom', '=', communication)])
-                                if len(reminder_ids)==1:
-                                    cr.execute('select sum(balance) from extraschool_reminder_invoice_rel left join extraschool_invoice on invoice_id = extraschool_invoice.id where reminder_id='+str(reminder_ids[0]))
-                                    sumbalance=cr.fetchall()[0][0]
-                                    if amount != sumbalance:
+                                reminder=reminder_obj.search([('structcom', '=', communication)])
+                                if reminder.ensure_one():
+                                    totaldue = sum(invoice.balance for invoice in reminder.concerned_invoice_ids)
+                                    print '--------------------'
+                                    print amount
+                                    print totaldue
+                                    for invoice in reminder.concerned_invoice_ids:
+                                        print '*'
+                                        print invoice.balance
+                                        print invoice.parentid.name
+                                    print '---------------------'
+                                    if amount != totaldue:
                                         reject=True
                                         rejectcause=_('A reminder has been found but the amount is not corresponding to balances of invoices')
                                     else:
-                                        reminder=reminder_obj.read(cr, uid, reminder_ids,['concernedinvoices'])[0]
-                                        for concernedinvoice in reminder['concernedinvoices']:
-                                            invoice=invoice_obj.read(cr, uid, [concernedinvoice],['amount_total','balance'])[0]
-                                            invoice_obj.write(cr, uid, [concernedinvoice],{'amount_received':invoice['amount_total'],'balance':0})
-                                            payment_id = payment_obj.create(cr, uid, {'concernedinvoice': concernedinvoice,
-                                                                                      'account':parentaccount,
-                                                                                      'paymenttype':'1',
-                                                                                      'paymentdate':transfertdate,
-                                                                                      'structcom':communication,
-                                                                                      'structcom_prefix': _prefix,
-                                                                                      'name':name,
-                                                                                      'amount':invoice['balance'],
-                                                                                      'adr1':adr1,
-                                                                                      'adr2':adr2})
-                                            paymentids.append(payment_id)
+                                        for invoice in reminder.concerned_invoice_ids:
+                                            payment_id = payment_obj.create({'parent_id': invoice.parentid.id,
+                                                                  'paymentdate': transfertdate,
+                                                                  'structcom_prefix': _prefix,
+                                                                  'structcom':communication,
+                                                                  'paymenttype':'1',
+                                                                  'account':parentaccount,
+                                                                  'name':name,
+                                                                  'adr1':adr1,
+                                                                  'adr2':adr2,
+                                                                  'amount': invoice.balance})
+                                                                            
+                                            payment_reconciliation_obj.create({'payment_id' : payment_id.id,
+                                                                           'invoice_id' : invoice.id,
+                                                                           'amount' : invoice.balance})
+                                            invoice._compute_balance()
+                                            paymentids.append(payment_id.id)         
                             else:
+                                #Pre-paiements
                                 cr.execute('select payment_invitation_com_struct_prefix from extraschool_activitycategory')
                                 prefixes=cr.dictfetchall()
                                 prefixfound=False
