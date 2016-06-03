@@ -29,14 +29,14 @@ class extraschool_reject(models.Model):
     _description = 'Reject'
 
     paymentdate = fields.Date('Date')
-    structcom = fields.Char('Structured Communication', size=50)
-    freecom = fields.Char('Free communication', size=50)
-    account = fields.Char('Account', size=20)
-    name = fields.Char('Name', size=50)
-    addr1 = fields.Char('Addr1', size=50)
-    addr2 = fields.Char('Addr2', size=50)
+    structcom = fields.Char('Structured Communication')
+    freecom = fields.Char('Free communication')
+    account = fields.Char('Account')
+    name = fields.Char('Name')
+    addr1 = fields.Char('Addr1')
+    addr2 = fields.Char('Addr2')
     amount = fields.Float('Amount')
-    rejectcause = fields.Char('Reject cause', size=60)
+    rejectcause = fields.Char('Reject cause')
     coda = fields.Many2one('extraschool.coda', 'Coda', required=False)
 
 extraschool_reject()
