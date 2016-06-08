@@ -56,11 +56,49 @@ class extraschool_remindersjournal(models.Model):
     reminder_ids = fields.One2many('extraschool.reminder', 'reminders_journal_id','Reminders')                 
     biller_id = fields.Many2one('extraschool.biller', 'Biller', readonly=True, states={'draft': [('readonly', False)]})
     remindersjournal_biller_item_ids = fields.One2many('extraschool.reminders_journal_biller_item', 'reminders_journal_id','Reminders biller item')       
+    ready_to_print = fields.Boolean(String = 'Ready to print', default = False)
     state = fields.Selection([('draft', 'Draft'),
                               ('validated', 'Validated')],
                               'validated', required=True, default='draft'
                               )
-       
+
+    @api.model
+    def generate_pdf_thread(self, cr, uid, reminders, context=None):
+        """
+        @param self: The object pointer.
+        @param cr: A database cursor
+        @param uid: ID of the user currently logged in
+        @param ids: List of IDs selected
+        @param context: A standard dictionary
+        """
+        with Environment.manage():
+            
+            #As this function is in a new thread, i need to open a new cursor, because the old one may be closed
+            new_cr = self.pool.cursor()
+            env = Environment(new_cr, uid,context)
+         
+            report = self.pool.get('report')
+            for reminder in reminders:
+                print "generate pdf %s" % (reminder.id)
+                env['report'].get_pdf(reminder ,'extraschool.reminder_report_layout')
+          
+            new_cr.commit()
+            new_cr.close()
+            return {}
+    
+    @api.one
+    def generate_pdf(self):    
+        cr,uid = self.env.cr, self.env.user.id 
+        threaded_report = []
+        chunk_size = 50
+        for zz in range(0,len(self.reminder_ids)/chunk_size+1):
+            sub_reminders = self.reminder_ids[zz*chunk_size:(zz+1)*chunk_size]
+            print "start thread for ids : %s" % (sub_reminders.ids)
+            if len(sub_reminders):
+                thread = threading.Thread(target=self.generate_pdf_thread, args=(cr, uid, sub_reminders,self.env.context))
+                threaded_report.append(thread)
+                thread.start()
+                       
     @api.one
     def validate(self):
         if len(self.activity_category_id.reminer_type_ids.ids) == 0 : 
@@ -223,55 +261,20 @@ class extraschool_remindersjournal(models.Model):
                                                                            'biller_id': biller_summary['biller_id'],
                                                                            'reminder_amount': biller_summary['reminder_amount'],
                                                                            'exit_accounting_amount': biller_summary['refound_amount']})                    
-
-
-#             cr.commit()
-#             cr.close()
-
-        return True
-
-        cr,uid = self.env.cr, self.env.user.id 
+        
+        #
+        #
+        #    !!!!! COMIT !!!!
+        #
+        #
+        self.env.cr.commit()
+        self.generate_pdf()
     #    threading.Thread(target=self.go, args=(id, uid, self.reminder_ids.ids)).start()
         self.state = "validated"
         return True
     
-    @api.model
-    def _go(self, cr, uid, reminders, context=None):
-        """
-        @param self: The object pointer.
-        @param cr: A database cursor
-        @param uid: ID of the user currently logged in
-        @param ids: List of IDs selected
-        @param context: A standard dictionary
-        """
-        with Environment.manage():
-            
-            #As this function is in a new thread, i need to open a new cursor, because the old one may be closed
-            new_cr = self.pool.cursor()
-            env = Environment(new_cr, uid,context)
-            print "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-            print "****************coucou**********************"
-            print "%s" % (reminders.ids)
-            print "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-            #reminder = self.pool.get('extraschool.reminder')
-            report = self.pool.get('report')
-            for reminder in reminders:
-                print "generate pdf %s" % (reminder.id)
-                env['report'].get_pdf(reminder ,'extraschool.reminder_report_layout')
-            print "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-            print "****************Beuhhhhhhhhhh***************"
-            print "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-        
-            new_cr.close()
-            return {}
-    
-    @api.one
-    def test_go(self):    
-        cr,uid = self.env.cr, self.env.user.id 
 
-        threaded_report = threading.Thread(target=self._go, args=(cr, uid, self.reminder_ids,self.env.context))
-        threaded_report.start()
-                                                        
+                                                                        
     @api.multi
     def mail_reminders(self): 
         cr,uid = self.env.cr, self.env.user.id  
