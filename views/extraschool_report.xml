@@ -15,9 +15,10 @@
 	                <field name="inline_report_ids" nolabel="1" colspan="4">
 	                	<tree editable="bottom">
 	                		<field name="sequence" widget="handle"/> 
-							<field name="section" />	                			
+							<field name="section" />								                			
 	                		<field name="name"/> 
 	                		<field name="inline_report_id"/> 
+	                		<field name="page_break_after"/>
 	                		<field name="visibility"/> 
 	                	</tree>
 	                </field>	 

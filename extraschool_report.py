@@ -45,7 +45,10 @@ class extraschool_inline_report(models.Model):
     report_id = fields.Many2one('extraschool.report', 'Report', ondelete='cascade')
     sequence = fields.Integer('Sequence', help="Gives the sequence order when displaying a list.")
     inline_report_id = fields.Many2one('ir.ui.view', 'Report', required=True, ondelete='cascade')
-    section = fields.Selection([('a_header','Header'),('b_body','Body'),('c_footer','Footer'),], required=True)
+    section = fields.Selection([('a_header','Header'),
+                                ('b_body','Body'),
+                                ('c_footer','Footer'),], required=True)
+    page_break_after = fields.Boolean(string="Page break after", default=False)
     visibility = fields.Selection([('hide_firstpage','Hidden on first page'),('show_firstpage','First page only'),('show_lastpage','Last page only'),])
     
     

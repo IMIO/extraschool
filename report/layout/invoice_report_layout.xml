@@ -21,6 +21,11 @@
 	            	.page{
 	            		padding-right: 15mm;
 	            	}
+	            	.break{
+					    display: block;
+					    clear: both;
+					    page-break-after: always;
+	            	}
 	            </style>
 				
 	            <link href="/web/static/lib/bootstrap/css/bootstrap.css" rel="stylesheet"/>
@@ -103,8 +108,14 @@
 								<t t-if="tmpl.visibility == False">
 									<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
 								</t>
-							</t> 	    
+								<t t-if="tmpl.page_break_after">
+									<div class="break"></div>
+								</t>	 
+							</t> 
+							   
 			       		</div>
+			       		
+											    			       				       		
 			        	<div class="footer">
 			        		<t t-foreach="invoice.activitycategoryid.invoice_report_id.inline_report_ids.filtered(lambda r: r.section == 'c_footer')" t-as="tmpl">
 				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">	         	    
