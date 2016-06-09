@@ -48,7 +48,33 @@ class extraschool_child_registration_validation_wizard(models.TransientModel):
             reg.force_set_to_draft()
                 
         return True
-
+    
+    @api.multi
+    def check_doublons(self):
+        cr,uid = self.env.cr, self.env.user.id
+                
+        update_extraschool_child_registration = """
+                    update extraschool_child_registration cr
+                    set error_duplicate_reg_line = True
+                    where (select count(*) from ( select count(*)
+                                    from extraschool_child_registration_line crl
+                                    where child_registration_id = cr.id
+                                    group by child_id
+                                    having count(*) > 1
+                                    ) zz ) > 0;
+                        """
+        cr.execute(update_extraschool_child_registration)
+        
+        update_extraschool_child_registration_line = """
+            update extraschool_child_registration_line crl
+            set error_duplicate_reg_line = True        
+            where (select count(*)
+                from extraschool_child_registration_line ccrl
+                where ccrl.id <> crl.id and ccrl.child_registration_id = crl.child_registration_id and ccrl.child_id = crl.child_id
+                ) > 0
+                """
+        cr.execute(update_extraschool_child_registration_line)
+        
 
 
     

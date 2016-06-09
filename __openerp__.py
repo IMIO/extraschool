@@ -100,6 +100,7 @@
         'report/invoice/invoice_std_body.xml',
         'report/invoice/invoice_regroup_by_activity.xml',
         'report/invoice/invoice_regroup_by_activity_by_child.xml',
+        'report/invoice/invoice_regroup_by_activity_by_child_by_day_enter_exit.xml',
         'report/invoice/invoice_std_footer.xml',
         'report/invoice/invoice_ref_and_period_no_style.xml',
         'report/common/pre_print_virement.xml',

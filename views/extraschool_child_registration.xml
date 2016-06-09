@@ -6,7 +6,7 @@
 			<field name="model">extraschool.child_registration</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
-				<tree string="child registration">					
+				<tree string="child registration"  colors="red:error_duplicate_reg_line==True">					
                     <field name="school_implantation_id"/>
                     <field name="class_id"/>
 					<field name="place_id"/>
@@ -15,7 +15,8 @@
                     <field name="date_from"/> 
 					<field name="date_to"/>
 					<field name="comment"/>											
-					<field name="state" />					
+					<field name="state" />	
+					<field name="error_duplicate_reg_line" />				
 				</tree>
 			</field>
 		</record>
@@ -25,7 +26,7 @@
 			<field name="model">extraschool.child_registration</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
-				<tree string="child registration">					
+				<tree string="child registration" colors="red:error_duplicate_reg_line==True">					
                     <field name="school_implantation_id"/>
                     <field name="class_id"/>
 					<field name="place_id"/>
@@ -33,7 +34,8 @@
                     <field name="date_from"/> 
 					<field name="date_to"/>
 					<field name="comment"/>											
-					<field name="state" />					
+					<field name="state" />
+					<field name="error_duplicate_reg_line" />				
 				</tree>
 			</field>
 		</record>
@@ -65,7 +67,7 @@
 					</group>
 					<separator string="Registrations" />
 					<field name="child_registration_line_ids" colspan="4" >
-						<tree editable="bottom">
+						<tree editable="bottom"  colors="red:error_duplicate_reg_line==True">
 						    <field name="child_id"/>
 							<field name="monday_activity_id"/>
 							<field name="tuesday_activity_id"/> 
@@ -73,7 +75,8 @@
 						    <field name="thursday_activity_id"/>
 							<field name="friday_activity_id"/>
 		                    <field name="saturday_activity_id"/> 
-							<field name="sunday_activity_id"/>								
+							<field name="sunday_activity_id"/>
+							<field name="error_duplicate_reg_line" />							
 						</tree>							
 					</field>
 				</form>
@@ -106,7 +109,7 @@
 					</group>
 					<separator string="Registrations" />
 					<field name="child_registration_line_ids" colspan="4" >
-						<tree editable="bottom">
+						<tree editable="bottom"  colors="red:error_duplicate_reg_line==True">
 						    <field name="child_id"/>
 							<field name="monday"/>
 							<field name="tuesday"/> 
@@ -114,7 +117,8 @@
 						    <field name="thursday"/>
 							<field name="friday"/>
 		                    <field name="saturday"/> 
-							<field name="sunday"/>								
+							<field name="sunday"/>
+							<field name="error_duplicate_reg_line" />							
 						</tree>							
 					</field>
 				</form>

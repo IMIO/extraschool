@@ -26,7 +26,7 @@ from openerp.api import Environment
 from datetime import date, datetime, timedelta as td
 from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
-#import datetime
+import math
 
 
 class extraschool_activityoccurrence(models.Model):
@@ -46,7 +46,7 @@ class extraschool_activityoccurrence(models.Model):
 #    child_registration_ids = fields.Many2many('extraschool.child','extraschool_activityoccurrence_cild_rel', 'activityoccurrence_id', 'child_id','Child registration')        
     child_registration_ids = fields.One2many('extraschool.activity_occurrence_child_registration','activity_occurrence_id','Child registration')        
     prestation_times_ids = fields.One2many('extraschool.prestationtimes', 'activity_occurrence_id','Child prestation times')   
-    place_id = fields.Many2one('extraschool.place', 'Place', required=False)      
+    place_id = fields.Many2one('extraschool.place', 'Place', required=False, index = True)      
     invoicedprestations_ids = fields.One2many('extraschool.invoicedprestations', 'activity_occurrence_id','Invoiced prestation')                  
 
     @api.multi
@@ -228,6 +228,34 @@ class extraschool_activityoccurrence(models.Model):
             take_part_to = True
                 
         return take_part_to
+
+    def float_time_to_str(self,float_val):
+        factor = float_val < 0 and -1 or 1
+        val = abs(float_val)
+        return "%02d:%02d" % (factor * int(math.floor(val)), int(round((val % 1) * 60)))
+    
+    def get_child_entry(self,child_id):
+        #get child presta 
+        presta_ids = self.prestation_times_ids.filtered(lambda r: r.childid.id == child_id and r.es == 'E')
+        if presta_ids:
+            #sort on time
+            presta_ids = presta_ids.sorted(key=lambda r: r.prestation_time)
+            return self.float_time_to_str(presta_ids[0].prestation_time)
+        else:
+            return False
+
+    def get_child_exit(self,child_id):
+        #get child presta 
+        presta_ids = self.prestation_times_ids.filtered(lambda r: r.childid.id == child_id and r.es == 'S')
+        if presta_ids:
+            #sort on time
+            presta_ids = presta_ids.sorted(key=lambda r: r.prestation_time, reverse=True)
+            return self.float_time_to_str(presta_ids[0].prestation_time)
+        else:
+            return False
+        
+        
+        
     
 class extraschool_activity_occurrence_child_registration(models.Model):
     _name = 'extraschool.activity_occurrence_child_registration'

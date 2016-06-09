@@ -45,6 +45,7 @@ class extraschool_child_registration(models.Model):
     date_to = fields.Date('Date to', required=True, readonly=True, states={'draft': [('readonly', False)]})
     child_registration_line_ids = fields.One2many('extraschool.child_registration_line','child_registration_id',copy=True, readonly=True, states={'draft': [('readonly', False)]})
     comment = fields.Char('Comment')
+    error_duplicate_reg_line = fields.Boolean(string="Error", default = False)
     state = fields.Selection([('draft', 'Draft'),
                               ('to_validate', 'Ready'),
                               ('validated', 'Validated')],
@@ -156,18 +157,24 @@ class extraschool_child_registration(models.Model):
         if self.env.context["wizard"]:
             self.state = 'validated'
             
+        if self.state == 'validated':
+            self.error_duplicate_reg_line = False
+            self.child_registration_line_ids.write({'error_duplicate_reg_line' : False})                 
+            
             
     @api.one
     def validate_multi(self):
         if self.env.context == None:
             self.env.context = {}
         
-        if "wizard" not in self.env.context:
-            self.env.context["wizard"]= False
+        wizard = False
+        if "wizard" in self.env.context:
+            wizard = self.env.context["wizard"]
+           
             
         print "validate MULTI wizard-mode : %s" % (self.env.context)
 
-        if self.state == 'to_validate' or self.env.context["wizard"]:
+        if self.state == 'to_validate' or wizard:
             line_days = [self.child_registration_line_ids.filtered(lambda r: r.monday_activity_id),
                          self.child_registration_line_ids.filtered(lambda r: r.tuesday_activity_id),
                          self.child_registration_line_ids.filtered(lambda r: r.wednesday_activity_id),
@@ -209,6 +216,18 @@ class extraschool_child_registration(models.Model):
                         if len(occu) == 1:
                             print "il y a une occu"
                             print "create reg for child : %s" % (line.child_id)
+                            occu_reg_ids = occu_reg.search([('activity_occurrence_id.id', '=', occu.id),
+                                                            ('child_id.id' ,'=', line.child_id.id),
+                                                            ('child_registration_line_id.id', '=', line.id)])
+                            if len(occu_reg_ids):
+                                msg = _("Duplicated registration\n")
+                                for occu_reg_id in occu_reg_ids:
+                                    msg += "%s - %s -%s\n" % (occu_reg_id.child_id.name,
+                                                         occu_reg_id.activity_occurrence_id.name,
+                                                         line.child_registration_id
+                                                        ) 
+                                    raise Warning(msg)
+                                
                             occu_reg.create({'activity_occurrence_id': occu.id,
                                              'child_id' :line.child_id.id,
                                              'child_registration_line_id': line.id
@@ -225,8 +244,12 @@ class extraschool_child_registration(models.Model):
         elif self.state == 'to_validate':
             self.state = 'validated'
             
-        if self.env.context["wizard"]:
-            self.state = 'validated'            
+        if wizard:
+            self.state = 'validated'   
+            
+        if self.state == 'validated':
+            self.error_duplicate_reg_line = False
+            self.child_registration_line_ids.write({'error_duplicate_reg_line' : False})                 
 
     @api.one
     def force_set_to_draft(self):
@@ -234,7 +257,8 @@ class extraschool_child_registration(models.Model):
         occu_reg_obj = self.env['extraschool.activity_occurrence_child_registration']
         prestation_times_obj = self.env['extraschool.prestationtimes']
         
-        occu_reg_ids = occu_reg_obj.search([('child_registration_line_id', 'in', self.child_registration_line_ids.ids)])
+        occu_reg_ids = occu_reg_obj.search([('child_registration_line_id.child_registration_id', '=', self.id)])
+        print "occu_reg_ids : %s" % (occu_reg_ids)
         for occu_reg in occu_reg_ids:
             if occu_reg.activity_occurrence_id.activityid.autoaddchilds:
                 presta_ids = prestation_times_obj.search([('childid', '=', occu_reg.child_id.id),
@@ -250,6 +274,7 @@ class extraschool_child_registration(models.Model):
     def set_to_draft(self):
         if self.state == 'to_validate':
             self.state = 'draft'
+            self.force_set_to_draft()
         elif self.state == 'validated':            
             self.force_set_to_draft()
             
@@ -267,13 +292,7 @@ class extraschool_child_registration(models.Model):
                 zz+=1    
                 
         return result                          
-                    
-                    
-                
-                
-                
-            
-        
+                            
     
 class extraschool_child_registration_line(models.Model):
     _name = 'extraschool.child_registration_line'
@@ -281,8 +300,8 @@ class extraschool_child_registration_line(models.Model):
     
     _order = "child_lastname,child_firstname"
     
-    child_registration_id = fields.Many2one('extraschool.child_registration', required=True, ondelete="cascade")
-    child_id = fields.Many2one('extraschool.child', required=True)
+    child_registration_id = fields.Many2one('extraschool.child_registration', required=True, ondelete="cascade", index = True)
+    child_id = fields.Many2one('extraschool.child', required=True, index = True)
     child_firstname = fields.Char(related="child_id.firstname", store=True)
     child_lastname = fields.Char(related="child_id.lastname", store=True)
     monday = fields.Boolean('Monday')    
@@ -299,6 +318,7 @@ class extraschool_child_registration_line(models.Model):
     saturday_activity_id = fields.Many2one('extraschool.activity',string="Saturday", domain="[('selectable_on_registration','=',True)]")
     sunday = fields.Boolean('Sunday')
     sunday_activity_id = fields.Many2one('extraschool.activity',string="Sunday", domain="[('selectable_on_registration','=',True)]")
+    error_duplicate_reg_line = fields.Boolean(string="Error", default = False)
     
     def child_must_be_printed(self):
         if not any((self.monday_activity_id.id, self.tuesday_activity_id.id, self.wednesday_activity_id.id, self.thursday_activity_id.id, self.friday_activity_id.id)):
