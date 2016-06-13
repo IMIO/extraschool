@@ -143,6 +143,18 @@
 				</form>
 			</field>
 		</record>
+
+        <record id="extraschool_invoice_stat_graph" model="ir.ui.view">
+            <field name="name">invoice.stat.graph</field>
+            <field name="model">extraschool.invoicedprestations</field>
+            <field name="arch" type="xml">
+                <graph string="Invoices stat" type="bar">
+                     <field name="placeid" type="row"/>
+                     <field name="total_price" type="measure"/>
+                 </graph>
+             </field>
+        </record>
+        		
         <record model="ir.actions.act_window" id="action_extraschool_invoices">
             <field name="name">invoices</field>
             <field name="res_model">extraschool.invoice</field>
@@ -151,6 +163,14 @@
             <field name="view_id" ref="extraschool_invoice_tree"/>
         </record>
         
+        <record model="ir.actions.act_window" id="action_extraschool_invoices_stat">
+            <field name="name">Invoices stat</field>
+            <field name="res_model">extraschool.invoicedprestations</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="extraschool_invoice_stat_graph"/>
+        </record>
+                
         <record model="ir.actions.act_window.view" id="action_extraschool_invoice_form">
 			<field name="name">invoices</field>
             <field eval="2" name="sequence"/>

@@ -87,7 +87,8 @@
 						
 						<t t-set="html_text" t-value="reminder.reminders_journal_item_id.reminder_type_id.text"/>		
 						<t t-set="reminder_com_struct" t-value="reminder.structcom"/>
-																																								
+						<t t-set="summary_invoice_ids" t-value="reminder.concerned_invoice_ids"/>	
+																																									
 						<div class="header">
 		        			<t t-foreach="reminder.reminders_journal_item_id.reminder_type_id.report_id.inline_report_ids.filtered(lambda r: r.section == 'a_header')" t-as="tmpl">
 				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">	         	    

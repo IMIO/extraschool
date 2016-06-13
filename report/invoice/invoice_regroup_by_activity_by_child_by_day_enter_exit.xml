@@ -41,13 +41,15 @@
 						
         	<div id="invoice_body">
         		<table>
-        			<tr>
-	        			<th>Activité</th>
-	        			<th>Date</th>
-	        			<th>Entrée</th>
-	        			<th>Sortie</th>
-	        			<th>Total</th>
-					</tr>
+        			<thead>
+	        			<tr>
+		        			<th>Activité</th>
+		        			<th>Date</th>
+		        			<th>Entrée</th>
+		        			<th>Sortie</th>
+		        			<th>Total</th>
+						</tr>
+					</thead>
 					<t t-set="saved_child_id" t-value="0"/>										
 					<t t-set="saved_activity" t-value="'******'"/>
 					<t t-set="saved_description" t-value="'*****'"/>										
@@ -57,7 +59,7 @@
 					<t t-set="activity_time" t-value="0"/>
 					<t t-set="activity_entry" t-value="'00:00'"/>																						
 					<t t-set="activity_exit" t-value="'00:00'"/>																						
-																						
+					<tbody>																	
 	       			<t t-foreach="invoice.invoice_line_ids.sorted(key=lambda r: (('%s%s%s') % (r.childid,r.activity_occurrence_id.activityid.short_name,r.prestation_date)))" t-as="invoice_line">
 	       				<t t-if="saved_child_id != invoice_line.childid or saved_activity != invoice_line.activity_occurrence_id.activityid.short_name or saved_activity_date != invoice_line.prestation_date">
 	       					<t t-if="activity_count != 0">
@@ -76,8 +78,8 @@
 							<t t-set="activity_count" t-value="0"/>
 							<t t-set="activity_amount" t-value="0"/>
 							<t t-set="activity_time" t-value="0"/>
-							<t t-set="activity_entry" t-value="invoice_line.activity_occurrence_id.get_child_entry(invoice_line.childid.id)"/>															
-							<t t-set="activity_exit" t-value="invoice_line.activity_occurrence_id.get_child_exit(invoice_line.childid.id)"/>																							
+							<t t-set="activity_entry" t-value="invoice_line.get_child_entry()"/>															
+							<t t-set="activity_exit" t-value="invoice_line.get_child_exit()"/>																							
 						</t>
 	       				<t t-if="saved_activity == invoice_line.activity_occurrence_id.activityid.short_name">
 							<t t-set="activity_count" t-value="activity_count + 1"/>
@@ -94,7 +96,7 @@
 	       					<td class="amount"><span t-esc="'%.2f €' %  (activity_amount)" /></td> 
 	       				</tr>	       							
    					</t>
-	        		 	            			        			
+	        		</tbody>	            			        			
         		</table>
        		</div>
 		</template>
