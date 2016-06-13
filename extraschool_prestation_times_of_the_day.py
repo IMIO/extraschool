@@ -361,6 +361,17 @@ class extraschool_prestation_times_of_the_day(models.Model):
             self.verified = True
                 
         return self
+    
+    @api.model
+    def check_all(self):
+        print "--------------"
+        print "check all"
+        print "--------------"
+        
+        for presta in self.search([('verified', '=', False)]):
+            presta.check()
+    
+    
                 
             
 
