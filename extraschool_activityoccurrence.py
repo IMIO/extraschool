@@ -131,8 +131,8 @@ class extraschool_activityoccurrence(models.Model):
             prestation_time['es'] = 'S'   
             prestation_time['prestation_time'] = exit_time
             new_presta = prestation_times_obj.create(prestation_time)
-            print "-----------------"
-            print new_presta
+#             print "-----------------"
+#             print new_presta
             if new_presta:
                 if new_presta.prestation_times_of_the_day_id.id not in pod_modified:
                     pod_modified.append(new_presta.prestation_times_of_the_day_id.id)
