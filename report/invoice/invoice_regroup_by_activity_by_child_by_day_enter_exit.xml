@@ -65,7 +65,7 @@
 	       					<t t-if="activity_count != 0">
 		        				<tr>
 			       					<td><span t-esc="'%s - %s %s' % (saved_child_id.name if saved_child_id != False else '',saved_activity if saved_activity != False else '',saved_description if saved_description != False else '')" /></td> 
-			       					<td><span t-field="invoice_line.prestation_date" /></td>
+			       					<td><span t-esc="saved_activity_date_str" /></td>
 			       					<td><span t-esc="activity_entry" /></td>
 			       					<td><span t-esc="activity_exit" /></td>
 			       					<td class="amount"><span t-esc="'%.2f €' %  (activity_amount)" /></td> 
@@ -74,7 +74,8 @@
 	       					<t t-set="saved_child_id" t-value="invoice_line.childid"/>
 	       					<t t-set="saved_activity" t-value="invoice_line.activity_occurrence_id.activityid.short_name"/>
 	       					<t t-set="saved_description" t-value="invoice_line.description"/>	
-	       					<t t-set="saved_activity_date" t-value="invoice_line.prestation_date"/>							        					
+	       					<t t-set="saved_activity_date" t-value="invoice_line.prestation_date"/>
+	       					<t t-set="saved_activity_date_str" t-value="'%s' % (time.strftime('%d-%m-%Y',time.strptime(invoice_line.prestation_date,'%Y-%m-%d')))"/>							        					
 							<t t-set="activity_count" t-value="0"/>
 							<t t-set="activity_amount" t-value="0"/>
 							<t t-set="activity_time" t-value="0"/>
@@ -85,12 +86,13 @@
 							<t t-set="activity_count" t-value="activity_count + 1"/>
 							<t t-set="activity_amount" t-value="activity_amount + invoice_line.total_price"/>
 							<t t-set="activity_time" t-value="activity_time + invoice_line.duration"/>
-						</t>						
+						</t>			
 	        		</t>
    					<t t-if="activity_count != 0">
+   						<t t-set="saved_activity_date_str" t-value="'%s' % (time.strftime('%d-%m-%Y',time.strptime(saved_activity_date,'%Y-%m-%d')))"/>
         				<tr>
 	       					<td><span t-esc="'%s - %s %s' % (saved_child_id.name if saved_child_id != False else '',saved_activity if saved_activity != False else '',saved_description if saved_description != False else '')" /></td> 
-	       					<td><span t-esc="saved_activity_date" /></td>
+	       					<td><span t-esc="saved_activity_date_str" /></td>
 			       			<td><span t-esc="activity_entry" /></td>
 			       			<td><span t-esc="activity_exit" /></td>
 	       					<td class="amount"><span t-esc="'%.2f €' %  (activity_amount)" /></td> 
