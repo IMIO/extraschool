@@ -44,7 +44,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
         for presta in self.browse(cr, uid, ids,context=context):
             res.append((presta.id, presta.child_id.name + ' - ' + datetime.datetime.strptime(presta.date_of_the_day, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y")  ))    
     
-        print str(res)
+#        print str(res)
 
         return res      
 
@@ -125,7 +125,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
         return self
 
     def _completion_entry(self,root_activity):
-        print "_completion_entry : %s" % (root_activity)
+#        print "_completion_entry : %s" % (root_activity)
 
         activity_occurrence_obj = self.env['extraschool.activityoccurrence']
            
@@ -138,7 +138,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
             #correction if default_from_to
             if first_prestation_time.activity_occurrence_id.activityid.default_from_to == 'from_to':
                 first_prestation_time.prestation_time = first_prestation_time.activity_occurrence_id.prest_from
-            print "entry : %s" % (first_prestation_time.prestation_time)
+#            print "entry : %s" % (first_prestation_time.prestation_time)
             return first_prestation_time
         else:
             #get the default start
@@ -159,7 +159,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
                 return False
                     
     def _completion_exit(self,root_activity):
-        print "_completion_exit : %s" % (root_activity)
+#        print "_completion_exit : %s" % (root_activity)
         activity_occurrence_obj = self.env['extraschool.activityoccurrence']
            
         #get presta matching the root_activity
@@ -172,7 +172,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
             if last_prestation_time.activity_occurrence_id.activityid.default_from_to == 'from_to':
                 last_prestation_time.prestation_time = last_prestation_time.activity_occurrence_id.prest_to     
             
-            print "exit : %s" % (last_prestation_time.prestation_time)       
+#            print "exit : %s" % (last_prestation_time.prestation_time)       
             return last_prestation_time
         else:
             #get the default stop
@@ -195,8 +195,8 @@ class extraschool_prestation_times_of_the_day(models.Model):
          
             
     def _occu_start_stop_completion(self,start_time,stop_time,occurrence,down,from_occurrence):
-        print "->_occu_start_stop_completion"
-        print "%s" % (occurrence.activityname)
+#         print "->_occu_start_stop_completion"
+#         print "%s" % (occurrence.activityname)
         
         occurrence_obj = self.env['extraschool.activityoccurrence']
         cr,uid = self.env.cr, self.env.user.id
@@ -253,11 +253,11 @@ class extraschool_prestation_times_of_the_day(models.Model):
                 if occurrence.id !=looked_activity.id:       
                     occurrence_obj.add_presta(from_occurrence,self.child_id.id,None, True, False, True if prest_to > 0 else False, True if prest_from > 0 else False,prest_to,prest_from) #from & to are inverted it's normal it's for parent             
 
-        print "<-_occu_start_stop_completion"
+#        print "<-_occu_start_stop_completion"
         
         
     def _occu_completion(self,start_time,stop_time,occurrence,down,from_occurrence):
-        print "_occu_completion : %s" % ("start" if not occurrence else occurrence.name)
+#        print "_occu_completion : %s" % ("start" if not occurrence else occurrence.name)
         if not occurrence:
             #first call of the fct .... Here we are .... let's go
             down = True
@@ -281,20 +281,13 @@ class extraschool_prestation_times_of_the_day(models.Model):
 
         #compute exit before going down
         if stop_time.activity_occurrence_id.id == occurrence.id:
-            print "yop"
             #"this is almost the end, we have reached the last occurrence"
             last_occu = True
             prest_to = stop_time.prestation_time
         else:
-            print "yup"     
             #to do check if EXIT exist in occurrence and check from_to     
             prest_to = stop_time.prestation_time if occurrence.prest_to <= stop_time.prestation_time else occurrence.prest_to
         
-        print "last occu : %s" % (last_occu)
-        if down:
-            print "Down"
-        else:
-            print "UP"
 
         #get child occurrence starting after current occu
         from_occurrence_id = from_occurrence if from_occurrence else None
@@ -313,8 +306,8 @@ class extraschool_prestation_times_of_the_day(models.Model):
                                                                                 ('prest_from', '>=', prest_from),
                                                                                 ('prest_to', '<=', prest_to),                                                                        
                                                                                 ])
-        print "prest from : %s prest to : %s" % (prest_from,prest_to)
-        print "occu child_ids of occurrence %s : %s" % (occurrence.name,child_occurrences.ids)
+#         print "prest from : %s prest to : %s" % (prest_from,prest_to)
+#         print "occu child_ids of occurrence %s : %s" % (occurrence.name,child_occurrences.ids)
         for child_occurrence in child_occurrences:
             if child_occurrence.check_if_child_take_part_to(self.child_id):
                 self._occu_completion(start_time,stop_time,child_occurrence,True,occurrence)
@@ -341,7 +334,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
     
     @api.multi      
     def check(self):
-        print "_check presta of the day" 
+#        print "_check presta of the day" 
         
         #Check if presta is not invoiced
         if len(self.prestationtime_ids.filtered(lambda r: r.invoiced_prestation_id.id is not False).ids) == 0:                  
@@ -384,9 +377,9 @@ class extraschool_prestation_times_of_the_day(models.Model):
     
     @api.model
     def check_all(self):
-        print "--------------"
-        print "check all"
-        print "--------------"
+#         print "--------------"
+#         print "check all"
+#         print "--------------"
         
         for presta in self.search([('verified', '=', False)]):
             presta.check()
