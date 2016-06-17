@@ -292,7 +292,14 @@ class extraschool_child_registration(models.Model):
                 zz+=1    
                 
         return result                          
-                            
+
+    @api.multi
+    @api.one
+    def unlink(self):
+        if self.state == 'validated':
+            raise Warning(_("Your are not allowed to delete a validated registration !!"))
+                                
+        return super(extraschool_child_registration,self).unlink()                            
     
 class extraschool_child_registration_line(models.Model):
     _name = 'extraschool.child_registration_line'
