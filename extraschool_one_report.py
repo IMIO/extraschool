@@ -171,12 +171,14 @@ class extraschool_one_report(models.Model):
         for imonth in range(0,3):
             currentmonth=period_from.month+imonth            
             self.setXLCell(XLSheet,14+imonth*2,0,month_names[currentmonth])
-            iweek=0
+            iweek=0            
+            currentdate = datetime.date(vals['year'],currentmonth,01)
             while (iweek < 5): 
-               
+                 
                 if datetime.date(currentdate.year,currentdate.month,01).weekday() > 4 and iweek==0:
                     while currentdate.weekday() != 0:
                         currentdate = currentdate+datetime.timedelta(1)
+                
                 for iday in range(0,5):
                     
                     if iday==currentdate.weekday():
