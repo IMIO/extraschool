@@ -117,12 +117,13 @@ class extraschool_coda(models.Model):
                             rejectcause=_('No structured Communication')
                             free_communication=line[62:112]
                     else:
-                        if line[1]=='3':
+                        if (line[1]=='3') and (amount > 0.0) and transfertdate:
                             parentaccount=line[10:26]
-                            name=line[47:73]                            
-                if (line[0]=='3') and (line[1]=='2'):
+                            name=line[47:73]                        
+                if (line[0]=='3') and (line[1]=='2') and (len(name) > 1):
                     adr1=line[10:45]
                     adr2=line[45:80]
+                
                 if ((withaddress == True) and (len(adr1) > 0)) or ((withaddress == False) and (len(name) > 1)):                    
                     if reject == False:
                         cr.execute('select invoicecomstructprefix from extraschool_activitycategory')
@@ -133,10 +134,8 @@ class extraschool_coda(models.Model):
                                     if communication[3:3+len(prefix['invoicecomstructprefix'])] == prefix['invoicecomstructprefix']:
                                         prefixfound=True
                                         _prefix = prefix['invoicecomstructprefix']
-                        if prefixfound:   
-                            print "structcom : %s" % (communication)                         
-                            invoice=invoice_obj.search([('structcom', '=', communication)])  
-                            print "invoice : %s" % (invoice.ids)                         
+                        if prefixfound:          
+                            invoice=invoice_obj.search([('structcom', '=', communication)])                      
                             if len(invoice.ids) == 1:
                                 if invoice.balance < amount:
                                     reject=True
@@ -159,9 +158,6 @@ class extraschool_coda(models.Model):
                                     invoice._compute_balance()
                                     paymentids.append(payment_id.id)                                    
                             else:
-                                print '---------INVOICE----'
-                                print communication
-                                print '--------------------'
                                 reject=True
                                 rejectcause=_('No valid structured Communication')
                         else:
@@ -246,9 +242,6 @@ class extraschool_coda(models.Model):
                                             paymentids.append(payment_id.id)
                                 else:
                                     reject=True;
-                                    print '---------PREPAY-----'
-                                    print communication
-                                    print '--------------------'
                                     rejectcause=_('No valid structured Communication')
                     if reject:
                         reject_id = reject_obj.create({'account':parentaccount,
