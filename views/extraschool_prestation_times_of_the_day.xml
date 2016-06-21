@@ -24,7 +24,7 @@
 				<form string="prestation_times_of_the_day">
 					<header>
 						<button name="reset" group="admin" string="Reset" icon="gtk-apply" type="object" />	                    
-						<button name="check" group="admin" string="Check" icon="gtk-apply" type="object" />	                    
+						<button name="check" group="admin" string="Check" icon="gtk-apply" type="object" />	                    							                    
 					</header>
 										
 					<group col="4">
@@ -33,8 +33,10 @@
 	                    <field name="child_id"  readonly="True"/>
 						<field name="date_of_the_day"  readonly="True"/>
 	                    <newline/>
-	                    <field name="verified"  readonly="True"/>
-						<newline/>
+	                    <field name="verified" invisible="True"/>
+	                    <span attrs="{'invisible':[('verified', '=', False)]}">Vérifié</span>
+	                    <span attrs="{'invisible':[('verified', '=', True)]}">NON vérifié !!!</span>
+	                   	<newline/>
 	                    <field name="comment" />
 		                <separator string="Computed prestations" colspan="4"/> 
 	                    <field name="prestationtime_ids" nolabel="1" colspan="4">
