@@ -82,28 +82,31 @@ class extraschool_prestationtimes(models.Model):
                 if vals['exit_all'] == False:
                     if prestaion_times_ids.exit_all:
                         vals['exit_all'] = True
-            print "return write"
+            #print "return write"
             prestaion_times_ids.write(vals)
             return prestaion_times_ids
         else:
-            print "super_create"
+#            print "super_create"
             return super(extraschool_prestationtimes, self).create(vals)
 
     @api.multi
     def write(self, vals):
 #            vals['verified'] = False
-            return super(extraschool_prestationtimes, self).write(vals)
+        return super(extraschool_prestationtimes, self).write(vals)
     
     @api.multi
-    def unlink(self):      
+    def unlink(self):   
         if len(self.filtered(lambda r: r.invoiced_prestation_id.id is not False).ids):
             raise Warning(_("It's not allowed to delete invoiced presta !!!"))
         
-        for record in self:
-                linked_prestation=self.search([('childid', '=', record.childid.id),('prestation_date', '=', record.prestation_date)])
-                res = linked_prestation.write({'verified':False})
+        seen = set()
+        seen_add = seen.add
+        pod_ids = [presta.prestation_times_of_the_day_id for presta in self if not (presta.prestation_times_of_the_day_id in seen or seen_add(presta.prestation_times_of_the_day_id))] 
+
+        for pod in pod_ids:
+            pod.prestationtime_ids.write({'verified':False})
+
         return super(extraschool_prestationtimes, self).unlink()
         
-extraschool_prestationtimes()
 
 

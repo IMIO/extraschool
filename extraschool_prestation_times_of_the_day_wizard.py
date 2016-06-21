@@ -42,11 +42,20 @@ class extraschool_prestation_times_of_the_day_wizard(models.TransientModel):
         return True
 
     @api.multi
-    def check(self):        
-        for reg in self.env['extraschool.prestation_times_of_the_day'].browse(self._context.get('active_ids')):
+    def check(self):  
+        self.merge_pod_dup()      
+        for reg in self.env['extraschool.prestation_times_of_the_day'].search([('id', 'in', self._context.get('active_ids')),]):
             reg.check()
         
         return True
+
+    @api.multi
+    def last_check_entry_exit(self):        
+        for reg in self.env['extraschool.prestation_times_of_the_day'].browse(self._context.get('active_ids')):
+            reg.last_check_entry_exit()
+        
+        return True
+    
     
     @api.multi
     def execute_sql(self):
@@ -87,8 +96,10 @@ class extraschool_prestation_times_of_the_day_wizard(models.TransientModel):
                 prestation_times_obj.search([('prestation_times_of_the_day_id', '=',doublon['id'])]).unlink()
                 pdaprestation_times_obj.search([('prestation_times_of_the_day_id', '=',doublon['id'])]).unlink()
                 prestation_times_of_the_day_obj.search([('id', '=',doublon['id'])]).unlink()
-
-        
+    
+    @api.multi
+    def merge_pod_dup(self):
+        self.env['extraschool.prestation_times_of_the_day'].merge_duplicate_pod()
             
         
         

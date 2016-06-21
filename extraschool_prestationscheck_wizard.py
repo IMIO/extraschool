@@ -160,7 +160,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
     def _prestation_activity_occurrence_completion(self,prestation):
         #Look for activityoccurrence maching the prestation
         res = self.get_prestation_activityid(prestation)
-        print "+++++" + str(res) + "----"
+#        print "+++++" + str(res) + "----"
         if not res['return_code']:
             prestation.error_msg = res['error_msg']
         else:
@@ -190,7 +190,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
                 
         #add activity occurrence when missing
         for prestation in obj_prestation_rs.filtered(lambda r: not r.activity_occurrence_id):   
-            print "add activity occurrence id "       
+#            print "add activity occurrence id "       
             self._prestation_activity_occurrence_completion(prestation)
         
         #get distinc presta of the day
@@ -237,7 +237,8 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
             }        
     
     @api.multi    
-    def action_prestationscheck(self):    
+    def action_prestationscheck(self):  
+        self.env['extraschool.prestation_times_of_the_day'].merge_duplicate_pod()  
         return self._check(self.force)
 
 

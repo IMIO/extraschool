@@ -59,7 +59,39 @@ class extraschool_prestation_times_of_the_day(models.Model):
     verified = fields.Boolean(select=True)
     comment = fields.Text()
     
-    
+    def merge_duplicate_pod(self):
+        cr,uid = self.env.cr, self.env.user.id
+        
+        dup_sql = """
+                    select min(id) as id
+                    from extraschool_prestation_times_of_the_day
+                    group by child_id, activity_category_id, date_of_the_day
+                    having count(*) > 1
+                    """
+        
+        self.env.cr.execute(dup_sql, ())
+        pod_ids = self.env.cr.dictfetchall()
+
+        pod_ids = self.browse([pod['id'] for pod in pod_ids])
+
+        for pod in pod_ids:
+            dup_pod_ids = self.search([('id', '!=', pod.id),
+                                       ('child_id.id', '=', pod.child_id.id),
+                                       ('activity_category_id.id', '=', pod.activity_category_id.id),
+                                       ('date_of_the_day', '=', pod.date_of_the_day),])
+            for dup_pod in dup_pod_ids:
+                dup_pod.prestationtime_ids.unlink()
+                for presta in dup_pod.pda_prestationtime_ids:
+                    if len(pod.pda_prestationtime_ids.filtered(lambda r: r.es == presta.es and r.placeid == presta.placeid and r.prestation_time == presta.prestation_time)) == 0:
+                        presta.prestation_times_of_the_day_id = pod.id
+                dup_pod.pda_prestationtime_ids.unlink()
+                
+            dup_pod.unlink()
+            pod.reset()
+        
+        
+            
+                    
     @api.multi
     def reset(self):       
         for presta in self:
@@ -86,7 +118,9 @@ class extraschool_prestation_times_of_the_day(models.Model):
         
     @api.onchange('prestationtime_ids', 'pda_prestationtime_ids')
     def on_change_prestationtime_ids(self):
+        print "on_change_prestationtime_ids"
         if self.verified:
+            print "verified = False"
             self.verified = False
         
     def _check_duplicate(self,strict=False):
@@ -110,7 +144,28 @@ class extraschool_prestation_times_of_the_day(models.Model):
                     verified = False
                 
         self.verified = verified
-        return self               
+        return self            
+    
+    @api.multi
+    def last_check_entry_exit(self):
+        es = ['E', 'S']
+        
+        last_occu = None
+        zz=0
+        for presta in self.prestationtime_ids.sorted(key=lambda r: ("%s%s" % (r.prestation_time, r.activity_occurrence_id))):
+            i = zz % 2
+            #check alternate E / S
+            if presta.es != es[i]:
+                self.verified = False
+                return
+             
+            if i and presta.es != 'S' and presta.activity_occurrence_id.id != last_occu:
+                self.verified = False
+                return
+            
+            zz += 1
+            last_occu = presta.activity_occurrence_id.id 
+                
 
     def _add_comment(self,comment,reset=False):
         tmp_comment = self.comment
@@ -356,7 +411,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
             
 #            print "root_ids : %s" % (root_ids)
             for root_activity in self.env['extraschool.activity'].browse(root_ids):
-                print "checking root : %s" % (root_activity.name)
+                #print "checking root : %s" % (root_activity.name)
                 start_time = self._completion_entry(root_activity)                
                 stop_time = self._completion_exit(root_activity)              
                 
@@ -372,7 +427,9 @@ class extraschool_prestation_times_of_the_day(models.Model):
             self.verified = False
         else:
             self.verified = True
-                
+        
+        self.last_check_entry_exit()
+              
         return self
     
     @api.model
@@ -380,7 +437,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
 #         print "--------------"
 #         print "check all"
 #         print "--------------"
-        
+        self.merge_duplicate_pod()
         for presta in self.search([('verified', '=', False)]):
             presta.check()
     
