@@ -99,20 +99,48 @@ class extraschool_child_registration(models.Model):
             child_reg.append((0,0,{'child_id': child,
                                    }))
         self.child_registration_line_ids = child_reg
+        
+    def check_doublons(self):
+        print "in check doublons"
+        child_ids = [line.child_id for line in self.child_registration_line_ids]
+        if len(set(child_ids)) != len(self.child_registration_line_ids):
+            self.error_duplicate_reg_line = True
+            print "!!! dup !!!"
+            for line in self.child_registration_line_ids:
+                dup_line_ids = self.child_registration_line_ids.filtered(lambda r: r.id != line.id and r.child_id == line.child_id)
+                if len(dup_line_ids):
+                    line.error_duplicate_reg_line = True
+                    dup_line_ids.write({'error_duplicate_reg_line' : True})                                        
+        else:
+            self.error_duplicate_reg_line = False
+            self.child_registration_line_ids.write({'error_duplicate_reg_line' : False})
 
+    def check_doublons_warning(self):
+        self.check_doublons()
+        
+        if self.error_duplicate_reg_line:
+            msg = _("These childs are duplicated !!\n")
+            for dup in set(self.child_registration_line_ids.filtered(lambda r: r.error_duplicate_reg_line == True)):
+                msg += "%s %s\n" % (dup.child_id.firstname,dup.child_id.lastname)
+            raise Warning(msg)
+        
     @api.one
     def validate(self):
         if self.env.context == None:
             self.env.context = {}
         
-        if "wizard" not in self.env.context:
-            self.env.context["wizard"]= False
-            
+        wizard = False
+        if "wizard" in self.env.context:
+            wizard = self.env.context["wizard"]
+        
+        if not wizard:        
+            self.check_doublons_warning()
+
         print "validate wizard-mode : %s" % (self.env.context["wizard"])
         
         pod_to_reset = []
         
-        if self.state == 'to_validate' or self.env.context["wizard"]:
+        if self.state == 'to_validate' or wizard:
             print "validate - registration"
             line_days = [self.child_registration_line_ids.filtered(lambda r: r.monday),
                          self.child_registration_line_ids.filtered(lambda r: r.tuesday),
@@ -154,7 +182,7 @@ class extraschool_child_registration(models.Model):
         elif self.state == 'to_validate':
             self.state = 'validated'
         
-        if self.env.context["wizard"]:
+        if wizard:
             self.state = 'validated'
             
         if self.state == 'validated':
@@ -164,13 +192,17 @@ class extraschool_child_registration(models.Model):
             
     @api.one
     def validate_multi(self):
+        print "validate multi"
         if self.env.context == None:
             self.env.context = {}
         
         wizard = False
         if "wizard" in self.env.context:
             wizard = self.env.context["wizard"]
-           
+
+        if not wizard:
+            print "check_dup"
+            self.check_doublons_warning()           
             
         print "validate MULTI wizard-mode : %s" % (self.env.context)
 
