@@ -40,6 +40,7 @@
 			</style>
 						
         	<div id="invoice_body">
+        		<h2>Détail des présences</h2>	
         		<table>
         			<thead>
 	        			<tr>
