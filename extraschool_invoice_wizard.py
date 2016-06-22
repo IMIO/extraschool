@@ -280,6 +280,25 @@ class extraschool_invoice_wizard(models.TransientModel):
                                     })
 
         
+        #check if all manuel encodage are validated
+        manuel_encodage_ids = self.env['extraschool.prestation_times_encodage_manuel'].search([('state', '!=', 'validated'),
+                                                                                               ('date_of_the_day', '>=', self.period_from),
+                                                                                               ('date_of_the_day', '<=', self.period_to),])
+        if len(manuel_encodage_ids):
+            raise Warning(_("At least one manuel encodage is not validated for this period!!!"))    
+
+        #check if all child registration are validated
+        child_reg_ids = self.env['extraschool.child_registration'].search([('state', '!=', 'validated'),
+                                                                            '|',
+                                                                            '&',('date_from', '>=', self.period_from),
+                                                                                ('date_from', '<=', self.period_to),
+                                                                            '&',('date_to', '>=', self.period_from),
+                                                                                ('date_to', '<=', self.period_to),
+                                                                                ])
+
+        if len(child_reg_ids):
+            raise Warning(_("At least one child registration is not validated for this period!!!"))    
+
         
         #check if all presta are verified
         print "----------------"
