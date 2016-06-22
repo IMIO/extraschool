@@ -24,6 +24,7 @@
 from openerp import models, api, fields
 from openerp.api import Environment
 import openerp.addons.decimal_precision as dp
+import datetime
 
 class extraschool_invoice(models.Model):
     _name = 'extraschool.invoice'
@@ -82,7 +83,11 @@ class extraschool_invoice(models.Model):
                            'balance' : balance
                            })
             
-    
+    @api.multi
+    def get_today(self):
+        print datetime.datetime.now().strftime("%y-%m-%d")
+        return datetime.datetime.now().strftime("%y-%m-%d")
+        
     @api.multi
     def reconcil(self):
         payment_obj = self.env['extraschool.payment']
