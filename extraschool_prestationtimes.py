@@ -107,6 +107,14 @@ class extraschool_prestationtimes(models.Model):
             pod.prestationtime_ids.write({'verified':False})
 
         return super(extraschool_prestationtimes, self).unlink()
+    
+    @api.multi
+    def invert_es(self):
+        if not self.invoiced_prestation_id:
+            if self.es == 'E':
+                self.es = 'S'
+            else:
+                self.es = 'E'
         
 
 

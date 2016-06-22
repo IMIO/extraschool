@@ -45,6 +45,7 @@
 	                    		<field name="placeid" />
 		                   		<field name="activity_occurrence_id" />
 	                    		<field name="prestation_time"  widget="float_time"/>
+	                    		<button name="invert_es" string="inverser" icon="gtk-refresh" type="object" />
 	                    		<field name="es" />
 	                    		<field name="exit_all" />
 	                    		<field name="verified" />
