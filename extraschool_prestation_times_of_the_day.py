@@ -152,15 +152,18 @@ class extraschool_prestation_times_of_the_day(models.Model):
         
         last_occu = None
         zz=0
-        for presta in self.prestationtime_ids.sorted(key=lambda r: ("%s%s" % (r.prestation_time, r.activity_occurrence_id))):
+        for presta in self.prestationtime_ids.sorted(key=lambda r: ("%s%.2f" % (r.activity_occurrence_id.id, r.prestation_time))):
+            #print "presta : %s %s" % (presta.activity_occurrence_id, presta.prestation_time)
             i = zz % 2
             #check alternate E / S
             if presta.es != es[i]:
                 self.verified = False
+                #print "yop"
                 return
              
             if i and presta.es != 'S' and presta.activity_occurrence_id.id != last_occu:
                 self.verified = False
+                #print "yup"
                 return
             
             zz += 1
