@@ -87,7 +87,17 @@ class extraschool_invoice(models.Model):
     def get_today(self):
         print datetime.datetime.now().strftime("%y-%m-%d")
         return datetime.datetime.now().strftime("%y-%m-%d")
-        
+
+    @api.multi
+    def get_payment_term_str(self):
+        print self.payment_term.strftime("%y-%m-%d")
+        return self.payment_term.strftime("%y-%m-%d")
+    
+    @api.multi
+    def is_echue(self):        
+        return True if self.payment_term < fields.Datetime.now() else False
+    
+    
     @api.multi
     def reconcil(self):
         payment_obj = self.env['extraschool.payment']
