@@ -8,6 +8,7 @@
 			    		width: 100%;
 			    		display: block;
 			    		margin: 1cm 0cm 0cm 0cm;
+			    		page-break-inside: avoid;
 			    	}
 			    	
 			    	#invoice_summary div.your_ref{
@@ -41,7 +42,7 @@
 			    			    	
 				</style>
 							
-	        	<div id="invoice_summary">
+	        	<div id="invoice_summary" >
 	        		<h2><span t-esc="summary_invoice_title" /></h2>	
 	        		<p>Les factures suivantes sont toujours en attente de paiement.</p>										        		
 	        		<table>
