@@ -86,7 +86,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
                         presta.prestation_times_of_the_day_id = pod.id
                 dup_pod.pda_prestationtime_ids.unlink()
                 
-            dup_pod.unlink()
+            dup_pod_ids.unlink()
             pod.reset()
         
         
