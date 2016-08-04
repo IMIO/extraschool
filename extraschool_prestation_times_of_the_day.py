@@ -152,8 +152,8 @@ class extraschool_prestation_times_of_the_day(models.Model):
         
         last_occu = None
         zz=0
-        for presta in self.prestationtime_ids.sorted(key=lambda r: ("%s%.2f" % (r.activity_occurrence_id.id, r.prestation_time))):
-            #print "presta : %s %s" % (presta.activity_occurrence_id, presta.prestation_time)
+        for presta in self.prestationtime_ids.sorted(key=lambda r: ("%s%s" % (r.activity_occurrence_id.id, ('%.2f' % (r.prestation_time)).zfill(5)))):
+            #print "presta : %s %s %s" % (presta.activity_occurrence_id.id, presta.activity_occurrence_id.name, ('%.2f' % (presta.prestation_time)).zfill(5))
             i = zz % 2
             #check alternate E / S
             if presta.es != es[i]:
@@ -431,7 +431,9 @@ class extraschool_prestation_times_of_the_day(models.Model):
         else:
             self.verified = True
         
+        print self.verified
         self.last_check_entry_exit()
+        print self.verified
               
         return self
     
