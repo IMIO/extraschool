@@ -164,32 +164,41 @@ class extraschool_invoice_wizard(models.TransientModel):
                                 from extraschool_childposition
                                 where position = (select count(*) + 1
                                  from extraschool_child ec 
-                                 where  ept.parent_id = ec.parentid
-                                    and id <> ept.childid
-                                    and ec.birthdate <= (select birthdate from extraschool_child where id = ept.childid)
-                                    )) as child_position_id
+                                 where  i.parentid = ec.parentid
+                                    and ec.id <> ip.childid
+                                    and ec.birthdate <= (select birthdate from extraschool_child where id = ip.childid)
+                                    ))
                             """,
-               'byparentwp' : """(select min(id) 
-                                from extraschool_childposition
-                                where position = (select count(distinct childid) + 1
+               'byparentwp' : """(select min(cp.id) 
+                                from extraschool_childposition cp
+                                where position = (select count(distinct ep.childid) + 1
                                  from extraschool_prestationtimes ep
                                  left join extraschool_child ec on ep.childid = ec.id
                                  left join extraschool_activityoccurrence aao on aao.id = ep.activity_occurrence_id
-                                 left join extraschool_activity aa on aa.id = aao.activityid                                                                  
-                                 where  ep.parent_id = ept.parent_id 
-                                    and (activity_occurrence_id = ept.activity_occurrence_id
-                                            or tarif_group_name = aa.tarif_group_name
+                                 left join extraschool_activity aa on aa.id = aao.activityid   
+                                 where  ep.parent_id = i.parentid 
+                                    and (
+                                          (
+                                            tarif_group_name is null and  
+                                            ep.activity_occurrence_id = ip.activity_occurrence_id
+                                          ) or
+                                          ( 
+                                            tarif_group_name is not null 
+                                            and tarif_group_name = aa.tarif_group_name 
+                                            and ep.prestation_date = ip.prestation_date)
+                                          
                                         )
-                                    and childid <> ept.childid
-                                    and ec.birthdate <= (select birthdate from extraschool_child where id = ept.childid)
-                                    )) as child_position_id
+                                    and invoiced_prestation_id is not NULL
+                                    and ep.childid <> ip.childid
+                                    and ec.birthdate <= (select birthdate from extraschool_child where id = ip.childid)
+                                    ))
                             """,
                 'byparent_nb_childs' : """(select min(id) 
                                 from extraschool_childposition
                                 where position = (select count(*)
                                  from extraschool_child ec 
-                                 where  parent_id = ec.parentid
-                                    )) as child_position_id
+                                 where  i.parentid = ec.parentid
+                                    ))
                             """,
 
                 'byparent_nb_childs_wp' : """(select min(id) 
@@ -199,11 +208,19 @@ class extraschool_invoice_wizard(models.TransientModel):
                                  left join extraschool_child ec on ep.childid = ec.id
                                  left join extraschool_activityoccurrence aao on aao.id = ep.activity_occurrence_id
                                  left join extraschool_activity aa on aa.id = aao.activityid   
-                                 where  ep.parent_id = ept.parent_id 
-                                    and (tarif_group_name = aa.tarif_group_name
-                                            or activity_occurrence_id = ept.activity_occurrence_id
+                                 where  ep.parent_id = i.parentid 
+                                    and (
+                                          (
+                                            tarif_group_name is null and  
+                                            ep.activity_occurrence_id = ip.activity_occurrence_id
+                                          ) or
+                                          ( 
+                                            tarif_group_name is not null 
+                                            and tarif_group_name = aa.tarif_group_name 
+                                            and ep.prestation_date = ip.prestation_date)
+                                          
                                         )
-                                    )) as child_position_id
+                                    and invoiced_prestation_id is not NULL
                             """,
 
                'byaddress' : """(select min(id)
@@ -212,9 +229,9 @@ class extraschool_invoice_wizard(models.TransientModel):
                                      from extraschool_child ec
                                      left join extraschool_parent pp on pp.id = ec.parentid
                                      where  pp.streetcode = p.streetcode
-                                        and ec.id <> ept.childid
-                                        and ec.birthdate <= (select birthdate from extraschool_child where id = ept.childid)
-                                        )) as child_position_id
+                                        and ec.id <> ip.childid
+                                        and ec.birthdate <= (select birthdate from extraschool_child where id = ip.childid)
+                                        ))
                             """,
                'byaddresswp' : """(select min(id)
                                     from extraschool_childposition
@@ -225,12 +242,21 @@ class extraschool_invoice_wizard(models.TransientModel):
                                      left join extraschool_activityoccurrence aao on aao.id = ep.activity_occurrence_id
                                      left join extraschool_activity aa on aa.id = aao.activityid   
                                      where  pp.streetcode = p.streetcode
-                                        and (activity_occurrence_id = ept.activity_occurrence_id
-                                            or tarif_group_name = aa.tarif_group_name
-                                            )
-                                        and childid <> ept.childid
-                                        and ec.birthdate <= (select birthdate from extraschool_child where id = ept.childid)
-                                        )) as child_position_id
+                                        and (
+                                          (
+                                            tarif_group_name is null and  
+                                            ep.activity_occurrence_id = ip.activity_occurrence_id
+                                          ) or
+                                          ( 
+                                            tarif_group_name is not null 
+                                            and tarif_group_name = aa.tarif_group_name 
+                                            and ep.prestation_date = ip.prestation_date)
+                                          
+                                        )
+                                        and invoiced_prestation_id is not NULL
+                                        and childid <> ip.childid
+                                        and ec.birthdate <= (select birthdate from extraschool_child where id = ip.childid)
+                                        ))
                             """,
                'byaddress_nb_childs' : """(select min(id)
                                     from extraschool_childposition
@@ -238,7 +264,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                      from extraschool_child ec
                                      left join extraschool_parent pp on pp.id = ec.parentid
                                      where  pp.streetcode = p.streetcode
-                                        )) as child_position_id
+                                        ))
                             """,
                                                         
                'byaddress_nb_childs_wp' : """(select min(id)
@@ -250,10 +276,19 @@ class extraschool_invoice_wizard(models.TransientModel):
                                      left join extraschool_activityoccurrence aao on aao.id = ep.activity_occurrence_id
                                      left join extraschool_activity aa on aa.id = aao.activityid   
                                      where  pp.streetcode = p.streetcode
-                                        and (activity_occurrence_id = ept.activity_occurrence_id
-                                                or tarif_group_name = aa.tarif_group_name
-                                            )
-                                        )) as child_position_id
+                                        and (
+                                          (
+                                            tarif_group_name is null and  
+                                            ep.activity_occurrence_id = ip.activity_occurrence_id
+                                          ) or
+                                          ( 
+                                            tarif_group_name is not null 
+                                            and tarif_group_name = aa.tarif_group_name 
+                                            and ep.prestation_date = ip.prestation_date)
+                                          
+                                        )
+                                        and invoiced_prestation_id is not NULL
+                                        )) 
                             """,
 
                }    
@@ -337,9 +372,9 @@ class extraschool_invoice_wizard(models.TransientModel):
             raise Warning(_("There is no presta to invoice !!!"))
                 
         #search parent to be invoiced
-        sql_mega_invoicing = """select c.schoolimplantation as schoolimplantation, ept.parent_id as parent_id, childid, activity_occurrence_id,
-                                    sum(case when es = 'S' then prestation_time else 0 end) - sum(case when es = 'E' then prestation_time else 0 end) as duration,
-                                    """ + self.get_sql_position_querry() + """
+        sql_mega_invoicing = """select c.schoolimplantation as schoolimplantation, ept.parent_id as parent_id, childid, min(activity_occurrence_id) activity_occurrence_id,
+                                    sum(case when es = 'S' then prestation_time else 0 end) - sum(case when es = 'E' then prestation_time else 0 end) as duration
+                                    
                                 from extraschool_prestationtimes ept
                                 left join extraschool_child c on ept.childid = c.id
                                 left join extraschool_parent p on p.id = c.parentid
@@ -350,8 +385,8 @@ class extraschool_invoice_wizard(models.TransientModel):
                                         and ept.activity_category_id = %s
                                         and invoiced_prestation_id is NULL
                                         and c.schoolimplantation in (""" + ','.join(map(str, self.schoolimplantationid.ids))+ """)  
-                                group by c.schoolimplantation,ept.parent_id,childid, activity_occurrence_id,p.streetcode,case when tarif_group_name = '' then a.name else tarif_group_name  end
-                                order by c.schoolimplantation,parent_id, activity_occurrence_id;"""
+                                group by c.schoolimplantation,ept.parent_id,childid, p.streetcode,case when tarif_group_name = '' or tarif_group_name is NULL then a.name else tarif_group_name  end, ept.prestation_date
+                                order by c.schoolimplantation,parent_id, min(activity_occurrence_id);"""
 
 #         print "---------------"
 #         print (sql_mega_invoicing) % (self.period_from, self.period_to, self.activitycategory.id)
@@ -393,23 +428,58 @@ class extraschool_invoice_wizard(models.TransientModel):
                                  'childid': invoice_line['childid'],
                                  'activity_occurrence_id': invoice_line['activity_occurrence_id'],
                                  'duration': duration,
-                                 'child_position_id': invoice_line['child_position_id'],
+                                 #'child_position_id': invoice_line['child_position_id'],
                                  }).id)
         
         self.activitycategory.invoicelastcomstruct = next_invoice_num + 1
+                                  
         #Mise à jour lien entre invoice line et presta
         sql_update_link_to_presta = """update extraschool_prestationtimes ept
-                                    set invoiced_prestation_id = (select id from extraschool_invoicedprestations where childid = ept.childid and activity_occurrence_id = ept.activity_occurrence_id)
-                                    from extraschool_child c 
+                                    set invoiced_prestation_id = (select iiip.id 
+                                                                  from extraschool_invoicedprestations iiip
+                                                                  left join extraschool_activity aa on aa.id = activity_activity_id  
+                                                                  where childid = ept.childid and 
+                                                                        (iiip.activity_occurrence_id = ept.activity_occurrence_id or
+                                                                        (a.tarif_group_name is not NULL and a.tarif_group_name = aa.tarif_group_name
+                                                                        and ept.prestation_date = iiip.prestation_date))
+                                                                        )
+                                    from extraschool_child c, extraschool_activityoccurrence ao, extraschool_activity a
                                     where c.id = ept.childid and
+                                        ao.id = ept.activity_occurrence_id and
+                                        a.id = ao.activityid and
                                         ept.prestation_date between %s and %s
                                         and verified = True
-                                        and activity_category_id = %s
+                                        and ept.activity_category_id = %s
                                         and c.schoolimplantation in (""" + ','.join(map(str, self.schoolimplantationid.ids))+ """);
                                     """     
         self.env.cr.execute(sql_update_link_to_presta, (self.period_from, self.period_to, self.activitycategory.id,))
 
-        
+        #Mise à jour position de l'enfant
+        sql_update_child_position = """
+                                        UPDATE extraschool_invoicedprestations ip
+                                        SET child_position_id = """ + self.get_sql_position_querry() + """
+                                        from extraschool_invoice i, extraschool_parent p
+                                        where i.id = ip.invoiceid and
+                                              p.id = i.parentid and
+                                            ip.id in (""" + ','.join(map(str, invoice_line_ids))+ """); 
+                                    """
+#        print sql_update_child_position
+        self.env.cr.execute(sql_update_child_position, ())  
+
+        #Mise à jour description with 
+        sql_update_description = """
+                                        UPDATE extraschool_invoicedprestations ip
+                                        SET description = a.tarif_group_name || ' - ' || to_char(ip.prestation_date,'DD-MM-YYYY') 
+                                        from extraschool_activityoccurrence ao, extraschool_activity a
+                                        where ao.id = ip.activity_occurrence_id and
+                                        a.id = ao.activityid and
+                                        a.tarif_group_name is not Null and a.tarif_group_name <> '' and
+                                            ip.id in (""" + ','.join(map(str, invoice_line_ids))+ """); 
+                                    """
+#        print sql_update_description
+        self.env.cr.execute(sql_update_description, ())  
+
+                
         #Mise à jour des pricelist
         sql_update_price_list = """UPDATE extraschool_invoicedprestations ip
                                 SET price_list_version_id = 
@@ -431,7 +501,7 @@ class extraschool_invoice_wizard(models.TransientModel):
         
 #        self.env.invalidate_all()       
         self.env.cr.execute(sql_update_price_list)
-        print "#check if pricelist is correctly set"
+#        print "#check if pricelist is correctly set"
         #check if pricelist is correctly set
         sql_check_verified = """select count(*) as verified_count
                                 from extraschool_invoicedprestations ip
@@ -520,7 +590,7 @@ class extraschool_invoice_wizard(models.TransientModel):
         
         inv_obj.browse(invoice_ids).reconcil()
         
-        self.env['report'].get_pdf(inv_obj.browse(invoice_ids),'extraschool.invoice_report_layout')
+        #self.env['report'].get_pdf(inv_obj.browse(invoice_ids),'extraschool.invoice_report_layout')
         
         view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','extraschool.biller'),
                                                              ('name','=','Biller.form')])
