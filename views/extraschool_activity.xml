@@ -20,6 +20,11 @@
 			<field name="arch" type="xml">
 				<tree string="Activity">
                     <field name="name"/>                     			
+                    <field name="prest_from"/>
+					<field name="prest_to"/>
+					<field name="tarif_group_name"/>
+					<field name="validity_from"/>                     			
+					<field name="validity_to"/>                     			
 				</tree>
 			</field>
 		</record>
@@ -97,10 +102,24 @@
             </form>
             </field> 
         </record>
+
+        <record id="extraschool_activity_search_view" model="ir.ui.view">
+            <field name="name">extraschool_activity.search</field>
+            <field name="model">extraschool.activity</field>
+            <field name="rn" />
+            <field name="arch" type="xml">
+                <search string="Activity Search">
+                   <field name="name"/>       
+                   <filter string="Actif" name="actif" icon="terp-accessories-archiver" domain="[('validity_from','&lt;=',datetime.datetime.now().strftime('%Y-%m-%d')),('validity_to','&gt;=',datetime.datetime.now().strftime('%Y-%m-%d'))]"/>                   	                                      	                   	         
+                </search>
+            </field>
+        </record>
+                        
         <record model="ir.actions.act_window" id="action_extraschool_activity">
 			<field name="name">Activity</field>
 			<field name="res_model">extraschool.activity</field>
 			<field name="view_type">form</field>
+			<field name="context">{"search_default_actif":1}</field>       
 		</record>
 	</data>
 </openerp>
