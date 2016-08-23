@@ -28,7 +28,7 @@ class extraschool_price_list(models.Model):
     _name = 'extraschool.price_list'
     _description = 'Activities price list'
     
-    name = fields.Char('Name', size=50)  
+    name = fields.Char('Name')  
     price_list_version_ids = fields.One2many('extraschool.price_list_version', 'price_list_id',string='Versions',copy=True)
 
     
@@ -46,7 +46,7 @@ class extraschool_price_list_version(models.Model):
     _name = 'extraschool.price_list_version'
     _description = 'Activities price list version'
     
-    name = fields.Char('Name', size=50)
+    name = fields.Char('Name')
     price_list_id = fields.Many2one('extraschool.price_list', 'Price list',ondelete='cascade')          
     validity_from = fields.Date('Validity from')
     validity_to = fields.Date('Validity to')
@@ -56,5 +56,4 @@ class extraschool_price_list_version(models.Model):
     period_duration = fields.Integer('Period Duration')  
     period_tolerance = fields.Integer('Period Tolerance')  
     price = fields.Float('Price',digits=(7,3))
-    
-extraschool_price_list_version()
+
