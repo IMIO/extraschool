@@ -435,7 +435,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                   
         #Mise à jour lien entre invoice line et presta
         sql_update_link_to_presta = """update extraschool_prestationtimes ept
-                                    set invoiced_prestation_id = (select iiip.id 
+                                    set invoiced_prestation_id = (select max(iiip.id) 
                                                                   from extraschool_invoicedprestations iiip
                                                                   left join extraschool_activity aa on aa.id = activity_activity_id  
                                                                   where childid = ept.childid and 
