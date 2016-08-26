@@ -20,8 +20,8 @@
 			<field name="arch" type="xml">
 				<tree string="Activity">
                     <field name="name"/>                     			
-                    <field name="prest_from"/>
-					<field name="prest_to"/>
+                    <field name="prest_from" widget="float_time"/>
+					<field name="prest_to" widget="float_time"/>
 					<field name="tarif_group_name"/>
 					<field name="validity_from"/>                     			
 					<field name="validity_to"/>                     			
