@@ -332,6 +332,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                                                                 ])
 
         if len(child_reg_ids):
+            print "child_reg_ids : %s" % (child_reg_ids)
             raise Warning(_("At least one child registration is not validated for this period!!!"))    
 
         
@@ -404,8 +405,7 @@ class extraschool_invoice_wizard(models.TransientModel):
         for invoice_line in invoice_lines:
             if saved_parent_id != invoice_line['parent_id'] or saved_schoolimplantation_id != invoice_line['schoolimplantation']:
                 saved_parent_id = invoice_line['parent_id']
-                saved_schoolimplantation_id = invoice_line['schoolimplantation']
-                next_invoice_num += 1
+                saved_schoolimplantation_id = invoice_line['schoolimplantation']                
                 com_struct_prefix_str = self.activitycategory.invoicecomstructprefix
                 com_struct_id_str = str(next_invoice_num).zfill(7)
                 com_struct_check_str = str(long(com_struct_prefix_str+com_struct_id_str) % 97).zfill(2)
@@ -420,7 +420,8 @@ class extraschool_invoice_wizard(models.TransientModel):
                                             'payment_term': biller.payment_term,
                                             'structcom': payment_obj.format_comstruct('%s%s%s' % (com_struct_prefix_str,com_struct_id_str,com_struct_check_str))})
                 invoice_ids.append(invoice.id)
-
+                next_invoice_num += 1
+                
             duration_h = int(invoice_line['duration'])
             duration_m = int(ceil(round((invoice_line['duration']-duration_h)*60)))
             duration = duration_h*60 + duration_m
@@ -431,7 +432,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                  #'child_position_id': invoice_line['child_position_id'],
                                  }).id)
         
-        self.activitycategory.invoicelastcomstruct = next_invoice_num + 1
+        self.activitycategory.invoicelastcomstruct = next_invoice_num
                                   
         #Mise à jour lien entre invoice line et presta
         sql_update_link_to_presta = """update extraschool_prestationtimes ept
