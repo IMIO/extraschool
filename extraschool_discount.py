@@ -29,13 +29,6 @@ class extraschool_discount(models.Model):
     _description = 'Discount'
 
     name = fields.Char('Name', size=50)
-    activities = fields.Many2many('extraschool.activity','extraschool_discount_activity_rel', 'discount_id', 'activity_id','Activities')
-    wichactivities = fields.Selection((('OneOf','One of these activities'),('Each','Each of these activities'),('Sum','Sum of these activities')),'Wich activities')
-    childtypes = fields.Many2many('extraschool.childtype','extraschool_discount_childtype_rel', 'discount_id', 'childtype_id','Childtypes')
-    childposition_ids = fields.Many2many('extraschool.childposition','extraschool_activity_childposition_rel', 'activity_id', 'childposition_id','Child position')
-    period = fields.Selection((('by_day','By Day'),('by_invoice','By Invoice')),'Period')
-    discounttype = fields.Selection((('sub','Subtraction'),('prc','Percentage'),('max','Max amount')),'Discount type')
-    discount = fields.Char('Discount', size=6)
-    discountrule = fields.Many2many('extraschool.discountrule','extraschool_discount_discountrule_rel', 'discount_id', 'discountrule_id','Discount Rule')
 
-extraschool_discount()
+    def compute(self, invoice_ids):
+        return True
