@@ -30,6 +30,8 @@ from openerp.exceptions import except_orm, Warning, RedirectWarning
 class extraschool_coda(models.Model):
     _name = 'extraschool.coda'
 
+    _order = 'codadate desc'
+    
     name = fields.Char('Name', size=20)
     codafile = fields.Binary('CODA File')
     codadate = fields.Date('CODA Date',readonly=True)
