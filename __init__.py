@@ -36,7 +36,6 @@ import extraschool_childsimportfilter
 import extraschool_childsworkbook_wizard
 import extraschool_coda
 import extraschool_discount
-import extraschool_discountrule
 import extraschool_guardian
 import extraschool_guardianprestationtimes
 import extraschool_importlevelrule
