@@ -515,7 +515,7 @@ class extraschool_invoice_wizard(models.TransientModel):
         if verified_count[0]['verified_count']:
 
             print "At least one price list is missing !!!\n "
-            sql_check_missing_pl = """select extraschool_activityoccurrence.name
+            sql_check_missing_pl = """select ip.childid as id, extraschool_activityoccurrence.name as name
                                 from extraschool_invoicedprestations ip 
                                 left join extraschool_activityoccurrence on activity_occurrence_id = extraschool_activityoccurrence.id
                                 where ip.id in (""" + ','.join(map(str, invoice_line_ids))+ """)
@@ -526,9 +526,8 @@ class extraschool_invoice_wizard(models.TransientModel):
             missing_pls = self.env.cr.dictfetchall()
             message = _("At least one price list is missing !!!\n ")
             for missing_pl in missing_pls:
-                message += "%s\n" % (missing_pl['name'])
-            print "+++++++++++++++++======================="
-            print message
+                message += "%s - %s\n" % (missing_pl['id'], missing_pl['name'])
+                
             raise Warning(message)
         #Mise à jour des prix et unité de tps
         invoice_line_ids_sql = (tuple(invoice_line_ids),)
