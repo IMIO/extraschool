@@ -98,6 +98,12 @@ class extraschool_remindersjournal(models.Model):
                 thread = threading.Thread(target=self.generate_pdf_thread, args=(cr, uid, sub_reminders,self.env.context))
                 threaded_report.append(thread)
                 thread.start()
+
+    @api.one
+    def delete(self):
+        self.reminder_ids.unlink()
+        self.reminders_journal_item_ids.unlink()
+        self.unlink()
                        
     @api.one
     def validate(self):
