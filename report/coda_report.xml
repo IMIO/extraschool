@@ -1,0 +1,98 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+		<template id="report_coda_report">
+		    <style type="text/css">
+		        .page{
+		    		width: 100%;
+		    		display: block;
+		    	}
+		    			    	
+				.page table {
+		    		width: 100%;
+					font-size:11px;
+					border-width: 1px;
+					border-collapse: collapse;
+					margin-top: 1cm;
+				}
+				.page table th {
+					border-width: 1px;
+					padding: 8px;
+					border-style: solid;
+					background-color: #dedede;
+				}
+				.page table td {
+					border-width: 1px;
+					padding: 8px;
+					border-style: solid;
+				}
+				
+				.amount {
+					float : right;
+					text-align: right;		
+				}
+
+			</style>
+			<t t-foreach="docs" t-as="coda_import">
+				
+		        <div class="page">
+		            <h2>Paiements acceptés</h2>
+		            <table>
+		            	<tr>
+	            			<th>Nom</th>
+	            			<th>Com struct</th>
+	            			<th>Prefix</th>
+	            			<th>Montant</th>
+		            	</tr>
+ 		            	<t t-foreach="coda_import.paymentids" t-as="pay">
+		            		<tr>
+		            			<td><span t-field="pay.name"/></td>
+		            			<td><span t-field="pay.structcom"/></td>
+		            			<td><span t-field="pay.structcom_prefix"/></td>
+		            			<td class="amount"><span> <t t-esc="'%.2f' %  (pay.amount)" /> €</span></td>
+		            		</tr>
+		            	</t>
+		            	<tr>
+		            		<td colspan="4" class="amount"><span> <t t-esc="'%.2f' %  (coda_import.amount_accepted)" /> €</span></td>
+		            	</tr>
+		            </table>
+		            <h2>Paiements rejetés</h2>
+		            <table>
+		            	<tr>
+	            			<th>Nom</th>
+	            			<th>Cause du rejet</th>
+	            			<th>Com struct</th>
+	            			<th>Com libre</th>
+	            			<th>Montant</th>
+		            	</tr>
+  		            	<t t-foreach="coda_import.rejectids" t-as="rej">
+		            		<tr>
+		            			<td><span t-field="rej.name"/></td>
+		            			<td><span t-field="rej.rejectcause"/></td>
+		            			<td><span t-field="rej.structcom"/></td>
+		            			<td><span t-field="rej.freecom"/></td>
+		            			<td class="amount"><span> <t t-esc="'%.2f' %  (rej.amount)" /> €</span></td>
+		            		</tr>
+		            	</t>
+		            	<tr>
+		            		<td colspan="5" class="amount"><span> <t t-esc="'%.2f' %  (coda_import.amount_rejected)" /> €</span></td>
+		            	</tr>		            				            	
+		            </table>
+		        </div>
+			</t>
+		</template>
+
+		
+		<report
+		    id="extraschool_coda_import_report"
+		    model="extraschool.coda"
+		    string="Coda"
+		    report_type="qweb-pdf"
+		    name="extraschool.report_coda_report"
+		    attachment_use="False"
+		/>
+	
+	</data>
+</openerp>	
+	
+	
