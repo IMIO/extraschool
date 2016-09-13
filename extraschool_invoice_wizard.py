@@ -191,7 +191,30 @@ class extraschool_invoice_wizard(models.TransientModel):
                                     and invoiced_prestation_id is not NULL
                                     and ep.childid <> ip.childid
                                     and ec.birthdate <= (select birthdate from extraschool_child where id = ip.childid)
-                                    ))
+                                    )
+                                    -
+                                    (select count(distinct ep.childid)
+                                     from extraschool_prestationtimes ep
+                                     left join extraschool_child ec on ep.childid = ec.id
+                                     left join extraschool_activityoccurrence aao on aao.id = ep.activity_occurrence_id
+                                     left join extraschool_activity aa on aa.id = aao.activityid   
+                                     where  ep.parent_id = i.parentid 
+                                        and (
+                                              (
+                                                tarif_group_name is null and  
+                                                ep.activity_occurrence_id = ip.activity_occurrence_id
+                                              ) or
+                                              ( 
+                                                tarif_group_name is not null 
+                                                and tarif_group_name = aa.tarif_group_name 
+                                                and ep.prestation_date = ip.prestation_date)
+                                              
+                                            )
+                                        and invoiced_prestation_id is not NULL
+                                        and ep.childid > ip.childid
+                                        and ec.birthdate = (select birthdate from extraschool_child where id = ip.childid)
+                                        ) 
+                                    )
                             """,
                 'byparent_nb_childs' : """(select min(id) 
                                 from extraschool_childposition
@@ -515,9 +538,10 @@ class extraschool_invoice_wizard(models.TransientModel):
         if verified_count[0]['verified_count']:
 
             print "At least one price list is missing !!!\n "
-            sql_check_missing_pl = """select ip.childid as id, extraschool_activityoccurrence.name as name
+            sql_check_missing_pl = """select ip.childid as id, cp.name as child_position_id, extraschool_activityoccurrence.name as name
                                 from extraschool_invoicedprestations ip 
                                 left join extraschool_activityoccurrence on activity_occurrence_id = extraschool_activityoccurrence.id
+                                left join extraschool_childposition cp on cp.id = ip.child_position_id
                                 where ip.id in (""" + ','.join(map(str, invoice_line_ids))+ """)
                                     and price_list_version_id is null
                                 ;"""
@@ -526,7 +550,7 @@ class extraschool_invoice_wizard(models.TransientModel):
             missing_pls = self.env.cr.dictfetchall()
             message = _("At least one price list is missing !!!\n ")
             for missing_pl in missing_pls:
-                message += "%s - %s\n" % (missing_pl['id'], missing_pl['name'])
+                message += "%s - %s - %s\n" % (missing_pl['id'], missing_pl['child_position_id'], missing_pl['name'])
                 
             raise Warning(message)
         #Mise à jour des prix et unité de tps
