@@ -65,7 +65,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
         dup_sql = """
                     select min(id) as id
                     from extraschool_prestation_times_of_the_day pod
-                    where (select count(*) from extraschool_prestationtimes where prestation_times_of_the_day_id = pod.id and invoiced_prestation_id is not null) = 0
+                    where date_of_the_day > '2016-09-01'
                     group by child_id, activity_category_id, date_of_the_day
                     having count(*) > 1
                     """
