@@ -36,6 +36,8 @@
 			<t t-foreach="docs" t-as="coda_import">
 				
 		        <div class="page">
+		        	<t t-set="doc_date" t-value="'%s' % (time.strftime('%d-%m-%Y',time.strptime(coda_import.codadate,'%Y-%m-%d')))"/>
+		        	<h1>Import CODA du : <span t-esc="doc_date"/></h1>
 		            <h2>Paiements acceptés</h2>
 		            <table>
 		            	<tr>
@@ -55,7 +57,7 @@
 		            	<tr>
 		            		<td colspan="4" class="amount"><span> <t t-esc="'%.2f' %  (coda_import.amount_accepted)" /> €</span></td>
 		            	</tr>
-		            </table>
+		            </table>		            
 		            <h2>Paiements rejetés</h2>
 		            <table>
 		            	<tr>
