@@ -86,7 +86,7 @@ class extraschool_mainsettings(models.Model):
             if childlevel['ordernumber'] < levelbeforedisable:
                 for level in levels:
                     if newlevelid==0 and level['ordernumber'] > childlevel['ordernumber']:
-                        newlevelid=level['ordernumber']
+                        newlevelid=level['id']
                 cr.execute('select * from extraschool_class where  id in (select class_id from extraschool_class_level_rel where level_id=%s) order by name',(str(newlevelid),))
                 childClasses = cr.dictfetchall()
                 newclassid=0
