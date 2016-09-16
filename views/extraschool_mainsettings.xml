@@ -20,11 +20,15 @@
 	                    <field name="emailfornotifications"/>
 	                    <newline/>
 	                	<field name="logo" widget="image" class="oe_avatar oe_left" />
-						<newline/>                	
+						<newline/>       
+						<field name="levelbeforedisable" />
+						<newline/>                								         	
 	                    <button name="update" string="Save" icon="gtk-apply" type="object"/>
 						<newline/>                	
 	                    <button name="update_parent_send_method" string="Update parent send method" icon="gtk-apply" type="object"/>
-					</group>
+						<newline/>                	
+	                    <button name="childupgradelevels" string="Update level" icon="gtk-apply" type="object"/>
+	                    </group>
 				</form>
 			</field>
 		</record>

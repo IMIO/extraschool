@@ -25,6 +25,7 @@ from openerp import models, api, fields
 from openerp.api import Environment
 from openerp.exceptions import Warning
 from openerp.exceptions import except_orm, Warning, RedirectWarning
+from datetime import *
 
 class extraschool_mainsettings(models.Model):
     _name = 'extraschool.mainsettings'
@@ -38,6 +39,7 @@ class extraschool_mainsettings(models.Model):
     processedcodasfolder = fields.Char('processedcodasfolder', size=80)
     emailfornotifications = fields.Char('Email for notifications', size=80)
     logo = fields.Binary()
+    levelbeforedisable = fields.Many2one('extraschool.level', 'Level', required=True)   
             
     @api.one
     def update(self):
@@ -55,5 +57,50 @@ class extraschool_mainsettings(models.Model):
         parent = self.env['extraschool.parent'].search(['|',('email', '=', False),
                                                             ('email', '=', '')]).write({'invoicesendmethod': 'onlybymail',
                                                                                         'remindersendmethod': 'onlybymail'})
-    
-extraschool_mainsettings()
+    @api.one
+    def childupgradelevels(self):
+        cr, uid = self.env.cr, self.env.user.id 
+        obj_child = self.pool.get('extraschool.child')
+        obj_class = self.pool.get('extraschool.class')
+                
+
+        obj_level = self.pool.get('extraschool.level')
+        obj_child = self.pool.get('extraschool.child')
+        levelbeforedisable = obj_level.read(cr, uid, [self.levelbeforedisable.id], ['ordernumber'])[0]['ordernumber']
+        cr.execute('select * from extraschool_child where create_date < %s', (str(datetime.now().year)+'-07-01',))
+        print 'select * from extraschool_child where create_date < %s' % (str(datetime.now().year)+'-07-01')
+        childs = cr.dictfetchall()
+        cr.execute('select * from extraschool_level')
+        levels = cr.dictfetchall()
+        for child in childs:
+            cr.execute('select * from extraschool_class where id in (select class_id from extraschool_class_level_rel where level_id=%s) order by name',(str(child['levelid']),))
+            childClasses = cr.dictfetchall()
+            currentClassPosition = 0
+            i=1
+            for childClass in childClasses:
+                if child['classid'] == childClass['id']:
+                    currentClassPosition=i
+                i=i+1
+            childlevel = obj_level.read(cr, uid, [child['levelid']], ['ordernumber'])[0]
+            newlevelid=0
+            if childlevel['ordernumber'] < levelbeforedisable:
+                for level in levels:
+                    if newlevelid==0 and level['ordernumber'] > childlevel['ordernumber']:
+                        newlevelid=level['ordernumber']
+                cr.execute('select * from extraschool_class where  id in (select class_id from extraschool_class_level_rel where level_id=%s) order by name',(str(newlevelid),))
+                childClasses = cr.dictfetchall()
+                newclassid=0
+                if currentClassPosition > 0:
+                    if len(childClasses) >= currentClassPosition:        
+                        newclassid = childClasses[currentClassPosition-1]['id']           
+                    else:
+                        newclassid = childClasses[0]['id']
+                    print "update child %s  oldclass: %s - old level : %s - class : %s - level : %s" % (child['id'],child['classid'],child['levelid'],newclassid,newlevelid)                        
+                    obj_child.write(cr, uid, [child['id']], {'classid': newclassid,'levelid':newlevelid})
+                else:
+                    print "update child %s - old level : %s - level : %s" % (child['id'],child['levelid'],newlevelid)
+                    obj_child.write(cr, uid, [child['id']], {'levelid':newlevelid})
+            else:
+                print "disable child %s" % (child['id'])
+                obj_child.write(cr, uid, [child['id']], {'isdisabled': True})
+
