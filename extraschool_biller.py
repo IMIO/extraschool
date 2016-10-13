@@ -195,6 +195,14 @@ class extraschool_biller(models.Model):
                 'domain': [('biller_id.id', '=',self.id)]
             }           
                         
-
-extraschool_biller()
+    def get_concerned_months(self):
+        start_month = fields.Date.from_string(self.period_from).month
+        end_months=(fields.Date.from_string(self.period_to).year-fields.Date.from_string(self.period_from).year)*12 + fields.Date.from_string(self.period_to).month+1
+        months=[{'year':yr, 'month':mn} for (yr, mn) in (
+            ((m - 1) / 12 + fields.Date.from_string(self.period_from).year, (m - 1) % 12 + 1) for m in range(start_month, end_months)
+            )]      
+        
+        return months  
+        
+        
 

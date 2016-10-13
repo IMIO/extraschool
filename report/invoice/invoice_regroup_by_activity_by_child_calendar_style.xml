@@ -40,50 +40,49 @@
 			</style>
 						
         	<div id="invoice_body">
-        		<table>
-        			<tr>
-	        			<th>Activité</th>
-	        			<th class="col_quantity">Quantité</th>
-	        			<th>Total</th>
-					</tr>
-					<t t-set="saved_child_id" t-value="0"/>										
-					<t t-set="saved_activity" t-value="'******'"/>
-					<t t-set="saved_description" t-value="'*****'"/>										
-					<t t-set="activity_count" t-value="0"/>
-					<t t-set="activity_amount" t-value="0"/>
-					<t t-set="activity_time" t-value="0"/>
-																
-	       			<t t-foreach="invoice.invoice_line_ids.sorted(key=lambda r: (('%s%s') % (r.childid,r.activity_occurrence_id.activityid.short_name)))" t-as="invoice_line">
-	       				<t t-if="saved_child_id != invoice_line.childid or saved_activity != invoice_line.activity_occurrence_id.activityid.short_name">
-	       					<t t-if="activity_count != 0">
-		        				<tr>
-			       					<td><span t-esc="'%s - %s %s' % (saved_child_id.name if saved_child_id != False else '',saved_activity if saved_activity != False else '',saved_description if saved_description != False else '')" /></td> 
-			       					<td class="col_quantity amount"><span t-esc="activity_count" /></td> 
-			       					<td class="amount"><span t-esc="'%.2f €' %  (activity_amount)" /></td> 
-			       				</tr>	       							
-	       					</t>
-	       					<t t-set="saved_child_id" t-value="invoice_line.childid"/>
-	       					<t t-set="saved_activity" t-value="invoice_line.activity_occurrence_id.activityid.short_name"/>
-	       					<t t-set="saved_description" t-value="invoice_line.description"/>								        					
-							<t t-set="activity_count" t-value="0"/>
-							<t t-set="activity_amount" t-value="0"/>
-							<t t-set="activity_time" t-value="0"/>
-						</t>
-	       				<t t-if="saved_activity == invoice_line.activity_occurrence_id.activityid.short_name">
-							<t t-set="activity_count" t-value="activity_count + 1"/>
-							<t t-set="activity_amount" t-value="activity_amount + invoice_line.total_price"/>
-							<t t-set="activity_time" t-value="activity_time + invoice_line.duration"/>
-						</t>						
-	        		</t>
-   					<t t-if="activity_count != 0">
-        				<tr>
-	       					<td><span t-esc="'%s - %s %s' % (saved_child_id.name if saved_child_id != False else '',saved_activity if saved_activity != False else '',saved_description if saved_description != False else '')" /></td> 
-	       					<td class="col_quantity amount"><span t-esc="activity_count" /></td> 
-	       					<td class="amount"><span t-esc="'%.2f €' %  (activity_amount)" /></td> 
-	       				</tr>	       							
-   					</t>
-	        		 	            			        			
-        		</table>
+        		<t t-foreach="invoice.get_concerned_child()" t-as="child">
+		       		<t t-foreach="invoice.get_invoice_calendar(child.id)" t-as="month">     		
+	        		    <table>
+		        			<tr>
+			        			<th colspan="2"><span t-esc="month['month']" /></th>
+			        			<t t-foreach="month['days']" t-as="month_days">
+			        				<th>du <span t-esc="[d for d in month_days if d][0]" /> au <span t-esc="[d for d in month_days if d][-1]" /></th>     		
+		        				</t>
+							</tr>
+			       			<t t-foreach="[0,1,2,3,4,5,6]" t-as="day">
+			       				<tr>
+				       				<td><span t-esc="day" /></td>
+				       				<td>
+				       					<ul>
+					       					<t t-foreach="month['activity']" t-as="activity">
+					       						<li><span t-esc="activity" /></li>			       						
+					       					</t>			       									       						
+				       					</ul>
+				       				</td>
+				       				<t t-foreach="month['quantity']" t-as="month_days">
+				       					<t t-if= "month_days[day]['day_id'] != 0">
+				       						<td>
+				       							<ul>
+					       						<t t-foreach="month_days[day]['quantity']" t-as="quantity">
+						        					<li>
+						        						<t t-if= "quantity != 0">
+						        							<t-span t-esc="quantity" />
+						        						</t>	
+						        					</li>
+						        				</t>     					       									       										       											       							
+				       												       								
+				       							</ul>
+				       						</td>
+				       					</t>
+				       					<t t-if= "month_days[day]['day_id'] == 0">
+				       						<td></td>
+				        				</t>
+			        				</t>		       							       					
+			       				</tr>
+							</t>
+						</table>
+					</t>        			        			
+        		</t>
        		</div>
 		</template>
 				

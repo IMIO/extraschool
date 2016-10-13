@@ -25,6 +25,7 @@ from openerp import models, api, fields
 from openerp.api import Environment
 import openerp.addons.decimal_precision as dp
 import datetime
+import calendar
 
 class extraschool_invoice(models.Model):
     _name = 'extraschool.invoice'
@@ -127,6 +128,53 @@ class extraschool_invoice(models.Model):
                 zz += 1
             
             invoice._compute_balance()
-    
+            
+    def get_concerned_short_name(self):
+        res = []
+        
+        for line in self.invoice_line_ids:
+            if line.activity_activity_id.short_name not in res:
+                res.append(line.activity_activity_id.short_name)
+                
+        return res
+
+            
+    def get_concerned_child(self):
+        res = []
+        
+        for line in self.invoice_line_ids:
+            if line.childid not in res:
+                res.append(line.childid)
+                
+        return res
+
+           
+    def get_invoice_calendar(self, child_id = None):
+        print "child:%s" % (child_id)
+        concened_months = self.biller_id.get_concerned_months()
+        for month in concened_months:
+            month['days'] = calendar.monthcalendar(month['year'], month['month'])
+            month['activity'] = self.get_concerned_short_name()
+            month['quantity'] = []
+            zz=0
+            for week in month['days']:
+                month['quantity'].append([])
+                
+                for d in week:
+                    d={'day_id': d,
+                       'quantity': [],
+                       }
+                    print "%s" % (self.period_from)
+                    for activity in month['activity']:                        
+                        d['quantity'].append(sum(self.invoice_line_ids.filtered(lambda r: r.childid.id == child_id 
+                                                                                and r.prestation_date == '%s-%02d-%02d' % (month['year'],month['month'],d['day_id']) 
+                                                                                and r.activity_activity_id.short_name == activity).mapped('quantity')))
+                    month['quantity'][zz].append(d)
+                
+                zz+=1
+                        
+        print concened_months 
+        
+        return concened_months
 
             
