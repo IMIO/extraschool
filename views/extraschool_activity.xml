@@ -20,6 +20,7 @@
 			<field name="arch" type="xml">
 				<tree string="Activity">
                     <field name="name"/>                     			
+                    <field name="root_id"/>                     			
                     <field name="prest_from" widget="float_time"/>
 					<field name="prest_to" widget="float_time"/>
 					<field name="tarif_group_name"/>
@@ -111,7 +112,10 @@
                 <search string="Activity Search">
                    <field name="name"/>       
                    <filter string="Actif" name="actif" icon="terp-accessories-archiver" domain="[('validity_from','&lt;=',datetime.datetime.now().strftime('%Y-%m-%d')),('validity_to','&gt;=',datetime.datetime.now().strftime('%Y-%m-%d'))]"/>                   	                                      	                   	         
-                </search>
+                   <group  expand='0' string='Group by...'>
+                       <filter string='Root activity' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'root_id'}"/>
+                   </group>   
+            	</search>                                                 
             </field>
         </record>
                         
