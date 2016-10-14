@@ -19,6 +19,7 @@
 					font-size:11px;
 					border-width: 1px;
 					border-collapse: collapse;
+		    		page-break-inside: avoid;
 				}
 				#invoice_body table th {
 					border-width: 1px;
