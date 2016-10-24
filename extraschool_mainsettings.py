@@ -39,7 +39,7 @@ class extraschool_mainsettings(models.Model):
     processedcodasfolder = fields.Char('processedcodasfolder', size=80)
     emailfornotifications = fields.Char('Email for notifications', size=80)
     logo = fields.Binary()
-    levelbeforedisable = fields.Many2one('extraschool.level', 'Level', required=True)   
+    levelbeforedisable = fields.Many2one('extraschool.level', 'Level')   
             
     @api.one
     def update(self):
