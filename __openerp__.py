@@ -119,7 +119,7 @@
         'report/common/double_sign_no_style.xml',
         'report/common/spacer_2cm.xml',
         'report/common/invoice_summary.xml',        
-        'report/common/',        
+        'report/common/payment_info_amount_one_row.xml',        
 
         'extraschool_view.xml',
         
