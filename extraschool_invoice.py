@@ -25,7 +25,10 @@ from openerp import models, api, fields
 from openerp.api import Environment
 import openerp.addons.decimal_precision as dp
 import datetime
+import time
 import calendar
+import re
+
 
 class extraschool_invoice(models.Model):
     _name = 'extraschool.invoice'
@@ -176,5 +179,113 @@ class extraschool_invoice(models.Model):
         print concened_months 
         
         return concened_months
+    
+    @api.one
+    def export_onyx(self):
+        res = []
+        #split street
+        p = re.compile('([^0-9].*|[^0-9]*11 novembre[^0-9]*) ([0-9]{1,})(\/*)([0-9]*)([a-zA-Z]*)')
+        splited_street = p.findall(self.parentid.street)
+        if len(splited_street) == 0:
+            splited_street = [(splited_street,'','','','')]
+        #split rue ecole
+        splited_implantation_street = p.findall(self.schoolimplantationid.street)
+        
+
+        
+        #statique part
+        format_str = ""
+        format_str += "%7s\t" # matricule sur 7 char
+        format_str += "%s\t" # Nom du redev
+        format_str += "%s\t" # prenom du redev
+        format_str += "%s\t" # code rue (facultatif)
+        format_str += "%s\t" # libellé rue
+        format_str += "%s\t" # num
+        format_str += "%s\t" # boite
+        format_str += "%s\t" # index
+        format_str += "%04d\t" # code post sur 4 pos avec leading 0
+        format_str += "%s\t" # localité
+        format_str += "%s\t" # pays
+        format_str += "%s\t" # langue defaut F
+        format_str += "%s\t" # civilité
+        #adresse ecole 
+        format_str += "%s\t" # code rue (facultatif)
+        format_str += "%s\t" # libellé rue
+        format_str += "%s\t" # num
+        format_str += "%s\t" # boite
+        format_str += "%s\t" # index
+        format_str += "%04d\t" # code post sur 4 pos avec leading 0
+        format_str += "%s\t" # localité
+        format_str += "%s\t" # from
+        format_str += "%s\t" # to
+        format_str += "%s\t" # comment
+        #separator
+        format_str += "#"         
+        #dynamique part        
+        format_str += "%7s\t" # matricule sur 7 char
+        format_str += "%s\t" # Nom de l'enfant
+        format_str += "%s\t" # prenom de l'enfant
+        format_str += "#%.2f" # amount
+
+        saved_child = ""
+        str_line = "" 
+        zz = 0
+        amount = 0.0
+        for invoicedline in self.invoice_line_ids.sorted(key=lambda r: r.childid.name):
+            if zz == 0:
+                saved_child = invoicedline.childid.name
+                rn = invoicedline.childid.rn
+                lastname = invoicedline.childid.lastname
+                firstname = invoicedline.childid.firstname
+                
+            if (zz and saved_child != invoicedline.childid.name) or zz == len(self.invoice_line_ids) -1:
+                str_line = format_str % (self.parentid.rn,
+                                        self.parentid.lastname,
+                                        self.parentid.firstname,
+                                        '', # code rue
+                                        splited_street[0][0], # libellé rue
+                                        splited_street[0][1], # num 
+                                        splited_street[0][3], # boite
+                                        splited_street[0][4], # index
+                                        int(self.parentid.zipcode), #code post
+                                        self.parentid.city,
+                                        '', # pays
+                                        'F', # Langue
+                                        '', # civilité
+                                        '', #code rue ecole
+                                        splited_implantation_street[0][0], # libellé rue
+                                        splited_implantation_street[0][1], # num 
+                                        splited_implantation_street[0][3], # boite
+                                        splited_implantation_street[0][4], # index
+                                        int(self.schoolimplantationid.zipcode),
+                                        self.schoolimplantationid.city,
+                                        time.strftime('%d/%m/%Y',time.strptime(self.biller_id.period_from,'%Y-%m-%d')),
+                                        time.strftime('%d/%m/%Y',time.strptime(self.biller_id.period_to,'%Y-%m-%d')),
+                                        '', # comment
+                                        rn,
+                                        lastname,
+                                        firstname,
+                                        amount                                                                            
+                                        )                
+                res.append(str_line) 
+                saved_child = invoicedline.childid.name
+                rn = invoicedline.childid.rn
+                lastname = invoicedline.childid.lastname
+                firstname = invoicedline.childid.firstname
+                
+                amount = invoicedline.total_price
+            else:            
+                amount += invoicedline.total_price
+                
+            zz+=1
+        
+
+                       
+        print "-------------"
+        print "%s" % (res)                                            
+        print "-------------"
+
+        return res
+                
 
             

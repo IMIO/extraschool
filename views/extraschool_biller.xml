@@ -24,7 +24,10 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Biller">
-				<div class="oe_right oe_button_box" name="buttons"> 
+					<header>
+						<button name="export_onyx" string="export onyx" type="object" class="oe_highlight"/>	
+					</header>
+					<div class="oe_right oe_button_box" name="buttons"> 
 					<button name="mail_invoices" 
 						string="Factures courrier" 
 						type="object" 						

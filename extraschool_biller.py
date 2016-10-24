@@ -28,6 +28,12 @@ import re
 from datetime import date, datetime, timedelta as td
 from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
+import base64
+try:
+    import cStringIO as StringIO
+except ImportError:
+    import StringIO
+    
 
 class extraschool_biller(models.Model):
     _name = 'extraschool.biller'
@@ -204,5 +210,26 @@ class extraschool_biller(models.Model):
         
         return months  
         
-        
+    @api.one
+    def export_onyx(self):
+        output = ""
+        line = ""
+        for invoice in self.invoice_ids:
+            lines = invoice.export_onyx()
+            print "****"
+            print lines
+            print "****"
+            
+            for r in invoice.export_onyx():
+                line = r[0]
+                print line
+                output += "%s\n" % (line)
+            
+        attachment_obj = self.env['ir.attachment']
+        attachment_obj.create({'res_model':'extraschool.biller',
+                               'res_id':self.id,
+                               'datas' : output.encode('utf-8').encode('base64'),
+                               'datas_fname': "%s_aes_onyx_.txt" % ('')+'.txt',
+                               'name':"%s_aes_onyx_.txt" % ('')+'.txt'
+                                })    
 
