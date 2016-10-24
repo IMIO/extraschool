@@ -36,6 +36,7 @@
                     <field name="name"/> 
                     <field name="period_duration"/> 
                     <field name="price"/> 
+                    <field name="max_price"/> 
                     <field name="validity_from"/> 
                     <field name="validity_to"/> 
 				</tree>
@@ -70,6 +71,7 @@
 			                	<field name="period_duration"/> 
 			                	<field name="period_tolerance"/> 			                					                		
 			                    <field name="price"/> 
+			                    <field name="max_price"/>
 							</group>
 			        	</page>
 					</notebook>					

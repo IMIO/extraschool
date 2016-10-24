@@ -40,7 +40,6 @@ class extraschool_price_list(models.Model):
                                         ])
         return ids if ids else False
         
-extraschool_price_list()
 
 class extraschool_price_list_version(models.Model):
     _name = 'extraschool.price_list_version'
@@ -56,4 +55,5 @@ class extraschool_price_list_version(models.Model):
     period_duration = fields.Integer('Period Duration')  
     period_tolerance = fields.Integer('Period Tolerance')  
     price = fields.Float('Price',digits=(7,3))
+    max_price =fields.Float('Max price',digits=(7,3),default=0)
 

@@ -1,0 +1,89 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 		
+		<template id="report_payment_info_amount_one_row">
+			<style>
+				#total_row{
+					border-width: 1px;
+					border-style: solid;
+					float: left;
+					width: 100%;
+					page-break-inside: avoid;
+				}
+				
+				#total{
+					width: 40%;
+				    float: right;
+				    margin: 2mm 5mm 2mm 0mm;
+				}
+				
+				#total:after {
+					content: "";
+					display: block;
+					clear: both;				
+				}
+				
+				#total>div{
+					display: block;
+					padding: 0px 8px 0px 8px;
+					width: 100%;
+					float: right;			
+				
+				}
+								
+				#total>div>span.amount {
+					float : right;
+					width: 40%;		
+					text-align: right;		
+				}
+				
+				#total>div>span.zz_label {
+					float : left;
+					width: 50%;					
+				}
+				
+				#total>div.to_pay {
+					font-weight: bold;
+				}
+
+				#payment_info{
+				    margin-left: 5mm;
+					display: block;
+					width: 50%;
+					float : left;
+					padding: 8px;		
+				}
+			</style>
+			<div id="total_row">
+			    
+			<div id="payment_info">
+				<span>Compte: <t t-esc="categ_id.bankaccount" /></span>
+				<br />					
+				<span>BIC: <t t-esc="categ_id.bank_bic" /></span>
+				<br />	
+				<div class="com_struct">
+					<span>Communication structurée <b>obligatoire</b>:<br/>
+					 <t t-esc="com_struct" /></span>					
+				</div>						
+			</div>
+				<div id="total">
+					<div class="amount">
+					  <span class="zz_label">Total</span><span class="amount"><t t-esc="'%.2f' %  (total)" /> €</span>															
+					</div>
+					<div class="amount">
+					  <span class="zz_label">Reçu</span><span class="amount"><t t-esc="'%.2f' %  (received)" /> €</span>															
+					</div>
+					<div class="amount">
+					  <span class="zz_label">Solde</span><span class="amount"><t t-esc="'%.2f' %  (balance)" /> €</span>															
+					</div>
+					<div class="amount to_pay">
+					  <span> A payer avant le <t t-esc="payment_term" /></span>															
+					</div>					
+				</div>								
+			</div>
+		</template>
+
+	</data>
+</openerp>	
+	
+	

@@ -37,22 +37,30 @@
 		    		text-align: right;
 		    		width: 20%;
 				}
+				#invoice_body ul{
+ 				    list-style:none;
+ 				    margin-bottom: 0;
+				}
 		    			    	
 			</style>
 						
         	<div id="invoice_body">
+        	    <t t-set="dayname" t-value="['lundi','mardi','mercredi','jeudi','vendredi','samedi','dimanche']"/>
+        	    <t t-set="monthname" t-value="['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre']"/>
         		<t t-foreach="invoice.get_concerned_child()" t-as="child">
+        		    <br/>
+        		    <span t-esc="child.name"/>
 		       		<t t-foreach="invoice.get_invoice_calendar(child.id)" t-as="month">     		
 	        		    <table>
 		        			<tr>
-			        			<th colspan="2"><span t-esc="month['month']" /></th>
+			        			<th colspan="2"><span t-esc="monthname[month['month']-1]" /></th>
 			        			<t t-foreach="month['days']" t-as="month_days">
 			        				<th>du <span t-esc="[d for d in month_days if d][0]" /> au <span t-esc="[d for d in month_days if d][-1]" /></th>     		
 		        				</t>
 							</tr>
-			       			<t t-foreach="[0,1,2,3,4,5,6]" t-as="day">
+			       			<t t-foreach="[0,1,2,3,4]" t-as="day">
 			       				<tr>
-				       				<td><span t-esc="day" /></td>
+				       				<td><span t-esc="dayname[day]" /></td>
 				       				<td>
 				       					<ul>
 					       					<t t-foreach="month['activity']" t-as="activity">
@@ -68,7 +76,10 @@
 						        					<li>
 						        						<t t-if= "quantity != 0">
 						        							<t-span t-esc="quantity" />
-						        						</t>	
+						        						</t>
+						        						<t t-if= "quantity == 0">
+						        							<![CDATA[&nbsp;]]>
+						        						</t>		
 						        					</li>
 						        				</t>     					       									       										       											       							
 				       												       								

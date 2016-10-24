@@ -35,8 +35,7 @@
     'demo' : [],
     'test' : [],
     'data' : [  
-#        'scripts/update_invoice_payment_term.sql',
-        
+#        'scripts/update_invoice_payment_term.sql',        
         'views/extraschool_activitycategory.xml',
         'views/extraschool_activity.xml',
         'views/extraschool_activityoccurrence.xml',
