@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from openerp import models, api, fields, _
 from openerp.api import Environment
 import openerp.addons.decimal_precision as dp
 import datetime
@@ -131,7 +131,19 @@ class extraschool_invoice(models.Model):
                 zz += 1
             
             invoice._compute_balance()
-            
+
+    @api.multi
+    def cancel(self):
+        for invoice in self:
+            if invoice.balance == invoice.amount_total:
+                invoice.refound_line_ids.create({'invoiceid': self.id,
+                                                 'date': fields.Date.today(),
+                                                 'description': _('Invoice cancelled'),
+                                                 'amount': invoice.balance,})
+                for line in invoice.invoice_line_ids:
+                    line.prestation_ids.write({'invoiced_prestation_id': None})
+                    
+                    
     def get_concerned_short_name(self):
         res = []
         
