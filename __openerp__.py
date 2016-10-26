@@ -56,6 +56,7 @@
         'views/extraschool_manuel_invoice_wizard.xml',
         'views/extraschool_negatif_payment_correction_wizard.xml',       
         'views/extraschool_parent.xml',
+        'views/extraschool_parent_fusion_wizard.xml',
         'views/extraschool_payment.xml',
         'views/extraschool_payment_wizard.xml',
         'views/extraschool_place.xml',

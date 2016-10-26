@@ -70,6 +70,7 @@ import extraschool_taxcertificates_wizard
 import extraschool_timecorrection_wizard
 import extraschool_scheduledtasks
 import extraschool_parent
+import extraschool_parent_fusion_wizard
 import extraschool_school
 import extraschool_schoolimplantation
 import extraschool_class
