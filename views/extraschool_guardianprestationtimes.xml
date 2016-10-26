@@ -71,9 +71,7 @@
 		            	<field name="guardian_id"/>
 		                <field name="prestation_date"/>
 		                <field name="week"/>
-		                <field name="duration" widget="float_time"/>
-		                <field name="weekly_schedule" widget="float_time"/>
-		                <field name="solde" widget="float_time"/>	                		                	
+		                <field name="day_duration" widget="float_time"/>
 					</group>
 		       </form>
             </field> 
@@ -88,10 +86,7 @@
 	                <field name="guardian_id"/>
                     <field name="prestation_date_str" />	                
 	                <field name="week"/>
-	                <field name="day_duration" widget="float_time"/>                	
-	                <field name="duration" widget="float_time"/>
-	                <field name="weekly_schedule" widget="float_time"/>
-	                <field name="solde" widget="float_time"/>	
+	                <field name="day_duration" widget="float_time"/>
 	                <button name="extraschool.action_extraschool_guardian_prestationtimes_filtered" 
 	                		type="action" string="Voir les présences liées" 
 	                		context="{'search_default_guardianid': guardian_id, 'search_default_prestation_date_str': prestation_date_str}" />                		                	
@@ -106,9 +101,6 @@
                 <graph string="Guardian" type="bar">
                      <field name="guardian_id" type="row"/>
                      <field name="week" type="row"/>
-                     <field name="prestation_date" type="row" interval="day"/>
-                     <field name="day_duration" type="measure"/>                	
-					 <field name="solde" type="measure"/>
                  </graph>
              </field>
         </record>
@@ -134,7 +126,7 @@
 			<field name="name">Guardian Report</field>
 			<field name="res_model">extraschool.guardian_prestation_times_report</field>
 			<field name="view_type">form</field>
-			<field name="view_mode">tree,graph</field>
+			<field name="view_mode">tree</field>
             <field name="view_id" ref="extraschool_guardian_prestationtimes_report_tree"/>
 		</record>
 				       

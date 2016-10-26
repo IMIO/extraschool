@@ -31,10 +31,10 @@ class extraschool_guardianprestationtimes(models.Model):
     _description = 'Guardian Prestation Times'
     
     guardianid = fields.Many2one('extraschool.guardian', 'Guardian', required=False)
-    prestation_date = fields.Date('Date')
+    prestation_date = fields.Date('Date',select = True, index = True)
     prestation_date_str = fields.Char(compute="_compute_prestation_date_str",string='Date str', store=True)
     prestation_time = fields.Float('Time')
-    es = fields.Selection((('E','In'), ('S','Out')),'ES' )         
+    es = fields.Selection((('E','In'), ('S','Out')),'ES' , index = True)         
     manualy_encoded = fields.Boolean('Manualy encoded')
 
     @api.onchange('prestation_date')
@@ -51,11 +51,8 @@ class extraschool_guardian_prestation_times_report(models.Model):
     guardian_id = fields.Many2one('extraschool.guardian', 'Guardian', required=False,select=True)
     prestation_date = fields.Date('Date',select=True)
     prestation_date_str = fields.Char('Date str')
-    duration = fields.Float('Duration')
     day_duration = fields.Float('day duration')
     week = fields.Char('Week',select=True)
-    weekly_schedule = fields.Float('weekly_schedule')
-    solde = fields.Float('solde')
     
     def init(self, cr):
         tools.sql.drop_view_if_exists(cr, 'extraschool_guardian_prestation_times_report')
@@ -68,17 +65,7 @@ class extraschool_guardian_prestation_times_report(models.Model):
                     to_char(egt.prestation_date,'DD/MM/YYYY') as prestation_date_str, 
                     EXTRACT(WEEK FROM egt.prestation_date) || '/' || eg.weekly_schedule as week,
                     eg.weekly_schedule as weekly_schedule,
-                    (sum(case when egt.es = 'S' then egt.prestation_time else 0 end) - sum(case when egt.es = 'E' then egt.prestation_time else 0 end)) as day_duration,
-                    (select sum(case when egtt.es = 'S' then egtt.prestation_time else 0 end) - sum(case when egtt.es = 'E' then egtt.prestation_time else 0 end)
-                        from extraschool_guardianprestationtimes egtt 
-                        where egtt.guardianid = egt.guardianid 
-                        and EXTRACT(WEEK FROM egtt.prestation_date) = EXTRACT(WEEK FROM egt.prestation_date)
-                        and egtt.prestation_date <= egt.prestation_date) as duration,
-                    weekly_schedule - (select sum(case when egtt.es = 'S' then egtt.prestation_time else 0 end) - sum(case when egtt.es = 'E' then egtt.prestation_time else 0 end)
-                        from extraschool_guardianprestationtimes egtt 
-                        where egtt.guardianid = egt.guardianid 
-                        and EXTRACT(WEEK FROM egtt.prestation_date) = EXTRACT(WEEK FROM egt.prestation_date)
-                        and egtt.prestation_date <= egt.prestation_date) as Solde
+                    (sum(case when egt.es = 'S' then egt.prestation_time else 0 end) - sum(case when egt.es = 'E' then egt.prestation_time else 0 end)) as day_duration
                 from extraschool_guardianprestationtimes egt
                 left join extraschool_guardian eg on eg.id = egt.guardianid
                 group by 
