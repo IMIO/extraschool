@@ -68,7 +68,7 @@ class extraschool_manuel_invoice_wizard(models.TransientModel):
         for parent in self.env['extraschool.parent'].browse(self._context.get('active_ids')):
             if self.invoice_child:
                 for child in parent.child_ids:
-                    if child.levelid.leveltype in self.leveltype:
+                    if child.levelid.leveltype in self.leveltype and child.isdisabled == False:
                         com_struct_prefix_str = self.activity_category_id.invoicecomstructprefix
                         com_struct_id_str = str(next_invoice_num).zfill(7)
                         com_struct_check_str = str(long(com_struct_prefix_str+com_struct_id_str) % 97).zfill(2)
