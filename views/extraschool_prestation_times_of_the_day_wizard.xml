@@ -10,14 +10,13 @@
                     <group colspan="4" col="3">
                         <button name="reset" group="admin" string="Reset" icon="gtk-apply" type="object"/>
                         <button name="check" group="admin" string="Check" icon="gtk-apply" type="object"/>    
-                        <button name="last_check_entry_exit" group="admin" string="Check ES" icon="gtk-apply" type="object" />
-						<button name="merge_pod_dup" group="admin" string="merge pod dup" icon="gtk-apply" type="object" />                        
+                        <button name="last_check_entry_exit"  groups="base.group_erp_manager" string="Check ES" icon="gtk-apply" type="object" />
+						<button name="merge_pod_dup"  groups="base.group_erp_manager" string="merge pod dup" icon="gtk-apply" type="object" />                        
                                             	                        
                     </group>
-                    <group col="4">
+                    <group col="4" groups="base.group_erp_manager">
                     	<field name="query_sql"/>
-                        <button name="execute_sql" group="admin" string="Execute sql" icon="gtk-apply" type="object"/>
-                    		                    	
+                        <button name="execute_sql" string="Execute sql" icon="gtk-apply" type="object"/>                    		                    	
                     </group>
                 </form>
             </field>

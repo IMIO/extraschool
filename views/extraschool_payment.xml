@@ -137,7 +137,9 @@
 		                <field name="parent_id"/>
 		                <field name="com_struct"/>
 		                <field name="solde" sum="True"/>
-	            </tree>
+		                <field name="totalbalance" sum="True"/>		                
+		                <field name="nbr_actif_child"/>		                
+		        </tree>
             </field> 
         </record>
 

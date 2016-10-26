@@ -121,7 +121,13 @@ class extraschool_parent(models.Model):
     last_import_date = fields.Datetime('Import date', readonly=True)
     modified_since_last_import = fields.Boolean('Modified since last import')
     isdisabled = fields.Boolean('Disabled')            
-    oldid = fields.Integer('oldid')                
+    oldid = fields.Integer('oldid')
+    nbr_actif_child = fields.Integer(compute='_compute_nbr_actif_child',string='Nbr actif child', store = True)
+
+    @api.depends('child_ids')
+    def _compute_nbr_actif_child(self):
+        for record in self:
+            record.nbr_actif_child = len(record.child_ids.filtered(lambda r: r.isdisabled == False))                    
     
     @api.model        
     def create(self, vals):

@@ -128,6 +128,8 @@ class extraschool_payment_reconciliation(models.Model):
         parent_id = fields.Many2one('extraschool.parent',select=True)  
         solde = fields.Float('solde',select=True)
         com_struct = fields.Char('Structured Communication')
+        totalbalance = fields.Float('Total balance')
+        nbr_actif_child = fields.Integer('Nbr actif child')
         
         def init(self, cr):
             tools.sql.drop_view_if_exists(cr, 'extraschool_payment_status_report')
@@ -144,7 +146,9 @@ class extraschool_payment_reconciliation(models.Model):
                         || '/' || substring(LPAD(zz.p_id::TEXT,7,'0') from 1 for 4) || '/' || substring(LPAD(zz.p_id::TEXT,7,'0') from 5 for 3)
                         || case when LPAD(((LPAD(case when zz.ac_com_struct_prefix is NULL then '0' else zz.ac_com_struct_prefix end, 3, '0') || LPAD(zz.p_id::TEXT,7,'0'))::bigint % 97)::TEXT,2,'0') = '00' then '97' 
                         else LPAD(((LPAD(case when zz.ac_com_struct_prefix is NULL then '0' else zz.ac_com_struct_prefix end, 3, '0') || LPAD(zz.p_id::TEXT,7,'0'))::bigint % 97)::TEXT,2,'0') end
-                        || '+++' as com_struct 
+                        || '+++' as com_struct,
+                        COALESCE((select sum(i.balance) from extraschool_invoice i where i.parentid = zz.p_id),0.0) as totalbalance,
+                        (select count(*) from extraschool_child c where c.parentid = zz.p_id ) as nbr_actif_child
                         
                     from (select ac.id as ac_id, p.id as p_id, ac.payment_invitation_com_struct_prefix as ac_com_struct_prefix from extraschool_activitycategory ac, extraschool_parent p) zz
                     left join extraschool_payment pay on zz.p_id = pay.parent_id and zz.ac_com_struct_prefix = pay.structcom_prefix
