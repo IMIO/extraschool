@@ -20,6 +20,15 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Child">
+					<div class="oe_right oe_button_box" name="buttons"> 
+						<button name="get_presta" 
+							string="Présences" 
+							type="object" 						
+							class="oe_inline oe_stat_button" 
+							icon="fa-qrcode"
+								/>													
+					</div>
+					
 					<field name="name"  invisible="True"/> 
 					<group col="4">
 					    <field name="isdisabled"/>
@@ -66,7 +75,8 @@
                        <filter string='classid' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'classid'}"/>
                        <filter string='levelid' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'levelid'}"/>
                        <filter string='type' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'childtypeid'}"/>
-                   </group>                    
+                       <filter string='Implantation' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'schoolimplantation'}"/>
+                	</group>                    
                 </search>
             </field>
         </record>	

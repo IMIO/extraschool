@@ -87,7 +87,21 @@ class extraschool_child(models.Model):
             vals['modified_since_last_import'] = True
                     
         return super(extraschool_child,self).write(vals)
-            
+
+    @api.multi
+    def get_presta(self): 
+ 
+        return {'name': 'Présences',
+                'type': 'ir.actions.act_window',
+                'res_model': 'extraschool.prestation_times_of_the_day',
+                'view_type': 'form',
+                'view_mode': 'tree,form',
+                'nodestroy': False,     
+                'target': 'current',
+                'limit': 50000,                                    
+                'domain': [('child_id', '=',self.id),]
+            }  
+                    
     @api.one
     def unlink(self):
         self.isdisabled = True
