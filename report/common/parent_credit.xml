@@ -13,7 +13,7 @@
 			</style>			
 	    	<div class="aes_html_parent_credit">
 				<h4>Pour rappel,</h4>
-	    		<p>Avec cette facture, votre compte famille est de  
+	    		<p>Après enregistrement du paiement de cette facture, votre compte famille présente un solde de  
 	    			<t t-if="parent_id.totalbalance > 0.001">
 	    				- <t t-esc="'%.2f' %  (parent_id.totalbalance)" /> €	    				
 	    			</t> 
