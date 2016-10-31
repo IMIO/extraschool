@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+		<template id="report_parent_credit">
+		    <style type="text/css">
+		    	.aes_html_parent_credit{
+		    		display: block;
+		    		clear: both;
+		    		padding: 0 0 0 8px;
+		    		margin 0 0 0 0;
+		    	}
+		    	
+			</style>			
+	    	<div class="aes_html_parent_credit">
+				<h4>Pour rappel,</h4>
+	    		<p>Avec cette facture, votre compte famille est de  
+	    			<t t-if="parent_id.totalbalance > 0.001">
+	    				- <t t-esc="'%.2f' %  (parent_id.totalbalance)" /> €	    				
+	    			</t> 
+	    			<t t-if="parent_id.totalbalance &lt; 0.001">
+	    				<t t-esc="'%.2f' %  (parent_id.payment_status_ids[0].solde)" /> €	    				
+	    			</t> 	    				    			
+	    		</p> 							
+	    					
+			</div>
+		</template>
+
+	</data>
+</openerp>	
+	
+	
