@@ -153,9 +153,7 @@ class extraschool_biller(models.Model):
     
     @api.multi
     def mail_invoices(self): 
-        cr,uid = self.env.cr, self.env.user.id  
-        view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','extraschool.invoice'),
-                                                             ('name','=','invoices.tree')])
+
         return {'name': 'Invoices',
                 'type': 'ir.actions.act_window',
                 'res_model': 'extraschool.invoice',
@@ -170,9 +168,7 @@ class extraschool_biller(models.Model):
 
     @api.multi
     def email_invoices(self):         
-        cr,uid = self.env.cr, self.env.user.id  
-        view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','extraschool.invoice'),
-                                                             ('name','=','invoices.tree')])
+
         return {'name': 'Invoices',
                 'type': 'ir.actions.act_window',
                 'res_model': 'extraschool.invoice',
@@ -187,9 +183,7 @@ class extraschool_biller(models.Model):
 
     @api.multi
     def all_invoices(self): 
-        cr,uid = self.env.cr, self.env.user.id  
-        view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','extraschool.invoice'),
-                                                             ('name','=','invoices.tree')])
+
         return {'name': 'Invoices',
                 'type': 'ir.actions.act_window',
                 'res_model': 'extraschool.invoice',
@@ -201,6 +195,21 @@ class extraschool_biller(models.Model):
                 'domain': [('biller_id.id', '=',self.id)]
             }           
                         
+    @api.multi
+    def all_pdf(self): 
+ 
+        return {'name': 'Docs',
+                'type': 'ir.actions.act_window',
+                'res_model': 'ir.attachment',
+                'view_type': 'form',
+                'view_mode': 'tree,form',
+                'nodestroy': False,     
+                'target': 'current',
+                'limit': 50000,                                    
+                'domain': [('res_id', 'in',[i.id for i in self.invoice_ids]),
+                            ('res_model', '=', 'extraschool.invoice')]
+            }           
+
     def get_concerned_months(self):
         start_month = fields.Date.from_string(self.period_from).month
         end_months=(fields.Date.from_string(self.period_to).year-fields.Date.from_string(self.period_from).year)*12 + fields.Date.from_string(self.period_to).month+1
