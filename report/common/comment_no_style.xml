@@ -6,7 +6,8 @@
 				#invoice_comment{
 					display: block;
 					clear: both;
-					padding: 8px;			
+		    		padding: 0 0 0 8px;
+		    		margin 0 0 0 0;
 				}
 
 			</style>
