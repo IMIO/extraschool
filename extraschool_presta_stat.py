@@ -35,7 +35,7 @@ class extraschool_presta_stat(models.Model):
     nbr_child = fields.Integer(string = 'Nbr childs')
     
     def compute(self):
-        period_range = 0.16
+        period_range = 0.5
         #delete all records
         print"unlink presta stat"
         self.search([]).unlink()
@@ -68,9 +68,9 @@ class extraschool_presta_stat(models.Model):
                     prest_to = activity.prest_from + (period+1)*period_range
                     
                 period_str = "%s - %s" % (last_period, prest_to)
-                print insert_querry % (activity.id,period_str,activity.id,prest_to)
+                #print insert_querry % (activity.id,period_str,activity.id,prest_to)
                 self.env.cr.execute(insert_querry,(activity.id,period_str,activity.id,prest_to))
                 last_period = prest_to
-                print "%s - %s" % (activity.name, period)
+                #print "%s - %s" % (activity.name, period)
                 self.env.invalidate_all()
             
