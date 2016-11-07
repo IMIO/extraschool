@@ -68,6 +68,7 @@
         'views/extraschool_prestation_times_of_the_day_wizard.xml',
         'views/extraschool_prestation_times_encodage_manuel.xml',
         'views/extraschool_prestation_times_encodage_manuel_wizard.xml',
+        'views/extraschool_presta_stat.xml',
         'views/extraschool_price_list.xml',        
         'views/extraschool_qrcodes_wizard.xml',
         'views/extraschool_report.xml',

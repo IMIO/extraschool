@@ -28,7 +28,9 @@
 	                    <button name="update_parent_send_method" string="Update parent send method" icon="gtk-apply" type="object"/>
 						<newline/>                	
 	                    <button name="childupgradelevels" string="Update level" icon="gtk-apply" type="object"/>
-	                    </group>
+						<newline/>                		                    	
+	                    <button name="update_presta_stat" string="Update presta stat" icon="gtk-apply" type="object"/>
+	                    </group>	                    
 				</form>
 			</field>
 		</record>
@@ -39,7 +41,7 @@
             <field name="view_mode">form</field>
             <field name="target">inline</field>
             <field name="res_id">1</field>
-            <field name="domain">[('id', '=', 1)]</field>
+            <field name="domain">[('id', '=', 1)]</field>            
 		</record>
 	</data>
 </openerp>

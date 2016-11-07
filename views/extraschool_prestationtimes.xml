@@ -27,6 +27,7 @@
 	                    <field name="prestation_times_of_the_day_id"/>
 						<field name="childid" required="1"/>
 	                    <field name="placeid" required="1"/>
+           				<field name="activity_name" required="1"/>	                    	                    
 						<field name="prestation_date" required="1"/>
 	                    <field name="prestation_time"  required="1" widget="float_time"/>
 	                    <field name="es" required="1"/>
@@ -66,6 +67,7 @@
               		<field name="activity_occurrence_id" />	
 					<field name="placeid"/>		
 					<field name="childid"/>
+        			<field name="activity_name" required="1"/>	                    	                    
 					<field name="prestation_date"/>
                     <field name="prestation_time" widget="float_time"/>
                     <field name="error_msg"/>

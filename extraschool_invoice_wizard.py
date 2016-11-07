@@ -107,54 +107,6 @@ class extraschool_invoice_wizard(models.TransientModel):
                              'State', required=True, default='init'
                              )
 
-    def computediscount(self, cr, uid,childid,period,childtypeid,childactivities):
-        amount=0.0
-        if childactivities:
-            cr.execute('select * from "extraschool_discount" where period = %s and id in (select discount_id from extraschool_discount_childtype_rel where childtype_id = %s) and id in (select discount_id from extraschool_discount_activity_rel where activity_id in '+str(childactivities.keys()).replace('[','(').replace(']',')')+')', (period,childtypeid,))                
-            discounts=cr.dictfetchall()                  
-            for discount in discounts:
-                totactivities=0.0
-                havediscount=False
-                cr.execute('select activity_id from "extraschool_discount_activity_rel" where discount_id = %s', (discount['id'],))                
-                discountactivities=cr.dictfetchall()
-                discountactivitiesids=[]
-                for discountactivity in discountactivities:
-                    if str(discountactivity['activity_id']) in childactivities.keys():
-                        discountactivitiesids.append(str(discountactivity['activity_id']))
-                for childactivityid in discountactivitiesids:
-                    if (havediscount == False) or (discount['wichactivities'] != 'OneOf'):
-                        rulesok=True
-                        cr.execute('select * from "extraschool_discountrule" where id in (select discountrule_id from extraschool_discount_discountrule_rel where discount_id = %s)', (discount['id'],))                
-                        discountrules=cr.dictfetchall()
-                        if discountrules:
-                            for discountrule in discountrules:
-                                cr.execute('select id from extraschool_child where id= %s and '+discountrule['field']+' '+discountrule['operator']+' '+discountrule['value'],(childid,))
-                                rulecount = cr.dictfetchall()
-                                if not rulecount:
-                                    rulesok=False
-                        else:
-                            havediscount=True
-                        if rulesok:
-                            havediscount=True
-                            if discount['wichactivities'] != 'Sum':
-                                if discount['discounttype'] == 'sub':
-                                    amount=amount+float(discount['discount'])
-                                elif discount['discounttype'] == 'prc': 
-                                    amount=amount+((childactivities[childactivityid] * float(discount['discount'].split('%')[0])) / 100)
-                                elif discount['discounttype'] == 'max':
-                                    if childactivities[childactivityid] > float(discount['discount']):
-                                        amount=amount+(childactivities[childactivityid]-float(discount['discount']))
-                            else:
-                                totactivities=totactivities+childactivities[childactivityid]
-                if discount['wichactivities'] == 'Sum':
-                    if discount['discounttype'] == 'sub':
-                        amount=amount+float(discount['discount'])
-                    elif discount['discounttype'] == 'prc':
-                        amount=amount+((totactivities * discount['discount'].split('%')[0]) / 100)
-                    elif discount['discounttype'] == 'max':
-                        if totactivities > float(discount['discount']):
-                                amount=amount+(totactivities-float(discount['discount']))
-        return amount
     
     def _compute_invoices(self):
         cr,uid = self.env.cr, self.env.user.id

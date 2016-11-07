@@ -63,7 +63,6 @@ class extraschool_mainsettings(models.Model):
         obj_child = self.pool.get('extraschool.child')
         obj_class = self.pool.get('extraschool.class')
                 
-
         obj_level = self.pool.get('extraschool.level')
         obj_child = self.pool.get('extraschool.child')
         levelbeforedisable = obj_level.read(cr, uid, [self.levelbeforedisable.id], ['ordernumber'])[0]['ordernumber']
@@ -104,3 +103,6 @@ class extraschool_mainsettings(models.Model):
                 print "disable child %s" % (child['id'])
                 obj_child.write(cr, uid, [child['id']], {'isdisabled': True})
 
+    @api.one
+    def update_presta_stat(self):
+        self.env['extraschool.presta_stat'].compute()
