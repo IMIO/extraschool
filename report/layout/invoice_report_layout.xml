@@ -84,6 +84,7 @@
 						<t t-set="resp_fct" t-value="invoice.biller_id.activitycategoryid.po_resp_name"/>
 						<t t-set="resp_name" t-value="invoice.biller_id.activitycategoryid.po_resp_fct"/>
 						<t t-set="resp_sign" t-value="invoice.biller_id.activitycategoryid.po_sign"/>
+						<t t-set="resp_sign_img" t-value="invoice.biller_id.activitycategoryid.po_sign_img"/>
 						<t t-set="po_stamp" t-value="invoice.biller_id.activitycategoryid.po_stamp"/>
 							
 						<t t-set="resp2_fct" t-value="invoice.biller_id.activitycategoryid.po_resp2_name"/>

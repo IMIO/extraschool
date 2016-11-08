@@ -43,6 +43,7 @@ class extraschool_activitycategory(models.Model):
     po_resp2_fct = fields.Char('Fct of resp2')
 
     po_stamp = fields.Binary('stamp')
+    po_sign_img = fields.Binary('Signature image')
     
     po_email = fields.Char('email')
     po_tel = fields.Char('tel')

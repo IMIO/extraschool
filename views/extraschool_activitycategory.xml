@@ -48,7 +48,9 @@
 
 			                <field name="po_email" />  
 			               	<field name="po_tel" />              		
-			               	<field name="po_addresse_free_text"  widget="html" />              		
+			               	<field name="po_addresse_free_text"  widget="html" /> 
+			               	<field name="po_sign_img" />              		
+			               	             		
 			        	</group>
             		</page>
     	            <page string="Activities">

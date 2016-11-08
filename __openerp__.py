@@ -24,7 +24,7 @@
 
 {
     'name' : 'Extraschool',
-    'version' : '1.5.8',
+    'version' : '1.5.9',
     'author' : 'Town of La Bruyère and Imio',
     'depends' : ['base', 
                  'report',
@@ -119,6 +119,7 @@
         'report/common/payment_info_no_style.xml',
         'report/common/parent_credit.xml',
         'report/common/sign_no_style.xml',
+        'report/common/sign_img_no_style.xml',
         'report/common/double_sign_no_style.xml',
         'report/common/spacer_2cm.xml',
         'report/common/invoice_summary.xml',        

@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 		
+		<template id="report_sign_img_no_style">
+			<style>
+				#doc_resp_sign{
+					display: block;
+					width: 100%;
+					page-break-inside: avoid;
+				}
+				
+				#doc_resp_sign>img{				
+					display: block;
+					width: 100%;							
+				}		
+				
+			</style>
+			<div id="doc_resp_sign">
+				<img class="sign_img" t-attf-src="data:image/jpeg;base64,{{resp_sign_img}}"/>														
+			</div>
+		</template>
+
+	</data>
+</openerp>	
+	
+	
