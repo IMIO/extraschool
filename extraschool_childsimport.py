@@ -110,6 +110,7 @@ class extraschool_childsimport(models.Model):
         while curr_row < num_rows:
             curr_row += 1
             row = worksheet.row(curr_row)
+            childid=False
             childrn=''
             childlastname=''
             childfirstname=''
@@ -118,7 +119,8 @@ class extraschool_childsimport(models.Model):
             childlevel=''
             childlevelid=0
             childotherref=''
-            parentrn=''
+            parentids=False
+            parentrn=''            
             parentlastname=''
             parentfirstname=''
             parentstreet=''
@@ -127,7 +129,8 @@ class extraschool_childsimport(models.Model):
             parenthousephone=''
             parentworkphone=''
             parentgsm=''
-            parentemail=''            
+            parentemail=''  
+                      
             error=False
             if importfilter['childrncolumn'] <> 0:
                 if lbutils.genstreetcode(worksheet.cell_value(startrow, importfilter['childrncolumn']-1)) == lbutils.genstreetcode(importfilter['childrncolumnname']):
