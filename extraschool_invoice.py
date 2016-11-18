@@ -232,25 +232,34 @@ class extraschool_invoice(models.Model):
         format_str += "%s\t" # to
         format_str += "%s\t" # comment
         #separator
-        format_str += "#"         
+        format_str += "%s\t" #separator         
         #dynamique part        
-        format_str += "%7s\t" # matricule sur 7 char
+        format_str += "%s\t" # id de l'enfant
+        format_str += "%s\t" # niveau de l'enfant (M/P)
         format_str += "%s\t" # Nom de l'enfant
         format_str += "%s\t" # prenom de l'enfant
-        format_str += "#%.2f" # amount
+        format_str += "%s\t" # birtdate de l'enfant
+        format_str += "%7s\t" # matricule sur 7 char
+        format_str += "%s\t" # class de l'enfant
+        format_str += "%s\t" # date de présence
+        format_str += "%.2f" # amount
 
         saved_child = ""
         str_line = "" 
         zz = 0
         amount = 0.0
+        breaking = False
         for invoicedline in self.invoice_line_ids.sorted(key=lambda r: r.childid.name):
             if zz == 0:
                 saved_child = invoicedline.childid.name
                 rn = invoicedline.childid.rn
                 lastname = invoicedline.childid.lastname
                 firstname = invoicedline.childid.firstname
-                
-            if (zz and saved_child != invoicedline.childid.name) or zz == len(self.invoice_line_ids) -1:
+                birthdate = time.strftime('%d/%m/%Y',time.strptime(invoicedline.childid.birthdate,'%Y-%m-%d'))
+                level = invoicedline.childid.levelid.leveltype
+                child_class = invoicedline.childid.classid.name
+                child_id = invoicedline.childid.id
+            if (zz and saved_child != invoicedline.childid.name) or zz == len(self.invoice_line_ids) -1 or not breaking:
                 str_line = format_str % (self.parentid.rn,
                                         self.parentid.lastname,
                                         self.parentid.firstname,
@@ -273,10 +282,16 @@ class extraschool_invoice(models.Model):
                                         self.schoolimplantationid.city,
                                         time.strftime('%d/%m/%Y',time.strptime(self.biller_id.period_from,'%Y-%m-%d')),
                                         time.strftime('%d/%m/%Y',time.strptime(self.biller_id.period_to,'%Y-%m-%d')),
-                                        '', # comment
-                                        rn,
+                                        '',
+                                        '#', # comment
+                                        child_id,
+                                        level,
                                         lastname,
                                         firstname,
+                                        birthdate,
+                                        rn,
+                                        child_class,
+                                        time.strftime('%d/%m/%Y',time.strptime(invoicedline.prestation_date,'%Y-%m-%d')),
                                         amount                                                                            
                                         )                
                 res.append(str_line) 
@@ -288,7 +303,7 @@ class extraschool_invoice(models.Model):
                 amount = invoicedline.total_price
             else:            
                 amount += invoicedline.total_price
-                
+           
             zz+=1
         
 
