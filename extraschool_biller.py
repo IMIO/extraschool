@@ -230,9 +230,9 @@ class extraschool_biller(models.Model):
         line = ""
         for invoice in self.invoice_ids:
             lines = invoice.export_onyx()
-            print "****"
-            print lines
-            print "****"
+#             print "****"
+#             print lines
+#             print "****"
             
             for r in invoice.export_onyx():
                 line = r[0]

@@ -305,12 +305,9 @@ class extraschool_invoice(models.Model):
                 amount += invoicedline.total_price
            
             zz+=1
-        
-
-                       
-        print "-------------"
-        print "%s" % (res)                                            
-        print "-------------"
+#         print "-------------"
+#         print "%s" % (res)                                            
+#         print "-------------"
 
         return res
                 
