@@ -178,7 +178,9 @@ class extraschool_biller(models.Model):
                 'target': 'current',
                 'limit': 50000,                 
                 'domain': [('biller_id.id', '=',self.id),
-                           '|',('invoicesendmethod','=','onlyemail'),('invoicesendmethod','=','emailandmail')]
+                           '|',('invoicesendmethod','=','onlyemail'),('invoicesendmethod','=','emailandmail')],
+                'context': {"search_default_actif":1},
+
             }          
 
     @api.multi
@@ -192,7 +194,8 @@ class extraschool_biller(models.Model):
                 'nodestroy': False,     
                 'target': 'current',
                 'limit': 50000,                                    
-                'domain': [('biller_id.id', '=',self.id)]
+                'domain': [('biller_id.id', '=',self.id)],
+                'context': {"search_default_actif":1},
             }           
                         
     @api.multi
@@ -207,7 +210,9 @@ class extraschool_biller(models.Model):
                 'target': 'current',
                 'limit': 50000,                                    
                 'domain': [('res_id', 'in',[i.id for i in self.invoice_ids]),
-                            ('res_model', '=', 'extraschool.invoice')]
+                            ('res_model', '=', 'extraschool.invoice')],
+                'context': {"search_default_actif":1},
+
             }           
 
     def get_concerned_months(self):
