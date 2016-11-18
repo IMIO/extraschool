@@ -105,7 +105,7 @@
 	                        <field name="amount_received" sum="True"/>
 	                        <field name="balance"  sum="True"/>
 	                        <field name="no_value"/>	
-	                        <button name="reconcil" type="object" string="Reconcil"/>	                        
+	                        <button name="reconcil" type="object" string="Reconcil" groups="base.group_erp_manager" />	                        
 	                    </tree>
                     </field>
                     </group>
