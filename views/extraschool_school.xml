@@ -35,6 +35,8 @@
 			                <newline/>
 			                <field name="zipcode"/>        
 			                <field name="city"/>
+			                <newline/>
+			                <field name="street_code"/>				                
 			            </group>
 			            </form>            		
 	                </field>

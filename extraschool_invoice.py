@@ -196,14 +196,14 @@ class extraschool_invoice(models.Model):
     def export_onyx(self):
         res = []
         #split street
-        p = re.compile('([^0-9].*|[^0-9]*11 novembre[^0-9]*) ([0-9]{1,})(\/*)([0-9]*)([a-zA-Z]*)')
+        p = re.compile(r"([^0-9^,]*\b|.*\b11 novembre\b)[\s,]*([0-9]*)[\/\s]*([a-zA-Z]*[0-9]*)[\/\s]*([a-zA-Z]*)$")
         splited_street = p.findall(self.parentid.street)
         if len(splited_street) == 0:
             splited_street = [(splited_street,'','','','')]
         #split rue ecole
         splited_implantation_street = p.findall(self.schoolimplantationid.street)
         
-
+        activities = self.env["extraschool.activity"].search([]).mapped('name')
         
         #statique part
         format_str = ""
@@ -242,13 +242,21 @@ class extraschool_invoice(models.Model):
         format_str += "%7s\t" # matricule sur 7 char
         format_str += "%s\t" # class de l'enfant
         format_str += "%s\t" # date de présence
+#        format_str += "%s\t" # debug        
+        format_str += "%s" # présences        
         format_str += "%.2f" # amount
 
+        format_activities_str = ""
+        for activity in activities:
+            format_activities_str += "%s\t"
+        
         saved_child = ""
         str_line = "" 
         zz = 0
         amount = 0.0
         breaking = False
+        
+        
         for invoicedline in self.invoice_line_ids.sorted(key=lambda r: r.childid.name):
             if zz == 0:
                 saved_child = invoicedline.childid.name
@@ -259,25 +267,33 @@ class extraschool_invoice(models.Model):
                 level = invoicedline.childid.levelid.leveltype
                 child_class = invoicedline.childid.classid.name
                 child_id = invoicedline.childid.id
+                street_code = invoicedline.childid.schoolimplantation.street_code
+                amount = invoicedline.total_price
             if (zz and saved_child != invoicedline.childid.name) or zz == len(self.invoice_line_ids) -1 or not breaking:
+                activities_participation = []
+                for activity in activities:
+                    if activity == invoicedline.activity_activity_id.name:
+                        activities_participation.append('1')
+                    else:
+                        activities_participation.append('')
                 str_line = format_str % (self.parentid.rn,
                                         self.parentid.lastname,
                                         self.parentid.firstname,
                                         '', # code rue
                                         splited_street[0][0], # libellé rue
                                         splited_street[0][1], # num 
-                                        splited_street[0][3], # boite
-                                        splited_street[0][4], # index
+                                        splited_street[0][2], # boite
+                                        splited_street[0][3], # index
                                         int(self.parentid.zipcode), #code post
                                         self.parentid.city,
                                         '', # pays
                                         'F', # Langue
                                         '', # civilité
-                                        '', #code rue ecole
+                                        street_code, #code rue ecole
                                         splited_implantation_street[0][0], # libellé rue
                                         splited_implantation_street[0][1], # num 
-                                        splited_implantation_street[0][3], # boite
-                                        splited_implantation_street[0][4], # index
+                                        splited_implantation_street[0][2], # boite
+                                        splited_implantation_street[0][3], # index
                                         int(self.schoolimplantationid.zipcode),
                                         self.schoolimplantationid.city,
                                         time.strftime('%d/%m/%Y',time.strptime(self.biller_id.period_from,'%Y-%m-%d')),
@@ -292,8 +308,11 @@ class extraschool_invoice(models.Model):
                                         rn,
                                         child_class,
                                         time.strftime('%d/%m/%Y',time.strptime(invoicedline.prestation_date,'%Y-%m-%d')),
+#                                        invoicedline.activity_activity_id.name,
+                                        format_activities_str % tuple(activities_participation),
                                         amount                                                                            
-                                        )                
+                                        )
+                                          
                 res.append(str_line) 
                 saved_child = invoicedline.childid.name
                 rn = invoicedline.childid.rn
@@ -305,9 +324,9 @@ class extraschool_invoice(models.Model):
                 amount += invoicedline.total_price
            
             zz+=1
-#         print "-------------"
-#         print "%s" % (res)                                            
-#         print "-------------"
+        print "-------------"
+        print "%s" % (res)                                            
+        print "-------------"
 
         return res
                 
