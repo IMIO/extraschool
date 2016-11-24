@@ -46,21 +46,32 @@ class extraschool_presta_stat(models.Model):
             for period in range(0,nbr_period):
                 insert_querry = """
                                 insert into extraschool_presta_stat
-                                    (date, activity_id, place_id, rancge, nbr_child)
+                                    (date, activity_id, place_id, rancge, nbr_child)                                    
                                     select prestation_date, %s, placeid, %s, count(*)
-                                    from (
-                                        select prestation_date, placeid, childid,max(prestation_time),p.id as id,es
+                                    from 
+                                    (select prestation_date, activityid, placeid, prestation_time, es
+                                        from
+                                        (select activityid, placeid, childid, prestation_date, prestation_time, es
                                         from extraschool_prestationtimes p
-                                        left join extraschool_activityoccurrence o 
-                                            on o.id = p.activity_occurrence_id 
-                                        where
-                                                o.activityid = %s and
-                                                prestation_time <= %s                                                
-                                        group by prestation_date,p.placeid, childid,prestation_time,p.id,es
-                                        order by prestation_time
-                                    ) zz
-                                    where es = 'E'
-                                    group by prestation_date, placeid
+                                        left join extraschool_activityoccurrence o on o.id = p.activity_occurrence_id 
+                                        where o.activityid = %s and
+                                              p.prestation_time <= %s and
+                                              p.prestation_time =
+                                            (
+                                              select max(pp.prestation_time)
+                                              from extraschool_prestationtimes pp
+                                              left join extraschool_activityoccurrence oo 
+                                                on oo.id = pp.activity_occurrence_id
+                                              where oo.activityid = %s and
+                                                pp.prestation_date = p.prestation_date and
+                                                pp.prestation_time <= %s and
+                                                p.childid = pp.childid        
+                                            )
+                                        ) zz
+                                        where (zz.prestation_time >= %s and zz.prestation_time <= %s) or
+                                            (zz.prestation_time <= %s and es = 'E')
+                                    ) qq
+                                    group by activityid, placeid, prestation_date
                                 """
                 if activity.prest_from + (period+1)*period_range > activity.prest_to:
                     prest_to = activity.prest_to
@@ -68,8 +79,8 @@ class extraschool_presta_stat(models.Model):
                     prest_to = activity.prest_from + (period+1)*period_range
                     
                 period_str = "%s - %s" % (last_period, prest_to)
-                #print insert_querry % (activity.id,period_str,activity.id,prest_to)
-                self.env.cr.execute(insert_querry,(activity.id,period_str,activity.id,prest_to))
+                print insert_querry % (activity.id,period_str,activity.id,prest_to,activity.id,prest_to,last_period,prest_to,last_period)
+                self.env.cr.execute(insert_querry,(activity.id,period_str,activity.id,prest_to,activity.id,prest_to,last_period,prest_to,last_period))
                 last_period = prest_to
                 #print "%s - %s" % (activity.name, period)
                 self.env.invalidate_all()
