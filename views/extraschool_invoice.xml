@@ -59,7 +59,7 @@
 			<field name="arch" type="xml">
 				<form string="invoice">
 					<header>
-						<button name="export_onyx" string="export onyx" type="object" class="oe_highlight" groups="base.group_erp_manager"/>	
+						<button name="export_onyx_but" string="export onyx" type="object" class="oe_highlight" groups="base.group_erp_manager"/>	
 						<button name="cancel" string="Cancel" type="object" class="oe_highlight" groups="base.group_erp_manager"/>	
 					</header>
 				

@@ -228,21 +228,15 @@ class extraschool_biller(models.Model):
     def export_onyx(self):
         output = ""
         line = ""
-        output += u"""MATRICULE\tNom du Responsable\tPrénom du Responsable\tCode rue\tLibellé rue\tNuméro\tBoîte\tIndex\tCode postal\tLocalité\tPays\tLangue du redevable\tCivilité\tCode rue\tLibellé rue\tNuméro\tBoîte\tIndex\tCode postal\tLocalité\tDate debut\tdate fin\tCommentaires\tsepar\tN°\tM/P\tNOM\tPRENOM\tDATE DE NAISSANCE\tN° REGISTRE NATIONAL\tANNEE D'ETUDE\tDate accueil\t"""
+        output += u"""MATRICULE\tNom du Responsable\tPrénom du Responsable\tCode rue\tLibellé rue\tNuméro\tBoîte\tIndex\tCode postal\tLocalité\tPays\tLangue du redevable\tCivilité\tCode rue\tLibellé rue\tNuméro\tBoîte\tIndex\tCode postal\tLocalité\tDate debut\tdate fin\tCommentaires\tsepar\tN fact\tN°\tM/P\tNOM\tPRENOM\tDATE DE NAISSANCE\tN° REGISTRE NATIONAL\tANNEE D'ETUDE\tDate accueil\t"""
         activities = self.env["extraschool.activity"].search([]).mapped('name')
         for activity in activities:
             output += "%s\t" % (activity)
         output += "total\n"
-        for invoice in self.invoice_ids:
-#            lines = invoice.export_onyx()
-#             print "****"
-#             print lines
-#             print "****"
+        for invoice in self.invoice_ids:            
             
             for r in invoice.export_onyx():
-                line = r[0]
-                #print line
-                output += "%s\n" % (line)
+                output += "%s\n" % (r)
             
         attachment_obj = self.env['ir.attachment']
         attachment_obj.create({'res_model':'extraschool.biller',

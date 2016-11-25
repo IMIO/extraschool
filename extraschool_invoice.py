@@ -193,7 +193,10 @@ class extraschool_invoice(models.Model):
         return concened_months
     
     @api.one
-    def export_onyx(self):
+    def export_onyx_but(self):
+        self.export_onyx()
+        
+    def export_onyx(self):        
         res = []
         #split street
         p = re.compile(r"([^0-9^,]*\b|.*\b11 novembre\b)[\s,]*([0-9]*)[\/\s]*([a-zA-Z]*[0-9]*)[\/\s]*([a-zA-Z]*)$")
@@ -234,6 +237,7 @@ class extraschool_invoice(models.Model):
         #separator
         format_str += "%s\t" #separator         
         #dynamique part        
+        format_str += "%s\t" # Num de fact
         format_str += "%s\t" # id de l'enfant
         format_str += "%s\t" # niveau de l'enfant (M/P)
         format_str += "%s\t" # Nom de l'enfant
@@ -256,23 +260,26 @@ class extraschool_invoice(models.Model):
         amount = 0.0
         breaking = False
         
+        saved_child = ""
+        rn = ""
+        lastname = "toto"
+        firstname = ""
+        birthdate = ""
+        level = ""
+        child_class = ""
+        child_id = ""
+        street_code = ""
+        amount = 0.0
+        invoice_num = ""
+        activity_names = []
+        inv_date = ""
+        inv_date_str = ""
         
-        for invoicedline in self.invoice_line_ids.sorted(key=lambda r: r.childid.name):
-            if zz == 0:
-                saved_child = invoicedline.childid.name
-                rn = invoicedline.childid.rn
-                lastname = invoicedline.childid.lastname
-                firstname = invoicedline.childid.firstname
-                birthdate = time.strftime('%d/%m/%Y',time.strptime(invoicedline.childid.birthdate,'%Y-%m-%d'))
-                level = invoicedline.childid.levelid.leveltype
-                child_class = invoicedline.childid.classid.name
-                child_id = invoicedline.childid.id
-                street_code = invoicedline.childid.schoolimplantation.street_code
-                amount = invoicedline.total_price
-            if (zz and saved_child != invoicedline.childid.name) or zz == len(self.invoice_line_ids) -1 or not breaking:
+        for invoicedline in self.invoice_line_ids.sorted(key=lambda r: r.childid.name+r.prestation_date):
+            if (zz > 0 and (saved_child != invoicedline.childid.name or inv_date != invoicedline.prestation_date)) or zz == len(self.invoice_line_ids) -1:
                 activities_participation = []
                 for activity in activities:
-                    if activity == invoicedline.activity_activity_id.name:
+                    if activity in activity_names:
                         activities_participation.append('1')
                     else:
                         activities_participation.append('')
@@ -300,6 +307,7 @@ class extraschool_invoice(models.Model):
                                         time.strftime('%d/%m/%Y',time.strptime(self.biller_id.period_to,'%Y-%m-%d')),
                                         '',
                                         '#', # comment
+                                        invoice_num,
                                         child_id,
                                         level,
                                         lastname,
@@ -307,26 +315,44 @@ class extraschool_invoice(models.Model):
                                         birthdate,
                                         rn,
                                         child_class,
-                                        time.strftime('%d/%m/%Y',time.strptime(invoicedline.prestation_date,'%Y-%m-%d')),
+                                        inv_date_str,
 #                                        invoicedline.activity_activity_id.name,
                                         format_activities_str % tuple(activities_participation),
                                         amount                                                                            
-                                        )
-                                          
+                                        )                
+                print "lastname : <%s - %s - %s>" % (inv_date_str,firstname, lastname)                
+#                 print str_line
+#                 print "++++++"
                 res.append(str_line) 
-                saved_child = invoicedline.childid.name
-                rn = invoicedline.childid.rn
-                lastname = invoicedline.childid.lastname
-                firstname = invoicedline.childid.firstname
                 
                 amount = invoicedline.total_price
             else:            
                 amount += invoicedline.total_price
-           
+            
+#             print "...%s" % (lastname)
+            if zz == 0 or saved_child != invoicedline.childid.name or inv_date != invoicedline.prestation_date:
+#                 print "!!!!!!!!!!!!!!!!!!!!!!!"
+#                 print "Change"
+#                 print "!!!!!!!!!!!!!!!!!!!!!!!"                
+                saved_child = invoicedline.childid.name
+                rn = invoicedline.childid.rn
+                lastname = invoicedline.childid.lastname
+                firstname = invoicedline.childid.firstname
+                birthdate = time.strftime('%d/%m/%Y',time.strptime(invoicedline.childid.birthdate,'%Y-%m-%d'))
+                level = invoicedline.childid.levelid.leveltype
+                child_class = invoicedline.childid.classid.name
+                child_id = invoicedline.childid.id
+                street_code = invoicedline.childid.schoolimplantation.street_code
+                amount = invoicedline.total_price
+                invoice_num = invoicedline.invoiceid.number
+                activity_names.append(invoicedline.activity_activity_id.name)    
+                inv_date = invoicedline.prestation_date
+                inv_date_str = time.strftime('%d/%m/%Y',time.strptime(invoicedline.prestation_date,'%Y-%m-%d'))    
+                   
             zz+=1
-#         print "-------------"
-#         print "%s" % (res)                                            
-#         print "-------------"
+        print "-------------"
+        print "%s" % (res)                                            
+        print "-------------"
 
         return res
                 
