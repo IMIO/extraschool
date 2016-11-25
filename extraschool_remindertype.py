@@ -37,6 +37,7 @@ class extraschool_remindertype(models.Model):
     mail_template_id = fields.Many2one('email.template', 'Email template')
     report_id = fields.Many2one('extraschool.report', 'Document report')
     text = fields.Text('Text')
+    select_reminder_type = fields.Boolean(string='Select a reminder type')
     selected_type_id = fields.Many2one('extraschool.remindertype', 'Reminder type to select')
     delay = fields.Integer('Delay')
     payment_term_in_day = fields.Integer('payment_term_in_day')

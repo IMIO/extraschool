@@ -31,6 +31,8 @@ from pyPdf import PdfFileWriter, PdfFileReader
 import datetime
 import threading
 from openerp.api import Environment
+from openerp.exceptions import except_orm, Warning, RedirectWarning
+
 
 class reminder_report_pdf_thread (threading.Thread):
    def __init__(self, cr, uid, reminder_ids, context=None):
@@ -57,6 +59,8 @@ class extraschool_remindersjournal(models.Model):
     biller_id = fields.Many2one('extraschool.biller', 'Biller', readonly=True, states={'draft': [('readonly', False)]})
     remindersjournal_biller_item_ids = fields.One2many('extraschool.reminders_journal_biller_item', 'reminders_journal_id','Reminders biller item')       
     ready_to_print = fields.Boolean(String = 'Ready to print', default = False)
+    date_from = fields.Date(string='Date from', readonly=True, states={'draft': [('readonly', False)]})
+    date_to = fields.Date(string='Date to', readonly=True, states={'draft': [('readonly', False)]})
     state = fields.Selection([('draft', 'Draft'),
                               ('validated', 'Validated')],
                               'validated', required=True, default='draft'
@@ -110,6 +114,16 @@ class extraschool_remindersjournal(models.Model):
         if len(self.activity_category_id.reminer_type_ids.ids) == 0 : 
             return False
         
+        invoice_search_domain_date_range = []
+        #selection on date range
+        if self.date_from:
+            if self.date_from > self.date_to:
+                raise Warning(_("Date to must be bigger than date from !!!")) 
+            invoice_search_domain_date_range = [('biller_id.invoices_date', '>=',self.date_from),
+                                                 ('biller_id.invoices_date', '<=', self.date_to)
+                                                 ]
+                
+                
         inv_obj = self.env['extraschool.invoice']
         payment_obj = self.env['extraschool.payment']
         inv_line_obj = self.env['extraschool.invoicedprestations']  
@@ -120,11 +134,17 @@ class extraschool_remindersjournal(models.Model):
             invoice_search_domain = [('activitycategoryid.id', '=',self.activity_category_id.id),                                    
                                     ('balance', '>=',reminder_type.minimum_balance)]
             
+            
+            #add selection on date range
+            invoice_search_domain += invoice_search_domain_date_range    
             #compute pa
             to_date = datetime.date.today() - datetime.timedelta(days=reminder_type.delay)
                   
-            #filter on payterm depend on reminder_type (no reminder_type = invoice_payment_term)                       
-            if reminder_type.selected_type_id.id == False:
+            if reminder_type.select_reminder_type == False:
+                invoice_search_domain+= [('payment_term', '<=',to_date),                                             
+                                             ]
+                #filter on payterm depend on reminder_type (no reminder_type = invoice_payment_term)                       
+            elif reminder_type.selected_type_id.id == False or reminder_type.select_reminder_type == False:
                 #payterm is taken from invoice 
                 invoice_search_domain+= [('payment_term', '<=',to_date),
                                              ('last_reminder_id', '=', False)
