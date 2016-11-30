@@ -232,7 +232,7 @@ class extraschool_biller(models.Model):
         activities = self.env["extraschool.activity"].search([]).mapped('name')
         for activity in activities:
             output += "%s\t" % (activity)
-        output += "total\n"
+        output += "fisc\ttotal\n"
         for invoice in self.invoice_ids:            
             
             for r in invoice.export_onyx():

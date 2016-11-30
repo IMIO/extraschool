@@ -248,18 +248,20 @@ class extraschool_invoice(models.Model):
         format_str += "%s\t" # date de présence
 #        format_str += "%s\t" # debug        
         format_str += "%s" # présences        
+        format_str += "%.2f" # fisc amount
         format_str += "%.2f" # amount
+        
 
         format_activities_str = ""
         for activity in activities:
             format_activities_str += "%s\t"
         
-        saved_child = ""
         str_line = "" 
         zz = 0
         amount = 0.0
         breaking = False
         
+        saved_activity = "+++++++++"
         saved_child = ""
         rn = ""
         lastname = "toto"
@@ -274,9 +276,10 @@ class extraschool_invoice(models.Model):
         activity_names = []
         inv_date = ""
         inv_date_str = ""
+        fisc = False
         
         for invoicedline in self.invoice_line_ids.sorted(key=lambda r: r.childid.name+r.prestation_date):
-            if (zz > 0 and (saved_child != invoicedline.childid.name or inv_date != invoicedline.prestation_date)) or zz == len(self.invoice_line_ids) -1:
+            if (zz > 0 and (saved_child != invoicedline.childid.name or inv_date != invoicedline.prestation_date)) or saved_activity != invoicedline.activity_activity_id.short_name or zz == len(self.invoice_line_ids) -1:
                 activities_participation = []
                 for activity in activities:
                     if activity in activity_names:
@@ -318,6 +321,8 @@ class extraschool_invoice(models.Model):
                                         inv_date_str,
 #                                        invoicedline.activity_activity_id.name,
                                         format_activities_str % tuple(activities_participation),
+                                        saved_activity,
+                                        amount if fisc else 0,
                                         amount                                                                            
                                         )                
                 print "lastname : <%s - %s - %s>" % (inv_date_str,firstname, lastname)                
@@ -330,10 +335,11 @@ class extraschool_invoice(models.Model):
                 amount += invoicedline.total_price
             
 #             print "...%s" % (lastname)
-            if zz == 0 or saved_child != invoicedline.childid.name or inv_date != invoicedline.prestation_date:
+            if zz == 0 or saved_child != invoicedline.childid.name or inv_date != invoicedline.prestation_date or saved_activity != invoicedline.activity_activity_id.short_name:
 #                 print "!!!!!!!!!!!!!!!!!!!!!!!"
 #                 print "Change"
-#                 print "!!!!!!!!!!!!!!!!!!!!!!!"                
+#                 print "!!!!!!!!!!!!!!!!!!!!!!!"  
+                saved_activity = invoicedline.activity_activity_id.short_name              
                 saved_child = invoicedline.childid.name
                 rn = invoicedline.childid.rn
                 lastname = invoicedline.childid.lastname
@@ -345,7 +351,8 @@ class extraschool_invoice(models.Model):
                 street_code = invoicedline.childid.schoolimplantation.street_code
                 amount = invoicedline.total_price
                 invoice_num = invoicedline.invoiceid.number
-                activity_names.append(invoicedline.activity_activity_id.name)    
+                activity_names.append(invoicedline.activity_activity_id.name)   
+                fisc = invoicedline.activity_activity_id.on_tax_certificate 
                 inv_date = invoicedline.prestation_date
                 inv_date_str = time.strftime('%d/%m/%Y',time.strptime(invoicedline.prestation_date,'%Y-%m-%d'))    
                    

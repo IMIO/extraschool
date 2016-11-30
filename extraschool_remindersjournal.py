@@ -351,6 +351,23 @@ class extraschool_remindersjournal(models.Model):
                 'limit': 50000,                                    
                 'domain': [('reminders_journal_id.id', '=',self.id)]
             }     
+        
+    @api.multi
+    def all_pdf(self): 
+ 
+        return {'name': 'Docs',
+                'type': 'ir.actions.act_window',
+                'res_model': 'ir.attachment',
+                'view_type': 'form',
+                'view_mode': 'tree,form',
+                'nodestroy': False,     
+                'target': 'current',
+                'limit': 50000,                                    
+                'domain': [('res_id', 'in',[i.id for i in self.reminder_ids]),
+                            ('res_model', '=', 'extraschool.reminder')],
+                'context': {"search_default_actif":1},
+
+            }           
     
 class extraschool_remindersjournal_item(models.Model):
     _name = 'extraschool.reminders_journal_item'
