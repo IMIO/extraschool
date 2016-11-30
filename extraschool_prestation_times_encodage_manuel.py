@@ -60,8 +60,8 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
         if self.env.context == None:
             self.env.context = {}
         
-        if "wizard" not in self.env.context:
-            self.env.context["wizard"]= False
+#         if "wizard" not in self.env.context:
+#             self.env.context["wizard"]= False
             
         presta_obj = self.env['extraschool.pdaprestationtimes']
         
@@ -99,4 +99,11 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
                         
         if self.state == 'draft':
             self.state = 'validated'
+
+    @api.one
+    def set_to_draft(self):
+        if self.state == 'validated':
+            self.state = 'draft'
+            presta_obj = self.env['extraschool.pdaprestationtimes']
+            presta_obj.search([('prestation_times_encodage_manuel_id', '=', self.id)]).unlink()
     

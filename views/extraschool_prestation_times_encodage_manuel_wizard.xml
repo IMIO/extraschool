@@ -8,8 +8,13 @@
             <field name="arch" type="xml">
                 <form string="Manuel encodage validation wizard">
                     <group colspan="4" col="3">
-                        <button name="validate" group="admin" string="Validation" icon="gtk-apply" type="object"  context="{'wizard': True}"/>
+                        <button name="validate" string="Validation" icon="gtk-apply" type="object"  context="{'wizard': True}"/>
+                        <button name="set_to_draft" string="Set to draft" icon="gtk-apply" type="object"  context="{'wizard': True}"  groups="base.group_erp_manager"/>
                     </group>
+                    <group col="4"  groups="base.group_erp_manager">
+                    	<field name="place_id" />
+                        <button name="change_place_id" string="Change" icon="gtk-apply" type="object" />
+					</group>                                        
                 </form>
             </field>
         </record>        

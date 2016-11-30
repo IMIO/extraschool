@@ -24,6 +24,8 @@
 					<header>
 						<button name="validate" String="Validate" type="object" states='draft' class="oe_highlight" groups="extraschool.extraschool_user"  context="{'wizard': False}"/>	
 						<button name="validate" String="Force Validate" type="object" class="oe_highlight" groups="base.group_erp_manager"  context="{'wizard': False}"/>	
+						<button name="set_to_draft" string="Set to draft" icon="gtk-apply" type="object"  context="{'wizard': False}"  groups="base.group_erp_manager"/>
+							
 						<field name="state" widget="statusbar" statusbar_visible="draft,validated"/>													
 					</header>
 					<group col="4">
