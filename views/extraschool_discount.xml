@@ -2,14 +2,73 @@
 <openerp>
 	<data> 
         <record model="ir.ui.view" id="extraschool_discount_form">
-            <field name="name">discount</field>
+            <field name="name">discount_form</field>
             <field name="model">extraschool.discount</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="discount">
+                	<group col="4">
+	                	<field name="name"/>	
+						<separator string="Versions" colspan="4"/> 
+		                <field name="discount_version_ids" nolabel="1" colspan="4" />                		                		
+                	</group>
                 </form>
             </field>
         </record>
+ 
+        <record model="ir.ui.view" id="extraschool_discount_tree">
+            <field name="name">discount_tree</field>
+            <field name="model">extraschool.discount</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="discount">
+                	<field name="name"/>	
+				</tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="extraschool_discount_version_tree">
+            <field name="name">discount</field>
+            <field name="model">extraschool.discount.version</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="discount_version_tree">
+                	<field name="name"/>	
+                	<field name="validity_from"/>	
+                	<field name="validity_to"/>	
+                	<field name="period"/>	
+                	<field name="type"/>	
+                	<field name="quantity_from"/>	
+                	<field name="quantity_from"/>	
+                </tree>
+            </field>
+        </record>         
+ 
+        <record model="ir.ui.view" id="extraschool_discount_version_form">
+            <field name="name">discount_version_form</field>
+            <field name="model">extraschool.discount.version</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Discount version">
+                	<group col="4">
+	                	<field name="name"/>	
+	                	<newline/>
+	                	<field name="validity_from"/>	
+	                	<field name="validity_to"/>		
+	                	<field name="period"/>
+	                		<newline/>
+	                	<field name="type"/>	
+	                	<field name="value"/>	
+	                	<field name="quantity_from"/>
+	                	<field name="quantity_to"/>	                			                	
+	                	<separator string="Price list" colspan="4"/> 
+		                <field name="price_list_ids" nolabel="1" colspan="4" />                      		                		
+                	</group>
+                	
+				</form>
+            </field>
+        </record>  
+                                             
         <record model="ir.actions.act_window" id="action_extraschool_discount">
 			<field name="name">Discount</field>
 			<field name="res_model">extraschool.discount</field>
