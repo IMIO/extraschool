@@ -228,11 +228,11 @@ class extraschool_biller(models.Model):
     def export_onyx(self):
         output = ""
         line = ""
-        output += u"""MATRICULE\tNom du Responsable\tPrénom du Responsable\tCode rue\tLibellé rue\tNuméro\tBoîte\tIndex\tCode postal\tLocalité\tPays\tLangue du redevable\tCivilité\tCode rue\tLibellé rue\tNuméro\tBoîte\tIndex\tCode postal\tLocalité\tDate debut\tdate fin\tCommentaires\tsepar\tN fact\tN°\tM/P\tNOM\tPRENOM\tDATE DE NAISSANCE\tN° REGISTRE NATIONAL\tANNEE D'ETUDE\tDate accueil\t"""
-        activities = self.env["extraschool.activity"].search([]).mapped('name')
-        for activity in activities:
-            output += "%s\t" % (activity)
-        output += "fisc\ttotal\n"
+        output += u"MATRICULE\tNom du Responsable\tPrénom du Responsable\tCode rue\tLibellé rue\t"
+        output += u"Numéro\tBoîte\tIndex\tCode postal\tLocalité\tPays\tLangue du redevable\tCivilité\tCode rue\tLibellé rue\t"
+        output += u"Numéro\tBoîte\tIndex\tCode postal\tLocalité\tDate debut\tdate fin\tCommentaires\tsepar\tN fact\tN°\tM/P\t"
+        output += u"NOM\tPRENOM\tDATE DE NAISSANCE\tN° REGISTRE NATIONAL\tANNEE D'ETUDE\tDate accueil\t"
+        output += u"activité\tNbr j presences\tfisc\ttotal\n"
         for invoice in self.invoice_ids:            
             
             for r in invoice.export_onyx():

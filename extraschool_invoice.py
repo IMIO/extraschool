@@ -246,9 +246,10 @@ class extraschool_invoice(models.Model):
         format_str += "%7s\t" # matricule sur 7 char
         format_str += "%s\t" # class de l'enfant
         format_str += "%s\t" # date de présence
-#        format_str += "%s\t" # debug        
-        format_str += "%s" # présences        
-        format_str += "%.2f" # fisc amount
+#        format_str += "%s\t" # debug   
+        format_str += "%s\t" # activity             
+        format_str += "%s\t" # nbr j présences        
+        format_str += "%.2f\t" # fisc amount
         format_str += "%.2f" # amount
         
 
@@ -264,22 +265,25 @@ class extraschool_invoice(models.Model):
         saved_activity = "+++++++++"
         saved_child = ""
         rn = ""
-        lastname = "toto"
+        lastname = ""
         firstname = ""
         birthdate = ""
         level = ""
         child_class = ""
         child_id = ""
         street_code = ""
+        nbr_jour = 0
+        nbr_jour_printed = False
         amount = 0.0
+        fisc_amount = 0.0
         invoice_num = ""
         activity_names = []
         inv_date = ""
         inv_date_str = ""
-        fisc = False
         
-        for invoicedline in self.invoice_line_ids.sorted(key=lambda r: r.childid.name+r.prestation_date):
-            if (zz > 0 and (saved_child != invoicedline.childid.name or inv_date != invoicedline.prestation_date)) or saved_activity != invoicedline.activity_activity_id.short_name or zz == len(self.invoice_line_ids) -1:
+        
+        for invoicedline in self.invoice_line_ids.sorted(key=lambda r: "%s%s%s" % (r.childid.name,r.prestation_date,r.activity_activity_id.short_name)):
+            if (zz > 0 and (saved_child != invoicedline.childid.name or inv_date != invoicedline.prestation_date or saved_activity != invoicedline.activity_activity_id.short_name))  or zz == len(self.invoice_line_ids) -1:
                 activities_participation = []
                 for activity in activities:
                     if activity in activity_names:
@@ -320,25 +324,35 @@ class extraschool_invoice(models.Model):
                                         child_class,
                                         inv_date_str,
 #                                        invoicedline.activity_activity_id.name,
-                                        format_activities_str % tuple(activities_participation),
+#                                        format_activities_str % tuple(activities_participation),
                                         saved_activity,
-                                        amount if fisc else 0,
+                                        1 if nbr_jour == 1 and not nbr_jour_printed else 0,
+                                        fisc_amount,
                                         amount                                                                            
-                                        )                
+                                        )
+                if nbr_jour:
+                    nbr_jour_printed = True   
+           
                 print "lastname : <%s - %s - %s>" % (inv_date_str,firstname, lastname)                
 #                 print str_line
 #                 print "++++++"
                 res.append(str_line) 
                 
-                amount = invoicedline.total_price
+                amount = invoicedline.total_price                
             else:            
                 amount += invoicedline.total_price
             
+                
 #             print "...%s" % (lastname)
             if zz == 0 or saved_child != invoicedline.childid.name or inv_date != invoicedline.prestation_date or saved_activity != invoicedline.activity_activity_id.short_name:
 #                 print "!!!!!!!!!!!!!!!!!!!!!!!"
 #                 print "Change"
 #                 print "!!!!!!!!!!!!!!!!!!!!!!!"  
+                
+                if zz == 0 or saved_child != invoicedline.childid.name or inv_date != invoicedline.prestation_date:                    
+                    nbr_jour = 0
+                    nbr_jour_printed = False
+                       
                 saved_activity = invoicedline.activity_activity_id.short_name              
                 saved_child = invoicedline.childid.name
                 rn = invoicedline.childid.rn
@@ -350,16 +364,20 @@ class extraschool_invoice(models.Model):
                 child_id = invoicedline.childid.id
                 street_code = invoicedline.childid.schoolimplantation.street_code
                 amount = invoicedline.total_price
+                fisc_amount = 0 #amount if invoicedline.activity_activity_id.on_tax_certificate else 0                
                 invoice_num = invoicedline.invoiceid.number
                 activity_names.append(invoicedline.activity_activity_id.name)   
-                fisc = invoicedline.activity_activity_id.on_tax_certificate 
                 inv_date = invoicedline.prestation_date
                 inv_date_str = time.strftime('%d/%m/%Y',time.strptime(invoicedline.prestation_date,'%Y-%m-%d'))    
-                   
+        
+            if invoicedline.activity_activity_id.on_tax_certificate:
+                nbr_jour += 1
+                fisc_amount += invoicedline.total_price
+                    
             zz+=1
-        print "-------------"
-        print "%s" % (res)                                            
-        print "-------------"
+#         print "-------------"
+#         print "%s" % (res)                                            
+#         print "-------------"
 
         return res
                 
