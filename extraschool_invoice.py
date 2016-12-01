@@ -333,7 +333,7 @@ class extraschool_invoice(models.Model):
                 if nbr_jour:
                     nbr_jour_printed = True   
            
-                print "lastname : <%s - %s - %s>" % (inv_date_str,firstname, lastname)                
+#                print "lastname : <%s - %s - %s>" % (inv_date_str,firstname, lastname)                
 #                 print str_line
 #                 print "++++++"
                 res.append(str_line) 
