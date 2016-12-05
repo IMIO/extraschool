@@ -195,7 +195,30 @@ class extraschool_invoice(models.Model):
     @api.one
     def export_onyx_but(self):
         self.export_onyx()
+    
+    def export_onyx_child_change(self,invoicedline, saved_child, reset_nbr_jour = False):
+        if reset_nbr_jour:             
+            saved_child['nbr_jour'] = 1 if invoicedline.activity_activity_id.on_tax_certificate else 0
+            saved_child['nbr_jour_printed'] = False
+            
+        saved_child['saved_activity'] = invoicedline.activity_activity_id.short_name              
+        saved_child['saved_child'] = invoicedline.childid.name
+        saved_child['rn'] = invoicedline.childid.rn
+        saved_child['lastname'] = invoicedline.childid.lastname
+        saved_child['firstname'] = invoicedline.childid.firstname
+        saved_child['birthdate'] = time.strftime('%d/%m/%Y',time.strptime(invoicedline.childid.birthdate,'%Y-%m-%d'))
+        saved_child['level'] = invoicedline.childid.levelid.leveltype
+        saved_child['child_class'] = invoicedline.childid.classid.name
+        saved_child['child_id'] = invoicedline.childid.id
+        saved_child['street_code'] = invoicedline.childid.schoolimplantation.street_code
+        saved_child['amount'] = invoicedline.total_price
+        saved_child['fisc_amount'] = invoicedline.total_price if invoicedline.activity_activity_id.on_tax_certificate else 0                
+        saved_child['invoice_num'] = invoicedline.invoiceid.number
+        saved_child['inv_date'] = invoicedline.prestation_date
+        saved_child['inv_date_str'] = time.strftime('%d/%m/%Y',time.strptime(invoicedline.prestation_date,'%Y-%m-%d'))
         
+        return saved_child 
+                            
     def export_onyx(self):        
         res = []
         #split street
@@ -262,34 +285,31 @@ class extraschool_invoice(models.Model):
         amount = 0.0
         breaking = False
         
-        saved_activity = "+++++++++"
-        saved_child = ""
-        rn = ""
-        lastname = ""
-        firstname = ""
-        birthdate = ""
-        level = ""
-        child_class = ""
-        child_id = ""
-        street_code = ""
-        nbr_jour = 0
-        nbr_jour_printed = False
-        amount = 0.0
-        fisc_amount = 0.0
-        invoice_num = ""
-        activity_names = []
-        inv_date = ""
-        inv_date_str = ""
+        saved_child = {}
+        saved_child['saved_activity'] = "+++++++++"
+        saved_child['saved_child'] = ""
+        saved_child['rn'] = ""
+        saved_child['lastname'] = ""
+        saved_child['firstname'] = ""
+        saved_child['birthdate'] = ""
+        saved_child['level'] = ""
+        saved_child['child_class'] = ""
+        saved_child['child_id'] = ""
+        saved_child['street_code'] = ""
+        saved_child['nbr_jour'] = 0
+        saved_child['nbr_jour_printed'] = False
+        saved_child['amount'] = 0.0 
+        saved_child['fisc_amount'] = 0.0
+        saved_child['invoice_num'] = ""
+        saved_child['inv_date'] = ""
+        saved_child['inv_date_str'] = ""
         
         
         for invoicedline in self.invoice_line_ids.sorted(key=lambda r: "%s%s%s" % (r.childid.name,r.prestation_date,r.activity_activity_id.short_name)):
-            if (zz > 0 and (saved_child != invoicedline.childid.name or inv_date != invoicedline.prestation_date or saved_activity != invoicedline.activity_activity_id.short_name))  or zz == len(self.invoice_line_ids) -1:
-                activities_participation = []
-                for activity in activities:
-                    if activity in activity_names:
-                        activities_participation.append('1')
-                    else:
-                        activities_participation.append('')
+            if zz == 0:
+                saved_child = self.export_onyx_child_change(invoicedline, saved_child, True)                                                
+
+            if (zz > 0 and (saved_child['saved_child'] != invoicedline.childid.name or saved_child['inv_date'] != invoicedline.prestation_date or saved_child['saved_activity'] != invoicedline.activity_activity_id.short_name))  or zz == len(self.invoice_line_ids) -1:
                 str_line = format_str % (self.parentid.rn,
                                         self.parentid.lastname,
                                         self.parentid.firstname,
@@ -303,7 +323,7 @@ class extraschool_invoice(models.Model):
                                         '', # pays
                                         'F', # Langue
                                         '', # civilité
-                                        street_code, #code rue ecole
+                                        saved_child['street_code'], #code rue ecole
                                         splited_implantation_street[0][0], # libellé rue
                                         splited_implantation_street[0][1], # num 
                                         splited_implantation_street[0][2], # boite
@@ -314,70 +334,42 @@ class extraschool_invoice(models.Model):
                                         time.strftime('%d/%m/%Y',time.strptime(self.biller_id.period_to,'%Y-%m-%d')),
                                         '',
                                         '#', # comment
-                                        invoice_num,
-                                        child_id,
-                                        level,
-                                        lastname,
-                                        firstname,
-                                        birthdate,
-                                        rn,
-                                        child_class,
-                                        inv_date_str,
-#                                        invoicedline.activity_activity_id.name,
-#                                        format_activities_str % tuple(activities_participation),
-                                        saved_activity,
-                                        1 if nbr_jour == 1 and not nbr_jour_printed else 0,
-                                        fisc_amount,
-                                        amount                                                                            
+                                        saved_child['invoice_num'],
+                                        saved_child['child_id'],
+                                        saved_child['level'],
+                                        saved_child['lastname'],
+                                        saved_child['firstname'],
+                                        saved_child['birthdate'],
+                                        saved_child['rn'],
+                                        saved_child['child_class'],
+                                        saved_child['inv_date_str'],
+                                        saved_child['saved_activity'],
+                                        1 if saved_child['nbr_jour'] >= 1 and not saved_child['nbr_jour_printed'] else 0,
+                                        saved_child['fisc_amount'],
+                                        saved_child['amount']                                                                            
                                         )
-                if nbr_jour:
-                    nbr_jour_printed = True   
+                if saved_child['nbr_jour']:
+                    saved_child['nbr_jour_printed'] = True   
            
-#                print "lastname : <%s - %s - %s>" % (inv_date_str,firstname, lastname)                
-#                 print str_line
-#                 print "++++++"
-                res.append(str_line) 
-                
-                amount = invoicedline.total_price                
-            else:            
-                amount += invoicedline.total_price
-            
-                
-#             print "...%s" % (lastname)
-            if zz == 0 or saved_child != invoicedline.childid.name or inv_date != invoicedline.prestation_date or saved_activity != invoicedline.activity_activity_id.short_name:
-#                 print "!!!!!!!!!!!!!!!!!!!!!!!"
-#                 print "Change"
-#                 print "!!!!!!!!!!!!!!!!!!!!!!!"  
-                
-                if zz == 0 or saved_child != invoicedline.childid.name or inv_date != invoicedline.prestation_date:                    
-                    nbr_jour = 0
-                    nbr_jour_printed = False
-                       
-                saved_activity = invoicedline.activity_activity_id.short_name              
-                saved_child = invoicedline.childid.name
-                rn = invoicedline.childid.rn
-                lastname = invoicedline.childid.lastname
-                firstname = invoicedline.childid.firstname
-                birthdate = time.strftime('%d/%m/%Y',time.strptime(invoicedline.childid.birthdate,'%Y-%m-%d'))
-                level = invoicedline.childid.levelid.leveltype
-                child_class = invoicedline.childid.classid.name
-                child_id = invoicedline.childid.id
-                street_code = invoicedline.childid.schoolimplantation.street_code
-                amount = invoicedline.total_price
-                fisc_amount = 0 #amount if invoicedline.activity_activity_id.on_tax_certificate else 0                
-                invoice_num = invoicedline.invoiceid.number
-                activity_names.append(invoicedline.activity_activity_id.name)   
-                inv_date = invoicedline.prestation_date
-                inv_date_str = time.strftime('%d/%m/%Y',time.strptime(invoicedline.prestation_date,'%Y-%m-%d'))    
-        
-            if invoicedline.activity_activity_id.on_tax_certificate:
-                nbr_jour += 1
-                fisc_amount += invoicedline.total_price
+                res.append(str_line)                 
+
+            #break on child, date or activity_short_name
+            if saved_child['saved_child'] != invoicedline.childid.name or saved_child['inv_date'] != invoicedline.prestation_date or saved_child['saved_activity'] != invoicedline.activity_activity_id.short_name:
+                #if break on child, date
+                if saved_child['saved_child'] != invoicedline.childid.name or saved_child['inv_date'] != invoicedline.prestation_date:                    
+                    saved_child = self.export_onyx_child_change(invoicedline, saved_child, True)
+                else:      
+                    saved_child = self.export_onyx_child_change(invoicedline,saved_child)
+                    if invoicedline.activity_activity_id.on_tax_certificate:
+                        saved_child['nbr_jour'] += 1                                                       
+            else:
+                if zz > 0:
+                    if invoicedline.activity_activity_id.on_tax_certificate:
+                        saved_child['nbr_jour'] += 1                                   
+                        saved_child['fisc_amount'] += invoicedline.total_price
+                    saved_child['amount'] += invoicedline.total_price                    
                     
             zz+=1
-#         print "-------------"
-#         print "%s" % (res)                                            
-#         print "-------------"
 
         return res
                 
