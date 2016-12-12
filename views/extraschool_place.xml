@@ -25,7 +25,9 @@
                 <newline/>
                 <field name="zipcode"/>        
                 <newline/>
-                <field name="city"/>
+                <field name="city"/>            
+                <newline/>
+                <field name="street_code"/>        
                 <newline/>
                 <field name="schedule"/>
                 <newline/>       

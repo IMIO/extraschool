@@ -32,8 +32,7 @@ class extraschool_schoolimplantation(models.Model):
     schoolid = fields.Many2one('extraschool.school', 'School', required=False)
     street = fields.Char('Street')
     zipcode = fields.Char('ZipCode')
-    city = fields.Char('City')
-    street_code = fields.Char('Street Code') # onyx
+    city = fields.Char('City')    
     
     oldid = fields.Integer('oldid')        
 

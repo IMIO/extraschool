@@ -197,6 +197,8 @@ class extraschool_invoice(models.Model):
         self.export_onyx()
     
     def export_onyx_child_change(self,invoicedline, saved_child, reset_nbr_jour = False):
+        p = re.compile(r"([^0-9^,]*\b|.*\b11 novembre\b)[\s,]*([0-9]*)[\/\s]*([a-zA-Z]*[0-9]*)[\/\s]*([a-zA-Z]*)$")
+        
         if reset_nbr_jour:             
             saved_child['nbr_jour'] = 1 if invoicedline.activity_activity_id.on_tax_certificate else 0
             saved_child['nbr_jour_printed'] = False
@@ -210,13 +212,13 @@ class extraschool_invoice(models.Model):
         saved_child['level'] = invoicedline.childid.levelid.leveltype
         saved_child['child_class'] = invoicedline.childid.classid.name
         saved_child['child_id'] = invoicedline.childid.id
-        saved_child['street_code'] = invoicedline.childid.schoolimplantation.street_code
+        saved_child['street_code'] = invoicedline.placeid.street_code
         saved_child['amount'] = invoicedline.total_price
         saved_child['fisc_amount'] = invoicedline.total_price if invoicedline.activity_activity_id.on_tax_certificate else 0                
         saved_child['invoice_num'] = invoicedline.invoiceid.number
         saved_child['inv_date'] = invoicedline.prestation_date
         saved_child['inv_date_str'] = time.strftime('%d/%m/%Y',time.strptime(invoicedline.prestation_date,'%Y-%m-%d'))
-        
+        saved_child['splited_place_street'] = p.findall(invoicedline.placeid.street)
         return saved_child 
                             
     def export_onyx(self):        
@@ -227,7 +229,7 @@ class extraschool_invoice(models.Model):
         if len(splited_street) == 0:
             splited_street = [(splited_street,'','','','')]
         #split rue ecole
-        splited_implantation_street = p.findall(self.schoolimplantationid.street)
+        
         
         activities = self.env["extraschool.activity"].search([]).mapped('name')
         
@@ -303,6 +305,7 @@ class extraschool_invoice(models.Model):
         saved_child['invoice_num'] = ""
         saved_child['inv_date'] = ""
         saved_child['inv_date_str'] = ""
+        saved_child['splited_place_street'] = []
         
         
         for invoicedline in self.invoice_line_ids.sorted(key=lambda r: "%s%s%s" % (r.childid.name,r.prestation_date,r.activity_activity_id.short_name)):
@@ -324,10 +327,10 @@ class extraschool_invoice(models.Model):
                                         'F', # Langue
                                         '', # civilité
                                         saved_child['street_code'], #code rue ecole
-                                        splited_implantation_street[0][0], # libellé rue
-                                        splited_implantation_street[0][1], # num 
-                                        splited_implantation_street[0][2], # boite
-                                        splited_implantation_street[0][3], # index
+                                        saved_child['splited_place_street'][0][0], # libellé rue
+                                        saved_child['splited_place_street'][0][1], # num 
+                                        saved_child['splited_place_street'][0][2], # boite
+                                        saved_child['splited_place_street'][0][3], # index
                                         int(self.schoolimplantationid.zipcode),
                                         self.schoolimplantationid.city,
                                         time.strftime('%d/%m/%Y',time.strptime(self.biller_id.period_from,'%Y-%m-%d')),
