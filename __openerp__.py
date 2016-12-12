@@ -35,7 +35,7 @@
     'demo' : [],
     'test' : [],
     'data' : [  
-#        'scripts/update_invoice_payment_term.sql',        
+        'scripts/alter_school_implantation_drop_street_code.sql',        
         'views/extraschool_activitycategory.xml',
         'views/extraschool_activity.xml',
         'views/extraschool_activityoccurrence.xml',
