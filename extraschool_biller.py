@@ -28,6 +28,8 @@ import re
 from datetime import date, datetime, timedelta as td
 from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
+from openerp.exceptions import except_orm, Warning, RedirectWarning
+
 import base64
 try:
     import cStringIO as StringIO
@@ -108,7 +110,22 @@ class extraschool_biller(models.Model):
 #             strhtml=strhtml+'</TABLE></HTML>'
 # 
 #             record.paymentsstats=strhtml
-            
+
+    @api.multi
+    def unlink(self):          
+        if len(self) > 1:
+            raise Warning(_("You can delete only one biller at a time !!!"))  
+              
+        if self.search([]).sorted(key=lambda r: r.id)[-1].id != self.id:
+            raise Warning(_("You can only delete the last biller !!!"))  
+        
+        for invoice in self.invoice_ids:
+            invoice.payment_ids.unlink()
+        
+        self.activitycategoryid.invoicelastcomstruct = self.invoice_ids.sorted(key=lambda r: r.id)[0].number   
+             
+        return super(extraschool_biller, self).unlink()   
+           
     @api.one        
     def sendmails(self):  
         #to do refactoring et netoyage suite au passage api V8                   
