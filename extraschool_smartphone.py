@@ -96,7 +96,7 @@ class extraschool_smartphone(models.Model):
             for smartphone in self:
                 if smartphone.pda_transmission_ids:
                     pod_allready_reseted_ids = []
-                    for presta in smartphone.pda_transmission_ids.pda_prestation_times_ids:
+                    for presta in smartphone.pda_transmission_ids.sorted(key=lambda r: r.transmission_date_from)[-1].pda_prestation_times_ids:
                         if presta.prestation_times_of_the_day_id.id not in pod_allready_reseted_ids:
                             pod_allready_reseted_ids.append(presta.prestation_times_of_the_day_id.id)
                             presta.prestation_times_of_the_day_id.reset()
