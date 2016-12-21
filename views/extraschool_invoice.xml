@@ -119,7 +119,7 @@
 	   		                </page>
 	   		                <page string="Payments" readonly="True">
 	   		                    <field name="payment_ids">
-			                        <tree string="Payments">
+			                        <tree string="Payments" editable="top" create="false" delete="false">
 			                            <field name="paymentdate"/>
 			                            <field name="amount"/>
 			                            <field name="account"/>                            
