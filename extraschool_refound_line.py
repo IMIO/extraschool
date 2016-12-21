@@ -27,7 +27,7 @@ import openerp.addons.decimal_precision as dp
 
 class extraschool_refound_line(models.Model):
     _name = 'extraschool.refound_line'
-    _description = 'invoiced Prestations'
+    _description = 'Non valeurs'
 
     invoiceid = fields.Many2one('extraschool.invoice', 'invoice',ondelete='cascade')
     date = fields.Date(string="Date", required=False)
@@ -67,4 +67,16 @@ class extraschool_refound_line(models.Model):
         new_obj.confirm()
         
         return new_obj
-    
+
+    @api.multi
+    def unlink(self): 
+        invoice_ids = []
+        for refound in self:
+            if refound.invoiceid.id not in invoice_ids:
+                invoice_ids.append(refound.invoiceid.id)
+
+        res = super(extraschool_refound_line, self).unlink()
+              
+        self.env['extraschool.invoice'].browse(invoice_ids)._compute_balance()
+        
+        return res
