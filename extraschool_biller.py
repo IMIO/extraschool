@@ -41,17 +41,19 @@ class extraschool_biller(models.Model):
     _name = 'extraschool.biller'
     _description = 'Biller'
 
+    _order = "id desc"
+    
     activitycategoryid = fields.Many2one('extraschool.activitycategory', 'Activity Category')
     period_from = fields.Date('Period from')
     period_to = fields.Date('Period to')
     payment_term = fields.Date('Payment term')
     invoices_date = fields.Date('Invoices date')        
     invoice_ids = fields.One2many('extraschool.invoice', 'biller_id','invoices')
-    total = fields.Float(compute='_compute_total', string="Total")
-    received = fields.Float(compute='_compute_received', string="Received")
-    novalue = fields.Float(compute='_compute_novalue', string="No Value")
-    balance = fields.Float(compute='_compute_balance', string="Balance")
-    nbinvoices = fields.Integer(compute='_compute_nbinvoices', string="Nb of invoices")
+    total = fields.Float(compute='_compute_total', string="Total", stored = True)
+    received = fields.Float(compute='_compute_received', string="Received", stored = True)
+    novalue = fields.Float(compute='_compute_novalue', string="No Value", stored = True)
+    balance = fields.Float(compute='_compute_balance', string="Balance", stored = True)
+    nbinvoices = fields.Integer(compute='_compute_nbinvoices', string="Nb of invoices", stored = True)
     other_ref = fields.Char("Ref")
     comment = fields.Text("Comment",default="")
 #    paymentsstats = fields.Text(compute='_compute_paymentsstats', string="Payments stats")
