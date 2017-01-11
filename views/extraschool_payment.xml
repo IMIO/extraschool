@@ -62,7 +62,7 @@
 			<field name="name">Payments</field>
 			<field name="res_model">extraschool.payment</field>
 			<field name="view_type">form</field>
-			<field name="view_mode">tree,form</field>
+			<field name="view_mode">tree</field>
 		</record>
         		
          <record model="ir.ui.view" id="extraschool_payment_reconciliation_tree">
