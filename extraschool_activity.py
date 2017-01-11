@@ -43,7 +43,7 @@ class extraschool_activity(models.Model):
     activity_child_ids = fields.One2many('extraschool.activity', 'parent_id','Activity child')
     placeids  = fields.Many2many('extraschool.place','extraschool_activity_place_rel', 'activity_id', 'place_id','Schoolcare place')
     schoolimplantationids = fields.Many2many('extraschool.schoolimplantation','extraschool_activity_schoolimplantation_rel', 'activity_id', 'schoolimplantation_id','Schoolcare schoolimplantation')
-    short_name = fields.Char('Short name', size=20, index = True)        
+    short_name = fields.Char('Short name', index = True)        
     childtype_ids = fields.Many2many('extraschool.childtype','extraschool_activity_childtype_rel', 'activity_id', 'childtype_id','Child type')                        
     childregistration_ids = fields.One2many('extraschool.activitychildregistration', 'activity_id','Child registrations')
     autoaddchilds = fields.Boolean('Auto add registered')                
