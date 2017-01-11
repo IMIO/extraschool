@@ -70,7 +70,7 @@ class extraschool_child_registration(models.Model):
             self.week = 1
         
 
-        monday,sunday = self.get_week_days(2016, self.week)
+        monday,sunday = self.get_week_days(datetime.now().year, self.week)
         print "week days : %s - %s" % (monday,sunday)
         print "monday : %s" % (monday)
         print "sunday : %s" % (sunday)
