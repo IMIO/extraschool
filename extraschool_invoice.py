@@ -308,7 +308,7 @@ class extraschool_invoice(models.Model):
         saved_child['splited_place_street'] = []
         
         
-        for invoicedline in self.invoice_line_ids.sorted(key=lambda r: "%s%s%s" % (r.childid.name,r.prestation_date,r.activity_activity_id.short_name)):
+        for invoicedline in self.invoice_line_ids.filtered(lambda r: r.total_price > 0.0001).sorted(key=lambda r: "%s%s%s" % (r.childid.name,r.prestation_date,r.activity_activity_id.short_name)):
             if zz == 0:
                 saved_child = self.export_onyx_child_change(invoicedline, saved_child, True)                                                
 
