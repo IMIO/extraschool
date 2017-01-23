@@ -33,8 +33,8 @@
        	<menuitem name="Childs registration Multi" parent="extraschool_menu_registrations" id="extraschool_menu_child_registration_multi" action="action_extraschool_child_registration_multi"/>			
        		       		
         <menuitem name="Prestations" id="extraschool_menu_prestations" parent="menu_extraschool"  sequence="30"/>
-<!--        <menuitem action="action_lbsc_prestationscheck_wizard" id="extraschool_menu_prestationscheck_wizard" parent="extraschool_menu_prestations"/>       
--->        <menuitem name="Prestations" parent="extraschool_menu_prestations" id="extraschool_menu_prest_tree" action="action_extraschool_prest_tree" />
+        <menuitem action="action_lbsc_prestationscheck_wizard" id="extraschool_menu_prestationscheck_wizard" parent="extraschool_menu_prestations"/>       
+        <menuitem name="Prestations" parent="extraschool_menu_prestations" id="extraschool_menu_prest_tree" action="action_extraschool_prest_tree" />
         <menuitem name="Encodage manuel" parent="extraschool_menu_prestations" id="extraschool_menu_prestation_times_encodage_manuel_tree" action="action_extraschool_prestation_times_encodage_manuel_tree" /> 
         <menuitem name="Prestations of the day" parent="extraschool_menu_prestations" id="extraschool_menu_prestation_times_of_the_day_tree" action="action_extraschool_prestation_times_of_the_day_tree" />
         <menuitem name="Prestations stat" parent="extraschool_menu_prestations" id="extraschool_menu_presta_stat_tree" action="action_extraschool_presta_stat_tree" />        	        
