@@ -30,7 +30,7 @@
                      </field>
                     <separator string="" colspan="4"/>
                     <group colspan="4" col="3">
-                        <button name="next" string="generate payment" icon="gtk-apply" type="object" attrs="{'invisible':[('reconciliation_amount_balance', '&lt;', '0')]}"/>
+                        <button name="next" string="generate payment" icon="gtk-apply" type="object" attrs="{'invisible':[('reconciliation_amount_balance', '&lt;', '-0.001')]}"/>
                     </group>
                 </form>
             </field>
