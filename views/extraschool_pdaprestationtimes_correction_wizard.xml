@@ -9,7 +9,7 @@
                 <form string="Manuel encodage validation wizard">
                     <group col="4"  groups="base.group_erp_manager">
                     	<field name="es" />
-						<field name="prestation_time" />                    	
+						<field name="prestation_time"  widget="float_time"/>                    	
                         <button name="correction" string="Correction" icon="gtk-apply" type="object" />
 					</group>                                        
                 </form>
