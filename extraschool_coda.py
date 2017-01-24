@@ -177,14 +177,6 @@ class extraschool_coda(models.Model):
                                 reminder=reminder_obj.search([('structcom', '=', communication)])
                                 if reminder.ensure_one():
                                     totaldue = sum(invoice.balance for invoice in reminder.concerned_invoice_ids)
-                                    print '--------------------'
-                                    print amount
-                                    print totaldue
-                                    for invoice in reminder.concerned_invoice_ids:
-                                        print '*'
-                                        print invoice.balance
-                                        print invoice.parentid.name
-                                    print '---------------------'
                                     if amount != totaldue:
                                         reject=True
                                         rejectcause=_('A reminder has been found but the amount is not corresponding to balances of invoices')
@@ -221,7 +213,6 @@ class extraschool_coda(models.Model):
                                         parentid = int(communication[7:11]+communication[12:15])
                                         if len(self.env['extraschool.parent'].search([('id', '=',parentid)])) == 0:
                                             reject=True;
-                                            print communication
                                             rejectcause=_('Parent not found')
                                         else:                              
                                             payment_id = payment_obj.create({'parent_id': parentid,
