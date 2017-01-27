@@ -6,7 +6,7 @@
             <field name="model">extraschool.payment</field>    
             <field name="type">tree</field>
             <field name="arch" type="xml">
-	            <tree string="Payment Status">
+	            <tree string="Payment Status" create="false">
 	            	<field name="parent_id"></field>
 	            	<field name="paymentdate"/>
                     <field name="name"/>
@@ -50,6 +50,7 @@
 	            	<field name="structcom"/>
 	                <field name="paymentdate"/>
 	                <field name="amount" />
+					<field name="parent_id"></field>	                
                    <group  expand='0' string='Group by...'>
                        <filter string='structcom_prefix' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'structcom_prefix'}"/>
                    	   <filter string='structcom' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'structcom'}"/>
@@ -62,7 +63,7 @@
 			<field name="name">Payments</field>
 			<field name="res_model">extraschool.payment</field>
 			<field name="view_type">form</field>
-			<field name="view_mode">tree</field>
+			<field name="view_mode">tree,form</field>
 		</record>
         		
          <record model="ir.ui.view" id="extraschool_payment_reconciliation_tree">
@@ -240,7 +241,7 @@
             <field name="model">extraschool.payment_report</field>    
             <field name="type">tree</field>
             <field name="arch" type="xml">
-	            <tree string="Payment Status">
+	            <tree string="Payment Status" create="false">
                     <field name="payment_date"/>
                     <field name="parent_id"/>
                     <field name="structcom"/>
@@ -285,7 +286,7 @@
 			<field name="name">Payments Report</field>
 			<field name="res_model">extraschool.payment_report</field>
 			<field name="view_type">form</field>
-			<field name="view_mode">tree,graph</field>
+			<field name="view_mode">tree,form, graph</field>
 		</record>
 	</data> 		
 </openerp>
