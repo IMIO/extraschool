@@ -27,7 +27,7 @@ from reportlab.graphics.barcode import createBarcodeImageInMemory
 import cStringIO
 import base64
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 class extraschool_smartphone(models.Model):
@@ -113,7 +113,19 @@ class extraschool_smartphone(models.Model):
     def copy(self,vals):
         res = super(extraschool_smartphone, self).copy(vals)               
         res.write({})
-        return res          
+        return res  
+
+    @api.model
+    def ws_verif_transmition(self):
+        return_dict = {'return_state': 1,
+                       'return_log': ''}
+        smartphone_error = self.search([('lasttransmissiondate', '<', (datetime.today() - timedelta(1)).strftime("%Y-%m-%d 00:00:00"))])
+        if len(smartphone_error):
+            return_dict['return_state'] = 0
+            for smartphone in smartphone_error:
+                return_dict['return_log'] += "%s-%s\n" % (smartphone.name, smartphone.lasttransmissiondate)
+        
+        return return_dict            
         
 class extraschool_pda_transmission(models.Model):
     _name = 'extraschool.pda_transmission'
