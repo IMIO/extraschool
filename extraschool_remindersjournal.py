@@ -168,7 +168,6 @@ class extraschool_remindersjournal(models.Model):
             parent_id = -1
             total_amount = 0.0
             amount = 0.0
-            next_invoice_num = self.activity_category_id.invoicelastcomstruct
             concerned_invoice_ids = []
 
             for invoice in invoice_ids:
@@ -192,7 +191,7 @@ class extraschool_remindersjournal(models.Model):
                                                                         'reminders_journal_id': self.id,
                                                                         'parentid': parent_id,
                                                                         'school_implantation_id': invoice.schoolimplantationid.id,
-                                                                        'structcom': invoice.activitycategoryid.get_next_comstruct('reminder')                                                                        
+                                                                        'structcom': invoice.activitycategoryid.get_next_comstruct('reminder',invoice.biller_id.get_from_year())['com_struct']                                                                        
                                                                         })                    
                     if reminder_type.fees_type == 'fix':
                         if biller_id == -1:
@@ -202,18 +201,14 @@ class extraschool_remindersjournal(models.Model):
                                                                             'invoices_date': self.transmission_date,
                                                                             })
                             biller_id = self.biller_id.id                            
-                            
-                        next_invoice_num += 1
-                        com_struct_prefix_str = self.activity_category_id.invoicecomstructprefix
-                        com_struct_id_str = str(next_invoice_num).zfill(7)
-                        com_struct_check_str = str(long(com_struct_prefix_str+com_struct_id_str) % 97).zfill(2)
-                        com_struct_check_str = com_struct_check_str if com_struct_check_str != '00' else '97'
-                        fees_invoice = inv_obj.create({'name' : _('invoice_%s') % (str(next_invoice_num).zfill(7),),
-                                                    'number' : next_invoice_num,
+                        
+                        next_invoice_num = self.activity_category_id.get_next_comstruct('invoice',self.biller_id.get_from_year())                            
+                        fees_invoice = inv_obj.create({'name' : _('invoice_%s') % (next_invoice_num['num'],),
+                                                    'number' : next_invoice_num['num'],
                                                     'parentid' : parent_id,
                                                     'biller_id' : biller_id,
                                                     'activitycategoryid': self.activity_category_id.id,
-                                                    'structcom': payment_obj.format_comstruct('%s%s%s' % (com_struct_prefix_str,com_struct_id_str,com_struct_check_str)),
+                                                    'structcom': next_invoice_num['com_struct'],
                                                     'last_reminder_id': reminder.id,
                                                     'reminder_fees': True,
                                                     })

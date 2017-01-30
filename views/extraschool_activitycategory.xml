@@ -1,6 +1,37 @@
 <?xml version="1.0" ?>
 <openerp>
 	<data> 
+        <record model="ir.ui.view" id="extraschool_activitycategory_sequence_form">
+            <field name="name">extraschool.activitycategory.sequence.form</field>
+            <field name="model">extraschool.activitycategory.sequence</field>    
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+	            <form string="Sequence">
+	            	<group col="4">
+	                    <field name="name"/> 
+	                    <newline/>
+	                    <field name="year" />
+	                    <field name="type" />
+	                    <field name="sequence" />			            	  
+	                </group>
+	            </form>
+        	</field>	
+        </record>
+
+        <record model="ir.ui.view" id="extraschool_activitycategory_sequence_tree">
+            <field name="name">extraschool.activitycategory.sequence.tree</field>
+            <field name="model">extraschool.activitycategory.sequence</field>    
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+	            <tree string="Sequence">
+                    <field name="name"/> 
+                    <field name="year" />
+                    <field name="type" />
+                    <field name="sequence" />			            	  
+	            </tree>
+        	</field>	
+        </record>        
+        
         <record model="ir.ui.view" id="extraschool_activitycategory_tree">
 			<field name="name">extraschool.activitycategory.tree</field>
 			<field name="model">extraschool.activitycategory</field>
@@ -117,10 +148,16 @@
 							<field name="payment_invitation_courrier_text" widget="html"/>                
 						</group>
 					</page>
+					<page string="Sequences">
+						<group col="4">							
+							<field name="sequence_ids"  nolabel="1"/>                             
+						</group>
+					</page>
               	</notebook>
             </form>
             </field> 
         </record>
+        
         <record model="ir.actions.act_window" id="action_extraschool_activitycategory">
 			<field name="name">Activity category</field>
 			<field name="res_model">extraschool.activitycategory</field>

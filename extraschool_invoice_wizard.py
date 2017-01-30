@@ -400,26 +400,20 @@ class extraschool_invoice_wizard(models.TransientModel):
         invoice_ids = []
         invoice_line_ids = []
         payment_obj = self.env['extraschool.payment']
-        next_invoice_num = self.activitycategory.invoicelastcomstruct
         for invoice_line in invoice_lines:
             if saved_parent_id != invoice_line['parent_id'] or saved_schoolimplantation_id != invoice_line['schoolimplantation']:
                 saved_parent_id = invoice_line['parent_id']
                 saved_schoolimplantation_id = invoice_line['schoolimplantation']                
-                com_struct_prefix_str = self.activitycategory.invoicecomstructprefix
-                com_struct_id_str = str(next_invoice_num).zfill(7)
-                com_struct_check_str = str(long(com_struct_prefix_str+com_struct_id_str) % 97).zfill(2)
-                com_struct_check_str = com_struct_check_str if com_struct_check_str != '00' else '97'
-                             
-                invoice = inv_obj.create({'name' : _('invoice_%s') % (str(next_invoice_num).zfill(7),),
-                                            'number' : next_invoice_num,
+                next_invoice_num = self.activitycategory.get_next_comstruct('invoice',biller.get_from_year())
+                invoice = inv_obj.create({'name' : _('invoice_%s') % (next_invoice_num['num'],),
+                                            'number' : next_invoice_num['num'],
                                             'parentid' : saved_parent_id,
                                             'biller_id' : biller.id,
                                             'activitycategoryid': self.activitycategory.id,
                                             'schoolimplantationid': saved_schoolimplantation_id,
                                             'payment_term': biller.payment_term,
-                                            'structcom': payment_obj.format_comstruct('%s%s%s' % (com_struct_prefix_str,com_struct_id_str,com_struct_check_str))})
+                                            'structcom': next_invoice_num['com_struct']})
                 invoice_ids.append(invoice.id)
-                next_invoice_num += 1
                 
             duration_h = int(invoice_line['duration'])
             duration_m = int(ceil(round((invoice_line['duration']-duration_h)*60)))
@@ -430,8 +424,6 @@ class extraschool_invoice_wizard(models.TransientModel):
                                  'duration': duration,
                                  #'child_position_id': invoice_line['child_position_id'],
                                  }).id)
-        
-        self.activitycategory.invoicelastcomstruct = next_invoice_num
                                   
         #Mise à jour lien entre invoice line et presta
         sql_update_link_to_presta = """update extraschool_prestationtimes ept

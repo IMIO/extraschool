@@ -1,0 +1,5 @@
+<openerp>
+    <data>	
+    	<function name="update_seq" model="extraschool.activitycategory" />
+	</data>
+</openerp>

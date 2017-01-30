@@ -124,7 +124,13 @@ class extraschool_biller(models.Model):
         for invoice in self.invoice_ids:
             invoice.payment_ids.unlink()
         
-        self.activitycategoryid.invoicelastcomstruct = self.invoice_ids.sorted(key=lambda r: r.id)[0].number   
+        invoicelastcomstruct = str(self.invoice_ids.sorted(key=lambda r: r.id)[0].number)[-5:]
+        
+        self.activitycategoryid.sequence_ids.search([('type', '=', 'invoice'),
+                                                     ('year', '=', self.get_from_year()),]).sequence.number_next = invoicelastcomstruct
+        
+        
+           
              
         return super(extraschool_biller, self).unlink()   
            
@@ -242,6 +248,11 @@ class extraschool_biller(models.Model):
             )]      
         
         return months  
+    
+    @api.multi
+    def get_from_year(self):
+        return fields.Date.from_string(self.period_from).year
+    
         
     @api.one
     def export_onyx(self):

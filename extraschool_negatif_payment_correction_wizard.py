@@ -59,19 +59,16 @@ class extraschool_negatif_payment_correction_wizard(models.TransientModel):
         invoice_ids = []
         inv_obj = self.env['extraschool.invoice']  
         inv_line_obj = self.env['extraschool.invoicedprestations']  
-        next_invoice_num = self.activity_category_id.invoicelastcomstruct
+        
+        next_invoice_num = self.activity_category_id.get_next_comstruct('invoice',biller.get_from_year())                
         for payment in self.env['extraschool.payment'].browse(self._context.get('active_ids')):
-            com_struct_prefix_str = self.activity_category_id.invoicecomstructprefix
-            com_struct_id_str = str(next_invoice_num).zfill(7)
-            com_struct_check_str = str(long(com_struct_prefix_str+com_struct_id_str) % 97).zfill(2)
-            com_struct_check_str = com_struct_check_str if com_struct_check_str != '00' else '97'
-            invoice = inv_obj.create({'name' : _('invoice_%s') % (str(next_invoice_num).zfill(7),),
-                            'number' : next_invoice_num,
+            invoice = inv_obj.create({'name' : _('invoice_%s') % (next_invoice_num['num'],),
+                            'number' : next_invoice_num['num'],
                             'parentid' : payment.parent_id.id,
                             'biller_id' : biller.id,
                             'payment_term': biller.payment_term,
                             'activitycategoryid': self.activity_category_id.id,
-                            'structcom': payment_obj.format_comstruct('%s%s%s' % (com_struct_prefix_str,com_struct_id_str,com_struct_check_str))})
+                            'structcom': next_invoice_num['com_struct']})
             inv_line_obj.create({'invoiceid' : invoice.id,
                 'description' : self.description,
                 'unit_price': payment.amount * -1,
@@ -81,7 +78,6 @@ class extraschool_negatif_payment_correction_wizard(models.TransientModel):
             next_invoice_num += 1          
             invoice_ids.append(invoice.id)
         
-        self.activity_category_id.invoicelastcomstruct = next_invoice_num
         inv_obj.browse(invoice_ids).reconcil()
         
         return True

@@ -21,9 +21,10 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from openerp import models, api, fields, _
 from openerp.api import Environment
 from openerp.exceptions import except_orm, Warning, RedirectWarning
+from _abcoll import Sequence
 
 
 class extraschool_activitycategory(models.Model):
@@ -90,11 +91,10 @@ class extraschool_activitycategory(models.Model):
     payment_invitation_email_subject = fields.Char('Payment invitation Email subject')
     payment_invitation_com_struct_prefix = fields.Char('Payment invitation Comstruct prefix', size=3, required = True)
     payment_invitation_courrier_text = fields.Text('Payment invitation courrier text')
-
     logo = fields.Binary()
     slogan = fields.Char('Slogan', size=50)
-
-
+    sequence_ids = fields.One2many('extraschool.activitycategory.sequence', 'activity_category_id',string = 'Sequences')
+    
     def check_invoice_prefix(self,invoicecomstructprefix):            
         res = {'return_val' : True,
                'msg' : ''}
@@ -156,27 +156,85 @@ class extraschool_activitycategory(models.Model):
             super(extraschool_activitycategory,activity_categ).write(vals)
         
         return True
+    
+    @api.multi        
+    def get_next_comstruct(self,type,year):
+        sequence_id = self.sequence_ids.search([('type', '=', type),
+                                                ('year', '=', year),])
+        
+        print "yolo"
+        if len(sequence_id) == 0:
+            print "yulo"
+            #sequence doesn't exist, look for previous year seq to copy it
+            sequence_id = self.sequence_ids.search([('type', '=', type),
+                                                    ('year', '=', year-1),])
+            print "yili"
+
+            if len(sequence_id):                
+                print "bim"
+                sequence_id = self.env['ir.sequence'].create({'name': "%s - %s - %s" % (self.name, type, year),
+                                                        'active': True,
+                                                        'prefix': "%s" % (("%s" % (year))[-2:]),
+                                                        'padding': 5})
+                
+                categ_sequence_id = self.sequence_ids.create({'name': "%s - %s - %s" % (self.name, type, year),
+                                                        'activity_category_id': self.id,
+                                                        'year': "%s" % (year),
+                                                        'type': type,
+                                                        'sequence': sequence_id.id})
+                print "bam"
+            else:
+                raise Warning(_("Sequence not defined"))
+        else:
+            sequence_id = sequence_id.sequence
             
-    def get_next_comstruct(self,type):
-        if type == 'reminder':
-            self.reminderlastcomstruct += 1
+        print "next_by_id(%s)" % (sequence_id.id)
+        com_struct_id_str = self.env['ir.sequence'].next_by_id(sequence_id.id)    
+        print "----%s----" % (com_struct_id_str)       
+
+        if type == 'reminder':            
             com_struct_prefix_str = self.remindercomstructprefix 
-            com_struct_id_str = self.reminderlastcomstruct
+            
         if type == 'invoice':
-            self.invoicelastcomstruct += 1
             com_struct_prefix_str = self.invoicecomstructprefix 
-            com_struct_id_str = self.invoicelastcomstruct        
+                    
         
         com_struct_prefix_str = com_struct_prefix_str.zfill(3)
         com_struct_id_str = ("%s" % (com_struct_id_str)).zfill(7)
-        
+        print "yop"
         com_struct_check_str = str(long(com_struct_prefix_str+com_struct_id_str) % 97).zfill(2)
+        print "yup"
         com_struct_check_str = com_struct_check_str if com_struct_check_str != '00' else '97'
         
         comstruct = '%s%s%s' % (com_struct_prefix_str,com_struct_id_str,com_struct_check_str)
         
-        return ('+++%s/%s/%s+++' % (comstruct[0:3],comstruct[3:7],comstruct[7:12]))            
+        return {"num": com_struct_id_str,
+                "com_struct": '+++%s/%s/%s+++' % (comstruct[0:3],comstruct[3:7],comstruct[7:12]),
+                }            
 
+    @api.model
+    def update_seq(self):
+        year = 2016
+        for categ in self.search([]):
+            types = [{'type': 'invoice',
+                      'lastcomstruct': categ.invoicelastcomstruct},
+                     {'type': 'reminder',
+                      'lastcomstruct': categ.reminderlastcomstruct},
+                     ]
+            for type in types:
+                sequence_id = self.env['ir.sequence'].create({'name': "%s - %s - %s" % (categ.name, type['type'], year),
+                                                            'active': True,
+                                                            'prefix': "%s" % (("%s" % (year))[-2:]),
+                                                            'padding': 5,
+                                                            'number_next': type['lastcomstruct']})
+                
+                categ_sequence_id = categ.sequence_ids.create({'name': "%s - %s - %s" % (categ.name, type['type'], year),
+                                                        'activity_category_id': categ.id,
+                                                        'year': "%s" % (year),
+                                                        'type': type['type'],
+                                                        'sequence': sequence_id.id})
+        
+        
     @api.model
     def create(self, vals):  
         res = self.check_pay_invit_prefix(vals['payment_invitation_com_struct_prefix'])
@@ -193,4 +251,12 @@ class extraschool_activitycategory(models.Model):
 
         return res
     
-
+class extraschool_activitycategory_sequence(models.Model):
+    _name = 'extraschool.activitycategory.sequence'
+    _description = 'Activities categories sequences'
+    
+    name = fields.Char('Name', size=50)
+    activity_category_id = fields.Many2one('extraschool.activitycategory', required=True)
+    year = fields.Integer('Year', required=True)
+    type = fields.Selection((('invoice','Invoice'),('reminder','Reminder')), string='Type', required=True)
+    sequence = fields.Many2one('ir.sequence', required=True)
