@@ -118,7 +118,8 @@ class extraschool_payment_wizard(models.TransientModel):
             raise Warning(_("Reconcil amount MUST be equal to payment amount"))
         
         #Amount must be >= reconcil
-        if total > self.amount:
+        if total - self.amount >= 0.0000001:
+            print "--- total: %s amount: %s diff : %s---" % (total,self.amount,total-self.amount)
             print "Reconcil amount MUST be less than payment amount"
             raise Warning(_("Reconcil amount MUST be less than payment amount"))
         
