@@ -226,7 +226,7 @@ class extraschool_activitycategory(models.Model):
                                                             'active': True,
                                                             'prefix': "%s" % (("%s" % (year))[-2:]),
                                                             'padding': 5,
-                                                            'number_next': type['lastcomstruct']})
+                                                            'number_next': type['lastcomstruct'] if type['lastcomstruct'] > 0 else 1})
                 
                 categ_sequence_id = categ.sequence_ids.create({'name': "%s - %s - %s" % (categ.name, type['type'], year),
                                                         'activity_category_id': categ.id,
