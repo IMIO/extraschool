@@ -12,7 +12,7 @@
                         <button name="check" group="admin" string="Check" icon="gtk-apply" type="object"/>    
                         <button name="last_check_entry_exit"  groups="base.group_erp_manager" string="Check ES" icon="gtk-apply" type="object" />
 						<button name="merge_pod_dup"  groups="base.group_erp_manager" string="merge pod dup" icon="gtk-apply" type="object" />                        
-                                            	                        
+						<button name="reset_verified_pod_with_non_verified_presta"  groups="base.group_erp_manager" string="bug pod verified" icon="gtk-apply" type="object" />                                            	                        
                     </group>
                     <group col="4" groups="base.group_erp_manager">
                     	<field name="query_sql"/>

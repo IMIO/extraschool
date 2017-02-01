@@ -585,7 +585,7 @@ class extraschool_invoice_wizard(models.TransientModel):
         
         invoice_ids_rs.reconcil()
         
-        self.env['report'].get_pdf(inv_obj.browse(invoice_ids),'extraschool.invoice_report_layout')
+#        self.env['report'].get_pdf(inv_obj.browse(invoice_ids),'extraschool.invoice_report_layout')
         
         view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','extraschool.biller'),
                                                              ('name','=','Biller.form')])

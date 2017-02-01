@@ -101,7 +101,20 @@ class extraschool_prestation_times_of_the_day_wizard(models.TransientModel):
     def merge_pod_dup(self):
         self.env['extraschool.prestation_times_of_the_day'].merge_duplicate_pod()
             
+    @api.multi
+    def reset_verified_pod_with_non_verified_presta(self):
+        pod_error = """
+                        select distinct(prestation_times_of_the_day_id) as id
+                        from extraschool_prestationtimes p
+                        left join extraschool_prestation_times_of_the_day pod on pod.id = p.prestation_times_of_the_day_id
+                        where p.verified = False and pod.verified = False;
+                    """                    
+        self.env.cr.execute(pod_error)
+
+        pod_errors = self.env.cr.dictfetchall()
+        pod_error_ids = [doublon['id'] for doublon in pod_errors]   
         
+        self.env['extraschool.prestation_times_of_the_day'].browse(pod_error_ids).reset()    
         
     
     
