@@ -216,23 +216,24 @@ class extraschool_activitycategory(models.Model):
     def update_seq(self):
         year = 2016
         for categ in self.search([]):
-            types = [{'type': 'invoice',
-                      'lastcomstruct': categ.invoicelastcomstruct},
-                     {'type': 'reminder',
-                      'lastcomstruct': categ.reminderlastcomstruct},
-                     ]
-            for type in types:
-                sequence_id = self.env['ir.sequence'].create({'name': "%s - %s - %s" % (categ.name, type['type'], year),
-                                                            'active': True,
-                                                            'prefix': "%s" % (("%s" % (year))[-2:]),
-                                                            'padding': 5,
-                                                            'number_next': type['lastcomstruct'] if type['lastcomstruct'] > 0 else 1})
-                
-                categ_sequence_id = categ.sequence_ids.create({'name': "%s - %s - %s" % (categ.name, type['type'], year),
-                                                        'activity_category_id': categ.id,
-                                                        'year': "%s" % (year),
-                                                        'type': type['type'],
-                                                        'sequence': sequence_id.id})
+            if len(categ.sequence_ids) == 0:
+                types = [{'type': 'invoice',
+                          'lastcomstruct': categ.invoicelastcomstruct},
+                         {'type': 'reminder',
+                          'lastcomstruct': categ.reminderlastcomstruct},
+                         ]
+                for type in types:
+                    sequence_id = self.env['ir.sequence'].create({'name': "%s - %s - %s" % (categ.name, type['type'], year),
+                                                                'active': True,
+                                                                'prefix': "%s" % (("%s" % (year))[-2:]),
+                                                                'padding': 5,
+                                                                'number_next': type['lastcomstruct'] if type['lastcomstruct'] > 0 else 1})
+                    
+                    categ_sequence_id = categ.sequence_ids.create({'name': "%s - %s - %s" % (categ.name, type['type'], year),
+                                                            'activity_category_id': categ.id,
+                                                            'year': "%s" % (year),
+                                                            'type': type['type'],
+                                                            'sequence': sequence_id.id})
         
         
     @api.model
