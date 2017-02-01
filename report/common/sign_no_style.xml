@@ -4,6 +4,7 @@
 		<template id="report_sign_no_style">
 			<style>
 				#doc_resp_sign{
+					page-break-inside: avoid;
 					display: block;
 					width: 100%;
 				}

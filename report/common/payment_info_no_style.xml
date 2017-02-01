@@ -4,6 +4,7 @@
 		<template id="report_payment_info_no_style">
 			<style>
 				#payment_info{
+					page-break-inside: avoid;
 					display: block;
 					width: 100%;
 					padding: 8px;			

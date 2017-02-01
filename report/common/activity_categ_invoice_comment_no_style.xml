@@ -4,6 +4,7 @@
 		<template id="report_activity_categ_invoice_comment_no_style">
 			<style>
 				#invoice_categ_comment{
+					page-break-inside: avoid;
 					display: block;
 					width: 100%;
 		    		padding: 0 0 0 8px;

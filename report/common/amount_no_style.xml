@@ -4,6 +4,7 @@
 		<template id="report_amount_no_style">
 			<style>
 				#total_row{
+					page-break-inside: avoid;
 					float: left;
 					width: 100%;
 				}
