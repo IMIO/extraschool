@@ -9,17 +9,22 @@
 		    		padding: 0 0 0 8px;
 		    		margin 0 0 0 0;
 		    	}
+		    	.aes_credit_solde{
+		    		white-space:nowrap;
+		    		font-weight: bold;
+		    	}
 		    	
 			</style>			
 	    	<div class="aes_html_parent_credit">
 				<h4>Pour rappel,</h4>
-	    		<p>Après enregistrement du paiement de cette facture, votre compte famille présente un solde de  
+	    		<p>Après enregistrement du paiement de cette facture, votre compte famille présente   
 	    			<t t-if="parent_id.totalbalance > 0.001">
-	    				- <t t-esc="'%.2f' %  (parent_id.totalbalance)" /> €	    				
+	    				<span class="aes_credit_solde">un solde de -<t t-esc="'%.2f' %  (parent_id.totalbalance)" /> €</span>	    				
 	    			</t> 
 	    			<t t-if="parent_id.totalbalance &lt; 0.001">
-	    				<t t-esc="'%.2f' %  (parent_id.payment_status_ids[0].solde)" /> €	    				
+	    				<span class="aes_credit_solde">un solde de <t t-esc="'%.2f' %  (parent_id.payment_status_ids[0].solde)" /> €</span>	    				
 	    			</t> 	    				    			
+	    			
 	    		</p> 							
 	    					
 			</div>
