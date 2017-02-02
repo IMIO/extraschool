@@ -27,7 +27,9 @@
 			        <div class="page">
 			            <div class="row">	        
 				            <div class="col-xs-6 col-xs-offset-3">
-				            	<img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', child.tagid, 200, 200)"/>
+				            	<t t-if="child.tagid">
+				            		<img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', child.tagid, 200, 200)"/>
+                                </t>
 				            </div>
 				        </div>
 			            <div class="row">
