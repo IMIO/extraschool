@@ -47,6 +47,13 @@
 			</div>
 		</template>
 
+		<template id="report_std_header_no_date" inherit_id="extraschool.report_std_header" primary="True">
+
+			<xpath expr="//span[@class='doc_date']" position="replace">
+			</xpath>		
+		</template>
+
+
 	</data>
 </openerp>	
 	
