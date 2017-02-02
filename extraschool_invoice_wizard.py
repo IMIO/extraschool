@@ -37,6 +37,7 @@ import re
 from math import *
 from pyPdf import PdfFileWriter, PdfFileReader
 from openerp.exceptions import except_orm, Warning, RedirectWarning
+import threading
 
 
 class extraschool_invoice_wizard(models.TransientModel):
@@ -106,6 +107,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                               ('compute_invoices', 'Compute invoices')],
                              'State', required=True, default='init'
                              )
+
 
     
     def _compute_invoices(self):
@@ -311,6 +313,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                     'period_to' : self.period_to,
                                     'payment_term': self.invoice_term,
                                     'invoices_date': self.invoice_date,
+                                    'activitycategoryid': self.activitycategory.id,
                                     })
 
         
@@ -395,36 +398,120 @@ class extraschool_invoice_wizard(models.TransientModel):
         self.env.cr.execute(sql_mega_invoicing, (self.period_from, self.period_to, self.activitycategory.id,))
         invoice_lines = self.env.cr.dictfetchall()
 
+        
+        ctx = self.env.context.copy()
+        ctx.update({'defer__compute_balance' : True,
+                    })
+        
         saved_schoolimplantation_id = -1        
         saved_parent_id = -1
         invoice_ids = []
         invoice_line_ids = []
         payment_obj = self.env['extraschool.payment']
+        year = biller.get_from_year()
+        sequence_id = self.activitycategory.get_sequence('invoice',year)
+        print "Start - Create invoice header"
+        args=[]
+        invoice = False
+        lines = []
         for invoice_line in invoice_lines:
             if saved_parent_id != invoice_line['parent_id'] or saved_schoolimplantation_id != invoice_line['schoolimplantation']:
                 saved_parent_id = invoice_line['parent_id']
                 saved_schoolimplantation_id = invoice_line['schoolimplantation']                
-                next_invoice_num = self.activitycategory.get_next_comstruct('invoice',biller.get_from_year())
-                invoice = inv_obj.create({'name' : _('invoice_%s') % (next_invoice_num['num'],),
-                                            'number' : next_invoice_num['num'],
-                                            'parentid' : saved_parent_id,
-                                            'biller_id' : biller.id,
-                                            'activitycategoryid': self.activitycategory.id,
-                                            'schoolimplantationid': saved_schoolimplantation_id,
-                                            'payment_term': biller.payment_term,
-                                            'structcom': next_invoice_num['com_struct']})
-                invoice_ids.append(invoice.id)
+                next_invoice_num = self.activitycategory.get_next_comstruct('invoice',year,sequence_id)
+#                 invoice = inv_obj.with_context(ctx).create({'name' : _('invoice_%s') % (next_invoice_num['num'],),
+#                                             'number' : next_invoice_num['num'],
+#                                             'parentid' : saved_parent_id,
+#                                             'biller_id' : biller.id,
+#                                             'activitycategoryid': self.activitycategory.id,
+#                                             'schoolimplantationid': saved_schoolimplantation_id,
+#                                             'payment_term': biller.payment_term,
+#                                             'structcom': next_invoice_num['com_struct']})
+                if invoice:
+                    args.append(invoice)
+                invoice = {'number': next_invoice_num['num'],
+                           'values': (uid,
+                                      uid,
+                                      ('invoice_%s') % (next_invoice_num['num'],),
+                                      next_invoice_num['num'],
+                                      saved_parent_id,
+                                      biller.id,
+                                      self.activitycategory.id,
+                                      saved_schoolimplantation_id,
+                                      biller.payment_term,
+                                      next_invoice_num['com_struct']
+                                     ),
+                           'lines': []}
+                
                 
             duration_h = int(invoice_line['duration'])
             duration_m = int(ceil(round((invoice_line['duration']-duration_h)*60)))
             duration = duration_h*60 + duration_m
-            invoice_line_ids.append(inv_line_obj.create({'invoiceid' : invoice.id,
-                                 'childid': invoice_line['childid'],
-                                 'activity_occurrence_id': invoice_line['activity_occurrence_id'],
-                                 'duration': duration,
-                                 #'child_position_id': invoice_line['child_position_id'],
-                                 }).id)
-                                  
+#             invoice_line_ids.append(inv_line_obj.create({'invoiceid' : invoice.id,
+#                                  'childid': invoice_line['childid'],
+#                                  'activity_occurrence_id': invoice_line['activity_occurrence_id'],
+#                                  'duration': duration,
+#                                  #'child_position_id': invoice_line['child_position_id'],
+#                                  }).id)
+            invoice['lines'].append((uid,
+                                     uid,
+                                     invoice_line['childid'],
+                                     invoice_line['activity_occurrence_id'],
+                                     duration,
+                                     ))
+            
+        print "Stop - Create invoice header"
+        print "prepare header sql"
+        args_str = ','.join(cr.mogrify("""(%s, current_timestamp, %s, current_timestamp,
+                                            %s,%s,%s,%s,%s,
+                                            %s,%s,%s)""", x["values"]) for x in args)
+        
+        print "exec sql create headers"
+        #print insert_data               
+        invoice_ids = cr.execute("""insert into extraschool_invoice 
+                                    (create_uid, create_date, write_uid, write_date,
+                                    name, number, parentid, biller_id, activitycategoryid,  
+                                    schoolimplantationid, payment_term, structcom) 
+                                    VALUES"""  + args_str)
+        print "get created invoice ids"
+        invoice_ids = cr.execute("""select id, number 
+                                   from extraschool_invoice 
+                                   where biller_id = %s
+                                   order by number""",[biller.id])
+        invoice_ids = cr.dictfetchall()
+        print "merge header and lines"
+        if len(args) - len(invoice_ids):
+            raise Warning(_("Error : number of invoice created differ from original"))
+        
+        lines_args_str = ""
+        i=0
+        while i < len(args):
+            if str(invoice_ids[i]['number']) == str(args[i]['number']):
+                if len(lines_args_str):
+                    lines_args_str += ","
+                lines_args_str += ','.join(cr.mogrify("""(%s, current_timestamp, %s, current_timestamp,
+                                                            """ + str(invoice_ids[i]['id']) + 
+                                                            """,%s,%s,%s)""", x) for x in args[i]['lines'])
+                    
+            i+=1    
+            
+        print "exec sql create lines"
+        #print insert_data               
+        invoice_line_ids = cr.execute("""insert into extraschool_invoicedprestations 
+                                        (create_uid, create_date, write_uid, write_date,
+                                        invoiceid, childid, activity_occurrence_id, duration) 
+                                        VALUES """ + lines_args_str + ";")
+        invoice_ids = [i['id'] for i in invoice_ids]
+
+        print "get invoice_line_ids"
+        invoice_line_ids = cr.execute("""select ip.id as id 
+                                       from extraschool_invoicedprestations ip
+                                       left join extraschool_invoice i on i.id = ip.invoiceid 
+                                       where biller_id = %s
+                                       """,[biller.id])
+        invoice_line_ids = [l['id'] for l in cr.dictfetchall()]
+                
+        print "#Mise à jour lien entre invoice line et presta"                 
         #Mise à jour lien entre invoice line et presta
         sql_update_link_to_presta = """update extraschool_prestationtimes ept
                                     set invoiced_prestation_id = (select max(iiip.id) 
@@ -446,6 +533,20 @@ class extraschool_invoice_wizard(models.TransientModel):
                                     """     
         self.env.cr.execute(sql_update_link_to_presta, (self.period_from, self.period_to, self.activitycategory.id,))
 
+        print "#Mise a jour prestationdate et placeid"
+        #Mise à jour position de l'enfant
+        sql_update_prestationdate = """
+                                        UPDATE extraschool_invoicedprestations ip
+                                        SET prestation_date = occurrence_date,
+                                            placeid = place_id
+                                        from extraschool_activityoccurrence ao
+                                        where ao.id = ip.activity_occurrence_id and
+                                            ip.id in (""" + ','.join(map(str, invoice_line_ids))+ """); 
+                                    """
+
+        self.env.cr.execute(sql_update_prestationdate, ())  
+
+        print "#Mise a jour position de l enfant"
         #Mise à jour position de l'enfant
         sql_update_child_position = """
                                         UPDATE extraschool_invoicedprestations ip
@@ -458,6 +559,7 @@ class extraschool_invoice_wizard(models.TransientModel):
 #        print sql_update_child_position
         self.env.cr.execute(sql_update_child_position, ())  
 
+        print "#Mise a jour description with"
         #Mise à jour description with 
         sql_update_description = """
                                         UPDATE extraschool_invoicedprestations ip
@@ -471,7 +573,7 @@ class extraschool_invoice_wizard(models.TransientModel):
 #        print sql_update_description
         self.env.cr.execute(sql_update_description, ())  
 
-                
+        print "#Mise a jour des pricelist"       
         #Mise à jour des pricelist
         sql_update_price_list = """UPDATE extraschool_invoicedprestations ip
                                 SET price_list_version_id = 
@@ -493,7 +595,8 @@ class extraschool_invoice_wizard(models.TransientModel):
         
 #        self.env.invalidate_all()       
         self.env.cr.execute(sql_update_price_list)
-#        print "#check if pricelist is correctly set"
+
+        print "#check if pricelist is correctly set"
         #check if pricelist is correctly set
         sql_check_verified = """select count(*) as verified_count
                                 from extraschool_invoicedprestations ip
@@ -504,9 +607,10 @@ class extraschool_invoice_wizard(models.TransientModel):
         self.env.cr.execute(sql_check_verified, (self.activitycategory.id,))
         verified_count = self.env.cr.dictfetchall()
         if verified_count[0]['verified_count']:
+            print "nbr lines with pricelist not set %s sur un total de %s" % (verified_count, len(invoice_line_ids))
 
             print "At least one price list is missing !!!\n "
-            sql_check_missing_pl = """select ip.childid as id, cp.name as child_position_id, extraschool_activityoccurrence.name as name
+            sql_check_missing_pl = """select ip.childid as id, cp.name as child_position_id, extraschool_activityoccurrence.name as name,ip.prestation_date as prestation_date
                                 from extraschool_invoicedprestations ip 
                                 left join extraschool_activityoccurrence on activity_occurrence_id = extraschool_activityoccurrence.id
                                 left join extraschool_childposition cp on cp.id = ip.child_position_id
@@ -518,12 +622,11 @@ class extraschool_invoice_wizard(models.TransientModel):
             missing_pls = self.env.cr.dictfetchall()
             message = _("At least one price list is missing !!!\n ")
             for missing_pl in missing_pls:
-                message += "%s - %s - %s\n" % (missing_pl['id'], missing_pl['child_position_id'], missing_pl['name'])
+                message += "%s - %s - %s -> %s\n" % (missing_pl['id'], missing_pl['child_position_id'], missing_pl['name'], missing_pl['prestation_date'])
                 
             raise Warning(message)
         #Mise à jour des prix et unité de tps
-        invoice_line_ids_sql = (tuple(invoice_line_ids),)
-        print str(invoice_line_ids_sql)
+        invoice_line_ids_sql = (tuple(invoice_line_ids),)        
         print "#Mise à jour des prix et unité de tps"
         sql_update_price = """UPDATE extraschool_invoicedprestations ip
                               SET period_duration = plv.period_duration,
@@ -586,7 +689,7 @@ class extraschool_invoice_wizard(models.TransientModel):
         invoice_ids_rs.reconcil()
         
 #        self.env['report'].get_pdf(inv_obj.browse(invoice_ids),'extraschool.invoice_report_layout')
-        
+        biller.generate_pdf()
         view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','extraschool.biller'),
                                                              ('name','=','Biller.form')])
         return {
@@ -606,4 +709,5 @@ class extraschool_invoice_wizard(models.TransientModel):
     @api.multi    
     def action_compute_invoices(self):   
         return self._new_compute_invoices()
+            
             
