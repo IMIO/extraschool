@@ -26,6 +26,7 @@
 				<form string="Biller">
 					<header>
 						<button name="export_onyx" string="export onyx" type="object" class="oe_highlight"  groups="base.group_erp_manager"/>	
+						<button name="generate_pdf" string="generate_pdf" type="object" class="oe_highlight"  groups="base.group_erp_manager"/>	
 					</header>
 					<div class="oe_right oe_button_box" name="buttons"> 
 						<button name="mail_invoices" 
@@ -60,6 +61,7 @@
 					<field name="period_to"/>
                     <newline/>
                     <field name="payment_term"/>                    
+                    <field name="activitycategoryid"/>
                     <newline/>
                     <field name="total"/>
                     <newline/>
