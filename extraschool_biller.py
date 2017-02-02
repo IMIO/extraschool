@@ -282,7 +282,10 @@ class extraschool_biller(models.Model):
     def generate_pdf(self):    
         cr,uid = self.env.cr, self.env.user.id 
         threaded_report = []
-        chunk_size = 200
+        chunk_size = self.env['ir.config_parameter'].get_param('extraschool.report.thread.chunk',200)
+        print "-------------------------------"
+        print "chunk_size:%s" % (chunk_size)
+        print "-------------------------------"
         for zz in range(0,len(self.invoice_ids)/chunk_size+1):
             sub_invoices = self.invoice_ids[zz*chunk_size:(zz+1)*chunk_size]
             print "start thread for ids : %s" % (sub_invoices.ids)
