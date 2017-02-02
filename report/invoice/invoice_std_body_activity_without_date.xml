@@ -41,7 +41,7 @@
 					</tr>
 	       			<t t-foreach="invoice.invoice_line_ids" t-as="invoice_line">
         				<tr>
-	       					<td><span t-field="invoice_line.activity_activity_id" /></td> 
+	       					<td><span t-field="invoice_line.activity_occurrence_id.activityid.short_name" /> - <t t-esc="time.strftime('%d-%m-%Y',time.strptime(invoice_line.prestation_date,'%Y-%m-%d'))" /></td> 
 	       					<td><span t-field="invoice_line.childid" /></td> 
 	       					<td><span t-field="invoice_line.duration" /></td> 
 	       					<td><span t-field="invoice_line.period_duration" /></td> 
