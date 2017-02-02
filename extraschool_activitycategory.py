@@ -156,22 +156,17 @@ class extraschool_activitycategory(models.Model):
             super(extraschool_activitycategory,activity_categ).write(vals)
         
         return True
-    
-    @api.multi        
-    def get_next_comstruct(self,type,year):
+
+    def get_sequence(self,type,year):
         sequence_id = self.sequence_ids.search([('type', '=', type),
                                                 ('year', '=', year),])
         
-        print "yolo"
         if len(sequence_id) == 0:
-            print "yulo"
             #sequence doesn't exist, look for previous year seq to copy it
             sequence_id = self.sequence_ids.search([('type', '=', type),
                                                     ('year', '=', year-1),])
-            print "yili"
 
             if len(sequence_id):                
-                print "bim"
                 sequence_id = self.env['ir.sequence'].create({'name': "%s - %s - %s" % (self.name, type, year),
                                                         'active': True,
                                                         'prefix': "%s" % (("%s" % (year))[-2:]),
@@ -182,15 +177,19 @@ class extraschool_activitycategory(models.Model):
                                                         'year': "%s" % (year),
                                                         'type': type,
                                                         'sequence': sequence_id.id})
-                print "bam"
             else:
                 raise Warning(_("Sequence not defined"))
         else:
             sequence_id = sequence_id.sequence
+        
+        return sequence_id        
+    
+    @api.multi        
+    def get_next_comstruct(self,type,year, sequence_id = False):
+        if not sequence_id:
+            sequence_id = self.get_sequence(type,year)
             
-        print "next_by_id(%s)" % (sequence_id.id)
         com_struct_id_str = self.env['ir.sequence'].next_by_id(sequence_id.id)    
-        print "----%s----" % (com_struct_id_str)       
 
         if type == 'reminder':            
             com_struct_prefix_str = self.remindercomstructprefix 
@@ -201,9 +200,7 @@ class extraschool_activitycategory(models.Model):
         
         com_struct_prefix_str = com_struct_prefix_str.zfill(3)
         com_struct_id_str = ("%s" % (com_struct_id_str)).zfill(7)
-        print "yop"
         com_struct_check_str = str(long(com_struct_prefix_str+com_struct_id_str) % 97).zfill(2)
-        print "yup"
         com_struct_check_str = com_struct_check_str if com_struct_check_str != '00' else '97'
         
         comstruct = '%s%s%s' % (com_struct_prefix_str,com_struct_id_str,com_struct_check_str)
