@@ -29,6 +29,7 @@ from datetime import date, datetime, timedelta as td
 from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
 from openerp.exceptions import except_orm, Warning, RedirectWarning
+import threading
 
 import base64
 try:
@@ -253,7 +254,43 @@ class extraschool_biller(models.Model):
     def get_from_year(self):
         return fields.Date.from_string(self.period_from).year
     
-        
+    @api.model
+    def generate_pdf_thread(self, cr, uid, invoices, context=None):
+        """
+        @param self: The object pointer.
+        @param cr: A database cursor
+        @param uid: ID of the user currently logged in
+        @param ids: List of IDs selected
+        @param context: A standard dictionary
+        """
+        with Environment.manage():
+            
+            #As this function is in a new thread, i need to open a new cursor, because the old one may be closed
+            new_cr = self.pool.cursor()
+            env = Environment(new_cr, uid,context)
+         
+#            report = self.pool.get('report')
+            for invoice in invoices:
+                print "generate pdf %s" % (invoice.id)
+                env['report'].get_pdf(invoice ,'extraschool.invoice_report_layout')
+          
+            new_cr.commit()
+            new_cr.close()
+            return {}
+    
+    @api.one
+    def generate_pdf(self):    
+        cr,uid = self.env.cr, self.env.user.id 
+        threaded_report = []
+        chunk_size = 200
+        for zz in range(0,len(self.invoice_ids)/chunk_size+1):
+            sub_invoices = self.invoice_ids[zz*chunk_size:(zz+1)*chunk_size]
+            print "start thread for ids : %s" % (sub_invoices.ids)
+            if len(sub_invoices):
+                thread = threading.Thread(target=self.generate_pdf_thread, args=(cr, uid, sub_invoices,self.env.context))
+                threaded_report.append(thread)
+                thread.start()
+                        
     @api.one
     def export_onyx(self):
         output = ""
