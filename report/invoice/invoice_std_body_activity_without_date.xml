@@ -1,0 +1,60 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+		<template id="report_invoice_std_body_without_date">
+		    <style type="text/css">
+		        .invoice_body{
+		    		width: 100%;
+		    		display: block;
+		    	}
+		    			    	
+				.invoice_body table {
+		    		width: 100%;
+					font-size:11px;
+					border-width: 1px;
+					border-collapse: collapse;
+				}
+				.invoice_body table th {
+					border-width: 1px;
+					padding: 8px;
+					border-style: solid;
+					background-color: #dedede;
+				}
+				.invoice_body table td {
+					border-width: 1px;
+					padding: 8px;
+					border-style: solid;
+				}
+
+			</style>
+						
+        	<div class="invoice_body">
+        		<table>
+        			<tr>
+	        			<th>Activité</th>
+	        			<th>Enfant</th>
+	        			<th>Durée</th>
+	        			<th>Unité de tps</th>
+	        			<th>Quantité</th>
+	        			<th>Prix unit.</th>
+	        			<th>Total</th>
+					</tr>
+	       			<t t-foreach="invoice.invoice_line_ids" t-as="invoice_line">
+        				<tr>
+	       					<td><span t-field="invoice_line.activity_activity_id" /></td> 
+	       					<td><span t-field="invoice_line.childid" /></td> 
+	       					<td><span t-field="invoice_line.duration" /></td> 
+	       					<td><span t-field="invoice_line.period_duration" /></td> 
+	       					<td><span t-field="invoice_line.quantity" /></td> 
+	       					<td><span t-field="invoice_line.unit_price" /></td> 
+	       					<td><span t-field="invoice_line.total_price" /></td> 
+	       				</tr>
+	        		</t> 	            			        			
+        		</table>
+       		</div>
+		</template>
+
+	</data>
+</openerp>	
+	
+	
