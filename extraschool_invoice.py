@@ -52,7 +52,7 @@ class extraschool_invoice(models.Model):
     invoice_line_ids = fields.One2many('extraschool.invoicedprestations', 'invoiceid','Details')    
     refound_line_ids = fields.One2many('extraschool.refound_line', 'invoiceid','Refound')    
     oldid = fields.Char('oldid', size=20)
-    activitycategoryid = fields.Many2one(related='biller_id.activitycategoryid', auto_join=True)
+    activitycategoryid = fields.Many2one(related='biller_id.activitycategoryid', store=True, auto_join=True)
     period_from = fields.Date(related='biller_id.period_from')
     period_to = fields.Date(related='biller_id.period_to')
     payment_term = fields.Date('Payment term')  
