@@ -459,6 +459,9 @@ class extraschool_invoice_wizard(models.TransientModel):
                                      invoice_line['activity_occurrence_id'],
                                      duration,
                                      ))
+        
+        if len(invoice['lines']):
+            args.append(invoice)
             
         print "Stop - Create invoice header"
         print "prepare header sql"
