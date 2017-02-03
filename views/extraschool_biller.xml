@@ -28,7 +28,7 @@
 						<button name="export_onyx" string="export onyx" type="object" class="oe_highlight"  groups="base.group_erp_manager"/>	
 						<button name="generate_pdf" string="generate_pdf" type="object" class="oe_highlight"  groups="base.group_erp_manager"/>	
 					</header>
-					<div class="oe_right oe_button_box" name="buttons"> 
+					<div class="oe_right oe_button_box" name="buttons" attrs="{'invisible':[('pdf_ready', '=', False)]}"> 
 						<button name="mail_invoices" 
 							string="Factures courrier" 
 							type="object" 						
@@ -57,6 +57,7 @@
 					</div>
 						
 				<group col="4">
+					<field name="pdf_ready"/>
                     <field name="period_from"/>
 					<field name="period_to"/>
                     <newline/>
@@ -103,6 +104,7 @@
 			<field name="name">Biller</field>
 			<field name="res_model">extraschool.biller</field>
 			<field name="view_type">form</field>
+			<field name="auto_refresh">10</field>
 		</record>
         
 	</data>

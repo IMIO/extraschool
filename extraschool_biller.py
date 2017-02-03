@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
+from openerp import models, api, fields, _, SUPERUSER_ID
 from openerp.api import Environment
 import lbutils
 import re
@@ -60,6 +60,7 @@ class extraschool_biller(models.Model):
 #    paymentsstats = fields.Text(compute='_compute_paymentsstats', string="Payments stats")
     filename = fields.Char('filename', size=20,readonly=True)
     biller_file = fields.Binary('File', readonly=True)
+    pdf_ready = fields.Boolean(string="Pdf ready", default=False)
     oldid = fields.Integer('oldid')  
 
     @api.multi
@@ -255,7 +256,7 @@ class extraschool_biller(models.Model):
         return fields.Date.from_string(self.period_from).year
     
     @api.model
-    def generate_pdf_thread(self, cr, uid, invoices_ids, context=None):
+    def generate_pdf_thread(self, cr, uid, thread_lock, invoices_ids, context=None):
         """
         @param self: The object pointer.
         @param cr: A database cursor
@@ -269,12 +270,27 @@ class extraschool_biller(models.Model):
             new_cr = self.pool.cursor()
             env = Environment(new_cr, uid,context)
          
-#            report = self.pool.get('report')
-            for invoice in env['extraschool.invoice'].browse(invoices_ids):
-                print "generate pdf %s" % (invoice.id)
-                env['report'].get_pdf(invoice ,'extraschool.invoice_report_layout')
+#             report = env['report']
+#             for invoice in env['extraschool.invoice'].browse(invoices_ids):
+#                 print "generate pdf %s" % (invoice.id)
+#                 report.get_pdf(invoice ,'extraschool.invoice_report_layout')
           
-            new_cr.commit()
+                        
+            thread_lock[1].acquire()
+            print "nbr_thread : %s" % (thread_lock[0])
+            thread_lock[0] -= 1
+            thread_lock[1].release()
+            if thread_lock[0] == 0:
+                print "this is the end"
+                post_vars = {'subject': "Print Ready ;-)",
+                             'body': "You print is ready !",
+                             'partner_ids': [(uid)],} 
+                user = env['res.users'].browse(uid)
+                env['extraschool.biller'].browse(thread_lock[2]).pdf_ready = True
+                #env['res.partner'].message_post(new_cr, SUPERUSER_ID, False,context, **post_vars)                        
+                env.user.notify_info('My information message')
+                 
+            new_cr.commit()     
             new_cr.close()
             return {}
     
@@ -282,15 +298,22 @@ class extraschool_biller(models.Model):
     def generate_pdf(self):    
         cr,uid = self.env.cr, self.env.user.id 
         threaded_report = []
+        
+        lock = threading.Lock()
         chunk_size = int(self.env['ir.config_parameter'].get_param('extraschool.report.thread.chunk',200))
         print "-------------------------------"
         print "chunk_size:%s" % (chunk_size)
         print "-------------------------------"
-        for zz in range(0,len(self.invoice_ids)/chunk_size+(len(self.invoice_ids)%chunk_size > 0)):
+        
+        nrb_thread = len(self.invoice_ids)/chunk_size+(len(self.invoice_ids)%chunk_size > 0)
+        thread_lock = [len(self.invoice_ids)/chunk_size+(len(self.invoice_ids)%chunk_size > 0),
+                        threading.Lock(),
+                        self.id]
+        for zz in range(0, nrb_thread):
             sub_invoices = self.invoice_ids[zz*chunk_size:(zz+1)*chunk_size]
             print "start thread for ids : %s" % (sub_invoices.ids)
             if len(sub_invoices):
-                thread = threading.Thread(target=self.generate_pdf_thread, args=(cr, uid, sub_invoices.ids,self.env.context))
+                thread = threading.Thread(target=self.generate_pdf_thread, args=(cr, uid, thread_lock, sub_invoices.ids,self.env.context))
                 threaded_report.append(thread)
                 thread.start()
                         
