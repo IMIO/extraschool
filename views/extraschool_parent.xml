@@ -143,6 +143,11 @@
                 		</tree>
                     </field>
                  </page>
+                 <page string="Comment">
+                    <field name="comment" />
+                 </page>
+                                  
+                 
                  </notebook>
                 <!-- button name="return_action_to_open" type="object" context="{'xml_id':'action_extraschool_invoices'}" string="invoices" / -->
             </form>

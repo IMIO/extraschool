@@ -123,7 +123,8 @@ class extraschool_parent(models.Model):
     isdisabled = fields.Boolean('Disabled')            
     oldid = fields.Integer('oldid')
     nbr_actif_child = fields.Integer(compute='_compute_nbr_actif_child',string='Nbr actif child', store = True)
-
+    comment = fields.Text('Comment')
+    
     @api.depends('child_ids')
     def _compute_nbr_actif_child(self):
         for record in self:
