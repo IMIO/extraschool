@@ -282,7 +282,7 @@ class extraschool_biller(models.Model):
     def generate_pdf(self):    
         cr,uid = self.env.cr, self.env.user.id 
         threaded_report = []
-        chunk_size = self.env['ir.config_parameter'].get_param('extraschool.report.thread.chunk',200)
+        chunk_size = int(self.env['ir.config_parameter'].get_param('extraschool.report.thread.chunk',200))
         print "-------------------------------"
         print "chunk_size:%s" % (chunk_size)
         print "-------------------------------"
