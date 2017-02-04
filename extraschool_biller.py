@@ -270,26 +270,28 @@ class extraschool_biller(models.Model):
             new_cr = self.pool.cursor()
             env = Environment(new_cr, uid,context)
          
-#             report = env['report']
-#             for invoice in env['extraschool.invoice'].browse(invoices_ids):
-#                 print "generate pdf %s" % (invoice.id)
-#                 report.get_pdf(invoice ,'extraschool.invoice_report_layout')
+            report = env['report']
+            for invoice in env['extraschool.invoice'].browse(invoices_ids):
+                print "generate pdf %s" % (invoice.id)
+                report.get_pdf(invoice ,'extraschool.invoice_report_layout')
           
                         
             thread_lock[1].acquire()
             print "nbr_thread : %s" % (thread_lock[0])
             thread_lock[0] -= 1
-            thread_lock[1].release()
             if thread_lock[0] == 0:
                 print "this is the end"
-                post_vars = {'subject': "Print Ready ;-)",
-                             'body': "You print is ready !",
-                             'partner_ids': [(uid)],} 
-                user = env['res.users'].browse(uid)
+
+#                 post_vars = {'subject': "Print Ready ;-)",
+#                              'body': "You print is ready !",
+#                              'partner_ids': [(uid)],} 
+#                user = env['res.users'].browse(uid)
                 env['extraschool.biller'].browse(thread_lock[2]).pdf_ready = True
+#                new_cr.execute("update extraschool_biller set pdf_ready = True where id = %s",[thread_lock[2]])
                 #env['res.partner'].message_post(new_cr, SUPERUSER_ID, False,context, **post_vars)                        
-                env.user.notify_info('My information message')
-                 
+#                env.user.notify_info('My information message')
+
+            thread_lock[1].release()                 
             new_cr.commit()     
             new_cr.close()
             return {}
@@ -298,6 +300,11 @@ class extraschool_biller(models.Model):
     def generate_pdf(self):    
         cr,uid = self.env.cr, self.env.user.id 
         threaded_report = []
+#        cr.execute("update extraschool_biller set pdf_ready = False where id = %s",[self.id])
+#        cr.commit() 
+        self.env['ir.attachment'].search([('res_id', 'in',[i.id for i in self.invoice_ids]),
+                                           ('res_model', '=', 'extraschool.invoice')]).unlink()
+        self.pdf_ready = False
         
         lock = threading.Lock()
         chunk_size = int(self.env['ir.config_parameter'].get_param('extraschool.report.thread.chunk',200))
