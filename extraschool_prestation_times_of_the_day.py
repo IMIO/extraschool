@@ -443,6 +443,23 @@ class extraschool_prestation_times_of_the_day(models.Model):
 #         print "--------------"
 #         print "check all"
 #         print "--------------"
+
+        #first set correction for old bug
+        #some presta are not verified but invoiced
+        #the concerning pod must not be reseted
+        #too late
+        #so set verified = True
+        presta_correction = """
+                            update extraschool_prestationtimes p
+                            set verified = True
+                            from extraschool_prestation_times_of_the_day pod
+                            where p.invoiced_prestation_id is not NULL
+                            and p.verified = False
+                            and p.prestation_times_of_the_day_id = pod.id
+                            and pod.verified = True;
+                            """
+        self.env.cr.execute(presta_correction)
+        
         self.merge_duplicate_pod()
         for presta in self.search([('verified', '=', False)]):
             presta.check()
