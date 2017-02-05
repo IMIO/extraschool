@@ -38,6 +38,7 @@
                 	<field name="validity_to"/>	
                 	<field name="period"/>	
                 	<field name="type"/>	
+	                <field name="apply_on" />
                 	<field name="quantity_from"/>	
                 	<field name="quantity_from"/>	
                 </tree>
@@ -56,8 +57,11 @@
 	                	<field name="validity_from"/>	
 	                	<field name="validity_to"/>		
 	                	<field name="period"/>
-	                		<newline/>
+	                	<newline/>
 	                	<field name="type"/>	
+	                	<field name="apply_on" />
+	                	<newline/>
+						<field name="quantity_type" />	                	
 	                	<field name="value"/>	
 	                	<field name="quantity_from"/>
 	                	<field name="quantity_to"/>	                			                	

@@ -48,9 +48,19 @@ class extraschool_discount_version(models.Model):
     validity_from = fields.Date('Validity from', required = True)
     validity_to = fields.Date('Validity to', required = True)    
     price_list_ids = fields.Many2many('extraschool.price_list', 'extraschool_discount_pricelist_rel',string='Price list')
-    period = fields.Selection((('ca','Completed activity'),('d','Day'),('w','Week'),('m','Month')), string="Period",required = True)
-    type = fields.Selection((('a','amount'),('p','Max price'),('p','Percent')),string="Type",required = True)
+    period = fields.Selection((('ca','Completed activity'),
+                               ('d','Day'),
+                               ('w','Week'),
+                               ('m','Month')), string="Period",required = True)
+    type = fields.Selection((('a','amount'),
+                             ('p','Max price'),
+                             ('p','Percent')),string="Type",required = True)
+    apply_on = fields.Selection((('f','Invoice'),
+                                ('c','Child'),),string="Apply on",required = True)
     value = fields.Float(string="Value", required = True)
+    quantity_type = fields.Selection((('m','Minute'),
+                                      ('q','Quantity'),                                      
+                                      ('p','Presence'),),string="Quantity type",required = True)
     quantity_from = fields.Integer(string="Quantity from", default=0)
     quantity_to = fields.Integer(string="Quantity to", default=0)
     
@@ -61,9 +71,42 @@ class extraschool_discount_version(models.Model):
                          ])
     
     def compute(self,invoice):
+        cr,uid = self.env.cr, self.env.user.id
+        
         #get concerned lines filtered on price_list
         lines = invoice.invoice_line_ids.filtered(lambda r: r.price_list_version_id.price_list_id.id in self.price_list_ids.ids)
         
-        #self.env.cr.execute(sql_update_invoice_total_price,(self.price_list_ids.ids))
-    
+        for line in lines:
+            sql = """select ip.invoiceid as invoiceid, ip.childid as childid, 
+                     sum(duration) as sum_duration, sum(quantity) as sum_quantity, count(*) as count
+                     from extraschool_invoicedprestations ip
+                     where id in %s
+                     group by ip.invoiceid,ip.childid
+                     having sum_duration >= %s
+                     """
+            cr.execute(sql,[lines.ids,self.quantity_from])
+            args=[]
+            for r in cr.dictfetchall():
+                args.append((uid,
+                             uid,
+                             r['invoiceid'],
+                             r['childid'],
+                             self.description,
+                             1,#quantité
+                             self.value,#unit_price
+                             self.value,#total price
+                             ))
+            lines_args_str = ""
+            if len(args):
+                lines_args_str += ','.join(cr.mogrify("""(%s, current_timestamp, %s, current_timestamp,
+                                                        %s,%s,%s,%s,%s,%s)""", x) for x in args)   
+            print "exec sql create discount lines"
+            #print insert_data               
+            invoice_line_ids = cr.execute("""insert into extraschool_invoicedprestations 
+                                            (create_uid, create_date, write_uid, write_date,
+                                            invoiceid, childid, description, quantity, unit_price,total_price) 
+                                            VALUES """ + lines_args_str + ";")
+            
+            #self.env.cr.execute(sql_update_invoice_total_price,(self.price_list_ids.ids))
+        
     

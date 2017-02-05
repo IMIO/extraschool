@@ -186,6 +186,7 @@ class extraschool_activitycategory(models.Model):
     
     @api.multi        
     def get_next_comstruct(self,type,year, sequence_id = False):
+        
         if not sequence_id:
             sequence_id = self.get_sequence(type,year)
             
