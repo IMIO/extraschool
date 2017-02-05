@@ -687,7 +687,7 @@ class extraschool_invoice_wizard(models.TransientModel):
         self.env.invalidate_all()
         
         invoice_ids_rs = inv_obj.browse(invoice_ids)
-        self.env['extraschool.discount'].compute(invoice_ids_rs)
+#        self.env['extraschool.discount'].compute(invoice_ids_rs)
         
         invoice_ids_rs.reconcil()
         
