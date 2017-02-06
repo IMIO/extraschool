@@ -1,4 +1,4 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <openerp>
 	<data> 
 		<record model="ir.ui.view" id="extraschool_biller_tree">
@@ -25,38 +25,17 @@
 			<field name="arch" type="xml">
 				<form string="Biller">
 					<header>
-						<button name="export_onyx" string="export onyx" type="object" class="oe_highlight"  groups="base.group_erp_manager"/>	
-						<button name="generate_pdf" string="generate_pdf" type="object" class="oe_highlight"  groups="base.group_erp_manager"/>	
+						<button name="export_onyx" string="export onyx" type="object" class="oe_highlight" groups="base.group_erp_manager"/>	
+						<button name="generate_pdf" string="generate_pdf" type="object" class="oe_highlight" groups="base.group_erp_manager"/>	
 					</header>
 					<div class="oe_right oe_button_box" name="processin" attrs="{'invisible':[('pdf_ready', '=', True)]}"> 
 						<h2>Création des PDF en cours .....</h2>
 					</div>
 					<div class="oe_right oe_button_box" name="buttons" attrs="{'invisible':[('pdf_ready', '=', False)]}"> 
-						<button name="mail_invoices" 
-							string="Factures courrier" 
-							type="object" 						
-							class="oe_inline oe_stat_button" 
-							icon="fa-print"
-								/>													
-						<button name="email_invoices" 
-							string="Email factures" 
-							type="object" 						
-							class="oe_inline oe_stat_button" 
-							icon="fa-envelope-o"
-								/>			
-						<button name="all_invoices" 
-							string="Toutes les factures" 
-							type="object" 						
-							class="oe_inline oe_stat_button" 
-							icon="fa-files-o"
-								/>														
-						<button name="all_pdf" 
-							string="Docs" 
-							type="object" 						
-							class="oe_inline oe_stat_button" 
-							icon="fa-files-o"
-							groups="base.group_erp_manager"
-								/>														
+						<button name="mail_invoices" string="Factures courrier" type="object" class="oe_inline oe_stat_button" icon="fa-print"/>													
+						<button name="email_invoices" string="Email factures" type="object" class="oe_inline oe_stat_button" icon="fa-envelope-o"/>			
+						<button name="all_invoices" string="Toutes les factures" type="object" class="oe_inline oe_stat_button" icon="fa-files-o"/>														
+						<button name="all_pdf" string="Docs" type="object" class="oe_inline oe_stat_button" icon="fa-files-o" groups="base.group_erp_manager"/>														
 					</div>
 				<field name="pdf_ready" invisible="True"/>							
 				<group col="4">
@@ -86,7 +65,7 @@
                     <separator string="Invoices"/>
 					<field name="invoice_ids">
 						<tree>
-							<field name="parentid" />
+							<field name="parentid"/>
 	                        <field name="activitycategoryid"/>
 							<field name="structcom"/>	                        
 	                        <field name="period_from"/>
@@ -94,7 +73,7 @@
 	                        <field name="payment_term"/>
 	                        <field name="amount_total" sum="True"/>
 	                        <field name="amount_received" sum="True"/>
-	                        <field name="balance"  sum="True"/>
+	                        <field name="balance" sum="True"/>
 	                        <field name="no_value"/>	                        								
 						</tree>
 					</field>                    
