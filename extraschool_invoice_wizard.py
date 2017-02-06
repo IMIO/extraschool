@@ -513,7 +513,19 @@ class extraschool_invoice_wizard(models.TransientModel):
                                        where biller_id = %s
                                        """,[biller.id])
         invoice_line_ids = [l['id'] for l in cr.dictfetchall()]
-                
+        
+        
+        #mise à jour activity_activity_id 
+        print "mise à jour activity_activity_id"
+        sql_update_activity_id = """update extraschool_invoicedprestations ip
+                                    set activity_activity_id = ao.activityid
+                                    from extraschool_activityoccurrence ao 
+                                    where ip.id in (""" + ','.join(map(str, invoice_line_ids))+ """)
+                                    and activity_activity_id is Null
+                                    and activity_occurrence_id is not NULL
+                                    and ao.id = ip.activity_occurrence_id                
+                                    """    
+        self.env.cr.execute(sql_update_activity_id)                               
         print "#Mise à jour lien entre invoice line et presta"                 
         #Mise à jour lien entre invoice line et presta
         sql_update_link_to_presta = """update extraschool_prestationtimes ept
