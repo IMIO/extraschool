@@ -525,7 +525,18 @@ class extraschool_invoice_wizard(models.TransientModel):
                                     and activity_occurrence_id is not NULL
                                     and ao.id = ip.activity_occurrence_id                
                                     """    
-        self.env.cr.execute(sql_update_activity_id)                               
+        self.env.cr.execute(sql_update_activity_id)  
+        
+        print "Mise à jour sendmethod on invoice"
+        sql_update_invoice_sendmethod = """update extraschool_invoice i
+                                            set invoicesendmethod = p.invoicesendmethod
+                                            from extraschool_parent p
+                                            where i.invoicesendmethod is null
+                                            and i.biller_id = %s
+                                            and p.id = i.parentid;        
+                                        """
+        self.env.cr.execute(sql_update_invoice_sendmethod,[biller.id])
+                                              
         print "#Mise à jour lien entre invoice line et presta"                 
         #Mise à jour lien entre invoice line et presta
         sql_update_link_to_presta = """update extraschool_prestationtimes ept
