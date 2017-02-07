@@ -110,11 +110,11 @@ class extraschool_invoice(models.Model):
         for invoice in self:
             #search for open payment
             payments = payment_obj.search([('parent_id','=',invoice.parentid.id),
-                                        ('structcom_prefix','=',invoice.activitycategoryid.payment_invitation_com_struct_prefix),
+#                                        ('structcom_prefix','=',invoice.activitycategoryid.payment_invitation_com_struct_prefix),
                                         ('solde','>',0),
                                         ]).sorted(key=lambda r: r.paymentdate)
-#            print "%s payments found for invoice %s" % (len(payments),invoice.id)
-#            print payments
+            print "%s payments found for invoice %s and prefix : %s" % (len(payments),invoice.id,invoice.activitycategoryid.payment_invitation_com_struct_prefix)
+            print payments
             zz = 0
             print "invoice balance = %s" % (invoice.amount_total)
             
