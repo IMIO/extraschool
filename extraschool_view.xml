@@ -42,7 +42,8 @@
         <menuitem action="action_lbsc_invoice_wizard" id="extraschool_menu_invoice_wizard" parent="extraschool_menu_documents"/>
         <menuitem action="action_extraschool_invoices" id="extraschool_menu_invoice" parent="extraschool_menu_documents"/>
         <menuitem action="action_extraschool_invoices_stat" id="extraschool_menu_invoice_stat" parent="extraschool_menu_documents"/>        
-		<menuitem action="action_lbsc_reminders_journal" id="extraschool_menu_reminders_journal" parent="extraschool_menu_documents"/>
+		<menuitem action="action_extraschool_reminder" id="extraschool_menu_reminder" parent="extraschool_menu_documents"/>
+        <menuitem action="action_lbsc_reminders_journal" id="extraschool_menu_reminders_journal" parent="extraschool_menu_documents"/>
         <menuitem action="action_lbsc_taxcertificates_wizard" id="extraschool_menu_taxcertificates_wizard" parent="extraschool_menu_documents"/>
         <menuitem action="action_extraschool_one_report" id="extraschool_menu_one_report" parent="extraschool_menu_documents"/>
         <menuitem action="action_lbsc_qrcodes_wizard" id="extraschool_menu_qrcodes_wizard" parent="extraschool_menu_documents"/>

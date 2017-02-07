@@ -75,6 +75,7 @@
         'views/extraschool_price_list.xml',        
         'views/extraschool_qrcodes_wizard.xml',
         'views/extraschool_report.xml',
+        'views/extraschool_reminder.xml',
         'views/extraschool_remindersjournal.xml',
         'views/extraschool_smartphone.xml',
         'views/extraschool_taxcertificates.xml',
