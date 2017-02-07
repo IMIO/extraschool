@@ -60,8 +60,9 @@ class extraschool_negatif_payment_correction_wizard(models.TransientModel):
         inv_obj = self.env['extraschool.invoice']  
         inv_line_obj = self.env['extraschool.invoicedprestations']  
         
-        next_invoice_num = self.activity_category_id.get_next_comstruct('invoice',biller.get_from_year())                
+                       
         for payment in self.env['extraschool.payment'].browse(self._context.get('active_ids')):
+            next_invoice_num = self.activity_category_id.get_next_comstruct('invoice',biller.get_from_year()) 
             invoice = inv_obj.create({'name' : _('invoice_%s') % (next_invoice_num['num'],),
                             'number' : next_invoice_num['num'],
                             'parentid' : payment.parent_id.id,
@@ -75,7 +76,6 @@ class extraschool_negatif_payment_correction_wizard(models.TransientModel):
                 'quantity': 1,
                 'total_price': payment.amount * -1,
                 })
-            next_invoice_num += 1          
             invoice_ids.append(invoice.id)
         
         inv_obj.browse(invoice_ids).reconcil()
