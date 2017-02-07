@@ -345,16 +345,20 @@ class extraschool_biller(models.Model):
         output += u"Numéro\tBoîte\tIndex\tCode postal\tLocalité\tDate debut\tdate fin\tCommentaires\tsepar\tN fact\tN°\tM/P\t"
         output += u"NOM\tPRENOM\tDATE DE NAISSANCE\tN° REGISTRE NATIONAL\tANNEE D'ETUDE\tDate accueil\t"
         output += u"activité\tNbr j presences\tfisc\ttotal\n"
+        total = 0
         for invoice in self.invoice_ids:            
-            
-            for r in invoice.export_onyx():
+            export = invoice.export_onyx()
+            total += export['exported_amount']
+            for r in export['lines']:
                 output += "%s\n" % (r)
+                
             
         attachment_obj = self.env['ir.attachment']
+        filename = "Facturier_du_%s_au_%s__%s_aes_onyx.txt" % (time.strftime('%d/%m/%Y',time.strptime(self.period_from,'%Y-%m-%d')),time.strftime('%d/%m/%Y',time.strptime(self.period_to,'%Y-%m-%d')),total)
         attachment_obj.create({'res_model':'extraschool.biller',
                                'res_id':self.id,
                                'datas' : output.encode('utf-8').encode('base64'),
-                               'datas_fname': "%s_aes_onyx_.txt" % ('')+'.txt',
-                               'name':"%s_aes_onyx_.txt" % ('')+'.txt'
+                               'datas_fname': filename,
+                               'name': filename,
                                 })    
 

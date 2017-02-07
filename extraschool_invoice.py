@@ -225,6 +225,7 @@ class extraschool_invoice(models.Model):
         res = []
         #split street
         p = re.compile(r"([^0-9^,]*\b|.*\b11 novembre\b)[\s,]*([0-9]*)[\/\s]*([a-zA-Z]*[0-9]*)[\/\s]*([a-zA-Z]*)$")
+        
         splited_street = p.findall(self.parentid.street)
         if len(splited_street) == 0:
             splited_street = [(splited_street,'','','','')]
@@ -307,10 +308,17 @@ class extraschool_invoice(models.Model):
         saved_child['inv_date_str'] = ""
         saved_child['splited_place_street'] = []
         
-        
-        for invoicedline in self.invoice_line_ids.filtered(lambda r: r.total_price > 0.0001).sorted(key=lambda r: "%s%s%s" % (r.childid.name,r.prestation_date,r.activity_activity_id.short_name)):
+        total = 0
+        lines_ids = self.invoice_line_ids.filtered(lambda r: r.total_price > 0.0001).sorted(key=lambda r: "%s%s%s" % (r.childid.name,r.prestation_date,r.activity_activity_id.short_name))
+        if len(lines_ids) == 0:
+            return {'lines': res,
+                    'exported_amount': total,
+                     }                                                                                     
+                                                                                        
+        for invoicedline in lines_ids:
             if zz == 0:
-                saved_child = self.export_onyx_child_change(invoicedline, saved_child, True)                                                
+                saved_child = self.export_onyx_child_change(invoicedline, saved_child, True)  
+                str_line = ""                                              
 
             if (zz > 0 and (saved_child['saved_child'] != invoicedline.childid.name or saved_child['inv_date'] != invoicedline.prestation_date or saved_child['saved_activity'] != invoicedline.activity_activity_id.short_name))  or zz == len(self.invoice_line_ids) -1:
                 str_line = format_str % (self.parentid.rn,
@@ -351,6 +359,7 @@ class extraschool_invoice(models.Model):
                                         saved_child['fisc_amount'],
                                         saved_child['amount']                                                                            
                                         )
+                total+=saved_child['amount']
                 if saved_child['nbr_jour']:
                     saved_child['nbr_jour_printed'] = True   
            
@@ -361,8 +370,10 @@ class extraschool_invoice(models.Model):
                 #if break on child, date
                 if saved_child['saved_child'] != invoicedline.childid.name or saved_child['inv_date'] != invoicedline.prestation_date:                    
                     saved_child = self.export_onyx_child_change(invoicedline, saved_child, True)
+                    str_line = ""
                 else:      
                     saved_child = self.export_onyx_child_change(invoicedline,saved_child)
+                    str_line = ""
                     if invoicedline.activity_activity_id.on_tax_certificate:
                         saved_child['nbr_jour'] += 1                                                       
             else:
@@ -373,8 +384,52 @@ class extraschool_invoice(models.Model):
                     saved_child['amount'] += invoicedline.total_price                    
                     
             zz+=1
-
-        return res
+        
+        if str_line == "":
+            str_line = format_str % (self.parentid.rn,
+            self.parentid.lastname,
+            self.parentid.firstname,
+            '', # code rue
+            splited_street[0][0], # libellé rue
+            splited_street[0][1], # num 
+            splited_street[0][2], # boite
+            splited_street[0][3], # index
+            int(self.parentid.zipcode), #code post
+            self.parentid.city,
+            '', # pays
+            'F', # Langue
+            '', # civilité
+            saved_child['street_code'], #code rue ecole            
+            saved_child['splited_place_street'][0][0], # libellé rue
+            saved_child['splited_place_street'][0][1], # num 
+            saved_child['splited_place_street'][0][2], # boite
+            saved_child['splited_place_street'][0][3], # index
+            int(self.schoolimplantationid.zipcode),
+            self.schoolimplantationid.city,
+            time.strftime('%d/%m/%Y',time.strptime(self.biller_id.period_from,'%Y-%m-%d')),
+            time.strftime('%d/%m/%Y',time.strptime(self.biller_id.period_to,'%Y-%m-%d')),
+            '',
+            '#', # comment
+            saved_child['invoice_num'],
+            saved_child['child_id'],
+            saved_child['level'],
+            saved_child['lastname'],
+            saved_child['firstname'],
+            saved_child['birthdate'],
+            saved_child['rn'],
+            saved_child['child_class'],
+            saved_child['inv_date_str'],
+            saved_child['saved_activity'],
+            1 if saved_child['nbr_jour'] >= 1 and not saved_child['nbr_jour_printed'] else 0,
+            saved_child['fisc_amount'],
+            saved_child['amount']                                                                            
+                                        )
+            total+=saved_child['amount']      
+            res.append(str_line)               
+            
+        return {'lines': res,
+                'exported_amount': total,
+                 } 
                 
 
             
