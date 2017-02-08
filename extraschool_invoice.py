@@ -426,7 +426,10 @@ class extraschool_invoice(models.Model):
                                         )
             total+=saved_child['amount']      
             res.append(str_line)               
-            
+#         print {'lines': res,
+#                 'exported_amount': total,
+#                 'nbr_line' : len(res),
+#                  }
         return {'lines': res,
                 'exported_amount': total,
                  } 
