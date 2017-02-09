@@ -175,7 +175,7 @@ class extraschool_coda(models.Model):
                                             _prefix = prefix['remindercomstructprefix']
                             if prefixfound:
                                 reminder=reminder_obj.search([('structcom', '=', communication)])
-                                if reminder.ensure_one():
+                                if len(reminder) == 1:
                                     totaldue = sum(invoice.balance for invoice in reminder.concerned_invoice_ids)
                                     if amount != totaldue:
                                         reject=True
@@ -197,7 +197,10 @@ class extraschool_coda(models.Model):
                                                                            'invoice_id' : invoice.id,
                                                                            'amount' : invoice.balance})
                                             invoice._compute_balance()
-                                            paymentids.append(payment_id.id)         
+                                            paymentids.append(payment_id.id)   
+                                else:
+                                    reject=True;
+                                    rejectcause=_('No valid structured Communication')      
                             else:
                                 #Pre-paiements
                                 cr.execute('select payment_invitation_com_struct_prefix from extraschool_activitycategory')
@@ -247,6 +250,16 @@ class extraschool_coda(models.Model):
                                                        'adr1':adr1,
                                                        'adr2':adr2,
                                                        'rejectcause':rejectcause}).id
+                        transfertdate=''
+                        communication=''
+                        free_communication=''
+                        rejectcause=''
+                        parentaccount=''
+                        name=''
+                        adr1=''
+                        adr2=''
+
+                                                       
                         rejectids.append(reject_id)
                     reject = False
                     amount = 0.0
