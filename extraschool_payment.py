@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from openerp import models, api, fields, _
 from openerp.api import Environment
 from openerp.exceptions import except_orm, Warning, RedirectWarning
 from openerp import tools
@@ -48,6 +48,14 @@ class extraschool_payment(models.Model):
     solde = fields.Float(compute='compute_solde', string='Solde', store=True)
     payment_reconciliation_ids = fields.One2many('extraschool.payment_reconciliation','payment_id')
     coda = fields.Many2one('extraschool.coda', 'Coda', required=False,ondelete='cascade')
+    reject_id = fields.Many2one('extraschool.reject', string='Reject',ondelete='cascade')
+
+    @api.multi
+    def name_get(self):            
+        res=[]
+        for payment in self:
+            res.append((payment.id, _("%s %s") % (self.parent_id.name,self.amount)))
+        return res   
 
     @api.onchange('structcom')
     def compute_prefix(self):

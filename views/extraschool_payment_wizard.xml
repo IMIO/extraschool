@@ -8,9 +8,10 @@
             <field name="arch" type="xml">
                 <form string="payment Wizard">
                     <field name="state" invisible="1" />
-                    <group states="init">
-                        <field name="parent_id" />
-                        <field name="payment_type" />
+					<field name="reject_id" invisible="1" />                    
+					<group states="init">
+       		            <field name="parent_id" />
+						<field name="payment_type" />
                         <field name="activity_category_id" attrs="{'invisible':[('payment_type', '!=', '1')], 'required':[('payment_type', '==', '1')]}"/>
                         <field name="payment_date" />
                         <field name="comment" />                        	

@@ -46,6 +46,7 @@ class extraschool_payment_wizard(models.TransientModel):
     parent_id = fields.Many2one("extraschool.parent")
     activity_category_id = fields.Many2one("extraschool.activitycategory")
     payment_reconciliation_ids = fields.One2many('extraschool.payment_wizard_reconcil','payment_wizard_id')
+    reject_id = fields.Many2one('extraschool.reject', string='Reject')
     comment = fields.Char('Comment')
     state = fields.Selection([('init', 'Init'),
                              ('print_payment', 'Print payment'),
@@ -87,11 +88,18 @@ class extraschool_payment_wizard(models.TransientModel):
             payment.reconciliation_amount = sum(reconcil_line.amount for reconcil_line in payment.payment_reconciliation_ids)
 
 
-    @api.model
-    def default_get(self,fields):
-
-        return {'state': 'init',
-                'parent_id': self.env.context.get('parent_id'),}
+#     @api.model
+#     def default_get(self,fields):
+#         print "default_get"
+#         print {'state': 'init',
+#                 'parent_id': self.env.context.get('parent_id'),
+#                 'reject_id': self.env.context.get('reject_id'),
+#                 'amount': self.env.context.get('amount'),}
+# 
+#         return {'state': 'init',
+#                 'parent_id': self.env.context.get('parent_id'),
+#                 'reject_id': self.env.context.get('reject_id'),
+#                 'amount': self.env.context.get('amount'),}
 
     @api.multi
     def next(self):
@@ -129,11 +137,19 @@ class extraschool_payment_wizard(models.TransientModel):
     @api.multi
     def create_payment(self):
         payment = self.env['extraschool.payment']
+        print "-------------------"
+        print self.reject_id
+        print "-------------------"
+        
         payment = payment.create({'parent_id': self.parent_id.id,
                         'paymentdate': self.payment_date,
                         'structcom_prefix': self.activity_category_id.payment_invitation_com_struct_prefix,
                         'amount': self.amount,
+                        'reject_id': self.reject_id.id if self.reject_id else False,
                         'comment': self.comment})
+        
+        if self.reject_id:
+            self.env['extraschool.reject'].browse(self.reject_id.id).corrected_payment_id = payment.id
         
         print "payment id : %s" % (payment.id)
         

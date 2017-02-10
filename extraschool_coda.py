@@ -271,7 +271,7 @@ class extraschool_coda(models.Model):
                     adr1=''
                     adr2=''
         return super(extraschool_coda, self).create({'name':'CODA '+codadate,'codadate':codadate,'codafile':vals['codafile'],'paymentids':[(6,0,paymentids)],'rejectids':[(6,0,rejectids)]})
-
+    
     def com_struct_builder(self,prefix, val):
         #padding 
         val = val.zfill(7)
