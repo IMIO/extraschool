@@ -43,7 +43,7 @@ class extraschool_child(models.Model):
     birthdate = fields.Date('Birthdate', required=True)
     last_import_date = fields.Datetime('Import date', readonly=True)
     modified_since_last_import = fields.Boolean('Modified since last import')    
-    tagid = fields.Char('Tag ID', size=50)
+    tagid = fields.Char('Tag ID')
     otherref = fields.Char('Other ref', size=50)
     isdisabled = fields.Boolean('Disabled')             
 
