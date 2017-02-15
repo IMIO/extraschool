@@ -28,14 +28,14 @@ class extraschool_discount(models.Model):
     _name = 'extraschool.discount'
     _description = 'Discount'
 
-    name = fields.Char('Name', size=50)
+    name = fields.Char('Name')
+    description = fields.Char('Description')
     discount_version_ids = fields.One2many('extraschool.discount.version', 'discount_id',string='Versions',copy=True)
 
         
     
-    def compute(self, invoice_ids):
-#         for invoice in invoice_ids:
-#             self.discount_version_ids.get_valide_version(invoice.period_from,invoice.period_to).compute(invoice)
+    def compute(self, biller_id):
+        self.discount_version_ids.get_valide_version(biller_id.period_from,biller_id.period_to).compute(biller_id)
         
         return True
 
@@ -44,10 +44,11 @@ class extraschool_discount_version(models.Model):
     _description = 'Discount version'
 
     name = fields.Char('Name', size=50, required = True)
-    discount_id = fields.Many2one('extraschool.duscount', 'Discount',ondelete='cascade', required = True)  
+    discount_id = fields.Many2one('extraschool.discount', 'Discount',ondelete='cascade', required = True)  
     validity_from = fields.Date('Validity from', required = True)
     validity_to = fields.Date('Validity to', required = True)    
     price_list_ids = fields.Many2many('extraschool.price_list', 'extraschool_discount_pricelist_rel',string='Price list')
+    child_type_ids = fields.Many2many('extraschool.childtype', 'extraschool_discount_childtype_rel',string='Child type')              
     period = fields.Selection((('ca','Completed activity'),
                                ('d','Day'),
                                ('w','Week'),
@@ -66,32 +67,38 @@ class extraschool_discount_version(models.Model):
     
     def get_valide_version(self,_from,_to):
         
-        return self.search([('Validity from', '<=', _from),
-                            ('Validity to', '>=', _to),
+        return self.search([('validity_from', '<=', _from),
+                            ('validity_to', '>=', _to),
                          ])
     
-    def compute(self,invoice):
+    def compute(self,biller_id):
+        print "compute discount !!!!!"
         cr,uid = self.env.cr, self.env.user.id
-        
-        #get concerned lines filtered on price_list
-        lines = invoice.invoice_line_ids.filtered(lambda r: r.price_list_version_id.price_list_id.id in self.price_list_ids.ids)
-        
-        for line in lines:
+        for discount_version_id in self:
+            print "get concerned lines ids"        
+            #get concerned lines filtered on price_list
+    #        lines = invoice.invoice_line_ids.filtered(lambda r: r.price_list_version_id.price_list_id.id in self.price_list_ids.ids)
+            
             sql = """select ip.invoiceid as invoiceid, ip.childid as childid, 
                      sum(duration) as sum_duration, sum(quantity) as sum_quantity, count(*) as count
                      from extraschool_invoicedprestations ip
-                     where id in %s
+                     left join extraschool_price_list_version plv on plv.id = ip.price_list_version_id
+                     left join extraschool_child c on c.id = ip.childid
+                     where ip.invoiceid in (""" + ','.join(map(str, biller_id.invoice_ids.ids))+ """)
+                     and plv.price_list_id in (""" + ','.join(map(str, self.price_list_ids.ids))+ """)
+                     and c.childtypeid in (""" + ','.join(map(str, self.child_type_ids.ids))+ """)
                      group by ip.invoiceid,ip.childid
-                     having sum_duration >= %s
+                     having sum(duration) >= %s
                      """
-            cr.execute(sql,[lines.ids,self.quantity_from])
+#            print sql % (self.quantity_from,)
+            cr.execute(sql,(self.quantity_from,))
             args=[]
             for r in cr.dictfetchall():
                 args.append((uid,
                              uid,
                              r['invoiceid'],
                              r['childid'],
-                             self.description,
+                             discount_version_id.discount_id.description,
                              1,#quantité
                              self.value,#unit_price
                              self.value,#total price
