@@ -388,8 +388,8 @@ class extraschool_invoice_wizard(models.TransientModel):
                                         and ept.activity_category_id = %s
                                         and invoiced_prestation_id is NULL
                                         and c.schoolimplantation in (""" + ','.join(map(str, self.schoolimplantationid.ids))+ """)  
-                                group by c.schoolimplantation,ept.parent_id,childid, p.streetcode,case when tarif_group_name = '' or tarif_group_name is NULL then a.name else tarif_group_name  end, ept.prestation_date
-                                order by c.schoolimplantation,parent_id, min(activity_occurrence_id);"""
+                                group by ept.parent_id,c.schoolimplantation,childid, p.streetcode,case when tarif_group_name = '' or tarif_group_name is NULL then a.name else tarif_group_name  end, ept.prestation_date
+                                order by parent_id, c.schoolimplantation, min(activity_occurrence_id);"""
 
 #         print "---------------"
 #         print (sql_mega_invoicing) % (self.period_from, self.period_to, self.activitycategory.id)
@@ -415,7 +415,7 @@ class extraschool_invoice_wizard(models.TransientModel):
         invoice = False
         lines = []
         for invoice_line in invoice_lines:
-            if saved_parent_id != invoice_line['parent_id'] or saved_schoolimplantation_id != invoice_line['schoolimplantation']:
+            if saved_parent_id != invoice_line['parent_id']:# or saved_schoolimplantation_id != invoice_line['schoolimplantation']:
                 saved_parent_id = invoice_line['parent_id']
                 saved_schoolimplantation_id = invoice_line['schoolimplantation']                
                 next_invoice_num = self.activitycategory.get_next_comstruct('invoice',year,sequence_id)
@@ -710,11 +710,12 @@ class extraschool_invoice_wizard(models.TransientModel):
         self.env.invalidate_all()
         
         invoice_ids_rs = inv_obj.browse(invoice_ids)
-#        self.env['extraschool.discount'].compute(invoice_ids_rs)
+        print "Discount ..............."
+        self.env['extraschool.discount'].compute(biller)
+        print "Discount ..............."
         
         invoice_ids_rs.reconcil()
         
-#        self.env['report'].get_pdf(inv_obj.browse(invoice_ids),'extraschool.invoice_report_layout')
         if self.env['ir.config_parameter'].get_param('extraschool.invoice.generate_pdf',1):
             biller.generate_pdf()
         else:
