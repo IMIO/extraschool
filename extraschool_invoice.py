@@ -113,15 +113,15 @@ class extraschool_invoice(models.Model):
 #                                        ('structcom_prefix','=',invoice.activitycategoryid.payment_invitation_com_struct_prefix),
                                         ('solde','>',0),
                                         ]).sorted(key=lambda r: r.paymentdate)
-            print "%s payments found for invoice %s and prefix : %s" % (len(payments),invoice.id,invoice.activitycategoryid.payment_invitation_com_struct_prefix)
-            print payments
+#            print "%s payments found for invoice %s and prefix : %s" % (len(payments),invoice.id,invoice.activitycategoryid.payment_invitation_com_struct_prefix)
+#            print payments
             zz = 0
-            print "invoice balance = %s" % (invoice.amount_total)
+#            print "invoice balance = %s" % (invoice.amount_total)
             
             solde = invoice.balance
             while zz < len(payments) and solde > 0:
                 amount = solde if payments[zz].solde >= solde else payments[zz].solde
-                print "Add payment reconcil - amount : %s" % (amount)
+#                print "Add payment reconcil - amount : %s" % (amount)
                 payment_reconcil_obj.create({'payment_id': payments[zz].id,
                                          'invoice_id': invoice.id,
                                          'amount': amount,
