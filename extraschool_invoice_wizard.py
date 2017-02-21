@@ -716,7 +716,7 @@ class extraschool_invoice_wizard(models.TransientModel):
         
         invoice_ids_rs.reconcil()
         
-        if self.env['ir.config_parameter'].get_param('extraschool.invoice.generate_pdf',1):
+        if self.env['ir.config_parameter'].get_param('extraschool.invoice.generate_pdf',1) == 1:
             biller.generate_pdf()
         else:
             biller.pdf_ready = True
