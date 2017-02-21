@@ -76,10 +76,13 @@ class extraschool_invoice(models.Model):
         for invoice in self:
 
             total = 0 if len(invoice.invoice_line_ids) == 0 else sum(line.total_price for line in invoice.invoice_line_ids)
+            total = 0 if total < 0.0001 else total
             reconcil = 0 if len(invoice.payment_ids) == 0 else sum(reconcil_line.amount for reconcil_line in invoice.payment_ids) 
+            reconcil = 0 if reconcil < 0.0001 else reconcil
             refound = 0 if len(invoice.refound_line_ids) == 0 else sum(refound_line.amount for refound_line in invoice.refound_line_ids)
+            refound = 0 if refound < 0.0001 else refound
             balance = total - reconcil - refound
-            balance = 0 if balance == 0 or balance < 0 else total - reconcil - refound
+            balance = 0 if balance < 0.0001 else balance
             
             invoice.write({'amount_total' : total,
                            'amount_received' : reconcil,
