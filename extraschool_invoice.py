@@ -169,7 +169,7 @@ class extraschool_invoice(models.Model):
 
            
     def get_invoice_calendar(self, child_id = None):
-        print "child:%s" % (child_id)
+#        print "child:%s" % (child_id)
         concened_months = self.biller_id.get_concerned_months()
         for month in concened_months:
             month['days'] = calendar.monthcalendar(month['year'], month['month'])
@@ -183,7 +183,7 @@ class extraschool_invoice(models.Model):
                     d={'day_id': d,
                        'quantity': [],
                        }
-                    print "%s" % (self.period_from)
+#                    print "%s" % (self.period_from)
                     for activity in month['activity']:                        
                         d['quantity'].append(sum(self.invoice_line_ids.filtered(lambda r: r.childid.id == child_id 
                                                                                 and r.prestation_date == '%s-%02d-%02d' % (month['year'],month['month'],d['day_id']) 
@@ -192,7 +192,7 @@ class extraschool_invoice(models.Model):
                 
                 zz+=1
                         
-        print concened_months 
+#        print concened_months 
         
         return concened_months
     
