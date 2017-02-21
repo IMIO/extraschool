@@ -221,7 +221,7 @@ class extraschool_activitycategory(models.Model):
                           'lastcomstruct': categ.reminderlastcomstruct},
                          ]
                 for type in types:
-                    sequence_id = self.env['ir.sequence'].create({'name': "%s - %s - %s" % (categ.name, type['type'], year),
+                    sequence_id = self.env['ir.sequence'].sudo().create({'name': "%s - %s - %s" % (categ.name, type['type'], year),
                                                                 'active': True,
                                                                 'prefix': "%s" % (("%s" % (year))[-2:]),
                                                                 'padding': 5,
