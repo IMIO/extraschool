@@ -268,30 +268,30 @@ class extraschool_biller(models.Model):
         """
         time.sleep(5)
         with Environment.manage():
-            print "******"
-            print invoices_ids
-            print "******"
+#             print "******"
+#             print invoices_ids
+#             print "******"
             #As this function is in a new thread, i need to open a new cursor, because the old one may be closed
             new_cr = self.pool.cursor()
             new_env = Environment(new_cr, uid,context)
          
             report = new_env['report']
             for invoice in new_env['extraschool.invoice'].browse(invoices_ids):
-                print "generate pdf %s" % (invoice.id)
+#                 print "generate pdf %s" % (invoice.id)
                 report.get_pdf(invoice ,'extraschool.invoice_report_layout')
           
                         
             thread_lock[1].acquire()
-            print "nbr_thread : %s" % (thread_lock[0])
+#             print "nbr_thread : %s" % (thread_lock[0])
             thread_lock[0] -= 1
             if thread_lock[0] == 0:
-                print "this is the end"
+#                 print "this is the end"
 
 #                 post_vars = {'subject': "Print Ready ;-)",
 #                              'body': "You print is ready !",
 #                              'partner_ids': [(uid)],} 
 #                user = env['res.users'].browse(uid)
-                print "Set biller pdf ready"
+#                 print "Set biller pdf ready"
                 new_env['extraschool.biller'].browse(thread_lock[2]).pdf_ready = True
                 #print "update extraschool_biller set pdf_ready = True where id = %s" % (thread_lock[2])
                 #new_cr.execute("update extraschool_biller set pdf_ready = True where id = %s",[thread_lock[2]])
@@ -305,9 +305,9 @@ class extraschool_biller(models.Model):
     
     @api.one
     def generate_pdf(self):    
-        print "pinr invoices from biller : %s" % self.name_get()
-        print self.invoice_ids
-        print "---------------"
+#         print "pinr invoices from biller : %s" % self.name_get()
+#         print self.invoice_ids
+#         print "---------------"
         cr,uid = self.env.cr, self.env.user.id 
         threaded_report = []
 #        cr.execute("update extraschool_biller set pdf_ready = False where id = %s",[self.id])
@@ -319,9 +319,9 @@ class extraschool_biller(models.Model):
         
         lock = threading.Lock()
         chunk_size = int(self.env['ir.config_parameter'].get_param('extraschool.report.thread.chunk',200))
-        print "-------------------------------"
-        print "chunk_size:%s" % (chunk_size)
-        print "-------------------------------"
+#         print "-------------------------------"
+#         print "chunk_size:%s" % (chunk_size)
+#         print "-------------------------------"
         
         nrb_thread = len(self.invoice_ids)/chunk_size+(len(self.invoice_ids)%chunk_size > 0)
         thread_lock = [len(self.invoice_ids)/chunk_size+(len(self.invoice_ids)%chunk_size > 0),
