@@ -18,6 +18,7 @@
                     <field name="balance"/>
                     <field name="discount"/>
                     <field name="no_value"/>
+                    <field name="huissier"/>                    	                    
                     <button name="reconcil" type="object" string="Reconcil"/>
 				</tree>
 			</field>
