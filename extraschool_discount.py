@@ -32,11 +32,14 @@ class extraschool_discount(models.Model):
     description = fields.Char('Description')
     discount_version_ids = fields.One2many('extraschool.discount.version', 'discount_id',string='Versions',copy=True)
 
-        
-    
     def compute(self, biller_id):
         self.discount_version_ids.get_valide_version(biller_id.period_from,biller_id.period_to).compute(biller_id)
-        
+        line_ids = []
+        for invoice in invoice_ids:
+            for line in invoice.invoice_line_ids:
+                if line.price_list_version_id.max_price > 0 and line.total_price > line.price_list_version_id.max_price:
+                    line.total_price = line.price_list_version_id.max_price
+                    invoice._compute_balance()
         return True
 
 class extraschool_discount_version(models.Model):

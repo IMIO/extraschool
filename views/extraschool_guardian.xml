@@ -27,7 +27,9 @@
                 <newline/>
                 <field name="weekly_schedule"/>
                 <newline/>
-                <field name="tagid" /> 
+                <field name="tagid" />
+                <newline/>
+                <field name="otherref" /> 
                </group>
             </form>
             </field> 

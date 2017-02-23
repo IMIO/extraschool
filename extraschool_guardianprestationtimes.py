@@ -36,6 +36,7 @@ class extraschool_guardianprestationtimes(models.Model):
     prestation_time = fields.Float('Time')
     es = fields.Selection((('E','In'), ('S','Out')),'ES' , index = True)         
     manualy_encoded = fields.Boolean('Manualy encoded')
+    exported = fields.Boolean('Exported', default=False)
 
     @api.onchange('prestation_date')
     @api.depends('prestation_date')
