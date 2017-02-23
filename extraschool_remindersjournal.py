@@ -370,7 +370,7 @@ class extraschool_remindersjournal_item(models.Model):
 
     name = fields.Char('Name', required=True)
     reminder_type_id = fields.Many2one('extraschool.remindertype', 'Reminder type', required=True)
-    reminders_journal_id = fields.Many2one('extraschool.remindersjournal', 'Reminder journal', required=True)
+    reminders_journal_id = fields.Many2one('extraschool.remindersjournal', 'Reminder journal',ondelete='cascade', required=True)
     payment_term = fields.Date('Payment term', required=True)
     amount = fields.Float('Amount', required=True)
      
@@ -379,7 +379,7 @@ class extraschool_reminders_journal_biller_item(models.Model):
     _description = 'Reminders journal biller item'
 
     name = fields.Char('Name', required=True)
-    reminders_journal_id = fields.Many2one('extraschool.remindersjournal', 'Reminder journal')
+    reminders_journal_id = fields.Many2one('extraschool.remindersjournal', 'Reminder journal',ondelete='cascade')
     biller_id = fields.Many2one('extraschool.biller', 'Biller', required=True)     
     reminder_amount = fields.Float('Reminder amount', required=True)
     exit_accounting_amount = fields.Float('Exit accounting amount', required=True)
