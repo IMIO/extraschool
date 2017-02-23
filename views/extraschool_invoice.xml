@@ -98,8 +98,8 @@
 	   		                    		<field name="period_duration"/>
 	   		                    		<field name="period_tolerance"/>
 	   		                    		<field name="quantity"/>
-	   		                    		<field name="unit_price"/>
-	   		                    		<field name="total_price"/>	   		                    		
+	   		                    		<field name="unit_price" widget="monetary"/>
+	   		                    		<field name="total_price"  widget="monetary" sum="True"/>	   		                    		
 	   		                    	</tree>
 	   		                    	<form>
 	   		                    		<group col="4">
