@@ -93,7 +93,9 @@
                     <newline/>
                     <field name="totalbalance"/>
                     <newline/>
-					<separator string="Factures" colspan="4"/>                    
+                    <field name="totalhuissier"/>
+                    <newline/>
+                    <separator string="Factures" colspan="4"/>                    
                     <field name="invoice_ids" nolabel="1" colspan="4">
 	                    <tree string="Invoices">
 	                        <field name="activitycategoryid"/>
@@ -104,7 +106,8 @@
 	                        <field name="amount_total" sum="True"/>
 	                        <field name="amount_received" sum="True"/>
 	                        <field name="balance"  sum="True"/>
-	                        <field name="no_value"/>	
+	                        <field name="no_value"/>
+	                        <field name="huissier"/>	
 	                        <button name="reconcil" type="object" string="Reconcil" groups="base.group_erp_manager" />	                        
 	                    </tree>
                     </field>

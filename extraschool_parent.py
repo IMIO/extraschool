@@ -83,9 +83,14 @@ class extraschool_parent(models.Model):
     def _compute_totalbalance (self):
         cr = self.env.cr
         for record in self:
-            cr.execute('select sum(balance) from extraschool_invoice where parentid=%s',(record.id,))
+            cr.execute('select sum(balance) from extraschool_invoice where parentid=%s and (huissier = False or huissier is Null)',(record.id,))
             record.totalbalance = cr.fetchall()[0][0]
 
+    def _compute_totalhuissier (self):
+        cr = self.env.cr
+        for record in self:
+            cr.execute('select sum(balance) from extraschool_invoice where parentid=%s and huissier = True',(record.id,))
+            record.totalhuissier = cr.fetchall()[0][0]
              
     name = fields.Char(compute='_name_compute',string='FullName', search='_search_fullname', size=100)   
     rn = fields.Char('RN')
@@ -116,6 +121,7 @@ class extraschool_parent(models.Model):
     totalinvoiced = fields.Float(compute='_compute_totalinvoiced', string="Total invoiced")
     totalreceived = fields.Float(compute='_compute_totalreceived', string="Total received")
     totalbalance = fields.Float(compute='_compute_totalbalance', string="Total balance")
+    totalhuissier = fields.Float(compute='_compute_totalhuissier', string="Total huissier")
     payment_ids = fields.One2many('extraschool.payment','parent_id')
     payment_status_ids = fields.One2many('extraschool.payment_status_report','parent_id')
     last_import_date = fields.Datetime('Import date', readonly=True)
