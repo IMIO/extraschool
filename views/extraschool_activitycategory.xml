@@ -110,9 +110,11 @@
 			                <newline/>
 			                <field name="invoiceemailsubject" />
 			                <newline/>
-			                <field name="invoiceemailtext" />
+			                <separator string="Text de l email" colspan="4"/>
+			                <field name="invoiceemailtext"  nolabel="1" colspan="4" />
 			                <newline/>
-			                <field name="invoice_comment" widget="html"/>
+			                <separator string="Commentaire de la facture" colspan="4"/>
+			                <field name="invoice_comment" nolabel="1"  colspan="4" widget="html"/>
 			                <newline/>						
 			                <field name="invoice_report_id" />
 			                <field name="invoice_detail_report_id" />
