@@ -15,6 +15,9 @@
          </record> 
          <record id="extraschool_payment_correction" model="res.groups">
             <field name="name">AES Payment Correction</field>
+         </record>
+         <record id="extraschool_timeclock" model="res.groups">
+            <field name="name">AES timeclock</field>
          </record>                             
       </data>
    </openerp>
