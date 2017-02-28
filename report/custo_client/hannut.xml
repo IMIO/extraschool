@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 		
+		<template id="report_hannut_all_invoice_summary" inherit_id="extraschool.report_all_invoice_summary" primary="True">
+
+			<xpath expr="//div[@id='invoice_summary']/p[1]" position="inside">
+				<span> Toute réclamation relative à la facture doit être transmise à l’asbl L’Eveil avant la date d'échéance. 
+					Toute facture non contestée est considérée comme acceptée.</span> 
+			</xpath>		
+		</template>
+
+	</data>
+</openerp>	

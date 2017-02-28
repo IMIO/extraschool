@@ -129,7 +129,8 @@
         'report/common/double_sign_no_style.xml',
         'report/common/spacer_2cm.xml',
         'report/common/invoice_summary.xml',        
-        'report/common/payment_info_amount_one_row.xml',        
+        'report/common/payment_info_amount_one_row.xml',
+        'report/custo_client/hannut.xml',        
 
         'extraschool_view.xml',
         
