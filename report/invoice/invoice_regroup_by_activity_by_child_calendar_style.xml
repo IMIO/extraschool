@@ -142,7 +142,7 @@
 				}
 		    	
 		    	.quantity{
-		    		width: 3%;
+		    		min-width: 3%;
 		    	}
 		    			    			    	
 				#invoice_body div table td.amount {
@@ -165,13 +165,13 @@
 		       		<t t-foreach="invoice.get_invoice_calendar(child.id)" t-as="month">     		
 	        		    <table>
 		        			<tr>
-			        			<th colspan="2"><span t-esc="monthname[month['month']-1]" /></th>
+			        			<th><span t-esc="monthname[month['month']-1]" /></th>
 			        			<t t-foreach="month['days']" t-as="month_days">
 			        				<t t-set="zz" t-value="1" />
 			        				<t t-foreach="month_days" t-as="d">
 			        					<t t-set="weekend" t-value="False" />
 				        				<t t-if= "zz &gt; 5">
-				        					<t t-set="weekend" t-value="weekend" />
+				        					<t t-set="weekend" t-value="'weekend'" />
 										</t>
 				        				<th t-if= "d &gt; 0" t-attf-class="quantity {{weekend}}"><span t-esc="d" /></th>
 			        					<t t-set="zz" t-value="zz+1" />     					        								        					
@@ -179,7 +179,7 @@
 		        				</t>
 							</tr>
 							<tr>
-			       				<td colspan="2">
+			       				<td>
 			       					<ul>
 				       					<t t-foreach="month['activity']" t-as="activity">
 				       						<li><span t-esc="activity" /></li>			       						
