@@ -87,7 +87,7 @@
 		</template>
 
 		<template id="report_all_invoice_summary">
-			<t t-if="len(summary_invoice_ids)" >
+			<t t-if="len(all_invoice_ids)" >
 			    <style type="text/css">
 			        #invoice_summary{
 			    		width: 100%;
