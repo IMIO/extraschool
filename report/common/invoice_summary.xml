@@ -9,6 +9,8 @@
 			    		display: block;
 			    		margin: 1cm 0cm 0cm 0cm;
 			    		page-break-inside: avoid;
+			    		text-align: justify;  
+			    		text-justify: inter-word;
 			    	}
 			    	
 			    	#invoice_summary div.your_ref{
@@ -92,6 +94,8 @@
 			    		display: block;
 			    		margin: 1cm 0cm 0cm 0cm;
 			    		page-break-inside: avoid;
+			    		text-align: justify;  
+			    		text-justify: inter-word;
 			    	}
 			    	
 			    	#invoice_summary div.your_ref{
