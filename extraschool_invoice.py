@@ -35,7 +35,8 @@ class extraschool_invoice(models.Model):
     _description = 'invoice'
 
     name = fields.Char('Name', size=20,readonly=True, default='Facture')
-    schoolimplantationid = fields.Many2one('extraschool.schoolimplantation', 'School implantation', required=False,readonly=True)
+    schoolimplantationid = fields.Many2one('extraschool.schoolimplantation', 'School implantation', required=False,readonly=True, index=True)
+    classid = fields.Many2one('extraschool.class', 'Class', required=False, domain="[('schoolimplantation','=',schoolimplantationid)]", index=True)    
     parentid = fields.Many2one('extraschool.parent', 'Parent', required=False, index = True)
     invoicesendmethod = fields.Selection(related="parentid.invoicesendmethod", store=True)
     number = fields.Integer('Number',readonly=True)

@@ -514,7 +514,18 @@ class extraschool_invoice_wizard(models.TransientModel):
                                        """,[biller.id])
         invoice_line_ids = [l['id'] for l in cr.dictfetchall()]
         
-        
+        #mise à jour de la class 
+        print "mise à jour classid"
+        sql_update_class = """update extraschool_invoice i
+                                set classid = (select classid 
+                                from extraschool_invoicedprestations ip
+                                left join extraschool_child c on c.id = ip.childid
+                                where ip.id in (""" + ','.join(map(str, invoice_line_ids))+ """) 
+                                      and invoiceid = i.id and classid is not Null
+                                limit 1)                             
+                            """
+        self.env.cr.execute(sql_update_class)
+                            
         #mise à jour activity_activity_id 
         print "mise à jour activity_activity_id"
         sql_update_activity_id = """update extraschool_invoicedprestations ip

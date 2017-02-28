@@ -32,7 +32,7 @@ class extraschool_invoicedprestations(models.Model):
     _name = 'extraschool.invoicedprestations'
     _description = 'invoiced Prestations'
 
-    invoiceid = fields.Many2one('extraschool.invoice', 'invoice',ondelete='cascade')
+    invoiceid = fields.Many2one('extraschool.invoice', 'invoice',ondelete='cascade', index=True)
     childid = fields.Many2one('extraschool.child', 'Child', required=False, select=True)
     child_position_id = fields.Many2one('extraschool.childposition', 'Child position', required=False, select=True)
     placeid = fields.Many2one(related='activity_occurrence_id.place_id', store=True, select=True)
