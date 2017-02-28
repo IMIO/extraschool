@@ -17,6 +17,7 @@
 			    		page-break-inside: avoid;
 			    		text-align: justify;  
 			    		text-justify: inter-word;
+			    		font-size: x-small;
 			    	}
 			    	
 			    	#invoice_summary div.your_ref{
@@ -33,13 +34,13 @@
 					}
 					#invoice_summary table th {
 						border-width: 1px;
-						padding: 8px;
+						padding: 4px;
 						border-style: solid;
 						background-color: #dedede;
 					}
 					#invoice_summary table td {
 						border-width: 1px;
-						padding: 8px;
+						padding: 4px;
 						border-style: solid;
 					}
 	
@@ -108,6 +109,7 @@
 			    		page-break-inside: avoid;
 			    		text-align: justify;  
 			    		text-justify: inter-word;
+			    		font-size: x-small;
 			    	}
 			    	
 			    	#invoice_summary div.your_ref{
@@ -124,13 +126,13 @@
 					}
 					#invoice_summary table th {
 						border-width: 1px;
-						padding: 8px;
+						padding: 4px;
 						border-style: solid;
 						background-color: #dedede;
 					}
 					#invoice_summary table td {
 						border-width: 1px;
-						padding: 8px;
+						padding: 4px;
 						border-style: solid;
 					}
 	
