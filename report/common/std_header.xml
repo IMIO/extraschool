@@ -29,7 +29,11 @@
 					display: inline-block;
 					float: left;        				
 				}
-											    	
+				
+		    	.doc_date{
+		    		font-size: 12px;
+		    	}
+		    								    	
 		    	.implantation{
 		    		font-size: 7px;
 		    	}

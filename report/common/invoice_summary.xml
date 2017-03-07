@@ -139,7 +139,9 @@
 			    		text-align: right;
 			    		width: 20%;
 					}
-			    			    	
+			    	div#invoice_summary b h2{
+			    		font-weight: bold;
+			    	}		    	
 				</style>
 							
 	        	<div id="invoice_summary" >
