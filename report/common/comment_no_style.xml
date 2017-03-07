@@ -7,7 +7,7 @@
 					page-break-inside: avoid;
 					display: block;
 					clear: both;
-		    		padding: 0 0 0 8px;
+		    		padding: 0 0 0 0px;
 		    		margin 0 0 0 0;
 				}
 

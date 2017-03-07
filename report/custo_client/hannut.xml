@@ -5,7 +5,8 @@
 		<template id="report_hannut_body_style">	
 			<style type="text/css">			
 			body {
-			  font-family:'calibri= (body) !important';  
+			  font-family:Calibri !important;  
+			  src: url('/extraschool/static/font/calibri.ttf')  format('truetype');
 			  text-align: justify;  
 			  text-justify: inter-word;	            	 	  
 			}

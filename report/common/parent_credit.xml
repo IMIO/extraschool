@@ -6,7 +6,7 @@
 		    	.aes_html_parent_credit{
 		    		display: block;
 		    		clear: both;
-		    		padding: 0 0 0 8px;
+		    		padding: 0 0 0 0px;
 		    		margin 0 0 0 0;
 		    		font-size:12px;
 		    	}
