@@ -107,9 +107,17 @@
 
 		<template id="report_invoice_regroup_by_activity_by_child_calendar_one_line_style">
 		    <style type="text/css">
-				
+
+		    	#invoice_body {
+		    		page-break-inside: avoid;
+		    		width: 100%;
+		    		clear: both;
+		    	}
+		    			    					
 		    	#invoice_body div {
 		    		page-break-inside: avoid;
+		    		width: 100%;
+		    		clear: both;
 		    	}
 		    			    			    	
 				#invoice_body div table {
@@ -161,7 +169,7 @@
         	    <t t-set="monthname" t-value="['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre']"/>
         		<t t-foreach="invoice.get_concerned_child()" t-as="child">
         		    <div>
-        		    <span t-esc="child.name"/>
+        		    <b><span t-esc="child.name"/></b>
 		       		<t t-foreach="invoice.get_invoice_calendar(child.id)" t-as="month">     		
 	        		    <table>
 		        			<tr>

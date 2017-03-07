@@ -29,6 +29,25 @@
 			</xpath>		
 		</template>
 
+		<template id="report_invoice_your_ref_and_period_num_fact_one_row">
+		    <style type="text/css">
+		        #ref_and_period{
+		    		width: 100%;
+		    		display: block;
+		    		margin: 0cm 0cm 0cm 0cm;
+		    		font-size:12px;
+		    	}		    			    	
+			</style>
+						
+        	<div id="ref_and_period">
+        		<div class="your_ref">
+        			<b>Facture N°: <span t-field="invoice.number" /> 
+        			 - Période du <span t-field="invoice.biller_id.period_from" /> au <span t-field="invoice.biller_id.period_to" />
+        			</b>     			
+        		</div>
+        		        		
+       		</div>
+		</template>		
 	</data>
 </openerp>	
 	

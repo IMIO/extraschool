@@ -108,8 +108,7 @@
 			    		margin: 0cm 0cm 0cm 0cm;
 			    		page-break-inside: avoid;
 			    		text-align: justify;  
-			    		text-justify: inter-word;
-			    		font-size: x-small;
+			    		text-justify: inter-word;			    		
 			    	}
 			    	
 			    	#invoice_summary div.your_ref{
@@ -120,19 +119,19 @@
 			    			    	
 					#invoice_summary table {
 			    		width: 100%;
-						font-size:11px;
+						font-size:10px;
 						border-width: 1px;
 						border-collapse: collapse;
 					}
 					#invoice_summary table th {
 						border-width: 1px;
-						padding: 4px;
+						padding: 2px;
 						border-style: solid;
 						background-color: #dedede;
 					}
 					#invoice_summary table td {
 						border-width: 1px;
-						padding: 4px;
+						padding: 2px;
 						border-style: solid;
 					}
 	
@@ -161,7 +160,7 @@
 				       					<td><span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_from,'%Y-%m-%d')))" /> - <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_to,'%Y-%m-%d')))" /></td> 
 			        					<td><span t-field="summary_invoice.number" /></td> 
 				       					<td><span t-field="summary_invoice.payment_term" /></td> 
-				       					<td class="amount"><span t-esc="'%.2f €' %  (summary_invoice.balance)" /></td> 
+				       					<td class="amount"><span t-esc="'%.2f€' %  (summary_invoice.balance)" /></td> 
 	        							        							
 	        						</tr>
 								</t>
@@ -171,7 +170,7 @@
 					       					<td></td> 
 				        					<td><span t-field="invoice_line.description" /></td> 
 					       					<td><span t-field="summary_invoice.payment_term" /></td> 
-					       					<td class="amount"><span t-esc="'%.2f €' %  (invoice_line.balance)" /></td>
+					       					<td class="amount"><span t-esc="'%.2f€' %  (invoice_line.balance)" /></td>
 				       					</tr>         							
 	        						</t>
 								</t>							

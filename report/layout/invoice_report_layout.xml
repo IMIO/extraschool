@@ -56,7 +56,7 @@
 		    
             <xpath expr="//body" position="inside">
 				<div id="invoice">
-					<t t-foreach="docs" t-as="invoice">													
+					<t t-foreach="docs" t-as="invoice">																			
 						<t t-set="logo" t-value="invoice.activitycategoryid.logo"/>
 						<t t-set="slogan" t-value="docs[0].activitycategoryid.slogan"/>		
 						<t t-set="amount_int" t-value="int(invoice.amount_total)"/>
@@ -71,6 +71,7 @@
 						<t t-set="received" t-value="invoice.amount_received"/>
 						<t t-set="balance" t-value="invoice.balance"/>	
 						<t t-set="payment_term" t-value="'%s' % (time.strftime('%d-%m-%Y',time.strptime(invoice.biller_id.payment_term,'%Y-%m-%d')))"/>
+						<t t-set="schoolimplantationid" t-value="invoice.schoolimplantationid"/>
 							
 						<t t-set="comment" t-value="'%s%s' % (invoice.biller_id.comment if invoice.biller_id.comment != False else '',invoice.comment if invoice.comment != False else '')"/>	
 						<t t-set="doc_date" t-value="'%s, le %s' % (invoice.biller_id.activitycategoryid.po_city,time.strftime('%d-%m-%Y',time.strptime(invoice.biller_id.invoices_date,'%Y-%m-%d')))"/>	
