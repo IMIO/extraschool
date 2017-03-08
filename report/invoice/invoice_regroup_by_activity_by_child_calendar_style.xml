@@ -161,7 +161,10 @@
  				    list-style:none;
  				    margin-bottom: 0;
 				}
-		    			    	
+		    	
+		    	div#invoice_body div b span {
+				    font-size: 12px;
+				}		    	
 			</style>
 			<t t-set="weekend" t-value="False" />			
         	<div id="invoice_body">
