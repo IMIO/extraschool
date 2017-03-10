@@ -54,19 +54,16 @@ class extraschool_payment_wizard(models.TransientModel):
                              ('print_reconciliation', 'Print reconciliation')],
                             'State', required=True, default='init'
                             )
-    '''
-    @api.onchange('payment_type','amount','activity_category_id')
+    
+    @api.onchange('parent_id','amount','activity_category_id')
     @api.one
     def _on_change_payment_type(self):
         
         self.payment_reconciliation_ids = [(5, 0, 0)]
         print "self.activity_category_id : %s" % (self.activity_category_id)
         reconciliations = []
-        if self.payment_type == '1':
-            if len(self.activity_category_id):
-                reconciliations = self.env['extraschool.payment']._get_reconciliation_list(self.parent_id.id,self.activity_category_id.payment_invitation_com_struct_prefix,self.payment_type,self.amount)
-        else:
-                reconciliations = self.env['extraschool.payment']._get_reconciliation_list(self.parent_id.id,self.activity_category_id.payment_invitation_com_struct_prefix,self.payment_type,self.amount)
+        if len(self.activity_category_id) and self.parent_id:
+            reconciliations = self.env['extraschool.payment']._get_reconciliation_list(self.parent_id.id,self.activity_category_id.payment_invitation_com_struct_prefix,1,self.amount)
             
         tmp_payment_reconciliation_ids = []
         for reconciliation in reconciliations:           
@@ -74,7 +71,7 @@ class extraschool_payment_wizard(models.TransientModel):
             
         print "reconcil : %s" % (tmp_payment_reconciliation_ids)
         self.payment_reconciliation_ids = tmp_payment_reconciliation_ids
-    '''
+    
 
     @api.onchange('reconciliation_amount')
     @api.depends('reconciliation_amount')

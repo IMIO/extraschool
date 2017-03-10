@@ -21,14 +21,13 @@
                 		<field name="reconciliation_amount_balance" readonly="True" />                		                    		
                   		<separator string="Reconciliation" colspan="4"/>	
                   	</group>
-			<span>Nous avons supprimé le choix pré-paiement / factures</span>
-                    <!--  field name="payment_reconciliation_ids" states="init">	                	
+                    <field name="payment_reconciliation_ids" states="init">	                	
                     	<tree  editable="bottom" create="false" delete="false">	
 	                        <field name="invoice_id" readonly="True" />
 	        		        <field name="invoice_balance" />
 	                        <field name="amount" sum="True" />
 	                	</tree>
-                     </field -->
+                     </field>
                     <separator string="" colspan="4"/>
                     <group colspan="4" col="3">
                         <button name="next" string="generate payment" icon="gtk-apply" type="object" attrs="{'invisible':[('reconciliation_amount_balance', '&lt;', '-0.001')]}"/>
