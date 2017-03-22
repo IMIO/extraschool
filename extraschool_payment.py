@@ -82,10 +82,13 @@ class extraschool_payment(models.Model):
             activity_category_ids = self.env['extraschool.activitycategory'].search([('payment_invitation_com_struct_prefix', '=', com_struct_prefix)]).ids
             invoices = self.env['extraschool.invoice'].search([('parentid', '=', parent_id),
                                                                ('activitycategoryid', 'in',activity_category_ids),
-                                                               ('balance', '>', 0)])
+                                                               ('balance', '>', 0),
+                                                               ('huissier', '=', False),
+                                                               ])
         else:
             invoices = self.env['extraschool.invoice'].search([('parentid', '=', parent_id),
-                                                               ('balance', '>', 0)])
+                                                               ('balance', '>', 0),
+                                                               ('huissier', '=', False),])
 #            invoices = invoices.filtered(lambda r: r.structcom[3:6] not in [activity_categ.payment_invitation_com_struct_prefix for activity_categ in self.env['extraschool.activitycategory'].search([])])
         
         #sort result on date 
