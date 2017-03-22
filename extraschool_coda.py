@@ -137,7 +137,9 @@ class extraschool_coda(models.Model):
                                         prefixfound=True
                                         _prefix = prefix['invoicecomstructprefix']
                         if prefixfound:          
-                            invoice=invoice_obj.search([('structcom', '=', communication)])                      
+                            invoice=invoice_obj.search([('structcom', '=', communication),
+                                                        ('huissier', '=', False),
+                                                        ])                      
                             if len(invoice.ids) == 1:
                                 if invoice.balance < amount:
                                     reject=True
