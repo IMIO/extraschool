@@ -1,6 +1,61 @@
 <?xml version="1.0" ?>
 <openerp>
 	<data> 
+       <record model="ir.ui.view" id="extraschool_taxcertificate_tree">
+            <field name="name">extraschool.taxcertificate.tree</field>
+            <field name="model">extraschool.taxcertificate</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Tax Certificate">
+                    <field name="name" />
+                    <field name="activity_category_id" />
+                </tree>
+            </field>
+        </record>
+        
+		<record model="ir.ui.view" id="extraschool_taxcertificate_form">
+            <field name="name">extraschool.taxcertificate.form</field>
+            <field name="model">extraschool.taxcertificate</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Tax Certificate">
+					<div class="oe_right oe_button_box" name="buttons"> 
+						<button name="all_taxecertificate" string="Toutes les attestations" type="object" class="oe_inline oe_stat_button" icon="fa-files-o"/>														
+					</div>
+                	                	
+                    <group col="4">
+                        <field name="name" />
+                        <field name="activity_category_id" />
+                        <newline/>
+						<separator string="Taxe certificate" colspan="4"/>                        
+                        <field name="taxcertificate_item_ids" colspan="4" nolabel="1" readonly="True"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        
+       <record model="ir.ui.view" id="extraschool_taxcertificate_item_tree">
+            <field name="name">extraschool.taxcertificate_item.tree</field>
+            <field name="model">extraschool.taxcertificate_item</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Tax Certificate">
+                    <field name="name" />
+                    <field name="parent_id" />
+                    <field name="child_id" />
+                    <field name="nbr_day" />
+                    <field name="amount" />                    	                    	                    	                    
+                </tree>
+            </field>
+        </record>
+                
+        
+        <record model="ir.actions.act_window" id="action_extraschool_taxcertificate">
+            <field name="name">Tax Certificate</field>
+            <field name="res_model">extraschool.taxcertificate</field>
+            <field name="view_type">form</field>
+        </record>
+        		
        <record model="ir.ui.view" id="extraschool_taxcertificates_wizard_form">
             <field name="name">extraschool.taxcertificates.wizard.form</field>
             <field name="model">extraschool.taxcertificates_wizard</field>

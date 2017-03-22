@@ -68,6 +68,7 @@ import extraschool_reminder
 import extraschool_remindersjournal
 import extraschool_remindertype
 import extraschool_smartphone
+import extraschool_taxcertificate
 import extraschool_taxcertificates_wizard
 import extraschool_timecorrection_wizard
 import extraschool_scheduledtasks
