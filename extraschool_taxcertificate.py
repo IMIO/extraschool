@@ -8,7 +8,9 @@ class extraschool_taxcertificate(models.Model):
 
     name = fields.Integer('Fiscal Year', required=True, select = True)
     activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity category', required=True)
-    taxcertificate_item_ids = fields.One2many('extraschool.taxcertificate_item', 'taxcertificate_id','Details')   
+    doc_date = fields.Date('Document date', required=True)
+    taxcertificate_item_ids = fields.One2many('extraschool.taxcertificate_item', 'taxcertificate_id','Details')
+    
     
     @api.model
     def create(self, vals):  
@@ -73,10 +75,10 @@ class extraschool_taxcertificate(models.Model):
                                     left join extraschool_class sc on sc.id = c.classid
                                     where invoiceid in (""" + sql_concerned_invoice + """)
                                            and a.on_tax_certificate = true
+                                           and prestation_date <= c.birthdate + interval '12 year'
                                     group by i.parentid,par.firstname,par.lastname,par.street,par.zipcode,par.city,ip.childid,c.firstname,c.lastname,c.birthdate,si.name,sc.name
                                     having sum(total_price) > 0
-                                    order by si.name,sc.name,i.parentid;
-                                
+                                    order by si.name,sc.name,i.parentid;                                
                                 """                                
         
         print "sql_concerned_attest : %s" % sql_concerned_attest   
@@ -120,7 +122,7 @@ class extraschool_taxcertificate_item(models.Model):
     _description = 'Taxcertificate item'
 
     name = fields.Char('Name')
-    taxcertificate_id = fields.Many2one('extraschool.invoice', 'invoice',ondelete='cascade', index=True)
+    taxcertificate_id = fields.Many2one('extraschool.taxcertificate', 'invoice',ondelete='cascade', index=True)
     parent_id = fields.Many2one('extraschool.parent', 'Parent', required=True, select = True)
     child_id = fields.Many2one('extraschool.child', 'Child', required=True, select=True)
     nbr_day = fields.Integer('Nbr day')
