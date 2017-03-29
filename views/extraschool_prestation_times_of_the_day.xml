@@ -41,16 +41,15 @@
 		                <separator string="Computed prestations" colspan="4"/> 
 	                    <field name="prestationtime_ids" nolabel="1" colspan="4">
 	                    	<tree string="prestation_times" colors="red:verified==False" editable="bottom">
-		                   		<field name="childid" />
 	                    		<field name="placeid" />
 		                   		<field name="activity_occurrence_id" />
 	                    		<field name="prestation_time"  widget="float_time"/>
 	                    		<button name="invert_es" string="inverser" icon="gtk-refresh" type="object" />
 	                    		<field name="es" />
-	                    		<field name="exit_all" />
+	                    		<field name="exit_all"  readonly="True"/>
 	                    		<field name="verified" />
-	                    		<field name="invoiced_prestation_id" />	                    			
-	                    		<field name="error_msg" />
+	                    		<field name="invoiced_prestation_id" readonly="True"/>	                    			
+	                    		<field name="error_msg"  readonly="True"/>
 	                    	</tree>
 	                    	<form string="prestation_times" colors="red:verified==False">
 	                    		<group>
