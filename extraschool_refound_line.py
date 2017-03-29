@@ -54,6 +54,7 @@ class extraschool_refound_line(models.Model):
                 
                 payment_reconcil_obj.create({'payment_id': refound.invoiceid.payment_ids[zz].payment_id.id,
                                          'invoice_id': refound.invoiceid.id,
+                                         'date': self.date,
                                          'amount': amount*(-1),
                                          })
                 amount_to_refound -= amount

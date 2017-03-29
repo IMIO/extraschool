@@ -157,8 +157,9 @@ class extraschool_coda(models.Model):
                                                                   'amount': amount})
                                                                             
                                     payment_reconciliation_obj.create({'payment_id' : payment_id.id,
-                                                                           'invoice_id' : invoice.id,
-                                                                           'amount' : amount})
+                                                                        'invoice_id' : invoice.id,
+                                                                        'date': transfertdate,
+                                                                        'amount' : amount})
                                     invoice._compute_balance()
                                     paymentids.append(payment_id.id)                                    
                             else:
@@ -197,6 +198,7 @@ class extraschool_coda(models.Model):
                                                                             
                                             payment_reconciliation_obj.create({'payment_id' : payment_id.id,
                                                                            'invoice_id' : invoice.id,
+                                                                           'date': transfertdate,
                                                                            'amount' : invoice.balance})
                                             invoice._compute_balance()
                                             paymentids.append(payment_id.id)   
@@ -234,6 +236,7 @@ class extraschool_coda(models.Model):
                                             for reconciliation in payment_id._get_reconciliation_list(parentid,prefix['payment_invitation_com_struct_prefix'],1,amount):
                                                 payment_reconciliation_obj.create({'payment_id' : payment_id.id,
                                                                                'invoice_id' : reconciliation['invoice_id'],
+                                                                               'date': transfertdate,
                                                                                'amount' : reconciliation['amount']})
                                                 invoice_obj.browse(reconciliation['invoice_id'])._compute_balance()
                                                 
