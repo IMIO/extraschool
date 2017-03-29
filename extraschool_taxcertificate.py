@@ -2,6 +2,9 @@ from openerp import models, api, fields, _
 from openerp.api import Environment
 from openerp.exceptions import except_orm, Warning, RedirectWarning
 
+import threading    
+import time
+
 class extraschool_taxcertificate(models.Model):
     _name = 'extraschool.taxcertificate'
     _description = 'Taxcertificate'
@@ -10,7 +13,7 @@ class extraschool_taxcertificate(models.Model):
     activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity category', required=True)
     doc_date = fields.Date('Document date', required=True)
     taxcertificate_item_ids = fields.One2many('extraschool.taxcertificate_item', 'taxcertificate_id','Details')
-    
+    pdf_ready = fields.Boolean(string="Pdf ready", default=False)
     
     @api.model
     def create(self, vals):  
@@ -92,7 +95,10 @@ class extraschool_taxcertificate(models.Model):
         
         vals['taxcertificate_item_ids'] = [(6,0,attest_item_ids)]
         
-        return super(extraschool_taxcertificate, self).create(vals) 
+        taxe_certif = super(extraschool_taxcertificate, self).create(vals)
+        taxe_certif.generate_pdf()
+        
+        return taxe_certif  
                
     @api.multi
     def all_taxecertificate(self): 
@@ -107,14 +113,87 @@ class extraschool_taxcertificate(models.Model):
                 'limit': 50000,                                    
                 'domain': [('taxcertificate_id.id', '=',self.id)],
                 'context': {},
-            }           
+            } 
+
+    @api.multi
+    def all_pdf(self): 
+ 
+        return {'name': 'Docs',
+                'type': 'ir.actions.act_window',
+                'res_model': 'ir.attachment',
+                'view_type': 'form',
+                'view_mode': 'tree,form',
+                'nodestroy': False,     
+                'target': 'current',
+                'limit': 50000,                                    
+                'domain': [('res_id', 'in',[i.id for i in self.taxcertificate_item_ids]),
+                            ('res_model', '=', 'extraschool.taxcertificate_item')],
+                'context': {"search_default_actif":1},
+
+            }  
+        
+    @api.model
+    def generate_pdf_thread(self, cr, uid, thread_lock, taxe_ids, context=None):
+        """
+        @param self: The object pointer.
+        @param cr: A database cursor
+        @param uid: ID of the user currently logged in
+        @param ids: List of IDs selected
+        @param context: A standard dictionary
+        """
+        time.sleep(5)
+        with Environment.manage():
+            #As this function is in a new thread, i need to open a new cursor, because the old one may be closed
+            new_cr = self.pool.cursor()
+            new_env = Environment(new_cr, uid,context)
+         
+            report = new_env['report']
+            for taxe in new_env['extraschool.taxcertificate_item'].browse(taxe_ids):
+                report.get_pdf(taxe ,'extraschool.tpl_taxe_certificate_wizard_report')
+          
+                        
+            thread_lock[1].acquire()
+            thread_lock[0] -= 1
+            if thread_lock[0] == 0:
+                new_env['extraschool.taxcertificate'].browse(thread_lock[2]).pdf_ready = True
+
+            thread_lock[1].release()                 
+            new_cr.commit()     
+            new_cr.close()
+            return {}
+    
+    @api.one
+    def generate_pdf(self):    
+
+        cr,uid = self.env.cr, self.env.user.id 
+        threaded_report = []
+
+        self.env['ir.attachment'].search([('res_id', 'in',[i.id for i in self.taxcertificate_item_ids]),
+                                           ('res_model', '=', 'extraschool.taxcertificate_item')]).unlink()
+        self.pdf_ready = False
+        self.env.invalidate_all()
+        
+        lock = threading.Lock()
+        chunk_size = int(self.env['ir.config_parameter'].get_param('extraschool.report.thread.chunk',200))
+
+        nrb_thread = len(self.taxcertificate_item_ids)/chunk_size+(len(self.taxcertificate_item_ids)%chunk_size > 0)
+        thread_lock = [len(self.taxcertificate_item_ids)/chunk_size+(len(self.taxcertificate_item_ids)%chunk_size > 0),
+                        threading.Lock(),
+                        self.id]
+        for zz in range(0, nrb_thread):
+            sub_taxes = [i.id for i in self.taxcertificate_item_ids[zz*chunk_size:(zz+1)*chunk_size]]
+            print "start thread for ids : %s" % (sub_taxes)
+            if len(sub_taxes):
+                thread = threading.Thread(target=self.generate_pdf_thread, args=(cr, uid, thread_lock, sub_taxes,self.env.context))
+                threaded_report.append(thread)
+                thread.start()         
         
 class extraschool_taxcertificate_item(models.Model):
     _name = 'extraschool.taxcertificate_item'
     _description = 'Taxcertificate item'
 
     name = fields.Char('Name')
-    taxcertificate_id = fields.Many2one('extraschool.taxcertificate', 'invoice',ondelete='cascade', index=True)
+    taxcertificate_id = fields.Many2one('extraschool.taxcertificate', 'Taxe certif',ondelete='cascade', index=True)
     parent_id = fields.Many2one('extraschool.parent', 'Parent', required=True, select = True)
     child_id = fields.Many2one('extraschool.child', 'Child', required=True, select=True)
     nbr_day = fields.Integer('Nbr day')

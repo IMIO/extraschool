@@ -19,8 +19,18 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Tax Certificate">
-					<div class="oe_right oe_button_box" name="buttons"> 
+					<header>
+						<button name="generate_pdf" string="generate_pdf" type="object" class="oe_highlight" groups="base.group_erp_manager"/>	
+					</header>
+                	                	
+                	<field name="pdf_ready" invisible="True" />
+					<div class="oe_right oe_button_box" name="processin" attrs="{'invisible':[('pdf_ready', '=', True)]}"> 
+						<h2>Création des PDF en cours .....</h2>
+					</div>
+                	
+					<div class="oe_right oe_button_box" name="buttons" attrs="{'invisible':[('pdf_ready', '=', False)]}"> 
 						<button name="all_taxecertificate" string="Toutes les attestations" type="object" class="oe_inline oe_stat_button" icon="fa-files-o"/>														
+						<button name="all_pdf" string="Docs" type="object" class="oe_inline oe_stat_button" icon="fa-files-o" groups="base.group_erp_manager"/>
 					</div>
                 	                	
                     <group col="4">
