@@ -26,7 +26,16 @@ class extraschool_taxcertificate(models.Model):
         obj_config = self.env['extraschool.mainsettings']
         config=obj_config.browse([1])      
         activitycat= vals['activity_category_id']
-                    
+        
+        #UPDATE RECONCIL DATE IF NEEDED
+        sql_update_reconcil_date = """
+                                    update extraschool_payment_reconciliation
+                                    set date = create_date
+                                    where date is Null;
+                                    """
+                                    
+        cr.execute(sql_update_reconcil_date)
+        
         sql_concerned_invoice = """
                                     select distinct(iii.id) as id
                                             from extraschool_payment_reconciliation ppr
@@ -35,23 +44,6 @@ class extraschool_taxcertificate(models.Model):
                                             where ppr.date BETWEEN '%s-01-01' and '%s-12-31'
                                                 AND iii.balance = 0                                            
                                 """ % (vals['name'], vals['name'])
-
-        
-        
-# *******************
-# {'parent_firstname':parent['firstname'],
-# #                                           'parent_lastname':parent['lastname'],
-# #                                           'parent_street':parent['street'],
-# #                                           'parent_zipcode':parent['zipcode'],
-# #                                           'parent_city':parent['city'],
-# #                                           'child_firstname':child['firstname'],
-# #                                           'child_lastname':child['lastname'],
-# #                                           'child_birthdate':lbutils.strdate(child['birthdate']),
-# #                                           'period_from':period_from,
-# #                                           'period_to':period_to,
-# #                                           'nbdays':nbdays,
-# #                                           'amount':amount})
-# *******************        
         
         
         sql_concerned_attest = """
