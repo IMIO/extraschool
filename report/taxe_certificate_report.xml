@@ -58,70 +58,68 @@
 			        
     			</style>
 
-				<t t-foreach="docs" t-as="qr_report">
-					<t t-foreach="docs" t-as="attest">						
-						<div class="page">		
-							<div class="frame">
-								<span>Cadre II</span> (A remplir par l'institution, le milieu d'accueil, la crèche, la famille d'accueil, l'école maternelle ou primaire, le pouvoir organisateur de l'école maternelle ou primaire, le pouvoir public local, communautaire ou régional)
-								<ol class="main_list">
-									<li>Numéro d'ordre de l'attestation : <span t-field="attest.name" /></li>
-									<li>Nom, prénom et adresse du débiteur des frais de garde d'enfant :
-										<div class="row">
-											<div class="parent_adr">
-												<div class="row">
-													<span t-field="attest.parent_id.firstname" /> <span t-field="attest.parent_id.lastname" />
-												</div>
-												<div class="row">
-													<span t-field="attest.parent_id.street" />
-												</div>
-												<div class="row">
-													<span t-field="attest.parent_id.zipcode" /> <span t-field="attest.parent_id.city" />
-												</div>												
+				<t t-foreach="docs" t-as="attest">						
+					<div class="page">		
+						<div class="frame">
+							<span>Cadre II</span> (A remplir par l'institution, le milieu d'accueil, la crèche, la famille d'accueil, l'école maternelle ou primaire, le pouvoir organisateur de l'école maternelle ou primaire, le pouvoir public local, communautaire ou régional)
+							<ol class="main_list">
+								<li>Numéro d'ordre de l'attestation : <span t-field="attest.name" /></li>
+								<li>Nom, prénom et adresse du débiteur des frais de garde d'enfant :
+									<div class="row">
+										<div class="parent_adr">
+											<div class="row">
+												<span t-field="attest.parent_id.firstname" /> <span t-field="attest.parent_id.lastname" />
 											</div>
+											<div class="row">
+												<span t-field="attest.parent_id.street" />
+											</div>
+											<div class="row">
+												<span t-field="attest.parent_id.zipcode" /> <span t-field="attest.parent_id.city" />
+											</div>												
 										</div>
-									</li>						
-									<li>Nom et prénom de l'enfant : <span t-field="attest.child_id.firstname" /> <span t-field="attest.child_id.lastname" /> (<span t-field="attest.child_id.schoolimplantation.name" /> - <span t-field="attest.child_id.classid.name" />)</li>
-									<li>Date de naissance de l'enfant : <span t-field="attest.child_id.birthdate" /> </li>
-									<li>Période pendant laquelle l'enfant a été gardé (1) : 
-										<div class="row">du 01/01/2016 au 31/12/2016</div>
-									</li>
-									<li>Nombre de jours de garde :  <t t-esc="attest.nbr_day"/> </li>
-									<li>Tarif journalier (2) : </li>
-									<li>Montant total perçu :  <t t-esc="attest.amount"/>  EUR</li>
-								</ol>
-								<div class="row">
-								Le soussigné certifie exacts les renseignements mentionnés ci-avant.
-								</div>
-								<div class="row">
-									<div class="signature">
-										<span>Fait à <t t-esc="attest.taxcertificate_id.activity_category_id.po_city"/>, le <span t-field="attest.taxcertificate_id.doc_date" /></span>
-										<span class="po_resp_name"><t t-esc="attest.taxcertificate_id.activity_category_id.po_resp_name"/></span>
-										<img class="po_sign" t-att-src="'data:image/jpeg;base64,%s' % attest.taxcertificate_id.activity_category_id.po_sign" />
-										(Nom, qualité et signature de la personne habilitée à représenter l'institution, le milieu d'accueil, la crèche, la famille   d'accueil,   l'école   maternelle   ou   primaire,   le pouvoir organisateur de l'école maternelle ou primaire, le pouvoir public local, communautaire ou régional)
 									</div>
-								</div>
-								<div class="row">
-									Nom et adresse complète de l'école maternelle ou primaire, du pouvoir organisateur de l'école maternelle ou primaire, du pouvoir public local, communautaire ou régional (3) :
-								</div>
-								<div class="po">
-									<span><t t-esc="attest.taxcertificate_id.activity_category_id.po_name"/></span>
-									<span><t t-esc="attest.taxcertificate_id.activity_category_id.po_street"/></span>
-									<span><t t-esc="attest.taxcertificate_id.activity_category_id.po_zipcode"/> <t t-esc="attest.taxcertificate_id.activity_category_id.po_city"/></span>
+								</li>						
+								<li>Nom et prénom de l'enfant : <span t-field="attest.child_id.firstname" /> <span t-field="attest.child_id.lastname" /> (<span t-field="attest.child_id.schoolimplantation.name" /> - <span t-field="attest.child_id.classid.name" />)</li>
+								<li>Date de naissance de l'enfant : <span t-field="attest.child_id.birthdate" /> </li>
+								<li>Période pendant laquelle l'enfant a été gardé (1) : 
+									<div class="row">du 01/01/2016 au 31/12/2016</div>
+								</li>
+								<li>Nombre de jours de garde :  <t t-esc="attest.nbr_day"/> </li>
+								<li>Tarif journalier (2) : </li>
+								<li>Montant total perçu :  <t t-esc="attest.amount"/>  EUR</li>
+							</ol>
+							<div class="row">
+							Le soussigné certifie exacts les renseignements mentionnés ci-avant.
+							</div>
+							<div class="row">
+								<div class="signature">
+									<span>Fait à <t t-esc="attest.taxcertificate_id.activity_category_id.po_city"/>, le <span t-field="attest.taxcertificate_id.doc_date" /></span>
+									<span class="po_resp_name"><t t-esc="attest.taxcertificate_id.activity_category_id.po_resp_name"/></span>
+									<img class="po_sign" t-att-src="'data:image/jpeg;base64,%s' % attest.taxcertificate_id.activity_category_id.po_sign" />
+									(Nom, qualité et signature de la personne habilitée à représenter l'institution, le milieu d'accueil, la crèche, la famille   d'accueil,   l'école   maternelle   ou   primaire,   le pouvoir organisateur de l'école maternelle ou primaire, le pouvoir public local, communautaire ou régional)
 								</div>
 							</div>
-							<ol>
-								<li>Les données mentionnées sur l'attestation ne peuvent concerner que la partie de l'année précédant le 12ème anniversaire de l'enfant.</li>
-								<li>Si plusieurs tarifs sont appliqués, il convient de fournir le détail du nombre total de jours de garde par tarif
+							<div class="row">
+								Nom et adresse complète de l'école maternelle ou primaire, du pouvoir organisateur de l'école maternelle ou primaire, du pouvoir public local, communautaire ou régional (3) :
+							</div>
+							<div class="po">
+								<span><t t-esc="attest.taxcertificate_id.activity_category_id.po_name"/></span>
+								<span><t t-esc="attest.taxcertificate_id.activity_category_id.po_street"/></span>
+								<span><t t-esc="attest.taxcertificate_id.activity_category_id.po_zipcode"/> <t t-esc="attest.taxcertificate_id.activity_category_id.po_city"/></span>
+							</div>
+						</div>
+						<ol>
+							<li>Les données mentionnées sur l'attestation ne peuvent concerner que la partie de l'année précédant le 12ème anniversaire de l'enfant.</li>
+							<li>Si plusieurs tarifs sont appliqués, il convient de fournir le détail du nombre total de jours de garde par tarif
 appliqué.   Ce   détail   peut,   le   cas   échéant,   être   joint   dans   une   annexe   à   la   présente   attestation.
 Pour les frais de garde payés soit aux écoles maternelles ou primaires, soit aux pouvoirs organisateurs de ces
 écoles maternelles ou  primaires,  soit aux institutions ou  milieux d'accueil  ayant un  lien  avec ces écoles
 maternelles ou primaires ou les pouvoirs organisateurs des écoles maternelles ou primaires, le tarif journalier
 ne doit cependant être mentionné que s'il est supérieur au montant maximum de 11,20 EUR par jour de garde.
 								</li>
-								<li>A ne compléter que lorsque les frais de garde sont payés directement aux instances mentionnées.</li>
-							</ol>
-						</div>
-					</t>
+							<li>A ne compléter que lorsque les frais de garde sont payés directement aux instances mentionnées.</li>
+						</ol>
+					</div>
 				</t>
 		</template>
 
