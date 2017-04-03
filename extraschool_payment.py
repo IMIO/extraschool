@@ -115,7 +115,7 @@ class extraschool_payment_reconciliation(models.Model):
     
     payment_id = fields.Many2one("extraschool.payment", required=True,ondelete='cascade')
     invoice_id = fields.Many2one("extraschool.invoice", required=True, index=True)
-    biller_id = fields.Many2one(related='invoice_id.biller_id', store=True)
+    biller_id = fields.Many2one(related='invoice_id.biller_id', store=True, index=True)
     biller_other_ref = fields.Char(related='invoice_id.biller_id.other_ref', store=True)
     amount = fields.Float('Amount')
     account = fields.Char(related='payment_id.account')
@@ -130,72 +130,136 @@ class extraschool_payment_reconciliation(models.Model):
         return res       
     
     
-    class extraschool_payment_status_report(models.Model):
-        _name = 'extraschool.payment_status_report'
-        _description = 'Payment status report'
-        _auto = False
+class extraschool_payment_status_report(models.Model):
+    _name = 'extraschool.payment_status_report'
+    _description = 'Payment status report'
+    _auto = False
+    
+    activity_category_id = fields.Many2one('extraschool.activitycategory',select=True)
+    parent_id = fields.Many2one('extraschool.parent',select=True)  
+    solde = fields.Float('solde',select=True)
+    com_struct = fields.Char('Structured Communication')
+    totalbalance = fields.Float('Total balance')
+    nbr_actif_child = fields.Integer('Nbr actif child')
+    
+    def init(self, cr):
+        tools.sql.drop_view_if_exists(cr, 'extraschool_payment_status_report')
+        cr.execute("""
+            CREATE view extraschool_payment_status_report as
+                select min((zz.ac_id*10000000000+zz.p_id)) as id, zz.ac_id as activity_category_id,
+                       zz.p_id as parent_id, 
+                       CASE 
+                        WHEN sum(pay.solde) is NULL 
+                           THEN 0
+                           ELSE sum(pay.solde) 
+                    END as solde,
+                    '+++' || LPAD(case when zz.ac_com_struct_prefix is NULL then '0' else zz.ac_com_struct_prefix end, 3, '0') 
+                    || '/' || substring(LPAD(zz.p_id::TEXT,7,'0') from 1 for 4) || '/' || substring(LPAD(zz.p_id::TEXT,7,'0') from 5 for 3)
+                    || case when LPAD(((LPAD(case when zz.ac_com_struct_prefix is NULL then '0' else zz.ac_com_struct_prefix end, 3, '0') || LPAD(zz.p_id::TEXT,7,'0'))::bigint % 97)::TEXT,2,'0') = '00' then '97' 
+                    else LPAD(((LPAD(case when zz.ac_com_struct_prefix is NULL then '0' else zz.ac_com_struct_prefix end, 3, '0') || LPAD(zz.p_id::TEXT,7,'0'))::bigint % 97)::TEXT,2,'0') end
+                    || '+++' as com_struct,
+                    COALESCE((select sum(i.balance) from extraschool_invoice i where i.parentid = zz.p_id),0.0) as totalbalance,
+                    (select count(*) from extraschool_child c where c.parentid = zz.p_id and c.isdisabled = False) as nbr_actif_child
+                    
+                from (select ac.id as ac_id, p.id as p_id, ac.payment_invitation_com_struct_prefix as ac_com_struct_prefix, 
+          ac.invoicecomstructprefix as ac_invoicecomstructprefix, ac.remindercomstructprefix as ac_remindercomstructprefix from extraschool_activitycategory ac, extraschool_parent p) zz
+                left join extraschool_payment pay on zz.p_id = pay.parent_id 
+                        and (zz.ac_com_struct_prefix = pay.structcom_prefix or 
+                             zz.ac_invoicecomstructprefix = pay.structcom_prefix or
+                             zz.ac_remindercomstructprefix = pay.structcom_prefix)                                
+                group by zz.ac_id,zz.p_id, zz.ac_com_struct_prefix
+                order by zz.ac_id,zz.p_id;
+        """)
         
-        activity_category_id = fields.Many2one('extraschool.activitycategory',select=True)
-        parent_id = fields.Many2one('extraschool.parent',select=True)  
-        solde = fields.Float('solde',select=True)
-        com_struct = fields.Char('Structured Communication')
-        totalbalance = fields.Float('Total balance')
-        nbr_actif_child = fields.Integer('Nbr actif child')
+    def get_date_now(self):
+        return datetime.now().strftime('%d-%m-%Y')
+
+class extraschool_payment_report(models.Model):
+    _name = 'extraschool.payment_report'
+    _description = 'Payment report'
+    _auto = False
+    
+    parent_id = fields.Many2one('extraschool.parent',select=True)  
+    amount = fields.Float('amount',select=True)
+    solde = fields.Float('solde',select=True)
+    structcom = fields.Char('Structured Communication')
+    structcom_prefix = fields.Char('Structured Communication Prefix')
+    payment_date = fields.Date('Payment Date')
+    comment = fields.Char('Comment')
+    
+    
+    
+    def init(self, cr):
+        tools.sql.drop_view_if_exists(cr, 'extraschool_payment_report')
+        cr.execute("""
+            CREATE view extraschool_payment_report as
+                select id, amount, solde, parent_id, comment,paymentdate as payment_date, structcom, structcom_prefix
+                from extraschool_payment; 
+        """)
+
+class extraschool_aged_balance(models.TransientModel):
+    _name = 'extraschool.aged_balance'
+    
+    aged_date = fields.Date('Reconcil Date', select=True) 
+    aged_balance_item_ids = fields.One2many('extraschool.aged_balance_item', 'aged_balance_id','Items')
+
+    @api.onchange('aged_date')
+    @api.one
+    def _on_change_payment_type(self):
         
-        def init(self, cr):
-            tools.sql.drop_view_if_exists(cr, 'extraschool_payment_status_report')
-            cr.execute("""
-                CREATE view extraschool_payment_status_report as
-                    select min((zz.ac_id*10000000000+zz.p_id)) as id, zz.ac_id as activity_category_id,
-                           zz.p_id as parent_id, 
-                           CASE 
-                            WHEN sum(pay.solde) is NULL 
-                               THEN 0
-                               ELSE sum(pay.solde) 
-                        END as solde,
-                        '+++' || LPAD(case when zz.ac_com_struct_prefix is NULL then '0' else zz.ac_com_struct_prefix end, 3, '0') 
-                        || '/' || substring(LPAD(zz.p_id::TEXT,7,'0') from 1 for 4) || '/' || substring(LPAD(zz.p_id::TEXT,7,'0') from 5 for 3)
-                        || case when LPAD(((LPAD(case when zz.ac_com_struct_prefix is NULL then '0' else zz.ac_com_struct_prefix end, 3, '0') || LPAD(zz.p_id::TEXT,7,'0'))::bigint % 97)::TEXT,2,'0') = '00' then '97' 
-                        else LPAD(((LPAD(case when zz.ac_com_struct_prefix is NULL then '0' else zz.ac_com_struct_prefix end, 3, '0') || LPAD(zz.p_id::TEXT,7,'0'))::bigint % 97)::TEXT,2,'0') end
-                        || '+++' as com_struct,
-                        COALESCE((select sum(i.balance) from extraschool_invoice i where i.parentid = zz.p_id),0.0) as totalbalance,
-                        (select count(*) from extraschool_child c where c.parentid = zz.p_id and c.isdisabled = False) as nbr_actif_child
-                        
-                    from (select ac.id as ac_id, p.id as p_id, ac.payment_invitation_com_struct_prefix as ac_com_struct_prefix, 
-              ac.invoicecomstructprefix as ac_invoicecomstructprefix, ac.remindercomstructprefix as ac_remindercomstructprefix from extraschool_activitycategory ac, extraschool_parent p) zz
-                    left join extraschool_payment pay on zz.p_id = pay.parent_id 
-                            and (zz.ac_com_struct_prefix = pay.structcom_prefix or 
-                                 zz.ac_invoicecomstructprefix = pay.structcom_prefix or
-                                 zz.ac_remindercomstructprefix = pay.structcom_prefix)                                
-                    group by zz.ac_id,zz.p_id, zz.ac_com_struct_prefix
-                    order by zz.ac_id,zz.p_id;
-            """)
+        self.aged_balance_item_ids = [(5, 0, 0)]
+        
+        items = []
+        sql_aged_balance = """
+            select b_year,
+                (select sum(amount_total)::numeric(10,2)
+                from extraschool_invoice i
+                left join extraschool_biller b on i.biller_id = b.id
+                where extract(YEAR from period_to) = b_year
+                ) as total_fact,
+                (select sum(no_value)::numeric(10,2)
+                from extraschool_invoice i
+                left join extraschool_biller b on i.biller_id = b.id
+                where extract(YEAR from period_to) = b_year
+                ) as no_value,    
+                (select sum(amount)::numeric(10,2)
+                from extraschool_refound_line rl
+                left join extraschool_invoice i on rl.invoiceid = i.id
+                left join extraschool_biller b on i.biller_id = b.id
+                where extract(YEAR from period_to) = b_year and rl.date <= %s
+                ) as aged_no_value,    
+                (select sum(amount)::numeric(10,2)
+                from extraschool_payment_reconciliation pr
+                left join extraschool_biller b on pr.biller_id = b.id
+                where pr.date <= %s and extract(YEAR from period_to) = b_year) as received
+            from
+                (select extract(YEAR from period_to) as b_year
+                from extraschool_biller b
+                group by extract(YEAR from period_to)) as t_b_year
+            order by b_year
+        """
+        tmp_item_ids = []
+        self.env.cr.execute(sql_aged_balance, (self.aged_date,self.aged_date))
+        for item in self.env.cr.dictfetchall():
+            tmp_item_ids.append((0,0,{'year' : item['b_year'],
+                                      'total_fact' : item['total_fact'],
+                                      'total_no_value' : item['aged_no_value'],
+                                      'total_received' : item['received'],
+                                      'total_balance' : 0.0,
+                                      }))
             
-        def get_date_now(self):
-            return datetime.now().strftime('%d-%m-%Y')
-   
-    class extraschool_payment_report(models.Model):
-        _name = 'extraschool.payment_report'
-        _description = 'Payment report'
-        _auto = False
-        
-        parent_id = fields.Many2one('extraschool.parent',select=True)  
-        amount = fields.Float('amount',select=True)
-        solde = fields.Float('solde',select=True)
-        structcom = fields.Char('Structured Communication')
-        structcom_prefix = fields.Char('Structured Communication Prefix')
-        payment_date = fields.Date('Payment Date')
-        comment = fields.Char('Comment')
-        
-        
-        
-        def init(self, cr):
-            tools.sql.drop_view_if_exists(cr, 'extraschool_payment_report')
-            cr.execute("""
-                CREATE view extraschool_payment_report as
-                    select id, amount, solde, parent_id, comment,paymentdate as payment_date, structcom, structcom_prefix
-                    from extraschool_payment; 
-            """)
+        self.aged_balance_item_ids = tmp_item_ids
+    
+class extraschool_aged_balance_item(models.TransientModel):
+    _name = 'extraschool.aged_balance_item'
+    _description = 'Aged balance'
+    
+    aged_balance_id = fields.Many2one('extraschool.aged_balance')
+    year = fields.Integer(string = 'Year') 
+    total_fact = fields.Float('Total fact')
+    total_no_value = fields.Float('Total no value')
+    total_received = fields.Float('Total received')
+    total_balance = fields.Float('Total Balance')
     
 
     

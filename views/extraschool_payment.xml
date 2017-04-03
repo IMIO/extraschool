@@ -288,5 +288,40 @@
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form, graph</field>
 		</record>
+		
+       <record id="extraschool_aged_balance_wizard" model="ir.ui.view">
+            <field name="name">extraschool.aged.balance.report</field>
+            <field name="model">extraschool.aged_balance</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Aged balance">
+                     <field name="aged_date" />
+                     <field name="aged_balance_item_ids" />                						               						                      	
+                 </form>
+             </field>
+        </record>       
+ 
+       <record id="extraschool_aged_balance_item_tree" model="ir.ui.view">
+            <field name="name">extraschool.aged.balance.report</field>
+            <field name="model">extraschool.aged_balance_item</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Aged balance items">
+                     <field name="year" />
+                     <field name="total_fact" sum="True"/>                						               						                      	
+                     <field name="total_no_value" sum="True"/>
+                     <field name="total_received"  sum="True"/>                						               						                      	
+                     <field name="total_balance"  sum="True"/>
+				</tree>
+             </field>
+        </record>  
+                       
+        <record model="ir.actions.act_window" id="action_extraschool_aged_balance_report">
+			<field name="name">Aged balance Report</field>
+			<field name="res_model">extraschool.aged_balance</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+		</record>	
+			
 	</data> 		
 </openerp>
