@@ -208,6 +208,8 @@ class extraschool_aged_balance(models.TransientModel):
     def _on_change_payment_type(self):
         
         self.aged_balance_item_ids = [(5, 0, 0)]
+        if not self.aged_date:
+            return 
         
         items = []
         sql_aged_balance = """
