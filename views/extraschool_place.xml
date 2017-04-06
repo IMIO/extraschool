@@ -8,7 +8,11 @@
 			<field name="arch" type="xml">
 				<tree string="Place">
                     <field name="name"/> 
-				</tree>
+                    <field name="street"/> 
+                    <field name="zipcode"/> 
+                    <field name="city"/> 
+                    <field name="street_code"/> 
+                </tree>
 			</field>
 		</record>
         
