@@ -210,12 +210,12 @@ class extraschool_invoice(models.Model):
             
         saved_child['saved_activity'] = invoicedline.activity_activity_id.short_name              
         saved_child['saved_child'] = invoicedline.childid.name
-        saved_child['rn'] = invoicedline.childid.rn
+        saved_child['rn'] = invoicedline.childid.rn if invoicedline.childid.rn else ''
         saved_child['lastname'] = invoicedline.childid.lastname
         saved_child['firstname'] = invoicedline.childid.firstname
         saved_child['birthdate'] = time.strftime('%d/%m/%Y',time.strptime(invoicedline.childid.birthdate,'%Y-%m-%d'))
-        saved_child['level'] = invoicedline.childid.levelid.leveltype
-        saved_child['child_class'] = invoicedline.childid.classid.name
+        saved_child['level'] = invoicedline.childid.levelid.leveltype if invoicedline.childid.levelid.leveltype else ''
+        saved_child['child_class'] = invoicedline.childid.classid.name if invoicedline.childid.classid.name else ''
         saved_child['child_id'] = invoicedline.childid.id
         saved_child['street_code'] = invoicedline.placeid.street_code
         saved_child['amount'] = invoicedline.total_price
@@ -224,7 +224,9 @@ class extraschool_invoice(models.Model):
         saved_child['inv_date'] = invoicedline.prestation_date
         saved_child['inv_date_str'] = time.strftime('%d/%m/%Y',time.strptime(invoicedline.prestation_date,'%Y-%m-%d'))
         saved_child['splited_place_street'] = p.findall(invoicedline.placeid.street)
-        return saved_child 
+        saved_child['place'] = invoicedline.placeid
+        
+        return saved_child
                             
     def export_onyx(self):        
         res = []
@@ -312,6 +314,8 @@ class extraschool_invoice(models.Model):
         saved_child['inv_date'] = ""
         saved_child['inv_date_str'] = ""
         saved_child['splited_place_street'] = []
+        saved_child['place'] = ''
+        
         
         total = 0
         lines_ids = self.invoice_line_ids.filtered(lambda r: r.total_price > 0.0001).sorted(key=lambda r: "%s%s%s" % (r.childid.name,r.prestation_date,r.activity_activity_id.short_name))
@@ -326,7 +330,7 @@ class extraschool_invoice(models.Model):
                 str_line = ""                                              
 
             if (zz > 0 and (saved_child['saved_child'] != invoicedline.childid.name or saved_child['inv_date'] != invoicedline.prestation_date or saved_child['saved_activity'] != invoicedline.activity_activity_id.short_name))  or zz == len(self.invoice_line_ids) -1:
-                str_line = format_str % (self.parentid.rn,
+                str_line = format_str % (self.parentid.rn if self.parentid.rn else "",
                                         self.parentid.lastname,
                                         self.parentid.firstname,
                                         '', # code rue
@@ -339,13 +343,13 @@ class extraschool_invoice(models.Model):
                                         '', # pays
                                         'F', # Langue
                                         '', # civilité
-                                        saved_child['street_code'], #code rue ecole
+                                        saved_child['street_code'], #code rue place
                                         saved_child['splited_place_street'][0][0], # libellé rue
                                         saved_child['splited_place_street'][0][1], # num 
                                         saved_child['splited_place_street'][0][2], # boite
                                         saved_child['splited_place_street'][0][3], # index
-                                        int(self.schoolimplantationid.zipcode),
-                                        self.schoolimplantationid.city,
+                                        int(saved_child['place'].zipcode),
+                                        saved_child['place'].city,
                                         time.strftime('%d/%m/%Y',time.strptime(self.biller_id.period_from,'%Y-%m-%d')),
                                         time.strftime('%d/%m/%Y',time.strptime(self.biller_id.period_to,'%Y-%m-%d')),
                                         '',
@@ -391,7 +395,7 @@ class extraschool_invoice(models.Model):
             zz+=1
         
         if str_line == "":
-            str_line = format_str % (self.parentid.rn,
+            str_line = format_str % (self.parentid.rn or '',
             self.parentid.lastname,
             self.parentid.firstname,
             '', # code rue
@@ -404,13 +408,13 @@ class extraschool_invoice(models.Model):
             '', # pays
             'F', # Langue
             '', # civilité
-            saved_child['street_code'], #code rue ecole            
+            saved_child['street_code'], #code rue place            
             saved_child['splited_place_street'][0][0], # libellé rue
             saved_child['splited_place_street'][0][1], # num 
             saved_child['splited_place_street'][0][2], # boite
             saved_child['splited_place_street'][0][3], # index
-            int(self.schoolimplantationid.zipcode),
-            self.schoolimplantationid.city,
+            int(saved_child['place'].zipcode),
+            saved_child['place'].city,
             time.strftime('%d/%m/%Y',time.strptime(self.biller_id.period_from,'%Y-%m-%d')),
             time.strftime('%d/%m/%Y',time.strptime(self.biller_id.period_to,'%Y-%m-%d')),
             '',
@@ -421,8 +425,8 @@ class extraschool_invoice(models.Model):
             saved_child['lastname'],
             saved_child['firstname'],
             saved_child['birthdate'],
-            saved_child['rn'],
-            saved_child['child_class'],
+            saved_child['rn'] or '',
+            saved_child['child_class'] or '',
             saved_child['inv_date_str'],
             saved_child['saved_activity'],
             1 if saved_child['nbr_jour'] >= 1 and not saved_child['nbr_jour_printed'] else 0,
