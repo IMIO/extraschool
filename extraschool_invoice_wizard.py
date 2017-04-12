@@ -647,10 +647,12 @@ class extraschool_invoice_wizard(models.TransientModel):
             print "nbr lines with pricelist not set %s sur un total de %s" % (verified_count, len(invoice_line_ids))
 
             print "At least one price list is missing !!!\n "
-            sql_check_missing_pl = """select ip.childid as id, cp.name as child_position_id, extraschool_activityoccurrence.name as name,ip.prestation_date as prestation_date
+            sql_check_missing_pl = """select c.firstname || ' ' || c.lastname as child_name, ct.name as child_type, cp.name as child_position_id, extraschool_activityoccurrence.name as name,ip.prestation_date as prestation_date
                                 from extraschool_invoicedprestations ip 
                                 left join extraschool_activityoccurrence on activity_occurrence_id = extraschool_activityoccurrence.id
                                 left join extraschool_childposition cp on cp.id = ip.child_position_id
+                                left join extraschool_child c on c.id = ip.childid
+                                left join extraschool_childtype ct on ct.id = c.childtypeid
                                 where ip.id in (""" + ','.join(map(str, invoice_line_ids))+ """)
                                     and price_list_version_id is null
                                 ;"""
@@ -659,7 +661,7 @@ class extraschool_invoice_wizard(models.TransientModel):
             missing_pls = self.env.cr.dictfetchall()
             message = _("At least one price list is missing !!!\n ")
             for missing_pl in missing_pls:
-                message += "%s - %s - %s -> %s\n" % (missing_pl['id'], missing_pl['child_position_id'], missing_pl['name'], missing_pl['prestation_date'])
+                message += "%s - %s - %s - %s -> %s\n" % (missing_pl['child_name'], missing_pl['child_type'], missing_pl['child_position_id'], missing_pl['name'], missing_pl['prestation_date'])
                 
             raise Warning(message)
         #Mise à jour des prix et unité de tps
