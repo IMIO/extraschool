@@ -61,7 +61,8 @@
 			        
 			        .po_sign {
 			        	display: block;
-			        	clear: both;			        	
+			        	clear: both;	
+			    		max-width: 6cm;		        	
 			        }
 
 			    	.attest_comment{
