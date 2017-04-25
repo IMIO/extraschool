@@ -11,7 +11,8 @@ class extraschool_taxcertificate(models.Model):
 
     name = fields.Integer('Fiscal Year', required=True, select = True)
     activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity category', required=True)
-    doc_date = fields.Date('Document date', required=True)
+    doc_date = fields.Date('Document date', required=True)     
+    
     taxcertificate_item_ids = fields.One2many('extraschool.taxcertificate_item', 'taxcertificate_id','Details')
     pdf_ready = fields.Boolean(string="Pdf ready", default=False)
     
@@ -197,4 +198,6 @@ class extraschool_taxcertificate_item(models.Model):
     parent_id = fields.Many2one('extraschool.parent', 'Parent', required=True, select = True)
     child_id = fields.Many2one('extraschool.child', 'Child', required=True, select=True)
     nbr_day = fields.Integer('Nbr day')
+    prest_from = fields.Float('From')
+    prest_to = fields.Float('To')       
     amount = fields.Float('Amount')
