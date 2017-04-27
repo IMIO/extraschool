@@ -83,6 +83,31 @@
 			</field>
 		</record>  
 
+		<record model="ir.ui.view" id="extraschool_child_registration_form_multi_ordered_by_level">
+			<field name="name">child_registration_multi_oredered_level</field>
+			<field name="model">extraschool.child_registration</field>            
+			<field name="type">form</field>						
+			<field name="inherit_id" ref="extraschool.extraschool_child_registration_form_multi"/>
+			<field name="arch" type="xml">
+				<field name="child_registration_line_ids" position="replace" >
+					<field name="child_registration_line_ids" colspan="4" >
+						<tree editable="bottom"  colors="red:error_duplicate_reg_line==True"  default_order="child_level,child_firstname">						    
+							<field name="child_level"/>
+							<field name="child_id"/>														    
+							<field name="monday_activity_id"/>
+							<field name="tuesday_activity_id"/> 
+							<field name="wednesday_activity_id"/>						
+						    <field name="thursday_activity_id"/>
+							<field name="friday_activity_id"/>
+		                    <field name="saturday_activity_id"/> 
+							<field name="sunday_activity_id"/>
+							<field name="error_duplicate_reg_line" />							
+						</tree>							
+					</field>				
+				</field>
+			</field>
+		</record>
+
 		<record model="ir.ui.view" id="extraschool_child_registration_form">
 			<field name="name">child_registration</field>
 			<field name="model">extraschool.child_registration</field>            
