@@ -202,7 +202,7 @@ class extraschool_invoice(models.Model):
         self.export_onyx()
     
     def export_onyx_child_change(self,invoicedline, saved_child, reset_nbr_jour = False):
-        p = re.compile(r"([^0-9^,]*\b|.*\b11 novembre\b)[\s,]*([0-9]*)[\/\s]*([a-zA-Z]*[0-9]*)[\/\s]*([a-zA-Z]*)$")
+        p = re.compile(r"([^0-9^,]*|.*\b11 novembre\b)[\s,]*([0-9]*)[\/\s]*([a-zA-Z]*[0-9]*)[\/\s]*([a-zA-Z]*)$")
         
         if reset_nbr_jour:             
             saved_child['nbr_jour'] = 1 if invoicedline.activity_activity_id.on_tax_certificate else 0
@@ -231,7 +231,7 @@ class extraschool_invoice(models.Model):
     def export_onyx(self):        
         res = []
         #split street
-        p = re.compile(r"([^0-9^,]*\b|.*\b11 novembre\b)[\s,]*([0-9]*)[\/\s]*([a-zA-Z]*[0-9]*)[\/\s]*([a-zA-Z]*)$")
+        p = re.compile(r"([^0-9^,]*|.*\b11 novembre\b)[\s,]*([0-9]*)[\/\s]*([a-zA-Z]*[0-9]*)[\/\s]*([a-zA-Z]*)$")
         
         splited_street = p.findall(self.parentid.street)
         if len(splited_street) == 0:
