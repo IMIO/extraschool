@@ -401,7 +401,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
             if not self.prestationtime_ids:
                 self._add_comment(_("Warning : No presta found"),True)
                 self.verified = True
-                return self 
+                return True
                        
             #Get distinct ROOT activity ID
             str_prestation_ids = str(self.prestationtime_ids.ids).replace('[','(').replace(']',')')
@@ -435,8 +435,8 @@ class extraschool_prestation_times_of_the_day(models.Model):
         print self.verified
         self.last_check_entry_exit()
         print self.verified
-              
-        return self
+        
+        return True   
     
     @api.model
     def check_all(self):
