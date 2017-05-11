@@ -94,7 +94,7 @@ class extraschool_activity(models.Model):
         activityoccurrence = self.env['extraschool.activityoccurrence']
         for activity in self:
             if len(activity.planneddates_ids):
-                for planneddate in activity.planneddates_ids:
+                for planneddate in activity.planneddates_ids.filtered(lambda r: r.activitydate >= date_from and r.activitydate <= date_to):
                     for place in activity.placeids:
                         activityoccurrence.create({'place_id' : place.id,
                                                   'occurrence_date' : datetime.strptime(planneddate.activitydate, DEFAULT_SERVER_DATE_FORMAT),
