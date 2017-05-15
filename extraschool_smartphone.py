@@ -92,7 +92,7 @@ class extraschool_smartphone(models.Model):
     @api.multi
     def write(self,vals):
         #transmission is finished
-        if 'transmissiontime' in vals:
+        if 'lasttransmissiondate' in vals:
             #reset presta of the day if needed
             for smartphone in self:
                 if smartphone.pda_transmission_ids:
