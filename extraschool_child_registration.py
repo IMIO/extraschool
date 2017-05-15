@@ -343,7 +343,7 @@ class extraschool_child_registration_line(models.Model):
     child_id = fields.Many2one('extraschool.child', required=True, index = True)
     child_firstname = fields.Char(related="child_id.firstname", store=True)
     child_lastname = fields.Char(related="child_id.lastname", store=True)
-    child_level = fields.Char(related="child_id.levelid.name", store=True)
+    child_level = fields.Char(related="child_id.levelid.name",string="Niveau", store=True)
     monday = fields.Boolean('Monday')    
     monday_activity_id = fields.Many2one('extraschool.activity' ,string="Monday", domain="[('selectable_on_registration','=',True)]")
     tuesday = fields.Boolean('Tuesday')
