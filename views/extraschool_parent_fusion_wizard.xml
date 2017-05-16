@@ -8,22 +8,32 @@
             <field name="arch" type="xml">
                 <form string="Parent fusion wizard">
                     <group col="4" groups="base.group_erp_manager">
-                    	<field name="parent_id"/>
-                    	<field name="parent_ids"/>
-                        
-                    	<button name="fusion" string="Execute sql" icon="gtk-apply" type="object"/>                    		                    	
+                    	<field name="parent_id"  invisible="1"/> 
+                    	<separator string="Parent à fusionner" colspan="4"/> 
+                    	<field name="parent_ids"  colspan="4" nolabel="1"/>                        
+                    	<separator string="Enfants à fusionner" colspan="4"/> 
+                    	<field name="fusion_child_ids"  colspan="4" nolabel="1">                                            		                    	                   		                    	
+                    		<tree editable="top" create="false" delete="false">
+                    			<field name="child_id" readonly="True"/>
+                    			<field name="dest_child_id" />
+								<field name="fusion_wizard_parent_id" invisible="True"/>                    			
+                    		</tree>
+                    	</field>
+                    	<button name="fusion" string="Execute sql" icon="gtk-apply" type="object"/> 
                     </group>
                 </form>
             </field>
         </record>        
 
-        <act_window id="parent_fusion_wizard_action"
-            name="Parent fusion wizard"
-            src_model="extraschool.parent"
-            res_model="extraschool.parent_fusion_wizard"
-            view_type="form" view_mode="form"
-            key2="client_action_multi" target="new"
-            />
-	
-	</data>        
+	    <record model="ir.actions.act_window" id="parent_fusion_wizard_action">
+            <field name="name">Parent fusion wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">extraschool.parent_fusion_wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>    	
+	</data>   
+
+
 </openerp>

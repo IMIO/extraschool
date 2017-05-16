@@ -19,5 +19,8 @@
          <record id="extraschool_timeclock" model="res.groups">
             <field name="name">AES timeclock</field>
          </record>                             
-      </data>
+         <record id="extraschool_fusion" model="res.groups">
+            <field name="name">AES fusion</field>
+         </record>                             
+   	  </data>
    </openerp>

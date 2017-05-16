@@ -32,7 +32,68 @@ class extraschool_parent_fusion_wizard(models.TransientModel):
     
     parent_id = fields.Many2one('extraschool.parent', 'Parent')
     parent_ids = fields.Many2many('extraschool.parent','extraschool_parent_fusion_rel', 'parent_fusion_id', 'parent_id','Parent_fusion')
-    
+    fusion_child_ids = fields.One2many('extraschool.parent_fusion_child', 'parent_fusion_wizard_id','childs')
+
+    @api.onchange('parent_ids')
+    @api.one
+    def _on_change_parent_ids(self):
+        print "main parent: %s" % (self.parent_id)
+        self.fusion_child_ids = [(5, 0, 0)]
+        tmp_childs = []
+        for parent in self.parent_ids:
+            for child in parent.child_ids:
+                print "%s" % (child.name)
+                tmp_childs.append((0,0,{'parent_fusion_wizard_id': self.id,
+                                        'fusion_wizard_parent_id': self.parent_id.id,
+                                        'child_id': child.id,}))
+        
+        self.fusion_child_ids = tmp_childs
+
     @api.multi
     def fusion(self):
         print "fusion"
+        
+        for child in self.fusion_child_ids:
+            #child doesn't exist on parent origin
+            if not child.dest_child_id:
+                print "add child : %s" % (child.child_id.firstname)
+                child.child_id.parentid = self.parent_id.id
+            #child exist on parent origin
+            else:
+                print "remove child : %s" % (child.child_id.firstname)
+                self.env['extraschool.pdaprestationtimes'].search([('childid', '=',child.child_id.id)]).write({'childid': child.dest_child_id.id})
+                self.env['extraschool.prestationtimes'].search([('childid', '=',child.child_id.id)]).write({'childid': child.dest_child_id.id})
+                self.env['extraschool.child_registration_line'].search([('child_id', '=',child.child_id.id)]).write({'child_id': child.dest_child_id.id})
+                self.env['extraschool.invoicedprestations'].search([('childid', '=',child.child_id.id)]).write({'childid': child.dest_child_id.id})
+                self.env['extraschool.prestation_times_of_the_day'].search([('child_id', '=',child.child_id.id)]).write({'child_id': child.dest_child_id.id})
+                self.env['extraschool.prestation_times_manuel'].search([('child_id', '=',child.child_id.id)]).write({'child_id': child.dest_child_id.id})
+                
+        #delete child 
+        child_to_delete_ids = self.env['extraschool.child'].search([('id', 'in', [r.child_id.id for r in self.fusion_child_ids.filtered(lambda r: r.dest_child_id)])]).ids
+        print "sql delete child"
+        sql_delete_child = """delete from extraschool_child
+                              where id in (""" + ','.join(map(str, child_to_delete_ids))+ """)                             
+                            """
+        self.env.cr.execute(sql_delete_child)
+
+        
+        for parent in self.parent_ids:
+            self.env['extraschool.invoice'].search([('parentid', '=',parent.id)]).write({'parentid': self.parent_id.id})
+            self.env['extraschool.payment'].search([('parent_id', '=',parent.id)]).write({'parent_id': self.parent_id.id})
+
+        sql_delete_parent = """delete from extraschool_parent
+                              where id in (""" + ','.join(map(str, self.parent_ids.ids))+ """)                             
+                            """
+        self.env.cr.execute(sql_delete_parent)            
+        
+        
+class extraschool_parent_fusion_child(models.TransientModel):
+    _name = 'extraschool.parent_fusion_child'
+    _description = 'Parent fusion child'
+    
+    parent_fusion_wizard_id = fields.Many2one('extraschool.parent_fusion_wizard', 'Parent fusion wizard')
+    fusion_wizard_parent_id = fields.Many2one('extraschool.parent')                  
+    child_id = fields.Many2one('extraschool.child', 'Child')
+    
+    dest_child_id = fields.Many2one('extraschool.child', 'Destination child', domain="[('parentid','=',fusion_wizard_parent_id)]")
+    

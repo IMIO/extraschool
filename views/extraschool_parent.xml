@@ -21,7 +21,10 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
             <form string="Parents">
-            	<group col="4">        
+				<header> 
+					<button name="extraschool.parent_fusion_wizard_action" string="Fusion" icon="gtk-apply" type="action" context="{'default_parent_id': id}" groups="extraschool.extraschool_fusion"/>                               	            	
+            	</header>
+				<group col="4">        
 	            	<field name="isdisabled"/>
                     <newline/>
                     <field name="last_import_date" readonly="True"/>
@@ -29,7 +32,8 @@
 	            </group>            
                 <notebook>
                 <page string="Contact">
-                    <group col="4">        
+                    <group col="4">  
+                		                    	      
                     <field name="name" invisible="True"/>
                     <field name="streetcode" invisible="True"/>
                     <field name="lastname" on_change="onchange_name(lastname,firstname)"/> 
