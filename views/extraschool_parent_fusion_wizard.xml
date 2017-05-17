@@ -19,7 +19,7 @@
 								<field name="fusion_wizard_parent_id" invisible="True"/>                    			
                     		</tree>
                     	</field>
-                    	<button name="fusion" string="Execute sql" icon="gtk-apply" type="object"/> 
+                    	<button name="fusion" string="Execute" icon="gtk-apply" type="object"/> 
                     </group>
                 </form>
             </field>
