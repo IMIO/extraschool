@@ -100,7 +100,6 @@ class extraschool_smartphone(models.Model):
                     for presta in smartphone.pda_transmission_ids.sorted(key=lambda r: r.transmission_date_from)[-1].pda_prestation_times_ids:
                         if presta.prestation_times_of_the_day_id.id not in pod_to_check_ids:
                             pod_to_check_ids.append(presta.prestation_times_of_the_day_id.id)
-                    pdb.set_trace()
                     self.env['extraschool.prestation_times_of_the_day'].browse(pod_to_check_ids).reset()
                                                 
             return super(extraschool_smartphone, self).write(vals)
