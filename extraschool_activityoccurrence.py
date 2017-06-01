@@ -35,22 +35,22 @@ class extraschool_activityoccurrence(models.Model):
 
     name = fields.Char('Name')
     occurrence_date = fields.Date('Date', select=True)
-    activityid = fields.Many2one('extraschool.activity', 'Activity', select=True)
+    activityid = fields.Many2one('extraschool.activity', 'Activity', select=True, required=True)
     activityname = fields.Char(related='activityid.name')
     activity_category_id = fields.Many2one(related='activityid.category', store=True, select=True)                  
 
     prest_from = fields.Float('prest_from', select=True)
     prest_to = fields.Float('prest_to', select=True)
-    date_start = fields.Datetime('Date start',compute='_compute_date_start', store=True, select=True)
-    date_stop = fields.Datetime('Date stop',compute='_compute_date_stop', store=True) 
+    date_start = fields.Datetime('Date start', compute='_compute_date_start', store=True, select=True)
+    date_stop = fields.Datetime('Date stop', compute='_compute_date_stop', store=True)
 #    child_registration_ids = fields.Many2many('extraschool.child','extraschool_activityoccurrence_cild_rel', 'activityoccurrence_id', 'child_id','Child registration')        
-    child_registration_ids = fields.One2many('extraschool.activity_occurrence_child_registration','activity_occurrence_id','Child registration')        
-    prestation_times_ids = fields.One2many('extraschool.prestationtimes', 'activity_occurrence_id','Child prestation times')   
-    place_id = fields.Many2one('extraschool.place', 'Place', required=False, index = True)      
-    invoicedprestations_ids = fields.One2many('extraschool.invoicedprestations', 'activity_occurrence_id','Invoiced prestation')                  
+    child_registration_ids = fields.One2many('extraschool.activity_occurrence_child_registration', 'activity_occurrence_id', 'Child registration')
+    prestation_times_ids = fields.One2many('extraschool.prestationtimes', 'activity_occurrence_id', 'Child prestation times')
+    place_id = fields.Many2one('extraschool.place', 'Place', required=False, index=True)
+    invoicedprestations_ids = fields.One2many('extraschool.invoicedprestations', 'activity_occurrence_id', 'Invoiced prestation')
 
     @api.multi
-    def name_get(self):            
+    def name_get(self):
         res=[]
         for occurrence in self:
             res.append((occurrence.id, "%s - %s" % (occurrence.activityname, datetime.strptime(occurrence.occurrence_date, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y"))))    
@@ -92,7 +92,7 @@ class extraschool_activityoccurrence(models.Model):
                            }    
         if parent_activity_occurrence:
             if parent_activity_occurrence.default_from_to == 'from_to' or exit_all:
-                #Parent activity has default_from_to or exit_all has been found .... Don't add Parent presta
+                # Parent activity has default_from_to or exit_all has been found .... Don't add Parent presta
                 parent_activity_occurrence = None
             else:
                 parent_prestation_time = {'placeid' : parent_activity_occurrence.place_id.id,

@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <openerp>
 	<data> 
-        <record model="ir.ui.view" id="extraschool_parent_tree">
+       <record model="ir.ui.view" id="extraschool_parent_tree">
 			<field name="name">extraschool.parent.tree</field>
 			<field name="model">extraschool.parent</field>
 			<field name="type">tree</field>
@@ -172,7 +172,7 @@
                 </search>
             </field>
         </record>
-        
+
         
         <record model="ir.actions.act_window" id="action_lbsc_parent_invoices">
             <field name="name">Parent invoices</field>

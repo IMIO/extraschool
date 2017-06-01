@@ -46,7 +46,7 @@ class extraschool_activity_occurrence_correction_wizard(models.TransientModel):
                                                                               ('occurrence_date', '>=', self.date_from),
                                                                               ('occurrence_date', '<=', self.date_to),
                                                                               ])
-            print "delete occu !!!!"
+            print "delete occurrence"
             occurrences.unlink()
             activity.populate_occurrence(self.date_from, self.date_to)
         

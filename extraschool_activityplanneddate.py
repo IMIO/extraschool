@@ -31,6 +31,6 @@ class extraschool_activityplanneddate(models.Model):
     _rec_name = 'activitydate'
         
     activities = fields.Many2many('extraschool.activity','extraschool_activity_activityplanneddate_rel', 'activityplanneddate_id', 'activity_id','Activities')        
-    activitydate = fields.Date('Date', index=True)        
+    activitydate = fields.Date('Date', index=True)
 
 extraschool_activityplanneddate()

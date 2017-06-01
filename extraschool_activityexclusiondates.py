@@ -29,13 +29,16 @@ class extraschool_activityexclusiondates(models.Model):
     _description = 'Activity exclusion dates'
 
     def name_get(self):
-        res=[]
+        res = []
+
+        print self.date_to
+
         for exc_date in self:
-            res.append((exc_date.id, exc_date.date_from + ' - ' + exc_date.date_to))    
+            res.append((exc_date.id, exc_date.date_from + ' - ' + exc_date.date_to))
+
+        return res
     
-        return res     
-    
-    name = fields.Char('Name', required=True, default='***')        
+    name = fields.Char('Name', required=True)
     date_from = fields.Date('Date from', required=True, index=True)
     date_to = fields.Date('Date to', required=True, index=True)
 

@@ -30,6 +30,7 @@ class extraschool_childposition(models.Model):
 
 
     name = fields.Char('Name', size=50, required=True)
-    position = fields.Integer('Position', required=True, select=True)                
+    position = fields.Integer('Position', required=True, select=True)
+
 
 extraschool_childposition()
