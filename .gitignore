@@ -1,2 +1,4 @@
 *.pyc
 *.sql~
+.idea
+./doc/_build/*
