@@ -98,7 +98,7 @@ Enfant.
 *******
 Dans le cas d'enfant de parents séparés, l'enfant est encodé 2 fois dans l'application afin de simplifier la gestion administratives.
 
-* Factures séparées papan et maman.
+* Factures séparées papa et maman.
 * attestations fiscale séparées.
 * les parents n'on pas de visibilité sur la facturation de leur ex conjoint. 
 
