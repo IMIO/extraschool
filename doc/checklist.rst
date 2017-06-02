@@ -96,7 +96,7 @@ Personne responable à qui les documents seront adressés
 *******
 Enfant.
 *******
-Dans le cas d'enfant de parents séparés, l'enfant est encodé 2 fois dans l'application afin de simplifier la gestion administratives.
+Dans le cas d'enfant de parents séparés, l'enfant est encodé 2 fois dans l'application afin de simplifier la gestion administrative.
 
 * Factures séparées papa et maman.
 * attestations fiscale séparées.
