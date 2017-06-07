@@ -126,7 +126,7 @@ Avantages
 =========
 
   * Moins encodage
-  * Pas de correction manuel (accueillante et admin)
+  * Pas de correction manuelle (accueillante et admin)
 
 =============
 Inconvénients
