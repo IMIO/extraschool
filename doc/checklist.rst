@@ -24,12 +24,12 @@ Signalétique.
 *******************
 Import des données.
 *******************
-Il est possible d'importer les signalétiques enfant et parent venant de fichiers xls.
+Il est possible d'importer les fiches signalétiques enfant et parent venant de fichiers xls.
 Les logiciels de gestion d'école peuvent exporter ce genre de fichiers, il faut cependant faire attention à quelques détails.
 
 * Est-ce que les données sont à jour ?
 
-	* En septembre, c'est rarrement le cas !
+	* En septembre, c'est rarement le cas !
 	* Il peut être intéressant d'utiliser un formulaire d'inscription.
 	
 	| ex. Formulaire
@@ -47,7 +47,7 @@ Les logiciels de gestion d'école peuvent exporter ce genre de fichiers, il faut
 ******
 Ecole.
 ******
-On parle ici de l'entité administrative (direction), dont dépendent une ou plusieurs implantations
+On parle ici de l'entité administrative (direction), dont dépendent une ou plusieurs implantation(s)
 
 Champs obligatoires :
 
@@ -68,30 +68,30 @@ Champs obligatoires :
 ***************
 Lieu d'accueil.
 ***************
-Le lieu d'accueil est l'endroit ou se déroule une activité, il peut être partagé par plusieurs implantations scolaire.
+Le lieu d'accueil est l'endroit ou se déroule une activité, il peut être partagé par plusieurs implantations scolaires.
 
 Champs obligatoires :
 
 * Nom
 * Adresse
-* Liste des implantations scolaire qui sont suceptiblent d'y organiser des activités
+* Liste des implantations scolaires qui sont susceptibles d'y organiser des activités
 
 *******
 Parent.
 *******
-Personne responable à qui les documents seront adressés
+Personne responsable à qui les documents seront adressés
 
 * Nom
 * Prénom
 * Adresse
-* Diférenciation positive (Rapport ONE)
-* Mode d'envoie des documents (facture, invitation à payer ...) 
+* Différenciation positive (Rapport ONE)
+* Mode d'envoi des documents (facture, invitation à payer,...)
 	
 	Valeurs possibles
 	
-	* courrier
-	* email
-	* courrier et email
+	* Courrier
+	* Email
+	* Courrier et email
 
 *******
 Enfant.
@@ -99,8 +99,8 @@ Enfant.
 Dans le cas d'enfant de parents séparés, l'enfant est encodé 2 fois dans l'application afin de simplifier la gestion administrative.
 
 * Factures séparées papa et maman.
-* attestations fiscales séparées.
-* les parents n'on pas de visibilité sur la facturation de leur ex conjoint. 
+* Attestations fiscales séparées.
+* Les parents n'ont pas de visibilité sur la facturation de leur ex conjoint.
 
 Champs obligatoires :
 
@@ -126,7 +126,7 @@ Champs obligatoires :
 *********
 Activité.
 *********
-On entend par activité, toute période de temps nécéssitant le suivi de la présence de l'enfant
+On entend par activité, toute période de temps nécessitant le suivi de la présence de l'enfant
 ex. Accueil du matin, repas de midi, bricolage du mercredi ...
 
 Champs obligatoires :
@@ -136,21 +136,21 @@ Champs obligatoires :
 
 	Valeurs possibles
 	
-	* maternelle
-	* primaire
-	* maternelle et primaire
+	* Maternelle
+	* Primaire
+	* Maternelle et primaire
 	
 * Est-ce une activité sur inscription uniquement ?
 * Quand est-ce que l'activité a lieu ?
 
-	* jour de la semaine
-	* horaire (heure de début et heure de fin)
+	* Jour de la semaine
+	* Horaire (heure de début et heure de fin)
 
 * Lieux d'accueil (plusieurs valeurs possibles)
 * Est-ce subsidié par l'ONE ?
 * Est-ce que cette activité doit apparaître sur l'attestation fiscale ?
 * Catégorie d'activité
-* Est-ce qu'il y a des regroupements de plusieurs implantations scolaire sur le même lieux d'accueil ?
+* Est-ce qu'il y a des regroupements de plusieurs implantations scolaires sur le même lieu d'accueil ?
 
 *********************
 Catégorie d'activité.
@@ -167,24 +167,24 @@ c'est ici que nous allons les définir.
 		
 		il peut être différent pour :
 		
-		* l'invitation à pré-payer
-		* la facture
-		* le rappel
+		* L'invitation à pré-payer
+		* La facture
+		* Le rappel
  
- 	* Format du document, le mieux est de demander un exemple au responssable financier
+ 	* Format du document, le mieux est de demander un exemple au responsable financier
  		
- 		* invitation à pré-payer
- 		* facture
- 		* rappel
+ 		* Invitation à pré-payer
+ 		* Facture
+ 		* Rappel
 
 ####################
 Journée pédagogique.
 ####################
 
 * Avez-vous déjà les dates ?
-* Faut il être inscrit ?
-* Y a t'il des garderies avant et/ou après la journée pédagogique ?
-* Ou est organisé l'accueil ces jours là ?
+* Faut-il être inscrit ?
+* Y a-t-il des garderies avant et/ou après la journée pédagogique ?
+* Où est organisé l'accueil ces jours là ?
 
 
 ##############
@@ -223,7 +223,7 @@ Liste de prix.
 	
 	* Unité de temps 
 	
-		* minute
+		* Minute
 		* 15 minutes
 		* 30 minutes
 		* 60 minutes
@@ -238,8 +238,8 @@ Liste de prix.
 		|	durée mesurée 36 minutes -> durée facturée 2*30 minutes
 		
 	* Avez-vous un système de pénalité pour les retard, si oui lequel ?
-	* Avez-vous des plages horaires gratuite
-	* avez-vous des périodes d'étude qui doivent être décomptée 
+	* Avez-vous des plages horaires gratuite ?
+	* Avez-vous des périodes d'étude qui doivent être décomptée  ?
 	
 		
 
@@ -252,9 +252,9 @@ Le smartphone est utilisé par les accueillantes pour enregistrer les présences
 * Un smartphone minimum par lieu d'accueil
 * Le smartphone reste sur le lieu d'accueil
 * Penser à sécuriser le smartphone pour le protéger du vol
-* Penser à la connexion internet
+* Penser à la connexion Internet
  	
-	Le smartphone s'utilise en mode déconnecté d'internet, 
+	Le smartphone s'utilise en mode déconnecté d'Internet,
  	cependant il faut absolument une connexion une fois par jour pour transmettre les données au serveur.
 
  	* wifi
@@ -270,28 +270,28 @@ Le smartphone est utilisé par les accueillantes pour enregistrer les présences
  	* 3G
  	
  		* Pas toujours disponible
- 		* un abonnement est obligatoires, le plus petit convient parfaitement 
+ 		* Un abonnement est obligatoire, le plus petit convient parfaitement
 
 #########
 QR-Codes.
 #########
 Il en faut un par enfant
 
-* il sont habituellement distibué dans les écoles, par classe afin de ne pas désorganiser l'accueil les premiers jours
-* il n'est pas forcément nominatif, le nom de l'enfant apparait sur le smartphone au moment du scan, 
+* Ils sont habituellement distibués dans les écoles, par classe afin de ne pas désorganiser l'accueil les premiers jours
+* Il n'est pas forcément nominatif, le nom de l'enfant apparait sur le smartphone au moment du scan,
 
 	il est donc très facile pour l'accueillante de vérifier que le QR-Code appartient bien à l'enfant. 
 
 * Fabrication
 	
 	* Il est possible de les imprimer via l'application
-		* plastifié
-		* papier indéchirable (utilisé dans les aéroports)
+		* Plastifié
+		* Papier indéchirable (utilisé dans les aéroports)
 
 			`PAPIER POLYESTER INDECHIRABLE EN 195µ FORMAT A4 <https://www.google.be/search?q=PAPIER+POLYESTER+INDECHIRABLE+EN+195%C2%B5+FORMAT+A4>`_
 
-		* prévoir des anneaux (porte clef)
-		* prévoir des rivets (utilisé au service population 
+		* Prévoir des anneaux (porte clef)
+		* Prévoir des rivets (utilisé au service population)
 		 
 			
 
@@ -308,7 +308,7 @@ Il faut prévoir un courrier qui explique aux parents les changements.
 	
 	ce QR-Code contient juste l'identifiant : "1"
 	
-* Inssister sur les avantages
+* Insister sur les avantages
 
 	* Gain de temps pour les accueillantes qui peuvent ainsi mieux se consacrer à l'accueil des enfants.
 	* Transparence pour la facturation.
