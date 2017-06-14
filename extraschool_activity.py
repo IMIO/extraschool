@@ -117,7 +117,7 @@ class extraschool_activity(models.Model):
                 d2 = datetime.strptime(d2, DEFAULT_SERVER_DATE_FORMAT)
 
                 delta = d2 - d1
-                insert_data = ''
+                # insert_data = ''
                 print str(datetime.now())+" START"
                 args = []
                 for day in range(delta.days + 1):
@@ -128,16 +128,16 @@ class extraschool_activity(models.Model):
                         exclu_activity_id = cr.fetchall()
                         if exclu_activity_id[0][0] == 0:
                             for place in activity.placeids:
-                                if insert_data:
-                                    insert_data.join(',')
-                                '''
-                                activityoccurrence.create({'place_id' : place.id,
-                                                          'occurrence_date' : current_day_date,
-                                                          'activityid' : activity.id,
-                                                          'prest_from' : activity.prest_from,
-                                                          'prest_to' : activity.prest_to,
-                                                          })
-                                '''
+                                # if insert_data:
+                                #     insert_data.join(',')
+                                # '''
+                                # activityoccurrence.create({'place_id' : place.id,
+                                #                           'occurrence_date' : current_day_date,
+                                #                           'activityid' : activity.id,
+                                #                           'prest_from' : activity.prest_from,
+                                #                           'prest_to' : activity.prest_to,
+                                #                           })
+                                # '''
                                 str_current_day_date = str(current_day_date)[:10]
                                 args.append((uid,
                                              self.build_timestamp(str_current_day_date, activity.prest_to),
@@ -182,39 +182,24 @@ class extraschool_activity(models.Model):
     @api.multi
     def check_validity_date(self, vals):
         # Check if values has passed (create or write). If not take from parent Object.
-        if 'validity_from' in vals:
-            validity_from = vals['validity_from']
-        else:
-            validity_from = self.validity_from
 
-        if 'validity_to' in vals:
-            validity_to = vals['validity_to']
-        else:
-            validity_to = self.validity_to
+        validity_from = vals['validity_from'] if 'validity_from' in vals else self.validity_from
+        validity_to = vals['validity_to'] if 'validity_to' in vals else self.validity_to
+        prest_from = vals['prest_from'] if 'prest_from' in vals else self.prest_from
+        prest_to = vals['prest_to'] if 'prest_to' in vals else self.prest_to
 
-        if 'prest_from' in vals:
-            prest_from = vals['prest_from']
-        else:
-            prest_from = self.prest_from
+        planneddates_ids = self.env['extraschool.activityplanneddate'].browse(
+            vals['planneddates_ids'][0][-1]) if 'planneddates_ids' in vals else self.planneddates_ids
+        exclusiondates_ids = self.env['extraschool.activityexclusiondates'].browse(
+            vals['exclusiondates_ids'][0][-1]) if 'exclusiondates_ids' in vals else self.exclusiondates_ids
 
-        if 'prest_to' in vals:
-            prest_to = vals['prest_to']
-        else:
-            prest_to = self.prest_to
-
-        if 'planneddates_ids' in vals:
-            planneddates_ids = self.env['extraschool.activityplanneddate'].browse(vals['planneddates_ids'][0][-1])
-        else:
-            planneddates_ids = self.planneddates_ids
-
-        if 'exclusiondates_ids' in vals:
-            exclusiondates_ids = self.env['extraschool.activityexclusiondates'].browse(vals['exclusiondates_ids'][0][-1])
-        else:
-            exclusiondates_ids = self.exclusiondates_ids
 
         # Check Valid Hour.
         if prest_from == 0:
             raise Warning(_("Hour must be greater than 0"))
+
+        if prest_to == prest_from:
+            raise Warning(_("Debut hour is equal to final hour"))
 
         # Check Date.
         if validity_from > validity_to:
@@ -235,16 +220,6 @@ class extraschool_activity(models.Model):
                 raise Warning(_("Date_from must be in range of Validity_from and Validity_to (Exclusion)"))
 
     @api.multi
-    def check_reset_occurence(self, vals):
-        if 'validity_from' in vals:
-            for activity in self:
-                occurence =  self.env['extraschool.activityoccurrence'].search([('activityid', '=', activity.id),
-                                                                                ('prest_from', '=', )
-                                                                                ])
-                print occurence
-
-
-    @api.multi
     def write(self, vals):
         print "----- activity  write ----"
         print "vals: %s" % (vals)
@@ -252,7 +227,6 @@ class extraschool_activity(models.Model):
 
             # Check Validity Date & Hour.
             activity.check_validity_date(vals)
-            activity.check_reset_occurence(vals)
                 
             if 'validity_from' not in vals and 'validity_to' not in vals:
                 return super(extraschool_activity, activity).write(vals)
