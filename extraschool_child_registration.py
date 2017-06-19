@@ -87,8 +87,8 @@ class extraschool_child_registration(models.Model):
         else:
             childs = self.env['extraschool.child'].search([('schoolimplantation.id', '=', self.school_implantation_id.id),
                                                            ])
-            
-            
+
+
         self.child_registration_line_ids.unlink()
         #clear child list
         self.child_registration_line_ids = [(5, 0, 0)]

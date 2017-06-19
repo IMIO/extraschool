@@ -34,7 +34,7 @@ class extraschool_activitychildregistration(models.Model):
     registration_from = fields.Date('Registration from', required=True)
     registration_to = fields.Date('Registration to', required=True)
 
-    def name_get(self):            
+    def name_get(self):
         res=[]
         for reg in self:
             res.append((reg.id, reg.child_id.name + ' - ' + reg.place_id.name))    

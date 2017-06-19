@@ -157,14 +157,14 @@ class extraschool_activity(models.Model):
                     args_str = ','.join(cr.mogrify("(%s,%s,%s,current_timestamp,%s,%s,current_timestamp,%s,%s,%s,%s,%s,%s)", x) for x in args)
                     print str(datetime.now())+" START QUERY" 
                     # print insert_data
-                    occurrence_ids = cr.execute("insert into extraschool_activityoccurrence (create_uid,date_stop,date_start,create_date,name,write_uid,write_date,activity_category_id,place_id,occurrence_date,activityid,prest_from,prest_to) VALUES "+args_str)
+                    cr.execute("insert into extraschool_activityoccurrence (create_uid,date_stop,date_start,create_date,name,write_uid,write_date,activity_category_id,place_id,occurrence_date,activityid,prest_from,prest_to) VALUES "+args_str)
                     print str(datetime.now())+" END"
                     # get ids of created occu
-                    occurrence_ids = cr.execute("""select id 
-                                                   from extraschool_activityoccurrence 
-                                                   where create_uid = %s
-                                                     and activityid = %s
-                                                """, (uid, activity.id))
+                    cr.execute("""select id 
+                                from extraschool_activityoccurrence 
+                                where create_uid = %s
+                                and activityid = %s
+                                """, (uid, activity.id))
                     occurrence_ids = [id['id'] for id in cr.dictfetchall()]
                     print "ids created : %s" % (occurrence_ids)
                     for occu in self.env['extraschool.activityoccurrence'].search([('id', 'in', occurrence_ids)]): 
