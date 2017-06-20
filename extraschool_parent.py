@@ -20,6 +20,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+import re
 
 from openerp import models, api, fields
 from openerp.api import Environment
@@ -130,7 +131,13 @@ class extraschool_parent(models.Model):
     oldid = fields.Integer('oldid')
     nbr_actif_child = fields.Integer(compute='_compute_nbr_actif_child',string='Nbr actif child', store = True)
     comment = fields.Text('Comment')
-    
+
+    def email_validation(self,email):
+        if re.match("^[a-zA-Z0-9._%-]+@[a-zA-Z0-9._%-]+.[a-zA-Z]{2,6}$", email) != None:
+            return True
+        else:
+            return False
+
     @api.depends('child_ids')
     def _compute_nbr_actif_child(self):
         for record in self:
@@ -144,9 +151,14 @@ class extraschool_parent(models.Model):
                                       ('lastname', 'ilike', vals['lastname'].strip()),
                                       ('streetcode', 'ilike', vals['streetcode'])])
         
-        if len(parents) >0:
+        if len(parents) > 0:
             raise Warning('Ce parent %s %s %s a deja ete encode !!!' % (vals['firstname'].strip(),vals['lastname'].strip(),vals['streetcode']))
-        
+
+        if 'email' in vals and vals['email'] != False:
+            email_to_check = vals['email']
+            if (not self.email_validation(email_to_check)):
+                raise Warning("E-mail format invalid.")
+
         return super(extraschool_parent, self).create(vals)
     
     def addpayment(self, cr, uid, ids, context=None):
@@ -182,6 +194,11 @@ class extraschool_parent(models.Model):
         
         if fields_to_find.intersection(set([k for k,v in vals.iteritems()])):
             vals['modified_since_last_import'] = True
+
+        if 'email' in vals and vals['email'] != False:
+            email_to_check = vals['email']
+            if (not self.email_validation(email_to_check)):
+                raise Warning("E-mail format invalid.")
                     
         return super(extraschool_parent,self).write(vals)
             
@@ -197,4 +214,6 @@ class extraschool_parent(models.Model):
 
         
         return self.env['extraschool.payment'].format_comstruct('%s%s%s' % (com_struct_prefix_str,com_struct_id_str,com_struct_check_str))
+
+
 
