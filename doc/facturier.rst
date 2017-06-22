@@ -22,12 +22,12 @@ Signalétique.
 
 Pour effectuer la génération d’un facturier, il faut se rendre dans le menu “facturation”.
 Une fiche apparaît avec des informations obligatoires telles que :
-  * Catégorie d’activité
-  * Implantation scolaire
-  * Début par défaut
-  * Fin par défaut
-  * Date de la facture
-  * Echéance
+* Catégorie d’activité
+* Implantation scolaire
+* Début par défaut
+* Fin par défaut
+* Date de la facture
+* Echéance
 Lorsque vous confirmez les informations, cela va générer toutes les factures des différents parents.
 
 
@@ -46,16 +46,16 @@ Mode d'envoi de la facture
 ##########################
 
 Les factures peuvent être envoyées :
-  * Uniquement par courrier
-  * Uniquement par email
-  * Par courrier et par email
+* Uniquement par courrier
+* Uniquement par email
+* Par courrier et par email
+
 Ce choix s’effectue au niveau de la fiche des parents. Cette section est valable aussi pour le mode d’envoi des rappels.
 Après ce choix effectué sur les différentes fiches, les factures pourront être envoyées comme l’ont décidé les parents.
+Lorsque nous sommes sur la fiche d’un facturier (Facturier - Sélectionner une ligne), nous pouvons apercevoir deux boutons :
+* Factures courrier
+* Email factures
 
-Lorsque nous sommes sur la fiche d’un facturier (Facturier - Sélectionner une ligne),
-nous pouvons apercevoir deux boutons :
-  * Factures courrier
-  * Email factures
 
 
 *****************
@@ -66,6 +66,7 @@ Cette action nous renvoie la liste des factures où les parents désirent recevo
 Il faut donc sélectionner toute la liste. Pour cela, cocher la case située à gauche de la colonne nommée “Parent”. (Cette case sélectionnera automatiquement toutes les lignes des factures).
 On doit cliquer sur le bouton “Imprimer” situé au-dessus et prendre le rapport nommé “Facture”.
 
+
 *************
 Email facture
 *************
@@ -75,3 +76,4 @@ l faut donc sélectionner toute la liste. Pour cela, cocher la case située à g
 On doit cliquer sur le bouton “Autres options” situé au-dessus et prendre l’action “Invoice mail” afin d’envoyer les différentes factures par email.
 Remarque importante : Les factures affichées sont ouvertes. Celles à un montant de 0.00 euro ou payé ne seront pas affichées dans aucune liste.
 En effet, il est inutile de renvoyer à un parent une facture qu’il a déjà payé ou une facture contenant un montant nul.
+

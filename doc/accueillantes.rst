@@ -3,8 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Pointages des accueillantes
-===========================
+Pointage des accueillantes
+==========================
 
 .. toctree::
    :maxdepth: 3
@@ -82,5 +82,4 @@ Ces lignes sont en rouge dans la liste
 
 .. image:: img/screenshot/accueillante_rapport_des_presences_erreur.png 
   
-
 
