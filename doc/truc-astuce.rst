@@ -21,7 +21,13 @@ QR Code
 #######
 
 QR Code possible :
-* QR Code Nominatif : Il faut imprimer les QR Code : être sur la liste des enfants - mettre en illimité (et pas 80 lignes en haut à droite) - Regrouper par établissement. On doit sélectionner tous les enfants d’un établissement - Options - Imprimer : Le QR Code aura le nom de l'enfant en dessous. S'il le perd, On doit réimprimer un QR Code (le code qui lui ai propre) soit lui donner un QR Code Anonyme
+
+* QR Code Nominatif : Il faut imprimer les QR Code : être sur la liste des enfants - mettre en illimité (et pas 80 lignes en haut à droite) - Regrouper par établissement.
+
+On doit sélectionner tous les enfants d’un établissement - Options - Imprimer : Le QR Code aura le nom de l'enfant en dessous.
+
+S'il le perd, On doit réimprimer un QR Code (le code qui lui ai propre) soit lui donner un QR Code Anonyme
+
 * QR Code Anonyme : On imprime les QR Code (Il y a un menu Impression des QR Codes), on les scanne et on les attribue aux élèves au moment de les scanner
 
 
