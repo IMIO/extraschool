@@ -3,8 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Inscriptions
-============
+Trucs et astuces
+================
 
 .. toctree::
    :maxdepth: 3
@@ -13,142 +13,48 @@ Inscriptions
 Introduction.
 #############
 
-Gestion des inscriptions des enfants et multiactivités
-
-#############
-Signalétique.
-#############
+Liste utile à savoir sur l'application ou les smartphones.
 
 
-Inscription : Encodage de la liste des enfants inscrits à une ou plusieurs activité(s)
-ex : Repas du midi, Journée pédagogique, plaine de jeux,...
-Sur la fiche d’inscription, différents champs sont obligatoires :
+#######
+QR Code
+#######
 
-  * Implémentation scolaire
-  * Lieu d'accueil
-  * Semaine (Ce nombre est disponible dans le calendrier du champ Date de début)
-  * Date de début
-  * Date de fin
-  * Activité
-
-La classe étant un champ non obligatoire.
-
-##########################
-Encodage des inscritpions
-##########################
+QR Code possible :
+  * QR Code nominatif : Il faut imprimer les QR Code : ëtre sur la liste des enfants - mettre en illimité (et pas 80 lignes en haut à droite) - Regrouper par établissement. On doit sélectionner tous les enfants d’un établissement - Options - Imprimer : Le QR Code aura un nom en dessous. Si l’enfant le perd, c’est embêtant car on doit réimprimer un QR Code (un code qui lui ai propre) soit lui donner un QR Code anonyme
+  * QR Code Anonyme : On imprime les QR Code (Il y a un menu Impression des QR Codes), on les scanne et on les attribue à des élèves au moment de les scanner
 
 
 
-Il y a deux possibilités pour compléter les lignes des inscriptions des enfants :
+###########
+Smartphones
+###########
 
-  * A partir du bouton “Mettre à jour la liste des enfants”. cette option recherche tous les enfants attachés à l'implantation scolaire. Si le champ “classe” est complété, il prendra seulement les enfants de celle-ci. Sinon, Il triera par niveau scolaire (classe) et par Nom par ordre alphabétique.
-  * Créer sa propre liste d’enfants inscrits.
+  * Ne pas mettre les Smartphones dans une armoire métallique sinon le Wi-Fi ne passe pas et il ne sera pas transmettre les informations à l’application.
+  * La taille des smartphones qui convient : 4.5 à 5 pouces (souvent 5 pouces)
+  * Appareil photo correct pour le scan
+  * Mettre le Wi-Fi (ou la 3G) à disposition du smartphone au moins une fois par jour le soir pour la synchronisation vers l'application
 
-Dans les lignes des inscriptions, il y a possibilité de choisir entre Potage (P), repas maternelle (RM) ou repas primaire (RP) pour tous les jours de la semaine.
-
-##########################
-Rapport des inscriptions
-##########################
-
-Grâce à cette liste d’inscrits, des rapports sont disponibles à partir du bouton “Imprimer” :
-
-  * Inscriptions : La liste des inscrits pour le réfectoire. Il y a une liste pour les maternelles et une pour les primaires.
-  * Résumé : Ce rapport est une sorte de bon de commande par jour pour savoir le nombre de repas qu’il faut.
+Point d’attention : Il doit avoir impérativement du Wi-Fi ou de la 3G pour permettre le transfert des données.
+Si on effectue le facturier de tous les établissements et qu’il manque des données d’un lieu d’accueil, les données manquantes ne seront pas facturées !
+A faire : Il faut bien vérifier dans le menu "Smartphone" de l'application, les dernières dates de transmissions pour pouvoir effectuer son facturier
+Exemple : Vérifier que toutes les données du mois de Janvier ont été transférées pour pouvoir en effectuer le facturier.
 
 
+#########
+Facturier
+#########
+
+  * Si un parent a plusieurs enfants se trouvant dans différents établissements : Une facture avec une seule communication structurée.
+La distinction des écoles n' pas d'importante étant donné que l'argent est récolté par la commune.
+  * L'argent reçu est attribué au parent de l'enfant et non de l'enfant.
+  * Si l'application reçoit de l'argent, elle va réconcilier la facture la plus ancienne en premier lieu. (Et va prendre toutes celles possible)
+  * Si on réalise un facturier, on ne peut plus modifier les présences des journées facturées
 
 
+Si un parent vient payer en liquide directement à la commune :
+Se rendre sur la fiche parent - Onglet paiement - Cliquer sur le bouton "assistant d’ajout de paiement"
+On va lister toutes les factures que le parent doit payer
+Il va réconcilier de la plus ancienne à la plus récente avec le montant reçu
+Si je ne veux pas qu’il paye une facture je peux modifier dans la fenêtre et changer les montants que je veux qu’il paie sur les factures.
 
-
-######################
-Exemples d'utilisation
-######################
-
-*********************
-Utilisation sans scan
-*********************
-
-.. image:: img/screenshot/rp_pas_scan.png
-
-Important : sélectionner “ajouter automatiquement les inscrits”
-Un enfant inscrit est considéré comme présent qu’il vienne ou non.
-
-
-=========
-Procédure
-=========
-
-  * Encoder la fiche sur base du choix des parents (pour le jeudi)
-  * Imprimer le rapport à distribuer dans les réfectoires
-  * Les accueillantes corrigent le rapport en fonction des présences réelles
-  * la semaine suivante, la fiche est corrigée sur base des notes des accueillantes
-  * la fiche est validée et les présences sont génerées dans l’application
-
-=========
-Avantages
-=========
-
-  * Pas d’utilisation de QR-code à midi. Les QR-codes sont attaché à la mallette, il n’est pas simple de demander au enfants de la prendre avec eux à midi.
-  * Assez flexible car il est possible de corriger sur base des consommations réelles
-  * Utilisation de QR-codes anonymes
-
-
-=============
-Inconvénients
-=============
-
-  * Tout se fait par encodage manuel, ce qui peut représenter un gros travail.
-  * Encodage + vérification …. très lourd
-
-
-***************************
-Utilisation du scan Simple
-***************************
-
-.. image:: img/screenshot/potage_scan.png
-
-Important : ne PAS sélectionner “ajouter automatiquement les inscrits”
-Si l’enfant est inscrit et qu’il est scanné, l’application pourra attribuer la bonne activité (dans le cas où plusieurs activités se déroulent en même temps).
-!!! Si l’enfant n’est pas inscrit, qu’il est scanné et qu’il y a plusieurs activités définies sur la même tranche horaire, le scan sera considéré comme une erreur.
-
-=========
-Procédure
-=========
-
-  * Encoder la fiche sur base du choix des parents (pour le jeudi)
-  * Imprimer le rapport à distribuer dans les réfectoires (A titre d’information, facultatif)
-  * Les accueillantes scan les QR-Codes dans une farde.
-  * Les présences sont générées par le scan
-  * Il faut corriger les erreurs de scan (voir ci-dessus)
-
-=========
-Avantages
-=========
-
-  * Moins encodage
-  * Pas de correction manuelle (accueillante et admin)
-
-=============
-Inconvénients
-=============
-
-  * Utilisation des QR-codes nominatif dans une farde (qu’il faut mettre régulièrement à jour).
-  * Scan dans la farde (pas toujours simple)
-  * Pas flexible
-
-
-****************************************************
-Utilisation du scan avec plusieurs tranches horaires
-****************************************************
-
-2 tranches horaire de scan
-  * 12h -> 12h30 Potage
-  * 12h30 -> 13h Repas :
-     * une activité pour les maternelles
-     * une autre pour les primaires
-
-
-.. image:: img/screenshot/potage_tranche_horaire.png
-
-
-.. image:: img/screenshot/RM_tranche_horaire.png

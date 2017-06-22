@@ -58,7 +58,7 @@
 			<div id="total_row">
 			    
 			<div id="payment_info">
-				<span>Compte: <t t-esc="categ_id.bankaccount" /></span>
+				<span>Compte: <b><t t-esc="categ_id.bankaccount" /></b></span>
 				<br />					
 				<span>BIC: <t t-esc="categ_id.bank_bic" /></span>
 				<br />	
@@ -87,7 +87,7 @@
 		<template id="report_payment_info_amount_one_row_prepaid" inherit_id="extraschool.report_payment_info_amount_one_row" primary="True">
 			<xpath expr="//div[@class='com_struct']" position="replace">	
 				<div class="com_struct">
-					<span>Communication structurée <b>obligatoire</b>:<br/>
+					<span>Communication structurée obligatoire :<br/>
 					 <b><t t-esc="parent_id.get_prepaid_comstruct(categ_id)" /></b></span>					
 				</div>	
 			</xpath>

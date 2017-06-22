@@ -14,6 +14,8 @@ Contents:
    checklist
    accueillantes
    inscriptions
+   facturier
+   truc-astuce
    
    
 
