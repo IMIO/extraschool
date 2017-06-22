@@ -75,7 +75,7 @@ class extraschool_activityoccurrence(models.Model):
                 hour = hour -1 if hour else 0
                 record.date_stop = datetime.strptime(record.occurrence_date + ' ' + str(hour).zfill(2) + ':' + str(minute).zfill(2) + ':00', DEFAULT_SERVER_DATETIME_FORMAT)
     
-    def add_presta(self,activity_occurrence,child_id,parent_activity_occurrence = None, verified = True, manualy_encoded = False, entry = True, exit = True,entry_time = None, exit_time = None,exit_all= False):
+    def add_presta(self,activity_occurrence,child_id,parent_activity_occurrence=None, verified=True, manualy_encoded=False, entry=True, exit=True,entry_time=None, exit_time=None,exit_all=False):
         prestation_times_obj = self.env['extraschool.prestationtimes']
         entry_time = entry_time if entry_time else activity_occurrence.prest_from
         exit_time = exit_time if exit_time else activity_occurrence.prest_to

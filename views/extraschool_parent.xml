@@ -50,7 +50,11 @@
                     <field name="workphone"/>
                     <newline/>
                     <field name="gsm"/>
-                    <field name="email"/>
+                    <!-- If invoicesendmethod use an email OR if remindersendmethod use an email. -->
+                    <field name="email" attrs="{'required':['|','|','|',('invoicesendmethod','=','onlyemail'),
+                                                                        ('invoicesendmethod','=','emailandmail'),
+                                                                        ('remindersendmethod','=','onlyemail'),
+                                                                        ('remindersendmethod','=','emailandmail')]}"/>
                     <newline/>
                     <field name="one_subvention_type"/>
                     <newline/>
