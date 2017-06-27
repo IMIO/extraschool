@@ -12,9 +12,11 @@ Contents:
    :maxdepth: 3
    
    checklist
+   aes-connexion
    accueillantes
    inscriptions
    facturier
+   config-smartphones
    truc-astuce
    
    
