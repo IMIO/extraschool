@@ -9,15 +9,15 @@ Facturier
 .. toctree::
    :maxdepth: 3
    
-#############
-Introduction.
-#############
+############
+Introduction
+############
 
 Un facturier est l’ensemble des factures des parents durant la période d’un mois. Celles-ci sont générés pour tous les établissements scolaires.
 
-#############
-Signalétique.
-#############
+############
+Signalétique
+############
 
 
 Pour effectuer la génération d’un facturier, il faut se rendre dans le menu “facturation”.

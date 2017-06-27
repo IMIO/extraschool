@@ -9,9 +9,9 @@ Connexion à AES pour la première fois
 .. toctree::
    :maxdepth: 3
    
-#############
-Introduction.
-#############
+############
+Introduction
+############
 
 Une fois que vous avez reçu le lien, votre identifiant et le mot de passe, vous pouvez dès maintenant accéder à l’application.
 L’application a souvent :

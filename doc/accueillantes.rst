@@ -9,23 +9,23 @@ Pointage des accueillantes
 .. toctree::
    :maxdepth: 3
    
-#############
-Introduction.
-#############
+############
+Introduction
+############
 
 Gestion des présences des accueillantes
 
-#############
-Signalétique.
-#############
+############
+Signalétique
+############
 
 .. image:: img/screenshot/accueillante_signa.png
 
 Horaire hebdomadaire : Nombre d'heures moyen que l'accueillante doit prester par semaine 
 
-********************
-Liste des présences.
-********************
+*******************
+Liste des présences
+*******************
 
 .. image:: img/screenshot/accueillante_liste_des_presences.png
 
@@ -35,7 +35,7 @@ Cette liste présente toutes les présences des accueillantes.
 Supprimer une présence
 ======================
 
-Sélectionner une ou plusieurs présences via la case à cocher qui se trouve à gauche de chaque ligne, 
+Sélectionner une ou plusieurs présence(s) via la case à cocher qui se trouve à gauche de chaque ligne,
 ensuite cliquer sur "autres options/supprimer"
 
 .. image:: img/screenshot/accueillante_liste_des_presences_delete.png
@@ -54,29 +54,29 @@ Modifier une présence
 Cliquer sur la présence à modifier et ensuite sur le bouton "Modifier" en haut du formulaire.
 Ne pas oublier de cliquer sur "Enregistrer" 
 
-######################
-Rapport des présences.
-######################
+#####################
+Rapport des présences
+#####################
 
 .. image:: img/screenshot/accueillante_rapport_des_presences.png
 
 Le rapport des présences des accueillantes présente les présences cumulées par accueillante et par jour, on y retrouve les informations suivantes :
 
-  * semaine : ex. 30/19 -> semaine 30 pour laquelle l'accueillante devait prester un total de 19h
+  * Semaine : ex. 30/19 -> semaine 30 pour laquelle l'accueillante devait prester un total de 19h
   * Horaire du jour : le nombre d'heures prestées sur la journée
   * Horaire cumulé : Nombre d'heures prestées depuis le debut de la semaine
   * Solde : Nombre d'heures restant à prester
-  * bouton "voir les présences liées" : Lien vers la liste des présences concernées pour l'accueillante et pour ce jour.
+  * Bouton "voir les présences liées" : Lien vers la liste des présences concernées pour l'accueillante et pour ce jour.
   
-##################
-Gerer les erreurs.
-##################
+#################
+Gerer les erreurs
+#################
 
 L'application smartphone ne gerant pas les erreurs (ex. double scan, scan manquant ...) il faut suivre régulièrement ce rapport.
 Dans la recherche avancée un filtre "Erreurs" permet de filtrer les lignes de présences dont le total des heures prestées est :
   
-  * inférieur à 0 (il manque probablement un scan d'entrée)
-  * supérieur à 12 (il manque probablement un scan de sortie)
+  * Inférieur à 0 (il manque probablement un scan d'entrée)
+  * Supérieur à 12 (il manque probablement un scan de sortie)
 
 Ces lignes sont en rouge dans la liste
 

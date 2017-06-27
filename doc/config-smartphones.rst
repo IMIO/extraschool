@@ -9,9 +9,9 @@ Configuration des smartphones
 .. toctree::
    :maxdepth: 3
    
-#############
-Introduction.
-#############
+############
+Introduction
+############
 
 Etapes à suivre pour la configuration des smartphones à l'application extraschool
 

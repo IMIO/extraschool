@@ -9,9 +9,9 @@ Trucs et astuces
 .. toctree::
    :maxdepth: 3
    
-#############
-Introduction.
-#############
+############
+Introduction
+############
 
 Liste utile à savoir sur l'application ou les smartphones.
 

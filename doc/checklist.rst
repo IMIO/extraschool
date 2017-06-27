@@ -9,21 +9,21 @@ Checklist avant lancement de projet !
 .. toctree::
    :maxdepth: 3
    
-#############
-Introduction.
-#############
+############
+Introduction
+############
 
 Avant de se lancer dans l'implémentation de la solution AES, il est important de se poser les bonnes questions qui feront de ce projet une success story.
 
 Certaines réponses se trouvent dans le règlement communal.
 
-#############
-Signalétique.
-#############
+############
+Signalétique
+############
 
-*******************
-Import des données.
-*******************
+******************
+Import des données
+******************
 Il est possible d'importer les fiches signalétiques enfant et parent venant de fichiers xls.
 Les logiciels de gestion d'école peuvent exporter ce genre de fichiers, il faut cependant faire attention à quelques détails.
 
@@ -44,9 +44,9 @@ Les logiciels de gestion d'école peuvent exporter ce genre de fichiers, il faut
 	
 		| :download:`ex. format.xls <doc/import.xls>`
 
-******
-Ecole.
-******
+*****
+Ecole
+*****
 On parle ici de l'entité administrative (direction), dont dépendent une ou plusieurs implantation(s)
 
 Champs obligatoires :
@@ -54,9 +54,9 @@ Champs obligatoires :
 * Nom
 * Adresse
 
-*************
-Implantation.
-*************
+************
+Implantation
+************
 On parle ici du batiment qui dépend d'une école (direction)
 
 Champs obligatoires :
@@ -65,9 +65,9 @@ Champs obligatoires :
 * Adresse
 * Nom de l'école dont elle dépend
 
-***************
-Lieu d'accueil.
-***************
+**************
+Lieu d'accueil
+**************
 Le lieu d'accueil est l'endroit ou se déroule une activité, il peut être partagé par plusieurs implantations scolaires.
 
 Champs obligatoires :
@@ -76,9 +76,9 @@ Champs obligatoires :
 * Adresse
 * Liste des implantations scolaires qui sont susceptibles d'y organiser des activités
 
-*******
-Parent.
-*******
+******
+Parent
+******
 Personne responsable à qui les documents seront adressés
 
 * Nom
@@ -93,9 +93,9 @@ Personne responsable à qui les documents seront adressés
 	* Email
 	* Courrier et email
 
-*******
-Enfant.
-*******
+******
+Enfant
+******
 Dans le cas d'enfant de parents séparés, l'enfant est encodé 2 fois dans l'application afin de simplifier la gestion administrative.
 
 * Factures séparées papa et maman.
@@ -123,9 +123,9 @@ Champs obligatoires :
 * Date de naissance
 * Parent responsable
 
-*********
-Activité.
-*********
+********
+Activité
+********
 On entend par activité, toute période de temps nécessitant le suivi de la présence de l'enfant
 ex. Accueil du matin, repas de midi, bricolage du mercredi ...
 
@@ -152,9 +152,9 @@ Champs obligatoires :
 * Catégorie d'activité
 * Est-ce qu'il y a des regroupements de plusieurs implantations scolaires sur le même lieu d'accueil ?
 
-*********************
-Catégorie d'activité.
-*********************
+********************
+Catégorie d'activité
+********************
 
 Les activités sont gérées par des pouvoirs organisateurs qui sont parfois indépendants et qui ont leurs propres règles, 
 c'est ici que nous allons les définir.
@@ -177,9 +177,9 @@ c'est ici que nous allons les définir.
  		* Facture
  		* Rappel
 
-####################
-Journée pédagogique.
-####################
+###################
+Journée pédagogique
+###################
 
 * Avez-vous déjà les dates ?
 * Faut-il être inscrit ?
@@ -187,9 +187,9 @@ Journée pédagogique.
 * Où est organisé l'accueil ces jours là ?
 
 
-##############
-Liste de prix.
-##############
+#############
+Liste de prix
+#############
 
 * Quel prix est associé à quelle activité ?
 * Réduction en fonction de la position de l'enfant
@@ -243,9 +243,9 @@ Liste de prix.
 	
 		
 
-###########
-Smartphone.
-###########
+##########
+Smartphone
+##########
 Le smartphone est utilisé par les accueillantes pour enregistrer les présences des enfants.
  
 * Le smartphone est dédié à la gestion des présence	
@@ -272,9 +272,9 @@ Le smartphone est utilisé par les accueillantes pour enregistrer les présences
  		* Pas toujours disponible
  		* Un abonnement est obligatoire, le plus petit convient parfaitement
 
-#########
-QR-Codes.
-#########
+########
+QR-Codes
+########
 Il en faut un par enfant
 
 * Ils sont habituellement distibués dans les écoles, par classe afin de ne pas désorganiser l'accueil les premiers jours

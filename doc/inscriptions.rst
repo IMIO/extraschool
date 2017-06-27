@@ -9,15 +9,15 @@ Inscriptions
 .. toctree::
    :maxdepth: 3
    
-#############
-Introduction.
-#############
+############
+Introduction
+############
 
 Gestion des inscriptions des enfants et multiactivités
 
-#############
-Signalétique.
-#############
+############
+Signalétique
+############
 
 
 Inscription : Encodage de la liste des enfants inscrits à une ou plusieurs activité(s)
@@ -33,9 +33,9 @@ Sur la fiche d’inscription, différents champs sont obligatoires :
 
 La classe étant un champ non obligatoire.
 
-##########################
+#########################
 Encodage des inscritpions
-##########################
+#########################
 
 
 
@@ -46,9 +46,9 @@ Il y a deux possibilités pour compléter les lignes des inscriptions des enfant
 
 Dans les lignes des inscriptions, il y a possibilité de choisir entre Potage (P), repas maternelle (RM) ou repas primaire (RP) pour tous les jours de la semaine.
 
-##########################
+########################
 Rapport des inscriptions
-##########################
+########################
 
 Grâce à cette liste d’inscrits, des rapports sont disponibles à partir du bouton “Imprimer” :
 
@@ -101,9 +101,9 @@ Inconvénients
   * Encodage + vérification …. très lourd
 
 
-***************************
+**************************
 Utilisation du scan Simple
-***************************
+**************************
 
 .. image:: img/screenshot/potage_scan.png
 
