@@ -36737,12 +36737,12 @@ msgstr "Rue"
 #. module: extraschool
 #: field:extraschool.place,street_code:0
 msgid "Street Code"
-msgstr "Street Code"
+msgstr "N°"
 
 #. module: extraschool
 #: field:extraschool.parent,streetcode:0
 msgid "Street code"
-msgstr "Code rue"
+msgstr "N°"
 
 #. module: base
 #: view:res.bank:base.view_res_bank_form
