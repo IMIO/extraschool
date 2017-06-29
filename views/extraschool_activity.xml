@@ -36,6 +36,9 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
             <form string="Activity">
+				<header>
+					<button name="extraschool.activity_invoicedprestations_wizard" string="Invoiced Prestation" type="action"/>
+            	</header>
 	            <group col="4">  
 	                <field name="name"/>
 	                <field name="category" />

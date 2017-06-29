@@ -63,7 +63,35 @@ class extraschool_biller(models.Model):
     filename = fields.Char('filename', size=20,readonly=True)
     biller_file = fields.Binary('File', readonly=True)
     pdf_ready = fields.Boolean(string="Pdf ready", default=False)
-    oldid = fields.Integer('oldid')  
+    oldid = fields.Integer('oldid')
+
+    @api.multi
+    def biller_refactor(self):
+        cr = self.env.cr
+        print ("Récupération des Prestation Times contenant des NULL.")
+        cr.execute("SELECT DISTINCT(ep.prestation_times_of_the_day_id) "
+                   "FROM extraschool_prestationtimes AS ep "
+                   "WHERE prestation_date BETWEEN '2017-01-01' AND '2017-03-31' "
+                   "AND invoiced_prestation_id IS NULL;"
+                   )
+        pod = cr.fetchall()
+
+        arg = []
+
+        for prestation_time_delete in pod:
+            prestation_time_check = self.env['extraschool.prestationtimes'].search([
+                                                                  ('prestation_times_of_the_day_id', 'in', prestation_time_delete),
+                                                                  ('invoiced_prestation_id', '!=', 'Null')
+                                                                  ])
+            if prestation_time_check:
+                to_delete = self.env['extraschool.prestationtimes'].search([
+                                                                  ('prestation_times_of_the_day_id', 'in', prestation_time_delete),
+                                                                  ('invoiced_prestation_id', '=', 'Null')
+                                                                  ])
+                print ("Suppression des Prestations: %s" % (to_delete))
+                arg.append(to_delete.ids)
+
+        self.env['extraschool.prestationtimes'].search(['id', 'in', arg]).unlink(True)
 
     @api.multi
     def name_get(self):            

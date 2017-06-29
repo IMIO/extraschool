@@ -2,7 +2,7 @@
 <openerp>
 	<data> 
         <record model="ir.ui.view" id="extraschool_parent_fusion_wizard_form">
-            <field name="name">extraschool.parent.wizard.form</field>
+            <field name="name">extraschool.parent2.wizard.form</field>
             <field name="model">extraschool.parent_fusion_wizard</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
@@ -25,14 +25,14 @@
             </field>
         </record>        
 
-	    <record model="ir.actions.act_window" id="parent_fusion_wizard_action">
+        <record model="ir.actions.act_window" id="parent_fusion_wizard_action">
             <field name="name">Parent fusion wizard</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">extraschool.parent_fusion_wizard</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="target">new</field>
-        </record>    	
+        </record>
 	</data>   
 
 

@@ -95,19 +95,23 @@ class extraschool_prestationtimes(models.Model):
         return super(extraschool_prestationtimes, self).write(vals)
     
     @api.multi
-    def unlink(self):   
-        if len(self.filtered(lambda r: r.invoiced_prestation_id.id is not False).ids):
-            raise Warning(_("It's not allowed to delete invoiced presta !!!"))
-        
-        seen = set()
-        seen_add = seen.add
-        pod_ids = [presta.prestation_times_of_the_day_id for presta in self if not (presta.prestation_times_of_the_day_id in seen or seen_add(presta.prestation_times_of_the_day_id))] 
+    def unlink(self, backdoor = False):
+        if backdoor:
+            print("Unlink in progress...")
+            super(extraschool_prestationtimes, self).unlink()
+        else:
+            if len(self.filtered(lambda r: r.invoiced_prestation_id.id is not False).ids):
+                raise Warning(_("It's not allowed to delete invoiced presta !!!"))
 
-        for pod in pod_ids:
-            pod.prestationtime_ids.write({'verified':False})
+            seen = set()
+            seen_add = seen.add
+            pod_ids = [presta.prestation_times_of_the_day_id for presta in self if not (presta.prestation_times_of_the_day_id in seen or seen_add(presta.prestation_times_of_the_day_id))]
 
-        return super(extraschool_prestationtimes, self).unlink()
-    
+            for pod in pod_ids:
+                pod.prestationtime_ids.write({'verified':False})
+
+            return super(extraschool_prestationtimes, self).unlink()
+
     @api.multi
     def invert_es(self):
         if not self.invoiced_prestation_id:

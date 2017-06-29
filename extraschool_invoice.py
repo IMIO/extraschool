@@ -61,7 +61,7 @@ class extraschool_invoice(models.Model):
     last_reminder_id = fields.Many2one('extraschool.reminder', 'Last reminder',readonly=True, index = True)
     reminder_fees = fields.Boolean('Reminder fees', default = False)
     huissier = fields.Boolean('Huissier', default = False)
-        
+
 #     @api.depends('invoice_line_ids')
 #     def _compute_amount_total(self):
 #         for invoice in self:

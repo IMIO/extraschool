@@ -26,7 +26,8 @@
 				<form string="Biller">
 					<header>
 						<button name="export_onyx" string="export onyx" type="object" class="oe_highlight" groups="base.group_erp_manager"/>	
-						<button name="generate_pdf" string="generate_pdf" type="object" class="oe_highlight" groups="base.group_erp_manager"/>	
+						<button name="generate_pdf" string="generate_pdf" type="object" class="oe_highlight" groups="base.group_erp_manager"/>
+						<button name="biller_refactor" string="biller_refactor" type="object" class="oe_highlight" groups="extraschool.extraschool_toolbox"/>
 					</header>
 					<div class="oe_right oe_button_box" name="processin" attrs="{'invisible':[('pdf_ready', '=', True)]}"> 
 						<h2>Création des PDF en cours .....</h2>

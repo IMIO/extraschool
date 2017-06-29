@@ -288,7 +288,6 @@ class extraschool_child_registration(models.Model):
         #delete all related records
         occu_reg_obj = self.env['extraschool.activity_occurrence_child_registration']
         prestation_times_obj = self.env['extraschool.prestationtimes']
-        
         occu_reg_ids = occu_reg_obj.search([('child_registration_line_id.child_registration_id', '=', self.id)])
         print "occu_reg_ids : %s" % (occu_reg_ids)
         for occu_reg in occu_reg_ids:
@@ -297,7 +296,6 @@ class extraschool_child_registration(models.Model):
                                              ('activity_occurrence_id', '=',occu_reg.activity_occurrence_id.id)])
                 if len(presta_ids.filtered(lambda record: record.invoiced_prestation_id.id > 0)):
                     raise Warning(_("At least one registration line is already invoiced !"))
-    
                 presta_ids.unlink()
         occu_reg_ids.unlink()     
         self.state = 'draft'   
