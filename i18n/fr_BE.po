@@ -15007,7 +15007,7 @@ msgstr "Aged balance"
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_aged_balance_report
 #: model:ir.ui.menu,name:extraschool.extraschool_menu_aged_balance_report
 msgid "Aged balance Report"
-msgstr "Aged balance Report"
+msgstr "Rapport de balance"
 
 #. module: extraschool
 #: field:extraschool.aged_balance_item,aged_balance_id:0
@@ -15645,7 +15645,7 @@ msgstr "Montant"
 #. module: extraschool
 #: field:extraschool.coda,amount_accepted:0
 msgid "Amount accepted"
-msgstr "Amount accepted"
+msgstr "Montant accepté"
 
 #. module: extraschool
 #: code:addons/extraschool/extraschool_coda.py:146
@@ -15656,12 +15656,12 @@ msgstr "Montant supérieur à la balance de la facture"
 #. module: extraschool
 #: field:extraschool.payment_wizard,reconciliation_amount:0
 msgid "Amount reconcilied"
-msgstr "Amount reconcilied"
+msgstr "Montant réconcilié"
 
 #. module: extraschool
 #: field:extraschool.coda,amount_rejected:0
 msgid "Amount rejected"
-msgstr "Amount rejected"
+msgstr "Montant rejeté"
 
 #. module: extraschool
 #: field:extraschool.payment_wizard,reconciliation_amount_balance:0
@@ -16970,7 +16970,7 @@ msgstr "CKEditor 4.x widget"
 #. module: extraschool
 #: field:extraschool.coda,codadate:0
 msgid "CODA Date"
-msgstr "CODA Date"
+msgstr "Date du fichier CODA"
 
 #. module: extraschool
 #: field:extraschool.coda,codafile:0
@@ -22265,7 +22265,7 @@ msgstr "Type de document"
 #. module: extraschool
 #: field:extraschool.taxcertificate,doc_date:0
 msgid "Document date"
-msgstr "Document date"
+msgstr "Date du document"
 
 #. module: knowledge
 #: help:knowledge.config.settings,module_document:0
@@ -23339,7 +23339,7 @@ msgstr "Heure de sortie"
 #. module: extraschool
 #: field:extraschool.reminders_journal_biller_item,exit_accounting_amount:0
 msgid "Exit accounting amount"
-msgstr "Exit accounting amount"
+msgstr "Montant comptable de sortie"
 
 #. module: extraschool
 #: field:extraschool.prestationtimes,exit_all:0
@@ -24168,7 +24168,7 @@ msgstr "Prénom"
 #. module: extraschool
 #: field:extraschool.taxcertificate,name:0
 msgid "Fiscal Year"
-msgstr "Fiscal Year"
+msgstr "Année fiscale"
 
 #. module: extraschool
 #: selection:extraschool.remindertype,fees_type:0
@@ -26347,7 +26347,7 @@ msgstr "Import des enfants"
 #: field:extraschool.child,last_import_date:0
 #: field:extraschool.parent,last_import_date:0
 msgid "Import date"
-msgstr "Import date"
+msgstr "Date d'importation"
 
 #. module: extraschool
 #: field:extraschool.childsimportfilter,importlevelrule_ids:0
@@ -27078,7 +27078,7 @@ msgstr "Date de factures"
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_invoices_stat
 #: model:ir.ui.menu,name:extraschool.extraschool_menu_invoice_stat
 msgid "Invoices stat"
-msgstr "Invoices stat"
+msgstr "Statistique de facturation"
 
 #. module: base
 #: model:ir.module.category,name:base.module_category_account_voucher
@@ -28909,7 +28909,7 @@ msgstr "Île Maurice"
 #: selection:extraschool.discount.version,type:0
 #: field:extraschool.price_list_version,max_price:0
 msgid "Max price"
-msgstr "Max price"
+msgstr "Prix maximum"
 
 #. module: extraschool
 #: field:extraschool.smartphone,maxtimedelta:0
@@ -29415,7 +29415,7 @@ msgstr "Modifié par :"
 #: field:extraschool.child,modified_since_last_import:0
 #: field:extraschool.parent,modified_since_last_import:0
 msgid "Modified since last import"
-msgstr "Modified since last import"
+msgstr "Modifié depuis la dernière importation"
 
 #. module: web
 #. openerp-web
@@ -29857,7 +29857,7 @@ msgstr "Nb m enfants"
 #. module: extraschool
 #: field:extraschool.biller,nbinvoices:0
 msgid "Nb of invoices"
-msgstr "Nb of invoices"
+msgstr "Nombre de facture"
 
 #. module: extraschool
 #: field:extraschool.one_report,nb_p_childs:0
@@ -29869,17 +29869,17 @@ msgstr "Nb p enfants"
 #: field:extraschool.parent,nbr_actif_child:0
 #: field:extraschool.payment_status_report,nbr_actif_child:0
 msgid "Nbr actif child"
-msgstr "Nbr actif child"
+msgstr "Nombre d'enfant actif"
 
 #. module: extraschool
 #: field:extraschool.presta_stat,nbr_child:0
 msgid "Nbr childs"
-msgstr "Nbr childs"
+msgstr "Nombre d'enfants"
 
 #. module: extraschool
 #: field:extraschool.taxcertificate_item,nbr_day:0
 msgid "Nbr day"
-msgstr "Nbr day"
+msgstr "Nbre jours"
 
 #. module: base_import
 #. openerp-web
@@ -30100,7 +30100,7 @@ msgstr "No Update:"
 #. module: extraschool
 #: field:extraschool.biller,novalue:0
 msgid "No Value"
-msgstr "No Value"
+msgstr "Non valeur"
 
 #. module: extraschool
 #: code:addons/extraschool/extraschool_coda.py:75
@@ -30802,8 +30802,9 @@ msgstr "Propriété \"Lors de la supression\" pour les champs \"many2one\""
 
 #. module: extraschool
 #: field:extraschool.activity,on_tax_certificate:0
-msgid "On tax certificate"
-msgstr "On tax certificate"
+msgid "
+"
+msgstr "Sur l'attestation fiscale"
 
 #. module: base_setup
 #: view:base.config.settings:base_setup.view_general_configuration
@@ -32867,7 +32868,7 @@ msgstr "Présences d'une journée"
 #. module: extraschool
 #: model:ir.model,name:extraschool.model_extraschool_presta_stat
 msgid "Prestation statistique"
-msgstr "Prestation statistique"
+msgstr "Statistique de présence"
 
 #. module: extraschool
 #: view:extraschool.activityoccurrence:extraschool.extraschool_activityoccurrence_form
@@ -32901,7 +32902,7 @@ msgstr "Présences par jour"
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_presta_stat_tree
 #: model:ir.ui.menu,name:extraschool.extraschool_menu_presta_stat_tree
 msgid "Prestations stat"
-msgstr "Prestations stat"
+msgstr "Statistiques de présences"
 
 #. module: extraschool
 #: selection:extraschool.prestationscheck_wizard,state:0
@@ -33349,7 +33350,7 @@ msgstr "Qatar"
 #. module: extraschool
 #: selection:extraschool.qrcodes_wizard,print_type:0
 msgid "Qr Code"
-msgstr "Qr Code"
+msgstr "QR Code"
 
 #. module: extraschool
 #: model:ir.actions.report.xml,name:extraschool.qrcodes_wizard_precut_report
@@ -33587,7 +33588,7 @@ msgstr "Réconciliation"
 #. module: extraschool
 #: field:extraschool.aged_balance,aged_date:0
 msgid "Reconcil Date"
-msgstr "Reconcil Date"
+msgstr "Date de réconciliation"
 
 #. module: extraschool
 #: code:addons/extraschool/extraschool_payment_wizard.py:133
@@ -33598,7 +33599,7 @@ msgstr "Le montant réconcilié doit être inférieur au montant du paiement"
 #. module: extraschool
 #: field:extraschool.payment_reconciliation,date:0
 msgid "Reconcil date"
-msgstr "Reconcil date"
+msgstr "Date de réconciliation"
 
 #. module: extraschool
 #: view:extraschool.payment_wizard:extraschool.extraschool_payment_wizard_form
@@ -33792,7 +33793,7 @@ msgstr "Cause du rejet"
 #. module: extraschool
 #: view:extraschool.coda:extraschool.extraschool_coda_form
 msgid "Rejected payments"
-msgstr "paiements rejetés"
+msgstr "Paiements rejetés"
 
 #. module: extraschool
 #: view:extraschool.coda:extraschool.extraschool_coda_form
@@ -33908,7 +33909,7 @@ msgstr "Préfixe de communication structurée (Rappels)"
 #. module: extraschool
 #: field:extraschool.reminders_journal_biller_item,reminder_amount:0
 msgid "Reminder amount"
-msgstr "Reminder amount"
+msgstr "Montant du rappel"
 
 #. module: extraschool
 #: view:extraschool.reminders_journal_biller_item:extraschool.extraschool_reminders_journal_biller_item_form
@@ -33924,7 +33925,7 @@ msgstr "Reminder cost type"
 #. module: extraschool
 #: view:extraschool.remindersjournal:extraschool.extraschool_reminders_journal_form
 msgid "Reminder courrier"
-msgstr "Reminder courrier"
+msgstr "Rappel par courrier"
 
 #. module: extraschool
 #: field:extraschool.activitycategory,reminderemailaddress:0
@@ -33944,29 +33945,29 @@ msgstr "Texte email rappels"
 #. module: extraschool
 #: view:extraschool.remindersjournal:extraschool.extraschool_reminders_journal_form
 msgid "Reminder factures"
-msgstr "Reminder factures"
+msgstr "Rappel par Email"
 
 #. module: extraschool
 #: field:extraschool.invoice,reminder_fees:0
 msgid "Reminder fees"
-msgstr "Reminder fees"
+msgstr "Frais de rappels"
 
 #. module: extraschool
 #: field:extraschool.reminders_journal_biller_item,reminders_journal_id:0
 #: field:extraschool.reminders_journal_item,reminders_journal_id:0
 #: view:extraschool.remindersjournal:extraschool.extraschool_reminder_journal_tree
 msgid "Reminder journal"
-msgstr "Reminder journal"
+msgstr "Journal des rappels"
 
 #. module: extraschool
 #: field:extraschool.remindersjournal,reminders_journal_item_ids:0
 msgid "Reminder journal item"
-msgstr "Reminder journal item"
+msgstr "Objet du journal des rappels"
 
 #. module: extraschool
 #: model:ir.actions.act_window,name:extraschool.reminder_mass_mail
 msgid "Reminder mail"
-msgstr "Reminder mail"
+msgstr "Rappel par Email"
 
 #. module: extraschool
 #: field:extraschool.parent,remindersendmethod:0
@@ -34007,7 +34008,7 @@ msgstr "Journal des Rappels"
 #: view:extraschool.remindertype:extraschool.extraschool_reminder_type_form
 #: view:extraschool.remindertype:extraschool.extraschool_reminder_type_tree
 msgid "Reminders Type"
-msgstr "Reminders Type"
+msgstr "Type de rappel"
 
 #. module: extraschool
 #: field:extraschool.remindersjournal,remindersjournal_biller_item_ids:0
@@ -34017,7 +34018,7 @@ msgstr "Reminders biller item"
 #. module: extraschool
 #: view:extraschool.remindersjournal:extraschool.extraschool_reminders_journal_form
 msgid "Reminders biller summary"
-msgstr "Reminders biller summary"
+msgstr "Résumé des rappels"
 
 #. module: extraschool
 #: field:extraschool.reminder,reminders_journal_id:0
@@ -34034,12 +34035,12 @@ msgstr "Reminders journal biller item"
 #: field:extraschool.reminder,reminders_journal_item_id:0
 #: model:ir.model,name:extraschool.model_extraschool_reminders_journal_item
 msgid "Reminders journal item"
-msgstr "Reminders journal item"
+msgstr "Objet du journal des rappels"
 
 #. module: extraschool
 #: view:extraschool.remindersjournal:extraschool.extraschool_reminders_journal_form
 msgid "Reminders type"
-msgstr "Reminders type"
+msgstr "Type de rappel"
 
 #. modules: web, extraschool, web_view_editor, email_template
 #. openerp-web
@@ -35314,7 +35315,7 @@ msgstr "Sélectionnable"
 #. module: extraschool
 #: field:extraschool.activity,selectable_on_registration:0
 msgid "Selectable on registration form"
-msgstr "sélectionnable sur le formulaire d'inscription"
+msgstr "Sélectionnable sur le formulaire d'inscription"
 
 #. module: mail
 #: selection:mail.group,public:0
@@ -35326,7 +35327,7 @@ msgstr "Groupe sélectionné uniquement"
 #: view:extraschool.price_list_version:extraschool.extraschool_price_list_version_form
 #: view:extraschool.remindertype:extraschool.extraschool_reminder_type_form
 msgid "Selection"
-msgstr "Sélection"
+msgstr "Catégorie tarifaire"
 
 #. module: base
 #: field:ir.model.fields,selection:0
@@ -37156,7 +37157,7 @@ msgstr "Target model uses the need action mechanism"
 #. module: extraschool
 #: field:extraschool.activity,tarif_group_name:0
 msgid "Tarif group name"
-msgstr "Tarif group name"
+msgstr "Nom du tarif de groupe"
 
 #. module: extraschool
 #: view:website:extraschool.tpl_taxe_certificate_wizard_report
@@ -37170,12 +37171,12 @@ msgstr "Tarif journalier (2) :"
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_taxcertificate
 #: model:ir.ui.menu,name:extraschool.extraschool_menu_taxcertificate
 msgid "Tax Certificate"
-msgstr "Tax Certificate"
+msgstr "Attestation fiscale"
 
 #. module: extraschool
 #: field:extraschool.activitycategory,taxcertificatetemplate:0
 msgid "Tax Certificate Template"
-msgstr "Tax Certificate Template"
+msgstr "Modèle d'attestation fiscale"
 
 #. module: extraschool
 #: view:extraschool.taxcertificates_wizard:extraschool.extraschool_taxcertificates_wizard_form
@@ -37212,18 +37213,18 @@ msgstr "Taxcertificate item"
 #. module: extraschool
 #: field:extraschool.taxcertificate_item,taxcertificate_id:0
 msgid "Taxe certif"
-msgstr "Taxe certif"
+msgstr "Attestation fiscale (Année)"
 
 #. module: extraschool
 #: view:extraschool.taxcertificate:extraschool.extraschool_taxcertificate_form
 msgid "Taxe certificate"
-msgstr "Taxe certificate"
+msgstr "Attestation fiscale"
 
 #. module: extraschool
 #: code:addons/extraschool/extraschool_taxcertificate.py:26
 #, python-format
 msgid "Taxe certificate already exist"
-msgstr "Taxe certificate already exist"
+msgstr "L'attestation fiscale existe déjà"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_website_hr
@@ -38491,7 +38492,7 @@ msgstr "Total des montants facturés"
 #. module: extraschool
 #: field:extraschool.aged_balance_item,total_no_value:0
 msgid "Total no value"
-msgstr "Total no value"
+msgstr "Total non valeur"
 
 #. module: extraschool
 #: field:extraschool.aged_balance_item,total_received:0
@@ -38517,7 +38518,7 @@ msgstr "Toutes les factures"
 #. module: extraschool
 #: view:extraschool.remindersjournal:extraschool.extraschool_reminders_journal_form
 msgid "Toutes les reminder"
-msgstr "Toutes les reminder"
+msgstr "Tous les rappels"
 
 #. module: base_import
 #. openerp-web
@@ -38645,7 +38646,7 @@ msgstr "Transmission"
 #. module: extraschool
 #: field:extraschool.remindersjournal,transmission_date:0
 msgid "Transmission date"
-msgstr "Transmission date"
+msgstr "Date de transmission"
 
 #. module: extraschool
 #: field:extraschool.smartphone,transmissiontime:0
@@ -39166,17 +39167,17 @@ msgstr "Update a record linked to the current record using python"
 #. module: extraschool
 #: view:extraschool.mainsettings:extraschool.extraschool_mainsettings_form
 msgid "Update level"
-msgstr "Update level"
+msgstr "Màj du niveau"
 
 #. module: extraschool
 #: view:extraschool.mainsettings:extraschool.extraschool_mainsettings_form
 msgid "Update parent send method"
-msgstr "Update parent send method"
+msgstr "Màj de la méthode d'envoi des parents"
 
 #. module: extraschool
 #: view:extraschool.mainsettings:extraschool.extraschool_mainsettings_form
 msgid "Update presta stat"
-msgstr "Update presta stat"
+msgstr "Màj des statistiques de présences"
 
 #. module: base
 #: selection:ir.actions.server,use_write:0
@@ -42520,7 +42521,7 @@ msgstr "Dossier des fichiers coda traités"
 #. module: extraschool
 #: field:extraschool.mainsettings,qrencode:0
 msgid "qrencode"
-msgstr "qr code"
+msgstr "QR Code"
 
 #. module: mail
 #. openerp-web
@@ -42554,12 +42555,12 @@ msgstr "Rappels"
 #. module: extraschool
 #: field:extraschool.reminder,transmission_date:0
 msgid "reminders_journal_id.transmission_date"
-msgstr "reminders_journal_id.transmission_date"
+msgstr "Date de transmission"
 
 #. module: extraschool
 #: field:extraschool.reminder,payment_term:0
 msgid "reminders_journal_item_id.payment_term"
-msgstr "reminders_journal_item_id.payment_term"
+msgstr "Condition de paiement"
 
 #. module: report
 #: view:website:report.layout
@@ -42614,7 +42615,7 @@ msgstr "afficher un message de plus"
 #: field:extraschool.payment_report,solde:0
 #: field:extraschool.payment_status_report,solde:0
 msgid "solde"
-msgstr "solde"
+msgstr "Solde"
 
 #. module: extraschool
 #: field:extraschool.activitycategory,po_stamp:0
