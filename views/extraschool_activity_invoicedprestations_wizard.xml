@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+        <record model="ir.ui.view" id="extraschool_activity_invoicedprestations_wizard_form">
+            <field name="name">extraschool.invoiced.prestation.wizard.form</field>
+            <field name="model">extraschool.activity_invoicedprestations_wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="invoiced prestation wizard">
+                    <group col="4">
+                        <field name="dateLastInvoice"/>
+                    </group>
+                    <group colspan="4" col="3">
+                        <button name="reset_populate" group="admin" string="Correction" icon="gtk-apply" type="object" />
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="activity_invoicedprestations_wizard_action">
+            <field name="name">Invoiced Prestation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">extraschool.activity_invoicedprestations_wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+	</data>
+
+
+</openerp>
