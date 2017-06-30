@@ -27,14 +27,14 @@
 	                <field name="city"/>
 	                <newline/>       
 	                <field name="schoolimplantations">
-			            <form string="School Implantation"> 
-			            <group col="4">
+			            <form string="School Implantation">
+			            <group colspan="4" style="width:40%%">
 			                <field name="name"/>
 			                <newline/>
-			                <field name="street"/> 
+			                <field name="street"/>
 			                <newline/>
-			                <field name="zipcode"/>        
-			                <field name="city"/>			                		                
+			                <field name="zipcode"/>
+			                <field name="city"/>
 			            </group>
 			            </form>            		
 	                </field>
