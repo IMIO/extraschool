@@ -13,7 +13,8 @@
                     <field name="total" sum="True"/>
                     <field name="received" sum="True"/>
                     <field name="novalue" sum="True"/>
-                    <field name="balance" sum="True"/>                    	
+                    <field name="balance" sum="True"/>
+					<field name="other_ref"/>
                 </tree>
 			</field>
 		</record>
