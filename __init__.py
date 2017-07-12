@@ -86,6 +86,5 @@ import extraschool_one_report
 import extraschool_settings
 import extraschool_payment
 import extraschool_payment_wizard
-import extraschool_activity_invoicedprestations_wizard
 
 

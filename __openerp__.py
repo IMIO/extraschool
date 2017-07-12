@@ -35,7 +35,7 @@
     'demo' : [],
     'test' : [],
     'data' : [  
-#        'scripts/alter_school_implantation_drop_street_code.sql',        
+        'scripts/update_noemail.sql',
         'scripts/update_seq.xml',
                 
         'views/extraschool_activitycategory.xml',
@@ -89,7 +89,6 @@
         'views/extraschool_child_registration_wizard.xml',        
         'views/extraschool_settings.xml',
         'views/widgets.xml',
-        'views/extraschool_activity_invoicedprestations_wizard.xml',
         'extraschool_report.xml',
         'security/extraschool_security.xml',
         'security/ir.model.access.csv',
