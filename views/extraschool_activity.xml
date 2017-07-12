@@ -53,9 +53,6 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Activity">
-                <header>
-                    <button name="open_last_date_invoice_wizard" string="Invoiced Prestation" type="object"/>
-                </header>
                 <group col="4">
                     <field name="name"/>
                     <field name="category" />

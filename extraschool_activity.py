@@ -293,7 +293,6 @@ class extraschool_activity(models.Model):
 
     @api.multi
     def write(self, vals):
-        return self.open_last_date_invoice_wizard()
         for activity in self:
 
             # Check Validity Date & Hour.
