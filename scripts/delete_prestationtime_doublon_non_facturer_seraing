@@ -1,0 +1,13 @@
+DELETE FROM extraschool_prestationtimes
+WHERE invoiced_prestation_id is NULL
+AND prestation_times_of_the_day_id in (
+			           SELECT DISTINCT(ep.prestation_times_of_the_day_id)
+				   FROM extraschool_prestationtimes AS ep
+				   WHERE prestation_date BETWEEN '2017-01-01' AND '2017-03-31'
+				   AND invoiced_prestation_id IS NULL
+				   and ep.prestation_times_of_the_day_id in (
+									   SELECT DISTINCT(ep.prestation_times_of_the_day_id)
+									   FROM extraschool_prestationtimes AS ep
+									   WHERE prestation_date BETWEEN '2017-01-01' AND '2017-03-31'
+									   AND invoiced_prestation_id IS NOT NULL));               
+

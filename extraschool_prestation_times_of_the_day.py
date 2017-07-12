@@ -24,8 +24,9 @@
 from openerp import models, api, fields, _
 from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
-from datetime import date
-import datetime
+from datetime import date, datetime, timedelta as td
+import time
+
 
 
 class extraschool_prestation_times_of_the_day(models.Model):
@@ -94,10 +95,20 @@ class extraschool_prestation_times_of_the_day(models.Model):
             
                     
     @api.multi
-    def reset(self):       
+    def reset(self):
+        total = len(self)
+        time_list = []
         for presta in self:
+            start_time = time.time()
+
+            if len(time_list) == 10:
+                avg_time = float(sum(time_list) / len(time_list)) * total
+                avg_time = time.strftime('%M:%S', time.gmtime(avg_time))
+                print "Il reste ", avg_time
+                time_list = []
+            total -= 1
             #Check if presta is not invoiced
-            if len(presta.prestationtime_ids.filtered(lambda r: r.invoiced_prestation_id.id is not False).ids) == 0:                   
+            if len(presta.prestationtime_ids.filtered(lambda r: r.invoiced_prestation_id.id is not False).ids) == 0:
                 presta.prestationtime_ids.unlink()
                 for pda_presta in presta.pda_prestationtime_ids:
                     presta.prestationtime_ids.create({'placeid': pda_presta.placeid.id,
@@ -105,9 +116,9 @@ class extraschool_prestation_times_of_the_day(models.Model):
                                                       'prestation_date': pda_presta.prestation_date,
                                                       'prestation_time': pda_presta.prestation_time,
                                                       'es': pda_presta.es,
-                                                      'activity_category_id': pda_presta.activitycategoryid.id,                                                  
+                                                      'activity_category_id': pda_presta.activitycategoryid.id,
                                                       })
-                
+
                 reg_ids = self.env['extraschool.activity_occurrence_child_registration'].search([('child_id', '=',presta.child_id.id),
                                                                                                  ('activity_occurrence_id.occurrence_date', '=', presta.date_of_the_day),
                                                                                                  ('activity_occurrence_id.activity_category_id', '=', presta.activity_category_id.id),
@@ -116,6 +127,8 @@ class extraschool_prestation_times_of_the_day(models.Model):
                     if reg.activity_occurrence_id.activityid.autoaddchilds:
                         reg.activity_occurrence_id.add_presta(reg.activity_occurrence_id, reg.child_id.id, None,False)
                 presta.verified = False;
+
+            time_list.append(time.time() - start_time)
         
     @api.onchange('prestationtime_ids', 'pda_prestationtime_ids')
     def on_change_prestationtime_ids(self):
@@ -393,8 +406,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
     
     @api.multi      
     def check(self):
-        print "_check presta of the day" 
-        
+        print "check presta of the day"
         #Check if presta is not invoiced
         if len(self.prestationtime_ids.filtered(lambda r: r.invoiced_prestation_id.id is not False).ids) == 0:                  
             #if no presta than warning and exit
@@ -405,7 +417,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
                        
             #Get distinct ROOT activity ID
             str_prestation_ids = str(self.prestationtime_ids.ids).replace('[','(').replace(']',')')
-            for prestation in self.prestationtime_ids.filtered(lambda r: not r.activity_occurrence_id):   
+            for prestation in self.prestationtime_ids.filtered(lambda r: not r.activity_occurrence_id):
 #                print "add activity occurrence id "       
                 self.env['extraschool.prestationscheck_wizard']._prestation_activity_occurrence_completion(prestation)
 #            print "str_prestation_ids %s" % str_prestation_ids

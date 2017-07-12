@@ -297,9 +297,9 @@ class extraschool_child_registration(models.Model):
                 if len(presta_ids.filtered(lambda record: record.invoiced_prestation_id.id > 0)):
                     raise Warning(_("At least one registration line is already invoiced !"))
                 presta_ids.unlink()
-        occu_reg_ids.unlink()     
-        self.state = 'draft'   
-            
+        occu_reg_ids.unlink()
+        self.state = 'draft'
+
     @api.one
     def set_to_draft(self):
         if self.state == 'to_validate':

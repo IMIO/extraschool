@@ -27,8 +27,10 @@ from openerp.exceptions import except_orm, Warning
 from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
 
+from openerp.tools.misc import profile
 from datetime import date, datetime, timedelta as td
 import time
+import pdb
 from openerp.exceptions import except_orm, Warning, RedirectWarning
 
 import extraschool_activityplanneddate
@@ -69,7 +71,7 @@ class extraschool_activity(models.Model):
     validity_from = fields.Date('Validity from', index=True, required=True)
     validity_to = fields.Date('Validity to', index=True, required=True)
     selectable_on_registration = fields.Boolean('Selectable on registration form')
-#    registration_only = fields.Boolean('Registration only') 
+#    registration_only = fields.Boolean('Registration only')
 
     @api.onchange('parent_id')
     @api.depends('parent_id')
@@ -107,9 +109,8 @@ class extraschool_activity(models.Model):
                                                    })
             else:
                 d1 = activity.validity_from
-                if date_from:
-                    if date_from > activity.validity_from:
-                        d1 = date_from
+                if date_from and date_from > activity.validity_from:
+                    d1 = date_from
                 
                 d2 = date_to if date_to else activity.validity_to
                 print "populate_occurrence date_to : %s" % (d2)
@@ -170,91 +171,87 @@ class extraschool_activity(models.Model):
                     for occu in self.env['extraschool.activityoccurrence'].search([('id', 'in', occurrence_ids)]): 
                         occu.auto_add_registered_childs()
 
-    @api.multi
-    def check_if_modifiable(self,vals):
+    def check_if_modifiable(self, vals):
         start_time = time.time()
-        cr = self.env.cr
+        invoiced_obj = self.env['extraschool.invoicedprestations']
+        date_last_invoice = None
+        # There goes the rabbit hole
         # If there is an invoiced prestation for the activity.
-        if (self.env['extraschool.invoicedprestations'].search(
-            [('activity_occurrence_id.activityid', '=', self.id)])):
-            # Trop lent !!!
-            # for invoicePrestation in invoicePrestations_ids:
-            #     name = self.env['extraschool.invoicedprestations'].browse(invoicePrestation.id).prestation_date
-            #     print (name)
+        if (invoiced_obj.search(
+                [('activity_occurrence_id.activityid', '=', self.id)])):
+            print "get last date"
+            # Get the date of the last invoice for this activity.
+            date_last_invoice = invoiced_obj.search([('activity_activity_id', '=', self.id)],
+                                                  order='prestation_date DESC', limit=1).prestation_date
 
-            # We take the last date of a prestation that has an invoice.
-            cr.execute("""SELECT DISTINCT(prestation_date)
-                        FROM extraschool_invoicedprestations
-                        WHERE activity_activity_id = %s
-                        ORDER BY prestation_date DESC
-                        LIMIT 1
-                        """ % self.id)
-
-            # Add one day.
-            dateLastInvoice = cr.fetchone()
-            dateLastInvoice = datetime.strptime(dateLastInvoice[0], '%Y-%m-%d').date() + td(days=(1))
-
-            # Activity Occurrence ID that has an occurrence_date >= to the chosen date.
-            activityOccurrence_ids = self.env['extraschool.activityoccurrence'].search([
-                                                                                        ('occurrence_date', '>=', dateLastInvoice),
-                                                                                        ('activityid', '=', self.id)
-                                                                                        ])
-            # There goes the rabbit hole
-            for activityOccurrence in activityOccurrence_ids:
-                print "##########Autre Occurrence############"
-                # For each Activity Occurence get the ID of the activity_occurrence_child_registration IDs.
-                childRegistrationId_List = []
-                childRegistration_ids = self.env['extraschool.activity_occurrence_child_registration']\
-                                        .search([('activity_occurrence_id', '=', activityOccurrence.id)])
-                for childRegistration_id in childRegistration_ids:
-                    # For each Child Registration Line get Child Registration ID.
-                    childRegistration = childRegistration_id.child_registration_line_id.child_registration_id.id
-
-                    if childRegistration not in childRegistrationId_List:
-                        # Add DISTINCT ID to the Child Registration List.
-                        childRegistrationId_List.append(childRegistration)
-                        child_set_to_draft = self.env['extraschool.child_registration'].search([
-                                                                                                ('id', '=', childRegistration)
-                                                                                                ])
-                        print "Child Registration to set_to_draft", child_set_to_draft.id
-
-                prestationTimeId_List = []
-                prestationTime_ids = self.env['extraschool.prestationtimes'].search([
-                                                                                    ('activity_occurrence_id', '=', activityOccurrence.id)
-                                                                                    ])
-                for prestationTime_id in prestationTime_ids:
-                    # For each Prestation Time IDs
-                    prestationTimeOftheDay = prestationTime_id.prestation_times_of_the_day_id.id
-
-                    if prestationTimeOftheDay not in prestationTimeId_List:
-                        # Add DISTINCT ID to the Prestation Time Of The Day ID
-                        prestationTimeId_List.append(prestationTimeOftheDay)
-                        prestationTime_reset = self.env['extraschool.prestation_times_of_the_day'].search([
-                                                                                                            ('id', '=', prestationTimeOftheDay)
-                                                                                                            ])
-                        print "POD to Reset", prestationTime_reset.id
-
-                print "Activity unlink()", activityOccurrence.id
-
-                for childRegistration_id in childRegistrationId_List:
-                    childToValidate =  self.env['extraschool.child_registration'].search([
-                                                                                            ('id', '=', childRegistration_id)
-                                                                                            ])
-                    print "Child Registration Validate()", childToValidate.id
-
-                for prestationTime_id in prestationTimeId_List:
-                    prestationTimeToCheck = self.env['extraschool.prestation_times_of_the_day'].search([
-                                                                                                        ('id', '=', prestationTime_id)
-                                                                                                        ])
-                    print "Prestation Time Of The Day check()", prestationTimeToCheck.id
-
-
-            print round((time.time() - start_time), 4)
-
+            # Get record sets of activity occurrence
+            activity_occurrence_ids = self.env['extraschool.activityoccurrence'].search([
+                ('occurrence_date', '>=', fields.Date.from_string(date_last_invoice) + td(days=1)),
+                ('activityid', '=', self.id)
+            ])
 
         else:
-            res = super(extraschool_activity, self).write(vals)
-            return res
+            activity_occurrence_ids = self.env['extraschool.activityoccurrence'].search([('activityid', '=', self.id)])
+
+        child_registration_id__list = []
+        # For each Activity Occurence get the list of the activity_occurrence_child_registration IDs.
+        child_registration_ids = self.env['extraschool.activity_occurrence_child_registration'] \
+            .search([('activity_occurrence_id', 'in', activity_occurrence_ids.ids)])
+        print "build child list"
+        for child_registration_id in child_registration_ids:
+            # For each Child Registration Line get Child Registration ID.
+            child_registration = child_registration_id.child_registration_line_id.child_registration_id.id
+
+            if child_registration not in child_registration_id__list:
+                child_registration_id__list.append(child_registration)
+        print "get child list"
+        # Set the child registration to draft.
+        child_registration_compute = self.env['extraschool.child_registration'].search([
+            ('id', 'in', child_registration_id__list)
+        ])
+        print "set to draft"
+        child_registration_compute.set_to_draft()
+
+        prestation_time_id_list = []
+        prestation_time_ids = self.env['extraschool.prestationtimes'].search([
+            ('activity_occurrence_id', 'in', activity_occurrence_ids.ids)
+        ])
+        print "build pod list"
+        for prestation_time_id in prestation_time_ids:
+            prestation_time_of_the_day = prestation_time_id.prestation_times_of_the_day_id.id
+
+            if prestation_time_of_the_day not in prestation_time_id_list:
+                # Add DISTINCT ID to the Prestation Time Of The Day ID
+                prestation_time_id_list.append(prestation_time_of_the_day)
+        print "get pod list"
+        # Reset Prestation Times of the Day
+        prestation_time_compute = self.env['extraschool.prestation_times_of_the_day'].search([
+            ('id', 'in', prestation_time_id_list)
+        ])
+
+        print "reset ", len(prestation_time_compute)
+        prestation_time_compute.reset()
+        print "unlink"
+        activity_occurrence_ids.unlink()
+
+        super(extraschool_activity, self).write(vals)
+        print "populate"
+        self.populate_occurrence(date_last_invoice)
+
+        print "validate"
+        child_registration_compute.validate_multi()
+
+        print "check"
+        total = len(prestation_time_compute)
+        for presta in prestation_time_compute:
+            print total
+            total -= 1
+            presta.check()
+
+        print "Temps total: ", time.strftime('%M:%S', time.gmtime((time.time() - start_time)))
+
+
+
 
     @api.multi
     def check_validity_date(self, vals):
@@ -296,43 +293,28 @@ class extraschool_activity(models.Model):
 
     @api.multi
     def write(self, vals):
+        return self.open_last_date_invoice_wizard()
         for activity in self:
 
             # Check Validity Date & Hour.
             self.check_validity_date(vals)
 
+            # This will go through a specific process if there is one change in these fields.
             if 'validity_from' in vals \
                     or 'validity_to' in vals \
                     or 'planneddates_ids' in vals \
-                    or 'exclusiondates_ids' in vals\
+                    or 'exclusiondates_ids' in vals \
                     or 'parent_id' in vals \
                     or 'placeids' in vals \
                     or 'leveltype' in vals \
                     or 'prest_from' in vals \
                     or 'prest_to' in vals:
-
-               self.check_if_modifiable(vals)
+                # Follow the white rabbit.
+                self.check_if_modifiable(vals)
 
             else:
-                res = super(extraschool_activity, self).write(vals)
-                return res
-                # res = super(extraschool_activity, activity).write(vals)
-                # if res:
-                #     # Set all the future presta of this activity as NOT verified.
-                #     prestations = self.env['extraschool.prestationtimes'].search([('activity_occurrence_id.activityid.id', '=', activity.id),
-                #                                                                   ('prestation_date', '>=', time.strftime(DEFAULT_SERVER_DATE_FORMAT))])
-                #     prestations.write({'verified': False})
-                #     # Delete all future occurrence of this activity.
-                #     occurrences = self.env['extraschool.activityoccurrence'].search([('activityid', '=', activity.id),
-                #                                                                     ('occurrence_date', '>=', time.strftime(DEFAULT_SERVER_DATE_FORMAT))])
-                #     print "delete occu !!!!"
-                #     occurrences.unlink()
-                #     # Populate occurrence.
-                #     activity.populate_occurrence(time.strftime(DEFAULT_SERVER_DATE_FORMAT))
-                #
-                # else:
-                #     return res
-           
+                super(extraschool_activity, self).write(vals)
+
         return True
 
     @api.model
@@ -358,6 +340,29 @@ class extraschool_activity(models.Model):
             return activity.prest_to
         else:
             return False
+
+    @api.multi
+    def open_last_date_invoice_wizard(self):
+        import pdb;pdb.set_trace()
+        print "in wizard"
+        return{
+            'name': 'Last Date Invoice',
+            'view_mode': 'form',
+            'res_model': 'extraschool.last_date_invoice_wizard',
+            'view_type': 'form',
+            'target': 'new',
+            'type': 'ir.actions.act_window',
+            'context': {'default_last_date_invoice': '2017-06-01'}
+        }
+
+class last_date_invoice_wizard(models.TransientModel):
+    _name = 'extraschool.last_date_invoice_wizard'
+
+    last_date_invoice = fields.Date('Last Invoice Date', required=True)
+
+    @api.one
+    def save(self):
+        print "SAVE BUTTON"
         
 extraschool_activity()
 

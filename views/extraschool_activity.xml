@@ -1,110 +1,127 @@
 <?xml version="1.0" ?>
-<openerp>
-	<data> 
+        <openerp>
+    <data>
+
         <record model="ir.ui.view" id="extraschool_activityexclusiondates_tree">
-			<field name="name">extraschool.activityexclusiondates.tree</field>
-			<field name="model">extraschool.activityexclusiondates</field>
-			<field name="type">tree</field>
-			<field name="arch" type="xml">
-				<tree string="Activity">
-	            	<field name="date_from" />
-	            	<field name="date_to" />		
-				</tree>
-			</field>
-		</record>
-				
-        <record model="ir.ui.view" id="extraschool_activity_tree">
-			<field name="name">extraschool.activity.tree</field>
-			<field name="model">extraschool.activity</field>
-			<field name="type">tree</field>
-			<field name="arch" type="xml">
-				<tree string="Activity">
-                    <field name="name"/>                     			
-                    <field name="root_id"/>                     			
-                    <field name="prest_from" widget="float_time"/>
-					<field name="prest_to" widget="float_time"/>
-					<field name="tarif_group_name"/>
-					<field name="validity_from"/>                     			
-					<field name="validity_to"/>                     			
-				</tree>
-			</field>
-		</record>
-        
-        <record model="ir.ui.view" id="extraschool_activity_form">
-            <field name="name">extraschool.activity.form</field>
-            <field name="model">extraschool.activity</field>    
+            <field name="name">extraschool.activityexclusiondates.tree</field>
+            <field name="model">extraschool.activityexclusiondates</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Activity">
+                    <field name="date_from" />
+                    <field name="date_to" />
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="extraschool_date_invoice_wizard">
+            <field name="name">extraschool.date.invoice.wizard</field>
+            <field name="model">extraschool.last_date_invoice_wizard</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-            <form string="Activity">
-				<header>
-					<button name="extraschool.activity_invoicedprestations_wizard" string="Invoiced Prestation" type="action"/>
-            	</header>
-	            <group col="4">  
-	                <field name="name"/>
-	                <field name="category" />
-	                <field name="validity_from"/>
-	                <field name="validity_to"/>	
-	                <field name="leveltype"/>			
-	            </group>
-            	<notebook>
-            		<page string="Registration">
-			            <group col="4">  
-			                <field name="onlyregisteredchilds" />      
-			                <field name="autoaddchilds" /> 
-			                <field name="selectable_on_registration" /> 
-<!--			                <field name="registration_only" />  
--->						</group>
-			        </page>
-            		<page string="Planification">
-			            <group col="4">  
-			                <field name="days"/>       
-			                <field name="default_from_to"/>     		
-			                <field name="prest_from" widget="float_time" />
-			                <field name="prest_to" widget="float_time" />
-			                <separator string="Planned dates" colspan="4"/> 
-			                <field name="planneddates_ids" nolabel="1" colspan="4"/>
-			                <separator string="Exclusion dates" colspan="4"/> 
-			                <field name="exclusiondates_ids" nolabel="1" colspan="4">
-			                	<tree>
-				                	<field name="name" />
-			                		<field name="date_from" />
-				                	<field name="date_to" />
-			                	</tree>
-			                	<form>
-				                	<field name="name" />
-			                		<field name="date_from" />
-				                	<field name="date_to" />
-			                	</form>
-			                	
-			                </field>
-						</group>
-            		</page>
-            		<page string="Location">
-			            <group col="4">  
-			                <separator string="Places" colspan="4"/>
-			                <field name="placeids" nolabel="1" colspan="4"/> 			            
-						</group>
-            		</page>
+                <form>
+                    <field name="last_date_invoice"/>
+                    <footer>
+                        <button name="save" string="Validate" type="object"/>
+                        &#x2063;
+                        <button name="cancel" special="cancel" string="Cancel" class="oe_link"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
 
-					<page string="Link with other activities">
-			            <group col="4">  
-							<field name="root_id"/>
-							<field name="parent_id"/>
-			                <separator string="Child activities" colspan="4" />
-			               	<field name="activity_child_ids" nolabel="1" colspan="4" readonly="True"/>
-						</group>
-					</page>		
-					<page string="Finance">
-			            <group col="4">  
-			                <field name="short_name" />     
-							<field name="subsidizedbyone"/> 
-							<field name="on_tax_certificate" /> 
-							<field name="tarif_group_name" /> 
-						</group>
-					</page>							                
+        <record model="ir.ui.view" id="extraschool_activity_tree">
+            <field name="name">extraschool.activity.tree</field>
+            <field name="model">extraschool.activity</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Activity">
+                    <field name="name"/>
+                    <field name="root_id"/>
+                    <field name="prest_from" widget="float_time"/>
+                    <field name="prest_to" widget="float_time"/>
+                    <field name="tarif_group_name"/>
+                    <field name="validity_from"/>
+                    <field name="validity_to"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="extraschool_activity_form">
+            <field name="name">extraschool.activity.form</field>
+            <field name="model">extraschool.activity</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Activity">
+                <header>
+                    <button name="open_last_date_invoice_wizard" string="Invoiced Prestation" type="object"/>
+                </header>
+                <group col="4">
+                    <field name="name"/>
+                    <field name="category" />
+                    <field name="validity_from"/>
+                    <field name="validity_to"/>
+                    <field name="leveltype"/>
+                </group>
+                <notebook>
+                    <page string="Registration">
+                        <group col="4">
+                            <field name="onlyregisteredchilds" />
+                            <field name="autoaddchilds" />
+                            <field name="selectable_on_registration" />
+                            <!--			                <field name="registration_only" />
+                            -->						</group>
+                    </page>
+                    <page string="Planification">
+                        <group col="4">
+                            <field name="days"/>
+                            <field name="default_from_to"/>
+                            <field name="prest_from" widget="float_time" />
+                            <field name="prest_to" widget="float_time" />
+                            <separator string="Planned dates" colspan="4"/>
+                            <field name="planneddates_ids" nolabel="1" colspan="4"/>
+                            <separator string="Exclusion dates" colspan="4"/>
+                            <field name="exclusiondates_ids" nolabel="1" colspan="4">
+                                <tree>
+                                    <field name="name" />
+                                    <field name="date_from" />
+                                    <field name="date_to" />
+                                </tree>
+                                <form>
+                                    <field name="name" />
+                                    <field name="date_from" />
+                                    <field name="date_to" />
+                                </form>
+
+                            </field>
+                        </group>
+                    </page>
+                    <page string="Location">
+                        <group col="4">
+                            <separator string="Places" colspan="4"/>
+                            <field name="placeids" nolabel="1" colspan="4"/>
+                        </group>
+                    </page>
+
+                    <page string="Link with other activities">
+                        <group col="4">
+                            <field name="root_id"/>
+                            <field name="parent_id"/>
+                            <separator string="Child activities" colspan="4" />
+                            <field name="activity_child_ids" nolabel="1" colspan="4" readonly="True"/>
+                        </group>
+                    </page>
+                    <page string="Finance">
+                        <group col="4">
+                            <field name="short_name" />
+                            <field name="subsidizedbyone"/>
+                            <field name="on_tax_certificate" />
+                            <field name="tarif_group_name" />
+                        </group>
+                    </page>
                 </notebook>
             </form>
-            </field> 
+            </field>
         </record>
 
         <record id="extraschool_activity_search_view" model="ir.ui.view">
@@ -113,20 +130,21 @@
             <field name="rn" />
             <field name="arch" type="xml">
                 <search string="Activity Search">
-                   <field name="name"/>       
-                   <filter string="Actif" name="actif" icon="terp-accessories-archiver" domain="[('validity_from','&lt;=',datetime.datetime.now().strftime('%Y-%m-%d')),('validity_to','&gt;=',datetime.datetime.now().strftime('%Y-%m-%d'))]"/>                   	                                      	                   	         
-                   <group  expand='0' string='Group by...'>
+                    <field name="name"/>
+                    <filter string="Actif" name="actif" icon="terp-accessories-archiver" domain="[('validity_from','&lt;=',datetime.datetime.now().strftime('%Y-%m-%d')),('validity_to','&gt;=',datetime.datetime.now().strftime('%Y-%m-%d'))]"/>
+                    <group  expand='0' string='Group by...'>
                        <filter string='Root activity' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'root_id'}"/>
-                   </group>   
-            	</search>                                                 
+                   </group>
+                </search>
             </field>
         </record>
-                        
+
         <record model="ir.actions.act_window" id="action_extraschool_activity">
-			<field name="name">Activity</field>
-			<field name="res_model">extraschool.activity</field>
-			<field name="view_type">form</field>
-			<field name="context">{"search_default_actif":1}</field>       
-		</record>
+            <field name="name">Activity</field>
+            <field name="res_model">extraschool.activity</field>
+            <field name="view_type">form</field>
+            <field name="context">{"search_default_actif":1}</field>
+        </record>
+
 	</data>
 </openerp>
