@@ -15,6 +15,7 @@ Contents:
    aes-connexion
    accueillantes
    inscriptions
+   piscine
    facturier
    config-smartphones
    truc-astuce

@@ -22,12 +22,14 @@ Signalétique
 
 Pour effectuer la génération d’un facturier, il faut se rendre dans le menu “facturation”.
 Une fiche apparaît avec des informations obligatoires telles que :
+
 * Catégorie d’activité
 * Implantation scolaire
 * Début par défaut
 * Fin par défaut
 * Date de la facture
 * Echéance
+
 Lorsque vous confirmez les informations, cela va générer toutes les factures des différents parents.
 
 
