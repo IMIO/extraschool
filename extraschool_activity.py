@@ -342,7 +342,6 @@ class extraschool_activity(models.Model):
 
     @api.multi
     def open_last_date_invoice_wizard(self):
-        import pdb;pdb.set_trace()
         print "in wizard"
         return{
             'name': 'Last Date Invoice',
