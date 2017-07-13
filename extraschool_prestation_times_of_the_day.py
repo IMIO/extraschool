@@ -24,7 +24,8 @@
 from openerp import models, api, fields, _
 from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
-from datetime import date, datetime, timedelta as td
+from datetime import date
+import datetime
 import time
 
 
@@ -101,10 +102,10 @@ class extraschool_prestation_times_of_the_day(models.Model):
         for presta in self:
             start_time = time.time()
 
-            if len(time_list) == 10:
+            if len(time_list) == 50:
                 avg_time = float(sum(time_list) / len(time_list)) * total
                 avg_time = time.strftime('%M:%S', time.gmtime(avg_time))
-                print "Il reste ", avg_time
+                print "Temps estimé restant: ", avg_time
                 time_list = []
             total -= 1
             #Check if presta is not invoiced
