@@ -313,7 +313,3 @@ Il faut prévoir un courrier qui explique aux parents les changements.
 	* Gain de temps pour les accueillantes qui peuvent ainsi mieux se consacrer à l'accueil des enfants.
 	* Transparence pour la facturation.
 	* Gain de temps pour les coordinateurs qui peuvent dès lors mieux se concentrer sur leur projet ATL.
-	 
-
-
-...

@@ -72,4 +72,3 @@ L'application va lister toutes les factures que le parent doit payer.
 Il va réconcilier de la plus ancienne à la plus récente avec le montant reçu.
 
 Si je ne veux pas qu’il paye une facture je peux modifier dans la fenêtre et changer les montants que je veux qu’il paie sur les factures.
-

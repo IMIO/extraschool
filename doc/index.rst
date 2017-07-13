@@ -19,10 +19,6 @@ Contents:
    facturier
    config-smartphones
    truc-astuce
-   
-   
-
-
 
 Indices and tables
 ==================

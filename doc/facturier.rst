@@ -78,4 +78,3 @@ l faut donc sélectionner toute la liste. Pour cela, cocher la case située à g
 On doit cliquer sur le bouton “Autres options” situé au-dessus et prendre l’action “Invoice mail” afin d’envoyer les différentes factures par email.
 Remarque importante : Les factures affichées sont ouvertes. Celles à un montant de 0.00 euro ou payé ne seront pas affichées dans aucune liste.
 En effet, il est inutile de renvoyer à un parent une facture qu’il a déjà payé ou une facture contenant un montant nul.
-
