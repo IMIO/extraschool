@@ -35,7 +35,7 @@
     'demo' : [],
     'test' : [],
     'data' : [  
-        'scripts/update_noemail.sql',
+
         'scripts/update_seq.xml',
                 
         'views/extraschool_activitycategory.xml',
