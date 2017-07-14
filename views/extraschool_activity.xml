@@ -14,22 +14,6 @@
             </field>
         </record>
 
-        <record model="ir.ui.view" id="extraschool_date_invoice_wizard">
-            <field name="name">extraschool.date.invoice.wizard</field>
-            <field name="model">extraschool.last_date_invoice_wizard</field>
-            <field name="type">form</field>
-            <field name="arch" type="xml">
-                <form>
-                    <field name="last_date_invoice"/>
-                    <footer>
-                        <button name="save" string="Validate" type="object"/>
-                        &#x2063;
-                        <button name="cancel" special="cancel" string="Cancel" class="oe_link"/>
-                    </footer>
-                </form>
-            </field>
-        </record>
-
         <record model="ir.ui.view" id="extraschool_activity_tree">
             <field name="name">extraschool.activity.tree</field>
             <field name="model">extraschool.activity</field>
@@ -59,6 +43,8 @@
                     <field name="validity_from"/>
                     <field name="validity_to"/>
                     <field name="leveltype"/>
+                    <field name="warning_visibility" invisible="True"/>
+                    <field name="warning_date_invoice" style="color:Red" attrs="{'invisible':[('warning_visibility', '!=', True)]}"/>
                 </group>
                 <notebook>
                     <page string="Registration">

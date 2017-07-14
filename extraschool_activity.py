@@ -71,6 +71,8 @@ class extraschool_activity(models.Model):
     validity_from = fields.Date('Validity from', index=True, required=True)
     validity_to = fields.Date('Validity to', index=True, required=True)
     selectable_on_registration = fields.Boolean('Selectable on registration form')
+    warning_date_invoice = fields.Char('WARNING', default="WARNING, there are invoices on this activity, we changed the date so you won't erase them.", readonly=True)
+    warning_visibility = fields.Boolean()
 #    registration_only = fields.Boolean('Registration only')
 
     @api.onchange('parent_id')
@@ -174,24 +176,20 @@ class extraschool_activity(models.Model):
     def check_if_modifiable(self, vals):
         start_time = time.time()
         invoiced_obj = self.env['extraschool.invoicedprestations']
-        date_last_invoice = None
         # There goes the rabbit hole
-        # If there is an invoiced prestation for the activity.
+        # # If there is an invoiced prestation for the activity.
         if (invoiced_obj.search(
                 [('activity_occurrence_id.activityid', '=', self.id)])):
-            print "get last date"
-            # Get the date of the last invoice for this activity.
-            date_last_invoice = invoiced_obj.search([('activity_activity_id', '=', self.id)],
-                                                  order='prestation_date DESC', limit=1).prestation_date
-
-            # Get record sets of activity occurrence
+            date_last_invoice = vals['validity_from'] if 'validity_from' in vals else self.validity_from
             activity_occurrence_ids = self.env['extraschool.activityoccurrence'].search([
-                ('occurrence_date', '>=', fields.Date.from_string(date_last_invoice) + td(days=1)),
+                ('occurrence_date', '>=', date_last_invoice),
                 ('activityid', '=', self.id)
             ])
 
         else:
             activity_occurrence_ids = self.env['extraschool.activityoccurrence'].search([('activityid', '=', self.id)])
+            date_last_invoice = self.validity_from
+        print date_last_invoice
 
         child_registration_id__list = []
         # For each Activity Occurence get the list of the activity_occurrence_child_registration IDs.
@@ -291,6 +289,23 @@ class extraschool_activity(models.Model):
             if exclusiondates_id.date_from < validity_from or exclusiondates_id.date_to > validity_to:
                 raise Warning(_("Date_from must be in range of Validity_from and Validity_to (Exclusion)"))
 
+    @api.onchange('validity_from')
+    @api.multi
+    def check_validity_from_invoice(self):
+        invoiced_obj = self.env['extraschool.invoicedprestations']
+        # If there is an invoiced prestation for the activity.
+        if (invoiced_obj.search(
+                [('activity_occurrence_id.activityid', '=', self._origin.id)])):
+            # Get the date of the last invoice for this activity.
+            date_last_invoice = invoiced_obj.search([('activity_activity_id', '=', self._origin.id)],
+                                                    order='prestation_date DESC', limit=1).prestation_date
+            date_last_invoice = fields.Date.from_string(date_last_invoice) + td(days=1)
+            self.warning_visibility = True
+            if fields.Date.from_string(self.validity_from) < date_last_invoice:
+                self.validity_from = date_last_invoice
+
+        return self.validity_from
+
     @api.multi
     def write(self, vals):
         for activity in self:
@@ -324,7 +339,7 @@ class extraschool_activity(models.Model):
         res = super(extraschool_activity, self).create(vals)
 
         if res:
-            res.populate_occurrence()        
+            res.populate_occurrence()
 
         return res
 
@@ -339,28 +354,6 @@ class extraschool_activity(models.Model):
             return activity.prest_to
         else:
             return False
-
-    @api.multi
-    def open_last_date_invoice_wizard(self):
-        print "in wizard"
-        return{
-            'name': 'Last Date Invoice',
-            'view_mode': 'form',
-            'res_model': 'extraschool.last_date_invoice_wizard',
-            'view_type': 'form',
-            'target': 'new',
-            'type': 'ir.actions.act_window',
-            'context': {'default_last_date_invoice': '2017-06-01'}
-        }
-
-class last_date_invoice_wizard(models.TransientModel):
-    _name = 'extraschool.last_date_invoice_wizard'
-
-    last_date_invoice = fields.Date('Last Invoice Date', required=True)
-
-    @api.one
-    def save(self):
-        print "SAVE BUTTON"
         
 extraschool_activity()
 
