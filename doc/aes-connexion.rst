@@ -55,5 +55,4 @@ Vous pouvez cliquer dessus et choisir “Préférences”. Une fenêtre apparaî
 
 Il vous demandera de changer le mot de passe, en inscrivant l’ancien et de donner le nouveau deux fois pour confirmation.
 
-Après cette opération l’application vous “éjecte” afin de vous reconnecter avec le nouveau mot de passe
-
+Après cette opération l’application vous “éjecte” afin de vous reconnecter avec le nouveau mot de passe.

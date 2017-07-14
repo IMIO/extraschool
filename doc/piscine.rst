@@ -15,8 +15,9 @@ Introduction
 
 Utilisation de l'application pour la gestion des piscines.
 Avant toute chose, il est important de récolter les données tous les mois.
+La facturation est mensuelle et lorsqu'elle est effectuée il est impossible d'y ajouter des présences.
 
-En effet, encoder les données tous les mois pour l'activité piscine ne bloquera pas la facturation mensuelle.
+En effet, encoder les données au minimum tous les mois pour l'activité piscine ne bloquera pas la facturation mensuelle.
 
 Il y a différentes manières de gérer l'activité piscine. Les voici :
 
@@ -29,9 +30,9 @@ L'inscription avec les dates exactes de l'activité piscine s'effectue par l'ong
 
 Les fiches d'inscription sont encodées à la semaine et permettent une traçabilité optimale des dates de fréquentation de la piscine.
 
-Cette méthode permet aussi l'utilisation de la facture en version calendrier.
+L'encodage avec les dates est requis pour l'utilisation de la facture en version calendrier.
 
-Il est possible de se baser sur un modèle et donc de dupliquer les fiches d'inscription afin de diminuer l'encodage manuelle.
+Il est possible de se baser sur un modèle et donc de dupliquer les fiches d'inscription afin de diminuer l'encodage manuel.
 
 .. image:: img/screenshot/inscription_avec_date.png
 
@@ -45,9 +46,9 @@ Dans ce cas, c'est le nombre de fréquentation par mois qui va être important.
 
 Exemple : si l'enfant a été 4 fois à l'activité piscine sur le mois, nous allons compléter pour la première semaine : Lundi, Mardi, Mercredi et Jeudi.
 
-Dans cette méthode, il n'est pas idéal d'utiliser la version calendrier pour la facture étant donné que les dates de la piscine ne sont pas correctes.
+Dans cette méthode, il n'est pas possible d'utiliser la version calendrier pour la facture étant donné que les dates de la piscine ne sont pas correctes.
 
-Il est possible de se baser sur un modèle et donc de dupliquer les fiches d'inscription afin de diminuer l'encodage manuelle
+Il est possible de se baser sur un modèle et donc de dupliquer les fiches d'inscription afin de diminuer l'encodage manuel
 
 
 .. image:: img/screenshot/inscription_sans_date.png
@@ -57,9 +58,32 @@ Il est possible de se baser sur un modèle et donc de dupliquer les fiches d'ins
 Les scans
 =========
 
-Pour cette méthode, nous scannerons les enfants pour l'activité piscine et il n'y aura donc pas d'inscription.
-Il faut faire attention à :
+Pour la méthode du scan, Il y a deux possibilités :
 
-* Définir une tranche horaire pour scanner les enfants à cette activité
-* Définir un smartphone piscine qui sera lié à un lieu d'accueil piscine
+* Ajout d'un nouveau smartphone piscine lié à un lieu d'accueil Piscine.
 
+	* Avantages :
+
+		* Pas de tranche horaire à définir et donc beaucoup de souplesse (On scanne quand on veut)
+		* Logistique : Le smartphone est beaucoup plus disponible que le smartphone d'accueil
+		* Pas d'inscription au préalable
+		* Possibilité de tracer les jours de participation des enfants
+		* Pas d'encodage manuel
+
+	* Inconvénients :
+
+		* Coût d'un smartphone supplémentaire par école
+
+* Pas d'ajout d'un nouveau smartphone piscine et définir une tranche d'heure pour le scan (ex : tous les jours de 9h00 à 9h30 et de 13h30 à 14h00)
+
+	* Avantages :
+
+		* Pas d'inscription au préalable
+		* Possibilité de tracer les jours des enfants
+		* Pas d'encodage manuel
+		* Pas le besoin de nouveaux smartphones pour les écoles
+
+	* Inconvénients :
+
+		* Il faut prendre le smartphone du lieu d'accueil
+		* Il y a une tranche horaire pour le scan et donc moins de souplesse (horaire fix et donc le même pour toutes les classes)

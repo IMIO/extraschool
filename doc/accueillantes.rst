@@ -80,6 +80,4 @@ Dans la recherche avancée un filtre "Erreurs" permet de filtrer les lignes de p
 
 Ces lignes sont en rouge dans la liste
 
-.. image:: img/screenshot/accueillante_rapport_des_presences_erreur.png 
-  
-
+.. image:: img/screenshot/accueillante_rapport_des_presences_erreur.png
