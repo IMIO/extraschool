@@ -50,7 +50,7 @@ class extraschool_activity(models.Model):
     short_name = fields.Char('Short name', index=True, required=True)
     childtype_ids = fields.Many2many('extraschool.childtype', 'extraschool_activity_childtype_rel', 'activity_id', 'childtype_id', 'Child type')
     childregistration_ids = fields.One2many('extraschool.activitychildregistration', 'activity_id', 'Child registrations')
-    autoaddchilds = fields.Boolean('Auto add registered')                
+    autoaddchilds = fields.Boolean('Auto add registered')
     onlyregisteredchilds = fields.Boolean('Only registered childs', index=True)
     planneddates_ids = fields.Many2many('extraschool.activityplanneddate', 'extraschool_activity_activityplanneddate_rel', 'activity_id', 'activityplanneddate_id', 'Planned dates')
     exclusiondates_ids = fields.Many2many('extraschool.activityexclusiondates', 'extraschool_activity_activityexclusiondates_rel', 'activity_id', 'activityexclusiondates_id', 'Exclusion dates')
@@ -59,8 +59,8 @@ class extraschool_activity(models.Model):
     prest_from = fields.Float('From', index=True, required=True)
     prest_to = fields.Float('To', index=True, required=True)
     price = fields.Float('Price', digits=(7, 3))
-    price_list_id = fields.Many2one('extraschool.price_list', 'Price List')    
-    period_duration = fields.Integer('Period Duration')  
+    price_list_id = fields.Many2one('extraschool.price_list', 'Price List')
+    period_duration = fields.Integer('Period Duration')
     default_from_to = fields.Selection((('from', 'default_from_to From'), ('to', 'default_from_to To'), ('from_to', 'default_from_to From and To')), 'default_from_to Default From To', required=True)
     default_from = fields.Float('Default from')
     default_to = fields.Float('Default to')
@@ -71,16 +71,18 @@ class extraschool_activity(models.Model):
     validity_from = fields.Date('Validity from', index=True, required=True)
     validity_to = fields.Date('Validity to', index=True, required=True)
     selectable_on_registration = fields.Boolean('Selectable on registration form')
-#    registration_only = fields.Boolean('Registration only')
+    warning_date_invoice = fields.Char('WARNING', default="WARNING, there are invoices on this activity, we changed the date so you won't erase them.", readonly=True)
+    warning_visibility = fields.Boolean()
+    #    registration_only = fields.Boolean('Registration only')
 
     @api.onchange('parent_id')
     @api.depends('parent_id')
     def _compute_root_activity(self):
         # To do à déplacer ds activity
-        for activity in self: 
+        for activity in self:
             # set root activity_id if 
             if activity.parent_id:
-                parent = activity.parent_id                
+                parent = activity.parent_id
                 while parent.parent_id:
                     parent = parent.parent_id
                 activity.root_id = parent
@@ -92,10 +94,10 @@ class extraschool_activity(models.Model):
         minute = int((tstime - hour) * 60)
         hour = hour - 1 if hour else 0
         return datetime.strptime(tsdate + ' ' + str(hour).zfill(2) + ':' + str(minute).zfill(2) + ':00', DEFAULT_SERVER_DATETIME_FORMAT)
-           
+
     def populate_occurrence(self, date_from=None, date_to=None):
         cr, uid = self.env.cr, self.env.user.id
-        
+
         activityoccurrence = self.env['extraschool.activityoccurrence']
         for activity in self:
             if len(activity.planneddates_ids):
@@ -111,7 +113,7 @@ class extraschool_activity(models.Model):
                 d1 = activity.validity_from
                 if date_from and date_from > activity.validity_from:
                     d1 = date_from
-                
+
                 d2 = date_to if date_to else activity.validity_to
                 print "populate_occurrence date_to : %s" % (d2)
                 d1 = datetime.strptime(d1, DEFAULT_SERVER_DATE_FORMAT)
@@ -151,12 +153,12 @@ class extraschool_activity(models.Model):
                                              activity.id,
                                              activity.prest_from,
                                              activity.prest_to))
-                                
+
                                 # insert_data = insert_data.join('('+str(place.id)+','+str(current_day_date)+','+str(activity.id)+','+str(activity.prest_from)+','+str(activity.prest_to)+')')
                 if len(args):
                     print str(datetime.now())+" Build query2"
                     args_str = ','.join(cr.mogrify("(%s,%s,%s,current_timestamp,%s,%s,current_timestamp,%s,%s,%s,%s,%s,%s)", x) for x in args)
-                    print str(datetime.now())+" START QUERY" 
+                    print str(datetime.now())+" START QUERY"
                     # print insert_data
                     cr.execute("insert into extraschool_activityoccurrence (create_uid,date_stop,date_start,create_date,name,write_uid,write_date,activity_category_id,place_id,occurrence_date,activityid,prest_from,prest_to) VALUES "+args_str)
                     print str(datetime.now())+" END"
@@ -168,31 +170,25 @@ class extraschool_activity(models.Model):
                                 """, (uid, activity.id))
                     occurrence_ids = [id['id'] for id in cr.dictfetchall()]
                     print "ids created : %s" % (occurrence_ids)
-                    for occu in self.env['extraschool.activityoccurrence'].search([('id', 'in', occurrence_ids)]): 
+                    for occu in self.env['extraschool.activityoccurrence'].search([('id', 'in', occurrence_ids)]):
                         occu.auto_add_registered_childs()
 
     def check_if_modifiable(self, vals):
         start_time = time.time()
         invoiced_obj = self.env['extraschool.invoicedprestations']
-        date_last_invoice = None
         # There goes the rabbit hole
-        # If there is an invoiced prestation for the activity.
+        # # If there is an invoiced prestation for the activity.
         if (invoiced_obj.search(
                 [('activity_occurrence_id.activityid', '=', self.id)])):
-            print "get last date"
-            # Get the date of the last invoice for this activity.
-            date_last_invoice = invoiced_obj.search([('activity_activity_id', '=', self.id)],
-                                                  order='prestation_date DESC', limit=1).prestation_date
-
-            # Get record sets of activity occurrence
+            date_last_invoice = vals['validity_from'] if 'validity_from' in vals else self.validity_from
             activity_occurrence_ids = self.env['extraschool.activityoccurrence'].search([
-                ('occurrence_date', '>=', fields.Date.from_string(date_last_invoice) + td(days=1)),
+                ('occurrence_date', '>=', date_last_invoice),
                 ('activityid', '=', self.id)
             ])
 
         else:
             activity_occurrence_ids = self.env['extraschool.activityoccurrence'].search([('activityid', '=', self.id)])
-
+            date_last_invoice = self.validity_from
         child_registration_id__list = []
         # For each Activity Occurence get the list of the activity_occurrence_child_registration IDs.
         child_registration_ids = self.env['extraschool.activity_occurrence_child_registration'] \
@@ -249,6 +245,7 @@ class extraschool_activity(models.Model):
             presta.check()
 
         print "Temps total: ", time.strftime('%M:%S', time.gmtime((time.time() - start_time)))
+        self.warning_visibility = False
 
 
 
@@ -291,6 +288,23 @@ class extraschool_activity(models.Model):
             if exclusiondates_id.date_from < validity_from or exclusiondates_id.date_to > validity_to:
                 raise Warning(_("Date_from must be in range of Validity_from and Validity_to (Exclusion)"))
 
+    @api.onchange('validity_from')
+    @api.multi
+    def check_validity_from_invoice(self):
+        invoiced_obj = self.env['extraschool.invoicedprestations']
+        # If there is an invoiced prestation for the activity.
+        if (invoiced_obj.search(
+                [('activity_occurrence_id.activityid', '=', self._origin.id)])):
+            # Get the date of the last invoice for this activity.
+            date_last_invoice = invoiced_obj.search([('activity_activity_id', '=', self._origin.id)],
+                                                    order='prestation_date DESC', limit=1).prestation_date
+            date_last_invoice = fields.Date.from_string(date_last_invoice) + td(days=1)
+            self.warning_visibility = True
+            if fields.Date.from_string(self.validity_from) < date_last_invoice:
+                self.validity_from = date_last_invoice
+
+        return self.validity_from
+
     @api.multi
     def write(self, vals):
         for activity in self:
@@ -324,7 +338,7 @@ class extraschool_activity(models.Model):
         res = super(extraschool_activity, self).create(vals)
 
         if res:
-            res.populate_occurrence()        
+            res.populate_occurrence()
 
         return res
 
@@ -333,34 +347,12 @@ class extraschool_activity(models.Model):
             return activity.prest_from
         else:
             return False
-        
+
     def get_stop(self, activity):
         if activity.default_from_to == 'to' or activity.default_from_to == 'from_to':
             return activity.prest_to
         else:
             return False
-
-    @api.multi
-    def open_last_date_invoice_wizard(self):
-        print "in wizard"
-        return{
-            'name': 'Last Date Invoice',
-            'view_mode': 'form',
-            'res_model': 'extraschool.last_date_invoice_wizard',
-            'view_type': 'form',
-            'target': 'new',
-            'type': 'ir.actions.act_window',
-            'context': {'default_last_date_invoice': '2017-06-01'}
-        }
-
-class last_date_invoice_wizard(models.TransientModel):
-    _name = 'extraschool.last_date_invoice_wizard'
-
-    last_date_invoice = fields.Date('Last Invoice Date', required=True)
-
-    @api.one
-    def save(self):
-        print "SAVE BUTTON"
         
 extraschool_activity()
 
