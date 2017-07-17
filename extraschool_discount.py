@@ -119,7 +119,7 @@ class extraschool_discount_version(models.Model):
             
             #self.env.cr.execute(sql_update_invoice_total_price,(self.price_list_ids.ids))
     
-    def discount_forfait(self,biller_id):
+    def discount_forfait_week(self,biller_id):
             #get all invoice lines
             invoice_line_ids = self.env['extraschool.invoicedprestations'].search([('invoiceid', 'in', biller_id.invoice_ids.ids)])  
             #filter on price list if needed
@@ -129,15 +129,26 @@ class extraschool_discount_version(models.Model):
             if len(self.child_type_ids):
                 invoice_line_ids = invoice_line_ids.filtered(lambda r: r.childid.childtypeid.id in self.child_type_ids.ids)
             
-            break_loop = True
+            
+            saved_week = ''
+            saved_child = ''
+            saved_ativity = ''
+            print invoice_line_ids
             #loop on lines sorted by date,child
-            for line_id in invoice_line_ids.sorted(sorted(key=lambda r: "%s" % (r.prestation_date))):
-                if break_loop:
-                    break_loop = False
+            invoice_to_compute = []
+            for line_id in invoice_line_ids.sorted(key=lambda r: "%s%s%s" %  (fields.Date.from_string(r.prestation_date).weekday(), r.childid.id,r.activity_occurrence_id.activityid.id )):                
+                if fields.Date.from_string(line_id.prestation_date).weekday() != saved_week or line_id.childid.id != saved_child or line_id.activity_occurrence_id.activityid.id != saved_ativity:                    
+                    saved_week = fields.Date.from_string(line_id.prestation_date).weekday()
+                    saved_child = line_id.childid.id
+                    saved_ativity = line_id.activity_occurrence_id.activityid.id
                 else:
-                    line_id.write({'discount_value': line_id.total_price,
+                    print "discount %s %s %s %s" % (line_id.total_price, line_id.invoiceid.number, line_id.childid.firstname, line_id.activity_occurrence_id.name)
+                    line_id.write({'discount_value': line_id.unit_price * line_id.quantity,
                                    'total_price': 0.0})
-                        
-                print line_id.id
+                    if line_id.invoiceid.id not in invoice_to_compute:
+                        invoice_to_compute.append(line_id.invoiceid.id)
+                
+            self.env['extraschool.invoice'].search([('id', 'in', invoice_to_compute)])._compute_balance()                 
+            
                 
                     

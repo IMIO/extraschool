@@ -389,4 +389,14 @@ class extraschool_biller(models.Model):
                                'datas_fname': filename,
                                'name': filename,
                                 })    
+        
+    @api.one
+    def compute_discount(self):
+        print "------------------"
+        print self
+        print "------------------"
+        for discount in self.env['extraschool.discount.version'].search([]):
+            print "++++++++"
+            print "%s - %s" %(discount, discount.name)
+            discount.discount_forfait_week(self)
 

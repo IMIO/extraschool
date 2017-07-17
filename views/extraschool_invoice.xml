@@ -103,6 +103,7 @@
 	   		                    		<field name="period_tolerance"/>
 	   		                    		<field name="quantity"/>
 	   		                    		<field name="unit_price" widget="monetary"/>
+	   		                    		<field name="discount_value" widget="monetary"/>	   		                    				   		                    		
 	   		                    		<field name="total_price"  widget="monetary" sum="True"/>	   		                    		
 	   		                    	</tree>
 	   		                    	<form>
@@ -117,7 +118,8 @@
 		   		                    		<field name="period_tolerance"/>
 		   		                    		<field name="quantity"/>
 		   		                    		<field name="unit_price"/>
-		   		                    		<field name="total_price"/>
+		   		                    		<field name="discount_value"/>
+		   		                    		<field name="total_price"/>	 
 		   		                    	</group>
 	   		                    		<field name="prestation_ids"/>	 	   		                    		  		                    		
 	   		                    	</form>	   		                    	
