@@ -35,7 +35,7 @@
     'demo' : [],
     'test' : [],
     'data' : [  
-
+        'scripts/drop_discount_child_rel.sql',
         'scripts/update_seq.xml',
                 
         'views/extraschool_activitycategory.xml',

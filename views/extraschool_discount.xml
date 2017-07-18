@@ -41,7 +41,8 @@
                 	<field name="type"/>	
 	                <field name="apply_on" />
                 	<field name="quantity_from"/>	
-                	<field name="quantity_from"/>	
+                	<field name="quantity_from"/>
+                    <field name="discount_template" string="Template"/>
                 </tree>
             </field>
         </record>         
@@ -53,21 +54,22 @@
             <field name="arch" type="xml">
                 <form string="Discount version">
                 	<group col="4">
-	                	<field name="name"/>	
+	                	<field name="name"/>
+						<field name="discount_template"/>
 	                	<newline/>
-	                	<field name="validity_from"/>	
-	                	<field name="validity_to"/>		
-	                	<field name="period"/>
-	                	<field name="apply_on" />
-	                	<field name="type"/>	
-						<field name="value"/>
-	                	<field name="quantity_type" />	                	
+	                	<field name="validity_from"/>
+	                	<field name="validity_to"/>
+	                	<field name="period" invisible="True"/>
+	                	<field name="apply_on" invisible="True"/>
+	                	<field name="type" invisible="True"/>
+						<field name="value" attrs="{'invisible': [('discount_template', '!=', 'hannut')]}"/>
+	                	<field name="quantity_type" invisible="True"/>
 	                	<newline/>
-	                	<field name="quantity_from"/>
-	                	<field name="quantity_to"/>	                			                	
+	                	<field name="quantity_from" attrs="{'invisible': [('discount_template', '!=', 'hannut')]}"/>
+	                	<field name="quantity_to" invisible="True"/>
 	                	<separator string="Price list" colspan="4"/> 
 		                <field name="price_list_ids" nolabel="1" colspan="4" />  
-	                	<separator string="Price list" colspan="4"/> 
+	                	<separator string="Price Category" colspan="4"/>
 		                <field name="child_type_ids" nolabel="1" colspan="4" />  		                			                			                	                    		                		
                 	</group>
                 	
