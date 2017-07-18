@@ -149,7 +149,7 @@ class extraschool_discount_version(models.Model):
                     saved_child = line_id.childid.id
                     saved_activity = line_id.activity_occurrence_id.activityid.id
                 else:
-                    print "discount %s %s %s %s" % (line_id.total_price, line_id.invoiceid.number, line_id.childid.lastname, line_id.activity_occurrence_id.name)
+                    # print "discount %s %s %s %s" % (line_id.total_price, line_id.invoiceid.number, line_id.childid.lastname, line_id.activity_occurrence_id.name)
                     line_id.write({'discount_value': line_id.unit_price * line_id.quantity,
                                    'total_price': 0.0})
                     if line_id.invoiceid.id not in invoice_to_compute:
