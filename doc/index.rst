@@ -17,6 +17,7 @@ Contents:
    inscriptions
    piscine
    facturier
+   utilisation-smartphones
    config-smartphones
    truc-astuce
 

@@ -13,7 +13,7 @@ Configuration des smartphones
 Introduction
 ############
 
-Etapes à suivre pour la configuration des smartphones à l'application extraschool
+Etapes à suivre pour la configuration des smartphones à l'application AES
 
 
 #########
