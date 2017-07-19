@@ -34,8 +34,7 @@
     'init_xml' : ['init.xml',],
     'demo' : [],
     'test' : [],
-    'data' : [  
-        'scripts/drop_discount_child_rel.sql',
+    'data' : [
         'scripts/update_seq.xml',
                 
         'views/extraschool_activitycategory.xml',
