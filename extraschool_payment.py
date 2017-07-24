@@ -133,7 +133,7 @@ class extraschool_payment_reconciliation(models.Model):
 class extraschool_payment_status_report(models.Model):
     _name = 'extraschool.payment_status_report'
     _description = 'Payment status report'
-    _auto = False
+    _auto = False # Disable creation of table.
     
     activity_category_id = fields.Many2one('extraschool.activitycategory',select=True)
     parent_id = fields.Many2one('extraschool.parent',select=True)  
@@ -141,8 +141,10 @@ class extraschool_payment_status_report(models.Model):
     com_struct = fields.Char('Structured Communication')
     totalbalance = fields.Float('Total balance')
     nbr_actif_child = fields.Integer('Nbr actif child')
-    
+
+    # This is the view we use.
     def init(self, cr):
+        # Drop before a new view.
         tools.sql.drop_view_if_exists(cr, 'extraschool_payment_status_report')
         cr.execute("""
             CREATE view extraschool_payment_status_report as

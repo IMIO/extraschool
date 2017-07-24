@@ -19,7 +19,7 @@
             <field name="model">extraschool.activity</field>
             <field name="type">tree</field>
             <field name="arch" type="xml">
-                <tree string="Activity">
+                <tree string="Activity" colors="red:expire_soon == True">
                     <field name="name"/>
                     <field name="root_id"/>
                     <field name="prest_from" widget="float_time"/>
@@ -27,6 +27,7 @@
                     <field name="tarif_group_name"/>
                     <field name="validity_from"/>
                     <field name="validity_to"/>
+                    <field name="expire_soon" invisible="True"/>
                 </tree>
             </field>
         </record>

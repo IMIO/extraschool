@@ -22,6 +22,8 @@
 ##############################################################################
 
 from openerp import models, api, fields, _
+    #    registration_only = fields.Boolean('Registration only')
+
 from openerp.api import Environment
 from openerp.exceptions import except_orm, Warning
 from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
@@ -41,6 +43,7 @@ class extraschool_activity(models.Model):
     _description = 'activity'
 
     name = fields.Char('Name', required=True)
+
     category = fields.Many2one('extraschool.activitycategory', 'Category', required=True)
     parent_id = fields.Many2one('extraschool.activity', 'Parent', index=True)
     root_id = fields.Many2one('extraschool.activity', 'Root', compute='_compute_root_activity', store=True, index=True)
@@ -73,14 +76,21 @@ class extraschool_activity(models.Model):
     selectable_on_registration = fields.Boolean('Selectable on registration form')
     warning_date_invoice = fields.Char('WARNING', default="WARNING, there are invoices on this activity, we changed the date so you won't erase them.", readonly=True)
     warning_visibility = fields.Boolean()
-    #    registration_only = fields.Boolean('Registration only')
+    expire_soon = fields.Boolean(compute='_get_expired_date')
+
+    @api.multi
+    def _get_expired_date(self):
+        for rec in self:
+            date_to_check = fields.Date.from_string(rec.validity_to) - datetime.now().date()
+            if date_to_check.total_seconds() < 2592000:
+                rec.expire_soon = True;
 
     @api.onchange('parent_id')
     @api.depends('parent_id')
     def _compute_root_activity(self):
         # To do à déplacer ds activity
         for activity in self:
-            # set root activity_id if 
+            # set root activity_id if
             if activity.parent_id:
                 parent = activity.parent_id
                 while parent.parent_id:
@@ -189,10 +199,12 @@ class extraschool_activity(models.Model):
         else:
             activity_occurrence_ids = self.env['extraschool.activityoccurrence'].search([('activityid', '=', self.id)])
             date_last_invoice = self.validity_from
+
         child_registration_id__list = []
         # For each Activity Occurence get the list of the activity_occurrence_child_registration IDs.
         child_registration_ids = self.env['extraschool.activity_occurrence_child_registration'] \
             .search([('activity_occurrence_id', 'in', activity_occurrence_ids.ids)])
+
         print "build child list"
         for child_registration_id in child_registration_ids:
             # For each Child Registration Line get Child Registration ID.
@@ -200,11 +212,13 @@ class extraschool_activity(models.Model):
 
             if child_registration not in child_registration_id__list:
                 child_registration_id__list.append(child_registration)
+
         print "get child list"
         # Set the child registration to draft.
         child_registration_compute = self.env['extraschool.child_registration'].search([
             ('id', 'in', child_registration_id__list)
         ])
+
         print "set to draft"
         child_registration_compute.set_to_draft()
 
@@ -212,6 +226,7 @@ class extraschool_activity(models.Model):
         prestation_time_ids = self.env['extraschool.prestationtimes'].search([
             ('activity_occurrence_id', 'in', activity_occurrence_ids.ids)
         ])
+
         print "build pod list"
         for prestation_time_id in prestation_time_ids:
             prestation_time_of_the_day = prestation_time_id.prestation_times_of_the_day_id.id
@@ -219,6 +234,7 @@ class extraschool_activity(models.Model):
             if prestation_time_of_the_day not in prestation_time_id_list:
                 # Add DISTINCT ID to the Prestation Time Of The Day ID
                 prestation_time_id_list.append(prestation_time_of_the_day)
+
         print "get pod list"
         # Reset Prestation Times of the Day
         prestation_time_compute = self.env['extraschool.prestation_times_of_the_day'].search([
@@ -227,10 +243,12 @@ class extraschool_activity(models.Model):
 
         print "reset ", len(prestation_time_compute)
         prestation_time_compute.reset()
+
         print "unlink"
         activity_occurrence_ids.unlink()
 
         super(extraschool_activity, self).write(vals)
+
         print "populate"
         self.populate_occurrence(date_last_invoice)
 
