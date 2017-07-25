@@ -95,7 +95,7 @@ class extraschool_invoice_wizard(models.TransientModel):
     schoolimplantationid = fields.Many2many(comodel_name='extraschool.schoolimplantation',
                                relation='extraschool_invoice_wizard_schoolimplantation_rel',
                                column1='invoice_wizard_id',
-                               column2='schoolimplantation_id')
+                               column2='schoolimplantation_id', required=True)
     activitycategory = fields.Many2one('extraschool.activitycategory', 'Activity category', required=True, default=1)        
     period_from = fields.Date('Period from', required=True, default=_get_defaultfrom)
     period_to = fields.Date('Period to', required=True, default=_get_defaultto)
