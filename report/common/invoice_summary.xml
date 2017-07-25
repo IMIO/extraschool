@@ -231,6 +231,40 @@
 
 		</template>
 
+
+
+
+
+
+
+		<template id="report_hannut_all_invoice_summary_hannut_facture" inherit_id="extraschool.report_all_invoice_summary_hannut_facture" primary="True">
+			<xpath expr="//div[@id='invoice_summary']" position="before">
+				<style type="text/css">
+					div#invoice_summary h2{
+		    			font-size:12px;
+		    		}
+					div#invoice_summary p{
+		    			font-size:9px;
+		    		}
+					div#invoice_summary p{
+		    			font-size: 12px;
+		    		}
+				</style>
+			</xpath>
+
+			<xpath expr="//div[@id='invoice_summary']/p[1]" position="inside">
+				<span> Les éventuels recouvrements qui seraient à charge d’un huissier ne sont
+pas pris en compte sur le présent document. Toute réclamation relative à la facture doit être transmise à l’asbl
+L’Eveil avant la date d'échéance. Toute facture non contestée est considérée comme acceptée.</span>
+			</xpath>
+		</template>
+
+
+
+
+
+
+
 	</data>
 </openerp>	
 	
