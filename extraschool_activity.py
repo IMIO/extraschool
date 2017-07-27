@@ -193,7 +193,6 @@ class extraschool_activity(models.Model):
             date_last_invoice = vals['validity_from'] if 'validity_from' in vals else self.validity_from
             activity_occurrence_ids = self.env['extraschool.activityoccurrence'].search([
                 ('occurrence_date', '>=', date_last_invoice),
-                ('activityid', '=', self.id)
             ])
 
         else:
@@ -306,17 +305,21 @@ class extraschool_activity(models.Model):
             if exclusiondates_id.date_from < validity_from or exclusiondates_id.date_to > validity_to:
                 raise Warning(_("Date_from must be in range of Validity_from and Validity_to (Exclusion)"))
 
-    @api.onchange('validity_from')
+    @api.onchange('validity_from','validity_to','planneddates_ids','exclusiondates_ids','parent_id','placeids','leveltype','prest_from','prest_to')
     @api.multi
     def check_validity_from_invoice(self):
+        cr = self.env.cr
         invoiced_obj = self.env['extraschool.invoicedprestations']
         # If there is an invoiced prestation for the activity.
         if (invoiced_obj.search(
                 [('activity_occurrence_id.activityid', '=', self._origin.id)])):
             # Get the date of the last invoice for this activity.
-            date_last_invoice = invoiced_obj.search([('activity_activity_id', '=', self._origin.id)],
-                                                    order='prestation_date DESC', limit=1).prestation_date
-            date_last_invoice = fields.Date.from_string(date_last_invoice) + td(days=1)
+            cr.execute("SELECT prestation_date FROM extraschool_invoicedprestations WHERE activity_activity_id = %s ORDER BY prestation_date DESC LIMIT 1" % (self._origin.id))
+            # Trop lent.
+            # date_last_invoice = invoiced_obj.search([('activity_activity_id', '=', self._origin.id)],
+            #                                         order='prestation_date DESC', limit=1).prestation_date
+            date_last_invoice = cr.fetchone()
+            date_last_invoice = fields.Date.from_string(date_last_invoice[0]) + td(days=1)
             self.warning_visibility = True
             if fields.Date.from_string(self.validity_from) < date_last_invoice:
                 self.validity_from = date_last_invoice
