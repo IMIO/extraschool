@@ -13,9 +13,12 @@
                         <field name="invoice_date" />
 						<field name="payment_term" />                        
                         <field name="description" />                        	
-                        <field name="invoice_child" />                        	
+                        <field name="invoice_child" />
                         <field name="leveltype"  attrs="{'invisible':[('invoice_child', '!=', True)], 'required':[('invoice_child', '==', True)]}"/>                       	
                         <field name="amount" />
+                        <field name="invoice_all_children"/>
+                        <field name="validity_from" attrs="{'invisible':[('invoice_all_children', '=', True)], 'required':[('invoice_all_children', '==', False)]}"/>
+                        <field name="validity_to" attrs="{'invisible':[('invoice_all_children', '=', True)], 'required':[('invoice_all_children', '==', False)]}"/>
                     </group>
                     <group colspan="4" col="3">
                         <button name="generate_invoice" string="Facturation" icon="gtk-apply" type="object" />

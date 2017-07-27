@@ -27,6 +27,7 @@ import cStringIO
 import base64
 import os
 from openerp.exceptions import except_orm, Warning, RedirectWarning
+from datetime import date, datetime, timedelta as td
 
 
 class extraschool_manuel_invoice_wizard(models.TransientModel):
@@ -47,6 +48,15 @@ class extraschool_manuel_invoice_wizard(models.TransientModel):
                              ('redirect', 'Redirect'),],
                             'State', required=True, default='init'
                             )
+    invoice_all_children = fields.Boolean('Invoice all of the children', default=True)
+    validity_from = fields.Date('Date from')
+    validity_to = fields.Date('Date to')
+
+    @api.onchange('invoice_all_children')
+    @api.multi
+    def change_state(self):
+        if self.invoice_all_children == False:
+            self.invoice_child = True
 
     @api.multi
     def generate_invoice(self):
@@ -67,7 +77,7 @@ class extraschool_manuel_invoice_wizard(models.TransientModel):
         for parent in self.env['extraschool.parent'].browse(self._context.get('active_ids')):
             if self.invoice_child:
                 for child in parent.child_ids:
-                    if child.levelid.leveltype in self.leveltype and child.isdisabled == False:
+                    if child.levelid.leveltype in self.leveltype and child.isdisabled == False and (self.invoice_all_children == True or (child.create_date >= self.validity_from and child.create_date <= self.validity_to)):
                         next_invoice_num = self.activity_category_id.get_next_comstruct('invoice',biller.get_from_year())
                         invoice = inv_obj.create({'name' : _('invoice_%s') % (next_invoice_num['num'],),
                                     'number' : next_invoice_num['num'],
