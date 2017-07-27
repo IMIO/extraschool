@@ -99,7 +99,31 @@ class extraschool_child_registration(models.Model):
             child_reg.append((0,0,{'child_id': child,
                                    }))
         self.child_registration_line_ids = child_reg
-        
+
+    @api.multi
+    def check_validity_date(self, vals):
+        # Check if values has passed (create or write). If not take from parent Object.
+        date_from = vals['date_from'] if 'date_from' in vals else self.date_from
+        date_to = vals['date_to'] if 'date_to' in vals else self.date_to
+
+        if date_to < date_from:
+            raise Warning(_("The date from must be lower than the date to"))
+
+    @api.multi
+    def write(self,vals):
+        self.check_validity_date(vals)
+
+        res = super(extraschool_child_registration, self).write(vals)
+        return res
+
+    @api.model
+    def create(self,vals):
+        self.check_validity_date(vals)
+
+        res = super(extraschool_child_registration, self).create(vals)
+        return res
+
+
     def check_doublons(self):
         print "in check doublons"
         child_ids = [line.child_id for line in self.child_registration_line_ids]
