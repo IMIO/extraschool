@@ -20,7 +20,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import models, api, fields
+from openerp import models, api, fields,_
 from openerp.api import Environment
 import cStringIO
 import base64
@@ -32,6 +32,7 @@ from xlutils.copy import copy
 from xlutils.styles import Styles
 import xlwt
 from xlwt import *
+from openerp.exceptions import Warning
 
 class extraschool_one_report_day(models.Model):
     _name = 'extraschool.one_report_day'
@@ -137,8 +138,12 @@ class extraschool_one_report(models.Model):
         new_obj = super(extraschool_one_report, self).create(vals)
         place_obj = self.env['extraschool.place']
         one_report_settings_obj = self.env['extraschool.onereport_settings']
-        one_report_settings = one_report_settings_obj.search([('validity_from', '<=',vals['transmissiondate']) ,
-                                      ('validity_to', '>=',vals['transmissiondate']),])
+
+        one_report_settings = one_report_settings_obj.search([('validity_from', '<=',vals['transmissiondate']),('validity_to', '>=',vals['transmissiondate']),])
+
+        if not one_report_settings:
+            raise Warning(_("There is no ONE report configuration"))
+
         print "----------"
         print one_report_settings
         print "----------"

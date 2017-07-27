@@ -38,7 +38,7 @@ class extraschool_invoicedprestations(models.Model):
     placeid = fields.Many2one(related='activity_occurrence_id.place_id', store=True, select=True)
     prestation_date = fields.Date(related='activity_occurrence_id.occurrence_date', store=True, select=True)
     activity_occurrence_id = fields.Many2one('extraschool.activityoccurrence', 'Activity occurrence', required=False, select=True,ondelete='restrict')
-    activity_activity_id = fields.Many2one(related="activity_occurrence_id.activityid", store=True)
+    activity_activity_id = fields.Many2one(related="activity_occurrence_id.activityid", store=True, index=True)
     description = fields.Char('Description')        
     duration = fields.Integer('Duration')
     quantity = fields.Integer('Quantity')

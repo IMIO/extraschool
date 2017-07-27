@@ -45,7 +45,7 @@ class extraschool_pdaprestationtimes(models.Model):
     def create(self,vals):       
         if len(self.env['extraschool.child'].search([('id', '=',vals['childid']),])) == 0:
             #child deleted ...
-            print "warning p)da_presta of child deleted !!"
+            print "warning pda_presta of child deleted !!"
             return self
         
         if 'type' not in vals:

@@ -362,7 +362,6 @@ class extraschool_biller(models.Model):
                 thread = threading.Thread(target=self.generate_pdf_thread, args=(cr, uid, thread_lock, sub_invoices,self.env.context))
                 threaded_report.append(thread)
                 thread.start()
-        
                         
     @api.one
     def export_onyx(self):

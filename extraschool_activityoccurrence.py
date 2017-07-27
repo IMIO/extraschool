@@ -222,7 +222,7 @@ class extraschool_activityoccurrence(models.Model):
         #activity only for registerd child
         if self.activityid.onlyregisteredchilds:
             #check if child is registered 
-            if self.activityid.childregistration_ids.filtered(lambda r: r.child_id.id == child.id):
+            if self.child_registration_ids.filtered(lambda r: r.child_id.id == child.id):
                 take_part_to = True
         else:
             take_part_to = True
