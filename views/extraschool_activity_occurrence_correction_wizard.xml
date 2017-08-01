@@ -7,9 +7,7 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Activity occurrences correction">
-                    <field name="state" invisible="1" />
-                    <group states="init">
-                        <field name="date_from" />
+                    <group>
 						<field name="date_to" />
                     </group>
                     <group colspan="4" col="3">

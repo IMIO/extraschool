@@ -39,7 +39,8 @@ class extraschool_mainsettings(models.Model):
     processedcodasfolder = fields.Char('processedcodasfolder', size=80)
     emailfornotifications = fields.Char('Email for notifications', size=80)
     logo = fields.Binary()
-    levelbeforedisable = fields.Many2one('extraschool.level', 'Level')   
+    levelbeforedisable = fields.Many2one('extraschool.level', 'Level')
+    last_child_upgrade_levels = fields.Date('Last child upgrade level', readonly=True)
             
     @api.one
     def update(self):
@@ -102,6 +103,8 @@ class extraschool_mainsettings(models.Model):
             else:
                 print "disable child %s" % (child['id'])
                 obj_child.write(cr, uid, [child['id']], {'isdisabled': True})
+
+        self.last_child_upgrade_levels = datetime.now()
 
     @api.one
     def update_presta_stat(self):

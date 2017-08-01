@@ -8,29 +8,39 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Main Settings">
-					<group col="4">
-	                    <field name="lastqrcodenbr"/>
-	                    <newline/>
-						<field name="qrencode"/>
-	                    <newline/>
-	                    <field name="tempfolder"/>
-	                    <newline/>
-	                    <field name="templatesfolder"/>
-	                    <newline/>
-	                    <field name="emailfornotifications"/>
-	                    <newline/>
-	                	<field name="logo" widget="image" class="oe_avatar oe_left" />
-						<newline/>       
-						<field name="levelbeforedisable" />
-						<newline/>                								         	
-	                    <button name="update" string="Save" icon="gtk-apply" type="object"/>
-						<newline/>                	
-	                    <button name="update_parent_send_method" string="Update parent send method" icon="gtk-apply" type="object"/>
-						<newline/>                	
-	                    <button name="childupgradelevels" string="Update level" icon="gtk-apply" type="object"/>
-						<newline/>                		                    	
-	                    <button name="update_presta_stat" string="Update presta stat" icon="gtk-apply" type="object"/>
-	                    </group>	                    
+                    <sheet>
+                        <notebook>
+                                    <!--<field name="lastqrcodenbr"/>-->
+                                    <!--<newline/>-->
+                                    <!--<field name="qrencode"/>-->
+                                    <!--<newline/>-->
+                                    <!--<field name="tempfolder"/>-->
+                                    <!--<newline/>-->
+                                    <!--<field name="templatesfolder"/>-->
+                                    <!--<newline/>-->
+                                    <!--<field name="emailfornotifications"/>-->
+                                    <!--<newline/>-->
+                                    <!--<field name="logo" widget="image" class="oe_avatar oe_left" />-->
+                                    <!--<newline/>-->
+                                <page string="Upgrade Child Levels">
+                                    <group col="2">
+                                        <field name="levelbeforedisable" style="width:50%"/>
+                                        <button name="childupgradelevels" string="Update level" icon="gtk-apply" type="object"/>
+                                        <newline/>
+                                        <field name="last_child_upgrade_levels"/>
+                                    </group>
+                                </page>
+                                <page string="Update Prestation Statistic">
+                                    <button name="update_presta_stat" string="Update presta stat" icon="gtk-apply" type="object"/>
+                                </page>
+                                <page string="Parent Send Method">
+                                    <button name="update_parent_send_method" string="Update parent send method" icon="gtk-apply" type="object"/>
+                                </page>
+                                <page string="Save">
+                                    <button name="update" string="Save" icon="gtk-apply" type="object"/>
+                                </page>
+                        </notebook>
+                    </sheet>
 				</form>
 			</field>
 		</record>

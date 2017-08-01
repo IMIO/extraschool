@@ -27,31 +27,44 @@ import cStringIO
 import base64
 import os
 from openerp.exceptions import except_orm, Warning, RedirectWarning
+from datetime import date, datetime, timedelta as td
+import time
+from openerp.exceptions import except_orm, Warning
 
 
 class extraschool_activity_occurrence_correction_wizard(models.TransientModel):
     _name = 'extraschool.activity_occurrence_correction_wizard'
 
-    date_from = fields.Date('Date from', required=True)
-    date_to = fields.Date('Date to', required=True)     
-    state = fields.Selection([('init', 'Init'),
-                             ('redirect', 'Redirect'),],
-                            'State', required=True, default='init'
-                            )
+    date_to = fields.Date('Date to', required=True)
 
     @api.multi
-    def reset_populate(self):        
-        for activity in self.env['extraschool.activity'].browse(self._context.get('active_ids')):
-            occurrences = self.env['extraschool.activityoccurrence'].search([('activityid', '=', activity.id),
-                                                                              ('occurrence_date', '>=', self.date_from),
-                                                                              ('occurrence_date', '<=', self.date_to),
-                                                                              ])
-            print "delete occurrence"
-            occurrences.unlink()
-            activity.populate_occurrence(self.date_from, self.date_to)
-        
-        return True
+    def reset_populate(self):
+        return_val = {
+                        'validity_to': -1,
+                        'validity_from': -1,
+                    }
+        if self.date_to > datetime.now().strftime("%Y-%m-%d"):
+            for activity in self.env['extraschool.activity'].browse(self._context.get('active_ids')):
+                return_val['validity_to'] = self.date_to
+                return_val['validity_from'] = self.check_last_invoice(activity)
+                activity.write(return_val)
+        else:
+            raise Warning(_("The date must be higher than today"))
 
+    def check_last_invoice(self,activity):
+        cr = self.env.cr
+        invoiced_obj = self.env['extraschool.invoicedprestations']
+        # If there is an invoiced prestation for the activity.
+        # import pdb;pdb.set_trace()
+        return_val = activity.validity_from
+        if (invoiced_obj.search(
+                [('activity_occurrence_id.activityid', '=', activity.id)])):
+            # Get the date of the last invoice for this activity.
+            cr.execute("SELECT prestation_date FROM extraschool_invoicedprestations WHERE activity_activity_id = %s ORDER BY prestation_date DESC LIMIT 1" % (activity.id))
+            date_last_invoice = cr.fetchone()
+            date_last_invoice = fields.Date.from_string(date_last_invoice[0]) + td(days=1)
 
+            if activity.validity_from < date_last_invoice.strftime('%Y-%m-%d'):
+                return_val = date_last_invoice
 
-    
+        return return_val

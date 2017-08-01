@@ -184,6 +184,7 @@ class extraschool_activity(models.Model):
                         occu.auto_add_registered_childs()
 
     def check_if_modifiable(self, vals):
+        print "# Start of the modification process........"
         start_time = time.time()
         invoiced_obj = self.env['extraschool.invoicedprestations']
         # There goes the rabbit hole
@@ -204,7 +205,7 @@ class extraschool_activity(models.Model):
         child_registration_ids = self.env['extraschool.activity_occurrence_child_registration'] \
             .search([('activity_occurrence_id', 'in', activity_occurrence_ids.ids)])
 
-        print "build child list"
+        print "# Building children's list"
         for child_registration_id in child_registration_ids:
             # For each Child Registration Line get Child Registration ID.
             child_registration = child_registration_id.child_registration_line_id.child_registration_id.id
@@ -212,13 +213,13 @@ class extraschool_activity(models.Model):
             if child_registration not in child_registration_id__list:
                 child_registration_id__list.append(child_registration)
 
-        print "get child list"
+        print "# Getting registration of children"
         # Set the child registration to draft.
         child_registration_compute = self.env['extraschool.child_registration'].search([
             ('id', 'in', child_registration_id__list)
         ])
 
-        print "set to draft"
+        print "# Putting children to: set to draft"
         child_registration_compute.set_to_draft()
 
         prestation_time_id_list = []
@@ -226,7 +227,7 @@ class extraschool_activity(models.Model):
             ('activity_occurrence_id', 'in', activity_occurrence_ids.ids)
         ])
 
-        print "build pod list"
+        print "# Building Prestation Time of the Day list"
         for prestation_time_id in prestation_time_ids:
             prestation_time_of_the_day = prestation_time_id.prestation_times_of_the_day_id.id
 
@@ -234,34 +235,34 @@ class extraschool_activity(models.Model):
                 # Add DISTINCT ID to the Prestation Time Of The Day ID
                 prestation_time_id_list.append(prestation_time_of_the_day)
 
-        print "get pod list"
+        print "# Getting POD that we need"
         # Reset Prestation Times of the Day
         prestation_time_compute = self.env['extraschool.prestation_times_of_the_day'].search([
             ('id', 'in', prestation_time_id_list)
         ])
 
-        print "reset ", len(prestation_time_compute)
+        print "# Number of reset required: ", len(prestation_time_compute)
         prestation_time_compute.reset()
 
-        print "unlink"
+        print "# Unlink occurrences"
         activity_occurrence_ids.unlink()
 
         super(extraschool_activity, self).write(vals)
 
-        print "populate"
+        print "# Populate occurrences"
         self.populate_occurrence(date_last_invoice)
 
-        print "validate"
+        print "# Validate children's registration"
         child_registration_compute.validate_multi()
 
-        print "check"
+        print "# Check Prestations"
         total = len(prestation_time_compute)
         for presta in prestation_time_compute:
             print total
             total -= 1
             presta.check()
 
-        print "Temps total: ", time.strftime('%M:%S', time.gmtime((time.time() - start_time)))
+        print "Final time: ", time.strftime('%M:%S', time.gmtime((time.time() - start_time)))
         self.warning_visibility = False
 
 
@@ -308,6 +309,7 @@ class extraschool_activity(models.Model):
     @api.onchange('validity_from','validity_to','planneddates_ids','exclusiondates_ids','parent_id','placeids','leveltype','prest_from','prest_to')
     @api.multi
     def check_validity_from_invoice(self):
+        print "# Check if there is an invoice prestation at the current date"
         cr = self.env.cr
         invoiced_obj = self.env['extraschool.invoicedprestations']
         # If there is an invoiced prestation for the activity.
@@ -329,7 +331,7 @@ class extraschool_activity(models.Model):
     @api.multi
     def write(self, vals):
         for activity in self:
-
+            print "# Modification of activity: %s" % (self.name)
             # Check Validity Date & Hour.
             self.check_validity_date(vals)
 
