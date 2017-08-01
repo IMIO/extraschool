@@ -23741,12 +23741,12 @@ msgstr "Fax :"
 #. module: extraschool
 #: field:extraschool.activitycategory,po_resp_fct:0
 msgid "Fct of resp"
-msgstr "Fct of resp"
+msgstr "Fct du responsablef"
 
 #. module: extraschool
 #: field:extraschool.activitycategory,po_resp2_fct:0
 msgid "Fct of resp2"
-msgstr "Fct of resp2"
+msgstr "Fct du responsable 2"
 
 #. module: document
 #: selection:report.document.user,month:0
@@ -23769,6 +23769,26 @@ msgstr "Régions"
 #: field:extraschool.remindertype,fees_amount:0
 msgid "Fees amount"
 msgstr "Fees amount"
+
+#. module: extraschool
+#: field:extraschool.discount.version,discount_template:0
+msgid "Choose the template"
+msgstr "Template"
+
+#. module: extraschool
+#: field:extraschool.discount.version,apply_on:0
+msgid "Apply on"
+msgstr "Appliqué sur"
+
+#. module: extraschool
+#: field:extraschool.discount.version,period:0
+msgid "Period"
+msgstr "Période"
+
+#. module: extraschool
+#: view:extraschool.discount.version:extraschool.extraschool_discount_version_form
+msgid "Price Category"
+msgstr "Catégorie de prix"
 
 #. module: extraschool
 #: field:extraschool.remindertype,fees_description:0
@@ -29804,7 +29824,7 @@ msgstr "Nom du responsable "
 #. module: extraschool
 #: field:extraschool.activitycategory,po_resp2_name:0
 msgid "Name of resp2"
-msgstr "Name of resp2"
+msgstr "Nom du responsable 2"
 
 #. module: base
 #: help:ir.cron,function:0
@@ -36130,7 +36150,7 @@ msgstr "Signature image"
 #. module: extraschool
 #: field:extraschool.activitycategory,po_resp2_sign:0
 msgid "Signature of resp2"
-msgstr "Signature of resp2"
+msgstr "Signature du responsable 2"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_auth_signup
@@ -37183,6 +37203,21 @@ msgstr "Modèle d'attestation fiscale"
 #: model:ir.actions.act_window,name:extraschool.action_lbsc_taxcertificates_wizard
 msgid "Tax Certificates Wizard"
 msgstr "Attestations fiscales"
+
+#. module: extraschool
+#: field:extraschool.activitycategory,po_attestation_fct:0
+msgid "Fct of resp tax certificate"
+msgstr "Fct du responsable des attestations fiscales"
+
+#. module: extraschool
+#: field:extraschool.activitycategory,po_attestation_sign:0
+msgid "Signature of resp tax certificate"
+msgstr "Signature du responsable des attestations fiscales"
+
+#. module: extraschool
+#: field:extraschool.activitycategory,po_attestation_name:0
+msgid "Name of resp tax certificate"
+msgstr "Name du responsable des attestations fiscales"
 
 #. module: base
 #: field:res.company,vat:0
@@ -41767,7 +41802,7 @@ msgstr "eFacturation"
 #. module: extraschool
 #: field:extraschool.activitycategory,po_email:0
 msgid "email"
-msgstr "email"
+msgstr "Email"
 
 #. module: base
 #: view:res.users:base.view_users_simple_form

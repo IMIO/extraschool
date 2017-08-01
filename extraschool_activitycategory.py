@@ -43,6 +43,10 @@ class extraschool_activitycategory(models.Model):
     po_resp2_name = fields.Char('Name of resp2')
     po_resp2_fct = fields.Char('Fct of resp2')
 
+    po_attestation_name = fields.Char('Name of resp tax certificate')
+    po_attestation_fct = fields.Char('Fct of resp tax certificate')
+    po_attestation_sign = fields.Binary('Signature of resp tax certificate')
+
     po_stamp = fields.Binary('stamp')
     po_sign_img = fields.Binary('Signature image')
     
