@@ -63,8 +63,9 @@ class extraschool_activity_occurrence_correction_wizard(models.TransientModel):
             cr.execute("SELECT prestation_date FROM extraschool_invoicedprestations WHERE activity_activity_id = %s ORDER BY prestation_date DESC LIMIT 1" % (activity.id))
             date_last_invoice = cr.fetchone()
             date_last_invoice = fields.Date.from_string(date_last_invoice[0]) + td(days=1)
+            date_last_invoice = date_last_invoice.strftime('%Y-%m-%d')
 
-            if activity.validity_from < date_last_invoice.strftime('%Y-%m-%d'):
+            if activity.validity_from < date_last_invoice:
                 return_val = date_last_invoice
 
         return return_val
