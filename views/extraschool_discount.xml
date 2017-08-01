@@ -41,7 +41,6 @@
                 	<field name="type"/>	
 	                <field name="apply_on" />
                 	<field name="quantity_from"/>	
-                	<field name="quantity_from"/>
                     <field name="discount_template" string="Template"/>
                 </tree>
             </field>
