@@ -41,7 +41,7 @@ class extraschool_remindertype(models.Model):
     selected_type_id = fields.Many2one('extraschool.remindertype', 'Reminder type to select')
     delay = fields.Integer('Delay')
     payment_term_in_day = fields.Integer('payment_term_in_day')
-    minimum_balance = fields.Float('Minimum balance')    
+    minimum_balance = fields.Float('Minimum balance', default=0.01)
     out_of_accounting = fields.Boolean(string="Out of accounting")
     
     @api.onchange('out_of_accounting')

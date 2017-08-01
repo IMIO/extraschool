@@ -330,7 +330,7 @@ class extraschool_invoice(models.Model):
                 str_line = ""                                              
 
             if (zz > 0 and (saved_child['saved_child'] != invoicedline.childid.name or saved_child['inv_date'] != invoicedline.prestation_date or saved_child['saved_activity'] != invoicedline.activity_activity_id.short_name))  or zz == len(self.invoice_line_ids) -1:
-                str_line = format_str % (self.parentid.rn if self.parentid.rn else "",
+                str_line = format_str % (self.parentid.rn if self.parentid.rn else "", # Matricule.
                                         self.parentid.lastname,
                                         self.parentid.firstname,
                                         '', # code rue
