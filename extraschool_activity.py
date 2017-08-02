@@ -330,7 +330,7 @@ class extraschool_activity(models.Model):
     @api.multi
     def write(self, vals):
         for activity in self:
-            print "# Modification of activity: %s" % (self.name)
+            print "# Modification of an activity -------------------"
             # Check Validity Date & Hour.
             self.check_validity_date(vals)
 
