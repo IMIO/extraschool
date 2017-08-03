@@ -347,7 +347,7 @@ class extraschool_biller(models.Model):
         self.env.invalidate_all()
         
         lock = threading.Lock()
-        chunk_size = int(self.env['ir.config_parameter'].get_param('extraschool.report.thread.chunk',600))
+        chunk_size = int(self.env['ir.config_parameter'].get_param('extraschool.report.thread.chunk',200))
 #         print "-------------------------------"
 #         print "chunk_size:%s" % (chunk_size)
 #         print "-------------------------------"
