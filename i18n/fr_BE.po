@@ -37217,7 +37217,7 @@ msgstr "Signature du responsable des attestations fiscales"
 #. module: extraschool
 #: field:extraschool.activitycategory,po_attestation_name:0
 msgid "Name of resp tax certificate"
-msgstr "Name du responsable des attestations fiscales"
+msgstr "Nom du responsable des attestations fiscales"
 
 #. module: base
 #: field:res.company,vat:0
