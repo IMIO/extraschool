@@ -4,7 +4,7 @@
 #    Extraschool
 #    Copyright (C) 2008-2014 
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -35,7 +35,8 @@ class extraschool_smartphone(models.Model):
     _name = 'extraschool.smartphone'
     _description = 'Smartphone'
 
-
+    # We had to put these methods here so we can use default=_get_default_* in the definition of the fields.
+    # search([])[-1] get the last smartphone created based on it's ID.
     def _get_default_username(self):
         return self.env['extraschool.config_smartphone'].search([])[-1].username
 
@@ -58,15 +59,14 @@ class extraschool_smartphone(models.Model):
         return self.env['extraschool.config_smartphone'].search([])[-1].oldversion
 
     def _get_default_transmissiontime(self):
-        # todo: compute the last time + 5 minutes
         smartphone_obj = self.env['extraschool.smartphone']
-
+        # If it's the first smartphone.
         if (not smartphone_obj.search([])):
             return self.env['extraschool.config_smartphone'].search([])[-1].start_transmissiontime
+        # Else we take the last transmissiontime and we add 5 minutes to it.
         else:
             last_transmission = smartphone_obj.search([], order='transmissiontime DESC', limit=1).transmissiontime
-            last_transmission = datetime.strptime(last_transmission, "%H:%M")
-            last_transmission = last_transmission + timedelta(minutes = 5)
+            last_transmission = datetime.strptime(last_transmission, "%H:%M") + timedelta(minutes = 5)
             return last_transmission.strftime("%H:%M")
 
     def _get_default_scanmethod(self):
@@ -142,6 +142,7 @@ class extraschool_smartphone(models.Model):
     @api.multi
     def write(self,vals):
         #transmission is finished
+        # Todo: See if we still need this.
         if 'lasttransmissiondate' in vals:
             #reset presta of the day if needed
             for smartphone in self:
