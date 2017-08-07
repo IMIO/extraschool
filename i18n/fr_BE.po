@@ -39297,7 +39297,6 @@ msgstr "Modèle d'attestation fiscale"
 msgid "Tax Certificates Wizard"
 msgstr "Attestations fiscales"
 
-<<<<<<< HEAD
 #. module: extraschool
 #: field:extraschool.activitycategory,po_attestation_fct:0
 msgid "Fct of resp tax certificate"
@@ -39313,8 +39312,7 @@ msgstr "Signature du responsable des attestations fiscales"
 msgid "Name of resp tax certificate"
 msgstr "Nom du responsable des attestations fiscales"
 
-=======
->>>>>>> 3a133ab140375638fa10b48b1ed70e609bc14db5
+
 #. module: base
 #: field:res.company,vat:0
 msgid "Tax ID"
