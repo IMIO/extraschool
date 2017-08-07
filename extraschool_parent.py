@@ -154,7 +154,7 @@ class extraschool_parent(models.Model):
         if len(parents) > 0:
             raise Warning('Ce parent %s %s %s a deja ete encode !!!' % (vals['firstname'].strip(),vals['lastname'].strip(),vals['streetcode']))
 
-        if 'email' in vals and vals['email'] != False:
+        if 'email' in vals or vals['email'] != False and vals['email'] != '' and vals['email'] != ' ':
             email_to_check = vals['email']
             if (not self.email_validation(email_to_check)):
                 raise Warning("E-mail format invalid.")
