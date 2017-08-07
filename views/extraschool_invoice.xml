@@ -63,8 +63,8 @@
 				<form string="invoice">
 					<header>
 						<button name="export_onyx_but" string="export onyx" type="object" class="oe_highlight" groups="base.group_erp_manager"/>	
-						<button name="cancel" string="Cancel" type="object" class="oe_highlight" groups="base.group_erp_manager"/>	
-					</header>
+						<button name="cancel" string="Cancel Invoice" type="object" class="oe_highlight" groups="base.group_erp_manager"/>
+                    </header>
 				
 					<group col="4">
 	                    <field name="biller_id"/>
@@ -152,7 +152,7 @@
 			                </page>   
 			                
 			       		</notebook>
-					</group>	                    
+					</group>
 				</form>
 			</field>
 		</record>

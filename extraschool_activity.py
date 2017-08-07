@@ -192,10 +192,9 @@ class extraschool_activity(models.Model):
         if (invoiced_obj.search(
                 [('activity_occurrence_id.activityid', '=', self.id)])):
             date_last_invoice = vals['validity_from'] if 'validity_from' in vals else self.validity_from
-            activity_occurrence_ids = self.env['extraschool.activityoccurrence'].search([
+            activity_occurrence_ids = self.env['extraschool.activityoccurrence'].search([('activityid', '=', self.id),
                 ('occurrence_date', '>=', date_last_invoice),
             ])
-
         else:
             activity_occurrence_ids = self.env['extraschool.activityoccurrence'].search([('activityid', '=', self.id)])
             date_last_invoice = self.validity_from
@@ -331,7 +330,7 @@ class extraschool_activity(models.Model):
     @api.multi
     def write(self, vals):
         for activity in self:
-            print "# Modification of activity: %s" % (self.name)
+            print "# Modification of an activity -------------------"
             # Check Validity Date & Hour.
             self.check_validity_date(vals)
 

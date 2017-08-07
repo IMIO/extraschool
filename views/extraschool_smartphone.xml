@@ -6,12 +6,13 @@
 			<field name="model">extraschool.smartphone</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
-				<tree string="Smartphone">
+                <tree string="Smartphone">
                     <field name="id"/>
                     <field name="name"/> 
                     <field name="placeid" /> 
                     <field name="lasttransmissiondate"/>
-                    <field name="softwareurl"/>                    			
+                    <field name="softwareurl"/>
+					<field name="transmissiontime"/>
 				</tree>
 			</field>
 		</record>
@@ -31,7 +32,7 @@
 			                <newline/>
 			                <field name="placeid" /> 
 			                <newline/>
-			                <field name="activitycategories_ids" />        
+			                <field name="activitycategories_ids" />
 			                <newline/>
 			                <field name="lasttransmissiondate"/>
 			                <newline/>

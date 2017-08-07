@@ -302,10 +302,11 @@ class extraschool_biller(models.Model):
             #As this function is in a new thread, i need to open a new cursor, because the old one may be closed
             new_cr = self.pool.cursor()
             new_env = Environment(new_cr, uid,context)
-         
+            count = 0
             report = new_env['report']
             for invoice in new_env['extraschool.invoice'].browse(invoices_ids):
-#                 print "generate pdf %s" % (invoice.id)
+                count = count + 1
+                print "generate pdf %s count: %s" % (invoice.id, count)
                 report.get_pdf(invoice ,'extraschool.invoice_report_layout')
           
                         

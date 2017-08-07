@@ -4,7 +4,7 @@
 #    Extraschool
 #    Copyright (C) 2008-2014 
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -27,7 +27,7 @@ from reportlab.graphics.barcode import createBarcodeImageInMemory
 import cStringIO
 import base64
 import os
-from datetime import datetime, timedelta
+from datetime import datetime, date, time, timedelta
 import pdb
 
 
@@ -35,27 +35,77 @@ class extraschool_smartphone(models.Model):
     _name = 'extraschool.smartphone'
     _description = 'Smartphone'
 
-    name = fields.Char('Name', size=50)         
+    # We had to put these methods here so we can use default=_get_default_* in the definition of the fields.
+    # search([])[-1] get the last smartphone created based on it's ID.
+    def _get_default_username(self):
+        return self.env['extraschool.config_smartphone'].search([])[-1].username
+
+    def _get_default_serveraddress(self):
+        return self.env['extraschool.config_smartphone'].search([])[-1].serveraddress
+
+    def _get_default_databasename(self):
+        return self.env['extraschool.config_smartphone'].search([])[-1].databasename
+
+    def _get_default_userpassword(self):
+        return self.env['extraschool.config_smartphone'].search([])[-1].userpassword
+
+    def _get_default_activitycategories_ids(self):
+        return self.env['extraschool.config_smartphone'].search([])[-1].activitycategories_ids
+
+    def _get_default_maxtimedelta(self):
+        return self.env['extraschool.config_smartphone'].search([])[-1].maxtimedelta
+
+    def _get_default_oldversion(self):
+        return self.env['extraschool.config_smartphone'].search([])[-1].oldversion
+
+    def _get_default_transmissiontime(self):
+        smartphone_obj = self.env['extraschool.smartphone']
+        # If it's the first smartphone.
+        if (not smartphone_obj.search([])):
+            return self.env['extraschool.config_smartphone'].search([])[-1].start_transmissiontime
+        # Else we take the last transmissiontime and we add 5 minutes to it.
+        else:
+            last_transmission = smartphone_obj.search([], order='transmissiontime DESC', limit=1).transmissiontime
+            last_transmission = datetime.strptime(last_transmission, "%H:%M") + timedelta(minutes = 5)
+            return last_transmission.strftime("%H:%M")
+
+    def _get_default_scanmethod(self):
+        return self.env['extraschool.config_smartphone'].search([])[-1].scanmethod
+
+    def _get_default_manualok(self):
+        return self.env['extraschool.config_smartphone'].search([])[-1].manualok
+
+    def _get_default_cfgpassword(self):
+        return self.env['extraschool.config_smartphone'].search([])[-1].cfgpassword
+
+    def _get_default_transfertmethod(self):
+        return self.env['extraschool.config_smartphone'].search([])[-1].transfertmethod
+
+    def _get_default_activitycategories_ids(self):
+        return self.env['extraschool.config_smartphone'].search([])[-1].activitycategories_ids
+
+
+    name = fields.Char('Name', size=50)
     placeid = fields.Many2one('extraschool.place', 'Schoolcare Place', required=True)
-    activitycategories_ids = fields.Many2many('extraschool.activitycategory','extraschool_smartphone_activitycategory_rel', 'smartphone_id', 'activitycategory_id','Activity categories')
-    lasttransmissiondate = fields.Datetime('Last Transmission Date')
+    activitycategories_ids = fields.Many2many('extraschool.activitycategory','extraschool_smartphone_activitycategory_rel', 'smartphone_id', 'activitycategory_id','Activity categories', default=_get_default_activitycategories_ids, readonly=True)
+    lasttransmissiondate = fields.Datetime('Last Transmission Date', readonly=True)
     softwareurl = fields.Char('Software url', size=100, readonly=True, default='http://intranet.la-bruyere.be/garderies/V3-1/AESAndroid.apk')
-    transmissiontime = fields.Char('Transmission time', size=5)    
-    serveraddress = fields.Char('Server address', size=50)
-    databasename = fields.Char('Database name', size=30)
-    username = fields.Char('User name')
-    userpassword = fields.Char('User password')
-    scanmethod = fields.Selection((('Tag','Tag'),('QR','QR')),'Scan method')
-    transfertmethod = fields.Selection((('WIFI','WIFI'),('3G','3G')),'Transfert method')
-    qrdownload = fields.Binary('QR Download')
-    qrconfig = fields.Binary('QR Config')
-    oldversion = fields.Boolean('Old version')
-    manualok = fields.Boolean('Authorize manual encoding')
-    cfgpassword = fields.Char('Config password', required=True,default='1234')
-    maxtimedelta = fields.Integer('Max time delta')
+    transmissiontime = fields.Char('Transmission time', size=5, default=_get_default_transmissiontime)
+    serveraddress = fields.Char('Server address', size=50, default=_get_default_serveraddress, readonly=True)
+    databasename = fields.Char('Database name', size=30, default=_get_default_databasename, readonly=True)
+    username = fields.Char('User name', default=_get_default_username, readonly=True)
+    userpassword = fields.Char('User password', default=_get_default_userpassword, readonly=True)
+    scanmethod = fields.Selection((('Tag','Tag'),('QR','QR')),'Scan method', default=_get_default_scanmethod, readonly=True)
+    transfertmethod = fields.Selection((('WIFI','WIFI'),('3G','3G')),'Transfert method', default=_get_default_transfertmethod)
+    qrdownload = fields.Binary('QR Download', readonly=True)
+    qrconfig = fields.Binary('QR Config', readonly=True)
+    oldversion = fields.Boolean('Old version', default=_get_default_oldversion)
+    manualok = fields.Boolean('Authorize manual encoding', default=_get_default_manualok)
+    cfgpassword = fields.Char('Config password', required=True, default=_get_default_cfgpassword, readonly=True)
+    maxtimedelta = fields.Integer('Max time delta', default=_get_default_maxtimedelta)
     pda_transmission_ids = fields.One2many('extraschool.pda_transmission', 'smartphone_id')
     softwareversion = fields.Char('Software version', readonly=True)
-    
+
     @api.one
     def update_qr_code(self,vals):
         print "smartphone.update_qr_code"
@@ -87,11 +137,12 @@ class extraschool_smartphone(models.Model):
     def create(self,vals):
         res = super(extraschool_smartphone, self).create(vals)
         res.write({})
-        return res       
+        return res
 
     @api.multi
     def write(self,vals):
         #transmission is finished
+        # Todo: See if we still need this.
         if 'lasttransmissiondate' in vals:
             #reset presta of the day if needed
             for smartphone in self:

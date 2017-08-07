@@ -88,6 +88,7 @@
         'views/extraschool_child_registration_wizard.xml',        
         'views/extraschool_settings.xml',
         'views/widgets.xml',
+        'views/extraschool_config_smartphone.xml',
         'extraschool_report.xml',
         'security/extraschool_security.xml',
         'security/ir.model.access.csv',

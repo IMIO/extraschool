@@ -1,0 +1,49 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+        <record model="ir.ui.view" id="extraschool_config_smartphone_form">
+            <field name="name">extraschool.config.smartphone.form</field>
+            <field name="model">extraschool.config_smartphone</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            <form string="Configuration Smartphone">
+                <header>
+                    <button name="generate" string="Generate Smartphones" type="object"/>
+                </header>
+                <sheet>
+                    <group col="2">
+                        <field name="activitycategories_ids" />
+                        <newline/>
+                        <field name="maxtimedelta"/>
+                        <newline/>
+                        <field name="oldversion"/>
+                        <newline/>
+                        <field name="start_transmissiontime"/>
+                        <newline/>
+                        <field name="serveraddress"/>
+                        <newline/>
+                        <field name="databasename"/>
+                        <newline/>
+                        <field name="username"/>
+                        <newline/>
+                        <field name="userpassword"/>
+                        <newline/>
+                        <field name="scanmethod"/>
+                        <newline/>
+                        <field name="cfgpassword"/>
+                        <newline/>
+                        <field name="manualok"/>
+                        <newline/>
+                        <field name="transfertmethod"/>
+                    </group>
+                </sheet>
+            </form>
+            </field> 
+        </record>
+        <record model="ir.actions.act_window" id="action_extraschool_config_smartphone">
+			<field name="name">Configuration Smartphone</field>
+			<field name="res_model">extraschool.config_smartphone</field>
+			<field name="view_type">form</field>
+		</record>
+	</data>
+</openerp>
