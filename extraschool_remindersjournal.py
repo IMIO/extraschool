@@ -266,24 +266,24 @@ class extraschool_remindersjournal(models.Model):
                                                          })
             
         #update biller summary
-        # get_biller_summary_sql = """select distinct(i.biller_id) as biller_id,sum(balance) as reminder_amount,
-        #                                 case when sum(rl.amount) is null then 0 else sum(rl.amount) end as refound_amount
-        #                             from extraschool_reminder r
-        #                             left join extraschool_invoice i on i.last_reminder_id = r.id
-        #                             left join extraschool_refound_line rl on i.id = rl.invoiceid and rl.reminder_id = r.id
-        #                             where r.reminders_journal_id = %s
-        #                             group by i.biller_id
-        #                         """
-        # self.env.cr.execute(get_biller_summary_sql, (self.id,))
-        # biller_summary_ids = self.env.cr.dictfetchall()
-        
-        # for biller_summary in biller_summary_ids:
-        #     self.env['extraschool.reminders_journal_biller_item']. create({'name': "%s - %s" % (self.name,biller_summary['reminder_amount']),
-        #                                                                    'reminders_journal_id': self.id,
-        #                                                                    'biller_id': biller_summary['biller_id'],
-        #                                                                    'reminder_amount': biller_summary['reminder_amount'],
-        #                                                                    'exit_accounting_amount': biller_summary['refound_amount']})
-        
+        get_biller_summary_sql = """select distinct(i.biller_id) as biller_id,sum(balance) as reminder_amount,
+                                        case when sum(rl.amount) is null then 0 else sum(rl.amount) end as refound_amount
+                                    from extraschool_reminder r
+                                    left join extraschool_invoice i on i.last_reminder_id = r.id
+                                    left join extraschool_refound_line rl on i.id = rl.invoiceid and rl.reminder_id = r.id
+                                    where r.reminders_journal_id = %s
+                                    group by i.biller_id
+                                """
+        self.env.cr.execute(get_biller_summary_sql, (self.id,))
+        biller_summary_ids = self.env.cr.dictfetchall()
+
+        for biller_summary in biller_summary_ids:
+            self.env['extraschool.reminders_journal_biller_item']. create({'name': "%s - %s" % (self.name,biller_summary['reminder_amount']),
+                                                                           'reminders_journal_id': self.id,
+                                                                           'biller_id': biller_summary['biller_id'],
+                                                                           'reminder_amount': biller_summary['reminder_amount'],
+                                                                           'exit_accounting_amount': biller_summary['refound_amount']})
+
         #
         #
         #    !!!!! COMIT !!!!
