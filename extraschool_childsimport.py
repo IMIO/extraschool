@@ -129,7 +129,7 @@ class extraschool_childsimport(models.Model):
             parenthousephone=''
             parentworkphone=''
             parentgsm=''
-            parentemail=''  
+            parentemail=False
                       
             error=False
             if importfilter['childrncolumn'] <> 0:
