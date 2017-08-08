@@ -25127,7 +25127,7 @@ msgstr "Fax :"
 #. module: extraschool
 #: field:extraschool.activitycategory,po_resp_fct:0
 msgid "Fct of resp"
-msgstr "Fct du responsablef"
+msgstr "Fct du responsable"
 
 #. module: extraschool
 #: field:extraschool.activitycategory,po_attestation_fct:0
@@ -25138,6 +25138,21 @@ msgstr "Fct du responsable des attestations fiscales"
 #: field:extraschool.activitycategory,po_resp2_fct:0
 msgid "Fct of resp2"
 msgstr "Fct du responsable 2"
+
+#. module: extraschool
+#: field:extraschool.activitycategory,po_rappel_fct:0
+msgid "Fct of resp reminder"
+msgstr "Fct du responsable des rappels"
+
+#. module: extraschool
+#: field:extraschool.activitycategory,po_rappel_name:0
+msgid "Name of resp reminder"
+msgstr "Nom du responsable des rappels"
+
+#. module: extraschool
+#: field:extraschool.activitycategory,po_rappel_sign:0
+msgid "Signature of resp reminder"
+msgstr "Signature du responsable des rappels"
 
 #. module: document
 #: selection:report.document.user,month:0
@@ -31547,7 +31562,7 @@ msgstr "Nom du responsable "
 #. module: extraschool
 #: field:extraschool.activitycategory,po_attestation_name:0
 msgid "Name of resp tax certificate"
-msgstr "Name du responsable des attestations fiscales"
+msgstr "Nom du responsable des attestations fiscales"
 
 #. module: extraschool
 #: field:extraschool.activitycategory,po_resp2_name:0

@@ -72,6 +72,7 @@
 			                <newline />	     
 			                <field name="po_resp_name" />  
 			            	<field name="po_resp_fct" />
+							<newline />
 			                <field name="po_resp2_name" />  
 			            	<field name="po_resp2_fct" />
 			        		<field name="po_resp2_sign" widget="image" class="oe_avatar oe_left"/>
@@ -79,6 +80,10 @@
 			            	<field name="po_attestation_name" />
 			            	<field name="po_attestation_fct" />
 							<field name="po_attestation_sign" widget="image" class="oe_avatar oe_left"/>
+							<newline />
+							<field name="po_rappel_name" />
+			            	<field name="po_rappel_fct" />
+							<field name="po_rappel_sign" widget="image" class="oe_avatar oe_left"/>
 							<newline />
 			                <field name="po_email" />
 			               	<field name="po_tel" />              		
