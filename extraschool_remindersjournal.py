@@ -111,6 +111,7 @@ class extraschool_remindersjournal(models.Model):
                        
     @api.one
     def validate(self):
+        import pdb;pdb.set_trace()
         if len(self.activity_category_id.reminer_type_ids.ids) == 0 : 
             return False
         
@@ -132,7 +133,7 @@ class extraschool_remindersjournal(models.Model):
         for reminder_type in self.activity_category_id.reminer_type_ids.sorted(key=lambda r: r.sequence, reverse=True):            
             #select invoices
             invoice_search_domain = [('activitycategoryid.id', '=',self.activity_category_id.id),                                    
-                                    ('balance', '>',0),
+                                    ('balance', '>',0), # todo: See if this is needed.
                                     ('balance', '>=',reminder_type.minimum_balance)]
             
             
