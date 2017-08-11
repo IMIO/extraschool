@@ -4,7 +4,7 @@
 #    Extraschool
 #    Copyright (C) 2008-2014 
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -149,10 +149,12 @@ class extraschool_parent(models.Model):
         parent_obj = self.env['extraschool.parent']
         parents=parent_obj.search([('firstname', 'ilike', vals['firstname'].strip()),
                                       ('lastname', 'ilike', vals['lastname'].strip()),
-                                      ('streetcode', 'ilike', vals['streetcode'])])
+                                   ])
         
         if len(parents) > 0:
-            raise Warning('Ce parent %s %s %s a deja ete encode !!!' % (vals['firstname'].strip(),vals['lastname'].strip(),vals['streetcode']))
+            raise Warning(
+                "This parent %s %s %s has already been added. If it's a different parent, add (2) on the name of the parent." % (
+                vals['firstname'].strip(), vals['lastname'].strip()))
 
         if vals['email'] != False and vals['email'] != '' and vals['email'] != ' ':
             email_to_check = vals['email']
