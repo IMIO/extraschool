@@ -31,7 +31,7 @@ class extraschool_guardian(models.Model):
     name = fields.Char(compute='_name_compute',string='FullName', size=100, store=True)
     firstname = fields.Char('FirstName', size=50)
     lastname = fields.Char('LastName', size=50 , required=True)
-    tagid = fields.Char('Tag ID', size=50)
+    tagid = fields.Char('Tag ID', size=50, readonly=True)
     otherref = fields.Char('Other ref')
     weekly_schedule = fields.Float('Horaire hebdomadaire')
     oldid = fields.Integer('oldid')             
