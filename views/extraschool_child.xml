@@ -45,7 +45,6 @@
 	                    <field name="classid"/>
 	                    <field name="birthdate"/>
 	                    <field name="tagid"/>
-	                    <button name="action_gentagid" type="object" string="Generate TagID" />
 	                    <newline/>
 	                    <field name="otherref"/>
 						<field name="rn"/>                         

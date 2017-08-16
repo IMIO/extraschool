@@ -79,7 +79,9 @@ class extraschool_negatif_payment_correction_wizard(models.TransientModel):
             invoice_ids.append(invoice.id)
         
         inv_obj.browse(invoice_ids).reconcil()
-        
+
+        payment_obj.browse(self._context.get('active_ids')).unlink()
+
         return True
 
 

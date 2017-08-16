@@ -73,6 +73,8 @@ class extraschool_mainsettings(models.Model):
         cr.execute('select * from extraschool_level')
         levels = cr.dictfetchall()
         for child in childs:
+            # if child['id'] == 403:
+            #     import pdb;pdb.set_trace()
             cr.execute('select * from extraschool_class where id in (select class_id from extraschool_class_level_rel where level_id=%s) order by name',(str(child['levelid']),))
             childClasses = cr.dictfetchall()
             currentClassPosition = 0
@@ -87,10 +89,10 @@ class extraschool_mainsettings(models.Model):
                 for level in levels:
                     if newlevelid==0 and level['ordernumber'] > childlevel['ordernumber']:
                         newlevelid=level['id']
-                cr.execute('select * from extraschool_class where  id in (select class_id from extraschool_class_level_rel where level_id=%s) order by name',(str(newlevelid),))
+                cr.execute('select * from extraschool_class where id in (select class_id from extraschool_class_level_rel where level_id=%s) order by name',(str(newlevelid),))
                 childClasses = cr.dictfetchall()
                 newclassid=0
-                if currentClassPosition > 0:
+                if currentClassPosition > 0 and len(childClasses) != 0:
                     if len(childClasses) >= currentClassPosition:        
                         newclassid = childClasses[currentClassPosition-1]['id']           
                     else:
