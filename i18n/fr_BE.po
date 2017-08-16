@@ -25179,12 +25179,17 @@ msgstr "Réunion de feedback"
 #. module: extraschool
 #: field:extraschool.remindertype,fees_amount:0
 msgid "Fees amount"
-msgstr "Fees amount"
+msgstr "Montant des frais"
 
 #. module: extraschool
 #: field:extraschool.remindertype,fees_description:0
 msgid "Fees description"
-msgstr "Fees description"
+msgstr "Description des frais"
+
+#. module: extraschool
+#: field:extraschool.invoice,fees_huissier:0
+msgid "Fees Huissier"
+msgstr "Frais de huissier"
 
 #. module: fetchmail
 #: view:fetchmail.server:fetchmail.view_email_server_form
