@@ -29910,6 +29910,12 @@ msgstr "Intégration avec LinkedIn"
 msgid "List"
 msgstr "Liste"
 
+#. module: extraschool
+#: field:extraschool.activity,days:0
+#: field:extraschool.child_registration,day_ids:0
+msgid "Days"
+msgstr "Jours à cocher pour tous les enfants"
+
 #. module: base
 #: help:ir.model.fields,modules:0
 msgid "List of modules in which the field is defined"

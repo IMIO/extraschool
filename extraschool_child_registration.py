@@ -57,7 +57,7 @@ class extraschool_child_registration(models.Model):
     @api.one
     def onchange_day(self):
         list = []
-        if self.day_ids == False :
+        if not self.day_ids :
             for child in self.child_registration_line_ids:
                 child.monday = False
                 child.tuesday = False
@@ -93,42 +93,26 @@ class extraschool_child_registration(models.Model):
                 list.append(day)
                 print list
                 if 1 not in list :
-                    print "1 nest pas dans la liste"
                     for child in self.child_registration_line_ids:
                         child.monday = False
                 if 2 not in list :
-                    print "2 nest pas dans la liste"
                     for child in self.child_registration_line_ids:
                         child.tuesday = False
                 if 3 not in list :
-                    print "3 nest pas dans la liste"
                     for child in self.child_registration_line_ids:
                         child.wednesday = False
                 if 4 not in list :
-                    print "4 nest pas dans la liste"
                     for child in self.child_registration_line_ids:
                         child.thursday = False
                 if 5 not in list :
-                    print "5 nest pas dans la liste"
                     for child in self.child_registration_line_ids:
                         child.friday = False
                 if 6 not in list :
-                    print "6 nest pas dans la liste"
                     for child in self.child_registration_line_ids:
                         child.saturday = False
                 if 7 not in list :
-                    print "7 nest pas dans la liste"
                     for child in self.child_registration_line_ids:
                         child.sunday = False
-
-                print child.monday
-                print "mardi" , child.tuesday
-                print "mercredi" , child.wednesday
-                print "jeudi" , child.thursday
-                print "vendredi" , child.friday
-                print "samedi" , child.saturday
-                print "dimanche" , child.sunday
-
 
 
     def get_week_days(self,year, week):
