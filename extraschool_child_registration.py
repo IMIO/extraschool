@@ -45,12 +45,91 @@ class extraschool_child_registration(models.Model):
     date_to = fields.Date('Date to', required=True, readonly=True, states={'draft': [('readonly', False)]})
     child_registration_line_ids = fields.One2many('extraschool.child_registration_line','child_registration_id',copy=True, readonly=True, states={'draft': [('readonly', False)]})
     comment = fields.Char('Comment')
+    day_ids = fields.Many2many('extraschool.day', 'extraschool_day_registration_rel', string='Days')
     error_duplicate_reg_line = fields.Boolean(string="Error", default = False)
     state = fields.Selection([('draft', 'Draft'),
                               ('to_validate', 'Ready'),
                               ('validated', 'Validated')],
                               'validated', required=True, default='draft'
                               )
+
+    @api.onchange('day_ids')
+    @api.one
+    def onchange_day(self):
+        list = []
+        if self.day_ids == False :
+            for child in self.child_registration_line_ids:
+                child.monday = False
+                child.tuesday = False
+                child.wednesday = False
+                child.thursday = False
+                child.friday = False
+                child.saturday = False
+                child.sunday = False
+        else :
+            for day in self.day_ids :
+                day = day.id
+                if day == 1:
+                    for child in self.child_registration_line_ids:
+                        child.monday = True
+                elif day == 2:
+                    for child in self.child_registration_line_ids:
+                        child.tuesday = True
+                elif day == 3:
+                    for child in self.child_registration_line_ids:
+                        child.wednesday = True
+                elif day == 4:
+                    for child in self.child_registration_line_ids:
+                        child.thursday = True
+                elif day == 5:
+                    for child in self.child_registration_line_ids:
+                        child.friday = True
+                elif day == 6:
+                    for child in self.child_registration_line_ids:
+                        child.saturday = True
+                elif day == 7:
+                    for child in self.child_registration_line_ids:
+                        child.sunday = True
+                list.append(day)
+                print list
+                if 1 not in list :
+                    print "1 nest pas dans la liste"
+                    for child in self.child_registration_line_ids:
+                        child.monday = False
+                if 2 not in list :
+                    print "2 nest pas dans la liste"
+                    for child in self.child_registration_line_ids:
+                        child.tuesday = False
+                if 3 not in list :
+                    print "3 nest pas dans la liste"
+                    for child in self.child_registration_line_ids:
+                        child.wednesday = False
+                if 4 not in list :
+                    print "4 nest pas dans la liste"
+                    for child in self.child_registration_line_ids:
+                        child.thursday = False
+                if 5 not in list :
+                    print "5 nest pas dans la liste"
+                    for child in self.child_registration_line_ids:
+                        child.friday = False
+                if 6 not in list :
+                    print "6 nest pas dans la liste"
+                    for child in self.child_registration_line_ids:
+                        child.saturday = False
+                if 7 not in list :
+                    print "7 nest pas dans la liste"
+                    for child in self.child_registration_line_ids:
+                        child.sunday = False
+
+                print child.monday
+                print "mardi" , child.tuesday
+                print "mercredi" , child.wednesday
+                print "jeudi" , child.thursday
+                print "vendredi" , child.friday
+                print "samedi" , child.saturday
+                print "dimanche" , child.sunday
+
+
 
     def get_week_days(self,year, week):
         d = date(year,1,1)
@@ -390,4 +469,7 @@ class extraschool_child_registration_line(models.Model):
     
     
 
+class extraschool_day(models.Model):
+    _name = 'extraschool.day'
 
+    name = fields.Char('name')
