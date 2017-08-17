@@ -30039,7 +30039,7 @@ msgstr "Localisation"
 #: field:calendar.event,location:0
 #: view:extraschool.activity:extraschool.extraschool_activity_form
 msgid "Location"
-msgstr "Endroit"
+msgstr "Lieux d'accueil"
 
 #. module: calendar
 #: help:calendar.event,location:0
@@ -37931,7 +37931,7 @@ msgstr "Livraison"
 #. module: extraschool
 #: field:extraschool.activity,short_name:0
 msgid "Short name"
-msgstr "Nom court"
+msgstr "Nom Visible sur facture"
 
 #. module: calendar
 #: field:calendar.event,show_as:0
