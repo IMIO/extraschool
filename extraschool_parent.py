@@ -153,12 +153,11 @@ class extraschool_parent(models.Model):
         
         if len(parents) > 0:
             raise Warning(
-                "This parent %s %s %s has already been added. If it's a different parent, add (2) on the name of the parent." % (
-                vals['firstname'].strip(), vals['lastname'].strip()))
+                "This parent %s %s has already been added. If it's a different parent, add (2) on the name of the parent." % (
+                vals['firstname'], vals['lastname']))
 
         if vals['email'] != False and vals['email'] != '' and vals['email'] != ' ':
-            email_to_check = vals['email']
-            if (not self.email_validation(email_to_check)):
+            if (not self.email_validation(vals['email'])):
                 raise Warning("E-mail format invalid.")
 
         return super(extraschool_parent, self).create(vals)
@@ -198,8 +197,7 @@ class extraschool_parent(models.Model):
             vals['modified_since_last_import'] = True
 
         if 'email' in vals and vals['email'] != False:
-            email_to_check = vals['email']
-            if (not self.email_validation(email_to_check)):
+            if (not self.email_validation(vals['email'])):
                 raise Warning("E-mail format invalid.")
                     
         return super(extraschool_parent,self).write(vals)
