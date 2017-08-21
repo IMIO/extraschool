@@ -30,6 +30,7 @@ from datetime import datetime
 class extraschool_payment(models.Model):
     _name = 'extraschool.payment'
     _description = 'Payment'
+    _order = 'paymentdate desc'
 
     paymenttype = fields.Selection((('1','CODA File'),
                                     ('3','Cash'),
