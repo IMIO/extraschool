@@ -33,6 +33,7 @@ import re
 class extraschool_invoice(models.Model):
     _name = 'extraschool.invoice'
     _description = 'invoice'
+    _order = 'biller_id'
 
     name = fields.Char('Name', size=20,readonly=True, default='Facture')
     schoolimplantationid = fields.Many2one('extraschool.schoolimplantation', 'School implantation', required=False,readonly=True, index=True)
