@@ -15892,6 +15892,11 @@ msgid "Adyen Payment Acquirer"
 msgstr "Adyen Payment Acquirer"
 
 #. module: extraschool
+#: field:extraschool.manuel_invoice_wizard,invoice_all_children:0
+msgid "Invoice all of the children"
+msgstr "Facturer tous les enfants"
+
+#. module: extraschool
 #: view:extraschool.payment:extraschool.extraschool_payment_form2
 msgid "Affectations"
 msgstr "Affectations"
