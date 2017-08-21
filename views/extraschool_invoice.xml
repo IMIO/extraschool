@@ -64,6 +64,7 @@
 					<header>
 						<button name="export_onyx_but" string="export onyx" type="object" class="oe_highlight" groups="base.group_erp_manager"/>	
 						<button name="cancel" string="Cancel Invoice" type="object" class="oe_highlight" groups="base.group_erp_manager"/>
+						<button name="re_compute" string="Recompute Total Invoice" type="object" class="oe_no_button" groups="extraschool.extraschool_gods"/>
                     </header>
 				
 					<group col="4">

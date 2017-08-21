@@ -4,7 +4,7 @@
 #    Extraschool
 #    Copyright (C) 2008-2014 
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -63,10 +63,12 @@ class extraschool_invoice(models.Model):
     huissier = fields.Boolean('Huissier', default = False)
     fees_huissier = fields.Float('Fees Huissier', default=0.0)
 
-#     @api.depends('invoice_line_ids')
-#     def _compute_amount_total(self):
-#         for invoice in self:
-#             invoice.amount_total = sum(invoice_line.total_price for invoice_line in invoice.invoice_line_ids)
+    @api.multi
+    def re_compute(self):
+        for invoice in self:
+            amount_total = sum(invoice_line.total_price for invoice_line in invoice.invoice_line_ids)
+            invoice.amount_total = round(amount_total,2)
+            print invoice.amount_total
 #             
 #     @api.onchange('payment_ids')
 #     @api.depends('payment_ids')
