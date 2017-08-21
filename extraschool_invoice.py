@@ -89,7 +89,7 @@ class extraschool_invoice(models.Model):
             refound = 0 if refound < 0.0001 else refound
             balance = total - reconcil - refound
             balance = 0 if balance < 0.0001 else balance
-            
+            balance = round(balance,5) # MiCo used this to resolve a balance problem (hannut 21/08/2017)
             invoice.write({'amount_total' : total,
                            'amount_received' : reconcil,
                            'no_value' : refound,
