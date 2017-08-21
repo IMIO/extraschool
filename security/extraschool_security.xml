@@ -22,8 +22,8 @@
          <record id="extraschool_fusion" model="res.groups">
             <field name="name">AES fusion</field>
          </record>
-         <record id="extraschool_toolbox" model="res.groups">
-            <field name="name">AES toolbox</field>
+         <record id="extraschool_gods" model="res.groups">
+            <field name="name">AES Gods</field>
          </record>
    	  </data>
    </openerp>
