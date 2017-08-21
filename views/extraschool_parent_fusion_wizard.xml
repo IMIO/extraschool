@@ -8,6 +8,8 @@
             <field name="arch" type="xml">
                 <form string="Parent fusion wizard">
                     <group col="4" groups="base.group_erp_manager">
+                        <field name="show_comment" invisible="1"/>
+                        <field name="comment" style="color:Red" nolabel="1" attrs="{'invisible':[('show_comment', '!=', True)]}"/>
                     	<field name="parent_id"  invisible="1"/> 
                     	<separator string="Parent à fusionner" colspan="4"/> 
                     	<field name="parent_ids"  colspan="4" nolabel="1"/>                        
