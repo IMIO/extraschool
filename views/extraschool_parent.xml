@@ -117,7 +117,7 @@
 	                        <field name="balance"  sum="True"/>
 	                        <field name="no_value"/>
 	                        <field name="huissier"/>	
-	                        <button name="reconcil" type="object" string="Reconcil" groups="base.group_erp_manager" />	                        
+	                        <button name="reconcil" type="object" string="Reconcil" groups="extraschool.extraschool_accounting" />
 	                    </tree>
                     </field>
                     </group>
