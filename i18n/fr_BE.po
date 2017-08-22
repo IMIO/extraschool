@@ -33962,7 +33962,7 @@ msgstr "Texte de l'email"
 #. module: extraschool
 #: model:ir.actions.act_window,name:extraschool.payment_invitation_mass_mail
 msgid "Payment invitation mail"
-msgstr "Email"
+msgstr "E-mail"
 
 #. module: extraschool
 #: field:extraschool.activitycategory,payment_invitation_report_id:0
@@ -35863,7 +35863,7 @@ msgstr "Texte email rappels"
 #. module: extraschool
 #: view:extraschool.remindersjournal:extraschool.extraschool_reminders_journal_form
 msgid "Reminder factures"
-msgstr "Rappel par Email"
+msgstr "Rappel par E-mail"
 
 #. module: extraschool
 #: field:extraschool.invoice,reminder_fees:0
@@ -35885,7 +35885,7 @@ msgstr "Objet du journal des rappels"
 #. module: extraschool
 #: model:ir.actions.act_window,name:extraschool.reminder_mass_mail
 msgid "Reminder mail"
-msgstr "Rappel par Email"
+msgstr "Rappel par E-mail"
 
 #. module: extraschool
 #: field:extraschool.parent,remindersendmethod:0
@@ -37484,7 +37484,7 @@ msgstr "Inviter par courriel"
 #. module: extraschool
 #: view:extraschool.invoice:extraschool.extraschool_invoice_search_view
 msgid "Send by Email"
-msgstr "Envoie par Email"
+msgstr "Envoie par E-mail"
 
 #. module: extraschool
 #: view:extraschool.invoice:extraschool.extraschool_invoice_search_view
@@ -37494,7 +37494,7 @@ msgstr "Envoie par la courrier"
 #. module: calendar
 #: view:calendar.event:calendar.view_calendar_event_form
 msgid "Send mail"
-msgstr "Envoyer un email"
+msgstr "Envoyer un E-mail"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_web_widget_mail_send_odoo
@@ -39526,7 +39526,7 @@ msgstr "Texte"
 #. module: extraschool
 #: view:extraschool.activitycategory:extraschool.extraschool_activitycategory_form
 msgid "Text de l email"
-msgstr "Text de l email"
+msgstr "Texte de l E-mail"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -44200,7 +44200,7 @@ msgstr "eFacturation"
 #. module: extraschool
 #: field:extraschool.activitycategory,po_email:0
 msgid "email"
-msgstr "Email"
+msgstr "E-mail"
 
 #. module: base
 #: view:res.users:base.view_users_simple_form
@@ -45073,7 +45073,7 @@ msgstr "Solde"
 #. module: extraschool
 #: field:extraschool.activitycategory,po_stamp:0
 msgid "stamp"
-msgstr "stamp"
+msgstr "Le cachet / tampon"
 
 #. module: extraschool
 #: view:website:extraschool.report_invoice_std_footer
@@ -45094,7 +45094,7 @@ msgstr "préfixe"
 #. module: extraschool
 #: field:extraschool.activitycategory,po_tel:0
 msgid "tel"
-msgstr "tel"
+msgstr "T"
 
 #. module: extraschool
 #: field:extraschool.mainsettings,tempfolder:0
