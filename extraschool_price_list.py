@@ -52,8 +52,8 @@ class extraschool_price_list_version(models.Model):
     activity_ids = fields.Many2many('extraschool.activity', 'extraschool_activity_pricelist_rel',string='Activity')
     child_type_ids = fields.Many2many('extraschool.childtype', 'extraschool_childtype_pricelist_rel',string='Child type')              
     child_position_ids = fields.Many2many('extraschool.childposition', 'extraschool_childposition_pricelist_rel',string='Child position')
-    period_duration = fields.Integer('Period Duration')  
-    period_tolerance = fields.Integer('Period Tolerance')  
-    price = fields.Float('Price',digits=(7,3))
+    period_duration = fields.Integer('Period Duration', help='La durée de la période se calcule en minute')
+    period_tolerance = fields.Integer('Period Tolerance', help='Si l\'on met une tolérance à 2, cela permet de pas facturer 120 minutes si l\'enfant est resté 62 minutes')
+    price = fields.Float('Price',digits=(7,3), help='Prix par durée définie ci-dessus')
     max_price =fields.Float('Max price',digits=(7,3),default=0)
 

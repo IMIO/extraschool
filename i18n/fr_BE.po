@@ -17985,7 +17985,7 @@ msgstr ""
 #. module: extraschool
 #: selection:extraschool.discount.version,discount_template:0
 msgid "By hours in a day"
-msgstr "By hours in a day"
+msgstr "Par heure dans une journée"
 
 #. module: extraschool
 #: selection:extraschool.parent,invoicesendmethod:0
@@ -17996,7 +17996,7 @@ msgstr "Par courrier et par email"
 #. module: extraschool
 #: selection:extraschool.discount.version,discount_template:0
 msgid "By week"
-msgstr "By week"
+msgstr "Par semaine"
 
 #. module: web
 #. openerp-web
@@ -32630,7 +32630,7 @@ msgstr "Propriété \"Lors de la supression\" pour les champs \"many2one\""
 #. module: extraschool
 #: field:extraschool.activity,on_tax_certificate:0
 msgid "On tax certificate"
-msgstr "On tax certificate"
+msgstr "Sur l'attestation fiscale"
 
 #. module: base_setup
 #: view:base.config.settings:base_setup.view_general_configuration

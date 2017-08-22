@@ -97,8 +97,8 @@ class extraschool_invoice_wizard(models.TransientModel):
                                column1='invoice_wizard_id',
                                column2='schoolimplantation_id', required=True)
     activitycategory = fields.Many2one('extraschool.activitycategory', 'Activity category', required=True, default=1)        
-    period_from = fields.Date('Period from', required=True, default=_get_defaultfrom)
-    period_to = fields.Date('Period to', required=True, default=_get_defaultto)
+    period_from = fields.Date('Period from', required=True, default=_get_defaultfrom, help='Date où l\'on va commencer la facturation')
+    period_to = fields.Date('Period to', required=True, default=_get_defaultto, help='Date où l\'on va terminer la facturation')
     invoice_date = fields.Date('invoice date', required=True, default=_get_defaultto)
     invoice_term = fields.Date('invoice term', required=True, default=_get_defaultto)
     name = fields.Char('File Name', size=16, readonly=True)

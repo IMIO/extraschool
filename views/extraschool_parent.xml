@@ -106,7 +106,7 @@
                         <separator string="Factures de:"  colspan="4"/>
                         <field name="name" nolabel="1" style="font-size:16px" attrs="{'invisible':[('lastname','=',False),('firstname', '=', False)]}"/>
                         <field name="invoice_ids" nolabel="1" colspan="4">
-	                    <tree string="Invoices">
+	                    <tree string="Invoices"  create="false" delete="false">
 	                        <field name="activitycategoryid"/>
 							<field name="structcom"/>	                        
 	                        <field name="period_from"/>
@@ -125,7 +125,7 @@
                 <page string="Reminders">
                     <group col="4">
                     <field name="reminder_ids" nolabel="1">
-                    <tree string="Reminders" version="7.0">
+                    <tree string="Reminders" version="7.0" create="false" delete="false">
                         <field name="activity_category_id"/>
                         <field name="transmission_date"/>
                         <field name="payment_term"/>
