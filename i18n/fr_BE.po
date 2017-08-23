@@ -30921,7 +30921,7 @@ msgstr "Type MIME"
 #. module: extraschool
 #: field:extraschool.remindertype,minimum_balance:0
 msgid "Minimum balance"
-msgstr "Minimum balance"
+msgstr "Balance minimum"
 
 #. modules: web, extraschool
 #. openerp-web
@@ -35904,7 +35904,7 @@ msgstr "Type de rappel"
 #. module: extraschool
 #: field:extraschool.remindertype,selected_type_id:0
 msgid "Reminder type to select"
-msgstr "Reminder type to select"
+msgstr "Type de rappel"
 
 #. modules: calendar, extraschool
 #: field:calendar.event,alarm_ids:0
@@ -37286,7 +37286,7 @@ msgstr "Sélectionnez une date"
 #. module: extraschool
 #: field:extraschool.remindertype,select_reminder_type:0
 msgid "Select a reminder type"
-msgstr "Select a reminder type"
+msgstr "Se baser sur un rappel déjà envoyé"
 
 #. module: web_view_editor
 #. openerp-web
@@ -44872,7 +44872,7 @@ msgstr "Wizard de création de paiement"
 #. module: extraschool
 #: field:extraschool.remindertype,payment_term_in_day:0
 msgid "payment_term_in_day"
-msgstr "payment_term_in_day"
+msgstr "Nombre(s) de jour pour payer"
 
 #. module: extraschool
 #: view:extraschool.pdaprestationtimes:extraschool.extraschool_pda_prestation_times_form
