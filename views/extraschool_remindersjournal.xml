@@ -101,12 +101,12 @@
             <field name="arch" type="xml">
                 <form string="Reminders Journal">
                 	<header>
-						<button name="validate" string="Valider" type="object" states='draft' class="oe_highlight" context="{'wizard': False}"/>	
-						<button name="generate_pdf" string="Re-Print" type="object" states='validated' class="oe_highlight"/>	
-						<button name="delete" string="Delete" type="object" states='validated' class="oe_highlight" group="admin"/>	
+						<button name="validate" string="Valider" type="object" states='draft' class="oe_highlight" context="{'wizard': False}"/>
+						<button name="generate_pdf" string="Re-Print" type="object" states='validated' class="oe_highlight"/>
+                        <button name="delete" string="Delete" type="object" states='validated' class="oe_highlight" group="admin"/>
 						<field name="state" widget="statusbar" statusbar_visible="draft,to_validate,validated"/>												
 					</header>
-					<div class="oe_right oe_button_box" name="buttons"> 
+					<div class="oe_right oe_button_box" name="buttons">
 						<button name="mail_reminders" 
 							string="Reminder courrier" 
 							type="object" 						
@@ -137,11 +137,13 @@
 	                <group col="4">
                         <field name="name"/>
                         <field name="activity_category_id"/>
-                        <field name="date_from"/>
-                        <field name="date_to"/>
+                        <field name="date_from" attrs="{'invisible':[('show_based_reminder', '=', True)]}"/>
+                        <field name="date_to" attrs="{'invisible':[('show_based_reminder', '=', True)]}"/>
                         <field name="transmission_date"/>
-                        <field name="biller_id" readonly="True" />           
-    	            </group>                    
+                        <field name="show_based_reminder"/>
+                        <field name="based_reminder_id" options="{'no_create':True}" attrs="{'invisible':[('show_based_reminder', '=', False)], 'required':[('show_based_reminder', '=', True)]}"/>
+                        <field name="biller_id" readonly="True"/>
+    	            </group>
                     <notebook>
             			<page string="Reminders type">
             				<group col="4">
