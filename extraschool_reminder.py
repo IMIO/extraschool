@@ -20,12 +20,16 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import models, api, fields
+from openerp import models, api, fields,_
 from openerp.api import Environment
+from datetime import date, datetime, timedelta as td
+from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
+                           DEFAULT_SERVER_DATETIME_FORMAT)
 
 class extraschool_reminder(models.Model):
     _name = 'extraschool.reminder'
     _description = 'Reminder'
+
 
     reminders_journal_item_id = fields.Many2one('extraschool.reminders_journal_item', 'Reminders journal item',ondelete='cascade', required=False)
     reminders_journal_id = fields.Many2one('extraschool.remindersjournal', 'Reminders journal', ondelete='cascade', required=False)    

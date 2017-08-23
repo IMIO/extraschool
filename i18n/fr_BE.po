@@ -23574,7 +23574,7 @@ msgstr "Modèle de document"
 #. module: extraschool
 #: field:extraschool.remindertype,report_id:0
 msgid "Document report"
-msgstr "Document report"
+msgstr "Type de document"
 
 #. module: base
 #: model:ir.module.category,name:base.module_category_documentation
@@ -24170,7 +24170,7 @@ msgstr "Adresse email de la personne invitée"
 #. module: extraschool
 #: field:extraschool.remindertype,mail_template_id:0
 msgid "Email template"
-msgstr "Email template"
+msgstr "Modèle de courriel"
 
 #. module: report
 #: view:website:report.external_layout_footer
@@ -30921,7 +30921,7 @@ msgstr "Type MIME"
 #. module: extraschool
 #: field:extraschool.remindertype,minimum_balance:0
 msgid "Minimum balance"
-msgstr "Minimum balance"
+msgstr "Balance minimum"
 
 #. modules: web, extraschool
 #. openerp-web
@@ -33178,7 +33178,7 @@ msgstr "Sortie"
 #. module: extraschool
 #: field:extraschool.remindertype,out_of_accounting:0
 msgid "Out of accounting"
-msgstr "Out of accounting"
+msgstr "Hors comptabilité"
 
 #. module: mail
 #: view:mail.mail:mail.view_mail_search selection:mail.mail,state:0
@@ -35838,7 +35838,7 @@ msgstr "Reminder biller journal"
 #. module: extraschool
 #: field:extraschool.remindertype,fees_type:0
 msgid "Reminder cost type"
-msgstr "Reminder cost type"
+msgstr "Type de coût du rappel"
 
 #. module: extraschool
 #: view:extraschool.remindersjournal:extraschool.extraschool_reminders_journal_form
@@ -35904,7 +35904,7 @@ msgstr "Type de rappel"
 #. module: extraschool
 #: field:extraschool.remindertype,selected_type_id:0
 msgid "Reminder type to select"
-msgstr "Reminder type to select"
+msgstr "Type de rappel"
 
 #. modules: calendar, extraschool
 #: field:calendar.event,alarm_ids:0
@@ -37286,7 +37286,7 @@ msgstr "Sélectionnez une date"
 #. module: extraschool
 #: field:extraschool.remindertype,select_reminder_type:0
 msgid "Select a reminder type"
-msgstr "Select a reminder type"
+msgstr "Se baser sur un rappel déjà envoyé"
 
 #. module: web_view_editor
 #. openerp-web
@@ -39823,6 +39823,12 @@ msgstr "Les données du formulaire ne peuvent pas être annulées"
 #: help:res.country,name:0
 msgid "The full name of the country."
 msgstr "Le nom complet du pays."
+
+#. module: extraschool
+#: code:addons/extraschool/extraschool_one_report.py:68
+#, python-format
+msgid "One Report from %s"
+msgstr "Rapport ONE du %s"
 
 #. module: base
 #: help:workflow.transition,group_id:0
@@ -44702,7 +44708,7 @@ msgstr "n/a"
 #: code:addons/base/ir/ir_fields.py:339 field:extraschool.remindertype,name:0
 #, python-format
 msgid "name"
-msgstr "nom"
+msgstr "Nom"
 
 #. module: extraschool
 #: view:website:extraschool.tpl_child_qrcodes_wizard_report
@@ -44866,7 +44872,7 @@ msgstr "Wizard de création de paiement"
 #. module: extraschool
 #: field:extraschool.remindertype,payment_term_in_day:0
 msgid "payment_term_in_day"
-msgstr "payment_term_in_day"
+msgstr "Nombre de jour(s) pour payer"
 
 #. module: extraschool
 #: view:extraschool.pdaprestationtimes:extraschool.extraschool_pda_prestation_times_form
