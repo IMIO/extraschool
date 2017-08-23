@@ -26,14 +26,26 @@ from openerp.api import Environment
 import openerp.addons.decimal_precision as dp
 import datetime
 import time
+from datetime import date, datetime, timedelta as td
 import calendar
 import re
+from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
+                           DEFAULT_SERVER_DATETIME_FORMAT)
 
 
 class extraschool_invoice(models.Model):
     _name = 'extraschool.invoice'
     _description = 'invoice'
     _order = 'biller_id'
+
+    @api.multi
+    def name_get(self):
+        res = []
+        for invoice in self:
+            res.append((invoice.id, _("Invoice from %s to %s") % (
+                datetime.strptime(invoice.period_from, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y"),
+                datetime.strptime(invoice.period_to, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y"))))
+        return res
 
     name = fields.Char('Name', size=20,readonly=True, default='Facture')
     schoolimplantationid = fields.Many2one('extraschool.schoolimplantation', 'School implantation', required=False,readonly=True, index=True)

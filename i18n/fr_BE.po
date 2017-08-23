@@ -39680,6 +39680,12 @@ msgid "The date from must be lower than the date to"
 msgstr "The date from must be lower than the date to"
 
 #. module: extraschool
+#: code:addons/extraschool/extraschool_child_registration.py:43
+#, python-format
+msgid "Subscription from %s to %s"
+msgstr "Inscription du %s au %s"
+
+#. module: extraschool
 #: code:addons/extraschool/extraschool_activity_occurrence_correction_wizard.py:52
 #, python-format
 msgid "The date must be higher than today"
@@ -39829,6 +39835,13 @@ msgstr "Le groupe dont un utilisateur doit être membre pour être autorisé à 
 #, python-format
 msgid "The import failed due to:"
 msgstr "L'import a échoué à cause de :"
+
+#. module: extraschool
+#: code:addons/extraschool/extraschool_invoice.py:45
+#, python-format
+msgid "Invoice from %s to %s"
+msgstr "Facture du %s au %s"
+
 
 #. modules: mail, base
 #: help:res.partner,user_id:0 help:res.users,user_id:0

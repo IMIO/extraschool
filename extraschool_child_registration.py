@@ -36,6 +36,15 @@ class extraschool_child_registration(models.Model):
     _name = 'extraschool.child_registration'
     _description = 'Child registration'
 
+    @api.multi
+    def name_get(self):
+        res = []
+        for child_registration in self:
+            res.append((child_registration.id, _("Subscription from %s to %s") % (
+            datetime.strptime(child_registration.date_from, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y"),
+            datetime.strptime(child_registration.date_to, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y"))))
+        return res
+
     school_implantation_id = fields.Many2one('extraschool.schoolimplantation', required=True, readonly=True, states={'draft': [('readonly', False)]})
     class_id = fields.Many2one('extraschool.class', readonly=True, states={'draft': [('readonly', False)]}, domain="[('schoolimplantation','=',school_implantation_id)]")
     place_id = fields.Many2one('extraschool.place', required=True, readonly=True, states={'draft': [('readonly', False)]}, domain="[('schoolimplantation_ids','in',school_implantation_id)]")
