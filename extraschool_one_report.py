@@ -32,7 +32,10 @@ from xlutils.copy import copy
 from xlutils.styles import Styles
 import xlwt
 from xlwt import *
+from datetime import date, datetime, timedelta as td
 from openerp.exceptions import Warning
+from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
+                           DEFAULT_SERVER_DATETIME_FORMAT)
 
 class extraschool_one_report_day(models.Model):
     _name = 'extraschool.one_report_day'
@@ -57,6 +60,14 @@ extraschool_one_report_day()
 
 class extraschool_one_report(models.Model):
     _name = 'extraschool.one_report'
+
+    @api.multi
+    def name_get(self):
+        res = []
+        for report_one in self:
+            res.append((report_one.id, _("One Report from %s") %
+                datetime.strptime(report_one.transmissiondate, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y")))
+        return res
 
     def _default_activitycategory(self):
         activitycategory_rs = self.env['extraschool.activitycategory']

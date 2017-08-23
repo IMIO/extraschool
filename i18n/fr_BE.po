@@ -39824,6 +39824,12 @@ msgstr "Les données du formulaire ne peuvent pas être annulées"
 msgid "The full name of the country."
 msgstr "Le nom complet du pays."
 
+#. module: extraschool
+#: code:addons/extraschool/extraschool_one_report.py:68
+#, python-format
+msgid "One Report from %s"
+msgstr "Rapport ONE du %s"
+
 #. module: base
 #: help:workflow.transition,group_id:0
 msgid "The group that a user must have to be authorized to validate this transition."
