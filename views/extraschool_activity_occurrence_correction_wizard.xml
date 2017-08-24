@@ -6,19 +6,19 @@
             <field name="model">extraschool.activity_occurrence_correction_wizard</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <form string="Activity validity_to correction">
+                <form string="Extend activity's date">
                     <group>
 						<field name="date_to" />
                     </group>
                     <group colspan="4" col="3">
-                        <button name="reset_populate" groups="extraschool.extraschool_gods" string="Correction" icon="gtk-apply" type="object" />
+                        <button name="reset_populate" groups="extraschool.extraschool_gods" string="Validate" icon="gtk-apply" type="object" />
                     </group>
                 </form>
             </field>
         </record>
 
         <act_window id="parent_activity_occurrence_correction_wizard_action"
-            name="Validity_to correction"
+            name="Extend activity's date"
             src_model="extraschool.activity"
             res_model="extraschool.activity_occurrence_correction_wizard"
             view_type="form" view_mode="form"

@@ -5,12 +5,10 @@
 # 	* base_setup
 # 	* knowledge
 # 	* auth_crypt
-# 	* board
 # 	* bus
 # 	* mail
 # 	* document
 # 	* extraschool
-# 	* odoo-report_pdf_both_sides
 # 	* email_template
 # 	* fetchmail
 # 	* base_import
@@ -31,8 +29,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0-20170403\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-23 12:10+0000\n"
-"PO-Revision-Date: 2017-08-23 14:12+0200\n"
+"POT-Creation-Date: 2017-08-24 12:43+0000\n"
+"PO-Revision-Date: 2017-08-24 14:48+0200\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -7212,7 +7210,7 @@ msgstr "%s (copie)"
 #: code:addons/models.py:6175
 #, python-format
 msgid "%s This might be '%s' in the current model, or a field of the same name in an o2m."
-msgstr "%s This might be '%s' in the current model, or a field of the same name in an o2m."
+msgstr "%s Cela pourrait être '%s' dans le modèle actuel, ou un champ avec le même nom dans une relation o2m."
 
 #. module: mail
 #: code:addons/mail/mail_thread.py:388
@@ -7246,13 +7244,10 @@ msgstr "%y - Année sans le siècle  (00 à 99)."
 msgid "&bull;"
 msgstr "&bull;"
 
-#. modules: board, extraschool
-#. openerp-web
-#: code:addons/board/static/src/xml/board.xml:28
+#. module: extraschool
 #: view:website:extraschool.report_invoice_regroup_by_activity_by_child_calendar_one_line_style
 #: view:website:extraschool.report_invoice_regroup_by_activity_by_child_calendar_one_line_style_x
 #: view:website:extraschool.report_invoice_regroup_by_activity_by_child_calendar_style
-#, python-format
 msgid "&nbsp;"
 msgstr "&nbsp;"
 
@@ -13406,37 +13401,6 @@ msgstr "<!DOCTYPE html>"
 msgid "<Prev"
 msgstr "<Préc."
 
-#. module: board
-#: model:ir.actions.act_window,help:board.open_board_my_dash_action
-msgid ""
-"<div class=\"oe_empty_custom_dashboard\">\n"
-"                  <p>\n"
-"                    <b>Your personal dashboard is empty.</b>\n"
-"                  </p><p>\n"
-"                    To add your first report into this dashboard, go to any\n"
-"                    menu, switch to list or graph view, and click <i>'Add to\n"
-"                    Dashboard'</i> in the extended search options.\n"
-"                  </p><p>\n"
-"                    You can filter and group data before inserting into the\n"
-"                    dashboard using the search options.\n"
-"                  </p>\n"
-"              </div>\n"
-"            "
-msgstr ""
-"<div class=\"oe_empty_custom_dashboard\">\n"
-"                  <p>\n"
-"                    <b>Votre tableau de bord personnel est vide</b>\n"
-"                  </p><p>\n"
-"                    Pour ajouter un premier rapport à ce tableau de bord, allez dans un\n"
-"                    menu, passez en vue liste ou en vue graphique, et cliquez sur  <i>\"Ajouter\n"
-"                    au tableau de bord\"</i> dans les options de recherches étendues.\n"
-"                  </p><p>\n"
-"                    Vous pouvez filtrer et grouper les données avant d'insérer le rapport dans le\n"
-"                    tableau de bord en utilisant les options de recherche.\n"
-"                  </p>\n"
-"              </div>\n"
-"            "
-
 #. module: mail
 #: code:addons/mail/wizard/invite.py:44
 #, python-format
@@ -13736,7 +13700,7 @@ msgstr "Un dictionnaire Python qui sera interprété pour fournir les valeurs pa
 #: code:addons/models.py:3471
 #, python-format
 msgid "A document was modified since you last viewed it (%s:%d)"
-msgstr "A document was modified since you last viewed it (%s:%d)"
+msgstr "Le document a été modifié depuis que vous l'avez visualisé (%s:%d)"
 
 #. module: base
 #: model:ir.actions.act_window,help:base.action_res_groups
@@ -13835,22 +13799,22 @@ msgstr "A unit must be provided to duration widgets"
 #. module: report
 #: selection:report.paperformat,format:0
 msgid "A0  5   841 x 1189 mm"
-msgstr "A0  5   841 x 1189 mm"
+msgstr "A0  5841 x 1189 mm"
 
 #. module: report
 #: selection:report.paperformat,format:0
 msgid "A1  6   594 x 841 mm"
-msgstr "A1  6   594 x 841 mm"
+msgstr "A1  6594 x 841 mm"
 
 #. module: report
 #: selection:report.paperformat,format:0
 msgid "A2  7   420 x 594 mm"
-msgstr "A2 7 420 x 594 mm"
+msgstr "A2 7420 x 594 mm"
 
 #. module: report
 #: selection:report.paperformat,format:0
 msgid "A3  8   297 x 420 mm"
-msgstr "A3 8 297 x 420 mm"
+msgstr "A3 8297 x 420 mm"
 
 #. module: base
 #: selection:res.company,rml_paper_format:0
@@ -14053,7 +14017,7 @@ msgstr "Droits d'accès pouvant être accordés sur les documents partagés."
 #: code:addons/models.py:4512
 #, python-format
 msgid "AccessError"
-msgstr "AccessError"
+msgstr "Erreur d'accès"
 
 #. module: base
 #: view:res.users:base.user_groups_view
@@ -14456,11 +14420,6 @@ msgid "Activity occurrence calendar"
 msgstr "Calendrier des activités"
 
 #. module: extraschool
-#: view:extraschool.activity_occurrence_correction_wizard:extraschool.extraschool_activity_occurrence_correction_wizard_form
-msgid "Activity validity_to correction"
-msgstr "Activity validity_to correction"
-
-#. module: extraschool
 #: field:extraschool.one_report,activitycategory:0
 #: field:extraschool.prestationscheck_wizard,activitycategory:0
 msgid "Activitycategory"
@@ -14477,9 +14436,8 @@ msgstr "Catégorie de l'activité"
 msgid "Activité"
 msgstr "Activité"
 
-#. modules: web, email_template, web_kanban, web_calendar, board, extraschool
+#. modules: web, web_calendar, extraschool, web_kanban, email_template
 #. openerp-web
-#: code:addons/board/static/src/xml/board.xml:70
 #: view:email.template:email_template.email_template_form
 #: selection:extraschool.timecorrection_wizard,correctiontype:0
 #: code:addons/web/static/src/js/view_form.js:5085
@@ -14729,13 +14687,6 @@ msgstr "Assistant d'ajout de paiement\n"
 #: model:ir.module.module,summary:base.module_web_widget_radio_tree
 msgid "Add radio buttons for records in tree."
 msgstr "Add radio buttons for records in tree."
-
-#. module: board
-#. openerp-web
-#: code:addons/board/static/src/xml/board.xml:67
-#, python-format
-msgid "Add to Dashboard"
-msgstr "Ajouter au tableau de bord"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_website_twitter
@@ -15524,8 +15475,7 @@ msgstr "Sociétés autorisées"
 msgid "Allows a developer to trigger a pager to show the previous or next next record in the form view"
 msgstr "Allows a developer to trigger a pager to show the previous or next next record in the form view"
 
-#. modules: report, odoo-report_pdf_both_sides
-#: model:ir.model,name:odoo-report_pdf_both_sides.model_report_paperformat
+#. module: report
 #: model:ir.model,name:report.model_report_paperformat
 msgid "Allows customization of a report."
 msgstr "Allows customization of a report."
@@ -15674,7 +15624,7 @@ msgstr "Recherche toujours possible"
 #: code:addons/base/ir/ir_fields.py:379
 #, python-format
 msgid "Ambiguous specification for field '%(field)s', only provide one of name, external id or database id"
-msgstr "Ambiguous specification for field '%(field)s', only provide one of name, external id or database id"
+msgstr "Spécification ambigue pour le champ '%(field)s'. Veuillez ne spécifier qu'un seul élément parmi le nom, l'ID externe ou l'ID"
 
 #. module: base
 #: model:res.country,name:base.as
@@ -15684,7 +15634,7 @@ msgstr "Samoa américaines"
 #. module: base
 #: selection:base.language.install,lang:0
 msgid "Amharic / አምሃርኛ"
-msgstr "Amharic / አምሃርኛ"
+msgstr "Amharique / አምሃርኛ"
 
 #. module: extraschool
 #: field:extraschool.invoice,amount_total:0
@@ -15955,13 +15905,6 @@ msgstr "Are you sure you want to attribute all the childs to this activity ?"
 #, python-format
 msgid "Are you sure you want to delete this record ?"
 msgstr "Voulez-vous réellement supprimer cet enregistrement?"
-
-#. module: board
-#. openerp-web
-#: code:addons/board/static/src/js/dashboard.js:136
-#, python-format
-msgid "Are you sure you want to remove this item ?"
-msgstr "Voulez-vous réellement supprimer cet élément ?"
 
 #. module: base
 #: model:res.country,name:base.ar
@@ -16846,21 +16789,6 @@ msgstr "Blackbox Hardware Driver"
 msgid "Blogs"
 msgstr "Blogs"
 
-#. module: board
-#: model:ir.model,name:board.model_board_board
-msgid "Board"
-msgstr "Tableau"
-
-#. module: board
-#: model:ir.model,name:board.model_board_create
-msgid "Board Creation"
-msgstr "Création de tableau de bord"
-
-#. module: board
-#: field:board.create,name:0
-msgid "Board Name"
-msgstr "Nom du tableau de bord"
-
 #. modules: mail, extraschool, email_template
 #: field:email.template,body_html:0 field:email_template.preview,body_html:0
 #: field:ir.actions.server,body_html:0
@@ -16898,11 +16826,6 @@ msgstr "Bosnie-Herzégovine"
 #: selection:base.language.install,lang:0
 msgid "Bosnian / bosanski jezik"
 msgstr "Bosniaque / bosanski jezik"
-
-#. module: odoo-report_pdf_both_sides
-#: field:report.paperformat,both_sides:0
-msgid "Both sides"
-msgstr "Both sides"
 
 #. module: base
 #: model:res.country,name:base.bw
@@ -17018,12 +16941,12 @@ msgid ""
 "                        (displayed under the Browse CSV file bar after you \n"
 "                        select your file)."
 msgstr ""
-"By default the Import preview is set on commas as \n"
-"                        field separators and quotation marks as text \n"
-"                        delimiters. If your csv file does not have these \n"
-"                        settings, you can modify the File Format Options \n"
-"                        (displayed under the Browse CSV file bar after you \n"
-"                        select your file)."
+"Par défaut l'aperçu d'importation est configuré pour utiliser\n"
+"                       les virgules comme séparateur de champs, et les\n"
+"                       guillemets comme caractère de délimitation de texte.\n"
+"                       Si votre fichier CSV est dans un autre format, vous pouvez\n"
+"                       modifier les options de format de fichier (sous la barre\n"
+"                       de choix du fichier, après en avoir choisi un)."
 
 #. module: web
 #. openerp-web
@@ -17307,7 +17230,7 @@ msgstr "Peut éditer"
 #: code:addons/base/ir/ir_fields.py:376
 #, python-format
 msgid "Can not create Many-To-One records indirectly, import the field separately"
-msgstr "Can not create Many-To-One records indirectly, import the field separately"
+msgstr "Impossible de créer indirectement des enregistrements Many-To-One, import du champ séparément"
 
 #. module: base
 #: code:addons/base/res/res_users.py:373
@@ -17346,13 +17269,6 @@ msgstr "Impossible de mettre à jour la vue"
 msgid "Can't convert value %s to context"
 msgstr "Impossible de convertir la valeur %s en un contexte"
 
-#. module: board
-#. openerp-web
-#: code:addons/board/static/src/js/dashboard.js:376
-#, python-format
-msgid "Can't find dashboard action"
-msgstr "Action de tableau de bord introuvable"
-
 #. module: web
 #. openerp-web
 #: code:addons/web/static/src/js/view_form.js:2496
@@ -17370,7 +17286,7 @@ msgstr "Canada"
 msgid "Canada - Accounting"
 msgstr "Canada - Comptabilité"
 
-#. modules: web, base_setup, knowledge, base_import, share, web_view_editor, web_kanban, base, portal, board, mail
+#. modules: web, base_setup, knowledge, base_import, share, web_view_editor, web_kanban, base, portal, mail
 #. openerp-web
 #: view:base.language.export:base.wizard_lang_export
 #: view:base.language.import:base.view_base_import_language
@@ -17386,7 +17302,6 @@ msgstr "Canada - Comptabilité"
 #: code:addons/base_import/static/src/xml/import.xml:20
 #: view:base.config.settings:base_setup.view_general_configuration
 #: view:sale.config.settings:base_setup.view_sale_config_settings
-#: view:board.create:board.view_board_create
 #: view:knowledge.config.settings:knowledge.view_knowledge_configuration
 #: code:addons/mail/static/src/js/mail_followers.js:106
 #: view:mail.compose.message:mail.email_compose_message_wizard_form
@@ -17549,20 +17464,6 @@ msgstr "Tchad"
 msgid "Change"
 msgstr "Change"
 
-#. module: board
-#. openerp-web
-#: code:addons/board/static/src/xml/board.xml:10
-#, python-format
-msgid "Change Layout"
-msgstr "Modifier l'agencement"
-
-#. module: board
-#. openerp-web
-#: code:addons/board/static/src/xml/board.xml:8
-#, python-format
-msgid "Change Layout.."
-msgstr "Modifier l'agencement..."
-
 #. module: web
 #. openerp-web
 #: code:addons/web/static/src/xml/base.xml:281
@@ -17630,7 +17531,7 @@ msgstr "Mot de passe modifié"
 #: code:addons/base/res/res_partner.py:385
 #, python-format
 msgid "Changing the company of a contact should only be done if it was never correctly set. If an existing contact starts working for a new company then a new contact should be created under that new company. You can use the \"Discard\" button to abandon this change."
-msgstr "Changing the company of a contact should only be done if it was never correctly set. If an existing contact starts working for a new company then a new contact should be created under that new company. You can use the \"Discard\" button to abandon this change."
+msgstr "Nous vous conseillons de ne changer la société d'un contact que si elle était erronée depuis le début. Si un contact existant commence à travailler pour une autre société, vous devriez créer un nouveau contact au sein de sa nouvelle société. Vous pouvez utiliser le bouton \"Annuler\" pour abandonner cette modification."
 
 #. module: base
 #: code:addons/base/ir/ir_model.py:456
@@ -17658,7 +17559,7 @@ msgstr "Canal"
 #. module: base
 #: selection:ir.property,type:0
 msgid "Char"
-msgstr "Chaîne"
+msgstr "Caractère"
 
 #. module: base
 #: model:ir.module.module,description:base.module_web_graph_improved
@@ -18157,13 +18058,6 @@ msgstr "Choose and Update a record in the database"
 #: selection:ir.actions.server,use_create:0
 msgid "Choose and copy a record in the database"
 msgstr "Choose and copy a record in the database"
-
-#. module: board
-#. openerp-web
-#: code:addons/board/static/src/xml/board.xml:40
-#, python-format
-msgid "Choose dashboard layout"
-msgstr "Choisissez l'agencement du tableau de bord"
 
 #. module: base
 #: help:ir.mail_server,smtp_encryption:0
@@ -20056,7 +19950,6 @@ msgid "Corp."
 msgstr "SA"
 
 #. module: extraschool
-#: view:extraschool.activity_occurrence_correction_wizard:extraschool.extraschool_activity_occurrence_correction_wizard_form
 #: view:extraschool.pdaprestationtimes_correction_wizard:extraschool.extraschool_pdaprestationtimes_correction_wizard_form
 msgid "Correction"
 msgstr "Correction"
@@ -20091,13 +19984,6 @@ msgstr "Costa Rica"
 #: model:ir.module.module,shortdesc:base.module_l10n_cr
 msgid "Costa Rica - Accounting"
 msgstr "Costa Rica - Comptabilité"
-
-#. module: board
-#. openerp-web
-#: code:addons/board/static/src/js/dashboard.js:408
-#, python-format
-msgid "Could not add filter to dashboard"
-msgstr "Impossible d'ajouter le filtre au tableau de bord"
 
 #. module: auth_signup
 #: code:addons/auth_signup/controllers/main.py:61
@@ -20269,9 +20155,8 @@ msgstr "Pays : Belgique"
 msgid "Country: the name or code of the country"
 msgstr "Pays : le nom ou code du pays"
 
-#. modules: web_gantt, web, board, web_view_editor
+#. modules: web_gantt, web, web_view_editor
 #. openerp-web
-#: view:board.create:board.view_board_create
 #: code:addons/web/static/src/js/view_list.js:20
 #: code:addons/web/static/src/js/view_list.js:2388
 #: code:addons/web/static/src/xml/base.xml:313
@@ -20306,12 +20191,6 @@ msgstr "Droit de création"
 msgid "Create Access Right"
 msgstr "Créer un droit d'accès"
 
-#. module: board
-#: model:ir.actions.act_window,name:board.action_board_create
-#: model:ir.ui.menu,name:board.menu_board_create
-msgid "Create Board"
-msgstr "Créer un tableau de bord"
-
 #. module: web
 #. openerp-web
 #: code:addons/web/static/src/xml/base.xml:141
@@ -20339,11 +20218,6 @@ msgstr "Create Leads From Contact Form"
 #: view:wizard.ir.model.menu.create:base.view_model_menu_create
 msgid "Create Menu"
 msgstr "Créer le menu"
-
-#. module: board
-#: view:board.create:board.view_board_create
-msgid "Create New Dashboard"
-msgstr "Créer un nouveau tableau de bord"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_sale_service
@@ -20470,7 +20344,7 @@ msgstr "Menus créés"
 msgid "Created Views"
 msgstr "Vues créées"
 
-#. modules: base_setup, knowledge, email_template, bus, base_import, fetchmail, extraschool, base, portal, board, report, mail, share, document, decimal_precision
+#. modules: base_setup, knowledge, email_template, bus, base_import, fetchmail, extraschool, base, portal, report, mail, share, document, decimal_precision
 #: field:base.language.export,create_uid:0
 #: field:base.language.import,create_uid:0
 #: field:base.language.install,create_uid:0
@@ -20530,8 +20404,8 @@ msgstr "Vues créées"
 #: field:base_import.tests.models.preview,create_uid:0
 #: field:base.config.settings,create_uid:0
 #: field:base.setup.terminology,create_uid:0
-#: field:sale.config.settings,create_uid:0 field:board.create,create_uid:0
-#: field:bus.bus,create_uid:0 field:decimal.precision,create_uid:0
+#: field:sale.config.settings,create_uid:0 field:bus.bus,create_uid:0
+#: field:decimal.precision,create_uid:0
 #: field:decimal.precision.test,create_uid:0
 #: field:document.configuration,create_uid:0
 #: field:document.directory.content,create_uid:0
@@ -20638,7 +20512,7 @@ msgstr "Créé par"
 msgid "Created by :"
 msgstr "Créé par :"
 
-#. modules: base_setup, knowledge, email_template, share, base_import, fetchmail, extraschool, base, portal, board, report, mail, document, decimal_precision
+#. modules: base_setup, knowledge, email_template, share, base_import, fetchmail, extraschool, base, portal, report, mail, document, decimal_precision
 #: field:base.language.export,create_date:0
 #: field:base.language.import,create_date:0
 #: field:base.language.install,create_date:0
@@ -20702,7 +20576,7 @@ msgstr "Créé par :"
 #: field:base_import.tests.models.preview,create_date:0
 #: field:base.config.settings,create_date:0
 #: field:base.setup.terminology,create_date:0
-#: field:sale.config.settings,create_date:0 field:board.create,create_date:0
+#: field:sale.config.settings,create_date:0
 #: field:decimal.precision,create_date:0
 #: field:decimal.precision.test,create_date:0
 #: field:document.configuration,create_date:0
@@ -21073,7 +20947,7 @@ msgstr "DLE 26 110 x 220 mm"
 #. module: base
 #: selection:base.language.install,lang:0
 msgid "Danish / Dansk"
-msgstr "Danish / Dansk"
+msgstr "Danois / Dansk"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_web_dashboard_tile
@@ -21313,7 +21187,7 @@ msgstr "La base de données a été sauvegardée avec succès"
 #: code:addons/models.py:3395
 #, python-format
 msgid "Database fetch misses ids ({}) and has extra ids ({}), may be caused by a type incoherence in a previous request"
-msgstr "Database fetch misses ids ({}) and has extra ids ({}), may be caused by a type incoherence in a previous request"
+msgstr "La recherche en base de données n'a pas les identifiants ({}) et a des identifiants supplémentaires ({}), cela peut être causé par une incohérence de type dans une requête précédente "
 
 #. module: base
 #: help:ir.values,res_id:0
@@ -22145,11 +22019,6 @@ msgid "Discount"
 msgstr "Réduction"
 
 #. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_discountrule
-msgid "Discount Rule"
-msgstr "Règles de réductions"
-
-#. module: extraschool
 #: field:extraschool.invoicedprestations,discount_value:0
 msgid "Discount value"
 msgstr "Discount value"
@@ -22202,11 +22071,11 @@ msgstr "Affichage"
 msgid "Display Groups Suggestions"
 msgstr "Afficher les suggestions de groupes"
 
-#. modules: base_setup, knowledge, odoo-report_pdf_both_sides, email_template, share, fetchmail, decimal_precision, portal, board, mail, document, extraschool
+#. modules: base_setup, knowledge, email_template, share, fetchmail, decimal_precision, portal, mail, document, extraschool
 #: field:base.config.settings,display_name:0
 #: field:base.setup.terminology,display_name:0
-#: field:sale.config.settings,display_name:0 field:board.board,display_name:0
-#: field:board.create,display_name:0 field:decimal.precision,display_name:0
+#: field:sale.config.settings,display_name:0
+#: field:decimal.precision,display_name:0
 #: field:decimal.precision.test,display_name:0
 #: field:ir.qweb.field.float,display_name:0
 #: field:document.configuration,display_name:0
@@ -22317,9 +22186,8 @@ msgstr "Afficher les suggestions de groupes"
 #: field:mail.wizard.invite,display_name:0
 #: field:publisher_warranty.contract,display_name:0
 #: field:res.groups,display_name:0 field:res.users,display_name:0
-#: field:report.paperformat,display_name:0 field:portal.wizard,display_name:0
-#: field:portal.wizard.user,display_name:0 field:ir.model.access,display_name:0
-#: field:share.wizard,display_name:0
+#: field:portal.wizard,display_name:0 field:portal.wizard.user,display_name:0
+#: field:ir.model.access,display_name:0 field:share.wizard,display_name:0
 #: field:share.wizard.result.line,display_name:0
 msgid "Display Name"
 msgstr "Display Name"
@@ -22392,6 +22260,11 @@ msgstr "Voulez-vous réellement supprimer la base de données : %s ?"
 #, python-format
 msgid "Do you really want to delete this attachment ?"
 msgstr "Voulez-vous réellement supprimer cette pièce jointe ?"
+
+#. module: extraschool
+#: view:extraschool.invoice:extraschool.extraschool_invoice_form
+msgid "Do you really want to delete this invoice ?"
+msgstr "Do you really want to delete this invoice ?"
 
 #. module: mail
 #. openerp-web
@@ -22717,7 +22590,7 @@ msgstr "Durée"
 #. module: base
 #: selection:base.language.install,lang:0
 msgid "Dutch (BE) / Nederlands (BE)"
-msgstr "Dutch (BE) / Nederlands (BE)"
+msgstr "Hollandais (BE) / Néerlandais (BE)"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -22867,13 +22740,6 @@ msgstr "Modifier les données de la société"
 msgid "Edit Event"
 msgstr "Modifier l'événement"
 
-#. module: board
-#. openerp-web
-#: code:addons/board/static/src/js/dashboard.js:92
-#, python-format
-msgid "Edit Layout"
-msgstr "Modifier l'agencement"
-
 #. module: web
 #. openerp-web
 #: code:addons/web/static/src/xml/base.xml:551
@@ -22991,7 +22857,7 @@ msgstr "Aperçu du courriel"
 #: code:addons/share/wizard/share_wizard.py:851
 #, python-format
 msgid "Email Required"
-msgstr "Email Required"
+msgstr "Courriel requis"
 
 #. module: mail
 #: view:mail.mail:mail.view_mail_search
@@ -23225,7 +23091,7 @@ msgstr "Enforce a pattern on an input field"
 #. module: base
 #: selection:base.language.install,lang:0
 msgid "English (AU)"
-msgstr "English (AU)"
+msgstr "Anglais (AU)"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -23349,7 +23215,7 @@ msgstr ""
 #: code:addons/models.py:1269
 #, python-format
 msgid "Error details:"
-msgstr "Error details:"
+msgstr "Détails de l'erreur :"
 
 #. module: mail
 #: code:addons/mail/update.py:93
@@ -23366,7 +23232,7 @@ msgstr "Erreur durant la communication avec le serveur de garantie de l'éditeur
 #: code:addons/base/res/res_currency.py:60
 #, python-format
 msgid "Error!"
-msgstr "Erreur!"
+msgstr "Erreur !"
 
 #. module: base
 #: constraint:res.company:0
@@ -23569,7 +23435,7 @@ msgstr "Sortir de tout"
 #: code:addons/web_graph/static/src/xml/web_graph.xml:38
 #, python-format
 msgid "Expand All"
-msgstr "Expand All"
+msgstr "Tout déplier"
 
 #. module: base
 #: model:ir.module.module,description:base.module_web_dialog_size
@@ -23791,6 +23657,12 @@ msgstr ""
 "Expression, doit être a True pour être valide\n"
 "utiliser context.get ou user (browse)"
 
+#. module: extraschool
+#: view:extraschool.activity_occurrence_correction_wizard:extraschool.extraschool_activity_occurrence_correction_wizard_form
+#: model:ir.actions.act_window,name:extraschool.parent_activity_occurrence_correction_wizard_action
+msgid "Extend activity's date"
+msgstr "Étendre la date de validité des activités"
+
 #. module: mail
 #: view:mail.mail:mail.view_mail_search
 msgid "Extended Filters..."
@@ -23909,11 +23781,6 @@ msgstr "Facture numéro :"
 #: view:website:extraschool.report_all_invoice_summary_hannut_facture
 msgid "Facture(s) échue(s) ou en attente de paiement"
 msgstr "Facture(s) échue(s) ou en attente de paiement"
-
-#. module: extraschool
-#: model:email.template,report_name:extraschool.email_template_invoice
-msgid "Facture.pdf"
-msgstr "Facture.pdf"
 
 #. module: extraschool
 #: view:extraschool.biller:extraschool.extraschool_biller_form
@@ -24094,7 +23961,7 @@ msgstr "Champ utilisé pour associer le modèle relié au sous-modèle lors de l
 #: code:addons/models.py:1271
 #, python-format
 msgid "Field(s) `%s` failed against a constraint: %s"
-msgstr "Field(s) `%s` failed against a constraint: %s"
+msgstr "Champ(s)  `%s` en erreur vis à vis de la contrainte : %s  "
 
 #. module: web
 #. openerp-web
@@ -24274,10 +24141,9 @@ msgid ""
 "                    goals (testing, production). Once the database is created,\n"
 "                    you will be able to install your first application."
 msgstr ""
-"Fill in this form to create an Odoo database. You can\n"
-"                    create databases for different companies or for different\n"
-"                    goals (testing, production). Once the database is created,\n"
-"                    you will be able to install your first application."
+"Renseignez ce formulaire pour créer un base de données Odoo. Vous pouvez\n"
+"créer des bases de données pour différentes sociétés ou pour différents buts (tests, production). Une fois que la base de données est créée,\n"
+"vous pourrez installer votre première application."
 
 #. modules: web, base
 #. openerp-web
@@ -24298,13 +24164,6 @@ msgstr "Nom du Filtre"
 #, python-format
 msgid "Filter Name:"
 msgstr "Nom du filtre :"
-
-#. module: board
-#. openerp-web
-#: code:addons/board/static/src/js/dashboard.js:411
-#, python-format
-msgid "Filter added to dashboard"
-msgstr "Filtre ajouté au tableau de bord"
 
 #. module: web
 #. openerp-web
@@ -24531,7 +24390,7 @@ msgstr "Followers of the document and"
 #: code:addons/mail/static/src/xml/mail.xml:131
 #, python-format
 msgid "Followers of this document"
-msgstr "Followers of this document"
+msgstr "Abonnés du document"
 
 #. module: mail
 #: selection:mail.alias,alias_contact:0
@@ -24629,10 +24488,7 @@ msgid ""
 "For example, to \n"
 "                        reference the country of a contact, Odoo proposes \n"
 "                        you 3 different fields to import:"
-msgstr ""
-"For example, to \n"
-"                        reference the country of a contact, Odoo proposes \n"
-"                        you 3 different fields to import:"
+msgstr "Par exemple, pour indiquer le pays d'un contact, Odoo vous permet d'utiliser 3 champs différents :"
 
 #. module: base
 #: view:base.language.export:base.wizard_lang_export
@@ -24681,9 +24537,9 @@ msgid ""
 "\n"
 "(Document type: %s)"
 msgstr ""
-"For this kind of document, you may only access records you created yourself.\n"
+"Pour ce type de document, vous pouvez accéder uniquement aux dossiers que vous avez créés vous-même.\n"
 "\n"
-"(Document type: %s)"
+"(Type de document : %s)"
 
 #. module: web
 #. openerp-web
@@ -24996,7 +24852,7 @@ msgstr "Georgie"
 #. module: base
 #: selection:base.language.install,lang:0
 msgid "Georgian / ქართული ენა"
-msgstr "Georgian / ქართული ენა"
+msgstr "Georgien / ქართული ენა"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -25460,21 +25316,21 @@ msgstr "Îles Heard et McDonald"
 #: code:addons/web_graph/static/src/xml/web_graph.xml:23
 #, python-format
 msgid "Heat Map"
-msgstr "Heat Map"
+msgstr "Carte de chaleur"
 
 #. module: web_graph
 #. openerp-web
 #: code:addons/web_graph/static/src/xml/web_graph.xml:29
 #, python-format
 msgid "Heat Map (columns)"
-msgstr "Heat Map (columns)"
+msgstr "Carte de chaleur (colonnes)"
 
 #. module: web_graph
 #. openerp-web
 #: code:addons/web_graph/static/src/xml/web_graph.xml:26
 #, python-format
 msgid "Heat Map (rows)"
-msgstr "Heat Map (rows)"
+msgstr "Carte de chaleur (lignes)"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -25895,9 +25751,7 @@ msgstr ""
 msgid ""
 "How to export/import different tables from an SQL \n"
 "                        application to Odoo?"
-msgstr ""
-"How to export/import different tables from an SQL \n"
-"                        application to Odoo?"
+msgstr "Comment exporter/importer un ensemble de plusieurs tables entre une application SQL et Odoo ?"
 
 #. module: base_import
 #. openerp-web
@@ -25909,10 +25763,8 @@ msgid ""
 "                        use make use of the external ID for this field \n"
 "                        'Category'."
 msgstr ""
-"However if you do not wish to change your \n"
-"                        configuration of product categories, we recommend you \n"
-"                        use make use of the external ID for this field \n"
-"                        'Category'."
+"Par contre si vous préférez ne pas modifier les catégories de produits pour lever cette ambiguïté,\n"
+"vous devriez utiliser l’identifiant externe unique pour désigner la catégorie."
 
 #. module: extraschool
 #: field:extraschool.invoice,huissier:0
@@ -25964,7 +25816,7 @@ msgstr ""
 msgid "IBAN Bank Accounts"
 msgstr "Comptes bancaires IBAN"
 
-#. modules: base_setup, knowledge, email_template, bus, base_import, fetchmail, extraschool, base, portal, board, report, mail, share, document, decimal_precision
+#. modules: base_setup, knowledge, email_template, bus, base_import, fetchmail, extraschool, base, portal, report, mail, share, document, decimal_precision
 #. openerp-web
 #: field:base.language.export,id:0 field:base.language.import,id:0
 #: field:base.language.install,id:0 field:base.module.configuration,id:0
@@ -26025,10 +25877,9 @@ msgstr "Comptes bancaires IBAN"
 #: field:base_import.tests.models.o2m.child,id:0
 #: field:base_import.tests.models.preview,id:0 field:base.config.settings,id:0
 #: field:base.setup.terminology,id:0 field:sale.config.settings,id:0
-#: field:board.board,id:0 field:board.create,id:0 field:bus.bus,id:0
-#: field:decimal.precision,id:0 field:decimal.precision.test,id:0
-#: field:document.configuration,id:0 field:document.directory,id:0
-#: field:document.directory.content,id:0
+#: field:bus.bus,id:0 field:decimal.precision,id:0
+#: field:decimal.precision.test,id:0 field:document.configuration,id:0
+#: field:document.directory,id:0 field:document.directory.content,id:0
 #: field:document.directory.content.type,id:0
 #: field:document.directory.dctx,id:0 field:document.storage,id:0
 #: field:report.document.file,id:0 field:report.document.user,id:0
@@ -26313,10 +26164,10 @@ msgid ""
 "                field corresponding to the column. This makes imports\n"
 "                simpler especially when the file has many columns."
 msgstr ""
-"If the file contains\n"
-"                the column names, Odoo can try auto-detecting the\n"
-"                field corresponding to the column. This makes imports\n"
-"                simpler especially when the file has many columns."
+"Si le fichier contient des en-têtes de colonnes, le système peut\n"
+"essayer de détecter automatiquement les champs correspondants.\n"
+"Ceci facilite l'importation, en particulier pour les fichiers contenant beaucoup\n"
+"de colonnes."
 
 #. module: base
 #: help:ir.ui.menu,needaction_enabled:0
@@ -26328,7 +26179,7 @@ msgstr "If the menu entry action is an act_window action, and if this action is 
 #: code:addons/base_import/static/src/xml/import.xml:58
 #, python-format
 msgid "If the model uses openchatter, history tracking                             will set up subscriptions and send notifications                             during the import, but lead to a slower import."
-msgstr "If the model uses openchatter, history tracking                             will set up subscriptions and send notifications                             during the import, but lead to a slower import."
+msgstr "Si le modèle est pourvu d'un historique de conversation, celui-ci portera la trace des modifications effectuées au cours de l'importation, prendra en compte les souscriptions automatiques, et enverra les notifications correspondantes. Ceci pourra ralentir l'importation."
 
 #. modules: mail, base
 #: help:res.partner,lang:0 help:res.users,lang:0
@@ -26447,14 +26298,12 @@ msgid ""
 "                        take care of creating or modifying each record \n"
 "                        depending if it's new or not."
 msgstr ""
-"If you import a file that contains one of the \n"
-"                        column \"External ID\" or \"Database ID\", records that \n"
-"                        have already been imported will be modified instead of \n"
-"                        being created. This is very usefull as it allows you \n"
-"                        to import several times the same CSV file while having \n"
-"                        made some changes in between two imports. Odoo will \n"
-"                        take care of creating or modifying each record \n"
-"                        depending if it's new or not."
+"Si vous importez un fichier qui contient l'une des colonnes \"Id. externe\" ou \"Id. base de données\",\n"
+"les enregistrements préalablement importés qui ont ces identifiants seront mis à jour, plutôt que\n"
+"d'en importer une copie.\n"
+"Ceci permet d'importer le même fichier plusieurs fois en effectuant quelques ajustements dans \n"
+"le fichier, sans craindre une duplication des données. Le système créera ou mettra à jour les\n"
+"enregistrement automatiquement en fonction de leur existence."
 
 #. module: base_import
 #. openerp-web
@@ -26872,11 +26721,6 @@ msgstr "Date d'initialisation"
 msgid "Init or Update Wizard"
 msgstr "Initialisation et MAJ"
 
-#. module: extraschool
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_initupdate_wizard
-msgid "Init or update"
-msgstr "Initialisation et MAJ"
-
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_base_setup
 msgid "Initial Setup Tools"
@@ -26992,13 +26836,13 @@ msgstr "Instant Messaging Bus allow you to send messages to users, in live."
 #: code:addons/models.py:1463
 #, python-format
 msgid "Insufficient fields for Calendar View!"
-msgstr "Insufficient fields for Calendar View!"
+msgstr "Champs insuffisants pour une vue de calendrier !"
 
 #. module: base
 #: code:addons/models.py:1475
 #, python-format
 msgid "Insufficient fields to generate a Calendar View for %s, missing a date_stop or a date_delay"
-msgstr "Insufficient fields to generate a Calendar View for %s, missing a date_stop or a date_delay"
+msgstr "Champs insuffisants pour générer une vue de calendrier pour %s, il manque une date de fin (date_stop) ou un délai (date_delay)"
 
 #. module: base
 #: selection:ir.property,type:0
@@ -27039,7 +26883,7 @@ msgstr "Rapport d'introspection sur les objets"
 #: code:addons/models.py:4512
 #, python-format
 msgid "Invalid \"order\" specified. A valid \"order\" specification is a comma-separated list of valid field names (optionally followed by asc/desc for the direction)"
-msgstr "Invalid \"order\" specified. A valid \"order\" specification is a comma-separated list of valid field names (optionally followed by asc/desc for the direction)"
+msgstr "La propriété \"order\" est incorrecte. \"order\" doit contenir une liste de noms de champs corrects et séparés par des virgules (éventuellement suivis de \"asc\" ou \"desc\" pour indiquer le sens)"
 
 #. module: mail
 #: code:addons/mail/mail_message.py:179
@@ -27051,7 +26895,7 @@ msgstr "Action invalide !"
 #: code:addons/models.py:1546
 #, python-format
 msgid "Invalid Architecture!"
-msgstr "Invalid Architecture!"
+msgstr "Architecture invalide ! "
 
 #. module: base
 #: code:addons/base/res/res_bank.py:189
@@ -27063,7 +26907,7 @@ msgstr "Format de nom invalide pour le type de compte bancaire."
 #: code:addons/models.py:1463 code:addons/models.py:1474
 #, python-format
 msgid "Invalid Object Architecture!"
-msgstr "Invalid Object Architecture!"
+msgstr "Architecture d'objet invalide !"
 
 #. module: web
 #. openerp-web
@@ -27087,19 +26931,19 @@ msgstr "Arguments non valides"
 #: code:addons/base/res/res_users.py:902
 #, python-format
 msgid "Invalid context default_groups_ref value (model.name_id) : \"%s\""
-msgstr "Invalid context default_groups_ref value (model.name_id) : \"%s\""
+msgstr "Contexte invalide default_groups_ref valeur (model.name_id) : \"%s\""
 
 #. module: base
 #: code:addons/base/res/res_users.py:902
 #, python-format
 msgid "Invalid context value"
-msgstr "Invalid context value"
+msgstr "Valeur de contexte incorrecte"
 
 #. module: base
 #: code:addons/base/ir/ir_fields.py:325
 #, python-format
 msgid "Invalid database id '%s' for the field '%%(field)s'"
-msgstr "Invalid database id '%s' for the field '%%(field)s'"
+msgstr "Id  '%s' de la base de données incorrect pour le champ '%%(field)s'"
 
 #. module: web
 #. openerp-web
@@ -27122,7 +26966,7 @@ msgstr "Expression invalide : une définition litérale d'un dictionnaire Python
 #: code:addons/models.py:2100
 #, python-format
 msgid "Invalid group_by"
-msgstr "Invalid group_by"
+msgstr "'group_by' invalide"
 
 #. module: base
 #: code:addons/models.py:2101
@@ -27131,8 +26975,8 @@ msgid ""
 "Invalid group_by specification: \"%s\".\n"
 "A group_by specification must be a list of valid fields."
 msgstr ""
-"Invalid group_by specification: \"%s\".\n"
-"A group_by specification must be a list of valid fields."
+"Spécification  \"%s\" de 'group_by' ivalide.\n"
+"Une spécification 'group_by' doit être une liste de champs valides."
 
 #. module: base
 #: sql_constraint:ir.ui.view:0
@@ -27258,7 +27102,7 @@ msgid "Invoice all of the children"
 msgstr "Facturer tous les enfants"
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_invoice.py:162
+#: code:addons/extraschool/extraschool_invoice.py:156
 #, python-format
 msgid "Invoice cancelled"
 msgstr "Invoice cancelled"
@@ -27786,11 +27630,11 @@ msgstr "Date de dernière modification"
 msgid "Last Modification User"
 msgstr "Utilisateur ayant réaliser la dernière modification"
 
-#. modules: base_setup, knowledge, odoo-report_pdf_both_sides, email_template, share, fetchmail, decimal_precision, portal, board, mail, document, extraschool
+#. modules: base_setup, knowledge, email_template, share, fetchmail, decimal_precision, portal, mail, document, extraschool
 #: field:base.config.settings,__last_update:0
 #: field:base.setup.terminology,__last_update:0
-#: field:sale.config.settings,__last_update:0 field:board.board,__last_update:0
-#: field:board.create,__last_update:0 field:decimal.precision,__last_update:0
+#: field:sale.config.settings,__last_update:0
+#: field:decimal.precision,__last_update:0
 #: field:decimal.precision.test,__last_update:0
 #: field:ir.qweb.field.float,__last_update:0
 #: field:document.configuration,__last_update:0
@@ -27902,8 +27746,8 @@ msgstr "Utilisateur ayant réaliser la dernière modification"
 #: field:mail.wizard.invite,__last_update:0
 #: field:publisher_warranty.contract,__last_update:0
 #: field:res.groups,__last_update:0 field:res.partner,__last_update:0
-#: field:res.users,__last_update:0 field:report.paperformat,__last_update:0
-#: field:portal.wizard,__last_update:0 field:portal.wizard.user,__last_update:0
+#: field:res.users,__last_update:0 field:portal.wizard,__last_update:0
+#: field:portal.wizard.user,__last_update:0
 #: field:ir.model.access,__last_update:0 field:share.wizard,__last_update:0
 #: field:share.wizard.result.line,__last_update:0
 msgid "Last Modified on"
@@ -27919,7 +27763,7 @@ msgstr "Dernier n° de communication structurée (Rappels)"
 msgid "Last Transmission Date"
 msgstr "Dernière date de transmission"
 
-#. modules: base_setup, knowledge, email_template, bus, base_import, fetchmail, extraschool, base, portal, board, report, mail, share, document, decimal_precision
+#. modules: base_setup, knowledge, email_template, bus, base_import, fetchmail, extraschool, base, portal, report, mail, share, document, decimal_precision
 #: field:base.language.export,write_uid:0
 #: field:base.language.import,write_uid:0
 #: field:base.language.install,write_uid:0
@@ -27978,9 +27822,8 @@ msgstr "Dernière date de transmission"
 #: field:base_import.tests.models.preview,write_uid:0
 #: field:base.config.settings,write_uid:0
 #: field:base.setup.terminology,write_uid:0
-#: field:sale.config.settings,write_uid:0 field:board.create,write_uid:0
-#: field:bus.bus,write_uid:0 field:decimal.precision,write_uid:0
-#: field:decimal.precision.test,write_uid:0
+#: field:sale.config.settings,write_uid:0 field:bus.bus,write_uid:0
+#: field:decimal.precision,write_uid:0 field:decimal.precision.test,write_uid:0
 #: field:document.configuration,write_uid:0
 #: field:document.directory.content,write_uid:0
 #: field:document.directory.content.type,write_uid:0
@@ -28076,7 +27919,7 @@ msgstr "Dernière date de transmission"
 msgid "Last Updated by"
 msgstr "Dernière modification par"
 
-#. modules: base_setup, knowledge, email_template, bus, base_import, fetchmail, extraschool, base, portal, board, report, mail, share, document, decimal_precision
+#. modules: base_setup, knowledge, email_template, bus, base_import, fetchmail, extraschool, base, portal, report, mail, share, document, decimal_precision
 #: field:base.language.export,write_date:0
 #: field:base.language.import,write_date:0
 #: field:base.language.install,write_date:0
@@ -28137,8 +27980,8 @@ msgstr "Dernière modification par"
 #: field:base_import.tests.models.preview,write_date:0
 #: field:base.config.settings,write_date:0
 #: field:base.setup.terminology,write_date:0
-#: field:sale.config.settings,write_date:0 field:board.create,write_date:0
-#: field:bus.bus,write_date:0 field:decimal.precision,write_date:0
+#: field:sale.config.settings,write_date:0 field:bus.bus,write_date:0
+#: field:decimal.precision,write_date:0
 #: field:decimal.precision.test,write_date:0
 #: field:document.configuration,write_date:0
 #: field:document.directory.content,write_date:0
@@ -28527,7 +28370,7 @@ msgstr "Ligne"
 #: code:addons/web_graph/static/src/xml/web_graph.xml:14
 #, python-format
 msgid "Line Chart"
-msgstr "Line Chart"
+msgstr "Courbe"
 
 #. module: web
 #. openerp-web
@@ -28843,7 +28686,7 @@ msgstr "Macedonia, the former Yugoslav Republic of"
 #. module: base
 #: selection:base.language.install,lang:0
 msgid "Macedonian / македонски јазик"
-msgstr "Macedonian / македонски јазик"
+msgstr "Macédonien / македонски јазик"
 
 #. module: base
 #: model:res.country,name:base.mg
@@ -29114,7 +28957,7 @@ msgstr "Marges sur commandes clients"
 #: code:addons/mail/static/src/xml/mail.xml:257
 #, python-format
 msgid "Mark as Todo"
-msgstr "Marqué comme 'À faire'"
+msgstr "Marquer \"À faire\""
 
 #. module: base
 #: model:ir.module.category,name:base.module_category_marketing
@@ -29238,7 +29081,7 @@ msgstr "Mayotte"
 #: code:addons/web_graph/static/src/xml/web_graph.xml:49
 #, python-format
 msgid "Measures"
-msgstr "Measures"
+msgstr "Mesures"
 
 #. modules: mail, base
 #: field:res.partner,image_medium:0 field:res.users,image_medium:0
@@ -29471,10 +29314,9 @@ msgid ""
 "                        (in 'Save As' dialog box > click 'Tools' dropdown \n"
 "                        list > Encoding tab)."
 msgstr ""
-"Microsoft Excel will allow \n"
-"                        you to modify only the encoding when saving \n"
-"                        (in 'Save As' dialog box > click 'Tools' dropdown \n"
-"                        list > Encoding tab)."
+"Microsoft Excel vous permet \n"
+"de modifier l'encodage à la sauvegarde \n"
+"(dans la boîte de dialogue \"Enregistrer tout\" > cliquez sur la liste déroulante \"Outils\" > onglet \"Encodage\")."
 
 #. module: document
 #: field:document.directory.content.type,mimetype:0
@@ -29532,13 +29374,13 @@ msgstr "Champ obligatoire '%s' manquant"
 #: code:addons/models.py:6160
 #, python-format
 msgid "Missing required value for the field '%s' (%s)"
-msgstr "Missing required value for the field '%s' (%s)"
+msgstr "Valeur requise manquante pour le champ '%s' (%s)"
 
 #. module: base
 #: code:addons/models.py:6157
 #, python-format
 msgid "Missing required value for the field '%s'."
-msgstr "Missing required value for the field '%s'."
+msgstr "Valeur requise manquante pour le champ '%s'."
 
 #. module: base
 #: model:res.partner.title,name:base.res_partner_title_mister
@@ -29599,7 +29441,7 @@ msgstr "Champs du modèle %s"
 #: code:addons/base/ir/ir_model.py:183
 #, python-format
 msgid "Model '%s' contains module data and cannot be removed!"
-msgstr "Model '%s' contains module data and cannot be removed!"
+msgstr "Le modèle '%s' contient des données du module et ne peut pas être supprimé!"
 
 #. module: base
 #: field:ir.values,model_id:0
@@ -29966,13 +29808,6 @@ msgstr "Plans analytiques multiples"
 #: view:res.partner.bank:base.view_partner_bank_search
 msgid "My Banks"
 msgstr "Mes banques"
-
-#. module: board
-#: view:board.board:board.board_my_dash_view
-#: model:ir.actions.act_window,name:board.open_board_my_dash_action
-#: model:ir.ui.menu,name:board.menu_board_my_dash
-msgid "My Dashboard"
-msgstr "Mon tableau de bord"
 
 #. modules: base, document
 #: view:ir.attachment:base.view_attachment_search
@@ -30440,9 +30275,7 @@ msgstr "No currency rate associated for currency '%s' for the given period"
 msgid ""
 "No data available for this graph.  Try to add some records, or make sure\n"
 "                    that there is at least one measure and no active filter in the search bar."
-msgstr ""
-"No data available for this graph.  Try to add some records, or make sure\n"
-"                    that there is at least one measure and no active filter in the search bar."
+msgstr "Aucune donnée disponible pour ce graphique. Essayez d'ajouter des enregistrements, ou assurez vous qu'une mesure est sélectionnée et qu'il n'y a pas de filtre actif."
 
 #. module: web
 #. openerp-web
@@ -30456,13 +30289,13 @@ msgstr "Aucune donnée fournie."
 #: code:addons/web_graph/static/src/xml/web_graph.xml:92
 #, python-format
 msgid "No data to display."
-msgstr "No data to display."
+msgstr "Pas de données à afficher"
 
 #. module: base
 #: code:addons/models.py:1546
 #, python-format
 msgid "No default view of type '%s' could be found !"
-msgstr "No default view of type '%s' could be found !"
+msgstr "Aucune de vue par défaut de type '%s' n'a pu être trouvée !"
 
 #. module: share
 #: code:addons/share/wizard/share_wizard.py:204
@@ -30589,6 +30422,11 @@ msgid "Non Updatable"
 msgstr "Impossible à mettre à jour"
 
 #. module: extraschool
+#: model:ir.model,name:extraschool.model_extraschool_refound_line
+msgid "Non valeurs"
+msgstr "Non valeurs"
+
+#. module: extraschool
 #: selection:extraschool.payment,paymenttype:0
 msgid "Non value"
 msgstr "Non valeur"
@@ -30628,7 +30466,7 @@ msgstr "Compte bancaire normal"
 #: code:addons/base_import/static/src/js/import.js:336
 #, python-format
 msgid "Normal Fields"
-msgstr "Normal Fields"
+msgstr "Champs normaux"
 
 #. module: base
 #: model:res.country,name:base.kp
@@ -30918,9 +30756,7 @@ msgstr ""
 msgid ""
 "Odoo is a powerful and user-friendly suite of Business Applications (CRM, Sales, HR, etc.)\n"
 "It is open source and can be found on https://www.odoo.com."
-msgstr ""
-"Odoo is a powerful and user-friendly suite of Business Applications (CRM, Sales, HR, etc.)\n"
-"It is open source and can be found on https://www.odoo.com."
+msgstr "Odoo est une puissante suite applicative conviviale (relation client, ventes, gestion des ressources humaines) en open source que vous pouvez trouver sur https://www.odoo.com."
 
 #. module: web
 #. openerp-web
@@ -31141,13 +30977,13 @@ msgstr "Une facture par enfant"
 #: code:addons/models.py:3408 code:addons/models.py:3503
 #, python-format
 msgid "One of the documents you are trying to access has been deleted, please try again after refreshing."
-msgstr "One of the documents you are trying to access has been deleted, please try again after refreshing."
+msgstr "L'un des documents que vous voulez accéder a été supprimé : actualisez la page puis réessayez."
 
 #. module: base
 #: code:addons/models.py:3911
 #, python-format
 msgid "One of the records you are trying to modify has already been deleted (Document type: %s)."
-msgstr "One of the records you are trying to modify has already been deleted (Document type: %s)."
+msgstr "Un des enregistrements que vous essayez de modifier a déjà été supprimé (type de document : %s)."
 
 #. module: extraschool
 #: field:extraschool.one_report_day,one_report_id:0
@@ -31746,11 +31582,6 @@ msgid "PDA pda_transmission"
 msgstr "PDA pda_transmission"
 
 #. module: extraschool
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_pda_presta
-msgid "PDA presta"
-msgstr "PDA presta"
-
-#. module: extraschool
 #: view:extraschool.prestation_times_of_the_day:extraschool.extraschool_prestation_times_of_the_day_form
 msgid "PDA prestations"
 msgstr "Présences smartphones ou manuelles"
@@ -31966,9 +31797,8 @@ msgstr "Répertoire parent"
 msgid "Parent Left"
 msgstr "Parent Gauche"
 
-#. modules: base, board
+#. module: base
 #: field:ir.ui.menu,parent_id:0 field:wizard.ir.model.menu.create,menu_id:0
-#: field:board.create,menu_parent_id:0
 msgid "Parent Menu"
 msgstr "Menu parent"
 
@@ -32002,11 +31832,6 @@ msgstr "Parent Droit"
 #: view:extraschool.parent:extraschool.extraschool_parent_search_view
 msgid "Parent Search"
 msgstr "Recherche de parents"
-
-#. module: extraschool
-#: view:extraschool.mainsettings:extraschool.extraschool_mainsettings_form
-msgid "Parent Send Method"
-msgstr "Parent Send Method"
 
 #. module: extraschool
 #: field:extraschool.childsimportfilter,parentcitycolumn:0
@@ -32046,7 +31871,6 @@ msgstr "Parent fusion child"
 #. module: extraschool
 #: field:extraschool.parent_fusion_child,parent_fusion_wizard_id:0
 #: view:extraschool.parent_fusion_wizard:extraschool.extraschool_parent_fusion_wizard_form
-#: model:ir.actions.act_window,name:extraschool.parent_fusion_wizard_action
 #: model:ir.model,name:extraschool.model_extraschool_parent_fusion_wizard
 msgid "Parent fusion wizard"
 msgstr "Parent fusion wizard"
@@ -32689,7 +32513,7 @@ msgstr "Photo"
 #: code:addons/web_graph/static/src/xml/web_graph.xml:17
 #, python-format
 msgid "Pie Chart"
-msgstr "Pie Chart"
+msgstr "Graphique en camembert"
 
 #. module: base
 #: model:res.country,name:base.pn
@@ -33917,11 +33741,6 @@ msgid "Recipients"
 msgstr "Destinataires"
 
 #. module: extraschool
-#: view:extraschool.invoice:extraschool.extraschool_invoice_form
-msgid "Recompute Total Invoice"
-msgstr "Recompute Total Invoice"
-
-#. module: extraschool
 #: view:extraschool.invoice:extraschool.extraschool_invoice_tree
 #: view:extraschool.parent:extraschool.extraschool_parent_form
 msgid "Reconcil"
@@ -33957,7 +33776,7 @@ msgstr "Enregistrement"
 #: code:addons/models.py:4796
 #, python-format
 msgid "Record #%d of %s not found, cannot copy!"
-msgstr "Record #%d of %s not found, cannot copy!"
+msgstr "Enregistrement #%d de %s non trouvé, copie impossible !"
 
 #. module: base
 #: field:ir.actions.act_window,res_id:0 field:ir.actions.server,id_value:0
@@ -33995,7 +33814,7 @@ msgstr "L'enregistrement ne peut pas être modifié en ce moment"
 #: code:addons/models.py:4923
 #, python-format
 msgid "Record does not exist or has been deleted."
-msgstr "Record does not exist or has been deleted."
+msgstr "Enregistrement inexistant ou détruit."
 
 #. module: share
 #: code:addons/share/wizard/share_wizard.py:765
@@ -34038,7 +33857,7 @@ msgstr "Recursion found in child server actions"
 #: code:addons/models.py:4016
 #, python-format
 msgid "Recursivity Detected."
-msgstr "Recursivity Detected."
+msgstr "Détection de récursivité."
 
 #. module: extraschool
 #: selection:extraschool.manuel_invoice_wizard,state:0
@@ -34218,7 +34037,7 @@ msgstr "Relation :"
 #: code:addons/web_graph/static/src/xml/web_graph.xml:41
 #, python-format
 msgid "Reload Data"
-msgstr "Reload Data"
+msgstr "Recharger les données"
 
 #. module: base_import
 #. openerp-web
@@ -34433,7 +34252,7 @@ msgstr "Renommer un champ fragmenté \"%s\" n'est pas autorisé"
 #: code:addons/web/static/src/js/view_form.js:3814
 #, python-format
 msgid "Render"
-msgstr "Render"
+msgstr "Rendre"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_mrp_repair
@@ -34471,7 +34290,7 @@ msgstr "Reply email address. Setting the reply_to bypasses the automatic thread 
 msgid "Reply-To"
 msgstr "Répondre à"
 
-#. modules: report, base, document, odoo-report_pdf_both_sides, extraschool
+#. modules: report, base, document, extraschool
 #. openerp-web
 #: view:ir.actions.report.xml:base.act_report_xml_search_view
 #: view:ir.actions.report.xml:base.act_report_xml_view
@@ -34485,7 +34304,6 @@ msgstr "Répondre à"
 #: model:ir.model,name:extraschool.model_extraschool_inline_report
 #: model:ir.model,name:extraschool.model_extraschool_report
 #: model:ir.model,name:extraschool.model_report
-#: model:ir.model,name:odoo-report_pdf_both_sides.model_report
 #: code:addons/report/static/src/js/qwebactionmanager.js:67
 #: code:addons/report/static/src/js/qwebactionmanager.js:75
 #: code:addons/report/static/src/js/qwebactionmanager.js:82
@@ -34494,12 +34312,11 @@ msgstr "Répondre à"
 msgid "Report"
 msgstr "Rapport"
 
-#. modules: report, odoo-report_pdf_both_sides
-#: code:addons/odoo-report_pdf_both_sides/report_pdf_both_sides.py:218
+#. module: report
 #: code:addons/report/models/report.py:455
 #, python-format
 msgid "Report (PDF)"
-msgstr "Report (PDF)"
+msgstr "Rapport (PDF)"
 
 #. module: base
 #: view:res.company:base.view_company_form
@@ -34614,12 +34431,9 @@ msgstr "Requis"
 msgid "Resellers"
 msgstr "Revendeurs"
 
-#. modules: board, extraschool
-#. openerp-web
-#: code:addons/board/static/src/xml/board.xml:6
+#. module: extraschool
 #: view:extraschool.prestation_times_of_the_day:extraschool.extraschool_prestation_times_of_the_day_form
 #: view:extraschool.prestation_times_of_the_day_wizard:extraschool.extraschool_prestation_times_of_the_day_wizard_form
-#, python-format
 msgid "Reset"
 msgstr "Réinitialiser"
 
@@ -34627,13 +34441,6 @@ msgstr "Réinitialiser"
 #: view:fetchmail.server:fetchmail.view_email_server_form
 msgid "Reset Confirmation"
 msgstr "Reinitialiser la confirmation"
-
-#. module: board
-#. openerp-web
-#: code:addons/board/static/src/xml/board.xml:4
-#, python-format
-msgid "Reset Layout.."
-msgstr "Réinitialiser l'agencement"
 
 #. module: auth_signup
 #: view:website:web.login
@@ -34655,7 +34462,7 @@ msgstr "Veuillez réinitialiser votre mot de passe : nom d'utilisateur ou adress
 #: code:addons/models.py:1088
 #, python-format
 msgid "Resolve other errors first"
-msgstr "Resolve other errors first"
+msgstr "Corriger les autres erreurs d'abord"
 
 #. module: base
 #: field:ir.exports,resource:0
@@ -34811,7 +34618,7 @@ msgstr "Roumanie_Comptabilité"
 #. module: base
 #: selection:base.language.install,lang:0
 msgid "Romanian / română"
-msgstr "Romanie / română"
+msgstr "Roumain / română"
 
 #. module: extraschool
 #: field:extraschool.activity,root_id:0
@@ -35076,10 +34883,9 @@ msgstr "Arabie Saoudite"
 msgid "Saudi Arabia - Accounting"
 msgstr "Saudi Arabia - Accounting"
 
-#. modules: web, base, extraschool, web_view_editor
+#. modules: web, base, web_view_editor
 #. openerp-web
 #: view:res.users:base.view_users_form_simple_modif
-#: view:extraschool.mainsettings:extraschool.extraschool_mainsettings_form
 #: code:addons/web/static/src/xml/base.xml:799
 #: code:addons/web/static/src/xml/base.xml:844
 #: code:addons/web/static/src/xml/base.xml:1523
@@ -35551,7 +35357,7 @@ msgstr "Sélectionner"
 #: code:addons/web/static/src/js/view_form.js:2696
 #, python-format
 msgid "Select D, M d"
-msgstr "Select D, M d"
+msgstr "Sélectionnez D, M, d"
 
 #. module: report
 #: help:report.paperformat,format:0
@@ -35922,7 +35728,7 @@ msgstr "Champ de sérialisation"
 #: code:addons/models.py:417
 #, python-format
 msgid "Serialization field `%s` not found for sparse field `%s`!"
-msgstr "Serialization field `%s` not found for sparse field `%s`!"
+msgstr "Champ de sérialisation `%s` non trouvé pour le champ isolé `%s` !"
 
 #. module: base
 #: selection:ir.logging,type:0
@@ -35995,7 +35801,7 @@ msgstr "Serveur de type POP"
 #: code:addons/web/static/src/js/view_form.js:2695
 #, python-format
 msgid "Set DD as first week day"
-msgstr "Set DD as first week day"
+msgstr "Définis DD come premier jour de la semaine"
 
 #. module: web
 #. openerp-web
@@ -36777,7 +36583,7 @@ msgstr "Sortie"
 #: code:addons/models.py:4645
 #, python-format
 msgid "Sorting field %s not found on model %s"
-msgstr "Sorting field %s not found on model %s"
+msgstr "Champs de tri %s non trouvé sur le modèle %s"
 
 #. module: base
 #: field:ir.translation,source:0
@@ -37320,7 +37126,7 @@ msgstr "Svalbard et îles Jan Mayen"
 #: code:addons/web_graph/static/src/xml/web_graph.xml:35
 #, python-format
 msgid "Swap Axis"
-msgstr "Swap Axis"
+msgstr "Échanger les axes"
 
 #. module: base
 #: model:res.country,name:base.sz
@@ -37446,7 +37252,7 @@ msgstr "Tabulation"
 #: code:addons/web_graph/static/src/xml/web_graph.xml:8
 #, python-format
 msgid "Table Mode"
-msgstr "Table Mode"
+msgstr "Mode tableau"
 
 #. module: base
 #: field:ir.default,ref_table:0
@@ -37924,15 +37730,14 @@ msgid ""
 "    %s\n"
 "\n"
 msgstr ""
-"The documents are not attached, you can view them online directly on my Odoo server at:\n"
-"    %s\n"
-"\n"
+"Les documents ne sont pas joints, vous pouvez les visualiser directement sur le serveur Odoo:\n"
+"%s\n"
 
 #. module: share
 #: code:addons/share/wizard/share_wizard.py:871
 #, python-format
 msgid "The documents have been automatically added to your current Odoo documents.\n"
-msgstr "The documents have been automatically added to your current Odoo documents.\n"
+msgstr "The documents ont été automatiquement attachés à vos documents courants Odoo.\n"
 
 #. module: share
 #: code:addons/share/wizard/share_wizard.py:838
@@ -37989,9 +37794,7 @@ msgstr "La première ligne du fichier contient le titre de la colonne."
 msgid ""
 "The following CSV file shows how to import \n"
 "                        customers and their respective contacts"
-msgstr ""
-"The following CSV file shows how to import \n"
-"                        customers and their respective contacts"
+msgstr "Le fichier CSV suivant montre comment importer des clients et leurs contacts respectifs"
 
 #. module: base_import
 #. openerp-web
@@ -38311,7 +38114,7 @@ msgstr "The user this filter is private to. When left empty the filter is public
 #: code:addons/models.py:6172
 #, python-format
 msgid "The value for the field '%s' already exists."
-msgstr "The value for the field '%s' already exists."
+msgstr "La valeur '%s' existe déjà pour ce champ."
 
 #. module: email_template
 #: view:ir.actions.server:email_template.view_server_action_form_template
@@ -38586,7 +38389,6 @@ msgstr "Heure"
 
 #. module: extraschool
 #: model:ir.actions.act_window,name:extraschool.action_lbsc_timecorrection_wizard
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_timecorrection_wizard
 msgid "Time Correction Wizard"
 msgstr "Correction des heures"
 
@@ -38654,13 +38456,6 @@ msgstr "Civilité"
 #: help:share.wizard,name:0
 msgid "Title for the share (displayed to users as menu and shortcut name)"
 msgstr "Titre du partage (affiché aux utilisateurs en tant que menu et le nom de raccourci)"
-
-#. module: board
-#. openerp-web
-#: code:addons/board/static/src/xml/board.xml:69
-#, python-format
-msgid "Title of new dashboard item"
-msgstr "Titre du nouvel élément du tableau de bord"
 
 #. module: base
 #: model:ir.actions.act_window,name:base.action_partner_title_partner
@@ -38816,7 +38611,7 @@ msgstr "À faire"
 #: code:addons/web/static/src/xml/base.xml:1043
 #, python-format
 msgid "Toggle Dropdown"
-msgstr "Toggle Dropdown"
+msgstr "Bascule la liste déroulante"
 
 #. module: web
 #. openerp-web
@@ -39142,7 +38937,7 @@ msgstr "Turquie - Comptabilité"
 #. module: base
 #: selection:base.language.install,lang:0
 msgid "Turkish / Türkçe"
-msgstr "Turque / Türkçe"
+msgstr "Turc / Türkçe"
 
 #. module: base
 #: model:res.country,name:base.tm
@@ -39292,7 +39087,7 @@ msgstr "Ukrainian / українська"
 #: code:addons/models.py:3621
 #, python-format
 msgid "Unable to delete this document because it is used as a default property"
-msgstr "Unable to delete this document because it is used as a default property"
+msgstr "Impossible de supprimer ce document car il est utilisé comme une propriété par défaut"
 
 #. module: report
 #. openerp-web
@@ -39442,13 +39237,13 @@ msgstr "Inconnu"
 #: code:addons/models.py:1233
 #, python-format
 msgid "Unknown database identifier '%s'"
-msgstr "Unknown database identifier '%s'"
+msgstr "Identifiant de base de donnée inconnu : '%s"
 
 #. module: base
 #: code:addons/models.py:1086
 #, python-format
 msgid "Unknown error during import:"
-msgstr "Unknown error during import:"
+msgstr "Erreur inconnue pendant l'importation :"
 
 #. module: web
 #. openerp-web
@@ -39488,7 +39283,7 @@ msgstr "Sous-champ inconnu \"%s\""
 #: code:addons/base/ir/ir_fields.py:166
 #, python-format
 msgid "Unknown value '%s' for boolean field '%%(field)s', assuming '%s'"
-msgstr "Valeur inconnue '%s' pour les champs booléen '%%(field)s', assuming '%s'"
+msgstr "Valeur inconnue '%s' pour les champs booléen '%%(field)s', supposé : '%s'"
 
 #. module: web
 #. openerp-web
@@ -39586,11 +39381,6 @@ msgstr "Update a record linked to the current record using python"
 #: view:extraschool.mainsettings:extraschool.extraschool_mainsettings_form
 msgid "Update level"
 msgstr "Màj du niveau"
-
-#. module: extraschool
-#: view:extraschool.mainsettings:extraschool.extraschool_mainsettings_form
-msgid "Update parent send method"
-msgstr "Màj de la méthode d'envoi des parents"
 
 #. module: extraschool
 #: view:extraschool.mainsettings:extraschool.extraschool_mainsettings_form
@@ -39925,7 +39715,7 @@ msgstr "User-friendly Offline Warning"
 #: code:addons/models.py:4016
 #, python-format
 msgid "UserError"
-msgstr "UserError"
+msgstr "Erreur utilisateur"
 
 #. modules: share, base, fetchmail
 #: field:ir.mail_server,smtp_user:0 field:fetchmail.server,user:0
@@ -39995,6 +39785,7 @@ msgstr "N° de validation de TVA"
 #. modules: base_import, extraschool
 #. openerp-web
 #: code:addons/base_import/static/src/xml/import.xml:15
+#: view:extraschool.activity_occurrence_correction_wizard:extraschool.extraschool_activity_occurrence_correction_wizard_form
 #: view:extraschool.child_registration:extraschool.extraschool_child_registration_form
 #, python-format
 msgid "Validate"
@@ -40053,11 +39844,6 @@ msgstr "Veuillez vérifier les dates de l'activité. La date de début doit êtr
 #, python-format
 msgid "Validity to must be greater than validity from (hours)"
 msgstr "Veuillez vérifier les heures de l'activité. L'heure de début doit être inférieure à l'heure de fin."
-
-#. module: extraschool
-#: model:ir.actions.act_window,name:extraschool.parent_activity_occurrence_correction_wizard_action
-msgid "Validity_to correction"
-msgstr "Validity_to correction"
 
 #. modules: base, extraschool
 #: field:ir.config_parameter,value:0 field:ir.property,value_binary:0
@@ -40427,7 +40213,7 @@ msgstr ""
 #: code:addons/models.py:5848 code:addons/models.py:5901
 #, python-format
 msgid "Warnings"
-msgstr "Warnings"
+msgstr "Avertissements"
 
 #. module: base
 #: view:base.module.upgrade:base.view_base_module_upgrade_install
@@ -40978,12 +40764,11 @@ msgstr "Assitants à lancer"
 msgid "Wk"
 msgstr "Sem"
 
-#. modules: report, odoo-report_pdf_both_sides
-#: code:addons/odoo-report_pdf_both_sides/report_pdf_both_sides.py:219
+#. module: report
 #: code:addons/report/models/report.py:456
 #, python-format
 msgid "Wkhtmltopdf failed (error code: %s). Message: %s"
-msgstr "Wkhtmltopdf failed (error code: %s). Message: %s"
+msgstr "Wkhtmltopdf a échoué (code d'erreur : %s). Message : %s"
 
 #. module: base
 #: view:ir.actions.server:base.view_server_action_form
@@ -41222,7 +41007,7 @@ msgstr "You can delete only one biller at a time !!!"
 #: code:addons/base/res/res_partner.py:564
 #, python-format
 msgid "You can not change the company as the partner/user has multiple user linked with different companies."
-msgstr "You can not change the company as the partner/user has multiple user linked with different companies."
+msgstr "Vous ne pouvez pas changer la société tant que le partenaire/utilisateur est utilisateur d'autres sociétés."
 
 #. module: base
 #: sql_constraint:res.users:0
@@ -41238,7 +41023,7 @@ msgstr "Vous ne pouvez pas déclarer deux fontes avec le même nom"
 #: code:addons/base/res/res_users.py:373
 #, python-format
 msgid "You can not remove the admin user as it is used internally for resources created by Odoo (updates, module installation, ...)"
-msgstr "You can not remove the admin user as it is used internally for resources created by Odoo (updates, module installation, ...)"
+msgstr "Vous ne pouvez par supprimer l'utilisateur admin car il est utilisé en interne par Odoo (mises à jour, module d'installation, etc.)"
 
 #. module: extraschool
 #: code:addons/extraschool/extraschool_biller.py:154
@@ -41714,7 +41499,7 @@ msgstr "base.group_user,base.group_portal,share.group_shared"
 #: code:addons/base_import/static/src/js/import.js:435
 #, python-format
 msgid "between rows %d and %d"
-msgstr "between rows %d and %d"
+msgstr "entre les lignes %d et %d"
 
 #. module: extraschool
 #: model:ir.actions.report.xml,name:extraschool.extraschool_biller_std
@@ -41949,7 +41734,7 @@ msgstr "cr: curseur de la base de données"
 #: code:addons/models.py:4326
 #, python-format
 msgid "created."
-msgstr "created."
+msgstr "créé."
 
 #. module: extraschool
 #: view:extraschool.timecorrection_wizard:extraschool.extraschool_timecorrection_wizard_form
@@ -42371,7 +42156,7 @@ msgstr "Recherche dans le calendrier des activités"
 #: code:addons/base/ir/ir_fields.py:145
 #, python-format
 msgid "false"
-msgstr "false"
+msgstr "faux"
 
 #. module: base
 #: view:base.language.export:base.wizard_lang_export
@@ -42496,7 +42281,6 @@ msgstr "invoice_%s"
 
 #. module: extraschool
 #: model:ir.model,name:extraschool.model_extraschool_invoicedprestations
-#: model:ir.model,name:extraschool.model_extraschool_refound_line
 msgid "invoiced Prestations"
 msgstr "Présences facturées"
 
@@ -42789,7 +42573,7 @@ msgstr "à la date du"
 msgid "operating grants"
 msgstr "operating grants"
 
-#. modules: web, base_setup, knowledge, base_import, share, web_kanban, base, portal, board, mail
+#. modules: web, base_setup, knowledge, base_import, share, web_kanban, base, portal, mail
 #. openerp-web
 #: view:base.language.export:base.wizard_lang_export
 #: view:base.language.import:base.view_base_import_language
@@ -42806,7 +42590,6 @@ msgstr "operating grants"
 #: code:addons/base_import/static/src/xml/import.xml:19
 #: view:base.config.settings:base_setup.view_general_configuration
 #: view:sale.config.settings:base_setup.view_sale_config_settings
-#: view:board.create:board.view_board_create
 #: view:knowledge.config.settings:knowledge.view_knowledge_configuration
 #: code:addons/mail/static/src/xml/mail.xml:56
 #: view:mail.compose.message:mail.email_compose_message_wizard_form
@@ -42911,7 +42694,7 @@ msgstr "person_4,Ramsy,False,company_3"
 #: code:addons/web/static/src/xml/base.xml:233
 #, python-format
 msgid "pg_dump custom format (without filestore)"
-msgstr "pg_dump custom format (without filestore)"
+msgstr "format personnalisé pg_dump (sans les fichiers stockés)"
 
 #. module: extraschool
 #: view:extraschool.child_registration:extraschool.extraschool_child_registration_search_view
@@ -43205,7 +42988,7 @@ msgstr "à"
 #: code:addons/base_import/static/src/xml/import.xml:90
 #, python-format
 msgid "to the original unique identifier."
-msgstr "to the original unique identifier."
+msgstr "faire référence à l'identifiant unique original."
 
 #. module: web
 #. openerp-web
@@ -43341,11 +43124,7 @@ msgid ""
 "                        import if you need to re-import modified data\n"
 "                        later, it's thus good practice to specify it\n"
 "                        whenever possible"
-msgstr ""
-"will also be used to update the original\n"
-"                        import if you need to re-import modified data\n"
-"                        later, it's thus good practice to specify it\n"
-"                        whenever possible"
+msgstr "sera aussi utilisé pour mettre à jour l'import original si vous avez besoin de réimporter des données modifiées par après, c'est donc une bonne pratique de le spécifier dès que possible"
 
 #. module: base
 #: view:ir.actions.server:base.view_server_action_form
@@ -43380,7 +43159,7 @@ msgstr "your messages "
 #: code:addons/web/static/src/xml/base.xml:232
 #, python-format
 msgid "zip (includes filestore)"
-msgstr "zip (includes filestore)"
+msgstr "zip (incluant les fichiers stockés)"
 
 #. module: share
 #: view:res.groups:share.view_groups_form_share

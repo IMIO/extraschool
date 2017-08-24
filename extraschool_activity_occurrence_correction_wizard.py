@@ -55,7 +55,6 @@ class extraschool_activity_occurrence_correction_wizard(models.TransientModel):
         cr = self.env.cr
         invoiced_obj = self.env['extraschool.invoicedprestations']
         # If there is an invoiced prestation for the activity.
-        # import pdb;pdb.set_trace()
         return_val = activity.validity_from
         if (invoiced_obj.search(
                 [('activity_occurrence_id.activityid', '=', activity.id)])):
