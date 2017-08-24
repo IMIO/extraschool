@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from openerp import models, api, fields, _
 from openerp.api import Environment
 from reportlab.graphics.barcode import createBarcodeImageInMemory
 import cStringIO
@@ -29,6 +29,7 @@ import base64
 import os
 from datetime import datetime, date, time, timedelta
 import pdb
+from openerp.exceptions import except_orm, Warning, RedirectWarning
 
 
 class extraschool_smartphone(models.Model):
@@ -47,7 +48,10 @@ class extraschool_smartphone(models.Model):
         return self.env['extraschool.config_smartphone'].search([])[-1].databasename
 
     def _get_default_userpassword(self):
-        return self.env['extraschool.config_smartphone'].search([])[-1].userpassword
+        if len(self.env['extraschool.config_smartphone'].search([])) == 0:
+            raise Warning(_("Ther is no configuration for create smartphone"))
+        else :
+            return self.env['extraschool.config_smartphone'].search([])[-1].userpassword
 
     def _get_default_activitycategories_ids(self):
         return self.env['extraschool.config_smartphone'].search([])[-1].activitycategories_ids
