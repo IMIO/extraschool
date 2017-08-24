@@ -41,23 +41,7 @@ class extraschool_mainsettings(models.Model):
     logo = fields.Binary()
     levelbeforedisable = fields.Many2one('extraschool.level', 'Level')
     last_child_upgrade_levels = fields.Date('Last child upgrade level', readonly=True)
-            
-    @api.one
-    def update(self):
-        self.write({'lastqrcodenbr':self.lastqrcodenbr, 'qrencode':self.qrencode, 'tempfolder':self.tempfolder,'templatesfolder':self.templatesfolder, 'codasfolder':self.codasfolder,'processedcodasfolder':self.processedcodasfolder})
 
-        raise Warning('record saved!')
-        
-    def initdef(self):
-        pass
-    
-    @api.one
-    def update_parent_send_method(self):
-        parent = self.env['extraschool.parent'].search([('email', '!=', ''),]).write({'invoicesendmethod': 'onlyemail',
-                                                                                      'remindersendmethod': 'onlyemail'})
-        parent = self.env['extraschool.parent'].search(['|',('email', '=', False),
-                                                            ('email', '=', '')]).write({'invoicesendmethod': 'onlybymail',
-                                                                                        'remindersendmethod': 'onlybymail'})
     @api.one
     def childupgradelevels(self):
         cr, uid = self.env.cr, self.env.user.id 

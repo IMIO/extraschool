@@ -82,7 +82,7 @@
             <field name="model">extraschool.guardian_prestation_times_report</field>    
             <field name="type">tree</field>
             <field name="arch" type="xml">
-	            <tree string="Guardian"  colors="red:day_duration &lt; 0;red:day_duration &gt; 12">
+	            <tree string="Guardian"  colors="red:day_duration &lt; 0;red:day_duration &gt; 12" create="false">
 	                <field name="guardian_id"/>
                     <field name="prestation_date_str" />	                
 	                <field name="week"/>

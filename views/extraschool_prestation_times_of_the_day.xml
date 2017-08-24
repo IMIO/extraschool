@@ -6,7 +6,7 @@
 			<field name="model">extraschool.prestation_times_of_the_day</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
-				<tree string="prestation_times_of_the_day"  colors="red:verified==False">
+				<tree string="prestation_times_of_the_day" colors="red:verified==False" create="false">
 					<field name="date_of_the_day" />
 					<field name="child_id"/>
 					<field name="activity_category_id" />		

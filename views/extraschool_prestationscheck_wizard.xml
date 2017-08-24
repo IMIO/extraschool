@@ -8,9 +8,9 @@
                 <form string="Prestationscheck Wizard">
                     <field name="state" invisible="1" />
                     <group states="init">
-                        <field name="activitycategory"/>
+                        <field name="activitycategory" invisible="1"/>
                         <newline />
-						<field name="force"/>
+						<field name="force" invisible="1"/>
                         <newline />
                         <field name="period_from" /><field name="period_to" />                        
                     </group>

@@ -6,7 +6,7 @@
 			<field name="model">extraschool.biller</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
-				<tree string="Biller">
+				<tree string="Biller" create="false">
 					<field name="period_from"/>
 					<field name="period_to"/>
                     <field name="payment_term"/>

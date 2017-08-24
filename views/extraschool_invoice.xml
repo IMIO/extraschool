@@ -6,7 +6,7 @@
 			<field name="model">extraschool.invoice</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
-				<tree string="invoice" default_order="schoolimplantationid,classid">
+				<tree string="invoice" default_order="schoolimplantationid,classid" create="false">
                     <field name="parentid"/>                    
                     <field name="activitycategoryid"/>                    
                     <field name="period_from"/>
@@ -19,7 +19,7 @@
                     <field name="discount"/>
                     <field name="no_value"/>
                     <field name="huissier"/>                    	                    
-                    <button name="reconcil" type="object" string="Reconcil"/>
+                    <button name="reconcil" type="object" string="Reconcil" groups="extraschool.extraschool_accounting"/>
 				</tree>
 			</field>
 		</record>
@@ -60,11 +60,10 @@
 			<field name="model">extraschool.invoice</field>
 			<field name="type">form</field>
 			<field name="arch" type="xml">
-				<form string="invoice">
+				<form string="invoice" create="false">
 					<header>
 						<button name="export_onyx_but" string="export onyx" type="object" class="oe_highlight" groups="base.group_erp_manager"/>	
-						<button name="cancel" string="Cancel Invoice" type="object" class="oe_highlight" groups="base.group_erp_manager"/>
-						<button name="re_compute" string="Recompute Total Invoice" type="object" class="oe_no_button" groups="extraschool.extraschool_gods"/>
+						<button name="cancel" string="Cancel Invoice" type="object" class="oe_highlight" groups="base.group_erp_manager" confirm="Do you really want to delete this invoice ?"/>
                     </header>
 				
 					<group col="4">
@@ -72,7 +71,7 @@
 	                    <field name="last_reminder_id"/>
 	                    <field name="payment_term" readonly="True"/>
 	                    <field name="schoolimplantationid"/>
-	                    <field name="classid"/>	                    		                    
+	                    <field name="classid" readonly="True"/>
 	                    <field name="parentid" readonly="True"/>
 	                    <field name="number"/>
 	                    <field name="structcom"/>
@@ -82,7 +81,7 @@
 	                    <field name="no_value"/>
 	                    <field name="filename" invisible="1"/>
 	                    <field name="invoice_file" filename="filename"/>
-	                    <field name="activitycategoryid"/>
+	                    <field name="activitycategoryid" readonly="True"/>
 						<group>
 						<field name="huissier" />
 						<field name="fees_huissier"/>

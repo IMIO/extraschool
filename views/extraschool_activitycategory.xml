@@ -93,7 +93,7 @@
 			        	</group>
             		</page>
     	            <page string="Activities">
-						<field name="activities" />
+						<field name="activities" readonly="True"/>
 					</page>
     	            <page string="Place">
 		                <field name="placeids" /> 

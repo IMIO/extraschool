@@ -76,12 +76,6 @@ class extraschool_invoice(models.Model):
     huissier = fields.Boolean('Huissier', default = False)
     fees_huissier = fields.Float('Fees Huissier', default=0.0)
 
-    @api.multi
-    def re_compute(self):
-        for invoice in self:
-            amount_total = sum(invoice_line.total_price for invoice_line in invoice.invoice_line_ids)
-            invoice.amount_total = round(amount_total,2)
-            print invoice.amount_total
 #             
 #     @api.onchange('payment_ids')
 #     @api.depends('payment_ids')

@@ -33,12 +33,6 @@
                                 <page string="Update Prestation Statistic">
                                     <button name="update_presta_stat" string="Update presta stat" icon="gtk-apply" type="object"/>
                                 </page>
-                                <page string="Parent Send Method">
-                                    <button name="update_parent_send_method" string="Update parent send method" icon="gtk-apply" type="object"/>
-                                </page>
-                                <page string="Save">
-                                    <button name="update" string="Save" icon="gtk-apply" type="object"/>
-                                </page>
                         </notebook>
                     </sheet>
 				</form>

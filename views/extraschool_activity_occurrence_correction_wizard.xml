@@ -11,7 +11,7 @@
 						<field name="date_to" />
                     </group>
                     <group colspan="4" col="3">
-                        <button name="reset_populate" group="admin" string="Correction" icon="gtk-apply" type="object" />
+                        <button name="reset_populate" groups="extraschool.extraschool_gods" string="Correction" icon="gtk-apply" type="object" />
                     </group>
                 </form>
             </field>

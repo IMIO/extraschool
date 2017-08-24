@@ -135,6 +135,7 @@ class extraschool_payment_status_report(models.Model):
     _name = 'extraschool.payment_status_report'
     _description = 'Payment status report'
     _auto = False # Disable creation of table.
+    _order = 'totalbalance DESC'
     
     activity_category_id = fields.Many2one('extraschool.activitycategory',select=True)
     parent_id = fields.Many2one('extraschool.parent',select=True)  
