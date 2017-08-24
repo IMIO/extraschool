@@ -44,6 +44,7 @@ class extraschool_price_list(models.Model):
 class extraschool_price_list_version(models.Model):
     _name = 'extraschool.price_list_version'
     _description = 'Activities price list version'
+    _order = 'validity_to'
     
     name = fields.Char('Name')
     price_list_id = fields.Many2one('extraschool.price_list', 'Price list',ondelete='cascade')          
