@@ -104,7 +104,7 @@ class extraschool_taxcertificate(models.Model):
     @api.multi
     def all_taxecertificate(self): 
 
-        return {'name': 'Tex certificate',
+        return {'name': 'Attestation ficale',
                 'type': 'ir.actions.act_window',
                 'res_model': 'extraschool.taxcertificate_item',
                 'view_type': 'form',

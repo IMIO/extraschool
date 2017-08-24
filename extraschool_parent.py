@@ -141,7 +141,20 @@ class extraschool_parent(models.Model):
     @api.depends('child_ids')
     def _compute_nbr_actif_child(self):
         for record in self:
-            record.nbr_actif_child = len(record.child_ids.filtered(lambda r: r.isdisabled == False))                    
+            record.nbr_actif_child = len(record.child_ids.filtered(lambda r: r.isdisabled == False))
+
+    @api.multi
+    def wizard_action(self):
+        return {
+            'name': 'My Window',
+            'domain': [],
+            'res_model': 'extraschool.parent_fusion_wizard',
+            'type': 'ir.actions.act_window',
+            'view_mode': 'form',
+            'view_type': 'form',
+            'context': {},
+            'target': 'new',
+        }
     
     @api.model        
     def create(self, vals):
@@ -214,6 +227,3 @@ class extraschool_parent(models.Model):
 
         
         return self.env['extraschool.payment'].format_comstruct('%s%s%s' % (com_struct_prefix_str,com_struct_id_str,com_struct_check_str))
-
-
-
