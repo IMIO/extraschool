@@ -30,7 +30,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0-20170403\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-08-24 12:43+0000\n"
-"PO-Revision-Date: 2017-08-24 14:48+0200\n"
+"PO-Revision-Date: 2017-08-24 15:03+0200\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -38,7 +38,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "Language: fr_BE\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 2.0.1\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_cn
@@ -334,9 +334,6 @@ msgid ""
 "        Configurable position for the 'Add an Item' button\n"
 "    "
 msgstr ""
-"\n"
-"        Configurable position for the 'Add an Item' button\n"
-"    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_multilang
@@ -16748,7 +16745,7 @@ msgstr "Facturier du %s au %s"
 #. module: extraschool
 #: field:extraschool.activitycategory,biller_report_id:0
 msgid "Biller report"
-msgstr "Biller report"
+msgstr "Rapport de facturier"
 
 #. module: portal
 #: model:ir.ui.menu,name:portal.portal_orders
@@ -27115,27 +27112,28 @@ msgstr "Commentaire sur la facture"
 #. module: extraschool
 #: model:ir.actions.report.xml,name:extraschool.extraschool_invoice_detail
 msgid "Invoice detail"
-msgstr "Raport de facture détaillée"
+msgstr "Rapport de facture détaillée"
 
 #. module: extraschool
 #: field:extraschool.activitycategory,invoice_detail_report_id:0
+#, fuzzy
 msgid "Invoice detail report"
-msgstr "Invoice detail report"
+msgstr "Rapport de facture détaillée"
 
 #. module: extraschool
 #: field:extraschool.activitycategory,invoiceemailaddress:0
 msgid "Invoice email address"
-msgstr "Adresse email factures"
+msgstr "Adresse E-mail factures"
 
 #. module: extraschool
 #: field:extraschool.activitycategory,invoiceemailsubject:0
 msgid "Invoice email subject"
-msgstr "Sujet email factures"
+msgstr "Sujet E-mail factures"
 
 #. module: extraschool
 #: field:extraschool.activitycategory,invoiceemailtext:0
 msgid "Invoice email text"
-msgstr "Texte email factures"
+msgstr "Texte E-fmail factures"
 
 #. module: extraschool
 #: code:addons/extraschool/extraschool_invoice.py:45
@@ -32250,12 +32248,12 @@ msgstr "Préfix de la communication structurée"
 #. module: extraschool
 #: field:extraschool.activitycategory,payment_invitation_email_subject:0
 msgid "Payment invitation Email subject"
-msgstr "Sujet de l'email"
+msgstr "Sujet de l'E-mail"
 
 #. module: extraschool
 #: field:extraschool.activitycategory,payment_invitation_courrier_text:0
 msgid "Payment invitation courrier text"
-msgstr "Texte de l'email"
+msgstr "Texte de l'E-mail"
 
 #. module: extraschool
 #: model:ir.actions.act_window,name:extraschool.payment_invitation_mass_mail
@@ -34095,12 +34093,12 @@ msgstr "Adresse email pour les rappels"
 #. module: extraschool
 #: field:extraschool.activitycategory,reminderemailsubject:0
 msgid "Reminder email subject"
-msgstr "Sujet email rappel"
+msgstr "Sujet E-mail rappel"
 
 #. module: extraschool
 #: field:extraschool.activitycategory,reminderemailtext:0
 msgid "Reminder email text"
-msgstr "Texte email rappels"
+msgstr "Texte E-mail rappels"
 
 #. module: extraschool
 #: view:extraschool.remindersjournal:extraschool.extraschool_reminders_journal_form
