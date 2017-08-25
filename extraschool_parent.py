@@ -163,11 +163,6 @@ class extraschool_parent(models.Model):
         parents=parent_obj.search([('firstname', 'ilike', vals['firstname'].strip()),
                                       ('lastname', 'ilike', vals['lastname'].strip()),
                                    ])
-        
-        if len(parents) > 0:
-            raise Warning(
-                "This parent %s %s has already been added. If it's a different parent, add (2) on the name of the parent." % (
-                vals['firstname'], vals['lastname']))
 
         if vals['email'] != False and vals['email'] != '' and vals['email'] != ' ':
             if (not self.email_validation(vals['email'])):
