@@ -6,7 +6,7 @@
 			<field name="model">extraschool.presta_stat</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
-				<tree string="presta_stat" create="false">
+				<tree string="presta_stat">
 					<field name="date"/>
 					<field name="activity_id" select="1"/>
 					<field name="place_id" select="1"/>											
@@ -52,7 +52,7 @@
             <field name="name">presta_stat.graph</field>
             <field name="model">extraschool.presta_stat</field>
             <field name="arch" type="xml">
-                <graph string="presta_stat" type="bar">
+                <graph string="presta_stat" type="pivot">
                      <field name="activity_id" type="row"/>
                      <field name="place_id" type="col"/>
                      <field name="nbr_child" type="measure"/>
@@ -64,7 +64,7 @@
 			<field name="name">Prestations stat</field>
 			<field name="res_model">extraschool.presta_stat</field>
 			<field name="view_type">form</field>
-			<field name="view_mode">tree,graph</field>
+			<field name="view_mode">graph</field>
             <field name="search_view_id" ref="presta_stat_search_view"/>			
 		</record>
 			

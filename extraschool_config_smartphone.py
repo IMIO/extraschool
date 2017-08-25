@@ -62,7 +62,7 @@ class extraschool_config_smartphone(models.Model):
 
     @api.model
     def create(self, vals):
-        # Make sure there is only 1 configuration to avoi mixup.
+        # Make sure there is only 1 configuration to avoid mixup.
         if len(self.env['extraschool.config_smartphone'].search([])) >= 1:
             raise Warning(_("You can only do 1 configuration."))
         else:

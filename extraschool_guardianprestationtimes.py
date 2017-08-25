@@ -42,7 +42,8 @@ class extraschool_guardianprestationtimes(models.Model):
     @api.depends('prestation_date')
     def _compute_prestation_date_str(self):
         for presta in self:
-            presta.prestation_date_str = datetime.strptime(presta.prestation_date, '%Y-%m-%d').strftime('%d/%m/%Y')
+            if presta.prestation_date:
+                presta.prestation_date_str = datetime.strptime(presta.prestation_date, '%Y-%m-%d').strftime('%d/%m/%Y')
             
 class extraschool_guardian_prestation_times_report(models.Model):
     _name = 'extraschool.guardian_prestation_times_report'
