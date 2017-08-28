@@ -174,7 +174,7 @@ class extraschool_remindersjournal(models.Model):
                                                                 'amount': sum([self.env['extraschool.invoice'].browse(invoice).balance for invoice in invoice_dict[key]]),
                                                                 'concerned_invoice_ids': [(6, 0, invoice_dict[key])],
                                                                 })
-
+        return True
 
 
     @api.one
