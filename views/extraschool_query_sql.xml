@@ -14,14 +14,5 @@
 				</form>
 			</field>
 		</record>
-        <!--<record model="ir.actions.act_window" id="action_extraschool_mainsettings">-->
-			<!--<field name="name">Main Settings</field>-->
-			<!--<field name="res_model">extraschool.mainsettings</field>-->
-			<!--<field name="view_type">form</field>-->
-            <!--<field name="view_mode">form</field>-->
-            <!--<field name="target">inline</field>-->
-            <!--<field name="res_id">1</field>-->
-            <!--<field name="domain">[('id', '=', 1)]</field>            -->
-		<!--</record>-->
 	</data>
 </openerp>
