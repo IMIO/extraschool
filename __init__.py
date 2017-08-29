@@ -86,5 +86,6 @@ import extraschool_settings
 import extraschool_payment
 import extraschool_payment_wizard
 import extraschool_config_smartphone
+import extraschool_query_sql
 
 

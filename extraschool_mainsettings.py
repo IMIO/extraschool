@@ -41,6 +41,12 @@ class extraschool_mainsettings(models.Model):
     logo = fields.Binary()
     levelbeforedisable = fields.Many2one('extraschool.level', 'Level')
     last_child_upgrade_levels = fields.Date('Last child upgrade level', readonly=True)
+    query_sql = fields.Text('Query Sql')
+    sql_query_ids = fields.Many2one('extraschool.query_sql', 'Query SQL')
+
+    @api.onchange('sql_query_ids')
+    def _get_query_sql(self):
+        self.query_sql = self.env['extraschool.query_sql'].browse(self.sql_query_ids.id).query
 
     @api.one
     def childupgradelevels(self):
@@ -95,8 +101,6 @@ class extraschool_mainsettings(models.Model):
     @api.one
     def update_presta_stat(self):
         self.env['extraschool.presta_stat'].compute()
-
-    query_sql = fields.Text('Query Sql')
 
     @api.multi
     def reset(self):

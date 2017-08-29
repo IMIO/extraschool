@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+        <record model="ir.ui.view" id="extraschool_query_sql_form">
+			<field name="name">query_sql.form</field>
+			<field name="model">extraschool.query_sql</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Query SQL">
+                    <sheet>
+                        <field name="name"/>
+                        <field name="query"/>
+                    </sheet>
+				</form>
+			</field>
+		</record>
+        <!--<record model="ir.actions.act_window" id="action_extraschool_mainsettings">-->
+			<!--<field name="name">Main Settings</field>-->
+			<!--<field name="res_model">extraschool.mainsettings</field>-->
+			<!--<field name="view_type">form</field>-->
+            <!--<field name="view_mode">form</field>-->
+            <!--<field name="target">inline</field>-->
+            <!--<field name="res_id">1</field>-->
+            <!--<field name="domain">[('id', '=', 1)]</field>            -->
+		<!--</record>-->
+	</data>
+</openerp>
