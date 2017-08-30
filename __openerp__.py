@@ -24,7 +24,7 @@
 
 {
     'name' : 'Extraschool',
-    'version' : '1.9.2',
+    'version' : '1.9.3',
     'author' : 'Town of La Bruyère and Imio',
     'depends' : ['base', 
                  'report',
@@ -130,7 +130,8 @@
         'report/common/spacer_2cm.xml',
         'report/common/invoice_summary.xml',        
         'report/common/payment_info_amount_one_row.xml',
-        'report/custo_client/hannut.xml',        
+        'report/custo_client/hannut.xml',
+        'report/custo_client/lierneux.xml',
 
         'extraschool_view.xml',
         
