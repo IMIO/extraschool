@@ -80,6 +80,7 @@
 						<t t-set="resp_name" t-value="reminder.reminders_journal_id.activity_category_id.po_rappel_fct"/>
 						<t t-set="resp_sign" t-value="reminder.reminders_journal_id.activity_category_id.po_rappel_sign"/>
 						<t t-set="po_stamp" t-value="reminder.reminders_journal_id.activity_category_id.po_stamp"/>
+						<t t-set="resp_sign_img" t-value="reminder.reminders_journal_id.activity_category_id.po_sign_img"/>
 
 						<t t-set="resp2_fct" t-value="reminder.reminders_journal_id.activity_category_id.po_resp2_name"/>
 						<t t-set="resp2_name" t-value="reminder.reminders_journal_id.activity_category_id.po_resp2_fct"/>
