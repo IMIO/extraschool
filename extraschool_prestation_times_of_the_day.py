@@ -186,16 +186,19 @@ class extraschool_prestation_times_of_the_day(models.Model):
             last_occu = presta.activity_occurrence_id.id
 
     def _add_comment(self,comment,reset=False):
-        tmp_comment = self.comment
-        if not tmp_comment:
-            tmp_comment = "" 
-        if reset:
-            tmp_comment = ""
-        tmp_comment = tmp_comment + "\n" if tmp_comment else tmp_comment
-        
-        self.comment = tmp_comment + comment 
-        
-        return self
+        if (not self.comment) or (not comment in self.comment):
+            tmp_comment = self.comment
+            if not tmp_comment:
+                tmp_comment = ""
+            if reset:
+                tmp_comment = ""
+            tmp_comment = tmp_comment + "\n" if tmp_comment else tmp_comment
+
+            self.comment = tmp_comment + comment
+
+            return self
+        else:
+            return self
 
     def _completion_entry(self,root_activity):
 #        print "_completion_entry : %s" % (root_activity)
