@@ -95,9 +95,9 @@ class extraschool_one_report(models.Model):
         if m == 13:
             m = 1
             y += 1
-        next_month = datetime.date(y, m, 1)
+        next_month = datetime(y, m, 1)
 
-        return (next_month + datetime.timedelta(-1)).day
+        return (next_month + td(-1)).day
 
     def _getXLCell(self,XLSheet, irow, icol):
         row = XLSheet._Worksheet__rows.get(irow)
@@ -158,9 +158,9 @@ class extraschool_one_report(models.Model):
         print "----------"
         print one_report_settings
         print "----------"
-        report_template_filename = '/tmp/one_report_template'+str(datetime.datetime.now())+'.xls'
-        report_logoone_filename = '/tmp/one'+str(datetime.datetime.now())+'.bmp'
-        report_filename = '/tmp/one_report'+str(datetime.datetime.now())+'.xls'
+        report_template_filename = '/tmp/one_report_template'+str(datetime.now())+'.xls'
+        report_logoone_filename = '/tmp/one'+str(datetime.now())+'.bmp'
+        report_filename = '/tmp/one_report'+str(datetime.now())+'.xls'
         report_template_file = file(report_template_filename,'w')
         report_logoone_file = file(report_logoone_filename,'w')        
         report_template_file.write(one_report_settings.report_template.decode('base64'))
@@ -171,8 +171,8 @@ class extraschool_one_report(models.Model):
         strperiod_from = str(vals['year']) + '-'+str(vals['quarter']*3-2).zfill(2) +'-01'
         strperiod_to = str(vals['year']) + '-'+str(vals['quarter']*3).zfill(2) +'-'+str(self._monthdays(vals['year'],vals['quarter']*3)).zfill(2)
         
-        period_from=datetime.datetime.strptime(strperiod_from, '%Y-%m-%d').date()
-        period_to=datetime.datetime.strptime(strperiod_to, '%Y-%m-%d').date()
+        period_from=datetime.strptime(strperiod_from, '%Y-%m-%d').date()
+        period_to=datetime.strptime(strperiod_to, '%Y-%m-%d').date()
         tot_nb_m = 0
         tot_nb_p = 0
         currentdate = period_from
@@ -188,12 +188,12 @@ class extraschool_one_report(models.Model):
             currentmonth=period_from.month+imonth            
             self.setXLCell(XLSheet,14+imonth*2,0,month_names[currentmonth])
             iweek=0            
-            currentdate = datetime.date(vals['year'],currentmonth,01)
+            currentdate = datetime(vals['year'],currentmonth,01)
             while (iweek < 5): 
                  
-                if datetime.date(currentdate.year,currentdate.month,01).weekday() > 4 and iweek==0:
+                if datetime(currentdate.year,currentdate.month,01).weekday() > 4 and iweek==0:
                     while currentdate.weekday() != 0:
-                        currentdate = currentdate+datetime.timedelta(1)
+                        currentdate = currentdate + td(1)
                 
                 for iday in range(0,5):
                     
@@ -218,16 +218,16 @@ class extraschool_one_report(models.Model):
                                 self.setXLCell(XLSheet,ligne+imonth*2,(iday+1)+(iweek*5),day_nb_m + day_nb_p)
                             else:
                                 self.setXLCell(XLSheet,ligne+imonth*2,(iday+1)+(iweek*5),str(''))
-                        nextdate = currentdate+datetime.timedelta(1)
+                        nextdate = currentdate + td(1)
                         if nextdate.month == currentmonth:
                             currentdate=nextdate
                         else:
                             iweek=iweek+1
-                nextdate = currentdate+datetime.timedelta(2)
+                nextdate = currentdate + td(2)
                 if nextdate.month == currentmonth:
                     currentdate=nextdate
                 iweek=iweek+1
-            currentdate = currentdate+datetime.timedelta(1)
+            currentdate = currentdate + td(1)
         
         tot_nb_m = self.count_childs_quarter(place.id, vals['activitycategory'],period_from, period_to,'M')
         tot_nb_p = self.count_childs_quarter(place.id, vals['activitycategory'],period_from, period_to,'P')
