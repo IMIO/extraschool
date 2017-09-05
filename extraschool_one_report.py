@@ -20,6 +20,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from docutils.utils.math.math2html import Formula
+
 from openerp import models, api, fields,_
 from openerp.api import Environment
 import cStringIO
@@ -71,17 +73,35 @@ class extraschool_one_report(models.Model):
 
     def _default_activitycategory(self):
         activitycategory_rs = self.env['extraschool.activitycategory']
+
+    # Get the correct format for the quarter.
+    def _get_quarter(self):
+        quarter = (datetime.now().month-1)//3 + 1
+        if quarter == 1:
+            return "1er"
+        else:
+            return `quarter` + "eme"
     
-    placeid = fields.Many2one('extraschool.place', default=1)
-    activitycategory = fields.Many2one('extraschool.activitycategory', default=1)
-    year = fields.Integer(required=True, default=2014)
-    quarter = fields.Selection(((1,'1er'), (2,'2eme'), (3,'3eme'), (4,'4eme')), required=True, default=1 )
-    transmissiondate = fields.Date(required=True, default='2015-07-01')
+    placeid = fields.Many2one('extraschool.place', required=True)
+    activitycategory = fields.Many2one('extraschool.activitycategory', required=True)
+    year = fields.Integer(required=True, default=datetime.now().year)
+    quarter = fields.Selection(((1,'1er'), (2,'2eme'), (3,'3eme'), (4,'4eme')), required=True, default=((datetime.now().month-1)//3 + 1))
+    show_quarter = fields.Char(default=_get_quarter, readonly=True)
+    transmissiondate = fields.Date(required=True, default=datetime.now())
     nb_m_childs = fields.Integer()
     nb_p_childs = fields.Integer()
     nb_childs = fields.Integer(compute='_compute_nb_childs')
     report = fields.Binary()
-    
+    is_created = fields.Boolean(default=False, invisible=True)
+
+    @api.onchange('quarter')
+    def _get_new_quarter(self):
+        quarter = self.quarter
+        if quarter == 1:
+            self.show_quarter = "1er"
+        else:
+            self.show_quarter = `quarter` + "eme"
+
     def compute_tablesf(self):
         return [{'href':'http://www.labruyere.be','value':'1'},{'href':'http://www.labruyere.be','value':'2'},{'href':'http://www.labruyere.be','value':'3'}]
     
@@ -144,6 +164,13 @@ class extraschool_one_report(models.Model):
     
     @api.model
     def create(self,vals):
+        vals['is_created'] = True
+        # I don't understand why the value from the form doesn't get in this method. So I have to re-assign the correct value.
+        quarter = vals['quarter']
+        if quarter == 1:
+            vals['show_quarter'] = "1er"
+        else:
+            vals['show_quarter'] = `quarter` + "eme"
         month_names=('','Janvier','Fevrier','Mars','Avril','Mai','Juin','Juillet','Aout','Septembre','Octobre','Novembre','Decembre')
         obj_one_report_day = self.env['extraschool.one_report_day']
         new_obj = super(extraschool_one_report, self).create(vals)
@@ -253,6 +280,6 @@ class extraschool_one_report(models.Model):
         os.remove(report_template_filename)
         os.remove(report_logoone_filename)
         os.remove(report_filename)
-        
+
         return new_obj
 

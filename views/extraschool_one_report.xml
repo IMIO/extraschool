@@ -11,7 +11,7 @@
                     <field name="placeid" />
                     <field name="activitycategory" />
                     <field name="year" />
-                    <field name="quarter"/>          
+                    <field name="show_quarter"/>
                     <field name="transmissiondate" />  
 					<field name="report" />         
 				</tree>
@@ -26,13 +26,11 @@
                 <form string="ONE Report">
                     <group>
                         <field name="placeid" />
-                        <newline />
                         <field name="activitycategory" />
-                        <newline />
                         <field name="year" />
-                        <newline />
-                        <field name="quarter"/>          
-                        <newline />
+                        <field name="quarter" attrs="{'invisible':[('is_created', '=', True)]}"/>
+                        <field name="is_created" invisible="1"/>
+                        <field name="show_quarter" attrs="{'invisible':[('is_created', '=', False)]}"/>
                         <field name="transmissiondate" />                        
                    </group>
                 </form>
