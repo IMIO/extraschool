@@ -38,6 +38,17 @@
             </field>
         </record>    
 
+        <record id="extraschool_reminder_search_view" model="ir.ui.view">
+            <field name="name">extraschool.reminder.search</field>
+            <field name="model">extraschool.reminder</field>
+            <field name="arch" type="xml">
+                <search string="Reminder Struct Comm Search">
+                    <field name="structcom"/>
+                    <field name="parentid"/>
+                </search>
+            </field>
+        </record>
+
         <record model="ir.actions.act_window" id="action_extraschool_reminder">
             <field name="name">Reminders</field>
             <field name="res_model">extraschool.reminder</field>
