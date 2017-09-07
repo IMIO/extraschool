@@ -143,8 +143,9 @@
       				.qr_child_name{
   						position: absolute;
   						top: 40mm;
-  						left: 18mm;
-      					width: 35mm;
+  						left: 19mm;
+                        text-align: center;
+      					width: 25mm;
       					height: 10mm;      					
       				}
       					
