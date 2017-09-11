@@ -48429,7 +48429,7 @@ msgstr "tâches"
 #. module: extraschool
 #: field:extraschool.activitycategory,po_tel:0
 msgid "tel"
-msgstr "T"
+msgstr "Tel"
 
 #. module: extraschool
 #: field:extraschool.mainsettings,tempfolder:0
