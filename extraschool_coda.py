@@ -180,7 +180,7 @@ class extraschool_coda(models.Model):
                                 reminder=reminder_obj.search([('structcom', '=', communication)])
                                 if len(reminder) == 1:
                                     totaldue = sum(invoice.balance for invoice in reminder.concerned_invoice_ids)
-                                    if amount != totaldue:
+                                    if amount != round(totaldue,2):
                                         reject=True
                                         rejectcause=_('A reminder has been found but the amount is not corresponding to balances of invoices')
                                     else:
