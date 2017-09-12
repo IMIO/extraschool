@@ -256,12 +256,12 @@ class extraschool_activity(models.Model):
         print "# Validate children's registration"
         child_registration_compute.validate_multi()
 
-        print "# Check Prestations"
-        total = len(prestation_time_compute)
-        for presta in prestation_time_compute:
-            print total
-            total -= 1
-            presta.check()
+        # print "# Check Prestations"
+        # total = len(prestation_time_compute)
+        # for presta in prestation_time_compute:
+        #     print total
+        #     total -= 1
+        #     presta.check()
 
         print "Final time: ", time.strftime('%M:%S', time.gmtime((time.time() - start_time)))
         self.warning_visibility = False
