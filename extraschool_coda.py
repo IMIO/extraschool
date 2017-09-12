@@ -102,10 +102,11 @@ class extraschool_coda(models.Model):
         adr1=''
         adr2=''
         withaddress=False
-        for line in lines:
-            if len(line) > 0:                
-                if line[0]=='3':
-                    withaddress=True        
+
+        # for line in lines:
+        #     if len(line) > 0:
+        #         if line[0]=='3':
+        #             withaddress=True
         for line in lines:
             if len(line) > 0:                
                 if line[0]=='2':
@@ -125,8 +126,9 @@ class extraschool_coda(models.Model):
                 if (line[0]=='3') and (line[1]=='2') and (len(name) > 1):
                     adr1=line[10:45]
                     adr2=line[45:80]
+                    withaddress=True
                 
-                if ((withaddress == True) and (len(adr1) > 0)) or ((withaddress == False) and (len(name) > 1)):                    
+                if ((withaddress == True) and (len(adr1) > 0)) or ((withaddress == False) and (len(name) > 1)):
                     if reject == False:
                         cr.execute('select invoicecomstructprefix from extraschool_activitycategory')
                         prefixes=cr.dictfetchall()
@@ -275,6 +277,8 @@ class extraschool_coda(models.Model):
                     name=''
                     adr1=''
                     adr2=''
+                    withaddress=False
+
         return super(extraschool_coda, self).create({'name':'CODA '+codadate,'codadate':codadate,'codafile':vals['codafile'],'paymentids':[(6,0,paymentids)],'rejectids':[(6,0,rejectids)]})
     
     def com_struct_builder(self,prefix, val):
