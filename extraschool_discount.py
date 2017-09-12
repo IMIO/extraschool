@@ -79,6 +79,7 @@ class extraschool_discount_version(models.Model):
                          ])
     @api.multi
     def compute(self,biller_id):
+        import pdb;pdb.set_trace()
         print "# Compute Discount"
         cr,uid = self.env.cr, self.env.user.id
         if (self.discount_template == 'hannut'):
@@ -132,10 +133,6 @@ class extraschool_discount_version(models.Model):
             #filter on price list if needed
             if len(self.price_list_ids):
                 invoice_line_ids = invoice_line_ids.filtered(lambda r: r.price_list_version_id.price_list_id.id in self.price_list_ids.ids)
-            #filter on child type if needed
-            if len(self.child_type_ids):
-                invoice_line_ids = invoice_line_ids.filtered(lambda r: r.childid.childtypeid.id in self.child_type_ids.ids)
-
 
             saved_week = ''
             saved_child = ''
