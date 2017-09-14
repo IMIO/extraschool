@@ -79,7 +79,6 @@ class extraschool_discount_version(models.Model):
                          ])
     @api.multi
     def compute(self,biller_id):
-        import pdb;pdb.set_trace()
         print "# Compute Discount"
         cr,uid = self.env.cr, self.env.user.id
         if (self.discount_template == 'hannut'):
