@@ -86,6 +86,8 @@ class extraschool_parent_fusion_wizard(models.TransientModel):
                 {'parent_id': self.parent_id.id})
             self.env['extraschool.reminder'].search([('parentid', '=', parent.id)]).write(
                 {'parentid': self.parent_id.id})
+            self.env['extraschool.taxcertificate_item'].search([('parent_id', '=', parent.id)]).write(
+                {'parent_id': self.parent_id.id})
 
 
         if len(self.parent_ids.ids):
