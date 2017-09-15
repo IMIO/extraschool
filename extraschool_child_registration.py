@@ -61,6 +61,12 @@ class extraschool_child_registration(models.Model):
                               ('validated', 'Validated')],
                               'validated', required=True, default='draft'
                               )
+    number_childs = fields.Char('Number of childs', readonly=True, default=0)
+
+    @api.onchange('child_registration_line_ids')
+    def compute_number_childs(self):
+
+        self.number_childs = len(self.child_registration_line_ids)
 
     @api.onchange('day_ids')
     @api.one
@@ -152,7 +158,7 @@ class extraschool_child_registration(models.Model):
     @api.one
     def update_child_list(self):
         print "update_child_list"
-        
+
         if self.class_id:
             childs = self.env['extraschool.child'].search([('schoolimplantation.id', '=', self.school_implantation_id.id),
                                                            ('classid.id', '=',self.class_id.id)])
@@ -171,6 +177,7 @@ class extraschool_child_registration(models.Model):
             child_reg.append((0,0,{'child_id': child,
                                    }))
         self.child_registration_line_ids = child_reg
+        self.compute_number_childs()
 
     @api.multi
     def check_validity_date(self, vals):
