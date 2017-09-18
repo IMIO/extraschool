@@ -25,5 +25,8 @@
          <record id="extraschool_gods" model="res.groups">
             <field name="name">AES Gods</field>
          </record>
+         <record id="extraschool_direction" model="res.groups">
+            <field name="name">AES Direction +</field>
+         </record>
    	  </data>
    </openerp>
