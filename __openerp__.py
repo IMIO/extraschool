@@ -36,7 +36,7 @@
     'test' : [],
     'data' : [
         'scripts/update_seq.xml',
-                
+        'scripts/drop_constraint_uniq_child.sql',
         'views/extraschool_activitycategory.xml',
         'views/extraschool_activity.xml',
         'views/extraschool_activityoccurrence.xml',

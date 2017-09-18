@@ -47,11 +47,6 @@ class extraschool_child(models.Model):
     otherref = fields.Char('Other ref', size=50)
     isdisabled = fields.Boolean('Disabled')             
 
-    _sql_constraints = [
-        ('firstname_name_uniq', 'unique(lastname,firstname,birthdate)',
-            'Name and firstname must be unique !'),
-    ]   
-    
     def _search_fullname(self, operator, value):
         return ['|',('firstname', operator, value),('lastname', operator, value)]
     
