@@ -39,7 +39,7 @@ class extraschool_childsimport(models.Model):
     @api.model
     def create(self, vals): 
         cr, uid = self.env.cr, self.env.user.id
-        
+
         workbook = xlrd.open_workbook(file_contents=base64.b64decode(vals['childsfile']))
         worksheets = workbook.sheet_names()
         book_datemode = workbook.datemode
@@ -258,7 +258,7 @@ class extraschool_childsimport(models.Model):
                                      parentlastname:%s                                     
                                     """ % (curr_row+1,childlastname,childfirstname,childbirthdate,childlevelid,parentlastname))
                 else:
-                    if importfilter['childrncolumn'] <> 0:
+                    if importfilter['childrncolumn'] <> 0 and childrn:
                         childid = obj_child.search(cr, uid, [('rn', '=', childrn.strip())
                                                              ])
                     # if no rn or child not found on RN try to find on firstname,lastname,birthday
