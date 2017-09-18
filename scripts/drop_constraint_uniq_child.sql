@@ -1,0 +1,2 @@
+ALTER TABLE extraschool_child
+DROP CONSTRAINT IF EXISTS extraschool_child_firstname_name_uniq;
