@@ -165,8 +165,10 @@ class extraschool_parent(models.Model):
                                    ])
 
         if vals['email'] != False and vals['email'] != '' and vals['email'] != ' ':
-            if (not self.email_validation(vals['email'])):
-                raise Warning("E-mail format invalid.")
+            emails = vals['email'].split(',')
+            for email in emails :
+                if (not self.email_validation(email)):
+                    raise Warning("E-mail format invalid.")
 
         return super(extraschool_parent, self).create(vals)
     
@@ -205,8 +207,10 @@ class extraschool_parent(models.Model):
             vals['modified_since_last_import'] = True
 
         if 'email' in vals and vals['email'] != False:
-            if (not self.email_validation(vals['email'])):
-                raise Warning("E-mail format invalid.")
+            emails = vals['email'].split(',')
+            for email in emails :
+                if (not self.email_validation(email)):
+                    raise Warning("E-mail format invalid.")
                     
         return super(extraschool_parent,self).write(vals)
             
