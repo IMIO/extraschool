@@ -186,6 +186,8 @@ class extraschool_remindersjournal(models.Model):
 
         # Write the reminders_journal
         reminders_journal_item_amount = sum([invoice[1] for invoice in invoice_ids])
+
+        # If the reminder has fees, compute de total cost.
         if reminder_type.fees_type == 'fix':
             total_fees = reminder_type.fees_amount * len(invoice_dict)
             reminders_journal_item_amount += total_fees
