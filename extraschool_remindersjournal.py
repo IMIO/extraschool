@@ -31,6 +31,7 @@ from pyPdf import PdfFileWriter, PdfFileReader
 import datetime
 import threading
 from openerp.api import Environment
+from openerp import tools
 from openerp.exceptions import except_orm, Warning, RedirectWarning
 
 
@@ -67,6 +68,35 @@ class extraschool_remindersjournal(models.Model):
                              )
     based_reminder_id = fields.Many2one('extraschool.remindersjournal', 'Choose the reminder to be based on')
     show_based_reminder = fields.Boolean('Clic here if it\'s not the first reminder', default=False)
+    unsolved_reminder_ids = fields.One2many('extraschool.reminder', 'reminders_journal_id', 'Unsolved Reminders')
+
+    @api.multi
+    def get_unpaid_reminder(self):
+        cr = self.env.cr
+        test = cr.execute("""
+                            SELECT r.id AS unsolved_reminder_ids
+                            FROM extraschool_reminder AS r
+                            LEFT JOIN extraschool_reminder_invoice_rel AS ri
+                            ON r.id = ri. reminder_id
+                            LEFT JOIN extraschool_invoice AS i
+                            ON ri.invoice_id = i.id
+                            WHERE r.reminders_journal_id = %s AND i.balance > 0
+                            GROUP BY r.id;
+                    """ % self.id)
+        import pdb;pdb.set_trace()
+
+    # @api.one
+    # def get_unsolved_reminder_method(self):
+    #     unsolved_reminder_ids = []
+    #
+    #     get_reminder_ids = self.env['extraschool.reminder'].search([('reminders_journal_id', '=', self.id)])
+    #
+    #     for reminder in get_reminder_ids:
+    #         invoice_ids = self.env['extraschool.reminder'].browse(reminder.id).concerned_invoice_ids
+    #         if sum([self.env['extraschool.invoice'].browse(invoice.id).balance for invoice in invoice_ids]) > 0:
+    #             unsolved_reminder_ids.append(reminder.id)
+    #
+    #     return unsolved_reminder_ids
 
     @api.multi
     def write(self,vals):
@@ -149,18 +179,24 @@ class extraschool_remindersjournal(models.Model):
         cr.execute(get_invoice_sql, (new_remindersjournal.id,))
         invoice_ids = cr.fetchall()
 
+        # Build dictionnary of invoices sorted by parents.
+        invoice_dict = {}
+        for invoice in invoice_ids:
+            invoice_dict.setdefault(invoice[2], []).append(invoice[0])
+
         # Write the reminders_journal
+        reminders_journal_item_amount = sum([invoice[1] for invoice in invoice_ids])
+        if reminder_type.fees_type == 'fix':
+            total_fees = reminder_type.fees_amount * len(invoice_dict)
+            reminders_journal_item_amount += total_fees
+
         reminders_journal_item_id = self.env['extraschool.reminders_journal_item'].create(
             {'name': "%s - %s" % (self.name, reminder_type.name),
              'reminder_type_id': reminder_type.id,
              'reminders_journal_id': self.id,
              'payment_term': datetime.date.today() + datetime.timedelta(days=reminder_type.payment_term_in_day),
-             'amount': sum([invoice[1] for invoice in invoice_ids])})
-
-        # Build dictionnary of invoices sorted by parents.
-        invoice_dict = {}
-        for invoice in invoice_ids:
-            invoice_dict.setdefault(invoice[2], []).append(invoice[0])
+             'amount': reminders_journal_item_amount,
+             })
 
         # For each parent create a reminder.
         for key in invoice_dict:
@@ -173,7 +209,10 @@ class extraschool_remindersjournal(models.Model):
                                                                     'com_struct'],
                                                                 'amount': sum([self.env['extraschool.invoice'].browse(invoice).balance for invoice in invoice_dict[key]]),
                                                                 'concerned_invoice_ids': [(6, 0, invoice_dict[key])],
+                                                                'fees_amount': reminder_type.fees_amount,
                                                                 })
+
+
         return True
 
 

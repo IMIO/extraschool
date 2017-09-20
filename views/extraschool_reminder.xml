@@ -14,7 +14,8 @@
 						<field name="activity_category_id" />                        
                         <field name="school_implantation_id"/>
                         <field name="amount"/>
-                        <field name="structcom"/>						 
+                        <field name="structcom"/>
+                        <field name="fees_amount"/>
 						<separator string="Invoices" colspan="4"/> 	
 						<field name="concerned_invoice_ids"  colspan="4" nolabel="1" />                   	                        		                        					                  	                        		                        
 	                </group>                    
@@ -32,8 +33,9 @@
                     <field name="parentid"/>
 					<field name="activity_category_id" />                        
                     <field name="school_implantation_id"/>
-                    <field name="amount"/>
+                    <field name="amount" sum="True"/>
                     <field name="structcom"/>
+                    <field name="fees_amount" sum="True"/>
                 </tree>
             </field>
         </record>    
