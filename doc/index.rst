@@ -13,15 +13,17 @@ Contents:
    
    checklist
    aes-connexion
+   fiche_signaletique
    accueillantes
    inscriptions
    piscine
    parent_divorce
    facturier
+   fichier_coda
+   correction_paiement
    rapport_ONE
    attestation_fiscale
    filtre_regroupement
-   utilisation-smartphones
    config-smartphones
    truc-astuce
 

@@ -9,28 +9,15 @@ Gestion des parents divorcés
 .. toctree::
    :maxdepth: 3
 
-Les attestations fiscales sont générées une fois au cours de l'année. Elles sont réalisées pour tous les parents en ayant droit à un enfant de moins de 12 ans.
-Il faudra vérifier au préalable que vous avez bien communiqué à votre contact Imio les personnes responsables des attestations fiscales.
-Ceci permettra d'insérer son nom, sa fonction et au besoin sa signature.
+Dans le cas d'enfant de parents séparés, l'enfant est encodé 2 fois dans l'application afin de simplifier la gestion administrative.
 
-####################################
-Génération d'une attestation fiscale
-####################################
+* Factures séparées papa et maman.
+* Attestations fiscales séparées.
+* Les parents n'ont pas de visibilité sur la facturation de leur ex-conjoint.
 
-Pour générer les attestations fiscales, il faut se rendre dans le Menu "Attestation fiscale" situé dans les documents.
-Il faut ensuite cliquer sur "créer" afin de générer toutes les attestations fiscales de l'année . Différentes informations obligatoires vous sont demandées :
+On va donc créer les deux parents et deux fois le meme enfant dans l'application.
+On pourra donc relier une fiche enfant au papa et l'autre fiche enfant à maman.
+Sur l'une des deux fiches enfants, dans le nom ou le prénom, nous mettons "papa" ou "maman" afin d'avoir une meilleure et une plus rapide visualisation.
 
-* Année fiscale (l'année où on veut sortir les attestations fiscales)
-* Catégorie d'activité
-* Date du document (La date qui sera sur le document: souvent la date du jour)
+Il faudra donc imprimer deux QR Codes pour cette enfant et scanner en fonction de la personne qui vient le déposer ou le chercher.
 
-Lorsque vous aurez appuyé sur enregistrer, les pdf des attestations fiscales seront en création avec un message comme sur l'image ci-dessous.
-
-.. image:: img/screenshot/attestation_fiscale_creation.png
-
-La génération des pdf dans l'application peut prendre un certain temps. C'est pour cette raison que nous avons mis ce processus en arrière-plan afin de ne pas vous "bloquer" pour d'autres manipulations.
-Si vous rafraichissez la page après quelques minutes, des boutons apparaitront à la place du message ainsi que la liste des parents ayant une attestation fiscale.
-
-Vous pourrez ainsi consulter toutes les attestations fiscales de tous les parents.
-
-.. image:: img/screenshot/attestation_fiscale.png

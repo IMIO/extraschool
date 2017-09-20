@@ -32356,7 +32356,7 @@ msgstr "Patient"
 #: view:extraschool.payment_report:extraschool.extraschool_payment_report_graph
 #: model:ir.model,name:extraschool.model_extraschool_payment
 msgid "Payment"
-msgstr "Paiement"
+msgstr "Paiements"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_payment
