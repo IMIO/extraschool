@@ -78,7 +78,8 @@
         <record id="menu_extraschool" model="ir.ui.menu">
     		<field name="groups_id" eval="[(4,ref('extraschool_admin')),
     										(4,ref('extraschool_user')),
-    										(4,ref('extraschool_school')),]"/>
+    										(4,ref('extraschool_school')),
+    										(4,ref('extraschool_direction')),]"/>
 		</record> 	
 		<record id="extraschool_menu_signaletics" model="ir.ui.menu">
     		<field name="groups_id" eval="[(4,ref('extraschool_admin')),
