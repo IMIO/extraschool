@@ -69,8 +69,8 @@
 				       					<td><span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_from,'%Y-%m-%d')))" /> - <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_to,'%Y-%m-%d')))" /></td> 
 			        					<td><span t-field="summary_invoice.number" /></td> 
 				       					<td><span t-field="summary_invoice.payment_term" /></td> 
-				       					<td class="amount"><span t-esc="'%.2f €' %  (summary_invoice.balance)" /></td> 
-	        							        							
+				       					<td class="amount"><span t-esc="'%.2f €' %  (summary_invoice.balance)" /></td>
+
 	        						</tr>
 								</t>
 	        					<t t-if="summary_invoice.reminder_fees == True">
@@ -79,7 +79,8 @@
 					       					<td></td> 
 				        					<td><span t-field="invoice_line.description" /></td> 
 					       					<td><span t-field="summary_invoice.payment_term" /></td> 
-					       					<td class="amount"><span t-esc="'%.2f €' %  (invoice_line.balance)" /></td>
+					       					<td class="amount"><span t-esc="TODO" /></td>
+											<!--<td class="amount"><span t-esc="'%.2f €' %  (invoice_line.balance)" /></td>-->
 				       					</tr>         							
 	        						</t>
 								</t>							

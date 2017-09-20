@@ -101,8 +101,10 @@
                     <newline/>
                     <field name="totalbalance"/>
                     <newline/>
-                    <field name="totalhuissier"/>
+                    <field name="total_reminder_fees"/>
                     <newline/>
+                    <!--<field name="totalhuissier"/>-->
+                    <!--<newline/>-->
                         <separator string="Factures de:"  colspan="4"/>
                         <field name="name" nolabel="1" style="font-size:16px" attrs="{'invisible':[('lastname','=',False),('firstname', '=', False)]}"/>
                         <field name="invoice_ids" nolabel="1" colspan="4">
@@ -129,6 +131,7 @@
                         <field name="reminders_journal_id"/>
                         <field name="transmission_date"/>
                         <field name="payment_term"/>
+                        <field name="fees_amount" sum="True"/>
                         <field name="amount" sum="True"/>
                     </tree>
                     </field>

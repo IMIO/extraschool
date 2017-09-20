@@ -85,13 +85,22 @@ class extraschool_parent(models.Model):
         cr = self.env.cr
         for record in self:
             cr.execute('select sum(balance) from extraschool_invoice where parentid=%s and (huissier = False or huissier is Null)',(record.id,))
-            record.totalbalance = cr.fetchall()[0][0]
+            invoice = cr.fetchall()[0][0]
+            cr.execute('select sum(fees_amount) from extraschool_reminder where parentid=%s', (record.id,))
+            reminder = cr.fetchall()[0][0]
+            record.totalbalance = invoice + reminder
 
     def _compute_totalhuissier (self):
         cr = self.env.cr
         for record in self:
             cr.execute('select sum(balance) from extraschool_invoice where parentid=%s and huissier = True',(record.id,))
             record.totalhuissier = cr.fetchall()[0][0]
+
+    def _compute_total_reminder_fees (self):
+        cr = self.env.cr
+        for record in self:
+            cr.execute('select sum(fees_amount) from extraschool_reminder where parentid=%s',(record.id,))
+            record.total_reminder_fees = cr.fetchall()[0][0]
              
     name = fields.Char(compute='_name_compute',string='FullName', search='_search_fullname', size=100)   
     rn = fields.Char('RN')
@@ -122,6 +131,7 @@ class extraschool_parent(models.Model):
     totalinvoiced = fields.Float(compute='_compute_totalinvoiced', string="Total invoiced")
     totalreceived = fields.Float(compute='_compute_totalreceived', string="Total received")
     totalbalance = fields.Float(compute='_compute_totalbalance', string="Total balance")
+    total_reminder_fees = fields.Float(compute='_compute_total_reminder_fees', string="Total reminder fees")
     totalhuissier = fields.Float(compute='_compute_totalhuissier', string="Total huissier")
     payment_ids = fields.One2many('extraschool.payment','parent_id')
     payment_status_ids = fields.One2many('extraschool.payment_status_report','parent_id')
