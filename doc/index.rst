@@ -16,7 +16,11 @@ Contents:
    accueillantes
    inscriptions
    piscine
+   parent_divorce
    facturier
+   rapport_ONE
+   attestation_fiscale
+   filtre_regroupement
    utilisation-smartphones
    config-smartphones
    truc-astuce

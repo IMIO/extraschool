@@ -41,6 +41,8 @@ Les logiciels de gestion d'école peuvent exporter ce genre de fichiers, il faut
 		
 		* Ordre des colonnes
 		* Libellé des colonnes
+
+Il faut également impérativement un fichier par école. Sans cela, l'importation ne pourra se faire.
 	
 		| :download:`ex. format.xls <doc/import.xls>`
 
