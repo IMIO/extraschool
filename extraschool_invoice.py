@@ -36,7 +36,6 @@ from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
 class extraschool_invoice(models.Model):
     _name = 'extraschool.invoice'
     _description = 'invoice'
-    _order = 'biller_id'
 
     @api.multi
     def name_get(self):
