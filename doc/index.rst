@@ -15,10 +15,10 @@ Contents:
    aes-connexion
    filtre_regroupement
    fiche_signaletique
+   parent_divorce
    accueillantes
    inscriptions
    piscine
-   parent_divorce
    encodage_manuel
    verification_presence
    facturier

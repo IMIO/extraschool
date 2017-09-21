@@ -27,11 +27,17 @@ Création du raccourci sur le bureau
 
 Pour créer un raccourci sur le bureau, c’est très simple.
 
-Il vous suffit de faire un clique droit sur votre bureau (à un endroit où il n’y a pas d'icône, de dossier, d’application,...), de choisir “Nouveau” - “Raccourci”.
-Pour la première fenêtre vous pouvez indiquer l’url du lien de l’application (https://ville-aes.imio-app.be) - suivant - la seconde fenêtre vous demandera comment appeler le raccourci (Le nom “AES” est un bon exemple).
+Il vous suffit de faire :
+
+* un clique droit sur votre bureau (à un endroit où il n’y a pas d'icône, de dossier, d’application,...)
+* de choisir “Nouveau” - “Raccourci”
+
+Pour la première fenêtre vous pouvez indiquer l’url du lien de l’application (https://ville-aes.imio-app.be)
+
+Note : ville : étant le nom de votre commune
+La seconde fenêtre vous demandera comment appeler le raccourci (Le nom “AES” est un bon exemple).
 
 Après confirmation, votre raccourci est à présent créé sur votre bureau.
-
 
 
 #########
