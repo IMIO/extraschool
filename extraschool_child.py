@@ -32,7 +32,7 @@ class extraschool_child(models.Model):
     _description = 'Child'
 
     name = fields.Char(compute='_name_compute',string='FullName', search='_search_fullname', size=100)
-    childtypeid = fields.Many2one('extraschool.childtype', 'Type',required=True, ondelete='restrict')
+    childtypeid = fields.Many2one('extraschool.childtype', 'Type',required=True, ondelete='restrict', help='Ce champs permet de définir si l\'enfant a le droit à un tarif préférentiel (ex: enfants du CPAS, enfants de la croix rouge, enfants des accueillantes,...)')
     rn = fields.Char('RN')
     firstname = fields.Char('FirstName', size=50, required=True)
     lastname = fields.Char('LastName', size=50 , required=True)
@@ -43,7 +43,7 @@ class extraschool_child(models.Model):
     birthdate = fields.Date('Birthdate', required=True)
     last_import_date = fields.Datetime('Import date', readonly=True)
     modified_since_last_import = fields.Boolean('Modified since last import')    
-    tagid = fields.Char('Tag ID', readonly=True)
+    tagid = fields.Char('Tag ID', readonly=True, help='Numéro contenu dans le QR Code')
     otherref = fields.Char('Other ref', size=50)
     isdisabled = fields.Boolean('Disabled')             
 

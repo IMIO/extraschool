@@ -30820,7 +30820,7 @@ msgstr "Nombre de modules"
 #. module: extraschool
 #: field:extraschool.child_registration,number_childs:0
 msgid "Number of childs"
-msgstr "Number of childs"
+msgstr "Nombre d'enfants"
 
 #. module: base
 #: field:base.module.update,added:0
