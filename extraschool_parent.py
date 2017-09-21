@@ -118,14 +118,14 @@ class extraschool_parent(models.Model):
     invoicesendmethod = fields.Selection((('emailandmail','By mail and email'),
                                           ('onlyemail','Only by email'),
                                           ('onlybymail','Only by mail')),
-                                         'Invoice send method',required=True, default='emailandmail')
+                                         'Invoice send method',required=True, default='onlybymail')
     streetcode = fields.Char('Street code', size=50)
     child_ids = fields.One2many('extraschool.child', 'parentid','childs')
     invoice_ids = fields.One2many('extraschool.invoice', 'parentid','invoices')
     remindersendmethod = fields.Selection((('emailandmail','By mail and email'),
                                            ('onlyemail','Only by email'),
                                            ('onlybymail','Only by mail')),
-                                          'Reminder send method',required=True, default='emailandmail')
+                                          'Reminder send method',required=True, default='onlybymail')
     one_subvention_type = fields.Selection((('sf','operating grants'),
                                             ('sdp','positive differentiation grants')),
                                             required=True, default='sf')
