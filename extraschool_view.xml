@@ -15,7 +15,13 @@
 			<field name="view_type">form</field>
 		</record>
 
+		<record id="aes_doc" model="ir.actions.act_url">
+                <field name="name">Documentation AES</field>
+                <field name="type">ir.actions.act_url</field>
+                <field name="url">http://redwashere.be/aes/</field>
+        </record>
 
+        <menuitem action="aes_doc" name="Documentation AES" id="menu_aes_doc"/>
         <menuitem name="Extraschool" id="menu_extraschool" />
 		<menuitem name="Signaletics" id="extraschool_menu_signaletics" parent="menu_extraschool" sequence="10"/>
 		<menuitem name="Childs" parent="extraschool_menu_signaletics" id="extraschool_menu_child" action="action_extraschool_child"/>
