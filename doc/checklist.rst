@@ -273,9 +273,9 @@ Communication
 Communiquer sur les changements est primordial pour la réussite du projet, la difficulté n'est pas sur la technique mais bien sur l'aspect humain.
 Il faut prévoir un courrier qui explique aux parents et aux diifférentes directions les changements.
 
-      | :download:`ex. format.docx <doc/parents.docx>`
+      | :download:`ex. parent.docx <doc/parents.docx>`
 
-      | :download:`ex. format.docx <doc/directions.docx>`
+      | :download:`ex. directions.docx <doc/directions.docx>`
 
 * Le QR-Code contient uniquement un identifiant interne qui ne représente rien en dehors du contexte de l'application.
 	
