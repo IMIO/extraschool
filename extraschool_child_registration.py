@@ -462,7 +462,12 @@ class extraschool_child_registration_line(models.Model):
     error_duplicate_reg_line = fields.Boolean(string="Error", default = False)
     
     def child_must_be_printed(self):
-        if not any((self.monday_activity_id.id, self.tuesday_activity_id.id, self.wednesday_activity_id.id, self.thursday_activity_id.id, self.friday_activity_id.id)):
+        if not any((self.monday_activity_id.id, self.tuesday_activity_id.id, self.wednesday_activity_id.id,
+                    self.thursday_activity_id.id, self.friday_activity_id.id)) and not any((self.monday,
+                                                                                           self.tuesday,
+                                                                                           self.wednesday,
+                                                                                           self.thursday,
+                                                                                           self.friday)):
             return False
         else:
             return True
