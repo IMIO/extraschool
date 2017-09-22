@@ -62,7 +62,7 @@
 		            	<t t-foreach="child_registration.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['M'])" t-as="child">
 		            		<t t-if="child.child_must_be_printed()">
 			            		<tr>
-                                    <td><b>Enfant: </b><span t-field="child.child_id.name"/><br></br><b>    Parent: </b><span t-field="child.child_id.parentid.name"/> - <span t-field="child.child_id.parentid.housephone"/></td>
+                                    <td><h5><span t-field="child.child_id.name"/></h5><i><b>    Parent: </b><span t-field="child.child_id.parentid.name"/> - <span t-field="child.child_id.parentid.housephone"/></i></td>
 									<td><span t-field="child.monday_activity_id.name"/><span t-if="child.monday"><img src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
 			            			<td><span t-field="child.tuesday_activity_id.name"/><span t-if="child.tuesday"><img src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
 			            			<td><span t-field="child.wednesday_activity_id.name"/><span t-if="child.wednesday"><img src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
@@ -96,7 +96,7 @@
 		            	<t t-foreach="child_registration.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['P','A'])" t-as="child">
 		            		<t t-if="child.child_must_be_printed()">
 			            		<tr>
-			            			<td><b>Enfant: </b><span t-field="child.child_id.name"/><br></br><b>Parent: </b><span t-field="child.child_id.parentid.name"/> - <span t-field="child.child_id.parentid.housephone"/></td>
+                                    <td><h5><span t-field="child.child_id.name"/></h5><i><b>Parent: </b><span t-field="child.child_id.parentid.name"/> - <span t-field="child.child_id.parentid.housephone"/></i></td>
 									<td><span t-field="child.monday_activity_id.name"/><span t-if="child.monday"><img src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
 			            			<td><span t-field="child.tuesday_activity_id.name"/><span t-if="child.tuesday"><img src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
 			            			<td><span t-field="child.wednesday_activity_id.name"/><span t-if="child.wednesday"><img src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
