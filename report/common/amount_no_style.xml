@@ -71,6 +71,67 @@
 				</div>								
 			</div>
 		</template>
+        <template id="report_amount_no_style_lierneux">
+			<style>
+				#total_row{
+					page-break-inside: avoid;
+					float: left;
+					width: 100%;
+				}
+
+				#total{
+					border-width: 1px;
+					border-style: solid;
+					width: 40%;
+				    float: right;
+				    margin: 5mm 0mm 5mm 0mm;
+				}
+
+				#total:after {
+					content: "";
+					display: block;
+					clear: both;
+				}
+
+				#total>div{
+					display: block;
+					padding: 0px 8px 0px 8px;
+					width: 100%;
+					float: right;
+
+				}
+
+				#total>div>span.amount {
+					float : right;
+					width: 50%;
+					text-align: right;
+				}
+
+				#total>div>span.zz_label {
+					float : left;
+					width: 50%;
+				}
+
+				#total>div.to_pay {
+					font-weight: bold;
+				}
+
+			</style>
+			<div id="total_row">
+				<div id="total">
+					<div class="amount">
+					  	<span class="zz_label">Total</span><span class="amount"><t t-esc="sum([invoice.balance for invoice in summary_invoice_ids])" /> €</span>
+					</div>
+					<div class="amount">
+					   	<span class="zz_label">Reçu</span><span class="amount"><t t-esc="'%.2f' %  (received)" /> €</span>
+					</div>
+					<div class="amount to_pay">
+					 	<span> A payer avant le <t t-esc="payment_term" /></span>
+					</div>
+
+				</div>
+			</div>
+		</template>
 
 	</data>
 </openerp>	

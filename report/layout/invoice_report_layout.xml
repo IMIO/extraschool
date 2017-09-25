@@ -69,7 +69,7 @@
 						<t t-set="com_struct" t-value="invoice.structcom"/>
 						<t t-set="total" t-value="invoice.amount_total"/>
 						<t t-set="received" t-value="invoice.amount_received"/>
-						<t t-set="balance" t-value="invoice.balance"/>	
+						<t t-set="balance" t-value="invoice.balance"/>
 						<t t-set="payment_term" t-value="'%s' % (time.strftime('%d-%m-%Y',time.strptime(invoice.biller_id.payment_term,'%Y-%m-%d')))"/>
 						<t t-set="schoolimplantationid" t-value="invoice.schoolimplantationid"/>
 							
