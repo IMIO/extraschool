@@ -31,18 +31,21 @@ class extraschool_presta_stat(models.Model):
     _name = 'extraschool.presta_stat'
     _description = 'Prestation statistique'
 
-    date = fields.Date(string='Date', index = True) 
-    activity_id = fields.Many2one('extraschool.activity', string = 'Activity', index = True)
-    place_id = fields.Many2one('extraschool.place', string = 'Place', index = True)
+    date = fields.Date(string='Date', index=True)
+    activity_id = fields.Many2one('extraschool.activity', string='Activity', index=True)
+    place_id = fields.Many2one('extraschool.place', string='Place', index=True)
     level = fields.Selection(available_levels,string = 'Level' )
-    rancge = fields.Char(string = 'Range', index = True)    
+    rancge = fields.Char( string='Range', index=True)
     nbr_child = fields.Integer(string = 'Nbr childs')
-    
-    
+
+    def convert_time(self, time):
+        return '{0:02.0f}:{1:02.0f}'.format(*divmod(time * 60, 60))
+
     def compute(self):
-        period_range = 0.5
+        period_range = 0.25
         #delete all records
-        print"unlink presta stat"
+        print "Running: Prestation Statistics"
+        print"#Unlink Prestation Statistics"
         self.search([]).unlink()
         
         for activity in self.env['extraschool.activity'].search([('default_from_to','<>','from_to')]):
@@ -85,10 +88,10 @@ class extraschool_presta_stat(models.Model):
                 else:
                     prest_to = activity.prest_from + (period+1)*period_range
                     
-                period_str = "%s - %s" % (last_period, prest_to)
-                print insert_querry % (activity.id,period_str,activity.id,prest_to,activity.id,prest_to,last_period,prest_to,last_period)
+                period_str = "%s - %s" % (self.convert_time(last_period), self.convert_time(prest_to))
+
+                print "##Computing Statistics for range: ", period_str, " activity: ", activity.name
                 self.env.cr.execute(insert_querry,(activity.id,period_str,activity.id,prest_to,activity.id,prest_to,last_period,prest_to,last_period))
                 last_period = prest_to
-                #print "%s - %s" % (activity.name, period)
                 self.env.invalidate_all()
             

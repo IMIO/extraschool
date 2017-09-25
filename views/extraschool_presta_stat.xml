@@ -39,9 +39,10 @@
             <field name="model">extraschool.presta_stat</field>
             <field name="arch" type="xml">
                 <search string="Prestations">
-                   <field name="activity_id" string="Activity"/>
-                   <field name="place_id" string="Place"/>                   	                   
-                   <group  expand='0' string='Group by...'>
+                  	<field name="activity_id" string="Activity"/>
+                   	<field name="place_id" string="Place"/>
+					<field name="date" String="Date"/>
+                   	<group  expand='0' string='Group by...'>
                        <filter string='Activité' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'activity_id'}"/>
                    </group>                    
                 </search>
@@ -53,9 +54,11 @@
             <field name="model">extraschool.presta_stat</field>
             <field name="arch" type="xml">
                 <graph string="presta_stat" type="pivot">
-                     <field name="activity_id" type="row"/>
-                     <field name="place_id" type="col"/>
-                     <field name="nbr_child" type="measure"/>
+                    <field name="activity_id" type="col"/>
+                    <field name="place_id" type="col"/>
+                    <field name="date" type="col"/>
+                    <field name="place_id" type="row"/>
+                    <field name="nbr_child" type="measure"/>
                  </graph>
              </field>
         </record>
