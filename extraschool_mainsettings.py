@@ -43,6 +43,53 @@ class extraschool_mainsettings(models.Model):
     last_child_upgrade_levels = fields.Date('Last child upgrade level', readonly=True)
     query_sql = fields.Text('Query Sql')
     sql_query_ids = fields.Many2one('extraschool.query_sql', 'Query SQL')
+    parent_id = fields.Many2one('extraschool.parent', 'Parent')
+    coda_date = fields.Date('CODA\'s date')
+    amount = fields.Char('Amount')
+    communication = fields.Char('Structured Communication')
+
+    @api.multi
+    def generate_coda(self):
+        print "#Generation of CODA file"
+
+
+
+        header_1 = "00000" + self.coda_date[8:10] + self.coda_date[5:7] + self.coda_date[2:4] + "30005        57181261  COMMUNE D'ASSESSE         BBRUBEBB   00000000000 00000                                       2"
+        header_2 = "12171BE22363125809747                  EUR0000000160997990140917COMMUNE D'ASSESSE         Compte  vue                       171"
+
+        amount = self.amount.split('.')
+        euros = "0000000000000"
+        euros = euros[0:(13 - len(amount[0]))] + amount[0]
+        cents = "00"
+        cents = cents[0:(2 - len(amount[1]))] + amount[1]
+        amount_line = "2100010000090545069I099002624  " + euros + cents +"0190917001500001101300000101247                                      19091717101 0"
+
+        filler = "2200010000                                                     NOTPROVIDED                        GKCCBEBB                   1 0"
+
+        name = "                          "
+        name = self.parent_id.name.upper() + name[len(self.parent_id.name):26]
+        parent_name = "2300010000BE83063587614315                  " + name + "                                                       0 1"
+
+        parent_address = "3200020001RUE DE BRIONSART        21         5340  GESVES                                                                    0 1"
+        virement_line = "3100010002090545069I099002624  001500000Virement europen De: ISTA - FRAJER RUE DE BRIONSART 21 5340 GESVES Belgi            0 1"
+
+        comm_line = "3100020003090546519I079002625  001500000que IBAN: BE83063587614315 Communication: ***" + self.communication + "***                       0 0"
+
+        footer = "21000300003101983094049002623  0000000000000800190917001500001101200160019857                                      19091717101 0"
+
+        file = open("/home/mickey/Documents/coda/coda", "wb+")
+
+        file.write(header_1 + "\n")
+        file.write(header_2 + "\n")
+        file.write(amount_line + "\n")
+        file.write(filler + "\n")
+        file.write(parent_name + "\n")
+        file.write(parent_address + "\n")
+        file.write(virement_line + "\n")
+        file.write(comm_line + "\n")
+        file.write(footer + "\n")
+
+        file.close()
 
     @api.onchange('sql_query_ids')
     def _get_query_sql(self):
