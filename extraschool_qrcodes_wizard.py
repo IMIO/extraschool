@@ -45,6 +45,7 @@ class extraschool_qrcodes_wizard(models.TransientModel):
                              ('print_qrcodes', 'Print QRCodes')],
                             'State', required=True, default='init'
                             )
+    qr_config = fields.Many2one('extraschool.qrconfig', string='QR Config')
 
 
     @api.multi
@@ -68,5 +69,10 @@ class extraschool_qrcodes_wizard(models.TransientModel):
                'report_name': self.format,
                'datas': datas,
                'report_type': 'qweb-pdf',
-           }        
+           }
 
+class extraschool_qrconfig(models.TransientModel):
+    _name='extraschool.qrconfig'
+
+    qr_logo_size = fields.Char('Size of QR code logo', default="qrcode_img")
+    qr_name_size = fields.Char('Size of QR code name', default='qr_child_name')
