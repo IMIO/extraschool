@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="extraschool_qrconfig_form">
+            <field name="name">extraschool.qrconfig.form</field>
+            <field name="model">extraschool.qrconfig</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="QR Config">
+                    <field name="qr_logo_size" />
+                    <field name="qr_name_size" />
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_qrconfig">
+            <field name="name">QR Config</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">extraschool.qrconfig</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+        </record>
+
+	</data>
+</openerp>
