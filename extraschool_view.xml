@@ -76,7 +76,7 @@
         <menuitem name="Childs import filter" parent="extraschool_menu_configuration" id="extraschool_menu_childsimportfilter" action="action_extraschool_childsimportfilter"/>
         <!--<menuitem action="action_lbsc_timecorrection_wizard" id="extraschool_menu_timecorrection_wizard" parent="extraschool_menu_configuration"/>-->
         <menuitem name="Reports" parent="extraschool_menu_configuration" id="extraschool_menu_report" action="action_extraschool_report"/>
-		<!--<menuitem name="QR config" parent="extraschool_qrconfig" id="extraschool_menu_qrconfig" action="action_qrconfig"/>-->
+		<menuitem name="QR config" parent="extraschool_menu_configuration" id="extraschool_menu_qrconfig" action="action_qrconfig" groups="extraschool.extraschool_gods"/>
 
     </data>
     

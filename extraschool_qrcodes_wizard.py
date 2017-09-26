@@ -74,5 +74,6 @@ class extraschool_qrcodes_wizard(models.TransientModel):
 class extraschool_qrconfig(models.TransientModel):
     _name='extraschool.qrconfig'
 
+    name = fields.Char('Name')
     qr_logo_size = fields.Char('Size of QR code logo', default="qrcode_img")
     qr_name_size = fields.Char('Size of QR code name', default='qr_child_name')

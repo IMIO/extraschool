@@ -7,6 +7,7 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="QR Config">
+                    <field name="name"/>
                     <field name="qr_logo_size" />
                     <field name="qr_name_size" />
                 </form>
