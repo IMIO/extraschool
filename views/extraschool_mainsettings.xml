@@ -22,6 +22,9 @@
                                     <!--<newline/>-->
                                     <!--<field name="logo" widget="image" class="oe_avatar oe_left" />-->
                                     <!--<newline/>-->
+                                <page string="Update Prestation Statistic">
+                                    <button name="update_presta_stat" string="Update presta stat" icon="gtk-apply" type="object"/>
+                                </page>
                                 <page string="Upgrade Child Levels">
                                     <group col="2">
                                         <field name="levelbeforedisable" style="width:50%"/>
@@ -29,9 +32,6 @@
                                         <newline/>
                                         <field name="last_child_upgrade_levels"/>
                                     </group>
-                                </page>
-                                <page string="Update Prestation Statistic">
-                                    <button name="update_presta_stat" string="Update presta stat" icon="gtk-apply" type="object"/>
                                 </page>
                                 <page string="from presta of the day">
                                     <button name="reset" string="Reset" icon="gtk-apply" type="object"/>
@@ -45,6 +45,12 @@
                                     <field name="sql_query_ids"/>
                                     <field name="query_sql"/>
                                     <button name="execute_sql" string="Execute sql" icon="gtk-apply" type="object"/>
+                                </page>
+                                <page string="Generate CODA file">
+                                    <field name="parent_id"/>
+                                    <field name="coda_date"/>
+                                    <field name="amount"/>
+                                    <button name="generate_coda" string="Generate File" icon="gtk-apply" type="object"/>
                                 </page>
                         </notebook>
                     </sheet>
