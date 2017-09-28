@@ -23,6 +23,7 @@
 
 from openerp import models, api, fields, _
 from openerp.api import Environment
+from datetime import datetime
 from openerp.exceptions import except_orm, Warning, RedirectWarning
 from _abcoll import Sequence
 
@@ -194,29 +195,38 @@ class extraschool_activitycategory(models.Model):
     
     @api.multi        
     def get_next_comstruct(self,type,year, sequence_id = False):
-        
+
+        # Added a refund comstruct.
+        if type == 'refund':
+            next_id = self.env['extraschool.invoice'].search([('structcom', 'like', '+++000')], order='number DESC', limit=1).number
+            next_id = 1 if not next_id else next_id + 1
+            # It will always start with 000 and the rest is the date of the creation.
+            return {"num": next_id,
+                    "com_struct": '+++000/%s/%s+++' % (datetime.now().strftime("%m%d"),datetime.now().strftime("%Y"), ),
+                    }
+
         if not sequence_id:
             sequence_id = self.get_sequence(type,year)
-            
-        com_struct_id_str = self.env['ir.sequence'].next_by_id(sequence_id.id)    
 
-        if type == 'reminder':            
-            com_struct_prefix_str = self.remindercomstructprefix 
-            
+        com_struct_id_str = self.env['ir.sequence'].next_by_id(sequence_id.id)
+
+        if type == 'reminder':
+            com_struct_prefix_str = self.remindercomstructprefix
+
         if type == 'invoice':
-            com_struct_prefix_str = self.invoicecomstructprefix 
-                    
-        
+            com_struct_prefix_str = self.invoicecomstructprefix
+
+
         com_struct_prefix_str = com_struct_prefix_str.zfill(3)
         com_struct_id_str = ("%s" % (com_struct_id_str)).zfill(7)
         com_struct_check_str = str(long(com_struct_prefix_str+com_struct_id_str) % 97).zfill(2)
         com_struct_check_str = com_struct_check_str if com_struct_check_str != '00' else '97'
-        
+
         comstruct = '%s%s%s' % (com_struct_prefix_str,com_struct_id_str,com_struct_check_str)
-        
+
         return {"num": com_struct_id_str,
                 "com_struct": '+++%s/%s/%s+++' % (comstruct[0:3],comstruct[3:7],comstruct[7:12]),
-                }            
+                }
 
     @api.model
     def update_seq(self):

@@ -132,7 +132,7 @@
                         <field name="transmission_date"/>
                         <field name="payment_term"/>
                         <field name="fees_amount" sum="True"/>
-                        <field name="amount" sum="True"/>
+                        <field name="amount"/>
                     </tree>
                     </field>
                     </group>
@@ -151,8 +151,9 @@
                     </field>
                  </page>
                 <page string="Payment status">
+                    <button name="refund" string="Refund" type="object" class="oe_highlight" confirm="You are about to refund this parent. Are you sure ?" groups="extraschool.extraschool_accounting"/>
                     <field name="payment_status_ids" readonly="True">
-					<tree colors="red:solde &lt; 0;">
+                        <tree colors="red:solde &lt; 0;">
                 			<field name="activity_category_id" />
 							<field name="solde" sum="True"/>
                 		</tree>
