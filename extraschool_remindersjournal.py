@@ -68,35 +68,20 @@ class extraschool_remindersjournal(models.Model):
                              )
     based_reminder_id = fields.Many2one('extraschool.remindersjournal', 'Choose the reminder to be based on')
     show_based_reminder = fields.Boolean('Clic here if it\'s not the first reminder', default=False)
-    unsolved_reminder_ids = fields.One2many('extraschool.reminder', 'reminders_journal_id', 'Unsolved Reminders')
+    unsolved_reminder_ids = fields.One2many('extraschool.reminder', 'reminders_journal_id', 'Unsolved Reminders', compute="_get_unsolved_reminder_method")
 
-    @api.multi
-    def get_unpaid_reminder(self):
-        cr = self.env.cr
-        test = cr.execute("""
-                            SELECT r.id AS unsolved_reminder_ids
-                            FROM extraschool_reminder AS r
-                            LEFT JOIN extraschool_reminder_invoice_rel AS ri
-                            ON r.id = ri. reminder_id
-                            LEFT JOIN extraschool_invoice AS i
-                            ON ri.invoice_id = i.id
-                            WHERE r.reminders_journal_id = %s AND i.balance > 0
-                            GROUP BY r.id;
-                    """ % self.id)
-        import pdb;pdb.set_trace()
+    @api.one
+    def _get_unsolved_reminder_method(self):
+        unsolved_reminder_ids = []
 
-    # @api.one
-    # def get_unsolved_reminder_method(self):
-    #     unsolved_reminder_ids = []
-    #
-    #     get_reminder_ids = self.env['extraschool.reminder'].search([('reminders_journal_id', '=', self.id)])
-    #
-    #     for reminder in get_reminder_ids:
-    #         invoice_ids = self.env['extraschool.reminder'].browse(reminder.id).concerned_invoice_ids
-    #         if sum([self.env['extraschool.invoice'].browse(invoice.id).balance for invoice in invoice_ids]) > 0:
-    #             unsolved_reminder_ids.append(reminder.id)
-    #
-    #     return unsolved_reminder_ids
+        get_reminder_ids = self.env['extraschool.reminder'].search([('reminders_journal_id', '=', self.id)])
+
+        for reminder in get_reminder_ids:
+            invoice_ids = self.env['extraschool.reminder'].browse(reminder.id).concerned_invoice_ids
+            if sum([self.env['extraschool.invoice'].browse(invoice.id).balance for invoice in invoice_ids]) > 0:
+                unsolved_reminder_ids.append(reminder.id)
+
+        self.unsolved_reminder_ids = unsolved_reminder_ids
 
     @api.multi
     def write(self,vals):

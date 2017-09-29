@@ -157,20 +157,12 @@
                 				</field>
                 			</group>
                 		</page>
-                		<page string="Reminders biller summary">
-            				<group col="4">
-                				<field name="remindersjournal_biller_item_ids" nolabel="1" readonly="True" />
-                			</group>            
-                    	</page>
                     	<page string="Reminders">
             				<group col="4">
                 				<field name="reminder_ids" nolabel="1" readonly="True" />                		
                             </group>            
                     	</page>
                         <page string="Unpaid Reminders">
-                            <header>
-                                <button name="get_unpaid_reminder" string="Get Unpaid Reminders" type="object"/>
-                            </header>
                             <group col="4">
                                 <field name="unsolved_reminder_ids" nolabel="1" readonly="True"/>
                             </group>
