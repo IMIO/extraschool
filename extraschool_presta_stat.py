@@ -90,7 +90,7 @@ class extraschool_presta_stat(models.Model):
                     
                 period_str = "%s - %s" % (self.convert_time(last_period), self.convert_time(prest_to))
 
-                print "##Computing Statistics for range: ", period_str, " activity: ", activity.name
+                print "##Computing Statistics for range: ", period_str, " activity: ", activity.name.encode("utf-8")
                 self.env.cr.execute(insert_querry,(activity.id,period_str,activity.id,prest_to,activity.id,prest_to,last_period,prest_to,last_period))
                 last_period = prest_to
                 self.env.invalidate_all()
