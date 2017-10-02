@@ -117,7 +117,124 @@
 	        		</table>
 	       		</div>
 			</t>
+		</template>
 
+		 <template id="report_invoice_summary_durbuy">
+			<t t-set="zz" t-value="0" />
+			<t t-foreach="summary_invoice_ids" t-as="summary_invoice">
+				<t t-if="summary_invoice.id != invoice_id">
+					<t t-set="zz" t-value="zz+1" />
+				</t>
+			</t>
+			<t t-if="zz" >
+			    <style type="text/css">
+			        #invoice_summary{
+			    		width: 100%;
+			    		display: block;
+			    		margin: 0cm 0cm 0cm 0cm;
+			    		page-break-inside: avoid;
+			    		text-align: justify;
+			    		text-justify: inter-word;
+			    		font-size: x-small;
+			    	}
+
+			    	#invoice_summary div.your_ref{
+			    		width: 100%;
+			    		padding: 5mm 0mm 5mm 0mm;
+			    		display: block;
+			    	}
+
+					#invoice_summary table {
+			    		width: 100%;
+						font-size:11px;
+						border-width: 1px;
+						border-collapse: collapse;
+					}
+					#invoice_summary table th {
+						border-width: 1px;
+						padding: 4px;
+						border-style: solid;
+						background-color: #dedede;
+					}
+					#invoice_summary table td {
+						border-width: 1px;
+						padding: 4px;
+						border-style: solid;
+					}
+
+					#invoice_summary table td.amount {
+			    		text-align: right;
+			    		width: 20%;
+					}
+
+				</style>
+
+	        	<div id="invoice_summary" >
+	        		<h2>Facture(s) échue(s) ou en attente de paiement</h2>
+					<p>
+						Les factures suivantes sont toujours en attente de paiement. Nous vous prions de bien vouloir
+						procéder à
+						leur(s) règlement(s) dans les meilleurs délais. Si un paiement mentionné dans le tableau ci-dessous
+						et notre
+						courrier devaient se croiser, veuillez considérer ce paiement comme nul et non avenu. Les
+						éventuels
+						recouvrements qui seraient à charge d’un huissier ne sont pas pris en compte sur le présent
+						document.
+						Toute réclamation relative à la facture doit être transmise à la Ville de Durbuy, coordination
+						enfance, avant la date d&#39;échéance. Toute facture non contestée est considérée comme acceptée.
+					</p>
+	        		<table>
+	        			<tr>
+		        			<th>Période</th>
+		        			<th>Facture</th>
+		        			<th>Echéance</th>
+		        			<th>Montant</th>
+						</tr>
+		       			<t t-foreach="summary_invoice_ids.sorted(key=lambda r: r.number)" t-as="summary_invoice">
+	        				<tr>
+	        					<t t-if="summary_invoice.id != invoice_id">
+	        					<t t-if="summary_invoice.reminder_fees == False">
+	        						<tr>
+				       					<td><span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_from,'%Y-%m-%d')))" /> - <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_to,'%Y-%m-%d')))" /></td>
+			        					<td><span t-field="summary_invoice.number" /></td>
+				       					<td><span t-field="summary_invoice.payment_term" /></td>
+				       					<td class="amount"><span t-esc="'%.2f €' %  (summary_invoice.balance)" /></td>
+
+	        						</tr>
+								</t>
+	        					<t t-if="summary_invoice.reminder_fees == True">
+	        						<t t-foreach="summary_invoice.invoice_line_ids" t-as="invoice_line">
+	        							<tr>
+					       					<td></td>
+				        					<td><span t-field="invoice_line.description" /></td>
+					       					<td><span t-field="summary_invoice.payment_term" /></td>
+					       					<td class="amount"><span t-esc="'%.2f €' %  (invoice_line.balance)" /></td>
+				       					</tr>
+	        						</t>
+								</t>
+								</t>
+		       				</tr>
+		        		</t>
+
+	        		</table>
+	       		</div>
+			</t>
+		</template>
+
+		<template id="report_footer_durbuy">
+			<div style="font-size:10px">
+				<p>
+					Les périodes sont facturées à raison de 0.50€ la demi-heure entamée. Pour les départs après 17h30(18h30 Barvaux) les lundi,
+					mardi, jeudi et vendredi et après 13h le mercredi (hors mercredi après-midi), un forfait de 10€ est comptabilisé par 1/4h
+					entamé.
+					La Ville de Durbuy vous adresse cette facture pour la présence de votre (vos) enfant(s) en accueil extrascolaire. En cas de non
+					paiement, deux rappels vous seront adressés avec une majoration de 1.5% avant l’envoi de votre dossier chez l’huissier. La
+					transmission du
+					dossier occasionne une indemnité forfaitaire de 15% des impayés avec un minimum de 50€ . Nous vous invitons à lire
+					attentivement le ROI et le PP de l’accueil extrascolaire reçu via votre enfant à l’école.
+					Plus d’infos : Coordination Enfance, <a style="text-decoration:underline;">enfance@durbuy.be</a> ou 0473 301 771
+				</p>
+			</div>
 		</template>
 
 	</data>
