@@ -30,7 +30,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0-20170403\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-09-28 11:59+0000\n"
-"PO-Revision-Date: 2017-09-29 08:45+0200\n"
+"PO-Revision-Date: 2017-10-02 10:40+0200\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -29677,7 +29677,7 @@ msgstr "Nombre d'enfant actif"
 #. module: extraschool
 #: field:extraschool.presta_stat,nbr_child:0
 msgid "Nbr childs"
-msgstr "Nombre d'enfants"
+msgstr "Nombre de présences"
 
 #. module: extraschool
 #: field:extraschool.taxcertificate_item,nbr_day:0
