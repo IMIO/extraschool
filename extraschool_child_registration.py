@@ -62,6 +62,7 @@ class extraschool_child_registration(models.Model):
                               'validated', required=True, default='draft'
                               )
     number_childs = fields.Char('Number of childs', readonly=True, default=0)
+    levelid = fields.Many2one('extraschool.level', 'Level')
 
     @api.onchange('child_registration_line_ids')
     def compute_number_childs(self):
@@ -162,6 +163,9 @@ class extraschool_child_registration(models.Model):
         if self.class_id:
             childs = self.env['extraschool.child'].search([('schoolimplantation.id', '=', self.school_implantation_id.id),
                                                            ('classid.id', '=',self.class_id.id)])
+        if self.levelid:
+            childs = self.env['extraschool.child'].search([('schoolimplantation.id', '=', self.school_implantation_id.id),
+                                                           ('levelid.id', '=',self.levelid.id)])
         else:
             childs = self.env['extraschool.child'].search([('schoolimplantation.id', '=', self.school_implantation_id.id),
                                                            ])

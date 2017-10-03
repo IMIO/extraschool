@@ -9,6 +9,7 @@
 				<tree string="child registration"  colors="red:error_duplicate_reg_line==True">					
                     <field name="school_implantation_id"/>
                     <field name="class_id"/>
+					<field name="levelid"/>
 					<field name="place_id"/>
                     <field name="activity_id"/>
 					<field name="week"/>                    	
@@ -29,6 +30,7 @@
 				<tree string="child registration" colors="red:error_duplicate_reg_line==True">					
                     <field name="school_implantation_id"/>
                     <field name="class_id"/>
+                    <field name="levelid"/>
 					<field name="place_id"/>
 					<field name="week"/>                    	
                     <field name="date_from"/> 
@@ -56,6 +58,7 @@
 	                    <field name="school_implantation_id" class="oe_no_button" />
 	                    <field name="class_id" class="oe_no_button"/>						
 						<field name="place_id"/>
+                        <field name="levelid"/>
 						<newline/>						
 	                    <field name="week"/>
         	            <newline/>
@@ -125,6 +128,7 @@
 	                    <field name="school_implantation_id" class="oe_no_button" />
 	                    <field name="class_id" class="oe_no_button"/>						
 						<field name="place_id"/>
+                        <field name="levelid"/>
 	                    <field name="activity_id" required="True"/>
 	                    <field name="week"/>
         	            <newline/>
