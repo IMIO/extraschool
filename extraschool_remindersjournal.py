@@ -231,7 +231,9 @@ class extraschool_remindersjournal(models.Model):
                 #select invoices
                 invoice_search_domain = [('activitycategoryid.id', '=',self.activity_category_id.id),
                                          ('balance', '>',0), # todo: See if this is needed.
-                                         ('balance', '>=',reminder_type.minimum_balance)]
+                                         ('balance', '>=',reminder_type.minimum_balance),
+                                         ('huissier', '=', False),
+                                         ]
 
 
                 #add selection on date range
