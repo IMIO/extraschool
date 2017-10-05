@@ -36,7 +36,7 @@ class extraschool_payment(models.Model):
                                     ('3','Cash'),
                                     ('4','Non value'),
                                     ('5','Reject')),'Payment type')
-    parent_id = fields.Many2one("extraschool.parent",domain="[('isdisabled','=',True)]")
+    parent_id = fields.Many2one("extraschool.parent",domain="[('isdisabled','=',False)]")
     paymentdate = fields.Date('Date', required=True)
     structcom = fields.Char('Structured Communication', size=50)
     structcom_prefix = fields.Char('Structured communication prefix', size=3)
