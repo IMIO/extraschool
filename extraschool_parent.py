@@ -31,6 +31,7 @@ from openerp.exceptions import except_orm, Warning, RedirectWarning
 class extraschool_parent(models.Model):
     _name = 'extraschool.parent'
     _description = 'Parent'
+    _inherit = 'mail.thread'
 
     @api.depends('firstname','lastname')
     def _name_compute(self):
@@ -106,44 +107,44 @@ class extraschool_parent(models.Model):
             record.total_reminder_fees = cr.fetchall()[0][0]
 
     name = fields.Char(compute='_name_compute',string='FullName', search='_search_fullname', size=100)
-    rn = fields.Char('RN')
-    firstname = fields.Char('FirstName', size=50,required=True)
-    lastname = fields.Char('LastName', size=50,required=True)
-    street = fields.Char('Street', size=50,required=True)
-    zipcode = fields.Char('ZipCode', size=6,required=True)
-    city = fields.Char('City', size=50,required=True)
-    housephone = fields.Char('House Phone', size=20)
-    workphone = fields.Char('Work Phone', size=20)
-    gsm = fields.Char('GSM', size=20)
-    email = fields.Char('Email', size=100)
+    rn = fields.Char('RN', track_visibility='onchange')
+    firstname = fields.Char('FirstName', size=50,required=True, track_visibility='onchange')
+    lastname = fields.Char('LastName', size=50,required=True, track_visibility='onchange')
+    street = fields.Char('Street', size=50,required=True, track_visibility='onchange')
+    zipcode = fields.Char('ZipCode', size=6,required=True, track_visibility='onchange')
+    city = fields.Char('City', size=50,required=True, track_visibility='onchange')
+    housephone = fields.Char('House Phone', size=20, track_visibility='onchange')
+    workphone = fields.Char('Work Phone', size=20, track_visibility='onchange')
+    gsm = fields.Char('GSM', size=20, track_visibility='onchange')
+    email = fields.Char('Email', size=100, track_visibility='onchange')
     invoicesendmethod = fields.Selection((('emailandmail','By mail and email'),
                                           ('onlyemail','Only by email'),
                                           ('onlybymail','Only by mail')),
-                                         'Invoice send method',required=True, default='onlybymail')
-    streetcode = fields.Char('Street code', size=50)
-    child_ids = fields.One2many('extraschool.child', 'parentid','childs')
-    invoice_ids = fields.One2many('extraschool.invoice', 'parentid','invoices')
+                                         'Invoice send method',required=True, default='onlybymail', track_visibility='onchange')
+    streetcode = fields.Char('Street code', size=50, track_visibility='onchange')
+    child_ids = fields.One2many('extraschool.child', 'parentid','childs', readonly=True)
+    invoice_ids = fields.One2many('extraschool.invoice', 'parentid','invoices', track_visibility='onchange')
     remindersendmethod = fields.Selection((('emailandmail','By mail and email'),
                                            ('onlyemail','Only by email'),
                                            ('onlybymail','Only by mail')),
-                                          'Reminder send method',required=True, default='onlybymail')
+                                          'Reminder send method',required=True, default='onlybymail', track_visibility='onchange')
     one_subvention_type = fields.Selection((('sf','operating grants'),
                                             ('sdp','positive differentiation grants')),
-                                           required=True, default='sf')
-    reminder_ids = fields.One2many('extraschool.reminder', 'parentid','reminders')
+                                           required=True, default='sf', track_visibility='onchange')
+    reminder_ids = fields.One2many('extraschool.reminder', 'parentid','reminders', readonly=True)
     totalinvoiced = fields.Float(compute='_compute_totalinvoiced', string="Total invoiced")
     totalreceived = fields.Float(compute='_compute_totalreceived', string="Total received")
     totalbalance = fields.Float(compute='_compute_totalbalance', string="Total balance")
     total_reminder_fees = fields.Float(compute='_compute_total_reminder_fees', string="Total reminder fees")
-    totalhuissier = fields.Float(compute='_compute_totalhuissier', string="Total huissier")
+    totalhuissier = fields.Float(compute='_compute_totalhuissier', string="Total huissier", track_visibility='onchange')
     payment_ids = fields.One2many('extraschool.payment','parent_id')
     payment_status_ids = fields.One2many('extraschool.payment_status_report','parent_id')
-    last_import_date = fields.Datetime('Import date', readonly=True)
+    last_import_date = fields.Datetime('Import date', readonly=True, track_visibility='onchange')
     modified_since_last_import = fields.Boolean('Modified since last import')
-    isdisabled = fields.Boolean('Disabled')
+    isdisabled = fields.Boolean('Disabled', track_visibility='onchange')
     oldid = fields.Integer('oldid')
-    nbr_actif_child = fields.Integer(compute='_compute_nbr_actif_child',string='Nbr actif child', store = True)
-    comment = fields.Text('Comment')
+    nbr_actif_child = fields.Integer(compute='_compute_nbr_actif_child',string='Nbr actif child', store = True, track_visibility='onchange')
+    comment = fields.Text('Comment', track_visibility='onchange')
 
     @api.multi
     def refund(self):

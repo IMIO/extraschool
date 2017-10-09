@@ -30,22 +30,23 @@ import datetime
 class extraschool_child(models.Model):
     _name = 'extraschool.child'
     _description = 'Child'
+    _inherit = 'mail.thread'
 
     name = fields.Char(compute='_name_compute',string='FullName', search='_search_fullname', size=100)
     childtypeid = fields.Many2one('extraschool.childtype', 'Type',required=True, ondelete='restrict', help='Ce champs permet de définir si l\'enfant a le droit à un tarif préférentiel (ex: enfants du CPAS, enfants de la croix rouge, enfants des accueillantes,...)')
     rn = fields.Char('RN')
-    firstname = fields.Char('FirstName', size=50, required=True)
-    lastname = fields.Char('LastName', size=50 , required=True)
-    schoolimplantation = fields.Many2one('extraschool.schoolimplantation', 'School implantation',required=True)
-    levelid = fields.Many2one('extraschool.level', 'Level', required=True)
-    classid = fields.Many2one('extraschool.class', 'Class', required=False, domain="[('schoolimplantation','=',schoolimplantation)]")
-    parentid = fields.Many2one('extraschool.parent', 'Parent', required=True, ondelete='RESTRICT', select=True)
-    birthdate = fields.Date('Birthdate', required=True)
+    firstname = fields.Char('FirstName', size=50, required=True, track_visibility='onchange')
+    lastname = fields.Char('LastName', size=50 , required=True, track_visibility='onchange')
+    schoolimplantation = fields.Many2one('extraschool.schoolimplantation', 'School implantation',required=True, track_visibility='onchange')
+    levelid = fields.Many2one('extraschool.level', 'Level', required=True, track_visibility='onchange')
+    classid = fields.Many2one('extraschool.class', 'Class', required=False, domain="[('schoolimplantation','=',schoolimplantation)]", track_visibility='onchange')
+    parentid = fields.Many2one('extraschool.parent', 'Parent', required=True, ondelete='RESTRICT', select=True, track_visibility='onchange')
+    birthdate = fields.Date('Birthdate', required=True, track_visibility='onchange')
     last_import_date = fields.Datetime('Import date', readonly=True)
     modified_since_last_import = fields.Boolean('Modified since last import')    
-    tagid = fields.Char('Tag ID', readonly=True, help='Numéro contenu dans le QR Code')
-    otherref = fields.Char('Other ref', size=50)
-    isdisabled = fields.Boolean('Disabled')             
+    tagid = fields.Char('Tag ID', readonly=True, help='Numéro contenu dans le QR Code', track_visibility='onchange')
+    otherref = fields.Char('Other ref', size=50, track_visibility='onchange')
+    isdisabled = fields.Boolean('Disabled', track_visibility='onchange')
 
     def _search_fullname(self, operator, value):
         return ['|',('firstname', operator, value),('lastname', operator, value)]
