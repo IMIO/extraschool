@@ -4,7 +4,7 @@
 #    Extraschool
 #    Copyright (C) 2008-2014 
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia- Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -162,14 +162,18 @@ class extraschool_child_registration(models.Model):
 
         if self.class_id:
             childs = self.env['extraschool.child'].search([('schoolimplantation.id', '=', self.school_implantation_id.id),
-                                                           ('classid.id', '=',self.class_id.id)])
+                                                           ('classid.id', '=',self.class_id.id),
+                                                           ('isdisabled', '=', False),
+                                                           ])
         if self.levelid:
             childs = self.env['extraschool.child'].search([('schoolimplantation.id', '=', self.school_implantation_id.id),
-                                                           ('levelid.id', '=',self.levelid.id)])
+                                                           ('levelid.id', '=',self.levelid.id),
+                                                           ('isdisabled', '=', False),
+                                                           ])
         else:
             childs = self.env['extraschool.child'].search([('schoolimplantation.id', '=', self.school_implantation_id.id),
+                                                           ('isdisabled', '=', False),
                                                            ])
-
 
         self.child_registration_line_ids.unlink()
         #clear child list
