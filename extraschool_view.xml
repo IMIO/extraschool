@@ -21,8 +21,8 @@
                 <field name="url">http://redwashere.be/aes/</field>
         </record>
 
-        <menuitem action="aes_doc" name="Documentation AES" id="menu_aes_doc"/>
-        <menuitem name="Extraschool" id="menu_extraschool" />
+        <menuitem action="aes_doc" name="Documentation AES" id="menu_aes_doc" sequence="9"/>
+        <menuitem name="Extraschool" id="menu_extraschool" sequence="8"/>
 		<menuitem name="Signaletics" id="extraschool_menu_signaletics" parent="menu_extraschool" sequence="10"/>
 		<menuitem name="Childs" parent="extraschool_menu_signaletics" id="extraschool_menu_child" action="action_extraschool_child"/>
 		<menuitem name="Parents" parent="extraschool_menu_signaletics" id="extraschool_menu_parent" action="action_extraschool_parent"/>
