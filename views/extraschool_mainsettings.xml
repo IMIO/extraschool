@@ -50,6 +50,7 @@
                                     <field name="parent_id"/>
                                     <field name="coda_date"/>
                                     <field name="amount"/>
+                                    <field name="communication"/>
                                     <button name="generate_coda" string="Generate File" icon="gtk-apply" type="object"/>
                                 </page>
                         </notebook>

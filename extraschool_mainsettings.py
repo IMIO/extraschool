@@ -62,7 +62,11 @@ class extraschool_mainsettings(models.Model):
         euros = euros[0:(13 - len(amount[0]))] + amount[0]
         cents = "00"
         cents = cents[0:(2 - len(amount[1]))] + amount[1]
-        amount_line = "2100010000090545069I099002624  " + euros + cents +"0190917001500001101300000101247                                      19091717101 0"
+        naked_comm = ''
+        for char in self.communication:
+            if char != '/':
+                naked_comm += char
+        amount_line = "2100010000090545069I099002624  " + euros + cents +"0190917001500001101" + naked_comm + "                                      19091717101 0"
 
         filler = "2200010000                                                     NOTPROVIDED                        GKCCBEBB                   1 0"
 
