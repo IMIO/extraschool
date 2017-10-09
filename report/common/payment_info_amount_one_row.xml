@@ -92,7 +92,90 @@
 				</div>	
 			</xpath>
 				
-		</template>		
+		</template>
+
+
+		<template id="report_payment_info_amount_one_row_durbuy">
+			<style>
+				#total_row{
+					border-width: 1px;
+					border-style: solid;
+					float: left;
+					width: 100%;
+					page-break-inside: avoid;
+					font-size: 12px;
+				}
+
+				#total{
+					width: 40%;
+				    float: right;
+				    margin: 2mm 5mm 2mm 0mm;
+				}
+
+				#total:after {
+					content: "";
+					display: block;
+					clear: both;
+				}
+
+				#total>div{
+					display: block;
+					padding: 0px 8px 0px 8px;
+					width: 100%;
+					float: right;
+
+				}
+
+				#total>div>span.amount {
+					float : right;
+					width: 40%;
+					text-align: right;
+				}
+
+				#total>div>span.zz_label {
+					float : left;
+					width: 50%;
+				}
+
+				#total>div.to_pay {
+					font-weight: bold;
+				}
+
+				#payment_info{
+				    margin-left: 5mm;
+					display: block;
+					width: 50%;
+					float : left;
+					padding: 8px;
+				}
+			</style>
+			<div id="total_row">
+
+				<div id="payment_info">
+					<div class="amount">
+					  <span class="zz_label">Total des frais de cette période d'accueil: </span><span class="amount"><t t-esc="'%.2f' %  (total)" />€</span>
+					</div>
+					<div class="amount">
+					  <span class="zz_label">Solde des périodes antérieures: </span><span class="amount"><t t-esc="'%.2f' %  (received)" />€</span>
+					</div>
+					<div class="amount">
+					  <span class="zz_label">Solde à payer: </span><span class="amount"><t t-esc="'%.2f' %  (balance)" />€</span>
+					</div>
+					<br/>
+					<span>Au numéro de compte: <b><t t-esc="categ_id.bankaccount" /></b></span>
+					<!--<span style="margin-left:100px">BIC: <t t-esc="categ_id.bank_bic" /></span>-->
+						<div class="com_struct">
+							Avec la communication structurée <b>obligatoire</b> : <b></b>
+						</div>
+						<div class="amount to_pay">
+						  <b><span> A payer avant le <t t-esc="payment_term" /></span></b>
+						</div>
+				</div>
+			</div>
+
+		</template>
+
+
 	</data>
 </openerp>	
 	
