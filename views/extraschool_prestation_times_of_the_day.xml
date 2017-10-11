@@ -26,7 +26,7 @@
 						<button name="reset" group="admin" string="Reset" icon="gtk-apply" type="object" />	                    
 						<button name="check" group="admin" string="Check" icon="gtk-apply" type="object" />	                    							                    
 					</header>
-										
+					<sheet>
 					<group col="4">
 						<field name="activity_category_id" readonly="True"/>	
 						<newline/>
@@ -61,7 +61,7 @@
 		                    		<field name="exit_all" />
 		                    		<field name="verified" />
 		                    		<field name="error_msg" />
-	                    		</group>                    		
+	                    		</group>
 	                    	</form>
 	                    </field>
 		                <separator string="PDA prestations" colspan="4"/> 
@@ -76,6 +76,7 @@
 	                    	</tree>
 	                    </field>
 	                </group>
+					</sheet>
 				</form>
 			</field>
 		</record>
@@ -116,7 +117,7 @@
 			<field name="view_id" ref="extraschool_prestation_times_of_the_day_tree"/>
             <field name="search_view_id" ref="prestation_times_of_the_day_search_view"/>			
 			<field name="context">{'search_default_not_verified':1}</field>   	    
-		</record>		
+		</record>
 		
 	</data>
 </openerp>
