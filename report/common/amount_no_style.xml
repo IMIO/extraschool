@@ -120,7 +120,7 @@
 			<div id="total_row">
 				<div id="total">
 					<div class="amount">
-					  	<span class="zz_label">Total</span><span class="amount"><t t-esc="sum([invoice.balance for invoice in summary_invoice_ids])" /> €</span>
+					  	<span class="zz_label">Total</span><span class="amount"><t t-esc="'%.2f' % (sum([invoice.balance for invoice in summary_invoice_ids]) + (total))" /> €</span>
 					</div>
 					<div class="amount">
 					   	<span class="zz_label">Reçu</span><span class="amount"><t t-esc="'%.2f' %  (received)" /> €</span>
