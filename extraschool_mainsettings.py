@@ -47,6 +47,25 @@ class extraschool_mainsettings(models.Model):
     coda_date = fields.Date('CODA\'s date')
     amount = fields.Char('Amount')
     communication = fields.Char('Structured Communication')
+    date_from = fields.Date('Date from')
+    date_to = fields.Date('Date to')
+
+    @api.multi
+    def re_check_pod(self):
+        cr = self.env.cr
+
+        sql_query = """ SELECT id
+                        FROM extraschool_prestationtimes
+                        WHERE activity_occurrence_id IS NULL AND prestation_date BETWEEN %s AND %s"""
+
+        cr.execute(sql_query, (self.date_from, self.date_to))
+        prestation_ids = cr.fetchall()
+
+        for prestation_id in prestation_ids:
+            test = self.env['extraschool.prestation_times_of_the_day'].search([('prestationtime_ids', 'in', prestation_id)])
+            if test:
+                test.reset()
+                test.check()
 
     @api.multi
     def generate_coda(self):
