@@ -92,10 +92,14 @@ class extraschool_invoice_wizard(models.TransientModel):
         termdate=datetime.date(datetime.datetime.now().year,datetime.datetime.now().month,datetime.datetime.now().day)+datetime.timedelta(16)
         self.invoice_term = str(termdate)
 
+    def _get_all_schoolimplantation(self):
+        school_implantation_ids = self.env['extraschool.schoolimplantation'].search([]).mapped('id')
+        return school_implantation_ids
+
     schoolimplantationid = fields.Many2many(comodel_name='extraschool.schoolimplantation',
                                relation='extraschool_invoice_wizard_schoolimplantation_rel',
                                column1='invoice_wizard_id',
-                               column2='schoolimplantation_id', required=True)
+                               column2='schoolimplantation_id', default=_get_all_schoolimplantation, readonly=True)
     activitycategory = fields.Many2one('extraschool.activitycategory', 'Activity category', required=True, default=1)        
     period_from = fields.Date('Period from', required=True, default=_get_defaultfrom, help='Date où l\'on va commencer la facturation')
     period_to = fields.Date('Period to', required=True, default=_get_defaultto, help='Date où l\'on va terminer la facturation')
@@ -662,7 +666,7 @@ class extraschool_invoice_wizard(models.TransientModel):
             message = _("At least one price list is missing !!!\n ")
             for missing_pl in missing_pls:
                 message += "%s - %s - %s - %s -> %s\n" % (missing_pl['child_name'], missing_pl['child_type'], missing_pl['child_position_id'], missing_pl['name'], missing_pl['prestation_date'])
-                
+
             raise Warning(message)
         #Mise à jour des prix et unité de tps
         invoice_line_ids_sql = (tuple(invoice_line_ids),)        

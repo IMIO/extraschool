@@ -25,6 +25,11 @@
                                 <page string="Update Prestation Statistic">
                                     <button name="update_presta_stat" string="Update presta stat" icon="gtk-apply" type="object"/>
                                 </page>
+                                <page string="Re check POD - Error when building biller">
+                                    <field name="date_from"/>
+                                    <field name="date_to"/>
+                                    <button name="re_check_pod" string="Check" icon="gtk-apply" type="object"/>
+                                </page>
                                 <page string="Upgrade Child Levels">
                                     <group col="2">
                                         <field name="levelbeforedisable" style="width:50%"/>
