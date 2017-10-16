@@ -308,7 +308,7 @@ class extraschool_activity(models.Model):
             if exclusiondates_id.date_from < validity_from or exclusiondates_id.date_to > validity_to:
                 raise Warning(_("Date_from must be in range of Validity_from and Validity_to (Exclusion)"))
 
-    @api.onchange('validity_from','validity_to','planneddates_ids','exclusiondates_ids','parent_id','placeids','leveltype','prest_from','prest_to')
+    @api.onchange('validity_from','validity_to','planneddates_ids','exclusiondates_ids','parent_id','placeids','leveltype','prest_from','prest_to','days')
     @api.multi
     def check_validity_from_invoice(self):
         print "# Check if there is an invoice prestation at the current date"
@@ -346,7 +346,8 @@ class extraschool_activity(models.Model):
                     or 'placeids' in vals \
                     or 'leveltype' in vals \
                     or 'prest_from' in vals \
-                    or 'prest_to' in vals:
+                    or 'prest_to' in vals \
+                    or 'days' in vals:
                 # Follow the white rabbit.
                 self.check_if_modifiable(vals)
 
