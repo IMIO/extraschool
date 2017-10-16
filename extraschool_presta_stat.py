@@ -41,6 +41,7 @@ class extraschool_presta_stat(models.Model):
     def convert_time(self, time):
         return '{0:02.0f}:{1:02.0f}'.format(*divmod(time * 60, 60))
 
+    @api.model
     def compute(self):
         period_range = 0.25
         #delete all records
@@ -94,4 +95,4 @@ class extraschool_presta_stat(models.Model):
                 self.env.cr.execute(insert_querry,(activity.id,period_str,activity.id,prest_to,activity.id,prest_to,last_period,prest_to,last_period))
                 last_period = prest_to
                 self.env.invalidate_all()
-            
+        print "### END: Prestation Statistics ###"
