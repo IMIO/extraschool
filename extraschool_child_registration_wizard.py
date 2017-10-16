@@ -4,7 +4,7 @@
 #    Extraschool
 #    Copyright (C) 2008-2014 
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia- Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -33,17 +33,23 @@ class extraschool_child_registration_validation_wizard(models.TransientModel):
     _name = 'extraschool.child_registration_validation_wizard'
 
     @api.multi
-    def validate(self):        
-        for reg in self.env['extraschool.child_registration'].browse(self._context.get('active_ids')):
+    def validate(self):
+        registration_obj = self.env['extraschool.child_registration'].browse(self._context.get('active_ids'))
+        print "#Start Validation Registration."
+        count = 1
+        for reg in registration_obj:
+            print "## Thread number: [", count, "/", len(registration_obj), "]"
             if reg.activity_id:
                 reg.validate()
             else:
                 reg.validate_multi()
-                
+            count += 1
+        print "### End Validation Registration."
         return True
     
     @api.multi
-    def force_set_to_draft(self):        
+    def force_set_to_draft(self):
+
         for reg in self.env['extraschool.child_registration'].browse(self._context.get('active_ids')):
             reg.force_set_to_draft()
                 
