@@ -35,7 +35,7 @@ class extraschool_negatif_payment_correction_wizard(models.TransientModel):
     parent_id = fields.Many2one("extraschool.parent")
     invoice_date = fields.Date('Date', required=True)
     payment_term = fields.Date('Payment term', required=True)     
-    description = fields.Char('Description', required=True)
+    description = fields.Char('Description')
     activity_category_id = fields.Many2one("extraschool.activitycategory", required=True)
     state = fields.Selection([('init', 'Init'),
                              ('redirect', 'Redirect'),],
@@ -70,8 +70,9 @@ class extraschool_negatif_payment_correction_wizard(models.TransientModel):
                             'payment_term': biller.payment_term,
                             'activitycategoryid': self.activity_category_id.id,
                             'structcom': next_invoice_num['com_struct']})
+            print "pppp", payment.comment
             inv_line_obj.create({'invoiceid' : invoice.id,
-                'description' : self.description,
+                'description' : payment.comment,
                 'unit_price': payment.amount * -1,
                 'quantity': 1,
                 'total_price': payment.amount * -1,
