@@ -70,7 +70,6 @@ class extraschool_negatif_payment_correction_wizard(models.TransientModel):
                             'payment_term': biller.payment_term,
                             'activitycategoryid': self.activity_category_id.id,
                             'structcom': next_invoice_num['com_struct']})
-            print "pppp", payment.comment
             inv_line_obj.create({'invoiceid' : invoice.id,
                 'description' : payment.comment,
                 'unit_price': payment.amount * -1,
