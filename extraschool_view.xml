@@ -18,7 +18,7 @@
 		<record id="aes_doc" model="ir.actions.act_url">
                 <field name="name">Documentation AES</field>
                 <field name="type">ir.actions.act_url</field>
-                <field name="url">http://redwashere.be/aes/</field>
+                <field name="url">http://docs.imio.be/aes/</field>
         </record>
 
         <menuitem action="aes_doc" name="Documentation AES" id="menu_aes_doc" sequence="9"/>
