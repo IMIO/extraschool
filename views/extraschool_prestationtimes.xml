@@ -52,7 +52,7 @@
                    <group  expand='0' string='Group by...'>
                        <filter string='Enfant' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'childid'}"/>
                        <filter string="Lieux d&apos;accueil" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'placeid'}"/>                       	                       
-                       <filter string='Activité' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'activity_name'}"/>
+                       <filter string='Activité' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'activity_occurrence_id'}"/>
                    </group>                    
                 </search>
             </field>

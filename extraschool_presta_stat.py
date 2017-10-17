@@ -49,7 +49,7 @@ class extraschool_presta_stat(models.Model):
         print"#Unlink Prestation Statistics"
         self.search([]).unlink()
         
-        for activity in self.env['extraschool.activity'].search([('default_from_to','<>','from_to')]):
+        for activity in self.env['extraschool.activity'].search([('autoaddchilds','=', False)]):
             nbr_period = int(ceil((activity.prest_to-activity.prest_from) / period_range))
             last_period = activity.prest_from 
             for period in range(0,nbr_period):
