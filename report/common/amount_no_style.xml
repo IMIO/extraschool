@@ -61,9 +61,12 @@
                     <div class="amount to_pay" t-if="reminder_type == 'fix'">
                         <span class="zz_label">Solde</span><span class="amount"><t t-esc="'%.2f' %  (balance + fees)" /> €</span>
                     </div>
-                        <div class="amount to_pay" t-if="reminder_type == 'free'">
-                            <span class="zz_label">Solde</span><span class="amount"><t t-esc="'%.2f' %  (balance)" /> €</span>
-                        </div>
+					<div class="amount to_pay" t-if="reminder_type == 'free'">
+						<span class="zz_label">Solde</span><span class="amount"><t t-esc="'%.2f' %  (balance)" /> €</span>
+					</div>
+					<div class="amount to_pay" t-if="not reminder_type">
+						<span class="zz_label">Solde</span><span class="amount"><t t-esc="'%.2f' %  (balance)" /> €</span>
+					</div>
 					<div class="amount to_pay">
 					 	<span> A payer avant le <t t-esc="payment_term" /></span>
 					</div>	
