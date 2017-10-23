@@ -37,6 +37,7 @@ class extraschool_presta_stat(models.Model):
     level = fields.Selection(available_levels,string = 'Level' )
     rancge = fields.Char( string='Range', index=True)
     nbr_child = fields.Integer(string = 'Nbr childs')
+    child_id = fields.Many2one('extraschool.child', string='Child', index=True)
 
     def convert_time(self, time):
         return '{0:02.0f}:{1:02.0f}'.format(*divmod(time * 60, 60))
@@ -55,12 +56,12 @@ class extraschool_presta_stat(models.Model):
             for period in range(0,nbr_period):
                 insert_querry = """
                                 insert into extraschool_presta_stat
-                                    (date, activity_id, place_id, level, rancge, nbr_child)                                    
-                                    select prestation_date, %s, placeid, level, %s, count(*)
+                                    (date, activity_id, place_id, level, rancge, nbr_child, child_id)                                    
+                                    select prestation_date, %s, placeid, level, %s, count(*), child_id
                                     from 
-                                    (select prestation_date, activityid, placeid, prestation_time, es, level
+                                    (select prestation_date, activityid, placeid, prestation_time, es, level, child_id
                                         from
-                                        (select activityid, placeid, childid, prestation_date, prestation_time, es, l.leveltype as level
+                                        (select activityid, placeid, childid AS child_id, prestation_date, prestation_time, es, l.leveltype as level
                                         from extraschool_prestationtimes p
                                         left join extraschool_activityoccurrence o on o.id = p.activity_occurrence_id 
                                         left join extraschool_child c on c.id = p.childid
@@ -82,7 +83,7 @@ class extraschool_presta_stat(models.Model):
                                         where (zz.prestation_time >= %s and zz.prestation_time <= %s) or
                                             (zz.prestation_time <= %s and es = 'E')
                                     ) qq
-                                    group by activityid, placeid, prestation_date, level
+                                    group by activityid, placeid, prestation_date, level, child_id
                                 """
                 if activity.prest_from + (period+1)*period_range > activity.prest_to:
                     prest_to = activity.prest_to

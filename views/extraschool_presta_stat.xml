@@ -28,6 +28,7 @@
 					<field name="place_id" select="1"/>											
 					<field name="rancge"/>
                     <field name="nbr_child"/>
+					<field name="child_id"/>
 	                </group>
 				</form>
 			</field>
