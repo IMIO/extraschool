@@ -104,8 +104,8 @@
                     <newline/>
                     <field name="total_reminder_fees"/>
                     <newline/>
-                    <!--<field name="totalhuissier"/>-->
-                    <!--<newline/>-->
+                    <field name="totalhuissier"/>
+                    <newline/>
                         <separator string="Factures de:"  colspan="4"/>
                         <field name="name" nolabel="1" style="font-size:16px" attrs="{'invisible':[('lastname','=',False),('firstname', '=', False)]}"/>
                         <field name="invoice_ids" nolabel="1" colspan="4">
