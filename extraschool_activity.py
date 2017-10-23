@@ -242,8 +242,6 @@ class extraschool_activity(models.Model):
         ])
 
         print "# Number of reset required: ", len(prestation_time_compute)
-        for presta in prestation_time_compute:
-            print presta.id
         prestation_time_compute.reset()
 
         print "# Unlink occurrences"
