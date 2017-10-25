@@ -28,19 +28,25 @@
 							
 						<field name="state" widget="statusbar" statusbar_visible="draft,validated"/>													
 					</header>
-					<group col="4">
-						<field name="activity_category_id" required="True"/>
-						<field name="date_of_the_day" />
-	                    <field name="place_id" />
-	                    <newline/>
-	                    <field name="prestationtime_ids" nolabel="1" colspan="4">
-	                    	<tree editable="bottom">
-								<field name="child_id"/>
-								<field name="prestation_time_entry" widget="float_time"/>
-								<field name="prestation_time_exit" widget="float_time"/>								
-	                    	</tree>
-	                    </field>
-		            </group>
+					<sheet>
+						<group col="4">
+							<field name="activity_category_id" required="True"/>
+							<field name="date_of_the_day" />
+							<field name="place_id" />
+							<newline/>
+							<field name="prestationtime_ids" nolabel="1" colspan="4">
+								<tree editable="bottom">
+									<field name="child_id"/>
+									<field name="prestation_time_entry" widget="float_time"/>
+									<field name="prestation_time_exit" widget="float_time"/>
+								</tree>
+							</field>
+						</group>
+					</sheet>
+                    <div class="oe_chatter" groups="extraschool.extraschool_gods">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
 				</form>
 			</field>
 		</record>

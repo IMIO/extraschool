@@ -30,6 +30,7 @@ import datetime
 
 class extraschool_prestation_times_encodage_manuel(models.Model):
     _name = 'extraschool.prestation_times_encodage_manuel'
+    _inherit = 'mail.thread'
 
     def name_get(self, cr, uid, ids, context={}):
         if not len(ids):
@@ -43,14 +44,14 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
 
         return res      
      
-    date_of_the_day = fields.Date(required=True, readonly=True, states={'draft': [('readonly', False)]})    
-    place_id = fields.Many2one('extraschool.place', required=True, readonly=True, states={'draft': [('readonly', False)]})                    
-    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False)
-    prestationtime_ids = fields.One2many('extraschool.prestation_times_manuel','prestation_times_encodage_manuel_id', readonly=True, states={'draft': [('readonly', False)]})    
-    comment = fields.Text()
+    date_of_the_day = fields.Date(required=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
+    place_id = fields.Many2one('extraschool.place', required=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
+    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False, track_visibility='onchange')
+    prestationtime_ids = fields.One2many('extraschool.prestation_times_manuel','prestation_times_encodage_manuel_id', readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
+    comment = fields.Text(track_visibility='onchange')
     state = fields.Selection([('draft', 'Draft'),
                               ('validated', 'Validated')],
-                              'State', required=True, default='draft'
+                              'State', required=True, default='draft', track_visibility='onchange'
                               )
     
     @api.one
