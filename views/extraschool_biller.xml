@@ -39,12 +39,12 @@
 						<button name="all_invoices" string="Toutes les factures" type="object" class="oe_inline oe_stat_button" icon="fa-files-o"/>														
 						<button name="all_pdf" string="Docs" type="object" class="oe_inline oe_stat_button" icon="fa-files-o" groups="base.group_erp_manager"/>														
 					</div>
-				<field name="pdf_ready" invisible="True"/>							
+				<field name="pdf_ready" invisible="True"/>
 				<group col="4">
                     <field name="period_from"/>
 					<field name="period_to"/>
                     <newline/>
-                    <field name="payment_term"/>                    
+                    <field name="payment_term"/>
                     <field name="activitycategoryid"/>
                     <newline/>
                     <field name="total"/>
@@ -57,28 +57,32 @@
                     <newline/>
                     <field name="biller_file" filename="filename"/>
                     <newline/>
-                    <field name="nbinvoices"/>                    
+                    <field name="nbinvoices"/>
                     <newline/>
                     <field name="other_ref"/>
                     <newline/>
-                    <field name="comment" widget="html"/>                    
-                    	                   
+                    <field name="comment" widget="html"/>
+
                     </group>
                     <separator string="Invoices"/>
 					<field name="invoice_ids">
 						<tree>
 							<field name="parentid"/>
 	                        <field name="activitycategoryid"/>
-							<field name="structcom"/>	                        
+							<field name="structcom"/>
 	                        <field name="period_from"/>
 	                        <field name="period_to"/>
 	                        <field name="payment_term"/>
 	                        <field name="amount_total" sum="True"/>
 	                        <field name="amount_received" sum="True"/>
 	                        <field name="balance" sum="True"/>
-	                        <field name="no_value"/>	                        								
+	                        <field name="no_value"/>
 						</tree>
-					</field>                    
+					</field>
+                    <div class="oe_chatter" groups="extraschool.extraschool_gods">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
 				</form>
 			</field>
 		</record>

@@ -43,20 +43,21 @@ import time
 class extraschool_biller(models.Model):
     _name = 'extraschool.biller'
     _description = 'Biller'
+    _inherit = 'mail.thread'
 
     _order = "id desc"
     
-    activitycategoryid = fields.Many2one('extraschool.activitycategory', 'Activity Category')
+    activitycategoryid = fields.Many2one('extraschool.activitycategory', 'Activity Category', track_visibility='onchange')
     period_from = fields.Date('Period from')
     period_to = fields.Date('Period to')
     payment_term = fields.Date('Payment term')
     invoices_date = fields.Date('Invoices date')        
     invoice_ids = fields.One2many('extraschool.invoice', 'biller_id','invoices')
-    total = fields.Float(compute='_compute_total', string="Total")
-    received = fields.Float(compute='_compute_received', string="Received")
-    novalue = fields.Float(compute='_compute_novalue', string="No Value")
-    balance = fields.Float(compute='_compute_balance', string="Balance")
-    nbinvoices = fields.Integer(compute='_compute_nbinvoices', string="Nb of invoices")
+    total = fields.Float(compute='_compute_total', string="Total", track_visibility='onchange')
+    received = fields.Float(compute='_compute_received', string="Received", track_visibility='onchange')
+    novalue = fields.Float(compute='_compute_novalue', string="No Value", track_visibility='onchange')
+    balance = fields.Float(compute='_compute_balance', string="Balance", track_visibility='onchange')
+    nbinvoices = fields.Integer(compute='_compute_nbinvoices', string="Nb of invoices", track_visibility='onchange')
     other_ref = fields.Char("Ref")
     comment = fields.Text("Comment",default="")
 #    paymentsstats = fields.Text(compute='_compute_paymentsstats', string="Payments stats")
