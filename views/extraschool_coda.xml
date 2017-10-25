@@ -25,37 +25,38 @@
 						<button name="validate" string="Traiter" type="object" states='todo' class="oe_highlight" />	
 						<field name="state" widget="statusbar" statusbar_visible="todo,handled"/>												
 					</header>
-                	                	
-                    <group cols="4">
-                        <field name="codadate"/>
-                        <newline/>
-                        <field name="codafile"/>
-                    </group>                       
-                    <separator string="Accepted payments" colspan="4"/>
-                    <field name="paymentids" nolabel="1" colspan="4"  context="{'group_by': 'structcom_prefix'}">
-                        <tree string="Payments" version="7.0">
-                            <field name="name"/>
-                            <field name="structcom"/>
-                            <field name="structcom_prefix"/>
-                            <field name="amount" sum="True"/>
-                        </tree>
-                    </field>
-                    <separator string="Rejected payments" colspan="4"/>
-                    <field name="rejectids" nolabel="1" colspan="4">
-                        <tree string="Rejects">
-                        	<field name="id"/>                                                        
-                            <field name="name"/>                            
-                            <field name="rejectcause"/>
-                            <field name="structcom"/>
-                            <field name="freecom"/>                            	                            	                            
-                            <field name="amount" sum="True"/>
-							<button name="correct_reject" string="Corriger" type="object" />
-                            <field name="corrected_payment_id" sum="True"/>								                            
-                        </tree>
-                    </field>
-                    <!--  group colspan="1">
-                        <field name="amountperyear" nolabel="1" widget="html"/>
-                    </group -->
+                	<sheet>
+                        <group cols="4">
+                            <field name="codadate"/>
+                            <newline/>
+                            <field name="codafile"/>
+                        </group>
+                        <separator string="Accepted payments" colspan="4"/>
+                        <field name="paymentids" nolabel="1" colspan="4"  context="{'group_by': 'structcom_prefix'}">
+                            <tree string="Payments" version="7.0">
+                                <field name="name"/>
+                                <field name="structcom"/>
+                                <field name="structcom_prefix"/>
+                                <field name="amount" sum="True"/>
+                            </tree>
+                        </field>
+                        <separator string="Rejected payments" colspan="4"/>
+                        <field name="rejectids" nolabel="1" colspan="4">
+                            <tree string="Rejects">
+                                <field name="id"/>
+                                <field name="name"/>
+                                <field name="rejectcause"/>
+                                <field name="structcom"/>
+                                <field name="freecom"/>
+                                <field name="amount" sum="True"/>
+                                <button name="correct_reject" string="Corriger" type="object" />
+                                <field name="corrected_payment_id" sum="True"/>
+                            </tree>
+                        </field>
+                        <!--  group colspan="1">
+                            <field name="amountperyear" nolabel="1" widget="html"/>
+                        </group -->
+                    </sheet>
                 </form>
             </field>
         </record>
