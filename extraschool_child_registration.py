@@ -35,6 +35,7 @@ from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
 class extraschool_child_registration(models.Model):
     _name = 'extraschool.child_registration'
     _description = 'Child registration'
+    _inherit = 'mail.thread'
 
     @api.multi
     def name_get(self):
@@ -45,24 +46,24 @@ class extraschool_child_registration(models.Model):
             datetime.strptime(child_registration.date_to, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y"))))
         return res
 
-    school_implantation_id = fields.Many2one('extraschool.schoolimplantation', required=True, readonly=True, states={'draft': [('readonly', False)]})
-    class_id = fields.Many2one('extraschool.class', readonly=True, states={'draft': [('readonly', False)]}, domain="[('schoolimplantation','=',school_implantation_id)]")
-    place_id = fields.Many2one('extraschool.place', required=True, readonly=True, states={'draft': [('readonly', False)]}, domain="[('schoolimplantation_ids','in',school_implantation_id)]")
-    activity_id = fields.Many2one('extraschool.activity', readonly=True, states={'draft': [('readonly', False)]}, domain="[('placeids','in',place_id)]")
-    week = fields.Integer('Week', required=True, readonly=True, states={'draft': [('readonly', False)]}, help='Afin de trouver le bon numéro de semaine, Veuillez vous aider du champs situé juste en dessous afin de trouver le numéro de semaine. Une fois le numéro mis, l\'application recherchera et encodera toute seule les bonnes dates du numéro de semaine (Du lundi au vendredi)')
-    date_from = fields.Date('Date from', required=True, readonly=True, states={'draft': [('readonly', False)]})
-    date_to = fields.Date('Date to', required=True, readonly=True, states={'draft': [('readonly', False)]})
-    child_registration_line_ids = fields.One2many('extraschool.child_registration_line','child_registration_id',copy=True, readonly=True, states={'draft': [('readonly', False)]})
-    comment = fields.Char('Comment')
-    day_ids = fields.Many2many('extraschool.day', 'extraschool_day_registration_rel', string='Days', help='Ceci permet de précocher pour tous les enfants, les jours que l\'on souhaite')
-    error_duplicate_reg_line = fields.Boolean(string="Error", default = False)
+    school_implantation_id = fields.Many2one('extraschool.schoolimplantation', required=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
+    class_id = fields.Many2one('extraschool.class', readonly=True, states={'draft': [('readonly', False)]}, domain="[('schoolimplantation','=',school_implantation_id)]", track_visibility='onchange')
+    place_id = fields.Many2one('extraschool.place', required=True, readonly=True, states={'draft': [('readonly', False)]}, domain="[('schoolimplantation_ids','in',school_implantation_id)]", track_visibility='onchange')
+    activity_id = fields.Many2one('extraschool.activity', readonly=True, states={'draft': [('readonly', False)]}, domain="[('placeids','in',place_id)]", track_visibility='onchange')
+    week = fields.Integer('Week', required=True, readonly=True, states={'draft': [('readonly', False)]}, help='Afin de trouver le bon numéro de semaine, Veuillez vous aider du champs situé juste en dessous afin de trouver le numéro de semaine. Une fois le numéro mis, l\'application recherchera et encodera toute seule les bonnes dates du numéro de semaine (Du lundi au vendredi)', track_visibility='onchange')
+    date_from = fields.Date('Date from', required=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
+    date_to = fields.Date('Date to', required=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
+    child_registration_line_ids = fields.One2many('extraschool.child_registration_line','child_registration_id',copy=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
+    comment = fields.Char('Comment', track_visibility='onchange')
+    day_ids = fields.Many2many('extraschool.day', 'extraschool_day_registration_rel', string='Days', help='Ceci permet de précocher pour tous les enfants, les jours que l\'on souhaite', track_visibility='onchange')
+    error_duplicate_reg_line = fields.Boolean(string="Error", default = False, track_visibility='onchange')
     state = fields.Selection([('draft', 'Draft'),
                               ('to_validate', 'Ready'),
                               ('validated', 'Validated')],
-                              'validated', required=True, default='draft'
+                              'validated', required=True, default='draft', track_visibility='onchange'
                               )
-    number_childs = fields.Char('Number of childs', readonly=True, default=0)
-    levelid = fields.Many2one('extraschool.level', 'Level')
+    number_childs = fields.Char('Number of childs', readonly=True, default=0, track_visibility='onchange')
+    levelid = fields.Many2one('extraschool.level', 'Level', track_visibility='onchange')
 
     @api.onchange('child_registration_line_ids')
     def compute_number_childs(self):
@@ -390,7 +391,7 @@ class extraschool_child_registration(models.Model):
             self.state = 'to_validate'
         elif self.state == 'to_validate':
             self.state = 'validated'
-            
+
         if wizard:
             self.state = 'validated'   
             

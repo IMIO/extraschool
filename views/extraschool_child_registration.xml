@@ -49,20 +49,20 @@
 			<field name="arch" type="xml">
 				<form string="child_registration">
 					<header>
-						<button name="validate_multi" string="Prêt à être validé" type="object" states='draft' class="oe_highlight" groups="extraschool.extraschool_school"  context="{'wizard': False}"/>	
+						<button name="validate_multi" string="Prêt à être validé" type="object" states='draft' class="oe_highlight" groups="extraschool.extraschool_school"  context="{'wizard': False}"/>
 						<button name="set_to_draft" string="Set to draft" type="object" states='to_validate,validated' class="oe_highlight" groups="extraschool.extraschool_admin, extraschool.extraschool_accounting, extraschool.extraschool_direction" context="{'wizard': False}"/>
-						<button name="validate_multi" string="Valider" type="object" states='to_validate' class="oe_highlight" groups="extraschool.extraschool_admin, extraschool.extraschool_accounting"/>	
-						<field name="state" widget="statusbar" statusbar_visible="draft,to_validate,validated"/>												
+						<button name="validate_multi" string="Valider" type="object" states='to_validate' class="oe_highlight" groups="extraschool.extraschool_admin, extraschool.extraschool_accounting"/>
+						<field name="state" widget="statusbar" statusbar_visible="draft,to_validate,validated"/>
 					</header>
 					<group col="4">
 	                    <field name="school_implantation_id" class="oe_no_button" />
-	                    <field name="class_id" class="oe_no_button"/>						
+	                    <field name="class_id" class="oe_no_button"/>
 						<field name="place_id"/>
                         <field name="levelid"/>
-						<newline/>						
+						<newline/>
 	                    <field name="week"/>
         	            <newline/>
-						<field name="date_from"/> 
+						<field name="date_from"/>
 						<field name="date_to"/>
 						<newline />
 						<field name="number_childs"/>
@@ -74,15 +74,19 @@
 						<tree editable="bottom"  colors="red:error_duplicate_reg_line==True">
 						    <field name="child_id"/>
 							<field name="monday_activity_id"/>
-							<field name="tuesday_activity_id"/> 
-							<field name="wednesday_activity_id"/>						
+							<field name="tuesday_activity_id"/>
+							<field name="wednesday_activity_id"/>
 						    <field name="thursday_activity_id"/>
 							<field name="friday_activity_id"/>
-		                    <field name="saturday_activity_id"/> 
+		                    <field name="saturday_activity_id"/>
 							<field name="sunday_activity_id"/>
-							<field name="error_duplicate_reg_line" />							
-						</tree>							
+							<field name="error_duplicate_reg_line" />
+						</tree>
 					</field>
+					<div class="oe_chatter" groups="extraschool.extraschool_gods">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
 				</form>
 			</field>
 		</record>  
@@ -154,6 +158,10 @@
 							<field name="error_duplicate_reg_line" />							
 						</tree>							
 					</field>
+					<div class="oe_chatter" groups="extraschool.extraschool_gods">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
 				</form>
 			</field>
 		</record>  
