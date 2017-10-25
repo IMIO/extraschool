@@ -27,6 +27,7 @@ from openerp.api import Environment
 class extraschool_price_list(models.Model):
     _name = 'extraschool.price_list'
     _description = 'Activities price list'
+    _inherit = 'mail.thread'
     
     name = fields.Char('Name')  
     price_list_version_ids = fields.One2many('extraschool.price_list_version', 'price_list_id',string='Versions',copy=True)
@@ -45,16 +46,17 @@ class extraschool_price_list_version(models.Model):
     _name = 'extraschool.price_list_version'
     _description = 'Activities price list version'
     _order = 'validity_to'
+    _inherit = 'mail.thread'
     
-    name = fields.Char('Name')
-    price_list_id = fields.Many2one('extraschool.price_list', 'Price list',ondelete='cascade')          
-    validity_from = fields.Date('Validity from')
-    validity_to = fields.Date('Validity to')
-    activity_ids = fields.Many2many('extraschool.activity', 'extraschool_activity_pricelist_rel',string='Activity')
-    child_type_ids = fields.Many2many('extraschool.childtype', 'extraschool_childtype_pricelist_rel',string='Child type')              
-    child_position_ids = fields.Many2many('extraschool.childposition', 'extraschool_childposition_pricelist_rel',string='Child position')
-    period_duration = fields.Integer('Period Duration', help='La durée de la période se calcule en minute')
-    period_tolerance = fields.Integer('Period Tolerance', help='Si l\'on met une tolérance à 2, cela permet de pas facturer 120 minutes si l\'enfant est resté 62 minutes')
-    price = fields.Float('Price',digits=(7,3), help='Prix par durée définie ci-dessus')
-    max_price =fields.Float('Max price',digits=(7,3),default=0)
+    name = fields.Char('Name', track_visibility='onchange')
+    price_list_id = fields.Many2one('extraschool.price_list', 'Price list',ondelete='cascade', track_visibility='onchange')
+    validity_from = fields.Date('Validity from', track_visibility='onchange')
+    validity_to = fields.Date('Validity to', track_visibility='onchange')
+    activity_ids = fields.Many2many('extraschool.activity', 'extraschool_activity_pricelist_rel',string='Activity', track_visibility='onchange')
+    child_type_ids = fields.Many2many('extraschool.childtype', 'extraschool_childtype_pricelist_rel',string='Child type', track_visibility='onchange')
+    child_position_ids = fields.Many2many('extraschool.childposition', 'extraschool_childposition_pricelist_rel',string='Child position', track_visibility='onchange')
+    period_duration = fields.Integer('Period Duration', help='La durée de la période se calcule en minute', track_visibility='onchange')
+    period_tolerance = fields.Integer('Period Tolerance', help='Si l\'on met une tolérance à 2, cela permet de pas facturer 120 minutes si l\'enfant est resté 62 minutes', track_visibility='onchange')
+    price = fields.Float('Price',digits=(7,3), help='Prix par durée définie ci-dessus', track_visibility='onchange')
+    max_price =fields.Float('Max price',digits=(7,3),default=0, track_visibility='onchange')
 
