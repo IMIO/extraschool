@@ -56,7 +56,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
     child_firstname = fields.Char(related="child_id.firstname", store=True)
     child_lastname = fields.Char(related="child_id.lastname", store=True)
     parent_id = fields.Many2one(related='child_id.parentid', store=True, select=True)
-    prestationtime_ids = fields.One2many('extraschool.prestationtimes','prestation_times_of_the_day_id')    
+    prestationtime_ids = fields.One2many('extraschool.prestationtimes','prestation_times_of_the_day_id')
     pda_prestationtime_ids = fields.One2many('extraschool.pdaprestationtimes','prestation_times_of_the_day_id')  
     verified = fields.Boolean(select=True)
     comment = fields.Text()
@@ -164,24 +164,71 @@ class extraschool_prestation_times_of_the_day(models.Model):
     @api.multi
     def last_check_entry_exit(self):
         es = ['E', 'S']
-        
         last_occu = None
         zz=0
+        activity_ids = []
+        pod_to_delete = []
+        activity_to_delete = 0
 
-        for presta in self.prestationtime_ids.sorted(key=lambda r: ("%s%s" % (('%.2f' % (r.prestation_time)).zfill(5), 1 if r.es == 'E' else 0))):
+        for presta in self.prestationtime_ids.sorted(key=lambda r: (r.prestation_time)):
+            activity_ids.append(
+                [presta.activity_occurrence_id.activityid.prest_from, presta.activity_occurrence_id.activityid.prest_to,
+                 presta.activity_occurrence_id.activityid.autoaddchilds, presta.id, presta.activity_occurrence_id.activityid.id,
+                 presta.activity_occurrence_id.name])
+
+        activity_ids = sorted(activity_ids, key=lambda activity: activity[0])
+
+        for i in range(len(activity_ids)-1):
+            if not activity_to_delete and activity_ids[i][0] == activity_ids[i+1][0] and activity_ids[i][0] == activity_ids[i+1][0] and activity_ids[i][4] != activity_ids[i+1][4]:
+                if activity_ids[i][2] == False:
+                    activity_to_delete = activity_ids[i][4]
+
+        new_list = []
+
+        for activity in activity_ids:
+            if activity[4] == activity_to_delete:
+                pod_to_delete.append(activity[3])
+                print "Need to delete: ", activity[5]
+            else:
+                new_list.append(activity[3])
+
+        if len(pod_to_delete) % 2 == 0:
+            for pod in pod_to_delete:
+                prestation_times_obj = self.env['extraschool.prestationtimes'].browse(pod)
+                self.env['extraschool.prestation_times_history'].create({
+                    'prestation_times_of_the_day_id': prestation_times_obj.prestation_times_of_the_day_id.id,
+                    'error_msg': prestation_times_obj.error_msg,
+                    'exit_all': prestation_times_obj.exit_all,
+                    'invoiced_prestation_id': prestation_times_obj.invoiced_prestation_id.id,
+                    'placeid': prestation_times_obj.placeid.id,
+                    'activity_occurrence_id': prestation_times_obj.activity_occurrence_id.id,
+                    'prestation_date': prestation_times_obj.prestation_date,
+                    'parent_id': prestation_times_obj.parent_id.id,
+                    'manualy_encoded': prestation_times_obj.manualy_encoded,
+                    'verified': prestation_times_obj.verified,
+                    'childid': prestation_times_obj.childid.id,
+                    'prestation_time': prestation_times_obj.prestation_time,
+                    'es': prestation_times_obj.es,
+                })
+                prestation_times_obj.unlink()
+
+
+        for presta in self.env['extraschool.prestationtimes'].search([('id', 'in', new_list)]).sorted(key=lambda r: ("%s%s" % (('%.2f' % (r.prestation_time)).zfill(5), 1 if r.es == 'E' else 0))):
+        # for presta in self.prestationtime_ids.sorted(key=lambda r: ("%s%s" % (('%.2f' % (r.prestation_time)).zfill(5), 1 if r.es == 'E' else 0))):
             # print "presta : %s %s %s" % (presta.activity_occurrence_id.id, presta.activity_occurrence_id.name, ('%.2f' % (presta.prestation_time)).zfill(5))
             i = zz % 2
             #check alternate E / S
+
             if presta.es != es[i]:
                 presta.verified = False
                 return
             else:
                 presta.verified = True
-             
+
             if i and presta.es != 'S' and presta.activity_occurrence_id.id != last_occu:
                 presta.verified = False
                 return
-            
+
             zz += 1
             last_occu = presta.activity_occurrence_id.id
 
@@ -505,7 +552,26 @@ class extraschool_prestation_times_of_the_day(models.Model):
         for presta in self.search([('verified', '=', False)]):
             presta.check()
     
-    
+class extraschool_prestation_times_history(models.Model):
+    _name = 'extraschool.prestation_times_history'
+
+    placeid = fields.Many2one('extraschool.place', 'Schoolcare Place')
+    childid = fields.Many2one('extraschool.child', 'Child')
+    parent_id = fields.Many2one(related='childid.parentid')
+    prestation_date = fields.Date('Date')
+    prestation_time = fields.Float('Time')
+    es = fields.Selection((('E','In'), ('S','Out')),'es')
+    exit_all = fields.Boolean('Exit all',default=False)
+    manualy_encoded = fields.Boolean('Manualy encoded')
+    verified = fields.Boolean('Verified',default=False)
+    error_msg = fields.Char('Error', size=255)
+    activity_occurrence_id = fields.Many2one('extraschool.activityoccurrence', 'Activity occurrence')
+    activity_name = fields.Char(related='activity_occurrence_id.activityname')
+    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category')
+    prestation_times_of_the_day_id = fields.Many2one('extraschool.prestation_times_of_the_day', 'Prestation of the day')
+    invoiced_prestation_id = fields.Many2one('extraschool.invoicedprestations', string='Invoiced prestation')
+
+
                 
             
 

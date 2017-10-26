@@ -1,0 +1,49 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+        <record model="ir.ui.view" id="extraschool_prestationtimes_tree">
+			<field name="name">prestation_times_history.tree</field>
+			<field name="model">extraschool.prestation_times_history</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="prestationtimes">
+					<field name="verified"/>
+					<field name="prestation_times_of_the_day_id"/>
+					<field name="childid" required="1"/>
+					<field name="placeid" required="1"/>
+					<field name="activity_name" required="1"/>
+					<field name="prestation_date" required="1"/>
+					<field name="prestation_time"  required="1" widget="float_time"/>
+					<field name="es" required="1"/>
+				</tree>
+			</field>
+		</record>
+        
+		<record model="ir.ui.view" id="extraschool_prestationtimes_form">
+			<field name="name">prestation_times_history.form</field>
+			<field name="model">extraschool.prestation_times_history</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="prestationtimes">
+					<group col="4">
+	                    <field name="verified"/>
+	                    <field name="prestation_times_of_the_day_id"/>
+						<field name="childid" required="1"/>
+	                    <field name="placeid" required="1"/>
+           				<field name="activity_name" required="1"/>	                    	                    
+						<field name="prestation_date" required="1"/>
+	                    <field name="prestation_time"  required="1" widget="float_time"/>
+	                    <field name="es" required="1"/>
+	                </group>
+				</form>
+			</field>
+		</record>
+		
+        <record model="ir.actions.act_window" id="action_extraschool_prest_history_tree">
+			<field name="name">prestation_times_history</field>
+			<field name="res_model">extraschool.prestation_times_history</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>		
+	</data>
+</openerp>
