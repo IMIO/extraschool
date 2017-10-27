@@ -24,7 +24,8 @@
 				<form string="prestation_times_of_the_day">
 					<header>
 						<button name="reset" group="admin" string="Reset" icon="gtk-apply" type="object" />	                    
-						<button name="check" group="admin" string="Check" icon="gtk-apply" type="object" />	                    							                    
+						<button name="check" group="admin" string="Check" icon="gtk-apply" type="object" />
+						<button name="delete_pod" group="extraschool.extraschol_gods" string="Delete" class="oe_highlight" type="object" />
 					</header>
 					<sheet>
 					<group col="4">

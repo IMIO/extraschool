@@ -38,6 +38,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
 #         _sql_constraints = [
 #             ('pod_uniq', 'unique(activity_category_id,date_of_the_day,child_id)', 'Presta of the day must be uniq'),
 #             ]
+
     def name_get(self, cr, uid, ids, context={}):
         if not len(ids):
             return []
@@ -60,7 +61,13 @@ class extraschool_prestation_times_of_the_day(models.Model):
     pda_prestationtime_ids = fields.One2many('extraschool.pdaprestationtimes','prestation_times_of_the_day_id')  
     verified = fields.Boolean(select=True)
     comment = fields.Text()
-    
+
+    @api.multi
+    def delete_pod(self):
+        for prestation in self.prestationtime_ids:
+            if not prestation.invoiced_prestation_id:
+                prestation.unlink()
+
     def merge_duplicate_pod(self):
         cr,uid = self.env.cr, self.env.user.id
         
