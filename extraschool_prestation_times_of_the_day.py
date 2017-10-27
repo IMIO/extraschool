@@ -67,6 +67,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
         for prestation in self.prestationtime_ids:
             if not prestation.invoiced_prestation_id:
                 prestation.unlink()
+        self.check()
 
     def merge_duplicate_pod(self):
         cr,uid = self.env.cr, self.env.user.id
