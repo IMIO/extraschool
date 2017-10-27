@@ -40,6 +40,7 @@ Smartphones
 * La taille des smartphones idéale : 4.5 à 5 pouces (souvent 5 pouces)
 * Appareil photo correct pour le scan
 * Mettre le Wi-Fi (ou la 3G) à disposition du Smartphone au moins une fois par jour le soir pour la synchronisation vers l'application
+* Utilisation de smartphone Androïd et compatible sur des tablettes Androïd
 
 =================
 Point d’attention
