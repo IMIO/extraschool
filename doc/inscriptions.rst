@@ -41,14 +41,14 @@ Encodage des inscritpions
 
 Il y a deux possibilités pour compléter les lignes des inscriptions des enfants :
 
-  * A partir du bouton “Mettre à jour la liste des enfants”. cette option recherche tous les enfants attachés à l'implantation scolaire. Si le champ “classe” est complété, il prendra seulement les enfants de celle-ci. Sinon, Il triera par niveau scolaire (classe) et par Nom par ordre alphabétique.
+  * A partir du bouton “Mettre à jour la liste des enfants”. cette option recherche tous les enfants attachés à l'implantation scolaire. Si le champ “classe” ou "niveau" est complété, il prendra seulement les enfants de celle-ci. Sinon, Il triera par niveau scolaire (classe) et par Nom par ordre alphabétique.
   * Créer sa propre liste d’enfants inscrits.
 
-Dans les lignes des inscriptions, il y a possibilité de choisir entre Potage (P), repas maternelle (RM) ou repas primaire (RP) pour tous les jours de la semaine.
+Dans les lignes des inscriptions, il y a possibilité de choisir entre potage (P), repas maternelle (RM) ou repas primaire (RP) pour tous les jours de la semaine.
 
-########################
-Rapport des inscriptions
-########################
+#########################
+Rapports des inscriptions
+#########################
 
 Grâce à cette liste d’inscrits, des rapports sont disponibles à partir du bouton “Imprimer” :
 
@@ -56,13 +56,9 @@ Grâce à cette liste d’inscrits, des rapports sont disponibles à partir du b
   * Résumé : Ce rapport est une sorte de bon de commande par jour pour savoir le nombre de repas qu’il faut.
 
 
-
-
-
-
-######################
-Exemples d'utilisation
-######################
+#######################
+Exemples d'utilisations
+#######################
 
 *********************
 Utilisation sans scan
@@ -70,7 +66,8 @@ Utilisation sans scan
 
 .. image:: img/screenshot/rp_pas_scan.png
 
-Important : sélectionner “ajouter automatiquement les inscrits”
+Important : sélectionner “ajouter automatiquement les inscrits”.
+
 Un enfant inscrit est considéré comme présent qu’il vienne ou non.
 
 
@@ -107,8 +104,10 @@ Utilisation du scan Simple
 
 .. image:: img/screenshot/potage_scan.png
 
-Important : ne PAS sélectionner “ajouter automatiquement les inscrits”
+Important : ne PAS sélectionner “ajouter automatiquement les inscrits”.
+
 Si l’enfant est inscrit et qu’il est scanné, l’application pourra attribuer la bonne activité (dans le cas où plusieurs activités se déroulent en même temps).
+
 !!! Si l’enfant n’est pas inscrit, qu’il est scanné et qu’il y a plusieurs activités définies sur la même tranche horaire, le scan sera considéré comme une erreur.
 
 =========
@@ -145,7 +144,7 @@ Utilisation du scan avec plusieurs tranches horaires
   * 12h -> 12h30 Potage
   * 12h30 -> 13h Repas :
      * une activité pour les maternelles
-     * une autre pour les primaires
+     * une activité pour les primaires
 
 
 .. image:: img/screenshot/potage_tranche_horaire.png

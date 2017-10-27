@@ -34,7 +34,7 @@ Il vous suffit de faire :
 
 Pour la première fenêtre vous pouvez indiquer l’url du lien de l’application (https://ville-aes.imio-app.be)
 
-Note : ville : étant le nom de votre commune
+Note : ville : étant le nom de votre commune.
 La seconde fenêtre vous demandera comment appeler le raccourci (Le nom “AES” est un bon exemple).
 
 Après confirmation, votre raccourci est à présent créé sur votre bureau.
@@ -44,9 +44,9 @@ Après confirmation, votre raccourci est à présent créé sur votre bureau.
 Connexion
 #########
 
-Lorsque vous vous rendez sur l’url fourni, il vous demande votre Email et votre Password.
+Lorsque vous vous rendez sur l’url fourni, il vous demande votre E-mail et votre mot de passe.
 
-Vous pouvez donc entrer votre email et votre mot de passe communiqués auparavant.
+Vous pouvez donc entrer votre E-mail et votre mot de passe communiqués auparavant.
 
 
 ##########################

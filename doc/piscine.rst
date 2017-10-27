@@ -13,7 +13,6 @@ Piscine
 Introduction
 ############
 
-Utilisation de l'application pour la gestion des piscines.
 Avant toute chose, il est important de récolter les données tous les mois.
 La facturation est mensuelle et lorsqu'elle est effectuée il est impossible d'y ajouter des présences.
 

@@ -28,6 +28,6 @@ Il faut remplir le tableau afin d'avoir les différentes entrées et sorties de 
 * Si il y a eu une entrée et une sortie, on note les heures.
 * Si il y a eu une activité sur inscription dans la journée, on note une heure se trouvant dans l'horaire de l'activité en sortie ou en entrée.
 
-On peut noter différents enfants sur les lignes, afin d'avoir une fiche pour tout un lieu d'accueil.
+On peut noter différents enfants sur les lignes, afin d'avoir une fiche pour un lieu d'accueil.
 
-Il suffit ensuite de valider la fiche d'encodage de l'enfant.
+Il suffit ensuite de valider la fiche d'encodage du lieu d'accueil.

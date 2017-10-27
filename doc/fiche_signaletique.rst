@@ -13,7 +13,7 @@ Les fiches signalétiques
 Introduction
 ############
 
-Il y a plusieurs fiches signalétiques dans l'application AES. Il faut bien évidemment que ces fiches soient à jour par leurs données, mais aussi par les nouveaux arrivants et les enfants qui quittent l'école au cours de l'année.
+Il y a plusieurs fiches signalétiques dans l'application AES. Il faut bien évidemment que ces fiches soient à jour par leurs données, mais également avec les nouveaux et les enfants qui quittent l'école au cours d'année.
 
 
 ********************
@@ -25,7 +25,7 @@ Une fois ce bouton appuyé, une fiche signalétique d'un enfant apparait.
 
 .. image:: img/screenshot/enfant.png
 
-Plusieurs champs vous sont possibles de remplir afin de compléter les données de l'enfant :
+Plusieurs champs sont à remplir afin de compléter les données de l'enfant :
 
 * Désactiver
 * Nom (Obligatoire : Voir note importante)
@@ -38,7 +38,7 @@ Plusieurs champs vous sont possibles de remplir afin de compléter les données 
 * N° de badge : Ce numéro est lié au QR Code. S'il n'y en a pas c'est que vous n'avez pas généré de QR Code pour cette enfant.
 * Autre référence (Une référence interne qui serait utile à votre commune)
 * RN (Numéro de registre national)
-* Parent : On peut le créer directement via cette fiche si cela n'est pas déjà fait ou simplement choisir le bon parent)
+* Parent : On peut le créer directement via cette fiche si cela n'est pas déjà fait ou choisir le bon parent
 * Date d'importation
 * Modifié depuis la dernière importation
 
@@ -57,7 +57,7 @@ Il faut savoir qu'aucun enfant n'est vraiment supprimé. Il y a plusieurs raison
 * Cela permet de garder l'historique du parcours de l'enfant
 * Cela permet de pouvoir le réactiver si celui-ci revient plus tard, sans réencoder les données.
 
-Pour "supprimer" un enfant, il faut donc se rendre sur sa fiche. (Menu "enfants" - Rechercher avec son nom ou prénom)
+Pour "supprimer" un enfant, il faut donc se rendre sur sa fiche (Menu "enfants" - Rechercher avec son nom ou prénom).
 Cocher la case "Désactivé".
 L'enfant ne sera plus considéré comme membre de l'école.
 
@@ -66,7 +66,7 @@ modification d'un enfant
 ************************
 
 Pour modifier une donnée située sur la fiche de l'enfant, il vous faut vous rendre sur la fiche dont vous voulez effectuer des modifications. En haut à gauche, il y a un bouton se nommant "modifier".
-Vous avez ainsi la possibilité de changer les données que vous voulez et de les sauvegarder.
+Vous avez ainsi la possibilité de changer les données que vous voulez et les sauvegarder.
 
 
 ********************
@@ -78,7 +78,7 @@ Une fois ce bouton appuyé, une fiche signalétique d'un parent apparait.
 
 .. image:: img/screenshot/parent.png
 
-Cette fiche Contient toutes les informations liées au parent. Il y a plusieurs onglets avec différentes informations :
+Cette fiche contient toutes les informations liées au parent. Il y a plusieurs onglets avec différentes informations :
 
 * Désactiver
 * Date d'importation
@@ -120,7 +120,7 @@ Il faut savoir qu'aucun parent n'est vraiment supprimé. Il y a plusieurs raison
 * Cela permet de garder l'historique du parcours des enfants du parent
 * Cela permet de pouvoir le réactiver si un de ses enfants revient plus tard, sans réencoder les données
 
-Pour "supprimer" un parent, il faut donc se rendre sur sa fiche. (Menu "Parents" - Rechercher avec son nom ou prénom)
+Pour "supprimer" un parent, il faut donc se rendre sur sa fiche (Menu "Parents" - Rechercher avec son nom ou prénom).
 Cocher la case "Désactivé".
 
 ************************
@@ -135,16 +135,17 @@ Vous avez ainsi la possibilité de changer les données que vous voulez et de le
 Génération d'un QR Code pour un enfant
 **************************************
 
-Au début du projet ou meme au cours de l'année, des enfants se retrouvent sans QR Code et il faut donc les générer.
-Tout d'abord pour vérifier et voir les enfants qui n'ont pas de QR Code attribué,
+Au début du projet ou même au cours de l'année, des enfants se retrouvent sans QR Code et il faut les générer.
+Tout d'abord, pour vérifier et voir les enfants qui n'ont pas de QR Code attribué,
 il faut se rendre sur la vue liste des enfants et réaliser un filtre. (N° de badge n'est pas défini)
+
 
 .. image:: img/screenshot/qrcode_pas_defini.png
 
 Vous aurez ainsi la liste des enfants qui n'ont pas de badge attribué.
-Une fois que vous avez cette liste, sélectionnez tous les enfants. (Pour tout sélectionner, il faut cocher la case au niveau des noms de colonnes. autrement dit la toute première case)
+Une fois que vous avez cette liste, sélectionnez tous les enfants. (Pour tout sélectionner, il faut cocher la case au niveau des noms de colonnes, autrement dit la toute première case)
 
-Si vous avez plus de 80 élèves (indication : en haut à droite), il faut afficher toutes les pages afin de bien sélectionner tous les enfants. Pour cela, il vous suffit de cliquer sur l'indicateur (le chiffre qui ressemble à : 1-80 sur 256)
+Si vous avez plus de 80 élèves (indication : en haut à droite), il faut afficher toutes les pages afin de bien sélectionner tous les enfants. Pour cela, il vous suffit de cliquer sur l'indicateur (le chiffre qui ressemble à : 1-80 sur 1216)
 et de mettre "illimité". L'application affichera donc tous les enfants sur une seule page.
 
 Une fois que tout cela est en place et sélectionné, il faut se rendre sur le bouton "Imprimer" situé en haut au milieu, et choisir "QR Code".
@@ -156,20 +157,21 @@ Génération d'un QR Code anonyme
 *******************************
 
 Si vous désirez générer des QR Code anonyme, il faut vous rendre dans le menu "Impression des QR Codes".
+
 Vous pouvez remplir trois champs :
 
 * Type d'impression : avec un logo ou non
 * Nombre à imprimer
 * Format : Standard ou pré-découpé
 
-Il suffit ensuite de cliquer sur le bouton "Générer les QRCodes"
+Il suffit ensuite de cliquer sur le bouton "Générer les QRCodes".
 
 ***********************************
 Génération d'un classeur de QR Code
 ***********************************
 
 Afin de générer des classeurs de QR Code pour les différentes implantations scolaires, il faut vous rendre sur la vue liste des enfants.
-En premier lieu, regrouper les enfants par implantation scolaire pour plus de facilité.
+En premier lieu, regroupez les enfants par implantation scolaire pour plus de facilité.
 
 Dans la barre de recherche, appuyez sur la petite flèche. Celle-ci vous montrera plus d'options concernant les filtres et les regroupements.
 En haut à gauche, vous pouvez choisir dans la liste "Regrouper par ..", "Implantation".
@@ -188,11 +190,11 @@ Importer la liste des enfants et des parents
 Au début de la mise en place de l'application, des fichiers d'importation pour les enfants et les parents vous seront demandés afin d'intégrer vos données dans AES.
 Pour qu'un fichier d'import soit accepté par le programme, il faut :
 
-* que tous les champs obligatoires dans AES soient remplis dans le fichier (Ex : Nom, Prénom, Date de naissance,...)
-* qu'il y ait un fichier par implantation scolaire
-* que l'ordre des colonnes soient respectées (comme le modèle fourni par le contact Imio)
-* que les libellés des colonnes soient respectés (comme le modèle fourni par le contact Imio)
-* que les adresses E-mails ne comportent pas de caractères spécifiques.
+* Que tous les champs obligatoires dans AES soient remplis dans le fichier (Ex : Nom, Prénom, Date de naissance,...)
+* Qu'il y ait un fichier par implantation scolaire
+* Que l'ordre des colonnes soient respecté (comme le modèle fourni par le contact Imio)
+* Que les libellés des colonnes soient respectés (comme le modèle fourni par le contact Imio)
+* Que les adresses E-mails ne comportent pas de caractères spécifiques.
 * Faire attention qu'il n'y ait pas plusieurs fois le même parent avec des adresses différentes
 
 Le contact Imio réalisera une configuration dans le programme afin de les importer correctement.
@@ -210,7 +212,7 @@ Une fenêtre apparait.
 
 .. image:: img/screenshot/qr_code_imprimer.png
 
-Vous pouvez choisir :
+Vous pourrez choisir :
 
 * Type d'export :
    * Export compatible avec l'import : Vous aurez juste accès aux données des champs présents sur la fiche enfant

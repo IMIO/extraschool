@@ -10,7 +10,7 @@ Vérification des présences
    :maxdepth: 3
 
 Avant de facturer, il faut faire la vérification de toutes les présences du mois.
-Pour effectuer cela, il y a plusieurs manières de procéder
+Pour effectuer cela, il y a plusieurs manières de procéder.
 
 
 ***************************
@@ -18,12 +18,12 @@ La vérification automatique
 ***************************
 
 L'application AES vous aide dans la vérification des présences afin que vous ne devez pas vous rendre sur chacune d'elle.
-Ce proccessus vous réduit le travaille de vérification.
+Ce proccessus vous réduit le travail de vérification.
 
 Pour excécuter cette méthode, il faut vous rendre dans le menu "Vérifier".
 Une fois que vous avez rempli les différentes informations (Début par défaut et Fin par défaut), vous pouvez cliquer sur le bouton "vérifier".
 Après avoir appuyer sur le bouton, l'application va traiter les présences qu'il sait vérifier lui-même et vous redirigera vers le menu "Présences par jour".
-Dans ce menu, les lignes apparaissent en rouge étant donné qu'elle sont considérées comme des erreurs qu'il n'a pas comprises.
+Dans ce menu, les lignes apparaissent en rouge étant donné qu'elles sont considérées comme des erreurs et qu'il ne les a pas comprises.
 
 
 
