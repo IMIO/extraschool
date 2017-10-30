@@ -41,7 +41,7 @@
                     <sheet>
                     <group col="4">
                     <field name="name"/>
-                    <field name="category" />
+                    <field name="category"  options="{'no_create':True}"/>
                     <field name="validity_from"/>
                     <field name="validity_to"/>
                     <field name="leveltype"/>
@@ -91,7 +91,7 @@
                     <page string="Link with other activities">
                         <group col="4">
                             <field name="root_id"/>
-                            <field name="parent_id"/>
+                            <field name="parent_id"  options="{'no_create':True}"/>
                             <separator string="Child activities" colspan="4" />
                             <field name="activity_child_ids" nolabel="1" colspan="4" readonly="True"/>
                         </group>

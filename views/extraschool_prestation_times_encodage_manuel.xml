@@ -30,11 +30,11 @@
 					</header>
 					<sheet>
 						<group col="4">
-							<field name="activity_category_id" required="True"/>
+							<field name="activity_category_id" required="True" options="{'no_create':True}"/>
 							<field name="date_of_the_day" />
-							<field name="place_id" />
+							<field name="place_id" options="{'no_create':True}"/>
 							<newline />
-							<field name="levelid" />
+							<field name="levelid" options="{'no_create':True}"/>
 							<newline/>>
 							<button name="update_child_list" string="Liste des enfants" states="draft" type="object" confirm="Ëtes-vous sûr de vouloir attribuer tous les enfants à cette activité ?"/>
 							<field name="prestationtime_ids" nolabel="1" colspan="4">

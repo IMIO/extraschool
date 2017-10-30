@@ -37921,7 +37921,7 @@ msgstr "Attestation fiscale"
 #. module: extraschool
 #: field:extraschool.activitycategory,taxcertificatetemplate:0
 msgid "Tax Certificate Template"
-msgstr "Tax Certificate Template"
+msgstr "Modèle attestation fiscale"
 
 #. module: extraschool
 #: view:extraschool.taxcertificates_wizard:extraschool.extraschool_taxcertificates_wizard_form

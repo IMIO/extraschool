@@ -45,7 +45,7 @@
 					<field name="period_to"/>
                     <newline/>
                     <field name="payment_term"/>
-                    <field name="activitycategoryid"/>
+                    <field name="activitycategoryid" options="{'no_create':True}"/>
                     <newline/>
                     <field name="total"/>
                     <newline/>

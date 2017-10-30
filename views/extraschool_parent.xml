@@ -76,10 +76,10 @@
 				                    <field name="lastname"/>            
 									<field name="firstname"/>
 				                    <newline/>
-				                    <field name="schoolimplantation"/>					
+				                    <field name="schoolimplantation"/>
 				                    <newline/>
 				                    <field name="childtypeid"/>
-				                    <newline/>
+                                    <newline/>
 				                    <field name="levelid"/>
 				                    <newline/>
 				                    <field name="classid"/>

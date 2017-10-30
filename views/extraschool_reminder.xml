@@ -11,8 +11,8 @@
 	                <group col="4">
                         <field name="parentid"/>
 						<newline/>                        
-						<field name="activity_category_id" />                        
-                        <field name="school_implantation_id"/>
+						<field name="activity_category_id" options="{'no_create':True}"/>
+                        <field name="school_implantation_id" options="{'no_create':True}"/>
                         <field name="amount"/>
                         <field name="structcom"/>
                         <field name="fees_amount"/>

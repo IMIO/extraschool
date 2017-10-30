@@ -25,8 +25,8 @@
             <field name="arch" type="xml">
                 <form string="ONE Report">
                     <group>
-                        <field name="placeid" />
-                        <field name="activitycategory" />
+                        <field name="placeid" options="{'no_create':True}"/>
+                        <field name="activitycategory" options="{'no_create':True}" />
                         <field name="year" />
                         <field name="quarter" attrs="{'invisible':[('is_created', '=', True)]}"/>
                         <field name="is_created" invisible="1"/>

@@ -23,9 +23,9 @@
 			<field name="arch" type="xml">
 				<form string="activityoccurrence">
 					<group col="4">
-	                    <field name="activityid"/>
+	                    <field name="activityid" options="{'no_create':True}"/>
 	                	<newline/>  
-	                    <field name="place_id"/> 			
+	                    <field name="place_id" options="{'no_create':True}"/>
 	                    <field name="occurrence_date"/> 
 	                    <field name="prest_from" widget="float_time" /> 
 	                    <field name="prest_to"   widget="float_time" /> 

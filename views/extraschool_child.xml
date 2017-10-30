@@ -37,9 +37,9 @@
 	                    <field name="lastname"/>            
 						<field name="firstname"/>
 	                    <newline/>
-	                    <field name="schoolimplantation"/>					
+	                    <field name="schoolimplantation"  options="{'no_create':True}"/>
 	                    <newline/>
-	                    <field name="childtypeid"/>
+	                    <field name="childtypeid"  options="{'no_create':True}"/>
 	                    <newline/>
 	                    <field name="levelid"/>
 	                    <newline/>

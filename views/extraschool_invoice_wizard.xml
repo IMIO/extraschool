@@ -12,7 +12,7 @@
                         <group states="init">
                             <field name="schoolimplantationid" invisible="1"/>
                             <newline />
-                            <field name="activitycategory" />
+                            <field name="activitycategory" options="{'no_create':True}"/>
                             <newline />
                             <field name="period_from" /><field name="period_to" />
                             <newline />
