@@ -24,6 +24,7 @@ Contents:
    facturier
    fichier_coda
    correction_paiement
+   remboursement
    rapport_ONE
    attestation_fiscale
    config-smartphones
