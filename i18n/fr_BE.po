@@ -28601,6 +28601,7 @@ msgstr "Letter 2 8.5 x 11 pouces, 215.9 x 279.4 mm"
 #: field:extraschool.importlevelrule,levelid:0
 #: field:extraschool.mainsettings,levelbeforedisable:0
 #: field:extraschool.presta_stat,level:0
+#: field:extraschool.prestation_times_encodage_manuel,levelid:0
 #: model:ir.model,name:extraschool.model_extraschool_level
 msgid "Level"
 msgstr "Niveau"
@@ -41594,7 +41595,7 @@ msgstr "Oui"
 #. module: extraschool
 #: view:extraschool.parent:extraschool.extraschool_parent_form
 msgid "You are about to refund this parent. Are you sure ?"
-msgstr "Vous êtes sur le point de rembourser ce parent. Etes-vous sûr ?"
+msgstr "Vous êtes sur le point de rembourser ce parent, en êtes-vous sûr ?"
 
 #. module: web
 #. openerp-web

@@ -46,6 +46,8 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
      
     date_of_the_day = fields.Date(required=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
     place_id = fields.Many2one('extraschool.place', required=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
+    levelid = fields.Many2one('extraschool.level', 'Level', track_visibility='onchange', readonly=True, states={'draft': [('readonly', False)]},)
+
     activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False, track_visibility='onchange')
     prestationtime_ids = fields.One2many('extraschool.prestation_times_manuel','prestation_times_encodage_manuel_id', readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
     comment = fields.Text(track_visibility='onchange')
@@ -53,7 +55,34 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
                               ('validated', 'Validated')],
                               'State', required=True, default='draft', track_visibility='onchange'
                               )
-    
+
+    @api.one
+    def update_child_list(self):
+        print "update_child_list"
+
+        if self.levelid:
+            childs = self.env['extraschool.child'].search(
+                [('schoolimplantation.id', '=', self.place_id.id),
+                 ('levelid.id', '=', self.levelid.id),
+                 ('isdisabled', '=', False),
+                 ])
+        else:
+            childs = self.env['extraschool.child'].search(
+                [('schoolimplantation.id', '=', self.place_id.id),
+                 ('isdisabled', '=', False),
+                 ])
+
+        self.prestationtime_ids.unlink()
+        # clear child list
+        self.prestationtime_ids = [(5, 0, 0)]
+        child_reg = []
+        print "clear child list done"
+        for child in childs:
+            print "add child : %s" % (child)
+            child_reg.append((0, 0, {'child_id': child,
+                                     }))
+        self.prestationtime_ids = child_reg
+
     @api.one
     def validate(self):
         print "validate"

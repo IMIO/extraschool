@@ -67,7 +67,7 @@
 						<newline />
 						<field name="number_childs"/>
 						<field name="comment"/>
-						<button name="update_child_list" string="Mettre à jour la liste des enfants" states="draft" type="object" confirm="Are you sure you want to attribute all the childs to this activity ?"/>
+						<button name="update_child_list" string="Mettre à jour la liste des enfants" states="draft" type="object" confirm="Ëtes-vous sûr de vouloir attribuer tous les enfants à cette activité ?"/>
 					</group>
 					<separator string="Registrations" />
 					<field name="child_registration_line_ids" colspan="4" >
@@ -134,15 +134,15 @@
 						<field name="place_id"/>
                         <field name="levelid"/>
 	                    <field name="activity_id" required="True"/>
-	                    <field name="week"/>
         	            <newline/>
+						<field name="week"/>
 						<field name="date_from"/> 
 						<field name="date_to"/>
 						<newline />
   						<field name="day_ids" widget="many2many_tags" options="{'no_create':True}"/>
 						<newline />
 						<field name="number_childs"/>
-						<button name="update_child_list" string="Mettre à jour la liste des enfants" type="object"  states='draft' confirm="Are you sure you want to attribute all the childs to this activity ?"/>
+						<button name="update_child_list" string="Mettre à jour la liste des enfants" type="object"  states='draft' confirm="Êtes-vous sûr de vouloir attribuer tous les enfants à cette activité ?"/>
 					</group>
 					<separator string="Registrations" />
 					<field name="child_registration_line_ids" colspan="4" >
