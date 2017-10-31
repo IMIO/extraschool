@@ -87,5 +87,5 @@ Vous avez la possibilité de supprimer un mauvais encodage effectué avec le sca
 
 Exemple : Vous avez scanné deux fois en entrée le même enfant.
 
-Pour le supprimer, à l'écran principal, vous avez la liste des scans effectués. Laisser votre doigt appuyé sur la ligne à supprimer et confirmer la suppression.
+Pour le supprimer, à l'écran principal, vous avez la liste des scans effectués. Laissez votre doigt appuyé sur la ligne à supprimer et confirmer la suppression.
 
