@@ -28,6 +28,7 @@ Contents:
    rapport_ONE
    attestation_fiscale
    config-smartphones
+   smartphone_utilisation
    truc-astuce
 
 Indices and tables
