@@ -11,7 +11,6 @@
 					<field name="child_id"/>
 					<field name="activity_category_id" />		
 					<field name="verified"/>
-								
 				</tree>
 			</field>
 		</record>
@@ -25,7 +24,7 @@
 					<header>
 						<button name="reset" group="admin" string="Reset" icon="gtk-apply" type="object" />	                    
 						<button name="check" group="admin" string="Check" icon="gtk-apply" type="object" />
-						<button name="delete_pod" group="extraschool.extraschol_gods" string="Delete" class="oe_highlight" type="object" />
+						<button name="delete_pod" groups="extraschool.extraschool_gods" string="Delete" class="oe_highlight" type="object" />
 					</header>
 					<sheet>
 					<group col="4">
@@ -91,8 +90,9 @@
                    <field name="date_of_the_day" string="Date du jour"/>
                    <filter string="not verified" name="not_verified" icon="terp-accessories-archiver" domain="[('verified','=',False)]"/>
                    <group  expand='0' string='Group by...'>
-                       <filter string='child' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'child_id'}"/>
-                   </group>                    
+                       <filter string='Child' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'child_id'}"/>
+                       <filter string='School Implantation' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'place_id'}"/>
+                   </group>
                 </search>
             </field>
         </record>				
@@ -117,7 +117,7 @@
 			<field name="view_type">form</field>
 			<field name="view_id" ref="extraschool_prestation_times_of_the_day_tree"/>
             <field name="search_view_id" ref="prestation_times_of_the_day_search_view"/>			
-			<field name="context">{'search_default_not_verified':1}</field>   	    
+			<field name="context">{'search_default_not_verified':1}</field>
 		</record>
 		
 	</data>

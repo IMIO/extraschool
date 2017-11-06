@@ -57,6 +57,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
     child_firstname = fields.Char(related="child_id.firstname", store=True)
     child_lastname = fields.Char(related="child_id.lastname", store=True)
     parent_id = fields.Many2one(related='child_id.parentid', store=True, select=True)
+    place_id = fields.Many2one(related='child_id.schoolimplantation', store=True, select=True)
     prestationtime_ids = fields.One2many('extraschool.prestationtimes','prestation_times_of_the_day_id')
     pda_prestationtime_ids = fields.One2many('extraschool.pdaprestationtimes','prestation_times_of_the_day_id')  
     verified = fields.Boolean(select=True)
@@ -578,6 +579,8 @@ class extraschool_prestation_times_history(models.Model):
     activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category')
     prestation_times_of_the_day_id = fields.Many2one('extraschool.prestation_times_of_the_day', 'Prestation of the day')
     invoiced_prestation_id = fields.Many2one('extraschool.invoicedprestations', string='Invoiced prestation')
+
+
 
 
                 
