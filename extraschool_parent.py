@@ -147,6 +147,19 @@ class extraschool_parent(models.Model):
     comment = fields.Text('Comment', track_visibility='onchange')
 
     @api.multi
+    def get_invoice(self):
+        return {'name': 'Factures',
+                'type': 'ir.actions.act_window',
+                'res_model': 'extraschool.invoice',
+                'view_type': 'form',
+                'view_mode': 'tree,form',
+                'nodestroy': False,
+                'target': 'current',
+                'limit': 50000,
+                'domain': [('parentid', '=',self.id),]
+            }
+
+    @api.multi
     def refund(self):
         # Compute the solde.
         solde = self.payment_status_ids.solde

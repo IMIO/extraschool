@@ -25,6 +25,14 @@
 					<button name="wizard_action" string="Fusion" icon="gtk-apply" type="object" context="{'default_parent_id': id}" groups="extraschool.extraschool_fusion"/>
             	</header>
                 <sheet>
+                    <div class="oe_right oe_button_box" name="buttons">
+                        <button name="get_invoice"
+                            string="Factures"
+                            type="object"
+                            class="oe_inline oe_stat_button"
+                            icon="fa-qrcode"
+                                />
+                    </div>
 				<group col="4">        
 	            	<field name="isdisabled"/>
                     <newline/>
