@@ -49,6 +49,23 @@ class extraschool_mainsettings(models.Model):
     communication = fields.Char('Structured Communication')
     date_from = fields.Date('Date from')
     date_to = fields.Date('Date to')
+    # Simulate PDA Transmission
+    placeid = fields.Many2one('extraschool.place', 'Schoolcare Place')
+    activitycategoryid = fields.Many2one('extraschool.activitycategory', 'Activity Category')
+    childid = fields.Many2one('extraschool.child', 'Child')
+    prestation_date = fields.Date('Date')
+    prestation_time = fields.Float('Time')
+    type = fields.Selection((('pda','Smartphone'),
+                           ('manuel','Encodage manuel')),'Type', default='pda' )
+    prestation_times_encodage_manuel_id = fields.Many2one('extraschool.prestation_times_encodage_manuel', 'Encodage Manuel',ondelete='cascade')
+    es = fields.Selection((('E','In'),
+                           ('S','Out')),'ES' )
+    prestation_times_of_the_day_id = fields.Many2one('extraschool.prestation_times_of_the_day', 'Prestation of the day',ondelete='cascade')
+    pda_transmission_id = fields.Many2one('extraschool.pda_transmission', 'Transmission')
+
+    @api.multi
+    def send_presta(self):
+        print "Hello World !"
 
     @api.multi
     def re_check_pod(self):
