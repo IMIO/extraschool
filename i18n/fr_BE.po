@@ -15831,7 +15831,7 @@ msgstr "At least one child registration is not validated for this period!!!"
 #: code:addons/extraschool/extraschool_invoice_wizard.py:329
 #, python-format
 msgid "At least one manuel encodage is not validated for this period!!!"
-msgstr "At least one manuel encodage is not validated for this period!!!"
+msgstr "Au moins un encodage manuel n'est pas validé pour cette période !!!"
 
 #. module: extraschool
 #: code:addons/extraschool/extraschool_invoice_wizard.py:362
@@ -38731,7 +38731,7 @@ msgstr "Ce sont vos informations d'identification pour accéder à cette zone pr
 #, python-format
 msgid "These childs are duplicated !!\n"
 ""
-msgstr "These childs are duplicated !!\n"
+msgstr "Cet enfant est dupliqué !!\n"
 ""
 
 #. module: document
