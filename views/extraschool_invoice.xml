@@ -29,17 +29,18 @@
             <field name="model">extraschool.invoice</field>
             <field name="arch" type="xml">
                 <search string="Invoice Search">
-                   <field name="parentid"/>
-                   <field name="structcom"/>
-                   <filter string="Ouverte" name="actif" icon="terp-accessories-archiver" domain="[('balance','>',0)]"/>
-                   <filter string="Send by Email" name="email" icon="terp-accessories-archiver" domain="['|',('invoicesendmethod','=','onlyemail'),('invoicesendmethod','=','emailandmail')]"/>                   	                   
-                   <filter string="Send by mail" name="mail" icon="terp-accessories-archiver" domain="['|',('invoicesendmethod','=','onlybymail'),('invoicesendmethod','=','emailandmail')]"/>                   	                   
-                   <group  expand='0' string='Group by...'>
-                       <filter string='parentid' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'parentid'}"/>
-                       <filter string='biller_id' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'biller_id'}"/>
-                       <filter string='School implantation' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'schoolimplantationid'}"/>
-                       <filter string='Class' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'classid'}"/>                   
-                   </group>                    
+                    <field name="parentid"/>
+                    <field name="structcom"/>
+					<field name="number" string="Invoice's number"/>
+                    <filter string="Ouverte" name="actif" icon="terp-accessories-archiver" domain="[('balance','>',0)]"/>
+                    <filter string="Send by Email" name="email" icon="terp-accessories-archiver" domain="['|',('invoicesendmethod','=','onlyemail'),('invoicesendmethod','=','emailandmail')]"/>
+                    <filter string="Send by mail" name="mail" icon="terp-accessories-archiver" domain="['|',('invoicesendmethod','=','onlybymail'),('invoicesendmethod','=','emailandmail')]"/>
+                    <group  expand='0' string='Group by...'>
+                        <filter string='parentid' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'parentid'}"/>
+                        <filter string='biller_id' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'biller_id'}"/>
+                        <filter string='School implantation' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'schoolimplantationid'}"/>
+                        <filter string='Class' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'classid'}"/>
+                    </group>
                 </search>
             </field>
         </record>	
