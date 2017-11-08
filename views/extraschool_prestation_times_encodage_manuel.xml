@@ -59,8 +59,9 @@
             <field name="model">extraschool.prestation_times_encodage_manuel</field>
             <field name="arch" type="xml">
                 <search string="prestation_times_encodage_manuel search">
-                   <field name="date_of_the_day" />
-                   <field name="place_id" />
+                   	<field name="date_of_the_day" />
+                   	<field name="place_id" />
+					<filter string="Not validated" name="not_validated" icon="terp-accessories-archiver" domain="[('state','!=','validated')]"/>
                 </search>
             </field>
         </record>				
