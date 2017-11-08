@@ -454,7 +454,7 @@ class extraschool_child_registration_line(models.Model):
     _order = "child_lastname,child_firstname"
     
     child_registration_id = fields.Many2one('extraschool.child_registration', required=True, ondelete="cascade", index = True)
-    child_id = fields.Many2one('extraschool.child', required=True, index = True)
+    child_id = fields.Many2one('extraschool.child', required=True, domain="[('isdisabled', '=', False)]", index = True)
     child_firstname = fields.Char(related="child_id.firstname", store=True)
     child_lastname = fields.Char(related="child_id.lastname", store=True)
     child_level = fields.Char(related="child_id.levelid.name",string="Niveau", store=True)

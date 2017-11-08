@@ -31,7 +31,7 @@ import datetime
 class extraschool_prestation_times_manuel(models.Model):
     _name = 'extraschool.prestation_times_manuel'
 
-    child_id = fields.Many2one('extraschool.child', required=True)
+    child_id = fields.Many2one('extraschool.child', domain="[('isdisabled', '=', False)]", required=True)
     prestation_times_encodage_manuel_id = fields.Many2one('extraschool.prestation_times_encodage_manuel', 'encodage manuel')
     prestation_time_entry = fields.Float('Entry Time')
     prestation_time_exit = fields.Float('Exit Time')                
