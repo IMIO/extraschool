@@ -4,7 +4,7 @@
 #    Extraschool
 #    Copyright (C) 2008-2014 
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchial - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -82,8 +82,8 @@ class extraschool_one_report(models.Model):
         else:
             return `quarter` + "eme"
     
-    placeid = fields.Many2one('extraschool.place', required=True)
-    activitycategory = fields.Many2one('extraschool.activitycategory', required=True)
+    placeid = fields.Many2one('extraschool.place')
+    activitycategory = fields.Many2one('extraschool.activitycategory', required=True, default=1)
     year = fields.Integer(required=True, default=datetime.now().year)
     quarter = fields.Selection(((1,'1er'), (2,'2eme'), (3,'3eme'), (4,'4eme')), required=True, default=((datetime.now().month-1)//3 + 1))
     show_quarter = fields.Char(default=_get_quarter, readonly=True)
@@ -93,6 +93,7 @@ class extraschool_one_report(models.Model):
     nb_childs = fields.Integer(compute='_compute_nb_childs')
     report = fields.Binary()
     is_created = fields.Boolean(default=False, invisible=True)
+    synthesis = fields.Boolean()
 
     @api.onchange('quarter')
     def _get_new_quarter(self):
@@ -171,13 +172,16 @@ class extraschool_one_report(models.Model):
             vals['show_quarter'] = "1er"
         else:
             vals['show_quarter'] = `quarter` + "eme"
-        month_names=('','Janvier','Fevrier','Mars','Avril','Mai','Juin','Juillet','Aout','Septembre','Octobre','Novembre','Decembre')
+        month_names = (
+        '', 'Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre',
+        'Decembre')
         obj_one_report_day = self.env['extraschool.one_report_day']
         new_obj = super(extraschool_one_report, self).create(vals)
         place_obj = self.env['extraschool.place']
         one_report_settings_obj = self.env['extraschool.onereport_settings']
 
-        one_report_settings = one_report_settings_obj.search([('validity_from', '<=',vals['transmissiondate']),('validity_to', '>=',vals['transmissiondate']),])
+        one_report_settings = one_report_settings_obj.search(
+            [('validity_from', '<=', vals['transmissiondate']), ('validity_to', '>=', vals['transmissiondate']), ])
 
         if not one_report_settings:
             raise Warning(_("There is no ONE report configuration"))
@@ -196,7 +200,8 @@ class extraschool_one_report(models.Model):
         report_logoone_file.close()
         place=place_obj.browse([vals['placeid']])
         strperiod_from = str(vals['year']) + '-'+str(vals['quarter']*3-2).zfill(2) +'-01'
-        strperiod_to = str(vals['year']) + '-'+str(vals['quarter']*3).zfill(2) +'-'+str(self._monthdays(vals['year'],vals['quarter']*3)).zfill(2)
+        strperiod_to = str(vals['year']) + '-' + str(vals['quarter'] * 3).zfill(2) + '-' + str(
+            self._monthdays(vals['year'], vals['quarter'] * 3)).zfill(2)
         
         period_from=datetime.strptime(strperiod_from, '%Y-%m-%d').date()
         period_to=datetime.strptime(strperiod_to, '%Y-%m-%d').date()
@@ -207,16 +212,26 @@ class extraschool_one_report(models.Model):
         wb = copy(rb)
         XLSheet = wb.get_sheet(0)
         XLSheet.insert_bitmap(report_logoone_filename,0,0)
-        self.setXLCell(XLSheet,2,3,u"Détail, pour un lieu d'accueil, des présences du "+("1er" if vals['quarter']==1 else str(vals['quarter'])+"e")+" trimestre "+str(vals['year']))
-        self.setXLCell(XLSheet,5,1,"%s" % (place.name))
-        self.setXLCell(XLSheet,6,1,'%s\n%s\n%s %s' % (place.name,place.street, place.zipcode,place.city))  
-        self.setXLCell(XLSheet,7,5,place.schedule)
+        self.setXLCell(XLSheet, 2, 3, u"Détail, pour un lieu d'accueil, des présences du " + (
+        "1er" if vals['quarter'] == 1 else str(vals['quarter']) + "e") + " trimestre " + str(vals['year']))
+
+        # Different name if it's a synthesis or not got here.
+        if vals['synthesis'] == True:
+            self.setXLCell(XLSheet, 5, 1, "SYNTHESE")
+            self.setXLCell(XLSheet, 6, 1, u"Synthèse des divers lieux d'accueil")
+            self.setXLCell(XLSheet, 7, 0, "")
+            self.setXLCell(XLSheet, 7, 5, "")
+        else:
+            self.setXLCell(XLSheet,5,1,"%s" % (place.name))
+            self.setXLCell(XLSheet,6,1,'%s\n%s\n%s %s' % (place.name,place.street, place.zipcode,place.city))
+            self.setXLCell(XLSheet,7,5,place.schedule)
+
         for imonth in range(0,3):
             currentmonth=period_from.month+imonth            
             self.setXLCell(XLSheet,14+imonth*2,0,month_names[currentmonth])
             iweek=0            
             currentdate = datetime(vals['year'],currentmonth,01)
-            while (iweek < 5): 
+            while (iweek < 5):
                  
                 if datetime(currentdate.year,currentdate.month,01).weekday() > 4 and iweek==0:
                     while currentdate.weekday() != 0:
@@ -230,11 +245,27 @@ class extraschool_one_report(models.Model):
                         for subvention_type in ['sf','sdp']:
                             day_nb_m = 0
                             day_nb_p = 0
-                            childidsm = self.search_childs(vals['placeid'],vals['activitycategory'],currentdate,'M',subvention_type)
-                            day_nb_m = day_nb_m + len(childidsm)
-                            childidsp = self.search_childs(vals['placeid'],vals['activitycategory'],currentdate,'P',subvention_type)                
-                            day_nb_p = day_nb_p + len(childidsp)
-                            obj_one_report_day.create({'one_report_id':new_obj.id,'day_date':str(currentdate),'child_ids':[(6, 0,(childidsm + childidsp))],'subvention_type':subvention_type,'nb_m_childs':day_nb_m,'nb_p_childs':day_nb_p})
+                            if vals['synthesis'] == True:
+                                for place in place_obj.search([]).mapped('id'):
+                                    childidsm = self.search_childs(place, vals['activitycategory'], currentdate,
+                                                                   'M', subvention_type)
+                                    day_nb_m += len(childidsm)
+                                    childidsp = self.search_childs(place, vals['activitycategory'], currentdate,
+                                                                   'P', subvention_type)
+                                    day_nb_p += len(childidsp)
+                            else:
+                                childidsm = self.search_childs(vals['placeid'], vals['activitycategory'], currentdate,
+                                                               'M', subvention_type)
+                                day_nb_m = day_nb_m + len(childidsm)
+                                childidsp = self.search_childs(vals['placeid'], vals['activitycategory'], currentdate,
+                                                               'P', subvention_type)
+                                day_nb_p = day_nb_p + len(childidsp)
+
+                            obj_one_report_day.create({'one_report_id': new_obj.id, 'day_date': str(currentdate),
+                                                       'child_ids': [(6, 0, (childidsm + childidsp))],
+                                                       'subvention_type': subvention_type, 'nb_m_childs': day_nb_m,
+                                                       'nb_p_childs': day_nb_p})
+                            # todo: Do we need this ?
                             tot_nb_m = tot_nb_m + day_nb_m
                             tot_nb_p = tot_nb_p + day_nb_p   
                             if subvention_type == 'sf':
@@ -255,11 +286,19 @@ class extraschool_one_report(models.Model):
                     currentdate=nextdate
                 iweek=iweek+1
             currentdate = currentdate + td(1)
-        
-        tot_nb_m = self.count_childs_quarter(place.id, vals['activitycategory'],period_from, period_to,'M')
-        tot_nb_p = self.count_childs_quarter(place.id, vals['activitycategory'],period_from, period_to,'P')
-        print "nbr_mat : %s" % (tot_nb_m)
-        print "nbr_prim : %s" % (tot_nb_p)
+
+        # Check if we need a synthesis or a detailed ONE report.
+        tot_nb_m = 0
+        tot_nb_p = 0
+        if vals['synthesis'] == True:
+            # Compute from all School Implantation.
+            for place in place_obj.search([]).mapped('id'):
+                tot_nb_m += self.count_childs_quarter(place, vals['activitycategory'], period_from, period_to, 'M')
+                tot_nb_p += self.count_childs_quarter(place, vals['activitycategory'], period_from, period_to, 'P')
+        else:
+            # Compute from the selected School Implantation.
+            tot_nb_m = self.count_childs_quarter(place.id, vals['activitycategory'],period_from, period_to,'M')
+            tot_nb_p = self.count_childs_quarter(place.id, vals['activitycategory'],period_from, period_to,'P')
 
         #Formules
         self.setXLCell(XLSheet,8,19,tot_nb_m)
@@ -269,13 +308,20 @@ class extraschool_one_report(models.Model):
             for row in [15,17,19,20]:
                 self.setXLCell(XLSheet,row-1+gapTab,26,Formula('SUM(B'+str(row+gapTab)+':Z'+str(row+gapTab)+')'))
             for i in range(66,91): #B->Z
-                self.setXLCell(XLSheet,19+gapTab,i-65,Formula(chr(i)+str(15+gapTab)+'+'+chr(i)+str(17+gapTab)+'+'+chr(i)+str(19+gapTab)+')'))                
-            self.setXLCell(XLSheet,20+gapTab,26,Formula('D'+str(20+gapTab)+'+I'+str(20+gapTab)+'+N'+str(20+gapTab)+'+S'+str(20+gapTab)+'+X'+str(20+gapTab)))
+                self.setXLCell(XLSheet, 19 + gapTab, i - 65, Formula(
+                    chr(i) + str(15 + gapTab) + '+' + chr(i) + str(17 + gapTab) + '+' + chr(i) + str(
+                        19 + gapTab) + ')'))
+            self.setXLCell(XLSheet, 20 + gapTab, 26, Formula(
+                'D' + str(20 + gapTab) + '+I' + str(20 + gapTab) + '+N' + str(20 + gapTab) + '+S' + str(
+                    20 + gapTab) + '+X' + str(20 + gapTab)))
         
         wb.save(report_filename)
         outfile = open(report_filename,"r").read()
         attachment_obj = self.env['ir.attachment']
-        attachment_obj.create({'res_model':'extraschool.one_report','res_id':new_obj.id,'datas_fname':'rapport_one_'+vals['transmissiondate']+'.xls','name':'rapport_one_'+vals['transmissiondate']+'.xls','datas':base64.b64encode(outfile),})
+        attachment_obj.create({'res_model': 'extraschool.one_report', 'res_id': new_obj.id,
+                               'datas_fname': 'rapport_one_' + vals['transmissiondate'] + '.xls',
+                               'name': 'rapport_one_' + vals['transmissiondate'] + '.xls',
+                               'datas': base64.b64encode(outfile), })
         new_obj.write({'nb_m_childs':tot_nb_m,'nb_p_childs':tot_nb_p})
         os.remove(report_template_filename)
         os.remove(report_logoone_filename)
