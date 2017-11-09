@@ -137,7 +137,7 @@ class extraschool_payment_status_report(models.Model):
     _auto = False # Disable creation of table.
     _order = 'totalbalance DESC'
     
-    activity_category_id = fields.Many2one('extraschool.activitycategory',select=True)
+    activity_category_id = fields.Many2one('extraschool.activitycategory',select=True, default=1)
     parent_id = fields.Many2one('extraschool.parent',select=True)  
     solde = fields.Float('solde',select=True)
     com_struct = fields.Char('Structured Communication')

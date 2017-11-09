@@ -36,7 +36,7 @@ class extraschool_negatif_payment_correction_wizard(models.TransientModel):
     invoice_date = fields.Date('Date', required=True)
     payment_term = fields.Date('Payment term', required=True)     
     description = fields.Char('Description')
-    activity_category_id = fields.Many2one("extraschool.activitycategory", required=True)
+    activity_category_id = fields.Many2one("extraschool.activitycategory", required=True, default=1)
     state = fields.Selection([('init', 'Init'),
                              ('redirect', 'Redirect'),],
                             'State', required=True, default='init'

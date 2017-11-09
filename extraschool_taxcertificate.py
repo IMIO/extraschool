@@ -10,7 +10,7 @@ class extraschool_taxcertificate(models.Model):
     _description = 'Taxcertificate'
 
     name = fields.Integer('Fiscal Year', required=True, select = True)
-    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity category', required=True)
+    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity category', required=True, default=1)
     doc_date = fields.Date('Document date', required=True)     
     
     taxcertificate_item_ids = fields.One2many('extraschool.taxcertificate_item', 'taxcertificate_id','Details')

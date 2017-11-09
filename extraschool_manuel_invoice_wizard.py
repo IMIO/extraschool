@@ -43,7 +43,7 @@ class extraschool_manuel_invoice_wizard(models.TransientModel):
                                   ('P','Primaire')),
                                  'Level type')
     amount = fields.Float('Amount', required=True)
-    activity_category_id = fields.Many2one("extraschool.activitycategory", required=True)
+    activity_category_id = fields.Many2one("extraschool.activitycategory", required=True, default=1)
     state = fields.Selection([('init', 'Init'),
                              ('redirect', 'Redirect'),],
                             'State', required=True, default='init'

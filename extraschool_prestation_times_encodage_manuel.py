@@ -48,7 +48,7 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
     place_id = fields.Many2one('extraschool.place', required=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
     levelid = fields.Many2one('extraschool.level', 'Level', track_visibility='onchange', readonly=True, states={'draft': [('readonly', False)]},)
 
-    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False, track_visibility='onchange')
+    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False, track_visibility='onchange', default=1)
     prestationtime_ids = fields.One2many('extraschool.prestation_times_manuel','prestation_times_encodage_manuel_id', readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
     comment = fields.Text(track_visibility='onchange')
     state = fields.Selection([('draft', 'Draft'),

@@ -64,7 +64,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
     
     period_from = fields.Date(default=_get_defaultfrom)
     period_to = fields.Date(default=_get_defaultto)
-    activitycategory = fields.Many2one('extraschool.activitycategory')      
+    activitycategory = fields.Many2one('extraschool.activitycategory', default=1)
     force = fields.Boolean(string="Force verification")              
     state = fields.Selection([('init', 'Init'),
                                 ('prestations_to_verify', 'Prestations to verify'),

@@ -47,7 +47,7 @@ class extraschool_biller(models.Model):
 
     _order = "id desc"
     
-    activitycategoryid = fields.Many2one('extraschool.activitycategory', 'Activity Category', track_visibility='onchange')
+    activitycategoryid = fields.Many2one('extraschool.activitycategory', 'Activity Category', track_visibility='onchange', default=1)
     period_from = fields.Date('Period from')
     period_to = fields.Date('Period to')
     payment_term = fields.Date('Payment term')

@@ -53,7 +53,7 @@ class extraschool_remindersjournal(models.Model):
     _description = 'Reminders journal'
 
     name = fields.Char('Name', required=True)
-    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=True, readonly=True, states={'draft': [('readonly', False)]})
+    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=True, readonly=True, default=1, states={'draft': [('readonly', False)]})
     transmission_date = fields.Date('Transmission date', required=True, readonly=True, states={'draft': [('readonly', False)]})
     reminders_journal_item_ids = fields.One2many('extraschool.reminders_journal_item', 'reminders_journal_id','Reminder journal item')
     reminder_ids = fields.One2many('extraschool.reminder', 'reminders_journal_id','Reminders')

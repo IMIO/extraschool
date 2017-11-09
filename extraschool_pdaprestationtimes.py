@@ -28,7 +28,7 @@ class extraschool_pdaprestationtimes(models.Model):
     _description = 'PDA Prestation Times'
         
     placeid = fields.Many2one('extraschool.place', 'Schoolcare Place', required=True)
-    activitycategoryid = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False)
+    activitycategoryid = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False, default=1)
     childid = fields.Many2one('extraschool.child', 'Child', required=False)
     prestation_date = fields.Date('Date')
     prestation_time = fields.Float('Time')

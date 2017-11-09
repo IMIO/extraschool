@@ -51,7 +51,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
 
         return res      
 
-    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False)
+    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False, default=1)
     date_of_the_day = fields.Date(required=True, select=True)    
     child_id = fields.Many2one('extraschool.child', required=True, select=True)
     child_firstname = fields.Char(related="child_id.firstname", store=True)
@@ -576,7 +576,7 @@ class extraschool_prestation_times_history(models.Model):
     error_msg = fields.Char('Error', size=255)
     activity_occurrence_id = fields.Many2one('extraschool.activityoccurrence', 'Activity occurrence')
     activity_name = fields.Char(related='activity_occurrence_id.activityname')
-    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category')
+    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', default=1)
     prestation_times_of_the_day_id = fields.Many2one('extraschool.prestation_times_of_the_day', 'Prestation of the day')
     invoiced_prestation_id = fields.Many2one('extraschool.invoicedprestations', string='Invoiced prestation')
 

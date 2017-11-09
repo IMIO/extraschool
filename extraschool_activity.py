@@ -45,7 +45,7 @@ class extraschool_activity(models.Model):
 
     name = fields.Char('Name', required=True)
 
-    category = fields.Many2one('extraschool.activitycategory', 'Category', required=True, track_visibility='onchange')
+    category = fields.Many2one('extraschool.activitycategory', 'Category', required=True, track_visibility='onchange', default=1)
     parent_id = fields.Many2one('extraschool.activity', 'Parent', index=True, track_visibility='onchange')
     root_id = fields.Many2one('extraschool.activity', 'Root', compute='_compute_root_activity', store=True, index=True, track_visibility='onchange')
     activity_child_ids = fields.One2many('extraschool.activity', 'parent_id', 'Activity child', track_visibility='onchange')

@@ -45,7 +45,7 @@ class extraschool_payment_wizard(models.TransientModel):
     reconciliation_amount_balance = fields.Float(compute="_compute_reconciliation_amount_balance", string='Amount to reconcil')    
     reconciliation_amount = fields.Float(compute="_compute_reconciliation_amount", string='Amount reconcilied')
     parent_id = fields.Many2one("extraschool.parent")
-    activity_category_id = fields.Many2one("extraschool.activitycategory")
+    activity_category_id = fields.Many2one("extraschool.activitycategory", default=1)
     payment_reconciliation_ids = fields.One2many('extraschool.payment_wizard_reconcil','payment_wizard_id')
     reject_id = fields.Many2one('extraschool.reject', string='Reject')
     comment = fields.Char('Comment')
