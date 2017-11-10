@@ -45,7 +45,7 @@
 	                    <newline/>
 	                    <field name="classid"/>
 	                    <field name="birthdate"/>
-	                    <field name="tagid"/>
+	                    <field name="tagid" groups="extraschool.extraschool_qrcode"/>
 	                    <newline/>
 	                    <field name="otherref"/>
 						<field name="rn"/>                         

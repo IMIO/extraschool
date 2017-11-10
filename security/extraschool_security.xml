@@ -28,5 +28,8 @@
          <record id="extraschool_direction" model="res.groups">
             <field name="name">AES Direction +</field>
          </record>
+         <record id="extraschool_qrcode" model="res.groups">
+            <field name="name">AES Qr Core</field>
+         </record>
    	  </data>
    </openerp>
