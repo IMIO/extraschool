@@ -401,7 +401,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
                 if not looked_activity:
                     looked_activity = stop_time.activity_occurrence_id.activityid.parent_id
                     while looked_activity.parent_id.id != looked_activity.root_id.id:
-                        print looked_activity.parent_id.id , looked_activity.root_id.id
+                        # print looked_activity.parent_id.id , looked_activity.root_id.id
                         looked_activity = looked_activity.parent_id
                 if occurrence.id !=looked_activity.id:       
                     occurrence_obj.add_presta(from_occurrence,self.child_id.id,None, True, False, True if prest_to > 0 else False, True if prest_from > 0 else False,prest_to,prest_from) #from & to are inverted it's normal it's for parent             
@@ -489,7 +489,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
     
     @api.multi      
     def check(self):
-        print "check presta of the day"
+        print "Checking......."
         #Check if presta is not invoiced
         if len(self.prestationtime_ids.filtered(lambda r: r.invoiced_prestation_id.id is not False).ids) == 0:                  
             #if no presta than warning and exit
@@ -525,7 +525,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
                     #an error has been found and added to comment field
                     self.verified = False
 
-        print self.verified
+        # print self.verified
 
         self.last_check_entry_exit()
 
@@ -534,7 +534,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
         else:
             self.verified = True
 
-        print self.verified
+        # print self.verified
         
         return True   
     
