@@ -118,10 +118,11 @@ class extraschool_payment_reconciliation(models.Model):
     invoice_id = fields.Many2one("extraschool.invoice", required=True, index=True)
     biller_id = fields.Many2one(related='invoice_id.biller_id', store=True, index=True)
     biller_other_ref = fields.Char(related='invoice_id.biller_id.other_ref', store=True)
-    amount = fields.Float('Amount')
+    amount = fields.Float('Amount Paid')
     account = fields.Char(related='payment_id.account')
     paymentdate = fields.Date(related='payment_id.paymentdate', store=True)
     date = fields.Date("Reconcil date", index=True)
+    amount_invoice = fields.Float(related='invoice_id.amount_total')
     
     def name_get(self):            
         res=[]
@@ -136,8 +137,11 @@ class extraschool_payment_status_report(models.Model):
     _description = 'Payment status report'
     _auto = False # Disable creation of table.
     _order = 'totalbalance DESC'
-    
-    activity_category_id = fields.Many2one('extraschool.activitycategory',select=True, default=1)
+
+    def _get_activity_category_id(self):
+        return self.env['extraschool.activitycategory'].search([]).filtered('id').id
+
+    activity_category_id = fields.Many2one('extraschool.activitycategory',select=True, default=_get_activity_category_id)
     parent_id = fields.Many2one('extraschool.parent',select=True)  
     solde = fields.Float('solde',select=True)
     com_struct = fields.Char('Structured Communication')
@@ -184,21 +188,27 @@ class extraschool_payment_report(models.Model):
     _auto = False
     
     parent_id = fields.Many2one('extraschool.parent',select=True)  
-    amount = fields.Float('amount',select=True)
+    amount_invoice = fields.Float('amount_invoice',select=True)
+    amount_payment = fields.Float('amout_payment', select=True)
     solde = fields.Float('solde',select=True)
     structcom = fields.Char('Structured Communication')
     structcom_prefix = fields.Char('Structured Communication Prefix')
     payment_date = fields.Date('Payment Date')
     comment = fields.Char('Comment')
-    
+    biller_id = fields.Many2one('extraschool.biller', select=True)
+    invoice_id = fields.Many2one('extraschool.invoice', select=True)
+    invoice_number = fields.Integer(related='invoice_id.number')
     
     
     def init(self, cr):
         tools.sql.drop_view_if_exists(cr, 'extraschool_payment_report')
         cr.execute("""
             CREATE view extraschool_payment_report as
-                select id, amount, solde, parent_id, comment,paymentdate as payment_date, structcom, structcom_prefix
-                from extraschool_payment; 
+                SELECT pr.invoice_id, pr.id AS id, p.amount AS amount_invoice, pr.amount AS amount_payment, p.solde AS solde, p.parent_id AS parent_id, p.comment AS comment, p.paymentdate AS payment_date, p.structcom AS structcom, pr.biller_id AS biller_id
+                FROM extraschool_payment_reconciliation AS pr
+                INNER JOIN extraschool_payment AS p
+                ON pr.payment_id = p.id
+                ORDER BY p.paymentdate;
         """)
 
 class extraschool_aged_balance(models.TransientModel):

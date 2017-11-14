@@ -33,6 +33,9 @@ from datetime import date, datetime, timedelta as td
 class extraschool_manuel_invoice_wizard(models.TransientModel):
     _name = 'extraschool.manuel_invoice_wizard'
 
+    def _get_activity_category_id(self):
+        return self.env['extraschool.activitycategory'].search([]).filtered('id').id
+
     parent_id = fields.Many2one("extraschool.parent")
     invoice_date = fields.Date('Date', required=True)
     payment_term = fields.Date('Payment term', required=True)     
@@ -43,7 +46,7 @@ class extraschool_manuel_invoice_wizard(models.TransientModel):
                                   ('P','Primaire')),
                                  'Level type')
     amount = fields.Float('Amount', required=True)
-    activity_category_id = fields.Many2one("extraschool.activitycategory", required=True, default=1)
+    activity_category_id = fields.Many2one("extraschool.activitycategory", required=True, default=_get_activity_category_id)
     state = fields.Selection([('init', 'Init'),
                              ('redirect', 'Redirect'),],
                             'State', required=True, default='init'

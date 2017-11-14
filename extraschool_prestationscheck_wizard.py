@@ -60,11 +60,14 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
             return str(datetime.date(date_now.year,date_now.month,1))
 
     def _get_defaultto(self):          
-        return datetime.datetime.now().strftime("%Y-%m-%d")  
+        return datetime.datetime.now().strftime("%Y-%m-%d")
+
+    def _get_activity_category_id(self):
+        return self.env['extraschool.activitycategory'].search([]).filtered('id').id
     
     period_from = fields.Date(default=_get_defaultfrom)
     period_to = fields.Date(default=_get_defaultto)
-    activitycategory = fields.Many2one('extraschool.activitycategory', default=1)
+    activitycategory = fields.Many2one('extraschool.activitycategory', default=_get_activity_category_id)
     force = fields.Boolean(string="Force verification")              
     state = fields.Selection([('init', 'Init'),
                                 ('prestations_to_verify', 'Prestations to verify'),

@@ -46,8 +46,11 @@ class extraschool_biller(models.Model):
     _inherit = 'mail.thread'
 
     _order = "id desc"
-    
-    activitycategoryid = fields.Many2one('extraschool.activitycategory', 'Activity Category', track_visibility='onchange', default=1)
+
+    def _get_activity_category_id(self):
+        return self.env['extraschool.activitycategory'].search([]).filtered('id').id
+
+    activitycategoryid = fields.Many2one('extraschool.activitycategory', 'Activity Category', track_visibility='onchange', default=_get_activity_category_id)
     period_from = fields.Date('Period from')
     period_to = fields.Date('Period to')
     payment_term = fields.Date('Payment term')

@@ -43,12 +43,15 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
         print str(res)
 
         return res      
-     
+
+    def _get_activity_category_id(self):
+        return self.env['extraschool.activitycategory'].search([]).filtered('id').id
+
     date_of_the_day = fields.Date(required=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
     place_id = fields.Many2one('extraschool.place', required=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
     levelid = fields.Many2one('extraschool.level', 'Level', track_visibility='onchange', readonly=True, states={'draft': [('readonly', False)]},)
 
-    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False, track_visibility='onchange', default=1)
+    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False, track_visibility='onchange', default=_get_activity_category_id)
     prestationtime_ids = fields.One2many('extraschool.prestation_times_manuel','prestation_times_encodage_manuel_id', readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
     comment = fields.Text(track_visibility='onchange')
     state = fields.Selection([('draft', 'Draft'),
