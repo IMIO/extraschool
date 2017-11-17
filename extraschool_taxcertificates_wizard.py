@@ -34,8 +34,11 @@ from datetime import datetime
 class extraschool_taxcertificates_wizard(models.TransientModel):
     _name = 'extraschool.taxcertificates_wizard'
 
+    def _get_activity_category_id(self):
+        return self.env['extraschool.activitycategory'].search([]).filtered('id').id
+
     year = fields.Char('Year', size=4)
-    activitycategory = fields.Many2one('extraschool.activitycategory', 'Activity category', required=True, default=1)
+    activitycategory = fields.Many2one('extraschool.activitycategory', 'Activity category', required=True, default=_get_activity_category_id)
     parentid = fields.Many2one('extraschool.parent', 'Parent')
     name = fields.Char('File Name', size=50, readonly=True)
     taxcertificates = fields.Binary('File', readonly=True)

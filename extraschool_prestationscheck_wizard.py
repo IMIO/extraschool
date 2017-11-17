@@ -60,11 +60,14 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
             return str(datetime.date(date_now.year,date_now.month,1))
 
     def _get_defaultto(self):          
-        return datetime.datetime.now().strftime("%Y-%m-%d")  
+        return datetime.datetime.now().strftime("%Y-%m-%d")
+
+    def _get_activity_category_id(self):
+        return self.env['extraschool.activitycategory'].search([]).filtered('id').id
     
     period_from = fields.Date(default=_get_defaultfrom)
     period_to = fields.Date(default=_get_defaultto)
-    activitycategory = fields.Many2one('extraschool.activitycategory', default=1)
+    activitycategory = fields.Many2one('extraschool.activitycategory', default=_get_activity_category_id)
     force = fields.Boolean(string="Force verification")              
     state = fields.Selection([('init', 'Init'),
                                 ('prestations_to_verify', 'Prestations to verify'),
@@ -171,7 +174,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
     def _check(self, force = False): 
         cr,uid = self.env.cr, self.env.user.id
         
-        print "Check from check_wizard"   
+        print "# Check prestations from wizard"
         if not force:    
             prestation_search_domain = [('verified', '=', False),]
         else:
@@ -199,10 +202,16 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
         if force:
             obj_prestation_rs.write({'verified': False,})
             obj_prestation_of_the_day_rs.write({'verified': False,})
-            
+
+        total_check = len(obj_prestation_of_the_day_rs)
+        print "## Total prestations to check: %s" % total_check
+        count_check = 1
+
         for presta_of_the_day in obj_prestation_of_the_day_rs:
             presta_of_the_day.check()
-            
+            print "### Check [%s/%s]" % (count_check,total_check)
+            count_check += 1
+
             if len(presta_of_the_day.prestationtime_ids.filtered(lambda r: r.verified == False))  > 0:
                 presta_of_the_day.verified = False
             else:
@@ -213,7 +222,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
                     presta_of_the_day.verified = False
 
         self.state = 'end_of_verification'
-
+        print "## END CHECK PRESTATIONS ##"
         
         #construct domain for redirect user to unverified presta matching his selection
         prestation_search_domain = []

@@ -35,6 +35,9 @@ from openerp.tools import float_compare, float_round
 class extraschool_payment_wizard(models.TransientModel):
     _name = 'extraschool.payment_wizard'
 
+    def _get_activity_category_id(self):
+        return self.env['extraschool.activitycategory'].search([]).filtered('id').id
+
     '''
     payment_type = fields.Selection((('1','Prepaid'),
                                     ('2','Invoice'),
@@ -45,7 +48,7 @@ class extraschool_payment_wizard(models.TransientModel):
     reconciliation_amount_balance = fields.Float(compute="_compute_reconciliation_amount_balance", string='Amount to reconcil')    
     reconciliation_amount = fields.Float(compute="_compute_reconciliation_amount", string='Amount reconcilied')
     parent_id = fields.Many2one("extraschool.parent")
-    activity_category_id = fields.Many2one("extraschool.activitycategory", default=1)
+    activity_category_id = fields.Many2one("extraschool.activitycategory", default=_get_activity_category_id)
     payment_reconciliation_ids = fields.One2many('extraschool.payment_wizard_reconcil','payment_wizard_id')
     reject_id = fields.Many2one('extraschool.reject', string='Reject')
     comment = fields.Char('Comment')
@@ -54,7 +57,7 @@ class extraschool_payment_wizard(models.TransientModel):
                              ('print_reconciliation', 'Print reconciliation')],
                             'State', required=True, default='init'
                             )
-    
+
     @api.onchange('parent_id','amount','activity_category_id')
     @api.one
     def _on_change_payment_type(self):

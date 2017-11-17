@@ -31,7 +31,10 @@ class extraschool_prestationtimes(models.Model):
     _description = 'Prestation Times'
     _order = 'prestation_date,prestation_time,activity_occurrence_id,es'
     _order = 'prestation_date desc'
-               
+
+    def _get_activity_category_id(self):
+        return self.env['extraschool.activitycategory'].search([]).filtered('id').id
+
     placeid = fields.Many2one('extraschool.place', 'Schoolcare Place', required=False, Index=True)
     childid = fields.Many2one('extraschool.child', 'Child', domain="[('isdisabled','=',False)]", required=False, select=True, ondelete='restrict')
     parent_id = fields.Many2one(related='childid.parentid', store=True, select=True)                  
@@ -44,7 +47,7 @@ class extraschool_prestationtimes(models.Model):
     error_msg = fields.Char('Error', size=255)
     activity_occurrence_id = fields.Many2one('extraschool.activityoccurrence', 'Activity occurrence', select=True)  
     activity_name = fields.Char(related='activity_occurrence_id.activityname')
-    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=True, select=True, default=1)
+    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=True, select=True, default=_get_activity_category_id)
     prestation_times_of_the_day_id = fields.Many2one('extraschool.prestation_times_of_the_day', 'Prestation of the day',ondelete='restrict')  
     invoiced_prestation_id = fields.Many2one('extraschool.invoicedprestations', string='Invoiced prestation', Index="True")                  
              

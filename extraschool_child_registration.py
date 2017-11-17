@@ -69,7 +69,6 @@ class extraschool_child_registration(models.Model):
     def compute_number_childs(self):
         self.number_childs = len(self.child_registration_line_ids)
 
-
     @api.onchange('day_ids')
     @api.one
     def onchange_day(self):
@@ -130,7 +129,6 @@ class extraschool_child_registration(models.Model):
                 if 7 not in list :
                     for child in self.child_registration_line_ids:
                         child.sunday = False
-
 
     def get_week_days(self,year, week):
         d = date(year,1,1)
@@ -203,7 +201,7 @@ class extraschool_child_registration(models.Model):
         number_childs = 0
         if 'child_registration_line_ids' in vals:
             for child_registration_line in vals['child_registration_line_ids']:
-                if child_registration_line[0] == 4 or child_registration_line[0] == 0:
+                if child_registration_line[0] == 4 or child_registration_line[0] == 0 or child_registration_line[0] == 1:
                     number_childs += 1
             vals['number_childs'] = number_childs
         res = super(extraschool_child_registration, self).write(vals)
@@ -484,7 +482,6 @@ class extraschool_child_registration_line(models.Model):
             return False
         else:
             return True
-
 
 class extraschool_day(models.Model):
     _name = 'extraschool.day'

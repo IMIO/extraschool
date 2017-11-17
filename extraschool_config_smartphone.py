@@ -35,7 +35,11 @@ class extraschool_config_smartphone(models.Model):
     _name = 'extraschool.config_smartphone'
     _description = 'Configuration of Smartphone'
 
-    activitycategories_ids = fields.Many2many('extraschool.activitycategory','extraschool_smartphone_config_activitycategory_rel', 'id', 'activitycategory_id','Activity categories', required=True, default=1)
+    def _get_activity_category_id(self):
+        return self.env['extraschool.activitycategory'].search([]).filtered('id').id
+
+    activitycategory_id = fields.Many2one('extraschool.activitycategory', 'Activity category', required=True,
+                                       default=1)
     start_transmissiontime = fields.Char('Transmission time', size=5, default='22:00', required=True)
     serveraddress = fields.Char('Server address', size=50, default='https://', required=True)
     databasename = fields.Char('Database name', size=30, required=True)

@@ -122,23 +122,26 @@ class extraschool_payment_reconciliation(models.Model):
     account = fields.Char(related='payment_id.account')
     paymentdate = fields.Date(related='payment_id.paymentdate', store=True)
     date = fields.Date("Reconcil date", index=True)
-    
-    def name_get(self):            
+
+    def name_get(self):
         res=[]
         for reg in self:
-            res.append((reg.id, "%s" % (reg.invoice_id.name)))    
+            res.append((reg.id, "%s" % (reg.invoice_id.name)))
 
-        return res       
-    
-    
+        return res
+
+
 class extraschool_payment_status_report(models.Model):
     _name = 'extraschool.payment_status_report'
     _description = 'Payment status report'
     _auto = False # Disable creation of table.
     _order = 'totalbalance DESC'
-    
-    activity_category_id = fields.Many2one('extraschool.activitycategory',select=True, default=1)
-    parent_id = fields.Many2one('extraschool.parent',select=True)  
+
+    def _get_activity_category_id(self):
+        return self.env['extraschool.activitycategory'].search([]).filtered('id').id
+
+    activity_category_id = fields.Many2one('extraschool.activitycategory',select=True, default=_get_activity_category_id)
+    parent_id = fields.Many2one('extraschool.parent',select=True)
     solde = fields.Float('solde',select=True)
     com_struct = fields.Char('Structured Communication')
     totalbalance = fields.Float('Total balance')
@@ -174,7 +177,7 @@ class extraschool_payment_status_report(models.Model):
                 group by zz.ac_id,zz.p_id, zz.ac_com_struct_prefix
                 order by zz.ac_id,zz.p_id;
         """)
-        
+
     def get_date_now(self):
         return datetime.now().strftime('%d-%m-%Y')
 
@@ -182,17 +185,17 @@ class extraschool_payment_report(models.Model):
     _name = 'extraschool.payment_report'
     _description = 'Payment report'
     _auto = False
-    
-    parent_id = fields.Many2one('extraschool.parent',select=True)  
+
+    parent_id = fields.Many2one('extraschool.parent',select=True)
     amount = fields.Float('amount',select=True)
     solde = fields.Float('solde',select=True)
     structcom = fields.Char('Structured Communication')
     structcom_prefix = fields.Char('Structured Communication Prefix')
     payment_date = fields.Date('Payment Date')
     comment = fields.Char('Comment')
-    
-    
-    
+
+
+
     def init(self, cr):
         tools.sql.drop_view_if_exists(cr, 'extraschool_payment_report')
         cr.execute("""

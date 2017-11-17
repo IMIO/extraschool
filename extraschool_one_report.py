@@ -81,9 +81,12 @@ class extraschool_one_report(models.Model):
             return "1er"
         else:
             return `quarter` + "eme"
-    
+
+    def _get_activity_category_id(self):
+        return self.env['extraschool.activitycategory'].search([]).filtered('id').id
+
     placeid = fields.Many2one('extraschool.place')
-    activitycategory = fields.Many2one('extraschool.activitycategory', required=True, default=1)
+    activitycategory = fields.Many2one('extraschool.activitycategory', required=True, default=_get_activity_category_id)
     year = fields.Integer(required=True, default=datetime.now().year)
     quarter = fields.Selection(((1,'1er'), (2,'2eme'), (3,'3eme'), (4,'4eme')), required=True, default=((datetime.now().month-1)//3 + 1))
     show_quarter = fields.Char(default=_get_quarter, readonly=True)

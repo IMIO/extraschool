@@ -12,7 +12,7 @@
                 </header>
                 <sheet>
                     <group col="2">
-                        <field name="activitycategories_ids" />
+                        <field name="activitycategory_id" />
                         <newline/>
                         <field name="maxtimedelta"/>
                         <newline/>

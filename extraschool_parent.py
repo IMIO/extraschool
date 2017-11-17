@@ -158,6 +158,17 @@ class extraschool_parent(models.Model):
                 'limit': 50000,
                 'domain': [('parentid', '=',self.id),]
             }
+        # return {'name': 'Paiements',
+        #         'type': 'ir.actions.act_window',
+        #         'res_model': 'extraschool.payment_report',
+        #         'tree_view_id': 'extraschool_payment_parent_tree',
+        #         'view_type': 'form',
+        #         'view_mode': 'tree,form',
+        #         'nodestroy': False,
+        #         'target': 'current',
+        #         'limit': 50000,
+        #         'domain': [('parent_id', '=',self.id),]
+        #     }
 
     @api.multi
     def refund(self):
@@ -234,7 +245,7 @@ class extraschool_parent(models.Model):
 
     @api.model
     def create(self, vals):
-        #to do replace check par une contraite
+        # todo replace check par une contraite
         parent_obj = self.env['extraschool.parent']
         parents=parent_obj.search([('firstname', 'ilike', vals['firstname'].strip()),
                                    ('lastname', 'ilike', vals['lastname'].strip()),

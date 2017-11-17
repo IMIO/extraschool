@@ -51,13 +51,16 @@ class extraschool_prestation_times_of_the_day(models.Model):
 
         return res      
 
-    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False, default=1)
+    def _get_activity_category_id(self):
+        return self.env['extraschool.activitycategory'].search([]).filtered('id').id
+
+    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False, default=_get_activity_category_id)
     date_of_the_day = fields.Date(required=True, select=True)    
     child_id = fields.Many2one('extraschool.child', required=True, select=True)
     child_firstname = fields.Char(related="child_id.firstname", store=True)
     child_lastname = fields.Char(related="child_id.lastname", store=True)
     parent_id = fields.Many2one(related='child_id.parentid', store=True, select=True)
-    place_id = fields.Many2one(related='child_id.schoolimplantation', store=True, select=True)
+    # place_id = fields.Many2one(related='child_id.schoolimplantation', store=True, select=True)
     prestationtime_ids = fields.One2many('extraschool.prestationtimes','prestation_times_of_the_day_id')
     pda_prestationtime_ids = fields.One2many('extraschool.pdaprestationtimes','prestation_times_of_the_day_id')  
     verified = fields.Boolean(select=True)
@@ -398,7 +401,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
                 if not looked_activity:
                     looked_activity = stop_time.activity_occurrence_id.activityid.parent_id
                     while looked_activity.parent_id.id != looked_activity.root_id.id:
-                        print looked_activity.parent_id.id , looked_activity.root_id.id
+                        # print looked_activity.parent_id.id , looked_activity.root_id.id
                         looked_activity = looked_activity.parent_id
                 if occurrence.id !=looked_activity.id:       
                     occurrence_obj.add_presta(from_occurrence,self.child_id.id,None, True, False, True if prest_to > 0 else False, True if prest_from > 0 else False,prest_to,prest_from) #from & to are inverted it's normal it's for parent             
@@ -486,7 +489,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
     
     @api.multi      
     def check(self):
-        print "check presta of the day"
+        print "Checking......."
         #Check if presta is not invoiced
         if len(self.prestationtime_ids.filtered(lambda r: r.invoiced_prestation_id.id is not False).ids) == 0:                  
             #if no presta than warning and exit
@@ -522,7 +525,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
                     #an error has been found and added to comment field
                     self.verified = False
 
-        print self.verified
+        # print self.verified
 
         self.last_check_entry_exit()
 
@@ -531,7 +534,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
         else:
             self.verified = True
 
-        print self.verified
+        # print self.verified
         
         return True   
     
@@ -564,6 +567,9 @@ class extraschool_prestation_times_of_the_day(models.Model):
 class extraschool_prestation_times_history(models.Model):
     _name = 'extraschool.prestation_times_history'
 
+    def _get_activity_category_id(self):
+        return self.env['extraschool.activitycategory'].search([]).filtered('id').id
+
     placeid = fields.Many2one('extraschool.place', 'Schoolcare Place')
     childid = fields.Many2one('extraschool.child', 'Child')
     parent_id = fields.Many2one(related='childid.parentid')
@@ -576,7 +582,7 @@ class extraschool_prestation_times_history(models.Model):
     error_msg = fields.Char('Error', size=255)
     activity_occurrence_id = fields.Many2one('extraschool.activityoccurrence', 'Activity occurrence')
     activity_name = fields.Char(related='activity_occurrence_id.activityname')
-    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', default=1)
+    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', default=_get_activity_category_id)
     prestation_times_of_the_day_id = fields.Many2one('extraschool.prestation_times_of_the_day', 'Prestation of the day')
     invoiced_prestation_id = fields.Many2one('extraschool.invoicedprestations', string='Invoiced prestation')
 
