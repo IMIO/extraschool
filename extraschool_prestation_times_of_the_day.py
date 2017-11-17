@@ -198,13 +198,13 @@ class extraschool_prestation_times_of_the_day(models.Model):
         new_list = []
 
         for activity in activity_ids:
-            if activity[4] == activity_to_delete:
+            if activity_to_delete and activity[4] == activity_to_delete:
                 pod_to_delete.append(activity[3])
                 print "Need to delete: ", activity[5]
             else:
                 new_list.append(activity[3])
 
-        if len(pod_to_delete) % 2 == 0:
+        if pod_to_delete and len(pod_to_delete) % 2 == 0:
             for pod in pod_to_delete:
                 prestation_times_obj = self.env['extraschool.prestationtimes'].browse(pod)
                 self.env['extraschool.prestation_times_history'].create({
@@ -224,7 +224,6 @@ class extraschool_prestation_times_of_the_day(models.Model):
                 })
                 prestation_times_obj.unlink()
 
-
         for presta in self.env['extraschool.prestationtimes'].search([('id', 'in', new_list)]).sorted(key=lambda r: ("%s%s" % (('%.2f' % (r.prestation_time)).zfill(5), 1 if r.es == 'E' else 0))):
         # for presta in self.prestationtime_ids.sorted(key=lambda r: ("%s%s" % (('%.2f' % (r.prestation_time)).zfill(5), 1 if r.es == 'E' else 0))):
             # print "presta : %s %s %s" % (presta.activity_occurrence_id.id, presta.activity_occurrence_id.name, ('%.2f' % (presta.prestation_time)).zfill(5))
@@ -234,8 +233,11 @@ class extraschool_prestation_times_of_the_day(models.Model):
             if presta.es != es[i]:
                 presta.verified = False
                 return
-            else:
+            elif presta.activity_occurrence_id:
                 presta.verified = True
+            else:
+                presta.verified = False
+                return
 
             if i and presta.es != 'S' and presta.activity_occurrence_id.id != last_occu:
                 presta.verified = False
