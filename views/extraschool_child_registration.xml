@@ -136,6 +136,7 @@
 	                    <field name="activity_id" required="True" options="{'no_create':True}"/>
         	            <newline/>
 						<field name="week"/>
+						<newline/>
 						<field name="date_from"/> 
 						<field name="date_to"/>
 						<newline />
