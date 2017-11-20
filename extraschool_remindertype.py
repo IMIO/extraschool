@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014 
+#    Copyright (C) 2008-2014
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot - Imio (<http://www.imio.be>).
 #
@@ -37,7 +37,7 @@ class extraschool_remindertype(models.Model):
     fees_type = fields.Selection([('free','Free'),('fix','Fixed amount'),], 'Reminder cost type',required=True)
     fees_amount = fields.Float('Fees amount')
     fees_description = fields.Char('Fees description')
-    mail_template_id = fields.Many2one('email.template', 'Email template')
+    mail_template_id = fields.Many2one('mail.template', 'Email template')
     report_id = fields.Many2one('extraschool.report', 'Document report')
     text = fields.Text('Text')
     select_reminder_type = fields.Boolean(string='Select a reminder type')
@@ -46,13 +46,13 @@ class extraschool_remindertype(models.Model):
     payment_term_in_day = fields.Integer('payment_term_in_day')
     minimum_balance = fields.Float('Minimum balance', default=0.01)
     out_of_accounting = fields.Boolean(string="Out of accounting")
-    
+
     @api.onchange('out_of_accounting')
-    def onchange_week(self):    
+    def onchange_week(self):
         self.fees_type = 'free'
         self.fees_amount = 0
         self.fees_description = False
-    
-    
-         
+
+
+
 

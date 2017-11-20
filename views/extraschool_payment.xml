@@ -1,9 +1,9 @@
 <?xml version="1.0" ?>
 <openerp>
-	<data> 
+	<data>
          <record model="ir.ui.view" id="extraschool_payment_tree">
             <field name="name">extraschool.payment.tree</field>
-            <field name="model">extraschool.payment</field>    
+            <field name="model">extraschool.payment</field>
             <field name="type">tree</field>
             <field name="arch" type="xml">
 	            <tree string="Payment Status" create="false">
@@ -14,7 +14,7 @@
                     <field name="structcom_prefix"/>
                     <field name="amount" sum="True"/>
 	            </tree>
-            </field> 
+            </field>
         </record>
 
         <!--<record model="ir.ui.view" id="extraschool_payment_parent_tree">-->
@@ -59,16 +59,16 @@
 	                    <field name="name" readonly="True"/>
 	                    <field name="account" readonly="True"/>
 	                    <field name="structcom" readonly="True"/>
-	                    <field name="structcom_prefix" readonly="True"/>	
-	                    <newline />               		                    
-						<field name="comment" />      
+	                    <field name="structcom_prefix" readonly="True"/>
+	                    <newline />
+						<field name="comment" />
 						<separator string="Affectations" colspan="4"/>
 						<field name="payment_reconciliation_ids" nolabel="1" colspan="4" readonly="True"/>
                     </group>
 				</form>
 			</field>
-		</record>                
-        
+		</record>
+
          <record id="extraschool_payment_search_view" model="ir.ui.view">
             <field name="name">extraschool.payment.search</field>
             <field name="model">extraschool.payment</field>
@@ -77,25 +77,25 @@
 	            	<field name="structcom"/>
 	                <field name="paymentdate"/>
 	                <field name="amount" />
-					<field name="parent_id"></field>	                
+					<field name="parent_id"></field>
                    <group  expand='0' string='Group by...'>
                        <filter string='structcom_prefix' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'structcom_prefix'}"/>
                    	   <filter string='structcom' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'structcom'}"/>
-                   </group>                    
+                   </group>
                 </search>
             </field>
-        </record>        
-       
+        </record>
+
         <record model="ir.actions.act_window" id="action_extraschool_payment">
 			<field name="name">Payments</field>
 			<field name="res_model">extraschool.payment</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
 		</record>
-        		
+
          <record model="ir.ui.view" id="extraschool_payment_reconciliation_tree">
             <field name="name">extraschool.payment_reconciliation.tree</field>
-            <field name="model">extraschool.payment_reconciliation</field>    
+            <field name="model">extraschool.payment_reconciliation</field>
             <field name="type">tree</field>
             <field name="arch" type="xml">
 	            <tree string="Payment reconciliation" create="false">
@@ -106,22 +106,22 @@
                     <field name="amount" sum="True"/>
                     <!--<field name="amount_invoice"/>-->
 	            </tree>
-            </field> 
+            </field>
         </record>
 
-        
+
        <record id="extraschool_payment_reconciliation_graph" model="ir.ui.view">
             <field name="name">extraschool.payment_reconciliation.graph</field>
             <field name="model">extraschool.payment_reconciliation</field>
             <field name="arch" type="xml">
                 <graph string="Payment reconciliation" type="pivot">
 		            	<field name="biller_id" type="col"/>
-		                <field name="date" interval="month"/>		                		                
+		                <field name="date" interval="month"/>
 		                <field name="amount" type="measure"/>
                  </graph>
              </field>
         </record>
-        
+
          <record id="extraschool_payment_reconciliation_search_view" model="ir.ui.view">
             <field name="name">extraschool.payment_reconciliation.search</field>
             <field name="model">extraschool.payment_reconciliation</field>
@@ -129,21 +129,21 @@
                 <search string="Payment Reconciliation Search">
                    <group  expand='0' string='Group by...'>
                        <filter string='biller_id' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'biller_id'}"/>
-                   </group>                    
+                   </group>
                 </search>
             </field>
-        </record> 
-                        
+        </record>
+
         <record model="ir.actions.act_window" id="action_extraschool_payment_reconciliation">
 			<field name="name">Payments reconciliation</field>
 			<field name="res_model">extraschool.payment_reconciliation</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">graph,tree</field>
-		</record>        
-		
+		</record>
+
          <record model="ir.ui.view" id="extraschool_payment_status_report_form">
             <field name="name">extraschool.payment_status_report.form</field>
-            <field name="model">extraschool.payment_status_report</field>    
+            <field name="model">extraschool.payment_status_report</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
 	            <form string="Payment Status">
@@ -153,12 +153,12 @@
 		                <field name="solde"/>
 					</group>
 		       </form>
-            </field> 
+            </field>
         </record>
-                                
+
          <record model="ir.ui.view" id="extraschool_payment_status_report_tree">
             <field name="name">extraschool.payment_status_report.tree</field>
-            <field name="model">extraschool.payment_status_report</field>    
+            <field name="model">extraschool.payment_status_report</field>
             <field name="type">tree</field>
             <field name="arch" type="xml">
 	            <tree string="Payment Status" create="false">
@@ -166,10 +166,10 @@
 		                <field name="parent_id"/>
 		                <field name="com_struct"/>
 		                <field name="solde" sum="True"/>
-		                <field name="totalbalance" sum="True"/>		                
-		                <field name="nbr_actif_child"/>		                
+		                <field name="totalbalance" sum="True"/>
+		                <field name="nbr_actif_child"/>
 		        </tree>
-            </field> 
+            </field>
         </record>
 
        <record id="extraschool_payment_status_report_graph" model="ir.ui.view">
@@ -183,7 +183,7 @@
                  </graph>
              </field>
         </record>
-        
+
          <record id="extraschool_payment_status_report_search_view" model="ir.ui.view">
             <field name="name">extraschool.payment_status_report.search</field>
             <field name="model">extraschool.payment_status_report</field>
@@ -192,29 +192,29 @@
 	            	<field name="activity_category_id"/>
 	               	<field name="parent_id"/>
 	               	<field name="solde"/>
-					<filter string="Actif" name="actif" icon="terp-accessories-archiver" domain="[('parent_id.isdisabled','=',False)]"/> 	               	
+					<filter string="Actif" name="actif" icon="terp-accessories-archiver" domain="[('parent_id.isdisabled','=',False)]"/>
                    	<group  expand='0' string='Group by...'>
                        <filter string='activity_category_id' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'activity_category_id'}"/>
                        <filter string='parent_id' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'parent_id'}"/>
-                   	</group>                    
+                   	</group>
                 </search>
             </field>
-        </record>           
-                       
+        </record>
+
         <record model="ir.actions.act_window" id="action_payment_status_report">
 			<field name="name">Payment Status Report</field>
 			<field name="res_model">extraschool.payment_status_report</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,graph</field>
             <field name="view_id" ref="extraschool_payment_status_report_tree"/>
-			<field name="context">{"search_default_actif":1}</field>             
+			<field name="context">{"search_default_actif":1}</field>
 		</record>
-        				
+
 	</data>
 	<data noupdate="1">
         <!--Definition of an email template with an empty body that will be used in payment mailing. Used to give a
             basis for email recipients, name and to ease the definition of a further elaborated template. -->
-        <record id="email_template_payment_invitation" model="email.template">
+        <record id="email_template_payment_invitation" model="mail.template">
             <field name="name">Payment invitation mail</field>
             <field name="model_id" ref="model_extraschool_payment_status_report"/>
             <field name="auto_delete" eval="True"/>
@@ -234,10 +234,10 @@
     <p>
     	Num de compte : ${object.activity_category_id.bankaccount}
     	Com structurée : ${object.com_struct}
-    </p>    
+    </p>
 </div>
-            ]]></field>            
-                        
+            ]]></field>
+
         </record>
 	</data>
 	<data>
@@ -257,16 +257,16 @@
                             'default_template_id': ref('email_template_payment_invitation'),
                         }"/>
 
-        <record id="email_payment_invitation" model="email.template">
+        <record id="email_payment_invitation" model="mail.template">
             <field name="ref_ir_act_window" ref="extraschool.payment_invitation_mass_mail"/>
         </record>
-				
+
 	</data>
 
-	<data> 
+	<data>
          <record model="ir.ui.view" id="extraschool_payment_report_tree">
             <field name="name">extraschool.payment_report.tree</field>
-            <field name="model">extraschool.payment_report</field>    
+            <field name="model">extraschool.payment_report</field>
             <field name="type">tree</field>
             <field name="arch" type="xml">
 	            <tree string="Payment Status" create="false">
@@ -280,9 +280,9 @@
                     <field name="amount" sum="True"/>
                     <field name="solde" sum="True"/>
   	            </tree>
-            </field> 
+            </field>
         </record>
-        
+
          <record id="extraschool_payment_report_search_view" model="ir.ui.view">
             <field name="name">extraschool.payment_report.search</field>
             <field name="model">extraschool.payment_report</field>
@@ -299,7 +299,7 @@
                     </group>
                 </search>
             </field>
-        </record>        
+        </record>
 
        <record id="extraschool_payment_report_graph" model="ir.ui.view">
             <field name="name">extraschool.payment_report.search</field>
@@ -311,15 +311,15 @@
 					 <field name="solde" type="measure"/>
                  </graph>
              </field>
-        </record>       
-        
+        </record>
+
         <record model="ir.actions.act_window" id="action_extraschool_payment_report">
 			<field name="name">Payments Report</field>
 			<field name="res_model">extraschool.payment_report</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,graph</field>
 		</record>
-		
+
        <record id="extraschool_aged_balance_wizard" model="ir.ui.view">
             <field name="name">extraschool.aged.balance.report</field>
             <field name="model">extraschool.aged_balance</field>
@@ -327,11 +327,11 @@
             <field name="arch" type="xml">
                 <form string="Aged balance">
                      <field name="aged_date" />
-                     <field name="aged_balance_item_ids" />                						               						                      	
+                     <field name="aged_balance_item_ids" />
                  </form>
              </field>
-        </record>       
- 
+        </record>
+
        <record id="extraschool_aged_balance_item_tree" model="ir.ui.view">
             <field name="name">extraschool.aged.balance.report</field>
             <field name="model">extraschool.aged_balance_item</field>
@@ -339,20 +339,20 @@
             <field name="arch" type="xml">
                 <tree string="Aged balance items">
                      <field name="year" />
-                     <field name="total_fact" sum="True"/>                						               						                      	
+                     <field name="total_fact" sum="True"/>
                      <field name="total_no_value" sum="True"/>
-                     <field name="total_received"  sum="True"/>                						               						                      	
+                     <field name="total_received"  sum="True"/>
                      <field name="total_balance"  sum="True"/>
 				</tree>
              </field>
-        </record>  
-                       
+        </record>
+
         <record model="ir.actions.act_window" id="action_extraschool_aged_balance_report">
 			<field name="name">Aged balance Report</field>
 			<field name="res_model">extraschool.aged_balance</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">form</field>
-		</record>	
-			
-	</data> 		
+		</record>
+
+	</data>
 </openerp>

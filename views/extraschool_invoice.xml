@@ -1,14 +1,14 @@
 <?xml version="1.0" ?>
 <openerp>
-	<data> 
+	<data>
         <record model="ir.ui.view" id="extraschool_invoice_tree">
 			<field name="name">invoices.tree</field>
 			<field name="model">extraschool.invoice</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="invoice" default_order="schoolimplantationid,classid" create="false">
-                    <field name="parentid"/>                    
-                    <field name="activitycategoryid"/>                    
+                    <field name="parentid"/>
+                    <field name="activitycategoryid"/>
                     <field name="period_from"/>
                     <field name="period_to"/>
                     <field name="payment_term" />
@@ -18,7 +18,7 @@
                     <field name="balance"/>
                     <field name="discount"/>
                     <field name="no_value"/>
-                    <field name="huissier"/>                    	                    
+                    <field name="huissier"/>
                     <button name="reconcil" type="object" string="Reconcil" groups="extraschool.extraschool_accounting"/>
 				</tree>
 			</field>
@@ -43,8 +43,8 @@
                     </group>
                 </search>
             </field>
-        </record>	
-        
+        </record>
+
         <record id="extraschool_invoice_graph" model="ir.ui.view">
             <field name="name">invoice.graph</field>
             <field name="model">extraschool.invoice</field>
@@ -55,7 +55,7 @@
                  </graph>
              </field>
         </record>
-                
+
 		<record model="ir.ui.view" id="extraschool_invoice_form">
 			<field name="name">invoices</field>
 			<field name="model">extraschool.invoice</field>
@@ -63,7 +63,7 @@
 			<field name="arch" type="xml">
 				<form string="invoice" create="false">
 					<header>
-						<button name="export_onyx_but" string="export onyx" type="object" class="oe_highlight" groups="base.group_erp_manager"/>	
+						<button name="export_onyx_but" string="export onyx" type="object" class="oe_highlight" groups="base.group_erp_manager"/>
 						<button name="cancel" string="Cancel Invoice" type="object" class="oe_highlight" groups="base.group_erp_manager" confirm="Do you really want to delete this invoice ?"/>
                     </header>
 					<sheet>
@@ -98,9 +98,9 @@
 	   		                    	<tree>
 	   		                    		<field name="childid" />
 	   		                    		<field name="activity_occurrence_id" />
-	   		                    		<field name="description"/>    
+	   		                    		<field name="description"/>
 	   		                    		<field name="child_position_id"/>
-	   		                    		<field name="price_list_version_id"/>                
+	   		                    		<field name="price_list_version_id"/>
 	   		                    		<field name="placeid" />
 	   		                    		<field name="prestation_date" />
 	   		                    		<field name="duration"/>
@@ -108,14 +108,14 @@
 	   		                    		<field name="period_tolerance"/>
 	   		                    		<field name="quantity"/>
 	   		                    		<field name="unit_price" widget="monetary"/>
-	   		                    		<field name="discount_value" widget="monetary"/>	   		                    				   		                    		
-	   		                    		<field name="total_price"  widget="monetary" sum="True"/>	   		                    		
+	   		                    		<field name="discount_value" widget="monetary"/>
+	   		                    		<field name="total_price"  widget="monetary" sum="True"/>
 	   		                    	</tree>
 	   		                    	<form>
 	   		                    		<group col="4">
 		   		                    		<field name="childid" />
 		   		                    		<field name="activity_occurrence_id" />
-		   		                    		<field name="description"/>                    
+		   		                    		<field name="description"/>
 		   		                    		<field name="placeid" />
 		   		                    		<field name="prestation_date" />
 		   		                    		<field name="duration"/>
@@ -124,10 +124,10 @@
 		   		                    		<field name="quantity"/>
 		   		                    		<field name="unit_price"/>
 		   		                    		<field name="discount_value"/>
-		   		                    		<field name="total_price"/>	 
+		   		                    		<field name="total_price"/>
 		   		                    	</group>
-	   		                    		<field name="prestation_ids"/>	 	   		                    		  		                    		
-	   		                    	</form>	   		                    	
+	   		                    		<field name="prestation_ids"/>
+	   		                    	</form>
 	                			</field>
 	   		                </page>
 	   		                <page string="Payments" readonly="True">
@@ -135,27 +135,27 @@
 			                        <tree string="Payments" editable="top" create="false" delete="false">
 			                            <field name="paymentdate"/>
 			                            <field name="amount"/>
-			                            <field name="account"/>                            
+			                            <field name="account"/>
 			                        </tree>
 			                    </field>
-			                </page>   
+			                </page>
 	   		                <page string="Refounds">
 	   		                    <field name="refound_line_ids">
 			                        <tree string="Refounds">
 			                            <field name="date"/>
 			                            <field name="description"/>
-			                            <field name="amount"/>                            
+			                            <field name="amount"/>
 			                        </tree>
    			                        <form string="Refounds">
 			                            <group col="4">
 				                            <field name="date"/>
 				                            <field name="description"/>
-				                            <field name="amount"/> 				                                                     
+				                            <field name="amount"/>
 				                    	</group>
 			                        </form>
 			                    </field>
-			                </page>   
-			                
+			                </page>
+
 			       		</notebook>
 					</group>
 					<div class="oe_chatter" groups="extraschool.extraschool_gods">
@@ -176,7 +176,7 @@
                  </graph>
              </field>
         </record>
-        		
+
         <record model="ir.actions.act_window" id="action_extraschool_invoices">
             <field name="name">invoices</field>
             <field name="res_model">extraschool.invoice</field>
@@ -184,7 +184,7 @@
             <field name="view_mode">graph</field>
             <field name="view_id" ref="extraschool_invoice_tree"/>
         </record>
-        
+
         <record model="ir.actions.act_window" id="action_extraschool_invoices_stat">
             <field name="name">Invoices stat</field>
             <field name="res_model">extraschool.invoicedprestations</field>
@@ -192,29 +192,29 @@
             <field name="view_mode">graph</field>
             <field name="view_id" ref="extraschool_invoice_stat_graph"/>
         </record>
-                
+
         <record model="ir.actions.act_window.view" id="action_extraschool_invoice_form">
 			<field name="name">invoices</field>
             <field eval="2" name="sequence"/>
 			<field name="res_model">extraschool.invoice</field>
             <field name="view_mode">form</field>
-            <field name="view_id" ref="extraschool_invoice_form" />   
-            <field name="act_window_id" ref="action_extraschool_invoices" /> 
-		</record> 
-        
+            <field name="view_id" ref="extraschool_invoice_form" />
+            <field name="act_window_id" ref="action_extraschool_invoices" />
+		</record>
+
         <record model="ir.actions.act_window.view" id="action_extraschool_invoice_tree">
 			<field name="name">invoices</field>
             <field eval="1" name="sequence"/>
 			<field name="res_model">extraschool.invoice</field>
             <field name="view_mode">tree</field>
-            <field name="view_id" ref="extraschool_invoice_tree" />  
-            <field name="act_window_id" ref="action_extraschool_invoices" /> 
+            <field name="view_id" ref="extraschool_invoice_tree" />
+            <field name="act_window_id" ref="action_extraschool_invoices" />
 		</record>
 	</data>
 	<data noupdate="1">
         <!--Definition of an email template with an empty body that will be used in payment mailing. Used to give a
             basis for email recipients, name and to ease the definition of a further elaborated template. -->
-        <record id="email_template_invoice" model="email.template">
+        <record id="email_template_invoice" model="mail.template">
             <field name="name">Invoice mail</field>
             <field name="model_id" ref="model_extraschool_payment_status_report"/>
             <field name="auto_delete" eval="True"/>
@@ -234,10 +234,10 @@
     <p>
     	Num de compte : ${object.activitycategoryid.bankaccount}
     	Com structurée : ${object.structcom}
-    </p>    
+    </p>
 </div>
-            ]]></field>            
-                        
+            ]]></field>
+
         </record>
 	</data>
 	<data>
@@ -257,9 +257,9 @@
                             'default_template_id': ref('email_template_invoice'),
                         }"/>
 
-        <record id="email_invoice" model="email.template">
+        <record id="email_invoice" model="mail.template">
             <field name="ref_ir_act_window" ref="extraschool.invoice_mass_mail"/>
         </record>
-				
-	</data>	
+
+	</data>
 </openerp>

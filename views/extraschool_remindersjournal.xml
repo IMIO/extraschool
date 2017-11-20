@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <openerp>
-	<data> 
+	<data>
         <record model="ir.ui.view" id="extraschool_reminder_type_form">
             <field name="name">extraschool.reminder_type.form</field>
             <field name="model">extraschool.remindertype</field>
@@ -10,24 +10,24 @@
 	                <group col="4">
                         <field name="name"/>
                         <newline/>
-						<field name="out_of_accounting"/>                                             
-					</group>    					 
-					<group col="4"  attrs="{'invisible':[('out_of_accounting', '=', True)]}">                 
+						<field name="out_of_accounting"/>
+					</group>
+					<group col="4"  attrs="{'invisible':[('out_of_accounting', '=', True)]}">
                         <field name="fees_type" attrs="{'required':[('out_of_accounting', '!=', 'True')]}"/>
                         <field name="fees_amount" attrs="{'invisible':[('fees_type', '=', 'free')], 'required':[('fees_type', '!=', 'free')]}"/>
-                        <field name="fees_description" attrs="{'invisible':[('fees_type', '=', 'free')], 'required':[('fees_type', '!=', 'free')]}"/>					</group>  					                             
-                    <group col="4">                    	
+                        <field name="fees_description" attrs="{'invisible':[('fees_type', '=', 'free')], 'required':[('fees_type', '!=', 'free')]}"/>					</group>
+                    <group col="4">
                        	<field name="mail_template_id"/>
-						<field name="report_id" /> 
+						<field name="report_id" />
 						<field name="text"  colspan="4"  widget="html"/>
-						<separator string="Selection" colspan="4"/> 	
+						<separator string="Selection" colspan="4"/>
 						<field name="select_reminder_type" />
-						<field name="selected_type_id" attrs="{'invisible':[('select_reminder_type', '=', False)]}"/>                   	                        		                        
+						<field name="selected_type_id" attrs="{'invisible':[('select_reminder_type', '=', False)]}"/>
 						<newline/>
-						<field name="delay" />        							                  	                        		                        
+						<field name="delay" />
 						<field name="minimum_balance" />
-						<field name="payment_term_in_day" />  	           	                        		                                                
-	                </group>                    
+						<field name="payment_term_in_day" />
+	                </group>
                 </form>
             </field>
         </record>
@@ -40,12 +40,12 @@
             	    <field name="sequence" widget="handle"/>
                     <field name="name"/>
                     <field name="fees_type"/>
-                    <field name="fees_amount"/>					                    
+                    <field name="fees_amount"/>
                     <field name="out_of_accounting"/>
                 </tree>
             </field>
         </record>
-                
+
         <record model="ir.ui.view" id="extraschool_reminder_journal_tree">
             <field name="name">extraschool.reminder.journal.tree</field>
             <field name="model">extraschool.remindersjournal</field>
@@ -54,13 +54,13 @@
                 <tree string="Reminder journal">
                 	<field name="name" />
                     <field name="activity_category_id"/>
-					<field name="transmission_date" />                        
+					<field name="transmission_date" />
                     <field name="biller_id"/>
                     <field name="state"/>
                 </tree>
             </field>
-        </record>      
-        
+        </record>
+
         <record model="ir.ui.view" id="extraschool_reminders_journal_biller_item_tree">
             <field name="name">extraschool.reminder.journal.biller.item.tree</field>
             <field name="model">extraschool.reminders_journal_biller_item</field>
@@ -69,12 +69,12 @@
                 <tree string="Reminder biller journal">
                 	<field name="name" />
                     <field name="reminders_journal_id"/>
-					<field name="biller_id" />                        
+					<field name="biller_id" />
                     <field name="reminder_amount" sum="True"/>
                     <field name="exit_accounting_amount" sum="True"/>
                 </tree>
             </field>
-        </record>            
+        </record>
 
         <record model="ir.ui.view" id="extraschool_reminders_journal_biller_item_form">
             <field name="name">extraschool.reminder.journal.biller.item.form</field>
@@ -86,14 +86,14 @@
 	                	<field name="name" />
 	                    <field name="reminders_journal_id"/>
 						<field name="biller_id" />
-						 <newline />                       
+						 <newline />
 	                    <field name="reminder_amount" sum="True"/>
 	                    <field name="exit_accounting_amount" sum="True"/>
-					</group>                    
+					</group>
                 </form>
             </field>
-        </record>      
-				        
+        </record>
+
         <record model="ir.ui.view" id="extraschool_reminders_journal_form">
             <field name="name">extraschool.remindersjournal.form</field>
             <field name="model">extraschool.remindersjournal</field>
@@ -104,36 +104,36 @@
 						<button name="validate" string="Valider" type="object" states='draft' class="oe_highlight" context="{'wizard': False}"/>
 						<button name="generate_pdf" string="Re-Print" type="object" states='validated' class="oe_highlight"/>
                         <button name="delete" string="Delete" type="object" states='validated' class="oe_highlight" group="admin"/>
-						<field name="state" widget="statusbar" statusbar_visible="draft,to_validate,validated"/>												
+						<field name="state" widget="statusbar" statusbar_visible="draft,to_validate,validated"/>
 					</header>
 					<div class="oe_right oe_button_box" name="buttons">
-						<button name="mail_reminders" 
-							string="Reminder courrier" 
-							type="object" 						
-							class="oe_inline oe_stat_button" 
+						<button name="mail_reminders"
+							string="Reminder courrier"
+							type="object"
+							class="oe_inline oe_stat_button"
 							icon="fa-print"
-								/>													
-						<button name="email_reminders" 
-							string="Reminder factures" 
-							type="object" 						
-							class="oe_inline oe_stat_button" 
+								/>
+						<button name="email_reminders"
+							string="Reminder factures"
+							type="object"
+							class="oe_inline oe_stat_button"
 							icon="fa-envelope-o"
-								/>			
-						<button name="all_reminders" 
-							string="Toutes les reminder" 
-							type="object" 						
-							class="oe_inline oe_stat_button" 
+								/>
+						<button name="all_reminders"
+							string="Toutes les reminder"
+							type="object"
+							class="oe_inline oe_stat_button"
 							icon="fa-files-o"
-								/>		
-						<button name="all_pdf" 
-							string="Docs" 
-							type="object" 						
-							class="oe_inline oe_stat_button" 
+								/>
+						<button name="all_pdf"
+							string="Docs"
+							type="object"
+							class="oe_inline oe_stat_button"
 							icon="fa-files-o"
 							groups="base.group_erp_manager"
-								/>														
-																														
-					</div>                	
+								/>
+
+					</div>
 	                <group col="4">
                         <field name="name"/>
                         <field name="activity_category_id" options="{'no_create':True}"/>
@@ -147,27 +147,27 @@
                     <notebook>
             			<page string="Reminders type">
             				<group col="4">
-                				<field name="reminders_journal_item_ids" nolabel="1" >                		
+                				<field name="reminders_journal_item_ids" nolabel="1" >
                             		<tree create="false" delete="false">
 				                        <field name="name"/>
 				                        <field name="reminder_type_id"/>
 				                        <field name="payment_term"/>
-				                        <field name="amount"/>                            			
+				                        <field name="amount"/>
                             		</tree>
                 				</field>
                 			</group>
                 		</page>
                     	<page string="Reminders">
             				<group col="4">
-                				<field name="reminder_ids" nolabel="1" readonly="True" />                		
-                            </group>            
+                				<field name="reminder_ids" nolabel="1" readonly="True" />
+                            </group>
                     	</page>
                         <page string="Unpaid Reminders">
                             <group col="4">
                                 <field name="unsolved_reminder_ids" nolabel="1" readonly="True"/>
                             </group>
                         </page>
-                    </notebook>            	            
+                    </notebook>
                 </form>
             </field>
         </record>
@@ -175,17 +175,17 @@
             <field name="name">Reminders Journal</field>
             <field name="res_model">extraschool.remindersjournal</field>
             <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>            
+            <field name="view_mode">tree,form</field>
         </record>
 
 
   	</data>
-	
-	
+
+
 	<data noupdate="1">
         <!--Definition of an email template with an empty body that will be used in payment mailing. Used to give a
             basis for email recipients, name and to ease the definition of a further elaborated template. -->
-        <record id="email_template_reminder" model="email.template">
+        <record id="email_template_reminder" model="mail.template">
             <field name="name">reminder mail</field>
             <field name="model_id" ref="model_extraschool_payment_status_report"/>
             <field name="auto_delete" eval="True"/>
@@ -201,10 +201,10 @@
     <p>Bonjour ${object.parentid.name},</p>
 
     <p>Vous trouverez en pièce jointe le détail du rapple de paiement</p>
-   
+
 </div>
-            ]]></field>            
-                        
+            ]]></field>
+
         </record>
 	</data>
 	<data>
@@ -224,9 +224,9 @@
                             'default_template_id': ref('email_template_reminder'),
                         }"/>
 
-        <record id="email_reminder" model="email.template">
+        <record id="email_reminder" model="mail.template">
             <field name="ref_ir_act_window" ref="extraschool.reminder_mass_mail"/>
         </record>
-				
-	</data>		
+
+	</data>
 </openerp>

@@ -3,7 +3,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014 
+#    Copyright (C) 2008-2014
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot - Imio (<http://www.imio.be>).
 #
@@ -26,7 +26,7 @@
     'name' : 'Extraschool',
     'version' : '9.0.0.0.1',
     'author' : 'Town of La Bruyère and Imio',
-    'depends' : ['base', 
+    'depends' : ['base',
                  'report',
                  'mail',
                  'decimal_precision',
@@ -55,7 +55,7 @@
         'views/extraschool_invoice.xml',
         'views/extraschool_mainsettings.xml',
         'views/extraschool_manuel_invoice_wizard.xml',
-        'views/extraschool_negatif_payment_correction_wizard.xml',       
+        'views/extraschool_negatif_payment_correction_wizard.xml',
         'views/extraschool_parent.xml',
         'views/extraschool_parent_fusion_wizard.xml',
         'views/extraschool_payment.xml',
@@ -70,7 +70,7 @@
         'views/extraschool_prestation_times_encodage_manuel.xml',
         'views/extraschool_prestation_times_encodage_manuel_wizard.xml',
         'views/extraschool_presta_stat.xml',
-        'views/extraschool_price_list.xml',        
+        'views/extraschool_price_list.xml',
         'views/extraschool_qrcodes_wizard.xml',
         'views/extraschool_report.xml',
         'views/extraschool_reminder.xml',
@@ -84,7 +84,7 @@
         'views/extraschool_level.xml',
         'views/extraschool_child.xml',
         'views/extraschool_child_registration.xml',
-        'views/extraschool_child_registration_wizard.xml',        
+        'views/extraschool_child_registration_wizard.xml',
         'views/extraschool_settings.xml',
         'views/widgets.xml',
         'views/extraschool_config_smartphone.xml',
@@ -95,18 +95,18 @@
         'security/extraschool_security.xml',
         'security/ir.model.access.csv',
         'report/biller/biller_summary_no_style.xml',
-        'report/biller/biller_detail_no_style.xml',        
-        'report/child_registration.xml',    
-        'report/coda_report.xml',    
+        'report/biller/biller_detail_no_style.xml',
+        'report/child_registration.xml',
+        'report/coda_report.xml',
         'report/parent.xml',
         'report/qrcode_report.xml',
         'report/layout/extraschool_layout.xml',
         'report/layout/biller_report_layout.xml',
         'report/layout/invoice_report_layout.xml',
         'report/layout/payment_invitation_report_layout.xml',
-        'report/layout/reminder_report_layout.xml',      
+        'report/layout/reminder_report_layout.xml',
         'report/invoice/invoice_std_body.xml',
-        'report/invoice/invoice_std_body_activity_without_date.xml',        
+        'report/invoice/invoice_std_body_activity_without_date.xml',
         'report/invoice/invoice_regroup_by_activity.xml',
         'report/invoice/invoice_regroup_by_activity_by_child.xml',
         'report/invoice/invoice_regroup_by_activity_by_child_by_day_enter_exit.xml',
@@ -117,7 +117,7 @@
         'report/common/amount_no_style.xml',
         'report/common/comment_no_style.xml',
         'report/common/page_number_no_style.xml',
-        'report/common/page_number_right.xml',  
+        'report/common/page_number_right.xml',
         'report/common/std_header.xml',
         'report/common/adresse_no_style.xml',
         'report/common/html_text.xml',
@@ -130,13 +130,13 @@
         'report/common/sign_img_no_style.xml',
         'report/common/double_sign_no_style.xml',
         'report/common/spacer_2cm.xml',
-        'report/common/invoice_summary.xml',        
+        'report/common/invoice_summary.xml',
         'report/common/payment_info_amount_one_row.xml',
         'report/custo_client/hannut.xml',
         'report/custo_client/lierneux.xml',
 
         'extraschool_view.xml',
-        
+
     ],
     'installable' : True,
     'application': True,
