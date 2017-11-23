@@ -167,6 +167,11 @@
 			    		width: 20%;
 					}
 
+					div#invoice_summary h2{
+			    		font-size: 12px;
+			    		font-weight: bold;
+			    	}
+
 				</style>
 
 	        	<div id="invoice_summary" >
