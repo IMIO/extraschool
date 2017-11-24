@@ -31,9 +31,6 @@ try:
 except ImportError:
     import StringIO
 
-import ptvsd
-ptvsd.enable_attach("my_secret", address=("0.0.0.0", 6899))
-
 class extraschool_report_hack(osv.Model):
     _inherit = 'report'
 
