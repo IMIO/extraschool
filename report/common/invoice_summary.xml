@@ -48,6 +48,11 @@
 			    		text-align: right;
 			    		width: 20%;
 					}
+
+					div#invoice_summary h2{
+			    		font-size: 12px;
+			    		font-weight: bold;
+			    	}
 			    			    	
 				</style>
 							
@@ -142,6 +147,11 @@
 			    		width: 20%;
 					}
 
+					div#invoice_summary h2{
+			    		font-size: 12px;
+			    		font-weight: bold;
+			    	}
+
 				</style>
 
 	        	<div id="invoice_summary" >
@@ -163,7 +173,7 @@
 				       					<td><span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_from,'%Y-%m-%d')))" /> - <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_to,'%Y-%m-%d')))" /></td>
 			        					<td><span t-field="summary_invoice.number" /></td>
 				       					<td><span t-field="summary_invoice.payment_term" /></td>
-										<td><span t-field="summary_invoice.structcom" /></td>
+										<td><t t-esc="parent_id.get_prepaid_comstruct(categ_id)" /></td>
 				       					<td class="amount"><span t-esc="'%.2f €' %  (summary_invoice.balance)" /></td>
 
 	        						</tr>
@@ -174,7 +184,7 @@
 					       					<td></td>
 				        					<td><span t-field="invoice_line.description" /></td>
 					       					<td><span t-field="summary_invoice.payment_term" /></td>
-											<td><span t-field="summary_invoice.structcom" /></td> 
+											<td><t t-esc="parent_id.get_prepaid_comstruct(categ_id)" /></td>
 					       					<td class="amount"><span t-esc="TODO" /></td>
 											<!--<td class="amount"><span t-esc="'%.2f €' %  (invoice_line.balance)" /></td>-->
 				       					</tr>
