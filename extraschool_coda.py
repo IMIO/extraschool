@@ -65,6 +65,7 @@ class extraschool_coda(models.Model):
             
     def format_comstruct(self,comstruct):
         return ('+++%s/%s/%s+++' % (comstruct[0:3],comstruct[3:7],comstruct[7:12]))
+
     @api.model
     def create(self, vals):  
         #to do refactoring suite api V8
@@ -141,7 +142,8 @@ class extraschool_coda(models.Model):
                         if prefixfound:          
                             invoice=invoice_obj.search([('structcom', '=', communication),
                                                         ('huissier', '=', False),
-                                                        ])                      
+                                                        ])
+
                             if len(invoice.ids) == 1:
                                 if invoice.balance < amount:
                                     reject=True
@@ -180,12 +182,33 @@ class extraschool_coda(models.Model):
                                             _prefix = prefix['remindercomstructprefix']
                             if prefixfound:
                                 reminder=reminder_obj.search([('structcom', '=', communication)])
+                                # fees_to_pay = False
                                 if len(reminder) == 1:
                                     totaldue = sum(invoice.balance for invoice in reminder.concerned_invoice_ids)
+                                    # if reminder.reminders_journal_item_id.reminder_type_id.fees_type == 'fix':
+                                    #     fees_to_pay = True
+                                    #     totaldue += reminder.reminders_journal_item_id.reminder_type_id.fees_amount
+
                                     if amount != round(totaldue,2):
                                         reject=True
                                         rejectcause=_('A reminder has been found but the amount is not corresponding to balances of invoices')
                                     else:
+                                        # Create a payment for the fees.
+                                        # payment_id = payment_obj.create({'parent_id': reminder.parentid.id,
+                                        #                     'paymentdate': transfertdate,
+                                        #                     'structcom_prefix': _prefix,
+                                        #                     'structcom': communication,
+                                        #                     'paymenttype': '1',
+                                        #                     'comment': 'Paiement des frais de rappel',
+                                        #                     'account': parentaccount,
+                                        #                     'name': name,
+                                        #                     'adr1': adr1,
+                                        #                     'adr2': adr2,
+                                        #                     'solde': 0.0,
+                                        #                     'amount': reminder.reminders_journal_item_id.reminder_type_id.fees_amount})
+                                        #
+                                        # reminder.write({'fees_amount': 0.0})
+
                                         for invoice in reminder.concerned_invoice_ids:
                                             payment_id = payment_obj.create({'parent_id': invoice.parentid.id,
                                                                   'paymentdate': transfertdate,
@@ -220,7 +243,7 @@ class extraschool_coda(models.Model):
                                                 _prefix = prefix['payment_invitation_com_struct_prefix']
                                 if prefixfound:
                                         parentid = int(communication[7:11]+communication[12:15])
-                                        if len(self.env['extraschool.parent'].search([('id', '=',parentid)])) == 0:
+                                        if len(self.env['extraschool.parent'].search([('id', '=',parentid)])) == 0 or self.env['extraschool.parent'].search([('id', '=',parentid)]).isdisabled == True:
                                             reject=True;
                                             rejectcause=_('Parent not found')
                                         else:                              
