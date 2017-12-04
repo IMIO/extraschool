@@ -258,12 +258,13 @@ class extraschool_activity(models.Model):
         print "# Validate children's registration"
         child_registration_compute.validate_multi()
 
-        print "# Check Prestations"
-        total = len(prestation_time_compute)
-        for presta in prestation_time_compute:
-            print total
-            total -= 1
-            presta.check()
+        if 'multi_write' not in vals:
+            print "# Check Prestations"
+            total = len(prestation_time_compute)
+            for presta in prestation_time_compute:
+                print total
+                total -= 1
+                presta.check()
 
         print "Final time: ", time.strftime('%M:%S', time.gmtime((time.time() - start_time)))
         self.warning_visibility = False
@@ -311,15 +312,19 @@ class extraschool_activity(models.Model):
 
     @api.onchange('validity_from','validity_to','planneddates_ids','exclusiondates_ids','parent_id','placeids','leveltype','prest_from','prest_to','days')
     @api.multi
-    def check_validity_from_invoice(self):
+    def check_validity_from_invoice(self,origin_id=0):
+        if not origin_id:
+            origin_id = self._origin.id
+        else:
+            origin_id = self.id
         print "# Check if there is an invoice prestation at the current date"
         cr = self.env.cr
         invoiced_obj = self.env['extraschool.invoicedprestations']
         # If there is an invoiced prestation for the activity.
         if (invoiced_obj.search(
-                [('activity_occurrence_id.activityid', '=', self._origin.id)])):
+                [('activity_occurrence_id.activityid', '=', origin_id)])):
             # Get the date of the last invoice for this activity.
-            cr.execute("SELECT prestation_date FROM extraschool_invoicedprestations WHERE activity_activity_id = %s ORDER BY prestation_date DESC LIMIT 1" % (self._origin.id))
+            cr.execute("SELECT prestation_date FROM extraschool_invoicedprestations WHERE activity_activity_id = %s ORDER BY prestation_date DESC LIMIT 1" % (origin_id))
             # Trop lent.
             # date_last_invoice = invoiced_obj.search([('activity_activity_id', '=', self._origin.id)],
             #                                         order='prestation_date DESC', limit=1).prestation_date
