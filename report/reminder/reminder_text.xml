@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data> 
+		<template id="report_reminder_text">
+		    <style type="text/css">
+		        .reminder_body{
+		    		width: 100%;
+		    		display: block;
+		    	}
+		    			    	
+				.reminder_body {
+					font-size: 11px;
+				}
+
+			</style>
+						
+        	<div class="reminder_body">
+				<p><t t-raw="html_text"/></p>
+       		</div>
+		</template>
+
+	</data>
+</openerp>	
+	
+	
