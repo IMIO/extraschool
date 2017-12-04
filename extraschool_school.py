@@ -28,7 +28,7 @@ from openerp.exceptions import except_orm, Warning, RedirectWarning
 class extraschool_school(models.Model):
     _name = 'extraschool.school'
     _description = 'School'
-    _inherti = 'mail.thread'
+    _inherit = 'mail.thread'
 
     name = fields.Char('Name', size=50, required=True, track_visibility=True)
     logo = fields.Binary()
@@ -48,10 +48,9 @@ class extraschool_school(models.Model):
 
         if schools_count >= max_school:
             self.send_mail()
-            self.env['email.template'].browse()
             raise Warning(_("You have reached the maximum school"))
-
-        return super(extraschool_school, self).create(vals)
+        else:
+            return super(extraschool_school, self).create(vals)
 
     @api.multi
     def send_mail(self):
