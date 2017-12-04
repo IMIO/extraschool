@@ -104,6 +104,8 @@ class extraschool_activitycategory(models.Model):
     logo = fields.Binary()
     slogan = fields.Char('Slogan', size=50)
     sequence_ids = fields.One2many('extraschool.activitycategory.sequence', 'activity_category_id',string = 'Sequences')
+
+    max_school_implantation = fields.Integer()
     
     def check_invoice_prefix(self,invoicecomstructprefix):            
         res = {'return_val' : True,
@@ -231,7 +233,7 @@ class extraschool_activitycategory(models.Model):
 
     @api.model
     def update_seq(self):
-        year = 2016
+        year = datetime.now().year
         for categ in self.search([]):
             if len(categ.sequence_ids) == 0:
                 types = [{'type': 'invoice',

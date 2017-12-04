@@ -170,6 +170,11 @@
 							<field name="sequence_ids"  nolabel="1"/>                             
 						</group>
 					</page>
+					<page string="Max School" groups="extraschool.extraschool_gods">
+						<group col="4">
+							<field name="max_school_implantation"/>
+						</group>
+					</page>
               	</notebook>
             </form>
             </field> 
