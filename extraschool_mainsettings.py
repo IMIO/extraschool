@@ -117,7 +117,7 @@ class extraschool_mainsettings(models.Model):
 
         footer = "21000300003101983094049002623  0000000000000800190917001500001101200160019857                                      19091717101 0"
 
-        file = open("/home/mickey/Documents/coda/coda", "wb+")
+        file = open("coda", "wb+")
 
         file.write(header_1 + "\n")
         file.write(header_2 + "\n")
