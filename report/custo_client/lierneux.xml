@@ -231,9 +231,10 @@
 		        .aes_adresse{
 		    		width: 100%;
 		    		display: block;
-					border: solid 1px red;
 					position: relative;
 					font-size:10px;
+					page-break-inside: avoid;
+					padding-top: 20px;
 		    	}
 
 		    	.aes_adresse::after {
@@ -264,20 +265,14 @@
 
 			</style>
 	    	<div class="aes_adresse">
-				<div id="aes_po_adresse" class="aes_adresse_block po">
-					<span t-field="po_addresse.po_name" />
-					<span t-field="po_addresse.po_street" />
-					<span><t t-esc="po_addresse.po_zipcode" /> <t t-esc="po_addresse.po_city" /></span>
-					<span t-field="po_addresse.po_email" />
-					<span t-field="po_addresse.po_tel" />
-					<span t-raw="po_addresse.po_addresse_free_text" />
-				</div>
-
-				<div class="aes_adresse_block customer">
-					<span t-field="addresse.name" />
-					<span t-field="addresse.street" />
-					<span><t t-esc="addresse.zipcode" /> <t t-esc="addresse.city" /></span>
-				</div>
+				Les périodes sont facturées à raison de 0.50€ la demi-heure entamée. Pour les départs après 17h30(18h30 Barvaux) les lundi,
+					mardi, jeudi et vendredi et après 13h le mercredi (hors mercredi après-midi), un forfait de 10€ est comptabilisé par 1/4h
+					entamé.
+					Le mercredi après midi présente un forfait de 5€ pour toute l’après midi et l’école de devoirs, un forfait de 2.4€ par séance.
+					En cas de retard ou de non paiement, le recouvrement sera poursuivi conformément à l’article L1124-40 $ 1 du Code de la
+					Démocratie Locale.
+					Nous vous invitons à lire attentivement le Règlement d’Ordre Intérieur et le Projet Pédagogique de l’accueil extrascolaire reçu
+					via votre enfant à l’école. Plus d’infos : Coordination Enfance, <a style="text-decoration:underline;">enfance@durbuy.be</a> ou 0473 301 771
 			</div>
 		</template>
 
