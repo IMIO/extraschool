@@ -14061,6 +14061,11 @@ msgid "Activity name"
 msgstr "Nom de l'activité"
 
 #. module: extraschool
+#: field:extraschool.one_report,synthesis:0
+msgid "Synthesis"
+msgstr "Synthèse"
+
+#. module: extraschool
 #: view:extraschool.activityoccurrence:extraschool.extraschool_activityoccurrence_cal
 msgid "Activity occurences"
 msgstr "Occurrences de l'activité"
