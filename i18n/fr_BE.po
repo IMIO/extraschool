@@ -27157,7 +27157,7 @@ msgstr "Modèle de facture"
 #. module: extraschool
 #: field:extraschool.manuel_invoice_wizard,invoice_all_children:0
 msgid "Invoice all of the children"
-msgstr "Invoice all of the children"
+msgstr "Facturer tous les enfants"
 
 #. module: extraschool
 #: code:addons/extraschool/extraschool_invoice.py:162
