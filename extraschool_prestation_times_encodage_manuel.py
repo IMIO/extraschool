@@ -57,6 +57,16 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
                               ('validated', 'Validated')],
                               'State', required=True, default='draft', track_visibility='onchange'
                               )
+    warning_biller = fields.Char('WARNING', default="WARNING, there is a biller at this date. ", readonly=True)
+    warning_visibility = fields.Boolean(track_visibility='onchange')
+
+    @api.onchange('date_of_the_day')
+    @api.multi
+    def check_date(self):
+        if self.env['extraschool.biller'].search([('period_to', '>=', self.date_of_the_day)]):
+            self.warning_visibility = True
+        else:
+            self.warning_visibility = False
 
     @api.one
     def update_child_list(self):
