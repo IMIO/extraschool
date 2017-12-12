@@ -31,7 +31,6 @@
                  'mail',
                  'decimal_precision',
                  'web',
-                 'web_menu_collapsible',
                  ],
     'init_xml' : ['init.xml',],
     'demo' : [],
