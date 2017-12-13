@@ -78,11 +78,35 @@ class extraschool_mainsettings(models.Model):
         cr.execute(sql_query, (self.date_from, self.date_to))
         prestation_ids = cr.fetchall()
 
+        count = 0
+        print "#Check POD without occurrence starting...."
         for prestation_id in prestation_ids:
             test = self.env['extraschool.prestation_times_of_the_day'].search([('prestationtime_ids', 'in', prestation_id)])
             if test:
+                count += 1
                 test.reset()
                 test.check()
+                print "## [%s/%s] done" % (count,len(prestation_ids))
+
+    @api.multi
+    def reset_check(self):
+        cr = self.env.cr
+
+        sql_query = """ SELECT id
+                        FROM extraschool_prestationtimes
+                        WHERE prestation_date BETWEEN %s AND %s"""
+
+        cr.execute(sql_query, (self.date_from, self.date_to))
+        prestation_ids = cr.fetchall()
+        count = 0
+        print "#Reset and check starting...."
+        for prestation_id in prestation_ids:
+            test = self.env['extraschool.prestation_times_of_the_day'].search([('prestationtime_ids', 'in', prestation_id)])
+            if test:
+                count += 1
+                test.reset()
+                test.check()
+                print "## [%s/%s] done" % (count,len(prestation_ids))
 
     @api.multi
     def generate_coda(self):
