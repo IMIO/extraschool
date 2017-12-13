@@ -44,3 +44,9 @@ class extraschool_reminder(models.Model):
     transmission_date = fields.Date('reminders_journal_id.transmission_date')
     fees_amount = fields.Float('Fees amount', default=0.0)
 
+    @api.multi
+    def unlink(self):
+        if self.fees_amount > 0.00:
+            self.parentid.write({'total_reminder_fees': self.parentid.total_reminder_fees - self.fees_amount})
+
+        return super(extraschool_reminder, self).unlink()
