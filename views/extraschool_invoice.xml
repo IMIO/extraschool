@@ -216,11 +216,11 @@
             basis for email recipients, name and to ease the definition of a further elaborated template. -->
         <record id="email_template_invoice" model="email.template">
             <field name="name">Invoice mail</field>
-            <field name="model_id" ref="model_extraschool_payment_status_report"/>
+            <field name="model_id" ref="model_extraschool_invoice"/>
             <field name="auto_delete" eval="True"/>
             <field name="partner_to">${object.id}</field>
             <field name="subject">${(object.activitycategoryid.invoiceemailsubject or 'Invoice')|safe}</field>
-            <field name="email_to">${(object.parentid.email or 'michotm@gmail.com')|safe}</field>
+            <field name="email_to">${(object.parentid.email or 'support-aes@imio.be')|safe}</field>
             <field name="email_from">${(object.activitycategoryid.invoiceemailaddress or 'noreply@localhost')|safe}</field>
             <field name="reply_to">${(object.activitycategoryid.invoiceemailaddress or 'noreply@localhost')|safe}</field>
             <field name="mail_server_id" ref="base.ir_mail_server_localhost0"/>
