@@ -245,7 +245,7 @@ class extraschool_activity(models.Model):
         ])
 
         print "# Number of reset required: ", len(prestation_time_compute)
-        # prestation_time_compute.reset()
+        prestation_time_compute.reset()
 
         print "# Unlink occurrences"
         activity_occurrence_ids.unlink()
@@ -258,13 +258,13 @@ class extraschool_activity(models.Model):
         print "# Validate children's registration"
         child_registration_compute.validate_multi()
 
-        # if 'multi_write' not in vals:
-        #     print "# Check Prestations"
-        #     total = len(prestation_time_compute)
-        #     for presta in prestation_time_compute:
-        #         print total
-        #         total -= 1
-        #         presta.check()
+        if 'multi_write' not in vals:
+            print "# Check Prestations"
+            total = len(prestation_time_compute)
+            for presta in prestation_time_compute:
+                print total
+                total -= 1
+                presta.check()
 
         print "Final time: ", time.strftime('%M:%S', time.gmtime((time.time() - start_time)))
         self.warning_visibility = False
