@@ -57,7 +57,7 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
                               ('validated', 'Validated')],
                               'State', required=True, default='draft', track_visibility='onchange'
                               )
-    warning_biller = fields.Char('WARNING', default="WARNING, there is a biller at this date. ", readonly=True)
+    warning_biller = fields.Char('WARNING', default="WARNING, Il y a un facturier à cette date. ", readonly=True)
     warning_visibility = fields.Boolean(track_visibility='onchange')
 
     @api.onchange('date_of_the_day')
