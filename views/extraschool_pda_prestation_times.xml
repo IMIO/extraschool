@@ -12,6 +12,7 @@
 					<field name="prestation_date" select="1"/>
                     <field name="prestation_time" widget="float_time"/>
                     <field name="es"/>
+					<!--<field name="desactive" groups="extraschool.extraschool_direction" readonly="0"/>-->
 				</tree>
 			</field>
 		</record>
@@ -23,13 +24,14 @@
 			<field name="arch" type="xml">
 				<form string="pda_prestation_times">
 					<group col="4">
-						<field name="activitycategoryid" />
-	                    <field name="prestation_times_of_the_day_id"/>
-						<field name="childid" required="1"/>
-	                    <field name="placeid" required="1"/>
-						<field name="prestation_date" required="1"/>
-	                    <field name="prestation_time"  required="1" widget="float_time"/>
-	                    <field name="es" required="1"/>
+						<field name="activitycategoryid" readonly="1"/>
+	                    <field name="prestation_times_of_the_day_id" readonly="1"/>
+						<field name="childid" required="1" readonly="1"/>
+	                    <field name="placeid" required="1" readonly="1"/>
+						<field name="prestation_date" required="1" readonly="1"/>
+	                    <field name="prestation_time"  required="1" widget="float_time" readonly="1"/>
+	                    <field name="es" required="1" readonly="1"/>
+						<!--<field name="desactive" groups="extraschool.extraschool_direction"/>-->
 	                </group>
 				</form>
 			</field>

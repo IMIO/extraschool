@@ -41,8 +41,14 @@ class extraschool_pdaprestationtimes(models.Model):
     es = fields.Selection((('E','In'),
                            ('S','Out')),'ES' )    
     prestation_times_of_the_day_id = fields.Many2one('extraschool.prestation_times_of_the_day', 'Prestation of the day',ondelete='cascade')
-    pda_transmission_id = fields.Many2one('extraschool.pda_transmission', 'Transmission')           
+    pda_transmission_id = fields.Many2one('extraschool.pda_transmission', 'Transmission')
+    #desactive = fields.Boolean('Desactive', track_visibility='onchange')
 
+    #@api.onchange('desactive')
+    #def compute_prefix(self):
+        #if self.desactive == True:
+            #self.reset
+            #self.check
 
     @api.model
     def create(self,vals):       
