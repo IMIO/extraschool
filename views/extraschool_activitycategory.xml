@@ -108,7 +108,10 @@
 			                <newline/>
 			                <separator string="Commentaire de la facture" colspan="4"/>
 			                <field name="invoice_comment" nolabel="1"  colspan="4" widget="html"/>
-			                <newline/>						
+			                <newline/>
+							<separator string="Commentaire de la facture 2" colspan="4"/>
+			                <field name="invoice_comment2" nolabel="1"  colspan="4" widget="html"/>
+			                <newline/>
 			                <field name="invoice_report_id" />
 			                <field name="invoice_detail_report_id" />
 			                <field name="biller_report_id" />
