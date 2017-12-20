@@ -5,14 +5,14 @@
 			<field name="name">pda_prestation_times.tree</field>
 			<field name="model">extraschool.pdaprestationtimes</field>
 			<field name="type">tree</field>
-			<field name="arch" type="xml">
+			<field name="arch" type="xml" >
 				<tree string="pda_prestation_times">
 					<field name="activitycategoryid" />
 					<field name="childid" select="1"/>
 					<field name="prestation_date" select="1"/>
                     <field name="prestation_time" widget="float_time"/>
                     <field name="es"/>
-					<!--<field name="desactive" groups="extraschool.extraschool_direction" readonly="0"/>-->
+					<button name="desactive" string="Active/ Desactive" type="object" groups="extraschool.extraschool_direction"/>
 				</tree>
 			</field>
 		</record>
@@ -31,7 +31,6 @@
 						<field name="prestation_date" required="1" readonly="1"/>
 	                    <field name="prestation_time"  required="1" widget="float_time" readonly="1"/>
 	                    <field name="es" required="1" readonly="1"/>
-						<!--<field name="desactive" groups="extraschool.extraschool_direction"/>-->
 	                </group>
 				</form>
 			</field>

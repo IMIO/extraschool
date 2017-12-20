@@ -15719,14 +15719,14 @@ msgstr "Associations: Members"
 #: code:addons/extraschool/extraschool_invoice_wizard.py:338
 #, python-format
 msgid "At least one child registration is not validated for this period!!!"
-msgstr "At least one child registration is not validated for this period!!!"
+msgstr "Au moins une inscription n'est pas validé pour cette période!!!"
 
 #. module: extraschool
 #: code:addons/extraschool/extraschool_invoice_wizard.py:325
 #, python-format
 msgid "At least one manuel encodage is not validated for this period!!!"
-msgstr "At least one manuel encodage is not validated for this period!!!"
-
+msgstr "Au moins un encodage manuel n'est pas validé pour cette période!!!"
+s
 #. module: extraschool
 #: code:addons/extraschool/extraschool_invoice_wizard.py:358
 #, python-format
@@ -40633,6 +40633,11 @@ msgstr "Attention, cet enregistrement a été modifié et vos modifications vont
 #, python-format
 msgid "Warnings"
 msgstr "Warnings"
+
+#. module: extraschool
+#: field:extraschool.pdaprestationtimes,desactive:0
+msgid "Desactive"
+msgstr "Désactiver"
 
 #. module: base
 #: view:base.module.upgrade:base.view_base_module_upgrade_install
