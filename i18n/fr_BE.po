@@ -17127,6 +17127,13 @@ msgid "Cascade"
 msgstr "Cascade"
 
 #. module: extraschool
+#: view:extraschool.pdaprestationtimes:extraschool.extraschool_pda_prestation_times_tree
+#: view:extraschool.prestation_times_of_the_day:extraschool.extraschool_prestation_times_of_the_day_form
+msgid "Active/ Desactive"
+msgstr "Activé/ Désactivé"
+
+
+#. module: extraschool
 #: selection:extraschool.payment,paymenttype:0
 msgid "Cash"
 msgstr "Espèces"
@@ -43304,7 +43311,7 @@ msgstr "préfixe"
 #. module: extraschool
 #: field:extraschool.activitycategory,po_tel:0
 msgid "tel"
-msgstr "T"
+msgstr "Tel"
 
 #. module: extraschool
 #: field:extraschool.mainsettings,tempfolder:0
