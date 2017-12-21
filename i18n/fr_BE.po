@@ -6882,6 +6882,16 @@ msgstr "%y - Année sans le siècle  (00 à 99)."
 msgid "&bull;"
 msgstr "&bull;"
 
+#. module: extraschool
+#: view:extraschool.prestation_times_of_the_day:extraschool.extraschool_prestation_times_of_the_day_form
+msgid "Desactive"
+msgstr "Désactivé"
+
+#. module: extraschool
+#: view:extraschool.prestation_times_of_the_day:extraschool.extraschool_prestation_times_of_the_day_form
+msgid "Active"
+msgstr "Activé"
+
 #. modules: board, extraschool
 #. openerp-web
 #: code:addons/board/static/src/xml/board.xml:28
