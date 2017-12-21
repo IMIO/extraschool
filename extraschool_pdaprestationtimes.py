@@ -61,9 +61,9 @@ class extraschool_pdaprestationtimes(models.Model):
             print "warning pda_presta of child deleted !!"
             return self
         # todo: check smartphone first. Perhaps its the reason why some childs are not deleted from the smartphone.
-        if not self.env['extraschool.child'].search([('id', '=', vals['childid'])]).isdisabled:
-            print "Child is disabled"
-            return self
+        # if not self.env['extraschool.child'].search([('id', '=', vals['childid'])]).isdisabled:
+        #     print "Child is disabled"
+        #     return self
 
         if 'type' not in vals:
             vals['type'] = 'pda'
