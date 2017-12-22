@@ -41933,7 +41933,7 @@ msgstr "between rows %d and %d"
 #. module: extraschool
 #: model:ir.actions.report.xml,name:extraschool.extraschool_biller_std
 msgid "biller"
-msgstr "biller"
+msgstr "Facturier"
 
 #. module: extraschool
 #: view:extraschool.invoice:extraschool.extraschool_invoice_search_view
