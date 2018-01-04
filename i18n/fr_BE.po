@@ -21249,7 +21249,7 @@ msgstr "Date de fin"
 #: field:extraschool.guardian_prestation_times_report,prestation_date_str:0
 #: field:extraschool.guardianprestationtimes,prestation_date_str:0
 msgid "Date str"
-msgstr "Date"
+msgstr "Date chiffre"
 
 #. module: extraschool
 #: field:extraschool.activity_occurrence_correction_wizard,date_to:0
@@ -23584,7 +23584,7 @@ msgstr "Exporter toutes les données"
 #. module: extraschool
 #: field:extraschool.guardianprestationtimes,exported:0
 msgid "Exported"
-msgstr "Exported"
+msgstr "Exporté"
 
 #. modules: base, document
 #: field:ir.actions.server,write_expression:0
