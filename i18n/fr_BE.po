@@ -23593,6 +23593,16 @@ msgstr "Exporté"
 msgid "Expression"
 msgstr "Expression"
 
+#. module: extraschool
+#: field:extraschool.prestation_times_encodage_manuel,prestation_time_all_entry:0
+msgid "Entry Time for all"
+msgstr "Entrée pour tous"
+
+#. module: extraschool
+#: field:extraschool.prestation_times_encodage_manuel,prestation_time_all_exit:0
+msgid "Exit Time for all"
+msgstr "Sortie pour tous"
+
 #. module: base
 #: help:ir.server.object.lines,value:0
 msgid "Expression containing a value specification. \n"

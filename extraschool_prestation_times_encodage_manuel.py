@@ -53,12 +53,22 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
     activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False, track_visibility='onchange', default=_get_activity_category_id)
     prestationtime_ids = fields.One2many('extraschool.prestation_times_manuel','prestation_times_encodage_manuel_id',copy=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
     comment = fields.Text(track_visibility='onchange')
+    prestation_time_all_entry = fields.Float('Entry Time for all')
+    prestation_time_all_exit = fields.Float('Exit Time for all')
     state = fields.Selection([('draft', 'Draft'),
                               ('validated', 'Validated')],
                               'State', required=True, default='draft', track_visibility='onchange'
                               )
     warning_biller = fields.Char('WARNING', default="WARNING, Il y a un facturier à cette date. ", readonly=True)
     warning_visibility = fields.Boolean(track_visibility='onchange')
+
+    @api.onchange('prestation_time_all_entry','prestation_time_all_exit')
+    @api.one
+    def onchange_hours(self):
+        for prestation in self.prestationtime_ids:
+            prestation.prestation_time_entry = self.prestation_time_all_entry
+            prestation.prestation_time_exit = self.prestation_time_all_exit
+
 
     @api.onchange('date_of_the_day')
     @api.multi
