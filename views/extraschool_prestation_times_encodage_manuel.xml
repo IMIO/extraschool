@@ -38,7 +38,7 @@
 							<newline />
 							<separator string="Ajout automatique dans le tableau"  colspan="4"/>
 							<field name="levelid" options="{'no_create':True}"/>
-							<button name="update_child_list" string="Ajout de tous les enfants" states="draft" type="object" confirm="Ëtes-vous sûr de vouloir attribuer tous les enfants à cette activité ?"/>
+							<button name="update_child_list" string="Ajout des enfants" states="draft" type="object" confirm="Ëtes-vous sûr de vouloir attribuer tous les enfants à cette activité ?"/>
 							<newline />
 							<field name="prestation_time_all_entry" widget="float_time"/>
 							<field name="prestation_time_all_exit" widget="float_time"/>
