@@ -49,7 +49,10 @@
 		            	<span>Semaine :</span>
 		            	<span t-field="child_registration.week"/> du : <span t-field="child_registration.date_from"/> au : <span t-field="child_registration.date_to"/>
 		            </div>
-
+		            <div>
+		            	<span>Nombre d'enfants :</span>
+		            	<span t-field="child_registration.childs_m"/>
+		            </div>
 		            <table>
 		            	<tr>
 	            			<th>Nom</th>
@@ -83,7 +86,10 @@
 		            	<span>semaine :</span> 
 		            	<span t-field="child_registration.week"/> du : <span t-field="child_registration.date_from"/> au : <span t-field="child_registration.date_to"/>
 		            </div>
-
+		            <div>
+		            	<span>Nombre d'enfants :</span>
+		            	<span t-field="child_registration.childs_p"/>
+		            </div>
 		            <table>
 		            	<tr>
 	            			<th>Nom</th>

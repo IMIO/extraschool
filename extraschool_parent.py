@@ -100,11 +100,11 @@ class extraschool_parent(models.Model):
             cr.execute('select sum(balance) from extraschool_invoice where parentid=%s and huissier = True',(record.id,))
             record.totalhuissier = cr.fetchall()[0][0]
 
-    def _compute_total_reminder_fees (self):
-        cr = self.env.cr
-        for record in self:
-            cr.execute('select sum(fees_amount) from extraschool_reminder where parentid=%s',(record.id,))
-            record.total_reminder_fees = cr.fetchall()[0][0]
+    # def _compute_total_reminder_fees (self):
+    #     cr = self.env.cr
+    #     for record in self:
+    #         cr.execute('select sum(fees_amount) from extraschool_reminder where parentid=%s',(record.id,))
+    #         record.total_reminder_fees = cr.fetchall()[0][0]
 
     name = fields.Char(compute='_name_compute',string='FullName', search='_search_fullname', size=100)
     rn = fields.Char('RN', track_visibility='onchange')
@@ -135,7 +135,6 @@ class extraschool_parent(models.Model):
     totalinvoiced = fields.Float(compute='_compute_totalinvoiced', string="Total invoiced")
     totalreceived = fields.Float(compute='_compute_totalreceived', string="Total received")
     totalbalance = fields.Float(compute='_compute_totalbalance', string="Total balance")
-    total_reminder_fees = fields.Float(compute='_compute_total_reminder_fees', string="Total reminder fees")
     totalhuissier = fields.Float(compute='_compute_totalhuissier', string="Total huissier", track_visibility='onchange')
     payment_ids = fields.One2many('extraschool.payment','parent_id')
     payment_status_ids = fields.One2many('extraschool.payment_status_report','parent_id')
@@ -145,6 +144,27 @@ class extraschool_parent(models.Model):
     oldid = fields.Integer('oldid')
     nbr_actif_child = fields.Integer(compute='_compute_nbr_actif_child',string='Nbr actif child', store = True, track_visibility='onchange')
     comment = fields.Text('Comment', track_visibility='onchange')
+
+    @api.multi
+    def testwizard(self):
+        print "test wizard"
+        test = self.env['extraschool.payment_wizard'].create({
+            'payment_date': datetime.now(),
+            'amount': 0,
+            'state': 'init',
+            'parent_id': self.id,
+        })
+
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'extraschool.payment_wizard',
+            'view_mode': 'form',
+            'view_type': 'form',
+            'res_id': test.id,
+            'views': [(False, 'form')],
+            'target': 'new',
+        }
+
 
     @api.multi
     def get_invoice(self):
@@ -160,7 +180,7 @@ class extraschool_parent(models.Model):
             }
         # return {'name': 'Paiements',
         #         'type': 'ir.actions.act_window',
-        #         'res_model': 'extraschool.payment_report',
+        #         'res_model': 'extraschool.payment_invoice',
         #         'tree_view_id': 'extraschool_payment_parent_tree',
         #         'view_type': 'form',
         #         'view_mode': 'tree,form',
@@ -181,43 +201,25 @@ class extraschool_parent(models.Model):
 
         now = datetime.now().strftime("%Y-%m-%d")
 
-        # Create the biller to store the invoices.
-        biller_id = self.env['extraschool.biller'].create({'period_from': now,
-                                                        'period_to': now,
-                                                        'payment_term': now,
-                                                        'invoices_date': now,
-                                                        })
-
         # Get the activity and the next invoice number.
         activity_id = self.env['extraschool.activitycategory'].search([], limit = 1)
         next_invoice_num = activity_id.get_next_comstruct('refund',datetime.now().year)
 
-        # Create an invoice for the refund.
-        invoice_id = self.env['extraschool.invoice'].create({
-            'name': ('refund_%s') % (next_invoice_num['num'],),
-            'number': next_invoice_num['num'],
-            'biller_id': biller_id.id,
-            'parentid': self.id,
-            'structcom': next_invoice_num['com_struct'],
-            'payment_term': biller_id.payment_term,
-        })
+        payment_id = self.env['extraschool.payment'].create({
+                                                            'solde': -solde,
+                                                            'amount': -solde,
+                                                            'parent_id': self.id,
+                                                            'paymentdate': now,
+                                                            'paymenttype': '2',
+                                                            })
 
-        # I had to do this otherwise the activitycategory was False.
-        self.env['extraschool.invoice'].search([('id', '=', invoice_id.id)]).write(
-            {'activitycategoryid': activity_id.id,
-             })
+        self.env['extraschool.invoice']._compute_balance()
 
-        # Create an invoiced prestations line.
-        self.env['extraschool.invoicedprestations'].create({
-            'invoiceid': invoice_id.id,
-            'quantity': 1,
-            'unit_price': solde,
-            'total_price': solde,
-            'description': "Remboursement prépaiement",
-        })
+        # reconciliation_id = self.env['extraschool.payment_reconciliation'].create({'payment_id': payment_id.id,
+        #                                                                            '',
+        #                                                                            '',
+        #                                                                            '',})
 
-        # Reconcil the invoice
-        self.env['extraschool.invoice'].browse(invoice_id.id).reconcil()
 
     def email_validation(self,email):
         if re.match("^[a-zA-Z0-9._%-]+@[a-zA-Z0-9._%-]+.[a-zA-Z]{2,6}$", email) != None:
