@@ -147,9 +147,6 @@
   						<field name="day_ids" widget="many2many_tags" options="{'no_create':True}"/>
 						<newline />
 						<field name="number_childs"/>
-						<newline />
-						<field name="number_childs_registered"/>
-						<newline />
 						<button name="update_child_list" string="Mettre à jour la liste des enfants" type="object"  states='draft' confirm="Êtes-vous sûr de vouloir attribuer tous les enfants à cette activité ?"/>
 					</group>
 					<separator string="Registrations" />

@@ -15,19 +15,17 @@
                         <field name="payment_date" />
                         <field name="comment" />                        	
                         <field name="amount" />
-                        <button name="bete_methode" type="object"/>
                     </group>
                 	<group col="4"  states="init">
                 		<field name="reconciliation_amount" readonly="True" />                		                    		
                 		<field name="reconciliation_amount_balance" readonly="True" />                		                    		
                   		<separator string="Reconciliation" colspan="4"/>	
                   	</group>
-                    <field name="payment_reconciliation_ids" states="init">
-                    	<tree  editable="bottom" create="false" delete="false">
+                    <field name="payment_reconciliation_ids" states="init">	                	
+                    	<tree  editable="bottom" create="false" delete="false">	
 	                        <field name="invoice_id" readonly="True" />
 	        		        <field name="invoice_balance" />
 	                        <field name="amount" sum="True" />
-                            <button name="reconcil" string="Pay" type="object"/>
 	                	</tree>
                      </field>
                     <separator string="" colspan="4"/>

@@ -33,7 +33,6 @@ class extraschool_payment(models.Model):
     _order = 'paymentdate desc'
 
     paymenttype = fields.Selection((('1','CODA File'),
-                                    ('2','Mandat classe 4'),
                                     ('3','Cash'),
                                     ('4','Non value'),
                                     ('5','Reject')),'Payment type')
@@ -93,7 +92,7 @@ class extraschool_payment(models.Model):
                                                                ('huissier', '=', False),])
 #            invoices = invoices.filtered(lambda r: r.structcom[3:6] not in [activity_categ.payment_invitation_com_struct_prefix for activity_categ in self.env['extraschool.activitycategory'].search([])])
         
-        #sort result on date
+        #sort result on date 
         invoices.sorted(key=lambda r: r.number)
         reste = amount      
         tmp_payment_reconciliation_ids = []
@@ -130,6 +129,7 @@ class extraschool_payment_reconciliation(models.Model):
             res.append((reg.id, "%s" % (reg.invoice_id.name)))
 
         return res
+
 
 class extraschool_payment_status_report(models.Model):
     _name = 'extraschool.payment_status_report'
@@ -193,6 +193,8 @@ class extraschool_payment_report(models.Model):
     structcom_prefix = fields.Char('Structured Communication Prefix')
     payment_date = fields.Date('Payment Date')
     comment = fields.Char('Comment')
+
+
 
     def init(self, cr):
         tools.sql.drop_view_if_exists(cr, 'extraschool_payment_report')

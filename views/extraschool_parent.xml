@@ -110,6 +110,8 @@
                     <newline/>
                     <field name="totalbalance"/>
                     <newline/>
+                    <field name="total_reminder_fees"/>
+                    <newline/>
                     <field name="totalhuissier"/>
                     <newline/>
                         <separator string="Factures de:"  colspan="4"/>
@@ -146,7 +148,6 @@
                 </page>
                 <page string="Payment">
                 	<button name="extraschool.action_lbsc_payment_wizard" string="Add payment Wizard" icon="gtk-apply" type="action" context="{'default_parent_id': id}" groups="extraschool.extraschool_accounting"/>
-                	<button name="testwizard" string="Add payment Wizard TEST" icon="gtk-apply" type="object" context="{'default_parent_id': id}" groups="extraschool.extraschool_accounting"/>
                 	<field name="payment_ids">
                 		<tree editable="top" create="false" delete="false">
                 			<field name="paymentdate"  readonly="True"/>

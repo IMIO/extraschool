@@ -34,7 +34,6 @@ class extraschool_prestation_times_of_the_day(models.Model):
     _name = 'extraschool.prestation_times_of_the_day'
     
     _order = 'date_of_the_day desc, child_lastname, child_firstname'
-    _inherit = 'mail.thread'
 
 #         _sql_constraints = [
 #             ('pod_uniq', 'unique(activity_category_id,date_of_the_day,child_id)', 'Presta of the day must be uniq'),
@@ -62,7 +61,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
     child_lastname = fields.Char(related="child_id.lastname", store=True)
     parent_id = fields.Many2one(related='child_id.parentid', store=True, select=True)
     # place_id = fields.Many2one(related='child_id.schoolimplantation', store=True, select=True)
-    prestationtime_ids = fields.One2many('extraschool.prestationtimes','prestation_times_of_the_day_id', track_visibility='onchange')
+    prestationtime_ids = fields.One2many('extraschool.prestationtimes','prestation_times_of_the_day_id')
     pda_prestationtime_ids = fields.One2many('extraschool.pdaprestationtimes','prestation_times_of_the_day_id',domain=['|',('active','=',False),('active','=',True)])
     verified = fields.Boolean(select=True)
     comment = fields.Text()

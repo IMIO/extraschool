@@ -63,7 +63,6 @@ class extraschool_child_registration(models.Model):
                               'validated', required=True, default='draft', track_visibility='onchange'
                               )
     number_childs = fields.Char('Number of childs', readonly=True, default=0, track_visibility='onchange')
-    number_childs_registered = fields.Char('Number of childs reistered', readonly=True, default=0, track_visibility='onchange')
     levelid = fields.Many2one('extraschool.level', 'Level', track_visibility='onchange')
     warning_biller = fields.Char('WARNING', default="WARNING, Il y a un facturier à cette date, si la personne responsable des factures n'est pas au courant de cet ajout, cela ne sera pas pris en compte ! ", readonly=True)
     warning_visibility = fields.Boolean(track_visibility='onchange')
@@ -78,30 +77,7 @@ class extraschool_child_registration(models.Model):
 
     @api.onchange('child_registration_line_ids')
     def compute_number_childs(self):
-        self.childs_m = len(self.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['M']))
-        self.childs_p = len(self.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['P']))
         self.number_childs = len(self.child_registration_line_ids)
-
-    @api.onchange('child_registration_line_ids')
-    def compute_number_childs_registered(self):
-        count = 0
-        for child in self.child_registration_line_ids:
-            if child.monday:
-                count += 1
-            elif child.tuesday:
-                count += 1
-            elif child.wednesday:
-                count += 1
-            elif child.thursday:
-                count += 1
-            elif child.friday:
-                count += 1
-            elif child.saturday:
-                count += 1
-            elif child.sunday:
-                count += 1
-
-        self.number_childs_registered = count
 
     @api.onchange('day_ids')
     @api.one
@@ -192,6 +168,7 @@ class extraschool_child_registration(models.Model):
     @api.one
     def update_child_list(self):
         print "update_child_list"
+
         if self.class_id:
             childs = self.env['extraschool.child'].search([('schoolimplantation.id', '=', self.school_implantation_id.id),
                                                            ('classid.id', '=',self.class_id.id),
@@ -203,12 +180,8 @@ class extraschool_child_registration(models.Model):
                                                            ('isdisabled', '=', False),
                                                            ])
         else:
-            # Get levelid of 'repas adulte' for Tournai.
-            levelid = self.env['extraschool.level'].search([('name', '=', 'repas adulte')]).id
-
             childs = self.env['extraschool.child'].search([('schoolimplantation.id', '=', self.school_implantation_id.id),
                                                            ('isdisabled', '=', False),
-                                                           ('levelid', '!=', levelid),
                                                            ])
 
         self.child_registration_line_ids.unlink()

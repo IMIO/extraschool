@@ -174,6 +174,11 @@ class extraschool_remindersjournal(models.Model):
         # Write the reminders_journal
         reminders_journal_item_amount = sum([invoice[1] for invoice in invoice_ids])
 
+        # If the reminder has fees, compute de total cost.
+        if reminder_type.fees_type == 'fix':
+            total_fees = reminder_type.fees_amount * len(invoice_dict)
+            reminders_journal_item_amount += total_fees
+
         # Create a reminder journal
         reminders_journal_item_id = self.env['extraschool.reminders_journal_item'].create(
             {'name': "%s - %s" % (self.name, reminder_type.name),
@@ -183,57 +188,24 @@ class extraschool_remindersjournal(models.Model):
              'amount': reminders_journal_item_amount,
              })
 
-        # For each parent create a reminder and add fees if needed.
+        # For each parent create a reminder and add fees.
         for key in invoice_dict:
             reminder = self.env['extraschool.reminder'].create({'reminders_journal_item_id': reminders_journal_item_id.id,
                                                                 'reminders_journal_id': self.id,
                                                                 'parentid': key,
                                                                 'school_implantation_id': self.env['extraschool.invoice'].browse(invoice_dict[key][0]).schoolimplantationid.id,
                                                                 'structcom': self.env['extraschool.invoice'].browse(invoice_dict[key][0]).activitycategoryid.get_next_comstruct(
-                                                                'reminder', self.env['extraschool.invoice'].browse(invoice_dict[key][0]).biller_id.get_from_year())[
-                                                                'com_struct'],
+                                                                    'reminder', self.env['extraschool.invoice'].browse(invoice_dict[key][0]).biller_id.get_from_year())[
+                                                                    'com_struct'],
                                                                 'amount': sum([self.env['extraschool.invoice'].browse(invoice).balance for invoice in invoice_dict[key]]),
                                                                 'concerned_invoice_ids': [(6, 0, invoice_dict[key])],
+                                                                'fees_amount': reminder_type.fees_amount,
                                                                 })
 
-            self.env['extraschool.invoice'].browse(invoice_dict[key]).write({'last_reminder_id': reminder.id})
+            current_parent = self.env['extraschool.parent'].search([('id', '=', key)])
+            parent_fee = current_parent.total_reminder_fees + reminder_type.fees_amount
+            current_parent.write({'total_reminder_fees':parent_fee,})
 
-            # If the reminder has fees, compute de total cost.
-            if reminder_type.fees_type == 'fix':
-                total_fees = reminder_type.fees_amount * len(invoice_dict)
-                reminders_journal_item_amount += total_fees
-
-                # Create Biller
-                self.biller_id = self.env['extraschool.biller'].create({'period_from': self.transmission_date,
-                                                                        'period_to': self.transmission_date,
-                                                                        'activitycategoryid': self.activity_category_id.id,
-                                                                        'invoices_date': self.transmission_date,
-                                                                        })
-
-                next_invoice_num = self.activity_category_id.get_next_comstruct('invoice',
-                                                                                self.biller_id.get_from_year())
-                fees_invoice = self.env['extraschool.invoice'].create(
-                    {'name': _('invoice_%s') % (next_invoice_num['num'],),
-                     'number': next_invoice_num['num'],
-                     'parentid': key,
-                     'biller_id': self.biller_id.id,
-                     'activitycategoryid': self.activity_category_id.id,
-                     'structcom': next_invoice_num['com_struct'],
-                     'last_reminder_id': reminder.id,
-                     'reminder_fees': True,
-                     'payment_term': datetime.date.today() + datetime.timedelta(
-                         days=reminder_type.payment_term_in_day),
-                     })
-
-                self.env['extraschool.invoicedprestations'].create({'invoiceid': fees_invoice.id,
-                                     'description': reminder_type.fees_description if reminder_type.fees_description != False else 'Frais de rappel',
-                                     'unit_price': reminder_type.fees_amount,
-                                     'quantity': 1,
-                                     'total_price': reminder_type.fees_amount,
-                                     })
-
-                reminder.write({'amount': amount,
-                                'concerned_invoice_ids': [(6, 0, concerned_invoice_ids)]})
 
         return True
 
@@ -307,7 +279,7 @@ class extraschool_remindersjournal(models.Model):
                             # This might be better if we flag invoice as huissier.
                             if reminder_type.out_of_accounting:
                                 amount = 0
-                            reminder.write({'amount': amount,
+                            reminder.write({'amount' : amount,
                                             'concerned_invoice_ids': [(6, 0, concerned_invoice_ids)]})
                             inv_obj.browse(concerned_invoice_ids).write({'last_reminder_id': reminder.id})
                         else:
