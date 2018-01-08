@@ -123,6 +123,7 @@ class extraschool_invoice(models.Model):
         payment_reconcil_obj = self.env['extraschool.payment_reconciliation']
         self._compute_balance()
         for invoice in self:
+            # todo: Check if the biller (invoices_date) <= today(). Do a cron to launch this method everyday.
             #search for open payment
             payments = payment_obj.search([('parent_id','=',invoice.parentid.id),
 #                                        ('structcom_prefix','=',invoice.activitycategoryid.payment_invitation_com_struct_prefix),

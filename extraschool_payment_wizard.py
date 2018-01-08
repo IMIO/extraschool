@@ -29,6 +29,7 @@ import os
 from openerp.exceptions import except_orm, Warning, RedirectWarning
 import openerp.addons.decimal_precision as dp
 from openerp.tools import float_compare, float_round
+from datetime import datetime
 
 
 
@@ -43,7 +44,7 @@ class extraschool_payment_wizard(models.TransientModel):
                                     ('2','Invoice'),
                                     ),'Payment type', required=True)
     '''
-    payment_date = fields.Date('Date', required=True)
+    payment_date = fields.Date('Date', default=datetime.now(), required=True)
     amount = fields.Float('Amount', digits_compute=dp.get_precision('extraschool_invoice'), required=True)
     reconciliation_amount_balance = fields.Float(compute="_compute_reconciliation_amount_balance", string='Amount to reconcil')    
     reconciliation_amount = fields.Float(compute="_compute_reconciliation_amount", string='Amount reconcilied')
@@ -146,7 +147,7 @@ class extraschool_payment_wizard(models.TransientModel):
         print "-------------------"
         
         payment = payment.create({'parent_id': self.parent_id.id,
-                        'paymentdate': self.payment_date,
+                        'paymentdate': self.payment_date,# This is Coda date.
                         'structcom_prefix': self.activity_category_id.payment_invitation_com_struct_prefix,
                         'amount': self.amount,
                         'reject_id': self.reject_id.id if self.reject_id else False,
@@ -162,7 +163,7 @@ class extraschool_payment_wizard(models.TransientModel):
             payment_reconciliation.create({'payment_id' : payment.id,
                                            'invoice_id' : reconciliation.invoice_id.id,
                                            'amount' : reconciliation.amount,
-                                           'date' : fields.Date.today()})
+                                           'date' : fields.Date.today()})# Todo: si la date facture <= coda: date coda sinon date facture
             reconciliation.invoice_id._compute_balance()
         return {}
          

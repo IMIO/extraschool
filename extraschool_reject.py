@@ -37,7 +37,7 @@ class extraschool_reject(models.Model):
     addr2 = fields.Char('Addr2')
     amount = fields.Float('Amount')
     rejectcause = fields.Char('Reject cause')
-    coda = fields.Many2one('extraschool.coda', 'Coda', required=False)
+    coda = fields.Many2one('extraschool.coda', 'Coda')
     corrected_payment_id  = fields.Many2one('extraschool.payment', string='Payment corrigé')
     
     @api.multi
@@ -46,9 +46,9 @@ class extraschool_reject(models.Model):
         view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','extraschool.payment_wizard'),
                                                              ('name','=','extraschool.payment.wizard.form')])
         
-        context = self._context.copy()
-        context.update({'default_reject_id': self.id,
-                        'default_amount': self.amount})
+        # context = self._context.copy()
+        # context.update({'default_reject_id': self.id,
+        #                 'default_amount': self.amount})
         
         print context
         return {
@@ -61,7 +61,6 @@ class extraschool_reject(models.Model):
                 'view_id': view_id,
                 'target': 'new',                   
                 'context': {'default_reject_id': self.id,
-                            'default_amount': self.amount,
                             'default_payment_date': self.coda.codadate}
             }  
     

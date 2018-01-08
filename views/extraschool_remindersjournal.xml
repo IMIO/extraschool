@@ -14,8 +14,7 @@
 					</group>    					 
 					<group col="4"  attrs="{'invisible':[('out_of_accounting', '=', True)]}">                 
                         <field name="fees_type" attrs="{'required':[('out_of_accounting', '!=', 'True')]}"/>
-                        <field name="fees_amount" attrs="{'invisible':[('fees_type', '=', 'free')], 'required':[('fees_type', '!=', 'free')]}"/>
-                        <field name="fees_description" attrs="{'invisible':[('fees_type', '=', 'free')], 'required':[('fees_type', '!=', 'free')]}"/>					</group>  					                             
+                        <field name="fees_description" attrs="{'invisible':[('fees_type', '=', 'free')], 'required':[('fees_type', '!=', 'free')]}"/>					</group>
                     <group col="4">                    	
                        	<field name="mail_template_id"/>
 						<field name="report_id" /> 
@@ -102,7 +101,8 @@
                 <form string="Reminders Journal">
                 	<header>
 						<button name="validate" string="Valider" type="object" states='draft' class="oe_highlight" context="{'wizard': False}"/>
-						<button name="generate_pdf" string="Re-Print" type="object" states='validated' class="oe_highlight"/>
+						<button name="next_reminder" string="Next" type="object" states='draft' class="oe_highlight" context="{'wizard': False}"/>
+                        <button name="generate_pdf" string="Re-Print" type="object" states='validated' class="oe_highlight"/>
                         <button name="delete" string="Delete" type="object" states='validated' class="oe_highlight" group="admin"/>
 						<field name="state" widget="statusbar" statusbar_visible="draft,to_validate,validated"/>												
 					</header>
