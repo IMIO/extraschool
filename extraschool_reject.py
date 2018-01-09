@@ -45,12 +45,13 @@ class extraschool_reject(models.Model):
         cr,uid = self.env.cr, self.env.user.id
         view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','extraschool.payment_wizard'),
                                                              ('name','=','extraschool.payment.wizard.form')])
-        
-        # context = self._context.copy()
-        # context.update({'default_reject_id': self.id,
-        #                 'default_amount': self.amount})
-        
+
+        context = self._context.copy()
+        context.update({'default_reject_id': self.id,
+                        'default_amount': self.amount})
+
         print context
+
         return {
                 'type': 'ir.actions.act_window',
                 'res_model': 'extraschool.payment_wizard',
@@ -61,6 +62,7 @@ class extraschool_reject(models.Model):
                 'view_id': view_id,
                 'target': 'new',                   
                 'context': {'default_reject_id': self.id,
+                            'default_amount': self.amount,
                             'default_payment_date': self.coda.codadate}
             }  
     
