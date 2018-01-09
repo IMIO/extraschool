@@ -64,7 +64,7 @@
 						<t t-set="com_struct" t-value="reminder.structcom"/>
                         <t t-set="reminder_type" t-value="reminder.reminders_journal_item_id.reminder_type_id.fees_type"/>
 						<t t-set="total" t-value="reminder.amount"/>
-						<t t-set="fees" t-value="reminder.fees_amount"/>
+						<t t-set="fees" t-value="reminder.reminders_journal_item_id.reminder_type_id.fees_amount"/>
 						<t t-set="received" t-value="0"/>
 						<t t-set="balance" t-value="reminder.amount"/>	
 						<t t-set="payment_term" t-value="'%s' % (time.strftime('%d-%m-%Y',time.strptime(reminder.reminders_journal_item_id.payment_term,'%Y-%m-%d')))"/>

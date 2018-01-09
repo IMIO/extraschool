@@ -110,9 +110,8 @@ L’Eveil avant la date d'échéance. Toute facture non contestée est considér
 	        	<div id="invoice_summary" >
 	        		<h2><span t-esc="reminder.reminders_journal_id.name" /></h2>
 	        		<p>Madame, Monsieur, Chers Parents,<br/>
-                        Nous constations que vous n'avez pas réglé votre/vos facture(s) de l'accueil extrascolaire.
+                        Nous constatons que vous n'avez pas réglé votre/vos facture(s) de l'accueil extrascolaire.
                         Vous trouverez ci-dessous le détail de celle(s)-ci concernant la période mentionnée et l'ajout de <b>3 €</b> de frais administratifs.
-                        <br/>Veuillez effectuer votre paiement sur le compte <b>BE55 068-2323749-44</b> en indiquant la communication structurée suivante:<b><t t-esc="parent_id.get_prepaid_comstruct(categ_id)" /></b>
                     </p>
 	        		<table>
 	        			<tr>
