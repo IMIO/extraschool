@@ -148,6 +148,9 @@ class extraschool_coda(models.Model):
                                 if invoice.balance < amount:
                                     reject=True
                                     rejectcause=_('Amount greather than invoice balance')
+                                elif invoice.last_reminder_id:
+                                    reject=True
+                                    rejectcause=_('This invoice has a reminder and cannot be paid with the invoice communication')
                                 else:            
                                     payment_id = payment_obj.create({'parent_id': invoice.parentid.id,
                                                                   'paymentdate': transfertdate,
@@ -182,32 +185,49 @@ class extraschool_coda(models.Model):
                                             _prefix = prefix['remindercomstructprefix']
                             if prefixfound:
                                 reminder=reminder_obj.search([('structcom', '=', communication)])
-                                # fees_to_pay = False
+                                fees_to_pay = False
                                 if len(reminder) == 1:
                                     totaldue = sum(invoice.balance for invoice in reminder.concerned_invoice_ids)
-                                    # if reminder.reminders_journal_item_id.reminder_type_id.fees_type == 'fix':
-                                    #     fees_to_pay = True
-                                    #     totaldue += reminder.reminders_journal_item_id.reminder_type_id.fees_amount
+                                    if reminder.reminders_journal_item_id.reminder_type_id.fees_type == 'fix':
+                                        fees_to_pay = True
+                                        totaldue += reminder.reminders_journal_item_id.reminder_type_id.fees_amount
 
                                     if amount != round(totaldue,2):
                                         reject=True
                                         rejectcause=_('A reminder has been found but the amount is not corresponding to balances of invoices')
-                                    else:
-                                        # Create a payment for the fees.
-                                        payment_id = payment_obj.create({'parent_id': reminder.parentid.id,
-                                                            'paymentdate': transfertdate,
-                                                            'structcom_prefix': _prefix,
-                                                            'structcom': communication,
-                                                            'paymenttype': '1',
-                                                            'comment': 'Paiement des frais de rappel',
-                                                            'account': parentaccount,
-                                                            'name': name,
-                                                            'adr1': adr1,
-                                                            'adr2': adr2,
-                                                            'solde': 0.0,
-                                                            'amount': reminder.reminders_journal_item_id.reminder_type_id.fees_amount})
 
-                                        # reminder.write({'fees_amount': 0.0})
+                                    # Check if this reminder and invoice concerned (If a parent tries to pay an old reminder).
+                                    has_invoice = self.env['extraschool.invoice'].search([('last_reminder_id', '=', reminder.id)])
+                                    if not has_invoice:
+                                        reject = True
+                                        rejectcause = _('The communication is outdated. Another reminder has been created.')
+
+                                    else:
+                                        if fees_to_pay:
+                                            # Create a payment for the fees.
+                                            payment_id = payment_obj.create({'parent_id': reminder.parentid.id,
+                                                'paymentdate': transfertdate,
+                                                'structcom_prefix': _prefix,
+                                                'structcom': communication,
+                                                'paymenttype': '1',
+                                                'comment': 'Paiement des frais de rappel',
+                                                'account': parentaccount,
+                                                'name': name,
+                                                'adr1': adr1,
+                                                'adr2': adr2,
+                                                'solde': 0.0,
+                                                'amount': reminder.reminders_journal_item_id.reminder_type_id.fees_amount})
+
+                                            invoice = self.env['extraschool.invoice'].search([('last_reminder_id', '=', reminder.id), ('reminder_fees', '=', True)])
+
+                                            payment_reconciliation_obj.create({'payment_id': payment_id.id,
+                                                                               'invoice_id': invoice.id,
+                                                                               'date': transfertdate,
+                                                                               # todo: si date facture <= coda: date coda sinon date facture
+                                                                               'amount': invoice.balance})
+                                            invoice._compute_balance()
+                                            paymentids.append(payment_id.id)
+
                                         # todo: paramètrage des paiements des rappels. Apure fees en premier, toutes les factures avant fees
                                         for invoice in reminder.concerned_invoice_ids:
                                             payment_id = payment_obj.create({'parent_id': invoice.parentid.id,
@@ -220,13 +240,13 @@ class extraschool_coda(models.Model):
                                                                   'adr1':adr1,
                                                                   'adr2':adr2,
                                                                   'amount': invoice.balance})
-                                                                            
+
                                             payment_reconciliation_obj.create({'payment_id' : payment_id.id,
                                                                            'invoice_id' : invoice.id,
                                                                            'date': transfertdate, # todo: si date facture <= coda: date coda sinon date facture
                                                                            'amount' : invoice.balance})
                                             invoice._compute_balance()
-                                            paymentids.append(payment_id.id)   
+                                            paymentids.append(payment_id.id)
                                 else:
                                     reject=True;
                                     rejectcause=_('No valid structured Communication')      
