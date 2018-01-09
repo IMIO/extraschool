@@ -192,8 +192,9 @@ class extraschool_coda(models.Model):
                                         fees_to_pay = True
                                         totaldue += reminder.reminders_journal_item_id.reminder_type_id.fees_amount
 
+                                    # This is were I check if the structcom comes from an old reminder.
                                     has_invoice = self.env['extraschool.invoice'].search([('last_reminder_id', '=', reminder.id)])
-                                    
+
                                     if amount != round(totaldue,2):
                                         reject=True
                                         rejectcause=_('A reminder has been found but the amount is not corresponding to balances of invoices')
