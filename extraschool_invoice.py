@@ -72,8 +72,8 @@ class extraschool_invoice(models.Model):
     payment_term = fields.Date('Payment term', track_visibility='onchange')
     comment = fields.Text("Comment",default="", track_visibility='onchange')
     last_reminder_id = fields.Many2one('extraschool.reminder', 'Last reminder',readonly=True, index = True, track_visibility='onchange')
-    reminder_fees = fields.Boolean('Reminder fees', default = False, track_visibility='onchange')
-    huissier = fields.Boolean('Huissier', default = False, track_visibility='onchange')
+    reminder_fees = fields.Boolean('Reminder fees', default=False, track_visibility='onchange')
+    huissier = fields.Boolean('Huissier', default=False, track_visibility='onchange')
     fees_huissier = fields.Float('Fees Huissier', default=0.0, track_visibility='onchange')
 
 #             
