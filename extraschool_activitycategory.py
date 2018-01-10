@@ -237,7 +237,7 @@ class extraschool_activitycategory(models.Model):
         year = datetime.now().year
 
         get_sequence = self.env['extraschool.activitycategory.sequence'].search([('year', '=', year)])
-        
+
         # If there isn't any sequence with this year's date.
         if not get_sequence:
             for categ in self.search([]):

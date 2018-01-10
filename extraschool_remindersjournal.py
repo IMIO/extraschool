@@ -254,6 +254,7 @@ class extraschool_remindersjournal(models.Model):
         if self.based_reminder_id:
             self.next_reminder()
         else:
+            print "Initiating Validate method"
             if len(self.activity_category_id.reminer_type_ids.ids) == 0 :
                 return False
 
@@ -273,6 +274,7 @@ class extraschool_remindersjournal(models.Model):
             biller_id = -1
             #browse activivity categ reminder type
             for reminder_type in self.activity_category_id.reminer_type_ids.sorted(key=lambda r: r.sequence, reverse=True):
+                print "##Check Reminder Type"
                 #select invoices
                 invoice_search_domain = [('activitycategoryid.id', '=',self.activity_category_id.id),
                                          ('balance', '>',0), # todo: See if this is needed.
@@ -311,8 +313,10 @@ class extraschool_remindersjournal(models.Model):
                 total_amount = 0.0
                 amount = 0.0
                 concerned_invoice_ids = []
-
+                count = 1
                 for invoice in invoice_ids:
+                    print "##[%s/%s] invoices processed..." % (count,len(invoice_ids))
+                    count += 1
                     if invoice.parentid.id != parent_id:
                         if parent_id > 0:
                             if amount > reminder_type.minimum_balance:
@@ -370,7 +374,7 @@ class extraschool_remindersjournal(models.Model):
 
                 if len(concerned_invoice_ids) > 0:
                     if amount > reminder_type.minimum_balance:
-                        print "Last yop %s" % (concerned_invoice_ids)
+                        print "###Creating Reminders..."
                         total_amount += amount
                         if reminder_type.out_of_accounting:
                             amount = 0
@@ -381,7 +385,7 @@ class extraschool_remindersjournal(models.Model):
                     else:
                         reminder.unlink()
                 else:
-                    print "nothing to DO"
+                    print "###Nothing has been done..."
                 if total_amount > 0:
                     reminders_journal_item_id.amount = total_amount
                 else:
@@ -400,8 +404,11 @@ class extraschool_remindersjournal(models.Model):
                                     """
             self.env.cr.execute(get_invoice_exit_sql, (self.id,))
             invoice_ids = self.env.cr.dictfetchall()
-
+            print "####Creating refund line"
+            count = 1
             for invoice in invoice_ids:
+                print "##[%s/%s] refunds processed..." % (count, len(invoice_ids))
+                count += 1
                 self.env['extraschool.refound_line'].create({'invoiceid': invoice['invoice_id'],
                                                              'date': datetime.date.today(),
                                                              'description': _("exit from accounting"),
