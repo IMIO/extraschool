@@ -147,6 +147,9 @@ class extraschool_remindersjournal(models.Model):
         reminder_type = self.env['extraschool.remindertype'].search(
             [('selected_type_id', '=', new_remindersjournal.reminders_journal_item_ids.reminder_type_id.id)])
 
+        if not reminder_type:
+            raise Warning(_("There is no next reminder."))
+
         # Return id[0], balance[1] and parentid[2] of all the invoices that were not paid for the last reminder.
         cr = self.env.cr
         get_invoice_sql = ("""  SELECT i.id, i.balance, p.id, i.schoolimplantationid
