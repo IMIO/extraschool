@@ -42,5 +42,4 @@ class extraschool_reminder(models.Model):
     activity_category_id = fields.Many2one(related='reminders_journal_id.activity_category_id', string='Activity Category')
     payment_term = fields.Date('reminders_journal_item_id.payment_term')
     transmission_date = fields.Date('reminders_journal_id.transmission_date')
-    fees_amount = fields.Float('Fees amount', default=0.0)
-
+    fees_amount = fields.Integer(default=0.0)

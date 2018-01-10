@@ -55,7 +55,7 @@
                     <newline/>
                     <field name="balance"/>
                     <newline/>
-                    <field name="biller_file" filename="filename"/>
+                    <field name="biller_file" filename="filename" invisible="True"/>
                     <newline/>
                     <field name="nbinvoices"/>
                     <newline/>

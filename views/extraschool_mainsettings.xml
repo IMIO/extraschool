@@ -29,6 +29,7 @@
                                     <field name="date_from"/>
                                     <field name="date_to"/>
                                     <button name="re_check_pod" string="Check" icon="gtk-apply" type="object"/>
+                                    <button name="reset_check" string="Reset AND Check" icon="gtk-apply" type="object"/>
                                 </page>
                                 <page string="Upgrade Child Levels">
                                     <group col="2">

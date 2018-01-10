@@ -6882,6 +6882,16 @@ msgstr "%y - Année sans le siècle  (00 à 99)."
 msgid "&bull;"
 msgstr "&bull;"
 
+#. module: extraschool
+#: view:extraschool.prestation_times_of_the_day:extraschool.extraschool_prestation_times_of_the_day_form
+msgid "Desactive"
+msgstr "Désactivé"
+
+#. module: extraschool
+#: view:extraschool.prestation_times_of_the_day:extraschool.extraschool_prestation_times_of_the_day_form
+msgid "Active"
+msgstr "Activé"
+
 #. modules: board, extraschool
 #. openerp-web
 #: code:addons/board/static/src/xml/board.xml:28
@@ -14061,6 +14071,11 @@ msgid "Activity name"
 msgstr "Nom de l'activité"
 
 #. module: extraschool
+#: field:extraschool.one_report,synthesis:0
+msgid "Synthesis"
+msgstr "Synthèse"
+
+#. module: extraschool
 #: view:extraschool.activityoccurrence:extraschool.extraschool_activityoccurrence_cal
 msgid "Activity occurences"
 msgstr "Occurrences de l'activité"
@@ -15714,14 +15729,14 @@ msgstr "Associations: Members"
 #: code:addons/extraschool/extraschool_invoice_wizard.py:338
 #, python-format
 msgid "At least one child registration is not validated for this period!!!"
-msgstr "At least one child registration is not validated for this period!!!"
+msgstr "Au moins une inscription n'est pas validé pour cette période!!!"
 
 #. module: extraschool
 #: code:addons/extraschool/extraschool_invoice_wizard.py:325
 #, python-format
 msgid "At least one manuel encodage is not validated for this period!!!"
-msgstr "At least one manuel encodage is not validated for this period!!!"
-
+msgstr "Au moins un encodage manuel n'est pas validé pour cette période!!!"
+s
 #. module: extraschool
 #: code:addons/extraschool/extraschool_invoice_wizard.py:358
 #, python-format
@@ -17120,6 +17135,13 @@ msgstr "Destinataires en copie carbone (des variables peuvent être utilisées i
 #: selection:ir.model.fields,on_delete:0
 msgid "Cascade"
 msgstr "Cascade"
+
+#. module: extraschool
+#: view:extraschool.pdaprestationtimes:extraschool.extraschool_pda_prestation_times_tree
+#: view:extraschool.prestation_times_of_the_day:extraschool.extraschool_prestation_times_of_the_day_form
+msgid "Active/ Desactive"
+msgstr "Activé/ Désactivé"
+
 
 #. module: extraschool
 #: selection:extraschool.payment,paymenttype:0
@@ -21227,7 +21249,7 @@ msgstr "Date de fin"
 #: field:extraschool.guardian_prestation_times_report,prestation_date_str:0
 #: field:extraschool.guardianprestationtimes,prestation_date_str:0
 msgid "Date str"
-msgstr "Date"
+msgstr "Date chiffre"
 
 #. module: extraschool
 #: field:extraschool.activity_occurrence_correction_wizard,date_to:0
@@ -23562,7 +23584,7 @@ msgstr "Exporter toutes les données"
 #. module: extraschool
 #: field:extraschool.guardianprestationtimes,exported:0
 msgid "Exported"
-msgstr "Exported"
+msgstr "Exporté"
 
 #. modules: base, document
 #: field:ir.actions.server,write_expression:0
@@ -23570,6 +23592,16 @@ msgstr "Exported"
 #: field:document.directory.dctx,expr:0
 msgid "Expression"
 msgstr "Expression"
+
+#. module: extraschool
+#: field:extraschool.prestation_times_encodage_manuel,prestation_time_all_entry:0
+msgid "Entry Time for all"
+msgstr "Entrée pour tous"
+
+#. module: extraschool
+#: field:extraschool.prestation_times_encodage_manuel,prestation_time_all_exit:0
+msgid "Exit Time for all"
+msgstr "Sortie pour tous"
 
 #. module: base
 #: help:ir.server.object.lines,value:0
@@ -27152,7 +27184,7 @@ msgstr "Modèle de facture"
 #. module: extraschool
 #: field:extraschool.manuel_invoice_wizard,invoice_all_children:0
 msgid "Invoice all of the children"
-msgstr "Invoice all of the children"
+msgstr "Facturer tous les enfants"
 
 #. module: extraschool
 #: code:addons/extraschool/extraschool_invoice.py:162
@@ -40629,6 +40661,11 @@ msgstr "Attention, cet enregistrement a été modifié et vos modifications vont
 msgid "Warnings"
 msgstr "Warnings"
 
+#. module: extraschool
+#: field:extraschool.pdaprestationtimes,desactive:0
+msgid "Desactive"
+msgstr "Désactiver"
+
 #. module: base
 #: view:base.module.upgrade:base.view_base_module_upgrade_install
 msgid "We suggest to reload the menu tab to see the new menus (Ctrl+T then Ctrl+R)."
@@ -41906,7 +41943,7 @@ msgstr "between rows %d and %d"
 #. module: extraschool
 #: model:ir.actions.report.xml,name:extraschool.extraschool_biller_std
 msgid "biller"
-msgstr "biller"
+msgstr "Facturier"
 
 #. module: extraschool
 #: view:extraschool.invoice:extraschool.extraschool_invoice_search_view
@@ -43294,7 +43331,7 @@ msgstr "préfixe"
 #. module: extraschool
 #: field:extraschool.activitycategory,po_tel:0
 msgid "tel"
-msgstr "T"
+msgstr "Tel"
 
 #. module: extraschool
 #: field:extraschool.mainsettings,tempfolder:0

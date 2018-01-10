@@ -30,7 +30,8 @@
                  'report',
                  'mail',
                  'decimal_precision',
-                 'web'],
+                 'web',
+                 ],
     'init_xml' : ['init.xml',],
     'demo' : [],
     'test' : [],
@@ -134,7 +135,7 @@
         'report/common/payment_info_amount_one_row.xml',
         'report/custo_client/hannut.xml',
         'report/custo_client/lierneux.xml',
-
+        'report/reminder/reminder_text.xml',
         'extraschool_view.xml',
 
     ],

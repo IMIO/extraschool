@@ -21,11 +21,12 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from openerp import models, api, fields, _
 from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
 from datetime import date
 import datetime
+from openerp.exceptions import Warning
 
 
 class extraschool_prestation_times_encodage_manuel(models.Model):
@@ -53,10 +54,38 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
     activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False, track_visibility='onchange', default=_get_activity_category_id)
     prestationtime_ids = fields.One2many('extraschool.prestation_times_manuel','prestation_times_encodage_manuel_id',copy=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
     comment = fields.Text(track_visibility='onchange')
+    prestation_time_all_entry = fields.Float('Entry Time for all')
+    prestation_time_all_exit = fields.Float('Exit Time for all')
     state = fields.Selection([('draft', 'Draft'),
                               ('validated', 'Validated')],
                               'State', required=True, default='draft', track_visibility='onchange'
                               )
+    warning_biller = fields.Char('WARNING', default="WARNING, Il y a un facturier à cette date. ", readonly=True)
+    warning_visibility = fields.Boolean(track_visibility='onchange')
+
+    @api.multi
+    def unlink(self):
+        if self.state == 'validated':
+            raise Warning(_("You cannot remove this subscription because it is not draft"))
+
+        res = super(extraschool_prestation_times_encodage_manuel, self).unlink()
+        return res
+
+    @api.onchange('prestation_time_all_entry','prestation_time_all_exit')
+    @api.one
+    def onchange_hours(self):
+        for prestation in self.prestationtime_ids:
+            prestation.prestation_time_entry = self.prestation_time_all_entry
+            prestation.prestation_time_exit = self.prestation_time_all_exit
+
+
+    @api.onchange('date_of_the_day')
+    @api.multi
+    def check_date(self):
+        if self.env['extraschool.biller'].search([('period_to', '>=', self.date_of_the_day)]):
+            self.warning_visibility = True
+        else:
+            self.warning_visibility = False
 
     @api.one
     def update_child_list(self):

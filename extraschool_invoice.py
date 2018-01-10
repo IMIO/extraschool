@@ -72,8 +72,8 @@ class extraschool_invoice(models.Model):
     payment_term = fields.Date('Payment term', track_visibility='onchange')
     comment = fields.Text("Comment",default="", track_visibility='onchange')
     last_reminder_id = fields.Many2one('extraschool.reminder', 'Last reminder',readonly=True, index = True, track_visibility='onchange')
-    reminder_fees = fields.Boolean('Reminder fees', default = False, track_visibility='onchange')
-    huissier = fields.Boolean('Huissier', default = False, track_visibility='onchange')
+    reminder_fees = fields.Boolean('Reminder fees', default=False, track_visibility='onchange')
+    huissier = fields.Boolean('Huissier', default=False, track_visibility='onchange')
     fees_huissier = fields.Float('Fees Huissier', default=0.0, track_visibility='onchange')
 
 #             
@@ -123,6 +123,7 @@ class extraschool_invoice(models.Model):
         payment_reconcil_obj = self.env['extraschool.payment_reconciliation']
         self._compute_balance()
         for invoice in self:
+            # todo: Check if the biller (invoices_date) <= today(). Do a cron to launch this method everyday.
             #search for open payment
             payments = payment_obj.search([('parent_id','=',invoice.parentid.id),
 #                                        ('structcom_prefix','=',invoice.activitycategoryid.payment_invitation_com_struct_prefix),

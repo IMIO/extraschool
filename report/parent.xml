@@ -27,6 +27,18 @@
 			</t>
 		</template>
 
+		<template id="reminder_parent_list">
+			<t t-foreach="docs" t-as="reminder">
+
+		        <div class="page">
+		            <h2>Liste des parents</h2>
+                    <t t-foreach="reminder.reminder_ids.sorted(lambda r: r.parentid.name)" t-as="parent_reminder">
+                        <h6><span t-field="parent_reminder.parentid"/></h6>
+                    </t>
+		        </div>
+			</t>
+		</template>
+
 		
 		<report
 		    id="extraschool_parent"
@@ -34,6 +46,15 @@
 		    string="Parent"
 		    report_type="qweb-pdf"
 		    name="extraschool.report_parent"
+		    attachment_use="False"
+		/>
+
+		<report
+		    id="extraschool_reminder_parent"
+		    model="extraschool.remindersjournal"
+		    string="Liste Parents"
+		    report_type="qweb-pdf"
+		    name="extraschool.reminder_parent_list"
 		    attachment_use="False"
 		/>
 	</data>

@@ -22,21 +22,28 @@
 			<field name="arch" type="xml">
 				<form string="prestation_times_encodage_manuel">
 					<header>
-						<button name="validate" String="Validate" type="object" states='draft' class="oe_highlight" groups="extraschool.extraschool_user"  context="{'wizard': False}"/>	
-						<button name="validate" String="Force Validate" type="object" class="oe_highlight" groups="base.group_erp_manager"  context="{'wizard': False}"/>	
-						<button name="set_to_draft" string="Set to draft" icon="gtk-apply" type="object"  context="{'wizard': False}"  groups="base.group_erp_manager"/>
+						<button name="validate" String="Validate" type="object" class="oe_highlight" groups="extraschool.extraschool_user"  context="{'wizard': False}" attrs="{'invisible':['|',('warning_visibility', '=', True),('state', '=', 'validated')]}"/>
+						<button name="validate" String="Force Validate" type="object" class="oe_highlight" groups="base.group_erp_manager"  context="{'wizard': False}" attrs="{'invisible':[('warning_visibility', '=', True)]}"/>
+						<button name="set_to_draft" string="Set to draft" icon="gtk-apply" type="object"  context="{'wizard': False}"  groups="base.group_erp_manager" />
 							
 						<field name="state" widget="statusbar" statusbar_visible="draft,validated"/>													
 					</header>
 					<sheet>
 						<group col="4">
+							<field name="warning_visibility" invisible="True"/>
+							<field name="warning_biller" style="color: Red" attrs="{'invisible':[('warning_visibility', '!=', True)]}"/>
 							<field name="activity_category_id" required="True" options="{'no_create':True}"/>
 							<field name="date_of_the_day" />
 							<field name="place_id" options="{'no_create':True}"/>
 							<newline />
+							<separator string="Ajout automatique dans le tableau"  colspan="4"/>
 							<field name="levelid" options="{'no_create':True}"/>
-							<newline/>>
-							<button name="update_child_list" string="Liste des enfants" states="draft" type="object" confirm="Ëtes-vous sûr de vouloir attribuer tous les enfants à cette activité ?"/>
+							<button name="update_child_list" string="Ajout des enfants" states="draft" type="object" confirm="Ëtes-vous sûr de vouloir attribuer tous les enfants à cette activité ?"/>
+							<newline />
+							<field name="prestation_time_all_entry" widget="float_time"/>
+							<field name="prestation_time_all_exit" widget="float_time"/>
+							<newline/>
+							<separator string="Tableau"  colspan="4"/>
 							<field name="prestationtime_ids" nolabel="1" colspan="4">
 								<tree editable="bottom">
 									<field name="child_id"/>

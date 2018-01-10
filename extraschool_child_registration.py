@@ -64,6 +64,16 @@ class extraschool_child_registration(models.Model):
                               )
     number_childs = fields.Char('Number of childs', readonly=True, default=0, track_visibility='onchange')
     levelid = fields.Many2one('extraschool.level', 'Level', track_visibility='onchange')
+    warning_biller = fields.Char('WARNING', default="WARNING, Il y a un facturier à cette date, si la personne responsable des factures n'est pas au courant de cet ajout, cela ne sera pas pris en compte ! ", readonly=True)
+    warning_visibility = fields.Boolean(track_visibility='onchange')
+
+    @api.onchange('date_to','date_from')
+    @api.multi
+    def check_date(self):
+        if self.env['extraschool.biller'].search(['|',('period_to', '>=', self.date_to),('period_to', '>=', self.date_from)]):
+            self.warning_visibility = True
+        else:
+            self.warning_visibility = False
 
     @api.onchange('child_registration_line_ids')
     def compute_number_childs(self):

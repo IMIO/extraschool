@@ -58,6 +58,7 @@ class extraschool_activitycategory(models.Model):
     po_email = fields.Char('email')
     po_tel = fields.Char('tel')
     po_addresse_free_text = fields.Char('Adresse texte libre')
+    po_addresse_free_text2 = fields.Char('Adresse texte libre 2')
 
     
     activities = fields.One2many('extraschool.activity', 'category','Activities')               
@@ -77,7 +78,8 @@ class extraschool_activitycategory(models.Model):
     invoicelastcomstruct = fields.Integer('Last Invoice structured comunication number')
     invoiceemailaddress = fields.Char('Invoice email address', size=50)
     invoiceemailsubject = fields.Char('Invoice email subject', size=50)
-    invoiceemailtext = fields.Text('Invoice email text')        
+    invoiceemailtext = fields.Text('Invoice email text')
+    invoice_comment2 = fields.Text('Invoice comment 2')
     invoice_comment = fields.Text('Invoice comment')        
     remindercomstructprefix = fields.Char('Reminder Comstruct prefix', size=3, required = True)
     reminderlastcomstruct = fields.Integer('Last Reminder structured comunication number')
@@ -103,6 +105,8 @@ class extraschool_activitycategory(models.Model):
     logo = fields.Binary()
     slogan = fields.Char('Slogan', size=50)
     sequence_ids = fields.One2many('extraschool.activitycategory.sequence', 'activity_category_id',string = 'Sequences')
+
+    max_school_implantation = fields.Integer()
     
     def check_invoice_prefix(self,invoicecomstructprefix):            
         res = {'return_val' : True,
@@ -230,9 +234,13 @@ class extraschool_activitycategory(models.Model):
 
     @api.model
     def update_seq(self):
-        year = 2016
-        for categ in self.search([]):
-            if len(categ.sequence_ids) == 0:
+        year = datetime.now().year
+
+        get_sequence = self.env['extraschool.activitycategory.sequence'].search([('year', '=', year)])
+
+        # If there isn't any sequence with this year's date.
+        if not get_sequence:
+            for categ in self.search([]):
                 types = [{'type': 'invoice',
                           'lastcomstruct': categ.invoicelastcomstruct},
                          {'type': 'reminder',
@@ -244,7 +252,7 @@ class extraschool_activitycategory(models.Model):
                                                                 'prefix': "%s" % (("%s" % (year))[-2:]),
                                                                 'padding': 5,
                                                                 'number_next': type['lastcomstruct'] if type['lastcomstruct'] > 0 else 1})
-                    
+
                     categ_sequence_id = categ.sequence_ids.create({'name': "%s - %s - %s" % (categ.name, type['type'], year),
                                                             'activity_category_id': categ.id,
                                                             'year': "%s" % (year),

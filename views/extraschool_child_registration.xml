@@ -55,6 +55,8 @@
 						<field name="state" widget="statusbar" statusbar_visible="draft,to_validate,validated"/>
 					</header>
 					<group col="4">
+						<field name="warning_visibility" invisible="True"/>
+						<field name="warning_biller" style="color: Red" attrs="{'invisible':[('warning_visibility', '!=', True)]}"/>
 	                    <field name="school_implantation_id" class="oe_no_button" options="{'no_create':True}" />
 	                    <field name="class_id" class="oe_no_button" options="{'no_create':True}"/>
 						<field name="place_id" options="{'no_create':True}"/>
@@ -129,6 +131,8 @@
 						<field name="state" widget="statusbar" statusbar_visible="draft,to_validate,validated"/>													
 					</header>
 					<group col="4">
+						<field name="warning_visibility" invisible="True"/>
+						<field name="warning_biller" style="color: Red" attrs="{'invisible':[('warning_visibility', '!=', True)]}"/>
 	                    <field name="school_implantation_id" class="oe_no_button" options="{'no_create':True}" />
 	                    <field name="class_id" class="oe_no_button" options="{'no_create':True}"/>
 						<field name="place_id" options="{'no_create':True}"/>

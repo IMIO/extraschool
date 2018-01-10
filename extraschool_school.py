@@ -21,19 +21,49 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from openerp import models, api, fields, _
 from openerp.api import Environment
+from openerp.exceptions import except_orm, Warning, RedirectWarning
 
 class extraschool_school(models.Model):
     _name = 'extraschool.school'
     _description = 'School'
+    _inherit = 'mail.thread'
 
-    name = fields.Char('Name', size=50, required=True)
+    name = fields.Char('Name', size=50, required=True, track_visibility=True)
     logo = fields.Binary()
     street = fields.Char('Street', size=50)
     zipcode = fields.Char('ZipCode', size=6)
     city = fields.Char('City', size=50)
-    schoolimplantations = fields.One2many('extraschool.schoolimplantation', 'schoolid','schoolimplantations', required=True)
+    schoolimplantations = fields.One2many('extraschool.schoolimplantation', 'schoolid','schoolimplantations', required=True, track_visibility=True)
     oldid = fields.Integer('oldid')                
+
+    @api.model
+    def create(self,vals):
+        # Override to check if they can create a new school.
+        # AES should not be counted as school.
+        schools_count = len(self.env['extraschool.school'].search([]).filtered(lambda r: r.name != 'AES'))
+        max_school = self.env['extraschool.activitycategory'].search([])[0].max_school_implantation
+
+
+        if schools_count >= max_school:
+            self.send_mail()
+            raise Warning(_("You have reached the maximum school"))
+        else:
+            return super(extraschool_school, self).create(vals)
+
+    @api.multi
+    def send_mail(self):
+        import smtplib
+
+        server = smtplib.SMTP('mailrelay.imio.be', 25)
+        server.starttls()
+
+        message = "%s a essayé de créer une école supplémentaire alors qu'ils sont à la limite autorisée" % (self.env[
+            'extraschool.activitycategory'].search([])[0].po_name.encode("utf-8"))
+
+        server.sendmail("aes@imio.be", "support-aes@imio.be", message)
+
+        server.quit()
 
 extraschool_school()
