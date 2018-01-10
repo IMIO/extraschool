@@ -71,18 +71,39 @@ class extraschool_mainsettings(models.Model):
     def re_check_pod(self):
         cr = self.env.cr
 
-        sql_query = """ SELECT id
+        sql_query = """ SELECT DISTINCT(prestation_times_of_the_day_id) AS id
                         FROM extraschool_prestationtimes
                         WHERE activity_occurrence_id IS NULL AND prestation_date BETWEEN %s AND %s"""
 
         cr.execute(sql_query, (self.date_from, self.date_to))
         prestation_ids = cr.fetchall()
 
+        prestations = self.env['extraschool.prestation_times_of_the_day'].browse([prestation_id[0] for prestation_id in prestation_ids])
+
+        print "#Check POD without occurrence starting %s ...." % (len(prestations))
+        for presta in prestations:
+            presta.reset()
+            presta.check()
+
+    @api.multi
+    def reset_check(self):
+        cr = self.env.cr
+
+        sql_query = """ SELECT id
+                        FROM extraschool_prestationtimes
+                        WHERE prestation_date BETWEEN %s AND %s"""
+
+        cr.execute(sql_query, (self.date_from, self.date_to))
+        prestation_ids = cr.fetchall()
+        count = 0
+        print "#Reset and check starting...."
         for prestation_id in prestation_ids:
             test = self.env['extraschool.prestation_times_of_the_day'].search([('prestationtime_ids', 'in', prestation_id)])
             if test:
+                count += 1
                 test.reset()
                 test.check()
+                print "## [%s/%s] done" % (count,len(prestation_ids))
 
     @api.multi
     def generate_coda(self):
@@ -117,7 +138,7 @@ class extraschool_mainsettings(models.Model):
 
         footer = "21000300003101983094049002623  0000000000000800190917001500001101200160019857                                      19091717101 0"
 
-        file = open("/home/mickey/Documents/coda/coda", "wb+")
+        file = open("coda", "wb+")
 
         file.write(header_1 + "\n")
         file.write(header_2 + "\n")

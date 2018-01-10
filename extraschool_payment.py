@@ -33,6 +33,7 @@ class extraschool_payment(models.Model):
     _order = 'paymentdate desc'
 
     paymenttype = fields.Selection((('1','CODA File'),
+                                    ('2', 'Mandat classe 4'),
                                     ('3','Cash'),
                                     ('4','Non value'),
                                     ('5','Reject')),'Payment type')

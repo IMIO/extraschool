@@ -62,7 +62,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
     parent_id = fields.Many2one(related='child_id.parentid', store=True, select=True)
     # place_id = fields.Many2one(related='child_id.schoolimplantation', store=True, select=True)
     prestationtime_ids = fields.One2many('extraschool.prestationtimes','prestation_times_of_the_day_id')
-    pda_prestationtime_ids = fields.One2many('extraschool.pdaprestationtimes','prestation_times_of_the_day_id')  
+    pda_prestationtime_ids = fields.One2many('extraschool.pdaprestationtimes','prestation_times_of_the_day_id',domain=['|',('active','=',False),('active','=',True)])
     verified = fields.Boolean(select=True)
     comment = fields.Text()
 
@@ -123,7 +123,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
             #Check if presta is not invoiced
             if len(presta.prestationtime_ids.filtered(lambda r: r.invoiced_prestation_id.id is not False).ids) == 0:
                 presta.prestationtime_ids.unlink()
-                for pda_presta in presta.pda_prestationtime_ids:
+                for pda_presta in presta.pda_prestationtime_ids.filtered(lambda r: r.active):
                     presta.prestationtime_ids.create({'placeid': pda_presta.placeid.id,
                                                       'childid': pda_presta.childid.id,
                                                       'prestation_date': pda_presta.prestation_date,

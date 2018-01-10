@@ -72,8 +72,9 @@ class extraschool_child(models.Model):
             config = self.env['extraschool.mainsettings'].browse([1])
             self.tagid = config.lastqrcodenbr = config.lastqrcodenbr + 1
         
-        return long(self.tagid)
-    
+        # return long(self.tagid)
+        return self.tagid
+
     @api.multi
     def write(self, vals):
         fields_to_find = set(['firstname',

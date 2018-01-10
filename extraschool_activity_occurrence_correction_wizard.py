@@ -35,7 +35,23 @@ from openerp.exceptions import except_orm, Warning
 class extraschool_activity_occurrence_correction_wizard(models.TransientModel):
     _name = 'extraschool.activity_occurrence_correction_wizard'
 
-    date_to = fields.Date('Date to', required=True)
+    date_to = fields.Date('Date to')
+    place_ids = fields.Many2many('extraschool.place','extraschool_place_activity_wizard_rel', 'place_id', 'wizard_id','School implantations')
+
+    @api.multi
+    def change_place(self):
+        place_list = []
+
+        for place in self.place_ids:
+            place_list.append(place.id)
+
+        vals = { 'placeids': [[6, _, place_list]],
+                 'multi_write': True,
+                 }
+
+        for activity in self.env['extraschool.activity'].browse(self._context.get('active_ids')):
+            activity.check_validity_from_invoice(activity.id)
+            activity.write(vals)
 
     @api.multi
     def reset_populate(self):

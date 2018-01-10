@@ -67,12 +67,15 @@
 		                <separator string="PDA prestations" colspan="4"/> 
 		            </group>
 	                <group expand="1" col="4">
-	                    <field name="pda_prestationtime_ids" nolabel="1" colspan="4" readonly="1">
-	                    	<tree string="prestation_times" >
-		                   		<field name="childid" />
-	                    		<field name="placeid" />
-	                    		<field name="prestation_time"  widget="float_time"/>
+	                    <field name="pda_prestationtime_ids" nolabel="1" colspan="4" options='{"reload_on_button": True}'>
+	                    	<tree string="prestation_times" colors="red:active == False">
+								<field name="active" invisible="1"/>
+		                   		<field name="childid" readonly="1"/>
+	                    		<field name="placeid" readonly="1"/>
+	                    		<field name="prestation_time"  widget="float_time" readonly="1"/>
 	                    		<field name="es" />
+								<button name="desactive" string="Desactive" type="object" groups="extraschool.extraschool_direction" attrs="{'invisible':[('active', '=', False)]}"/>
+								<button name="desactive" string="Active" type="object" groups="extraschool.extraschool_direction" attrs="{'invisible':[('active', '=', True)]}"/>
 	                    	</tree>
 	                    </field>
 	                </group>
@@ -91,7 +94,7 @@
                    <filter string="not verified" name="not_verified" icon="terp-accessories-archiver" domain="[('verified','=',False)]"/>
                    <group  expand='0' string='Group by...'>
                        <filter string='Child' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'child_id'}"/>
-                       <filter string='School Implantation' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'place_id'}"/>
+                       <filter string='School Implantation' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'placeid'}"/>
                    </group>
                 </search>
             </field>

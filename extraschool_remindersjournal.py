@@ -57,7 +57,7 @@ class extraschool_remindersjournal(models.Model):
 
     name = fields.Char('Name', required=True)
     activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=True, readonly=True, default=_get_activity_category_id, states={'draft': [('readonly', False)]})
-    transmission_date = fields.Date('Transmission date', required=True, readonly=True, states={'draft': [('readonly', False)]})
+    transmission_date = fields.Date('Transmission date', default=datetime.date.today(), required=True, readonly=True, states={'draft': [('readonly', False)]})
     reminders_journal_item_ids = fields.One2many('extraschool.reminders_journal_item', 'reminders_journal_id','Reminder journal item')
     reminder_ids = fields.One2many('extraschool.reminder', 'reminders_journal_id','Reminders')
     biller_id = fields.Many2one('extraschool.biller', 'Biller', readonly=True, states={'draft': [('readonly', False)]})
@@ -130,21 +130,25 @@ class extraschool_remindersjournal(models.Model):
                 threaded_report.append(thread)
                 thread.start()
 
-    @api.one
-    def delete(self):
-        self.reminder_ids.unlink()
-        self.reminders_journal_item_ids.unlink()
-        self.unlink()
+    # @api.multi
+    # def delete(self):
+    #     self.reminder_ids.unlink()
+    #     self.reminders_journal_item_ids.unlink()
 
     # Called from remindersjournal.validate()
     @api.multi
     def next_reminder(self):
+        print "Initiating Next Reminder method"
+        biller_is_made = False
         # Get the information of the reminder this one is based on.
         new_remindersjournal = self.env['extraschool.remindersjournal'].browse(self.based_reminder_id.id)
 
         # Get the next reminder_type
         reminder_type = self.env['extraschool.remindertype'].search(
             [('selected_type_id', '=', new_remindersjournal.reminders_journal_item_ids.reminder_type_id.id)])
+
+        if not reminder_type:
+            raise Warning(_("There is no next reminder."))
 
         # Return id[0], balance[1] and parentid[2] of all the invoices that were not paid for the last reminder.
         cr = self.env.cr
@@ -167,19 +171,18 @@ class extraschool_remindersjournal(models.Model):
         cr.execute(get_invoice_sql, (new_remindersjournal.id,))
         invoice_ids = cr.fetchall()
 
+        print "#%s invoices to process" % (len(invoice_ids))
+
         # Build dictionnary of invoices sorted by parents.
         invoice_dict = {}
+        print "##Building dictionnary of invoices sorted by parents..."
         for invoice in invoice_ids:
             invoice_dict.setdefault(invoice[2], []).append(invoice[0])
 
         # Write the reminders_journal
         reminders_journal_item_amount = sum([invoice[1] for invoice in invoice_ids])
 
-        # If the reminder has fees, compute de total cost.
-        if reminder_type.fees_type == 'fix':
-            total_fees = reminder_type.fees_amount * len(invoice_dict)
-            reminders_journal_item_amount += total_fees
-
+        # Create a reminder journal
         reminders_journal_item_id = self.env['extraschool.reminders_journal_item'].create(
             {'name': "%s - %s" % (self.name, reminder_type.name),
              'reminder_type_id': reminder_type.id,
@@ -188,8 +191,11 @@ class extraschool_remindersjournal(models.Model):
              'amount': reminders_journal_item_amount,
              })
 
-        # For each parent create a reminder.
+        count = 1
+        # For each parent create a reminder and add fees if needed.
         for key in invoice_dict:
+            print "### [%s/%s] reminder created..." % (count,len(invoice_dict))
+            count += 1
             reminder = self.env['extraschool.reminder'].create({'reminders_journal_item_id': reminders_journal_item_id.id,
                                                                 'reminders_journal_id': self.id,
                                                                 'parentid': key,
@@ -199,19 +205,59 @@ class extraschool_remindersjournal(models.Model):
                                                                     'com_struct'],
                                                                 'amount': sum([self.env['extraschool.invoice'].browse(invoice).balance for invoice in invoice_dict[key]]),
                                                                 'concerned_invoice_ids': [(6, 0, invoice_dict[key])],
-                                                                'fees_amount': reminder_type.fees_amount,
                                                                 })
 
+            self.env['extraschool.invoice'].browse(invoice_dict[key]).write({'last_reminder_id': reminder.id})
 
+            # If the reminder has fees, compute de total cost.
+            if reminder_type.fees_type == 'fix':
+                # Add fees in reminder.
+                reminder.write({'fees_amount': reminder_type.fees_amount,})
+
+                # Create Biller
+                if not biller_is_made:
+                    self.biller_id = self.env['extraschool.biller'].create({'period_from': self.transmission_date,
+                                                                            'period_to': self.transmission_date,
+                                                                            'activitycategoryid': self.activity_category_id.id,
+                                                                            'invoices_date': self.transmission_date,
+                                                                            })
+                    biller_is_made = True
+
+                next_invoice_num = self.activity_category_id.get_next_comstruct('invoice',
+                                                                                self.biller_id.get_from_year())
+                fees_invoice = self.env['extraschool.invoice'].create(
+                    {'name': _('invoice_%s') % (next_invoice_num['num'],),
+                     'number': next_invoice_num['num'],
+                     'parentid': key,
+                     'biller_id': self.biller_id.id,
+                     'activitycategoryid': self.activity_category_id.id,
+                     'structcom': next_invoice_num['com_struct'],
+                     'last_reminder_id': reminder.id,
+                     'reminder_fees': True,
+                     'payment_term': datetime.date.today() + datetime.timedelta(days=reminder_type.payment_term_in_day),
+                     })
+
+                self.env['extraschool.invoicedprestations'].create({'invoiceid' : fees_invoice.id,
+                                     'description' : reminder_type.fees_description if reminder_type.fees_description != False else 'Frais de rappel',
+                                     'unit_price': reminder_type.fees_amount,
+                                     'quantity': 1,
+                                     'total_price': reminder_type.fees_amount,
+                                     })
+
+            print "####Computing balance..."
+            if biller_is_made:
+                self.biller_id.invoice_ids._compute_balance()
+
+        self.state = "validated"
         return True
 
 
     @api.one
     def validate(self):
-
         if self.based_reminder_id:
             self.next_reminder()
         else:
+            print "Initiating Validate method"
             if len(self.activity_category_id.reminer_type_ids.ids) == 0 :
                 return False
 
@@ -231,6 +277,7 @@ class extraschool_remindersjournal(models.Model):
             biller_id = -1
             #browse activivity categ reminder type
             for reminder_type in self.activity_category_id.reminer_type_ids.sorted(key=lambda r: r.sequence, reverse=True):
+                print "##Check Reminder Type"
                 #select invoices
                 invoice_search_domain = [('activitycategoryid.id', '=',self.activity_category_id.id),
                                          ('balance', '>',0), # todo: See if this is needed.
@@ -244,13 +291,10 @@ class extraschool_remindersjournal(models.Model):
                 #compute pa
                 to_date = datetime.date.today() - datetime.timedelta(days=reminder_type.delay)
 
-                if reminder_type.select_reminder_type == False:
-                    invoice_search_domain+= [('payment_term', '<=',to_date),
-                                             ]
                     #filter on payterm depend on reminder_type (no reminder_type = invoice_payment_term)
-                elif reminder_type.selected_type_id.id == False or reminder_type.select_reminder_type == False:
+                if reminder_type.selected_type_id.id == False or reminder_type.select_reminder_type == False:
                     #payterm is taken from invoice
-                    invoice_search_domain+= [('payment_term', '<=',to_date),
+                    invoice_search_domain+= [('payment_term', '<=',to_date), # This is payment_term of the invoice because it's the first reminder
                                              ('last_reminder_id', '=', False)
                                              ]
                 else:
@@ -272,15 +316,18 @@ class extraschool_remindersjournal(models.Model):
                 total_amount = 0.0
                 amount = 0.0
                 concerned_invoice_ids = []
-
+                count = 1
                 for invoice in invoice_ids:
+                    print "##[%s/%s] invoices processed..." % (count,len(invoice_ids))
+                    count += 1
                     if invoice.parentid.id != parent_id:
                         if parent_id > 0:
                             if amount > reminder_type.minimum_balance:
                                 total_amount += amount
+                                # This might be better if we flag invoice as huissier.
                                 if reminder_type.out_of_accounting:
                                     amount = 0
-                                reminder.write({'amount' : amount,
+                                reminder.write({'amount': amount,
                                                 'concerned_invoice_ids': [(6, 0, concerned_invoice_ids)]})
                                 inv_obj.browse(concerned_invoice_ids).write({'last_reminder_id': reminder.id})
                             else:
@@ -294,7 +341,7 @@ class extraschool_remindersjournal(models.Model):
                                                                             'reminders_journal_id': self.id,
                                                                             'parentid': parent_id,
                                                                             'school_implantation_id': invoice.schoolimplantationid.id,
-                                                                            'structcom': invoice.activitycategoryid.get_next_comstruct('reminder',invoice.biller_id.get_from_year())['com_struct']
+                                                                            'structcom': invoice.activitycategoryid.get_next_comstruct('reminder',fields.Date.from_string(self.transmission_date).year)['com_struct']
                                                                             })
                         if reminder_type.fees_type == 'fix':
                             if biller_id == -1:
@@ -314,6 +361,7 @@ class extraschool_remindersjournal(models.Model):
                                                            'structcom': next_invoice_num['com_struct'],
                                                            'last_reminder_id': reminder.id,
                                                            'reminder_fees': True,
+                                                           'payment_term': datetime.date.today() + datetime.timedelta(days=reminder_type.payment_term_in_day),
                                                            })
                             concerned_invoice_ids.append(fees_invoice.id)
                             inv_line_obj.create({'invoiceid' : fees_invoice.id,
@@ -326,10 +374,10 @@ class extraschool_remindersjournal(models.Model):
 
                     amount += invoice.balance
                     concerned_invoice_ids.append(invoice.id)
-                # todo: outside of the foreach invoice ?
+
                 if len(concerned_invoice_ids) > 0:
                     if amount > reminder_type.minimum_balance:
-                        print "Last yop %s" % (concerned_invoice_ids)
+                        print "###Creating Reminders..."
                         total_amount += amount
                         if reminder_type.out_of_accounting:
                             amount = 0
@@ -340,7 +388,7 @@ class extraschool_remindersjournal(models.Model):
                     else:
                         reminder.unlink()
                 else:
-                    print "nothing to DO"
+                    print "###Nothing has been done..."
                 if total_amount > 0:
                     reminders_journal_item_id.amount = total_amount
                 else:
@@ -349,54 +397,57 @@ class extraschool_remindersjournal(models.Model):
                 if biller_id > 0 :
                     self.biller_id.invoice_ids._compute_balance()
 
-        #update invoice to exit from accounting
-        get_invoice_exit_sql = """select r.id as reminder_id, i.id as invoice_id,balance
-                                    from extraschool_reminder r
-                                    left join extraschool_invoice i on i.last_reminder_id = r.id
-                                    left join extraschool_reminders_journal_item ji on ji.id = r.reminders_journal_item_id
-                                    left join extraschool_remindertype rt on rt.id = ji.reminder_type_id
-                                    where r.reminders_journal_id = %s and rt.out_of_accounting = True                                    
-                                """
-        self.env.cr.execute(get_invoice_exit_sql, (self.id,))
-        invoice_ids = self.env.cr.dictfetchall()
+            #update invoice to exit from accounting
+            get_invoice_exit_sql = """select r.id as reminder_id, i.id as invoice_id,balance
+                                        from extraschool_reminder r
+                                        left join extraschool_invoice i on i.last_reminder_id = r.id
+                                        left join extraschool_reminders_journal_item ji on ji.id = r.reminders_journal_item_id
+                                        left join extraschool_remindertype rt on rt.id = ji.reminder_type_id
+                                        where r.reminders_journal_id = %s and rt.out_of_accounting = True                                    
+                                    """
+            self.env.cr.execute(get_invoice_exit_sql, (self.id,))
+            invoice_ids = self.env.cr.dictfetchall()
+            print "####Creating refund line"
+            count = 1
+            for invoice in invoice_ids:
+                print "##[%s/%s] refunds processed..." % (count, len(invoice_ids))
+                count += 1
+                self.env['extraschool.refound_line'].create({'invoiceid': invoice['invoice_id'],
+                                                             'date': datetime.date.today(),
+                                                             'description': _("exit from accounting"),
+                                                             'amount': invoice['balance'],
+                                                             'reminder_id': invoice['reminder_id']
+                                                             })
 
-        for invoice in invoice_ids:
-            self.env['extraschool.refound_line'].create({'invoiceid': invoice['invoice_id'],
-                                                         'date': datetime.date.today(),
-                                                         'description': _("exit from accounting"),
-                                                         'amount': invoice['balance'],
-                                                         'reminder_id': invoice['reminder_id']
-                                                         })
+            #update biller summary
+            get_biller_summary_sql = """select distinct(i.biller_id) as biller_id,sum(balance) as reminder_amount,
+                                            case when sum(rl.amount) is null then 0 else sum(rl.amount) end as refound_amount
+                                        from extraschool_reminder r
+                                        left join extraschool_invoice i on i.last_reminder_id = r.id
+                                        left join extraschool_refound_line rl on i.id = rl.invoiceid and rl.reminder_id = r.id
+                                        where r.reminders_journal_id = %s
+                                        group by i.biller_id
+                                    """
+            self.env.cr.execute(get_biller_summary_sql, (self.id,))
+            biller_summary_ids = self.env.cr.dictfetchall()
 
-        #update biller summary
-        # get_biller_summary_sql = """select distinct(i.biller_id) as biller_id,sum(balance) as reminder_amount,
-        #                                 case when sum(rl.amount) is null then 0 else sum(rl.amount) end as refound_amount
-        #                             from extraschool_reminder r
-        #                             left join extraschool_invoice i on i.last_reminder_id = r.id
-        #                             left join extraschool_refound_line rl on i.id = rl.invoiceid and rl.reminder_id = r.id
-        #                             where r.reminders_journal_id = %s
-        #                             group by i.biller_id
-        #                         """
-        # self.env.cr.execute(get_biller_summary_sql, (self.id,))
-        # biller_summary_ids = self.env.cr.dictfetchall()
-        #
-        # for biller_summary in biller_summary_ids:
-        #     self.env['extraschool.reminders_journal_biller_item']. create({'name': "%s - %s" % (self.name,biller_summary['reminder_amount']),
-        #                                                                    'reminders_journal_id': self.id,
-        #                                                                    'biller_id': biller_summary['biller_id'],
-        #                                                                    'reminder_amount': biller_summary['reminder_amount'],
-        #                                                                    'exit_accounting_amount': biller_summary['refound_amount']})
+            for biller_summary in biller_summary_ids:
+                self.env['extraschool.reminders_journal_biller_item'].create({'name': "%s - %s" % (self.name,biller_summary['reminder_amount']),
+                                                                              'reminders_journal_id': self.id,
+                                                                              'biller_id': biller_summary['biller_id'],
+                                                                              'reminder_amount': biller_summary['reminder_amount'],
+                                                                              'exit_accounting_amount': biller_summary['refound_amount']})
 
-        #
-        #
-        #    !!!!! COMIT !!!!
-        #
-        #
-        self.env.cr.commit()
-        self.generate_pdf()
-        #    threading.Thread(target=self.go, args=(id, uid, self.reminder_ids.ids)).start()
-        self.state = "validated"
-        return True
+
+
+               # !!!!! COMIT !!!!
+
+
+            self.env.cr.commit()
+            self.generate_pdf()
+            #    threading.Thread(target=self.go, args=(id, uid, self.reminder_ids.ids)).start()
+            self.state = "validated"
+            return True
 
 
 
@@ -467,10 +518,12 @@ class extraschool_remindersjournal(models.Model):
 
                 }
 
-    @api.multi
-    def unlink(self):
-        # Todo: Do this in a proper way.
-        super(extraschool_remindersjournal, self).unlink()
+    # @api.multi
+    # def unlink(self):
+        # self.reminder_ids.unlink()
+        # self.reminders_journal_item_ids.unlink()
+
+        # return super(extraschool_remindersjournal, self).unlink()
     
 class extraschool_remindersjournal_item(models.Model):
     _name = 'extraschool.reminders_journal_item'

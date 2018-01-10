@@ -9,9 +9,11 @@
                 <form string="Extend activity's date">
                     <group>
 						<field name="date_to" />
+						<field name="place_ids" />
                     </group>
                     <group colspan="4" col="3">
                         <button name="reset_populate" groups="extraschool.extraschool_gods" string="Validate" icon="gtk-apply" type="object" />
+                        <button name="change_place" groups="extraschool.extraschool_gods" string="Change Place" icon="gtk-apply" type="object" />
                     </group>
                 </form>
             </field>

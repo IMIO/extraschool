@@ -83,7 +83,7 @@ class extraschool_smartphone(models.Model):
         return self.env['extraschool.config_smartphone'].search([])[-1].transfertmethod
 
     def _get_activity_category_id(self):
-        return self.env['extraschool.config_smartphone'].search([])[-1].activitycategory_id
+        return self.env['extraschool.config_smartphone'].search([])[-1].activitycategory_id.ids
 
 
     name = fields.Char('Name', size=50)
