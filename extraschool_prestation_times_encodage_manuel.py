@@ -21,11 +21,12 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from openerp import models, api, fields, _
 from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
 from datetime import date
 import datetime
+from openerp.exceptions import Warning
 
 
 class extraschool_prestation_times_encodage_manuel(models.Model):
@@ -61,6 +62,14 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
                               )
     warning_biller = fields.Char('WARNING', default="WARNING, Il y a un facturier à cette date. ", readonly=True)
     warning_visibility = fields.Boolean(track_visibility='onchange')
+
+    @api.multi
+    def unlink(self):
+        if self.state == 'validated':
+            raise Warning(_("You cannot remove this subscription because it is not draft"))
+
+        res = super(extraschool_prestation_times_encodage_manuel, self).unlink()
+        return res
 
     @api.onchange('prestation_time_all_entry','prestation_time_all_exit')
     @api.one
