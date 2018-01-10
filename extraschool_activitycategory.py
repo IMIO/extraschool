@@ -235,8 +235,12 @@ class extraschool_activitycategory(models.Model):
     @api.model
     def update_seq(self):
         year = datetime.now().year
-        for categ in self.search([]):
-            if len(categ.sequence_ids) == 0:
+
+        get_sequence = self.env['extraschool.activitycategory.sequence'].search([('year', '=', year)])
+        
+        # If there isn't any sequence with this year's date.
+        if not get_sequence:
+            for categ in self.search([]):
                 types = [{'type': 'invoice',
                           'lastcomstruct': categ.invoicelastcomstruct},
                          {'type': 'reminder',
@@ -248,7 +252,7 @@ class extraschool_activitycategory(models.Model):
                                                                 'prefix': "%s" % (("%s" % (year))[-2:]),
                                                                 'padding': 5,
                                                                 'number_next': type['lastcomstruct'] if type['lastcomstruct'] > 0 else 1})
-                    
+
                     categ_sequence_id = categ.sequence_ids.create({'name': "%s - %s - %s" % (categ.name, type['type'], year),
                                                             'activity_category_id': categ.id,
                                                             'year': "%s" % (year),
