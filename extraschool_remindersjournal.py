@@ -138,6 +138,7 @@ class extraschool_remindersjournal(models.Model):
     # Called from remindersjournal.validate()
     @api.multi
     def next_reminder(self):
+        print "Initiating Next Reminder method"
         biller_is_made = False
         # Get the information of the reminder this one is based on.
         new_remindersjournal = self.env['extraschool.remindersjournal'].browse(self.based_reminder_id.id)
@@ -167,8 +168,11 @@ class extraschool_remindersjournal(models.Model):
         cr.execute(get_invoice_sql, (new_remindersjournal.id,))
         invoice_ids = cr.fetchall()
 
+        print "#%s invoices to process" % (len(invoice_ids))
+
         # Build dictionnary of invoices sorted by parents.
         invoice_dict = {}
+        print "##Building dictionnary of invoices sorted by parents..."
         for invoice in invoice_ids:
             invoice_dict.setdefault(invoice[2], []).append(invoice[0])
 
@@ -184,8 +188,11 @@ class extraschool_remindersjournal(models.Model):
              'amount': reminders_journal_item_amount,
              })
 
+        count = 1
         # For each parent create a reminder and add fees if needed.
         for key in invoice_dict:
+            print "### [%s/%s] reminder created..." % (count,len(invoice_dict))
+            count += 1
             reminder = self.env['extraschool.reminder'].create({'reminders_journal_item_id': reminders_journal_item_id.id,
                                                                 'reminders_journal_id': self.id,
                                                                 'parentid': key,
@@ -234,10 +241,10 @@ class extraschool_remindersjournal(models.Model):
                                      'total_price': reminder_type.fees_amount,
                                      })
 
+            print "####Computing balance..."
             if biller_is_made:
                 self.biller_id.invoice_ids._compute_balance()
 
-        self.generate_pdf()
         self.state = "validated"
         return True
 
