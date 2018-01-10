@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014 
+#    Copyright (C) 2008-2014
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot - Imio (<http://www.imio.be>).
 #
@@ -31,12 +31,12 @@ from _abcoll import Sequence
 class extraschool_activitycategory(models.Model):
     _name = 'extraschool.activitycategory'
     _description = 'Activities categories'
-    
-    name = fields.Char('Name', size=50)    
-    po_name = fields.Char('Name of PO')    
+
+    name = fields.Char('Name', size=50)
+    po_name = fields.Char('Name of PO')
     po_street = fields.Char('Street')
     po_zipcode = fields.Char('ZipCode')
-    po_city = fields.Char('City')   
+    po_city = fields.Char('City')
     po_sign = fields.Binary('Signature')
     po_resp_name = fields.Char('Name of resp')
     po_resp_fct = fields.Char('Fct of resp')
@@ -54,31 +54,31 @@ class extraschool_activitycategory(models.Model):
 
     po_stamp = fields.Binary('stamp')
     po_sign_img = fields.Binary('Signature image')
-    
+
     po_email = fields.Char('email')
     po_tel = fields.Char('tel')
     po_addresse_free_text = fields.Char('Adresse texte libre')
 
-    
-    activities = fields.One2many('extraschool.activity', 'category','Activities')               
+
+    activities = fields.One2many('extraschool.activity', 'category','Activities')
     placeids = fields.Many2many('extraschool.place','extraschool_activitycategory_place_rel', 'activitycategory_id', 'place_id','Schoolcare place')
     childpositiondetermination = fields.Selection((('byparent','by parent'),
                                                    ('byparentwp','by parent (only childs with prestations)'),
-                                                   ('byparent_nb_childs','by parent (position replaced by nbr childs'),                                                   
-                                                   ('byparent_nb_childs_wp','by parent (position replaced by nbr childs with prestations'),                                                   
+                                                   ('byparent_nb_childs','by parent (position replaced by nbr childs'),
+                                                   ('byparent_nb_childs_wp','by parent (position replaced by nbr childs with prestations'),
                                                    ('byaddress','by address'),
                                                    ('byaddresswp','by address (only childs with prestations)'),
                                                    ('byaddress_nb_childs','by address (position replaced by nbr childs'),
                                                    ('byaddress_nb_childs_wp','by address (position replaced by nbr childs with prestations'),
                                                    ),'Child position determination', required = True)
     priorityorder = fields.Integer('Priority order')
-    invoicetemplate = fields.Char('Invoice Template', size=50, default='facture.odt')        
+    invoicetemplate = fields.Char('Invoice Template', size=50, default='facture.odt')
     invoicecomstructprefix = fields.Char('Invoice Comstruct prefix', size=3, required = True)
     invoicelastcomstruct = fields.Integer('Last Invoice structured comunication number')
     invoiceemailaddress = fields.Char('Invoice email address', size=50)
     invoiceemailsubject = fields.Char('Invoice email subject', size=50)
-    invoiceemailtext = fields.Text('Invoice email text')        
-    invoice_comment = fields.Text('Invoice comment')        
+    invoiceemailtext = fields.Text('Invoice email text')
+    invoice_comment = fields.Text('Invoice comment')
     remindercomstructprefix = fields.Char('Reminder Comstruct prefix', size=3, required = True)
     reminderlastcomstruct = fields.Integer('Last Reminder structured comunication number')
     reminderemailaddress = fields.Char('Reminder email address', size=50)
@@ -93,7 +93,7 @@ class extraschool_activitycategory(models.Model):
     bank_city = fields.Char('Bank city')
 
     taxcertificatetemplate = fields.Char('Tax Certificate Template', size=50)
-    invoice_report_id = fields.Many2one('extraschool.report', 'Invoice report')    
+    invoice_report_id = fields.Many2one('extraschool.report', 'Invoice report')
     invoice_detail_report_id = fields.Many2one('extraschool.report', 'Invoice detail report')
     biller_report_id = fields.Many2one('extraschool.report', 'Biller report')
     payment_invitation_report_id = fields.Many2one('extraschool.report', 'Payment invitation report')
@@ -103,8 +103,8 @@ class extraschool_activitycategory(models.Model):
     logo = fields.Binary()
     slogan = fields.Char('Slogan', size=50)
     sequence_ids = fields.One2many('extraschool.activitycategory.sequence', 'activity_category_id',string = 'Sequences')
-    
-    def check_invoice_prefix(self,invoicecomstructprefix):            
+
+    def check_invoice_prefix(self,invoicecomstructprefix):
         res = {'return_val' : True,
                'msg' : ''}
         # search for activity category that have invoicecomstructprefix = payment_invitation_com_struct_prefix or remindercomstructprefix = payment_invitation_com_struct_prefix
@@ -114,9 +114,9 @@ class extraschool_activitycategory(models.Model):
         if len(self.env['extraschool.payment'].search([('structcom_prefix', '=', invoicecomstructprefix),])) :
             res = {'return_val' : False,
                    'msg' : "It's not possible to update the activity_categ because there are payment with the old invoice prefix"}
-        
+
         return res
-    
+
     def check_pay_invit_prefix(self,payment_invitation_com_struct_prefix):
         res = {'return_val' : True,
                'msg' : ''}
@@ -126,9 +126,9 @@ class extraschool_activitycategory(models.Model):
                    'msg' : "It's not possible to update the activity_categ because there are other activity category with the same prefix used for invoicing or reminder"}
         if len(self.env['extraschool.payment'].search([('structcom_prefix', '=', payment_invitation_com_struct_prefix),])) :
             res = {'return_val' : False,
-                   'msg' : "It's not possible to update the activity_categ because there are payment with the old pre-paid prefix"}            
+                   'msg' : "It's not possible to update the activity_categ because there are payment with the old pre-paid prefix"}
         return res
-    
+
     def check_reminder_prefix(self,remindercomstructprefix):
         res = {'return_val' : True,
                'msg' : ''}
@@ -138,11 +138,11 @@ class extraschool_activitycategory(models.Model):
                    'msg' : "It's not possible to update the activity_categ because there are other activity category with the same prefix used for invoicing or pre-paid"}
         if len(self.env['extraschool.payment'].search([('structcom_prefix', '=', remindercomstructprefix),])) :
             res = {'return_val' : False,
-                   'msg' : "It's not possible to update the activity_categ because there are payment with the old reminder prefix"}            
+                   'msg' : "It's not possible to update the activity_categ because there are payment with the old reminder prefix"}
         return res
-    
 
-            
+
+
         return res
 
     @api.multi
@@ -161,26 +161,26 @@ class extraschool_activitycategory(models.Model):
                 res = activity_categ.check_pay_invit_prefix(vals['payment_invitation_com_struct_prefix'])
                 if not res['return_val']:
                     raise Warning(res['msg'])
-                                
+
             super(extraschool_activitycategory,activity_categ).write(vals)
-        
+
         return True
 
     def get_sequence(self,type,year):
         sequence_id = self.sequence_ids.search([('type', '=', type),
                                                 ('year', '=', year),])
-        
+
         if len(sequence_id) == 0:
             #sequence doesn't exist, look for previous year seq to copy it
             sequence_id = self.sequence_ids.search([('type', '=', type),
                                                     ('year', '=', year-1),])
 
-            if len(sequence_id):                
+            if len(sequence_id):
                 sequence_id = self.env['ir.sequence'].create({'name': "%s - %s - %s" % (self.name, type, year),
                                                         'active': True,
                                                         'prefix': "%s" % (("%s" % (year))[-2:]),
                                                         'padding': 5})
-                
+
                 categ_sequence_id = self.sequence_ids.create({'name': "%s - %s - %s" % (self.name, type, year),
                                                         'activity_category_id': self.id,
                                                         'year': "%s" % (year),
@@ -190,10 +190,10 @@ class extraschool_activitycategory(models.Model):
                 raise Warning(_("Sequence not defined"))
         else:
             sequence_id = sequence_id.sequence
-        
-        return sequence_id        
-    
-    @api.multi        
+
+        return sequence_id
+
+    @api.multi
     def get_next_comstruct(self,type,year, sequence_id = False):
 
         # Added a refund comstruct.
@@ -207,7 +207,7 @@ class extraschool_activitycategory(models.Model):
 
         if not sequence_id:
             sequence_id = self.get_sequence(type,year)
-
+        import wdb;wdb.set_trace()
         com_struct_id_str = self.env['ir.sequence'].next_by_id(sequence_id.id)
 
         if type == 'reminder':
@@ -244,34 +244,34 @@ class extraschool_activitycategory(models.Model):
                                                                 'prefix': "%s" % (("%s" % (year))[-2:]),
                                                                 'padding': 5,
                                                                 'number_next': type['lastcomstruct'] if type['lastcomstruct'] > 0 else 1})
-                    
+
                     categ_sequence_id = categ.sequence_ids.create({'name': "%s - %s - %s" % (categ.name, type['type'], year),
                                                             'activity_category_id': categ.id,
                                                             'year': "%s" % (year),
                                                             'type': type['type'],
                                                             'sequence': sequence_id.id})
-        
-        
+
+
     @api.model
-    def create(self, vals):  
+    def create(self, vals):
         res = self.check_pay_invit_prefix(vals['payment_invitation_com_struct_prefix'])
         if not res['return_val']:
-            raise Warning(res['msg'])     
+            raise Warning(res['msg'])
         res = self.check_pay_invit_prefix(vals['payment_invitation_com_struct_prefix'])
         if not res['return_val']:
-            raise Warning(res['msg'])     
+            raise Warning(res['msg'])
         res = self.check_pay_invit_prefix(vals['payment_invitation_com_struct_prefix'])
         if not res['return_val']:
-            raise Warning(res['msg'])     
-                                
+            raise Warning(res['msg'])
+
         res = super(extraschool_activitycategory,self).create(vals)
 
         return res
-    
+
 class extraschool_activitycategory_sequence(models.Model):
     _name = 'extraschool.activitycategory.sequence'
     _description = 'Activities categories sequences'
-    
+
     name = fields.Char('Name', size=50)
     activity_category_id = fields.Many2one('extraschool.activitycategory', required=True)
     year = fields.Integer('Year', required=True)

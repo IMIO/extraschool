@@ -1,35 +1,35 @@
 <?xml version="1.0" ?>
 <openerp>
-	<data> 
+	<data>
 		<template id="tpl_qrcodes_wizard_report">
 			    <style type="text/css">
 			        .page {
-			        	margin-left: 3mm; 
-			        }  	
-			        
+			        	margin-left: 3mm;
+			        }
+
 			        .page_logo {
-			        	margin-left: -0.5mm; 
-			        	margin-right: 2.5mm; 
-			        }  			
-					
+			        	margin-left: -0.5mm;
+			        	margin-right: 2.5mm;
+			        }
+
 					.qrcode {
         				width: 33%;
         				height: 57mm;
         				display: inline-block;
         				border: 1px hidden;
-        				float: left;  
-        				position: relative;      				
+        				float: left;
+        				position: relative;
       				}
-					
+
 					.qrcode_logo {
         				width: 33%;
         				height: 57mm;
         				display: inline-block;
         				border: 1px hidden;
-        				float: right;  
-        				position: relative;      				
-      				}    
-      				      				
+        				float: right;
+        				position: relative;
+      				}
+
       				.qrcode_img {
   						position: absolute;
   						top: 18mm;
@@ -37,7 +37,7 @@
       					width: 25mm;
       					height: 25mm;
       					}
-      					
+
       				h2 {
       					color: blue;
       					background-color: red;
@@ -50,7 +50,7 @@
 						<t t-set="nbr_page" t-value="nbr_page + 1" />
 					</t>
 					<t t-foreach="range(0,nbr_page)" t-as="zz">
-						<div class="page">					
+						<div class="page">
 					   		<t t-foreach="range(qr_report.last_id+15*zz,qr_report.last_id+15*(zz+1))" t-as="i">
 					           	<div class="qrcode">
 					           		<t t-if="i &lt;= qr_report.last_id + qr_report.quantity - 1">
@@ -58,24 +58,24 @@
 						           		<t t-if="qr_report.print_value">
 							           		<span><t t-esc="i"/></span>
 										</t>
-									</t>									
-					           	</div>					       								
-							</t>			
+									</t>
+					           	</div>
+							</t>
 						</div>
-						<t t-if="qr_report.print_type == 'logo'">	
-							<div class="page_logo page">					
+						<t t-if="qr_report.print_type == 'logo'">
+							<div class="page_logo page">
 						   		<t t-foreach="range(qr_report.last_id+15*zz,qr_report.last_id+15*(zz+1))" t-as="i">
 						           	<div class="qrcode_logo">
 						           		<t t-if="i &lt;= qr_report.last_id + qr_report.quantity -1">
 							           		<t t-if="qr_report.print_type == 'logo'">
 							           			<img class="qrcode_img" t-att-src="'data:image/jpeg;base64,%s' % qr_report.logo" />
 							           		</t>
-										</t>									
-						           	</div>					       								
-								</t>			
+										</t>
+						           	</div>
+								</t>
 							</div>
-						</t>							
-					</t>	
+						</t>
+					</t>
 				</t>
 		</template>
 
@@ -92,7 +92,7 @@
     		<field name="header_spacing">3</field>
     		<field name="dpi">80</field>
 		</record>
-		
+
 		<report
 		    id="qrcodes_wizard_report"
 		    model="extraschool.qrcodes_wizard"
@@ -104,24 +104,25 @@
 
 		<record id="qrcodes_wizard_report" model="ir.actions.report.xml">
     		<field name="paperformat_id" ref="paperformat_aes_qr_code"/>
-		</record>		
+		</record>
 
 		<template id="tpl_child_qrcodes_wizard_report">
 			    <style type="text/css">
+
 			        .page {
-			        	margin-left: 3mm; 
-			        }  	
+			        	margin-left: 3mm;
+			        }
 			        .page_logo {
-			        	margin-left: -0.5mm; 
-			        	margin-right: 2.5mm; 
-			        }  				
+			        	margin-left: -0.5mm;
+			        	margin-right: 2.5mm;
+			        }
 					.qrcode {
         				width: 33%;
         				height: 57mm;
         				display: inline-block;
         				border: 1px hidden;
-        				float: left;  
-        				position: relative;      				
+        				float: left;
+        				position: relative;
       				}
 
 					.qrcode_logo {
@@ -129,37 +130,39 @@
         				height: 57mm;
         				display: inline-block;
         				border: 1px hidden;
-        				float: right;  
-        				position: relative;      				
-      				}            				
+        				float: right;
+        				position: relative;
+      				}
       				.qrcode_img {
+                        border: solid 1px red;
   						position: absolute;
   						top: 18mm;
   						left: 19mm;
       					width: 25mm;
       					height: 25mm;
       					}
-      				
+
       				.qr_child_name{
   						position: absolute;
   						top: 40mm;
   						left: 19mm;
                         text-align: center;
       					width: 25mm;
-      					height: 10mm;      					
+      					height: 10mm;
+                        border: solid 1px red;
       				}
-      					
+
 
     			</style>
-    			
+
 				<span>nbr docs : <t t-esc="len(docs)" /></span>
-				
-				
+
+
 				<t t-set="nbr_page" t-value="len(docs) / 15" />
 				<t t-if="len(docs) % 15 != 0">
 					<t t-set="nbr_page" t-value="nbr_page + 1" />
 				</t>
-				
+
 				<t t-foreach="range(0,nbr_page)" t-as="zz">
 					<div class="page">
 						<t t-foreach="range(15*zz,15*(zz+1))" t-as="i">
@@ -167,7 +170,7 @@
 				           		<t t-if="i &lt; len(docs)">
 				           			<img class="qrcode_img" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', docs[i].action_gentagid()[0], 300, 300)" />
 					           		<span class="qr_child_name"><t t-esc="docs[i].name"/></span>
-								</t>									
+								</t>
 				           	</div>
 						</t>
 					</div>
@@ -176,7 +179,7 @@
 				           	<div class="qrcode_logo">
 				           		<t t-if="i &lt; len(docs)">
 				           			<img class="qrcode_img" t-att-src="'data:image/jpeg;base64,%s' % docs[i].schoolimplantation.schoolid.logo" />
-								</t>									
+								</t>
 				           	</div>
 						</t>
 					</div>
@@ -194,37 +197,37 @@
 
 		<record id="child_qrcodes_wizard_report" model="ir.actions.report.xml">
     		<field name="paperformat_id" ref="paperformat_aes_qr_code"/>
-		</record>	
-		
+		</record>
+
 		<template id="tpl_qrcodes_precut_wizard_report">
 			    <style type="text/css">
 			        .page {
-			        	margin-left: 6mm; 
-			        }  	
-			        
+			        	margin-left: 6mm;
+			        }
+
 			        .page_logo {
-			        	margin-left: -0.5mm; 
-			        	margin-right: 2.5mm; 
-			        }  			
-					
+			        	margin-left: -0.5mm;
+			        	margin-right: 2.5mm;
+			        }
+
 					.qrcode {
         				width: 33%;
         				height: 85mm;
         				display: inline-block;
         				border: 1px hidden;
-        				float: left;  
-        				position: relative;      				
+        				float: left;
+        				position: relative;
       				}
-					
+
 					.qrcode_logo {
         				width: 33%;
         				height: 85mm;
         				display: inline-block;
         				border: 1px hidden;
-        				float: right;  
-        				position: relative;      				
-      				}    
-      				      				
+        				float: right;
+        				position: relative;
+      				}
+
       				.qrcode_img {
   						position: absolute;
   						top: 48mm;
@@ -239,7 +242,7 @@
       					width: 35mm;
       					height: 35mm;
       					}
-      						
+
       				h2 {
       					color: blue;
       					background-color: red;
@@ -252,7 +255,7 @@
 						<t t-set="nbr_page" t-value="nbr_page + 1" />
 					</t>
 					<t t-foreach="range(0,nbr_page)" t-as="zz">
-						<div class="page">					
+						<div class="page">
 					   		<t t-foreach="range(qr_report.last_id+9*zz,qr_report.last_id+9*(zz+1))" t-as="i">
 					           	<div class="qrcode">
 					           		<t t-if="i &lt;= qr_report.last_id + qr_report.quantity - 1">
@@ -261,27 +264,27 @@
 						           		<t t-if="qr_report.print_value">
 							           		<span><t t-esc="i"/></span>
 										</t>
-									</t>									
-					           	</div>					       								
-							</t>			
+									</t>
+					           	</div>
+							</t>
 						</div>
-						<t t-if="qr_report.print_type == 'logo'">	
-							<div class="page_logo page">					
+						<t t-if="qr_report.print_type == 'logo'">
+							<div class="page_logo page">
 						   		<t t-foreach="range(qr_report.last_id+9*zz,qr_report.last_id+9*(zz+1))" t-as="i">
 						           	<div class="qrcode_logo">
 						           		<t t-if="i &lt;= qr_report.last_id + qr_report.quantity - 1">
 							           		<t t-if="qr_report.print_type == 'logo'">
 							           			<img class="logo_img" t-att-src="'data:image/jpeg;base64,%s' % qr_report.logo" />
 							           		</t>
-										</t>									
-						           	</div>					       								
-								</t>			
+										</t>
+						           	</div>
+								</t>
 							</div>
-						</t>							
-					</t>	
+						</t>
+					</t>
 				</t>
 		</template>
-		
+
 		<report
 		    id="qrcodes_wizard_precut_report"
 		    model="extraschool.qrcodes_wizard"
@@ -289,26 +292,26 @@
 		    report_type="qweb-pdf"
 		    name="extraschool.tpl_qrcodes_precut_wizard_report"
 		    attachment_use="False"
-		/>				
+		/>
 	</data>
-	
+
 	<data>
 		<template id="tpl_guardian_qrcodes_wizard_report">
 			    <style type="text/css">
 			        .page {
-			        	margin-left: 3mm; 
-			        }  	
+			        	margin-left: 3mm;
+			        }
 			        .page_logo {
-			        	margin-left: -0.5mm; 
-			        	margin-right: 2.5mm; 
-			        }  			        			
+			        	margin-left: -0.5mm;
+			        	margin-right: 2.5mm;
+			        }
 					.qrcode {
         				width: 33%;
         				height: 57mm;
         				display: inline-block;
         				border: 1px hidden;
-        				float: left;  
-        				position: relative;      				
+        				float: left;
+        				position: relative;
       				}
 
 					.qrcode_logo {
@@ -316,10 +319,10 @@
         				height: 57mm;
         				display: inline-block;
         				border: 1px hidden;
-        				float: right;  
-        				position: relative;      				
-      				}      				
-      				
+        				float: right;
+        				position: relative;
+      				}
+
       				.qrcode_img {
   						position: absolute;
   						top: 18mm;
@@ -327,26 +330,26 @@
       					width: 25mm;
       					height: 25mm;
       					}
-      				
+
       				.qr_guardian_name{
   						position: absolute;
   						top: 40mm;
   						left: 18mm;
       					width: 35mm;
-      					height: 10mm;      					
+      					height: 10mm;
       				}
-      					
+
 
     			</style>
-    			
+
 				<span>nbr docs : <t t-esc="len(docs)" /></span>
-				
-				
+
+
 				<t t-set="nbr_page" t-value="len(docs) / 15" />
 				<t t-if="len(docs) % 15 != 0">
 					<t t-set="nbr_page" t-value="nbr_page + 1" />
 				</t>
-				
+
 				<t t-foreach="range(0,nbr_page)" t-as="zz">
 					<div class="page">
 						<t t-foreach="range(15*zz,15*(zz+1))" t-as="i">
@@ -354,7 +357,7 @@
 				           		<t t-if="i &lt; len(docs)">
 				           			<img class="qrcode_img" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', docs[i].action_gentagid()[0], 300, 300)" />
 					           		<span class="qr_guardian_name"><t t-esc="docs[i].name"/></span>
-								</t>									
+								</t>
 				           	</div>
 						</t>
 					</div>
@@ -362,8 +365,8 @@
 						<t t-foreach="range(15*zz,15*(zz+1))" t-as="i">
 				           	<div class="qrcode_logo">
 				           		<t t-if="i &lt; len(docs)">
-				           			<img class="qrcode_img" t-att-src="'data:image/jpeg;base64,%s' % docs[i].get_qr_logo()[0]" />				           		
-								</t>									
+				           			<img class="qrcode_img" t-att-src="'data:image/jpeg;base64,%s' % docs[i].get_qr_logo()[0]" />
+								</t>
 				           	</div>
 						</t>
 					</div>
@@ -381,8 +384,7 @@
 
 		<record id="guardian_qrcodes_wizard_report" model="ir.actions.report.xml">
     		<field name="paperformat_id" ref="paperformat_aes_qr_code"/>
-		</record>		
+		</record>
 	</data>
-</openerp>	
-	
-	
+</openerp>
+

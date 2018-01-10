@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <openerp>
-	<data> 
+	<data>
         <record model="ir.ui.view" id="extraschool_presta_stat_tree">
 			<field name="name">presta_stat.tree</field>
 			<field name="model">extraschool.presta_stat</field>
@@ -9,13 +9,13 @@
 				<tree string="presta_stat">
 					<field name="date"/>
 					<field name="activity_id" select="1"/>
-					<field name="place_id" select="1"/>											
+					<field name="place_id" select="1"/>
 					<field name="rancge"/>
                     <field name="nbr_child"/>
 				</tree>
 			</field>
 		</record>
-        
+
 		<record model="ir.ui.view" id="extraschool_presta_stat_form">
 			<field name="name">presta_stat.form</field>
 			<field name="model">extraschool.presta_stat</field>
@@ -25,7 +25,7 @@
 					<group col="4">
 					<field name="date"/>
 					<field name="activity_id" select="1"/>
-					<field name="place_id" select="1"/>											
+					<field name="place_id" select="1"/>
 					<field name="rancge"/>
                     <field name="nbr_child"/>
 					<field name="child_id"/>
@@ -33,7 +33,7 @@
 				</form>
 			</field>
 		</record>
-      
+
 
         <record id="presta_stat_search_view" model="ir.ui.view">
             <field name="name">presta_stat.search</field>
@@ -45,32 +45,32 @@
 					<field name="date" String="Date"/>
                    	<group  expand='0' string='Group by...'>
                        <filter string='Activité' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'activity_id'}"/>
-                   </group>                    
+                   </group>
                 </search>
             </field>
-        </record>			
+        </record>
 
-        <record id="extraschool_presta_stat_graph" model="ir.ui.view">
-            <field name="name">presta_stat.graph</field>
+        <record id="extraschool_presta_stat_pivot" model="ir.ui.view">
+            <field name="name">presta_stat.pivot</field>
             <field name="model">extraschool.presta_stat</field>
             <field name="arch" type="xml">
-                <graph string="presta_stat" type="pivot">
+                <pivot string="presta_stat" disable_linking="True">
                     <field name="activity_id" type="col"/>
                     <field name="place_id" type="col"/>
-                    <field name="date" type="col"/>
+                    <field name="date" type="col" interval="month"/>
                     <field name="place_id" type="row"/>
                     <field name="nbr_child" type="measure"/>
-                 </graph>
+                 </pivot>
              </field>
         </record>
-                		        
+
         <record model="ir.actions.act_window" id="action_extraschool_presta_stat_tree">
 			<field name="name">Prestations stat</field>
 			<field name="res_model">extraschool.presta_stat</field>
 			<field name="view_type">form</field>
-			<field name="view_mode">graph</field>
-            <field name="search_view_id" ref="presta_stat_search_view"/>			
+			<field name="view_mode">pivot</field>
+            <field name="search_view_id" ref="presta_stat_search_view"/>
 		</record>
-			
+
 	</data>
 </openerp>

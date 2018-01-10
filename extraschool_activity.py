@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014 
+#    Copyright (C) 2008-2014
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot & Michael Colicchia- Imio (<http://www.imio.be>).
 #
@@ -380,6 +380,6 @@ class extraschool_activity(models.Model):
             return activity.prest_to
         else:
             return False
-        
+
 extraschool_activity()
 

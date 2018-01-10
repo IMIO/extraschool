@@ -1,18 +1,18 @@
 <?xml version="1.0" ?>
 <openerp>
-	<data> 
+	<data>
 		<template id="report_child">
-			
+
 			<style type="text/css">
 		        .page{
 		    		width: 100%;
 		    		display: block;
 		    	}
-		    			    	
+
 				h2 {
 		    		font-size: 60px;
 				}
-				
+
 				.row {
 		    		font-size:30px;
 				}
@@ -20,12 +20,12 @@
 		    		font-weight: bold;
 		    		width: 7cm;
 				}
-				
+
 			</style>
 				<t t-foreach="docs" t-as="child">
-				
+
 			        <div class="page">
-			            <div class="row">	        
+			            <div class="row">
 				            <div class="col-xs-6 col-xs-offset-3">
 				            	<t t-if="child.tagid">
 				            		<img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', child.tagid, 200, 200)"/>
@@ -37,7 +37,7 @@
 			            </div>
 			            <div class="row">
 				            <span class="mylabel">Ecole : </span><span t-field="child.schoolimplantation.name" />
-			            </div>			            
+			            </div>
 			            <div class="row">
 				            <span class="mylabel">Class : </span><span t-field="child.classid.name" />
 			            </div>
@@ -60,12 +60,12 @@
 			            <div class="row">
 				            <span class="mylabel">Email : </span><span t-field="child.parentid.email" />
 			            </div>
-			            
+
 		    	    </div>
 		    	</t>
 		</template>
 
-		
+
 		<report
 		    id="extraschool_child"
 		    model="extraschool.child"
@@ -75,6 +75,5 @@
 		    attachment_use="False"
 		/>
 	</data>
-</openerp>	
-	
-	
+</openerp>
+
