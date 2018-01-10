@@ -107,7 +107,7 @@ class extraschool_activitycategory(models.Model):
     sequence_ids = fields.One2many('extraschool.activitycategory.sequence', 'activity_category_id',string = 'Sequences')
     max_school_implantation = fields.Integer()
 
-    def check_invoice_prefix(self,invoicecomstructprefix):            
+    def check_invoice_prefix(self,invoicecomstructprefix):
         res = {'return_val' : True,
                'msg' : ''}
         # search for activity category that have invoicecomstructprefix = payment_invitation_com_struct_prefix or remindercomstructprefix = payment_invitation_com_struct_prefix
@@ -210,8 +210,8 @@ class extraschool_activitycategory(models.Model):
 
         if not sequence_id:
             sequence_id = self.get_sequence(type,year)
-        import wdb;wdb.set_trace()
-        com_struct_id_str = self.env['ir.sequence'].next_by_id(sequence_id.id)
+        # com_struct_id_str = self.env['ir.sequence'].next_by_id(sequence_id.id)
+        com_struct_id_str = sequence_id.next_by_id()
 
         if type == 'reminder':
             com_struct_prefix_str = self.remindercomstructprefix
