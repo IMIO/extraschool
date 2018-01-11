@@ -69,10 +69,10 @@
 			</div>
 				<div id="total">
 					<div class="amount">
-					  <span class="zz_label">Total</span><span class="amount"><t t-esc="'%.2f' %  (total)" />€</span>															
+					  <span class="zz_label">Total</span><span class="amount"><t t-esc="'%.2f' %  (total)" /> €</span>
 					</div>
 					<div class="amount">
-					  <span class="zz_label">Reçu</span><span class="amount"><t t-esc="'%.2f' %  (received)" />€</span>															
+					  <span class="zz_label">Reçu</span><span class="amount"><t t-esc="'%.2f' %  (received)" /> €</span>
 					</div>
                     <div class="amount" t-if="reminder_type == 'fix'">
                         <span class="zz_label">Frais de rappel</span><span class="amount"><t t-esc="'%.2f' %  (fees)" /> €</span>
@@ -97,10 +97,10 @@
 			<xpath expr="//div[@id='total']" position="replace">
 		    	<div id="total">
 					<div class="amount">
-					  <span class="zz_label">Total</span><span class="amount"><t t-esc="'%.2f' %  (total)" />€</span>
+					  <span class="zz_label">Total</span><span class="amount"><t t-esc="'%.2f' %  (total)" /> €</span>
 					</div>
 					<div class="amount">
-					  <span class="zz_label">Reçu</span><span class="amount"><t t-esc="'%.2f' %  (received)" />€</span>
+					  <span class="zz_label">Reçu</span><span class="amount"><t t-esc="'%.2f' %  (received)" /> €</span>
 					</div>
                     <div class="amount" t-if="reminder_type == 'fix'">
                         <span class="zz_label">Frais de rappel</span><span class="amount"><t t-esc="'%.2f' %  (fees)" /> €</span>
@@ -137,10 +137,10 @@
 			<xpath expr="//div[@id='total']" position="replace">
 		    	<div id="total">
 					<div class="amount">
-					  <span class="zz_label">Total</span><span class="amount"><t t-esc="'%.2f' %  (total)" />€</span>
+					  <span class="zz_label">Total</span><span class="amount"><t t-esc="'%.2f' %  (total)" /> €</span>
 					</div>
 					<div class="amount">
-					  <span class="zz_label">Reçu</span><span class="amount"><t t-esc="'%.2f' %  (received)" />€</span>
+					  <span class="zz_label">Reçu</span><span class="amount"><t t-esc="'%.2f' %  (received)" /> €</span>
 					</div>
                     <div class="amount" t-if="reminder_type == 'fix'">
                         <span class="zz_label">Frais de rappel</span><span class="amount"><t t-esc="'%.2f' %  (fees)" /> €</span>
@@ -185,13 +185,13 @@
 			<div id="total_row">
 				<div id="payment_info">
 					<div>
-					  <span>Total des frais de cette période d'accueil: </span><span class="amount"><t t-esc="'%.2f' %  (total)" />€</span>
+					  <span>Total des frais de cette période d'accueil: </span><span class="amount"><t t-esc="'%.2f' %  (total)" /> €</span>
 					</div>
 					<div>
-					  <span>Solde des périodes antérieures: </span><span class="amount"><t t-esc="'%.2f' %  (received)" />€</span>
+					  <span>Solde des périodes antérieures: </span><span class="amount"><t t-esc="'%.2f' %  (received)" /> €</span>
 					</div>
 					<div>
-					  <span>Solde à payer: </span><span class="amount"><t t-esc="'%.2f' %  (balance)" />€</span>
+					  <span>Solde à payer: </span><span class="amount"><t t-esc="'%.2f' %  (balance)" /> €</span>
 					</div><br/>
 					<div>
 						<span>Au numéro de compte: <b><t t-esc="categ_id.bankaccount" /></b></span>
