@@ -32,6 +32,7 @@ class extraschool_parent(models.Model):
     _name = 'extraschool.parent'
     _description = 'Parent'
     _inherit = 'mail.thread'
+    _order = 'lastname'
 
     @api.depends('firstname','lastname')
     def _name_compute(self):
