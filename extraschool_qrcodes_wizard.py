@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014 
+#    Copyright (C) 2008-2014
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot - Imio (<http://www.imio.be>).
 #
@@ -30,7 +30,7 @@ import os
 class extraschool_qrcodes_wizard(models.TransientModel):
     _name = 'extraschool.qrcodes_wizard'
 
-    
+
     quantity = fields.Integer('Quantity to print')
     print_type = fields.Selection((('qrcode','Qr Code'),('logo','Logo'),),'Print Type', required=True)
     last_id = fields.Integer('Last id')
@@ -40,17 +40,17 @@ class extraschool_qrcodes_wizard(models.TransientModel):
     format = fields.Selection([('extraschool.tpl_qrcodes_wizard_report', 'Standard'),
                              ('extraschool.tpl_qrcodes_precut_wizard_report', 'Precut')],
                             'Format', required=True, default='extraschool.tpl_qrcodes_wizard_report'
-                            )  
+                            )
     state = fields.Selection([('init', 'Init'),
                              ('print_qrcodes', 'Print QRCodes')],
                             'State', required=True, default='init'
                             )
-    qr_config = fields.Many2one('extraschool.qrconfig', string='QR Config')
+    # qr_config = fields.Many2one('extraschool.qrconfig', string='QR Config')
 
 
     @api.multi
     def action_print_qrcodes(self):
-        
+
         report = self.env['report']._get_report_from_name('extraschool.tpl_qrcodes_wizard_report')
         config = self.env['extraschool.mainsettings'].browse([1])
         #get last qrcode value from config
@@ -61,9 +61,9 @@ class extraschool_qrcodes_wizard(models.TransientModel):
 
         datas = {
         'ids': self.ids,
-        'model': report.model, 
+        'model': report.model,
         }
-        
+
         return {
                'type': 'ir.actions.report.xml',
                'report_name': self.format,
@@ -71,9 +71,9 @@ class extraschool_qrcodes_wizard(models.TransientModel):
                'report_type': 'qweb-pdf',
            }
 
-class extraschool_qrconfig(models.TransientModel):
-    _name='extraschool.qrconfig'
-
-    name = fields.Char('Name')
-    qr_logo_size = fields.Char('Size of QR code logo', default="qrcode_img")
-    qr_name_size = fields.Char('Size of QR code name', default='qr_child_name')
+# class extraschool_qrconfig(models.TransientModel):
+#     _name='extraschool.qrconfig'
+#
+#     name = fields.Char('Name')
+#     qr_logo_size = fields.Char('Size of QR code logo', default="qrcode_img")
+#     qr_name_size = fields.Char('Size of QR code name', default='qr_child_name')

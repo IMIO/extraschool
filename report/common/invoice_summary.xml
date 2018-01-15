@@ -1,12 +1,12 @@
 <?xml version="1.0" ?>
 <openerp>
-	<data> 
-		<template id="report_invoice_summary">			
+	<data>
+		<template id="report_invoice_summary">
 			<t t-set="zz" t-value="0" />
 			<t t-foreach="summary_invoice_ids" t-as="summary_invoice">
 				<t t-if="summary_invoice.id != invoice_id">
 					<t t-set="zz" t-value="zz+1" />
-				</t>								
+				</t>
 			</t>
 			<t t-if="zz" >
 			    <style type="text/css">
@@ -15,17 +15,17 @@
 			    		display: block;
 			    		margin: 0cm 0cm 0cm 0cm;
 			    		page-break-inside: avoid;
-			    		text-align: justify;  
+			    		text-align: justify;
 			    		text-justify: inter-word;
 			    		font-size: x-small;
 			    	}
-			    	
+
 			    	#invoice_summary div.your_ref{
 			    		width: 100%;
 			    		padding: 5mm 0mm 5mm 0mm;
 			    		display: block;
 			    	}
-			    			    	
+
 					#invoice_summary table {
 			    		width: 100%;
 						font-size:11px;
@@ -43,7 +43,7 @@
 						padding: 4px;
 						border-style: solid;
 					}
-	
+
 					#invoice_summary table td.amount {
 			    		text-align: right;
 			    		width: 20%;
@@ -53,27 +53,27 @@
 			    		font-size: 12px;
 			    		font-weight: bold;
 			    	}
-			    			    	
+
 				</style>
-							
+
 	        	<div id="invoice_summary" >
-	        		<h2><span t-esc="summary_invoice_title" /></h2>	
-	        		<p>Les factures suivantes sont toujours en attente de paiement. Nous vous prions de bien vouloir procéder à leur(s) règlement(s) dans les meilleurs délais.</p>										        		
+	        		<h2><span t-esc="summary_invoice_title" /></h2>
+	        		<p>Les factures suivantes sont toujours en attente de paiement. Nous vous prions de bien vouloir procéder à leur(s) règlement(s) dans les meilleurs délais.</p>
 	        		<table>
 	        			<tr>
 		        			<th>Période</th>
 		        			<th>Facture</th>
 		        			<th>Echéance</th>
-		        			<th>Montant</th>	        			
+		        			<th>Montant</th>
 						</tr>
 		       			<t t-foreach="summary_invoice_ids.sorted(key=lambda r: r.number)" t-as="summary_invoice">
 	        				<tr>
 	        					<t t-if="summary_invoice.id != invoice_id">
 	        					<t t-if="summary_invoice.reminder_fees == False">
 	        						<tr>
-				       					<td><span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_from,'%Y-%m-%d')))" /> - <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_to,'%Y-%m-%d')))" /></td> 
-			        					<td><span t-field="summary_invoice.number" /></td> 
-				       					<td><span t-field="summary_invoice.payment_term" /></td> 
+				       					<td><span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_from,'%Y-%m-%d')))" /> - <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_to,'%Y-%m-%d')))" /></td>
+			        					<td><span t-field="summary_invoice.number" /></td>
+				       					<td><span t-field="summary_invoice.payment_term" /></td>
 				       					<td class="amount"><span t-esc="'%.2f €' %  (summary_invoice.balance)" /></td>
 
 	        						</tr>
@@ -81,18 +81,18 @@
 	        					<t t-if="summary_invoice.reminder_fees == True">
 	        						<t t-foreach="summary_invoice.invoice_line_ids" t-as="invoice_line">
 	        							<tr>
-					       					<td></td> 
-				        					<td><span t-field="invoice_line.description" /></td> 
-					       					<td><span t-field="summary_invoice.payment_term" /></td> 
+					       					<td></td>
+				        					<td><span t-field="invoice_line.description" /></td>
+					       					<td><span t-field="summary_invoice.payment_term" /></td>
 					       					<td class="amount"><span t-esc="TODO" /></td>
 											<!--<td class="amount"><span t-esc="'%.2f €' %  (invoice_line.balance)" /></td>-->
-				       					</tr>         							
+				       					</tr>
 	        						</t>
-								</t>							
-								</t>		       							       					
-		       				</tr>	       												
+								</t>
+								</t>
+		       				</tr>
 		        		</t>
-	       			        			
+
 	        		</table>
 	       		</div>
 			</t>
@@ -205,7 +205,7 @@
 			<t t-foreach="all_invoice_ids" t-as="summary_invoice">
 				<t t-if="summary_invoice.id != invoice_id">
 					<t t-set="zz" t-value="zz+1" />
-				</t>								
+				</t>
 			</t>
 			<t t-if="zz" >
 			    <style type="text/css">
@@ -214,16 +214,16 @@
 			    		display: block;
 			    		margin: 0cm 0cm 0cm 0cm;
 			    		page-break-inside: avoid;
-			    		text-align: justify;  
-			    		text-justify: inter-word;			    		
+			    		text-align: justify;
+			    		text-justify: inter-word;
 			    	}
-			    	
+
 			    	#invoice_summary div.your_ref{
 			    		width: 100%;
 			    		padding: 5mm 0mm 5mm 0mm;
 			    		display: block;
 			    	}
-			    			    	
+
 					#invoice_summary table {
 			    		width: 100%;
 						font-size:10px;
@@ -241,7 +241,7 @@
 						padding: 2px;
 						border-style: solid;
 					}
-	
+
 					#invoice_summary table td.amount {
 			    		text-align: right;
 			    		width: 20%;
@@ -249,45 +249,45 @@
 			    	div#invoice_summary h2{
 			    		font-size: 12px;
 			    		font-weight: bold;
-			    	}		    	
+			    	}
 				</style>
-							
+
 	        	<div id="invoice_summary" >
-	        		<h2><span t-esc="summary_invoice_title" /></h2>	
-	        		<p>Les factures suivantes sont toujours en attente de paiement. Nous vous prions de bien vouloir procéder à leur(s) règlement(s) dans les meilleurs délais.</p>										        		
+	        		<h2><span t-esc="summary_invoice_title" /></h2>
+	        		<p>Les factures suivantes sont toujours en attente de paiement. Nous vous prions de bien vouloir procéder à leur(s) règlement(s) dans les meilleurs délais.</p>
 	        		<table>
 	        			<tr>
 		        			<th>Période</th>
 		        			<th>Facture</th>
 		        			<th>Echéance</th>
-		        			<th>Montant</th>	        			
+		        			<th>Montant</th>
 						</tr>
 		       			<t t-foreach="all_invoice_ids.sorted(key=lambda r: r.number)" t-as="summary_invoice">
 	        				<tr>
 	        					<t t-if="summary_invoice.id != invoice_id">
 	        					<t t-if="summary_invoice.reminder_fees == False">
 	        						<tr>
-				       					<td><span t-esc="'%s' % (time.strftime('%d/%m/%Y',time.strptime(summary_invoice.biller_id.period_from,'%Y-%m-%d')))" /> - <span t-esc="'%s' % (time.strftime('%d/%m/%Y',time.strptime(summary_invoice.biller_id.period_to,'%Y-%m-%d')))" /></td> 
-			        					<td><span t-field="summary_invoice.number" /></td> 
-				       					<td><span t-field="summary_invoice.payment_term" /></td> 
-				       					<td class="amount"><span t-esc="'%.2f€' %  (summary_invoice.balance)" /></td> 
-	        							        							
+				       					<td><span t-esc="'%s' % (time.strftime('%d/%m/%Y',time.strptime(summary_invoice.biller_id.period_from,'%Y-%m-%d')))" /> - <span t-esc="'%s' % (time.strftime('%d/%m/%Y',time.strptime(summary_invoice.biller_id.period_to,'%Y-%m-%d')))" /></td>
+			        					<td><span t-field="summary_invoice.number" /></td>
+				       					<td><span t-field="summary_invoice.payment_term" /></td>
+				       					<td class="amount"><span t-esc="'%.2f€' %  (summary_invoice.balance)" /></td>
+
 	        						</tr>
 								</t>
 	        					<t t-if="summary_invoice.reminder_fees == True">
 	        						<t t-foreach="summary_invoice.invoice_line_ids" t-as="invoice_line">
 	        							<tr>
-					       					<td></td> 
-				        					<td><span t-field="invoice_line.description" /></td> 
-					       					<td><span t-field="summary_invoice.payment_term" /></td> 
+					       					<td></td>
+				        					<td><span t-field="invoice_line.description" /></td>
+					       					<td><span t-field="summary_invoice.payment_term" /></td>
 					       					<td class="amount"><span t-esc="'%.2f€' %  (invoice_line.balance)" /></td>
-				       					</tr>         							
+				       					</tr>
 	        						</t>
-								</t>							
-								</t>		       							       					
-		       				</tr>	       												
+								</t>
+								</t>
+		       				</tr>
 		        		</t>
-	       			        			
+
 	        		</table>
 	       		</div>
 			</t>
@@ -373,6 +373,5 @@ L’Eveil avant la date d'échéance. Toute facture non contestée est considér
 
 
 	</data>
-</openerp>	
-	
-	
+</openerp>
+

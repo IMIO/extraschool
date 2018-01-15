@@ -1,13 +1,13 @@
 <?xml version="1.0" ?>
 <openerp>
-	<data> 
+	<data>
 		<template id="report_child_registration">
 		    <style type="text/css">
 		        .page{
 		    		width: 100%;
 		    		display: block;
 		    	}
-		    			    	
+
 				.page table {
 		    		width: 100%;
 					font-size:11px;
@@ -38,11 +38,11 @@
 
 			</style>
 			<t t-foreach="docs" t-as="child_registration">
-				
-		        <div class="page">
+
+		        <div class="page" style="width: 100%;display: block;">
 		            <h2>Inscription Maternelle</h2>
 		            <div>
-		            	<span>Implantation :</span> 
+		            	<span>Implantation :</span>
 		            	<span t-field="child_registration.school_implantation_id.name"/>
 		            </div>
 		            <div>
@@ -50,58 +50,58 @@
 		            	<span t-field="child_registration.week"/> du : <span t-field="child_registration.date_from"/> au : <span t-field="child_registration.date_to"/>
 		            </div>
 
-		            <table>
+		            <table style="width: 100%;font-size:11px;border-width: 1px;border-collapse: collapse;margin-top: 1cm;">
 		            	<tr>
-	            			<th>Nom</th>
-	            			<th>Lundi</th>
-	            			<th>Mardi</th>
-	            			<th>Mercredi</th>
-	            			<th>Jeudi</th>
-	            			<th>Vendredi</th>
+	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Nom</th>
+	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Lundi</th>
+	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Mardi</th>
+	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Mercredi</th>
+	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Jeudi</th>
+	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Vendredi</th>
 		            	</tr>
 		            	<t t-foreach="child_registration.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['M'])" t-as="child">
 		            		<t t-if="child.child_must_be_printed()">
 			            		<tr>
-                                    <td><h5><span t-field="child.child_id.name"/></h5><i><b>    Parent: </b><span t-field="child.child_id.parentid.name"/> - <span t-field="child.child_id.parentid.housephone"/></i></td>
-									<td><span t-field="child.monday_activity_id.name"/><span t-if="child.monday"><img src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
-			            			<td><span t-field="child.tuesday_activity_id.name"/><span t-if="child.tuesday"><img src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
-			            			<td><span t-field="child.wednesday_activity_id.name"/><span t-if="child.wednesday"><img src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
-			            			<td><span t-field="child.thursday_activity_id.name"/><span t-if="child.thursday"><img src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
-			            			<td><span t-field="child.friday_activity_id.name"/><span t-if="child.friday"><img src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
+                                    <td style="border-width: 1px;padding: 8px;border-style: solid;"><h5><span t-field="child.child_id.name"/></h5><i><b>    Parent: </b><span t-field="child.child_id.parentid.name"/> - <span t-field="child.child_id.parentid.housephone"/></i></td>
+									<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-field="child.monday_activity_id.name"/><span t-if="child.monday"><img style="display: block;margin-left: auto;margin-right: auto;width: 15px;height: 15px;align: middle;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
+			            			<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-field="child.tuesday_activity_id.name"/><span t-if="child.tuesday"><img style="display: block;margin-left: auto;margin-right: auto;width: 15px;height: 15px;align: middle;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
+			            			<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-field="child.wednesday_activity_id.name"/><span t-if="child.wednesday"><img style="display: block;margin-left: auto;margin-right: auto;width: 15px;height: 15px;align: middle;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
+			            			<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-field="child.thursday_activity_id.name"/><span t-if="child.thursday"><img style="display: block;margin-left: auto;margin-right: auto;width: 15px;height: 15px;align: middle;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
+			            			<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-field="child.friday_activity_id.name"/><span t-if="child.friday"><img style="display: block;margin-left: auto;margin-right: auto;width: 15px;height: 15px;align: middle;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
 			            		</tr>
 							</t>
 		            	</t>
 		            </table>
 		        </div>
-		        <div class="page">
+		        <div class="page" style="width: 100%;display: block;">
 		            <h2>Inscription Primaire</h2>
 		            <div>
-		            	<span>Implantation :</span> 
+		            	<span>Implantation :</span>
 		            	<span t-field="child_registration.school_implantation_id.name"/>
 		            </div>
 		            <div>
-		            	<span>semaine :</span> 
+		            	<span>semaine :</span>
 		            	<span t-field="child_registration.week"/> du : <span t-field="child_registration.date_from"/> au : <span t-field="child_registration.date_to"/>
 		            </div>
 
-		            <table>
+		            <table style="width: 100%;font-size:11px;border-width: 1px;border-collapse: collapse;margin-top: 1cm;">
 		            	<tr>
-	            			<th>Nom</th>
-	            			<th>Lundi</th>
-	            			<th>Mardi</th>
-	            			<th>Mercredi</th>
-	            			<th>Jeudi</th>
-	            			<th>Vendredi</th>
+	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Nom</th>
+	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Lundi</th>
+	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Mardi</th>
+	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Mercredi</th>
+	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Jeudi</th>
+	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Vendredi</th>
 		            	</tr>
 		            	<t t-foreach="child_registration.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['P','A'])" t-as="child">
 		            		<t t-if="child.child_must_be_printed()">
 			            		<tr>
-                                    <td><h5><span t-field="child.child_id.name"/></h5><i><b>Parent: </b><span t-field="child.child_id.parentid.name"/> - <span t-field="child.child_id.parentid.housephone"/></i></td>
-									<td><span t-field="child.monday_activity_id.name"/><span t-if="child.monday"><img src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
-			            			<td><span t-field="child.tuesday_activity_id.name"/><span t-if="child.tuesday"><img src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
-			            			<td><span t-field="child.wednesday_activity_id.name"/><span t-if="child.wednesday"><img src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
-			            			<td><span t-field="child.thursday_activity_id.name"/><span t-if="child.thursday"><img src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
-			            			<td><span t-field="child.friday_activity_id.name"/><span t-if="child.friday"><img src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
+                                    <td style="border-width: 1px;padding: 8px;border-style: solid;"><h5><span t-field="child.child_id.name"/></h5><i><b>Parent: </b><span t-field="child.child_id.parentid.name"/> - <span t-field="child.child_id.parentid.housephone"/></i></td>
+									<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-field="child.monday_activity_id.name"/><span t-if="child.monday"><img style="display: block;margin-left: auto;margin-right: auto;width: 15px;height: 15px;align: middle;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
+			            			<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-field="child.tuesday_activity_id.name"/><span t-if="child.tuesday"><img style="display: block;margin-left: auto;margin-right: auto;width: 15px;height: 15px;align: middle;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
+			            			<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-field="child.wednesday_activity_id.name"/><span t-if="child.wednesday"><img style="display: block;margin-left: auto;margin-right: auto;width: 15px;height: 15px;align: middle;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
+			            			<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-field="child.thursday_activity_id.name"/><span t-if="child.thursday"><img style="display: block;margin-left: auto;margin-right: auto;width: 15px;height: 15px;align: middle;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
+			            			<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-field="child.friday_activity_id.name"/><span t-if="child.friday"><img style="display: block;margin-left: auto;margin-right: auto;width: 15px;height: 15px;align: middle;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
 			            		</tr>
 							</t>
 		            	</t>
@@ -110,7 +110,7 @@
 			</t>
 		</template>
 
-		
+
 		<report
 		    id="extraschool_child_registration_report"
 		    model="extraschool.child_registration"
@@ -121,13 +121,13 @@
 		/>
 
 		<template id="report_child_registration_summary">
-	
+
 		    <style type="text/css">
 		        .page{
 		    		width: 100%;
 		    		display: block;
 		    	}
-		    			    	
+
 				.page table {
 		    		width: 100%;
 					font-size:11px;
@@ -149,36 +149,36 @@
 
 			</style>
 			<t t-foreach="docs" t-as="child_registration">
-				
-		        <div class="page">
+
+		        <div class="page" style="width: 100%;display: block;">
 		            <h2>Inscription</h2>
 		            <div>
-		            	<span>Implantation :</span> 
+		            	<span>Implantation :</span>
 		            	<span t-field="child_registration.school_implantation_id.name"/>
 		            </div>
 		            <div>
-		            	<span>semaine :</span> 
+		            	<span>semaine :</span>
 		            	<span t-field="child_registration.week"/> du : <span t-field="child_registration.date_from"/> au : <span t-field="child_registration.date_to"/>
 		            </div>
 
-		            <table>
+		            <table style="width: 100%;font-size:11px;border-width: 1px;border-collapse: collapse;margin-top: 1cm;">
 		            	<tr>
-	            			<th>Description</th>
-	            			<th>Lundi</th>
-	            			<th>Mardi</th>
-	            			<th>Mercredi</th>
-	            			<th>Jeudi</th>
-	            			<th>Vendredi</th>
+	            			<th style="border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Description</th>
+	            			<th style="border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Lundi</th>
+	            			<th style="border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Mardi</th>
+	            			<th style="border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Mercredi</th>
+	            			<th style="border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Jeudi</th>
+	            			<th style="border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Vendredi</th>
 		            	</tr>
 		            	<t t-set="summary" t-value="child_registration.get_summary()" />
 		            	<t t-foreach="summary" t-as="summary_item">
 		            		<tr>
-		            			<td><span t-raw="summary_item"/></td>
-		            			<td><span t-raw="summary[summary_item][0]"/></td>
-		            			<td><span t-raw="summary[summary_item][1]"/></td>
-		            			<td><span t-raw="summary[summary_item][2]"/></td>
-		            			<td><span t-raw="summary[summary_item][3]"/></td>
-		            			<td><span t-raw="summary[summary_item][4]"/></td>
+		            			<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-raw="summary_item"/></td>
+		            			<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-raw="summary[summary_item][0]"/></td>
+		            			<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-raw="summary[summary_item][1]"/></td>
+		            			<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-raw="summary[summary_item][2]"/></td>
+		            			<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-raw="summary[summary_item][3]"/></td>
+		            			<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-raw="summary[summary_item][4]"/></td>
 		            		</tr>
 		            	</t>
 		            </table>
@@ -187,7 +187,7 @@
 
 		</template>
 
-		
+
 		<report
 		    id="extraschool_child_registration_summary_report"
 		    model="extraschool.child_registration"
@@ -195,9 +195,8 @@
 		    report_type="qweb-pdf"
 		    name="extraschool.report_child_registration_summary"
 		    attachment_use="False"
-		/>		
-		
+		/>
+
 	</data>
-</openerp>	
-	
-	
+</openerp>
+

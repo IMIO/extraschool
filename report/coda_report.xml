@@ -1,13 +1,13 @@
 <?xml version="1.0" ?>
 <openerp>
-	<data> 
+	<data>
 		<template id="report_coda_report">
 		    <style type="text/css">
 		        .page{
 		    		width: 100%;
 		    		display: block;
 		    	}
-		    			    	
+
 				.page table {
 		    		width: 100%;
 					font-size:11px;
@@ -26,65 +26,65 @@
 					padding: 8px;
 					border-style: solid;
 				}
-				
+
 				.amount {
 					float : right;
-					text-align: right;		
+					text-align: right;
 				}
 
 			</style>
 			<t t-foreach="docs" t-as="coda_import">
-				
-		        <div class="page">
+
+		        <div class="page" style="width: 100%;display: block;">
 		        	<t t-set="doc_date" t-value="'%s' % (time.strftime('%d-%m-%Y',time.strptime(coda_import.codadate,'%Y-%m-%d')))"/>
 		        	<h1>Import CODA du : <span t-esc="doc_date"/></h1>
 		            <h2>Paiements acceptés</h2>
-		            <table>
+		            <table style="width: 100%;font-size:11px;border-width: 1px;border-collapse: collapse;margin-top: 1cm;">
 		            	<tr>
-	            			<th>Nom</th>
-	            			<th>Com struct</th>
-	            			<th>Prefix</th>
-	            			<th>Montant</th>
+	            			<th style="border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Nom</th>
+	            			<th style="border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Com struct</th>
+	            			<th style="border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Prefix</th>
+	            			<th style="border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Montant</th>
 		            	</tr>
  		            	<t t-foreach="coda_import.paymentids" t-as="pay">
 		            		<tr>
-		            			<td><span t-field="pay.name"/></td>
-		            			<td><span t-field="pay.structcom"/></td>
-		            			<td><span t-field="pay.structcom_prefix"/></td>
-		            			<td class="amount"><span> <t t-esc="'%.2f' %  (pay.amount)" /> €</span></td>
+		            			<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-field="pay.name"/></td>
+		            			<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-field="pay.structcom"/></td>
+		            			<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-field="pay.structcom_prefix"/></td>
+		            			<td class="amount" style="border-width: 1px;padding: 8px;border-style: solid;float:right;text-align:right;"><span> <t t-esc="'%.2f' %  (pay.amount)" /> €</span></td>
 		            		</tr>
 		            	</t>
 		            	<tr>
-		            		<td colspan="4" class="amount"><span> <t t-esc="'%.2f' %  (coda_import.amount_accepted)" /> €</span></td>
+		            		<td colspan="4" class="amount" style="border-width: 1px;padding: 8px;border-style: solid;float:right;text-align:right;"><span> <t t-esc="'%.2f' %  (coda_import.amount_accepted)" /> €</span></td>
 		            	</tr>
-		            </table>		            
+		            </table>
 		            <h2>Paiements rejetés</h2>
-		            <table>
+		            <table style="width: 100%;font-size:11px;border-width: 1px;border-collapse: collapse;margin-top: 1cm;">
 		            	<tr>
-	            			<th>Nom</th>
-	            			<th>Cause du rejet</th>
-	            			<th>Com struct</th>
-	            			<th>Com libre</th>
-	            			<th>Montant</th>
+	            			<th style="border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Nom</th>
+	            			<th style="border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Cause du rejet</th>
+	            			<th style="border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Com struct</th>
+	            			<th style="border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Com libre</th>
+	            			<th style="border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Montant</th>
 		            	</tr>
   		            	<t t-foreach="coda_import.rejectids" t-as="rej">
 		            		<tr>
-		            			<td><span t-field="rej.name"/></td>
-		            			<td><span t-field="rej.rejectcause"/></td>
-		            			<td><span t-field="rej.structcom"/></td>
-		            			<td><span t-field="rej.freecom"/></td>
-		            			<td class="amount"><span> <t t-esc="'%.2f' %  (rej.amount)" /> €</span></td>
+		            			<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-field="rej.name"/></td>
+		            			<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-field="rej.rejectcause"/></td>
+		            			<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-field="rej.structcom"/></td>
+		            			<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-field="rej.freecom"/></td>
+		            			<td class="amount" style="border-width: 1px;padding: 8px;border-style: solid;float:right;text-align:right;"><span> <t t-esc="'%.2f' %  (rej.amount)" /> €</span></td>
 		            		</tr>
 		            	</t>
 		            	<tr>
-		            		<td colspan="5" class="amount"><span> <t t-esc="'%.2f' %  (coda_import.amount_rejected)" /> €</span></td>
-		            	</tr>		            				            	
+		            		<td colspan="5" class="amount" style="border-width: 1px;padding: 8px;border-style: solid;float:right;text-align:right;"><span> <t t-esc="'%.2f' %  (coda_import.amount_rejected)" /> €</span></td>
+		            	</tr>
 		            </table>
 		        </div>
 			</t>
 		</template>
 
-		
+
 		<report
 		    id="extraschool_coda_import_report"
 		    model="extraschool.coda"
@@ -93,8 +93,7 @@
 		    name="extraschool.report_coda_report"
 		    attachment_use="False"
 		/>
-	
+
 	</data>
-</openerp>	
-	
-	
+</openerp>
+

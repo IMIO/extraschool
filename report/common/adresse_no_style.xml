@@ -1,52 +1,52 @@
 <?xml version="1.0" ?>
 <openerp>
-	<data> 
+	<data>
 		<template id="report_adresse_no_style">
 		    <style type="text/css">
 		        .aes_adresse{
-		    		width: 100%;		    
+		    		width: 100%;
 		    		display: block;
 		    	}
-		    	
+
 		    	.aes_adresse::after {
    				   clear: both;
 				    content: "";
 				    display: block;
 				}
-		    	
+
 		    	.customer{
 		    		float: left;
 		    		width: 45%;
 		    	}
-		    	
+
 		    	.po{
 		    		float: left;
-		    		width: 40%;		    	
+		    		width: 40%;
 		    	}
-		    	
+
 		    	.customer{
 		    		float: right;
 		    		font-size:12px;
 		    	}
-		    	
+
 				.aes_adresse_block > span{
 		    		display: block;
 		    		clear: both;
 		    	}
 
-			</style>			
+			</style>
 	    	<div class="aes_adresse">
 				<div id="aes_po_adresse" class="aes_adresse_block po">
-					<span t-field="po_addresse.po_name" />									
+					<span t-field="po_addresse.po_name" />
 					<span t-field="po_addresse.po_street" />
 					<span><t t-esc="po_addresse.po_zipcode" /> <t t-esc="po_addresse.po_city" /></span>
-					<span t-field="po_addresse.po_email" />	
-					<span t-field="po_addresse.po_tel" />									
-					<span t-raw="po_addresse.po_addresse_free_text" />															
-				</div>	    		
-				
+					<span t-field="po_addresse.po_email" />
+					<span t-field="po_addresse.po_tel" />
+					<span t-raw="po_addresse.po_addresse_free_text" />
+				</div>
+
 				<div class="aes_adresse_block customer">
-					<span t-field="addresse.name" />									
+					<span t-field="addresse.name" />
 					<span t-field="addresse.street" />
 					<span><t t-esc="addresse.zipcode" /> <t t-esc="addresse.city" /></span>
 				</div>
@@ -64,10 +64,10 @@
 		<template id="report_adresse_custom_only" inherit_id="extraschool.report_adresse_no_style" primary="True">
 
 			<xpath expr="//div[@class='aes_adresse_block po']" position="replace">
-				<div class="aes_adresse_block po">							
-					<span t-raw="po_addresse.po_addresse_free_text" />															
-				</div>	   										
-			</xpath>		
+				<div class="aes_adresse_block po">
+					<span t-raw="po_addresse.po_addresse_free_text" />
+				</div>
+			</xpath>
 		</template>
 
 
@@ -122,8 +122,7 @@
 				</div>
 			</div>
 		</template>
-		
+
 	</data>
-</openerp>	
-	
-	
+</openerp>
+

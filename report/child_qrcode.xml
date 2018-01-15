@@ -24,7 +24,7 @@
 			</style>
 				<t t-foreach="docs" t-as="child">
 
-			        <div class="page">
+			        <div class="page" style="width: 100%;display: block;">
 			            <div class="row">
 				            <div class="col-xs-6 col-xs-offset-3">
 				            	<t t-if="child.tagid">
@@ -32,33 +32,33 @@
                                 </t>
 				            </div>
 				        </div>
-			            <div class="row">
-				            <h2><span t-field="child.name" /></h2>
+			            <div class="row" style="font-size:30px;">
+				            <h2 style="font-size: 60px;"><span t-field="child.name" /></h2>
 			            </div>
-			            <div class="row">
-				            <span class="mylabel">Ecole : </span><span t-field="child.schoolimplantation.name" />
+			            <div class="row" style="font-size:30px;">
+				            <span class="mylabel" style="font-weight: bold;width: 7cm;">Ecole : </span><span t-field="child.schoolimplantation.name" />
 			            </div>
-			            <div class="row">
-				            <span class="mylabel">Class : </span><span t-field="child.classid.name" />
+			            <div class="row" style="font-size:30px;">
+				            <span class="mylabel" style="font-weight: bold;width: 7cm;">Class : </span><span t-field="child.classid.name" />
 			            </div>
-			            <div class="row">
-				            <span class="mylabel">Responsable : </span><span t-field="child.parentid.name" />
+			            <div class="row" style="font-size:30px;">
+				            <span class="mylabel" style="font-weight: bold;width: 7cm;">Responsable : </span><span t-field="child.parentid.name" />
 			            </div>
-			            <div class="row">
-				            <span class="mylabel"/><span t-field="child.parentid.street"  /><br/>
-				            <span class="mylabel"/><span t-field="child.parentid.zipcode"  /> <span t-field="child.parentid.city"  />
+			            <div class="row" style="font-size:30px;">
+				            <span class="mylabel" style="font-weight: bold;width: 7cm;"/><span t-field="child.parentid.street"  /><br/>
+				            <span class="mylabel" style="font-weight: bold;width: 7cm;"/><span t-field="child.parentid.zipcode"  /> <span t-field="child.parentid.city"  />
 			            </div>
-			            <div class="row">
-				            <span class="mylabel">Tél. maison : </span><span t-field="child.parentid.housephone" />
+			            <div class="row" style="font-size:30px;">
+				            <span class="mylabel" style="font-weight: bold;width: 7cm;">Tél. maison : </span><span t-field="child.parentid.housephone" />
 			            </div>
-			            <div class="row">
-				            <span class="mylabel">Tél du travail : </span><span t-field="child.parentid.workphone" />
+			            <div class="row" style="font-size:30px;">
+				            <span class="mylabel" style="font-weight: bold;width: 7cm;">Tél du travail : </span><span t-field="child.parentid.workphone" />
 			            </div>
-			            <div class="row">
-				            <span class="mylabel">Gsm : </span><span t-field="child.parentid.gsm" />
+			            <div class="row" style="font-size:30px;">
+				            <span class="mylabel" style="font-weight: bold;width: 7cm;">Gsm : </span><span t-field="child.parentid.gsm" />
 			            </div>
-			            <div class="row">
-				            <span class="mylabel">Email : </span><span t-field="child.parentid.email" />
+			            <div class="row" style="font-size:30px;">
+				            <span class="mylabel" style="font-weight: bold;width: 7cm;">Email : </span><span t-field="child.parentid.email" />
 			            </div>
 
 		    	    </div>

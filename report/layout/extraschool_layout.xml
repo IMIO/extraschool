@@ -1,19 +1,18 @@
 <?xml version="1.0" ?>
 <openerp>
-	<data> 
+	<data>
 
 
-        <template id="report_minimal_layout_hack" inherit_id="report.minimal_layout">			
+        <template id="report_minimal_layout_hack" inherit_id="report.minimal_layout">
         	<xpath expr="//head" position="inside">
-              <script src="/extraschool/static/src/js/pagination_hide.js"></script>
+                <script src="/extraschool/static/src/js/pagination_hide.js"></script>
             </xpath>
 
             <xpath expr="//body" position="attributes">
                 <attribute t-translation="off" name="onload">subst(); pagination_hide();</attribute>
             </xpath>
         </template>
-        
+
 	</data>
-</openerp>	
-	
-	
+</openerp>
+

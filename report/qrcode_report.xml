@@ -2,7 +2,6 @@
 <openerp>
 	<data>
 		<template id="tpl_qrcodes_wizard_report">
-            <xpath expr="//head" position="inside">
 			    <style type="text/css">
 			        .page {
 			        	margin-left: 3mm;
@@ -44,7 +43,6 @@
       					background-color: red;
       				}
     			</style>
-            </xpath>
 				<t t-foreach="docs" t-as="qr_report">
 					<t t-set="zz" t-value="0" />
 					<t t-set="nbr_page" t-value="qr_report.quantity / 15" />
@@ -108,54 +106,53 @@
     		<field name="paperformat_id" ref="paperformat_aes_qr_code"/>
 		</record>
 
-		<template id="tpl_child_qrcodes_wizard_report">
-            <!--<t t-call="report.html_container">-->
-            <!--<xpath expr="//head" position="inside">-->
-			    <!--<link rel="stylesheet" href="extraschool/static/css/style.css"/>-->
-            <!--</xpath>-->
-            <style type="text/css">
-                .page {
-                    margin-left: 3mm;
-                }
-                .page_logo {
-                    margin-left: -0.5mm;
-                    margin-right: 2.5mm;
-                }
-                .qrcode {
-                    width: 33%;
-                    height: 57mm;
-                    display: inline-block;
-                    border: 1px hidden;
-                    float: left;
-                    position: relative;
-                }
-
-                .qrcode_logo {
-                    width: 33%;
-                    height: 57mm;
-                    display: inline-block;
-                    border: 1px hidden;
-                    float: right;
-                    position: relative;
-                }
-                .qrcode_img {
-                    position: absolute;
-                    top: 18mm;
-                    left: 19mm;
-                    width: 25mm;
-                    height: 25mm;
+		<template id="tpl_child_qrcodes_wizard_report" inherit_id="report.layout" primary="True">
+            <xpath expr="//head" position="inside">
+                <style type="text/css">
+                    .page {
+                        margin-left: 3mm;
+                    }
+                    .page_logo {
+                        margin-left: -0.5mm;
+                        margin-right: 2.5mm;
+                    }
+                    .qrcode {
+                        width: 33%;
+                        height: 57mm;
+                        display: inline-block;
+                        border: 1px hidden;
+                        float: left;
+                        position: relative;
                     }
 
-                .qr_child_name{
-                    position: absolute;
-                    top: 40mm;
-                    left: 19mm;
-                    text-align: center;
-                    width: 25mm;
-                    height: 10mm;
-                    border: solid 1px red;
-                }
-            </style>
+                    .qrcode_logo {
+                        width: 33%;
+                        height: 57mm;
+                        display: inline-block;
+                        border: 1px hidden;
+                        float: right;
+                        position: relative;
+                    }
+                    .qrcode_img {
+                        position: absolute;
+                        top: 18mm;
+                        left: 19mm;
+                        width: 25mm;
+                        height: 25mm;
+                        }
+
+                    .qr_child_name{
+                        position: absolute;
+                        top: 40mm;
+                        left: 19mm;
+                        text-align: center;
+                        width: 25mm;
+                        height: 10mm;
+                        border: solid 1px red;
+                    }
+                </style>
+            </xpath>
+            <xpath expr="//body" position="inside">
 				<span>nbr docs : <t t-esc="len(docs)" /></span>
 
 
@@ -165,27 +162,27 @@
 				</t>
 
 				<t t-foreach="range(0,nbr_page)" t-as="zz">
-					<div class="page" >
+					<div class="page" style="margin-left: 3mm;">
 						<t t-foreach="range(15*zz,15*(zz+1))" t-as="i">
-				           	<div class="qrcode" >
+				           	<div class="qrcode" style="width: 33%;height: 57mm;display: inline-block;border: 1px hidden;float: left;position: relative;">
 				           		<t t-if="i &lt; len(docs)">
-				           			<img class="qrcode_img" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', docs[i].action_gentagid()[0], 300, 300)" />
-					           		<span class="qr_child_name" ><t t-esc="docs[i].name"/></span>
+				           			<img class="qrcode_img" style="position: absolute;top: 18mm;left: 25mm;width: 35mm;height: 35mm;" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', docs[i].action_gentagid()[0], 300, 300)" />
+					           		<span class="qr_child_name" style="position: absolute;top: 50mm;left: 29mm;text-align: center;width: 25mm;height: 10mm;"><t t-esc="docs[i].name"/></span>
 								</t>
 				           	</div>
 						</t>
 					</div>
-					<div class="page_logo page" >
+					<div class="page_logo page" style="margin-left: 5mm">
 						<t t-foreach="range(15*zz,15*(zz+1))" t-as="i">
-				           	<div class="qrcode_logo">
+				           	<div class="qrcode_logo" style="width: 33%;height: 57mm;display: inline-block;border: 1px hidden;float: right;position: relative;">
 				           		<t t-if="i &lt; len(docs)">
-				           			<img class="qrcode_img" t-att-src="'data:image/jpeg;base64,%s' % docs[i].schoolimplantation.schoolid.logo" />
+				           			<img class="qrcode_img" style="position: absolute;top: 18mm;left: 19mm;width: 35mm;height: 35mm;" t-att-src="'data:image/jpeg;base64,%s' % docs[i].schoolimplantation.schoolid.logo" />
 								</t>
 				           	</div>
 						</t>
 					</div>
-				<!--</t>-->
-            </t>
+                </t>
+            </xpath>
 		</template>
 
 		<report
