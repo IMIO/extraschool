@@ -90,7 +90,7 @@
         #'views/widgets.xml',
         'views/extraschool_config_smartphone.xml',
         'views/extraschool_query_sql.xml',
-        'views/extraschool_qrconfig.xml',
+        # 'views/extraschool_qrconfig.xml',
         'views/extraschool_prestation_times_history.xml',
         'extraschool_report.xml',
         'security/extraschool_security.xml',
