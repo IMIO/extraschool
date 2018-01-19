@@ -44,7 +44,7 @@ class extraschool_child(models.Model):
     birthdate = fields.Date('Birthdate', required=True, track_visibility='onchange')
     last_import_date = fields.Datetime('Import date', readonly=True)
     modified_since_last_import = fields.Boolean('Modified since last import')    
-    tagid = fields.Integer('Tag ID', help='Numéro contenu dans le QR Code', track_visibility='onchange')
+    tagid = fields.Char('Tag ID', help='Numéro contenu dans le QR Code', track_visibility='onchange')
     otherref = fields.Char('Other ref', size=50, track_visibility='onchange')
     isdisabled = fields.Boolean('Disabled', track_visibility='onchange')
 
