@@ -143,6 +143,7 @@ class extraschool_parent(models.Model):
     oldid = fields.Integer('oldid')
     nbr_actif_child = fields.Integer(compute='_compute_nbr_actif_child',string='Nbr actif child', store = True, track_visibility='onchange')
     comment = fields.Text('Comment', track_visibility='onchange')
+    comstruct = fields.Char('Structured Communication', readonly=True)
 
     @api.multi
     def get_invoice(self):
@@ -256,7 +257,19 @@ class extraschool_parent(models.Model):
                     print "vals['email']" , vals['email']
                     raise Warning("E-mail format invalid.")
 
-        return super(extraschool_parent, self).create(vals)
+        # Compute and store parent's commstruct for further use (search).
+        parent_id = super(extraschool_parent, self).create(vals)
+        parent_id.write({'comstruct': parent_id.get_prepaid_comstruct(self.env['extraschool.activitycategory'].search([]))})
+
+        return parent_id
+
+    @api.model
+    def update_commstruct(self):
+        parent_ids = self.env['extraschool.parent'].search([])
+        
+        for parent in parent_ids:
+            parent.write(
+                {'comstruct': parent.get_prepaid_comstruct(self.env['extraschool.activitycategory'].search([]))})
 
     def addpayment(self, cr, uid, ids, context=None):
         view_obj = self.pool.get('ir.ui.view')

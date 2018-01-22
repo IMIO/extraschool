@@ -112,6 +112,7 @@
                     <newline/>
                     <field name="totalhuissier"/>
                     <newline/>
+                    <field name="comstruct"/>
                         <separator string="Factures de:"  colspan="4"/>
                         <field name="name" nolabel="1" style="font-size:16px" attrs="{'invisible':[('lastname','=',False),('firstname', '=', False)]}"/>
                         <field name="invoice_ids" nolabel="1" colspan="4">
@@ -187,8 +188,9 @@
             <field name="rn" />
             <field name="arch" type="xml">
                 <search string="Parent Search">
-                   <field name="name"/>       
-                   <filter string="Actif" name="actif" icon="terp-accessories-archiver" domain="[('isdisabled','=',False)]"/>                   	                                      	                   	         
+                    <field name="name"/>
+                    <field name="comstruct"/>
+                    <filter string="Actif" name="actif" icon="terp-accessories-archiver" domain="[('isdisabled','=',False)]"/>
                 </search>
             </field>
         </record>
