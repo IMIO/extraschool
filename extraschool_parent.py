@@ -90,10 +90,7 @@ class extraschool_parent(models.Model):
             cr.execute('select sum(balance) from extraschool_invoice where parentid=%s and (huissier = False or huissier is Null)',(record.id,))
             invoice = cr.fetchall()[0][0]
             invoice = invoice if invoice else 0.0
-            cr.execute('select sum(fees_amount) from extraschool_reminder where parentid=%s', (record.id,))
-            reminder = cr.fetchall()[0][0]
-            reminder = reminder if reminder else 0.0
-            record.totalbalance = invoice + reminder
+            record.totalbalance = invoice
 
     def _compute_totalhuissier (self):
         cr = self.env.cr
