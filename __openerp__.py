@@ -37,6 +37,7 @@
     'test' : [],
     'data' : [
         'scripts/update_seq.xml',
+        'scripts/update_comstruct.xml',
 
         'views/extraschool_activitycategory.xml',
         'views/extraschool_activity.xml',
