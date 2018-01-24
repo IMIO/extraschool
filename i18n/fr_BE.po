@@ -36209,7 +36209,7 @@ msgstr "Remettre en brouillon"
 #. module: extraschool
 #: view:extraschool.child_registration:extraschool.extraschool_child_registration_form
 msgid "Set to validate"
-msgstr "Set to validate"
+msgstr "Mettre à valider"
 
 #. module: web
 #. openerp-web
@@ -37312,6 +37312,8 @@ msgstr "Rue (suite)"
 
 #. module: extraschool
 #: field:extraschool.invoice,structcom:0
+#: field:extraschool.mainsettings,communication:0
+#: field:extraschool.parent,comstruct:0
 #: field:extraschool.payment,structcom:0
 #: field:extraschool.payment_report,structcom:0
 #: field:extraschool.payment_status_report,com_struct:0
@@ -41724,7 +41726,7 @@ msgstr "Votre serveur OpenERP ne supporte pas SMTP-sur-SSL. Vous pouvez utiliser
 #: code:addons/extraschool/extraschool_child_registration.py:426
 #, python-format
 msgid "Your are not allowed to delete a validated registration !!"
-msgstr "Your are not allowed to delete a validated registration !!"
+msgstr "Vous n'êtes pas autorisé de supprimer une inscription validée !!"
 
 #. module: base
 #: code:addons/base/ir/ir_mail_server.py:511
