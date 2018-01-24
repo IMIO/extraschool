@@ -21,6 +21,8 @@
             <field name="arch" type="xml">
             <form string="Guardian">
               <group col="4">
+                <field name="isdisabled"/>
+                <newline/>
                 <field name="firstname"/>
                 <newline/>
                 <field name="lastname"/>
@@ -34,10 +36,23 @@
             </form>
             </field> 
         </record>
+
+        <record id="extraschool_guardian_search_view" model="ir.ui.view">
+            <field name="name">extraschool_guardian.search</field>
+            <field name="model">extraschool.guardian</field>
+            <field name="arch" type="xml">
+                <search string="Guardian Search">
+                   <filter string="Actif" name="actif" icon="terp-accessories-archiver" domain="[('isdisabled','=',False)]"/>
+                </search>
+            </field>
+        </record>
+
         <record model="ir.actions.act_window" id="action_extraschool_guardian">
 			<field name="name">Guardian</field>
 			<field name="res_model">extraschool.guardian</field>
 			<field name="view_type">form</field>
+            <field name="search_view_id" ref="extraschool_guardian_search_view"/>
 		</record>
+
 	</data>
 </openerp>

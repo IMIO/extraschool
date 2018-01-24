@@ -33358,17 +33358,26 @@ msgid "Prestations.tree"
 msgstr "Présences"
 
 #. module: extraschool
-#: model:ir.actions.act_window,name:extraschool.action_extraschool_prestation_times_encodage_manuel
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_prestation_times_of_the_day
 msgid "Prestations_of_the_day"
 msgstr "Présences par jour"
 
 #. module: extraschool
+#: model:ir.actions.act_window,name:extraschool.action_extraschool_prestation_times_encodage_manuel
+msgid "Prestations_of_the_day"
+msgstr "Encodage manuel"
+
+#. module: extraschool
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_prestation_times_encodage_manuel_tree
+msgid "Prestations_of_the_day.tree"
+msgstr "Encodage manuel"
+
+#. module: extraschool
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_prestation_times_of_the_day_tree
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_prestation_times_of_the_day_tree_not_verified
 msgid "Prestations_of_the_day.tree"
 msgstr "Présences par jour"
+
 
 #. module: extraschool
 #: view:extraschool.prestationscheck_wizard:extraschool.extraschool_prestationscheck_wizard_form
