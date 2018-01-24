@@ -32,6 +32,11 @@ class extraschool_child(models.Model):
     _description = 'Child'
     _inherit = 'mail.thread'
 
+    def _get_activity_category_id(self):
+        return self.env['extraschool.activitycategory'].search([]).filtered('id')
+
+    activitycategoryid = fields.Many2one('extraschool.activitycategory', 'Activity Category',
+                                         track_visibility='onchange', default=_get_activity_category_id)
     name = fields.Char(compute='_name_compute',string='FullName', search='_search_fullname', size=100)
     childtypeid = fields.Many2one('extraschool.childtype', 'Type',required=True, ondelete='restrict', help='Ce champs permet de définir si l\'enfant a le droit à un tarif préférentiel (ex: enfants du CPAS, enfants de la croix rouge, enfants des accueillantes,...)')
     rn = fields.Char('RN')
@@ -47,6 +52,20 @@ class extraschool_child(models.Model):
     tagid = fields.Char('Tag ID', help='Numéro contenu dans le QR Code', track_visibility='onchange')
     otherref = fields.Char('Other ref', size=50, track_visibility='onchange')
     isdisabled = fields.Boolean('Disabled', track_visibility='onchange')
+    comment = fields.Text('Comment', track_visibility='onchange')
+
+    @api.multi
+    def wizard_action(self):
+        return {
+            'name': 'My Window',
+            'domain': [],
+            'res_model': 'extraschool.child_fusion_wizard',
+            'type': 'ir.actions.act_window',
+            'view_mode': 'form',
+            'view_type': 'form',
+            'context': {},
+            'target': 'new',
+        }
 
     def _search_fullname(self, operator, value):
         return ['|',('firstname', operator, value),('lastname', operator, value)]
