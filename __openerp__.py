@@ -84,6 +84,7 @@
         'views/extraschool_class.xml',
         'views/extraschool_level.xml',
         'views/extraschool_child.xml',
+        'views/extraschool_child_fusion_wizard.xml',
         'views/extraschool_child_registration.xml',
         'views/extraschool_child_registration_wizard.xml',        
         'views/extraschool_settings.xml',
