@@ -289,7 +289,8 @@ class extraschool_childsimport(models.Model):
                                                                    'last_import_date':fields.datetime.now(),
                                                                     })
                             # Comstruct after creation because we need the ID
-                            parentid.write({'comstruct': parentid.get_prepaid_comstruct(
+                            new_parent = self.env['extraschool.parent'].search([('id', '=', parentid)])
+                            new_parent.search([('id', '=', parentid)]).write({'comstruct': new_parent.get_prepaid_comstruct(
                                 self.env['extraschool.activitycategory'].search([]))})
 
                         else:
