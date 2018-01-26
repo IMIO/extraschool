@@ -23,8 +23,8 @@
 
 from openerp import models, api, fields
 from openerp.api import Environment
-from datetime import date
-import datetime
+from datetime import date, datetime
+import time
 
 
 class extraschool_child(models.Model):
@@ -53,6 +53,11 @@ class extraschool_child(models.Model):
     otherref = fields.Char('Other ref', size=50, track_visibility='onchange')
     isdisabled = fields.Boolean('Disabled', track_visibility='onchange')
     comment = fields.Text('Comment', track_visibility='onchange')
+
+    def get_age(self):
+        date_of_birth = datetime.strptime(self.birthdate,'%Y-%m-%d')
+        return datetime.today().year - date_of_birth.year - (
+        (datetime.today().month, datetime.today().day) < (date_of_birth.month, date_of_birth.day))
 
     @api.multi
     def wizard_action(self):
