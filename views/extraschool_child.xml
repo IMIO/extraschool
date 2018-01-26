@@ -57,9 +57,12 @@
 	                    <newline/>
 	                    <field name="last_import_date" readonly="True"/>
 	                    <field name="modified_since_last_import"/>
-	                    <newline/>
-                        <field name="comment"/>
 					</group>
+					<notebook>
+					<page string="Comment">
+                    	<field name="comment" />
+                 	</page>
+                 	</notebook>
                     </sheet>
                     <div class="oe_chatter" groups="extraschool.extraschool_gods">
                         <field name="message_follower_ids" widget="mail_followers"/>
