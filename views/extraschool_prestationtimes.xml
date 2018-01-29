@@ -52,7 +52,7 @@
                    <group  expand='0' string='Group by...'>
                        <filter string='Enfant' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'childid'}"/>
                        <filter string="Lieux d&apos;accueil" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'placeid'}"/>                       	                       
-                       <filter string='Activité' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'activity_occurrence_id'}"/>
+                       <filter string='Activité' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'activity_occurrence_id.activityid'}"/>
                    </group>                    
                 </search>
             </field>
@@ -75,20 +75,29 @@
                     <field name="verified"/>         
 				</tree>
 			</field>
-		</record>		
+		</record>
+
+		<record id="extraschool_prestationtimes_graph" model="ir.ui.view">
+            <field name="name">presta_stat.graph</field>
+            <field name="model">extraschool.prestationtimes</field>
+            <field name="arch" type="xml">
+                <graph string="presta" type="pivot">
+                 </graph>
+             </field>
+        </record>
         
         <record model="ir.actions.act_window" id="action_extraschool_prest">
 			<field name="name">Prestations</field>
 			<field name="res_model">extraschool.prestationtimes</field>
 			<field name="view_type">form</field>
-			<field name="view_mode">tree</field>
+			<field name="view_mode">form</field>
 		</record>
 		
         <record model="ir.actions.act_window" id="action_extraschool_prest_tree">
 			<field name="name">Prestations.tree</field>
 			<field name="res_model">extraschool.prestationtimes</field>
 			<field name="view_type">form</field>
-            <field name="view_mode">tree</field>		
+            <field name="view_mode">tree,graph</field>
 			<field name="view_id" ref="extraschool_prestationtimes_tree"/>
             <field name="search_view_id" ref="prestationtimes_search_view"/>
 		</record>		
