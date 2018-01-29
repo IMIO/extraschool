@@ -19,7 +19,8 @@
 	                		<field name="name"/> 
 	                		<field name="inline_report_id"/> 
 	                		<field name="page_break_after"/>
-	                		<field name="visibility"/> 
+	                		<field name="visibility"/>
+                            <field name="verso"/>
 	                	</tree>
 	                </field>	 
 	            </group>

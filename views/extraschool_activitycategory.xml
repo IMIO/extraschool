@@ -146,6 +146,9 @@
 							<field name="po_rappel_sign" widget="image" class="oe_avatar oe_left"/>
 						</group>
 					</page>
+					<page string="QRCode">
+						<field name="qrcode_report_id"/>
+					</page>
 					<page string="Tax certificate">
 						<group col="4">
 			                <field name="taxcertificatetemplate" />

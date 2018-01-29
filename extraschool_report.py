@@ -50,5 +50,5 @@ class extraschool_inline_report(models.Model):
                                 ('c_footer','Footer'),], required=True)
     page_break_after = fields.Boolean(string="Page break after", default=False)
     visibility = fields.Selection([('hide_firstpage','Hidden on first page'),('show_firstpage','First page only'),('show_lastpage','Last page only'),])
-    
+    verso = fields.Boolean(default=False)
     
