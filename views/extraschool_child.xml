@@ -9,10 +9,7 @@
 				<tree string="Child">
                     <field name="lastname"/>
                     <field name="firstname"/>
-<<<<<<< HEAD
-=======
 					<field name="levelid"/>
->>>>>>> origin/master
 					<field name="parentid"/>
                     <field name="schoolimplantation"/>
 				</tree>
