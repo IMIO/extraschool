@@ -21,6 +21,9 @@
 			<field name="arch" type="xml">
 				<form string="Child">
                     <sheet>
+                        <!--<header>-->
+                            <!--<button string="test" type="object" name="test"/>-->
+                        <!--</header>-->
 					<div class="oe_right oe_button_box" name="buttons">
 						<button name="get_presta"
 							string="Présences"
@@ -55,6 +58,7 @@
 	                    <field name="last_import_date" readonly="True"/>
 	                    <field name="modified_since_last_import"/>
 	                    <newline/>
+                        <field name="comment"/>
 					</group>
                     </sheet>
                     <div class="oe_chatter" groups="extraschool.extraschool_gods">

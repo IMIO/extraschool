@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014 
+#    Copyright (C) 2008-2014
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot - Imio (<http://www.imio.be>).
 #
@@ -43,35 +43,40 @@ class extraschool_child(models.Model):
     parentid = fields.Many2one('extraschool.parent', 'Parent', required=True, ondelete='RESTRICT', select=True, track_visibility='onchange')
     birthdate = fields.Date('Birthdate', required=True, track_visibility='onchange')
     last_import_date = fields.Datetime('Import date', readonly=True)
-    modified_since_last_import = fields.Boolean('Modified since last import')    
+    modified_since_last_import = fields.Boolean('Modified since last import')
     tagid = fields.Char('Tag ID', help='Numéro contenu dans le QR Code', track_visibility='onchange')
     otherref = fields.Char('Other ref', size=50, track_visibility='onchange')
     isdisabled = fields.Boolean('Disabled', track_visibility='onchange')
+    comment = fields.Text('Comment', track_visibility='onchange', size=200)
+
+    @api.multi
+    def test(self):
+        print "test"
 
     def _search_fullname(self, operator, value):
         return ['|',('firstname', operator, value),('lastname', operator, value)]
-    
-    
+
+
     @api.depends('firstname','lastname')
     def _name_compute(self):
         for record in self:
-            record.name = '%s %s'  % (record.lastname, record.firstname)        
+            record.name = '%s %s'  % (record.lastname, record.firstname)
 
     def onchange_name(self, cr, uid, ids, lastname,firstname):
-        v={}        
+        v={}
         if lastname:
             if firstname:
                 v['name']='%s %s' % (lastname, firstname)
             else:
                 v['name']=lastname
         return {'value':v}
-    
-    @api.one    
-    def action_gentagid(self):   
+
+    @api.one
+    def action_gentagid(self):
         if not self.tagid :
             config = self.env['extraschool.mainsettings'].browse([1])
             self.tagid = config.lastqrcodenbr = config.lastqrcodenbr + 1
-        
+
         # return long(self.tagid)
         return self.tagid
 
@@ -79,26 +84,26 @@ class extraschool_child(models.Model):
     def write(self, vals):
         fields_to_find = set(['firstname',
                               'lastname'])
-        
+
         if fields_to_find.intersection(set([k for k,v in vals.iteritems()])):
             vals['modified_since_last_import'] = True
-                    
+
         return super(extraschool_child,self).write(vals)
 
     @api.multi
-    def get_presta(self): 
- 
+    def get_presta(self):
+
         return {'name': 'Présences',
                 'type': 'ir.actions.act_window',
                 'res_model': 'extraschool.prestation_times_of_the_day',
                 'view_type': 'form',
                 'view_mode': 'tree,form',
-                'nodestroy': False,     
+                'nodestroy': False,
                 'target': 'current',
-                'limit': 50000,                                    
+                'limit': 50000,
                 'domain': [('child_id', '=',self.id),]
-            }  
-                    
+            }
+
     @api.one
     def unlink(self):
         self.isdisabled = True
