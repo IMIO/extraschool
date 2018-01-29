@@ -32,6 +32,7 @@ class extraschool_parent(models.Model):
     _name = 'extraschool.parent'
     _description = 'Parent'
     _inherit = 'mail.thread'
+    _order = 'lastname'
 
     @api.depends('firstname','lastname')
     def _name_compute(self):
@@ -89,10 +90,7 @@ class extraschool_parent(models.Model):
             cr.execute('select sum(balance) from extraschool_invoice where parentid=%s and (huissier = False or huissier is Null)',(record.id,))
             invoice = cr.fetchall()[0][0]
             invoice = invoice if invoice else 0.0
-            cr.execute('select sum(fees_amount) from extraschool_reminder where parentid=%s', (record.id,))
-            reminder = cr.fetchall()[0][0]
-            reminder = reminder if reminder else 0.0
-            record.totalbalance = invoice + reminder
+            record.totalbalance = invoice
 
     def _compute_totalhuissier (self):
         cr = self.env.cr
@@ -145,6 +143,7 @@ class extraschool_parent(models.Model):
     oldid = fields.Integer('oldid')
     nbr_actif_child = fields.Integer(compute='_compute_nbr_actif_child',string='Nbr actif child', store = True, track_visibility='onchange')
     comment = fields.Text('Comment', track_visibility='onchange')
+    comstruct = fields.Char('Structured Communication', readonly=True)
 
     @api.multi
     def get_invoice(self):
@@ -258,7 +257,19 @@ class extraschool_parent(models.Model):
                     print "vals['email']" , vals['email']
                     raise Warning("E-mail format invalid.")
 
-        return super(extraschool_parent, self).create(vals)
+        # Compute and store parent's commstruct for further use (search).
+        parent_id = super(extraschool_parent, self).create(vals)
+        parent_id.write({'comstruct': parent_id.get_prepaid_comstruct(self.env['extraschool.activitycategory'].search([]))})
+
+        return parent_id
+
+    @api.model
+    def update_commstruct(self):
+        parent_ids = self.env['extraschool.parent'].search([])
+        
+        for parent in parent_ids:
+            parent.write(
+                {'comstruct': parent.get_prepaid_comstruct(self.env['extraschool.activitycategory'].search([]))})
 
     def addpayment(self, cr, uid, ids, context=None):
         view_obj = self.pool.get('ir.ui.view')

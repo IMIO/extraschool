@@ -34,12 +34,17 @@ class extraschool_guardian(models.Model):
     tagid = fields.Char('Tag ID', size=50)
     otherref = fields.Char('Other ref')
     weekly_schedule = fields.Float('Horaire hebdomadaire')
-    oldid = fields.Integer('oldid')             
+    oldid = fields.Integer('oldid')
+    isdisabled = fields.Boolean('Disabled', track_visibility='onchange')
 
     @api.depends('firstname','lastname')
     def _name_compute(self):
         for record in self:
-            record.name = '%s %s'  % (record.lastname, record.firstname) 
+            record.name = '%s %s'  % (record.lastname, record.firstname)
+
+    @api.one
+    def unlink(self):
+        self.isdisabled = True
 
     @api.one    
     def action_gentagid(self):   

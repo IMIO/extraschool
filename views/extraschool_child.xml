@@ -9,6 +9,10 @@
 				<tree string="Child">
                     <field name="lastname"/>
                     <field name="firstname"/>
+<<<<<<< HEAD
+=======
+					<field name="levelid"/>
+>>>>>>> origin/master
 					<field name="parentid"/>
                     <field name="schoolimplantation"/>
 				</tree>
@@ -32,7 +36,9 @@
 							icon="fa-qrcode"
 								/>
 					</div>
-
+					<header>
+					<button name="wizard_action" string="Fusion" icon="gtk-apply" type="object" context="{'default_child_id': id}" groups="extraschool.extraschool_fusion"/>
+            		</header>
 					<field name="name"  invisible="True"/>
 					<group col="4">
 					    <field name="isdisabled"/>
@@ -60,6 +66,11 @@
 	                    <newline/>
                         <field name="comment"/>
 					</group>
+					<notebook>
+					<page string="Comment">
+                    	<field name="comment" />
+                 	</page>
+                 	</notebook>
                     </sheet>
                     <div class="oe_chatter" groups="extraschool.extraschool_gods">
                         <field name="message_follower_ids" widget="mail_followers"/>

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+        <record model="ir.ui.view" id="extraschool_child_fusion_wizard_form">
+            <field name="name">extraschool.child.wizard.form</field>
+            <field name="model">extraschool.child_fusion_wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Child fusion wizard">
+                    <group col="4" groups="base.group_erp_manager">
+                    	<field name="child_id"  invisible="1"/>
+                    	<separator string="Enfant à fusionner" colspan="4"/>
+                    	<field name="child_ids"  colspan="4" nolabel="1"/>
+                    	<button name="fusion" string="Execute SQL" icon="gtk-apply" type="object"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

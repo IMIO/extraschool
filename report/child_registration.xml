@@ -59,15 +59,27 @@
 	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Jeudi</th>
 	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Vendredi</th>
 		            	</tr>
+                        Nombre d'enfants <span t-raw="len(child_registration.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['M']))"/>
 		            	<t t-foreach="child_registration.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['M'])" t-as="child">
 		            		<t t-if="child.child_must_be_printed()">
 			            		<tr>
-                                    <td style="border-width: 1px;padding: 8px;border-style: solid;"><h5><span t-field="child.child_id.name"/></h5><i><b>    Parent: </b><span t-field="child.child_id.parentid.name"/> - <span t-field="child.child_id.parentid.housephone"/></i></td>
-									<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-field="child.monday_activity_id.name"/><span t-if="child.monday"><img style="display: block;margin-left: auto;margin-right: auto;width: 15px;height: 15px;align: middle;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
-			            			<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-field="child.tuesday_activity_id.name"/><span t-if="child.tuesday"><img style="display: block;margin-left: auto;margin-right: auto;width: 15px;height: 15px;align: middle;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
-			            			<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-field="child.wednesday_activity_id.name"/><span t-if="child.wednesday"><img style="display: block;margin-left: auto;margin-right: auto;width: 15px;height: 15px;align: middle;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
-			            			<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-field="child.thursday_activity_id.name"/><span t-if="child.thursday"><img style="display: block;margin-left: auto;margin-right: auto;width: 15px;height: 15px;align: middle;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
-			            			<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-field="child.friday_activity_id.name"/><span t-if="child.friday"><img style="display: block;margin-left: auto;margin-right: auto;width: 15px;height: 15px;align: middle;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
+									<td><h5><span t-field="child.child_id.name"/> <b><span t-esc="child.child_id.get_age()"/> ans</b></h5><i><b>
+										Parent: </b><span t-field="child.child_id.parentid.name"/></i>
+										<t t-if="child.child_id.parentid.housephone"><br></br>
+											<b>Tel Maison: </b><span t-field="child.child_id.parentid.housephone"/></t>
+										<t t-if="child.child_id.parentid.workphone"><br></br>
+										<b>Tel Travail: </b><span t-field="child.child_id.parentid.workphone"/></t>
+										<t t-if="child.child_id.parentid.gsm"><br></br>
+										<b>GSM: </b><span t-field="child.child_id.parentid.gsm"/></t>
+										<t t-if="child.child_id.comment"><br></br>
+										<i><b>A savoir: </b><span t-field="child.child_id.comment"/>
+											<br></br></i></t>
+									</td>
+									<td><span t-field="child.monday_activity_id.name"/><span t-if="child.monday"><img src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
+			            			<td><span t-field="child.tuesday_activity_id.name"/><span t-if="child.tuesday"><img src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
+			            			<td><span t-field="child.wednesday_activity_id.name"/><span t-if="child.wednesday"><img src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
+			            			<td><span t-field="child.thursday_activity_id.name"/><span t-if="child.thursday"><img src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
+			            			<td><span t-field="child.friday_activity_id.name"/><span t-if="child.friday"><img src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
 			            		</tr>
 							</t>
 		            	</t>
@@ -93,15 +105,28 @@
 	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Jeudi</th>
 	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Vendredi</th>
 		            	</tr>
+                        Nombre d'enfants <span t-raw="len(child_registration.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['P','A']))"/>
 		            	<t t-foreach="child_registration.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['P','A'])" t-as="child">
 		            		<t t-if="child.child_must_be_printed()">
 			            		<tr>
-                                    <td style="border-width: 1px;padding: 8px;border-style: solid;"><h5><span t-field="child.child_id.name"/></h5><i><b>Parent: </b><span t-field="child.child_id.parentid.name"/> - <span t-field="child.child_id.parentid.housephone"/></i></td>
-									<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-field="child.monday_activity_id.name"/><span t-if="child.monday"><img style="display: block;margin-left: auto;margin-right: auto;width: 15px;height: 15px;align: middle;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
-			            			<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-field="child.tuesday_activity_id.name"/><span t-if="child.tuesday"><img style="display: block;margin-left: auto;margin-right: auto;width: 15px;height: 15px;align: middle;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
-			            			<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-field="child.wednesday_activity_id.name"/><span t-if="child.wednesday"><img style="display: block;margin-left: auto;margin-right: auto;width: 15px;height: 15px;align: middle;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
-			            			<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-field="child.thursday_activity_id.name"/><span t-if="child.thursday"><img style="display: block;margin-left: auto;margin-right: auto;width: 15px;height: 15px;align: middle;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
-			            			<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-field="child.friday_activity_id.name"/><span t-if="child.friday"><img style="display: block;margin-left: auto;margin-right: auto;width: 15px;height: 15px;align: middle;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
+									<td><h5><span t-field="child.child_id.name"/> <b><span t-esc="child.child_id.get_age()"/> ans</b></h5>
+
+                                        <i><b>    Parent: </b><span t-field="child.child_id.parentid.name"/></i>
+										<t t-if="child.child_id.parentid.housephone"><br></br>
+											<b>Tel Maison: </b><span t-field="child.child_id.parentid.housephone"/></t>
+										<t t-if="child.child_id.parentid.workphone"><br></br>
+										<b>Tel Travail: </b><span t-field="child.child_id.parentid.workphone"/></t>
+										<t t-if="child.child_id.parentid.gsm"><br></br>
+										<b>GSM: </b><span t-field="child.child_id.parentid.gsm"/></t>
+										<t t-if="child.child_id.comment"><br></br>
+										<i><b>A savoir: </b><span t-field="child.child_id.comment"/>
+											<br></br></i></t>
+									</td>
+									<td><span t-field="child.monday_activity_id.name"/><span t-if="child.monday"><img src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
+			            			<td><span t-field="child.tuesday_activity_id.name"/><span t-if="child.tuesday"><img src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
+			            			<td><span t-field="child.wednesday_activity_id.name"/><span t-if="child.wednesday"><img src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
+			            			<td><span t-field="child.thursday_activity_id.name"/><span t-if="child.thursday"><img src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
+			            			<td><span t-field="child.friday_activity_id.name"/><span t-if="child.friday"><img src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
 			            		</tr>
 							</t>
 		            	</t>

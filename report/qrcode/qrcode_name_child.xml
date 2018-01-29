@@ -1,0 +1,79 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+		<template id="qrcode_name_child_classic_25mm">
+            <style type="text/css">
+                .qrcode_img {
+                    position: absolute;
+                    top: 18mm;
+                    left: 19mm;
+                    width: 25mm;
+                    height: 25mm;
+                    }
+                .qr_child_name{
+                    position: absolute;
+                    top: 40mm;
+                    left: 19mm;
+                    text-align: center;
+                    width: 25mm;
+                    height: 10mm;
+                }
+            </style>
+                <!--div are exteriorize to be able to construct the page and display it correctly. wkhtmltopdf needs divs-->
+                <img class="qrcode_img" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR',tagid, 300, 300)" />
+                <span class="qr_child_name"><t t-esc="name"/></span>
+		</template>
+
+        <template id="qrcode_name_child_classic_25mm_verso">
+            <style type="text/css">
+                .qrcode_img_logo {
+                    position: absolute;
+                    top: 18mm;
+                    right: 19mm;
+                    width: 25mm;
+                    height: 25mm;
+                    }
+            </style>
+                <!--div are exteriorize to be able to construct the page and display it correctly. wkhtmltopdf needs divs-->
+                <img class="qrcode_img_logo" t-att-src="'data:image/jpeg;base64,%s' % img" />
+		</template>
+
+		<template id="qrcode_name_child_classic_35mm">
+            <style type="text/css">
+                .qrcode_img {
+                    position: absolute;
+                    top: 18mm;
+                    left: 19mm;
+                    width: 35mm;
+                    height: 35mm;
+                    }
+                .qr_child_name{
+                    position: absolute;
+                    top: 50mm;
+                    left: 19mm;
+                    text-align: center;
+                    width: 35mm;
+                    height: 10mm;
+                }
+            </style>
+                <!--div are exteriorize to be able to construct the page and display it correctly. wkhtmltopdf needs divs-->
+                <img class="qrcode_img" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR',tagid, 300, 300)" />
+                <span class="qr_child_name"><t t-esc="name"/></span>
+		</template>
+
+        <template id="qrcode_name_child_classic_35mm_verso">
+            <style type="text/css">
+                .qrcode_img_logo {
+                    position: absolute;
+                    top: 18mm;
+                    right: 18mm;
+                    width: 35mm;
+                    height: 35mm;
+                    }
+            </style>
+                <!--div are exteriorize to be able to construct the page and display it correctly. wkhtmltopdf needs divs-->
+                <img class="qrcode_img_logo" t-att-src="'data:image/jpeg;base64,%s' % img" />
+		</template>
+
+	</data>
+</openerp>

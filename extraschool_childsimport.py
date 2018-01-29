@@ -288,6 +288,11 @@ class extraschool_childsimport(models.Model):
                                                                    'modified_since_last_import': False,
                                                                    'last_import_date':fields.datetime.now(),
                                                                     })
+                            # Comstruct after creation because we need the ID
+                            new_parent = self.env['extraschool.parent'].search([('id', '=', parentid)])
+                            new_parent.search([('id', '=', parentid)]).write({'comstruct': new_parent.get_prepaid_comstruct(
+                                self.env['extraschool.activitycategory'].search([]))})
+
                         else:
                             parentid=parentids[0]
                         classids = obj_class.search(cr, uid, [('name', 'ilike', childclassname),('schoolimplantation', '=', schoolimplantationid)])
