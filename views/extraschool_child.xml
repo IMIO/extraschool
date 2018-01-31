@@ -21,6 +21,9 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Child">
+					<header>
+						<button name="wizard_action" string="Fusion" icon="gtk-apply" type="object" context="{'default_child_id': id}" groups="extraschool.extraschool_fusion"/>
+            		</header>
                     <sheet>
 					<div class="oe_right oe_button_box" name="buttons"> 
 						<button name="get_presta" 
@@ -30,9 +33,6 @@
 							icon="fa-qrcode"
 								/>													
 					</div>
-					<header>
-					<button name="wizard_action" string="Fusion" icon="gtk-apply" type="object" context="{'default_child_id': id}" groups="extraschool.extraschool_fusion"/>
-            		</header>
 					<field name="name"  invisible="True"/> 
 					<group col="4">
 					    <field name="isdisabled"/>
