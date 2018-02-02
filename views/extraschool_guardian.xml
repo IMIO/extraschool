@@ -51,7 +51,7 @@
 			<field name="name">Guardian</field>
 			<field name="res_model">extraschool.guardian</field>
 			<field name="view_type">form</field>
-            <field name="search_view_id" ref="extraschool_guardian_search_view"/>
+            <field name="context">{"search_default_actif":1}</field>
 		</record>
 
 	</data>
