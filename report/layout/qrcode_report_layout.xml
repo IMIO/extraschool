@@ -46,9 +46,9 @@
 	            <link href="/web/static/lib/bootstrap/css/bootstrap.css" rel="stylesheet"/>
 		        <link href="/website/static/src/css/website.css" rel="stylesheet"/>
 		        <link href="/web/static/lib/fontawesome/css/font-awesome.css" rel="stylesheet"/>
-		        <style type="text/css">
-		            <t t-call="report.style"/>
-		        </style>
+		        <!--<style type="text/css">-->
+		            <!--<t t-call="report.style"/>-->
+		        <!--</style>-->
             </xpath>
 
         	<xpath expr="//head" position="inside">
