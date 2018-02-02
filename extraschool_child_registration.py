@@ -66,6 +66,10 @@ class extraschool_child_registration(models.Model):
     levelid = fields.Many2one('extraschool.level', 'Level', track_visibility='onchange')
     warning_biller = fields.Char('WARNING', default="WARNING, Il y a un facturier à cette date, si la personne responsable des factures n'est pas au courant de cet ajout, cela ne sera pas pris en compte ! ", readonly=True)
     warning_visibility = fields.Boolean(track_visibility='onchange')
+    select_per_level = fields.Selection([
+        ('primaire', 'Primaire'),
+        ('maternelle', 'Maternelle'),
+    ])
 
     @api.onchange('date_to','date_from')
     @api.multi
@@ -179,6 +183,21 @@ class extraschool_child_registration(models.Model):
                                                            ('levelid.id', '=',self.levelid.id),
                                                            ('isdisabled', '=', False),
                                                            ])
+        if self.select_per_level == 'primaire':
+            level_ids = self.env['extraschool.level'].search([('leveltype', '=', 'P')])
+            childs = self.env['extraschool.child'].search(
+                [('schoolimplantation.id', '=', self.school_implantation_id.id),
+                 ('levelid.id', 'in', level_ids.ids),
+                 ('isdisabled', '=', False),
+                 ])
+
+        if self.select_per_level == 'maternelle':
+            level_ids = self.env['extraschool.level'].search([('leveltype', '=', 'M')])
+            childs = self.env['extraschool.child'].search(
+                [('schoolimplantation.id', '=', self.school_implantation_id.id),
+                 ('levelid.id', 'in', level_ids.ids),
+                 ('isdisabled', '=', False),
+                 ])
         else:
             childs = self.env['extraschool.child'].search([('schoolimplantation.id', '=', self.school_implantation_id.id),
                                                            ('isdisabled', '=', False),

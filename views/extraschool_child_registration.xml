@@ -61,6 +61,7 @@
 	                    <field name="class_id" class="oe_no_button" options="{'no_create':True}"/>
 						<field name="place_id" options="{'no_create':True}"/>
                         <field name="levelid" options="{'no_create':True}"/>
+						<field name="select_per_level"/>
 						<newline/>
 	                    <field name="week"/>
         	            <newline/>
