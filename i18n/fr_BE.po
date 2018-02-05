@@ -18037,7 +18037,7 @@ msgstr "Vider"
 #. module: extraschool
 #: field:extraschool.remindersjournal,show_based_reminder:0
 msgid "Clic here if it's not the first reminder"
-msgstr "Clic here if it's not the first reminder"
+msgstr "Cliquer ici si ce n'est pas le premier rappel"
 
 #. module: web
 #. openerp-web
@@ -27238,7 +27238,7 @@ msgstr "Facture"
 #. module: extraschool
 #: model:ir.actions.act_window,name:extraschool.invoice_mass_mail
 msgid "Invoice mail"
-msgstr "Invoice mail"
+msgstr "Envoie par mail des factures"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_hr_timesheet_invoice
@@ -28294,7 +28294,7 @@ msgstr "Dernière page uniquement"
 #. module: extraschool
 #: field:extraschool.invoice,last_reminder_id:0
 msgid "Last reminder"
-msgstr "Last reminder"
+msgstr "Dernier rappel"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_web_last_viewed_records
@@ -38541,13 +38541,13 @@ msgstr "Il y a déjà un filtre par défaut partagé pour %(model)s. Supprimez o
 #: code:addons/extraschool/extraschool_one_report.py:145
 #, python-format
 msgid "There is no ONE report configuration"
-msgstr "There is no ONE report configuration"
+msgstr "Il n'y a pas de configuration pour le rapport ONE"
 
 #. module: extraschool
 #: code:addons/extraschool/extraschool_invoice_wizard.py:375
 #, python-format
 msgid "There is no presta to invoice !!!"
-msgstr "There is no presta to invoice !!!"
+msgstr "Il n'y a pas de présences à facturer ! Le facturier de cette période à peut être déjà été générer"
 
 #. module: web
 #. openerp-web
@@ -40556,7 +40556,7 @@ msgstr "Vérifié"
 #. module: extraschool
 #: field:extraschool.activity,warning_date_invoice:0
 msgid "WARNING"
-msgstr "WARNING"
+msgstr "ATTENTION"
 
 #. module: extraschool
 #: selection:extraschool.config_smartphone,transfertmethod:0
@@ -40614,7 +40614,7 @@ msgstr "Avertissement"
 #: code:addons/extraschool/extraschool_prestation_times_of_the_day.py:435
 #, python-format
 msgid "Warning : No presta found"
-msgstr "Warning : No presta found"
+msgstr "Avertissement : Pas de présences trouvées"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_warning
@@ -40635,7 +40635,7 @@ msgstr "Warning visibility"
 #: code:addons/mail/mail_group.py:176
 #, python-format
 msgid "Warning!"
-msgstr "Attention !"
+msgstr "Avertissement !"
 
 #. module: mail
 #. openerp-web
@@ -43247,7 +43247,7 @@ msgstr "restant)"
 #. module: extraschool
 #: model:ir.actions.report.xml,name:extraschool.extraschool_reminder_std
 msgid "reminder"
-msgstr "reminder"
+msgstr "Rappel"
 
 #. module: extraschool
 #: field:extraschool.parent,reminder_ids:0
