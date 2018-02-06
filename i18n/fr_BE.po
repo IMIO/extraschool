@@ -27741,7 +27741,7 @@ msgstr "Facture"
 #. module: extraschool
 #: model:ir.actions.act_window,name:extraschool.invoice_mass_mail
 msgid "Invoice mail"
-msgstr "Envoie par mail des factures"
+msgstr "Envoie par mail"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_hr_timesheet_invoice
