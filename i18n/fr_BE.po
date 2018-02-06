@@ -42570,7 +42570,7 @@ msgstr "Facturier"
 #: view:extraschool.invoice:extraschool.extraschool_invoice_search_view
 #: view:extraschool.payment_reconciliation:extraschool.extraschool_payment_reconciliation_search_view
 msgid "biller_id"
-msgstr "biller_id"
+msgstr "Facturier"
 
 #. module: extraschool
 #: view:extraschool.mainsettings:extraschool.extraschool_mainsettings_form
