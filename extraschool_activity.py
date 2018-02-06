@@ -78,6 +78,7 @@ class extraschool_activity(models.Model):
     validity_from = fields.Date('Validity from', index=True, required=True, track_visibility='onchange')
     validity_to = fields.Date('Validity to', index=True, required=True, track_visibility='onchange')
     selectable_on_registration = fields.Boolean('Selectable on registration form')
+    selectable_on_registration_multi = fields.Boolean('Selectable on registration multi form')
     warning_date_invoice = fields.Char('WARNING', default="WARNING, there are invoices on this activity, we changed the date so you won't erase them.", readonly=True)
     warning_visibility = fields.Boolean(track_visibility='onchange')
     expire_soon = fields.Boolean(compute='_get_expired_date')

@@ -183,16 +183,12 @@ class extraschool_child_registration(models.Model):
                                                            ('levelid.id', '=',self.levelid.id),
                                                            ('isdisabled', '=', False),
                                                            ])
-        if self.select_per_level == 'primaire':
-            level_ids = self.env['extraschool.level'].search([('leveltype', '=', 'P')])
-            childs = self.env['extraschool.child'].search(
-                [('schoolimplantation.id', '=', self.school_implantation_id.id),
-                 ('levelid.id', 'in', level_ids.ids),
-                 ('isdisabled', '=', False),
-                 ])
+        if self.select_per_level:
+            if self.select_per_level == 'primaire':
+                level_ids = self.env['extraschool.level'].search([('leveltype', '=', 'P')])
+            else:
+                level_ids = self.env['extraschool.level'].search([('leveltype', '=', 'M')])
 
-        if self.select_per_level == 'maternelle':
-            level_ids = self.env['extraschool.level'].search([('leveltype', '=', 'M')])
             childs = self.env['extraschool.child'].search(
                 [('schoolimplantation.id', '=', self.school_implantation_id.id),
                  ('levelid.id', 'in', level_ids.ids),
@@ -486,19 +482,19 @@ class extraschool_child_registration_line(models.Model):
     child_lastname = fields.Char(related="child_id.lastname", store=True)
     child_level = fields.Char(related="child_id.levelid.name",string="Niveau", store=True)
     monday = fields.Boolean('Monday')    
-    monday_activity_id = fields.Many2one('extraschool.activity' ,string="Monday", domain="[('selectable_on_registration','=',True)]")
+    monday_activity_id = fields.Many2one('extraschool.activity' ,string="Monday", domain="[('selectable_on_registration_multi','=',True)]")
     tuesday = fields.Boolean('Tuesday')
-    tuesday_activity_id = fields.Many2one('extraschool.activity',string="Tuesday", domain="[('selectable_on_registration','=',True)]")
+    tuesday_activity_id = fields.Many2one('extraschool.activity',string="Tuesday", domain="[('selectable_on_registration_multi','=',True)]")
     wednesday = fields.Boolean('Wednesday')
-    wednesday_activity_id = fields.Many2one('extraschool.activity',string="Wednesday", domain="[('selectable_on_registration','=',True)]")
+    wednesday_activity_id = fields.Many2one('extraschool.activity',string="Wednesday", domain="[('selectable_on_registration_multi','=',True)]")
     thursday = fields.Boolean('Thursday')
-    thursday_activity_id = fields.Many2one('extraschool.activity',string="Thursday", domain="[('selectable_on_registration','=',True)]")
+    thursday_activity_id = fields.Many2one('extraschool.activity',string="Thursday", domain="[('selectable_on_registration_multi','=',True)]")
     friday = fields.Boolean('Friday')
-    friday_activity_id = fields.Many2one('extraschool.activity',string="Friday", domain="[('selectable_on_registration','=',True)]")
+    friday_activity_id = fields.Many2one('extraschool.activity',string="Friday", domain="[('selectable_on_registration_multi','=',True)]")
     saturday = fields.Boolean('Saturday')
-    saturday_activity_id = fields.Many2one('extraschool.activity',string="Saturday", domain="[('selectable_on_registration','=',True)]")
+    saturday_activity_id = fields.Many2one('extraschool.activity',string="Saturday", domain="[('selectable_on_registration_multi','=',True)]")
     sunday = fields.Boolean('Sunday')
-    sunday_activity_id = fields.Many2one('extraschool.activity',string="Sunday", domain="[('selectable_on_registration','=',True)]")
+    sunday_activity_id = fields.Many2one('extraschool.activity',string="Sunday", domain="[('selectable_on_registration_multi','=',True)]")
     error_duplicate_reg_line = fields.Boolean(string="Error", default = False)
     
     def child_must_be_printed(self):

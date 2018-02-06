@@ -61,10 +61,10 @@
 	                    <field name="class_id" class="oe_no_button" options="{'no_create':True}"/>
 						<field name="place_id" options="{'no_create':True}"/>
                         <field name="levelid" options="{'no_create':True}"/>
-						<field name="select_per_level"/>
 						<newline/>
-	                    <field name="week"/>
-        	            <newline/>
+                        <field name="week"/>
+                        <field name="select_per_level"/>
+                        <newline/>
 						<field name="date_from"/>
 						<field name="date_to"/>
 						<newline />
@@ -76,13 +76,13 @@
 					<field name="child_registration_line_ids" colspan="4" >
 						<tree editable="bottom"  colors="red:error_duplicate_reg_line==True">
 						    <field name="child_id"/>
-							<field name="monday_activity_id"/>
-							<field name="tuesday_activity_id"/>
-							<field name="wednesday_activity_id"/>
-						    <field name="thursday_activity_id"/>
-							<field name="friday_activity_id"/>
-		                    <field name="saturday_activity_id"/>
-							<field name="sunday_activity_id"/>
+							<field name="monday_activity_id" options="{'no_create':True}"/>
+							<field name="tuesday_activity_id" options="{'no_create':True}"/>
+							<field name="wednesday_activity_id" options="{'no_create':True}"/>
+						    <field name="thursday_activity_id" options="{'no_create':True}"/>
+							<field name="friday_activity_id" options="{'no_create':True}"/>
+		                    <field name="saturday_activity_id" options="{'no_create':True}"/>
+							<field name="sunday_activity_id" options="{'no_create':True}"/>
 							<field name="error_duplicate_reg_line" />
 						</tree>
 					</field>
@@ -105,13 +105,13 @@
 						<tree editable="bottom"  colors="red:error_duplicate_reg_line==True"  default_order="child_level, child_id">						    
 							<field name="child_id"/>														    
 							<field name="child_level" readonly="True"/>
-							<field name="monday_activity_id"/>
-							<field name="tuesday_activity_id"/> 
-							<field name="wednesday_activity_id"/>						
-						    <field name="thursday_activity_id"/>
-							<field name="friday_activity_id"/>
-		                    <field name="saturday_activity_id"/> 
-							<field name="sunday_activity_id"/>
+							<field name="monday_activity_id" options="{'no_create':True}"/>
+							<field name="tuesday_activity_id" options="{'no_create':True}"/>
+							<field name="wednesday_activity_id" options="{'no_create':True}"/>
+						    <field name="thursday_activity_id" options="{'no_create':True}"/>
+							<field name="friday_activity_id" options="{'no_create':True}"/>
+		                    <field name="saturday_activity_id" options="{'no_create':True}"/>
+							<field name="sunday_activity_id" options="{'no_create':True}"/>
 							<field name="error_duplicate_reg_line" />							
 						</tree>							
 					</field>				
@@ -141,6 +141,7 @@
 	                    <field name="activity_id" required="True" options="{'no_create':True}"/>
         	            <newline/>
 						<field name="week"/>
+						<field name="select_per_level"/>
 						<newline/>
 						<field name="date_from"/> 
 						<field name="date_to"/>

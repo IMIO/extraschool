@@ -54,6 +54,7 @@
                             <field name="onlyregisteredchilds" />
                             <field name="autoaddchilds" />
                             <field name="selectable_on_registration" />
+                            <field name="selectable_on_registration_multi" />
                             <!--			                <field name="registration_only" />
                             -->						</group>
                     </page>
