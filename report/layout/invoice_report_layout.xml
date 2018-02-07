@@ -1,63 +1,29 @@
 <?xml version="1.0" ?>
 <openerp>
-	<data> 
+	<data>
 		<template id="invoice_report_layout" inherit_id="report.layout"  primary="True">
-
-            <xpath expr="//head" position="inside">
-	            <style type="text/css">
-					body {
-					  font-family: arial !important;	            	 	  
-					}
-	            		            	
-					body.container {
-	            	  margin: 0px 15mm 0px Opx;
-	            	  padding: 0px;	            	  
-					}
-	            	
-	            	.header{
-	            		padding-right: 15mm;
-	            	}
-	            	
-	            	.page{
-	            		padding-right: 15mm;
-	            	}
-	            	.break{
-					    display: block;
-					    clear: both;
-					    page-break-after: always;
-	            	}
-	            </style>
-				
-	            <link href="/web/static/lib/bootstrap/css/bootstrap.css" rel="stylesheet"/>
-		        <link href="/website/static/src/css/website.css" rel="stylesheet"/>
-		        <link href="/web/static/lib/fontawesome/css/font-awesome.css" rel="stylesheet"/>
-            </xpath>
-        	<xpath expr="//head" position="inside">
-              <script src="/extraschool/static/src/js/pagination_hide.js"></script>
-            </xpath>
-
             <xpath expr="//body" position="attributes">
                 <attribute t-translation="off" name="onload">subst(); pagination_hide();</attribute>
-            </xpath>            
-		    
+            </xpath>
+
             <xpath expr="//html" position="attributes">
 		    	<attribute name="t-att-data-report-margin-top">docs[0].activitycategoryid.invoice_report_id.paper_format_id.margin_top</attribute>
 		        <attribute name="t-att-data-report-margin-bottom">docs[0].activitycategoryid.invoice_report_id.paper_format_id.margin_bottom</attribute>
 		        <attribute name="t-att-data-report-margin-right">docs[0].activitycategoryid.invoice_report_id.paper_format_id.margin_right</attribute>
-		        <attribute name="t-att-data-report-margin-left">docs[0].activitycategoryid.invoice_report_id.paper_format_id.margin_left</attribute>		        		  		        		        
-		    </xpath>            
-		    
-            <xpath expr="//body" position="attributes">
-				<attribute name="t-att-class">container</attribute>	      
+		        <attribute name="t-att-data-report-margin-left">docs[0].activitycategoryid.invoice_report_id.paper_format_id.margin_left</attribute>
 		    </xpath>
-		    
+
+            <xpath expr="//body" position="attributes">
+				<attribute name="t-att-class">container</attribute>
+		    </xpath>
+
             <xpath expr="//body" position="inside">
 				<div id="invoice">
-					<t t-foreach="docs" t-as="invoice">																			
+					<t t-foreach="docs" t-as="invoice">
 						<t t-set="logo" t-value="invoice.activitycategoryid.logo"/>
-						<t t-set="slogan" t-value="docs[0].activitycategoryid.slogan"/>		
+						<t t-set="slogan" t-value="docs[0].activitycategoryid.slogan"/>
 						<t t-set="amount_int" t-value="int(invoice.amount_total)"/>
-						<t t-set="amount_dec" t-value="int(round((invoice.amount_total-int(invoice.amount_total))*100))"/>			
+						<t t-set="amount_dec" t-value="int(round((invoice.amount_total-int(invoice.amount_total))*100))"/>
 			        	<t t-set="bankaccount" t-value="docs[0].activitycategoryid.bankaccount"/>
 						<t t-set="bank_bic" t-value="docs[0].activitycategoryid.bank_bic"/>
 						<t t-set="bank_address" t-value="docs[0].activitycategoryid.bank_address"/>
@@ -71,12 +37,12 @@
 						<t t-set="payment_term" t-value="'%s' % (time.strftime('%d-%m-%Y',time.strptime(invoice.biller_id.payment_term,'%Y-%m-%d')))"/>
 						<t t-set="schoolimplantationid" t-value="invoice.schoolimplantationid"/>
 
-						<t t-set="comment" t-value="'%s%s' % (invoice.biller_id.comment if invoice.biller_id.comment != False else '',invoice.comment if invoice.comment != False else '')"/>	
-						<t t-set="doc_date" t-value="'%s, le %s' % (invoice.biller_id.activitycategoryid.po_city,time.strftime('%d-%m-%Y',time.strptime(invoice.biller_id.invoices_date,'%Y-%m-%d')))"/>	
-																																																				
+						<t t-set="comment" t-value="'%s%s' % (invoice.biller_id.comment if invoice.biller_id.comment != False else '',invoice.comment if invoice.comment != False else '')"/>
+						<t t-set="doc_date" t-value="'%s, le %s' % (invoice.biller_id.activitycategoryid.po_city,time.strftime('%d-%m-%Y',time.strptime(invoice.biller_id.invoices_date,'%Y-%m-%d')))"/>
+
 						<t t-set="addresse" t-value="invoice.parentid"/>
 						<t t-set="po_addresse" t-value="invoice.biller_id.activitycategoryid"/>
-									
+
 						<t t-set="parent_id" t-value="invoice.parentid"/>
 						<t t-set="categ_id" t-value="invoice.biller_id.activitycategoryid"/>
 
@@ -87,30 +53,30 @@
 						<t t-set="resp_sign" t-value="invoice.biller_id.activitycategoryid.po_sign"/>
 						<t t-set="resp_sign_img" t-value="invoice.biller_id.activitycategoryid.po_sign_img"/>
 						<t t-set="po_stamp" t-value="invoice.biller_id.activitycategoryid.po_stamp"/>
-							
+
 						<t t-set="resp2_fct" t-value="invoice.biller_id.activitycategoryid.po_resp2_name"/>
-						<t t-set="resp2_name" t-value="invoice.biller_id.activitycategoryid.po_resp2_fct"/>													
-						<t t-set="resp2_sign" t-value="invoice.biller_id.activitycategoryid.po_resp2_sign"/>												
+						<t t-set="resp2_name" t-value="invoice.biller_id.activitycategoryid.po_resp2_fct"/>
+						<t t-set="resp2_sign" t-value="invoice.biller_id.activitycategoryid.po_resp2_sign"/>
 						<t t-set="summary_invoice_title" t-value="'Facture(s) échue(s)'"/>
-						<t t-set="invoice_id" t-value="invoice.id"/>	
+						<t t-set="invoice_id" t-value="invoice.id"/>
 						<t t-set="all_invoice_ids" t-value="invoice.parentid.invoice_ids.filtered(lambda r: r.balance &gt; 0.01 and not r.huissier and not r.reminder_fees)"/>
 						<t t-set="summary_invoice_ids" t-value="invoice.parentid.invoice_ids.filtered(lambda r: r.balance &gt; 0.01 and r.is_echue() and not r.huissier)"/>
-																										
-																					
+
+
 						<div class="header">
 		        			<t t-foreach="invoice.activitycategoryid.invoice_report_id.inline_report_ids.filtered(lambda r: r.section == 'a_header')" t-as="tmpl">
-				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">	         	    
+				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">
 			        				<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
 								</div>
 								<t t-if="tmpl.visibility == False">
 									<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
 								</t>
-							</t> 	
-			       		</div>				
+							</t>
+			       		</div>
 			        	<div class="page">
 			        		<t t-foreach="invoice.activitycategoryid.invoice_report_id.inline_report_ids.filtered(lambda r: r.section == 'b_body')" t-as="tmpl">
 				        		<t t-set="sub_report_content" t-value="True"/>
-			        			<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">	         	    
+			        			<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">
 			        				<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
 								</div>
 								<t t-if="tmpl.visibility == False">
@@ -118,25 +84,25 @@
 								</t>
 								<t t-if="tmpl.page_break_after and sub_report_content">
 									<div class="break"></div>
-								</t>	 
-							</t> 
-							   
+								</t>
+							</t>
+
 			       		</div>
-			       		
-											    			       				       		
+
+
 			        	<div class="footer">
 			        		<t t-foreach="invoice.activitycategoryid.invoice_report_id.inline_report_ids.filtered(lambda r: r.section == 'c_footer')" t-as="tmpl">
-				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">	         	    
+				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">
 			        				<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
 								</div>
 								<t t-if="tmpl.visibility == False">
 									<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
 								</t>
-							</t> 	    
+							</t>
 			       		</div>
 				    </t>
-				</div>				
-			</xpath>	
+				</div>
+			</xpath>
 		</template>
 	</data>
 	<data noupdate="1">
@@ -154,7 +120,7 @@
     		<field name="dpi">90</field>
 		</record>
 	</data>
-	<data>	
+	<data>
 		<report
 		    id="extraschool_invoice_std"
 		    model="extraschool.invoice"
@@ -166,23 +132,23 @@
 
 		<record id="extraschool_invoice_std" model="ir.actions.report.xml">
     		<field name="paperformat_id" ref="paperformat_aes_invoice"/>
-		</record>		
-						
+		</record>
+
 	</data>
-	
-	
-	<data> 
+
+
+	<data>
 		<template id="invoice_detail_report_layout" inherit_id="report.layout"  primary="True">
 
             <xpath expr="//head" position="inside">
 	            <style type="text/css">
 					body {
-					  font-family: arial !important;	            	 	  
+					  font-family: arial !important;
 					}
-	            		            	
+
 					body.container {
 	            	  margin: 0px;
-	            	  padding: 0px;	            	  
+	            	  padding: 0px;
 					}
 				</style>
 				<link href="/web/static/lib/bootstrap/css/bootstrap.css" rel="stylesheet"/>
@@ -195,26 +161,26 @@
 
             <xpath expr="//body" position="attributes">
                 <attribute t-translation="off" name="onload">subst(); pagination_hide();</attribute>
-            </xpath>            
-		    
+            </xpath>
+
             <xpath expr="//html" position="attributes">
 		    	<attribute name="t-att-data-report-margin-top">docs[0].activitycategoryid.invoice_report_id.paper_format_id.margin_top</attribute>
 		        <attribute name="t-att-data-report-margin-bottom">docs[0].activitycategoryid.invoice_report_id.paper_format_id.margin_bottom</attribute>
 		        <attribute name="t-att-data-report-margin-right">docs[0].activitycategoryid.invoice_report_id.paper_format_id.margin_right</attribute>
-		        <attribute name="t-att-data-report-margin-left">docs[0].activitycategoryid.invoice_report_id.paper_format_id.margin_left</attribute>		        		  		        		        
-		    </xpath>            
-		    
-            <xpath expr="//body" position="attributes">
-				<attribute name="t-att-class">container</attribute>	      
+		        <attribute name="t-att-data-report-margin-left">docs[0].activitycategoryid.invoice_report_id.paper_format_id.margin_left</attribute>
 		    </xpath>
-		    
+
+            <xpath expr="//body" position="attributes">
+				<attribute name="t-att-class">container</attribute>
+		    </xpath>
+
             <xpath expr="//body" position="inside">
 				<div id="invoice">
-					<t t-foreach="docs" t-as="invoice">													
+					<t t-foreach="docs" t-as="invoice">
 						<t t-set="logo" t-value="invoice.activitycategoryid.logo"/>
-						<t t-set="slogan" t-value="docs[0].activitycategoryid.slogan"/>		
+						<t t-set="slogan" t-value="docs[0].activitycategoryid.slogan"/>
 						<t t-set="amount_int" t-value="int(invoice.amount_total)"/>
-						<t t-set="amount_dec" t-value="int(round((invoice.amount_total-int(invoice.amount_total))*100))"/>			
+						<t t-set="amount_dec" t-value="int(round((invoice.amount_total-int(invoice.amount_total))*100))"/>
 			        	<t t-set="bankaccount" t-value="docs[0].activitycategoryid.bankaccount"/>
 						<t t-set="bank_bic" t-value="docs[0].activitycategoryid.bank_bic"/>
 						<t t-set="bank_address" t-value="docs[0].activitycategoryid.bank_address"/>
@@ -223,63 +189,63 @@
 						<t t-set="com_struct" t-value="invoice.structcom"/>
 						<t t-set="total" t-value="invoice.amount_total"/>
 						<t t-set="received" t-value="invoice.amount_received"/>
-						<t t-set="balance" t-value="invoice.balance"/>	
-						<t t-set="comment" t-value="'%s%s' % (invoice.biller_id.comment if invoice.biller_id.comment != False else '',invoice.comment if invoice.comment != False else '')"/>	
-						<t t-set="doc_date" t-value="'%s, le %s' % (invoice.biller_id.activitycategoryid.po_city,time.strftime('%d-%m-%Y',time.strptime(invoice.biller_id.period_to,'%Y-%m-%d')))"/>	
-																																																				
+						<t t-set="balance" t-value="invoice.balance"/>
+						<t t-set="comment" t-value="'%s%s' % (invoice.biller_id.comment if invoice.biller_id.comment != False else '',invoice.comment if invoice.comment != False else '')"/>
+						<t t-set="doc_date" t-value="'%s, le %s' % (invoice.biller_id.activitycategoryid.po_city,time.strftime('%d-%m-%Y',time.strptime(invoice.biller_id.period_to,'%Y-%m-%d')))"/>
+
 						<t t-set="addresse" t-value="invoice.parentid"/>
 						<t t-set="po_addresse" t-value="invoice.biller_id.activitycategoryid"/>
-						
+
 						<t t-set="parent_id" t-value="invoice.parentid"/>
 						<t t-set="categ_id" t-value="invoice.biller_id.activitycategoryid"/>
-																						
+
 						<t t-set="resp_fct" t-value="invoice.biller_id.activitycategoryid.po_resp_name"/>
 						<t t-set="resp_name" t-value="invoice.biller_id.activitycategoryid.po_resp_fct"/>
 						<t t-set="resp_sign" t-value="invoice.biller_id.activitycategoryid.po_sign"/>
 						<t t-set="resp_sign_img" t-value="invoice.biller_id.activitycategoryid.po_sign_img"/>
 						<t t-set="po_stamp" t-value="invoice.biller_id.activitycategoryid.po_stamp"/>
-							
+
 						<t t-set="resp2_fct" t-value="invoice.biller_id.activitycategoryid.po_resp2_name"/>
-						<t t-set="resp2_name" t-value="invoice.biller_id.activitycategoryid.po_resp2_fct"/>													
-						<t t-set="resp2_sign" t-value="invoice.biller_id.activitycategoryid.po_resp2_sign"/>												
+						<t t-set="resp2_name" t-value="invoice.biller_id.activitycategoryid.po_resp2_fct"/>
+						<t t-set="resp2_sign" t-value="invoice.biller_id.activitycategoryid.po_resp2_sign"/>
 						<t t-set="summary_invoice_title" t-value="'Facture(s) échue(s)'"/>
-						<t t-set="invoice_id" t-value="invoice.id"/>	
-						<t t-set="all_invoice_ids" t-value="invoice.parentid.invoice_ids.filtered(lambda r: r.balance &gt; 0.01 and not r.huissier)"/>	
-						<t t-set="summary_invoice_ids" t-value="invoice.parentid.invoice_ids.filtered(lambda r: r.balance &gt; 0.01 and r.is_echue() and not r.huissier)"/>													
-														
+						<t t-set="invoice_id" t-value="invoice.id"/>
+						<t t-set="all_invoice_ids" t-value="invoice.parentid.invoice_ids.filtered(lambda r: r.balance &gt; 0.01 and not r.huissier)"/>
+						<t t-set="summary_invoice_ids" t-value="invoice.parentid.invoice_ids.filtered(lambda r: r.balance &gt; 0.01 and r.is_echue() and not r.huissier)"/>
+
 						<div class="header">
 		        			<t t-foreach="invoice.activitycategoryid.invoice_detail_report_id.inline_report_ids.filtered(lambda r: r.section == 'a_header')" t-as="tmpl">
-				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">	         	    
+				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">
 			        				<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
 								</div>
 								<t t-if="tmpl.visibility == False">
 									<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
 								</t>
-							</t> 	
-			       		</div>				
+							</t>
+			       		</div>
 			        	<div class="page">
 			        		<t t-foreach="invoice.activitycategoryid.invoice_detail_report_id.inline_report_ids.filtered(lambda r: r.section == 'b_body')" t-as="tmpl">
-				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">	         	    
+				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">
 			        				<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
 								</div>
 								<t t-if="tmpl.visibility == False">
 									<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
 								</t>
-							</t> 	    
+							</t>
 			       		</div>
 			        	<div class="footer">
 			        		<t t-foreach="invoice.activitycategoryid.invoice_detail_report_id.inline_report_ids.filtered(lambda r: r.section == 'c_footer')" t-as="tmpl">
-				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">	         	    
+				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">
 			        				<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
 								</div>
 								<t t-if="tmpl.visibility == False">
 									<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
 								</t>
-							</t> 	    
+							</t>
 			       		</div>
 				    </t>
-				</div>				
-			</xpath>	
+				</div>
+			</xpath>
 		</template>
 	</data>
 	<data noupdate="1">
@@ -297,7 +263,7 @@
     		<field name="dpi">90</field>
 		</record>
 	</data>
-	<data>	
+	<data>
 		<report
 		    id="extraschool_invoice_detail"
 		    model="extraschool.invoice"
@@ -309,9 +275,8 @@
 
 		<record id="extraschool_invoice_detail" model="ir.actions.report.xml">
     		<field name="paperformat_id" ref="paperformat_aes_invoice_detail"/>
-		</record>		
-						
-	</data>	
-</openerp>	
-	
-	
+		</record>
+
+	</data>
+</openerp>
+

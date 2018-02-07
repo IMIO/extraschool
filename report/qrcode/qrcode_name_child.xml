@@ -33,6 +33,14 @@
                     width: 25mm;
                     height: 25mm;
                     }
+                .qrcode_logo {
+                    width: 33%;
+                    height: 57mm;
+                    display: inline-block;
+                    border: 1px hidden;
+                    float: right;
+                    position: relative;
+                    }
             </style>
                 <!--div are exteriorize to be able to construct the page and display it correctly. wkhtmltopdf needs divs-->
                 <img class="qrcode_img_logo" t-att-src="'data:image/jpeg;base64,%s' % img" />
@@ -70,10 +78,71 @@
                     width: 35mm;
                     height: 35mm;
                     }
+                .qrcode_logo {
+                    width: 33%;
+                    height: 57mm;
+                    display: inline-block;
+                    border: 1px hidden;
+                    float: right;
+                    position: relative;
+                    }
             </style>
                 <!--div are exteriorize to be able to construct the page and display it correctly. wkhtmltopdf needs divs-->
                 <img class="qrcode_img_logo" t-att-src="'data:image/jpeg;base64,%s' % img" />
 		</template>
+        <template id="report_qrcode_style">
+            <xpath expr="//head" position="inside">
+                <style type="text/css">
+                    body {
+                      font-family: arial !important;
+                    }
 
+                    body.container {
+                      margin: 0px 15mm 0px Opx;
+                      padding: 0px;
+                    }
+
+                    .header{
+                        padding-right: 15mm;
+                    }
+
+                    .page{
+                        padding-right: 0mm;
+                    }
+                    .page_logo {
+                        padding-left: 0mm;
+                        margin-left: 0mm;
+                        margin-right: 0mm;
+                    }
+                    .qrcode {
+                        width: 33%;
+                        height: 57mm;
+                        display: inline-block;
+                        float: left;
+                        position: relative;
+                    }
+                    .qrcode_logo {
+                        width: 33%;
+                        height: 57mm;
+                        display: inline-block;
+                        border: 1px hidden;
+                        float: right;
+                        position: relative;
+                    }
+                </style>
+
+	            <link href="/web/static/lib/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+		        <link href="/website/static/src/css/website.css" rel="stylesheet"/>
+		        <link href="/web/static/lib/fontawesome/css/font-awesome.css" rel="stylesheet"/>
+		        <style type="text/css">
+		            <t t-call="report.layout"/>
+		        </style>
+            </xpath>
+
+            <xpath expr="//head" position="inside">
+                <script src="/extraschool/static/src/js/pagination_hide.js"></script>
+            </xpath>
+
+		</template>
 	</data>
 </openerp>

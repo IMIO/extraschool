@@ -1,13 +1,13 @@
 <?xml version="1.0" ?>
 <openerp>
-	<data> 
+	<data>
 		<template id="report_invoice_std_body">
 		    <style type="text/css">
 		        .invoice_body{
 		    		width: 100%;
 		    		display: block;
 		    	}
-		    			    	
+
 				.invoice_body table {
 		    		width: 100%;
 					font-size:11px;
@@ -27,7 +27,7 @@
 				}
 
 			</style>
-						
+
         	<div class="invoice_body">
         		<table>
         			<tr>
@@ -41,20 +41,52 @@
 					</tr>
 	       			<t t-foreach="invoice.invoice_line_ids" t-as="invoice_line">
         				<tr>
-	       					<td><span t-field="invoice_line.activity_occurrence_id" /></td> 
-	       					<td><span t-field="invoice_line.childid" /></td> 
-	       					<td><span t-field="invoice_line.duration" /></td> 
-	       					<td><span t-field="invoice_line.period_duration" /></td> 
-	       					<td><span t-field="invoice_line.quantity" /></td> 
-	       					<td><span t-field="invoice_line.unit_price" /></td> 
-	       					<td><span t-field="invoice_line.total_price" /></td> 
+	       					<td><span t-field="invoice_line.activity_occurrence_id" /></td>
+	       					<td><span t-field="invoice_line.childid" /></td>
+	       					<td><span t-field="invoice_line.duration" /></td>
+	       					<td><span t-field="invoice_line.period_duration" /></td>
+	       					<td><span t-field="invoice_line.quantity" /></td>
+	       					<td><span t-field="invoice_line.unit_price" /></td>
+	       					<td><span t-field="invoice_line.total_price" /></td>
 	       				</tr>
-	        		</t> 	            			        			
+	        		</t>
         		</table>
        		</div>
 		</template>
+        <template id="report_invoice_style">
+            <xpath expr="//head" position="inside">
+	            <style type="text/css">
+					body {
+					  font-family: arial !important;
+					}
 
+					body.container {
+	            	  margin: 0px 15mm 0px Opx;
+	            	  padding: 0px;
+					}
+
+	            	.header{
+	            		padding-right: 15mm;
+	            	}
+
+	            	.page{
+	            		padding-right: 15mm;
+	            	}
+	            	.break{
+					    display: block;
+					    clear: both;
+					    page-break-after: always;
+	            	}
+	            </style>
+
+	            <link href="/web/static/lib/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+		        <link href="/website/static/src/css/website.css" rel="stylesheet"/>
+		        <link href="/web/static/lib/fontawesome/css/font-awesome.css" rel="stylesheet"/>
+            </xpath>
+        	<xpath expr="//head" position="inside">
+              <script src="/extraschool/static/src/js/pagination_hide.js"></script>
+            </xpath>
+		</template>
 	</data>
-</openerp>	
-	
-	
+</openerp>
+
