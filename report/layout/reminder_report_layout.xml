@@ -63,6 +63,7 @@
 						<t t-set="bank_city" t-value="reminder.reminders_journal_id.activity_category_id.bank_city"/>
 						<t t-set="com_struct" t-value="reminder.structcom"/>
                         <t t-set="reminder_type" t-value="reminder.reminders_journal_item_id.reminder_type_id.fees_type"/>
+                        <t t-set="name" t-value="reminder.reminders_journal_item_id.reminder_type_id.name"/>
 						<t t-set="total" t-value="reminder.amount"/>
 						<t t-set="fees" t-value="reminder.reminders_journal_item_id.reminder_type_id.fees_amount"/>
 						<t t-set="received" t-value="0"/>

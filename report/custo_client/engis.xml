@@ -1,0 +1,203 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+        <template id="report_invoice_summary_engis">
+			<t t-set="zz" t-value="0" />
+			<t t-foreach="summary_invoice_ids" t-as="summary_invoice">
+				<t t-if="summary_invoice.id != invoice_id">
+					<t t-set="zz" t-value="zz+1" />
+				</t>
+			</t>
+			<t t-if="zz" >
+			    <style type="text/css">
+			        #invoice_summary{
+			    		width: 100%;
+			    		display: block;
+			    		margin: 0cm 0cm 0cm 0cm;
+			    		page-break-inside: avoid;
+			    		text-align: justify;
+			    		text-justify: inter-word;
+			    		font-size: x-small;
+			    	}
+
+			    	#invoice_summary div.your_ref{
+			    		width: 100%;
+			    		padding: 5mm 0mm 5mm 0mm;
+			    		display: block;
+			    	}
+
+					#invoice_summary table {
+			    		width: 100%;
+						font-size:11px;
+						border-width: 1px;
+						border-collapse: collapse;
+					}
+					#invoice_summary table th {
+						border-width: 1px;
+						padding: 4px;
+						border-style: solid;
+						background-color: #dedede;
+					}
+					#invoice_summary table td {
+						border-width: 1px;
+						padding: 4px;
+						border-style: solid;
+					}
+
+					#invoice_summary table td.amount {
+			    		text-align: right;
+			    		width: 20%;
+					}
+
+                    #invoice_summary p {
+                        font-size: 14px;
+                        font-align: justify;
+                    }
+
+				</style>
+
+	        	<div id="invoice_summary" >
+	        		<h3><span t-esc="name" /></h3>
+	        		<p>Madame, Monsieur,<br/>
+                        A l'examen de votre dossier relatif à l'Accueil extrascolaire, il ressort que vous restez redevable
+envers la               Commune des sommes ci-après.
+                    </p>
+	        		<table>
+	        			<tr>
+		        			<th>Période</th>
+		        			<th>Facture</th>
+		        			<th>Echéance</th>
+							<th>Montant</th>
+						</tr>
+		       			<t t-foreach="summary_invoice_ids.sorted(key=lambda r: r.number)" t-as="summary_invoice">
+	        				<tr>
+	        					<t t-if="summary_invoice.id != invoice_id">
+	        					<t t-if="summary_invoice.reminder_fees == False">
+	        						<tr>
+				       					<td><span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_from,'%Y-%m-%d')))" /> - <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_to,'%Y-%m-%d')))" /></td>
+			        					<td><span t-field="summary_invoice.number" /></td>
+				       					<td><span t-field="summary_invoice.payment_term" /></td>
+				       					<td class="amount"><span t-esc="'%.2f €' %  (summary_invoice.balance)" /></td>
+
+	        						</tr>
+								</t>
+	        					<t t-if="summary_invoice.reminder_fees == True">
+	        						<t t-foreach="summary_invoice.invoice_line_ids" t-as="invoice_line">
+	        							<tr>
+					       					<td></td>
+				        					<td><span t-field="invoice_line.description" /></td>
+					       					<td><span t-field="summary_invoice.payment_term" /></td>
+											<td class="amount"><span t-esc="'%.2f €' %  (summary_invoice.balance)" /></td>
+				       					</tr>
+	        						</t>
+								</t>
+								</t>
+		       				</tr>
+		        		</t>
+
+	        		</table>
+	       		</div>
+			</t>
+
+		</template>
+        <template id="report_invoice_summary_engis_2">
+			<t t-set="zz" t-value="0" />
+			<t t-foreach="summary_invoice_ids" t-as="summary_invoice">
+				<t t-if="summary_invoice.id != invoice_id">
+					<t t-set="zz" t-value="zz+1" />
+				</t>
+			</t>
+			<t t-if="zz" >
+			    <style type="text/css">
+			        #invoice_summary{
+			    		width: 100%;
+			    		display: block;
+			    		margin: 0cm 0cm 0cm 0cm;
+			    		page-break-inside: avoid;
+			    		text-align: justify;
+			    		text-justify: inter-word;
+			    		font-size: x-small;
+			    	}
+
+			    	#invoice_summary div.your_ref{
+			    		width: 100%;
+			    		padding: 5mm 0mm 5mm 0mm;
+			    		display: block;
+			    	}
+
+					#invoice_summary table {
+			    		width: 100%;
+						font-size:11px;
+						border-width: 1px;
+						border-collapse: collapse;
+					}
+					#invoice_summary table th {
+						border-width: 1px;
+						padding: 4px;
+						border-style: solid;
+						background-color: #dedede;
+					}
+					#invoice_summary table td {
+						border-width: 1px;
+						padding: 4px;
+						border-style: solid;
+					}
+
+					#invoice_summary table td.amount {
+			    		text-align: right;
+			    		width: 20%;
+					}
+
+                    #invoice_summary p {
+                        font-size: 14px;
+                        font-align: justify;
+                    }
+
+				</style>
+
+	        	<div id="invoice_summary" >
+	        		<h3><span t-esc="name" /></h3>
+	        		<p>Madame, Monsieur,<br/>
+                        Malgré un premier rappel, vous êtes toujours redevable des sommes reprises ci-dessous
+                        auxquelles s'ajoutent des frais de rappel de 7 euros.
+                    </p>
+	        		<table>
+	        			<tr>
+		        			<th>Période</th>
+		        			<th>Facture</th>
+		        			<th>Echéance</th>
+							<th>Montant</th>
+						</tr>
+		       			<t t-foreach="summary_invoice_ids.sorted(key=lambda r: r.number)" t-as="summary_invoice">
+	        				<tr>
+	        					<t t-if="summary_invoice.id != invoice_id">
+	        					<t t-if="summary_invoice.reminder_fees == False">
+	        						<tr>
+				       					<td><span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_from,'%Y-%m-%d')))" /> - <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_to,'%Y-%m-%d')))" /></td>
+			        					<td><span t-field="summary_invoice.number" /></td>
+				       					<td><span t-field="summary_invoice.payment_term" /></td>
+				       					<td class="amount"><span t-esc="'%.2f €' %  (summary_invoice.balance)" /></td>
+
+	        						</tr>
+								</t>
+	        					<t t-if="summary_invoice.reminder_fees == True">
+	        						<t t-foreach="summary_invoice.invoice_line_ids" t-as="invoice_line">
+	        							<tr>
+					       					<td></td>
+				        					<td><span t-field="invoice_line.description" /></td>
+					       					<td><span t-field="summary_invoice.payment_term" /></td>
+											<td class="amount"><span t-esc="'%.2f €' %  (summary_invoice.balance)" /></td>
+				       					</tr>
+	        						</t>
+								</t>
+								</t>
+		       				</tr>
+		        		</t>
+
+	        		</table>
+	       		</div>
+			</t>
+
+		</template>
+    </data>
+</openerp>
