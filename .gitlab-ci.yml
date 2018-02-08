@@ -1,4 +1,6 @@
 before_script:
+    - cd ~/.ssh
+    - ls -l
     - apt-get update
     - apt-get install -y curl
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
