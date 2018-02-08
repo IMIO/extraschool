@@ -1,12 +1,13 @@
-before script:
+before_script:
     - apt-get update
     - git clone -b scaffolding ssh://git@gitlab.imio.be:10022/odoo/docker-odoo-base.git
     - cd docker-odoo-base
 
 stages:
-    - build
+  - build
 
 build:
-    stage: build
-    script:
-      - docker-compose -f prod.yaml build
+  stage: build
+  script:
+    - docker-compose -f prod.yaml build
+
