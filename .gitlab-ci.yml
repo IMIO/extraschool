@@ -1,6 +1,13 @@
 before_script:
     - apt-get update
-    - git clone -b scaffolding http://gitlab.imio.be:10080/odoo/docker-odoo-base.git
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - mkdir -p ~/.ssh
+    - echo "$EXTRASCHOOL_PRIVATE_KEY" > ssh.priv
+    - chmod 600 ssh.priv
+    - cat ssh.priv
+
+    - git clone -b scaffolding ssh://git@gitlab.imio.be:10022/odoo/docker-odoo-base.git
     - cd docker-odoo-base
 
 stages:
