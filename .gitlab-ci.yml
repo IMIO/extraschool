@@ -9,7 +9,7 @@ before_script:
     - echo "$EXTRASCHOOL_PRIVATE_KEY" > ssh.priv
     - chmod 600 ssh.priv
     - cat ssh.priv
-    - ssh -T http://extraschool@gitlab.imio.be
+    - ssh -T gitlab.imio.be
     - git clone -b scaffolding http://gitlab.imio.be:10080/odoo/docker-odoo-base.git
     - cd docker-odoo-base
 
