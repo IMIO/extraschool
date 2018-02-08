@@ -7,8 +7,8 @@ before_script:
     - echo "$EXTRASCHOOL_PRIVATE_KEY" > ssh.priv
     - chmod 600 ssh.priv
     - cat ssh.priv
-    - ssh-add ~/.ssh/ssh.priv
-    - git clone -b scaffolding ssh://git@gitlab.imio.be:10022/odoo/docker-odoo-base.git
+    - ssh-add ssh.priv
+    - git clone -b scaffolding ssh://extraschool@gitlab.imio.be:10022/odoo/docker-odoo-base.git
     - cd docker-odoo-base
 
 stages:
