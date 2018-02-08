@@ -1,6 +1,6 @@
 before_script:
     - apt-get update
-    - git clone -b scaffolding ssh://git@gitlab.imio.be:10022/odoo/docker-odoo-base.git
+    - git clone -b scaffolding http://gitlab.imio.be:10080/odoo/docker-odoo-base.git
     - cd docker-odoo-base
 
 stages:
