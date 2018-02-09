@@ -7,7 +7,7 @@ before_script:
 
 stages:
   - build
-#  - deploy
+  - staging
 
 build:
   stage: build
@@ -16,8 +16,8 @@ build:
     - cd docker-odoo-base
     - docker-compose -f prod.yaml build
 
-deploy:
-  stage: deploy
+staging:
+  stage: staging
   script:
     - docker tag dockerodoobase_odoo docker-staging.imio.be/extraschool-v9
     - docker push docker-staging.imio.be/extraschool-v9:latest
