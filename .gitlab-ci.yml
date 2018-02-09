@@ -7,7 +7,7 @@ before_script:
 
 stages:
   - build
-  - deploy
+#  - deploy
 
 build:
   stage: build
@@ -15,6 +15,8 @@ build:
     - git clone -b scaffolding http://gitlab.imio.be:10080/odoo/docker-odoo-base.git
     - cd docker-odoo-base
     - docker-compose -f prod.yaml build
+    - docker tag dockerodoobase_odoo docker-staging.imio.be/extraschool-v9
+    - docker push docker-staging.imio.be/extraschool-v9:latest
 
 deploy:
   stage: deploy
