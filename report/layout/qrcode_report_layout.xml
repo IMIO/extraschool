@@ -87,14 +87,14 @@
 		</record>
 	</data>
 	<data>
-		<!--<report-->
-		    <!--id="extraschool_qrcode_std"-->
-		    <!--model="extraschool.child"-->
-		    <!--string="QRCODE"-->
-		    <!--report_type="qweb-pdf"-->
-		    <!--name="extraschool.qrcode_report_layout"-->
-		    <!--attachment_use="False"-->
-		<!--/>-->
+		<report
+		    id="extraschool_qrcode_std"
+		    model="extraschool.child"
+		    string="QRCODE"
+		    report_type="qweb-pdf"
+		    name="extraschool.qrcode_report_layout"
+		    attachment_use="False"
+		/>
 
 		<record id="extraschool_qrcode_std" model="ir.actions.report.xml">
     		<field name="paperformat_id" ref="paperformat_aes_qrcode"/>
