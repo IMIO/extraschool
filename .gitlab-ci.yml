@@ -22,5 +22,3 @@ staging:
   script:
     - docker tag dockerodoobase_odoo docker-staging.imio.be/extraschool-v9
     - docker push docker-staging.imio.be/extraschool-v9:latest
-    - mco ping -C "/role::docker::extraschool::instances$/" -I /staging/
-  when: manual
