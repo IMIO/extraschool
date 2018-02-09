@@ -16,9 +16,14 @@ before_script:
 
 stages:
   - build
+  - deploy
 
 build:
   stage: build
   script:
     - docker-compose -f prod.yaml build
 
+deploy:
+  stage: deploy
+  script:
+    - docker images
