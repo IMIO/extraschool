@@ -27,5 +27,6 @@ staging:
 promote:
   stage: promote
   script:
+    - docker tag dockerodoobase_odoo docker-prod.imio.be/extraschool-v9
     - docker push docker-prod.imio.be/extraschool-v9:latest
   when: manual
