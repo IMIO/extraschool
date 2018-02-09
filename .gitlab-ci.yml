@@ -18,10 +18,10 @@ build:
     - docker tag dockerodoobase_odoo docker-staging.imio.be/extraschool-v9
     - docker push docker-staging.imio.be/extraschool-v9:latest
 
-deploy:
-  stage: deploy
-  script:
-    - ls -l
-    - cd docker-odoo-base
-    - ls -l
-    - docker images
+#deploy:
+#  stage: deploy
+#  script:
+#    - ls -l
+#    - cd docker-odoo-base
+#    - ls -l
+#    - docker images
