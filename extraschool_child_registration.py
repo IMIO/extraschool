@@ -183,7 +183,7 @@ class extraschool_child_registration(models.Model):
                                                            ('levelid.id', '=',self.levelid.id),
                                                            ('isdisabled', '=', False),
                                                            ])
-        if self.select_per_level:
+        '''if self.select_per_level:
             if self.select_per_level == 'primaire':
                 level_ids = self.env['extraschool.level'].search([('leveltype', '=', 'P')])
             else:
@@ -197,7 +197,7 @@ class extraschool_child_registration(models.Model):
         else:
             childs = self.env['extraschool.child'].search([('schoolimplantation.id', '=', self.school_implantation_id.id),
                                                            ('isdisabled', '=', False),
-                                                           ])
+                                                           ])'''
 
         self.child_registration_line_ids.unlink()
         #clear child list
