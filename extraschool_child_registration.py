@@ -172,6 +172,9 @@ class extraschool_child_registration(models.Model):
     @api.one
     def update_child_list(self):
         print "update_child_list"
+        childs = self.env['extraschool.child'].search([('schoolimplantation.id', '=', self.school_implantation_id.id),
+                                                       ('isdisabled', '=', False),
+                                                       ])
 
         if self.class_id:
             childs = self.env['extraschool.child'].search([('schoolimplantation.id', '=', self.school_implantation_id.id),
