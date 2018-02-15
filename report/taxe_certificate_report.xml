@@ -95,7 +95,7 @@
 								<li>Nom et prénom de l'enfant : <span t-field="attest.child_id.firstname" /> <span t-field="attest.child_id.lastname" /> (<span t-field="attest.child_id.schoolimplantation.name" /> - <span t-field="attest.child_id.classid.name" />)</li>
 								<li>Date de naissance de l'enfant : <span t-field="attest.child_id.birthdate" /> </li>
 								<li>Période pendant laquelle l'enfant a été gardé (1) : 
-									<div class="row">du 01/01/2016 au 31/12/2016</div>
+									<div class="row">du 01/01/2017 au 31/12/2017</div>
 								</li>
 								<li>Nombre de jours de garde :  <t t-esc="attest.nbr_day"/> </li>
 								<li>Tarif journalier (2) : </li>
