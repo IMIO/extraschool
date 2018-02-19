@@ -172,35 +172,25 @@ class extraschool_child_registration(models.Model):
     @api.one
     def update_child_list(self):
         print "update_child_list"
-        childs = self.env['extraschool.child'].search([('schoolimplantation.id', '=', self.school_implantation_id.id),
-                                                       ('isdisabled', '=', False),
-                                                       ])
 
+        search_domain = [('schoolimplantation.id', '=', self.school_implantation_id.id),
+                         ('isdisabled', '=', False),
+                         ]
         if self.class_id:
-            childs = self.env['extraschool.child'].search([('schoolimplantation.id', '=', self.school_implantation_id.id),
-                                                           ('classid.id', '=',self.class_id.id),
-                                                           ('isdisabled', '=', False),
-                                                           ])
-        if self.levelid:
-            childs = self.env['extraschool.child'].search([('schoolimplantation.id', '=', self.school_implantation_id.id),
-                                                           ('levelid.id', '=',self.levelid.id),
-                                                           ('isdisabled', '=', False),
-                                                           ])
-        '''if self.select_per_level:
+            search_domain += [('classid.id', '=',self.class_id.id) ]
+
+        elif self.levelid:
+            search_domain += [('levelid.id', '=',self.levelid.id)]
+
+        elif self.select_per_level:
             if self.select_per_level == 'primaire':
                 level_ids = self.env['extraschool.level'].search([('leveltype', '=', 'P')])
             else:
                 level_ids = self.env['extraschool.level'].search([('leveltype', '=', 'M')])
 
-            childs = self.env['extraschool.child'].search(
-                [('schoolimplantation.id', '=', self.school_implantation_id.id),
-                 ('levelid.id', 'in', level_ids.ids),
-                 ('isdisabled', '=', False),
-                 ])
-        else:
-            childs = self.env['extraschool.child'].search([('schoolimplantation.id', '=', self.school_implantation_id.id),
-                                                           ('isdisabled', '=', False),
-                                                           ])'''
+            search_domain += [('levelid.id', 'in', level_ids.ids)]
+
+        childs = self.env['extraschool.child'].search(search_domain)
 
         self.child_registration_line_ids.unlink()
         #clear child list
