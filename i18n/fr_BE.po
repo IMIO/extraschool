@@ -39099,7 +39099,7 @@ msgstr "There is no next reminder."
 #: code:addons/extraschool/extraschool_invoice_wizard.py:382
 #, python-format
 msgid "There is no presta to invoice !!!"
-msgstr "Il n'y a pas de présences à facturer ! Le facturier de cette période à peut être déjà été générer"
+msgstr "Il n'y a pas de présences à facturer ! Le facturier de cette période a peut-être déjà été généré"
 
 #. module: extraschool
 #: code:addons/extraschool/extraschool_parent.py:179
