@@ -1,49 +1,13 @@
 <?xml version="1.0" ?>
 <openerp>
     <data>
-		<template id="report_adresse_no_style_ferrieres">
-		    <style type="text/css">
-		        .aes_adresse{
-		    		width: 100%;
-		    		display: block;
-		    	}
-
-		    	.aes_adresse::after {
-   				   clear: both;
-				    content: "";
-				    display: block;
-				}
-
-		    	.customer{
-		    		float: left;
-		    		width: 40%;
-		    	}
-
-		    	.po{
-		    		float: left;
-		    		width: 40%;
-		    	}
-
-		    	.customer{
-		    		float: right;
-		    		font-size:12px;
-		    	}
-
-				.aes_adresse_block > span{
-		    		display: block;
-		    		clear: both;
-		    	}
-
-			</style>
-	    	<div class="aes_adresse">
-				<div id="aes_po_adresse" class="aes_adresse_block po">
-					<span t-field="po_addresse.po_street" />
-					<span><t t-esc="po_addresse.po_zipcode" /> <t t-esc="po_addresse.po_city" /></span>
-					<span t-field="po_addresse.po_email" />
-					<span t-field="po_addresse.po_tel" />
+		<template id="report_adresse_no_style_ferrieres" inherit_id="extraschool.report_adresse_no_style" primary="True">
+			<xpath expr="//div[@id='aes_po_adresse']" position="replace">
+				<div class="aes_adresse_block po" id="aes_po_adresse">
 					<span t-raw="po_addresse.po_addresse_free_text" />
 				</div>
-
+			</xpath>
+			<xpath expr="//div[@class='aes_adresse_block customer']" position="replace">
 				<div class="aes_adresse_block customer">
                     <span t-field="addresse.name"/>
                     <span>(Famille: <t t-raw="child_id.childid.lastname"/>)</span>
@@ -51,7 +15,7 @@
 					<span t-field="addresse.street" />
 					<span><t t-esc="addresse.zipcode" /> <t t-esc="addresse.city" /></span>
 				</div>
-			</div>
+			</xpath>
 		</template>
     </data>
 </openerp>
