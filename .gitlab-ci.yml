@@ -7,7 +7,6 @@ stages:
 test:
   stage: test
   script:
-    - /opt/puppetlabs/bin/mco ping
     - mco ping
 
 #build:
