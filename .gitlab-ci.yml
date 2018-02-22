@@ -1,32 +1,27 @@
 stages:
   - test
-#  - build
-#  - staging
-#  - promote
+  - build
+  - staging
+  - promote
 
-test:
-  stage: test
+build:
+  stage: build
   script:
-    - mco ping
-
-#build:
-#  stage: build
-#  script:
-#    - git clone -b scaffolding http://gitlab.imio.be:10080/odoo/docker-odoo-base.git
-#    - cd docker-odoo-base
+    - git clone -b scaffolding http://gitlab.imio.be:10080/odoo/docker-odoo-base.git
+    - cd docker-odoo-base
+    - sudo aptttt-ee
 #    - docker-compose -f prod.yaml build --no-cache
-#
-#staging:
-#  stage: staging
-#  script:
-#    - docker tag dockerodoobase_odoo docker-staging.imio.be/extraschool-v9
-#    - docker push docker-staging.imio.be/extraschool-v9:latest
-#    - mco ping
-#  when: on_success
-#
-#promote:
-#  stage: promote
-#  script:
-#    - docker tag dockerodoobase_odoo docker-prod.imio.be/extraschool-v9
-#    - docker push docker-prod.imio.be/extraschool-v9:latest
-#  when: manual
+
+staging:
+  stage: staging
+  script:
+    - docker tag dockerodoobase_odoo docker-staging.imio.be/extraschool-v9
+    - docker push docker-staging.imio.be/extraschool-v9:latest
+  when: on_success
+
+promote:
+  stage: promote
+  script:
+    - docker tag dockerodoobase_odoo docker-prod.imio.be/extraschool-v9
+    - docker push docker-prod.imio.be/extraschool-v9:latest
+  when: manual
