@@ -9,14 +9,14 @@ build:
   script:
     - git clone -b scaffolding http://gitlab.imio.be:10080/odoo/docker-odoo-base.git
     - cd docker-odoo-base
-    - sudo aptttt-ee
-#    - docker-compose -f prod.yaml build --no-cache
+    - docker-compose -f prod.yaml build --no-cache
 
 staging:
   stage: staging
   script:
     - docker tag dockerodoobase_odoo docker-staging.imio.be/extraschool-v9
     - docker push docker-staging.imio.be/extraschool-v9:latest
+    - mco ping -C "/role::docker::extraschool::instances$/" -I /staging/
   when: on_success
 
 promote:
