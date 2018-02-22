@@ -48,6 +48,7 @@ class extraschool_child_registration(models.Model):
 
     school_implantation_id = fields.Many2one('extraschool.schoolimplantation', required=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
     class_id = fields.Many2one('extraschool.class', readonly=True, states={'draft': [('readonly', False)]}, domain="[('schoolimplantation','=',school_implantation_id)]", track_visibility='onchange')
+    class_id_button = fields.Boolean(track_visibility='onchange', readonly="True", invisible='True', default='False')
     place_id = fields.Many2one('extraschool.place', required=True, readonly=True, states={'draft': [('readonly', False)]}, domain="[('schoolimplantation_ids','in',school_implantation_id)]", track_visibility='onchange')
     activity_id = fields.Many2one('extraschool.activity', readonly=True, states={'draft': [('readonly', False)]}, domain="[('placeids','in',place_id)]", track_visibility='onchange')
     week = fields.Integer('Week', required=True, readonly=True, states={'draft': [('readonly', False)]}, help='Afin de trouver le bon numéro de semaine, Veuillez vous aider du champs situé juste en dessous afin de trouver le numéro de semaine. Une fois le numéro mis, l\'application recherchera et encodera toute seule les bonnes dates du numéro de semaine (Du lundi au vendredi)', track_visibility='onchange')
@@ -64,8 +65,38 @@ class extraschool_child_registration(models.Model):
                               )
     number_childs = fields.Char('Number of childs', readonly=True, default=0, track_visibility='onchange')
     levelid = fields.Many2one('extraschool.level', 'Level', track_visibility='onchange')
+    levelid_button = fields.Boolean(track_visibility='onchange', readonly="True", invisible='True', default='False')
     warning_biller = fields.Char('WARNING', default="WARNING, Il y a un facturier à cette date, si la personne responsable des factures n'est pas au courant de cet ajout, cela ne sera pas pris en compte ! ", readonly=True)
     warning_visibility = fields.Boolean(track_visibility='onchange')
+    select_per_level = fields.Selection([
+        ('primaire', 'Primaire'),
+        ('maternelle', 'Maternelle'),
+    ])
+    select_per_level_button = fields.Boolean(track_visibility='onchange', readonly="True", invisible='True', default='False')
+
+    @api.onchange('class_id')
+    @api.multi
+    def check_class(self):
+        if self.class_id :
+            self.class_id_button = True
+        else :
+            self.class_id_button = False
+
+    @api.onchange('select_per_level')
+    @api.multi
+    def check_select_per_level(self):
+        if self.select_per_level:
+            self.select_per_level_button = True
+        else :
+            self.select_per_level_button = False
+
+    @api.onchange('levelid')
+    @api.multi
+    def check_levelid(self):
+        if self.levelid:
+            self.levelid_button = True
+        else :
+            self.levelid_button = False
 
     @api.onchange('date_to','date_from')
     @api.multi
@@ -169,20 +200,24 @@ class extraschool_child_registration(models.Model):
     def update_child_list(self):
         print "update_child_list"
 
+        search_domain = [('schoolimplantation.id', '=', self.school_implantation_id.id),
+                         ('isdisabled', '=', False),
+                         ]
         if self.class_id:
-            childs = self.env['extraschool.child'].search([('schoolimplantation.id', '=', self.school_implantation_id.id),
-                                                           ('classid.id', '=',self.class_id.id),
-                                                           ('isdisabled', '=', False),
-                                                           ])
-        if self.levelid:
-            childs = self.env['extraschool.child'].search([('schoolimplantation.id', '=', self.school_implantation_id.id),
-                                                           ('levelid.id', '=',self.levelid.id),
-                                                           ('isdisabled', '=', False),
-                                                           ])
-        else:
-            childs = self.env['extraschool.child'].search([('schoolimplantation.id', '=', self.school_implantation_id.id),
-                                                           ('isdisabled', '=', False),
-                                                           ])
+            search_domain += [('classid.id', '=',self.class_id.id) ]
+
+        elif self.levelid:
+            search_domain += [('levelid.id', '=',self.levelid.id)]
+
+        elif self.select_per_level:
+            if self.select_per_level == 'primaire':
+                level_ids = self.env['extraschool.level'].search([('leveltype', '=', 'P')])
+            else:
+                level_ids = self.env['extraschool.level'].search([('leveltype', '=', 'M')])
+
+            search_domain += [('levelid.id', 'in', level_ids.ids)]
+
+        childs = self.env['extraschool.child'].search(search_domain)
 
         self.child_registration_line_ids.unlink()
         #clear child list
@@ -467,19 +502,19 @@ class extraschool_child_registration_line(models.Model):
     child_lastname = fields.Char(related="child_id.lastname", store=True)
     child_level = fields.Char(related="child_id.levelid.name",string="Niveau", store=True)
     monday = fields.Boolean('Monday')    
-    monday_activity_id = fields.Many2one('extraschool.activity' ,string="Monday", domain="[('selectable_on_registration','=',True)]")
+    monday_activity_id = fields.Many2one('extraschool.activity' ,string="Monday", domain="[('selectable_on_registration_multi','=',True)]")
     tuesday = fields.Boolean('Tuesday')
-    tuesday_activity_id = fields.Many2one('extraschool.activity',string="Tuesday", domain="[('selectable_on_registration','=',True)]")
+    tuesday_activity_id = fields.Many2one('extraschool.activity',string="Tuesday", domain="[('selectable_on_registration_multi','=',True)]")
     wednesday = fields.Boolean('Wednesday')
-    wednesday_activity_id = fields.Many2one('extraschool.activity',string="Wednesday", domain="[('selectable_on_registration','=',True)]")
+    wednesday_activity_id = fields.Many2one('extraschool.activity',string="Wednesday", domain="[('selectable_on_registration_multi','=',True)]")
     thursday = fields.Boolean('Thursday')
-    thursday_activity_id = fields.Many2one('extraschool.activity',string="Thursday", domain="[('selectable_on_registration','=',True)]")
+    thursday_activity_id = fields.Many2one('extraschool.activity',string="Thursday", domain="[('selectable_on_registration_multi','=',True)]")
     friday = fields.Boolean('Friday')
-    friday_activity_id = fields.Many2one('extraschool.activity',string="Friday", domain="[('selectable_on_registration','=',True)]")
+    friday_activity_id = fields.Many2one('extraschool.activity',string="Friday", domain="[('selectable_on_registration_multi','=',True)]")
     saturday = fields.Boolean('Saturday')
-    saturday_activity_id = fields.Many2one('extraschool.activity',string="Saturday", domain="[('selectable_on_registration','=',True)]")
+    saturday_activity_id = fields.Many2one('extraschool.activity',string="Saturday", domain="[('selectable_on_registration_multi','=',True)]")
     sunday = fields.Boolean('Sunday')
-    sunday_activity_id = fields.Many2one('extraschool.activity',string="Sunday", domain="[('selectable_on_registration','=',True)]")
+    sunday_activity_id = fields.Many2one('extraschool.activity',string="Sunday", domain="[('selectable_on_registration_multi','=',True)]")
     error_duplicate_reg_line = fields.Boolean(string="Error", default = False)
     
     def child_must_be_printed(self):

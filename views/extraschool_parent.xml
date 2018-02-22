@@ -190,6 +190,7 @@
                 <search string="Parent Search">
                     <field name="name"/>
                     <field name="comstruct"/>
+                    <field name="email"/>
                     <filter string="Actif" name="actif" icon="terp-accessories-archiver" domain="[('isdisabled','=',False)]"/>
                 </search>
             </field>

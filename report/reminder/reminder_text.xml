@@ -5,12 +5,9 @@
 		    <style type="text/css">
 		        .reminder_body{
 		    		width: 100%;
-		    		display: block;
+					font-size: 14px;
+                    text-align: justify;
 		    	}
-		    			    	
-				.reminder_body {
-					font-size: 11px;
-				}
 
 			</style>
 						

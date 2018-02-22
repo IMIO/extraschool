@@ -1,75 +1,7 @@
 <?xml version="1.0" ?>
 <openerp>
-	<data> 		
-		
-		<template id="report_hannut_body_style">	
-			<style type="text/css">			
-			body {
-			  font-family:Calibri !important;  
-			  src: url('/extraschool/static/font/calibri.ttf')  format('truetype');
-			  text-align: justify;  
-			  text-justify: inter-word;	            	 	  
-			}
-			</style>
-		</template>
-		
-		<template id="report_hannut_all_invoice_summary" inherit_id="extraschool.report_all_invoice_summary" primary="True">
-			<xpath expr="//div[@id='invoice_summary']" position="before">	
-				<style type="text/css">		
-					div#invoice_summary h2{
-		    			font-size:12px;
-		    		}
-					div#invoice_summary p{
-		    			font-size:9px;
-		    		}
-					div#invoice_summary p{
-		    			font-size: 12px;
-		    		}
-				</style>
-			</xpath>
-			
-			<xpath expr="//div[@id='invoice_summary']/p[1]" position="inside">
-				<span> Les éventuels recouvrements qui seraient à charge d’un huissier ne sont
-pas pris en compte sur le présent document. Toute réclamation relative à la facture doit être transmise à l’asbl
-L’Eveil avant la date d'échéance. Toute facture non contestée est considérée comme acceptée.</span> 
-			</xpath>		
-		</template>
-
-		<template id="report_hannut_report_parent_credit" inherit_id="extraschool.report_parent_credit" primary="True">
-			<xpath expr="//div[@id='aes_html_parent_credit']" position="replace">	
-		    	<div class="aes_html_parent_credit">
-					<h4>Pour rappel,</h4>
-		    		<p>Votre compte famille présente    
-		    			<t t-if="parent_id.totalbalance > 0.001">
-		    				<span class="aes_credit_solde">un solde à payer de <t t-esc="'%.2f' %  (parent_id.totalbalance)" />€</span>	    				
-		    			</t> 
-		    			<t t-if="parent_id.totalbalance &lt; 0.001">
-		    				<span class="aes_credit_solde">une avance de <t t-esc="'%.2f' %  (parent_id.payment_status_ids[0].solde)" />€</span>	    				
-		    			</t> 	    				    				    			
-		    		</p> 							
-		    					
-				</div>				
-			</xpath>		
-		</template>
-
-		<template id="report_dour_report_parent_credit" inherit_id="extraschool.report_parent_credit" primary="True">
-			<xpath expr="//div[@id='aes_html_parent_credit']" position="replace">
-		    	<div class="aes_html_parent_credit">
-					<h4>Pour rappel,</h4>
-		    		<p>Votre compte famille présente
-		    			<t t-if="parent_id.totalbalance > 0.001">
-		    				<span class="aes_credit_solde">un solde à payer de <t t-esc="'%.2f' %  (parent_id.totalbalance - balance )" />€</span>
-		    			</t>
-		    			<t t-if="parent_id.totalbalance &lt; 0.001">
-		    				<span class="aes_credit_solde">une avance de <t t-esc="'%.2f' %  (parent_id.payment_status_ids[0].solde)" />€</span>
-		    			</t>
-		    		</p>
-
-				</div>
-			</xpath>
-		</template>
-
-        <template id="report_invoice_summary_hannut">
+    <data>
+        <template id="report_invoice_summary_engis">
 			<t t-set="zz" t-value="0" />
 			<t t-foreach="summary_invoice_ids" t-as="summary_invoice">
 				<t t-if="summary_invoice.id != invoice_id">
@@ -117,18 +49,18 @@ L’Eveil avant la date d'échéance. Toute facture non contestée est considér
 			    		width: 20%;
 					}
 
-					div#invoice_summary h2{
-			    		font-size: 12px;
-			    		font-weight: bold;
-			    	}
+                    #invoice_summary p {
+                        font-size: 14px;
+                        font-align: justify;
+                    }
 
 				</style>
 
 	        	<div id="invoice_summary" >
-	        		<h2><span t-esc="reminder.reminders_journal_id.name" /></h2>
-	        		<p>Madame, Monsieur, Chers Parents,<br/>
-                        Nous constatons que vous n'avez pas réglé votre/vos facture(s) de l'accueil extrascolaire.
-                        Vous trouverez ci-dessous le détail de celle(s)-ci concernant la période mentionnée et l'ajout de <b>3 €</b> de frais administratifs.
+	        		<h3><span t-esc="name" /></h3>
+	        		<p>Madame, Monsieur,<br/>
+                        A l'examen de votre dossier relatif à l'Accueil extrascolaire, il ressort que vous restez redevable
+envers la               Commune des sommes ci-après.
                     </p>
 	        		<table>
 	        			<tr>
@@ -168,9 +100,7 @@ L’Eveil avant la date d'échéance. Toute facture non contestée est considér
 			</t>
 
 		</template>
-
-
-		<template id="report_invoice_summary_ferrieres">
+        <template id="report_invoice_summary_engis_2">
 			<t t-set="zz" t-value="0" />
 			<t t-foreach="summary_invoice_ids" t-as="summary_invoice">
 				<t t-if="summary_invoice.id != invoice_id">
@@ -180,11 +110,13 @@ L’Eveil avant la date d'échéance. Toute facture non contestée est considér
 			<t t-if="zz" >
 			    <style type="text/css">
 			        #invoice_summary{
+			    		width: 100%;
 			    		display: block;
 			    		margin: 0cm 0cm 0cm 0cm;
 			    		page-break-inside: avoid;
 			    		text-align: justify;
 			    		text-justify: inter-word;
+			    		font-size: x-small;
 			    	}
 
 			    	#invoice_summary div.your_ref{
@@ -216,12 +148,18 @@ L’Eveil avant la date d'échéance. Toute facture non contestée est considér
 			    		width: 20%;
 					}
 
+                    #invoice_summary p {
+                        font-size: 14px;
+                        font-align: justify;
+                    }
+
 				</style>
 
 	        	<div id="invoice_summary" >
-	        		<p>Madame, Monsieur,<br/><br/>
-						À ce jour, je n'ai toujours pas reçu le versement correspondant aux factures d'accueil extra-scolaire suivantes dont vous êtes
-						redevable envers la Commune de Ferrières :<br/><br/>
+	        		<h3><span t-esc="name" /></h3>
+	        		<p>Madame, Monsieur,<br/>
+                        Malgré un premier rappel, vous êtes toujours redevable des sommes reprises ci-dessous
+                        auxquelles s'ajoutent des frais de rappel de 7 euros.
                     </p>
 	        		<table>
 	        			<tr>
@@ -261,7 +199,5 @@ L’Eveil avant la date d'échéance. Toute facture non contestée est considér
 			</t>
 
 		</template>
-
-								
-	</data>
-</openerp>	
+    </data>
+</openerp>

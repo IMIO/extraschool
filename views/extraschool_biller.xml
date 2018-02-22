@@ -24,7 +24,7 @@
 			<field name="model">extraschool.biller</field>
 			<field name="type">form</field>
 			<field name="arch" type="xml">
-				<form string="Biller">
+				<form string="Biller" create="false">
 					<header>
 						<button name="export_onyx" string="export onyx" type="object" class="oe_highlight" groups="base.group_erp_manager"/>	
 						<button name="generate_pdf" string="generate_pdf" type="object" class="oe_highlight" groups="base.group_erp_manager"/>

@@ -28,6 +28,7 @@ class extraschool_place(models.Model):
     _name = 'extraschool.place'
     _description = 'Schoolcare Place'
 
+    active = fields.Boolean('Active', default=True)
     name = fields.Char('Name', size=50)
     street = fields.Char('Street', size=50)
     zipcode = fields.Char('ZipCode', size=6)

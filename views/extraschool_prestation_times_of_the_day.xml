@@ -20,7 +20,7 @@
 			<field name="model">extraschool.prestation_times_of_the_day</field>
 			<field name="type">form</field>
 			<field name="arch" type="xml">
-				<form string="prestation_times_of_the_day">
+				<form string="prestation_times_of_the_day" create="false">
 					<header>
 						<button name="reset" group="admin" string="Reset" icon="gtk-apply" type="object" />	                    
 						<button name="check" group="admin" string="Check" icon="gtk-apply" type="object" />

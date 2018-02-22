@@ -43,6 +43,7 @@
 						<t t-set="addresse" t-value="invoice.parentid"/>
 						<t t-set="po_addresse" t-value="invoice.biller_id.activitycategoryid"/>
 
+						<t t-set="child_id" t-value="invoice.invoice_line_ids.filtered('childid')[0]"/>
 						<t t-set="parent_id" t-value="invoice.parentid"/>
 						<t t-set="categ_id" t-value="invoice.biller_id.activitycategoryid"/>
 

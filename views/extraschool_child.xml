@@ -47,7 +47,7 @@
 	                    <newline/>
 	                    <field name="childtypeid"  options="{'no_create':True}"/>
 	                    <newline/>
-	                    <field name="levelid"/>
+	                    <field name="levelid" options="{'no_create':True}"/>
 	                    <newline/>
 	                    <field name="classid"/>
 	                    <field name="birthdate"/>
