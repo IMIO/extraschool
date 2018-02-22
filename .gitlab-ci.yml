@@ -1,3 +1,6 @@
+after_script:
+  - docker rmi docker-staging.imio.be/extraschool-v9:latest
+
 stages:
   - test
   - build
@@ -10,13 +13,15 @@ build:
     - git clone -b scaffolding http://gitlab.imio.be:10080/odoo/docker-odoo-base.git
     - cd docker-odoo-base
     - docker-compose -f prod.yaml build --no-cache
+    - docker images
 
 staging:
   stage: staging
   script:
     - docker tag dockerodoobase_odoo docker-staging.imio.be/extraschool-v9
     - docker push docker-staging.imio.be/extraschool-v9:latest
-    - mco ping -C "/role::docker::extraschool::instances$/" -I /staging/
+    - mco shell run 'service docker-staging.imio.be/extraschool-v9 stop' -C /role::docker::extraschool::instances$/ -I /staging/
+    - mco shell run 'service docker-staging.imio.be/extraschool-v9l start' -C /role::docker::extraschool::instances$/ -I /staging/
   when: on_success
 
 promote:
