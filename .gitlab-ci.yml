@@ -16,7 +16,7 @@ staging:
   script:
     - docker tag dockerodoobase_odoo docker-staging.imio.be/extraschool-v9
     - docker push docker-staging.imio.be/extraschool-v9:latest
-    - mco shell run 'service stagingv9_extraschool-v9 stop' -C /role::docker::extraschool::instances$/ -I /staging/
+    - mco shell run 'service stagingv9_extraschool stop' -C /role::docker::extraschool::instances$/ -I /staging/
     - mco shell run 'service stagingv9_extraschool start' -C /role::docker::extraschool::instances$/ -I /staging/
     - docker rmi docker-staging.imio.be/extraschool-v9:latest
   when: on_success
