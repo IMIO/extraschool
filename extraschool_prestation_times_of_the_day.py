@@ -181,17 +181,20 @@ class extraschool_prestation_times_of_the_day(models.Model):
         activity_ids = []
         pod_to_delete = []
         activity_to_delete = 0
+        child_level = self.child_id.levelid.leveltype
 
         for presta in self.prestationtime_ids.sorted(key=lambda r: (r.prestation_time)):
             activity_ids.append(
                 [presta.activity_occurrence_id.activityid.prest_from, presta.activity_occurrence_id.activityid.prest_to,
                  presta.activity_occurrence_id.activityid.autoaddchilds, presta.id, presta.activity_occurrence_id.activityid.id,
-                 presta.activity_occurrence_id.name])
+                 presta.activity_occurrence_id.name,presta.activity_occurrence_id.activityid.leveltype])
 
         activity_ids = sorted(activity_ids, key=lambda activity: activity[0])
 
         for i in range(len(activity_ids)-1):
-            if not activity_to_delete and activity_ids[i][0] == activity_ids[i+1][0] and activity_ids[i][0] == activity_ids[i+1][0] and activity_ids[i][4] != activity_ids[i+1][4]:
+            if  activity_ids[i][6] != u'M,P' and activity_ids[i][6] != child_level:
+                activity_to_delete = activity_ids[i][4]
+            elif not activity_to_delete and activity_ids[i][0] == activity_ids[i+1][0] and activity_ids[i][0] == activity_ids[i+1][0] and activity_ids[i][4] != activity_ids[i+1][4]:
                 if activity_ids[i][2] == False:
                     activity_to_delete = activity_ids[i][4]
 
