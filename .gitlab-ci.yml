@@ -18,19 +18,23 @@ staging:
     - docker push docker-staging.imio.be/extraschool-v9:latest
     - mco shell run 'service stagingv9_extraschool stop' -C /role::docker::extraschool::instances$/ -I /staging/
     - mco shell run 'service stagingv9_extraschool start' -C /role::docker::extraschool::instances$/ -I /staging/
-    - docker rmi docker-staging.imio.be/extraschool-v9:latest
+    - docker rmi docker-staging.imio.be/extraschool-v9:latest dockerodoobase_odoo
   when: on_success
 
 promote-now:
   stage: promote
   script:
-    - docker tag dockerodoobase_odoo docker-prod.imio.be/extraschool-v9
+    - docker tag docker-staging.imio.be/extraschool-v9:latest docker-prod.imio.be/extraschool-v9:latest
     - docker push docker-prod.imio.be/extraschool-v9:latest
+    - docker rmi docker-staging.imio.be/extraschool-v9:latest docker-prod.imio.be/extraschool-v9:latest
+    - mco shell run 'docker pull docker-prod.imio.be/extraschool-v9:latest' -C /role::docker::extraschool::instances$/ -I /prod/
   when: manual
 
 promote-to-prod:
   stage: promote
   script:
-    - docker tag dockerodoobase_odoo docker-prod.imio.be/extraschool-v9
+    - docker tag docker-staging.imio.be/extraschool-v9:latest docker-prod.imio.be/extraschool-v9
     - docker push docker-prod.imio.be/extraschool-v9:latest
+    - docker rmi docker-staging.imio.be/extraschool-v9:latest docker-prod.imio.be/extraschool-v9:latest
+    - mco shell run 'docker pull docker-prod.imio.be/extraschool-v9:latest' -C /role::docker::extraschool::instances$/ -I /prod/
   when: manual
