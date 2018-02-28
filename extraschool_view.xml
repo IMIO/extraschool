@@ -43,7 +43,8 @@
         <menuitem name="Prestations" parent="extraschool_menu_prestations" id="extraschool_menu_prest_tree" action="action_extraschool_prest_tree" />
         <menuitem name="Encodage manuel" parent="extraschool_menu_prestations" id="extraschool_menu_prestation_times_encodage_manuel_tree" action="action_extraschool_prestation_times_encodage_manuel_tree" /> 
         <menuitem name="Prestations of the day" parent="extraschool_menu_prestations" id="extraschool_menu_prestation_times_of_the_day_tree" action="action_extraschool_prestation_times_of_the_day_tree" />
-        <menuitem name="Prestations stat" parent="extraschool_menu_prestations" id="extraschool_menu_presta_stat_tree" action="action_extraschool_presta_stat_tree" />        	        
+        <menuitem name="Prestations stat" parent="extraschool_menu_prestations" id="extraschool_menu_presta_stat_tree" action="action_extraschool_presta_stat_tree" />
+		<menuitem name="Activity stat" parent="extraschool_menu_prestations" id="extraschool_menu_stat_activity_tree" action="action_extraschool_stat_activity_tree" />
         <menuitem name="Documents" id="extraschool_menu_documents" parent="menu_extraschool" sequence="40"/>
         <menuitem action="action_lbsc_invoice_wizard" id="extraschool_menu_invoice_wizard" parent="extraschool_menu_documents"/>
         <menuitem action="action_extraschool_invoices" id="extraschool_menu_invoice" parent="extraschool_menu_documents"/>

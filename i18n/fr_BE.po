@@ -18046,6 +18046,7 @@ msgstr "Check to attach the newly created record to the record on which the serv
 #: view:extraschool.prestation_times_of_the_day:extraschool.prestation_times_of_the_day_search_view
 #: field:extraschool.prestationtimes,childid:0
 #: field:extraschool.taxcertificate_item,child_id:0
+#: field:extraschool.stat_activity,child_id:0
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_child
 #: model:ir.model,name:extraschool.model_extraschool_child
 msgid "Child"
@@ -20528,6 +20529,12 @@ msgstr "Pays : Belgique"
 #, python-format
 msgid "Country: the name or code of the country"
 msgstr "Pays : le nom ou code du pays"
+
+#. module: extraschool
+#: model:ir.actions.act_window,name:extraschool.action_extraschool_stat_activity_tree
+msgid "Stat activity"
+msgstr "Statistique des activités"
+
 
 #. modules: web_gantt, web, board, web_view_editor
 #. openerp-web
@@ -28984,6 +28991,7 @@ msgstr "Letter 2 8.5 x 11 pouces, 215.9 x 279.4 mm"
 #: field:extraschool.importlevelrule,levelid:0
 #: field:extraschool.mainsettings,levelbeforedisable:0
 #: field:extraschool.presta_stat,level:0
+#: field:extraschool.stat_activity,level:0
 #: field:extraschool.prestation_times_encodage_manuel,levelid:0
 #: model:ir.model,name:extraschool.model_extraschool_level
 msgid "Level"
@@ -33317,6 +33325,8 @@ msgstr "Îles Pitcairn"
 #: view:extraschool.place:extraschool.extraschool_place_tree
 #: view:extraschool.presta_stat:extraschool.presta_stat_search_view
 #: field:extraschool.presta_stat,place_id:0
+#: view:extraschool.stat_activity:extraschool.stat_activity_search_view
+#: field:extraschool.stat_activity,place_id:0
 #: view:extraschool.prestationtimes:extraschool.prestationtimes_search_view
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_place
 msgid "Place"
@@ -39127,6 +39137,11 @@ msgstr "Ce sont vos informations d'identification pour accéder à cette zone pr
 msgid "These childs are duplicated !!\n"
 msgstr "These childs are duplicated !!\n"
 
+#. module: extraschool
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_stat_activity_tree
+msgid "Activity stat"
+msgstr "Statistique d'activité"
+
 #. module: document
 #: view:document.directory:document.view_document_directory_form
 msgid "These groups, however, do NOT apply to children directories, which must define their own groups."
@@ -43133,6 +43148,7 @@ msgstr "error"
 #: field:extraschool.pdaprestationtimes_correction_wizard,es:0
 #: field:extraschool.prestation_times_history,es:0
 #: field:extraschool.prestationtimes,es:0
+#: field:extraschool.stat_activity,es:0
 msgid "es"
 msgstr "Entrée / Sortie"
 

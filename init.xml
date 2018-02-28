@@ -115,6 +115,18 @@
 			<field name="args">()</field>
 			<field eval="False" name="doall" />
 		</record>
+        <record forcecreate= "True" id="extraschool_activity_statistics_auto" model= "ir.cron">
+			<field name="name">aes - Stat activity</field>
+			<field eval="False" name="active" />
+			<field name="user_id" ref="base.user_root" />
+			<field name="inteval_number">1</field>
+			<field name="interval_type">days</field>
+			<field name="number_call">2017-01-01 06:00</field>
+			<field name="model">extraschool.stat_activity</field>
+			<field name="function">compute</field>
+			<field name="args">()</field>
+			<field eval="False" name="doall" />
+		</record>
 		<record forcecreate= "True" id="extraschool_check_all_presta_auto" model= "ir.cron">
 			<field name="name">aes - check all presta</field>
 			<field eval="False" name="active" />

@@ -1,0 +1,74 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+        <record model="ir.ui.view" id="extraschool_stat_activity_tree">
+			<field name="name">stat_activity.tree</field>
+			<field name="model">extraschool.stat_activity</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="stat_activity">
+					<field name="date"/>
+					<field name="activity_id" select="1"/>
+					<field name="place_id" select="1"/>
+                    <field name="nbr_child"/>
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="extraschool_stat_activity_form">
+			<field name="name">stat_activity.form</field>
+			<field name="model">extraschool.stat_activity</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="stat_activity">
+					<group col="4">
+					<field name="date"/>
+					<field name="activity_id" select="1"/>
+					<field name="place_id" select="1"/>
+                    <field name="nbr_child"/>
+					<field name="child_id"/>
+	                </group>
+				</form>
+			</field>
+		</record>
+
+
+        <record id="stat_activity_search_view" model="ir.ui.view">
+            <field name="name">stat_activity.search</field>
+            <field name="model">extraschool.stat_activity</field>
+            <field name="arch" type="xml">
+                <search string="Prestations">
+                  	<field name="activity_id" string="Activity"/>
+                   	<field name="place_id" string="Place"/>
+					<field name="date" String="Date"/>
+                   	<group  expand='0' string='Group by...'>
+                       <filter string='Activité' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'activity_id'}"/>
+                   </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="extraschool_stat_activity_graph" model="ir.ui.view">
+            <field name="name">stat_activity.graph</field>
+            <field name="model">extraschool.stat_activity</field>
+            <field name="arch" type="xml">
+                <graph string="stat_activity" type="pivot">
+                    <field name="activity_id" type="col"/>
+                    <field name="place_id" type="col"/>
+                    <field name="date" type="col"/>
+                    <field name="place_id" type="row"/>
+                    <field name="nbr_child" type="measure"/>
+                 </graph>
+             </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_extraschool_stat_activity_tree">
+			<field name="name">Stat activity</field>
+			<field name="res_model">extraschool.stat_activity</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">graph</field>
+            <field name="search_view_id" ref="stat_activity_search_view"/>
+		</record>
+
+	</data>
+</openerp>
