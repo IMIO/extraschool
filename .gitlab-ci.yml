@@ -9,7 +9,10 @@ build:
   script:
     - git clone -b scaffolding http://gitlab.imio.be:10080/odoo/docker-odoo-base.git
     - cd docker-odoo-base
-    - docker-compose -f prod.yaml build --no-cache
+    - chown -R $USER:1000 odoo/auto
+    - chmod -R ug+rwX odoo/auto
+    - export UID GID="$(id -g $USER)" UMASK="$(umask)"
+    - docker-compose -f prod.yaml build --no-cache --remove-orphans
 
 staging:
   stage: staging
