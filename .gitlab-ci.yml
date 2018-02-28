@@ -24,6 +24,7 @@ staging:
 promote-now:
   stage: promote
   script:
+    - docker pull docker-staging.imio.be/extraschool-v9:latest
     - docker tag docker-staging.imio.be/extraschool-v9:latest docker-prod.imio.be/extraschool-v9:latest
     - docker push docker-prod.imio.be/extraschool-v9:latest
     - docker rmi docker-staging.imio.be/extraschool-v9:latest docker-prod.imio.be/extraschool-v9:latest
@@ -33,6 +34,7 @@ promote-now:
 promote-to-prod:
   stage: promote
   script:
+    - docker pull docker-staging.imio.be/extraschool-v9:latest
     - docker tag docker-staging.imio.be/extraschool-v9:latest docker-prod.imio.be/extraschool-v9
     - docker push docker-prod.imio.be/extraschool-v9:latest
     - docker rmi docker-staging.imio.be/extraschool-v9:latest docker-prod.imio.be/extraschool-v9:latest
