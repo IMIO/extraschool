@@ -71,7 +71,7 @@
 					<div class="amount">
 					  <span class="zz_label">Total</span><span class="amount"><t t-esc="'%.2f' %  (total)" /> €</span>
 					</div>
-					<div class="amount" t-if="received != 0">
+					<div class="amount">
 					  <span class="zz_label">Reçu</span><span class="amount"><t t-esc="'%.2f' %  (received)" /> €</span>
 					</div>
                     <div class="amount" t-if="reminder_type == 'fix'">
