@@ -50,7 +50,7 @@ class extraschool_prestationtimes(models.Model):
     activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=True, select=True, default=_get_activity_category_id)
     prestation_times_of_the_day_id = fields.Many2one('extraschool.prestation_times_of_the_day', 'Prestation of the day',ondelete='restrict')  
     invoiced_prestation_id = fields.Many2one('extraschool.invoicedprestations', string='Invoiced prestation', Index="True")                  
-             
+
     @api.model
     def create(self, vals):        
         if (not vals['childid']) or (not vals['placeid']):  
@@ -99,7 +99,7 @@ class extraschool_prestationtimes(models.Model):
         return super(extraschool_prestationtimes, self).write(vals)
     
     @api.multi
-    def unlink(self, backdoor = False):
+    def unlink(self, backdoor=False):
         if backdoor:
             print("Unlink in progress...")
             super(extraschool_prestationtimes, self).unlink()
