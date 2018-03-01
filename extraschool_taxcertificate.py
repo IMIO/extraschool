@@ -200,6 +200,8 @@ class extraschool_taxcertificate_item(models.Model):
     taxcertificate_id = fields.Many2one('extraschool.taxcertificate', 'Taxe certif',ondelete='cascade', index=True)
     parent_id = fields.Many2one('extraschool.parent', 'Parent', required=True, select = True)
     child_id = fields.Many2one('extraschool.child', 'Child', required=True, select=True)
+    implantation = fields.Many2one(related='child_id.schoolimplantation', invisible=True, store=True)
+    niveau = fields.Many2one(related='child_id.levelid', invisible=True, store=True)
     nbr_day = fields.Integer('Nbr day')
     prest_from = fields.Float('From')
     prest_to = fields.Float('To')       
