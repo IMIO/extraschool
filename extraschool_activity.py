@@ -383,6 +383,6 @@ class extraschool_activity(models.Model):
             return activity.prest_to
         else:
             return False
-        
+
 extraschool_activity()
 
