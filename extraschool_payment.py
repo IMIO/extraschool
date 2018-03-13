@@ -147,6 +147,7 @@ class extraschool_payment_status_report(models.Model):
     com_struct = fields.Char('Structured Communication')
     totalbalance = fields.Float('Total balance')
     nbr_actif_child = fields.Integer('Nbr actif child')
+    payment_date = fields.Date('Payment Date', select=True)
 
     # This is the view we use.
     def init(self, cr):
@@ -155,9 +156,9 @@ class extraschool_payment_status_report(models.Model):
         cr.execute("""
             CREATE view extraschool_payment_status_report as
                 select min((zz.ac_id*10000000000+zz.p_id)) as id, zz.ac_id as activity_category_id,
-                       zz.p_id as parent_id, 
+                       zz.p_id as parent_id,
                        CASE 
-                        WHEN sum(pay.solde) is NULL 
+                        WHEN sum(pay.solde) is NULL OR sum(pay.solde) < 0
                            THEN 0
                            ELSE sum(pay.solde) 
                     END as solde,
@@ -167,15 +168,15 @@ class extraschool_payment_status_report(models.Model):
                     else LPAD(((LPAD(case when zz.ac_com_struct_prefix is NULL then '0' else zz.ac_com_struct_prefix end, 3, '0') || LPAD(zz.p_id::TEXT,7,'0'))::bigint % 97)::TEXT,2,'0') end
                     || '+++' as com_struct,
                     COALESCE((select sum(i.balance) from extraschool_invoice i where i.parentid = zz.p_id),0.0) as totalbalance,
-                    (select count(*) from extraschool_child c where c.parentid = zz.p_id and c.isdisabled = False) as nbr_actif_child
-                    
+                    (select count(*) from extraschool_child c where c.parentid = zz.p_id and c.isdisabled = False) as nbr_actif_child,
+                    pay.paymentdate as payment_date
                 from (select ac.id as ac_id, p.id as p_id, ac.payment_invitation_com_struct_prefix as ac_com_struct_prefix, 
           ac.invoicecomstructprefix as ac_invoicecomstructprefix, ac.remindercomstructprefix as ac_remindercomstructprefix from extraschool_activitycategory ac, extraschool_parent p) zz
                 left join extraschool_payment pay on zz.p_id = pay.parent_id 
                         and (zz.ac_com_struct_prefix = pay.structcom_prefix or 
                              zz.ac_invoicecomstructprefix = pay.structcom_prefix or
                              zz.ac_remindercomstructprefix = pay.structcom_prefix)                                
-                group by zz.ac_id,zz.p_id, zz.ac_com_struct_prefix
+                group by zz.ac_id,zz.p_id, zz.ac_com_struct_prefix, pay.paymentdate
                 order by zz.ac_id,zz.p_id;
         """)
 
