@@ -162,7 +162,7 @@
             <field name="type">tree</field>
             <field name="arch" type="xml">
 	            <tree string="Payment Status" create="false">
-		            	<field name="payment_date"/>
+		            	<!--<field name="payment_date"/>-->
 		                <field name="parent_id"/>
 		                <field name="com_struct"/>
 		                <field name="solde" sum="True"/>
@@ -189,14 +189,14 @@
             <field name="model">extraschool.payment_status_report</field>
             <field name="arch" type="xml">
                 <search string="Guardian prestationtimes Search">
-	            	<field name="payment_date"/>
+	            	<!--<field name="payment_date"/>-->
 	               	<field name="parent_id"/>
 	               	<field name="solde"/>
 					<filter string="Actif" name="actif" icon="terp-accessories-archiver" domain="[('parent_id.isdisabled','=',False)]"/> 	               	
                    	<group  expand='0' string='Group by...'>
                        <filter string='activity_category_id' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'activity_category_id'}"/>
                        <filter string='parent_id' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'parent_id'}"/>
-                       <filter string='Payment Date' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'payment_date'}"/>
+                       <!--<filter string='Payment Date' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'payment_date'}"/>-->
                    	</group>
                 </search>
             </field>
