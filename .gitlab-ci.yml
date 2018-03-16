@@ -1,6 +1,6 @@
 stages:
-  - test
   - build
+  - test
   - staging
   - promote
 
@@ -14,6 +14,8 @@ build:
 test:
   stage: test
   script:
+    - git clone -b scaffolding http://gitlab.imio.be:10080/odoo/docker-odoo-base.git
+    - cd docker-odoo-base
     - docker-compose run --rm odoo unittest extraschool
   when: on_success
 
