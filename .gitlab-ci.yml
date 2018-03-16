@@ -11,6 +11,12 @@ build:
     - cd docker-odoo-base
     - docker-compose -f prod.yaml build --no-cache
 
+test:
+  stage: test
+  script:
+    - docker-compose run --rm odoo unittest extraschool
+  when: on_success
+
 staging:
   stage: staging
   script:
