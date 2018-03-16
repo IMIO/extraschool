@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Extraschool
 #    Copyright (C) 2008-2018
-#    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
+#    Jean-Michel Abe - Town of La Bruyere (<http://www.labruyere.be>)
 #    Michael Michot & Michael Colicchia- Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -21,4 +20,10 @@
 #
 ##############################################################################
 
-from . import test_foo
+import unittest
+
+class TestModelA(unittest.TestCase):
+
+    def test_upper(self):
+        self.assertEqual('foo'.upper(), 'FOO')
+
