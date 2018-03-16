@@ -14,7 +14,6 @@ build:
 test:
   stage: test
   script:
-    - ls -l
     - git clone -b scaffolding http://gitlab.imio.be:10080/odoo/docker-odoo-base.git
     - cd docker-odoo-base
     - docker-compose -f unittest.yaml run --rm odoo unittest extraschool
