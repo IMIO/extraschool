@@ -84,8 +84,9 @@
 							<field name="invoice_file" filename="filename"/>
 							<field name="activitycategoryid" readonly="True"/>
 							<group>
-							<field name="huissier" />
-							<field name="fees_huissier"/>
+								<field name="tag"/>
+								<!--<field name="huissier" />-->
+								<field name="fees_huissier"/>
 							</group>
 							<newline/>
 							<field name="comment" widget="html" />

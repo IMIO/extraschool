@@ -164,7 +164,9 @@ class extraschool_remindersjournal(models.Model):
                                                 ON ri.invoice_id = i.id		
                                                 INNER JOIN extraschool_parent AS p		
                                                 ON r.parentid = p.id		
-                                                WHERE r.reminders_journal_id = %s AND i.balance > 0
+                                                WHERE r.reminders_journal_id = %s 
+                                                AND i.balance > 0
+                                                AND i.tag IS NOT NULL;
                                                 )
                                 ORDER BY p.id"""
                            )
@@ -282,7 +284,7 @@ class extraschool_remindersjournal(models.Model):
                 invoice_search_domain = [('activitycategoryid.id', '=',self.activity_category_id.id),
                                          ('balance', '>',0), # todo: See if this is needed.
                                          ('balance', '>=',reminder_type.minimum_balance),
-                                         ('huissier', '=', False),
+                                         ('tag', 'IS', None),
                                          ]
 
 
