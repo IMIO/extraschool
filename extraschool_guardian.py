@@ -88,12 +88,18 @@ class extraschool_horaire_guardian_wizard_form(models.TransientModel):
 
     @api.multi
     def generate_horaire(self):
-        data = self.read()[0]
+        report = self.env['report']._get_report_from_name('extraschool.tpl_guardian_horaire_wizard_report')
+        config = self.env['extraschool.mainsettings'].browse([1])
         datas = {
-            'ids': [],
-            'model': 'extraschool.tpl_qrcodes_wizard_report',
-            'form': 'pdf'
+            'ids': self.ids,
+            'model': report.model,
         }
-        return {'type': 'ir.actions.report.xml', 'report_name': 'horaire', 'datas': datas}
+
+        return {
+            'type': 'ir.actions.report.xml',
+            'report_name': self.format,
+            'datas': datas,
+            'report_type': 'qweb-pdf',
+        }
 
 
