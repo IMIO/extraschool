@@ -27,11 +27,12 @@ from openerp.api import Environment
 class extraschool_guardian(models.Model):
     _name = 'extraschool.guardian'
     _description = 'Guardian'
+    _inherit = 'mail.thread'
     
     name = fields.Char(compute='_name_compute',string='FullName', size=100, store=True)
     firstname = fields.Char('FirstName', size=50)
     lastname = fields.Char('LastName', size=50 , required=True)
-    tagid = fields.Char('Tag ID', size=50)
+    tagid = fields.Char('Tag ID', size=50, track_visibility='onchange')
     otherref = fields.Char('Other ref')
     weekly_schedule = fields.Float('Horaire hebdomadaire')
     oldid = fields.Integer('oldid')
@@ -61,6 +62,38 @@ class extraschool_guardian(models.Model):
         logo = config.logo
         
         return logo
-       
+
+    @api.multi
+    def get_presta(self):
+
+        return {'name': 'Présences',
+                'type': 'ir.actions.act_window',
+                'res_model': 'extraschool.guardianprestationtimes',
+                'view_type': 'form',
+                'view_mode': 'tree,form',
+                'nodestroy': False,
+                'target': 'current',
+                'limit': 50000,
+                'domain': [('guardianid', '=', self.id), ]
+                }
+
 
 extraschool_guardian()
+
+class extraschool_horaire_guardian_wizard_form(models.TransientModel):
+    _name = 'extraschool.horaire_guardian_wizard'
+
+    validity_from = fields.Date('Date from')
+    validity_to = fields.Date('Date to')
+
+    @api.multi
+    def generate_horaire(self):
+        data = self.read()[0]
+        datas = {
+            'ids': [],
+            'model': 'extraschool.tpl_qrcodes_wizard_report',
+            'form': 'pdf'
+        }
+        return {'type': 'ir.actions.report.xml', 'report_name': 'horaire', 'datas': datas}
+
+
