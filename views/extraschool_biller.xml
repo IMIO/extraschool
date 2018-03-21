@@ -28,6 +28,7 @@
 					<header>
 						<button name="export_onyx" string="export onyx" type="object" class="oe_highlight" groups="base.group_erp_manager"/>	
 						<button name="generate_pdf" string="generate_pdf" type="object" class="oe_highlight" groups="base.group_erp_manager"/>
+						<button name="pay_all" string="Pay All" type="object" groups="extraschool.extraschool_gods"/>
 						<!--<button name="compute_discount" string="discount" type="object" class="oe_highlight" groups="base.group_erp_manager"/>	-->
 					</header>
 					<div class="oe_right oe_button_box" name="processin" attrs="{'invisible':[('pdf_ready', '=', True)]}"> 
