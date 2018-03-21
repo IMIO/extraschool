@@ -166,7 +166,7 @@ class extraschool_remindersjournal(models.Model):
                                                 ON r.parentid = p.id		
                                                 WHERE r.reminders_journal_id = %s 
                                                 AND i.balance > 0
-                                                AND i.tag IS NOT NULL;
+                                                AND i.tag IS NULL
                                                 )
                                 ORDER BY p.id"""
                            )
@@ -284,7 +284,7 @@ class extraschool_remindersjournal(models.Model):
                 invoice_search_domain = [('activitycategoryid.id', '=',self.activity_category_id.id),
                                          ('balance', '>',0), # todo: See if this is needed.
                                          ('balance', '>=',reminder_type.minimum_balance),
-                                         ('tag', 'IS', None),
+                                         ('tag', '!=', ''),
                                          ]
 
 
