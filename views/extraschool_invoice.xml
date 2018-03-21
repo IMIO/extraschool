@@ -18,7 +18,8 @@
                     <field name="balance"/>
                     <field name="discount"/>
                     <field name="no_value"/>
-                    <field name="huissier"/>                    	                    
+                    <!--<field name="huissier"/>                    	                    -->
+                    <field name="tag"/>
                     <button name="reconcil" type="object" string="Reconcil" groups="extraschool.extraschool_accounting"/>
 				</tree>
 			</field>
