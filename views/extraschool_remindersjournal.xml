@@ -200,7 +200,7 @@
 
     <p>Bonjour ${object.parentid.name},</p>
 
-    <p>Vous trouverez en pièce jointe le détail du rapple de paiement</p>
+    <p>Vous trouverez en pièce jointe le détail du rappel de paiement</p>
    
 </div>
             ]]></field>            

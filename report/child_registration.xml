@@ -42,7 +42,7 @@
 		        <div class="page">
 		            <h2>Inscription Maternelle</h2>
 		            <div>
-		            	<span>Implantation :</span> 
+		            	<span>Implantation :</span>
 		            	<span t-field="child_registration.school_implantation_id.name"/>
 		            </div>
 		            <div>

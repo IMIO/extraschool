@@ -17025,7 +17025,7 @@ msgstr "Facturier du %s au %s"
 #. module: extraschool
 #: field:extraschool.activitycategory,biller_report_id:0
 msgid "Biller report"
-msgstr "Biller report"
+msgstr "Rapport du facturier"
 
 #. module: portal
 #: model:ir.ui.menu,name:portal.portal_orders
@@ -21699,6 +21699,7 @@ msgstr "Date du jour"
 #: field:extraschool.activityexclusiondates,date_from:0
 #: field:extraschool.child_registration,date_from:0
 #: field:extraschool.mainsettings,date_from:0
+#: field:extraschool.horaire_guardian_wizard,validity_from:0
 #: field:extraschool.manuel_invoice_wizard,validity_from:0
 #: field:extraschool.pda_transmission,transmission_date_from:0
 #: field:extraschool.remindersjournal,date_from:0
@@ -21752,19 +21753,26 @@ msgstr "Date de fin"
 #: field:extraschool.guardian_prestation_times_report,prestation_date_str:0
 #: field:extraschool.guardianprestationtimes,prestation_date_str:0
 msgid "Date str"
-msgstr "Date chiffre"
+msgstr "Date"
 
 #. module: extraschool
 #: field:extraschool.activity_occurrence_correction_wizard,date_to:0
 #: field:extraschool.activityexclusiondates,date_to:0
 #: field:extraschool.child_registration,date_to:0
 #: field:extraschool.mainsettings,date_to:0
+#: field:extraschool.horaire_guardian_wizard,validity_to:0
 #: field:extraschool.manuel_invoice_wizard,validity_to:0
 #: field:extraschool.pda_transmission,transmission_date_to:0
 #: field:extraschool.remindersjournal,date_to:0
 #: field:extraschool.timecorrection_wizard,dateto:0
 msgid "Date to"
 msgstr "Jusqu'au"
+
+#. module: extraschool
+#: model:ir.actions.act_window,name:extraschool.parent_horaire_guardian_wizard_action
+#: model:ir.actions.report.xml,name:extraschool.horaire_guardian_wizard_report
+msgid "Horaire Guardian"
+msgstr "Horaire(s) accueillante(s)"
 
 #. module: extraschool
 #: code:addons/extraschool/extraschool_remindersjournal.py:268
@@ -27711,12 +27719,12 @@ msgstr "Invoice comment 2"
 #. module: extraschool
 #: model:ir.actions.report.xml,name:extraschool.extraschool_invoice_detail
 msgid "Invoice detail"
-msgstr "Raport de facture détaillée"
+msgstr "Rapport de facture détaillé"
 
 #. module: extraschool
 #: field:extraschool.activitycategory,invoice_detail_report_id:0
 msgid "Invoice detail report"
-msgstr "Invoice detail report"
+msgstr "Rapport de facture détaillé"
 
 #. module: extraschool
 #: field:extraschool.activitycategory,invoiceemailaddress:0
@@ -35899,7 +35907,9 @@ msgstr "Implantation scolaire"
 #: field:extraschool.class,schoolimplantation:0
 #: view:extraschool.invoice:extraschool.extraschool_invoice_search_view
 #: field:extraschool.invoice,schoolimplantationid:0
+#: field:extraschool.prestation_times_of_the_day,schoolimplantation:0
 #: field:extraschool.reminder,school_implantation_id:0
+#: field:extraschool.taxcertificate_item,implantation:0
 #: model:ir.model,name:extraschool.model_extraschool_schoolimplantation
 msgid "School implantation"
 msgstr "Implantation scolaire"
@@ -37187,7 +37197,7 @@ msgstr "Signature"
 #. module: extraschool
 #: field:extraschool.activitycategory,po_sign_img:0
 msgid "Signature image"
-msgstr "Signature image"
+msgstr "Signature du responsable"
 
 #. module: extraschool
 #: field:extraschool.activitycategory,po_rappel_sign:0
