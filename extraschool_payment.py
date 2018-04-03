@@ -147,6 +147,7 @@ class extraschool_payment_status_report(models.Model):
     com_struct = fields.Char('Structured Communication')
     totalbalance = fields.Float('Total balance')
     nbr_actif_child = fields.Integer('Nbr actif child')
+    # payment_date = fields.Date('Payment Date', select=True)
 
     # This is the view we use.
     def init(self, cr):
@@ -155,12 +156,14 @@ class extraschool_payment_status_report(models.Model):
         cr.execute("""
             CREATE view extraschool_payment_status_report as
                 select min((zz.ac_id*10000000000+zz.p_id)) as id, zz.ac_id as activity_category_id,
-                       zz.p_id as parent_id, 
+                       zz.p_id as parent_id,
                        CASE 
-                        WHEN sum(pay.solde) is NULL 
-                           THEN 0
-                           ELSE sum(pay.solde) 
-                    END as solde,
+                        WHEN sum(pay.solde) is NULL
+                            THEN 0
+                        WHEN round( CAST(sum(pay.solde) as numeric), 2) = 0.00
+                            THEN 0
+                        ELSE sum(pay.solde)
+                        END as solde,
                     '+++' || LPAD(case when zz.ac_com_struct_prefix is NULL then '0' else zz.ac_com_struct_prefix end, 3, '0') 
                     || '/' || substring(LPAD(zz.p_id::TEXT,7,'0') from 1 for 4) || '/' || substring(LPAD(zz.p_id::TEXT,7,'0') from 5 for 3)
                     || case when LPAD(((LPAD(case when zz.ac_com_struct_prefix is NULL then '0' else zz.ac_com_struct_prefix end, 3, '0') || LPAD(zz.p_id::TEXT,7,'0'))::bigint % 97)::TEXT,2,'0') = '00' then '97' 
@@ -175,8 +178,8 @@ class extraschool_payment_status_report(models.Model):
                         and (zz.ac_com_struct_prefix = pay.structcom_prefix or 
                              zz.ac_invoicecomstructprefix = pay.structcom_prefix or
                              zz.ac_remindercomstructprefix = pay.structcom_prefix)                                
-                group by zz.ac_id,zz.p_id, zz.ac_com_struct_prefix
-                order by zz.ac_id,zz.p_id;
+                group by zz.p_id, zz.ac_com_struct_prefix,zz.ac_id
+                ;
         """)
 
     def get_date_now(self):

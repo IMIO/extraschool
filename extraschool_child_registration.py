@@ -231,6 +231,16 @@ class extraschool_child_registration(models.Model):
         self.child_registration_line_ids = child_reg
         self.compute_number_childs()
 
+        self.reset_option_select()
+
+    def reset_option_select(self):
+        self.class_id = ''
+        self.levelid = ''
+        self.select_per_level = ''
+        self.class_id_button = False
+        self.levelid_button = False
+        self.select_per_level_button = False
+
     @api.multi
     def check_validity_date(self, vals):
         # Check if values has passed (create or write). If not take from parent Object.
