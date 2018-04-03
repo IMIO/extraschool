@@ -69,7 +69,6 @@
 		</record>
 
 
-
         <record model="ir.ui.view" id="extraschool_horaire_guardian_wizard_form">
             <field name="name">extraschool.horaire.guardian.wizard.form</field>
             <field name="model">extraschool.horaire_guardian_wizard</field>
@@ -78,11 +77,13 @@
                 <form string="Horaire Guardian wizard">
                     Pouvez-vous préciser la date de début et de fin des horaires à imprimer ?
                     <group>
-                        <field name="validity_from"/>
-                        <field name="validity_to"/>
+                        <field name="validity_from" required="True"/>
+                        <field name="validity_to" required="True"/>
+                        <field name="guardian_ids" invisible="True"/>
+                        <field name="horaire_ids" invisible="True"/>
                     </group>
                     <group colspan="4" col="3">
-                        <button name="generate_horaire" string="Horaire" icon="gtk-apply" type="object" />
+                        <button name="generate_horaire" string="Imprimer" icon="gtk-apply" type="object" />
                     </group>
                 </form>
             </field>

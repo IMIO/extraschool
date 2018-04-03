@@ -21,8 +21,12 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from openerp import models, api, fields, _
 from openerp.api import Environment
+import cStringIO
+import base64
+from openerp.exceptions import except_orm, Warning, RedirectWarning
+import os
 
 class extraschool_guardian(models.Model):
     _name = 'extraschool.guardian'
@@ -85,21 +89,49 @@ class extraschool_horaire_guardian_wizard_form(models.TransientModel):
 
     validity_from = fields.Date('Date from')
     validity_to = fields.Date('Date to')
+    guardian_ids = fields.Many2many('extraschool.guardian', 'extraschool_guardian_wizard_rel', 'guardian_id', 'wizard_id',
+                                 'ID Guardians')
+    horaire_ids = fields.Many2many('extraschool.guardianprestationtimes', 'extraschool_horaire_wizard_rel', 'guardian_id',
+                                    'horaire_id',
+                                    'ID Horaire')
 
     @api.multi
     def generate_horaire(self):
         report = self.env['report']._get_report_from_name('extraschool.tpl_guardian_horaire_wizard_report')
-        config = self.env['extraschool.mainsettings'].browse([1])
+        '''import ipdb; ipdb.set_trace()'''
+        horaire_list = []
+
+        if self.validity_from > self.validity_to :
+            raise Warning(_("La date de fin doit être plus grande que la date de début !"))
+        
+        vals = {'guardian_ids': [[6, 0, self._context.get('active_ids')]],
+                }
+        # self.env['extraschool.horaire_guardian_wizard'].browse(self.id).write(vals)
+        # for guardian in self.env['extraschool.guardian'].browse(self._context.get('active_ids')):
+        #     print "là"
+        #     prestation_ids = self.env['extraschool.guardianprestationtimes'].search([('guardianid', '=', guardian.id),('prestation_date','>=',self.validity_from),('prestation_date','<=',self.validity_to)])
+        #     if prestation_ids :
+        #         for prestation in prestation_ids :
+        #             horaire_list.append(prestation.id)
+        #
+        #             vals_horaire = {'horaire_ids': [[6, 0, horaire_list]],
+        #                     }
+        #             self.env['extraschool.horaire_guardian_wizard'].browse(self.id).write(vals_horaire)
+        #
+        # active_id = self._context.get('active_ids')
+
         datas = {
             'ids': self.ids,
             'model': report.model,
         }
 
+        print datas
+        print "self.ids", self.ids
+        print "self._context.get('active_ids')" , self._context.get('active_ids')
+
         return {
             'type': 'ir.actions.report.xml',
-            'report_name': self.format,
+            'report_name': 'extraschool.tpl_guardian_horaire_wizard_report',
             'datas': datas,
             'report_type': 'qweb-pdf',
         }
-
-
