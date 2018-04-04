@@ -213,6 +213,10 @@
             <field name="name">Plan de paiement</field>
         </record>
 
+        <record model="extraschool.invoice_tag" id="extraschool_tag_bloque">
+            <field name="name">Bloquer</field>
+        </record>
+
     </data>
 
 

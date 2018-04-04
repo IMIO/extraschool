@@ -90,6 +90,16 @@
                                     attrs="{'invisible':[('tag', '&gt;', 0)]}"
                             />
 
+							<button name="set_tag"
+                                    string="Bloqué"
+                                    type="object"
+                                    style="margin:5px;"
+                                    class="oe_inline oe_stat_button"
+                                    icon="fa-times"
+                                    context="{'tag': 'bloquer'}"
+                                    attrs="{'invisible':[('tag', '&gt;', 0)]}"
+                            />
+
                             <button name="set_tag"
                                     string="Annuler"
                                     type="object"

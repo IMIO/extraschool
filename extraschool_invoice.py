@@ -461,8 +461,10 @@ class extraschool_invoice(models.Model):
             self.tag = None # Plus de tag.
         elif context['tag'] == 'huissier':
             self.tag = 1  # Huissier.
-        else:
+        elif context['tag'] == 'plan_de_paiement':
             self.tag = 2  # Plan de paiement.
+        else:
+            self.tag = 3  # Bloquer.
 
 
 class extraschool_invoice_tag(models.Model):
