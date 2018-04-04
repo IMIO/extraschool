@@ -38,7 +38,7 @@
 	                    <span attrs="{'invisible':[('verified', '=', True)]}">NON vérifié !!!</span>
 	                   	<newline/>
 	                    <field name="comment" />
-						<field name="schoolimplantation" invisible="True"/>
+						<!--<field name="schoolimplantation" invisible="True"/>-->
 		                <separator string="Computed prestations" colspan="4"/> 
 	                    <field name="prestationtime_ids" nolabel="1" colspan="4">
 	                    	<tree string="prestation_times" colors="red:verified==False" editable="bottom">
@@ -95,7 +95,7 @@
                    <filter string="not verified" name="not_verified" icon="terp-accessories-archiver" domain="[('verified','=',False)]"/>
                    <group  expand='0' string='Group by...'>
                        <filter string='Child' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'child_id'}"/>
-                       <filter string='School Implantation' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'schoolimplantation'}"/>
+                       <!--<filter string='School Implantation' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'schoolimplantation'}"/>-->
                    </group>
                 </search>
             </field>
