@@ -103,6 +103,7 @@
         'report/coda_report.xml',    
         'report/parent.xml',
         'report/qrcode_report.xml',
+        'report/horaire_guardian_report.xml',
         'report/layout/extraschool_layout.xml',
         'report/layout/biller_report_layout.xml',
         'report/layout/invoice_report_layout.xml',
