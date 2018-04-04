@@ -37,41 +37,36 @@
                 }
 
 			</style>
-			<t t-foreach="docs" t-as="guardian">
-                <!--<t t-set="id" t-value="guardian.tagid"/>-->
-                <div class="page">
+            <t t-call="report.html_container">
+                <t t-foreach="docs.guardian_ids" t-as="guardian">
+                    <div class="page">
 
-                    <span t-field="guardian"/>
+                        <h2>Horaire de : <span t-field="guardian.name"/></h2>
+                        <div>
+                            Période du <span t-field="docs[0].validity_from"/> au <span t-field="docs[0].validity_to"/>
+                        </div>
+                        <table>
+                            <tr>
+                                <th>Date</th>
+                                <th>Entrée /Sortie</th>
+                                <th>Heure</th>
+                            </tr>
+                            <t t-set="validity_from" t-value="docs[0].validity_from"/>
+                            <t t-set="validity_to" t-value="docs[0].validity_to"/>
 
-
-					<!--<h2>Horaire de : <span t-field="guardian.guardian_ids.name"/></h2>-->
-					<!--<div>-->
-						<!--Période du <span t-field="guardian.validity_from"/> au <span t-field="guardian.validity_to"/>-->
-					<!--</div>-->
-					<!--<table>-->
-						<!--<tr>-->
-							<!--<th>Date</th>-->
-							<!--<th>Entrée /Sortie</th>-->
-							<!--<th>Heure</th>-->
-						<!--</tr>-->
-						<!--<t t-foreach="guardian.horaire_ids" t-as="horaire">-->
-							<!--<tr>-->
-								<!--<td><span t-field="horaire.prestation_date"/></td>-->
-								<!--<td><span t-field="horaire.es"/></td>-->
-								<!--<td><t t-esc="'%02d:%02d' % (int(horaire.prestation_time), horaire.prestation_time % 1 * 60)" /></td>-->
-							<!--</tr>-->
-						<!--</t>-->
-					<!--</table>-->
-				</div>
-			</t>
-		</template>
-
-		<template id="tpl_guardian_horaire_wizard_report_trad">
-			<t t-call="report.html_container">
-				<t t-foreach="doc_ids" t-as="doc_id">
-					<t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'extraschool.tpl_guardian_horaire_wizard_report')"/>
-				</t>
-			</t>
+                            <t t-foreach="guardian.prestation_ids" t-as="horaire">
+                                <tr>
+                                    <t t-if="horaire.prestation_date >= validity_from and horaire.prestation_date &lt;= validity_to">
+                                        <td><span t-field="horaire.prestation_date"/></td>
+                                        <td><span t-field="horaire.es"/></td>
+                                        <td><t t-esc="'%02d:%02d' % (int(horaire.prestation_time), horaire.prestation_time % 1 * 60)" /></td>
+                                    </t>
+                                </tr>
+                            </t>
+                        </table>
+                    </div>
+                </t>
+            </t>
 		</template>
 
 		<report

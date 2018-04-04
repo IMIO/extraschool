@@ -41,6 +41,7 @@ class extraschool_guardian(models.Model):
     weekly_schedule = fields.Float('Horaire hebdomadaire')
     oldid = fields.Integer('oldid')
     isdisabled = fields.Boolean('Disabled', track_visibility='onchange')
+    prestation_ids = fields.One2many('extraschool.guardianprestationtimes', 'guardianid')
 
     @api.depends('firstname','lastname')
     def _name_compute(self):
@@ -87,47 +88,27 @@ extraschool_guardian()
 class extraschool_horaire_guardian_wizard_form(models.TransientModel):
     _name = 'extraschool.horaire_guardian_wizard'
 
+    def _get_guardians(self):
+        return self.env['extraschool.guardian'].search([('id', '=', self._context.get('active_ids'))])
+
     validity_from = fields.Date('Date from')
     validity_to = fields.Date('Date to')
-    guardian_ids = fields.Many2many('extraschool.guardian', 'extraschool_guardian_wizard_rel', 'guardian_id', 'wizard_id',
-                                 'ID Guardians')
-    horaire_ids = fields.Many2many('extraschool.guardianprestationtimes', 'extraschool_horaire_wizard_rel', 'guardian_id',
-                                    'horaire_id',
-                                    'ID Horaire')
+    guardian_ids = fields.Many2many('extraschool.guardian',
+                                    'extraschool_guardian_wizard_rel',
+                                    'guardian_id',
+                                    'wizard_id',
+                                    'ID Guardians',
+                                    default=_get_guardians)
 
     @api.multi
     def generate_horaire(self):
-        report = self.env['report']._get_report_from_name('extraschool.tpl_guardian_horaire_wizard_report')
-        '''import ipdb; ipdb.set_trace()'''
-        horaire_list = []
-
         if self.validity_from > self.validity_to :
             raise Warning(_("La date de fin doit être plus grande que la date de début !"))
-        
-        vals = {'guardian_ids': [[6, 0, self._context.get('active_ids')]],
-                }
-        # self.env['extraschool.horaire_guardian_wizard'].browse(self.id).write(vals)
-        # for guardian in self.env['extraschool.guardian'].browse(self._context.get('active_ids')):
-        #     print "là"
-        #     prestation_ids = self.env['extraschool.guardianprestationtimes'].search([('guardianid', '=', guardian.id),('prestation_date','>=',self.validity_from),('prestation_date','<=',self.validity_to)])
-        #     if prestation_ids :
-        #         for prestation in prestation_ids :
-        #             horaire_list.append(prestation.id)
-        #
-        #             vals_horaire = {'horaire_ids': [[6, 0, horaire_list]],
-        #                     }
-        #             self.env['extraschool.horaire_guardian_wizard'].browse(self.id).write(vals_horaire)
-        #
-        # active_id = self._context.get('active_ids')
 
         datas = {
-            'ids': self.ids,
-            'model': report.model,
+            'ids': self.guardian_ids.ids,
+            'model': 'extraschool.horaire_guardian_wizard',
         }
-
-        print datas
-        print "self.ids", self.ids
-        print "self._context.get('active_ids')" , self._context.get('active_ids')
 
         return {
             'type': 'ir.actions.report.xml',
