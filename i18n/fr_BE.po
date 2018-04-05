@@ -14491,10 +14491,20 @@ msgstr "Activé par défaut lors de l'abonnement."
 #: view:workflow.instance:base.view_workflow_instance_search
 #: view:workflow.workitem:base.view_workflow_workitem_search
 #: field:document.directory.content.type,active:0
-#: view:extraschool.prestation_times_of_the_day:extraschool.extraschool_prestation_times_of_the_day_form
 #: field:fetchmail.server,active:0 view:mail.alias:mail.view_mail_alias_search
 msgid "Active"
 msgstr "Actif"
+
+#. module: extraschool
+#: field:extraschool.place,active:0
+#: view:extraschool.prestation_times_of_the_day:extraschool.extraschool_prestation_times_of_the_day_form
+msgid "Active"
+msgstr "Activé"
+
+#. module: extraschool
+#: view:extraschool.pdaprestationtimes:extraschool.extraschool_pda_prestation_times_tree
+msgid "Active/ Desactive"
+msgstr "Activé/ Désactivé"
 
 #. module: mail
 #: field:mail.compose.message,active_domain:0
