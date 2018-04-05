@@ -266,8 +266,9 @@ class extraschool_remindersjournal(models.Model):
             if self.date_from:
                 if self.date_from > self.date_to:
                     raise Warning(_("Date to must be bigger than date from !!!"))
-                invoice_search_domain_date_range = [('biller_id.invoices_date', '>=',self.date_from),
-                                                    ('biller_id.invoices_date', '<=', self.date_to)
+                invoice_search_domain_date_range = [
+                                                    # ('biller_id.invoices_date', '>=',self.date_from),
+                                                    # ('biller_id.invoices_date', '<=', self.date_to)
                                                     ]
 
 
