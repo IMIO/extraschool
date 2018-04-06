@@ -104,7 +104,7 @@ class extraschool_remindersjournal(models.Model):
         """
         with Environment.manage():
 
-            #As this function is in a new thread, i need to open a new cursor, because the old one may be closed
+            # As this function is in a new thread, i need to open a new cursor, because the old one may be closed.
             new_cr = self.pool.cursor()
             env = Environment(new_cr, uid,context)
 
@@ -120,6 +120,12 @@ class extraschool_remindersjournal(models.Model):
     @api.one
     def generate_pdf(self):
         cr,uid = self.env.cr, self.env.user.id
+
+        self.env['ir.attachment'].search([('res_id', 'in',[i.id for i in self.reminder_ids]),
+                                           ('res_model', '=', 'extraschool.reminder')]).unlink()
+
+        self.env.invalidate_all()
+
         threaded_report = []
         chunk_size = 50
         for zz in range(0,len(self.reminder_ids)/chunk_size+1):
@@ -267,8 +273,8 @@ class extraschool_remindersjournal(models.Model):
                 if self.date_from > self.date_to:
                     raise Warning(_("Date to must be bigger than date from !!!"))
                 invoice_search_domain_date_range = [
-                                                    # ('biller_id.invoices_date', '>=',self.date_from),
-                                                    # ('biller_id.invoices_date', '<=', self.date_to)
+                                                    ('biller_id.invoices_date', '>=',self.date_from),
+                                                    ('biller_id.invoices_date', '<=', self.date_to)
                                                     ]
 
 
