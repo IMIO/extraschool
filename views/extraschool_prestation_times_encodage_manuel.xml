@@ -46,7 +46,7 @@
 							<separator string="Tableau"  colspan="4"/>
 							<field name="prestationtime_ids" nolabel="1" colspan="4">
 								<tree editable="bottom">
-									<field name="child_id"/>
+									<field name="child_id" options="{'no_create':True}"/>
 									<field name="prestation_time_entry" widget="float_time"/>
 									<field name="prestation_time_exit" widget="float_time"/>
 								</tree>

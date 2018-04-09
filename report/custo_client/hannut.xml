@@ -352,5 +352,54 @@ L’Eveil avant la date d'échéance. Toute facture non contestée est considér
 				</div>
 			</div>
 		</template>
+
+		<template id="report_invoice_summary_tournai_text">
+				  <style type="text/css">
+					  #invoice_summary{
+						width: 100%;
+						display: block;
+						margin: 0cm 0cm 0cm 0cm;
+						page-break-inside: avoid;
+						text-align: justify;
+						text-justify: inter-word;
+						font-size: 15px;
+					 }
+
+					 #invoice_summary div.your_ref{
+						width: 100%;
+						padding: 5mm 0mm 5mm 0mm;
+						display: block;
+					 }
+
+
+					div#invoice_summary h2{
+						font-size: 12px;
+						font-weight: bold;
+					 }
+
+				 </style>
+					  <div id="invoice_summary" >
+						 <p>
+							 Objet: Factures AES pour la période du <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(reminder.reminders_journal_id.date_from,'%Y-%m-%d')))"/> au
+							 <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(reminder.reminders_journal_id.date_to,'%Y-%m-%d')))"/> - <b>RAPPEL</b><br/>
+					   Nos réf. : AES / <t t-esc="parent_id.name" /><br/><br/><br/>
+						Cher Parent, <br/><br/>
+					   Nous vous avons adressé les factures relatives aux frais scolaires de votre (vos) enfant(s) pour la période du <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(reminder.reminders_journal_id.date_from,'%Y-%m-%d')))"/> au
+							 <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(reminder.reminders_journal_id.date_to,'%Y-%m-%d')))"/>.
+					   Nous constatons que vous êtes encore redevable d'un solde dû de <t t-esc="amount"/>€ envers l'Administration
+					   Communale de Tournai, somme dont vous trouverez le détail ci-annexé.<br/><br/>
+					   Si vous souhaitez solliciter un plan de paiement, nous vous invitons à prendre contact avec notre service. <br/><br/>
+					   À défaut de paiement, le recouvrement de la créance sera poursuivi suivant l'article L1124-40 §1er,1° du
+					   Code de la Démocratie locale et de la Décentralisation.<br/><br/>
+					   Si entretemps, la somme a été réglée, veuillez considérer ce rappel comme nul et non avenu.<br/><br/>
+					   Vous souhaitant bonne réception de la présente, nous vous prions de croire, Cher Parent, à l'assurance de
+					   notre considération distinguée.
+						 </p>
+					 </div>
+		</template>
+
+
+
+
 	</data>
 </openerp>	

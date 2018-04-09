@@ -55,6 +55,7 @@
 						<t t-set="logo" t-value="reminder.reminders_journal_id.activity_category_id.logo"/>
 						<t t-set="slogan" t-value="reminder.reminders_journal_id.activity_category_id.slogan"/>		
 						<t t-set="amount_int" t-value="int(reminder.amount)"/>
+						<t t-set="amount" t-value="reminder.amount"/>
 						<t t-set="amount_dec" t-value="int(round((reminder.amount-int(reminder.amount))*100))"/>			
 			        	<t t-set="bankaccount" t-value="reminder.reminders_journal_id.activity_category_id.bankaccount"/>
 						<t t-set="bank_bic" t-value="reminder.reminders_journal_id.activity_category_id.bank_bic"/>
