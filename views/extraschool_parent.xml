@@ -77,6 +77,14 @@
                     <group col="4">
                     	<field name="child_ids" nolabel="1" >
            					<form string="Child">
+                                <div class="oe_right oe_button_box" name="buttons">
+                                    <button name="get_presta"
+                                        string="Présences"
+                                        type="object"
+                                        class="oe_inline oe_stat_button"
+                                        icon="fa-qrcode"
+                                            />
+                                </div>
 								<field name="name"  invisible="True"/> 
 								<group col="4">
 								    <field name="isdisabled"/>
@@ -93,7 +101,8 @@
 				                    <field name="classid"/>
 				                    <field name="birthdate"/>
 				                    <field name="tagid"/>
-				                    <button name="action_gentagid" type="object" string="Generate TagID" />
+                                    <newline/>
+                                    <field name="rn"/>
 				                    <newline/>
 				                    <field name="otherref"/>
 				                    <newline/>
