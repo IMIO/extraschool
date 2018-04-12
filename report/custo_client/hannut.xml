@@ -12,6 +12,16 @@
 			}
 			</style>
 		</template>
+
+		<template id="report_ittre_body_style">
+			<style type="text/css">
+			body {
+			  font-size: 12px;
+			  text-align: justify;
+			  text-justify: inter-word;
+			}
+			</style>
+		</template>
 		
 		<template id="report_hannut_all_invoice_summary" inherit_id="extraschool.report_all_invoice_summary" primary="True">
 			<xpath expr="//div[@id='invoice_summary']" position="before">	

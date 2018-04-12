@@ -27,6 +27,32 @@
 			</div>
 		</template>
 
+		<template id="report_sign_ittre_no_style">
+			<style>
+				#doc_resp_sign{
+					page-break-inside: avoid;
+					display: block;
+					width: 100%;
+					font-size:12px;
+				}
+
+				#doc_resp_sign>div{
+					float: right;
+				}
+
+				#doc_resp_sign>div>span{
+					display:block;
+				}
+
+			</style>
+			<div id="doc_resp_sign">
+				<div>
+					<span t-esc="resp_fct" />
+					<span t-esc="resp_name" />
+				</div>
+			</div>
+		</template>
+
 	</data>
 </openerp>	
 	
