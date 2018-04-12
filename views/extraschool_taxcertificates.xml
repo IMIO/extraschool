@@ -20,7 +20,7 @@
             <field name="arch" type="xml">
                 <form string="Tax Certificate">
 					<header>
-						<button name="generate_pdf" string="generate_pdf" type="object" class="oe_highlight" groups="base.group_erp_manager"/>	
+						<button name="generate_pdf" string="z" type="object" class="oe_highlight" groups="base.group_erp_manager"/>
 					</header>
                 	                	
                 	<field name="pdf_ready" invisible="True" />
