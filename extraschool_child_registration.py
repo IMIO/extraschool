@@ -50,7 +50,7 @@ class extraschool_child_registration(models.Model):
     class_id = fields.Many2one('extraschool.class', readonly=True, states={'draft': [('readonly', False)]}, domain="[('schoolimplantation','=',school_implantation_id)]", track_visibility='onchange')
     class_id_button = fields.Boolean(track_visibility='onchange', readonly="True", invisible='True', default='False')
     place_id = fields.Many2one('extraschool.place', required=True, readonly=True, states={'draft': [('readonly', False)]}, domain="[('schoolimplantation_ids','in',school_implantation_id)]", track_visibility='onchange')
-    activity_id = fields.Many2one('extraschool.activity', readonly=True, states={'draft': [('readonly', False)]}, domain="[('placeids','in',place_id)]", track_visibility='onchange')
+    activity_id = fields.Many2one('extraschool.activity', readonly=True, states={'draft': [('readonly', False)]}, domain="['&',('placeids','in',place_id),('selectable_on_registration','=',True)]", track_visibility='onchange')
     week = fields.Integer('Week', required=True, readonly=True, states={'draft': [('readonly', False)]}, help='Afin de trouver le bon numéro de semaine, Veuillez vous aider du champs situé juste en dessous afin de trouver le numéro de semaine. Une fois le numéro mis, l\'application recherchera et encodera toute seule les bonnes dates du numéro de semaine (Du lundi au vendredi)', track_visibility='onchange')
     date_from = fields.Date('Date from', required=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
     date_to = fields.Date('Date to', required=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
