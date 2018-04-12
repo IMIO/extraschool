@@ -22046,7 +22046,7 @@ msgstr "Définition"
 #. module: extraschool
 #: field:extraschool.remindertype,delay:0
 msgid "Delay"
-msgstr "Delay"
+msgstr "Délai"
 
 #. modules: web, extraschool, web_kanban, web_calendar
 #. openerp-web
@@ -22824,7 +22824,7 @@ msgstr "Modèle de document"
 #. module: extraschool
 #: field:extraschool.remindertype,report_id:0
 msgid "Document report"
-msgstr "Document report"
+msgstr "Rapport pour le document"
 
 #. module: base
 #: model:ir.module.category,name:base.module_category_documentation
@@ -23408,7 +23408,7 @@ msgstr "Message du courriel"
 #. module: extraschool
 #: field:extraschool.remindertype,mail_template_id:0
 msgid "Email template"
-msgstr "Email template"
+msgstr "Modèle d'E-mail"
 
 #. module: report
 #: view:website:report.external_layout_footer
@@ -24368,12 +24368,12 @@ msgstr "Fct du responsable"
 #. module: extraschool
 #: field:extraschool.activitycategory,po_rappel_fct:0
 msgid "Fct of resp reminder"
-msgstr "Fct du responsable des rappels"
+msgstr "Fct du responsable"
 
 #. module: extraschool
 #: field:extraschool.activitycategory,po_attestation_fct:0
 msgid "Fct of resp tax certificate"
-msgstr "Fct du responsable des attestations fiscales"
+msgstr "Fct du responsable"
 
 #. module: extraschool
 #: field:extraschool.activitycategory,po_resp2_fct:0
@@ -24818,7 +24818,7 @@ msgstr "Année fiscale"
 #. module: extraschool
 #: selection:extraschool.remindertype,fees_type:0
 msgid "Fixed amount"
-msgstr "Fixed amount"
+msgstr "Montant fix"
 
 #. module: extraschool
 #: field:extraschool.activity,fixedperiod:0
@@ -30095,7 +30095,7 @@ msgstr "Type MIME"
 #. module: extraschool
 #: field:extraschool.remindertype,minimum_balance:0
 msgid "Minimum balance"
-msgstr "Minimum balance"
+msgstr "Balance minimum"
 
 #. modules: web, extraschool
 #. openerp-web
@@ -30720,12 +30720,12 @@ msgstr "Nom du responsable "
 #. module: extraschool
 #: field:extraschool.activitycategory,po_rappel_name:0
 msgid "Name of resp reminder"
-msgstr "Nom du responsable des rappels"
+msgstr "Nom du responsable"
 
 #. module: extraschool
 #: field:extraschool.activitycategory,po_attestation_name:0
 msgid "Name of resp tax certificate"
-msgstr "Nom du responsable des attestations fiscales"
+msgstr "Nom du responsable"
 
 #. module: extraschool
 #: field:extraschool.activitycategory,po_resp2_name:0
@@ -34949,7 +34949,7 @@ msgstr "Reminder biller journal"
 #. module: extraschool
 #: field:extraschool.remindertype,fees_type:0
 msgid "Reminder cost type"
-msgstr "Reminder cost type"
+msgstr "Type de coût"
 
 #. module: extraschool
 #: view:extraschool.remindersjournal:extraschool.extraschool_reminders_journal_form
@@ -35015,7 +35015,7 @@ msgstr "Type de rappel"
 #. module: extraschool
 #: field:extraschool.remindertype,selected_type_id:0
 msgid "Reminder type to select"
-msgstr "Reminder type to select"
+msgstr "Type de rappel à sélectionner"
 
 #. module: extraschool
 #: view:extraschool.parent:extraschool.extraschool_parent_form
@@ -36288,7 +36288,7 @@ msgstr "Sélectionnez une date"
 #. module: extraschool
 #: field:extraschool.remindertype,select_reminder_type:0
 msgid "Select a reminder type"
-msgstr "Select a reminder type"
+msgstr "Sélectionner un type de rappel"
 
 #. module: web_view_editor
 #. openerp-web
@@ -37222,12 +37222,12 @@ msgstr "Signature du responsable"
 #. module: extraschool
 #: field:extraschool.activitycategory,po_rappel_sign:0
 msgid "Signature of resp reminder"
-msgstr "Signature du responsable des rappels"
+msgstr "Signature du responsable"
 
 #. module: extraschool
 #: field:extraschool.activitycategory,po_attestation_sign:0
 msgid "Signature of resp tax certificate"
-msgstr "Signature du responsable des attestations fiscales"
+msgstr "Signature du responsable"
 
 #. module: extraschool
 #: field:extraschool.activitycategory,po_resp2_sign:0
@@ -43675,7 +43675,7 @@ msgstr "n/a"
 #: field:extraschool.remindertype,name:0
 #, python-format
 msgid "name"
-msgstr "nom"
+msgstr "Nom"
 
 #. module: base
 #: code:addons/base/ir/ir_fields.py:145
@@ -43839,7 +43839,7 @@ msgstr "Wizard de création de paiement"
 #. module: extraschool
 #: field:extraschool.remindertype,payment_term_in_day:0
 msgid "payment_term_in_day"
-msgstr "payment_term_in_day"
+msgstr "Jours pour le paiement"
 
 #. module: extraschool
 #: view:extraschool.pdaprestationtimes:extraschool.extraschool_pda_prestation_times_form
