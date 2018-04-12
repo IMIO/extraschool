@@ -7,19 +7,21 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="QRCodes Wizard">
-                    <field name="state" invisible="1" />
-                    <group states="init">
-                        <field name="print_type" />
-                        <field name="quantity" />
-                        <field name="format" />
-                        <field name="print_value"  attrs="{'invisible':[('print_type', '!=', 'qrcode')]}"/>
-                        <field name="logo" widget="image" class="oe_avatar oe_left" attrs="{'invisible':[('print_type', '!=', 'logo')]}"/>
-                    </group>
-                    <separator string="" colspan="4"/>
-                    <group colspan="4" col="3">
-                        <button name="action_print_qrcodes" string="generate qrcodes" icon="gtk-apply" type="object"
-                            states="init" />
-                    </group>
+                    <sheet>
+                        <field name="state" invisible="1" />
+                        <group states="init">
+                            <field name="print_type" />
+                            <field name="quantity" />
+                            <field name="format" />
+                            <field name="print_value"  attrs="{'invisible':[('print_type', '!=', 'qrcode')]}"/>
+                            <field name="logo" widget="image" class="oe_avatar oe_left" attrs="{'invisible':[('print_type', '!=', 'logo')]}"/>
+                        </group>
+                        <separator string="" colspan="4"/>
+                        <group colspan="4" col="3">
+                            <button name="action_print_qrcodes" string="generate qrcodes" icon="gtk-apply" type="object"
+                                states="init" />
+                        </group>
+                    </sheet>
                 </form>
             </field>
         </record>

@@ -14669,7 +14669,7 @@ msgstr "Calendrier des activités"
 #: field:extraschool.one_report,activitycategory:0
 #: field:extraschool.prestationscheck_wizard,activitycategory:0
 msgid "Activitycategory"
-msgstr "Catégorie de l'activité"
+msgstr "Catégorie d'activité"
 
 #. module: extraschool
 #: view:extraschool.presta_stat:extraschool.presta_stat_search_view
@@ -18438,7 +18438,7 @@ msgstr ""
 #. module: extraschool
 #: field:extraschool.remindersjournal,based_reminder_id:0
 msgid "Choose the reminder to be based on"
-msgstr "Choose the reminder to be based on"
+msgstr "Choisir le rappel sur lequel se baser"
 
 #. module: extraschool
 #: field:extraschool.discount.version,discount_template:0
@@ -33047,7 +33047,7 @@ msgstr "Rapport des prépaiements"
 #. module: extraschool
 #: field:extraschool.reject,corrected_payment_id:0
 msgid "Payment corrigé"
-msgstr "Payment corrigé"
+msgstr "Paiement corrigé"
 
 #. module: extraschool
 #: field:extraschool.payment_reconciliation,payment_id:0

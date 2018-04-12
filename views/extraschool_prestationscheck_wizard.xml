@@ -7,7 +7,6 @@
             <field name="arch" type="xml">
                 <form string="Prestationscheck Wizard">
                     <sheet>
-                        <separator string="Vérification des présences des enfants"  colspan="4"/>
                         <field name="state" invisible="1" />
                         <group states="init">
                             <field name="activitycategory" invisible="1"/>

@@ -29,6 +29,14 @@ from datetime import datetime
 class extraschool_guardianprestationtimes(models.Model):
     _name = 'extraschool.guardianprestationtimes'
     _description = 'Guardian Prestation Times'
+
+    def name_get(self, cr, uid, ids, context={}):
+        if not len(ids):
+            return []
+        res = []
+        for presta in self.browse(cr, uid, ids, context=context):
+            res.append((presta.id, presta.guardianid.name + ' - ' + datetime.strptime(presta.prestation_date, '%Y-%m-%d').strftime('%d/%m/%Y')))
+        return res
     
     guardianid = fields.Many2one('extraschool.guardian', 'Guardian', required=False)
     prestation_date = fields.Date('Date',select = True, index = True)
