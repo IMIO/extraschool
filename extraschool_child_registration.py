@@ -526,7 +526,33 @@ class extraschool_child_registration_line(models.Model):
     sunday = fields.Boolean('Sunday')
     sunday_activity_id = fields.Many2one('extraschool.activity',string="Sunday", domain="[('selectable_on_registration_multi','=',True)]")
     error_duplicate_reg_line = fields.Boolean(string="Error", default = False)
-    
+
+    @api.model
+    def create(self, vals):
+        # Check Validity Date & Hour.
+        res = super(extraschool_child_registration_line, self).create(vals)
+        if res:
+            id_registration = self.env['extraschool.child_registration'].search(
+                [('id', '=', res['child_registration_id'].id)])
+            if id_registration :
+                for day in id_registration.day_ids :
+                    day = day.id
+                    if day == 1:
+                        res['monday'] = True
+                    elif day == 2:
+                        res['tuesday'] = True
+                    elif day == 3:
+                        res['wednesday'] = True
+                    elif day == 4:
+                        res['thursday'] = True
+                    elif day == 5:
+                        res['friday'] = True
+                    elif day == 6:
+                        res['saturday'] = True
+                    elif day == 7:
+                        res['sunday'] = True
+            return res
+
     def child_must_be_printed(self):
         if not any((self.monday_activity_id.id, self.tuesday_activity_id.id, self.wednesday_activity_id.id,
                     self.thursday_activity_id.id, self.friday_activity_id.id)) and not any((self.monday,

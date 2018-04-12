@@ -18443,7 +18443,7 @@ msgstr "Choose the reminder to be based on"
 #. module: extraschool
 #: field:extraschool.discount.version,discount_template:0
 msgid "Choose the template"
-msgstr "Template"
+msgstr "Modèle"
 
 #. module: base
 #: model:res.country,name:base.cx
@@ -36371,7 +36371,7 @@ msgstr "Sélectionnable sur le formulaire d'inscription"
 #. module: extraschool
 #: field:extraschool.activity,selectable_on_registration_multi:0
 msgid "Selectable on registration multi form"
-msgstr "Selectable on registration multi form"
+msgstr "Disponible sur le formulaire 'Inscriptions multiactivités'"
 
 #. module: mail
 #: selection:mail.group,public:0
@@ -36927,7 +36927,7 @@ msgstr "Livraison"
 #. module: extraschool
 #: field:extraschool.activity,short_name:0
 msgid "Short name"
-msgstr "Nom Visible sur facture"
+msgstr "Nom visible sur facture"
 
 #. module: web
 #. openerp-web
@@ -38444,7 +38444,7 @@ msgstr "Telugu / తెలుగు"
 #. module: extraschool
 #: view:extraschool.discount.version:extraschool.extraschool_discount_version_tree
 msgid "Template"
-msgstr "Template"
+msgstr "Modèle"
 
 #. module: base
 #: field:ir.actions.report.xml,report_name:0
@@ -39481,7 +39481,7 @@ msgstr "Civilités et Formes juridiques"
 #: field:extraschool.activity,prest_to:0
 #: field:extraschool.taxcertificate_item,prest_to:0 field:mail.mail,email_to:0
 msgid "To"
-msgstr "à"
+msgstr "À"
 
 #. module: email_template
 #: field:email.template,email_to:0 field:email_template.preview,email_to:0
