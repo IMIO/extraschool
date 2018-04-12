@@ -28776,6 +28776,16 @@ msgstr "Nom"
 msgid "Latest Modification Date:"
 msgstr "Date de dernière modification :"
 
+#. module: extraschool
+#: view:extraschool.invoice:extraschool.extraschool_invoice_form
+msgid "Cancel Invoice"
+msgstr "Annuler la facture définitivement"
+
+#. module: extraschool
+#: view:extraschool.invoice:extraschool.extraschool_invoice_form
+msgid "Cancel Invoice and invoice after"
+msgstr "Annuler la facture en pouvant refacturer les présences"
+
 #. module: web
 #. openerp-web
 #: code:addons/web/static/src/xml/base.xml:581

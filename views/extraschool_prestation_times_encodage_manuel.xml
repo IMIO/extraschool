@@ -36,7 +36,7 @@
 							<field name="date_of_the_day" />
 							<field name="place_id" options="{'no_create':True}"/>
 							<newline />
-							<separator string="Ajout automatique dans le tableau"  colspan="4"/>
+							<separator string="Ajout automatique dans le tableau (facultatif)"  colspan="4"/>
 							<field name="levelid" options="{'no_create':True}"/>
 							<button name="update_child_list" string="Ajout des enfants" states="draft" type="object" confirm="Ëtes-vous sûr de vouloir attribuer tous les enfants à cette activité ?"/>
 							<newline />

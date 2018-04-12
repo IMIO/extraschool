@@ -63,33 +63,40 @@
 			<field name="arch" type="xml">
 				<form string="invoice" create="false">
 					<header>
-						<button name="export_onyx_but" string="export onyx" type="object" class="oe_highlight" groups="base.group_erp_manager"/>	
-						<button name="cancel" string="Cancel Invoice" type="object" class="oe_highlight" groups="base.group_erp_manager" confirm="Do you really want to delete this invoice ?"/>
-                    </header>
+						<button name="export_onyx_but" string="Export Onyx" type="object" class="oe_highlight" groups="base.group_erp_manager"/>
+						<button name="cancel_and_invoice_after" string="Cancel Invoice and invoice after" type="object" class="oe_highlight" groups="base.group_erp_manager" confirm="Ce bouton permet d'annuler la facture de ce facturier et de libérer les présences liées à celle-ci, vous pourrez refacturer par la suite
+						les présences de cette facture. Est-ce cela que vous désirez ? Si vous désirez complètement annuler cette facture, choisissez plutôt le bouton 'Annuler définitivement la facture'. Confirmation de la manipulation ?" />
+                    	<button name="cancel" string="Cancel Invoice" type="object" class="oe_highlight" groups="base.group_erp_manager" confirm="Voulez-vous vraiment supprimer définitivement cette facture ? Les présences liées à celle-ci ne seront plus facturables. Confirmation de la manipulation ?"/>
+					</header>
 					<sheet>
 						<group col="4">
+							<field name="activitycategoryid" readonly="True"/>
+							<newline/>
 							<field name="biller_id"/>
+							<field name="number"/>
+							<newline/>
+							<field name="parentid" readonly="True"/>
 							<field name="last_reminder_id"/>
-							<field name="payment_term" readonly="True"/>
+							<newline/>
 							<field name="schoolimplantationid"/>
 							<field name="classid" readonly="True"/>
-							<field name="parentid" readonly="True"/>
-							<field name="number"/>
+							<newline/>
+							<field name="payment_term" readonly="True"/>
 							<field name="structcom"/>
 							<field name="amount_total"/>
 							<field name="amount_received"/>
 							<field name="balance"/>
 							<field name="no_value"/>
-							<field name="filename" invisible="1"/>
-							<field name="invoice_file" filename="filename"/>
-							<field name="activitycategoryid" readonly="True"/>
 							<group>
 							<field name="huissier" />
 							<field name="fees_huissier"/>
 							</group>
-							<newline/>
-							<field name="comment" widget="html" />
 						</group>
+						<notebook>
+							<page string="Comment">
+								<field name="comment" />
+							</page>
+						</notebook>
 					</sheet>
                     <group col="4">
 	                	<notebook>
