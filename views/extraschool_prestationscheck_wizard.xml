@@ -6,20 +6,23 @@
             <field name="model">extraschool.prestationscheck_wizard</field>
             <field name="arch" type="xml">
                 <form string="Prestationscheck Wizard">
-                    <field name="state" invisible="1" />
-                    <group states="init">
-                        <field name="activitycategory" invisible="1"/>
-                        <newline />
-						<field name="force" invisible="1"/>
-                        <newline />
-                        <field name="period_from" /><field name="period_to" />                        
-                    </group>
-                    <group states="end_of_verification">
-                        <label string="Ok" />
-                    </group>                     
-                    <group colspan="4" col="3">
-                        <button name="action_prestationscheck" string="Check prestations" icon="gtk-apply" type="object" />          
-                    </group>
+                    <sheet>
+                        <separator string="Vérification des présences des enfants"  colspan="4"/>
+                        <field name="state" invisible="1" />
+                        <group states="init">
+                            <field name="activitycategory" invisible="1"/>
+                            <newline />
+                            <field name="force" invisible="1"/>
+                            <newline />
+                            <field name="period_from" /><field name="period_to" />
+                        </group>
+                        <group states="end_of_verification">
+                            <label string="Ok" />
+                        </group>
+                        <group colspan="4" col="3">
+                            <button name="action_prestationscheck" string="Check prestations" icon="gtk-apply" type="object" />
+                        </group>
+                    </sheet>
                 </form>
             </field>
         </record>       
