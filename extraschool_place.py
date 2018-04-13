@@ -27,12 +27,13 @@ from openerp.api import Environment
 class extraschool_place(models.Model):
     _name = 'extraschool.place'
     _description = 'Schoolcare Place'
+    _inherit = 'mail.thread'
 
-    active = fields.Boolean('Active', default=True)
-    name = fields.Char('Name', size=50)
-    street = fields.Char('Street', size=50)
-    zipcode = fields.Char('ZipCode', size=6)
-    city = fields.Char('City', size=50)
+    active = fields.Boolean('Active', default=True, track_visibility='onchange')
+    name = fields.Char('Name', size=50, track_visibility='onchange')
+    street = fields.Char('Street', size=50, track_visibility='onchange')
+    zipcode = fields.Char('ZipCode', size=6, track_visibility='onchange')
+    city = fields.Char('City', size=50, track_visibility='onchange')
     schoolimplantation_ids = fields.Many2many('extraschool.schoolimplantation','extraschool_place_schoolimplantation_rel', 'place_id', 'schoolimplantation_id','School implantations')
     schedule = fields.Text('Schedule')
     street_code = fields.Char('Street Code') # onyx

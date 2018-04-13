@@ -62,7 +62,7 @@ class extraschool_child(models.Model):
     @api.multi
     def wizard_action(self):
         return {
-            'name': 'My Window',
+            'name': 'Fusion d\'enfants',
             'domain': [],
             'res_model': 'extraschool.child_fusion_wizard',
             'type': 'ir.actions.act_window',

@@ -26,8 +26,10 @@
                                     <button name="update_presta_stat" string="Update presta stat" icon="gtk-apply" type="object"/>
                                 </page>
                                 <page string="Re check POD - Error when building biller">
-                                    <field name="date_from"/>
-                                    <field name="date_to"/>
+                                    <group col="2">
+                                        <field name="date_from"/>
+                                        <field name="date_to"/>
+                                    </group>
                                     <button name="re_check_pod" string="Check" icon="gtk-apply" type="object"/>
                                     <button name="reset_check" string="Reset AND Check" icon="gtk-apply" type="object"/>
                                 </page>
@@ -53,11 +55,13 @@
                                     <button name="execute_sql" string="Execute sql" icon="gtk-apply" type="object"/>
                                 </page>
                                 <page string="Generate CODA file">
-                                    <field name="parent_id"/>
-                                    <field name="coda_date"/>
-                                    <field name="amount"/>
-                                    <field name="communication"/>
-                                    <button name="generate_coda" string="Generate File" icon="gtk-apply" type="object"/>
+                                    <group col="2">
+                                        <field name="parent_id"/>
+                                        <field name="coda_date"/>
+                                        <field name="amount"/>
+                                        <field name="communication"/>
+                                        <button name="generate_coda" string="Generate File" icon="gtk-apply" type="object"/>
+                                    </group>
                                 </page>
                         </notebook>
                     </sheet>

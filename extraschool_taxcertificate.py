@@ -8,13 +8,14 @@ import time
 class extraschool_taxcertificate(models.Model):
     _name = 'extraschool.taxcertificate'
     _description = 'Taxcertificate'
+    _inherit = 'mail.thread'
 
     def _get_activity_category_id(self):
         return self.env['extraschool.activitycategory'].search([]).filtered('id').id
 
-    name = fields.Integer('Fiscal Year', required=True, select = True)
-    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity category', required=True, default=_get_activity_category_id)
-    doc_date = fields.Date('Document date', required=True)     
+    name = fields.Integer('Fiscal Year', required=True, select = True, track_visibility='onchange')
+    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity category', required=True, default=_get_activity_category_id, track_visibility='onchange')
+    doc_date = fields.Date('Document date', required=True, track_visibility='onchange')
     
     taxcertificate_item_ids = fields.One2many('extraschool.taxcertificate_item', 'taxcertificate_id','Details')
     pdf_ready = fields.Boolean(string="Pdf ready", default=False)

@@ -17329,7 +17329,7 @@ msgstr "Import de fichiers CODA"
 #. module: extraschool
 #: field:extraschool.mainsettings,coda_date:0
 msgid "CODA's date"
-msgstr "CODA's date"
+msgstr "Date"
 
 #. modules: base, base_setup
 #: model:ir.module.module,shortdesc:base.module_crm
@@ -17961,12 +17961,12 @@ msgstr "Chaussée de Namur 40"
 #: view:extraschool.mainsettings:extraschool.extraschool_mainsettings_form
 #: view:extraschool.prestation_times_of_the_day:extraschool.extraschool_prestation_times_of_the_day_form
 msgid "Check"
-msgstr "Check"
+msgstr "Vérifier"
 
 #. module: extraschool
 #: view:extraschool.child_registration_validation_wizard:extraschool.extraschool_child_registration_validation_wizard_form
 msgid "Check Doublons"
-msgstr "Check Doublons"
+msgstr "Vérifier doublons"
 
 #. module: extraschool
 #: view:extraschool.mainsettings:extraschool.extraschool_mainsettings_form
@@ -22314,7 +22314,7 @@ msgstr "Modèle de destination"
 #. module: extraschool
 #: field:extraschool.parent_fusion_child,dest_child_id:0
 msgid "Destination child"
-msgstr "Destination child"
+msgstr "Destination de l'enfant"
 
 #. module: base
 #: view:ir.rule:base.view_rule_form
@@ -23863,7 +23863,7 @@ msgstr "Dates exclues"
 #: view:extraschool.child_fusion_wizard:extraschool.extraschool_child_fusion_wizard_form
 #: view:extraschool.parent_fusion_wizard:extraschool.extraschool_parent_fusion_wizard_form
 msgid "Execute SQL"
-msgstr "Execute SQL"
+msgstr "Fusionner"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_web_ir_actions_act_window_none
@@ -25375,12 +25375,12 @@ msgstr "Paramètres généraux"
 #. module: extraschool
 #: view:extraschool.mainsettings:extraschool.extraschool_mainsettings_form
 msgid "Generate CODA file"
-msgstr "Generate CODA file"
+msgstr "Génération d'un fichier CODA"
 
 #. module: extraschool
 #: view:extraschool.mainsettings:extraschool.extraschool_mainsettings_form
 msgid "Generate File"
-msgstr "Generate File"
+msgstr "Générer le fichier"
 
 #. module: extraschool
 #: view:extraschool.config_smartphone:extraschool.extraschool_config_smartphone_form
@@ -28739,7 +28739,7 @@ msgstr "Dernière mise à jour le"
 #. module: extraschool
 #: field:extraschool.mainsettings,last_child_upgrade_levels:0
 msgid "Last child upgrade level"
-msgstr "Last child upgrade level"
+msgstr "Dernière mise à jour :"
 
 #. module: extraschool
 #: field:extraschool.qrcodes_wizard,last_id:0
@@ -32809,7 +32809,7 @@ msgstr "Nom colonne CP parent"
 #. module: extraschool
 #: view:extraschool.parent_fusion_wizard:extraschool.extraschool_parent_fusion_wizard_form
 msgid "Parent à fusionner"
-msgstr "Parent à fusionner"
+msgstr "Parents à fusionner"
 
 #. module: extraschool
 #: view:website:extraschool.report_child_registration
@@ -33814,7 +33814,7 @@ msgstr "Présentez votre équipe"
 #. module: extraschool
 #: model:ir.ui.menu,name:extraschool.extraschool_prestation_times_history
 msgid "Presta History"
-msgstr "Presta History"
+msgstr "Historique des présences supprimées"
 
 #. module: extraschool
 #: model:ir.model,name:extraschool.model_extraschool_prestationtimes
@@ -34338,7 +34338,7 @@ msgstr "QRCode"
 #. module: extraschool
 #: field:extraschool.activitycategory,qrcode_report_id:0
 msgid "QRCode report"
-msgstr "QRCode report"
+msgstr "Rapport pour le QR Code"
 
 #. module: extraschool
 #: view:extraschool.qrcodes_wizard:extraschool.extraschool_qrcodes_wizard_form
@@ -34528,7 +34528,7 @@ msgstr "Taux"
 #. module: extraschool
 #: view:extraschool.mainsettings:extraschool.extraschool_mainsettings_form
 msgid "Re check POD - Error when building biller"
-msgstr "Re check POD - Error when building biller"
+msgstr "Re check POD - Erreur création facturier"
 
 #. module: extraschool
 #: view:extraschool.remindersjournal:extraschool.extraschool_reminders_journal_form
@@ -34959,17 +34959,17 @@ msgstr "Rappel par courrier"
 #. module: extraschool
 #: field:extraschool.activitycategory,reminderemailaddress:0
 msgid "Reminder email address"
-msgstr "Adresse email pour les rappels"
+msgstr "Mails pour les rappels"
 
 #. module: extraschool
 #: field:extraschool.activitycategory,reminderemailsubject:0
 msgid "Reminder email subject"
-msgstr "Sujet email rappel"
+msgstr "Sujet de l'email du rappel"
 
 #. module: extraschool
 #: field:extraschool.activitycategory,reminderemailtext:0
 msgid "Reminder email text"
-msgstr "Texte email rappels"
+msgstr "Texte pour l'email du rappel"
 
 #. module: extraschool
 #: view:extraschool.remindersjournal:extraschool.extraschool_reminders_journal_form
@@ -35288,7 +35288,7 @@ msgstr "Lien de la requête"
 #. module: extraschool
 #: view:extraschool.mainsettings:extraschool.extraschool_mainsettings_form
 msgid "Requete SQL"
-msgstr "Requete SQL"
+msgstr "Requête SQL"
 
 #. module: base
 #: view:ir.model.fields:base.view_model_fields_search
@@ -40426,7 +40426,7 @@ msgstr "Update Policy"
 #. module: extraschool
 #: view:extraschool.mainsettings:extraschool.extraschool_mainsettings_form
 msgid "Update Prestation Statistic"
-msgstr "Update Prestation Statistic"
+msgstr "Màj Stat Présences"
 
 #. module: base
 #: view:res.lang:base.res_lang_tree
@@ -40472,7 +40472,7 @@ msgstr "Mettre à jour"
 #. module: extraschool
 #: view:extraschool.mainsettings:extraschool.extraschool_mainsettings_form
 msgid "Upgrade Child Levels"
-msgstr "Upgrade Child Levels"
+msgstr "Màj du niveau des enfants"
 
 #. module: web
 #. openerp-web
@@ -43371,7 +43371,7 @@ msgstr "abonnés"
 #. module: extraschool
 #: view:extraschool.mainsettings:extraschool.extraschool_mainsettings_form
 msgid "from presta of the day"
-msgstr "from presta of the day"
+msgstr "Concernant les présences par jour"
 
 #. module: extraschool
 #: view:extraschool.payment_wizard:extraschool.extraschool_payment_wizard_form
@@ -44095,7 +44095,7 @@ msgstr "préfixe"
 #. module: extraschool
 #: field:extraschool.activitycategory,po_tel:0
 msgid "tel"
-msgstr "Tel"
+msgstr "Téléphone"
 
 #. module: extraschool
 #: field:extraschool.mainsettings,tempfolder:0
