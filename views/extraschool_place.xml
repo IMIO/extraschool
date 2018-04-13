@@ -22,23 +22,25 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
             <form string="Place">
-            <group col="4">        
-                <field name="active"/>
-                <newline/>
-                <field name="name"/>
-                <newline/>
-                <field name="street"/> 
-                <newline/>
-                <field name="zipcode"/>        
-                <newline/>
-                <field name="city"/>            
-                <newline/>
-                <field name="street_code"/>        
-                <newline/>
-                <field name="schedule"/>
-                <newline/>       
-                <field name="schoolimplantation_ids"/>
-            </group>        
+                <sheet>
+                    <group col="4">
+                        <field name="active"/>
+                        <newline/>
+                        <field name="name"/>
+                        <newline/>
+                        <field name="street"/>
+                        <newline/>
+                        <field name="zipcode"/>
+                        <newline/>
+                        <field name="city"/>
+                        <newline/>
+                        <field name="street_code"/>
+                        <newline/>
+                        <field name="schedule"/>
+                        <newline/>
+                        <field name="schoolimplantation_ids"/>
+                    </group>
+                </sheet>
             </form>
             </field> 
         </record>

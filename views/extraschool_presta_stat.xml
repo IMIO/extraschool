@@ -45,7 +45,7 @@
 					<field name="date" String="Date"/>
                    	<group  expand='0' string='Group by...'>
                        <filter string='Activité' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'activity_id'}"/>
-                   </group>                    
+                   </group>
                 </search>
             </field>
         </record>			

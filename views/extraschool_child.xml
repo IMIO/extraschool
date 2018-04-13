@@ -59,9 +59,9 @@
 	                    <field name="modified_since_last_import"/>
 					</group>
 					<notebook>
-					<page string="Comment">
-                    	<field name="comment" />
-                 	</page>
+						<page string="Comment">
+							<field name="comment" />
+						</page>
                  	</notebook>
                     </sheet>
                     <div class="oe_chatter" groups="extraschool.extraschool_gods">

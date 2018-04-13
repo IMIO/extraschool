@@ -42,6 +42,11 @@
                     <newline/>
                     <field name="otherref" />
                    </group>
+                <notebook>
+                    <page string="Comment">
+                        <field name="comment" />
+                    </page>
+                </notebook>
                 </sheet>
                 <div class="oe_chatter" groups="extraschool.extraschool_gods">
                     <field name="message_follower_ids" widget="mail_followers"/>

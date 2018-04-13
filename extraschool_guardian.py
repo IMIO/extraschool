@@ -42,6 +42,7 @@ class extraschool_guardian(models.Model):
     oldid = fields.Integer('oldid')
     isdisabled = fields.Boolean('Disabled', track_visibility='onchange')
     prestation_ids = fields.One2many('extraschool.guardianprestationtimes', 'guardianid')
+    comment = fields.Text('Comment', track_visibility='onchange')
 
     @api.depends('firstname','lastname')
     def _name_compute(self):

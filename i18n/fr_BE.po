@@ -28784,7 +28784,7 @@ msgstr "Annuler la facture définitivement"
 #. module: extraschool
 #: view:extraschool.invoice:extraschool.extraschool_invoice_form
 msgid "Cancel Invoice and invoice after"
-msgstr "Annuler la facture en pouvant refacturer les présences"
+msgstr "Annuler la facture non définitivement"
 
 #. module: web
 #. openerp-web
@@ -29798,7 +29798,7 @@ msgstr "Prix maximum"
 #. module: extraschool
 #: field:extraschool.activitycategory,max_school_implantation:0
 msgid "Max school implantation"
-msgstr "Max school implantation"
+msgstr "Nombre max. d'implantation scolaire"
 
 #. module: extraschool
 #: field:extraschool.config_smartphone,maxtimedelta:0

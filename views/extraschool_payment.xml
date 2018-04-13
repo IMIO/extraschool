@@ -51,20 +51,22 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Payment" create="false">
-					<group col="4">
-						<field name="parent_id"></field>
-	                    <field name="paymentdate" attrs="{'readonly':[('paymenttype', '==', '1')]}"/>
-						<field name="amount" attrs="{'readonly':[('payment_reconciliation_ids', '=', [(6, False, [])])]}"/>
-	                    <field name="paymenttype" attrs="{'readonly':[('paymenttype', '==', '1')]}"/>
-	                    <field name="name" readonly="True"/>
-	                    <field name="account" readonly="True"/>
-	                    <field name="structcom" readonly="True"/>
-	                    <field name="structcom_prefix" readonly="True"/>	
-	                    <newline />               		                    
-						<field name="comment" />      
-						<separator string="Affectations" colspan="4"/>
-						<field name="payment_reconciliation_ids" nolabel="1" colspan="4" readonly="True"/>
-                    </group>
+                    <sheet>
+                        <group col="4">
+                            <field name="parent_id"></field>
+                            <field name="paymentdate" attrs="{'readonly':[('paymenttype', '==', '1')]}"/>
+                            <field name="amount" attrs="{'readonly':[('payment_reconciliation_ids', '=', [(6, False, [])])]}"/>
+                            <field name="paymenttype" attrs="{'readonly':[('paymenttype', '==', '1')]}"/>
+                            <field name="name" readonly="True"/>
+                            <field name="account" readonly="True"/>
+                            <field name="structcom" readonly="True"/>
+                            <field name="structcom_prefix" readonly="True"/>
+                            <newline />
+                            <field name="comment" />
+                            <separator string="Affectations" colspan="4"/>
+                            <field name="payment_reconciliation_ids" nolabel="1" colspan="4" readonly="True"/>
+                        </group>
+                    </sheet>
 				</form>
 			</field>
 		</record>                
