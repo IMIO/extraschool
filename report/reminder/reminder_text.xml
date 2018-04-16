@@ -17,7 +17,7 @@
 		</template>
 
 
-		<template id="report_reminder_img_sign">
+		<template id="report_reminder_img">
 		    <style type="text/css">
 		        .reminder_body{
 		    		width: 100%;
