@@ -6,7 +6,8 @@
 			<field name="model">extraschool.child</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
-				<tree string="Child">					
+				<tree string="Child" colors="lightgrey:isdisabled == True">
+                    <field name="isdisabled" invisible="True"/>
                     <field name="lastname"/>
                     <field name="firstname"/>
 					<field name="levelid"/>

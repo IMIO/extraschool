@@ -75,7 +75,7 @@
                 </page>
                 <page string="Childs">
                     <group col="4">
-                    	<field name="child_ids" nolabel="1" >
+                    	<field name="child_ids" nolabel="1">
            					<form string="Child">
                                 <div class="oe_right oe_button_box" name="buttons">
                                     <button name="get_presta"
