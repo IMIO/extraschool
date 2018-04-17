@@ -45,7 +45,7 @@ class extraschool_child(models.Model):
     schoolimplantation = fields.Many2one('extraschool.schoolimplantation', 'School implantation',required=True, track_visibility='onchange')
     levelid = fields.Many2one('extraschool.level', 'Level', required=True, track_visibility='onchange')
     classid = fields.Many2one('extraschool.class', 'Class', required=False, domain="[('schoolimplantation','=',schoolimplantation)]", track_visibility='onchange')
-    parentid = fields.Many2one('extraschool.parent', 'Parent', required=True, ondelete='RESTRICT', select=True, track_visibility='onchange')
+    parentid = fields.Many2one('extraschool.parent', 'Parent', required=True, ondelete='RESTRICT', select=True, track_visibility='onchange', domain="[('isdisabled', '=', False)]")
     birthdate = fields.Date('Birthdate', required=True, track_visibility='onchange')
     last_import_date = fields.Datetime('Import date', readonly=True)
     modified_since_last_import = fields.Boolean('Modified since last import')
@@ -62,7 +62,7 @@ class extraschool_child(models.Model):
     @api.multi
     def wizard_action(self):
         return {
-            'name': 'My Window',
+            'name': 'Fusion d\'enfants',
             'domain': [],
             'res_model': 'extraschool.child_fusion_wizard',
             'type': 'ir.actions.act_window',

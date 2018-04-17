@@ -20,7 +20,7 @@
             <field name="arch" type="xml">
                 <form string="Tax Certificate">
 					<header>
-						<button name="generate_pdf" string="generate_pdf" type="object" class="oe_highlight" groups="base.group_erp_manager"/>	
+						<button name="generate_pdf" string="Création des PDF" type="object" class="oe_highlight" groups="base.group_erp_manager"/>
 					</header>
                 	                	
                 	<field name="pdf_ready" invisible="True" />
@@ -41,6 +41,10 @@
                         <separator string="Taxe certificate" colspan="4"/>                        
                         <field name="taxcertificate_item_ids" colspan="4" nolabel="1" readonly="True"/>
                     </group>
+                    <div class="oe_chatter" groups="extraschool.extraschool_gods">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
                 </form>
             </field>
         </record>
@@ -61,12 +65,28 @@
                 </tree>
             </field>
         </record>
+
+
+        <record id="extraschool_taxcertificate_item_search" model="ir.ui.view">
+            <field name="name">extraschool.taxcertificate_item.search</field>
+            <field name="model">extraschool.taxcertificate_item</field>
+            <field name="arch" type="xml">
+                <search>
+                   	<group  expand='0' string='Group by...'>
+                       <filter string='Implantation Scolaire' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'implantation'}"/>
+                       <filter string='Niveau' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'niveau'}"/>
+                       <filter string='Parent' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'parent_id'}"/>
+                   </group>
+                </search>
+            </field>
+        </record>
                 
         
         <record model="ir.actions.act_window" id="action_extraschool_taxcertificate">
             <field name="name">Tax Certificate</field>
             <field name="res_model">extraschool.taxcertificate</field>
             <field name="view_type">form</field>
+            <field name="search_view_id" ref="extraschool_taxcertificate_item_search"/>
         </record>
         		
        <record model="ir.ui.view" id="extraschool_taxcertificates_wizard_form">

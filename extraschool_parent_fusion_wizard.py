@@ -63,12 +63,22 @@ class extraschool_parent_fusion_wizard(models.TransientModel):
                 child.child_id.parentid = self.parent_id.id
             #child exist on parent origin
             else:
-                self.env['extraschool.pdaprestationtimes'].search([('childid', '=',child.child_id.id)]).write({'childid': child.dest_child_id.id})
-                self.env['extraschool.prestationtimes'].search([('childid', '=',child.child_id.id)]).write({'childid': child.dest_child_id.id})
-                self.env['extraschool.child_registration_line'].search([('child_id', '=',child.child_id.id)]).write({'child_id': child.dest_child_id.id})
-                self.env['extraschool.invoicedprestations'].search([('childid', '=',child.child_id.id)]).write({'childid': child.dest_child_id.id})
-                self.env['extraschool.prestation_times_of_the_day'].search([('child_id', '=',child.child_id.id)]).write({'child_id': child.dest_child_id.id})
-                self.env['extraschool.prestation_times_manuel'].search([('child_id', '=',child.child_id.id)]).write({'child_id': child.dest_child_id.id})
+                self.env['extraschool.pdaprestationtimes'].search([('childid', '=', child.child_id.id)]).write(
+                    {'childid': child.dest_child_id.id})
+                self.env['extraschool.prestationtimes'].search([('childid', '=', child.child_id.id)]).write(
+                    {'childid': child.dest_child_id.id})
+                self.env['extraschool.child_registration_line'].search([('child_id', '=', child.child_id.id)]).write(
+                    {'child_id': child.dest_child_id.id})
+                self.env['extraschool.invoicedprestations'].search([('childid', '=', child.child_id.id)]).write(
+                    {'childid': child.dest_child_id.id})
+                self.env['extraschool.prestation_times_of_the_day'].search(
+                    [('child_id', '=', child.child_id.id)]).write({'child_id': child.dest_child_id.id})
+                self.env['extraschool.prestation_times_manuel'].search([('child_id', '=', child.child_id.id)]).write(
+                    {'child_id': child.dest_child_id.id})
+                self.env['extraschool.taxcertificate_item'].search([('child_id', '=', child.child_id.id)]).write(
+                    {'child_id': child.dest_child_id.id})
+
+                self.env['extraschool.child_fusion_wizard'].delete_potd(child.dest_child_id.id)
 
         #delete child 
         child_to_delete_ids = self.env['extraschool.child'].search([('id', 'in', [r.child_id.id for r in self.fusion_child_ids.filtered(lambda r: r.dest_child_id)])]).ids

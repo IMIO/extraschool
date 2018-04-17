@@ -117,6 +117,72 @@
 			</div>
 		</template>
 
+
+		<template id="report_std_header_name_right_ittre">
+		    <style type="text/css">
+		        #aes_header{
+		    		width: 100%;
+					display: block;
+					clear: both;
+					position: relative;
+
+		    	}
+		    	#aes_header&gt;div.row{
+		    		width: 100%;
+		    	}
+
+		    	#b_logo{
+		    		float: left;
+					margin-left : 20px;
+					margin-right : 10px;
+		    	}
+		    	#b_slogan{
+		    		float: left;
+					margin-top: 10px;
+					width: 50%;
+
+		    	}
+
+		    	#b_date{
+		    		text-align: right;
+					margin-top: 10px;
+					min-width: 9cm;
+					position: absolute;
+					right: 2em;
+					top: 5%;
+
+				}
+
+				.logo {
+					width: 20mm;
+					display: inline-block;
+					float: left;
+				}
+
+		    	.doc_date{
+		    		font-size: 12px;
+		    	}
+
+		    	.implantation{
+		    		font-size: 7px;
+		    	}
+		    </style>
+
+		    <div id="aes_header">
+		    	<div class="row">
+		    		<div id="b_logo">
+						<img class="logo" t-attf-src="data:image/jpeg;base64,{{logo}}"/>
+		    		</div>
+		    		<div id="b_slogan">
+						<span class="slogan"><t t-esc="slogan" /></span>
+		    		</div>
+					<div id="b_date">
+						<span class="doc_date"><t t-esc="doc_date" /></span>
+					</div>
+		    	</div>
+			</div>
+		</template>
+
 		<template id="report_std_header_no_date" inherit_id="extraschool.report_std_header" primary="True">
 
 			<xpath expr="//span[@class='doc_date']" position="replace">

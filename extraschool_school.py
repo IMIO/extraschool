@@ -30,11 +30,11 @@ class extraschool_school(models.Model):
     _description = 'School'
     _inherit = 'mail.thread'
 
-    name = fields.Char('Name', size=50, required=True, track_visibility=True)
+    name = fields.Char('Name', size=50, required=True, track_visibility='onchange')
     logo = fields.Binary()
-    street = fields.Char('Street', size=50)
-    zipcode = fields.Char('ZipCode', size=6)
-    city = fields.Char('City', size=50)
+    street = fields.Char('Street', size=50,track_visibility='onchange')
+    zipcode = fields.Char('ZipCode', size=6, track_visibility='onchange')
+    city = fields.Char('City', size=50, track_visibility='onchange')
     schoolimplantations = fields.One2many('extraschool.schoolimplantation', 'schoolid','schoolimplantations', required=True, track_visibility=True)
     oldid = fields.Integer('oldid')                
 

@@ -22,34 +22,36 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="activityoccurrence">
-					<group col="4">
-	                    <field name="activityid" options="{'no_create':True}"/>
-	                	<newline/>  
-	                    <field name="place_id" options="{'no_create':True}"/>
-	                    <field name="occurrence_date"/> 
-	                    <field name="prest_from" widget="float_time" /> 
-	                    <field name="prest_to"   widget="float_time" /> 
-					</group>
-	            	<notebook>
-	            		<page string="Registration">
-							<field name="child_registration_ids" nolabel="1">
-				        		<tree>
-				        			<field name="child_id" />
-				        		</tree>
-							</field>
-						</page>
-	            		<page string="Prestation times">
-				            <group col="4">
-								<field name="prestation_times_ids" nolabel="1">
+					<sheet>
+						<group col="4">
+							<field name="activityid" options="{'no_create':True}"/>
+							<newline/>
+							<field name="place_id" options="{'no_create':True}"/>
+							<field name="occurrence_date"/>
+							<field name="prest_from" widget="float_time" />
+							<field name="prest_to"   widget="float_time" />
+						</group>
+						<notebook>
+							<page string="Registration">
+								<field name="child_registration_ids" nolabel="1">
 									<tree>
-										<field name="childid" />
-										<field name="es" />
-					                    <field name="prestation_time" widget="float_time" /> 
+										<field name="child_id" />
 									</tree>
-								</field> 					            
-				            </group>
-				        </page>
-				    </notebook>
+								</field>
+							</page>
+							<page string="Prestation times">
+								<group col="4">
+									<field name="prestation_times_ids" nolabel="1">
+										<tree>
+											<field name="childid" />
+											<field name="es" />
+											<field name="prestation_time" widget="float_time" />
+										</tree>
+									</field>
+								</group>
+							</page>
+						</notebook>
+					</sheet>
 				</form>
 			</field>
 		</record>

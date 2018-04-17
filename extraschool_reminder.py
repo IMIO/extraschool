@@ -22,6 +22,7 @@
 ##############################################################################
 from openerp import models, api, fields,_
 from openerp.api import Environment
+import openerp.addons.decimal_precision as dp
 from datetime import date, datetime, timedelta as td
 from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
@@ -30,12 +31,19 @@ class extraschool_reminder(models.Model):
     _name = 'extraschool.reminder'
     _description = 'Reminder'
 
+    def name_get(self, cr, uid, ids, context={}):
+        if not len(ids):
+            return []
+        res = []
+        for reminder in self.browse(cr, uid, ids, context=context):
+            res.append((reminder.id, reminder.parentid.name))
+        return res
 
     reminders_journal_item_id = fields.Many2one('extraschool.reminders_journal_item', 'Reminders journal item',ondelete='cascade', required=False)
     reminders_journal_id = fields.Many2one('extraschool.remindersjournal', 'Reminders journal', ondelete='cascade', required=False)    
     parentid = fields.Many2one('extraschool.parent', 'Parent', required=False)
     remindersendmethod = fields.Selection(related="parentid.remindersendmethod", store=True)
-    amount = fields.Float('Amount')
+    amount = fields.Float('Amount',digits_compute=dp.get_precision('extraschool_reminder'),readonly=True, store=True)
     structcom = fields.Char('Structured Communication', size=50)
     school_implantation_id = fields.Many2one('extraschool.schoolimplantation', 'School implantation', required=False)
     concerned_invoice_ids = fields.Many2many('extraschool.invoice','extraschool_reminder_invoice_rel', 'reminder_id', 'invoice_id','Concerned invoices')

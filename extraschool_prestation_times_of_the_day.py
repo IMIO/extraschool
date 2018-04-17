@@ -65,6 +65,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
     pda_prestationtime_ids = fields.One2many('extraschool.pdaprestationtimes','prestation_times_of_the_day_id',domain=['|',('active','=',False),('active','=',True)])
     verified = fields.Boolean(select=True)
     comment = fields.Text()
+    # schoolimplantation = fields.Many2one(related="child_id.schoolimplantation", store=True)
 
     @api.multi
     def delete_pod(self):
@@ -203,7 +204,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
         for activity in activity_ids:
             if activity_to_delete and activity[4] == activity_to_delete:
                 pod_to_delete.append(activity[3])
-                print "Need to delete: ", activity[5]
+                print "Need to delete: ", activity[5].encode("utf-8")
             else:
                 new_list.append(activity[3])
 

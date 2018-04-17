@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+        <template id="tpl_guardian_horaire_wizard_report">
+		  <style type="text/css">
+		        .page{
+		    		width: 100%;
+		    		display: block;
+		    	}
+
+				.page table {
+		    		width: 100%;
+					font-size:11px;
+					border-width: 1px;
+					border-collapse: collapse;
+					margin-top: 1cm;
+				}
+				.page table th {
+                    text-align: center;
+					border-width: 1px;
+					padding: 8px;
+					border-style: solid;
+					background-color: #dedede;
+				}
+				.page table td {
+					border-width: 1px;
+					padding: 8px;
+					border-style: solid;
+				}
+				img {
+                    display: block;
+                    margin-left: auto;
+                    margin-right: auto;
+                    width: 15px;
+                    height: 15px;
+                    align: middle;
+                }
+
+			</style>
+            <t t-call="report.html_container">
+                <t t-foreach="docs.guardian_ids" t-as="guardian">
+                    <div class="page">
+
+                        <h2>Horaire de : <span t-field="guardian.name"/></h2>
+                        <div>
+                            Période du <span t-field="docs[0].validity_from"/> au <span t-field="docs[0].validity_to"/>
+                        </div>
+                        <table>
+                            <tr>
+                                <th>Date</th>
+                                <th>Entrée /Sortie</th>
+                                <th>Heure</th>
+                            </tr>
+                            <t t-set="validity_from" t-value="docs[0].validity_from"/>
+                            <t t-set="validity_to" t-value="docs[0].validity_to"/>
+
+                            <t t-foreach="guardian.prestation_ids" t-as="horaire">
+                                <tr>
+                                    <t t-if="horaire.prestation_date >= validity_from and horaire.prestation_date &lt;= validity_to">
+                                        <td><span t-field="horaire.prestation_date"/></td>
+                                        <td><span t-field="horaire.es"/></td>
+                                        <td><t t-esc="'%02d:%02d' % (int(horaire.prestation_time), horaire.prestation_time % 1 * 60)" /></td>
+                                    </t>
+                                </tr>
+                            </t>
+                        </table>
+                    </div>
+                </t>
+            </t>
+		</template>
+
+		<report
+		    id="horaire_guardian_wizard_report"
+		    model="extraschool.horaire_guardian_wizard"
+		    string="Horaire Guardian"
+		    report_type="qweb-pdf"
+		    name="extraschool.tpl_guardian_horaire_wizard_report"
+		    attachment_use="False"
+		/>
+
+	</data>
+</openerp>

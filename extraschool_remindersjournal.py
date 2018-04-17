@@ -51,27 +51,28 @@ class reminder_report_pdf_thread (threading.Thread):
 class extraschool_remindersjournal(models.Model):
     _name = 'extraschool.remindersjournal'
     _description = 'Reminders journal'
+    _inherit = 'mail.thread'
 
     def _get_activity_category_id(self):
         return self.env['extraschool.activitycategory'].search([]).filtered('id').id
 
-    name = fields.Char('Name', required=True)
+    name = fields.Char('Name', required=True, track_visibility='onchange')
     activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=True, readonly=True, default=_get_activity_category_id, states={'draft': [('readonly', False)]})
-    transmission_date = fields.Date('Transmission date', default=datetime.date.today(), required=True, readonly=True, states={'draft': [('readonly', False)]})
+    transmission_date = fields.Date('Transmission date', default=datetime.date.today(), required=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
     reminders_journal_item_ids = fields.One2many('extraschool.reminders_journal_item', 'reminders_journal_id','Reminder journal item')
-    reminder_ids = fields.One2many('extraschool.reminder', 'reminders_journal_id','Reminders')
+    reminder_ids = fields.One2many('extraschool.reminder', 'reminders_journal_id','Reminders', track_visibility='onchange')
     biller_id = fields.Many2one('extraschool.biller', 'Biller', readonly=True, states={'draft': [('readonly', False)]})
     remindersjournal_biller_item_ids = fields.One2many('extraschool.reminders_journal_biller_item', 'reminders_journal_id','Reminders biller item')
     ready_to_print = fields.Boolean(String = 'Ready to print', default = False)
-    date_from = fields.Date(string='Date from', readonly=True, states={'draft': [('readonly', False)]})
-    date_to = fields.Date(string='Date to', readonly=True, states={'draft': [('readonly', False)]})
+    date_from = fields.Date(string='Date from', readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
+    date_to = fields.Date(string='Date to', readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
     state = fields.Selection([('draft', 'Draft'),
                               ('validated', 'Validated')],
-                             'validated', required=True, default='draft'
+                             'validated', required=True, default='draft', track_visibility='onchange'
                              )
-    based_reminder_id = fields.Many2one('extraschool.remindersjournal', 'Choose the reminder to be based on')
-    show_based_reminder = fields.Boolean('Clic here if it\'s not the first reminder', default=False)
-    unsolved_reminder_ids = fields.One2many('extraschool.reminder', 'reminders_journal_id', 'Unsolved Reminders', compute="_get_unsolved_reminder_method")
+    based_reminder_id = fields.Many2one('extraschool.remindersjournal', 'Choose the reminder to be based on', track_visibility='onchange')
+    show_based_reminder = fields.Boolean('Clic here if it\'s not the first reminder', default=False, track_visibility='onchange')
+    unsolved_reminder_ids = fields.One2many('extraschool.reminder', 'reminders_journal_id', 'Unsolved Reminders', compute="_get_unsolved_reminder_method", track_visibility='onchange')
 
     @api.one
     def _get_unsolved_reminder_method(self):
@@ -104,7 +105,7 @@ class extraschool_remindersjournal(models.Model):
         """
         with Environment.manage():
 
-            #As this function is in a new thread, i need to open a new cursor, because the old one may be closed
+            # As this function is in a new thread, i need to open a new cursor, because the old one may be closed.
             new_cr = self.pool.cursor()
             env = Environment(new_cr, uid,context)
 
@@ -120,6 +121,12 @@ class extraschool_remindersjournal(models.Model):
     @api.one
     def generate_pdf(self):
         cr,uid = self.env.cr, self.env.user.id
+
+        self.env['ir.attachment'].search([('res_id', 'in',[i.id for i in self.reminder_ids]),
+                                           ('res_model', '=', 'extraschool.reminder')]).unlink()
+
+        self.env.invalidate_all()
+
         threaded_report = []
         chunk_size = 50
         for zz in range(0,len(self.reminder_ids)/chunk_size+1):
@@ -266,7 +273,8 @@ class extraschool_remindersjournal(models.Model):
             if self.date_from:
                 if self.date_from > self.date_to:
                     raise Warning(_("Date to must be bigger than date from !!!"))
-                invoice_search_domain_date_range = [('biller_id.invoices_date', '>=',self.date_from),
+                invoice_search_domain_date_range = [
+                                                    ('biller_id.invoices_date', '>=',self.date_from),
                                                     ('biller_id.invoices_date', '<=', self.date_to)
                                                     ]
 

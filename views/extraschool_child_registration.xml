@@ -59,15 +59,12 @@
                         <field name="warning_visibility" invisible="True"/>
                         <newline/>
 	                    <field name="school_implantation_id" class="oe_no_button" options="{'no_create':True}" />
-	                    <field name="class_id" class="oe_no_button" options="{'no_create':True}"  attrs="{'invisible':['|',('levelid_button', '=', True),('select_per_level_button', '=', True)]}"/>
+	                    <field name="class_id" class="oe_no_button" options="{'no_create':True}" />
 						<field name="place_id" options="{'no_create':True}"/>
-                        <field name="levelid" options="{'no_create':True}" attrs="{'invisible':['|',('class_id_button', '=', True),('select_per_level_button', '=', True)]}"/>
-						<field name="class_id_button" invisible="True"/>
-						<field name="levelid_button" invisible="True"/>
-						<field name="select_per_level_button" invisible="True"/>
+                        <field name="levelid" options="{'no_create':True}" />
 						<newline/>
                         <field name="week"/>
-                        <field name="select_per_level" attrs="{'invisible':['|',('class_id_button', '=', True),('levelid_button', '=', True)]}"/>
+                        <field name="select_per_level" />
                         <newline/>
 						<field name="date_from"/>
 						<field name="date_to"/>
@@ -139,16 +136,13 @@
 						<field name="warning_visibility" invisible="True"/>
 						<field name="warning_biller" style="color: Red" attrs="{'invisible':[('warning_visibility', '!=', True)]}"/>
 	                    <field name="school_implantation_id" class="oe_no_button" options="{'no_create':True}" />
-	                    <field name="class_id" class="oe_no_button" options="{'no_create':True}" attrs="{'invisible':['|',('levelid_button', '=', True),('select_per_level_button', '=', True)]}"/>
+	                    <field name="class_id" class="oe_no_button" options="{'no_create':True}"/>
 						<field name="place_id" options="{'no_create':True}"/>
-                        <field name="levelid" options="{'no_create':True}" attrs="{'invisible':['|',('class_id_button', '=', True),('select_per_level_button', '=', True)]}"/>
+                        <field name="levelid" options="{'no_create':True}"/>
 	                    <field name="activity_id" required="True" options="{'no_create':True}"/>
-						<field name="class_id_button" invisible="True"/>
-						<field name="levelid_button" invisible="True"/>
-						<field name="select_per_level_button" invisible="True"/>
         	            <newline/>
 						<field name="week"/>
-						<field name="select_per_level" attrs="{'invisible':['|',('class_id_button', '=', True),('levelid_button', '=', True)]}"/>
+						<field name="select_per_level"/>
 						<newline/>
 						<field name="date_from"/>
 						<field name="date_to"/>

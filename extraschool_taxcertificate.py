@@ -8,13 +8,14 @@ import time
 class extraschool_taxcertificate(models.Model):
     _name = 'extraschool.taxcertificate'
     _description = 'Taxcertificate'
+    _inherit = 'mail.thread'
 
     def _get_activity_category_id(self):
         return self.env['extraschool.activitycategory'].search([]).filtered('id').id
 
-    name = fields.Integer('Fiscal Year', required=True, select = True)
-    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity category', required=True, default=_get_activity_category_id)
-    doc_date = fields.Date('Document date', required=True)     
+    name = fields.Integer('Fiscal Year', required=True, select = True, track_visibility='onchange')
+    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity category', required=True, default=_get_activity_category_id, track_visibility='onchange')
+    doc_date = fields.Date('Document date', required=True, track_visibility='onchange')
     
     taxcertificate_item_ids = fields.One2many('extraschool.taxcertificate_item', 'taxcertificate_id','Details')
     pdf_ready = fields.Boolean(string="Pdf ready", default=False)
@@ -200,6 +201,8 @@ class extraschool_taxcertificate_item(models.Model):
     taxcertificate_id = fields.Many2one('extraschool.taxcertificate', 'Taxe certif',ondelete='cascade', index=True)
     parent_id = fields.Many2one('extraschool.parent', 'Parent', required=True, select = True)
     child_id = fields.Many2one('extraschool.child', 'Child', required=True, select=True)
+    implantation = fields.Many2one(related='child_id.schoolimplantation', invisible=True, store=True)
+    niveau = fields.Many2one(related='child_id.levelid', invisible=True, store=True)
     nbr_day = fields.Integer('Nbr day')
     prest_from = fields.Float('From')
     prest_to = fields.Float('To')       

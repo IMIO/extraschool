@@ -51,20 +51,22 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Payment" create="false">
-					<group col="4">
-						<field name="parent_id"></field>
-	                    <field name="paymentdate" attrs="{'readonly':[('paymenttype', '==', '1')]}"/>
-						<field name="amount" attrs="{'readonly':[('payment_reconciliation_ids', '=', [(6, False, [])])]}"/>
-	                    <field name="paymenttype" attrs="{'readonly':[('paymenttype', '==', '1')]}"/>
-	                    <field name="name" readonly="True"/>
-	                    <field name="account" readonly="True"/>
-	                    <field name="structcom" readonly="True"/>
-	                    <field name="structcom_prefix" readonly="True"/>
-	                    <newline />
-						<field name="comment" />
-						<separator string="Affectations" colspan="4"/>
-						<field name="payment_reconciliation_ids" nolabel="1" colspan="4" readonly="True"/>
-                    </group>
+                    <sheet>
+                        <group col="4">
+                            <field name="parent_id"></field>
+                            <field name="paymentdate" attrs="{'readonly':[('paymenttype', '==', '1')]}"/>
+                            <field name="amount" attrs="{'readonly':[('payment_reconciliation_ids', '=', [(6, False, [])])]}"/>
+                            <field name="paymenttype" attrs="{'readonly':[('paymenttype', '==', '1')]}"/>
+                            <field name="name" readonly="True"/>
+                            <field name="account" readonly="True"/>
+                            <field name="structcom" readonly="True"/>
+                            <field name="structcom_prefix" readonly="True"/>
+                            <newline />
+                            <field name="comment" />
+                            <separator string="Affectations" colspan="4"/>
+                            <field name="payment_reconciliation_ids" nolabel="1" colspan="4" readonly="True"/>
+                        </group>
+                    </sheet>
 				</form>
 			</field>
 		</record>
@@ -162,7 +164,7 @@
             <field name="type">tree</field>
             <field name="arch" type="xml">
 	            <tree string="Payment Status" create="false">
-		            	<field name="activity_category_id"/>
+		            	<!--<field name="payment_date"/>-->
 		                <field name="parent_id"/>
 		                <field name="com_struct"/>
 		                <field name="solde" sum="True"/>
@@ -189,7 +191,7 @@
             <field name="model">extraschool.payment_status_report</field>
             <field name="arch" type="xml">
                 <search string="Guardian prestationtimes Search">
-	            	<field name="activity_category_id"/>
+	            	<!--<field name="payment_date"/>-->
 	               	<field name="parent_id"/>
 	               	<field name="solde"/>
 					<filter string="Actif" name="actif" icon="terp-accessories-archiver" domain="[('parent_id.isdisabled','=',False)]"/>

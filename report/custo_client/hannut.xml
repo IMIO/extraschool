@@ -12,6 +12,16 @@
 			}
 			</style>
 		</template>
+
+		<template id="report_ittre_body_style">
+			<style type="text/css">
+			body {
+			  font-size: 12px;
+			  text-align: justify;
+			  text-justify: inter-word;
+			}
+			</style>
+		</template>
 		
 		<template id="report_hannut_all_invoice_summary" inherit_id="extraschool.report_all_invoice_summary" primary="True">
 			<xpath expr="//div[@id='invoice_summary']" position="before">	
@@ -261,7 +271,145 @@ L’Eveil avant la date d'échéance. Toute facture non contestée est considér
 			</t>
 
 		</template>
+		<template id="report_payment_info_amount_one_row_hannut">
+			<style>
+				#total_row{
+					border-width: 1px;
+					border-style: solid;
+					float: left;
+					width: 100%;
+					page-break-inside: avoid;
+					font-size: 12px;
+				}
 
-								
+				#total{
+					width: 40%;
+				    float: right;
+				    margin: 2mm 5mm 2mm 0mm;
+				}
+
+				#total:after {
+					content: "";
+					display: block;
+					clear: both;
+				}
+
+				#total>div{
+					display: block;
+					padding: 0px 8px 0px 8px;
+					width: 100%;
+					float: right;
+
+				}
+
+				#total>div>span.amount {
+					float : right;
+					width: 40%;
+					text-align: right;
+				}
+
+				#total>div>span.zz_label {
+					float : left;
+					width: 50%;
+				}
+
+				#total>div.to_pay {
+					font-weight: bold;
+				}
+
+				#payment_info{
+				    margin-left: 5mm;
+					display: block;
+					width: 50%;
+					float : left;
+					padding: 8px;
+				}
+			</style>
+			<div id="total_row">
+
+			<div id="payment_info">
+				<span>Compte: <b><t t-esc="categ_id.bankaccount" /></b></span>
+				<br />
+				<span>BIC: <t t-esc="categ_id.bank_bic" /></span>
+				<br />
+				<div class="com_struct">
+					<span>Communication structurée <b>obligatoire</b>:<br/>
+					 <b><t t-esc="com_struct" /></b></span>
+				</div>
+			</div>
+				<div id="total">
+					<div class="amount">
+					  <span class="zz_label">Total</span><span class="amount"><t t-esc="'%.2f' %  (total)" /> €</span>
+					</div>
+					<div class="amount" t-if="received != 0">
+					  <span class="zz_label">Reçu</span><span class="amount"><t t-esc="'%.2f' %  (received)" /> €</span>
+					</div>
+                    <div class="amount" t-if="reminder_type == 'fix'">
+                        <span class="zz_label">Frais de rappel</span><span class="amount"><t t-esc="'%.2f' %  (fees)" /> €</span>
+                    </div>
+                    <div class="amount to_pay" t-if="reminder_type == 'fix'">
+                        <span class="zz_label">Solde</span><span class="amount"><t t-esc="'%.2f' %  (balance + fees)" /> €</span>
+                    </div>
+					<div class="amount to_pay" t-if="reminder_type == 'free'">
+						<span class="zz_label">Solde</span><span class="amount"><t t-esc="'%.2f' %  (balance)" /> €</span>
+					</div>
+					<div class="amount to_pay" t-if="not reminder_type">
+						<span class="zz_label">Solde</span><span class="amount"><t t-esc="'%.2f' %  (balance)" /> €</span>
+					</div>
+					<div class="amount to_pay">
+					  <b><span> A payer avant le <t t-esc="payment_term" /></span></b>
+					</div>
+				</div>
+			</div>
+		</template>
+
+		<template id="report_invoice_summary_tournai_text">
+				  <style type="text/css">
+					  #invoice_summary{
+						width: 100%;
+						display: block;
+						margin: 0cm 0cm 0cm 0cm;
+						page-break-inside: avoid;
+						text-align: justify;
+						text-justify: inter-word;
+						font-size: 15px;
+					 }
+
+					 #invoice_summary div.your_ref{
+						width: 100%;
+						padding: 5mm 0mm 5mm 0mm;
+						display: block;
+					 }
+
+
+					div#invoice_summary h2{
+						font-size: 12px;
+						font-weight: bold;
+					 }
+
+				 </style>
+					  <div id="invoice_summary" >
+						 <p>
+							 Objet: Factures AES pour la période du <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(reminder.reminders_journal_id.date_from,'%Y-%m-%d')))"/> au
+							 <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(reminder.reminders_journal_id.date_to,'%Y-%m-%d')))"/> - <b>RAPPEL</b><br/>
+					   Nos réf. : AES / <t t-esc="parent_id.name" /><br/><br/><br/>
+						Cher Parent, <br/><br/>
+					   Nous vous avons adressé les factures relatives aux frais scolaires de votre (vos) enfant(s) pour la période du <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(reminder.reminders_journal_id.date_from,'%Y-%m-%d')))"/> au
+							 <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(reminder.reminders_journal_id.date_to,'%Y-%m-%d')))"/>.
+					   Nous constatons que vous êtes encore redevable d'un solde dû de <t t-esc="amount"/>€ envers l'Administration
+					   Communale de Tournai, somme dont vous trouverez le détail ci-annexé.<br/><br/>
+					   Si vous souhaitez solliciter un plan de paiement, nous vous invitons à prendre contact avec notre service. <br/><br/>
+					   À défaut de paiement, le recouvrement de la créance sera poursuivi suivant l'article L1124-40 §1er,1° du
+					   Code de la Démocratie locale et de la Décentralisation.<br/><br/>
+					   Si entretemps, la somme a été réglée, veuillez considérer ce rappel comme nul et non avenu.<br/><br/>
+					   Vous souhaitant bonne réception de la présente, nous vous prions de croire, Cher Parent, à l'assurance de
+					   notre considération distinguée.
+						 </p>
+					 </div>
+		</template>
+
+
+
+
 	</data>
 </openerp>	

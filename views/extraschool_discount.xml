@@ -7,12 +7,14 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="discount">
-                	<group col="4">
-	                	<field name="name"/>	
-	                	<field name="description"/>		                			                		
-						<separator string="Versions" colspan="4"/> 
-		                <field name="discount_version_ids" nolabel="1" colspan="4" />                		                		
-                	</group>
+					<sheet>
+						<group col="4">
+							<field name="name"/>
+							<field name="description"/>
+							<separator string="Versions" colspan="4"/>
+							<field name="discount_version_ids" nolabel="1" colspan="4" />
+						</group>
+					</sheet>
                 </form>
             </field>
         </record>

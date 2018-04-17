@@ -26,7 +26,6 @@ from openerp.api import Environment
 import lbutils
 from openerp.exceptions import except_orm, Warning, RedirectWarning
 
-
 class extraschool_child_fusion_wizard(models.TransientModel):
     _name = 'extraschool.child_fusion_wizard'
     _description = 'Child fusion wizard'
@@ -54,10 +53,15 @@ class extraschool_child_fusion_wizard(models.TransientModel):
             self.env['extraschool.taxcertificate_item'].search([('child_id', '=', child.id)]).write(
                 {'child_id': self.child_id.id})
 
-        # delete child
+        # Delete POTD with the same prestation date.
+        self.delete_potd(self.child_id.id)
+
+
+        # List of childs to delete.
         child_to_delete_ids = self.env['extraschool.child'].search(
             [('id', 'in', [child.id for child in self.child_ids])])
 
+        # Delete childs
         if len(child_to_delete_ids):
             print "## Deleting childs."
             sql_delete_child = """delete from extraschool_child
@@ -65,14 +69,40 @@ class extraschool_child_fusion_wizard(models.TransientModel):
                                 """
             self.env.cr.execute(sql_delete_child)
 
-# class extraschool_parent_fusion_child(models.TransientModel):
-#     _name = 'extraschool.parent_fusion_child'
-#     _description = 'Parent fusion child'
-#
-#     parent_fusion_wizard_id = fields.Many2one('extraschool.parent_fusion_wizard', 'Parent fusion wizard')
-#     fusion_wizard_parent_id = fields.Many2one('extraschool.parent')
-#     child_id = fields.Many2one('extraschool.child', 'Child')
-#
-#     dest_child_id = fields.Many2one('extraschool.child', 'Destination child',
-#                                     domain="[('parentid','=',fusion_wizard_parent_id)]")
+    @api.multi
+    def delete_potd(self, child_id):
+        """
+        Fusion and delete potd with the same date.
+        :param child_id: id of the child to keep
+        :return: None
+        """
+        previous_date = '0-0-0000'
+        self.last_potd_id = 0
+        potd_to_delete = []
+        for potd in self.env['extraschool.prestation_times_of_the_day'].search(
+                [('child_id', '=', child_id)]).filtered('date_of_the_day'):
+            if potd.date_of_the_day == previous_date:
+                self.fusion_potd(potd.id, potd.date_of_the_day, child_id)
+                potd_to_delete.append(self.last_potd_id)
+                self.last_potd_id = 0
+            previous_date = potd.date_of_the_day
+            self.last_potd_id = potd.id
 
+        # Delete empty potd.
+        if potd_to_delete:
+            self.env['extraschool.prestation_times_of_the_day'].search(
+                [('id', '=', potd_to_delete)]).unlink()
+
+    @api.multi
+    def fusion_potd(self,potd_id, date_of_the_day, child_id):
+        """
+        Fusion of potd with the same child id and prestation date.
+        :param potd_id: New id of POTD
+        :param date_of_the_day: date used for the domain
+        :param child_id: id used for the domain
+        :return: None
+        """
+        self.env['extraschool.prestationtimes'].search([('childid', '=', child_id), ('prestation_date', '=', date_of_the_day)]).write(
+            {'prestation_times_of_the_day_id': potd_id})
+        self.env['extraschool.pdaprestationtimes'].search([('childid', '=', child_id), ('prestation_date', '=', date_of_the_day)]).write(
+            {'prestation_times_of_the_day_id': potd_id})

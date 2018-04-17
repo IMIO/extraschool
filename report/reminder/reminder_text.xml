@@ -10,10 +10,56 @@
 		    	}
 
 			</style>
-						
+
         	<div class="reminder_body">
 				<p><t t-raw="html_text"/></p>
        		</div>
+		</template>
+
+
+		<template id="report_reminder_img">
+		    <style>
+				#doc_resp_sign{
+					display: block;
+					width: 100%;
+					page-break-inside: avoid;
+				}
+
+				#doc_resp_sign&gt;img{
+					display: block;
+					width: 20 mm;
+					float : right;
+				}
+
+			</style>
+			<div id="doc_resp_sign">
+				<img class="sign_img" t-attf-src="data:image/jpeg;base64,{{reminder.reminders_journal_id.activity_category_id.po_rappel_sign}}"/>
+			</div>
+		</template>
+
+		<template id="report_reminder_sign">
+		    <style type="text/css">
+		        .reminder_body{
+		    		width: 100%;
+					font-size: 14px;
+                    text-align: justify;
+		    	}
+
+				#doc_resp_sign>div{
+					float: right;
+				}
+
+				#doc_resp_sign>div>span{
+					display:block;
+				}
+
+			</style>
+			<div id="doc_resp_sign">
+				<div>
+					<span t-esc="resp_fct" />
+					<span t-esc="resp_name" />
+				</div>
+			</div>
 		</template>
 
 	</data>

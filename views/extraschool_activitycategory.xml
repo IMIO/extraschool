@@ -70,8 +70,7 @@
 			                <field name="po_sign" widget="image" class="oe_avatar oe_left"/>
 			                <field name="po_stamp" widget="image" class="oe_avatar oe_left"/>
 							<newline />
-			                <field name="po_email" />
-			               	<field name="po_tel" />              		
+							<field name="po_tel" />
 			               	<field name="po_addresse_free_text"  widget="html" />
 							<newline />
 							<field name="po_addresse_free_text2"  widget="html" />
@@ -147,7 +146,9 @@
 						</group>
 					</page>
 					<page string="QRCode">
-						<field name="qrcode_report_id"/>
+						<group col="4">
+							<field name="qrcode_report_id"/>
+						</group>
 					</page>
 					<page string="Tax certificate">
 						<group col="4">

@@ -37,3 +37,16 @@ class extraschool_prestation_times_manuel(models.Model):
     prestation_time_exit = fields.Float('Exit Time')                
     comment = fields.Text()
 
+    @api.model
+    def create(self, vals):
+        # Check Validity Date & Hour.
+        res = super(extraschool_prestation_times_manuel, self).create(vals)
+        if res:
+            id_encodage = self.env['extraschool.prestation_times_encodage_manuel'].search(
+                [('id', '=', res['prestation_times_encodage_manuel_id'].id)])
+            if id_encodage.prestation_time_all_entry:
+                res['prestation_time_entry'] = id_encodage.prestation_time_all_entry
+            if id_encodage.prestation_time_all_exit:
+                res['prestation_time_exit'] = id_encodage.prestation_time_all_exit
+        return res
+

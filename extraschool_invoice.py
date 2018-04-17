@@ -60,8 +60,8 @@ class extraschool_invoice(models.Model):
     no_value = fields.Float('No value',default=0.0,readonly=True, track_visibility='onchange')
     discount = fields.Float('Discount',readonly=True, track_visibility='onchange')
     biller_id = fields.Many2one('extraschool.biller', 'Biller', required=False,ondelete='cascade',readonly=True, index=True, track_visibility='onchange')
-    filename = fields.Char('filename', size=20,readonly=True, track_visibility='onchange')
-    invoice_file = fields.Binary('File', readonly=True, track_visibility='onchange')
+    filename = fields.Char('filename', size=20,readonly=True,  invisible= True, track_visibility='onchange')
+    invoice_file = fields.Binary('File', readonly=True, invisible= True, track_visibility='onchange')
     payment_ids = fields.One2many('extraschool.payment_reconciliation', 'invoice_id','Payments', track_visibility='onchange')
     invoice_line_ids = fields.One2many('extraschool.invoicedprestations', 'invoiceid','Details', track_visibility='onchange')
     refound_line_ids = fields.One2many('extraschool.refound_line', 'invoiceid','Refound', track_visibility='onchange')
@@ -149,7 +149,7 @@ class extraschool_invoice(models.Model):
             invoice._compute_balance()
 
     @api.multi
-    def cancel(self):
+    def cancel_and_invoice_after(self):
         for invoice in self:
             if invoice.balance == invoice.amount_total:
                 invoice.refound_line_ids.create({'invoiceid': self.id,
@@ -159,6 +159,14 @@ class extraschool_invoice(models.Model):
                 for line in invoice.invoice_line_ids:
                     line.prestation_ids.write({'invoiced_prestation_id': None})
 
+    @api.multi
+    def cancel(self):
+        for invoice in self:
+            if invoice.balance == invoice.amount_total:
+                invoice.refound_line_ids.create({'invoiceid': self.id,
+                                                 'date': fields.Date.today(),
+                                                 'description': _('Invoice cancelled'),
+                                                 'amount': invoice.balance, })
 
     def get_concerned_short_name(self):
         res = []
