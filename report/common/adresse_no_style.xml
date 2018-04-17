@@ -131,8 +131,6 @@
 			</div>
 		</template>
 
-<<<<<<< HEAD
-=======
 		<template id="report_adresse_no_style_clavier">
 		    <style type="text/css">
 		        .aes_adresse{
@@ -186,8 +184,7 @@
 				</div>
 			</div>
 		</template>
-		
->>>>>>> origin/master
+
 	</data>
 </openerp>
 
