@@ -19608,11 +19608,14 @@ msgstr "Comma-separated recipient addresses"
 msgid "Comma-separated recipient addresses (placeholders may be used here)"
 msgstr "Adresses des destinataires séparées par des virgules (des variables peuvent être utilisées ici)"
 
-#. modules: mail, base, extraschool
-#: field:res.groups,comment:0 field:extraschool.biller,comment:0
+#. module: extraschool
+#: field:extraschool.biller,comment:0
 #: view:extraschool.child:extraschool.extraschool_child_form
 #: field:extraschool.child,comment:0
 #: field:extraschool.child_registration,comment:0
+#: view:extraschool.guardian:extraschool.extraschool_guardian_form
+#: field:extraschool.guardian,comment:0
+#: view:extraschool.invoice:extraschool.extraschool_invoice_form
 #: field:extraschool.invoice,comment:0
 #: view:extraschool.parent:extraschool.extraschool_parent_form
 #: field:extraschool.parent,comment:0
@@ -19623,10 +19626,8 @@ msgstr "Adresses des destinataires séparées par des virgules (des variables pe
 #: field:extraschool.prestation_times_encodage_manuel,comment:0
 #: field:extraschool.prestation_times_manuel,comment:0
 #: field:extraschool.prestation_times_of_the_day,comment:0
-#: selection:mail.compose.message,type:0 view:mail.mail:mail.view_mail_search
-#: selection:mail.message,type:0
 msgid "Comment"
-msgstr "Commentaires"
+msgstr "Commentaire"
 
 #. module: extraschool
 #: view:extraschool.activitycategory:extraschool.extraschool_activitycategory_form
