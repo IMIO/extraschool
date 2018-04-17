@@ -18,12 +18,18 @@
 
 
 		<template id="report_reminder_img">
-		    <style type="text/css">
-		        .reminder_body{
-		    		width: 100%;
-					font-size: 14px;
-                    text-align: justify;
-		    	}
+		    <style>
+				#doc_resp_sign{
+					display: block;
+					width: 100%;
+					page-break-inside: avoid;
+				}
+
+				#doc_resp_sign&gt;img{
+					display: block;
+					width: 20 mm;
+					float : right;
+				}
 
 			</style>
 			<div id="doc_resp_sign">
