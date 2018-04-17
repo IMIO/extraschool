@@ -36,7 +36,7 @@ promote-Ans:
     - docker tag docker-staging.imio.be/extraschool-v9:latest docker-prod.imio.be/extraschool-v9:latest
     - docker push docker-prod.imio.be/extraschool-v9:latest
     - docker rmi docker-staging.imio.be/extraschool-v9:latest docker-prod.imio.be/extraschool-v9:latest
-    - mco shell run 'docker pull docker-prod.imio.be/extraschool-v9:latest' -I /prod/
+    - mco shell run 'docker pull docker-prod.imio.be/extraschool-v9:latest' -C /role::docker::extraschool::instances$/ -I /prod/
     - mco shell run '/srv/docker_scripts/ans_extraschool/restart.sh' -I /prod/
   when: manual
 
