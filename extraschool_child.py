@@ -138,6 +138,43 @@ class extraschool_child(models.Model):
 ##############################################################################
 
     @api.multi
+    def send_data(self):
+        vals = [{
+                'childid': 1112,
+                'placeid': 3,
+                'prestation_date': '2018-04-19',
+                'prestation_time': 17,
+                'es': 'S',
+                'type': 2,
+                },
+                {
+                    'childid': 1112,
+                    'placeid': 3,
+                    'prestation_date': '2018-04-19',
+                    'prestation_time': 8,
+                    'es': 'E',
+                    'type': 2,
+                },
+                {
+                    'childid': 35,
+                    'placeid': 3,
+                    'prestation_date': '2018-04-19',
+                    'prestation_time': 17,
+                    'es': 'S',
+                    'type': 1,
+                },
+                {
+                    'childid': 35,
+                    'placeid': 3,
+                    'prestation_date': '2018-04-19',
+                    'prestation_time': 17,
+                    'es': 'S',
+                    'type': 1,
+                }
+        ]
+        self.env['extraschool.pdaprestationtimes'].import_prestations(vals)
+
+    @api.multi
     def get_child_for_smartphone(self, smartphone_id):
         # Todo: Get newtag list.
         """
@@ -168,10 +205,14 @@ class extraschool_child(models.Model):
             if child['tagid'] == None:
                 child['tagid'] = ''
 
-        self.env['extraschool.smartphone_log'].create({ 'title': 'Fetching children',
-                                                        'time_of_transmission': time.time() - start_time,
-                                                        'smartphone_id': smartphone_id,
-                                                        })
+        try:
+            self.env['extraschool.smartphone_log'].create({ 'title': 'Fetching children',
+                                                            'time_of_transmission': time.time() - start_time,
+                                                            'smartphone_id': smartphone_id,
+                                                            })
+        except:
+            print "Error Children"
+            return "Error Sync on Children"
 
         return children_info
 

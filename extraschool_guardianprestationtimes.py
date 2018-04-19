@@ -31,10 +31,10 @@ class extraschool_guardianprestationtimes(models.Model):
     _description = 'Guardian Prestation Times'
     
     guardianid = fields.Many2one('extraschool.guardian', 'Guardian', required=False)
-    prestation_date = fields.Date('Date',select = True, index = True)
+    prestation_date = fields.Date('Date',select=True, index=True)
     prestation_date_str = fields.Char(compute="_compute_prestation_date_str",string='Date str', store=True)
     prestation_time = fields.Float('Time')
-    es = fields.Selection((('E','In'), ('S','Out')),'ES' , index = True)         
+    es = fields.Selection((('E', 'In'), ('S', 'Out')),'ES', index=True)
     manualy_encoded = fields.Boolean('Manualy encoded')
     exported = fields.Boolean('Exported', default=False)
 

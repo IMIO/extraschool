@@ -23,7 +23,7 @@
 				<form string="Child">
 					<header>
 						<button name="wizard_action" string="Fusion" icon="gtk-apply" type="object" context="{'default_child_id': id}" groups="extraschool.extraschool_fusion"/>
-						<button name="get_children" string="smartphone" icon="gtk-apply" type="object" groups="extraschool.extraschool_fusion"/>
+						<button name="send_data" string="smartphone" icon="gtk-apply" type="object" groups="extraschool.extraschool_fusion"/>
             		</header>
                     <sheet>
 					<div class="oe_right oe_button_box" name="buttons"> 

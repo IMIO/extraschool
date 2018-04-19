@@ -92,10 +92,14 @@ class extraschool_guardian(models.Model):
             if guardian['tagid'] == None:
                 guardian['tagid'] = ''
 
-        self.env['extraschool.smartphone_log'].create({ 'title': 'Fetching guardians',
-                                                        'time_of_transmission': time.time() - start_time,
-                                                        'smartphone_id': smartphone_id,
-                                                        })
+        try:
+            self.env['extraschool.smartphone_log'].create({ 'title': 'Fetching guardians',
+                                                            'time_of_transmission': time.time() - start_time,
+                                                            'smartphone_id': smartphone_id,
+                                                            })
+        except:
+            print "Error Guardian"
+            return "Error Sync on Guardians"
 
         return guardian_info
 
