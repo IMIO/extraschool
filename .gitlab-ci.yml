@@ -45,10 +45,10 @@ restart-Ans:
   stage: restart
   script:
     - mco shell run '/srv/docker_scripts/ans_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
-  when: on_success
+  when: manual
 
 restart-Ferrieres:
   stage: restart
   script:
     - mco shell run '/srv/docker_scripts/ferrieres_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
-  when: on_success
+  when: manual
