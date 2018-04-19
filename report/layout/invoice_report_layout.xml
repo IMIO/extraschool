@@ -5,7 +5,6 @@
             <xpath expr="//body" position="attributes">
                 <attribute t-translation="off" name="onload">subst(); pagination_hide();</attribute>
             </xpath>
-
             <xpath expr="//html" position="attributes">
 		    	<attribute name="t-att-data-report-margin-top">docs[0].activitycategoryid.invoice_report_id.paper_format_id.margin_top</attribute>
 		        <attribute name="t-att-data-report-margin-bottom">docs[0].activitycategoryid.invoice_report_id.paper_format_id.margin_bottom</attribute>
@@ -140,18 +139,10 @@
 
 	<data>
 		<template id="invoice_detail_report_layout" inherit_id="report.layout"  primary="True">
-
             <xpath expr="//head" position="inside">
-	            <style type="text/css">
-					body {
-					  font-family: arial !important;
-					}
-
-					body.container {
-	            	  margin: 0px;
-	            	  padding: 0px;
-					}
-				</style>
+                <link rel="stylesheet" href="/extraschool/static/src/css/invoice_detail_report_layout.css"/>
+            </xpath>
+            <xpath expr="//head" position="inside">
 				<link href="/web/static/lib/bootstrap/css/bootstrap.css" rel="stylesheet"/>
 		        <link href="/website/static/src/css/website.css" rel="stylesheet"/>
 		        <link href="/web/static/lib/fontawesome/css/font-awesome.css" rel="stylesheet"/>

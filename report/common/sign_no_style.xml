@@ -1,27 +1,13 @@
 <?xml version="1.0" ?>
 <openerp>
-	<data> 		
+	<data>
 		<template id="report_sign_no_style">
-			<style>
-				#doc_resp_sign{
-					page-break-inside: avoid;
-					display: block;
-					width: 100%;
-					font-size:15px;
-				}
-				
-				#doc_resp_sign>div{				
-					float: right;							
-				}
-
-				#doc_resp_sign>div>span{
-					display:block;
-				}				
-				
-			</style>
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_sign_no_style.css"/>
+            </xpath>
 			<div id="doc_resp_sign">
 				<div>
-					<span t-esc="resp_fct" />										
+					<span t-esc="resp_fct" />
 					<span t-esc="resp_name" />
 				</div>
 			</div>
@@ -54,6 +40,5 @@
 		</template>
 
 	</data>
-</openerp>	
-	
-	
+</openerp>
+

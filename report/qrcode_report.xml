@@ -148,7 +148,6 @@
                         text-align: center;
                         width: 25mm;
                         height: 10mm;
-                        border: solid 1px red;
                     }
                 </style>
             </xpath>

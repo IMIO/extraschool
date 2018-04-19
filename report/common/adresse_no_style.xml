@@ -2,39 +2,9 @@
 <openerp>
 	<data>
 		<template id="report_adresse_no_style">
-		    <style type="text/css">
-		        .aes_adresse{
-		    		width: 100%;
-		    		display: block;
-		    	}
-
-		    	.aes_adresse::after {
-   				   clear: both;
-				    content: "";
-				    display: block;
-				}
-
-		    	.customer{
-		    		float: left;
-		    		width: 45%;
-		    	}
-
-		    	.po{
-		    		float: left;
-		    		width: 40%;
-		    	}
-
-		    	.customer{
-		    		float: right;
-		    		font-size:12px;
-		    	}
-
-				.aes_adresse_block > span{
-		    		display: block;
-		    		clear: both;
-		    	}
-
-			</style>
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_adresse_no_style.css"/>
+            </xpath>
 	    	<div class="aes_adresse">
 				<div id="aes_po_adresse" class="aes_adresse_block po">
 					<span t-field="po_addresse.po_name" />

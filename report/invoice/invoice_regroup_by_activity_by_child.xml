@@ -1,44 +1,10 @@
 <?xml version="1.0" ?>
 <openerp>
-	<data> 
+	<data>
 		<template id="report_invoice_regroup_by_activity_by_child">
-		    <style type="text/css">
-		        #invoice_body{
-		    		width: 100%;
-		    		display: block;
-		    	}
-		    	
-		    	#invoice_body div.your_ref{
-		    		width: 100%;
-		    		padding: 5mm 0mm 5mm 0mm;
-		    		display: block;
-		    	}
-		    			    	
-				#invoice_body table {
-		    		width: 100%;
-					font-size:11px;
-					border-width: 1px;
-					border-collapse: collapse;
-				}
-				#invoice_body table th {
-					border-width: 1px;
-					padding: 8px;
-					border-style: solid;
-					background-color: #dedede;
-				}
-				#invoice_body table td {
-					border-width: 1px;
-					padding: 5px;
-					border-style: solid;
-				}
-
-				#invoice_body table td.amount {
-		    		text-align: right;
-		    		width: 20%;
-				}
-		    			    	
-			</style>
-						
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_invoice_regroup_by_activity_by_child.css"/>
+            </xpath>
         	<div id="invoice_body">
         		<table>
         			<tr>
@@ -46,25 +12,25 @@
 	        			<th class="col_quantity">Quantité</th>
 	        			<th>Total</th>
 					</tr>
-					<t t-set="saved_child_id" t-value="0"/>										
+					<t t-set="saved_child_id" t-value="0"/>
 					<t t-set="saved_activity" t-value="'******'"/>
-					<t t-set="saved_description" t-value="'*****'"/>										
+					<t t-set="saved_description" t-value="'*****'"/>
 					<t t-set="activity_count" t-value="0"/>
 					<t t-set="activity_amount" t-value="0"/>
 					<t t-set="activity_time" t-value="0"/>
-																
+
 	       			<t t-foreach="invoice.invoice_line_ids.sorted(key=lambda r: (('%s%s') % (r.childid,r.activity_occurrence_id.activityid.short_name)))" t-as="invoice_line">
 	       				<t t-if="saved_child_id != invoice_line.childid or saved_activity != invoice_line.activity_occurrence_id.activityid.short_name">
 	       					<t t-if="activity_count != 0">
 		        				<tr>
-			       					<td><span t-esc="'%s - %s %s' % (saved_child_id.name if len(saved_child_id) else '',saved_activity if saved_activity != False else '',saved_description if saved_description != False else '')" /></td> 
-			       					<td class="col_quantity amount"><span t-esc="activity_count" /></td> 
-			       					<td class="amount"><span t-esc="'%.2f €' %  (activity_amount)" /></td> 
-			       				</tr>	       							
+			       					<td><span t-esc="'%s - %s %s' % (saved_child_id.name if len(saved_child_id) else '',saved_activity if saved_activity != False else '',saved_description if saved_description != False else '')" /></td>
+			       					<td class="col_quantity amount"><span t-esc="activity_count" /></td>
+			       					<td class="amount"><span t-esc="'%.2f €' %  (activity_amount)" /></td>
+			       				</tr>
 	       					</t>
 	       					<t t-set="saved_child_id" t-value="invoice_line.childid"/>
 	       					<t t-set="saved_activity" t-value="invoice_line.activity_occurrence_id.activityid.short_name"/>
-	       					<t t-set="saved_description" t-value="invoice_line.description"/>								        					
+	       					<t t-set="saved_description" t-value="invoice_line.description"/>
 							<t t-set="activity_count" t-value="0"/>
 							<t t-set="activity_amount" t-value="0"/>
 							<t t-set="activity_time" t-value="0"/>
@@ -73,32 +39,24 @@
 							<t t-set="activity_count" t-value="activity_count + 1"/>
 							<t t-set="activity_amount" t-value="activity_amount + invoice_line.total_price"/>
 							<t t-set="activity_time" t-value="activity_time + invoice_line.duration"/>
-						</t>						
+						</t>
 	        		</t>
    					<t t-if="activity_count != 0">
         				<tr>
-	       					<td><span t-esc="'%s - %s %s' % (saved_child_id.name if len(saved_child_id) else '',saved_activity if saved_activity != False else '',saved_description if saved_description != False else '')" /></td> 
-	       					<td class="col_quantity amount"><span t-esc="activity_count" /></td> 
-	       					<td class="amount"><span t-esc="'%.2f €' %  (activity_amount)" /></td> 
-	       				</tr>	       							
+	       					<td><span t-esc="'%s - %s %s' % (saved_child_id.name if len(saved_child_id) else '',saved_activity if saved_activity != False else '',saved_description if saved_description != False else '')" /></td>
+	       					<td class="col_quantity amount"><span t-esc="activity_count" /></td>
+	       					<td class="amount"><span t-esc="'%.2f €' %  (activity_amount)" /></td>
+	       				</tr>
    					</t>
-	        		 	            			        			
+
         		</table>
        		</div>
 		</template>
 
 		<template id="report_invoice_regroup_by_activity_by_child_no_quantity" inherit_id="extraschool.report_invoice_regroup_by_activity_by_child" primary="True">
 
-			<xpath expr="//div[@id='invoice_body']" position="before">
-				<style>
-					.col_quantity {
-	  					display: none;
-					}										
-				</style>
-			</xpath>		
 		</template>
-				
+
 	</data>
-</openerp>	
-	
-	
+</openerp>
+

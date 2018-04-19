@@ -100,6 +100,9 @@
 		</template>
 
 		<template id="report_invoice_summary_yvoir">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_invoice_summary_yvoir.css"/>
+            </xpath>
 			<t t-set="zz" t-value="0" />
 			<t t-foreach="summary_invoice_ids" t-as="summary_invoice">
 				<t t-if="summary_invoice.id != invoice_id">
@@ -107,53 +110,6 @@
 				</t>
 			</t>
 			<t t-if="zz" >
-			    <style type="text/css">
-			        #invoice_summary{
-			    		width: 100%;
-			    		display: block;
-			    		margin: 0cm 0cm 0cm 0cm;
-			    		page-break-inside: avoid;
-			    		text-align: justify;
-			    		text-justify: inter-word;
-			    		font-size: x-small;
-			    	}
-
-			    	#invoice_summary div.your_ref{
-			    		width: 100%;
-			    		padding: 5mm 0mm 5mm 0mm;
-			    		display: block;
-			    	}
-
-					#invoice_summary table {
-			    		width: 100%;
-						font-size:11px;
-						border-width: 1px;
-						border-collapse: collapse;
-					}
-					#invoice_summary table th {
-						border-width: 1px;
-						padding: 4px;
-						border-style: solid;
-						background-color: #dedede;
-					}
-					#invoice_summary table td {
-						border-width: 1px;
-						padding: 4px;
-						border-style: solid;
-					}
-
-					#invoice_summary table td.amount {
-			    		text-align: right;
-			    		width: 20%;
-					}
-
-					div#invoice_summary h2{
-			    		font-size: 12px;
-			    		font-weight: bold;
-			    	}
-
-				</style>
-
 	        	<div id="invoice_summary" >
 	        		<h2><span t-esc="summary_invoice_title" /></h2>
 	        		<p>Les factures suivantes sont toujours en attente de paiement. Nous vous prions de bien vouloir procéder à leur(s) règlement(s) dans les meilleurs délais.</p>

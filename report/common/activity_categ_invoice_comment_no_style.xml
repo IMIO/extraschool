@@ -1,18 +1,8 @@
 <?xml version="1.0" ?>
 <openerp>
-	<data> 		
+	<data>
 		<template id="report_activity_categ_invoice_comment_no_style">
-			<style>
-				#invoice_categ_comment{
-					page-break-inside: avoid;
-					display: block;
-					width: 100%;
-		    		padding: 0 0 0 0px;
-		    		margin 0 0 0 0;			
-				}
-
-			</style>
-			<div id="invoice_categ_comment">
+			<div style="page-break-inside: avoid;display: block;width: 100%;padding: 0 0 0 0px;margin 0 0 0 0;">
 				<p>
 					<t t-raw="invoice.activitycategoryid.invoice_comment" />
 				</p>
@@ -20,17 +10,7 @@
 		</template>
 
 		<template id="report_activity_categ_invoice_comment2_no_style">
-			<style>
-				#invoice_categ_comment{
-					page-break-inside: avoid;
-					display: block;
-					width: 100%;
-		    		padding: 0 0 0 0px;
-		    		margin 0 0 0 0;
-				}
-
-			</style>
-			<div id="invoice_categ_comment">
+			<div style="page-break-inside: avoid;display: block;width: 100%;padding: 0 0 0 0px;margin 0 0 0 0;">
 				<p>
 					<t t-raw="invoice.activitycategoryid.invoice_comment2" />
 				</p>
@@ -38,6 +18,5 @@
 		</template>
 
 	</data>
-</openerp>	
-	
-	
+</openerp>
+

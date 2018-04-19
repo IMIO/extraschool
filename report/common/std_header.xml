@@ -2,53 +2,19 @@
 <openerp>
 	<data>
 		<template id="report_std_header">
-		    <style type="text/css">
-		        #aes_header{
-		    		width: 100%;
-		    		display: block;
-		    		clear: both;
-		    	}
-		    	#aes_header>div.row{
-		    		width: 100%;
-		    		margin-left: 0mm;
-		    	}
-
-		    	#b_logo{
-		    		float: left;
-		    		width: 30%;
-		    	}
-
-		    	#b_date{
-		    		float: right;
-		    		width: 70%;
-		    		text-align: right;
-		    	}
-
-				.logo {
-					width: 25mm;
-					display: inline-block;
-					float: left;
-				}
-
-		    	.doc_date{
-		    		font-size: 12px;
-		    	}
-
-		    	.implantation{
-		    		font-size: 7px;
-		    	}
-		    </style>
-
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_std_header.css"/>
+            </xpath>
 		    <div id="aes_header">
 		    	<div class="row">
 		    		<div id="b_logo">
 						<img class="logo" t-attf-src="data:image/jpeg;base64,{{logo}}"/>
 		    		</div>
 		    		<div id="b_date">
-						<span class="doc_date"><t t-esc="doc_date" /></span>
+						<span class="doc_date" style="font-size: 12px;"><t t-esc="doc_date" /></span>
 		    		</div>
 		    	</div>
-		    	<div class="row">
+		    	<div class="row" >
 			    	<span class="slogan"><t t-esc="slogan" /></span>
 				</div>
 			</div>

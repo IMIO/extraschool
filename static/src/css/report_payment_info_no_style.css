@@ -1,0 +1,16 @@
+#payment_info{
+    page-break-inside: avoid;
+    display: block;
+    width: 100%;
+    padding: 8px;
+}
+
+#payment_info>span{
+    display: inline-block;
+    width: 6cm;
+}
+
+.com_struct > span{
+    display: inline-block;
+    width: 6cm;
+}
