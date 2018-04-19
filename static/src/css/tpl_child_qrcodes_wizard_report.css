@@ -1,0 +1,40 @@
+.page {
+    margin-left: 3mm;
+}
+.page_logo {
+    margin-left: -0.5mm;
+    margin-right: 2.5mm;
+}
+.qrcode {
+    width: 33%;
+    height: 57mm;
+    display: inline-block;
+    border: 1px hidden;
+    float: left;
+    position: relative;
+}
+
+.qrcode_logo {
+    width: 33%;
+    height: 57mm;
+    display: inline-block;
+    border: 1px hidden;
+    float: right;
+    position: relative;
+}
+.qrcode_img {
+    position: absolute;
+    top: 18mm;
+    left: 19mm;
+    width: 25mm;
+    height: 25mm;
+    }
+
+.qr_child_name{
+    position: absolute;
+    top: 40mm;
+    left: 19mm;
+    text-align: center;
+    width: 25mm;
+    height: 10mm;
+}
