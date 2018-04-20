@@ -121,7 +121,7 @@ class extraschool_pdaprestationtimes(models.Model):
 ##############################################################################
 
     @api.multi
-    def import_prestations(self, dict_prestations, smartphone_id):
+    def import_prestations(self, dict_prestations, smartphone_id=16):
         activity_category = self.env['extraschool.activitycategory'].search([]).filtered('id').id
         actual_prestations = 0
         start_time = time.time()
@@ -133,7 +133,6 @@ class extraschool_pdaprestationtimes(models.Model):
                                                                         'prestation_time': prestation['prestation_time'],
                                                                         'es': prestation['es'],
                                                                         'manualy_encoded': False,
-                                                                        'activitycategoryid': activity_category,
                                                                         })
                 actual_prestations += 1
             else:
