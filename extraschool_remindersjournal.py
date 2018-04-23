@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014 
+#    Copyright (C) 2008-2014
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
 #
@@ -47,7 +47,7 @@ class reminder_report_pdf_thread (threading.Thread):
        reminder = self.env['extraschool.reminder']
        report = self.env['report']
        report.get_pdf(reminder.browse(self.reminder_ids),'extraschool.reminder_report_layout')
-      
+
 class extraschool_remindersjournal(models.Model):
     _name = 'extraschool.remindersjournal'
     _description = 'Reminders journal'
@@ -259,8 +259,9 @@ class extraschool_remindersjournal(models.Model):
         return True
 
 
-    @api.one
+    @api.multi
     def validate(self):
+        self.ensure_one()
         if self.based_reminder_id:
             self.next_reminder()
         else:
@@ -532,7 +533,7 @@ class extraschool_remindersjournal(models.Model):
         # self.reminders_journal_item_ids.unlink()
 
         # return super(extraschool_remindersjournal, self).unlink()
-    
+
 class extraschool_remindersjournal_item(models.Model):
     _name = 'extraschool.reminders_journal_item'
     _description = 'Reminders journal item'
@@ -542,17 +543,17 @@ class extraschool_remindersjournal_item(models.Model):
     reminders_journal_id = fields.Many2one('extraschool.remindersjournal', 'Reminder journal',ondelete='cascade', required=True)
     payment_term = fields.Date('Payment term', required=True)
     amount = fields.Float('Amount', required=True)
-     
+
 class extraschool_reminders_journal_biller_item(models.Model):
     _name = 'extraschool.reminders_journal_biller_item'
     _description = 'Reminders journal biller item'
 
     name = fields.Char('Name', required=True)
     reminders_journal_id = fields.Many2one('extraschool.remindersjournal', 'Reminder journal',ondelete='cascade')
-    biller_id = fields.Many2one('extraschool.biller', 'Biller', required=True)     
+    biller_id = fields.Many2one('extraschool.biller', 'Biller', required=True)
     reminder_amount = fields.Float('Reminder amount', required=True)
     exit_accounting_amount = fields.Float('Exit accounting amount', required=True)
-    
 
 
-        
+
+
