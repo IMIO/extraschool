@@ -18,7 +18,8 @@
                     <field name="balance"/>
                     <field name="discount"/>
                     <field name="no_value"/>
-                    <field name="huissier"/>
+                    <!--<field name="huissier"/>                    	                    -->
+                    <field name="tag"/>
                     <button name="reconcil" type="object" string="Reconcil" groups="extraschool.extraschool_accounting"/>
 				</tree>
 			</field>
@@ -40,6 +41,7 @@
                         <filter string='biller_id' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'biller_id'}"/>
                         <filter string='School implantation' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'schoolimplantationid'}"/>
                         <filter string='Class' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'classid'}"/>
+                        <filter string='Tag' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'tag'}"/>
                     </group>
                 </search>
             </field>
@@ -69,6 +71,47 @@
                     	<button name="cancel" string="Cancel Invoice" type="object" class="oe_highlight" groups="base.group_erp_manager" confirm="Voulez-vous vraiment supprimer définitivement cette facture ? Les présences liées à celle-ci ne seront plus facturables. Confirmation de la manipulation ?"/>
 					</header>
 					<sheet>
+                        <div style="Margin:10px;text-align:center;width:auto;background: url(/web/static/src/img/form_sheetbg.png);" name="buttons">
+                            <button name="set_tag"
+                                    string="Huissier"
+                                    type="object"
+                                    style="margin:5px;"
+                                    class="oe_inline oe_stat_button"
+                                    icon="fa-legal"
+                                    context="{'tag': 'huissier'}"
+                                    attrs="{'invisible':[('tag', '&gt;', 0)]}"
+                            />
+
+                            <button name="set_tag"
+                                    string="Plan paiement"
+                                    type="object"
+                                    style="margin:5px;"
+                                    class="oe_inline oe_stat_button"
+                                    icon="fa-money"
+                                    context="{'tag': 'plan_de_paiement'}"
+                                    attrs="{'invisible':[('tag', '&gt;', 0)]}"
+                            />
+
+							<button name="set_tag"
+                                    string="Bloqué"
+                                    type="object"
+                                    style="margin:5px;"
+                                    class="oe_inline oe_stat_button"
+                                    icon="fa-times"
+                                    context="{'tag': 'bloquer'}"
+                                    attrs="{'invisible':[('tag', '&gt;', 0)]}"
+                            />
+
+                            <button name="set_tag"
+                                    string="Annuler"
+                                    type="object"
+                                    style="margin:5px;"
+                                    class="oe_inline oe_stat_button"
+                                    icon="fa-times-circle-o"
+                                    context="{'tag': False}"
+                                    attrs="{'invisible':[('tag', '&lt;', 1)]}"
+                            />
+                        </div>
 						<group col="4">
 							<field name="activitycategoryid" readonly="True"/>
 							<newline/>
@@ -88,8 +131,9 @@
 							<field name="balance"/>
 							<field name="no_value"/>
 							<group>
-							<field name="huissier" />
-							<field name="fees_huissier"/>
+								<field name="tag"/>
+								<!--<field name="huissier" />-->
+								<field name="fees_huissier"/>
 							</group>
 						</group>
 						<notebook>
