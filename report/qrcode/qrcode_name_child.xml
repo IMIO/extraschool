@@ -18,6 +18,13 @@
                     width: 25mm;
                     height: 10mm;
                 }
+                .qrcode {
+                        width: 33%;
+                        height: 57mm;
+                        display: inline-block;
+                        float: left;
+                        position: relative;
+                    }
             </style>
                 <!--div are exteriorize to be able to construct the page and display it correctly. wkhtmltopdf needs divs-->
                 <img class="qrcode_img" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR',tagid, 300, 300)" />
@@ -63,6 +70,13 @@
                     width: 35mm;
                     height: 10mm;
                 }
+                .qrcode {
+                        width: 33%;
+                        height: 57mm;
+                        display: inline-block;
+                        float: left;
+                        position: relative;
+                    }
             </style>
                 <!--div are exteriorize to be able to construct the page and display it correctly. wkhtmltopdf needs divs-->
                 <img class="qrcode_img" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR',tagid, 300, 300)" />

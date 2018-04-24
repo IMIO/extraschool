@@ -106,55 +106,55 @@
     		<field name="paperformat_id" ref="paperformat_aes_qr_code"/>
 		</record>
 
-		<template id="tpl_child_qrcodes_wizard_report" inherit_id="report.layout" primary="True">
-            <xpath expr="//head" position="inside">
-                <link rel="stylesheet" href="/extraschool/static/src/css/tpl_child_qrcodes_wizard_report.css"/>
-            </xpath>
-            <xpath expr="//body" position="inside">
-				<span>nbr docs : <t t-esc="len(docs)" /></span>
+		<!--<template id="tpl_child_qrcodes_wizard_report" inherit_id="report.layout" primary="True">-->
+            <!--<xpath expr="//head" position="inside">-->
+                <!--<link rel="stylesheet" href="/extraschool/static/src/css/tpl_child_qrcodes_wizard_report.css"/>-->
+            <!--</xpath>-->
+            <!--<xpath expr="//body" position="inside">-->
+				<!--<span>nbr docs : <t t-esc="len(docs)" /></span>-->
 
 
-				<t t-set="nbr_page" t-value="len(docs) / 15" />
-				<t t-if="len(docs) % 15 != 0">
-					<t t-set="nbr_page" t-value="nbr_page + 1" />
-				</t>
+				<!--<t t-set="nbr_page" t-value="len(docs) / 15" />-->
+				<!--<t t-if="len(docs) % 15 != 0">-->
+					<!--<t t-set="nbr_page" t-value="nbr_page + 1" />-->
+				<!--</t>-->
 
-				<t t-foreach="range(0,nbr_page)" t-as="zz">
-					<div class="page">
-						<t t-foreach="range(15*zz,15*(zz+1))" t-as="i">
-				           	<div class="qrcode">
-				           		<t t-if="i &lt; len(docs)">
-				           			<img class="qrcode_img" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', docs[i].action_gentagid()[0], 300, 300)" />
-					           		<span class="qr_child_name"><t t-esc="docs[i].name"/></span>
-								</t>
-				           	</div>
-						</t>
-					</div>
-					<div class="page_logo page">
-						<t t-foreach="range(15*zz,15*(zz+1))" t-as="i">
-				           	<div class="qrcode_logo">
-				           		<t t-if="i &lt; len(docs)">
-				           			<img class="qrcode_img" t-att-src="'data:image/jpeg;base64,%s' % docs[i].schoolimplantation.schoolid.logo" />
-								</t>
-				           	</div>
-						</t>
-					</div>
-                </t>
-            </xpath>
-		</template>
+				<!--<t t-foreach="range(0,nbr_page)" t-as="zz">-->
+					<!--<div class="page">-->
+						<!--<t t-foreach="range(15*zz,15*(zz+1))" t-as="i">-->
+				           	<!--<div class="qrcode">-->
+				           		<!--<t t-if="i &lt; len(docs)">-->
+				           			<!--<img class="qrcode_img" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', docs[i].action_gentagid()[0], 300, 300)" />-->
+					           		<!--<span class="qr_child_name"><t t-esc="docs[i].name"/></span>-->
+								<!--</t>-->
+				           	<!--</div>-->
+						<!--</t>-->
+					<!--</div>-->
+					<!--<div class="page_logo page">-->
+						<!--<t t-foreach="range(15*zz,15*(zz+1))" t-as="i">-->
+				           	<!--<div class="qrcode_logo">-->
+				           		<!--<t t-if="i &lt; len(docs)">-->
+				           			<!--<img class="qrcode_img" t-att-src="'data:image/jpeg;base64,%s' % docs[i].schoolimplantation.schoolid.logo" />-->
+								<!--</t>-->
+				           	<!--</div>-->
+						<!--</t>-->
+					<!--</div>-->
+                <!--</t>-->
+            <!--</xpath>-->
+		<!--</template>-->
 
-		<report
-		    id="child_qrcodes_wizard_report"
-		    model="extraschool.child"
-		    string="Child QrCode"
-		    report_type="qweb-pdf"
-		    name="extraschool.tpl_child_qrcodes_wizard_report"
-		    attachment_use="False"
-		/>
+		<!--<report-->
+		    <!--id="child_qrcodes_wizard_report"-->
+		    <!--model="extraschool.child"-->
+		    <!--string="Child QrCode"-->
+		    <!--report_type="qweb-html"-->
+		    <!--name="extraschool.tpl_child_qrcodes_wizard_report"-->
+		    <!--attachment_use="False"-->
+		<!--/>-->
 
-		<record id="child_qrcodes_wizard_report" model="ir.actions.report.xml">
-    		<field name="paperformat_id" ref="paperformat_aes_qr_code"/>
-		</record>
+		<!--<record id="child_qrcodes_wizard_report" model="ir.actions.report.xml">-->
+    		<!--<field name="paperformat_id" ref="paperformat_aes_qr_code"/>-->
+		<!--</record>-->
 
 		<template id="tpl_qrcodes_precut_wizard_report">
 			    <style type="text/css">
