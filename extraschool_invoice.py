@@ -465,14 +465,15 @@ class extraschool_invoice(models.Model):
 
     @api.multi
     def set_tag(self, context):
+        invoice_tag_obj = self.env['extraschool.invoice_tag']
         if not context['tag']:
             self.tag = None # Plus de tag.
         elif context['tag'] == 'huissier':
-            self.tag = 1  # Huissier.
+            self.tag = invoice_tag_obj.search([('name', '=', 'Huissier')]).id  # Huissier.
         elif context['tag'] == 'plan_de_paiement':
-            self.tag = 2  # Plan de paiement.
+            self.tag = invoice_tag_obj.search([('name', '=', 'Plan de paiement')]).id  # Plan de paiement.
         else:
-            self.tag = 3  # Bloquer.
+            self.tag = invoice_tag_obj.search([('name', '=', 'Bloquer')]).id  # Bloquer.
 
 
 class extraschool_invoice_tag(models.Model):
