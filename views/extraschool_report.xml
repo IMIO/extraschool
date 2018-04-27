@@ -1,50 +1,55 @@
 <?xml version="1.0" ?>
 <openerp>
-	<data>        
+	<data>
         <record model="ir.ui.view" id="extraschool_report_form">
             <field name="name">extraschool.report.form</field>
-            <field name="model">extraschool.report</field>    
+            <field name="model">extraschool.report</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-            <form string="Class"> 
-	            <group col="4">       
-	                <field name="name"/>
-	                <field name="report_type_id"/> 
-					<field name="paper_format_id"/> 	
-	                
-	                <field name="inline_report_ids" nolabel="1" colspan="4">
-	                	<tree editable="bottom">
-	                		<field name="sequence" widget="handle"/> 
-							<field name="section" />								                			
-	                		<field name="name"/> 
-	                		<field name="inline_report_id"/> 
-	                		<field name="page_break_after"/>
-	                		<field name="visibility"/>
-                            <field name="verso"/>
-	                	</tree>
-	                </field>	 
-	            </group>
+            <form string="Class">
+                <sheet>
+                    <group col="4">
+                        <field name="name"/>
+                        <field name="report_type_id"/>
+                        <field name="paper_format_id"/>
+                    </group>
+                    <notebook>
+                            <page string="Détails">
+                                <field name="inline_report_ids" nolabel="1" colspan="4">
+                                    <tree editable="bottom">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="section" />
+                                        <field name="name"/>
+                                        <field name="inline_report_id"/>
+                                        <field name="page_break_after"/>
+                                        <field name="visibility"/>
+                                        <field name="verso"/>
+                                    </tree>
+                                </field>
+                            </page>
+                    </notebook>
+                </sheet>
             </form>
-            </field> 
-        </record>    
+            </field>
+        </record>
 
         <record model="ir.ui.view" id="extraschool_report_tree">
             <field name="name">extraschool.report.tree</field>
-            <field name="model">extraschool.report</field>    
+            <field name="model">extraschool.report</field>
             <field name="type">tree</field>
             <field name="arch" type="xml">
-            <tree string="Class"> 
+            <tree string="Class">
                 <field name="name"/>
-                <field name="report_type_id"/> 
-                <field name="paper_format_id"/> 	
+                <field name="report_type_id"/>
+                <field name="paper_format_id"/>
             </tree>
-            </field> 
-        </record>  
-           
+            </field>
+        </record>
+
         <record model="ir.actions.act_window" id="action_extraschool_report">
 			<field name="name">Report</field>
 			<field name="res_model">extraschool.report</field>
 			<field name="view_type">form</field>
-		</record>                          
+		</record>
 	</data>
 </openerp>

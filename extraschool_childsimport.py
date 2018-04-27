@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014 
+#    Copyright (C) 2008-2014
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot - Imio (<http://www.imio.be>).
 #
@@ -32,12 +32,12 @@ from openerp.exceptions import except_orm, Warning, RedirectWarning
 class extraschool_childsimport(models.Model):
     _name = 'extraschool.childsimport'
 
-    schoolimplantation = fields.Many2one('extraschool.schoolimplantation', 'School implantation',required=True)
-    childsimportfilter = fields.Many2one('extraschool.childsimportfilter', 'Childs import filter',required=True)
-    childsfile = fields.Binary('Childs File',required=True)
-    
+    schoolimplantation = fields.Many2one('extraschool.schoolimplantation',  string ='School implantation',required=True)
+    childsimportfilter = fields.Many2one('extraschool.childsimportfilter', string ='Childs import filter',required=True)
+    childsfile = fields.Binary( string ='Childs File',required=True)
+
     @api.model
-    def create(self, vals): 
+    def create(self, vals):
         cr, uid = self.env.cr, self.env.user.id
 
         workbook = xlrd.open_workbook(file_contents=base64.b64decode(vals['childsfile']))
@@ -106,7 +106,7 @@ class extraschool_childsimport(models.Model):
                                                      'majschoolimplantation'])[0]
         startrow = importfilter['startrow']-1
         curr_row = startrow
-        
+
         while curr_row < num_rows:
             curr_row += 1
             row = worksheet.row(curr_row)
@@ -120,7 +120,7 @@ class extraschool_childsimport(models.Model):
             childlevelid=0
             childotherref=''
             parentids=False
-            parentrn=''            
+            parentrn=''
             parentlastname=''
             parentfirstname=''
             parentstreet=''
@@ -130,7 +130,7 @@ class extraschool_childsimport(models.Model):
             parentworkphone=''
             parentgsm=''
             parentemail=False
-                      
+
             error=False
             if importfilter['childrncolumn'] <> 0:
                 if lbutils.genstreetcode(worksheet.cell_value(startrow, importfilter['childrncolumn']-1)) == lbutils.genstreetcode(importfilter['childrncolumnname']):
@@ -246,8 +246,8 @@ class extraschool_childsimport(models.Model):
                     parentemail=lbutils.strcell(worksheet.cell_type(curr_row, importfilter['parentemailcolumn']-1),worksheet.cell_value(curr_row, importfilter['parentemailcolumn']-1))
                 else:
                     raise Warning('Error columns does not match parentemail')
-     
-            
+
+
             if not ((childlastname == '') and (childfirstname == '') and (childbirthdate == '') and (childlevelid == 0) and (parentlastname == '')):
                 if (childlastname == '') or (childfirstname == '') or (childbirthdate == '') or (childlevelid == 0) or (parentlastname == ''):
                     raise Warning("""Error at line: %s
@@ -264,11 +264,11 @@ class extraschool_childsimport(models.Model):
                     # if no rn or child not found on RN try to find on firstname,lastname,birthday
                     if not childid or importfilter['childrncolumn'] == 0:
                         childid = obj_child.search(cr, uid, [('lastname', 'ilike', childlastname.strip()),('firstname', 'ilike', childfirstname.strip()),('birthdate', '=', childbirthdate)])
-                    
+
                     if not childid:
                         if importfilter['parentrncolumn'] <> 0:
-                            parentids = obj_parent.search(cr, uid, [('rn', '=', parentrn),]) 
-                        # if no rn or child not found on RN try to find on firstname,lastname,birthday  
+                            parentids = obj_parent.search(cr, uid, [('rn', '=', parentrn),])
+                        # if no rn or child not found on RN try to find on firstname,lastname,birthday
                         print "parent : %s-%s rn : %s" % (parentlastname,parentfirstname,parentrn)
                         if not parentids or importfilter['parentrncolumn'] == 0 or parentrn == '':
                             parentids = obj_parent.search(cr, uid, [('lastname', 'ilike', parentlastname),('firstname', 'ilike', parentfirstname),('streetcode', 'ilike', lbutils.genstreetcode(parentstreet+parentcity))])
@@ -337,20 +337,20 @@ class extraschool_childsimport(models.Model):
                                     obj_child.write(cr,uid,[child_id],{'levelid':childlevelid})
                                 if importfilter['majchildotherref']:
                                     obj_child.write(cr,uid,[child_id],{'otherref':childotherref})
-                                    
-                                    
+
+
                                 obj_parent.write(cr,uid,[parentid],{'modified_since_last_import':False,
                                                                     'last_import_date':fields.datetime.now()})
-                        
-                            #MAJ PARENT   
+
+                            #MAJ PARENT
                             parent = obj_parent.read(cr, uid, [parentid],['firstname','lastname','rn','modified_since_last_import'])[0]
                             if  parent['firstname'].lower() == parentfirstname.lower() and parent['lastname'].lower() == parentlastname.lower():
-                                #print "check rn %s vs %s" % (parent['rn'],parentrn) 
+                                #print "check rn %s vs %s" % (parent['rn'],parentrn)
                                 if (parent['rn'] == False or parent['rn'] == '') and (parentrn != False and parentrn != ''):
                                     #print "upate rn"
                                     obj_parent.write(cr,uid,[parentid],{'rn':parentrn})
                                 if parent['modified_since_last_import'] == False:
-                                    if importfilter['majparentlastname']:                            
+                                    if importfilter['majparentlastname']:
                                         obj_parent.write(cr,uid,[parentid],{'lastname':parentlastname})
                                     if importfilter['majparentfirstname']:
                                         obj_parent.write(cr,uid,[parentid],{'firstname':parentfirstname})
@@ -359,7 +359,7 @@ class extraschool_childsimport(models.Model):
                                     if importfilter['majparentzipcode']:
                                         obj_parent.write(cr,uid,[parentid],{'zipcode':parentzipcode})
                                     if importfilter['majparentcity']:
-                                        obj_parent.write(cr,uid,[parentid],{'city':parentcity,'streetcode':lbutils.genstreetcode(parentstreet+parentcity)})                            
+                                        obj_parent.write(cr,uid,[parentid],{'city':parentcity,'streetcode':lbutils.genstreetcode(parentstreet+parentcity)})
                                     if importfilter['majparenthousephone']:
                                         obj_parent.write(cr,uid,[parentid],{'housephone':parenthousephone})
                                     if importfilter['majparentworkphone']:
@@ -373,13 +373,13 @@ class extraschool_childsimport(models.Model):
                                                                         'last_import_date':fields.datetime.now()})
                             else:
                                 if importfilter['parentrncolumn'] <> 0:
-                                    parentids = obj_parent.search(cr, uid, [('rn', '=', parentrn),]) 
-                                # if no rn or child not found on RN try to find on firstname,lastname,birthday  
+                                    parentids = obj_parent.search(cr, uid, [('rn', '=', parentrn),])
+                                # if no rn or child not found on RN try to find on firstname,lastname,birthday
                                 #print "parent : %s-%s rn : %s" % (parentlastname,parentfirstname,parentrn)
                                 if not parentids or importfilter['parentrncolumn'] == 0 or parentrn == '':
                                     parentids = obj_parent.search(cr, uid, [('lastname', 'ilike', parentlastname),('firstname', 'ilike', parentfirstname),('streetcode', 'ilike', lbutils.genstreetcode(parentstreet+parentcity))])
                                 if not parentids:
-                                    #print "create parent %s %s" % (parentlastname,parentfirstname) 
+                                    #print "create parent %s %s" % (parentlastname,parentfirstname)
                                     parentid = obj_parent.create(cr, uid, {'name':parentlastname+' '+parentfirstname,
                                                                            'rn':parentrn,
                                                                            'lastname':parentlastname,
@@ -394,11 +394,11 @@ class extraschool_childsimport(models.Model):
                                                                            'email':parentemail,
                                                                            'modified_since_last_import': False,
                                                                            'last_import_date':fields.datetime.now(),
-                                                                            })     
+                                                                            })
                                 else:
-                                    parentid=parentids[0]   
+                                    parentid=parentids[0]
                                 print "parent_id : %s" % (parentid)
-                                obj_child.write(cr,uid,[child_id],{'parentid':parentid})                   
-                                
+                                obj_child.write(cr,uid,[child_id],{'parentid':parentid})
+
         return super(extraschool_childsimport, self).create(vals)
 

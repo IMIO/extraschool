@@ -532,7 +532,7 @@ msgstr "ATTENTION!!! Cet assistant modifie définitivement toutes les heures enc
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_coda_form
 msgid "Accepted payments"
-msgstr "Accepted payments"
+msgstr "Paiements acceptés"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_payment_account
@@ -547,6 +547,7 @@ msgstr "Compte"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_guardian_search_view
 #: model:ir.ui.view,arch_db:extraschool.extraschool_parent_search_view
 #: model:ir.ui.view,arch_db:extraschool.extraschool_payment_status_report_search_view
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_place_active
 msgid "Actif"
 msgstr "Actif"
 
@@ -569,10 +570,9 @@ msgid "Action Needed"
 msgstr "A besoin d'une action"
 
 #. module: extraschool
-#: model:ir.model.fields,field_description:extraschool.field_extraschool_place_active
 #: model:ir.ui.view,arch_db:extraschool.extraschool_prestation_times_of_the_day_form
 msgid "Active"
-msgstr "Actif"
+msgstr "Activer"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_pda_prestation_times_tree
@@ -700,7 +700,7 @@ msgstr "Activité"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activityoccurrence_search_view
 msgid "Activity name"
-msgstr "Activity name"
+msgstr "Activité"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activityoccurrence_cal
@@ -751,7 +751,7 @@ msgstr "Ajouter"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
 msgid "Add payment Wizard"
-msgstr "Add payment Wizard"
+msgstr "Assistant d'ajout de paiement"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_payment_addr1
@@ -1098,12 +1098,12 @@ msgstr "Date"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_invoice_form
 msgid "Cancel Invoice"
-msgstr "Cancel Invoice"
+msgstr "Annuler la facture"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_invoice_form
 msgid "Cancel Invoice and invoice after"
-msgstr "Cancel Invoice and invoice after"
+msgstr "Annuler la facture non définitivement"
 
 #. module: extraschool
 #: selection:extraschool.payment,paymenttype:0
@@ -1156,7 +1156,7 @@ msgstr "Change Place"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_prestation_times_of_the_day_form
 msgid "Check"
-msgstr "Check"
+msgstr "Vérifier"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_child_registration_validation_wizard_form
@@ -1171,7 +1171,7 @@ msgstr "Check ES"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_prestationscheck_wizard_form
 msgid "Check prestations"
-msgstr "Check prestations"
+msgstr "Vérifier"
 
 #. module: extraschool
 #: selection:extraschool.discount.version,apply_on:0
@@ -1214,7 +1214,7 @@ msgstr "Catégorie tarifaire"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activity_form
 msgid "Child activities"
-msgstr "Child activities"
+msgstr "Activités enfant"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_childsimportfilter_childbirthdatecolumn
@@ -1585,7 +1585,7 @@ msgstr "Générer les attestations fiscales"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_prestation_times_of_the_day_form
 msgid "Computed prestations"
-msgstr "Computed prestations"
+msgstr "Présences complétées"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_reminder_concerned_invoice_ids
@@ -2021,12 +2021,12 @@ msgstr "Délai"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_prestation_times_of_the_day_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_reminders_journal_form
 msgid "Delete"
-msgstr "Delete"
+msgstr "Supprimer"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_prestation_times_of_the_day_form
 msgid "Desactive"
-msgstr "Desactive"
+msgstr "Désactiver"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_discount_description
@@ -2287,7 +2287,7 @@ msgstr "Courriel"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_biller_form
 msgid "Email factures"
-msgstr "Email factures"
+msgstr "Factures par E-mail"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_mainsettings_emailfornotifications
@@ -2345,7 +2345,7 @@ msgstr "Enfant"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_child_fusion_wizard_form
 msgid "Enfant à fusionner"
-msgstr "Enfant à fusionner"
+msgstr "Enfants à fusionner"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_parent_fusion_wizard_form
@@ -2356,7 +2356,7 @@ msgstr "Enfants à fusionner"
 #: model:ir.ui.view,arch_db:extraschool.pda_prestation_times_search_view
 #: model:ir.ui.view,arch_db:extraschool.prestationtimes_search_view
 msgid "Entry"
-msgstr "Entry"
+msgstr "Entrée"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_prestation_times_manuel_prestation_time_entry
@@ -2407,7 +2407,7 @@ msgstr "Dates exclues"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_child_fusion_wizard_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_parent_fusion_wizard_form
 msgid "Execute SQL"
-msgstr "Execute SQL"
+msgstr "Fusionner"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
@@ -2418,7 +2418,7 @@ msgstr "Execute sql"
 #: model:ir.ui.view,arch_db:extraschool.pda_prestation_times_search_view
 #: model:ir.ui.view,arch_db:extraschool.prestationtimes_search_view
 msgid "Exit"
-msgstr "Exit"
+msgstr "Sortie"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_prestation_times_manuel_prestation_time_exit
@@ -2466,7 +2466,7 @@ msgstr "Étendre la date de validité des activités"
 #. module: extraschool
 #: model:ir.ui.menu,name:extraschool.menu_extraschool
 msgid "Extraschool"
-msgstr "Extraschool"
+msgstr "AES"
 
 #. module: extraschool
 #: model:ir.ui.menu,name:extraschool.extraschool_settings_menu
@@ -2513,7 +2513,7 @@ msgstr "Factures"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_biller_form
 msgid "Factures courrier"
-msgstr "Factures courrier"
+msgstr "Factures par courrier"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
@@ -2729,12 +2729,12 @@ msgstr "GSM"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
 msgid "Generate CODA file"
-msgstr "Generate CODA file"
+msgstr "Génération d'un fichier CODA"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
 msgid "Generate File"
-msgstr "Generate File"
+msgstr "Générer le fichier"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_config_smartphone_form
@@ -3023,7 +3023,7 @@ msgstr "si elle est cochée, de nouveaux messages requièrent votre attention."
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_child_search_view
 msgid "Implantation"
-msgstr "Implantation"
+msgstr "Implantation scolaire"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_taxcertificate_item_search
@@ -3257,7 +3257,7 @@ msgstr "Présences facturées"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_reminder_form
 msgid "Invoices"
-msgstr "Invoices"
+msgstr "Factures"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_biller_invoices_date
@@ -3767,7 +3767,7 @@ msgstr "Ligne"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activity_form
 msgid "Link with other activities"
-msgstr "Link with other activities"
+msgstr "Lien avec les autres activités"
 
 #. module: extraschool
 #: model:ir.actions.report.xml,name:extraschool.extraschool_reminder_parent
@@ -3787,7 +3787,7 @@ msgstr "Liste des parents"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activity_form
 msgid "Location"
-msgstr "Location"
+msgstr "Lieux d'accueil"
 
 #. module: extraschool
 #: selection:extraschool.qrcodes_wizard,print_type:0
@@ -3925,7 +3925,7 @@ msgstr "Maternelle et Primaire"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activitycategory_form
 msgid "Max School"
-msgstr "Max School"
+msgstr "École max."
 
 #. module: extraschool
 #: selection:extraschool.discount.version,type:0
@@ -4213,7 +4213,7 @@ msgstr "Non valeur"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_child_registration_search_view
 #: model:ir.ui.view,arch_db:extraschool.prestation_times_encodage_manuel_search_view
 msgid "Not validated"
-msgstr "Not validated"
+msgstr "Non validé"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_lierneux_report_parent_credit
@@ -4429,7 +4429,7 @@ msgstr "PDA pda_transmission"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_prestation_times_of_the_day_form
 msgid "PDA prestations"
-msgstr "PDA prestations"
+msgstr "Présences du smartphone ou manuelles"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_inline_report_page_break_after
@@ -4630,7 +4630,7 @@ msgstr "Parents"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_biller_form
 msgid "Pay All"
-msgstr "Pay All"
+msgstr "Tout payer"
 
 #. module: extraschool
 #: model:ir.model,name:extraschool.model_extraschool_payment
@@ -4663,7 +4663,7 @@ msgstr "Payment Search"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_payment_status_report_tree
 #: model:ir.ui.view,arch_db:extraschool.extraschool_payment_tree
 msgid "Payment Status"
-msgstr "Payment Status"
+msgstr "Prépaiement"
 
 #. module: extraschool
 #: model:ir.actions.act_window,name:extraschool.action_payment_status_report
@@ -4832,7 +4832,7 @@ msgstr "Percent"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_discount_version_period
 msgid "Period"
-msgstr "Period"
+msgstr "Période"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_period_duration
@@ -4879,7 +4879,7 @@ msgstr "Fin par défaut"
 #: model:ir.ui.view,arch_db:extraschool.prestationtimes_search_view
 #: model:ir.ui.view,arch_db:extraschool.stat_activity_search_view
 msgid "Place"
-msgstr "Lieu d'accueil"
+msgstr "Lieux d'accueil"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_place_id
@@ -4897,7 +4897,7 @@ msgstr "Lieu d'accueil"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activity_form
 msgid "Places"
-msgstr "Places"
+msgstr "Lieux d'accueil"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activity_form
@@ -4941,7 +4941,7 @@ msgstr "Pouvez-vous préciser la date de début et de fin des horaires à imprim
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activitycategory_form
 msgid "Pre Payment"
-msgstr "Pre Payment"
+msgstr "Prépaiement"
 
 #. module: extraschool
 #: model:ir.ui.menu,name:extraschool.extraschool_menu_payment_report
@@ -5002,7 +5002,7 @@ msgstr "Statistique de présence"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activityoccurrence_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_smartphone_form
 msgid "Prestation times"
-msgstr "Prestation times"
+msgstr "Heure"
 
 #. module: extraschool
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_prest
@@ -5044,13 +5044,13 @@ msgstr "Présences"
 
 #. module: extraschool
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_prestation_times_encodage_manuel
-#: model:ir.actions.act_window,name:extraschool.action_extraschool_prestation_times_of_the_day
+#: model:ir.actions.act_window,name:extraschool.action_extraschool_prestation_times_encodage_manuel_tree
 msgid "Prestations_of_the_day"
 msgstr "Encodage manuel"
 
 #. module: extraschool
-#: model:ir.actions.act_window,name:extraschool.action_extraschool_prestation_times_encodage_manuel_tree
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_prestation_times_of_the_day_tree
+#: model:ir.actions.act_window,name:extraschool.action_extraschool_prestation_times_of_the_day
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_prestation_times_of_the_day_tree_not_verified
 msgid "Prestations_of_the_day.tree"
 msgstr "Présences par jour"
@@ -5078,7 +5078,7 @@ msgstr "Prix"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_discount_version_form
 msgid "Price Category"
-msgstr "Price Category"
+msgstr "Catégorie de prix"
 
 #. module: extraschool
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_price_list
@@ -5349,7 +5349,7 @@ msgstr "Reçu"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_invoice_tree
 #: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
 msgid "Reconcil"
-msgstr "Reconcil"
+msgstr "Réconciliation"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_aged_balance_aged_date
@@ -5392,18 +5392,18 @@ msgstr "Non valeur"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_invoice_form
 msgid "Refounds"
-msgstr "Refounds"
+msgstr "Non valeurs"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
 msgid "Refund"
-msgstr "Refund"
+msgstr "Remboursement"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activity_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activityoccurrence_form
 msgid "Registration"
-msgstr "Registration"
+msgstr "Inscription"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitychildregistration_registration_from
@@ -5439,7 +5439,7 @@ msgstr "Cause du rejet"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_coda_form
 msgid "Rejected payments"
-msgstr "Rejected payments"
+msgstr "Paiements rejetés"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_coda_rejectids
@@ -5486,7 +5486,7 @@ msgstr "Type de coût"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_reminders_journal_form
 msgid "Reminder courrier"
-msgstr "Reminder courrier"
+msgstr "Rappels par courrier"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_reminderemailaddress
@@ -5506,7 +5506,7 @@ msgstr "Texte pour l'email du rappel"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_reminders_journal_form
 msgid "Reminder factures"
-msgstr "Reminder factures"
+msgstr "Rappels par E-mail"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_reminder_fees
@@ -5637,13 +5637,13 @@ msgstr "Rapports"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
 msgid "Requete SQL"
-msgstr "Requete SQL"
+msgstr "Requête SQL"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_prestation_times_of_the_day_form
 msgid "Reset"
-msgstr "Reset"
+msgstr "Réinitialiser"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
@@ -5658,7 +5658,7 @@ msgstr "Activité principale"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activity_search_view
 msgid "Root activity"
-msgstr "Root activity"
+msgstr "Activité principale"
 
 #. module: extraschool
 #: model:ir.actions.report.xml,name:extraschool.extraschool_child_registration_summary_report
@@ -5781,7 +5781,7 @@ msgstr "Sélection groupée"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_selectable_on_registration
 msgid "Selectable on registration form"
-msgstr "Sélectionnable sur le formulaire d'inscription"
+msgstr "Disponible sur le formulaire d'inscription"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_selectable_on_registration_multi
@@ -5797,12 +5797,12 @@ msgstr "Selection"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_invoice_search_view
 msgid "Send by Email"
-msgstr "Send by Email"
+msgstr "Evoie par E-mail"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_invoice_search_view
 msgid "Send by mail"
-msgstr "Send by mail"
+msgstr "Envoie par courrier"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_sequence_sequence
@@ -5837,12 +5837,12 @@ msgstr "Adresse du serveur"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_prestation_times_encodage_manuel_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_prestation_times_encodage_manuel_validation_wizard_form
 msgid "Set to draft"
-msgstr "Set to draft"
+msgstr "Remettre en brouillon"
 
 #. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.extraschool_child_registration_form
+#: model:ir.ui.view,arch_db:extraschool.extraschool_child_registration_form"Force
 msgid "Set to validate"
-msgstr "Set to validate"
+msgstr "Mettre à valider"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_short_name
@@ -5938,7 +5938,7 @@ msgstr "Chemin du logiciel"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_softwareversion
 msgid "Software version"
-msgstr "Software version"
+msgstr "Version de l'application"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_payment_solde
@@ -6128,7 +6128,7 @@ msgstr "Attestation fiscale (Année)"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_taxcertificate_form
 msgid "Taxe certificate"
-msgstr "Taxe certificate"
+msgstr "Attestations fiscales"
 
 #. module: extraschool
 #: code:addons/extraschool/extraschool_taxcertificate.py:30
@@ -6139,7 +6139,7 @@ msgstr "L'attestation fiscale existe déjà"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_discount_version_tree
 msgid "Template"
-msgstr "Template"
+msgstr "Modèle"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_remindertype_text
@@ -6249,7 +6249,7 @@ msgstr "À"
 #. module: extraschool
 #: selection:extraschool.coda,state:0
 msgid "To Do"
-msgstr "A Faire"
+msgstr "À Faire"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_biller_total
@@ -6312,7 +6312,7 @@ msgstr "Toutes les factures"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_reminders_journal_form
 msgid "Toutes les reminder"
-msgstr "Toutes les reminder"
+msgstr "Tous les rappels"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_coda_form
@@ -6379,7 +6379,7 @@ msgstr "Mardi"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_mainsettings_type
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_pdaprestationtimes_type
 msgid "Type"
-msgstr "Type"
+msgstr "Catégorie tarifaire"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_std_body
@@ -6456,7 +6456,7 @@ msgstr "Update this application"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
 msgid "Upgrade Child Levels"
-msgstr "Upgrade Child Levels"
+msgstr "Màj du niveau des enfants"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_config_smartphone_username
@@ -6474,7 +6474,7 @@ msgstr "Mot de passe"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activity_occurrence_correction_wizard_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_child_registration_form
 msgid "Validate"
-msgstr "Validate"
+msgstr "Validé"
 
 #. module: extraschool
 #: selection:extraschool.child_registration,state:0
@@ -6693,7 +6693,7 @@ msgstr "Code Postal"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_pdaprestationtimes_active
 msgid "active"
-msgstr "active"
+msgstr "Activer"
 
 #. module: extraschool
 #: model:ir.model,name:extraschool.model_extraschool_activity
@@ -6723,12 +6723,12 @@ msgstr "activity statistique"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_payment_status_report_search_view
 msgid "activity_category_id"
-msgstr "activity_category_id"
+msgstr "Catégorie d'activité"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_child_registration_search_view
 msgid "activity_id"
-msgstr "activity_id"
+msgstr "Activité"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activityoccurrence_form
@@ -6776,7 +6776,7 @@ msgstr "Facturier"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_invoice_search_view
 #: model:ir.ui.view,arch_db:extraschool.extraschool_payment_reconciliation_search_view
 msgid "biller_id"
-msgstr "biller_id"
+msgstr "Facturier"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
@@ -6877,7 +6877,7 @@ msgstr "childtype Search"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_child_search_view
 msgid "classid"
-msgstr "classid"
+msgstr "Classe"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_mainsettings_codasfolder
@@ -7154,7 +7154,7 @@ msgstr "Fichier"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
 msgid "from presta of the day"
-msgstr "from presta of the day"
+msgstr "Concernant les présences par jour"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_payment_wizard_form
@@ -7164,12 +7164,12 @@ msgstr "generate payment"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_qrcodes_wizard_form
 msgid "generate qrcodes"
-msgstr "generate qrcodes"
+msgstr "Générer les QR Codes"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_childsworkbook_wizard_form
 msgid "generate workbook"
-msgstr "generate workbook"
+msgstr "Générer le classeur"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_prestation_times_of_the_day_form
@@ -7234,7 +7234,7 @@ msgstr "Dernier QRCode"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_child_search_view
 msgid "levelid"
-msgstr "levelid"
+msgstr "Niveau"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
@@ -7256,7 +7256,7 @@ msgstr "nbr docs :"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.prestation_times_of_the_day_search_view
 msgid "not verified"
-msgstr "not verified"
+msgstr "Non vérifié"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_biller_oldid
@@ -7291,13 +7291,13 @@ msgstr "ou 0473 301 771"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_payment_report_search_view
 #: model:ir.ui.view,arch_db:extraschool.extraschool_payment_status_report_search_view
 msgid "parent_id"
-msgstr "parent_id"
+msgstr "Parent"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_child_search_view
 #: model:ir.ui.view,arch_db:extraschool.extraschool_invoice_search_view
 msgid "parentid"
-msgstr "parentid"
+msgstr "Parent"
 
 #. module: extraschool
 #: model:ir.actions.act_window,name:extraschool.action_lbsc_payment_wizard
@@ -7319,7 +7319,7 @@ msgstr "pda_prestation_times"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_child_registration_search_view
 msgid "place_id"
-msgstr "place_id"
+msgstr "Lieu d'accueil"
 
 #. module: extraschool
 #: model:ir.ui.menu,name:extraschool.extraschool_menu_place
@@ -7453,12 +7453,12 @@ msgstr "stat_activity"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_payment_search_view
 msgid "structcom"
-msgstr "structcom"
+msgstr "Communication sctructurée"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_payment_search_view
 msgid "structcom_prefix"
-msgstr "structcom_prefix"
+msgstr "Préfix com. Struct."
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_po_tel
@@ -7478,7 +7478,7 @@ msgstr "Dossier des modèles de documents"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_child_search_view
 msgid "type"
-msgstr "type"
+msgstr "Catégorie tarifaire"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_parent_credit
@@ -7513,7 +7513,7 @@ msgstr "validé"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_child_registration_search_view
 msgid "week"
-msgstr "week"
+msgstr "Semaine"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_child_registration_form

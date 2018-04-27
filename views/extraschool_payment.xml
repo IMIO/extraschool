@@ -140,7 +140,7 @@
 			<field name="name">Payments reconciliation</field>
 			<field name="res_model">extraschool.payment_reconciliation</field>
 			<field name="view_type">form</field>
-			<field name="view_mode">graph,tree</field>
+			<field name="view_mode">graph,tree,pivot</field>
 		</record>
 
          <record model="ir.ui.view" id="extraschool_payment_status_report_form">
@@ -328,8 +328,12 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Aged balance">
-                     <field name="aged_date" />
-                     <field name="aged_balance_item_ids" />
+                    <sheet>
+                        <group>
+                             <field name="aged_date" />
+                        </group>
+                        <field name="aged_balance_item_ids" />
+                    </sheet>
                  </form>
              </field>
         </record>

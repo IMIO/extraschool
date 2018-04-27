@@ -196,7 +196,7 @@
             <field name="name">Invoices stat</field>
             <field name="res_model">extraschool.invoicedprestations</field>
             <field name="view_type">form</field>
-            <field name="view_mode">graph</field>
+            <field name="view_mode">graph,pivot</field>
             <field name="view_id" ref="extraschool_invoice_stat_graph"/>
         </record>
 

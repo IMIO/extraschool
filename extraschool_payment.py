@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014 
+#    Copyright (C) 2008-2014
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot - Imio (<http://www.imio.be>).
 #
@@ -38,26 +38,26 @@ class extraschool_payment(models.Model):
                                     ('4','Non value'),
                                     ('5','Reject')),'Payment type')
     parent_id = fields.Many2one("extraschool.parent",domain="[('isdisabled','=',False)]")
-    paymentdate = fields.Date('Date', required=True)
-    structcom = fields.Char('Structured Communication', size=50)
-    structcom_prefix = fields.Char('Structured communication prefix', size=3)
-    account = fields.Char('Account', size=20)
-    name = fields.Char('Name', size=50)
-    addr1 = fields.Char('Addr1', size=50)
-    addr2 = fields.Char('Addr2', size=50)
-    amount = fields.Float('Amount')
-    comment = fields.Char('Comment')
+    paymentdate = fields.Date(string='Date', required=True)
+    structcom = fields.Char(string='Structured Communication', size=50)
+    structcom_prefix = fields.Char(string='Structured communication prefix', size=3)
+    account = fields.Char(string='Account', size=20)
+    name = fields.Char(string='Name', size=50)
+    addr1 = fields.Char(string='Addr1', size=50)
+    addr2 = fields.Char(string='Addr2', size=50)
+    amount = fields.Float(string='Amount')
+    comment = fields.Char(string='Comment')
     solde = fields.Float(compute='compute_solde', string='Solde', store=True)
     payment_reconciliation_ids = fields.One2many('extraschool.payment_reconciliation','payment_id')
-    coda = fields.Many2one('extraschool.coda', 'Coda', required=False,ondelete='cascade')
+    coda = fields.Many2one('extraschool.coda', string='Coda', required=False,ondelete='cascade')
     reject_id = fields.Many2one('extraschool.reject', string='Reject',ondelete='cascade')
 
     @api.multi
-    def name_get(self):            
+    def name_get(self):
         res=[]
         for payment in self:
             res.append((payment.id, _("%s %s") % (self.parent_id.name,self.amount)))
-        return res   
+        return res
 
     @api.onchange('structcom')
     def compute_prefix(self):
@@ -73,7 +73,7 @@ class extraschool_payment(models.Model):
 
     def format_comstruct(self,comstruct):
         return ('+++%s/%s/%s+++' % (comstruct[0:3],comstruct[3:7],comstruct[7:12]))
-        
+
     def savepayment(self, cr, uid, ids, context=None):
         obj_payment = self.pool.get('extraschool.payment')
         form = self.read(cr,uid,ids,)[-1]
@@ -92,10 +92,10 @@ class extraschool_payment(models.Model):
                                                                ('balance', '>', 0),
                                                                ('huissier', '=', False),])
 #            invoices = invoices.filtered(lambda r: r.structcom[3:6] not in [activity_categ.payment_invitation_com_struct_prefix for activity_categ in self.env['extraschool.activitycategory'].search([])])
-        
-        #sort result on date 
+
+        #sort result on date
         invoices.sorted(key=lambda r: r.number)
-        reste = amount      
+        reste = amount
         tmp_payment_reconciliation_ids = []
         for invoice in invoices:
             #compute reconcil amount
@@ -104,17 +104,17 @@ class extraschool_payment(models.Model):
             else:
                 reconcil_amout = reste
             reste -= reconcil_amout
-            
+
             tmp_payment_reconciliation_ids.append({'invoice_id': invoice.id,
                                                    'amount': reconcil_amout,
                                                    'date': fields.Date.today()})
         return tmp_payment_reconciliation_ids
-        
-    
+
+
 class extraschool_payment_reconciliation(models.Model):
     _name = 'extraschool.payment_reconciliation'
     _description = 'Payment reconciliation'
-    
+
     payment_id = fields.Many2one("extraschool.payment", required=True,ondelete='cascade')
     invoice_id = fields.Many2one("extraschool.invoice", required=True, index=True)
     biller_id = fields.Many2one(related='invoice_id.biller_id', store=True, index=True)
@@ -210,18 +210,18 @@ class extraschool_payment_report(models.Model):
 
 class extraschool_aged_balance(models.TransientModel):
     _name = 'extraschool.aged_balance'
-    
-    aged_date = fields.Date('Reconcil Date', select=True) 
+
+    aged_date = fields.Date( string ='Reconcil Date', select=True)
     aged_balance_item_ids = fields.One2many('extraschool.aged_balance_item', 'aged_balance_id','Items')
 
     @api.onchange('aged_date')
     @api.one
     def _on_change_payment_type(self):
-        
+
         self.aged_balance_item_ids = [(5, 0, 0)]
         if not self.aged_date:
-            return 
-        
+            return
+
         items = []
         sql_aged_balance = """
             select b_year,
@@ -260,22 +260,22 @@ class extraschool_aged_balance(models.TransientModel):
                                       'total_received' : item['received'],
                                       'total_balance' : 0.0,
                                       }))
-            
+
         self.aged_balance_item_ids = tmp_item_ids
-    
+
 class extraschool_aged_balance_item(models.TransientModel):
     _name = 'extraschool.aged_balance_item'
     _description = 'Aged balance'
-    
+
     aged_balance_id = fields.Many2one('extraschool.aged_balance')
-    year = fields.Integer(string = 'Year') 
+    year = fields.Integer(string = 'Year')
     total_fact = fields.Float('Total fact')
     total_no_value = fields.Float('Total no value')
     total_received = fields.Float('Total received')
     total_balance = fields.Float('Total Balance')
-    
 
-    
-    
+
+
+
 
 

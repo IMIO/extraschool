@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <openerp>
-	<data> 
+	<data>
        <record model="ir.ui.view" id="extraschool_taxcertificate_tree">
             <field name="name">extraschool.taxcertificate.tree</field>
             <field name="model">extraschool.taxcertificate</field>
@@ -12,7 +12,7 @@
                 </tree>
             </field>
         </record>
-        
+
 		<record model="ir.ui.view" id="extraschool_taxcertificate_form">
             <field name="name">extraschool.taxcertificate.form</field>
             <field name="model">extraschool.taxcertificate</field>
@@ -22,23 +22,23 @@
 					<header>
 						<button name="generate_pdf" string="Création des PDF" type="object" class="oe_highlight" groups="base.group_erp_manager"/>
 					</header>
-                	                	
+
                 	<field name="pdf_ready" invisible="True" />
-					<div class="oe_right oe_button_box" name="processin" attrs="{'invisible':[('pdf_ready', '=', True)]}"> 
+					<div class="oe_right oe_button_box" name="processin" attrs="{'invisible':[('pdf_ready', '=', True)]}">
 						<h2>Création des PDF en cours .....</h2>
 					</div>
-                	
-					<div class="oe_right oe_button_box" name="buttons" attrs="{'invisible':[('pdf_ready', '=', False)]}"> 
-						<button name="all_taxecertificate" string="Toutes les attestations" type="object" class="oe_inline oe_stat_button" icon="fa-files-o"/>														
+
+					<div class="oe_right oe_button_box" name="buttons" attrs="{'invisible':[('pdf_ready', '=', False)]}">
+						<button name="all_taxecertificate" string="Toutes les attestations" type="object" class="oe_inline oe_stat_button" icon="fa-files-o"/>
 						<button name="all_pdf" string="Docs" type="object" class="oe_inline oe_stat_button" icon="fa-files-o" groups="base.group_erp_manager"/>
 					</div>
-                	                	
+
                     <group col="4">
                         <field name="name" />
                         <field name="activity_category_id" options="{'no_create':True}"/>
                         <field name="doc_date" />
                         <newline/>
-                        <separator string="Taxe certificate" colspan="4"/>                        
+                        <separator string="Taxe certificate" colspan="4"/>
                         <field name="taxcertificate_item_ids" colspan="4" nolabel="1" readonly="True"/>
                     </group>
                     <div class="oe_chatter" groups="extraschool.extraschool_gods">
@@ -48,7 +48,32 @@
                 </form>
             </field>
         </record>
-        
+
+        <record model="ir.ui.view" id="extraschool_taxcertificate_item_form">
+            <field name="name">extraschool.taxcertificate_item.form</field>
+            <field name="model">extraschool.taxcertificate_item</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Tax Certificate">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="parent_id" />
+                                <field name="implantation" />
+                                <field name="nbr_day" />
+
+                            </group>
+                            <group>
+                                <field name="child_id" />
+                                <field name="niveau" />
+                                <field name="amount" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
        <record model="ir.ui.view" id="extraschool_taxcertificate_item_tree">
             <field name="name">extraschool.taxcertificate_item.tree</field>
             <field name="model">extraschool.taxcertificate_item</field>
@@ -59,9 +84,7 @@
                     <field name="parent_id" />
                     <field name="child_id" />
                     <field name="nbr_day" />
-	                <field name="prest_from" />
-      				<field name="prest_to" />                    
-                    <field name="amount" />                    	                    	                    	                    
+                    <field name="amount" />
                 </tree>
             </field>
         </record>
@@ -80,15 +103,24 @@
                 </search>
             </field>
         </record>
-                
-        
+
+
         <record model="ir.actions.act_window" id="action_extraschool_taxcertificate">
             <field name="name">Tax Certificate</field>
             <field name="res_model">extraschool.taxcertificate</field>
             <field name="view_type">form</field>
             <field name="search_view_id" ref="extraschool_taxcertificate_item_search"/>
         </record>
-        		
+
+        <record model="ir.actions.act_window.view" id="action_extraschool_taxcertificate_item">
+			<field name="name">Tax Certificate</field>
+            <field eval="2" name="sequence"/>
+			<field name="res_model">extraschool.taxcertificate_item</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="extraschool_taxcertificate_item_form" />
+            <field name="search_view_id" ref="extraschool_taxcertificate_item_search"/>
+		</record>
+
        <record model="ir.ui.view" id="extraschool_taxcertificates_wizard_form">
             <field name="name">extraschool.taxcertificates.wizard.form</field>
             <field name="model">extraschool.taxcertificates_wizard</field>
