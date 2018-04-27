@@ -47,6 +47,12 @@ restart-Ans:
     - mco shell run '/srv/docker_scripts/ans_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
   when: manual
 
+restart-Braine-l-Alleud:
+  stage: restart
+  script:
+    - mco shell run '/srv/docker_scripts/brainelalleud_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
+  when: manual
+
 restart-Ferrieres:
   stage: restart
   script:
