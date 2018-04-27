@@ -174,4 +174,5 @@ class extraschool_payment_wizard_reconcil(models.TransientModel):
     invoice_id = fields.Many2one("extraschool.invoice")
     invoice_balance = fields.Float(related="invoice_id.balance", string = "Balance")
     amount = fields.Float('Amount', digits_compute=dp.get_precision('extraschool_invoice'), required=True)
+    tag = fields.Many2one(related='invoice_id.tag', store=True)
     

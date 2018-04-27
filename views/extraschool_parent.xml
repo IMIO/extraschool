@@ -1,27 +1,27 @@
 <?xml version="1.0" ?>
 <openerp>
-	<data> 
+	<data>
        <record model="ir.ui.view" id="extraschool_parent_tree">
 			<field name="name">extraschool.parent.tree</field>
 			<field name="model">extraschool.parent</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="Parent">
-                    <field name="lastname"/> 
+                    <field name="lastname"/>
                     <field name="firstname"/>
-                    <field name="zipcode"/>			
+                    <field name="zipcode"/>
                     <field name="email"/>
    				</tree>
 			</field>
 		</record>
-        
+
         <record model="ir.ui.view" id="extraschool_parent_form">
             <field name="name">extraschool.parent.form</field>
-            <field name="model">extraschool.parent</field>    
+            <field name="model">extraschool.parent</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
             <form string="Parents">
-				<header> 
+				<header>
 					<button name="wizard_action" string="Fusion" icon="gtk-apply" type="object" context="{'default_parent_id': id}" groups="extraschool.extraschool_fusion"/>
             	</header>
                 <sheet>
@@ -33,26 +33,26 @@
                             icon="fa-qrcode"
                                 />
                     </div>
-				<group col="4">        
+				<group col="4">
 	            	<field name="isdisabled"/>
                     <newline/>
                     <field name="last_import_date" readonly="True"/>
-                    <field name="modified_since_last_import"/>	               
-	            </group>            
+                    <field name="modified_since_last_import"/>
+	            </group>
                 <notebook>
                 <page string="Contact">
-                    <group col="4">  
-                		                    	      
+                    <group col="4">
+
                     <field name="name" invisible="True"/>
                     <field name="streetcode" invisible="True"/>
-                    <field name="lastname" on_change="onchange_name(lastname,firstname)"/> 
-                    <field name="firstname" on_change="onchange_name(lastname,firstname)"/>        
-                    <newline/>					
+                    <field name="lastname" on_change="onchange_name(lastname,firstname)"/>
+                    <field name="firstname" on_change="onchange_name(lastname,firstname)"/>
+                    <newline/>
 					<field name="rn"/>
-					<newline/>                   
+					<newline/>
                     <field name="street" on_change="onchange_address(street,city)"/>
                     <newline/>
-                    <field name="zipcode"/>        
+                    <field name="zipcode"/>
                     <field name="city" on_change="onchange_address(street,city)"/>
                     <newline/>
                     <field name="housephone"/>
@@ -85,11 +85,11 @@
                                         icon="fa-qrcode"
                                             />
                                 </div>
-								<field name="name"  invisible="True"/> 
+								<field name="name"  invisible="True"/>
 								<group col="4">
 								    <field name="isdisabled"/>
-				                    <newline/>        
-				                    <field name="lastname"/>            
+				                    <newline/>
+				                    <field name="lastname"/>
 									<field name="firstname"/>
 				                    <newline/>
 				                    <field name="schoolimplantation"/>
@@ -127,7 +127,7 @@
                         <field name="invoice_ids" nolabel="1" colspan="4">
 	                    <tree string="Invoices"  create="false" delete="false">
 	                        <field name="activitycategoryid"/>
-							<field name="structcom"/>	                        
+							<field name="structcom"/>
 	                        <field name="period_from"/>
 	                        <field name="period_to"/>
 	                        <field name="payment_term"/>
@@ -135,7 +135,7 @@
 	                        <field name="amount_received" sum="True"/>
 	                        <field name="balance"  sum="True"/>
 	                        <field name="no_value"/>
-	                        <field name="huissier"/>	
+	                        <field name="tag"/>
 	                        <button name="reconcil" type="object" string="Reconcil" groups="extraschool.extraschool_accounting" />
 	                    </tree>
                     </field>
@@ -160,9 +160,9 @@
                 			<field name="paymentdate"  readonly="True"/>
 							<field name="paymenttype"  readonly="True"/>
 							<field name="structcom" readonly="True"/>
-							<field name="comment" />															
+							<field name="comment" />
 							<field name="amount" sum="True"  readonly="True"/>
-							<field name="solde"  sum="True"/>															
+							<field name="solde"  sum="True"/>
                 		</tree>
                     </field>
                  </page>
@@ -178,8 +178,8 @@
                  <page string="Comment">
                     <field name="comment" />
                  </page>
-                                  
-                 
+
+
                  </notebook>
                 <!-- button name="return_action_to_open" type="object" context="{'xml_id':'action_extraschool_invoices'}" string="invoices" / -->
                 </sheet>
@@ -188,9 +188,9 @@
                     <field name="message_ids" widget="mail_thread"/>
                 </div>
             </form>
-            </field> 
+            </field>
         </record>
-        
+
         <record id="extraschool_parent_search_view" model="ir.ui.view">
             <field name="name">extraschool_parent.search</field>
             <field name="model">extraschool.parent</field>
@@ -205,7 +205,7 @@
             </field>
         </record>
 
-        
+
         <record model="ir.actions.act_window" id="action_lbsc_parent_invoices">
             <field name="name">Parent invoices</field>
             <field name="res_model">extraschool.invoice</field>
@@ -219,25 +219,25 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree, form</field>
             <field name="view_id" ref="extraschool_parent_tree"/>
-            <field name="context">{"search_default_actif":1}</field>            	            
+            <field name="context">{"search_default_actif":1}</field>
         </record>
-        
+
         <record model="ir.actions.act_window.view" id="action_extraschool_parent_form">
 			<field name="name">Parent</field>
             <field eval="2" name="sequence"/>
 			<field name="res_model">extraschool.parent</field>
             <field name="view_mode">form</field>
-            <field name="view_id" ref="extraschool_parent_form" />   
-            <field name="act_window_id" ref="action_extraschool_parent" /> 
-		</record> 
-        
+            <field name="view_id" ref="extraschool_parent_form" />
+            <field name="act_window_id" ref="action_extraschool_parent" />
+		</record>
+
         <record model="ir.actions.act_window.view" id="action_extraschool_parent_tree">
 			<field name="name">Parent</field>
             <field eval="1" name="sequence"/>
 			<field name="res_model">extraschool.parent</field>
             <field name="view_mode">tree</field>
-            <field name="view_id" ref="extraschool_parent_tree" />  
-            <field name="act_window_id" ref="action_extraschool_parent" /> 
+            <field name="view_id" ref="extraschool_parent_tree" />
+            <field name="act_window_id" ref="action_extraschool_parent" />
 		</record>
 	</data>
 </openerp>

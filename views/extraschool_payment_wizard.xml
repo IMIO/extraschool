@@ -22,7 +22,8 @@
                   		<separator string="Reconciliation" colspan="4"/>	
                   	</group>
                     <field name="payment_reconciliation_ids" states="init">	                	
-                    	<tree  editable="bottom" create="false" delete="false">	
+                    	<tree editable="bottom" create="false" delete="false" colors="red:tag IS NOT NULL">
+                            <field name="tag"></field>
 	                        <field name="invoice_id" readonly="True" />
 	        		        <field name="invoice_balance" />
 	                        <field name="amount" sum="True" />

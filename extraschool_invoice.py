@@ -75,6 +75,7 @@ class extraschool_invoice(models.Model):
     reminder_fees = fields.Boolean('Reminder fees', default=False, track_visibility='onchange')
     huissier = fields.Boolean('Huissier', default=False, track_visibility='onchange')
     fees_huissier = fields.Float('Fees Huissier', default=0.0, track_visibility='onchange')
+    tag = fields.Many2one('extraschool.invoice_tag', 'Tag', readonly=True, track_visibility='onchange')
 
 #
 #     @api.onchange('payment_ids')
@@ -462,5 +463,22 @@ class extraschool_invoice(models.Model):
                 'exported_amount': total,
                  }
 
+    @api.multi
+    def set_tag(self, context):
+        invoice_tag_obj = self.env['extraschool.invoice_tag']
+        if not context['tag']:
+            self.tag = None # Plus de tag.
+        elif context['tag'] == 'huissier':
+            self.tag = invoice_tag_obj.search([('name', '=', 'Huissier')]).id  # Huissier.
+        elif context['tag'] == 'plan_de_paiement':
+            self.tag = invoice_tag_obj.search([('name', '=', 'Plan de paiement')]).id  # Plan de paiement.
+        else:
+            self.tag = invoice_tag_obj.search([('name', '=', 'Bloquer')]).id  # Bloquer.
 
 
+class extraschool_invoice_tag(models.Model):
+    _name = 'extraschool.invoice_tag'
+    _description = 'Different tag can be used but they all block the process of this invoice. No reminder and so on.'
+
+    name = fields.Char('Name of the tag')
+    invoice_ids = fields.One2many('extraschool.invoice', 'tag', 'invoice_id')
