@@ -91,13 +91,8 @@ class extraschool_payment(models.Model):
                                                                ('balance', '>', 0),
                                                                ])
 #            invoices = invoices.filtered(lambda r: r.structcom[3:6] not in [activity_categ.payment_invitation_com_struct_prefix for activity_categ in self.env['extraschool.activitycategory'].search([])])
-<<<<<<< HEAD
 
-        #sort result on date
-=======
-        
         # Sort result on date.
->>>>>>> fa6cccb2f0b90ed179c3a68f3ee507627bb848fc
         invoices.sorted(key=lambda r: r.number)
         reste = amount
         tmp_payment_reconciliation_ids = []
