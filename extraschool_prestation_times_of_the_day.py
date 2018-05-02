@@ -68,6 +68,17 @@ class extraschool_prestation_times_of_the_day(models.Model):
     # schoolimplantation = fields.Many2one(related="child_id.schoolimplantation", store=True)
 
     @api.multi
+    def uniform_school(self):
+        self.reset()
+
+        school_id = self.prestationtime_ids[0].placeid.id
+
+        for presta in self.prestationtime_ids:
+            presta.write({'placeid': school_id})
+
+        self.check()
+
+    @api.multi
     def delete_pod(self):
         for prestation in self.prestationtime_ids:
             if not prestation.invoiced_prestation_id:
