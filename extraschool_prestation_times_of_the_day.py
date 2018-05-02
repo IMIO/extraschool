@@ -176,60 +176,40 @@ class extraschool_prestation_times_of_the_day(models.Model):
     
     @api.multi
     def last_check_entry_exit(self):
+        """
+        This will check one last time if the check has been done right.
+        This also check if the activities (from the prestations) have the same prest_to and prest_from.
+        If so, it checks if one of those activities has autoaddchilds.
+        If so, it will remove the prestations that has the activity without autoaddchilds.
+        :return: None
+        """
         es = ['E', 'S']
         last_occu = None
         zz=0
         activity_ids = []
-        pod_to_delete = []
-        activity_to_delete = 0
-        child_level = self.child_id.levelid.leveltype
+        self.activity_to_delete = 0
 
+        # Get all the activity ID from the prestations.
         for presta in self.prestationtime_ids.sorted(key=lambda r: (r.prestation_time)):
-            activity_ids.append(
-                [presta.activity_occurrence_id.activityid.prest_from, presta.activity_occurrence_id.activityid.prest_to,
-                 presta.activity_occurrence_id.activityid.autoaddchilds, presta.id, presta.activity_occurrence_id.activityid.id,
-                 presta.activity_occurrence_id.name,presta.activity_occurrence_id.activityid.leveltype])
+            if presta.activity_occurrence_id.activityid.id not in activity_ids:
+                activity_ids.append(presta.activity_occurrence_id.activityid.id)
 
-        activity_ids = sorted(activity_ids, key=lambda activity: activity[0])
+        # Get the activity object sorted by prest_to for better search.
+        activity_range = self.env['extraschool.activity'].search([('id', '=', activity_ids)]).sorted(key=lambda r: (r.prest_to))
 
-        for i in range(len(activity_ids)-1):
-            if  activity_ids[i][6] != u'M,P' and activity_ids[i][6] != child_level:
-                activity_to_delete = activity_ids[i][4]
-            elif not activity_to_delete and activity_ids[i][0] == activity_ids[i+1][0] and activity_ids[i][0] == activity_ids[i+1][0] and activity_ids[i][4] != activity_ids[i+1][4]:
-                if activity_ids[i][2] == False:
-                    activity_to_delete = activity_ids[i][4]
+        # Compare 2 activities at a time. If they have the same prest_to and prest_from
+        # And if one of them has autoaddchilds=True it will delete the prestation from the other activity.
+        for i in range(len(activity_range)-1):
+            if activity_range[i].prest_to == activity_range[i+1].prest_to and activity_range[i].prest_from == activity_range[i+1].prest_from:
+                if activity_range[i].autoaddchilds and not activity_range[i+1].autoaddchilds:
+                    self.activity_to_delete = activity_range[i+1].id
+                elif not activity_range[i].autoaddchilds and activity_range[i+1].autoaddchilds:
+                    self.activity_to_delete = activity_range[i].id
 
-        new_list = []
+            if self.activity_to_delete:
+                self.prestationtime_ids.filtered(lambda r: r.activity_occurrence_id.activityid.id == self.activity_to_delete).unlink()
 
-        for activity in activity_ids:
-            if activity_to_delete and activity[4] == activity_to_delete:
-                pod_to_delete.append(activity[3])
-                print "Need to delete: ", activity[5].encode("utf-8")
-            else:
-                new_list.append(activity[3])
-
-        if pod_to_delete and len(pod_to_delete) % 2 == 0:
-            for pod in pod_to_delete:
-                prestation_times_obj = self.env['extraschool.prestationtimes'].browse(pod)
-                self.env['extraschool.prestation_times_history'].create({
-                    'prestation_times_of_the_day_id': prestation_times_obj.prestation_times_of_the_day_id.id,
-                    'error_msg': prestation_times_obj.error_msg,
-                    'exit_all': prestation_times_obj.exit_all,
-                    'invoiced_prestation_id': prestation_times_obj.invoiced_prestation_id.id,
-                    'placeid': prestation_times_obj.placeid.id,
-                    'activity_occurrence_id': prestation_times_obj.activity_occurrence_id.id,
-                    'prestation_date': prestation_times_obj.prestation_date,
-                    'parent_id': prestation_times_obj.parent_id.id,
-                    'manualy_encoded': prestation_times_obj.manualy_encoded,
-                    'verified': prestation_times_obj.verified,
-                    'childid': prestation_times_obj.childid.id,
-                    'prestation_time': prestation_times_obj.prestation_time,
-                    'es': prestation_times_obj.es,
-                })
-                prestation_times_obj.unlink()
-
-        for presta in self.env['extraschool.prestationtimes'].search([('id', 'in', new_list)]).sorted(key=lambda r: ("%s%s" % (('%.2f' % (r.prestation_time)).zfill(5), 1 if r.es == 'E' else 0))):
-        # for presta in self.prestationtime_ids.sorted(key=lambda r: ("%s%s" % (('%.2f' % (r.prestation_time)).zfill(5), 1 if r.es == 'E' else 0))):
+        for presta in self.prestationtime_ids.sorted(key=lambda r: ("%s%s" % (('%.2f' % (r.prestation_time)).zfill(5), 1 if r.es == 'E' else 0))):
             # print "presta : %s %s %s" % (presta.activity_occurrence_id.id, presta.activity_occurrence_id.name, ('%.2f' % (presta.prestation_time)).zfill(5))
             i = zz % 2
             #check alternate E / S
