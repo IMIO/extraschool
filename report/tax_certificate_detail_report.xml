@@ -66,17 +66,13 @@
     		<field name="dpi">80</field>
 		</record>
 
-		<record id="tax_certificate_detail_report" model="ir.actions.report.xml">
-    		<field name="paperformat_id" ref="paperformat_aes_taxe_certificate_detail"/>
-		</record>
-
 		<report
 		    id="tax_certificate_detail_report"
 		    model="extraschool.taxcertificate_item"
 		    string="Tax Detail"
 		    report_type="qweb-pdf"
 		    name="extraschool.tpl_tax_certificate_detail_report"
-		    attachment_use="True"
+		    attachment_use="False"
 		/>
 
 	</data>
