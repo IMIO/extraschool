@@ -71,29 +71,34 @@
             <field name="model">extraschool.taxcertificate_item</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <group col="4">
-                    <form string="Tax Certificate">
-                        <field name="name" />
-                        <field name="parent_id" />
-                        <field name="child_id" />
-                        <field name="nbr_day" />
-                        <field name="prest_from" />
-                        <field name="prest_to" />
-                        <field name="amount" />
-                    </form>
-                    <newline></newline>
-                    <field name="tax_certificate_detail_ids">
-                        <tree string="Detail">
-                            <field name="child_name" sum="true"/>
-                            <field name="invoice_number" />
-                            <field name="activity_name" />
-                            <field name="prestation_date" />
-                            <field name="time_scan" />
-                            <field name="entry_exit" />
-                            <field name="amount"/>
-                        </tree>
-                    </field>
-                </group>
+                <form string="Tax Certificate">
+                    <sheet>
+                        <group col="4">
+                            <field name="name" />
+                            <field name="parent_id" />
+                            <field name="child_id" />
+                            <field name="nbr_day" />
+                            <field name="prest_from" />
+                            <field name="prest_to" />
+                            <field name="amount" />
+                        </group>
+                        <notebook>
+                            <page string="Detail">
+                                <field name="tax_certificate_detail_ids">
+                                    <tree string="Detail" editable="top">
+                                        <field name="child_name" sum="true"/>
+                                        <field name="invoice_number" />
+                                        <field name="activity_name" />
+                                        <field name="prestation_date" />
+                                        <field name="time_scan" />
+                                        <field name="entry_exit" />
+                                        <field name="amount"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
             </field>
         </record>
 

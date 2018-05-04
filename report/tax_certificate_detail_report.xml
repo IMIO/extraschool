@@ -1,0 +1,83 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+		<template id="tpl_tax_certificate_detail_report">
+            <style type="text/css">
+                thead { display: table-row-group }
+            </style>
+            <t t-call="report.html_container">
+				<t t-foreach="docs" t-as="attest">
+                    <xpath expr="//body" position="inside">
+                        <div class="page">
+                            <div class="page-header">
+                                <h1>Tax Detail - <span t-field="attest.parent_id.name" /></h1>
+                            </div>
+							<div style="float: left;width:49%">
+								Enfant: <span t-field="attest.child_id.name" /><br></br>
+								Nombres de jours: <span t-field="attest.nbr_day" /><br></br>
+							</div>
+							<div style="float: left;width:49%">
+								Année fiscale: <span t-field="attest.taxcertificate_id.name" /><br></br>
+								Montant: <span t-esc="str('%.2f' % (attest.amount)).replace('.', ',')" /> €<br></br>
+							</div>
+                            <div style="padding-top:100px">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Nom</th>
+                                            <th>N° de facture</th>
+                                            <th>Nom de l'activité</th>
+                                            <th>Date de la présence</th>
+                                            <th>Heure de la présence</th>
+                                            <th>Entrée-Sortie</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="attest.tax_certificate_detail_ids" t-as="detail">
+                                            <tr>
+                                                <td><span t-esc="detail.child_name"/></td>
+                                                <td><span t-esc="detail.invoice_number"/></td>
+                                                <td><span t-esc="detail.activity_name"/></td>
+                                                <td><span t-esc="detail.prestation_date"/></td>
+                                                <td><span t-esc="detail.time_scan"/></td>
+                                                <td><span t-esc="detail.entry_exit"/></td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </xpath>
+                </t>
+            </t>
+		</template>
+
+		<record id="paperformat_aes_taxe_certificate_detail" model="report.paperformat">
+    		<field name="name">Tax certificate</field>
+    		<field name="default" eval="True"/>
+   			<field name="format">A4</field>
+    		<field name="orientation">Portrait</field>
+    		<field name="margin_top">10</field>
+    		<field name="margin_bottom">20</field>
+    		<field name="margin_left">10</field>
+    		<field name="margin_right">10</field>
+    		<field name="header_line" eval="False"/>
+    		<field name="header_spacing">3</field>
+    		<field name="dpi">80</field>
+		</record>
+
+		<record id="tax_certificate_detail_report" model="ir.actions.report.xml">
+    		<field name="paperformat_id" ref="paperformat_aes_taxe_certificate_detail"/>
+		</record>
+
+		<report
+		    id="tax_certificate_detail_report"
+		    model="extraschool.taxcertificate_item"
+		    string="Tax Detail"
+		    report_type="qweb-pdf"
+		    name="extraschool.tpl_tax_certificate_detail_report"
+		    attachment_use="True"
+		/>
+
+	</data>
+</openerp>

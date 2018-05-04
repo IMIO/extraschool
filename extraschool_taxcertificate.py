@@ -215,10 +215,6 @@ class extraschool_tax_certificate_detail(models.Model):
     _auto = False # Disable creation of table.
     _order = ''
 
-    def _get_activity_category_id(self):
-        return self.env['extraschool.activitycategory'].search([]).filtered('id').id
-
-    activity_category_id = fields.Many2one('extraschool.activitycategory',select=True, default=_get_activity_category_id)
     tax_certificate_item_id = fields.Many2one('extraschool.taxcertificate_item', 'tax_certificate_detail_ids', select=True)
     amount = fields.Float('Amount')
     time_scan = fields.Char('time_scan')
@@ -241,7 +237,12 @@ class extraschool_tax_certificate_detail(models.Model):
                         prest.prestation_date AS prestation_date, 
                         act.short_name AS activity_name, 
                         to_char(to_timestamp((prest.prestation_time) * 60), 'MI:SS') AS time_scan, 
-                        prest.es AS entry_exit, 
+                        CASE 
+                            WHEN 
+                                prest.es = 'E' 
+                                THEN 'Entree' 
+                                ELSE 'Sortie' 
+                            END AS entry_exit, 
                         to_char(total_price, '999.99') AS amount
                 FROM extraschool_prestationtimes AS prest
                 INNER JOIN extraschool_invoicedprestations AS inv_prest
@@ -266,7 +267,7 @@ class extraschool_tax_certificate_detail(models.Model):
                                 AND inv.balance = 0 AND inv.last_reminder_id IS NULL) 
                                 AND act.on_tax_certificate = TRUE
                                 AND prest.prestation_date <= c.birthdate + interval '12 year'
-                ORDER BY c.firstname, inv.number, prest.prestation_date, act.short_name, prest.prestation_time
+                ORDER BY inv.number, prest.prestation_date, act.short_name, prest.prestation_time
                 ;
         """)
 
