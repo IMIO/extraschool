@@ -347,24 +347,15 @@ class extraschool_biller(models.Model):
 #        cr.commit()
         self.env['ir.attachment'].search([('res_id', 'in',[i.id for i in self.invoice_ids]),
                                            ('res_model', '=', 'extraschool.invoice')]).unlink()
-
         self.pdf_ready = False
         self.env.invalidate_all()
 
-        count = 0
-
-        for invoice in self.env['extraschool.invoice'].browse(self.invoice_ids.ids):
-            count = count + 1
-            print "generate pdf %s count: %s" % (invoice.id, count)
-            self.env['report'].get_pdf(invoice, 'extraschool.invoice_report_layout')
-
-        self.pdf_ready = True
         lock = threading.Lock()
         chunk_size = int(self.env['ir.config_parameter'].get_param('extraschool.report.thread.chunk',200))
-# #         print "-------------------------------"
-# #         print "chunk_size:%s" % (chunk_size)
-# #         print "-------------------------------"
-#
+#         print "-------------------------------"
+#         print "chunk_size:%s" % (chunk_size)
+#         print "-------------------------------"
+
         nrb_thread = len(self.invoice_ids)/chunk_size+(len(self.invoice_ids)%chunk_size > 0)
         thread_lock = [len(self.invoice_ids)/chunk_size+(len(self.invoice_ids)%chunk_size > 0),
                         threading.Lock(),
