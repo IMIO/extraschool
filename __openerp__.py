@@ -102,6 +102,7 @@
         'report/biller/biller_detail_no_style.xml',
         'report/child_registration.xml',
         'report/coda_report.xml',
+        'report/tax_certificate_detail_report.xml',
         'report/parent.xml',
         'report/qrcode_report.xml',
         'report/horaire_guardian_report.xml',
