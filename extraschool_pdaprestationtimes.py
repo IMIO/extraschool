@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014 
+#    Copyright (C) 2008-2014
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot - Imio (<http://www.imio.be>).
 #
@@ -28,7 +28,7 @@ class extraschool_pdaprestationtimes(models.Model):
     _description = 'PDA Prestation Times'
 
     def _get_activity_category_id(self):
-        return self.env['extraschool.activitycategory'].search([]).filtered('id').id
+        return self.env['extraschool.activitycategory'].search([])[0].filtered('id').id
 
     placeid = fields.Many2one('extraschool.place', 'Schoolcare Place', required=True)
     activitycategoryid = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False, default=_get_activity_category_id)
@@ -113,5 +113,5 @@ class extraschool_pdaprestationtimes(models.Model):
                                      'type': vals['type'],
                                      'es': vals['es'],
                                      })
-        return super(extraschool_pdaprestationtimes, self).create(vals)    
+        return super(extraschool_pdaprestationtimes, self).create(vals)
 

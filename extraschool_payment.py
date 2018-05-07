@@ -139,7 +139,7 @@ class extraschool_payment_status_report(models.Model):
     _order = 'totalbalance DESC'
 
     def _get_activity_category_id(self):
-        return self.env['extraschool.activitycategory'].search([]).filtered('id').id
+        return self.env['extraschool.activitycategory'].search([])[0].filtered('id').id
 
     activity_category_id = fields.Many2one('extraschool.activitycategory',select=True, default=_get_activity_category_id)
     parent_id = fields.Many2one('extraschool.parent',select=True)

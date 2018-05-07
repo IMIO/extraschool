@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014 
+#    Copyright (C) 2008-2014
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot & Michael Colicchial - Imio (<http://www.imio.be>).
 #
@@ -52,7 +52,7 @@ class extraschool_one_report_day(models.Model):
     nb_m_childs = fields.Integer()
     nb_p_childs = fields.Integer()
     nb_childs = fields.Integer(compute='_compute_nb_childs')
-    
+
     @api.depends('nb_m_childs','nb_p_childs')
     def _compute_nb_childs(self):
         for rec in self:
@@ -83,7 +83,7 @@ class extraschool_one_report(models.Model):
             return `quarter` + "eme"
 
     def _get_activity_category_id(self):
-        return self.env['extraschool.activitycategory'].search([]).filtered('id').id
+        return self.env['extraschool.activitycategory'].search([])[0].filtered('id').id
 
     placeid = fields.Many2one('extraschool.place')
     activitycategory = fields.Many2one('extraschool.activitycategory', required=True, default=_get_activity_category_id)
@@ -108,12 +108,12 @@ class extraschool_one_report(models.Model):
 
     def compute_tablesf(self):
         return [{'href':'http://www.labruyere.be','value':'1'},{'href':'http://www.labruyere.be','value':'2'},{'href':'http://www.labruyere.be','value':'3'}]
-    
+
     @api.depends('nb_m_childs','nb_p_childs')
     def _compute_nb_childs(self):
         for rec in self:
             self.nb_childs = self.nb_m_childs + self.nb_p_childs
-    
+
     def _monthdays(self,y, m):
         m += 1
         if m == 13:
@@ -154,7 +154,7 @@ class extraschool_one_report(models.Model):
                                 and activity_occurrence_id in (select id from extraschool_activityoccurrence where activityid in (select id from extraschool_activity where category=%s and subsidizedbyone=true)) 
                                 and levelid in (select id from extraschool_level where leveltype=%s)                                 
                                 ''', (placeid,date_from,date_to,activitycategory,level))
-        
+
         extraschool_one_report_childs = self.env.cr.dictfetchall()
         print '''
                                 select count(distinct(childid)) as count_child from extraschool_invoicedprestations left join extraschool_child on childid=extraschool_child.id where 
@@ -165,7 +165,7 @@ class extraschool_one_report(models.Model):
                                 ''' % (placeid,date_from,date_to,activitycategory,level)
         print "count_child : %s" % (extraschool_one_report_childs[0]['count_child'])
         return extraschool_one_report_childs[0]['count_child']
-    
+
     @api.model
     def create(self,vals):
         vals['is_created'] = True
@@ -196,7 +196,7 @@ class extraschool_one_report(models.Model):
         report_logoone_filename = '/tmp/one'+str(datetime.now())+'.bmp'
         report_filename = '/tmp/one_report'+str(datetime.now())+'.xls'
         report_template_file = file(report_template_filename,'w')
-        report_logoone_file = file(report_logoone_filename,'w')        
+        report_logoone_file = file(report_logoone_filename,'w')
         report_template_file.write(one_report_settings.report_template.decode('base64'))
         report_logoone_file.write(one_report_settings.one_logo.decode('base64'))
         report_template_file.close()
@@ -205,7 +205,7 @@ class extraschool_one_report(models.Model):
         strperiod_from = str(vals['year']) + '-'+str(vals['quarter']*3-2).zfill(2) +'-01'
         strperiod_to = str(vals['year']) + '-' + str(vals['quarter'] * 3).zfill(2) + '-' + str(
             self._monthdays(vals['year'], vals['quarter'] * 3)).zfill(2)
-        
+
         period_from=datetime.strptime(strperiod_from, '%Y-%m-%d').date()
         period_to=datetime.strptime(strperiod_to, '%Y-%m-%d').date()
         tot_nb_m = 0
@@ -230,21 +230,21 @@ class extraschool_one_report(models.Model):
             self.setXLCell(XLSheet,7,5,place.schedule)
 
         for imonth in range(0,3):
-            currentmonth=period_from.month+imonth            
+            currentmonth=period_from.month+imonth
             self.setXLCell(XLSheet,14+imonth*2,0,month_names[currentmonth])
-            iweek=0            
+            iweek=0
             currentdate = datetime(vals['year'],currentmonth,01)
             while (iweek < 5):
-                 
+
                 if datetime(currentdate.year,currentdate.month,01).weekday() > 4 and iweek==0:
                     while currentdate.weekday() != 0:
                         currentdate = currentdate + td(1)
-                
+
                 for iday in range(0,5):
-                    
+
                     if iday==currentdate.weekday():
                         self.setXLCell(wb.get_sheet(0),13+imonth*2,(iday+1)+(iweek*5),currentdate.day)
-                        
+
                         for subvention_type in ['sf','sdp']:
                             day_nb_m = 0
                             day_nb_p = 0
@@ -270,11 +270,11 @@ class extraschool_one_report(models.Model):
                                                        'nb_p_childs': day_nb_p})
                             # todo: Do we need this ?
                             tot_nb_m = tot_nb_m + day_nb_m
-                            tot_nb_p = tot_nb_p + day_nb_p   
+                            tot_nb_p = tot_nb_p + day_nb_p
                             if subvention_type == 'sf':
                                 ligne = 14
-                            else:         
-                                ligne = 30      
+                            else:
+                                ligne = 30
                             if (day_nb_m + day_nb_p) != 0:
                                 self.setXLCell(XLSheet,ligne+imonth*2,(iday+1)+(iweek*5),day_nb_m + day_nb_p)
                             else:
@@ -317,7 +317,7 @@ class extraschool_one_report(models.Model):
             self.setXLCell(XLSheet, 20 + gapTab, 26, Formula(
                 'D' + str(20 + gapTab) + '+I' + str(20 + gapTab) + '+N' + str(20 + gapTab) + '+S' + str(
                     20 + gapTab) + '+X' + str(20 + gapTab)))
-        
+
         wb.save(report_filename)
         outfile = open(report_filename,"r").read()
         attachment_obj = self.env['ir.attachment']
