@@ -103,6 +103,7 @@ class extraschool_activitycategory(models.Model):
     payment_invitation_email_subject = fields.Char('Payment invitation Email subject')
     payment_invitation_com_struct_prefix = fields.Char('Payment invitation Comstruct prefix', size=3, required = True)
     payment_invitation_courrier_text = fields.Text('Payment invitation courrier text')
+    payment_plan_comstructprefix = fields.Char('Payment Plan Comstruct prefix', size=3, required=True)
     logo = fields.Binary()
     slogan = fields.Char('Slogan', size=50)
     sequence_ids = fields.One2many('extraschool.activitycategory.sequence', 'activity_category_id',string = 'Sequences')
