@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014 
+#    Copyright (C) 2008-2014
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot - Imio (<http://www.imio.be>).
 #
@@ -31,7 +31,7 @@ class extraschool_coda(models.Model):
     _name = 'extraschool.coda'
 
     _order = 'codadate desc'
-    
+
     name = fields.Char('Name', size=20)
     codafile = fields.Binary('CODA File')
     codadate = fields.Date('CODA Date',readonly=True)
@@ -52,22 +52,22 @@ class extraschool_coda(models.Model):
 
         if self.state == 'todo':
             self.state = 'handled'
-                
+
     @api.depends('paymentids')
-    def _compute_amount_accepted (self):       
+    def _compute_amount_accepted (self):
         for r in self:
             r.amount_accepted = sum(p.amount for p in r.paymentids)
 
     @api.depends('paymentids')
-    def _compute_amount_rejected (self):       
+    def _compute_amount_rejected (self):
         for r in self:
             r.amount_rejected = sum(rej.amount for rej in r.rejectids)
-            
+
     def format_comstruct(self,comstruct):
         return ('+++%s/%s/%s+++' % (comstruct[0:3],comstruct[3:7],comstruct[7:12]))
 
     @api.model
-    def create(self, vals):  
+    def create(self, vals):
         #to do refactoring suite api V8
         cr = self.env.cr
         paymentids = []
@@ -109,13 +109,13 @@ class extraschool_coda(models.Model):
         #         if line[0]=='3':
         #             withaddress=True
         for line in lines:
-            if len(line) > 0:                
+            if len(line) > 0:
                 if line[0]=='2':
                     if line[1]=='1':
                         amount=eval(line[31:44]+'.'+line[44:47])
-                        transfertdate=codadate                      
+                        transfertdate=codadate
                         if line[62]=='1':
-                            communication=self.format_comstruct(line[65:77])                            
+                            communication=self.format_comstruct(line[65:77])
                         else:
                             reject=True
                             rejectcause=_('No structured Communication')
@@ -123,25 +123,26 @@ class extraschool_coda(models.Model):
                     else:
                         if (line[1]=='3') and (amount > 0.0) and transfertdate:
                             parentaccount=line[10:26]
-                            name=line[47:73]                        
+                            name=line[47:73]
                 if (line[0]=='3') and (line[1]=='2') and (len(name) > 1):
                     adr1=line[10:45]
                     adr2=line[45:80]
                     withaddress=True
-                
+
                 if ((withaddress == True) and (len(adr1) > 0)) or ((withaddress == False) and (len(name) > 1)):
                     if reject == False:
                         cr.execute('select invoicecomstructprefix from extraschool_activitycategory')
                         prefixes=cr.dictfetchall()
-                        prefixfound=False                    
+                        prefixfound=False
                         for prefix in prefixes:
                                 if (len(prefix['invoicecomstructprefix']) > 0) and (len(communication) > len(prefix['invoicecomstructprefix'])):
                                     if communication[3:3+len(prefix['invoicecomstructprefix'])] == prefix['invoicecomstructprefix']:
                                         prefixfound=True
                                         _prefix = prefix['invoicecomstructprefix']
-                        if prefixfound:          
+                        if prefixfound:
                             invoice=invoice_obj.search([('structcom', '=', communication),
                                                         ('huissier', '=', False),
+                                                        ('tag', '=', '')
                                                         ])
 
                             if len(invoice.ids) == 1:
@@ -151,7 +152,7 @@ class extraschool_coda(models.Model):
                                 elif invoice.last_reminder_id:
                                     reject=True
                                     rejectcause=_('This invoice has a reminder and cannot be paid with the invoice communication')
-                                else:            
+                                else:
                                     payment_id = payment_obj.create({'parent_id': invoice.parentid.id,
                                                                   'paymentdate': transfertdate,
                                                                   'structcom_prefix': _prefix,
@@ -162,13 +163,13 @@ class extraschool_coda(models.Model):
                                                                   'adr1':adr1,
                                                                   'adr2':adr2,
                                                                   'amount': amount})
-                                                                            
+
                                     payment_reconciliation_obj.create({'payment_id' : payment_id.id,
                                                                         'invoice_id' : invoice.id,
                                                                         'date': transfertdate, # Todo: si date facture <= coda: date coda sinon date facture
                                                                         'amount' : amount})
                                     invoice._compute_balance()
-                                    paymentids.append(payment_id.id)                                    
+                                    paymentids.append(payment_id.id)
                             else:
                                 reject=True
                                 rejectcause=_('No valid structured Communication')
@@ -251,7 +252,7 @@ class extraschool_coda(models.Model):
                                             paymentids.append(payment_id.id)
                                 else:
                                     reject=True;
-                                    rejectcause=_('No valid structured Communication')      
+                                    rejectcause=_('No valid structured Communication')
                             else:
                                 #Pre-paiements
                                 cr.execute('select payment_invitation_com_struct_prefix from extraschool_activitycategory')
@@ -280,7 +281,7 @@ class extraschool_coda(models.Model):
                                                                   'adr2':adr2,
                                                                   'amount': amount})
 
-                                        for reconciliation in payment_id._get_reconciliation_list(parentid,prefix['payment_invitation_com_struct_prefix'],1,amount):
+                                        for reconciliation in payment_id._get_reconciliation_list(parentid,prefix['payment_invitation_com_struct_prefix'],1,amount,True):
                                             payment_reconciliation_obj.create({'payment_id' : payment_id.id,
                                                                            'invoice_id' : reconciliation['invoice_id'],
                                                                            'date': transfertdate,# todo: si date facture <= coda: date coda sinon date facture
@@ -311,7 +312,7 @@ class extraschool_coda(models.Model):
                         adr1=''
                         adr2=''
 
-                                                       
+
                         rejectids.append(reject_id)
                     reject = False
                     amount = 0.0
@@ -325,9 +326,9 @@ class extraschool_coda(models.Model):
                     withaddress=False
 
         return super(extraschool_coda, self).create({'name':'CODA '+codadate,'codadate':codadate,'codafile':vals['codafile'],'paymentids':[(6,0,paymentids)],'rejectids':[(6,0,rejectids)]})
-    
+
     def com_struct_builder(self,prefix, val):
-        #padding 
+        #padding
         val = val.zfill(7)
         comstruct=prefix+str(val)
         numverif=str(int(comstruct) % 97)
@@ -335,5 +336,5 @@ class extraschool_coda(models.Model):
             numverif='97'
         if (len(numverif)==1):
             numverif='0'+numverif
-            
+
         return comstruct+numverif

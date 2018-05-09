@@ -79,18 +79,17 @@ class extraschool_payment(models.Model):
         form = self.read(cr,uid,ids,)[-1]
         payment_id = obj_payment.write(cr, uid, ids[0], {'parent_id':context['parent_id'],'account':form['account'],'paymenttype':form['paymenttype'],'paymentdate':form['paymentdate'],'structcom':form['structcom'],'name':form['name'],'amount':form['amount']}, context=context)
 
-    def _get_reconciliation_list(self,parent_id,com_struct_prefix,payment_type,amount):
-        if payment_type == '1': #pre-paid
+    def _get_reconciliation_list(self,parent_id,com_struct_prefix,payment_type,amount,from_coda=False):
+        search_domain = [('parentid', '=', parent_id),
+                         ('balance', '>', 0),
+                         ]
+        if from_coda:
+            search_domain += [('tag', '=', None)]
+        elif payment_type == '1':  # Prepaid.
             activity_category_ids = self.env['extraschool.activitycategory'].search([('payment_invitation_com_struct_prefix', '=', com_struct_prefix)]).ids
-            invoices = self.env['extraschool.invoice'].search([('parentid', '=', parent_id),
-                                                               ('activitycategoryid', 'in',activity_category_ids),
-                                                               ('balance', '>', 0),
-                                                               ])
-        else:
-            invoices = self.env['extraschool.invoice'].search([('parentid', '=', parent_id),
-                                                               ('balance', '>', 0),
-                                                               ])
-#            invoices = invoices.filtered(lambda r: r.structcom[3:6] not in [activity_categ.payment_invitation_com_struct_prefix for activity_categ in self.env['extraschool.activitycategory'].search([])])
+            search_domain += [('activitycategoryid', 'in',activity_category_ids),]
+
+        invoices = self.env['extraschool.invoice'].search(search_domain)
 
         # Sort result on date.
         invoices.sorted(key=lambda r: r.number)
