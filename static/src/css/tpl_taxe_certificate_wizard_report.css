@@ -1,0 +1,65 @@
+body {
+  font-family: arial !important;
+}
+
+.frame {
+    border-style: solid;
+    border-width: 1px;
+    padding: 5mm;
+}
+
+.frame>div {
+    margin-left : 5mm;
+}
+
+.frame>ol>li>div {
+    margin-left : 1cm;
+}
+
+.parent_adr{
+    display: block;
+    float: right;
+    width: 7cm;
+}
+
+.signature {
+    display: block;
+    float: right;
+    width: 10cm;
+}
+
+ol>li {
+    counter-increment:item;
+    list-style:none inside;
+    clear: both;
+}
+
+ol>li:before {content:"(" counter(item) ")"; padding-right:0.5em}
+
+ol>li>div {
+    margin-left: 2cm;
+}
+
+ol.main_list>li{
+    margin: 15px 0;
+}
+
+.po>span {
+    display: block;
+    clear: both;
+}
+
+.signature>span {
+    display: block;
+    clear: both;
+}
+
+.po_sign {
+    display: block;
+    clear: both;
+    max-width: 6cm;
+}
+
+.attest_comment{
+    font-size:9px;
+}

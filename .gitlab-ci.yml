@@ -38,7 +38,7 @@ promote-to-prod:
     - docker push docker-prod.imio.be/extraschool-v9:latest
     - docker rmi docker-staging.imio.be/extraschool-v9:latest docker-prod.imio.be/extraschool-v9:latest
     - mco shell run 'docker pull docker-prod.imio.be/extraschool-v9:latest' -C /role::docker::extraschool::instances$/ -I /prod/
-#    - mco shell run 'at -f /srv/docker_scripts/extraschool-update-all-images.sh -t `date -d "tomorrow" +%Y%m%d`0500' -C /role::docker::extraschool::instances$/ -I /prod/
+    - mco shell run 'at -f /srv/docker_scripts/extraschool-update-all-images.sh -t `date -d "tomorrow" +%Y%m%d`0500' -C /role::docker::extraschool::instances$/ -I /prod/
   when: manual
 
 restart-Ans:

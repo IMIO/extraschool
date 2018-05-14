@@ -24,7 +24,7 @@
 
 {
     'name' : 'Extraschool',
-    'version' : '9.0.0.0.5',
+    'version' : '9.0.0.0.6',
     'author' : 'Town of La Bruyère and Imio',
     'depends' : ['base',
                  'report',
@@ -102,6 +102,7 @@
         'report/biller/biller_detail_no_style.xml',
         'report/child_registration.xml',
         'report/coda_report.xml',
+        'report/tax_certificate_detail_report.xml',
         'report/parent.xml',
         'report/qrcode_report.xml',
         'report/horaire_guardian_report.xml',

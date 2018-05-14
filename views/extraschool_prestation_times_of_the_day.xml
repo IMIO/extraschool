@@ -25,6 +25,7 @@
 						<button name="reset" group="admin" string="Reset" icon="gtk-apply" type="object" />	                    
 						<button name="check" group="admin" string="Check" icon="gtk-apply" type="object" />
 						<button name="delete_pod" groups="extraschool.extraschool_gods" string="Delete" class="oe_highlight" type="object" />
+						<button name="uniform_school" groups="extraschool.extraschool_ittre" string="Uniformiser Ecole" class="oe_highlight" type="object" />
 					</header>
 					<sheet>
 					<group col="4">
@@ -71,6 +72,7 @@
 	                    <field name="pda_prestationtime_ids" nolabel="1" colspan="4" options='{"reload_on_button": True}'>
 	                    	<tree string="prestation_times" colors="red:active == False">
 								<field name="active" invisible="1"/>
+								<field name="type" readonly="1"/>
 		                   		<field name="childid" readonly="1"/>
 	                    		<field name="placeid" readonly="1"/>
 	                    		<field name="prestation_time"  widget="float_time" readonly="1"/>

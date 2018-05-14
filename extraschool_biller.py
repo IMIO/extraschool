@@ -347,26 +347,35 @@ class extraschool_biller(models.Model):
 #        cr.commit()
         self.env['ir.attachment'].search([('res_id', 'in',[i.id for i in self.invoice_ids]),
                                            ('res_model', '=', 'extraschool.invoice')]).unlink()
+
         self.pdf_ready = False
-        self.env.invalidate_all()
+        # self.env.invalidate_all()
 
-        lock = threading.Lock()
-        chunk_size = int(self.env['ir.config_parameter'].get_param('extraschool.report.thread.chunk',200))
-#         print "-------------------------------"
-#         print "chunk_size:%s" % (chunk_size)
-#         print "-------------------------------"
+        count = 0
 
-        nrb_thread = len(self.invoice_ids)/chunk_size+(len(self.invoice_ids)%chunk_size > 0)
-        thread_lock = [len(self.invoice_ids)/chunk_size+(len(self.invoice_ids)%chunk_size > 0),
-                        threading.Lock(),
-                        self.id]
-        for zz in range(0, nrb_thread):
-            sub_invoices = [i.id for i in self.invoice_ids[zz*chunk_size:(zz+1)*chunk_size]]
-            print "start thread for ids : %s" % (sub_invoices)
-            if len(sub_invoices):
-                thread = threading.Thread(target=self.generate_pdf_thread, args=(cr, uid, thread_lock, sub_invoices,self.env.context))
-                threaded_report.append(thread)
-                thread.start()
+        for invoice in self.env['extraschool.invoice'].browse(self.invoice_ids.ids):
+            count = count + 1
+            print "generate pdf %s count: %s" % (invoice.id, count)
+            self.env['report'].get_pdf(invoice, 'extraschool.invoice_report_layout')
+
+        self.pdf_ready = True
+#         lock = threading.Lock()
+#         chunk_size = int(self.env['ir.config_parameter'].get_param('extraschool.report.thread.chunk',200))
+# #         print "-------------------------------"
+# #         print "chunk_size:%s" % (chunk_size)
+# #         print "-------------------------------"
+#
+#         nrb_thread = len(self.invoice_ids)/chunk_size+(len(self.invoice_ids)%chunk_size > 0)
+#         thread_lock = [len(self.invoice_ids)/chunk_size+(len(self.invoice_ids)%chunk_size > 0),
+#                         threading.Lock(),
+#                         self.id]
+#         for zz in range(0, nrb_thread):
+#             sub_invoices = [i.id for i in self.invoice_ids[zz*chunk_size:(zz+1)*chunk_size]]
+#             print "start thread for ids : %s" % (sub_invoices)
+#             if len(sub_invoices):
+#                 thread = threading.Thread(target=self.generate_pdf_thread, args=(cr, uid, thread_lock, sub_invoices,self.env.context))
+#                 threaded_report.append(thread)
+#                 thread.start()
 
     @api.one
     def export_onyx(self):

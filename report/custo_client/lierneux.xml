@@ -29,6 +29,28 @@
 			</xpath>
 		</template>
 
+		<template id="report_lierneux_report_parent_credit_huissier" inherit_id="extraschool.report_parent_credit" primary="True">
+			<xpath expr="//div[@id='aes_html_parent_credit']" position="replace">
+		    	<div class="aes_html_parent_credit">
+		    		<p>
+						Nous vous prions de bien vouloir régulariser votre situation
+                        <u><b>dans un délai de 15 jours à dater du présent rappel.</b></u></p>
+
+                    <p>À défaut de paiement dans le délai qui vous est imparti, je me verrai contraint de poursuivre le recouvrement par voie judiciaire avec les conséquences financières qui en résulteront.<br/>
+						J'attire tout spécialement votre attention sur le fait que la présente constitue
+						<u><b>le dernier avertissement avant les poursuites judiciaires</b></u> dont vous devrez supporter le coût.</p>
+
+					<p>En cas de difficultés ou de demande d’informations supplémentaires,
+                        veuillez contacter nos services.</p>
+
+                    <p>Dans l’attente de vos nouvelles, nous vous prions de croire, Madame, Monsieur, Chers Parents,
+                        en l’assurance de nos salutations distinguées.
+		    		</p>
+
+				</div>
+			</xpath>
+		</template>
+
         <template id="report_invoice_summary_lierneux">
 			<t t-set="zz" t-value="0" />
 			<t t-foreach="summary_invoice_ids" t-as="summary_invoice">
