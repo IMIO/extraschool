@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _, SUPERUSER_ID
+from openerp import models, api, fields, _, SUPERUSER_ID, tools
 from openerp.api import Environment
 import lbutils
 import re
@@ -29,7 +29,9 @@ from datetime import date, datetime, timedelta as td
 from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
 from openerp.exceptions import except_orm, Warning, RedirectWarning
+from multiprocessing.pool import ThreadPool
 import threading
+import logging
 
 import base64
 try:
@@ -39,6 +41,7 @@ except ImportError:
 
 import time
 
+_logger = logging.getLogger(__name__)
 
 class extraschool_biller(models.Model):
     _name = 'extraschool.biller'
@@ -289,6 +292,39 @@ class extraschool_biller(models.Model):
     def get_from_year(self):
         return fields.Date.from_string(self.period_from).year
 
+    @api.multi
+    def _procure_pdf_all(self, *args):
+        with Environment.manage():
+            report_obj = self.pool.get('report')
+
+            new_cr = self.pool.cursor()
+
+            scheduler_cron_id = self.pool['ir.model.data'].get_object_reference(new_cr, SUPERUSER_ID, 'procurement',
+                                                                                'ir_cron_scheduler_action')[1]
+
+            try:
+                with tools.mute_logger('openerp.sql_db'):
+                    new_cr.execute("SELECT id FROM ir_cron WHERE id = %s FOR UPDATE NOWAIT" % (scheduler_cron_id))
+            except Exception:
+                _logger.info('Attempt to run procurement scheduler aborted, as already running')
+
+                new_cr.rollback()
+                new_cr.close()
+                return {}
+
+            ids = []
+
+            for arg in args:
+                ids.append(arg.id)
+
+            for invoice in self.env['extraschool.invoice'].browse(ids):
+                report_obj.get_pdf(new_cr, 1, invoice, 'extraschool.invoice_report_layout', new_cr.dbname)
+
+            new_cr.close()
+
+            return {}
+
+
     @api.model
     def generate_pdf_thread(self, cr, uid, thread_lock, invoices_ids, context=None):
         """
@@ -336,12 +372,12 @@ class extraschool_biller(models.Model):
             new_cr.close()
             return {}
 
-    @api.one
+    @api.multi
     def generate_pdf(self):
 #         print "pinr invoices from biller : %s" % self.name_get()
 #         print self.invoice_ids
 #         print "---------------"
-        cr,uid = self.env.cr, self.env.user.id
+        cr,uid, context = self.env.cr, self.env.user.id, self.env.context
         threaded_report = []
 #        cr.execute("update extraschool_biller set pdf_ready = False where id = %s",[self.id])
 #        cr.commit()
@@ -351,12 +387,18 @@ class extraschool_biller(models.Model):
         self.pdf_ready = False
         # self.env.invalidate_all()
 
+        invoice_ids = self.env['extraschool.invoice'].browse(self.invoice_ids.ids)
         count = 0
 
-        for invoice in self.env['extraschool.invoice'].browse(self.invoice_ids.ids):
-            count = count + 1
-            print "generate pdf %s count: %s" % (invoice.id, count)
-            self.env['report'].get_pdf(invoice, 'extraschool.invoice_report_layout')
+        threaded_report = threading.Thread(target=self._procure_pdf_all, args=(invoice_ids))
+        threaded_report.start()
+
+        return {'type': 'ir.actions.act_window_close'}
+
+        # for invoice in self.env['extraschool.invoice'].browse(self.invoice_ids.ids):
+        #     count = count + 1
+        #     print "generate pdf %s count: %s" % (invoice.id, count)
+        #     self.env['report'].get_pdf(invoice, 'extraschool.invoice_report_layout')
 
         self.pdf_ready = True
 #         lock = threading.Lock()

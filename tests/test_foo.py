@@ -21,9 +21,18 @@
 ##############################################################################
 
 import unittest
+from odoorpc.odoo import tools
+from openerp import common, tests
 
 class TestModelA(unittest.TestCase):
 
     def test_upper(self):
         self.assertEqual('foo'.upper(), 'FOO')
+
+    def test_lower(self):
+        self.assertEqual('FOO'.lower(), 'foo')
+
+# class TestModel(common.TransactionCase):
+#
+#     def
 
