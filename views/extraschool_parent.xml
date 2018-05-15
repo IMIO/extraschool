@@ -30,7 +30,13 @@
                             string="Factures"
                             type="object"
                             class="oe_inline oe_stat_button"
-                            icon="fa-qrcode"
+                            icon="fa-book"
+                                />
+                        <button name="get_payment"
+                            string="Payments"
+                            type="object"
+                            class="oe_inline oe_stat_button"
+                            icon="fa-credit-card"
                                 />
                     </div>
 				<group col="4">        
