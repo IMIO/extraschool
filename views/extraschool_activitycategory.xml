@@ -1,72 +1,73 @@
 <?xml version="1.0" ?>
 <openerp>
-	<data> 
+	<data>
         <record model="ir.ui.view" id="extraschool_activitycategory_sequence_form">
             <field name="name">extraschool.activitycategory.sequence.form</field>
-            <field name="model">extraschool.activitycategory.sequence</field>    
+            <field name="model">extraschool.activitycategory.sequence</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
 	            <form string="Sequence">
 	            	<group col="4">
-	                    <field name="name"/> 
+	                    <field name="name"/>
 	                    <newline/>
 	                    <field name="year" />
 	                    <field name="type" />
-	                    <field name="sequence" />			            	  
+	                    <field name="sequence" />
 	                </group>
 	            </form>
-        	</field>	
+        	</field>
         </record>
 
         <record model="ir.ui.view" id="extraschool_activitycategory_sequence_tree">
             <field name="name">extraschool.activitycategory.sequence.tree</field>
-            <field name="model">extraschool.activitycategory.sequence</field>    
+            <field name="model">extraschool.activitycategory.sequence</field>
             <field name="type">tree</field>
             <field name="arch" type="xml">
 	            <tree string="Sequence">
-                    <field name="name"/> 
+                    <field name="name"/>
                     <field name="year" />
                     <field name="type" />
-                    <field name="sequence" />			            	  
+                    <field name="sequence" />
 	            </tree>
-        	</field>	
-        </record>        
-        
+        	</field>
+        </record>
+
         <record model="ir.ui.view" id="extraschool_activitycategory_tree">
 			<field name="name">extraschool.activitycategory.tree</field>
 			<field name="model">extraschool.activitycategory</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="Activity category">
-                    <field name="name"/> 
+                    <field name="name"/>
                     <field name="invoicecomstructprefix" />
                     <field name="remindercomstructprefix" />
-                    <field name="payment_invitation_com_struct_prefix" />		
+                    <field name="payment_invitation_com_struct_prefix" />
 				</tree>
 			</field>
 		</record>
-        
+
         <record model="ir.ui.view" id="extraschool_activitycategory_form">
             <field name="name">extraschool.activitycategory.form</field>
-            <field name="model">extraschool.activitycategory</field>    
+            <field name="model">extraschool.activitycategory</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-            <form string="Activity category">  
-            	<group col="4">
-	 			    <field name="name"/>
-	                <field name="childpositiondetermination"/>
-	                <field name="logo" widget="image" class="oe_avatar oe_left"/>
-	                <field name="slogan" />	     
-				</group>
+            <form string="Activity category">
+                <sheet>
+                    <group col="4">
+                        <field name="name"/>
+                        <field name="childpositiondetermination"/>
+                        <field name="logo" widget="image" class="oe_avatar oe_left"/>
+                        <field name="slogan" />
+                    </group>
             	<notebook>
             		<page string="Po">
             			<group col="4">
 			                <field name="po_name" />
-			                <newline />	     
-			                <field name="po_street" />	
+			                <newline />
+			                <field name="po_street" />
 							<field name="po_email" />
-			                <field name="po_zipcode" />	     
-			                <field name="po_city" />	     
+			                <field name="po_zipcode" />
+			                <field name="po_city" />
 			                <field name="po_sign" widget="image" class="oe_avatar oe_left"/>
 			                <field name="po_stamp" widget="image" class="oe_avatar oe_left"/>
 							<newline />
@@ -76,12 +77,7 @@
 							<field name="po_addresse_free_text2"  widget="html" />
 			        	</group>
             		</page>
-    	            <page string="Activities">
-						<field name="activities" readonly="True"/>
-					</page>
-    	            <page string="Place">
-		                <field name="placeids" /> 
-					</page>
+    	            z
     	            <page string="Bank">
 						<group col="4">
 			                <field name="bankaccount" />
@@ -90,7 +86,7 @@
 			                <newline/>
 			                <field name="bank_zip" />
 			                <field name="bank_city" />
-			                <newline/>                	                	                	
+			                <newline/>
 						</group>
 					</page>
 					<page string="Invoice">
@@ -129,13 +125,13 @@
 					<page string="Reminder">
 						<group col="4">
 			                <field name="remindercomstructprefix" />
-			                <field name="reminderlastcomstruct" />        
+			                <field name="reminderlastcomstruct" />
 			                <field name="reminderemailaddress" />
 			                <newline/>
 			                <field name="reminderemailsubject" />
 			                <newline/>
 			                <field name="reminderemailtext" />
-			                <separator string="Reminder type" colspan="4"/> 	
+			                <separator string="Reminder type" colspan="4"/>
 			                <field name="reminer_type_ids"  nolabel="1" colspan="4"/>
 						</group>
 						<group col="4">
@@ -163,18 +159,18 @@
 					</page>
 					<page string="Pre Payment">
 						<group col="4">
-							<field name="payment_invitation_report_id" />                
+							<field name="payment_invitation_report_id" />
 							<newline/>
-							<field name="payment_invitation_email_subject" />                
+							<field name="payment_invitation_email_subject" />
 							<newline/>
-							<field name="payment_invitation_com_struct_prefix" />                
+							<field name="payment_invitation_com_struct_prefix" />
 							<newline/>
-							<field name="payment_invitation_courrier_text" widget="html"/>                
+							<field name="payment_invitation_courrier_text" widget="html"/>
 						</group>
 					</page>
 					<page string="Sequences">
-						<group col="4">							
-							<field name="sequence_ids"  nolabel="1"/>                             
+						<group col="4">
+							<field name="sequence_ids"  nolabel="1"/>
 						</group>
 					</page>
 					<page string="Max School" groups="extraschool.extraschool_gods">
@@ -183,10 +179,11 @@
 						</group>
 					</page>
               	</notebook>
+                </sheet>
             </form>
-            </field> 
+            </field>
         </record>
-        
+
         <record model="ir.actions.act_window" id="action_extraschool_activitycategory">
 			<field name="name">Activity category</field>
 			<field name="res_model">extraschool.activitycategory</field>

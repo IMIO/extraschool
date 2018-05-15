@@ -656,22 +656,30 @@ msgid "Activity Search"
 msgstr "Activity Search"
 
 #. module: extraschool
-#: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_activitycategories_ids
 #: model:ir.ui.menu,name:extraschool.extraschool_menu_activitycategory
+msgid "Activity categories"
+msgstr "Pouvoir organisateur"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_activitycategories_ids
 msgid "Activity categories"
 msgstr "Catégories d'activités"
 
 #. module: extraschool
-#: model:ir.actions.act_window,name:extraschool.action_extraschool_activitycategory
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_config_smartphone_activitycategory_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_wizard_activitycategory
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_remindertype_activity_category_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificate_activity_category_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificates_wizard_activitycategory
+msgid "Activity category"
+msgstr "Catégorie d'activité"
+
+#. module: extraschool
+#: model:ir.actions.act_window,name:extraschool.action_extraschool_activitycategory
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activitycategory_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activitycategory_tree
 msgid "Activity category"
-msgstr "Catégorie d'activité"
+msgstr "Pouvoir organisateur"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_sequence_activity_category_id
