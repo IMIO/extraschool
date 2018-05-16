@@ -2,4 +2,3 @@
 *.sql~
 .idea/
 doc/*
-.gitlab-ci.yml
