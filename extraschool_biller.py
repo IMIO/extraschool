@@ -299,8 +299,8 @@ class extraschool_biller(models.Model):
 
             new_cr = self.pool.cursor()
 
-            scheduler_cron_id = self.pool['ir.model.data'].get_object_reference(new_cr, SUPERUSER_ID, 'procurement',
-                                                                                'ir_cron_scheduler_action')[1]
+            import wdb;wdb.set_trace()
+            scheduler_cron_id = self.env.ref('prestation_times_of_the_day.extraschool_check_all_presta_auto').id
 
             try:
                 with tools.mute_logger('openerp.sql_db'):
@@ -374,9 +374,6 @@ class extraschool_biller(models.Model):
 
     @api.multi
     def generate_pdf(self):
-#         print "pinr invoices from biller : %s" % self.name_get()
-#         print self.invoice_ids
-#         print "---------------"
         cr,uid, context = self.env.cr, self.env.user.id, self.env.context
         threaded_report = []
 #        cr.execute("update extraschool_biller set pdf_ready = False where id = %s",[self.id])
@@ -390,8 +387,17 @@ class extraschool_biller(models.Model):
         invoice_ids = self.env['extraschool.invoice'].browse(self.invoice_ids.ids)
         count = 0
 
-        threaded_report = threading.Thread(target=self._procure_pdf_all, args=(invoice_ids))
-        threaded_report.start()
+        # threaded_report = threading.Thread(target=self._procure_pdf_all, args=(invoice_ids))
+        # threaded_report.start()
+
+        for invoice in invoice_ids:
+            self.pool.get('ir.cron').create(cr, uid, {
+                'name': 'Send Partner Emails',
+                'user_id': uid,
+                'model': 'report',
+                'function': 'get_pdf',
+                'args': repr([ids[:16], email_from, subject, body, on_error])
+            })
 
         return {'type': 'ir.actions.act_window_close'}
 
@@ -400,7 +406,7 @@ class extraschool_biller(models.Model):
         #     print "generate pdf %s count: %s" % (invoice.id, count)
         #     self.env['report'].get_pdf(invoice, 'extraschool.invoice_report_layout')
 
-        self.pdf_ready = True
+        # self.pdf_ready = True
 #         lock = threading.Lock()
 #         chunk_size = int(self.env['ir.config_parameter'].get_param('extraschool.report.thread.chunk',200))
 # #         print "-------------------------------"
