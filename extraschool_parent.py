@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014 
+#    Copyright (C) 2008-2014
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
 #
@@ -266,7 +266,7 @@ class extraschool_parent(models.Model):
     @api.model
     def update_commstruct(self):
         parent_ids = self.env['extraschool.parent'].search([])
-        
+
         for parent in parent_ids:
             parent.write(
                 {'comstruct': parent.get_prepaid_comstruct(self.env['extraschool.activitycategory'].search([]))})
@@ -325,3 +325,19 @@ class extraschool_parent(models.Model):
 
 
         return self.env['extraschool.payment'].format_comstruct('%s%s%s' % (com_struct_prefix_str,com_struct_id_str,com_struct_check_str))
+
+    @api.multi
+    def get_helloworld(self):
+        return "Hello World ! anu s"
+
+    @staticmethod
+    def helloworld(cr, uid, info, context=None):
+        """
+        :param cr, uid, context needed for a static method
+        :param info: .
+        :return: Dictionnary of data ['data': [{'lastname': 'gaston', 'children': {'name': 'truc'}] }]
+        """
+        # Declare new Environment.
+        env = api.Environment(cr, uid, context={})
+
+        return extraschool_parent.get_helloworld(env['extraschool.parent'])
