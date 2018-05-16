@@ -25,6 +25,9 @@ from openerp import models, api, fields
 from openerp.api import Environment
 import lbutils
 from openerp.exceptions import except_orm, Warning, RedirectWarning
+import logging
+
+_logger = logging.getLogger(__name__)
 
 class extraschool_child_fusion_wizard(models.TransientModel):
     _name = 'extraschool.child_fusion_wizard'
@@ -36,7 +39,7 @@ class extraschool_child_fusion_wizard(models.TransientModel):
 
     @api.multi
     def fusion(self):
-        print "# Let the fusion begins........"
+        _logger.info("# Let the fusion begins........")
         for child in self.child_ids:
             self.env['extraschool.pdaprestationtimes'].search([('childid', '=', child.id)]).write(
                 {'childid': self.child_id.id})
@@ -63,7 +66,7 @@ class extraschool_child_fusion_wizard(models.TransientModel):
 
         # Delete childs
         if len(child_to_delete_ids):
-            print "## Deleting childs."
+            _logger.info("## Deleting childs.")
             sql_delete_child = """delete from extraschool_child
                                   where id in (""" + ','.join(map(str, child_to_delete_ids.ids)) + """)                             
                                 """

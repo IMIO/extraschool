@@ -32,7 +32,6 @@ import re
 from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
 
-
 class extraschool_invoice(models.Model):
     _name = 'extraschool.invoice'
     _description = 'invoice'
@@ -105,12 +104,10 @@ class extraschool_invoice(models.Model):
 
     @api.multi
     def get_today(self):
-        print datetime.datetime.now().strftime("%y-%m-%d")
         return datetime.datetime.now().strftime("%y-%m-%d")
 
     @api.multi
     def get_payment_term_str(self):
-        print self.payment_term.strftime("%y-%m-%d")
         return self.payment_term.strftime("%y-%m-%d")
 
     @api.multi
@@ -130,15 +127,11 @@ class extraschool_invoice(models.Model):
 #                                        ('structcom_prefix','=',invoice.activitycategoryid.payment_invitation_com_struct_prefix),
                                         ('solde','>',0),
                                         ]).sorted(key=lambda r: r.paymentdate)
-#            print "%s payments found for invoice %s and prefix : %s" % (len(payments),invoice.id,invoice.activitycategoryid.payment_invitation_com_struct_prefix)
-#            print payments
             zz = 0
-#            print "invoice balance = %s" % (invoice.amount_total)
 
             solde = invoice.balance
             while zz < len(payments) and solde > 0:
                 amount = solde if payments[zz].solde >= solde else payments[zz].solde
-#                print "Add payment reconcil - amount : %s" % (amount)
                 payment_reconcil_obj.create({'payment_id': payments[zz].id,
                                          'invoice_id': invoice.id,
                                          'amount': amount,
@@ -190,7 +183,6 @@ class extraschool_invoice(models.Model):
 
 
     def get_invoice_calendar(self, child_id = None):
-#        print "child:%s" % (child_id)
         concened_months = self.biller_id.get_concerned_months()
         for month in concened_months:
             month['days'] = calendar.monthcalendar(month['year'], month['month'])
@@ -204,16 +196,12 @@ class extraschool_invoice(models.Model):
                     d={'day_id': d,
                        'quantity': [],
                        }
-#                    print "%s" % (self.period_from)
                     for activity in month['activity']:
                         d['quantity'].append(sum(self.invoice_line_ids.filtered(lambda r: r.childid.id == child_id
                                                                                 and r.prestation_date == '%s-%02d-%02d' % (month['year'],month['month'],d['day_id'])
                                                                                 and r.activity_activity_id.short_name == activity).mapped('quantity')))
                     month['quantity'][zz].append(d)
-
                 zz+=1
-
-#        print concened_months
 
         return concened_months
 
@@ -455,10 +443,7 @@ class extraschool_invoice(models.Model):
                                         )
             total+=saved_child['amount']
             res.append(str_line)
-#         print {'lines': res,
-#                 'exported_amount': total,
-#                 'nbr_line' : len(res),
-#                  }
+
         return {'lines': res,
                 'exported_amount': total,
                  }

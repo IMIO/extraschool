@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014 
+#    Copyright (C) 2008-2014
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
 #
@@ -254,7 +254,6 @@ class extraschool_parent(models.Model):
             emails = vals['email'].split(',')
             for email in emails :
                 if (not self.email_validation(email)):
-                    print "vals['email']" , vals['email']
                     raise Warning("E-mail format invalid.")
 
         # Compute and store parent's commstruct for further use (search).
@@ -266,7 +265,7 @@ class extraschool_parent(models.Model):
     @api.model
     def update_commstruct(self):
         parent_ids = self.env['extraschool.parent'].search([])
-        
+
         for parent in parent_ids:
             parent.write(
                 {'comstruct': parent.get_prepaid_comstruct(self.env['extraschool.activitycategory'].search([]))})

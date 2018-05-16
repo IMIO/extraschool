@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014 
+#    Copyright (C) 2008-2014
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot - Imio (<http://www.imio.be>).
 #
@@ -23,6 +23,9 @@
 
 from openerp import models, api, fields
 from openerp.api import Environment
+import logging
+
+_logger = logging.getLogger(__name__)
 
 class extraschool_discount(models.Model):
     _name = 'extraschool.discount'
@@ -48,11 +51,11 @@ class extraschool_discount_version(models.Model):
     _description = 'Discount version'
 
     name = fields.Char('Name', size=50, required = True)
-    discount_id = fields.Many2one('extraschool.discount', 'Discount',ondelete='cascade', required = True)  
+    discount_id = fields.Many2one('extraschool.discount', 'Discount',ondelete='cascade', required = True)
     validity_from = fields.Date('Validity from')
     validity_to = fields.Date('Validity to')
     price_list_ids = fields.Many2many('extraschool.price_list', 'extraschool_discount_pricelist_rel',string='Price list')
-    child_type_ids = fields.Many2many('extraschool.childtype', 'extraschool_discount_childtype_rel',string='Child type')              
+    child_type_ids = fields.Many2many('extraschool.childtype', 'extraschool_discount_childtype_rel',string='Child type')
     period = fields.Selection((('ca','Completed activity'),
                                ('d','Day'),
                                ('w','Week'),
@@ -64,7 +67,7 @@ class extraschool_discount_version(models.Model):
                                 ('c','Child'),),string="Apply on")
     value = fields.Float(string="Value")
     quantity_type = fields.Selection((('m','Minute'),
-                                      ('q','Quantity'),                                      
+                                      ('q','Quantity'),
                                       ('p','Presence'),),string="Quantity type")
     quantity_from = fields.Integer(string="Quantity from", default=0)
     quantity_to = fields.Integer(string="Quantity to", default=0)
@@ -73,18 +76,18 @@ class extraschool_discount_version(models.Model):
                                           ), string="Choose the template")
 
     def get_valide_version(self,_from,_to):
-        
+
         return self.search([('validity_from', '<=', _from),
                             ('validity_to', '>=', _to),
                          ])
     @api.multi
     def compute(self,biller_id):
-        print "# Compute Discount"
+        _logger.info("# Compute Discount")
         cr,uid = self.env.cr, self.env.user.id
         if (self.discount_template == 'hannut'):
-            print "## Compute Discount with: template Hannut"
+            _logger.info("## Compute Discount with: template Hannut")
             for discount_version_id in self:
-                print "get concerned lines ids"
+                _logger.info("get concerned lines ids")
                 #get concerned lines filtered on price_list
         #        lines = invoice.invoice_line_ids.filtered(lambda r: r.price_list_version_id.price_list_id.id in self.price_list_ids.ids)
 
@@ -99,25 +102,25 @@ class extraschool_discount_version(models.Model):
                          group by ip.invoiceid,ip.childid
                          having sum(duration) >= %s
                          """
-    #            print sql % (self.quantity_from,)
+
                 cr.execute(sql,(self.quantity_from,))
-                args=[]
+                args = []
                 for r in cr.dictfetchall():
                     args.append((uid,
                                  uid,
                                  r['invoiceid'],
                                  r['childid'],
                                  discount_version_id.discount_id.description,
-                                 1,#quantité
-                                 self.value,#unit_price
-                                 self.value,#total price
+                                 1,             # Quantité
+                                 self.value,    # Unit_price
+                                 self.value,    # Total price
                                  ))
                 lines_args_str = ""
                 if len(args):
                     lines_args_str += ','.join(cr.mogrify("""(%s, current_timestamp, %s, current_timestamp,
                                                             %s,%s,%s,%s,%s,%s)""", x) for x in args)
-                print "exec sql create discount lines"
-                #print insert_data
+                _logger.info("exec sql create discount lines")
+
                 invoice_line_ids = cr.execute("""insert into extraschool_invoicedprestations
                                                 (create_uid, create_date, write_uid, write_date,
                                                 invoiceid, childid, description, quantity, unit_price,total_price)
@@ -126,7 +129,7 @@ class extraschool_discount_version(models.Model):
                 #self.env.cr.execute(sql_update_invoice_total_price,(self.price_list_ids.ids))
 
         elif (self.discount_template == 'tournai'):
-            print "## Compute Discount with: template Tournai"
+            _logger.info("## Compute Discount with: template Tournai")
             #get all invoice lines
             invoice_line_ids = self.env['extraschool.invoicedprestations'].search([('invoiceid', 'in', biller_id.invoice_ids.ids)])
             #filter on price list if needed
@@ -136,7 +139,7 @@ class extraschool_discount_version(models.Model):
             saved_week = ''
             saved_child = ''
             saved_activity = ''
-            print invoice_line_ids
+            _logger.info(invoice_line_ids)
             #loop on lines sorted by date,child
             invoice_to_compute = []
             for line_id in invoice_line_ids.sorted(key=lambda r: "%s%s%s" %  (fields.Date.from_string(r.prestation_date).strftime("%V"), r.childid.id,r.activity_occurrence_id.activityid.id )):
@@ -145,7 +148,6 @@ class extraschool_discount_version(models.Model):
                     saved_child = line_id.childid.id
                     saved_activity = line_id.activity_occurrence_id.activityid.id
                 else:
-                    # print "discount %s %s %s %s" % (line_id.total_price, line_id.invoiceid.number, line_id.childid.lastname, line_id.activity_occurrence_id.name)
                     line_id.write({'discount_value': line_id.unit_price * line_id.quantity,
                                    'total_price': 0.0})
                     if line_id.invoiceid.id not in invoice_to_compute:
