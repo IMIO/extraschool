@@ -319,7 +319,7 @@
 			<field name="name">Payments Report</field>
 			<field name="res_model">extraschool.payment_report</field>
 			<field name="view_type">form</field>
-			<field name="view_mode">tree,graph</field>
+			<field name="view_mode">tree,graph,pivot</field>
 		</record>
 
        <record id="extraschool_aged_balance_wizard" model="ir.ui.view">

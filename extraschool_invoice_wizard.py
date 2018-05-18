@@ -38,6 +38,9 @@ from math import *
 from pyPdf import PdfFileWriter, PdfFileReader
 from openerp.exceptions import except_orm, Warning, RedirectWarning
 import threading
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class extraschool_invoice_wizard(models.TransientModel):
@@ -114,8 +117,22 @@ class extraschool_invoice_wizard(models.TransientModel):
                               ('compute_invoices', 'Compute invoices')],
                              'State', required=True, default='init'
                              )
+    smartphone = fields.Boolean(string='smartphone', default= False, invisible=True)
+    warning_biller = fields.Char('WARNING', default="ATTENTION, des smartphones n'ont pas transmis dans la période choisie !!!!", readonly=True)
 
-
+    @api.onchange('period_from', 'period_to')
+    @api.multi
+    def _action_verified_smartphone(self):
+        smartphone_ids = self.env['extraschool.smartphone'].search([])
+        self.smartphone = False
+        _logger.info(smartphone_ids)
+        for smartphone in smartphone_ids:
+            if self.smartphone != False :
+                break
+            else :
+                if smartphone.lasttransmissiondate < self.period_to:
+                    print "ici"
+                    self.smartphone = True
 
     def _compute_invoices(self):
         cr,uid = self.env.cr, self.env.user.id
@@ -305,6 +322,8 @@ class extraschool_invoice_wizard(models.TransientModel):
     def _new_compute_invoices(self):
         cr,uid = self.env.cr, self.env.user.id
         print "_new_compute_invoices"
+
+
         config = self.env['extraschool.mainsettings'].browse([1])
         obj_activitycategory = self.env['extraschool.activitycategory']
         month_name=('','Janvier','Fevrier','Mars','Avril','Mai','Juin','Juillet','Aout','Septembre','Octobre','Novembre','Decembre')
@@ -760,4 +779,5 @@ class extraschool_invoice_wizard(models.TransientModel):
     @api.multi
     def action_compute_invoices(self):
         return self._new_compute_invoices()
+
 

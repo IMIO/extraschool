@@ -130,12 +130,12 @@
             <field name="name">extraschool.taxcertificate_item.search</field>
             <field name="model">extraschool.taxcertificate_item</field>
             <field name="arch" type="xml">
-                <search>
+                <search string ="tax search">
                    	<group  expand='0' string='Group by...'>
                        <filter string='Implantation Scolaire' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'implantation'}"/>
                        <filter string='Niveau' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'niveau'}"/>
                        <filter string='Parent' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'parent_id'}"/>
-                   </group>
+                    </group>
                 </search>
             </field>
         </record>

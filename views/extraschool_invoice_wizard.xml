@@ -1,12 +1,13 @@
 <?xml version="1.0" ?>
 <openerp>
-	<data> 
+	<data>
         <record model="ir.ui.view" id="extraschool_invoice_wizard_form">
             <field name="name">extraschool.invoice.wizard.form</field>
             <field name="model">extraschool.invoice_wizard</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="invoice Wizard">
+                    <field name="warning_biller" class="alert alert-info" attrs="{'invisible':[('smartphone', '!=', True)]}"/>
                     <sheet>
                         <field name="state" invisible="1" />
                         <group states="init">
@@ -17,6 +18,7 @@
                             <field name="period_from" /><field name="period_to" />
                             <newline />
                             <field name="invoice_date" /><field name="invoice_term" />
+                            <field name="smartphone" invisible="1"/>
                         </group>
                         <group states="compute_invoices">
                             <field name="name" invisible="1" colspan="4"/>
@@ -43,5 +45,6 @@
             <field name="view_mode">form</field>
             <field name="target">inline</field>
         </record>
+
 	</data>
 </openerp>
