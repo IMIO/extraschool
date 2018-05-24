@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014 
+#    Copyright (C) 2008-2014
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
 #
@@ -170,6 +170,21 @@ class extraschool_parent(models.Model):
         #     }
 
     @api.multi
+    def get_payment(self):
+        return {'name': 'Paiements',
+                'type': 'ir.actions.act_window',
+                'res_model': 'extraschool.payment_reconciliation',
+                'tree_view_id': 'extraschool_payment_parent_tree',
+                'view_type': 'form',
+                'view_mode': 'tree,form',
+                'nodestroy': False,
+                'target': 'current',
+                'limit': 50000,
+                'context': "{'group_by':'payment_id'}",
+                'domain': [('payment_id.parent_id', '=', self.id), ('amount', '>', 0.0001)]
+                }
+
+    @api.multi
     def refund(self):
         # Compute the solde.
         solde = self.payment_status_ids.solde
@@ -266,7 +281,7 @@ class extraschool_parent(models.Model):
     @api.model
     def update_commstruct(self):
         parent_ids = self.env['extraschool.parent'].search([])
-        
+
         for parent in parent_ids:
             parent.write(
                 {'comstruct': parent.get_prepaid_comstruct(self.env['extraschool.activitycategory'].search([]))})

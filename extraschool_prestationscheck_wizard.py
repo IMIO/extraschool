@@ -171,6 +171,45 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
 
         return self
 
+    @api.multi
+    def reset(self):
+        for reg in self.env['extraschool.prestation_times_of_the_day'].browse(self._context.get('active_ids')):
+            reg.reset()
+
+        return True
+
+    def _uniform_school(self, force = False):
+        cr,uid = self.env.cr, self.env.user.id
+
+        if not force:
+            prestation_search_domain = [('verified', '=', False),]
+        else:
+            prestation_search_domain = []
+        obj_prestation_rs = self.env['extraschool.prestationtimes'].search(prestation_search_domain)
+
+        prestation_ids = obj_prestation_rs.ids
+
+        # get distinc presta of the day
+        obj_prestation_of_the_day_rs = self.env['extraschool.prestation_times_of_the_day'].search(
+            [('prestationtime_ids', 'in', prestation_ids)])
+
+        if force:
+            obj_prestation_rs.write({'verified': False, })
+            obj_prestation_of_the_day_rs.write({'verified': False, })
+
+        for presta_of_the_day in obj_prestation_of_the_day_rs:
+            presta_of_the_day.reset()
+            print presta_of_the_day
+
+            school_id = presta_of_the_day.prestationtime_ids[0].placeid.id
+            print "school" , school_id
+            print "prestation.prestationtime_ids" ,presta_of_the_day.prestationtime_ids
+
+            for presta in presta_of_the_day.prestationtime_ids:
+                presta.write({'placeid': school_id})
+
+        self._check()
+
     def _check(self, force = False):
         cr,uid = self.env.cr, self.env.user.id
 
@@ -249,6 +288,11 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
     def action_prestationscheck(self):
         self.env['extraschool.prestation_times_of_the_day'].merge_duplicate_pod()
         return self._check(self.force)
+
+    @api.multi
+    def action_uniformschool(self):
+        self.env['extraschool.prestation_times_of_the_day'].merge_duplicate_pod()
+        return self._uniform_school(self.force)
 
 
 extraschool_prestationscheck_wizard()

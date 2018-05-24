@@ -4744,7 +4744,17 @@ msgstr "Rapport des paiements"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
 msgid "Payment status"
-msgstr "Payment status"
+msgstr "Prépaiement"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_prestationscheck_wizard_form
+msgid "Uniform School"
+msgstr "Uniformiser Ecole"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_prestation_times_of_the_day_form
+msgid "Uniformiser Ecole"
+msgstr "Uniformiser Ecole"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_payment_status_ids
@@ -4782,6 +4792,7 @@ msgstr "Id du wizard de paiement"
 #: model:ir.ui.menu,name:extraschool.extraschool_menu_payments
 #: model:ir.ui.view,arch_db:extraschool.extraschool_coda_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_invoice_form
+#: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
 msgid "Payments"
 msgstr "Paiements"
 
