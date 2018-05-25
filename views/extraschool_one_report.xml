@@ -1,23 +1,23 @@
 <?xml version="1.0" ?>
 <openerp>
-	<data> 
+	<data>
 
 	    <record model="ir.ui.view" id="extraschool_one_report_tree">
 			<field name="name">extraschool.one.report.tree</field>
 			<field name="model">extraschool.one_report</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
-				<tree string="ONE Report">					
+				<tree string="ONE Report">
                     <field name="placeid" />
                     <field name="activitycategory" />
                     <field name="year" />
                     <field name="show_quarter"/>
-                    <field name="transmissiondate" />  
-					<field name="report" />         
+                    <field name="transmissiondate" />
+					<field name="report" />
 				</tree>
 			</field>
 		</record>
-		
+
         <record model="ir.ui.view" id="extraschool_one_report_form">
             <field name="name">extraschool.one.report.form</field>
             <field name="model">extraschool.one_report</field>
@@ -39,6 +39,22 @@
                 </form>
             </field>
         </record>
+
+        <record id="extraschool_one_report_search_view" model="ir.ui.view">
+            <field name="name">extraschool.one.repot.search</field>
+            <field name="model">extraschool.one_report</field>
+            <field name="arch" type="xml">
+                <search string="Child Search">
+                   <field name="year"/>
+                   <field name="placeid"/>
+                   <group  expand='0' string='Group by...'>
+                       <filter string='year' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'year'}"/>
+                       <filter string='placeid' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'placeid'}"/>
+                	</group>
+                </search>
+            </field>
+        </record>
+
         <record model="ir.actions.act_window" id="action_extraschool_one_report">
             <field name="name">ONE Report</field>
             <field name="res_model">extraschool.one_report</field>
@@ -51,20 +67,20 @@
             <field eval="2" name="sequence"/>
 			<field name="res_model">extraschool.one_report</field>
             <field name="view_mode">form</field>
-            <field name="view_id" ref="extraschool_one_report_form" />   
-            <field name="act_window_id" ref="action_extraschool_one_report" /> 
+            <field name="view_id" ref="extraschool_one_report_form" />
+            <field name="act_window_id" ref="action_extraschool_one_report" />
             <field name="target">inline</field>
-		</record> 
-        
+		</record>
+
         <record model="ir.actions.act_window.view" id="action_extraschool_one_report_tree">
 			<field name="name">ONE Report</field>
             <field eval="1" name="sequence"/>
 			<field name="res_model">extraschool.one_report</field>
             <field name="view_mode">tree</field>
-            <field name="view_id" ref="extraschool_one_report_tree" />  
+            <field name="view_id" ref="extraschool_one_report_tree" />
             <field name="act_window_id" ref="action_extraschool_one_report" />
         </record>
-       
-        
+
+
 	</data>
 </openerp>

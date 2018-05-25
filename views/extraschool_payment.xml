@@ -207,7 +207,7 @@
 			<field name="name">Payment Status Report</field>
 			<field name="res_model">extraschool.payment_status_report</field>
 			<field name="view_type">form</field>
-			<field name="view_mode">tree,graph</field>
+			<field name="view_mode">tree,graph,pivot</field>
             <field name="view_id" ref="extraschool_payment_status_report_tree"/>
 			<field name="context">{"search_default_actif":1}</field>
 		</record>

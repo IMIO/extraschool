@@ -6654,6 +6654,16 @@ msgid "Year"
 msgstr "Année"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_one_report_search_view
+msgid "year"
+msgstr "Année"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_one_report_search_view
+msgid "placeid"
+msgstr "Lieu d'accueil"
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
 msgid "You are about to refund this parent. Are you sure ?"
 msgstr "You are about to refund this parent. Are you sure ?"
