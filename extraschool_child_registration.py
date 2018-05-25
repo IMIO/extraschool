@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014 
+#    Copyright (C) 2008-2014
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot & Michael Colicchia- Imio (<http://www.imio.be>).
 #
@@ -63,7 +63,8 @@ class extraschool_child_registration(models.Model):
                               'validated', required=True, default='draft', track_visibility='onchange'
                               )
     number_childs = fields.Char('Number of childs', readonly=True, default=0, track_visibility='onchange')
-    levelid = fields.Many2one('extraschool.level', 'Level', track_visibility='onchange')
+    levelid = fields.Many2many('extraschool.level', 'extraschool_registration_level_rel', string='Level',
+                               track_visibility='onchange')
     warning_biller = fields.Char('WARNING', default="WARNING, Il y a un facturier à cette date, si la personne responsable des factures n'est pas au courant de cet ajout, cela ne sera pas pris en compte ! ", readonly=True)
     warning_visibility = fields.Boolean(track_visibility='onchange')
     select_per_level = fields.Selection([
@@ -151,8 +152,8 @@ class extraschool_child_registration(models.Model):
         else:
             d = d - td(d.weekday())
         dlt = td(days = (week-1)*7)
-        return d + dlt,  d + dlt + td(days=6)    
-    
+        return d + dlt,  d + dlt + td(days=6)
+
     @api.onchange('week')
     def onchange_week(self):
         print "onchange_week"
@@ -160,7 +161,7 @@ class extraschool_child_registration(models.Model):
             self.week = 53
         if self.week < 1:
             self.week = 1
-        
+
 
         monday,sunday = self.get_week_days(datetime.now().year, self.week)
         print "week days : %s - %s" % (monday,sunday)
@@ -168,7 +169,7 @@ class extraschool_child_registration(models.Model):
         print "sunday : %s" % (sunday)
         self.date_from = monday
         self.date_to = sunday
-    
+
     @api.one
     def update_child_list(self):
         print "update_child_list"
@@ -177,10 +178,13 @@ class extraschool_child_registration(models.Model):
                          ('isdisabled', '=', False),
                          ]
         if self.class_id:
-            search_domain += [('classid.id', '=',self.class_id.id) ]
+            search_domain += [('classid.id', '=', self.class_id.id)]
 
         elif self.levelid:
-            search_domain += [('levelid.id', '=',self.levelid.id)]
+            list_level = []
+            for level in self.levelid:
+                list_level.append(level.id)
+                search_domain += [('levelid.id', '=', list_level)]
 
         elif self.select_per_level:
             if self.select_per_level == 'primaire':
@@ -193,14 +197,14 @@ class extraschool_child_registration(models.Model):
         childs = self.env['extraschool.child'].search(search_domain)
 
         self.child_registration_line_ids.unlink()
-        #clear child list
+        # clear child list
         self.child_registration_line_ids = [(5, 0, 0)]
         child_reg = []
         print "clear child list done"
         for child in childs:
             print "add child : %s" % (child)
-            child_reg.append((0,0,{'child_id': child,
-                                   }))
+            child_reg.append((0, 0, {'child_id': child,
+                                     }))
         self.child_registration_line_ids = child_reg
         self.compute_number_childs()
 
@@ -250,36 +254,36 @@ class extraschool_child_registration(models.Model):
                 dup_line_ids = self.child_registration_line_ids.filtered(lambda r: r.id != line.id and r.child_id == line.child_id)
                 if len(dup_line_ids):
                     line.error_duplicate_reg_line = True
-                    dup_line_ids.write({'error_duplicate_reg_line' : True})                                        
+                    dup_line_ids.write({'error_duplicate_reg_line' : True})
         else:
             self.error_duplicate_reg_line = False
             self.child_registration_line_ids.write({'error_duplicate_reg_line' : False})
 
     def check_doublons_warning(self):
         self.check_doublons()
-        
+
         if self.error_duplicate_reg_line:
             msg = _("These childs are duplicated !!\n")
             for dup in set(self.child_registration_line_ids.filtered(lambda r: r.error_duplicate_reg_line == True)):
                 msg += "%s %s\n" % (dup.child_id.firstname,dup.child_id.lastname)
             raise Warning(msg)
-        
+
     @api.one
     def validate(self):
         if self.env.context == None:
             self.env.context = {}
-        
+
         wizard = False
         if "wizard" in self.env.context:
             wizard = self.env.context["wizard"]
-        
-        if not wizard:        
+
+        if not wizard:
             self.check_doublons_warning()
 
         print "validate wizard-mode : %s" % (self.env.context["wizard"])
-        
+
         pod_to_reset = []
-        
+
         if self.state == 'to_validate' or wizard:
             print "validate - registration"
             line_days = [self.child_registration_line_ids.filtered(lambda r: r.monday),
@@ -289,13 +293,13 @@ class extraschool_child_registration(models.Model):
                          self.child_registration_line_ids.filtered(lambda r: r.friday),
                          self.child_registration_line_ids.filtered(lambda r: r.saturday),
                          self.child_registration_line_ids.filtered(lambda r: r.sunday),
-                         ] 
+                         ]
 
             d1 = datetime.strptime(self.date_from, DEFAULT_SERVER_DATE_FORMAT)
             d2 = datetime.strptime(self.date_to, DEFAULT_SERVER_DATE_FORMAT)
 
             delta = d2 - d1
-            
+
             occu = self.env['extraschool.activityoccurrence']
             occu_reg = self.env['extraschool.activity_occurrence_child_registration']
             for day in range(delta.days + 1):
@@ -313,37 +317,37 @@ class extraschool_child_registration(models.Model):
                                              })
                             if self.activity_id.autoaddchilds:
                                 pod_to_reset = list(set(pod_to_reset + occu.add_presta(occu, line.child_id.id, None,False)))
-             
+
             for pod in self.env['extraschool.prestation_times_of_the_day'].browse(pod_to_reset):
-                pod.reset()           
-                        
+                pod.reset()
+
         if self.state == 'draft':
             self.state = 'to_validate'
         elif self.state == 'to_validate':
             self.state = 'validated'
-        
+
         if wizard:
             self.state = 'validated'
-            
+
         if self.state == 'validated':
             self.error_duplicate_reg_line = False
-            self.child_registration_line_ids.write({'error_duplicate_reg_line' : False})                 
-            
-            
+            self.child_registration_line_ids.write({'error_duplicate_reg_line' : False})
+
+
     @api.one
     def validate_multi(self):
         #print "validate multi"
         if self.env.context == None:
             self.env.context = {}
-        
+
         wizard = False
         if "wizard" in self.env.context:
             wizard = self.env.context["wizard"]
 
         if not wizard:
             #print "check_dup"
-            self.check_doublons_warning()           
-            
+            self.check_doublons_warning()
+
         #print "validate MULTI wizard-mode : %s" % (self.env.context)
 
         if self.state == 'to_validate' or wizard:
@@ -354,13 +358,13 @@ class extraschool_child_registration(models.Model):
                          self.child_registration_line_ids.filtered(lambda r: r.friday_activity_id),
                          self.child_registration_line_ids.filtered(lambda r: r.saturday_activity_id),
                          self.child_registration_line_ids.filtered(lambda r: r.sunday_activity_id),
-                         ] 
+                         ]
 
             d1 = datetime.strptime(self.date_from, DEFAULT_SERVER_DATE_FORMAT)
             d2 = datetime.strptime(self.date_to, DEFAULT_SERVER_DATE_FORMAT)
 
             delta = d2 - d1
-            
+
             pod_to_reset = []
             occu = self.env['extraschool.activityoccurrence']
             occu_reg = self.env['extraschool.activity_occurrence_child_registration']
@@ -375,7 +379,7 @@ class extraschool_child_registration(models.Model):
                                      line.thursday_activity_id,
                                      line.friday_activity_id,
                                      line.saturday_activity_id,
-                                     line.sunday_activity_id,                                    
+                                     line.sunday_activity_id,
                                      ]
                     activity_id=activity_days[current_day_date.weekday()]
                     #print "cd:%s in line.days:%s" % (str(current_day_date.weekday()), str(activity_id.days))
@@ -384,7 +388,7 @@ class extraschool_child_registration(models.Model):
                         occu = occu.search([('activityid','=', activity_id.id),
                                            ('place_id','=', self.place_id.id),
                                            ('occurrence_date','=', current_day_date)])
-                        
+
                         if len(occu) == 1:
                             #print "il y a une occu"
                             #print "create reg for child : %s" % (line.child_id)
@@ -397,9 +401,9 @@ class extraschool_child_registration(models.Model):
                                     msg += "%s - %s -%s\n" % (occu_reg_id.child_id.name,
                                                          occu_reg_id.activity_occurrence_id.name,
                                                          line.child_registration_id
-                                                        ) 
+                                                        )
                                     raise Warning(msg)
-                                
+
                             occu_reg.create({'activity_occurrence_id': occu.id,
                                              'child_id' :line.child_id.id,
                                              'child_registration_line_id': line.id
@@ -408,20 +412,20 @@ class extraschool_child_registration(models.Model):
                                 #print "auto add child    "
                                 pod_to_reset = list(set(pod_to_reset + occu.add_presta(occu, line.child_id.id, None,False)))
             for pod in self.env['extraschool.prestation_times_of_the_day'].browse(pod_to_reset):
-                pod.reset()           
-                        
-                        
+                pod.reset()
+
+
         if self.state == 'draft':
             self.state = 'to_validate'
         elif self.state == 'to_validate':
             self.state = 'validated'
 
         if wizard:
-            self.state = 'validated'   
-            
+            self.state = 'validated'
+
         if self.state == 'validated':
             self.error_duplicate_reg_line = False
-            self.child_registration_line_ids.write({'error_duplicate_reg_line' : False})                 
+            self.child_registration_line_ids.write({'error_duplicate_reg_line' : False})
 
     @api.one
     def force_set_to_draft(self):
@@ -445,9 +449,9 @@ class extraschool_child_registration(models.Model):
         if self.state == 'to_validate':
             self.state = 'draft'
             self.force_set_to_draft()
-        elif self.state == 'validated':            
+        elif self.state == 'validated':
             self.force_set_to_draft()
-            
+
     def get_summary(self):
         print "get_summary"
         result = {}
@@ -457,32 +461,32 @@ class extraschool_child_registration(models.Model):
                 if day.id:
                     if day.name not in result:
                         result[day.name] = [0,0,0,0,0]
-                    
+
                     result[day.name][zz] += 1
-                zz+=1    
-                
-        return result                          
+                zz+=1
+
+        return result
 
     @api.multi
     @api.one
     def unlink(self):
         if self.state == 'validated':
             raise Warning(_("Your are not allowed to delete a validated registration !!"))
-                                
-        return super(extraschool_child_registration,self).unlink()                            
-    
+
+        return super(extraschool_child_registration,self).unlink()
+
 class extraschool_child_registration_line(models.Model):
     _name = 'extraschool.child_registration_line'
     _description = 'Child registration line'
-    
+
     _order = "child_lastname,child_firstname"
-    
+
     child_registration_id = fields.Many2one('extraschool.child_registration', required=True, ondelete="cascade", index = True)
     child_id = fields.Many2one('extraschool.child', required=True, domain="[('isdisabled', '=', False)]", index = True)
     child_firstname = fields.Char(related="child_id.firstname", store=True)
     child_lastname = fields.Char(related="child_id.lastname", store=True)
     child_level = fields.Char(related="child_id.levelid.name",string="Niveau", store=True)
-    monday = fields.Boolean('Monday')    
+    monday = fields.Boolean('Monday')
     monday_activity_id = fields.Many2one('extraschool.activity' ,string="Monday", domain="[('selectable_on_registration_multi','=',True)]")
     tuesday = fields.Boolean('Tuesday')
     tuesday_activity_id = fields.Many2one('extraschool.activity',string="Tuesday", domain="[('selectable_on_registration_multi','=',True)]")
