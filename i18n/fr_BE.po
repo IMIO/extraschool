@@ -6655,6 +6655,11 @@ msgstr "Année"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_one_report_search_view
+msgid "show_quarter"
+msgstr "Trimestre"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_one_report_search_view
 msgid "year"
 msgstr "Année"
 

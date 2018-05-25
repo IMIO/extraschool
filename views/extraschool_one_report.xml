@@ -13,7 +13,6 @@
                     <field name="year" />
                     <field name="show_quarter"/>
                     <field name="transmissiondate" />
-					<field name="report" />
 				</tree>
 			</field>
 		</record>
@@ -47,9 +46,11 @@
                 <search string="Child Search">
                    <field name="year"/>
                    <field name="placeid"/>
+                   <field name="show_quarter"/>
                    <group  expand='0' string='Group by...'>
                        <filter string='year' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'year'}"/>
                        <filter string='placeid' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'placeid'}"/>
+                       <filter string='show_quarter' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'show_quarter'}"/>
                 	</group>
                 </search>
             </field>

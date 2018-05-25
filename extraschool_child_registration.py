@@ -184,7 +184,7 @@ class extraschool_child_registration(models.Model):
             list_level = []
             for level in self.levelid:
                 list_level.append(level.id)
-                search_domain += [('levelid.id', '=', list_level)]
+                search_domain += [('levelid.id', 'in', list_level)]
 
         elif self.select_per_level:
             if self.select_per_level == 'primaire':
