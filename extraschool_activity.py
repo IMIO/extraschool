@@ -277,11 +277,16 @@ class extraschool_activity(models.Model):
         validity_to = vals['validity_to'] if 'validity_to' in vals else self.validity_to
         prest_from = vals['prest_from'] if 'prest_from' in vals else self.prest_from
         prest_to = vals['prest_to'] if 'prest_to' in vals else self.prest_to
-
-        planneddates_ids = self.env['extraschool.activityplanneddate'].browse(
-            vals['planneddates_ids'][0][-1]) if 'planneddates_ids' in vals else self.planneddates_ids
-        exclusiondates_ids = self.env['extraschool.activityexclusiondates'].browse(
-            vals['exclusiondates_ids'][0][-1]) if 'exclusiondates_ids' in vals else self.exclusiondates_ids
+        if self.env['extraschool.activityplanneddate'] :
+            planneddates_ids = self.env['extraschool.activityplanneddate'].browse(
+                vals['planneddates_ids'][0][-1]) if 'planneddates_ids' in vals else self.planneddates_ids
+        else :
+            planneddates_ids = False
+        if self.env['extraschool.activityexclusiondates'] :
+            exclusiondates_ids = self.env['extraschool.activityexclusiondates'].browse(
+                vals['exclusiondates_ids'][0][-1]) if 'exclusiondates_ids' in vals else self.exclusiondates_ids
+        else :
+            exclusiondates_ids = False
 
         # Check Valid Hour.
         if prest_from == 0:
@@ -299,14 +304,16 @@ class extraschool_activity(models.Model):
             raise Warning(_("Validity to must be greater than validity from (hours)"))
 
         # Check Planned Dates
-        for planneddates_id in planneddates_ids:
-            if planneddates_id.activitydate < validity_from or planneddates_id.activitydate > validity_to:
-                raise Warning(_("Planned Dates must be in the range of Validity_to and Validity_from (Planned)"))
+        if planneddates_ids :
+            for planneddates_id in planneddates_ids:
+                if planneddates_id.activitydate < validity_from or planneddates_id.activitydate > validity_to:
+                    raise Warning(_("Planned Dates must be in the range of Validity_to and Validity_from (Planned)"))
 
         # Check Exclusion Dates
-        for exclusiondates_id in exclusiondates_ids:
-            if exclusiondates_id.date_from < validity_from or exclusiondates_id.date_to > validity_to:
-                raise Warning(_("Date_from must be in range of Validity_from and Validity_to (Exclusion)"))
+        if exclusiondates_ids :
+            for exclusiondates_id in exclusiondates_ids:
+                if exclusiondates_id.date_from < validity_from or exclusiondates_id.date_to > validity_to:
+                    raise Warning(_("Date_from must be in range of Validity_from and Validity_to (Exclusion)"))
 
     @api.onchange('validity_from','validity_to','planneddates_ids','exclusiondates_ids','parent_id','placeids','leveltype','prest_from','prest_to','days')
     @api.multi
