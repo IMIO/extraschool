@@ -25,7 +25,13 @@ body {
 .signature {
     display: block;
     float: right;
-    width: 10cm;
+    width: 9cm;
+}
+
+.cachet {
+    display: block;
+    float: left;
+    width: 2cm;
 }
 
 ol>li {
