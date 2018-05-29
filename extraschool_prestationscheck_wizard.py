@@ -199,11 +199,8 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
 
         for presta_of_the_day in obj_prestation_of_the_day_rs:
             presta_of_the_day.reset()
-            print presta_of_the_day
 
             school_id = presta_of_the_day.prestationtime_ids[0].placeid.id
-            print "school" , school_id
-            print "prestation.prestationtime_ids" ,presta_of_the_day.prestationtime_ids
 
             for presta in presta_of_the_day.prestationtime_ids:
                 presta.write({'placeid': school_id})
