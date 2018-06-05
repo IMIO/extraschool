@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014 
+#    Copyright (C) 2008-2014
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot - Imio (<http://www.imio.be>).
 #
@@ -22,6 +22,7 @@
 ##############################################################################
 from openerp import models, api, fields
 from openerp.api import Environment
+import time
 
 class extraschool_pdaprestationtimes(models.Model):
     _name = 'extraschool.pdaprestationtimes'
@@ -113,5 +114,61 @@ class extraschool_pdaprestationtimes(models.Model):
                                      'type': vals['type'],
                                      'es': vals['es'],
                                      })
-        return super(extraschool_pdaprestationtimes, self).create(vals)    
 
+        return super(extraschool_pdaprestationtimes, self).create(vals)
+
+##############################################################################
+#
+#    AESMobile
+#    Copyright (C) 2018
+#    Colicchia Michaël & Delaere Olivier - Imio (<http://www.imio.be>).
+#
+##############################################################################
+
+    @api.multi
+    def import_prestations(self, dict_prestations, smartphone_id=16):
+        activity_category = self.env['extraschool.activitycategory'].search([]).filtered('id').id
+        actual_prestations = 0
+        start_time = time.time()
+
+        for prestation in dict_prestations:
+            if prestation['type'] == 1:
+                self.env['extraschool.guardianprestationtimes'].create({'guardianid': prestation['childid'],
+                                                                        'prestation_date': prestation['prestation_date'],
+                                                                        'prestation_time': prestation['prestation_time'],
+                                                                        'es': prestation['es'],
+                                                                        'manualy_encoded': False,
+                                                                        })
+                actual_prestations += 1
+            else:
+                self.create({   'childid': prestation['childid'],
+                                'placeid': prestation['placeid'],
+                                'prestation_date': prestation['prestation_date'],
+                                'prestation_time': prestation['prestation_time'],
+                                'es': prestation['es'],
+                                'activitycategoryid': activity_category,
+                                })
+                actual_prestations += 1
+
+        if len(dict_prestations) == actual_prestations:
+            self.env['extraschool.smartphone_log'].create({'title': 'Successfully imported data',
+                                                           'time_of_transmission': time.time() - start_time,
+                                                           'smartphone_id': smartphone_id,
+                                                           })
+            return "Data successfully send."
+        else:
+            self.env['extraschool.smartphone_log'].create({'title': 'WARNING ! Error while sending data',
+                                                           'time_of_transmission': time.time() - start_time,
+                                                           'smartphone_id': smartphone_id,
+                                                           })
+            return "There has been an error, please contact your supervisor."
+
+    @staticmethod
+    def get_guardian(cr, uid, dict_prestations, context=None):
+        # Declare new Environment.
+        env = api.Environment(cr, uid, context={})
+
+        # Log des transmissions des smartphones
+        # Dictionnaire des enfants {id: , nom: , prenom:, tagid:}
+
+        return extraschool_pdaprestationtimes.import_prestations(env['extraschool.pdaprestationtimes'], dict_prestations)

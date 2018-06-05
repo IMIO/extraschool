@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014 
+#    Copyright (C) 2008-2014
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot - Imio (<http://www.imio.be>).
 #
@@ -37,12 +37,12 @@ class extraschool_guardianprestationtimes(models.Model):
         for presta in self.browse(cr, uid, ids, context=context):
             res.append((presta.id, presta.guardianid.name + ' - ' + datetime.strptime(presta.prestation_date, '%Y-%m-%d').strftime('%d/%m/%Y')))
         return res
-    
+
     guardianid = fields.Many2one('extraschool.guardian', 'Guardian', required=False)
-    prestation_date = fields.Date('Date',select = True, index = True)
+    prestation_date = fields.Date('Date', select=True, index=True)
     prestation_date_str = fields.Char(compute="_compute_prestation_date_str",string='Date str', store=True)
     prestation_time = fields.Float('Time')
-    es = fields.Selection((('E','In'), ('S','Out')),'ES' , index = True)         
+    es = fields.Selection((('E', 'In'), ('S', 'Out')), 'ES', index=True)
     manualy_encoded = fields.Boolean('Manualy encoded')
     exported = fields.Boolean('Exported', default=False)
 
@@ -52,18 +52,18 @@ class extraschool_guardianprestationtimes(models.Model):
         for presta in self:
             if presta.prestation_date:
                 presta.prestation_date_str = datetime.strptime(presta.prestation_date, '%Y-%m-%d').strftime('%d/%m/%Y')
-            
+
 class extraschool_guardian_prestation_times_report(models.Model):
     _name = 'extraschool.guardian_prestation_times_report'
     _description = 'Guardian Prestation Times Report'
     _auto = False
-    
+
     guardian_id = fields.Many2one('extraschool.guardian', 'Guardian', required=False,select=True)
     prestation_date = fields.Date('Date',select=True)
     prestation_date_str = fields.Char('Date str')
     day_duration = fields.Float('day duration')
     week = fields.Char('Week',select=True)
-    
+
     def init(self, cr):
         tools.sql.drop_view_if_exists(cr, 'extraschool_guardian_prestation_times_report')
         cr.execute("""
