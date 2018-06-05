@@ -44,6 +44,7 @@
                                 <page string="from presta of the day">
                                     <button name="reset" string="Reset" icon="gtk-apply" type="object"/>
                                     <button name="check" string="Check" icon="gtk-apply" type="object"/>
+                                    <button name="pdf_true" string="PDF Ready" icon="gtk-apply" type="object"/>
                                     <button name="last_check_entry_exit" string="Check ES" icon="gtk-apply" type="object" />
                                     <button name="merge_pod_dup" string="merge pod dup" icon="gtk-apply" type="object" />
                                     <button name="del_pod_doublon" string="del pod doublon" icon="gtk-apply" type="object" />
