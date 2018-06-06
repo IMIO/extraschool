@@ -88,40 +88,6 @@ class extraschool_guardian(models.Model):
                 }
 
 
-extraschool_guardian()
-
-class extraschool_horaire_guardian_wizard_form(models.TransientModel):
-    _name = 'extraschool.horaire_guardian_wizard'
-
-    def _get_guardians(self):
-        return self.env['extraschool.guardian'].search([('id', '=', self._context.get('active_ids'))])
-
-    validity_from = fields.Date('Date from')
-    validity_to = fields.Date('Date to')
-    guardian_ids = fields.Many2many('extraschool.guardian',
-                                    'extraschool_guardian_wizard_rel',
-                                    'guardian_id',
-                                    'wizard_id',
-                                    'ID Guardians',
-                                    default=_get_guardians)
-
-    @api.multi
-    def generate_horaire(self):
-        if self.validity_from > self.validity_to :
-            raise Warning(_("La date de fin doit être plus grande que la date de début !"))
-
-        datas = {
-            'ids': self.guardian_ids.ids,
-            'model': 'extraschool.horaire_guardian_wizard',
-        }
-
-        return {
-            'type': 'ir.actions.report.xml',
-            'report_name': 'extraschool.tpl_guardian_horaire_wizard_report',
-            'datas': datas,
-            'report_type': 'qweb-pdf',
-        }
-
 ##############################################################################
 #
 #    AESMobile
@@ -172,3 +138,35 @@ class extraschool_horaire_guardian_wizard_form(models.TransientModel):
         # Dictionnaire des enfants {id: , nom: , prenom:, tagid:}
 
         return extraschool_guardian.get_guardian_for_smartphone(env['extraschool.guardian'], smartphone_id)
+
+class extraschool_horaire_guardian_wizard_form(models.TransientModel):
+    _name = 'extraschool.horaire_guardian_wizard'
+
+    def _get_guardians(self):
+        return self.env['extraschool.guardian'].search([('id', '=', self._context.get('active_ids'))])
+
+    validity_from = fields.Date('Date from')
+    validity_to = fields.Date('Date to')
+    guardian_ids = fields.Many2many('extraschool.guardian',
+                                    'extraschool_guardian_wizard_rel',
+                                    'guardian_id',
+                                    'wizard_id',
+                                    'ID Guardians',
+                                    default=_get_guardians)
+
+    @api.multi
+    def generate_horaire(self):
+        if self.validity_from > self.validity_to :
+            raise Warning(_("La date de fin doit être plus grande que la date de début !"))
+
+        datas = {
+            'ids': self.guardian_ids.ids,
+            'model': 'extraschool.horaire_guardian_wizard',
+        }
+
+        return {
+            'type': 'ir.actions.report.xml',
+            'report_name': 'extraschool.tpl_guardian_horaire_wizard_report',
+            'datas': datas,
+            'report_type': 'qweb-pdf',
+        }
