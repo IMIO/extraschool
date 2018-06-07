@@ -135,14 +135,6 @@ class extraschool_child(models.Model):
 #    Colicchia Michaël & Delaere Olivier - Imio (<http://www.imio.be>).
 #
 ##############################################################################
-
-    @api.multi
-    def send_data(self):
-        vals = {
-            'newtag': [{'1': 1, '2': 2,'3': 3}]
-        }
-        self.env['extraschool.pdaprestationtimes'].import_prestations(vals, 3)
-
     @api.multi
     def get_child_for_smartphone(self, smartphone_id):
         # Todo: Get newtag list.

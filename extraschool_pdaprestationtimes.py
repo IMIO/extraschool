@@ -152,6 +152,8 @@ class extraschool_pdaprestationtimes(models.Model):
                                                            'smartphone_id': smartphone_id,
                                                            })
 
+            return False
+
         # Importing prestation for children
         try:
             for children in dict_prestations['children']:
@@ -181,6 +183,8 @@ class extraschool_pdaprestationtimes(models.Model):
                                                            'smartphone_id': smartphone_id,
                                                            })
 
+            return False
+
         #Importing prestation for guardians
         try:
             for sitters in dict_prestations['sitters']:
@@ -190,20 +194,24 @@ class extraschool_pdaprestationtimes(models.Model):
                 #  Convert time to float
                 prestation_time = datesitter.hour + datesitter.minute / 60.0
 
-                self.create({   'guardianid': sitters['pk'],
-                                'prestation_date': datesitter.date(),
-                                'prestation_time': prestation_time,
-                                'es': sitters['eventType'],
-                                'activitycategoryid': activity_category_id,
-                                'manualy_encoded': False,
-                                })
+                self.env['extraschool.guardianprestationtimes'].create({   'guardianid': sitters['pk'],
+                                                                            'prestation_date': datesitter.date(),
+                                                                            'prestation_time': prestation_time,
+                                                                            'es': sitters['eventType'],
+                                                                            'activitycategoryid': activity_category_id,
+                                                                            'manualy_encoded': False,
+                                                                            })
 
         except:
             self.env['extraschool.smartphone_log'].create({'title': 'WARNING ! Error while receiving guardians prestation data',
                                                            'time_of_transmission': time.time() - start_time,
                                                            'smartphone_id': smartphone_id,
                                                            })
-            
+
+            return False
+
+        return True
+
     @staticmethod
     def send_data(cr, uid, dict_prestations, smartphone_id, context=None):
         # Declare new Environment.
