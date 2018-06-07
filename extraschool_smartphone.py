@@ -218,7 +218,6 @@ class extraschool_smartphone(models.Model):
 
         return True
 
-
 class extraschool_pda_transmission(models.Model):
     _name = 'extraschool.pda_transmission'
     _description = 'PDA pda_transmission'

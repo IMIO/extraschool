@@ -138,40 +138,10 @@ class extraschool_child(models.Model):
 
     @api.multi
     def send_data(self):
-        vals = [{
-                'childid': 1112,
-                'placeid': 3,
-                'prestation_date': '2018-04-19',
-                'prestation_time': 17,
-                'es': 'S',
-                'type': 2,
-                },
-                {
-                    'childid': 1112,
-                    'placeid': 3,
-                    'prestation_date': '2018-04-19',
-                    'prestation_time': 8,
-                    'es': 'E',
-                    'type': 2,
-                },
-                {
-                    'childid': 35,
-                    'placeid': 3,
-                    'prestation_date': '2018-04-19',
-                    'prestation_time': 17,
-                    'es': 'S',
-                    'type': 1,
-                },
-                {
-                    'childid': 35,
-                    'placeid': 3,
-                    'prestation_date': '2018-04-19',
-                    'prestation_time': 17,
-                    'es': 'S',
-                    'type': 1,
-                }
-        ]
-        self.env['extraschool.pdaprestationtimes'].import_prestations(vals)
+        vals = {
+            'newtag': [{'1': 1, '2': 2,'3': 3}]
+        }
+        self.env['extraschool.pdaprestationtimes'].import_prestations(vals, 3)
 
     @api.multi
     def get_child_for_smartphone(self, smartphone_id):
