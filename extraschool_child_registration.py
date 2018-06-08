@@ -25,7 +25,6 @@ from openerp import models, api, fields, _
 from openerp.api import Environment
 from openerp.exceptions import except_orm, Warning, RedirectWarning
 
-
 from datetime import date, datetime, timedelta as td
 
 from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
@@ -298,6 +297,7 @@ class extraschool_child_registration(models.Model):
             
             occu = self.env['extraschool.activityoccurrence']
             occu_reg = self.env['extraschool.activity_occurrence_child_registration']
+
             for day in range(delta.days + 1):
                 current_day_date = d1 + td(days=day)
                 if str(current_day_date.weekday()) in self.activity_id.days:
@@ -306,16 +306,58 @@ class extraschool_child_registration(models.Model):
                                            ('occurrence_date','=', current_day_date)])
                     if len(occu) == 1:
                         for line in line_days[current_day_date.weekday()]:
-                            #print "create reg for child : %s" % (line.child_id)
-                            occu_reg.create({'activity_occurrence_id': occu.id,
-                                             'child_id' :line.child_id.id,
-                                             'child_registration_line_id': line.id
-                                             })
-                            if self.activity_id.autoaddchilds:
-                                pod_to_reset = list(set(pod_to_reset + occu.add_presta(occu, line.child_id.id, None,False)))
-             
+                            try:
+                                occu_reg.create({'activity_occurrence_id': occu.id,
+                                                 'child_id' :line.child_id.id,
+                                                 'child_registration_line_id': line.id
+                                                 })
+                                if self.activity_id.autoaddchilds:
+                                    pod_to_reset = list(set(pod_to_reset + occu.add_presta(occu, line.child_id.id, None,False)))
+                            except Exception as e:
+                                message = str(e)
+                                occu_id,child_id = message[162:-18].split(', ')
+
+                                # Get registration doublon
+                                sql_query = """
+                                            SELECT cr.date_from, cr.date_to, a.name
+                                            FROM extraschool_child_registration AS cr
+                                            INNER JOIN extraschool_activity AS a
+                                            ON cr.activity_id = a.id
+                                            WHERE cr.ID = (	SELECT child_registration_id
+                                                    FROM extraschool_child_registration_line
+                                                    WHERE id = (	SELECT child_registration_line_id
+                                                            FROM extraschool_activity_occurrence_child_registration
+                                                            WHERE activity_occurrence_id = %s AND child_id = %s
+                                                            )
+                                                    )
+                                            """
+
+                                new_cr = self.pool.cursor()
+                                new_cr.execute(sql_query, (occu_id,child_id))
+                                activity_error = new_cr.dictfetchone()
+                                new_cr.commit()
+                                new_cr.close()
+
+                                # Get child name
+                                child_sql_query =    """
+                                                    SELECT firstname || ' ' || lastname as Name
+                                                    FROM extraschool_child
+                                                    WHERE id = %s
+                                                    """
+                                child_cr = self.pool.cursor()
+                                child_cr.execute(child_sql_query % child_id)
+                                name_child = child_cr.dictfetchone()
+                                child_cr.commit()
+                                child_cr.close()
+
+                                raise Warning(_(
+                                    "The child %s already has a registration on the activity %s from date %s to date %s") % (
+                                              name_child['name'], activity_error['name'], activity_error['date_from'],
+                                              activity_error['date_to']))
+
+
             for pod in self.env['extraschool.prestation_times_of_the_day'].browse(pod_to_reset):
-                pod.reset()           
+                pod.reset()
                         
         if self.state == 'draft':
             self.state = 'to_validate'
