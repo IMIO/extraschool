@@ -200,7 +200,7 @@
 
 		</template>
 
-		<template id="report_invoice_summary_tournai_tableau">
+		<template id="report_invoice_summary_tournai_tableau_rappel">
 			<t t-set="zz" t-value="0" />
 			<t t-foreach="summary_invoice_ids" t-as="summary_invoice">
 				<t t-if="summary_invoice.id != invoice_id">
@@ -216,7 +216,7 @@
 			    		page-break-inside: avoid;
 			    		text-align: justify;
 			    		text-justify: inter-word;
-			    		font-size: 15px;
+			    		font-size: 17px;
 			    	}
 
 			    	#invoice_summary div.your_ref{
@@ -259,23 +259,25 @@
 					<p>
 						<span style="font-decoration:underline; font-size: 15px;">Liste des factures couvrant cette période </span>
 					</p><br/>
-	        		<table>
+					<table>
 	        			<tr>
-		        			<th>Période</th>
-		        			<th>Facture</th>
-		        			<th>Echéance</th>
-		        			<th>Communication structurée</th>
-							<th>Montant</th>
+		        			<th>Facture n°</th>
+							<th>Période facturée</th>
+		        			<th>Montant</th>
+		        			<th>Correction</th>
+							<th>Paiement</th>
+							<th>Solde restant dû</th>
 						</tr>
 		       			<t t-foreach="summary_invoice_ids.sorted(key=lambda r: r.number)" t-as="summary_invoice">
 	        				<tr>
 	        					<t t-if="summary_invoice.id != invoice_id">
 	        					<t t-if="summary_invoice.reminder_fees == False">
 	        						<tr>
+										<td><span t-field="summary_invoice.number" /></td>
 				       					<td><span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_from,'%Y-%m-%d')))" /> - <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_to,'%Y-%m-%d')))" /></td>
-			        					<td><span t-field="summary_invoice.number" /></td>
-				       					<td><span t-field="summary_invoice.payment_term" /></td>
-										<td><t t-esc="parent_id.get_prepaid_comstruct(categ_id)" /></td>
+			        					<td><span t-field="summary_invoice.amount_total" /></td>
+				       					<td><span t-field="summary_invoice.no_value" /></td>
+										<td><span t-field="summary_invoice.amount_received" /></td>
 				       					<td class="amount"><span t-esc="'%.2f €' %  (summary_invoice.balance)" /></td>
 
 	        						</tr>
@@ -283,12 +285,12 @@
 	        					<t t-if="summary_invoice.reminder_fees == True">
 	        						<t t-foreach="summary_invoice.invoice_line_ids" t-as="invoice_line">
 	        							<tr>
-					       					<td></td>
-				        					<td><span t-field="invoice_line.description" /></td>
-					       					<td><span t-field="summary_invoice.payment_term" /></td>
-											<td><t t-esc="parent_id.get_prepaid_comstruct(categ_id)" /></td>
-					       					<td class="amount"><span t-esc="TODO" /></td>
-											<!--<td class="amount"><span t-esc="'%.2f €' %  (invoice_line.balance)" /></td>-->
+					       					<td><span t-field="summary_invoice.number" /></td>
+											<td><span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_from,'%Y-%m-%d')))" /> - <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_to,'%Y-%m-%d')))" /></td>
+											<td><span t-field="summary_invoice.amount_total" /></td>
+											<td><span t-field="summary_invoice.no_value" /></td>
+											<td><span t-field="summary_invoice.amount_received" /></td>
+											<td class="amount"><span t-esc="'%.2f €' %  (summary_invoice.balance)" /></td>
 				       					</tr>
 	        						</t>
 								</t>
@@ -297,7 +299,7 @@
 		        		</t>
 
 	        		</table><br/><br/>
-					<span><b>TOTAL PAYÉ: <t t-esc="parent_id.totalreceived" />€</b></span><br/>
+					<!--<span><b>TOTAL PAYÉ: <t t-esc="parent_id.totalreceived" />€</b></span><br/>-->
 					<span><b>SOLDE RESTANT DÛ: <t t-esc="amount" />€</b></span><br/>
 
 	       		</div>

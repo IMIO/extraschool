@@ -63,7 +63,7 @@ class extraschool_child_registration(models.Model):
                               'validated', required=True, default='draft', track_visibility='onchange'
                               )
     number_childs = fields.Char('Number of childs', readonly=True, default=0, track_visibility='onchange')
-    levelid = fields.Many2one('extraschool.level', 'Level', track_visibility='onchange')
+    levelid = fields.Many2many('extraschool.level', 'extraschool_registration_level_rel', string='Level', track_visibility='onchange')
     warning_biller = fields.Char('WARNING', default="WARNING, Il y a un facturier à cette date, si la personne responsable des factures n'est pas au courant de cet ajout, cela ne sera pas pris en compte ! ", readonly=True)
     warning_visibility = fields.Boolean(track_visibility='onchange')
     select_per_level = fields.Selection([
@@ -180,7 +180,10 @@ class extraschool_child_registration(models.Model):
             search_domain += [('classid.id', '=',self.class_id.id) ]
 
         elif self.levelid:
-            search_domain += [('levelid.id', '=',self.levelid.id)]
+            list_level = []
+            for level in self.levelid :
+                list_level.append(level.id)
+                search_domain += [('levelid.id', '=',list_level)]
 
         elif self.select_per_level:
             if self.select_per_level == 'primaire':
