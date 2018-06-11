@@ -217,6 +217,10 @@ class extraschool_prestation_times_of_the_day(models.Model):
                 elif not activity_range[i].autoaddchilds and activity_range[i+1].autoaddchilds:
                     self.activity_to_delete = activity_range[i].id
 
+            if not self.activity_to_delete and activity_range[i].leveltype != u'M,P':
+                if activity_range[i].leveltype != self.child_id.levelid.leveltype:
+                    self.activity_to_delete = activity_range[i].id
+
             if self.activity_to_delete:
                 self.prestationtime_ids.filtered(lambda r: r.activity_occurrence_id.activityid.id == self.activity_to_delete).unlink()
 
