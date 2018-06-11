@@ -51,7 +51,7 @@ class extraschool_taxcertificate(models.Model):
                                             left join extraschool_invoice iii on iii.id = ppr.invoice_id
                                             left join extraschool_payment pp on pp.id = ppr.payment_id
                                             where ppr.paymentdate BETWEEN '%s-01-01' and '%s-12-31'
-                                                AND iii.balance = 0 AND iii.last_reminder_id IS NOT NULL AND iii.reminder_fees = false                                            
+                                                AND iii.balance = 0 AND iii.reminder_fees = false                                            
                                 """ % (vals['name'], vals['name'])
         
         
