@@ -58,3 +58,16 @@ restart-Ferrieres:
   script:
     - mco shell run '/srv/docker_scripts/ferrieres_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
   when: manual
+  
+restart-Ittre:
+  stage: restart
+  script:
+  - mco shell run '/srv/docker_scripts/ittre_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
+  when: manual
+  
+restart-Staging:
+  stage: restart
+  script:
+  - mco shell run 'service stagingv9_extraschool stop' -C /role::docker::extraschool::instances$/ -I /staging/
+  - mco shell run 'service stagingv9_extraschool start' -C /role::docker::extraschool::instances$/ -I /staging/
+  when: manual
