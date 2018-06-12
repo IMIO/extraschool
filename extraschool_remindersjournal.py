@@ -293,7 +293,7 @@ class extraschool_remindersjournal(models.Model):
                 invoice_search_domain = [('activitycategoryid.id', '=',self.activity_category_id.id),
                                          ('balance', '>',0), # todo: See if this is needed.
                                          ('balance', '>=',reminder_type.minimum_balance),
-                                         ('tag', '=', ''),
+                                         ('tag', '=', None),
                                          ]
 
 
