@@ -144,6 +144,7 @@ class extraschool_parent(models.Model):
     nbr_actif_child = fields.Integer(compute='_compute_nbr_actif_child',string='Nbr actif child', store = True, track_visibility='onchange')
     comment = fields.Text('Comment', track_visibility='onchange')
     comstruct = fields.Char('Structured Communication', readonly=True)
+    taxe_certificate_ids = fields.One2many('extraschool.taxcertificate_item', 'parent_id', 'taxecertificateids', readonly=True)
 
     @api.multi
     def get_invoice(self):

@@ -181,6 +181,11 @@
                 		</tree>
                     </field>
                  </page>
+                 <page string="Taxe certificate">
+                    <group col="4">
+                    	<field name="taxe_certificate_ids" nolabel="1"/>
+                    </group>
+                </page>
                  <page string="Comment">
                     <field name="comment" />
                  </page>

@@ -6146,6 +6146,7 @@ msgstr "Attestation fiscale (Année)"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_taxcertificate_form
+#: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
 msgid "Taxe certificate"
 msgstr "Attestations fiscales"
 
