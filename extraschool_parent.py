@@ -157,17 +157,21 @@ class extraschool_parent(models.Model):
                 'limit': 50000,
                 'domain': [('parentid', '=',self.id),]
             }
-        # return {'name': 'Paiements',
-        #         'type': 'ir.actions.act_window',
-        #         'res_model': 'extraschool.payment_report',
-        #         'tree_view_id': 'extraschool_payment_parent_tree',
-        #         'view_type': 'form',
-        #         'view_mode': 'tree,form',
-        #         'nodestroy': False,
-        #         'target': 'current',
-        #         'limit': 50000,
-        #         'domain': [('parent_id', '=',self.id),]
-        #     }
+
+    @api.multi
+    def get_payment(self):
+        return {'name': 'Paiements',
+                'type': 'ir.actions.act_window',
+                'res_model': 'extraschool.payment_reconciliation',
+                'tree_view_id': 'extraschool_payment_parent_tree',
+                'view_type': 'form',
+                'view_mode': 'tree,form',
+                'nodestroy': False,
+                'target': 'current',
+                'limit': 50000,
+                'context': "{'group_by':'payment_id'}",
+                'domain': [('payment_id.parent_id', '=', self.id), ('amount', '>', 0.0001)]
+                }
 
     @api.multi
     def refund(self):
