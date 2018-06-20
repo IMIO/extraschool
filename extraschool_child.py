@@ -25,6 +25,7 @@ from openerp import models, api, fields
 from openerp.api import Environment
 from datetime import date, datetime
 import time
+import timeit
 
 
 class extraschool_child(models.Model):
@@ -127,5 +128,63 @@ class extraschool_child(models.Model):
     def unlink(self):
         self.isdisabled = True
 
-extraschool_child()
+##############################################################################
+#
+#    AESMobile
+#    Copyright (C) 2018
+#    Colicchia Michaël & Delaere Olivier - Imio (<http://www.imio.be>).
+#
+##############################################################################
+    @api.multi
+    def get_child_for_smartphone(self, smartphone_id):
+        # Todo: Get newtag list.
+        """
 
+        :param smartphone_id: ID of the smartphone used to get place_id
+        :return: Dictionnary of children {id: , nom: , prenom:, tagid:}
+        """
+        start_time = time.time()
+        cr = self.env.cr
+
+
+        # Get all the child corresponding to the smartphone's place_id
+        sql_query = """
+                    SELECT c.id, c.lastname, c.firstname, c.tagid
+                    FROM extraschool_smartphone AS s
+                    INNER JOIN extraschool_place_schoolimplantation_rel AS ps_rel
+                    ON s.placeid = ps_rel.place_id
+                    INNER JOIN extraschool_child AS c
+                    ON c.schoolimplantation = ps_rel.schoolimplantation_id
+                    WHERE s.id = %s AND c.isdisabled = False;
+                    """
+
+        cr.execute(sql_query, [smartphone_id])
+        children_info = cr.dictfetchall()
+
+        # Check if a child has a tagid or not. Otherwiser XMLRPC will crash. It can't be None.
+        for child in children_info:
+            if child['tagid'] == None:
+                child['tagid'] = ''
+
+        try:
+            self.env['extraschool.smartphone_log'].create({ 'title': 'Fetching children',
+                                                            'time_of_transmission': time.time() - start_time,
+                                                            'smartphone_id': smartphone_id,
+                                                            })
+        except:
+            print "Error Children"
+            return "Error Sync on Children"
+
+        return children_info
+
+    @staticmethod
+    def get_children(cr, uid, smartphone_id, context=None):
+        """
+        :param cr, uid, context needed for a static method
+        :param smartphone_id: Id of the smartphone that contact us.
+        :return: Dictionnary of children {id: , nom: , prenom:, tagid:}
+        """
+        # Declare new Environment.
+        env = api.Environment(cr, uid, context={})
+
+        return extraschool_child.get_child_for_smartphone(env['extraschool.child'], smartphone_id)

@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <openerp>
-	<data> 
+	<data>
         <record model="ir.ui.view" id="extraschool_smartphone_tree">
 			<field name="name">extraschool.smartphone.tree</field>
 			<field name="model">extraschool.smartphone</field>
@@ -8,29 +8,29 @@
 			<field name="arch" type="xml">
                 <tree string="Smartphone">
                     <field name="id"/>
-                    <field name="name"/> 
-                    <field name="placeid" /> 
+                    <field name="name"/>
+                    <field name="placeid" />
                     <field name="lasttransmissiondate"/>
                     <field name="softwareurl"/>
 					<field name="transmissiontime"/>
 				</tree>
 			</field>
 		</record>
-        
+
         <record model="ir.ui.view" id="extraschool_smartphone_form">
             <field name="name">extraschool.smartphone.form</field>
-            <field name="model">extraschool.smartphone</field>    
+            <field name="model">extraschool.smartphone</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-            <form string="Smartphone">  
+            <form string="Smartphone">
                 <notebook>
 	                <page string="Configuration">
-	                    <group col="4">        
+	                    <group col="4">
 			                <field name="id"/>
 			                <field name="softwareversion"/>
 			                <field name="name" />
 			                <newline/>
-			                <field name="placeid" /> 
+			                <field name="placeid" />
 			                <newline/>
 			                <field name="activitycategories_ids" />
 			                <newline/>
@@ -63,33 +63,46 @@
 			                <field name="softwareurl"/>
 			                <newline/>
 			                <field name="qrconfig" img_width="400" img_height="400" width="400" height="400" widget="image"/>
-			            </group>  
+			            </group>
 			    	</page>
 			    	<page  string="Transmission">
 			    		<group col="4">
                     		<field name="pda_transmission_ids" nolabel="1" readonly="True">
                     			<tree>
-			                		<field name="transmission_date_from"/>                    				
-			                		<field name="transmission_date_from"/>                    				
+			                		<field name="transmission_date_from"/>
+			                		<field name="transmission_date_from"/>
 			                		<field name="state"/>
 			                	</tree>
 			                	<form>
 			                		<group col="4">
-				                		<field name="transmission_date_from"/>                    				
-				                		<field name="transmission_date_to"/>                    				
+				                		<field name="transmission_date_from"/>
+				                		<field name="transmission_date_to"/>
 				                		<field name="state"/>
-										<newline/>				                		
-					                	<separator string="Prestation times" colspan="4"/> 
-					                	<field name="pda_prestation_times_ids" nolabel="1"  colspan="4"/>				                		
-				                	</group>	
+										<newline/>
+					                	<separator string="Prestation times" colspan="4"/>
+					                	<field name="pda_prestation_times_ids" nolabel="1"  colspan="4"/>
+				                	</group>
 
 			                	</form>
                     		</field>
                     	</group>
 			    	</page>
-		    	</notebook>              
+                    <page  string="Transmission Log">
+			    		<group col="4">
+                    		<field name="smartphone_log_ids" nolabel="1" readonly="True">
+                    			<tree>
+			                		<field name="title"/>
+			                		<field name="date_of_transmission"/>
+			                		<field name="time_of_transmission"/>
+			                		<field name="smartphone_id" invisible="1"/>
+			                	</tree>
+                    		</field>
+                    	</group>
+			    	</page>
+
+		    	</notebook>
             </form>
-            </field> 
+            </field>
         </record>
         <record model="ir.actions.act_window" id="action_extraschool_smartphone">
 			<field name="name">Smartphone</field>
