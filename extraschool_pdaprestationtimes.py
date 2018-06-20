@@ -152,6 +152,11 @@ class extraschool_pdaprestationtimes(models.Model):
 
         # Importing prestation for children
         try:
+            pda_transmission_id = self.env['extraschool.pda_transmission'].create({
+                'transmission_date_from': datetime.datetime.now(),
+                'smartphone_id': smartphone_id,
+            })
+
             for children in dict_prestations['children']:
                 # Xml RPC datetime to python datetime
                 datechild = datetime.datetime.strptime(str(children['date']), '%Y%m%dT%H%M%S')
@@ -165,7 +170,8 @@ class extraschool_pdaprestationtimes(models.Model):
                                 'prestation_time': prestation_time,
                                 'es': children['eventType'],
                                 'activitycategoryid': activity_category_id,
-                                })
+                                'pda_transmission_id': pda_transmission_id.id,
+                            })
 
             self.env['extraschool.smartphone_log'].create({'title': 'Successfully imported children prestation',
                                                            'time_of_transmission': time.time() - start_time,
