@@ -39,6 +39,12 @@
                             class="oe_inline oe_stat_button"
                             icon="fa-credit-card"
                                 />
+                        <button name="get_tax_certificate"
+                            string="Tax Certificates"
+                            type="object"
+                            class="oe_inline oe_stat_button"
+                            icon="fa-money"
+                                />
                     </div>
 				<group col="4">
 	            	<field name="isdisabled"/>
