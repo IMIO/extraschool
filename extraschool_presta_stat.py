@@ -46,6 +46,7 @@ class extraschool_presta_stat(models.Model):
     @api.multi
     def stocked_procedure(self):
         sql_query = """
+                        DROP FUNCTION IF EXISTS compute_stat(activity_id INT, period_str VARCHAR(50),prestation_to DOUBLE PRECISION,last_period DOUBLE PRECISION, start_date DATE, end_date DATE);
                         CREATE FUNCTION compute_stat(activity_id INT, period_str VARCHAR(50),prestation_to DOUBLE PRECISION,last_period DOUBLE PRECISION, start_date DATE, end_date DATE)
                         RETURNS void AS $$
                         BEGIN
