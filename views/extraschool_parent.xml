@@ -27,7 +27,7 @@
                 <sheet>
                     <div class="oe_right oe_button_box" name="buttons">
                         <button name="get_invoice"
-                            string="Factures"
+                            string="Invoices"
                             type="object"
                             class="oe_inline oe_stat_button"
                             icon="fa-book"
@@ -37,6 +37,12 @@
                             type="object"
                             class="oe_inline oe_stat_button"
                             icon="fa-credit-card"
+                                />
+                        <button name="get_tax_certificate"
+                            string="Tax Certificates"
+                            type="object"
+                            class="oe_inline oe_stat_button"
+                            icon="fa-money"
                                 />
                     </div>
 				<group col="4">        

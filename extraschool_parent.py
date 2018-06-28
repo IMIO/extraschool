@@ -159,6 +159,19 @@ class extraschool_parent(models.Model):
             }
 
     @api.multi
+    def get_tax_certificate(self):
+        return {'name': 'Attestation fiscale',
+                'type': 'ir.actions.act_window',
+                'res_model': 'extraschool.taxcertificate_item',
+                'view_type': 'form',
+                'view_mode': 'tree,form',
+                'nodestroy': False,
+                'target': 'current',
+                'limit': 50000,
+                'domain': [('parent_id', '=',self.id),]
+            }
+
+    @api.multi
     def get_payment(self):
         return {'name': 'Paiements',
                 'type': 'ir.actions.act_window',
