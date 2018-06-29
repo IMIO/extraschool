@@ -1,0 +1,121 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+        <template id="report_invoice_summary_tournai_text_rappel">
+				  <style type="text/css">
+					  #invoice_summary{
+						width: 100%;
+						display: block;
+						margin: 0cm 0cm 0cm 0cm;
+						page-break-inside: avoid;
+						text-align: justify;
+						text-justify: inter-word;
+						font-size: 13px;
+					 }
+
+					 #invoice_summary div.your_ref{
+						width: 100%;
+						padding: 5mm 0mm 5mm 0mm;
+						display: block;
+					 }
+
+
+					div#invoice_summary h2{
+						font-size: 13px;
+						font-weight: bold;
+					 }
+
+				 </style>
+					  <div id="invoice_summary">
+						 <p>
+							 Objet: Factures AES pour la période du <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/>
+								 - <b>RAPPEL</b><br/>
+							   Nos réf. : AES / <t t-esc="reminder.reminders_journal_id.name"/> / <t t-esc="parent_id.name" /><br/><br/><br/>
+								Cher Parent, <br/><br/>
+
+							   Nous vous avons adressé les factures relatives aux frais scolaires de votre (vos) enfant(s) pour la période du <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(reminder.reminders_journal_id.date_from,'%Y-%m-%d')))"/>
+									 au <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(reminder.reminders_journal_id.date_to,'%Y-%m-%d')))"/>.
+							   Nous constatons que vous êtes encore redevable d'un solde dû de <t t-esc="amount"/>€ envers l'Administration
+							   Communale de Tournai, somme dont vous trouverez le détail ci-annexé.<br/><br/>
+
+							   <b>Nous vous invitons à régler ce montant, pour le <t t-esc="payment_term" /> au plus tard, au bénéfice du compte (IBAN)
+								   n° BE25 0960 2105 5182 (code BIC : GKCCBEBB), avec la communication structurée suivante : <t t-esc="com_struct" />.</b><br/><br/>
+
+							   Si vous souhaitez solliciter un plan de paiement, nous vous invitons à prendre contact avec notre service. <br/><br/>
+
+							   À défaut de paiement, le recouvrement de la créance sera poursuivi suivant l'article L1124-40 §1er,1° du
+							   Code de la Démocratie locale et de la Décentralisation.<br/><br/>
+
+							   Si entretemps, la somme a été réglée, veuillez considérer ce rappel comme nul et non avenu.<br/><br/>
+
+							   Vous souhaitant bonne réception de la présente, nous vous prions de croire, Cher Parent, à l'assurance de
+							   notre considération distinguée.
+					 	</p>
+					 </div>
+		</template>
+
+		<template id="report_invoice_summary_tournai_text_med">
+				  <style type="text/css">
+					  #invoice_summary{
+						width: 100%;
+					  	font-family:Calibri !important;
+						display: block;
+						margin: 0cm 0cm 0cm 0cm;
+						page-break-inside: avoid;
+						text-align: justify;
+						text-justify: inter-word;
+						font-size: 13px;
+					 }
+
+					  .ecrit {
+							text-decoration: underline;
+					  		font-weight: bold;
+					  }
+
+					 #invoice_summary div.your_ref{
+						width: 100%;
+						padding: 5mm 0mm 5mm 0mm;
+						display: block;
+					 }
+
+
+					div#invoice_summary h2{
+						font-size: 11px;
+						font-weight: bold;
+					 }
+
+				 </style>
+					  <div id="invoice_summary" >
+						 <p>
+							 Objet: Factures AES pour la période du <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(reminder.reminders_journal_id.date_from,'%Y-%m-%d')))"/>
+							 au <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(reminder.reminders_journal_id.date_to,'%Y-%m-%d')))"/> - <b>MISE EN DEMEURE AVANT CONTRAINTE NON FISCALE– art. L1124-40§1, 1° CDLD</b><br/>
+					   Nos réf. : AES / <t t-esc="reminder.reminders_journal_id.name"/> / <t t-esc="parent_id.name" /><br/><br/><br/>
+						Cher Parent, <br/><br/>
+
+					   Le service Comptabilité de la Ville de Tournai a constaté que, pour les frais scolaires de votre (vos) enfant(s) pour la période du <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(reminder.reminders_journal_id.date_to,'%Y-%m-%d')))"/> au
+						<span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(reminder.reminders_journal_id.date_to,'%Y-%m-%d')))"/> il restait un montant impayé de
+					   <t t-esc="amount"/>€, et ce, malgré le courrier de rappel du                    , qui vous a déjà été adressé. Veuillez trouver en annexe le détail de ce montant.<br/><br/>
+
+						<b>Par la présente, nous vous mettons en demeure de payer ce montant de <t t-esc="amount"/> pour le <t t-esc="payment_term" />
+						au plus tard, au bénéfice du compte (IBAN) n° BE25 0960 2105 5182 (code BIC : GKCCBEBB),
+						avec la communication structurée suivante : <t t-esc="com_struct" />.</b><br/><br/>
+
+						Si entretemps, la somme a été réglée, veuillez considérer ce rappel comme nul et non avenu.<br/><br/>
+
+					   Si vous estimez toutefois ne pas être redevable du montant qui vous est réclamé, nous vous prions de formuler <p class="ecrit">par écrit</p> les motifs de votre contestation,
+						dès réception de la présente en veillant à bien indiquer la référence du présent courrier. <br/><br/>
+
+					   Nous profitons également de ce courrier pour vous informer qu’à défaut de recevoir soit un paiement endéans le délai imparti, soit le courrier de contestation dûment motivé dont question ci-dessus,
+						nous nous réservons la possibilité d’appliquer à votre encontre la procédure de contrainte prévue par l’article L1124-40§1, 1°i1 du Code de la Démocratie Locale et de la Décentralisation et de recouvrer
+						la créance de la Ville selon les modalités qui y sont prévues. Nous espérons néanmoins ne pas devoir en arriver à de telles alternatives et comptons sur votre diligence.<br/><br/>
+
+					   Nous vous signalons enfin, à titre infiniment subsidiaire, que si nous devions avoir recours à la contrainte pour récupérer la somme due, les frais de l’intervention de l’huissier
+						seront mis à votre charge ainsi que les frais administratifs du présent courrier recommandé.<br/><br/>
+
+					   Nous tenions à vous en informer et vous prions de croire, Cher Parent, à l’assurance de notre considération distinguée.
+
+						 </p>
+					 </div>
+		</template>
+    </data>
+</openerp>
