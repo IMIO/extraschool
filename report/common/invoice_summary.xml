@@ -250,7 +250,7 @@
 
 			<div id="invoice_summary" >
 				<p>
-					<span style="font-decoration:underline; font-size: 15px;">Liste des factures couvrant cette période </span>
+					<span style="font-decoration:underline; font-size: 15px;">Relevé pour la période du <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/> </span>
 				</p><br/>
 				<table>
 					<tr>
