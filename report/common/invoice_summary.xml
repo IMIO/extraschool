@@ -267,20 +267,20 @@
 								<tr>
 									<td><span t-field="summary_invoice.number" /></td>
 									<td><span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_from,'%Y-%m-%d')))" /> - <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_to,'%Y-%m-%d')))" /></td>
-									<td><span t-field="summary_invoice.amount_total" /></td>
-									<td><span t-field="summary_invoice.no_value" /></td>
-									<td><span t-field="summary_invoice.amount_received" /></td>
-									<td class="amount"><span t-esc="'%.2f €' %  (summary_invoice.balance)" /></td>
+									<td><span t-esc="'%.2f €' % (summary_invoice.amount_total)"/></td>
+									<td><span t-esc="'%.2f €' % (summary_invoice.no_value)" /></td>
+									<td><span t-esc="'%.2f €' % (summary_invoice.amount_received)" /></td>
+									<td class="amount"><span t-esc="'%.2f €' % (summary_invoice.balance)" /></td>
 								</tr>
 							</t>
 						</tr>
 					</t>
 					<tr>
 						<th colspan="2">TOTAUX</th>
-						<th><span t-esc="reminder.amount" /></th>
-						<th><span t-esc="sum([summary_invoice.no_value for summary_invoice in summary_invoice_ids])"/></th>
-						<th><span t-esc="sum([summary_invoice.amount_received for summary_invoice in summary_invoice_ids])"/></th>
-						<th><span t-esc="sum([summary_invoice.balance for summary_invoice in summary_invoice_ids])"/></th>
+						<th><span t-esc="'%.2f €' % (reminder.amount)" /></th>
+						<th><span t-esc="'%.2f €' % (sum([summary_invoice.no_value for summary_invoice in summary_invoice_ids]))"/></th>
+						<th><span t-esc="'%.2f €' % (sum([summary_invoice.amount_received for summary_invoice in summary_invoice_ids]))"/></th>
+						<th style="text-align:right;"><span t-esc="'%.2f €' % (sum([summary_invoice.balance for summary_invoice in summary_invoice_ids]))"/></th>
 					</tr>
 				</table>
 			</div>
