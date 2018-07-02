@@ -1,0 +1,43 @@
+#invoice_summary{
+    width: 100%;
+    display: block;
+    margin: 0cm 0cm 0cm 0cm;
+    page-break-inside: avoid;
+    text-align: justify;
+    text-justify: inter-word;
+    font-size: x-small;
+}
+
+#invoice_summary div.your_ref{
+    width: 100%;
+    padding: 5mm 0mm 5mm 0mm;
+    display: block;
+}
+
+#invoice_summary table {
+    width: 100%;
+    font-size:11px;
+    border-width: 1px;
+    border-collapse: collapse;
+}
+#invoice_summary table th {
+    border-width: 1px;
+    padding: 4px;
+    border-style: solid;
+    background-color: #dedede;
+}
+#invoice_summary table td {
+    border-width: 1px;
+    padding: 4px;
+    border-style: solid;
+}
+
+#invoice_summary table td.amount {
+    text-align: right;
+    width: 20%;
+}
+
+div#invoice_summary h2{
+    font-size: 12px;
+    font-weight: bold;
+}

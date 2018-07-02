@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014 
+#    Copyright (C) 2008-2014
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot - Imio (<http://www.imio.be>).
 #
@@ -48,11 +48,11 @@ class extraschool_discount_version(models.Model):
     _description = 'Discount version'
 
     name = fields.Char('Name', size=50, required = True)
-    discount_id = fields.Many2one('extraschool.discount', 'Discount',ondelete='cascade', required = True)  
+    discount_id = fields.Many2one('extraschool.discount', 'Discount',ondelete='cascade', required = True)
     validity_from = fields.Date('Validity from')
     validity_to = fields.Date('Validity to')
     price_list_ids = fields.Many2many('extraschool.price_list', 'extraschool_discount_pricelist_rel',string='Price list')
-    child_type_ids = fields.Many2many('extraschool.childtype', 'extraschool_discount_childtype_rel',string='Child type')              
+    child_type_ids = fields.Many2many('extraschool.childtype', 'extraschool_discount_childtype_rel',string='Child type')
     period = fields.Selection((('ca','Completed activity'),
                                ('d','Day'),
                                ('w','Week'),
@@ -64,7 +64,7 @@ class extraschool_discount_version(models.Model):
                                 ('c','Child'),),string="Apply on")
     value = fields.Float(string="Value")
     quantity_type = fields.Selection((('m','Minute'),
-                                      ('q','Quantity'),                                      
+                                      ('q','Quantity'),
                                       ('p','Presence'),),string="Quantity type")
     quantity_from = fields.Integer(string="Quantity from", default=0)
     quantity_to = fields.Integer(string="Quantity to", default=0)
@@ -73,7 +73,7 @@ class extraschool_discount_version(models.Model):
                                           ), string="Choose the template")
 
     def get_valide_version(self,_from,_to):
-        
+
         return self.search([('validity_from', '<=', _from),
                             ('validity_to', '>=', _to),
                          ])
@@ -116,14 +116,14 @@ class extraschool_discount_version(models.Model):
                 if len(args):
                     lines_args_str += ','.join(cr.mogrify("""(%s, current_timestamp, %s, current_timestamp,
                                                             %s,%s,%s,%s,%s,%s)""", x) for x in args)
-                print "exec sql create discount lines"
-                #print insert_data
-                invoice_line_ids = cr.execute("""insert into extraschool_invoicedprestations
+                    print "exec sql create discount lines"
+
+                    invoice_line_ids = cr.execute("""insert into extraschool_invoicedprestations
                                                 (create_uid, create_date, write_uid, write_date,
                                                 invoiceid, childid, description, quantity, unit_price,total_price)
                                                 VALUES """ + lines_args_str + ";")
 
-                #self.env.cr.execute(sql_update_invoice_total_price,(self.price_list_ids.ids))
+                
 
         elif (self.discount_template == 'tournai'):
             print "## Compute Discount with: template Tournai"

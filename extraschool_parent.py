@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014 
+#    Copyright (C) 2008-2014
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
 #
@@ -27,6 +27,12 @@ from openerp.api import Environment
 import lbutils
 from datetime import datetime
 from openerp.exceptions import except_orm, Warning, RedirectWarning
+import requests
+import base64, hmac, hashlib, datetime
+from hashlib import sha256
+import random
+import urllib
+import urlparse
 
 class extraschool_parent(models.Model):
     _name = 'extraschool.parent'
@@ -157,17 +163,34 @@ class extraschool_parent(models.Model):
                 'limit': 50000,
                 'domain': [('parentid', '=',self.id),]
             }
-        # return {'name': 'Paiements',
-        #         'type': 'ir.actions.act_window',
-        #         'res_model': 'extraschool.payment_report',
-        #         'tree_view_id': 'extraschool_payment_parent_tree',
-        #         'view_type': 'form',
-        #         'view_mode': 'tree,form',
-        #         'nodestroy': False,
-        #         'target': 'current',
-        #         'limit': 50000,
-        #         'domain': [('parent_id', '=',self.id),]
-        #     }
+
+    @api.multi
+    def get_tax_certificate(self):
+        return {'name': 'Attestation fiscale',
+                'type': 'ir.actions.act_window',
+                'res_model': 'extraschool.taxcertificate_item',
+                'view_type': 'form',
+                'view_mode': 'tree,form',
+                'nodestroy': False,
+                'target': 'current',
+                'limit': 50000,
+                'domain': [('parent_id', '=',self.id),]
+            }
+
+    @api.multi
+    def get_payment(self):
+        return {'name': 'Paiements',
+                'type': 'ir.actions.act_window',
+                'res_model': 'extraschool.payment_reconciliation',
+                'tree_view_id': 'extraschool_payment_parent_tree',
+                'view_type': 'form',
+                'view_mode': 'tree,form',
+                'nodestroy': False,
+                'target': 'current',
+                'limit': 50000,
+                'context': "{'group_by':'payment_id'}",
+                'domain': [('payment_id.parent_id', '=', self.id), ('amount', '>', 0.0001)]
+                }
 
     @api.multi
     def refund(self):
@@ -182,10 +205,10 @@ class extraschool_parent(models.Model):
 
         # Create the biller to store the invoices.
         biller_id = self.env['extraschool.biller'].create({'period_from': now,
-                                                        'period_to': now,
-                                                        'payment_term': now,
-                                                        'invoices_date': now,
-                                                        })
+                                                           'period_to': now,
+                                                           'payment_term': now,
+                                                           'invoices_date': now,
+                                                           })
 
         # Get the activity and the next invoice number.
         activity_id = self.env['extraschool.activitycategory'].search([], limit = 1)
@@ -266,7 +289,7 @@ class extraschool_parent(models.Model):
     @api.model
     def update_commstruct(self):
         parent_ids = self.env['extraschool.parent'].search([])
-        
+
         for parent in parent_ids:
             parent.write(
                 {'comstruct': parent.get_prepaid_comstruct(self.env['extraschool.activitycategory'].search([]))})
@@ -325,3 +348,56 @@ class extraschool_parent(models.Model):
 
 
         return self.env['extraschool.payment'].format_comstruct('%s%s%s' % (com_struct_prefix_str,com_struct_id_str,com_struct_check_str))
+
+    def sign_url(self, url, key, orig, algo='sha256', timestamp=None, nonce=None):
+        parsed = urlparse.urlparse(url)
+        new_query = self.sign_query(parsed.query, key, orig, algo, timestamp, nonce)
+        return urlparse.urlunparse(parsed[:4] + (new_query,) + parsed[5:])
+
+    def sign_query(self, query, key, orig, algo='sha256', timestamp=None, nonce=None):
+        if timestamp is None:
+            timestamp = datetime.datetime.utcnow()
+        timestamp = timestamp.strftime('%Y-%m-%dT%H:%M:%SZ')
+        if nonce is None:
+            nonce = hex(random.getrandbits(128))[2:-1]
+        new_query = query
+        if new_query:
+            new_query += '&'
+        new_query += urllib.urlencode((
+            ('algo', algo),
+            ('orig', orig),
+            ('timestamp', timestamp),
+            ('nonce', nonce)))
+        signature = base64.b64encode(self.sign_string(new_query, key, algo=algo))
+        new_query += '&signature=' + urllib.quote(signature)
+        return new_query
+
+    def sign_string(self, s, key, algo='sha256', timedelta=30):
+        digestmod = getattr(hashlib, algo)
+        hash = hmac.HMAC(key, digestmod=digestmod, msg=s)
+        return hash.digest()
+
+    @api.multi
+    def test_TS(self):
+        key = "yPWNGX3c9PHyf2Huuuac97MvS58ArCb8f8wnTWgYEKa732x3eeEJjDxEA83Fp5PT"
+        query_string = "https://demo-formulaires.guichet-citoyen.be/tests-et-bac-a-sable/demo-cb-aes/1/jump/trigger/validate"
+        orig = "aes"
+        query_full = self.sign_url(query_string, key, orig)
+        import logging;logging.getLogger(__name__).info(requests.post(query_full))
+
+
+    @api.multi
+    def get_helloworld(self):
+        return "Hello World ! anu s"
+
+    @staticmethod
+    def helloworld(cr, uid, info, context=None):
+        """
+        :param cr, uid, context needed for a static method
+        :param info: .
+        :return: Dictionnary of data ['data': [{'lastname': 'gaston', 'children': {'name': 'truc'}] }]
+        """
+        # Declare new Environment.
+        env = api.Environment(cr, uid, context={})
+
+        return extraschool_parent.get_helloworld(env['extraschool.parent'])

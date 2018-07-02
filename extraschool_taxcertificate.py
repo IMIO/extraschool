@@ -264,7 +264,7 @@ class extraschool_tax_certificate_detail(models.Model):
                                 LEFT JOIN extraschool_payment AS pay 
                                 ON pay.id = pay_rec.payment_id
                                 WHERE pay_rec.paymentdate BETWEEN '2017-01-01' AND '2017-12-31'
-                                AND inv.balance = 0 AND inv.last_reminder_id IS NULL) 
+                                AND inv.balance = 0 AND inv.reminder_fees = false) 
                                 AND act.on_tax_certificate = TRUE
                                 AND prest.prestation_date <= c.birthdate + interval '12 year'
                 ORDER BY inv.number, prest.prestation_date, act.short_name, prest.prestation_time

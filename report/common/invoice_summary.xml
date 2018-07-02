@@ -9,53 +9,9 @@
 				</t>
 			</t>
 			<t t-if="zz" >
-			    <style type="text/css">
-			        #invoice_summary{
-			    		width: 100%;
-			    		display: block;
-			    		margin: 0cm 0cm 0cm 0cm;
-			    		page-break-inside: avoid;
-			    		text-align: justify;
-			    		text-justify: inter-word;
-			    		font-size: x-small;
-			    	}
-
-			    	#invoice_summary div.your_ref{
-			    		width: 100%;
-			    		padding: 5mm 0mm 5mm 0mm;
-			    		display: block;
-			    	}
-
-					#invoice_summary table {
-			    		width: 100%;
-						font-size:11px;
-						border-width: 1px;
-						border-collapse: collapse;
-					}
-					#invoice_summary table th {
-						border-width: 1px;
-						padding: 4px;
-						border-style: solid;
-						background-color: #dedede;
-					}
-					#invoice_summary table td {
-						border-width: 1px;
-						padding: 4px;
-						border-style: solid;
-					}
-
-					#invoice_summary table td.amount {
-			    		text-align: right;
-			    		width: 20%;
-					}
-
-					div#invoice_summary h2{
-			    		font-size: 12px;
-			    		font-weight: bold;
-			    	}
-
-				</style>
-
+                <xpath expr="//head" position="inside">
+                    <link rel="stylesheet" href="/extraschool/static/src/css/report_invoice_summary.css"/>
+                </xpath>
 	        	<div id="invoice_summary" >
 	        		<h2><span t-esc="summary_invoice_title" /></h2>
 	        		<p>Les factures suivantes sont toujours en attente de paiement. Nous vous prions de bien vouloir procéder à leur(s) règlement(s) dans les meilleurs délais.</p>
@@ -156,109 +112,90 @@
 
 		</template>
 
-		<template id="report_invoice_summary_tournai_tableau">
-			<t t-set="zz" t-value="0" />
-			<t t-foreach="summary_invoice_ids" t-as="summary_invoice">
-				<t t-if="summary_invoice.id != invoice_id">
-					<t t-set="zz" t-value="zz+1" />
-				</t>
-			</t>
-			<t t-if="zz" >
-			    <style type="text/css">
-			        #invoice_summary{
-			    		width: 100%;
-			    		display: block;
-			    		margin: 0cm 0cm 0cm 0cm;
-			    		page-break-inside: avoid;
-			    		text-align: justify;
-			    		text-justify: inter-word;
-			    		font-size: 15px;
-			    	}
+        		<template id="report_invoice_summary_tournai_tableau_rappel">
+			<style type="text/css">
+				#invoice_summary{
+					width: 100%;
+					display: block;
+					margin: 0cm 0cm 0cm 0cm;
+					page-break-inside: avoid;
+					text-align: justify;
+					text-justify: inter-word;
+					font-size: 17px;
+				}
 
-			    	#invoice_summary div.your_ref{
-			    		width: 100%;
-			    		padding: 5mm 0mm 5mm 0mm;
-			    		display: block;
-			    	}
+				#invoice_summary div.your_ref{
+					width: 100%;
+					padding: 5mm 0mm 5mm 0mm;
+					display: block;
+				}
 
-					#invoice_summary table {
-			    		width: 100%;
-						font-size:11px;
-						border-width: 1px;
-						border-collapse: collapse;
-					}
-					#invoice_summary table th {
-						border-width: 1px;
-						padding: 4px;
-						border-style: solid;
-						background-color: #dedede;
-					}
-					#invoice_summary table td {
-						border-width: 1px;
-						padding: 4px;
-						border-style: solid;
-					}
+				#invoice_summary table {
+					width: 100%;
+					font-size:11px;
+					border-width: 1px;
+					border-collapse: collapse;
+				}
+				#invoice_summary table th {
+					border-width: 1px;
+					padding: 4px;
+					border-style: solid;
+					background-color: #dedede;
+				}
+				#invoice_summary table td {
+					border-width: 1px;
+					padding: 4px;
+					border-style: solid;
+				}
 
-					#invoice_summary table td.amount {
-			    		text-align: right;
-			    		width: 20%;
-					}
+				#invoice_summary table td.amount {
+					text-align: right;
+					width: 20%;
+				}
 
-					div#invoice_summary h2{
-			    		font-size: 12px;
-			    		font-weight: bold;
-			    	}
+				div#invoice_summary h2{
+					font-size: 12px;
+					font-weight: bold;
+				}
 
-				</style>
+			</style>
 
-	        	<div id="invoice_summary" >
-					<p>
-						<span style="font-decoration:underline; font-size: 15px;">Liste des factures couvrant cette période </span>
-					</p><br/>
-	        		<table>
-	        			<tr>
-		        			<th>Période</th>
-		        			<th>Facture</th>
-		        			<th>Echéance</th>
-		        			<th>Communication structurée</th>
-							<th>Montant</th>
+			<div id="invoice_summary" >
+				<p>
+					<span style="font-decoration:underline; font-size: 15px;">Liste des factures couvrant cette période </span>
+				</p><br/>
+				<table>
+					<tr>
+						<th>Facture n°</th>
+						<th>Période facturée</th>
+						<th>Montant</th>
+						<th>Correction</th>
+						<th>Paiement</th>
+						<th>Solde restant dû</th>
+					</tr>
+					<t t-foreach="summary_invoice_ids.sorted(key=lambda r: r.number)" t-as="summary_invoice">
+						<tr>
+							<t t-if="summary_invoice.id != invoice_id">
+								<tr>
+									<td><span t-field="summary_invoice.number" /></td>
+									<td><span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_from,'%Y-%m-%d')))" /> - <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_to,'%Y-%m-%d')))" /></td>
+									<td><span t-esc="'%.2f €' % (summary_invoice.amount_total)"/></td>
+									<td><span t-esc="'%.2f €' % (summary_invoice.no_value)" /></td>
+									<td><span t-esc="'%.2f €' % (summary_invoice.amount_received)" /></td>
+									<td class="amount"><span t-esc="'%.2f €' % (summary_invoice.balance)" /></td>
+								</tr>
+							</t>
 						</tr>
-		       			<t t-foreach="summary_invoice_ids.sorted(key=lambda r: r.number)" t-as="summary_invoice">
-	        				<tr>
-	        					<t t-if="summary_invoice.id != invoice_id">
-	        					<t t-if="summary_invoice.reminder_fees == False">
-	        						<tr>
-				       					<td><span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_from,'%Y-%m-%d')))" /> - <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_to,'%Y-%m-%d')))" /></td>
-			        					<td><span t-field="summary_invoice.number" /></td>
-				       					<td><span t-field="summary_invoice.payment_term" /></td>
-										<td><t t-esc="parent_id.get_prepaid_comstruct(categ_id)" /></td>
-				       					<td class="amount"><span t-esc="'%.2f €' %  (summary_invoice.balance)" /></td>
-
-	        						</tr>
-								</t>
-	        					<t t-if="summary_invoice.reminder_fees == True">
-	        						<t t-foreach="summary_invoice.invoice_line_ids" t-as="invoice_line">
-	        							<tr>
-					       					<td></td>
-				        					<td><span t-field="invoice_line.description" /></td>
-					       					<td><span t-field="summary_invoice.payment_term" /></td>
-											<td><t t-esc="parent_id.get_prepaid_comstruct(categ_id)" /></td>
-					       					<td class="amount"><span t-esc="TODO" /></td>
-											<!--<td class="amount"><span t-esc="'%.2f €' %  (invoice_line.balance)" /></td>-->
-				       					</tr>
-	        						</t>
-								</t>
-								</t>
-		       				</tr>
-		        		</t>
-
-	        		</table><br/><br/>
-					<span><b>TOTAL PAYÉ: <t t-esc="parent_id.totalreceived" />€</b></span><br/>
-					<span><b>SOLDE RESTANT DÛ: <t t-esc="amount" />€</b></span><br/>
-
-	       		</div>
-			</t>
-
+					</t>
+					<tr>
+						<th colspan="2">TOTAUX</th>
+						<th><span t-esc="'%.2f €' % (reminder.amount)" /></th>
+						<th><span t-esc="'%.2f €' % (sum([summary_invoice.no_value for summary_invoice in summary_invoice_ids]))"/></th>
+						<th><span t-esc="'%.2f €' % (sum([summary_invoice.amount_received for summary_invoice in summary_invoice_ids]))"/></th>
+						<th style="text-align:right;"><span t-esc="'%.2f €' % (sum([summary_invoice.balance for summary_invoice in summary_invoice_ids]))"/></th>
+					</tr>
+				</table>
+			</div>
 		</template>
 
 		<template id="report_all_invoice_summary">
@@ -269,50 +206,9 @@
 				</t>
 			</t>
 			<t t-if="zz" >
-			    <style type="text/css">
-			        #invoice_summary{
-			    		width: 100%;
-			    		display: block;
-			    		margin: 0cm 0cm 0cm 0cm;
-			    		page-break-inside: avoid;
-			    		text-align: justify;
-			    		text-justify: inter-word;
-			    	}
-
-			    	#invoice_summary div.your_ref{
-			    		width: 100%;
-			    		padding: 5mm 0mm 5mm 0mm;
-			    		display: block;
-			    	}
-
-					#invoice_summary table {
-			    		width: 100%;
-						font-size:10px;
-						border-width: 1px;
-						border-collapse: collapse;
-					}
-					#invoice_summary table th {
-						border-width: 1px;
-						padding: 2px;
-						border-style: solid;
-						background-color: #dedede;
-					}
-					#invoice_summary table td {
-						border-width: 1px;
-						padding: 2px;
-						border-style: solid;
-					}
-
-					#invoice_summary table td.amount {
-			    		text-align: right;
-			    		width: 20%;
-					}
-			    	div#invoice_summary h2{
-			    		font-size: 12px;
-			    		font-weight: bold;
-			    	}
-				</style>
-
+                <xpath expr="//head" position="inside">
+                    <link rel="stylesheet" href="/extraschool/static/src/css/report_all_invoice_summary.css"/>
+                </xpath>
 	        	<div id="invoice_summary" >
 	        		<h2><span t-esc="summary_invoice_title" /></h2>
 	        		<p>Les factures suivantes sont toujours en attente de paiement. Nous vous prions de bien vouloir procéder à leur(s) règlement(s) dans les meilleurs délais.</p>
@@ -407,17 +303,9 @@
 
 		<template id="report_hannut_all_invoice_summary_hannut_facture" inherit_id="extraschool.report_all_invoice_summary_hannut_facture" primary="True">
 			<xpath expr="//div[@id='invoice_summary']" position="before">
-				<style type="text/css">
-					div#invoice_summary h2{
-		    			font-size:12px;
-		    		}
-					div#invoice_summary p{
-		    			font-size:9px;
-		    		}
-					div#invoice_summary p{
-		    			font-size: 12px;
-		    		}
-				</style>
+                <xpath expr="//head" position="inside">
+                    <link rel="stylesheet" href="/extraschool/static/src/css/report_hannut_all_invoice_summary_hannut_facture.css"/>
+                </xpath>
 			</xpath>
 
 			<xpath expr="//div[@id='invoice_summary']/p[1]" position="inside">

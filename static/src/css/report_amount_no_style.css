@@ -1,0 +1,42 @@
+#total_row{
+    page-break-inside: avoid;
+    float: left;
+    width: 100%;
+}
+
+#total{
+    border-width: 1px;
+    border-style: solid;
+    width: 40%;
+    float: right;
+    margin: 5mm 0mm 5mm 0mm;
+}
+
+#total:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+#total>div{
+    display: block;
+    padding: 0px 8px 0px 8px;
+    width: 100%;
+    float: right;
+
+}
+
+#total>div>span.amount {
+    float : right;
+    width: 50%;
+    text-align: right;
+}
+
+#total>div>span.zz_label {
+    float : left;
+    width: 50%;
+}
+
+#total>div.to_pay {
+    font-weight: bold;
+}

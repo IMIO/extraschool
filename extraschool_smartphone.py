@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014 
+#    Copyright (C) 2008-2014
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
 #
@@ -111,6 +111,7 @@ class extraschool_smartphone(models.Model):
     maxtimedelta = fields.Integer('Max time delta', default=_get_default_maxtimedelta)
     pda_transmission_ids = fields.One2many('extraschool.pda_transmission', 'smartphone_id')
     softwareversion = fields.Char('Software version', readonly=True)
+    smartphone_log_ids = fields.One2many('extraschool.smartphone_log', 'smartphone_id')
 
     @api.one
     def update_qr_code(self,vals):
@@ -120,25 +121,24 @@ class extraschool_smartphone(models.Model):
             value=value+'1'
         else:
             value=value+'0'
-            
+
         barcode = createBarcodeImageInMemory(
                 'QR', value=value, format='png', width=400, height=400,
                 humanReadable = 0
-            )         
+            )
         vals['qrconfig'] = base64.b64encode(barcode)
         value = self.softwareurl
         barcode = createBarcodeImageInMemory(
                 'QR', value=value, format='png', width=400, height=400,
                 humanReadable = 0
-            )        
+            )
         vals['qrdownload'] = base64.b64encode(barcode)
-        
-        
+
     @api.one
     def get_currenttime(self):
         print str(datetime.today())
         return datetime.today()
-    
+
     @api.model
     def create(self,vals):
         res = super(extraschool_smartphone, self).create(vals)
@@ -158,20 +158,20 @@ class extraschool_smartphone(models.Model):
                         if presta.prestation_times_of_the_day_id.id not in pod_to_check_ids:
                             pod_to_check_ids.append(presta.prestation_times_of_the_day_id.id)
                     self.env['extraschool.prestation_times_of_the_day'].browse(pod_to_check_ids).reset()
-                                                
+
             return super(extraschool_smartphone, self).write(vals)
-        
+
         print "smartphone.write"
-        super(extraschool_smartphone, self).write(vals)  
-        print "call self.update_qr_code"             
+        super(extraschool_smartphone, self).write(vals)
+        print "call self.update_qr_code"
         self.update_qr_code(vals)
-        return super(extraschool_smartphone, self).write(vals)               
+        return super(extraschool_smartphone, self).write(vals)
 
     @api.multi
     def copy(self,vals):
-        res = super(extraschool_smartphone, self).copy(vals)               
+        res = super(extraschool_smartphone, self).copy(vals)
         res.write({})
-        return res  
+        return res
 
     @api.model
     def ws_verif_transmition(self):
@@ -182,13 +182,46 @@ class extraschool_smartphone(models.Model):
             return_dict['return_state'] = 0
             for smartphone in smartphone_error:
                 return_dict['return_log'] += "%s-%s\n" % (smartphone.name, smartphone.lasttransmissiondate)
-        
-        return return_dict            
-        
+
+        return return_dict
+
+##############################################################################
+#
+#    AESMobile
+#    Copyright (C) 2018
+#    Colicchia Michaël & Delaere Olivier - Imio (<http://www.imio.be>).
+#
+##############################################################################
+
+    @api.multi
+    def set_smartphone_error(self, smartphone_id, error, string_error):
+
+        type = "Children" if error == 1 else "Guardians"
+
+        print "Smartphone id: ", smartphone_id
+        print "Error number: ", type
+        print "Error message: ", string_error
+
+    @staticmethod
+    def set_error(cr, uid, smartphone_id, error, string_error, context=None):
+        """
+        :param cr, uid, context needed for a static method
+        :param smartphone_id: Id of the smartphone that contact us.
+        :return: Dictionnary of children {id: , nom: , prenom:, tagid:}
+        """
+        # Declare new Environment.
+        env = api.Environment(cr, uid, context={})
+        print "inside set_error"
+
+        extraschool_smartphone.set_smartphone_error(env['extraschool.smartphone'], smartphone_id, error,
+                                                    string_error)
+
+        return True
+
 class extraschool_pda_transmission(models.Model):
     _name = 'extraschool.pda_transmission'
     _description = 'PDA pda_transmission'
-    
+
     transmission_date_from = fields.Datetime('Date from')
     transmission_date_to = fields.Datetime('Date to')
     smartphone_id = fields.Many2one('extraschool.smartphone', 'Smartphone')
@@ -200,6 +233,13 @@ class extraschool_pda_transmission(models.Model):
                               ('pending', 'Pending'),
                               ('ended', 'Ended')],
                               'validated', default='init'
-                              )        
-        
+                              )
 
+class extraschool_smartphone_log(models.Model):
+    _name = 'extraschool.smartphone_log'
+    _description = 'Log pour smartphones'
+
+    title = fields.Char('Transmission')
+    date_of_transmission = fields.Datetime('Date de transmission', default=datetime.now())
+    time_of_transmission = fields.Char('Temps d\'éxécution')
+    smartphone_id = fields.Many2one('extraschool.smartphone', 'smartphone_id')

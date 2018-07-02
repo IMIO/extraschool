@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014 
+#    Copyright (C) 2008-2014
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot - Imio (<http://www.imio.be>).
 #
@@ -22,6 +22,11 @@
 ##############################################################################
 from openerp import models, api, fields
 from openerp.api import Environment
+import datetime
+import time
+import logging
+
+_logger = logging.getLogger(__name__)
 
 class extraschool_pdaprestationtimes(models.Model):
     _name = 'extraschool.pdaprestationtimes'
@@ -60,10 +65,6 @@ class extraschool_pdaprestationtimes(models.Model):
             #child deleted ...
             print "warning pda_presta of child deleted !!"
             return self
-        # todo: check smartphone first. Perhaps its the reason why some childs are not deleted from the smartphone.
-        # if not self.env['extraschool.child'].search([('id', '=', vals['childid'])]).isdisabled:
-        #     print "Child is disabled"
-        #     return self
 
         if 'type' not in vals:
             vals['type'] = 'pda'
@@ -113,5 +114,109 @@ class extraschool_pdaprestationtimes(models.Model):
                                      'type': vals['type'],
                                      'es': vals['es'],
                                      })
-        return super(extraschool_pdaprestationtimes, self).create(vals)    
 
+        return super(extraschool_pdaprestationtimes, self).create(vals)
+
+##############################################################################
+#
+#    AESMobile
+#    Copyright (C) 2018
+#    Colicchia Michaël & Delaere Olivier - Imio (<http://www.imio.be>).
+#
+##############################################################################
+
+    @api.multi
+    def import_prestations(self, dict_prestations, smartphone_id):
+        place_id = self.env['extraschool.smartphone'].search([('id', '=', smartphone_id)]).placeid.id
+        activity_category_id = self.env['extraschool.activitycategory'].search([])[0].id
+        start_time = time.time()
+
+        # Updating Tag ID of children
+        try:
+            for new_tag in dict_prestations['newTag']:
+                self.env['extraschool.child'].search([('id', '=', new_tag['pk'])]).write({'tagid': new_tag['tagId']})
+
+            self.env['extraschool.smartphone_log'].create({'title': 'Successfully updated children new tag Id',
+                                                           'time_of_transmission': time.time() - start_time,
+                                                           'smartphone_id': smartphone_id,
+                                                           })
+
+        except:
+
+            self.env['extraschool.smartphone_log'].create({'title': 'WARNING ! Error while updating children new tag Id',
+                                                           'time_of_transmission': time.time() - start_time,
+                                                           'smartphone_id': smartphone_id,
+                                                           })
+
+            return False
+
+        # Importing prestation for children
+        try:
+            pda_transmission_id = self.env['extraschool.pda_transmission'].create({
+                'transmission_date_from': datetime.datetime.now(),
+                'smartphone_id': smartphone_id,
+            })
+
+            for children in dict_prestations['children']:
+                # Xml RPC datetime to python datetime
+                datechild = datetime.datetime.strptime(str(children['date']), '%Y%m%dT%H%M%S')
+
+                #  Convert time to float
+                prestation_time = datechild.hour + datechild.minute / 60.0
+
+                self.create({   'childid': children['pk'],
+                                'placeid': place_id,
+                                'prestation_date': datechild.date(),
+                                'prestation_time': prestation_time,
+                                'es': children['eventType'],
+                                'activitycategoryid': activity_category_id,
+                                'pda_transmission_id': pda_transmission_id.id,
+                            })
+
+            self.env['extraschool.smartphone_log'].create({'title': 'Successfully imported children prestation',
+                                                           'time_of_transmission': time.time() - start_time,
+                                                           'smartphone_id': smartphone_id,
+                                                           })
+
+        except:
+
+            self.env['extraschool.smartphone_log'].create({'title': 'WARNING ! Error while receiving children prestation data',
+                                                           'time_of_transmission': time.time() - start_time,
+                                                           'smartphone_id': smartphone_id,
+                                                           })
+
+            return False
+
+        #Importing prestation for guardians
+        try:
+            for sitters in dict_prestations['sitters']:
+                # Xml RPC datetime to python datetime
+                datesitter = datetime.datetime.strptime(str(sitters['date']), '%Y%m%dT%H%M%S')
+
+                #  Convert time to float
+                prestation_time = datesitter.hour + datesitter.minute / 60.0
+
+                self.env['extraschool.guardianprestationtimes'].create({   'guardianid': sitters['pk'],
+                                                                            'prestation_date': datesitter.date(),
+                                                                            'prestation_time': prestation_time,
+                                                                            'es': sitters['eventType'],
+                                                                            'activitycategoryid': activity_category_id,
+                                                                            'manualy_encoded': False,
+                                                                            })
+
+        except:
+            self.env['extraschool.smartphone_log'].create({'title': 'WARNING ! Error while receiving guardians prestation data',
+                                                           'time_of_transmission': time.time() - start_time,
+                                                           'smartphone_id': smartphone_id,
+                                                           })
+
+            return False
+
+        return True
+
+    @staticmethod
+    def send_data(cr, uid, dict_prestations, smartphone_id, context=None):
+        # Declare new Environment.
+        env = api.Environment(cr, uid, context={})
+
+        return extraschool_pdaprestationtimes.import_prestations(env['extraschool.pdaprestationtimes'], dict_prestations, smartphone_id)

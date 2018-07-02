@@ -1,0 +1,14 @@
+#doc_resp_sign{
+    page-break-inside: avoid;
+    display: block;
+    width: 100%;
+    font-size:12px;
+}
+
+#doc_resp_sign>div{
+    float: right;
+}
+
+#doc_resp_sign>div>span{
+    display:block;
+}

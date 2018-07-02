@@ -7,34 +7,14 @@
 		</template>
 
 		<template id="report_spacer_1cm">
-		    <style type="text/css">
-		    	.aes_spacer1cm{
-		    		display: block;
-		    		width: 100%;
-		    		height: 1cm;
-		    		clear: both;
-		    	}
-			</style>
-
-			<div class="aes_spacer1cm">
+			<div style="display: block;width: 100%;height: 1cm;clear: both;">
 			</div>
 		</template>
 
 		<template id="report_spacer_2cm">
-		    <style type="text/css">
-		    	.aes_spacer2cm{
-		    		display: block;
-		    		width: 100%;
-		    		height: 2cm;
-		    		clear: both;
-		    	}
-			</style>
-
-			<div class="aes_spacer2cm">
+			<div style="display: block;width: 100%;height: 2cm;clear: both;">
 			</div>
 		</template>
-
-
 	</data>
 </openerp>
 

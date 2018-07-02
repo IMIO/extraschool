@@ -117,6 +117,10 @@ class extraschool_invoice(models.Model):
     def is_echue(self):
         return True if self.payment_term < fields.Datetime.now() else False
 
+    @api.multi
+    def is_echue_and_not_reminder(self):
+        return False if self.last_reminder_id else True
+
 
     @api.multi
     def reconcil(self):
