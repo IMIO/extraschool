@@ -54,10 +54,10 @@ restart-Braine-l-Alleud:
   when: manual
   
 restart-Dinant:
-stage: restart
-script:
-- mco shell run '/srv/docker_scripts/dinant_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
-when: manual
+  stage: restart
+  script:
+    - mco shell run '/srv/docker_scripts/dinant_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
+  when: manual
 
 restart-Ferrieres:
   stage: restart
