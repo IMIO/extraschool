@@ -128,6 +128,13 @@ class extraschool_child(models.Model):
     def unlink(self):
         self.isdisabled = True
 
+    @api.multi
+    def send_data(self):
+        self.env['extraschool.smartphone_detail_log'].create({
+            'text': '<h3>hello world</h3>',
+            'smartphone_id': 1,
+        })
+
 ##############################################################################
 #
 #    AESMobile
