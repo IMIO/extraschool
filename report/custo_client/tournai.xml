@@ -9,9 +9,8 @@
 						margin: 0cm 0cm 0cm 0cm;
 						page-break-inside: avoid;
 						text-align: justify;
-					  	font-family:Calibri !important;
 						text-justify: inter-word;
-						font-size: 13px;
+						font-size: 11px;
 					 }
 
 					 #invoice_summary div.your_ref{
@@ -58,13 +57,12 @@
 				  <style type="text/css">
 					  #invoice_summary{
 						width: 100%;
-					  	font-family:Calibri !important;
 						display: block;
 						margin: 0cm 0cm 0cm 0cm;
 						page-break-inside: avoid;
 						text-align: justify;
 						text-justify: inter-word;
-						font-size: 13px;
+						font-size: 11px;
 					 }
 
 					  .ecrit {
@@ -87,7 +85,7 @@
 				 </style>
 					  <div id="invoice_summary" >
 						 <p>
-							 Objet: Factures AES pour la période du <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/> - <b>MISE EN DEMEURE AVANT CONTRAINTE NON FISCALE– art. L1124-40§1, 1° CDLD</b><br/>
+							 Objet: Factures AES pour la période du <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/><br/> <b><span style=" margin-left:40px;">MISE EN DEMEURE AVANT CONTRAINTE NON FISCALE– art. L1124-40§1, 1° CDLD</span></b><br/>
 					   Nos réf. : AES / <t t-esc="reminder.reminders_journal_id.name"/> / <t t-esc="parent_id.name" /><br/><br/><br/>
 						Cher Parent, <br/><br/>
 
@@ -100,7 +98,7 @@
 
 						Si entretemps, la somme a été réglée, veuillez considérer ce rappel comme nul et non avenu.<br/><br/>
 
-					   Si vous estimez toutefois ne pas être redevable du montant qui vous est réclamé, nous vous prions de formuler <p class="ecrit">par écrit</p> les motifs de votre contestation,
+					   Si vous estimez toutefois ne pas être redevable du montant qui vous est réclamé, nous vous prions de formuler <span class="ecrit">par écrit</span> les motifs de votre contestation,
 						dès réception de la présente en veillant à bien indiquer la référence du présent courrier. <br/><br/>
 
 					   Nous profitons également de ce courrier pour vous informer qu’à défaut de recevoir soit un paiement endéans le délai imparti, soit le courrier de contestation dûment motivé dont question ci-dessus,
