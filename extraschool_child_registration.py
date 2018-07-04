@@ -306,6 +306,7 @@ class extraschool_child_registration(models.Model):
                                            ('occurrence_date','=', current_day_date)])
                     if len(occu) == 1:
                         for line in line_days[current_day_date.weekday()]:
+                            # This will elaborate the error message to help the user find the error.
                             try:
                                 occu_reg.create({'activity_occurrence_id': occu.id,
                                                  'child_id' :line.child_id.id,
@@ -313,12 +314,14 @@ class extraschool_child_registration(models.Model):
                                                  })
                                 if self.activity_id.autoaddchilds:
                                     pod_to_reset = list(set(pod_to_reset + occu.add_presta(occu, line.child_id.id, None,False)))
+                            # Catch the error message to use it.
                             except Exception as e:
                                 message = str(e)
 
+                                # Get the period of the duplicate and the name of activity and the ID of the registration.
                                 occu_id, child_id = message[162:-18].split(', ')
                                 sql_query = """
-                                                SELECT cr.date_from, cr.date_to, a.name
+                                                SELECT cr.date_from, cr.date_to, a.name, cr.id
                                                 FROM extraschool_child_registration AS cr
                                                 INNER JOIN extraschool_activity AS a
                                                 ON cr.activity_id = a.id
@@ -331,12 +334,14 @@ class extraschool_child_registration(models.Model):
                                                         )
                                                 """
 
+                                # Need to open a new cursor. I followed the good practice to avoid errors.
                                 new_cr = self.pool.cursor()
                                 new_cr.execute(sql_query, (occu_id, child_id))
                                 activity_error = new_cr.dictfetchone()
                                 new_cr.commit()
                                 new_cr.close()
 
+                                # Another new cursor to get child's complete name.
                                 child_cr = self.pool.cursor()
                                 child_sql_query = """
                                                         SELECT firstname || ' ' || lastname as Name
@@ -350,10 +355,12 @@ class extraschool_child_registration(models.Model):
                                 child_cr.close()
 
                                 raise Warning(_(
-                                    "The child %s already has a registration on the activity %s from date %s to date %s") % (
-                                                  name_child['name'], activity_error['name'],
-                                                  activity_error['date_from'],
-                                                  activity_error['date_to']))
+                                    "The child %s already has a registration on the activity %s from date %s to date %s. You can find the duplicate at ID: %s") % (
+                                                    name_child['name'], activity_error['name'],
+                                                    activity_error['date_from'],
+                                                    activity_error['date_to'],
+                                                    activity_error['id'],
+                                ))
 
             for pod in self.env['extraschool.prestation_times_of_the_day'].browse(pod_to_reset):
                 pod.reset()
