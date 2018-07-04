@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+        <record model="ir.ui.view" id="extraschool_organising_power_form">
+            <field name="name">extraschool.organising_power.form</field>
+            <field name="model">extraschool.organising_power</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            <form string="Place">
+                <sheet>
+                    <group col="2">
+                        <field name="town"/>
+                        <field name="activity_category_ids"/>
+                    </group>
+                </sheet>
+            </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_extraschool_organising_power">
+			<field name="name">Organising Power</field>
+			<field name="res_model">extraschool.organising_power</field>
+			<field name="view_type">form</field>
+		</record>
+	</data>
+</openerp>

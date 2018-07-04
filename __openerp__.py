@@ -40,6 +40,7 @@
         'scripts/update_seq.xml',
 
         'views/extraschool_activitycategory.xml',
+        'views/extraschool_organising_power.xml',
         'views/extraschool_activity.xml',
         'views/extraschool_activityoccurrence.xml',
         'views/extraschool_activity_occurrence_correction_wizard.xml',

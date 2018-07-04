@@ -82,16 +82,11 @@ class extraschool_smartphone(models.Model):
     def _get_default_transfertmethod(self):
         return self.env['extraschool.config_smartphone'].search([])[-1].transfertmethod
 
-    def _get_activity_category_id(self):
-        return self.env['extraschool.config_smartphone'].search([])[-1].activitycategory_id.ids
-
-
     name = fields.Char('Name', size=50)
     placeid = fields.Many2one('extraschool.place', 'Schoolcare Place', required=True)
     activitycategories_ids = fields.Many2many('extraschool.activitycategory',
                                               'extraschool_smartphone_activitycategory_rel', 'smartphone_id',
-                                              'activitycategory_id', 'Activity categories',
-                                              default=_get_activity_category_id, readonly=True)
+                                              'activitycategory_id', 'Activity categories', readonly=True)
 
 
     lasttransmissiondate = fields.Datetime('Last Transmission Date', readonly=True)

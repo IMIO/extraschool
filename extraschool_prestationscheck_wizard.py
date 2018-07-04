@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014 
+#    Copyright (C) 2008-2014
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot - Imio (<http://www.imio.be>).
 #
@@ -44,42 +44,39 @@ from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
 
 class extraschool_prestationscheck_wizard(models.TransientModel):
     _name = 'extraschool.prestationscheck_wizard'
-    
+
     def _get_defaultfrom(self):
         #look for first oldest prest NOT verified
         prestationtimes_rs = self.env['extraschool.prestationtimes'].search([('verified', '=', False)], order='prestation_date ASC', limit=1)
 
-        if prestationtimes_rs: #If a presta not verified exist 
-            fromdate = datetime.datetime.strptime(prestationtimes_rs[0].prestation_date, DEFAULT_SERVER_DATE_FORMAT)        
+        if prestationtimes_rs: #If a presta not verified exist
+            fromdate = datetime.datetime.strptime(prestationtimes_rs[0].prestation_date, DEFAULT_SERVER_DATE_FORMAT)
             user_time_zone = self.env.context.get('tz', False) #self.env.user.tz si ca ne fct pas !!!
-            local = pytz.timezone (user_time_zone) 
+            local = pytz.timezone (user_time_zone)
             fromdate = local.localize(fromdate, is_dst=False)
-            return fromdate.strftime("%Y-%m-%d")  
+            return fromdate.strftime("%Y-%m-%d")
         else:
             date_now = datetime.datetime.now()
             return str(datetime.date(date_now.year,date_now.month,1))
 
-    def _get_defaultto(self):          
+    def _get_defaultto(self):
         return datetime.datetime.now().strftime("%Y-%m-%d")
 
-    def _get_activity_category_id(self):
-        return self.env['extraschool.activitycategory'].search([]).filtered('id').id
-    
     period_from = fields.Date(default=_get_defaultfrom)
     period_to = fields.Date(default=_get_defaultto)
-    activitycategory = fields.Many2one('extraschool.activitycategory', default=_get_activity_category_id)
-    force = fields.Boolean(string="Force verification")              
+    activitycategory = fields.Many2one('extraschool.activitycategory')
+    force = fields.Boolean(string="Force verification")
     state = fields.Selection([('init', 'Init'),
                                 ('prestations_to_verify', 'Prestations to verify'),
                                 ('end_of_verification', 'End of verification')],
-                               'State', default='init', required=True)    
-        
+                               'State', default='init', required=True)
+
     def get_prestation_activityid(self, prestation):
         #dico of return value
         return_val = {'return_code': 0,
                       'error_msg' : 'Unknown Error',
                       'occurrence_id' : -1}
-        
+
         obj_activity_occurrence = self.env['extraschool.activityoccurrence']
         obj_activity_child_registration = self.env['extraschool.activity_occurrence_child_registration']
 
@@ -89,9 +86,9 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
         # voir si il ne fut pas ajouter le critère de selection en fonction de l'entree par defaut
         # si entree  on cherche les activité avec sortie par defaut ou forfaitaire
         #
-        
+
         if prestation.es == 'E':
-            #get occurrence of the presta day matching the time slot      
+            #get occurrence of the presta day matching the time slot
             occurrence_rs = obj_activity_occurrence.search([('place_id','=',prestation.placeid.id),
                                                             ('occurrence_date','=',prestation.prestation_date),
                                                             ('activityid.prest_from','<=',prestation.prestation_time),
@@ -103,7 +100,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
 #                                                            ('activityid.default_from_to', '=', 'to'),
                                                             ])
         else:
-            #get occurrence of the presta day matching the time slot      
+            #get occurrence of the presta day matching the time slot
             occurrence_rs = obj_activity_occurrence.search([('place_id','=',prestation.placeid.id),
                                                             ('occurrence_date','=',prestation.prestation_date),
                                                             ('activityid.prest_from','<',prestation.prestation_time),
@@ -112,54 +109,54 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
 #                                                            ('activityid.onlyregisteredchilds','=',False),
 #                                                            '|',
 #                                                            ('activityid.default_from_to', '=', 'from_to'),
-#                                                            ('activityid.default_from_to', '=', 'from'),                                                            
+#                                                            ('activityid.default_from_to', '=', 'from'),
                                                             ])
-            
-            
+
+
         if not occurrence_rs:  #Error No matching occurrence found
             return_val['error_msg'] = "No matching occurrence found"
             return return_val
-        
-        
+
+
         occu_reg = occurrence_rs.filtered(lambda r: prestation.childid.id in [reg.child_id.id for reg in r.child_registration_ids])
 #        print "occu reg = %s" % (occu_reg)
-        
+
         if occu_reg:
-            return_val['return_code'] = 1   
-            return_val['occurrence_id'] = occu_reg[0].id 
+            return_val['return_code'] = 1
+            return_val['occurrence_id'] = occu_reg[0].id
             return return_val
-                            
-        
+
+
         #filter occurence to remove occurence with registration if "only registered"
         occurrence_no_register_rs = occurrence_rs.filtered(lambda r: not r.activityid.onlyregisteredchilds)
-        
+
         #try to find a leaf matching the time slot !!! We should use occurrence__child_ids
         occurrence_leaf_rs = occurrence_no_register_rs.filtered(lambda r: not r.activityid.activity_child_ids)
 
-        
+
         if len(occurrence_leaf_rs) > 1:  #Error more than 1 leaf occurrence found
             return_val['error_msg'] = "Plusieurs activités trouvées"
             return return_val
 
         if occurrence_leaf_rs: #One occurrence found
-            return_val['return_code'] = 1   
-            return_val['occurrence_id'] = occurrence_leaf_rs[0].id     
+            return_val['return_code'] = 1
+            return_val['occurrence_id'] = occurrence_leaf_rs[0].id
             return return_val
-        
+
         #try to find a branch matching the time slot
         occurrence_branch_rs = occurrence_no_register_rs.filtered(lambda r: r.activityid.activity_child_ids)
-        
+
         if len(occurrence_branch_rs) > 1:  #Error more than 1 obranch ccurrence found
             return_val['error_msg'] = "Plusieurs activités trouvées"
             return return_val
 
         if occurrence_branch_rs: #One occurrence found
-            return_val['return_code'] = 1   
-            return_val['occurrence_id'] = occurrence_branch_rs[0].id     
+            return_val['return_code'] = 1
+            return_val['occurrence_id'] = occurrence_branch_rs[0].id
             return return_val
-        
+
         return return_val
-        
+
     def _prestation_activity_occurrence_completion(self,prestation):
         #Look for activityoccurrence maching the prestation
         res = self.get_prestation_activityid(prestation)
@@ -168,37 +165,37 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
             prestation.error_msg = res['error_msg']
         else:
             prestation.activity_occurrence_id = res['occurrence_id']
-                
+
         return self
-            
-    def _check(self, force = False): 
+
+    def _check(self, force = False):
         cr,uid = self.env.cr, self.env.user.id
-        
+
         print "# Check prestations from wizard"
-        if not force:    
+        if not force:
             prestation_search_domain = [('verified', '=', False),]
         else:
             prestation_search_domain = []
-            
+
         if self.activitycategory:
             prestation_search_domain.append(('activity_category_id.id', '=', self.activitycategory[0].id))
         if self.period_from:
             prestation_search_domain.append(('prestation_date', '>=', self.period_from))
         if self.period_to:
             prestation_search_domain.append(('prestation_date', '<=', self.period_to))
-                                    
+
         obj_prestation_rs = self.env['extraschool.prestationtimes'].search(prestation_search_domain)
-        
+
         prestation_ids = obj_prestation_rs.ids
-                
+
         #add activity occurrence when missing
-        for prestation in obj_prestation_rs.filtered(lambda r: not r.activity_occurrence_id):   
-#            print "add activity occurrence id "       
+        for prestation in obj_prestation_rs.filtered(lambda r: not r.activity_occurrence_id):
+#            print "add activity occurrence id "
             self._prestation_activity_occurrence_completion(prestation)
-        
+
         #get distinc presta of the day
         obj_prestation_of_the_day_rs = self.env['extraschool.prestation_times_of_the_day'].search([('prestationtime_ids', 'in', prestation_ids)])
-        
+
         if force:
             obj_prestation_rs.write({'verified': False,})
             obj_prestation_of_the_day_rs.write({'verified': False,})
@@ -223,7 +220,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
 
         self.state = 'end_of_verification'
         print "## END CHECK PRESTATIONS ##"
-        
+
         #construct domain for redirect user to unverified presta matching his selection
         prestation_search_domain = []
         if self.activitycategory:
@@ -240,14 +237,14 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
                 'view_type': 'form',
                 'view_mode': 'tree,form',
                 'view_id': view_id,
-                'nodestroy': 'current',                     
+                'nodestroy': 'current',
                 'domain': prestation_search_domain,
                 'context': {'search_default_not_verified':1}
-            }        
-    
-    @api.multi    
-    def action_prestationscheck(self):  
-        self.env['extraschool.prestation_times_of_the_day'].merge_duplicate_pod()  
+            }
+
+    @api.multi
+    def action_prestationscheck(self):
+        self.env['extraschool.prestation_times_of_the_day'].merge_duplicate_pod()
         return self._check(self.force)
 
 

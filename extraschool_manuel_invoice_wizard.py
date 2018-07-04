@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014 
+#    Copyright (C) 2008-2014
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
 #
@@ -33,12 +33,9 @@ from datetime import date, datetime, timedelta as td
 class extraschool_manuel_invoice_wizard(models.TransientModel):
     _name = 'extraschool.manuel_invoice_wizard'
 
-    def _get_activity_category_id(self):
-        return self.env['extraschool.activitycategory'].search([]).filtered('id').id
-
     parent_id = fields.Many2one("extraschool.parent")
     invoice_date = fields.Date('Date', required=True)
-    payment_term = fields.Date('Payment term', required=True)     
+    payment_term = fields.Date('Payment term', required=True)
     description = fields.Char('Description', required=True)
     invoice_child = fields.Boolean('One invoice / child')
     leveltype = fields.Selection((('M,P','Maternelle et Primaire'),
@@ -46,7 +43,7 @@ class extraschool_manuel_invoice_wizard(models.TransientModel):
                                   ('P','Primaire')),
                                  'Level type')
     amount = fields.Float('Amount', required=True)
-    activity_category_id = fields.Many2one("extraschool.activitycategory", required=True, default=_get_activity_category_id)
+    activity_category_id = fields.Many2one("extraschool.activitycategory", required=True)
     state = fields.Selection([('init', 'Init'),
                              ('redirect', 'Redirect'),],
                             'State', required=True, default='init'
@@ -63,7 +60,7 @@ class extraschool_manuel_invoice_wizard(models.TransientModel):
 
     @api.multi
     def generate_invoice(self):
-        if len(self._context.get('active_ids')):                    
+        if len(self._context.get('active_ids')):
             #create a bille to store invoice
             biller = self.env['extraschool.biller'].create({'period_from' : self.invoice_date,
                                                             'period_to' : self.invoice_date,
@@ -72,11 +69,11 @@ class extraschool_manuel_invoice_wizard(models.TransientModel):
                                                             })
         else:
             return True
-        
+
         payment_obj = self.env['extraschool.payment']
         invoice_ids = []
-        inv_obj = self.env['extraschool.invoice']  
-        inv_line_obj = self.env['extraschool.invoicedprestations']  
+        inv_obj = self.env['extraschool.invoice']
+        inv_line_obj = self.env['extraschool.invoicedprestations']
         for parent in self.env['extraschool.parent'].browse(self._context.get('active_ids')):
             if self.invoice_child:
                 for child in parent.child_ids:
@@ -97,10 +94,10 @@ class extraschool_manuel_invoice_wizard(models.TransientModel):
                             'quantity': 1,
                             'total_price': self.amount,
                             })
-                                                
+
                         # next_invoice_num += 1
                         invoice_ids.append(invoice.id)
-                    
+
             else:
                 next_invoice_num = self.activity_category_id.get_next_comstruct('invoice',biller.get_from_year())
                 invoice = inv_obj.create({'name' : _('invoice_%s') % (next_invoice_num['num'],),
@@ -118,11 +115,11 @@ class extraschool_manuel_invoice_wizard(models.TransientModel):
                     })
                 # next_invoice_num += 1
                 invoice_ids.append(invoice.id)
-        
+
         inv_obj.browse(invoice_ids).reconcil()
-        
+
         return True
 
 
 
-    
+

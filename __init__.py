@@ -89,4 +89,5 @@ import extraschool_payment_wizard
 import extraschool_config_smartphone
 import extraschool_query_sql
 import extraschool_child_fusion_wizard
+import extraschool_organising_power
 

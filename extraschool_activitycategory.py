@@ -60,6 +60,7 @@ class extraschool_activitycategory(models.Model):
     po_addresse_free_text = fields.Char('Adresse texte libre')
     po_addresse_free_text2 = fields.Char('Adresse texte libre 2')
 
+    organising_power_id = fields.Many2one('extraschool.organising_power', 'Organising Power')
 
     activities = fields.One2many('extraschool.activity', 'category','Activities')
     placeids = fields.Many2many('extraschool.place','extraschool_activitycategory_place_rel', 'activitycategory_id', 'place_id','Schoolcare place')

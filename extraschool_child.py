@@ -33,11 +33,8 @@ class extraschool_child(models.Model):
     _description = 'Child'
     _inherit = 'mail.thread'
 
-    def _get_activity_category_id(self):
-        return self.env['extraschool.activitycategory'].search([]).filtered('id')
-
     activitycategoryid = fields.Many2one('extraschool.activitycategory', 'Activity Category',
-                                         track_visibility='onchange', default=_get_activity_category_id)
+                                         track_visibility='onchange')
     name = fields.Char(compute='_name_compute',string='FullName', search='_search_fullname', size=100)
     childtypeid = fields.Many2one('extraschool.childtype', 'Type',required=True, ondelete='restrict', help='Ce champs permet de définir si l\'enfant a le droit à un tarif préférentiel (ex: enfants du CPAS, enfants de la croix rouge, enfants des accueillantes,...)')
     rn = fields.Char('RN')

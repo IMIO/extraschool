@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014 
+#    Copyright (C) 2008-2014
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot - Imio (<http://www.imio.be>).
 #
@@ -36,9 +36,6 @@ from datetime import datetime
 class extraschool_payment_wizard(models.TransientModel):
     _name = 'extraschool.payment_wizard'
 
-    def _get_activity_category_id(self):
-        return self.env['extraschool.activitycategory'].search([]).filtered('id').id
-
     '''
     payment_type = fields.Selection((('1','Prepaid'),
                                     ('2','Invoice'),
@@ -46,10 +43,10 @@ class extraschool_payment_wizard(models.TransientModel):
     '''
     payment_date = fields.Date('Date', default=datetime.now(), required=True)
     amount = fields.Float('Amount', digits_compute=dp.get_precision('extraschool_invoice'), required=True)
-    reconciliation_amount_balance = fields.Float(compute="_compute_reconciliation_amount_balance", string='Amount to reconcil')    
+    reconciliation_amount_balance = fields.Float(compute="_compute_reconciliation_amount_balance", string='Amount to reconcil')
     reconciliation_amount = fields.Float(compute="_compute_reconciliation_amount", string='Amount reconcilied')
     parent_id = fields.Many2one("extraschool.parent")
-    activity_category_id = fields.Many2one("extraschool.activitycategory", default=_get_activity_category_id)
+    activity_category_id = fields.Many2one("extraschool.activitycategory")
     payment_reconciliation_ids = fields.One2many('extraschool.payment_wizard_reconcil','payment_wizard_id')
     reject_id = fields.Many2one('extraschool.reject', string='Reject')
     comment = fields.Char('Comment')
@@ -62,20 +59,20 @@ class extraschool_payment_wizard(models.TransientModel):
     @api.onchange('parent_id','amount','activity_category_id')
     @api.one
     def _on_change_payment_type(self):
-        
+
         self.payment_reconciliation_ids = [(5, 0, 0)]
         print "self.activity_category_id : %s" % (self.activity_category_id)
         reconciliations = []
         if len(self.activity_category_id) and self.parent_id:
             reconciliations = self.env['extraschool.payment']._get_reconciliation_list(self.parent_id.id,self.activity_category_id.payment_invitation_com_struct_prefix,1,self.amount)
-            
+
         tmp_payment_reconciliation_ids = []
-        for reconciliation in reconciliations:           
+        for reconciliation in reconciliations:
             tmp_payment_reconciliation_ids.append((0,0,reconciliation))
-            
+
         print "reconcil : %s" % (tmp_payment_reconciliation_ids)
         self.payment_reconciliation_ids = tmp_payment_reconciliation_ids
-    
+
 
     @api.onchange('reconciliation_amount')
     @api.depends('reconciliation_amount')
@@ -97,7 +94,7 @@ class extraschool_payment_wizard(models.TransientModel):
 #                 'parent_id': self.env.context.get('parent_id'),
 #                 'reject_id': self.env.context.get('reject_id'),
 #                 'amount': self.env.context.get('amount'),}
-# 
+#
 #         return {'state': 'init',
 #                 'parent_id': self.env.context.get('parent_id'),
 #                 'reject_id': self.env.context.get('reject_id'),
@@ -114,14 +111,14 @@ class extraschool_payment_wizard(models.TransientModel):
         for r in self.payment_reconciliation_ids:
             total += r.amount
             print "total = %s, amount = %s" % (r.amount,r.invoice_balance)
-            if float_compare(r.amount,r.invoice_balance,2) > 0  : 
+            if float_compare(r.amount,r.invoice_balance,2) > 0  :
                 print "boum !!"
-                zz += 1             
-        
+                zz += 1
+
         if zz:
             print "At least one reconciliation line is not correct : amount greater than balance"
             raise Warning(_("At least one reconciliation line is not correct : amount greater than balance"))
-        
+
         '''
         #if invoice payment amount reconcil MUST be equal to payment amount
         print "type: %s amount: %s total: %s" % (self.payment_type,self.amount,total)
@@ -129,14 +126,14 @@ class extraschool_payment_wizard(models.TransientModel):
             print "Reconcil amount MUST be equal to payment amount"
             raise Warning(_("Reconcil amount MUST be equal to payment amount"))
         '''
-        
+
         #Amount must be >= reconcil
         if total - self.amount >= 0.0000001:
             print "--- total: %s amount: %s diff : %s---" % (total,self.amount,total-self.amount)
             print "Reconcil amount MUST be less than payment amount"
             raise Warning(_("Reconcil amount MUST be less than payment amount"))
-        
-        
+
+
         self.create_payment()
 
     @api.multi
@@ -145,19 +142,19 @@ class extraschool_payment_wizard(models.TransientModel):
         print "-------------------"
         print self.reject_id
         print "-------------------"
-        
+
         payment = payment.create({'parent_id': self.parent_id.id,
                         'paymentdate': self.payment_date,# This is Coda date.
                         'structcom_prefix': self.activity_category_id.payment_invitation_com_struct_prefix,
                         'amount': self.amount,
                         'reject_id': self.reject_id.id if self.reject_id else False,
                         'comment': self.comment})
-        
+
         if self.reject_id:
             self.env['extraschool.reject'].browse(self.reject_id.id).corrected_payment_id = payment.id
-        
+
         print "payment id : %s" % (payment.id)
-        
+
         payment_reconciliation = self.env['extraschool.payment_reconciliation']
         for reconciliation in self.payment_reconciliation_ids:
             payment_reconciliation.create({'payment_id' : payment.id,
@@ -166,7 +163,7 @@ class extraschool_payment_wizard(models.TransientModel):
                                            'date' : fields.Date.today()})# Todo: si la date facture <= coda: date coda sinon date facture
             reconciliation.invoice_id._compute_balance()
         return {}
-         
+
 class extraschool_payment_wizard_reconcil(models.TransientModel):
     _name = 'extraschool.payment_wizard_reconcil'
 
@@ -175,4 +172,4 @@ class extraschool_payment_wizard_reconcil(models.TransientModel):
     invoice_balance = fields.Float(related="invoice_id.balance", string = "Balance")
     amount = fields.Float('Amount', digits_compute=dp.get_precision('extraschool_invoice'), required=True)
     tag = fields.Many2one(related='invoice_id.tag', store=True)
-    
+

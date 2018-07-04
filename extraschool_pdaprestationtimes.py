@@ -32,11 +32,8 @@ class extraschool_pdaprestationtimes(models.Model):
     _name = 'extraschool.pdaprestationtimes'
     _description = 'PDA Prestation Times'
 
-    def _get_activity_category_id(self):
-        return self.env['extraschool.activitycategory'].search([]).filtered('id').id
-
     placeid = fields.Many2one('extraschool.place', 'Schoolcare Place', required=True)
-    activitycategoryid = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False, default=_get_activity_category_id)
+    activitycategoryid = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False)
     childid = fields.Many2one('extraschool.child', 'Child', required=False)
     prestation_date = fields.Date('Date')
     prestation_time = fields.Float('Time')
