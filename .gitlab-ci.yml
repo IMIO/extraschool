@@ -46,6 +46,12 @@ restart-Ans:
   script:
     - mco shell run '/srv/docker_scripts/ans_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
   when: manual
+  
+restart-Assesse:
+  stage: restart
+  script:
+    - mco shell run '/srv/docker_scripts/assesse_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
+  when: manual
 
 restart-Braine-l-Alleud:
   stage: restart
@@ -58,11 +64,29 @@ restart-Dinant:
   script:
     - mco shell run '/srv/docker_scripts/dinant_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
   when: manual
+  
+restart-Dour:
+  stage: restart
+  script:
+    - mco shell run '/srv/docker_scripts/dour_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
+  when: manual
+  
+restart-Durbuy:
+  stage: restart
+  script:
+    - mco shell run '/srv/docker_scripts/durbuy_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
+  when: manual
 
 restart-Ferrieres:
   stage: restart
   script:
     - mco shell run '/srv/docker_scripts/ferrieres_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
+  when: manual
+  
+restart-Fleron:
+  stage: restart
+  script:
+    - mco shell run '/srv/docker_scripts/fleron_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
   when: manual
   
 restart-Ittre:
