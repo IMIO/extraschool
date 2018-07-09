@@ -34,7 +34,7 @@ class extraschool_child(models.Model):
     _inherit = 'mail.thread'
 
     def _get_activity_category_id(self):
-        return self.env['extraschool.activitycategory'].search([]).filtered('id')
+        return self.env['extraschool.activitycategory'].search([])[0].filtered('id')
 
     activitycategoryid = fields.Many2one('extraschool.activitycategory', 'Activity Category',
                                          track_visibility='onchange', default=_get_activity_category_id)

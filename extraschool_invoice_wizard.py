@@ -96,14 +96,14 @@ class extraschool_invoice_wizard(models.TransientModel):
         school_implantation_ids = self.env['extraschool.schoolimplantation'].search([]).mapped('id')
         return school_implantation_ids
 
-    def _get_activity_category_id(self):
-        return self.env['extraschool.activitycategory'].search([]).filtered('id').id
+    def _get_status(self):
+        return True if self.env['extraschool.biller'].search([('in_creation', '=', True)]) else False
 
     schoolimplantationid = fields.Many2many(comodel_name='extraschool.schoolimplantation',
                                relation='extraschool_invoice_wizard_schoolimplantation_rel',
                                column1='invoice_wizard_id',
                                column2='schoolimplantation_id', default=_get_all_schoolimplantation, readonly=True)
-    activitycategory = fields.Many2one('extraschool.activitycategory', 'Activity category', required=True, default=_get_activity_category_id)
+    activitycategory = fields.Many2one('extraschool.activitycategory', 'Activity category', required=True)
     period_from = fields.Date('Period from', required=True, default=_get_defaultfrom, help='Date où l\'on va commencer la facturation')
     period_to = fields.Date('Period to', required=True, default=_get_defaultto, help='Date où l\'on va terminer la facturation')
     invoice_date = fields.Date('invoice date', required=True, default=_get_defaultto)
@@ -114,6 +114,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                               ('compute_invoices', 'Compute invoices')],
                              'State', required=True, default='init'
                              )
+    isready = fields.Boolean(default=_get_status)
 
 
 
@@ -746,6 +747,7 @@ class extraschool_invoice_wizard(models.TransientModel):
 
         view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','extraschool.biller'),
                                                              ('name','=','Biller.form')])
+
         return {
                 'type': 'ir.actions.act_window',
                 'res_model': 'extraschool.biller',
@@ -763,4 +765,3 @@ class extraschool_invoice_wizard(models.TransientModel):
     @api.multi
     def action_compute_invoices(self):
         return self._new_compute_invoices()
-

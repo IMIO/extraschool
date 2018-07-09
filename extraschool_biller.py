@@ -48,7 +48,7 @@ class extraschool_biller(models.Model):
     _order = "id desc"
 
     def _get_activity_category_id(self):
-        return self.env['extraschool.activitycategory'].search([]).filtered('id').id
+        return self.env['extraschool.activitycategory'].search([])[0].filtered('id').id
 
     activitycategoryid = fields.Many2one('extraschool.activitycategory', 'Activity Category', track_visibility='onchange', default=_get_activity_category_id)
     period_from = fields.Date('Period from')
@@ -68,6 +68,7 @@ class extraschool_biller(models.Model):
     biller_file = fields.Binary('File', readonly=True)
     pdf_ready = fields.Boolean(string="Pdf ready", default=False)
     oldid = fields.Integer('oldid')
+    in_creation = fields.Boolean(default=True)
 
     @api.multi
     def biller_refactor(self):
@@ -359,6 +360,26 @@ class extraschool_biller(models.Model):
             self.env['report'].get_pdf(invoice, 'extraschool.invoice_report_layout')
 
         self.pdf_ready = True
+        self.in_creation = False
+
+        self.send_mail()
+
+    @api.multi
+    def send_mail(self):
+        import smtplib
+
+        server = smtplib.SMTP('mailrelay.imio.be', 25)
+        server.starttls()
+
+        message = "La création du facturier et la génération des PDF des factures correspondantes sont terminées"
+
+        user_id = self.env['res.users'].search([('id', '=', self._uid)]).partner_id.id
+
+        email = self.env['res.partner'].search([('id', '=', user_id)]).email
+
+        server.sendmail("support-aes@imio.be", email.encode('utf-8'), message)
+
+        server.quit()
 #         lock = threading.Lock()
 #         chunk_size = int(self.env['ir.config_parameter'].get_param('extraschool.report.thread.chunk',200))
 # #         print "-------------------------------"

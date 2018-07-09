@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <openerp>
-	<data> 
+	<data>
         <record model="ir.ui.view" id="extraschool_mainsettings_form">
 			<field name="name">mainsettings.form</field>
 			<field name="model">extraschool.mainsettings</field>
@@ -63,6 +63,9 @@
                                         <button name="generate_coda" string="Generate File" icon="gtk-apply" type="object"/>
                                     </group>
                                 </page>
+                                <page string="Biller">
+                                    <button name="reset_biller" string="Reset" icon="gtk-apply" type="object"/>
+                                </page>
                         </notebook>
                     </sheet>
 				</form>
@@ -75,7 +78,7 @@
             <field name="view_mode">form</field>
             <field name="target">inline</field>
             <field name="res_id">1</field>
-            <field name="domain">[('id', '=', 1)]</field>            
+            <field name="domain">[('id', '=', 1)]</field>
 		</record>
 	</data>
 </openerp>

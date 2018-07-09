@@ -33,7 +33,7 @@ class extraschool_pdaprestationtimes(models.Model):
     _description = 'PDA Prestation Times'
 
     def _get_activity_category_id(self):
-        return self.env['extraschool.activitycategory'].search([]).filtered('id').id
+        return self.env['extraschool.activitycategory'].search([])[0].filtered('id').id
 
     placeid = fields.Many2one('extraschool.place', 'Schoolcare Place', required=True)
     activitycategoryid = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False, default=_get_activity_category_id)

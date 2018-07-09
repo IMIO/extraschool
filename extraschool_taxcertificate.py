@@ -11,7 +11,7 @@ class extraschool_taxcertificate(models.Model):
     _inherit = 'mail.thread'
 
     def _get_activity_category_id(self):
-        return self.env['extraschool.activitycategory'].search([]).filtered('id').id
+        return self.env['extraschool.activitycategory'].search([])[0].filtered('id').id
 
     title = fields.Char('Title', required=True)
     name = fields.Integer('Fiscal Year', required=True, select = True, track_visibility='onchange')

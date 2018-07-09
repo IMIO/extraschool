@@ -29,7 +29,7 @@ class extraschool_remindertype(models.Model):
     _description = 'Reminder type'
 
     def _get_activity_category_id(self):
-        return self.env['extraschool.activitycategory'].search([]).filtered('id').id
+        return self.env['extraschool.activitycategory'].search([])[0].filtered('id').id
 
     name = fields.Char('name', required=True)
     sequence = fields.Integer('Order')

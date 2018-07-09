@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014 
+#    Copyright (C) 2008-2014
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot - Imio (<http://www.imio.be>).
 #
@@ -158,10 +158,10 @@ class extraschool_mainsettings(models.Model):
 
     @api.one
     def childupgradelevels(self):
-        cr, uid = self.env.cr, self.env.user.id 
+        cr, uid = self.env.cr, self.env.user.id
         obj_child = self.pool.get('extraschool.child')
         obj_class = self.pool.get('extraschool.class')
-                
+
         obj_level = self.pool.get('extraschool.level')
         obj_child = self.pool.get('extraschool.child')
         levelbeforedisable = obj_level.read(cr, uid, [self.levelbeforedisable.id], ['ordernumber'])[0]['ordernumber']
@@ -191,11 +191,11 @@ class extraschool_mainsettings(models.Model):
                 childClasses = cr.dictfetchall()
                 newclassid=0
                 if currentClassPosition > 0 and len(childClasses) != 0:
-                    if len(childClasses) >= currentClassPosition:        
-                        newclassid = childClasses[currentClassPosition-1]['id']           
+                    if len(childClasses) >= currentClassPosition:
+                        newclassid = childClasses[currentClassPosition-1]['id']
                     else:
                         newclassid = childClasses[0]['id']
-                    print "update child %s  oldclass: %s - old level : %s - class : %s - level : %s" % (child['id'],child['classid'],child['levelid'],newclassid,newlevelid)                        
+                    print "update child %s  oldclass: %s - old level : %s - class : %s - level : %s" % (child['id'],child['classid'],child['levelid'],newclassid,newlevelid)
                     obj_child.write(cr, uid, [child['id']], {'classid': newclassid,'levelid':newlevelid})
                 else:
                     print "update child %s - old level : %s - level : %s" % (child['id'],child['levelid'],newlevelid)
@@ -292,3 +292,8 @@ class extraschool_mainsettings(models.Model):
         pod_error_ids = [doublon['id'] for doublon in pod_errors]
 
         self.env['extraschool.prestation_times_of_the_day'].browse(pod_error_ids).reset()
+
+
+    @api.multi
+    def reset_biller(self):
+        self.env['extraschool.biller'].search([]).write({'in_creation': False})

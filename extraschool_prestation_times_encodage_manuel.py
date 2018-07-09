@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014 
+#    Copyright (C) 2008-2014
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot - Imio (<http://www.imio.be>).
 #
@@ -36,17 +36,17 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
     def name_get(self, cr, uid, ids, context={}):
         if not len(ids):
             return []
-        
+
         res=[]
         for presta in self.browse(cr, uid, ids,context=context):
-            res.append((presta.id, presta.place_id.name + ' - ' + datetime.datetime.strptime(presta.date_of_the_day, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y")  ))    
-    
+            res.append((presta.id, presta.place_id.name + ' - ' + datetime.datetime.strptime(presta.date_of_the_day, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y")  ))
+
         print str(res)
 
-        return res      
+        return res
 
     def _get_activity_category_id(self):
-        return self.env['extraschool.activitycategory'].search([]).filtered('id').id
+        return self.env['extraschool.activitycategory'].search([])[0].filtered('id').id
 
     date_of_the_day = fields.Date(required=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
     place_id = fields.Many2one('extraschool.place', required=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
@@ -125,12 +125,12 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
 
         if self.env.context == None:
             self.env.context = {}
-        
+
 #         if "wizard" not in self.env.context:
 #             self.env.context["wizard"]= False
-            
+
         presta_obj = self.env['extraschool.pdaprestationtimes']
-        
+
         if self.state == 'draft' or self.env.user.id == 1:
             print "validate !!"
             pod_allready_reseted_ids = []
@@ -148,9 +148,9 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
                     if new_presate.prestation_times_of_the_day_id.id not in pod_allready_reseted_ids:
                         pod_allready_reseted_ids.append(new_presate.prestation_times_of_the_day_id.id)
                         new_presate.prestation_times_of_the_day_id.reset()
-                        
+
                 if presta.prestation_time_exit > 0:
-                    print "presta out %s" % (presta)                    
+                    print "presta out %s" % (presta)
                     new_presate = presta_obj.create({'activitycategoryid': self.activity_category_id.id,
                                        'placeid': self.place_id.id,
                                        'childid': presta.child_id.id,
@@ -162,7 +162,7 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
                     if new_presate.prestation_times_of_the_day_id.id not in pod_allready_reseted_ids:
                         pod_allready_reseted_ids.append(new_presate.prestation_times_of_the_day_id.id)
                         new_presate.prestation_times_of_the_day_id.reset()
-                        
+
         if self.state == 'draft':
             self.state = 'validated'
 
@@ -172,4 +172,3 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
             self.state = 'draft'
             presta_obj = self.env['extraschool.pdaprestationtimes']
             presta_obj.search([('prestation_times_encodage_manuel_id', '=', self.id)]).unlink()
-    

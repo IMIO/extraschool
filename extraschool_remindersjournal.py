@@ -54,7 +54,7 @@ class extraschool_remindersjournal(models.Model):
     _inherit = 'mail.thread'
 
     def _get_activity_category_id(self):
-        return self.env['extraschool.activitycategory'].search([]).filtered('id').id
+        return self.env['extraschool.activitycategory'].search([])[0].filtered('id').id
 
     name = fields.Char('Name', required=True, track_visibility='onchange')
     activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=True, readonly=True, default=_get_activity_category_id, states={'draft': [('readonly', False)]})
