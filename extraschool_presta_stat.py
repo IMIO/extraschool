@@ -24,6 +24,7 @@
 from openerp import models, api, fields
 from openerp.api import Environment
 from math import ceil
+from openerp import tools
 
 available_levels = (('M','Maternelle'),('P','Primaire'),('A','Autre'))
 
@@ -31,13 +32,13 @@ class extraschool_presta_stat(models.Model):
     _name = 'extraschool.presta_stat'
     _description = 'Prestation statistique'
 
-    date = fields.Date(string='Date', index=True)
-    activity_id = fields.Many2one('extraschool.activity', string='Activity', index=True)
-    place_id = fields.Many2one('extraschool.place', string='Place', index=True)
+    date = fields.Date(string='Date')
+    activity_id = fields.Many2one('extraschool.activity', string='Activity')
+    place_id = fields.Many2one('extraschool.place', string='Place')
     level = fields.Selection(available_levels,string = 'Level' )
-    rancge = fields.Char( string='Range', index=True)
+    rancge = fields.Char( string='Range')
     nbr_child = fields.Integer(string = 'Nbr childs')
-    child_id = fields.Many2one('extraschool.child', string='Child', index=True)
+    child_id = fields.Many2one('extraschool.child', string='Child')
 
     def convert_time(self, time):
         return '{0:02.0f}:{1:02.0f}'.format(*divmod(time * 60, 60))
@@ -109,8 +110,10 @@ class extraschool_presta_stat(models.Model):
                 start_date, end_date = '2017-09-01', '2018-06-30'
 
                 print "##Computing Statistics for range: ", period_str, " activity: ", activity.name.encode("utf-8")
+
                 self.env.cr.execute(insert_querry,
                                     (activity.id, period_str, prest_to, last_period, start_date, end_date))
+
                 last_period = prest_to
                 self.env.invalidate_all()
         print "### END: Prestation Statistics ###"

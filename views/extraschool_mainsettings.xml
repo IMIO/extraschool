@@ -49,11 +49,11 @@
                                     <button name="del_pod_doublon" string="del pod doublon" icon="gtk-apply" type="object" />
                                     <button name="reset_verified_pod_with_non_verified_presta" string="bug pod verified" icon="gtk-apply" type="object" />
                                 </page>
-                                <page string="Requete SQL">
+                                <!--<page string="Requete SQL">
                                     <field name="sql_query_ids"/>
                                     <field name="query_sql"/>
                                     <button name="execute_sql" string="Execute sql" icon="gtk-apply" type="object"/>
-                                </page>
+                                </page>-->
                                 <page string="Generate CODA file">
                                     <group col="2">
                                         <field name="parent_id"/>

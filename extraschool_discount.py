@@ -86,7 +86,6 @@ class extraschool_discount_version(models.Model):
             for discount_version_id in self:
                 print "get concerned lines ids"
                 #get concerned lines filtered on price_list
-        #        lines = invoice.invoice_line_ids.filtered(lambda r: r.price_list_version_id.price_list_id.id in self.price_list_ids.ids)
 
                 sql = """select ip.invoiceid as invoiceid, ip.childid as childid,
                          sum(duration) as sum_duration, sum(quantity) as sum_quantity, count(*) as count
@@ -99,7 +98,7 @@ class extraschool_discount_version(models.Model):
                          group by ip.invoiceid,ip.childid
                          having sum(duration) >= %s
                          """
-    #            print sql % (self.quantity_from,)
+
                 cr.execute(sql,(self.quantity_from,))
                 args=[]
                 for r in cr.dictfetchall():
@@ -108,9 +107,9 @@ class extraschool_discount_version(models.Model):
                                  r['invoiceid'],
                                  r['childid'],
                                  discount_version_id.discount_id.description,
-                                 1,#quantité
-                                 self.value,#unit_price
-                                 self.value,#total price
+                                 1,                                         # quantité
+                                 self.value,                                # unit_price
+                                 self.value,                                # total price
                                  ))
                 lines_args_str = ""
                 if len(args):
@@ -122,8 +121,6 @@ class extraschool_discount_version(models.Model):
                                                 (create_uid, create_date, write_uid, write_date,
                                                 invoiceid, childid, description, quantity, unit_price,total_price)
                                                 VALUES """ + lines_args_str + ";")
-
-                
 
         elif (self.discount_template == 'tournai'):
             print "## Compute Discount with: template Tournai"

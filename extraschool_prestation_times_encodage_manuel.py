@@ -50,7 +50,7 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
 
     date_of_the_day = fields.Date(required=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
     place_id = fields.Many2one('extraschool.place', required=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
-    levelid = fields.Many2one('extraschool.level', 'Level', track_visibility='onchange', readonly=True, states={'draft': [('readonly', False)]},)
+    levelid = fields.Many2many('extraschool.level', 'extraschool_encodage_manuel_level_rel', string='Level', track_visibility='onchange', readonly=True, states={'draft': [('readonly', False)]},)
     activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False, track_visibility='onchange', default=_get_activity_category_id)
     prestationtime_ids = fields.One2many('extraschool.prestation_times_manuel','prestation_times_encodage_manuel_id',copy=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
     comment = fields.Text(track_visibility='onchange')
@@ -92,17 +92,22 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
         print "update_child_list"
 
         if self.levelid:
+            list_level = []
+            for level in self.levelid:
+                print level
+                list_level.append(level.id)
+                print list_level
             childs = self.env['extraschool.child'].search(
                 [('schoolimplantation.id', '=', self.place_id.id),
-                 ('levelid.id', '=', self.levelid.id),
+                 ('levelid.id', 'in', list_level),
                  ('isdisabled', '=', False),
                  ])
+            print childs
         else:
             childs = self.env['extraschool.child'].search(
                 [('schoolimplantation.id', '=', self.place_id.id),
                  ('isdisabled', '=', False),
                  ])
-
         self.prestationtime_ids.unlink()
         # clear child list
         self.prestationtime_ids = [(5, 0, 0)]

@@ -13,6 +13,7 @@ class extraschool_taxcertificate(models.Model):
     def _get_activity_category_id(self):
         return self.env['extraschool.activitycategory'].search([]).filtered('id').id
 
+    title = fields.Char('Title', required=True)
     name = fields.Integer('Fiscal Year', required=True, select = True, track_visibility='onchange')
     activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity category', required=True, default=_get_activity_category_id, track_visibility='onchange')
     doc_date = fields.Date('Document date', required=True, track_visibility='onchange')
@@ -50,7 +51,7 @@ class extraschool_taxcertificate(models.Model):
                                             left join extraschool_invoice iii on iii.id = ppr.invoice_id
                                             left join extraschool_payment pp on pp.id = ppr.payment_id
                                             where ppr.paymentdate BETWEEN '%s-01-01' and '%s-12-31'
-                                                AND iii.balance = 0 AND iii.last_reminder_id IS NULL                                            
+                                                AND iii.balance = 0 AND iii.reminder_fees = false                                            
                                 """ % (vals['name'], vals['name'])
 
 
