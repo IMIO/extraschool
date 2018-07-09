@@ -384,7 +384,7 @@ class extraschool_invoice_wizard(models.TransientModel):
         #search parent to be invoiced
         sql_mega_invoicing = """select c.schoolimplantation as schoolimplantation, ept.parent_id as parent_id, childid, min(activity_occurrence_id) activity_occurrence_id,
                                     sum(case when es = 'S' then prestation_time else 0 end) - sum(case when es = 'E' then prestation_time else 0 end) as duration
-                                    
+                                    ,a.id AS activity
                                 from extraschool_prestationtimes ept
                                 left join extraschool_child c on ept.childid = c.id
                                 left join extraschool_parent p on p.id = c.parentid
@@ -395,7 +395,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                         and ept.activity_category_id = %s
                                         and invoiced_prestation_id is NULL
                                         and c.schoolimplantation in (""" + ','.join(map(str, self.schoolimplantationid.ids))+ """)  
-                                group by ept.parent_id,c.schoolimplantation,childid, p.streetcode,case when tarif_group_name = '' or tarif_group_name is NULL then a.name else tarif_group_name  end, ept.prestation_date
+                                group by ept.parent_id,c.schoolimplantation,childid, p.streetcode,case when tarif_group_name = '' or tarif_group_name is NULL then a.name else tarif_group_name  end, ept.prestation_date, a.id
                                 order by parent_id, c.schoolimplantation, min(activity_occurrence_id);"""
 
 #         print "---------------"
@@ -404,7 +404,6 @@ class extraschool_invoice_wizard(models.TransientModel):
         
         self.env.cr.execute(sql_mega_invoicing, (self.period_from, self.period_to, self.activitycategory.id,))
         invoice_lines = self.env.cr.dictfetchall()
-
         
         ctx = self.env.context.copy()
         ctx.update({'defer__compute_balance' : True,
@@ -683,8 +682,10 @@ class extraschool_invoice_wizard(models.TransientModel):
                               FROM extraschool_price_list_version plv
                               WHERE ip.id in (""" + ','.join(map(str, invoice_line_ids))+ """)
                                     AND plv.id = ip.price_list_version_id;"""
-        
-        self.env.cr.execute(sql_update_price)
+        try:
+            self.env.cr.execute(sql_update_price)
+        except:
+            raise Warning(_("There is a problem with the price list."))
         print "#Mise à jour du quantity et total price"
         #Mise à jour du quantity et total price
         sql_update_total_price = """UPDATE extraschool_invoicedprestations ip
