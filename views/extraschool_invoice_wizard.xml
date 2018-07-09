@@ -7,7 +7,7 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <div class="alert alert-info" attrs="{'invisible':[('isready', '!=', True)]}">
-                    A biller is curently in creation. You will recieve an Email when the biller will be completed.
+                    A biller is curently in creation. You will recieve an Email when the biller is completed.
                     In the meantime, here is a picture of a cat slightly annoyed:
                 </div>
                 <div attrs="{'invisible':[('isready', '!=', True)]}">
