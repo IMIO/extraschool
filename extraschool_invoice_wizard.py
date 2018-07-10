@@ -385,7 +385,7 @@ class extraschool_invoice_wizard(models.TransientModel):
         #search parent to be invoiced
         sql_mega_invoicing = """select c.schoolimplantation as schoolimplantation, ept.parent_id as parent_id, childid, min(activity_occurrence_id) activity_occurrence_id,
                                     sum(case when es = 'S' then prestation_time else 0 end) - sum(case when es = 'E' then prestation_time else 0 end) as duration
-                                    ,a.id AS activity
+
                                 from extraschool_prestationtimes ept
                                 left join extraschool_child c on ept.childid = c.id
                                 left join extraschool_parent p on p.id = c.parentid
@@ -396,7 +396,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                         and ept.activity_category_id = %s
                                         and invoiced_prestation_id is NULL
                                         and c.schoolimplantation in (""" + ','.join(map(str, self.schoolimplantationid.ids))+ """)  
-                                group by ept.parent_id,c.schoolimplantation,childid, p.streetcode,case when tarif_group_name = '' or tarif_group_name is NULL then a.name else tarif_group_name  end, ept.prestation_date, a.id
+                                group by ept.parent_id,c.schoolimplantation,childid, p.streetcode,case when tarif_group_name = '' or tarif_group_name is NULL then a.name else tarif_group_name end, ept.prestation_date
                                 order by parent_id, c.schoolimplantation, min(activity_occurrence_id);"""
 
 #         print "---------------"
