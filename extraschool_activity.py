@@ -279,9 +279,9 @@ class extraschool_activity(models.Model):
         prest_to = vals['prest_to'] if 'prest_to' in vals else self.prest_to
 
         planneddates_ids = self.env['extraschool.activityplanneddate'].browse(
-            vals['planneddates_ids'][0][-1]) if 'planneddates_ids' in vals else self.planneddates_ids
+            vals['planneddates_ids'][0][-1]) if vals.get('planneddates_ids') else self.planneddates_ids
         exclusiondates_ids = self.env['extraschool.activityexclusiondates'].browse(
-            vals['exclusiondates_ids'][0][-1]) if 'exclusiondates_ids' in vals else self.exclusiondates_ids
+            vals['exclusiondates_ids'][0][-1]) if vals.get('exclusiondates_ids') else self.exclusiondates_ids
 
         # Check Valid Hour.
         if prest_from == 0:
