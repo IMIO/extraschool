@@ -63,7 +63,7 @@ class extraschool_price_list_version(models.Model):
 
     @api.model
     def create(self, vals):
-        if (self.period_duration == 0):
+        if (vals['period_duration'] == 0):
             raise Warning(_("The period must be higher than 0"))
         else:
             return super(extraschool_price_list_version, self).create(vals)

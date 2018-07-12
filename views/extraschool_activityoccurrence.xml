@@ -1,17 +1,18 @@
 <?xml version="1.0" ?>
 <openerp>
-	<data> 
+	<data>
         <record model="ir.ui.view" id="extraschool_activityoccurrence_tree">
 			<field name="name">extraschool.activityoccurrence.tree</field>
 			<field name="model">extraschool.activityoccurrence</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="activityoccurrence">
-                    <field name="activityid"/> 
-                    <field name="place_id"/> 			
-                    <field name="occurrence_date"/> 
-                    <field name="prest_from" widget="float_time" /> 
-                    <field name="prest_to"   widget="float_time" /> 
+                    <field name="activity_category_id"/>
+                    <field name="activityid"/>
+                    <field name="place_id"/>
+                    <field name="occurrence_date"/>
+                    <field name="prest_from" widget="float_time" />
+                    <field name="prest_to"   widget="float_time" />
 				</tree>
 			</field>
 		</record>
@@ -68,21 +69,21 @@
                        <filter string='Activity name' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'activityid'}"/>
                        <filter string='Place' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'place_id'}"/>
                        <filter string='Date' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'occurrence_date'}"/>
-                   </group>                    
+                   </group>
                 </search>
             </field>
-        </record>		
+        </record>
         <record model="ir.ui.view" id="extraschool_activityoccurrence_cal">
 			<field name="name">extraschool.activityoccurrence.cal</field>
 			<field name="model">extraschool.activityoccurrence</field>
 			<field name="arch" type="xml">
                 <calendar color="activityid" string="Activity occurences" date_start="date_start" date_stop="date_stop" event_open_popup="%(extraschool.extraschool_activityoccurrence_form)s" >
                     <field name="activityname"/>
-                    <field name="place_id"/> 			
+                    <field name="place_id"/>
 				</calendar>
 			</field>
 		</record>
-        
+
         <record model="ir.actions.act_window" id="action_extraschool_activityoccurrence">
 			<field name="name">Activity occurrence calendar</field>
 			<field name="res_model">extraschool.activityoccurrence</field>

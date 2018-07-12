@@ -100,7 +100,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                relation='extraschool_invoice_wizard_schoolimplantation_rel',
                                column1='invoice_wizard_id',
                                column2='schoolimplantation_id', default=_get_all_schoolimplantation, readonly=True)
-    activitycategory = fields.Many2one('extraschool.activitycategory', 'Activity category', required=True)
+    activitycategory = fields.Many2many('extraschool.activitycategory', 'extraschool_invoice_wizard_activity_category_rel', 'invoice_wizard_id', 'activity_category_id', 'Activity category')
     period_from = fields.Date('Period from', required=True, default=_get_defaultfrom, help='Date où l\'on va commencer la facturation')
     period_to = fields.Date('Period to', required=True, default=_get_defaultto, help='Date où l\'on va terminer la facturation')
     invoice_date = fields.Date('invoice date', required=True, default=_get_defaultto)
@@ -317,9 +317,8 @@ class extraschool_invoice_wizard(models.TransientModel):
                                     'period_to' : self.period_to,
                                     'payment_term': self.invoice_term,
                                     'invoices_date': self.invoice_date,
-                                    'activitycategoryid': self.activitycategory.id,
+                                    'activitycategoryid': self.activitycategory.ids,
                                     })
-
 
         #check if all manuel encodage are validated
         manuel_encodage_ids = self.env['extraschool.prestation_times_encodage_manuel'].search([('state', '!=', 'validated'),
@@ -377,6 +376,8 @@ class extraschool_invoice_wizard(models.TransientModel):
         print "to_invoice_count:" + str(to_invoice_count[0]['to_invoice_count'])
         if not to_invoice_count[0]['to_invoice_count']:
             raise Warning(_("There is no presta to invoice !!!"))
+
+        import wdb;wdb.set_trace()
 
         #search parent to be invoiced
         sql_mega_invoicing = """select c.schoolimplantation as schoolimplantation, ept.parent_id as parent_id, childid, min(activity_occurrence_id) activity_occurrence_id,
@@ -762,3 +763,8 @@ class extraschool_invoice_wizard(models.TransientModel):
     def action_compute_invoices(self):
         return self._new_compute_invoices()
 
+    @api.model
+    def create(self, vals):
+        import wdb;wdb.set_trace()
+
+        return super(extraschool_invoice_wizard, self).create(vals)
