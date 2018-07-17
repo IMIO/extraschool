@@ -10,7 +10,7 @@
 						page-break-inside: avoid;
 						text-align: justify;
 						text-justify: inter-word;
-						font-size: 11px;
+						font-size: 5px;
 					 }
 
 					 #invoice_summary div.your_ref{
@@ -21,7 +21,7 @@
 
 
 					div#invoice_summary h2{
-						font-size: 13px;
+						font-size: 5px;
 						font-weight: bold;
 					 }
 
@@ -30,13 +30,13 @@
                     <link rel="stylesheet" href="/extraschool/static/src/css/calibri.css"/>
                 </xpath>
 					  <div id="invoice_summary">
-						 <p style="font-size: 11pt;">
+						 <p style="font-size:11pt;">
 							 Objet: Factures AES pour la période du <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/>
 								 - <b>RAPPEL</b><br/>
 							   Nos réf. : AES / <t t-esc="reminder.reminders_journal_id.name"/> / <t t-esc="parent_id.name" /><br/><br/><br/>
 								Cher Parent, <br/><br/>
 
-							   Nous vous avons adressé les factures relatives aux frais scolaires de votre (vos) enfant(s) pour la période du <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/>.
+							   Nous vous avons adressé les factures relatives aux frais scolaires de votre (vos) enfant(s) pour la période du <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/>.<br/><br/>
 							   Nous constatons que vous êtes encore redevable d'un solde dû de <t t-esc="'%.2f' %  (amount)" />€ envers l'Administration
 							   Communale de Tournai, somme dont vous trouverez le détail ci-annexé.<br/><br/>
 
@@ -93,8 +93,11 @@
 					}
 
 				 </style>
+                <xpath expr="//head" position="inside">
+                    <link rel="stylesheet" href="/extraschool/static/src/css/calibri.css"/>
+                </xpath>
 					  <div id="invoice_summary" >
-						 <p>
+						 <p style="font-size:11pt;">
 							 Objet: Factures AES pour la période du <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/><br/> <b><span style=" margin-left:50px;">MISE EN DEMEURE AVANT CONTRAINTE NON FISCALE– art. L1124-40§1, 1° CDLD</span></b><br/>
 					   Nos réf. : AES / <t t-esc="reminder.reminders_journal_id.name"/> / <t t-esc="parent_id.name" /><br/><br/><br/>
 						Cher Parent, <br/><br/>
