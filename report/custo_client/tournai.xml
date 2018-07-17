@@ -4689,7 +4689,7 @@
 								Cher Parent, <br/><br/>
 
 							   Nous vous avons adressé les factures relatives aux frais scolaires de votre (vos) enfant(s) pour la période du <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/>.
-							   Nous constatons que vous êtes encore redevable d'un solde dû de <t t-esc="amount"/>€ envers l'Administration
+							   Nous constatons que vous êtes encore redevable d'un solde dû de <t t-esc="'%.2f' %  (amount)" />€ envers l'Administration
 							   Communale de Tournai, somme dont vous trouverez le détail ci-annexé.<br/><br/>
 
 							   <b>Nous vous invitons à régler ce montant, pour le <t t-esc="payment_term" /> au plus tard, au bénéfice du compte (IBAN)
@@ -4737,17 +4737,24 @@
 						font-weight: bold;
 					 }
 
+					sup {
+
+						valign: super;
+						font-size: 70%;
+						line-height: 80%;
+					}
+
 				 </style>
 					  <div id="invoice_summary" >
 						 <p>
-							 Objet: Factures AES pour la période du <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/><br/> <b><span style=" margin-left:40px;">MISE EN DEMEURE AVANT CONTRAINTE NON FISCALE– art. L1124-40§1, 1° CDLD</span></b><br/>
+							 Objet: Factures AES pour la période du <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/><br/> <b><span style=" margin-left:50px;">MISE EN DEMEURE AVANT CONTRAINTE NON FISCALE– art. L1124-40§1, 1° CDLD</span></b><br/>
 					   Nos réf. : AES / <t t-esc="reminder.reminders_journal_id.name"/> / <t t-esc="parent_id.name" /><br/><br/><br/>
 						Cher Parent, <br/><br/>
 
 					   Le service Comptabilité de la Ville de Tournai a constaté que, pour les frais scolaires de votre (vos) enfant(s) pour la période du <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/> il restait un montant impayé de
-					   <t t-esc="amount"/>€, et ce, malgré le courrier de rappel du                    , qui vous a déjà été adressé. Veuillez trouver en annexe le détail de ce montant.<br/><br/>
+					   <t t-esc="'%.2f' %  (amount)" />€, et ce, malgré le courrier de rappel du <t t-esc="time.strftime('%d-%m-%Y',time.strptime(reminder.reminders_journal_id.based_reminder_id.transmission_date,'%Y-%m-%d'))"/>, qui vous a déjà été adressé. Veuillez trouver en annexe le détail de ce montant.<br/><br/>
 
-						<b>Par la présente, nous vous mettons en demeure de payer ce montant de <t t-esc="amount"/> pour le <t t-esc="payment_term" />
+						<b>Par la présente, nous vous mettons en demeure de payer ce montant de <t t-esc="'%.2f' %  (amount)" />€ pour le <t t-esc="payment_term" />
 						au plus tard, au bénéfice du compte (IBAN) n° BE25 0960 2105 5182 (code BIC : GKCCBEBB),
 						avec la communication structurée suivante : <t t-esc="com_struct" />.</b><br/><br/>
 
@@ -4757,7 +4764,7 @@
 						dès réception de la présente en veillant à bien indiquer la référence du présent courrier. <br/><br/>
 
 					   Nous profitons également de ce courrier pour vous informer qu’à défaut de recevoir soit un paiement endéans le délai imparti, soit le courrier de contestation dûment motivé dont question ci-dessus,
-						nous nous réservons la possibilité d’appliquer à votre encontre la procédure de contrainte prévue par l’article L1124-40§1, 1°i1 du Code de la Démocratie Locale et de la Décentralisation et de recouvrer
+						nous nous réservons la possibilité d’appliquer à votre encontre la procédure de contrainte prévue par l’article L1124-40§1, 1°<sup>11</sup> du Code de la Démocratie Locale et de la Décentralisation et de recouvrer
 						la créance de la Ville selon les modalités qui y sont prévues. Nous espérons néanmoins ne pas devoir en arriver à de telles alternatives et comptons sur votre diligence.<br/><br/>
 
 					   Nous vous signalons enfin, à titre infiniment subsidiaire, que si nous devions avoir recours à la contrainte pour récupérer la somme due, les frais de l’intervention de l’huissier
