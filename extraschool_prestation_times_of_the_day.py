@@ -535,9 +535,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
         else:
             self.verified = True
 
-        # print self.verified
-
-        return True
+        return self.verified
 
     @api.model
     def check_all(self):
