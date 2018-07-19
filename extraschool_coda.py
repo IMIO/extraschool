@@ -191,7 +191,6 @@ class extraschool_coda(models.Model):
                                     totaldue = sum(invoice.balance for invoice in reminder.concerned_invoice_ids)
                                     if reminder.reminders_journal_item_id.reminder_type_id.fees_type == 'fix':
                                         fees_to_pay = True
-                                        totaldue += reminder.reminders_journal_item_id.reminder_type_id.fees_amount
 
                                     # This is were I check if the structcom comes from an old reminder.
                                     has_invoice = self.env['extraschool.invoice'].search([('last_reminder_id', '=', reminder.id)])
@@ -240,8 +239,6 @@ class extraschool_coda(models.Model):
                                                                              'paymenttype':'1',
                                                                              'account':parentaccount,
                                                                              'name':name,
-                                                                             'adr1':adr1,
-                                                                             'adr2':adr2,
                                                                              'amount': invoice.balance})
 
                                             payment_reconciliation_obj.create({'payment_id' : payment_id.id,

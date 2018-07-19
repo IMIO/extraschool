@@ -61,7 +61,7 @@
 	                    <field name="school_implantation_id" class="oe_no_button" options="{'no_create':True}" />
 	                    <field name="class_id" class="oe_no_button" options="{'no_create':True}" />
 						<field name="place_id" options="{'no_create':True}"/>
-                        <field name="levelid" options="{'no_create':True}" />
+                        <field name="levelid" widget="many2many_tags" options="{'no_create':True}" />
 						<newline/>
                         <field name="week"/>
                         <field name="select_per_level" />
@@ -138,7 +138,7 @@
 	                    <field name="school_implantation_id" class="oe_no_button" options="{'no_create':True}" />
 	                    <field name="class_id" class="oe_no_button" options="{'no_create':True}"/>
 						<field name="place_id" options="{'no_create':True}"/>
-                        <field name="levelid" options="{'no_create':True}"/>
+                        <field name="levelid" widget="many2many_tags" options="{'no_create':True}"/>
 	                    <field name="activity_id" required="True" options="{'no_create':True}"/>
         	            <newline/>
 						<field name="week"/>

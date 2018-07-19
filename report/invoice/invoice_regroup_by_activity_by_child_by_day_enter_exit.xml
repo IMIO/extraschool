@@ -36,7 +36,9 @@
 		    		text-align: right;
 		    		width: 20%;
 				}
-
+                thead {
+                    display: table-row-group
+                }
 			</style>
 
         	<div id="invoice_body">

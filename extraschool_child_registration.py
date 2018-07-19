@@ -25,7 +25,6 @@ from openerp import models, api, fields, _
 from openerp.api import Environment
 from openerp.exceptions import except_orm, Warning, RedirectWarning
 
-
 from datetime import date, datetime, timedelta as td
 
 from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
@@ -63,7 +62,7 @@ class extraschool_child_registration(models.Model):
                               'validated', required=True, default='draft', track_visibility='onchange'
                               )
     number_childs = fields.Char('Number of childs', readonly=True, default=0, track_visibility='onchange')
-    levelid = fields.Many2one('extraschool.level', 'Level', track_visibility='onchange')
+    levelid = fields.Many2many('extraschool.level', 'extraschool_registration_level_rel', string='Level', track_visibility='onchange')
     warning_biller = fields.Char('WARNING', default="WARNING, Il y a un facturier à cette date, si la personne responsable des factures n'est pas au courant de cet ajout, cela ne sera pas pris en compte ! ", readonly=True)
     warning_visibility = fields.Boolean(track_visibility='onchange')
     select_per_level = fields.Selection([
@@ -180,7 +179,10 @@ class extraschool_child_registration(models.Model):
             search_domain += [('classid.id', '=',self.class_id.id) ]
 
         elif self.levelid:
-            search_domain += [('levelid.id', '=',self.levelid.id)]
+            list_level = []
+            for level in self.levelid :
+                list_level.append(level.id)
+                search_domain += [('levelid.id', '=',list_level)]
 
         elif self.select_per_level:
             if self.select_per_level == 'primaire':
@@ -298,6 +300,7 @@ class extraschool_child_registration(models.Model):
 
             occu = self.env['extraschool.activityoccurrence']
             occu_reg = self.env['extraschool.activity_occurrence_child_registration']
+
             for day in range(delta.days + 1):
                 current_day_date = d1 + td(days=day)
                 if str(current_day_date.weekday()) in self.activity_id.days:
@@ -306,6 +309,7 @@ class extraschool_child_registration(models.Model):
                                            ('occurrence_date','=', current_day_date)])
                     if len(occu) == 1:
                         for line in line_days[current_day_date.weekday()]:
+                            # This will elaborate the error message to help the user find the error.
                             try:
                                 occu_reg.create({'activity_occurrence_id': occu.id,
                                                  'child_id' :line.child_id.id,
@@ -313,12 +317,14 @@ class extraschool_child_registration(models.Model):
                                                  })
                                 if self.activity_id.autoaddchilds:
                                     pod_to_reset = list(set(pod_to_reset + occu.add_presta(occu, line.child_id.id, None,False)))
+                            # Catch the error message to use it.
                             except Exception as e:
                                 message = str(e)
 
+                                # Get the period of the duplicate and the name of activity and the ID of the registration.
                                 occu_id, child_id = message[162:-18].split(', ')
                                 sql_query = """
-                                                SELECT cr.date_from, cr.date_to, a.name
+                                                SELECT cr.date_from, cr.date_to, a.name, cr.id
                                                 FROM extraschool_child_registration AS cr
                                                 INNER JOIN extraschool_activity AS a
                                                 ON cr.activity_id = a.id
@@ -331,12 +337,15 @@ class extraschool_child_registration(models.Model):
                                                         )
                                                 """
 
+                                # Need to open a new cursor. I followed the good practice to avoid errors.
                                 new_cr = self.pool.cursor()
                                 new_cr.execute(sql_query, (occu_id, child_id))
+
                                 activity_error = new_cr.dictfetchone()
                                 new_cr.commit()
                                 new_cr.close()
 
+                                # Another new cursor to get child's complete name.
                                 child_cr = self.pool.cursor()
                                 child_sql_query = """
                                                         SELECT firstname || ' ' || lastname as Name
@@ -350,10 +359,12 @@ class extraschool_child_registration(models.Model):
                                 child_cr.close()
 
                                 raise Warning(_(
-                                    "The child %s already has a registration on the activity %s from date %s to date %s") % (
-                                                  name_child['name'], activity_error['name'],
-                                                  activity_error['date_from'],
-                                                  activity_error['date_to']))
+                                    "The child %s already has a registration on the activity %s from date %s to date %s. You can find the duplicate at ID: %s") % (
+                                                    name_child['name'], activity_error['name'],
+                                                    activity_error['date_from'],
+                                                    activity_error['date_to'],
+                                                    activity_error['id'],
+                                ))
 
             for pod in self.env['extraschool.prestation_times_of_the_day'].browse(pod_to_reset):
                 pod.reset()

@@ -46,11 +46,35 @@ restart-Ans:
   script:
     - mco shell run '/srv/docker_scripts/ans_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
   when: manual
+  
+restart-Assesse:
+  stage: restart
+  script:
+    - mco shell run '/srv/docker_scripts/assesse_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
+  when: manual
 
 restart-Braine-l-Alleud:
   stage: restart
   script:
     - mco shell run '/srv/docker_scripts/brainelalleud_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
+  when: manual
+  
+restart-Dinant:
+  stage: restart
+  script:
+    - mco shell run '/srv/docker_scripts/dinant_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
+  when: manual
+  
+restart-Dour:
+  stage: restart
+  script:
+    - mco shell run '/srv/docker_scripts/dour_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
+  when: manual
+  
+restart-Durbuy:
+  stage: restart
+  script:
+    - mco shell run '/srv/docker_scripts/durbuy_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
   when: manual
 
 restart-Ferrieres:
@@ -59,12 +83,30 @@ restart-Ferrieres:
     - mco shell run '/srv/docker_scripts/ferrieres_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
   when: manual
   
+restart-Fleron:
+  stage: restart
+  script:
+    - mco shell run '/srv/docker_scripts/fleron_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
+  when: manual
+  
 restart-Ittre:
   stage: restart
   script:
   - mco shell run '/srv/docker_scripts/ittre_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
   when: manual
   
+restart-Rebecq:
+  stage: restart
+  script:
+    - mco shell run '/srv/docker_scripts/rebecq_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
+  when: manual
+
+#restart-Yvoir:
+#  stage: restart
+#  script:
+#    - mco shell run '/srv/docker_scripts/yvoir_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
+#  when: manual
+ 
 restart-Staging:
   stage: restart
   script:

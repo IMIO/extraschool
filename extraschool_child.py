@@ -34,7 +34,7 @@ class extraschool_child(models.Model):
     _inherit = 'mail.thread'
 
     def _get_activity_category_id(self):
-        return self.env['extraschool.activitycategory'].search([]).filtered('id')
+        return self.env['extraschool.activitycategory'].search([])[0].filtered('id')
 
     activitycategoryid = fields.Many2one('extraschool.activitycategory', 'Activity Category',
                                          track_visibility='onchange', default=_get_activity_category_id)
@@ -127,6 +127,13 @@ class extraschool_child(models.Model):
     @api.one
     def unlink(self):
         self.isdisabled = True
+
+    @api.multi
+    def send_data(self):
+        self.env['extraschool.smartphone_detail_log'].create({
+            'text': '<h3>hello world</h3>',
+            'smartphone_id': 1,
+        })
 
 ##############################################################################
 #

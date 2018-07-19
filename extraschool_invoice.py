@@ -119,7 +119,7 @@ class extraschool_invoice(models.Model):
 
     @api.multi
     def is_echue_and_not_reminder(self):
-        return False if self.last_reminder_id else True
+        return False if self.last_reminder_id and not self.reminder_fees else True
 
 
     @api.multi

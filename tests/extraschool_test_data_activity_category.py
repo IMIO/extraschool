@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2018
+#    Copyright (C) 2008-2014
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot & Michael Colicchia- Imio (<http://www.imio.be>).
 #
@@ -21,6 +21,20 @@
 #
 ##############################################################################
 
-from . import test_prestation_check
-from . import test_data
+from openerp.tests.common import HttpCase
 
+class TestDataActivityCategory(HttpCase):
+
+    def setUp(self):
+        super(TestDataActivityCategory, self).setUp()
+        self.activity_category_model = self.env['extraschool.activitycategory']
+
+        # Creation of activity category.
+        activity_category_1 = self.activity_category_model.create({
+            'name': 'testForCheck',
+            'childpositiondetermination': 'byparent',
+            'invoicecomstructprefix': 100,
+            'remindercomstructprefix': 200,
+            'payment_invitation_com_struct_prefix': 300,
+            'max_school_implantation': 1,
+        })

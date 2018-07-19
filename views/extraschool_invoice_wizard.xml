@@ -1,14 +1,22 @@
 <?xml version="1.0" ?>
 <openerp>
-	<data> 
+	<data>
         <record model="ir.ui.view" id="extraschool_invoice_wizard_form">
             <field name="name">extraschool.invoice.wizard.form</field>
             <field name="model">extraschool.invoice_wizard</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <form string="invoice Wizard">
+                <div class="alert alert-info" attrs="{'invisible':[('isready', '!=', True)]}">
+                    A biller is curently in creation. You will recieve an Email when the biller is completed.
+                    In the meantime, here is a picture of a cat slightly annoyed:
+                </div>
+                <div attrs="{'invisible':[('isready', '!=', True)]}">
+                    <img style="width:100px;" src="https://orig00.deviantart.net/affd/f/2013/229/b/0/image_by_xxspiritwolf2000xx-d6ikyan.jpg"/>
+                </div>
+                <form string="invoice Wizard" attrs="{'invisible':[('isready', '!=', False)]}">
                     <sheet>
                         <field name="state" invisible="1" />
+                        <field name="isready" invisible="1" />
                         <group states="init">
                             <field name="schoolimplantationid" invisible="1"/>
                             <newline />

@@ -112,6 +112,7 @@ class extraschool_smartphone(models.Model):
     pda_transmission_ids = fields.One2many('extraschool.pda_transmission', 'smartphone_id')
     softwareversion = fields.Char('Software version', readonly=True)
     smartphone_log_ids = fields.One2many('extraschool.smartphone_log', 'smartphone_id')
+    smartphone_detail_log_ids = fields.One2many('extraschool.smartphone_detail_log', 'smartphone_id')
 
     @api.one
     def update_qr_code(self,vals):
@@ -243,3 +244,26 @@ class extraschool_smartphone_log(models.Model):
     date_of_transmission = fields.Datetime('Date de transmission', default=datetime.now())
     time_of_transmission = fields.Char('Temps d\'éxécution')
     smartphone_id = fields.Many2one('extraschool.smartphone', 'smartphone_id')
+
+
+class extraschool_smartphone_detail_log(models.Model):
+    _name = 'extraschool.smartphone_detail_log'
+    _description = 'Log détaillé pour smartphones'
+
+    text = fields.Text('Texte', readonly=True)
+    date_of_transmission = fields.Datetime('Date de transmission', default=datetime.now(), readonly=True)
+    smartphone_id = fields.Many2one('extraschool.smartphone', 'smartphone_id', readonly=True)
+
+    @api.multi
+    def print_log(self):
+        # datas = {
+        #     'ids': self.guardian_ids.ids,
+        #     'model': 'extraschool.horaire_guardian_wizard',
+        # }
+
+        return {
+            'type': 'ir.actions.report.xml',
+            'report_name': 'extraschool.tpl_guardian_horaire_wizard_report',
+            # 'datas': datas,
+            'report_type': 'qweb-pdf',
+        }

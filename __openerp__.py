@@ -144,6 +144,8 @@
         'report/custo_client/lierneux.xml',
         'report/custo_client/engis.xml',
         'report/custo_client/ferrieres.xml',
+        'report/custo_client/tournai.xml',
+        'report/custo_client/ittre.xml',
         'report/reminder/reminder_text.xml',
         'extraschool_view.xml',
 

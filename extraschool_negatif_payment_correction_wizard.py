@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014 
+#    Copyright (C) 2008-2014
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot - Imio (<http://www.imio.be>).
 #
@@ -33,11 +33,11 @@ class extraschool_negatif_payment_correction_wizard(models.TransientModel):
     _name = 'extraschool.negatif_payment_correction_wizard'
 
     def _get_activity_category_id(self):
-        return self.env['extraschool.activitycategory'].search([]).filtered('id').id
+        return self.env['extraschool.activitycategory'].search([])[0].filtered('id').id
 
     parent_id = fields.Many2one("extraschool.parent")
     invoice_date = fields.Date('Date', required=True)
-    payment_term = fields.Date('Payment term', required=True)     
+    payment_term = fields.Date('Payment term', required=True)
     description = fields.Char('Description')
     activity_category_id = fields.Many2one("extraschool.activitycategory", required=True, default=_get_activity_category_id)
     state = fields.Selection([('init', 'Init'),
@@ -47,7 +47,7 @@ class extraschool_negatif_payment_correction_wizard(models.TransientModel):
 
     @api.multi
     def generate_invoice(self):
-        if len(self._context.get('active_ids')):                    
+        if len(self._context.get('active_ids')):
             #create a bille to store invoice
             biller = self.env['extraschool.biller'].create({'period_from' : self.invoice_date,
                                                             'period_to' : self.invoice_date,
@@ -57,15 +57,15 @@ class extraschool_negatif_payment_correction_wizard(models.TransientModel):
                                                             })
         else:
             return True
-        
+
         payment_obj = self.env['extraschool.payment']
         invoice_ids = []
-        inv_obj = self.env['extraschool.invoice']  
-        inv_line_obj = self.env['extraschool.invoicedprestations']  
-        
-                       
+        inv_obj = self.env['extraschool.invoice']
+        inv_line_obj = self.env['extraschool.invoicedprestations']
+
+
         for payment in self.env['extraschool.payment'].browse(self._context.get('active_ids')):
-            next_invoice_num = self.activity_category_id.get_next_comstruct('invoice',biller.get_from_year()) 
+            next_invoice_num = self.activity_category_id.get_next_comstruct('invoice',biller.get_from_year())
             invoice = inv_obj.create({'name' : _('invoice_%s') % (next_invoice_num['num'],),
                             'number' : next_invoice_num['num'],
                             'parentid' : payment.parent_id.id,
@@ -80,7 +80,7 @@ class extraschool_negatif_payment_correction_wizard(models.TransientModel):
                 'total_price': payment.amount * -1,
                 })
             invoice_ids.append(invoice.id)
-        
+
         inv_obj.browse(invoice_ids).reconcil()
 
         payment_obj.browse(self._context.get('active_ids')).unlink()
@@ -89,4 +89,4 @@ class extraschool_negatif_payment_correction_wizard(models.TransientModel):
 
 
 
-    
+

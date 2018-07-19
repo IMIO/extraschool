@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2018
+#    Copyright (C) 2008-2014
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot & Michael Colicchia- Imio (<http://www.imio.be>).
 #
@@ -21,6 +21,13 @@
 #
 ##############################################################################
 
-from . import test_prestation_check
-from . import test_data
+from openerp.addons.extraschool.tests.test_data import TestData
 
+class PrestationCheckTest(TestData):
+
+    def test_check_presta(self):
+        """ Check of the function 'extraschool.prestation_times_of_the_day'.check() with data created. """
+        prestation_ids = self.prestation_times_of_the_day_model.search([])
+
+        for presta in prestation_ids:
+            self.assertEqual(presta.check(), True)
