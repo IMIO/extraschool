@@ -11,6 +11,7 @@
                     <group col="2">
                         <field name="town"/>
                         <field name="activity_category_ids"/>
+                        <field name="childpositiondetermination"/>
                     </group>
                 </sheet>
             </form>
