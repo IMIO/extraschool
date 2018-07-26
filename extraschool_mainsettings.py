@@ -26,6 +26,9 @@ from openerp.api import Environment
 from openerp.exceptions import Warning
 from openerp.exceptions import except_orm, Warning, RedirectWarning
 from datetime import *
+import logging
+
+_logger = logging.getLogger(__name__)
 
 class extraschool_mainsettings(models.Model):
     _name = 'extraschool.mainsettings'
@@ -297,3 +300,12 @@ class extraschool_mainsettings(models.Model):
     @api.multi
     def reset_biller(self):
         self.env['extraschool.biller'].search([]).write({'in_creation': False})
+
+    @api.multi
+    def reconcil_all(self):
+        invoice_ids = self.env['extraschool.invoice'].search([('balance', '!=', 0), ('tag', '=', None)])
+
+        _logger.info("Start of reconcil: %s needed", (len(invoice_ids)))
+        for invoice in invoice_ids:
+            invoice.reconcil()
+        _logger.info("End of reconcil")
