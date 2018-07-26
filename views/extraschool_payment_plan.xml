@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+        <record model="ir.ui.view" id="extraschool_payment_plan_form">
+            <field name="name">extraschool.payment_plan.form</field>
+            <field name="model">extraschool.payment_plan</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            <form string="Payment Plan">
+                <sheet>
+                    <group>
+                        <field name="active" groups="extraschool.extraschool_gods"/>
+                    </group>
+                    <group col="4">
+                        <field name="parent_id" create="false" delete="false"/>
+                        <field name="payment_rate"/>
+                        <field name="month_rate"/>
+                        <field name="total_amount"/>
+                        <field name="paid_amount"/>
+                        <field name="due_amount"/>
+                        <field name="number_of_payment"/>
+                        <field name="comm_struct"/>
+                    </group>
+                    <notebook>
+                        <page string="Invoices" readonly="True">
+                            <field name="invoice_ids">
+                                <tree string="Invoices">
+                                    <field name="biller_id"/>
+                                    <field name="number"/>
+                                    <field name="payment_term"/>
+                                    <field name="structcom"/>
+                                    <field name="amount_total"/>
+                                    <field name="amount_received"/>
+                                    <field name="balance"/>
+                                    <field name="no_value"/>
+                                    <field name="tag"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_payment_plan">
+			<field name="name">Payment Plan</field>
+			<field name="res_model">extraschool.payment_plan</field>
+			<field name="view_type">form</field>
+		</record>
+	</data>
+</openerp>

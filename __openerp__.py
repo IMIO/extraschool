@@ -90,6 +90,7 @@
         'views/extraschool_child_registration.xml',
         'views/extraschool_child_registration_wizard.xml',
         'views/extraschool_settings.xml',
+        'views/extraschool_payment_plan.xml',
         #'views/widgets.xml',
         'views/extraschool_config_smartphone.xml',
         'views/extraschool_query_sql.xml',
