@@ -104,6 +104,7 @@ class extraschool_activitycategory(models.Model):
     payment_invitation_com_struct_prefix = fields.Char('Payment invitation Comstruct prefix', size=3, required = True)
     payment_invitation_courrier_text = fields.Text('Payment invitation courrier text')
     logo = fields.Binary()
+    logo_reminder = fields.Binary()
     slogan = fields.Char('Slogan', size=50)
     sequence_ids = fields.One2many('extraschool.activitycategory.sequence', 'activity_category_id',string = 'Sequences')
     max_school_implantation = fields.Integer()

@@ -708,6 +708,11 @@ msgid "Activity occurences"
 msgstr "Activity occurences"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_taxcertificate_item_form
+msgid "Detail"
+msgstr "Détail"
+
+#. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_occurrence_child_registration_activity_occurrence_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoicedprestations_activity_occurrence_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_prestation_times_history_activity_occurrence_id
@@ -719,6 +724,16 @@ msgstr "Occurrence de l'activité"
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_activityoccurrence
 msgid "Activity occurrence calendar"
 msgstr "Calendrier des activités"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificate_title
+msgid "Title"
+msgstr "Titre"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_tax_certificate_detail_child_name
+msgid "child_name"
+msgstr "Nom de l'enfant"
 
 #. module: extraschool
 #: model:ir.ui.menu,name:extraschool.extraschool_menu_stat_activity_tree
@@ -865,6 +880,7 @@ msgstr "Tous les mercredis"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_reminder_amount
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_reminders_journal_item_amount
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificate_item_amount
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_tax_certificate_detail_amount
 msgid "Amount"
 msgstr "Montant"
 
@@ -872,6 +888,22 @@ msgstr "Montant"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_coda_amount_accepted
 msgid "Amount accepted"
 msgstr "Montant accepté"
+
+#. module: extraschool
+#: code:addons/extraschool/extraschool_coda.py:154
+#, python-format
+msgid "This invoice has a reminder and cannot be paid with the invoice communication"
+msgstr "Cette facture possède un rappel et ne peut pas être payé avec la communication structurée de la facture"
+
+#. module: extraschool
+#: model:ir.actions.report.xml,name:extraschool.tax_certificate_detail_report
+msgid "Tax Detail"
+msgstr "Détail attestation fiscale"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.tpl_tax_certificate_detail_report
+msgid "Tax Detail -"
+msgstr "Détail attestation fiscale"
 
 #. module: extraschool
 #: code:addons/extraschool/extraschool_coda.py:150
@@ -4228,6 +4260,31 @@ msgid "Number"
 msgstr "Numéro"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_tax_certificate_detail_invoice_number
+msgid "invoice_number"
+msgstr "Numéro de facture"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_tax_certificate_detail_activity_name
+msgid "activity_name"
+msgstr "Activité"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_tax_certificate_detail_prestation_date
+msgid "prestation_date"
+msgstr "Date"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_tax_certificate_detail_time_scan
+msgid "time_scan"
+msgstr "Heure"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_tax_certificate_detail_entry_exit
+msgid "entry_exit"
+msgstr "Entrée/Sortie"
+
+#. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_message_needaction_counter
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_biller_message_needaction_counter
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_message_needaction_counter
@@ -4774,6 +4831,7 @@ msgstr "Id du wizard de paiement"
 #: model:ir.ui.menu,name:extraschool.extraschool_menu_payments
 #: model:ir.ui.view,arch_db:extraschool.extraschool_coda_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_invoice_form
+#: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
 msgid "Payments"
 msgstr "Paiements"
 
@@ -6157,6 +6215,21 @@ msgstr "Text de l email"
 msgid "The communication is outdated. Another reminder has been created."
 msgstr "The communication is outdated. Another reminder has been created."
 
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
+msgid "Tax Certificates"
+msgstr "Attestations fiscales"
+
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_invoice_wizard_form
+msgid "A biller is curently in creation. You will recieve an Email when the biller is completed.\n"
+"                    In the meantime, here is a picture of a cat slightly annoyed:"
+msgstr "Un facturier est en cours de création.Vous allez recevoir un E-mail lorsuque le facturier est créé.\n"
+""
+
+
 #. module: extraschool
 #: code:addons/extraschool/extraschool_child_registration.py:222
 #, python-format
@@ -6390,7 +6463,7 @@ msgstr "Unité de tps"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_reminders_journal_form
 msgid "Unpaid Reminders"
-msgstr "Unpaid Reminders"
+msgstr "Rappels impayés"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_message_unread

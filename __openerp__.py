@@ -142,6 +142,7 @@
         'report/common/payment_info_amount_one_row.xml',
         'report/custo_client/hannut.xml',
         'report/custo_client/lierneux.xml',
+        'report/custo_client/durbuy.xml',
         'report/custo_client/engis.xml',
         'report/custo_client/ferrieres.xml',
         'report/custo_client/tournai.xml',
