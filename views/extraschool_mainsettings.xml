@@ -65,6 +65,7 @@
                                 </page>
                                 <page string="Biller">
                                     <button name="reset_biller" string="Reset" icon="gtk-apply" type="object"/>
+                                    <button name="reconcil_all" string="Reconcil" icon="gtk-apply" type="object"/>
                                 </page>
                         </notebook>
                     </sheet>
