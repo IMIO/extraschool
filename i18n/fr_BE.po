@@ -889,6 +889,12 @@ msgstr "Montant"
 msgid "Amount accepted"
 msgstr "Montant accepté"
 
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_logo_reminder
+msgid "Logo reminder"
+msgstr "Logo du rappel"
+
 #. module: extraschool
 #: code:addons/extraschool/extraschool_coda.py:154
 #, python-format

@@ -30,7 +30,7 @@
 				}
 
 		    	.doc_date{
-		    		font-size: 12px;
+		    		font-size: 13px;
 		    	}
 
 		    	.implantation{
@@ -48,20 +48,6 @@
             </div>
 		</template>
 
-
-        <template id="report_adresse_no_style_durbuy">
-            <xpath expr="//head" position="inside">
-                <link rel="stylesheet" href="/extraschool/static/src/css/report_adresse_no_style.css"/>
-            </xpath>
-	    	<div class="aes_adresse">
-				<div class="aes_adresse_block customer">
-					<span t-field="addresse.name" />
-					<span t-field="addresse.street" />
-					<span><t t-esc="addresse.zipcode" /> <t t-esc="addresse.city" /></span>
-				</div>
-			</div>
-		</template>
-
          <template id="report_invoice_summary_durbuy_rappel">
 			<t t-set="zz" t-value="0" />
 			<t t-foreach="summary_invoice_ids" t-as="summary_invoice">
@@ -71,50 +57,52 @@
 			</t>
 			<t t-if="zz" >
                 <xpath expr="//head" position="inside">
-                    <link rel="stylesheet" href="/extraschool/static/src/css/report_invoice_summary_ferrieres.css"/>
+                    <link rel="stylesheet" href="/extraschool/static/src/css/report_invoice_summary_durbuy.css"/>
                 </xpath>
-	        	<div id="invoice_summary" >
-                    <h2>RAPPEL</h2>
-	        		<p>Madame, Monsieur,<br/><br/>
-						Sauf erreur de notre part, votre compte présente un solde en notre faveur. Veuillez trouvez, ci-dessous, le détail de la/ des facture(s) de l'acceuil
-                        extrascolaire dont la somme est due et échue.<br/><br/>
-                    </p>
-	        		<table>
-	        			<tr>
-		        			<th>Période</th>
-		        			<th>Facture</th>
-		        			<th>Montant dû</th>
-							<th>Montant payé</th>
-                            <th>Solde</th>
-						</tr>
-		       			<t t-foreach="summary_invoice_ids.sorted(key=lambda r: r.number)" t-as="summary_invoice">
-	        				<tr>
-	        					<t t-if="summary_invoice.id != invoice_id">
-	        					<t t-if="summary_invoice.reminder_fees == False">
-	        						<tr>
-				       					<td><span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_from,'%Y-%m-%d')))" /> - <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_to,'%Y-%m-%d')))" /></td>
-			        					<td><span t-field="summary_invoice.number" /></td>
-                                        <td><span t-esc="'%.2f €' % (summary_invoice.amount_total)"/></td>
-                                        <td><span t-esc="'%.2f €' % (summary_invoice.amount_received)" /></td>
-                                        <td class="amount"><span t-esc="'%.2f €' %  (summary_invoice.balance)" /></td>
-	        						</tr>
-								</t>
-	        					<t t-if="summary_invoice.reminder_fees == True">
-	        						<t t-foreach="summary_invoice.invoice_line_ids" t-as="invoice_line">
-	        							<tr>
-					       					<td><span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_from,'%Y-%m-%d')))" /> - <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_to,'%Y-%m-%d')))" /></td>
-                                            <td><span t-field="summary_invoice.number" /></td>
-                                            <td><span t-esc="'%.2f €' % (summary_invoice.amount_total)"/></td>
-                                            <td><span t-esc="'%.2f €' % (summary_invoice.amount_received)" /></td>
-                                            <td class="amount"><span t-esc="'%.2f €' %  (summary_invoice.balance)" /></td>
-				       					</tr>
-	        						</t>
-								</t>
-								</t>
-		       				</tr>
-		        		</t>
-	        		</table>
-	       		</div>
+                <div class="row">
+                    <div id="invoice_summary" >
+                        <h2>RAPPEL</h2>
+                        <p>Madame, Monsieur, Cher parent,<br/><br/>
+                            <span style="margin:30px;">Sauf erreur de notre part, votre compte présente un solde en notre faveur. Veuillez trouvez, ci-dessous, le détail de la/ des facture(s) de l'acceuil
+                                extrascolaire dont la somme est due et échue.</span><br/><br/>
+                        </p>
+                            <table class="col-sm-12">
+                                <tr>
+                                    <th>Période</th>
+                                    <th>Facture</th>
+                                    <th>Montant dû</th>
+                                    <th>Montant payé</th>
+                                    <th>Solde</th>
+                                </tr>
+                                <t t-foreach="summary_invoice_ids.sorted(key=lambda r: r.number)" t-as="summary_invoice">
+                                    <tr>
+                                        <t t-if="summary_invoice.id != invoice_id">
+                                        <t t-if="summary_invoice.reminder_fees == False">
+                                            <tr>
+                                                <td><span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_from,'%Y-%m-%d')))" /> - <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_to,'%Y-%m-%d')))" /></td>
+                                                <td><span t-field="summary_invoice.number" /></td>
+                                                <td><span t-esc="'%.2f €' % (summary_invoice.amount_total)"/></td>
+                                                <td><span t-esc="'%.2f €' % (summary_invoice.amount_received)" /></td>
+                                                <td class="amount"><span t-esc="'%.2f €' %  (summary_invoice.balance)" /></td>
+                                            </tr>
+                                        </t>
+                                        <t t-if="summary_invoice.reminder_fees == True">
+                                            <t t-foreach="summary_invoice.invoice_line_ids" t-as="invoice_line">
+                                                <tr>
+                                                    <td><span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_from,'%Y-%m-%d')))" /> - <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_to,'%Y-%m-%d')))" /></td>
+                                                    <td><span t-field="summary_invoice.number" /></td>
+                                                    <td><span t-esc="'%.2f €' % (summary_invoice.amount_total)"/></td>
+                                                    <td><span t-esc="'%.2f €' % (summary_invoice.amount_received)" /></td>
+                                                    <td class="amount"><span t-esc="'%.2f €' %  (summary_invoice.balance)" /></td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                        </t>
+                                    </tr>
+                                </t>
+                            </table>
+                    </div>
+                </div>
 			</t>
 
 		</template>
@@ -131,14 +119,13 @@
 
 				#payment_info{
 				    margin-left: 5mm;
-                    float: right;
 					display: block;
 					padding: 8px;
 					page-break-inside: avoid;
+                    border-color: pink;
 				}
                 .ecrit {
-							text-decoration: underline;
-					  		font-weight: bold;
+                    text-decoration: underline;
 					  }
                 #doc_resp_sign>div{
 					float: right;
@@ -147,14 +134,16 @@
 				#doc_resp_sign>div>span{
 					display:block;
 				}
+
 			</style>
-                <div id="total_row">
+            <div class="row">
+                <div class="col-sm-12" style="border-width: 1px;border-style: solid;width: 100%;page-break-inside: avoid;font-size: 12px;">
                     <div id="payment_info">
                         <div>
-                          <span>Total à payer : </span><span class="amount"><t t-esc="'%.2f' %  (total)" /> €</span>
+                          <span style="font-size: 13px;font-weight: bold;">Total à payer : </span><span class="amount"><t t-esc="'%.2f' %  (total)" /> €</span>
                         </div>
                         <div>
-                            <b><span> A payer avant le <t t-esc="payment_term" /></span></b>
+                            <span> Échéance avant le <t t-esc="payment_term" /></span>
                         </div>
                         <div>
                             <span>Compte : <b><t t-esc="categ_id.bankaccount" /></b></span>
@@ -164,98 +153,31 @@
                         </div>
                     </div>
                 </div>
-                <div>
+                <div class="col-sm-12" style="margin-top:15px;">
                     <p>
-                        En l'absence de contestation, nous vous invitons à procéder au paiement en respectant le délai, le numéro de compte ainsi
-                        que la communication mentionnés ci-dessus.<sup>1</sup>
+                        <span style="margin:30px;">En l'absence de contestation, nous vous invitons à procéder au paiement en respectant le délai, le numéro de compte ainsi
+                            que la communication mentionnés ci-dessus.<sup>1</sup><br/></span>
                     </p>
                     <p>
-                        À défaut de paiement dans le délai imparti, une mise en demeure recommandée majorée de 7,50€ vous sera adressée.
+                        <span style="margin:30px;">À défaut de paiement dans le délai imparti, une mise en demeure recommandée majorée de 7,50€ vous sera adressée.<br/></span>
                     </p>
                     <p>
-                        Nous vous prions de croire, Madame, Monsieur, Cher parents, en l'assurance de notre considération distinguée.
+                        <span style="margin:30px;">Nous vous prions de croire, Madame, Monsieur, Cher parents, en l'assurance de notre considération distinguée.<br/></span>
                     </p>
                 </div>
-                <div id="doc_resp_sign">
-                    <div>
-                        <span t-esc="resp_fct" />
-                        <span t-esc="resp_name" />
+                <div class="col-sm-3" style="float: right;display:block;margin-top:10px;">
+                    <div style="display:block;">
+                        <span t-esc="resp_name" /><br/>
+                        <span style="border-top:30px;"> <t t-esc="resp_fct"/> </span>
                     </div>
                 </div>
-
-		</template>
-
-        <template id="report_payment_info_amount_one_row_durbuy_rappel">
-			<style>
-				#total_row{
-					border-width: 1px;
-					border-style: solid;
-					width: 100%;
-					page-break-inside: avoid;
-					font-size: 12px;
-				}
-
-                #note{
-                    font-size: 9px;
-                }
-
-				#payment_info{
-				    margin-left: 5mm;
-                    float: right;
-					display: block;
-					padding: 8px;
-					page-break-inside: avoid;
-				}
-                .ecrit {
-							text-decoration: underline;
-					  }
-                #doc_resp_sign>div{
-					float: right;
-				}
-
-				#doc_resp_sign>div>span{
-					display:block;
-				}
-			</style>
-                <div id="total_row">
-                    <div id="payment_info">
-                        <div>
-                          <span>Total à payer : </span><span class="amount"><t t-esc="'%.2f' %  (total)" /> €</span>
-                        </div>
-                        <div>
-                            <b><span> A payer avant le <t t-esc="payment_term" /></span></b>
-                        </div>
-                        <div>
-                            <span>Compte : <b><t t-esc="categ_id.bankaccount" /></b></span>
-                        </div>
-                        <div>
-                            Communication structurée <span class="ecrit">obligatoire</span> : <t t-esc="reminder_com_struct"/>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <p>
-                        En l'absence de contestation, nous vous invitons à procéder au paiement en respectant le délai, le numéro de compte ainsi
-                        que la communication mentionnés ci-dessus.<sup>1</sup>
-                    </p>
-                    <p>
-                        À défaut de paiement dans le délai imparti, une mise en demeure recommandée majorée de 7,50€ vous sera adressée.
-                    </p>
-                    <p>
-                        Nous vous prions de croire, Madame, Monsieur, Cher parents, en l'assurance de notre considération distinguée.
-                    </p>
-                </div>
-                <div id="doc_resp_sign">
-                    <div>
-                        <span t-esc="resp_fct" />
-                        <span t-esc="resp_name" />
-                    </div>
-                </div>
-                <div id="note">
+                <div class="col-sm-12" style="margin-top:100px; font-size:11px">
                     <sup>1</sup> Si votre paiement croise ce courrier, veuillez considérer ce rappel comme nul et non avenu.
                 </div>
+            </div>
 
 		</template>
+
 
 
 
