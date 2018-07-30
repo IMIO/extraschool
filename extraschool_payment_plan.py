@@ -25,10 +25,17 @@ from openerp import models, api, fields, _
 from openerp.api import Environment
 from datetime import datetime
 from openerp.exceptions import except_orm, Warning, RedirectWarning
+import logging
+_logger = logging.getLogger(__name__)
+import math
 
-class extraschool_payment_plan(models.Model):
+class ExtraSchoolPaymentPlan(models.Model):
     _name = 'extraschool.payment_plan'
     _description = 'Payment Plan'
+
+    @api.depends('total_amount', 'paid_amount')
+    def _get_due_amount(self):
+        return self.total_amount - self.paid_amount
 
     parent_id = fields.Many2one(
         'extraschool.parent',
@@ -48,7 +55,7 @@ class extraschool_payment_plan(models.Model):
         'payment_plan_id',
         string='Payment Plan Document'
     )
-    payment_rate = fields.Integer(
+    payment_rate = fields.Float(
         string='Amount per month',
     )
     month_rate = fields.Integer(
@@ -56,36 +63,38 @@ class extraschool_payment_plan(models.Model):
     )
     total_amount = fields.Float(
         string='Total to pay',
-        readonly=True,
     )
     paid_amount = fields.Float(
         string='Total paid',
-        readonly=True,
     )
     due_amount = fields.Float(
         string='Amount Due',
-        readonly=True,
+        default=_get_due_amount,
     )
     number_of_payment = fields.Integer(
         string='Number of payment',
-        readonly=True,
     )
     comm_struct = fields.Char(
         string='Communication',
-        readonly=True,
     )
     active = fields.Boolean(
         default=True,
     )
 
-    # @api.onchange('parent_id')
-    # def _onchange_parent_id(self):
-    #     self.invoice_ids = self.env['extraschool.invoice'].search([
-    #         ('parentid', '=', self.parent_id.id),
-    #         ('balance', '!=', '0'),
-    #     ])
+    @api.onchange('invoice_ids')
+    def _onchange_invoice_ids(self):
+        self.total_amount = sum([invoice.balance for invoice in self.invoice_ids])
+        self.due_amount = self.total_amount - self.paid_amount
 
-class extraschool_payment_plan_document(models.Model):
+    @api.onchange('payment_rate')
+    def _onchange_payment_rate(self):
+        if not self.payment_rate:
+            return False
+
+        total_month = self.total_amount / self.payment_rate
+        self.month_rate = math.ceil(total_month)
+
+class ExtraSchoolPaymentPlanDocument(models.Model):
     _name = 'extraschool.payment_plan_document'
     _description = 'Payment Plan Document'
 

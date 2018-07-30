@@ -8,20 +8,27 @@
             <field name="arch" type="xml">
             <form string="Payment Plan">
                 <sheet>
-                    <group>
-                        <field name="active" groups="extraschool.extraschool_gods"/>
-                    </group>
                     <group col="4">
-                        <field name="parent_id" create="false" delete="false"/>
+                        <field name="active" groups="extraschool.extraschool_gods"/>
+                        <field name="create_date" widget="date" readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="parent_id" options="{'no_create':True}"/>
+                    </group>
+                    <group>
                         <field name="payment_rate"/>
-                        <field name="month_rate"/>
-                        <field name="total_amount"/>
-                        <field name="paid_amount"/>
-                        <field name="due_amount"/>
-                        <field name="number_of_payment"/>
-                        <field name="comm_struct"/>
                     </group>
                     <notebook>
+                        <page string="General Informations" readonly="1">
+                            <group col="2">
+                                <field name="month_rate"/>
+                                <field name="total_amount"/>
+                                <field name="paid_amount"/>
+                                <field name="due_amount"/>
+                                <field name="number_of_payment"/>
+                                <field name="comm_struct"/>
+                            </group>
+                        </page>
                         <page string="Invoices" readonly="True">
                             <field name="invoice_ids">
                                 <tree string="Invoices">
@@ -42,6 +49,20 @@
             </form>
             </field>
         </record>
+
+        <record model="ir.ui.view" id="extraschool_payment_plan_tree">
+			<field name="name">extraschool.payment_plan.tree</field>
+			<field name="model">extraschool.payment_plan</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree>
+                    <field name="parent_id"/>
+                    <field name="total_amount"/>
+                    <field name="paid_amount"/>
+                    <field name="due_amount"/>
+				</tree>
+			</field>
+		</record>
 
         <record model="ir.actions.act_window" id="action_payment_plan">
 			<field name="name">Payment Plan</field>
