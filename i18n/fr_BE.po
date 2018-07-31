@@ -893,7 +893,7 @@ msgstr "Montant accepté"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_logo_reminder
 msgid "Logo reminder"
-msgstr "Logo du rappel"
+msgstr "Logo du rappe"
 
 #. module: extraschool
 #: code:addons/extraschool/extraschool_coda.py:154
@@ -6232,7 +6232,7 @@ msgstr "Attestations fiscales"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_invoice_wizard_form
 msgid "A biller is curently in creation. You will recieve an Email when the biller is completed.\n"
 "                    In the meantime, here is a picture of a cat slightly annoyed:"
-msgstr "Un facturier est en cours de création.Vous allez recevoir un E-mail lorsuque le facturier est créé.\n"
+msgstr "Un facturier est en cours de création.Vous allez recevoir un E-mail lorsque le facturier est créé.\n"
 ""
 
 
