@@ -63,8 +63,8 @@
                     <div id="invoice_summary" >
                         <h2>RAPPEL</h2>
                         <p>Madame, Monsieur, Cher parent,<br/><br/>
-                            <span style="margin:30px;">Sauf erreur de notre part, votre compte présente un solde en notre faveur. Veuillez trouvez, ci-dessous, le détail de la/ des facture(s) de l'acceuil
-                                extrascolaire dont la somme est due et échue.</span><br/><br/>
+                            <span style="margin:30px;">Sauf erreur de notre part, votre compte présente un solde en notre faveur. Veuillez trouvez, ci-dessous, le détail de la/ des facture(s) de l'accueil
+                                Extrascolaire dont la somme reste impayée.</span><br/><br/>
                         </p>
                             <table class="col-sm-12">
                                 <tr>
@@ -137,32 +137,24 @@
 
 			</style>
             <div class="row">
-                <div class="col-sm-12" style="border-width: 1px;border-style: solid;width: 100%;page-break-inside: avoid;font-size: 12px;">
+                <div class="col-sm-12" style="border-width: 1px;display:block;border-style: solid;width: 100%;page-break-inside: avoid;font-size: 12px;">
                     <div id="payment_info">
-                        <div>
-                          <span style="font-size: 13px;font-weight: bold;">Total à payer : </span><span class="amount"><t t-esc="'%.2f' %  (total)" /> €</span>
-                        </div>
-                        <div>
-                            <span> Échéance avant le <t t-esc="payment_term" /></span>
-                        </div>
-                        <div>
-                            <span>Compte : <b><t t-esc="categ_id.bankaccount" /></b></span>
-                        </div>
-                        <div>
-                            Communication structurée <span class="ecrit">obligatoire</span> : <t t-esc="reminder_com_struct"/>
-                        </div>
+                          <span style="font-size: 15px;font-weight: bold;">Total à payer : <t t-esc="'%.2f' %  (total)" /> €</span><br/>
+                          <span>Échéance avant le <t t-esc="payment_term" /></span><br/>
+                          <span>Compte : <b><t t-esc="categ_id.bankaccount" /></b></span><br/>
+                          <span>Communication structurée <span class="ecrit">obligatoire</span> : <t t-esc="reminder_com_struct"/></span><br/>
                     </div>
                 </div>
                 <div class="col-sm-12" style="margin-top:15px;">
                     <p>
-                        <span style="margin:30px;">En l'absence de contestation, nous vous invitons à procéder au paiement en respectant le délai, le numéro de compte ainsi
+                        <br/><span style="margin:30px;">En l'absence de contestation, nous vous invitons à procéder au paiement en respectant le délai, le numéro de compte, ainsi
                             que la communication mentionnés ci-dessus.<sup>1</sup><br/></span>
                     </p>
                     <p>
                         <span style="margin:30px;">À défaut de paiement dans le délai imparti, une mise en demeure recommandée majorée de 7,50€ vous sera adressée.<br/></span>
                     </p>
                     <p>
-                        <span style="margin:30px;">Nous vous prions de croire, Madame, Monsieur, Cher parents, en l'assurance de notre considération distinguée.<br/></span>
+                        <span style="margin:30px;">Nous vous prions de croire, Madame, Monsieur, Cher parent, en l'assurance de notre considération distinguée.<br/></span>
                     </p>
                 </div>
                 <div class="col-sm-3" style="float: right;display:block;margin-top:10px;">
@@ -176,6 +168,20 @@
                 </div>
             </div>
 
+		</template>
+
+
+        <template id="report_adresse_no_style_durbuy">
+			<xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_adresse_no_style.css"/>
+            </xpath>
+	    	<div class="aes_adresse">
+				<div class="aes_adresse_block customer">
+					<span t-field="addresse.name" />
+					<span t-field="addresse.street" />
+					<span><t t-esc="addresse.zipcode" /> <t t-esc="addresse.city" /></span>
+				</div>
+			</div>
 		</template>
 
 
