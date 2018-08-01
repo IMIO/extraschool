@@ -24,7 +24,7 @@
 				<header>
 					<button name="wizard_action" string="Fusion" icon="gtk-apply" type="object" context="{'default_parent_id': id}" groups="extraschool.extraschool_fusion"/>
 					<button name="test_TS" string="envois TS" icon="gtk-apply" type="object" groups="extraschool.extraschool_gods"/>
-					<!--<button name="sendemail" string="email valid ?" icon="gtk-apply" type="object" groups="extraschool.extraschool_gods"/>-->
+					<button name="callmethod" string="email valid ?" icon="gtk-apply" type="object" groups="extraschool.extraschool_gods"/>
             	</header>
                 <sheet>
                     <div class="oe_right oe_button_box" name="buttons">

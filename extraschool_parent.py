@@ -25,7 +25,7 @@ import re
 from openerp import models, api, fields, _
 from openerp.api import Environment
 import lbutils
-from datetime import datetime
+from datetime import datetime, date
 from openerp.exceptions import except_orm, Warning, RedirectWarning
 import requests
 import base64, hmac, hashlib, datetime
@@ -349,6 +349,13 @@ class extraschool_parent(models.Model):
 
         return self.env['extraschool.payment'].format_comstruct('%s%s%s' % (com_struct_prefix_str,com_struct_id_str,com_struct_check_str))
 
+##############################################################################
+#
+#    Portail Parent
+#    Copyright (C) 2018
+#    Colicchia Michaël - Imio (<http://www.imio.be>).
+#
+##############################################################################
     def sign_url(self, url, key, orig, algo='sha256', timestamp=None, nonce=None):
         parsed = urlparse.urlparse(url)
         new_query = self.sign_query(parsed.query, key, orig, algo, timestamp, nonce)
@@ -385,32 +392,45 @@ class extraschool_parent(models.Model):
         query_full = self.sign_url(query_string, key, orig)
         import logging;logging.getLogger(__name__).info(requests.post(query_full))
 
+    def calculate_age(self, dtob):
+        today = date.today()
+        return today.year - dtob.year - ((today.month, today.day) < (dtob.month, dtob.day))
 
-    @api.multi
-    def get_helloworld(self):
-        return "Hello World ! anu s"
-
-    @staticmethod
-    def helloworld(cr, uid, info, context=None):
-        """
-        :param cr, uid, context needed for a static method
-        :param info: .
-        :return: Dictionnary of data ['data': [{'lastname': 'gaston', 'children': {'name': 'truc'}] }]
-        """
-        # Declare new Environment.
-        env = api.Environment(cr, uid, context={})
-
-        return extraschool_parent.get_helloworld(env['extraschool.parent'])
-
+    # Todo: Be able to search in email separated by , ex: a@a.aa, b@b.bb
     @api.multi
     def is_email_parent_valid(self, email):
-        parent_email = self.env['extraschool.parent'].search([('email', '=', email)])
-
-        if parent_email:
+        if self.env['extraschool.parent'].search([('email', '=ilike', email.get('email'))]):
             print "oui"
             return True
         print "non"
         return False
+
+    @api.multi
+    def get_parent_children(self, email):
+        parent_id = self.env['extraschool.parent'].search([('email', '=ilike', email.get('email'))]).id
+        children = self.env['extraschool.child'].search([('parentid', '=', parent_id)])
+        children_list = []
+
+        for child in children:
+            children_list.append(
+                {
+                    'id': child.id,
+                    'lastname':child.lastname,
+                    'firstname': child.firstname,
+                    'age': self.calculate_age(datetime.datetime.strptime(child.birthdate, "%Y-%m-%d")),
+                    'text': child.name,
+                }
+            )
+
+        if children_list:
+            print children_list
+            return [{'data': children_list}]
+        print "NONE"
+        return None
+
+    @api.multi
+    def callmethod(self):
+        self.get_parent_children('Michael.colicchia@imio.be')
 
     @staticmethod
     def is_registered_parent(cr, uid, info, context=None):
@@ -421,5 +441,19 @@ class extraschool_parent(models.Model):
         """
         # Declare new Environment.
         env = api.Environment(cr, uid, context={})
+        print info
 
         return extraschool_parent.is_email_parent_valid(env['extraschool.parent'], info)
+
+    @staticmethod
+    def get_children(cr, uid, email, context=None):
+        """
+        :param cr, uid, context needed for a static method
+        :param email: email of parents
+        :return: True if the email already exists, False if it doesn't.
+        """
+        # Declare new Environment.
+        env = api.Environment(cr, uid, context={})
+        print email
+
+        return extraschool_parent.get_parent_children(env['extraschool.parent'], email)

@@ -139,7 +139,7 @@ class extraschool_child(models.Model):
 #
 #    AESMobile
 #    Copyright (C) 2018
-#    Colicchia Michaël & Delaere Olivier - Imio (<http://www.imio.be>).
+#    Colicchia Michaël - Imio (<http://www.imio.be>).
 #
 ##############################################################################
     @api.multi

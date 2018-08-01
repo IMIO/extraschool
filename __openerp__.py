@@ -33,7 +33,7 @@
                  'web',
                  ],
     'init_xml' : ['init.xml',],
-    'css': ['static/src/css/test.css'],
+    'css': ['static/src/css/'],
     'demo' : [],
     'test' : [],
     'data' : [
