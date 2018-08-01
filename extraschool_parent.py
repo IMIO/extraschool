@@ -401,3 +401,25 @@ class extraschool_parent(models.Model):
         env = api.Environment(cr, uid, context={})
 
         return extraschool_parent.get_helloworld(env['extraschool.parent'])
+
+    @api.multi
+    def is_email_parent_valid(self, email):
+        parent_email = self.env['extraschool.parent'].search([('email', '=', email)])
+
+        if parent_email:
+            print "oui"
+            return True
+        print "non"
+        return False
+
+    @staticmethod
+    def is_registered_parent(cr, uid, info, context=None):
+        """
+        :param cr, uid, context needed for a static method
+        :param info: email of parents
+        :return: True if the email already exists, False if it doesn't.
+        """
+        # Declare new Environment.
+        env = api.Environment(cr, uid, context={})
+
+        return extraschool_parent.is_email_parent_valid(env['extraschool.parent'], info)
