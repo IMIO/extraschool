@@ -2,42 +2,9 @@
 <openerp>
 	<data>
 		<template id="report_std_header_durbuy">
-		    <style type="text/css">
-		        #aes_header{
-		    		width: 100%;
-		    		display: block;
-		    		clear: both;
-                    margin-bottom : 10px;
-		    	}
-		    	#aes_header>div.row{
-		    		width: 100%;
-		    		margin-left: 0mm;
-		    	}
-
-		    	#b_logo{
-		    		float: left;
-		    		width: 100%;
-		    	}
-
-		    	#b_date{
-		    		float: right;
-		    		width: 70%;
-		    		text-align: right;
-		    	}
-
-				.logo {
-					display: inline-block;
-				}
-
-		    	.doc_date{
-		    		font-size: 13px;
-		    	}
-
-		    	.implantation{
-		    		font-size: 7px;
-		    	}
-		    </style>
-
+		    <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_std_header_durbuy.css"/>
+            </xpath>
 		    <div id="aes_header">
 		    	<div>
 						<img class="logo" t-attf-src="data:image/jpeg;base64,{{logo}}"/>
@@ -108,34 +75,9 @@
 		</template>
 
         <template id="report_payment_info_amount_one_row_durbuy_rappel">
-			<style>
-				#total_row{
-					border-width: 1px;
-					border-style: solid;
-					width: 100%;
-					page-break-inside: avoid;
-					font-size: 12px;
-				}
-
-				#payment_info{
-				    margin-left: 5mm;
-					display: block;
-					padding: 8px;
-					page-break-inside: avoid;
-                    border-color: pink;
-				}
-                .ecrit {
-                    text-decoration: underline;
-					  }
-                #doc_resp_sign>div{
-					float: right;
-				}
-
-				#doc_resp_sign>div>span{
-					display:block;
-				}
-
-			</style>
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_payment_info_amount_one_row_durbuy_rappel.css"/>
+            </xpath>
             <div class="row">
                 <div class="col-sm-12" style="border-width: 1px;display:block;border-style: solid;width: 100%;page-break-inside: avoid;font-size: 12px;">
                     <div id="payment_info">
