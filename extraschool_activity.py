@@ -82,6 +82,10 @@ class extraschool_activity(models.Model):
     warning_date_invoice = fields.Char('WARNING', default="WARNING, there are invoices on this activity, we changed the date so you won't erase them.", readonly=True)
     warning_visibility = fields.Boolean(track_visibility='onchange')
     expire_soon = fields.Boolean(compute='_get_expired_date')
+    portail_available = fields.Boolean(
+        default=False,
+        string="Is available for a parent on his portail"
+    )
 
     @api.multi
     def _get_expired_date(self):

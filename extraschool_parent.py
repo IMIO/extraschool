@@ -396,7 +396,26 @@ class extraschool_parent(models.Model):
         today = date.today()
         return today.year - dtob.year - ((today.month, today.day) < (dtob.month, dtob.day))
 
-    # Todo: Be able to search in email separated by , ex: a@a.aa, b@b.bb
+    @api.multi
+    def callmethod(self):
+        self.get_parent_children('Michael.colicchia@imio.be')
+
+#########################################################################
+#   Check if parent is registered
+#########################################################################
+    @staticmethod
+    def is_registered_parent(cr, uid, info, context=None):
+        """
+        :param cr, uid, context needed for a static method
+        :param info: email of parents
+        :return: True if the email already exists, False if it doesn't.
+        """
+        # Declare new Environment.
+        env = api.Environment(cr, uid, context={})
+        print info
+
+        return extraschool_parent.is_email_parent_valid(env['extraschool.parent'], info)
+
     @api.multi
     def is_email_parent_valid(self, email):
         if self.env['extraschool.parent'].search([('email', '=ilike', email.get('email'))]):
@@ -405,6 +424,23 @@ class extraschool_parent(models.Model):
         print "non"
         return False
 
+#########################################################################
+#   Check return children of a parent
+#########################################################################
+    @staticmethod
+    def get_children(cr, uid, email, context=None):
+        """
+        :param cr, uid, context needed for a static method
+        :param email: email of parents
+        :return: True if the email already exists, False if it doesn't.
+        """
+        # Declare new Environment.
+        env = api.Environment(cr, uid, context={})
+        print email
+
+        return extraschool_parent.get_parent_children(env['extraschool.parent'], email)
+
+    # Todo: Be able to search in email separated by , ex: a@a.aa, b@b.bb
     @api.multi
     def get_parent_children(self, email):
         parent_id = self.env['extraschool.parent'].search([('email', '=ilike', email.get('email'))]).id
@@ -423,37 +459,7 @@ class extraschool_parent(models.Model):
             )
 
         if children_list:
-            print children_list
-            return [{'data': children_list}]
+            print {'data': children_list}
+            return {'data': children_list}
         print "NONE"
         return None
-
-    @api.multi
-    def callmethod(self):
-        self.get_parent_children('Michael.colicchia@imio.be')
-
-    @staticmethod
-    def is_registered_parent(cr, uid, info, context=None):
-        """
-        :param cr, uid, context needed for a static method
-        :param info: email of parents
-        :return: True if the email already exists, False if it doesn't.
-        """
-        # Declare new Environment.
-        env = api.Environment(cr, uid, context={})
-        print info
-
-        return extraschool_parent.is_email_parent_valid(env['extraschool.parent'], info)
-
-    @staticmethod
-    def get_children(cr, uid, email, context=None):
-        """
-        :param cr, uid, context needed for a static method
-        :param email: email of parents
-        :return: True if the email already exists, False if it doesn't.
-        """
-        # Declare new Environment.
-        env = api.Environment(cr, uid, context={})
-        print email
-
-        return extraschool_parent.get_parent_children(env['extraschool.parent'], email)

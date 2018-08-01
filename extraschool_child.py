@@ -195,3 +195,51 @@ class extraschool_child(models.Model):
         env = api.Environment(cr, uid, context={})
 
         return extraschool_child.get_child_for_smartphone(env['extraschool.child'], smartphone_id)
+
+##############################################################################
+#
+#    Portail Parent
+#    Copyright (C) 2018
+#    Colicchia Michaël - Imio (<http://www.imio.be>).
+#
+##############################################################################
+
+#########################################################################
+#   return activities available for a children
+#########################################################################
+
+    @staticmethod
+    def get_activities(cr, uid, child_id, context=None):
+        """
+        :param cr, uid, context needed for a static method
+        :param smartphone_id: Id of the smartphone that contact us.
+        :return: Dictionnary of children {id: , nom: , prenom:, tagid:}
+        """
+        # Declare new Environment.
+        env = api.Environment(cr, uid, context={})
+
+        return extraschool_child.get_child_activities(env['extraschool.child'], child_id)
+
+    # Todo: affinate the search
+    @api.multi
+    def get_child_activities(self, child_id):
+        school_ids = self.env['extraschool.child'].search([('id', '=', child_id.get('id'))]).schoolimplantation
+        print school_ids
+
+        activities = self.env['extraschool.activity'].search([('portail_available', '=', True)])
+
+        activities_list = []
+
+        for activity in activities:
+            activities_list.append(
+                {
+                    'id': activity.id,
+                    'text':activity.name,
+                }
+            )
+
+        if activities_list:
+            print {'data': activities_list}
+            return {'data': activities_list}
+        
+        return None
