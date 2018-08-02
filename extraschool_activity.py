@@ -388,5 +388,46 @@ class extraschool_activity(models.Model):
         else:
             return False
 
-extraschool_activity()
+##############################################################################
+#
+#    Portail Parent
+#    Copyright (C) 2018
+#    Colicchia Michaël - Imio (<http://www.imio.be>).
+#
+##############################################################################
 
+##############################################################################
+#   return activities detail
+##############################################################################
+
+    @staticmethod
+    def get_activities_details(cr, uid, activity_id, start_date, end_date, context=None):
+        """
+        :param cr, uid, context needed for a static method
+        :param smartphone_id: Id of the smartphone that contact us.
+        :return: Dictionnary of children {id: , nom: , prenom:, tagid:}
+        """
+        # Declare new Environment.
+        env = api.Environment(cr, uid, context={})
+
+        return extraschool_activity.get_activity_detail(env['extraschool.child'], activity_id, start_date, end_date)
+
+    @api.multi
+    def get_activity_detail(self, activity_id, start_date, end_date):
+        occurrence_ids = self.env['extraschool.activityoccurrence'].search([('activityid', '=', activity_id), ('date_start', '>=', start_date), ('date_stop', '<=', end_date)])
+        occurence_list = []
+
+        for occurrence in occurrence_ids:
+            occurence_list.append(
+                {
+                    'occurrence_id': occurrence.id,
+                    'activity_id': activity_id,
+                    'date': occurrence.occurrence_date,
+                }
+            )
+
+        if occurence_list:
+            print {'data': occurence_list}
+            return {'data': occurence_list}
+
+        return None
