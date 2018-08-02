@@ -6,7 +6,7 @@
 			<field name="model">extraschool.place</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
-				<tree string="Place">
+				<tree string="Place" delete="false">
                     <field name="name"/> 
                     <field name="street"/> 
                     <field name="zipcode"/> 
@@ -21,7 +21,7 @@
             <field name="model">extraschool.place</field>    
             <field name="type">form</field>
             <field name="arch" type="xml">
-            <form string="Place">
+            <form string="Place" delete="false">
                 <sheet>
                     <group>
                         <field name="active"/>
