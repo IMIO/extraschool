@@ -6060,12 +6060,12 @@ msgstr "Rue"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_place_street_code
 msgid "Street Code"
-msgstr "N°"
+msgstr "Code rue"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_streetcode
 msgid "Street code"
-msgstr "N°"
+msgstr "Code rue"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_structcom
