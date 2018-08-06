@@ -4,7 +4,7 @@
     page-break-inside: avoid;
     text-align: justify;
     text-justify: inter-word;
-    font-size:12px;
+    font-size:13px;
 }
 
 #invoice_summary div.your_ref{
@@ -15,7 +15,7 @@
 
 #invoice_summary table {
     width: 100%;
-    font-size:12px;
+    font-size:13px;
     border-width: 1px;
     border-collapse: collapse;
 }

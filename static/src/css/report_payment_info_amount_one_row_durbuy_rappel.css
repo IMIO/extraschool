@@ -3,7 +3,7 @@
     border-style: solid;
     width: 100%;
     page-break-inside: avoid;
-    font-size: 12px;
+    font-size: 13px;
 }
 
 #payment_info{
@@ -12,6 +12,7 @@
     padding: 8px;
     page-break-inside: avoid;
     border-color: pink;
+    padding-left: 180px;
 }
 .ecrit {
     text-decoration: underline;
