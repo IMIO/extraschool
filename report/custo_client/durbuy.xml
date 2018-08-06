@@ -109,11 +109,14 @@
                         <span style="border-top:30px;"> <t t-esc="resp_fct"/> </span>
                     </div>
                 </div>
-                <div class="col-sm-12" style="margin-top:100px; font-size:12px">
-                    <sup>1</sup> Si votre paiement croise ce courrier, veuillez considérer ce rappel comme nul et non avenu.
-                </div>
             </div>
 
+		</template>
+
+        <template id="report_std_footer_durbuy_rappel">
+		    <div class="col-sm-12" style="margin-top:100px; font-size:12px">
+                <sup>1</sup> Si votre paiement croise ce courrier, veuillez considérer ce rappel comme nul et non avenu.
+            </div>
 		</template>
 
 
