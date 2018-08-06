@@ -142,7 +142,7 @@ class extraschool_coda(models.Model):
                         if prefixfound:
                             invoice=invoice_obj.search([('structcom', '=', communication),
                                                         ('huissier', '=', False),
-                                                        ('tag', '=', '')
+                                                        ('tag', '=', None)
                                                         ])
 
                             if len(invoice.ids) == 1:
