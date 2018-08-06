@@ -342,7 +342,8 @@ class extraschool_invoice(models.Model):
 
 
         total = 0
-        lines_ids = self.invoice_line_ids.filtered(lambda r: r.total_price > 0.0001).sorted(key=lambda r: "%s%s%s%s" % (r.childid.name,r.prestation_date,r.activity_activity_id.short_name,r.placeid.street_code))
+        lines_ids = self.invoice_line_ids.filtered(lambda r: r.total_price > 0.0001).sorted(key=lambda r: "%s%s%s%s" % (r.childid.name,r.placeid.street_code,r.prestation_date,r.activity_activity_id.short_name))
+
         if len(lines_ids) == 0:
             return {'lines': res,
                     'exported_amount': total,
