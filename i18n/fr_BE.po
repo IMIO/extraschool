@@ -3300,7 +3300,7 @@ msgstr "Factures"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_biller_invoices_date
 msgid "Invoices date"
-msgstr "Date de factures"
+msgstr "Date facture"
 
 #. module: extraschool
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_invoices_stat
