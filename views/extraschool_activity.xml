@@ -85,7 +85,15 @@
                     <page string="Location">
                         <group col="4">
                             <separator string="Places" colspan="4"/>
-                            <field name="placeids" nolabel="1" colspan="4"/>
+                            <field name="placeids" nolabel="1" colspan="4">
+                                <tree string="Place" delete="true">
+                                    <field name="name"/>
+                                    <field name="street"/>
+                                    <field name="zipcode"/>
+                                    <field name="city"/>
+                                    <field name="street_code"/>
+                                </tree>
+                            </field>
                         </group>
                     </page>
 
