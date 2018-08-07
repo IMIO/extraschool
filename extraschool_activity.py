@@ -84,6 +84,20 @@ class extraschool_activity(models.Model):
     expire_soon = fields.Boolean(compute='_get_expired_date')
 
     @api.multi
+    def get_occurrence(self):
+        return {'name': 'Occurrence',
+                'type': 'ir.actions.act_window',
+                'res_model': 'extraschool.activityoccurrence',
+                'view_type': 'form',
+                'view_mode': 'tree,form',
+                'nodestroy': False,
+                'target': 'current',
+                'limit': 50000,
+                'context': "{'group_by':'place_id'}",
+                'domain': [ ('activityid', '=',self.id),]
+                }
+
+    @api.multi
     def _get_expired_date(self):
         for rec in self:
             date_to_check = fields.Date.from_string(rec.validity_to) - datetime.now().date()
