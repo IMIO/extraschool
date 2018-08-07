@@ -79,7 +79,7 @@ class extraschool_activity(models.Model):
     validity_to = fields.Date('Validity to', index=True, required=True, track_visibility='onchange')
     selectable_on_registration = fields.Boolean('Selectable on registration form')
     selectable_on_registration_multi = fields.Boolean('Selectable on registration multi form')
-    warning_date = fields.Char('WARNING', default="ATTENTION, Modifier une activité peut impacter les présences déjà vérifiées ! Pour touts changements, Il est préférabl de contacter directement Imio.", readonly=True)
+    warning_date = fields.Char('WARNING', default="ATTENTION, Modifier une activité peut impacter les présences déjà vérifiées ! Pour tous changements, Il est préférable de contacter directement Imio.", readonly=True)
     warning_visibility = fields.Boolean(track_visibility='onchange')
     expire_soon = fields.Boolean(compute='_get_expired_date')
 
