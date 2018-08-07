@@ -38,6 +38,7 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Activity">
+                    <field name="warning_date" nolabel="1" class="alert alert-info" attrs="{'invisible':[('warning_visibility', '!=', True)]}"/>
                     <sheet>
                     <group col="4">
                     <field name="name"/>
@@ -46,7 +47,6 @@
                     <field name="validity_to"/>
                     <field name="leveltype"/>
                     <field name="warning_visibility" invisible="True"/>
-                    <field name="warning_date_invoice" style="color:Red" attrs="{'invisible':[('warning_visibility', '!=', True)]}"/>
                 </group>
                 <notebook>
                     <page string="Registration">
