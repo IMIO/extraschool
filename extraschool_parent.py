@@ -30,9 +30,12 @@ from openerp.exceptions import except_orm, Warning, RedirectWarning
 import requests
 import base64, hmac, hashlib, datetime
 from hashlib import sha256
-import random
+import random, json
 import urllib
 import urlparse
+import logging
+
+_logger = logging.getLogger(__name__)
 
 class extraschool_parent(models.Model):
     _name = 'extraschool.parent'
@@ -412,21 +415,24 @@ class extraschool_parent(models.Model):
         """
         # Declare new Environment.
         env = api.Environment(cr, uid, context={})
-        print info
+        _logger.info(json.dumps(info, indent=4))
 
         return extraschool_parent.is_email_parent_valid(env['extraschool.parent'], info)
 
     @api.multi
     def is_email_parent_valid(self, email):
         if self.env['extraschool.parent'].search([('email', '=ilike', email.get('email'))]):
-            print "oui"
             return True
-        print "non"
         return False
 
 #########################################################################
 #   Check return children of a parent
 #########################################################################
+    @staticmethod
+    def test(cr, uid, context=None):
+        _logger.info("Hello world was requested. Hi there !")
+        return "Hello World (an u)"
+
     @staticmethod
     def get_children(cr, uid, email, context=None):
         """
@@ -436,7 +442,7 @@ class extraschool_parent(models.Model):
         """
         # Declare new Environment.
         env = api.Environment(cr, uid, context={})
-        print email
+        print json.dumps(email, indent=4)
 
         return extraschool_parent.get_parent_children(env['extraschool.parent'], email)
 
@@ -459,7 +465,7 @@ class extraschool_parent(models.Model):
             )
 
         if children_list:
-            print {'data': children_list}
+            print json.dumps({'data': children_list}, indent=4)
             return {'data': children_list}
         print "NONE"
         return None

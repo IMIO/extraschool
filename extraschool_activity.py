@@ -31,7 +31,7 @@ from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
 
 from openerp.tools.misc import profile
 from datetime import date, datetime, timedelta as td
-import time
+import time, json
 import pdb
 from openerp.exceptions import except_orm, Warning, RedirectWarning
 
@@ -401,7 +401,7 @@ class extraschool_activity(models.Model):
 ##############################################################################
 
     @staticmethod
-    def get_activities_details(cr, uid, activity_id, start_date, end_date, context=None):
+    def get_activity_details(cr, uid, data, context=None):
         """
         :param cr, uid, context needed for a static method
         :param smartphone_id: Id of the smartphone that contact us.
@@ -409,25 +409,32 @@ class extraschool_activity(models.Model):
         """
         # Declare new Environment.
         env = api.Environment(cr, uid, context={})
-
-        return extraschool_activity.get_activity_detail(env['extraschool.child'], activity_id, start_date, end_date)
+        return extraschool_activity.get_activity_detail(env['extraschool.activity'], data)
 
     @api.multi
-    def get_activity_detail(self, activity_id, start_date, end_date):
-        occurrence_ids = self.env['extraschool.activityoccurrence'].search([('activityid', '=', activity_id), ('date_start', '>=', start_date), ('date_stop', '<=', end_date)])
-        occurence_list = []
+    def get_activity_detail(self, data):
+        school_id = self.env['extraschool.child'].search([('id', '=', data.get('child_id'))]).schoolimplantation
+        place_id = self.env['extraschool.place'].search([('schoolimplantation_ids', '=', school_id.id)])
 
+        occurrence_ids = self.env['extraschool.activityoccurrence'].search([
+            ('activityid', '=', int(data.get('activity'))),
+            ('date_start', '>=', datetime.strptime(str(data.get('begining_date_search')), '%Y%m%dT%H:%M:%S').strftime("%Y-%m-%d")),
+            ('date_stop', '<=', datetime.strptime(str(data.get('ending_date_search')), '%Y%m%dT%H:%M:%S').strftime("%Y-%m-%d")),
+            ('place_id', '=', place_id.id)
+        ])
+
+        occurence_list = []
         for occurrence in occurrence_ids:
             occurence_list.append(
                 {
-                    'occurrence_id': occurrence.id,
-                    'activity_id': activity_id,
-                    'date': occurrence.occurrence_date,
+                    'id': occurrence.id,
+                    'activity_id': data.get('activity'),
+                    'text': occurrence.occurrence_date,
                 }
             )
 
         if occurence_list:
-            print {'data': occurence_list}
+            print json.dumps({'data': occurence_list}, indent=4)
             return {'data': occurence_list}
 
         return None

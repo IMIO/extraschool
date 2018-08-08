@@ -24,7 +24,7 @@
 from openerp import models, api, fields
 from openerp.api import Environment
 from datetime import date, datetime
-import time
+import time, json
 import timeit
 
 
@@ -239,7 +239,7 @@ class extraschool_child(models.Model):
             )
 
         if activities_list:
-            print {'data': activities_list}
+            print json.dumps({'data': activities_list}, indent=4)
             return {'data': activities_list}
         
         return None
