@@ -587,6 +587,37 @@ class extraschool_child_registration_line(models.Model):
         else:
             return True
 
+
+##############################################################################
+#
+#    Portail Parent
+#    Copyright (C) 2018
+#    Colicchia Michaël - Imio (<http://www.imio.be>).
+#
+##############################################################################
+
+##############################################################################
+#   register children
+##############################################################################
+
+    @api.multi
+    def register_child(self):
+        child_registration_id = self.env['extraschool.child_registration'].search([
+            ('activity_id', '=', activity_id),
+            ('date_from', '>=', date_registration),
+            ('date_to', '<=', date_registration),
+            ('place_id', '=', place_id),
+            ('school_implantation_id', '=', school_implantation_id)
+        ])
+
+        if child_registration_id:
+            self.env['extraschool.child_registration_line'].create({
+                'monday': True,
+                'child_id': child_id,
+                'child_level': child_level,
+                'child_registration_id': child_registration_id,
+            })
+
 class extraschool_day(models.Model):
     _name = 'extraschool.day'
 
