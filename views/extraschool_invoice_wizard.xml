@@ -14,6 +14,7 @@
                     <img style="width:100px;" src="https://orig00.deviantart.net/affd/f/2013/229/b/0/image_by_xxspiritwolf2000xx-d6ikyan.jpg"/>
                 </div>
                 <form string="invoice Wizard" attrs="{'invisible':[('isready', '!=', False)]}">
+                    <field name="warning_smartphone" nolabel="1" class="alert alert-info" attrs="{'invisible':[('warning_visibility', '!=', True)]}"/>
                     <sheet>
                         <field name="state" invisible="1" />
                         <field name="isready" invisible="1" />
@@ -21,6 +22,7 @@
                             <field name="schoolimplantationid" invisible="1"/>
                             <newline />
                             <field name="activitycategory" options="{'no_create':True}"/>
+                            <field name="warning_visibility" invisible="True"/>
                             <newline />
                             <field name="period_from" /><field name="period_to" />
                             <newline />
