@@ -23,7 +23,7 @@
 
 from openerp import models, api, fields, _
 from openerp.api import Environment
-from datetime import date
+from datetime import date, datetime, timedelta as td
 from dateutil.relativedelta import relativedelta
 import datetime
 import calendar
@@ -115,8 +115,19 @@ class extraschool_invoice_wizard(models.TransientModel):
                              'State', required=True, default='init'
                              )
     isready = fields.Boolean(default=_get_status)
+    warning_smartphone = fields.Char('WARNING',
+                                 default="Attention, il y a un ou plusieurs smartphone(s) qui n'a / n'ont pas transmis. Vérifier avant de générer votre facturier ! ",
+                                 readonly=True)
+    warning_visibility = fields.Boolean(track_visibility='onchange')
 
-
+    @api.onchange('period_from')
+    @api.multi
+    def check_date(self):
+        smartphone_ids = self.env['extraschool.smartphone'].search([])
+        self.warning_visibility = False
+        for smartphone in smartphone_ids :
+            if not smartphone.lasttransmissiondate > self.period_from:
+                self.warning_visibility = True
 
     def _compute_invoices(self):
         cr,uid = self.env.cr, self.env.user.id
