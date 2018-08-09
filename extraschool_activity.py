@@ -313,9 +313,9 @@ class extraschool_activity(models.Model):
             raise Warning(_("Validity to must be greater than validity from (hours)"))
 
         # Check Planned Dates
-        for planneddates_id in planneddates_ids:
+        '''for planneddates_id in planneddates_ids:
             if planneddates_id.activitydate < validity_from or planneddates_id.activitydate > validity_to:
-                raise Warning(_("Planned Dates must be in the range of Validity_to and Validity_from (Planned)"))
+                raise Warning(_("Planned Dates must be in the range of Validity_to and Validity_from (Planned)"))'''
 
         # Check Exclusion Dates
         for exclusiondates_id in exclusiondates_ids:

@@ -2,12 +2,28 @@
         <openerp>
     <data>
 
+        <record model="ir.ui.view" id="extraschool_activityplanneddate_form">
+            <field name="name">extraschool.activityplanneddate.form</field>
+            <field name="model">extraschool.activityplanneddate</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Date planned">
+                    <sheet>
+                        <group>
+                            <field name="activitydate"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
         <record model="ir.ui.view" id="extraschool_activityexclusiondates_tree">
             <field name="name">extraschool.activityexclusiondates.tree</field>
             <field name="model">extraschool.activityexclusiondates</field>
             <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree string="Activity">
+                    <field name="name" />
                     <field name="date_from" />
                     <field name="date_to" />
                 </tree>
@@ -73,7 +89,7 @@
                             <field name="prest_from" widget="float_time" />
                             <field name="prest_to" widget="float_time" />
                             <separator string="Planned dates" colspan="4"/>
-                            <field name="planneddates_ids" nolabel="1" colspan="4"/>
+                            <field name="planneddates_ids" nolabel="1" colspan="4" widget="many2many_tags"/>
                             <separator string="Exclusion dates" colspan="4"/>
                             <field name="exclusiondates_ids" nolabel="1" colspan="4">
                                 <tree>
@@ -82,9 +98,11 @@
                                     <field name="date_to" />
                                 </tree>
                                 <form>
-                                    <field name="name" />
-                                    <field name="date_from" />
-                                    <field name="date_to" />
+                                    <group>
+                                        <field name="name" />
+                                        <field name="date_from" />
+                                        <field name="date_to" />
+                                    </group>
                                 </form>
 
                             </field>

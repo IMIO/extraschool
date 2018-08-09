@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014 
+#    Copyright (C) 2008-2014
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot - Imio (<http://www.imio.be>).
 #
@@ -29,8 +29,9 @@ class extraschool_activityplanneddate(models.Model):
     _description = 'Activities planned dates'
 
     _rec_name = 'activitydate'
-        
-    activities = fields.Many2many('extraschool.activity','extraschool_activity_activityplanneddate_rel', 'activityplanneddate_id', 'activity_id','Activities')        
-    activitydate = fields.Date('Date', index=True)
+
+    activities = fields.Many2many('extraschool.activity','extraschool_activity_activityplanneddate_rel', 'activityplanneddate_id', 'activity_id','Activities')
+    activitydate = fields.Date(String='Date', index=True)
+
 
 extraschool_activityplanneddate()
