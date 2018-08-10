@@ -33,7 +33,7 @@
 							   Nos réf. : AES / <t t-esc="reminder.reminders_journal_id.name"/> / <t t-esc="parent_id.name" /><br/><br/><br/>
 								Cher Parent, <br/><br/>
 							   Nous vous avons adressé les factures relatives aux frais scolaires de votre (vos) enfant(s) pour la période du <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/>.
-							   Nous constatons que vous êtes encore redevable d'un solde dû de <t t-esc="amount"/>€ envers l'Administration
+							   Nous constatons que vous êtes encore redevable d'un solde dû de <t t-esc="'%.2f €' % (amount)"/> envers l'Administration
 							   Communale de Tournai, somme dont vous trouverez le détail ci-annexé.<br/><br/>
 
 							   <b>Nous vous invitons à régler ce montant, pour le <t t-esc="payment_term" /> au plus tard, au bénéfice du compte (IBAN)
@@ -90,9 +90,9 @@
 						Cher Parent, <br/><br/>
 
 					   Le service Comptabilité de la Ville de Tournai a constaté que, pour les frais scolaires de votre (vos) enfant(s) pour la période du <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/> il restait un montant impayé de
-					   <t t-esc="amount"/>€, et ce, malgré le courrier de rappel du                    , qui vous a déjà été adressé. Veuillez trouver en annexe le détail de ce montant.<br/><br/>
+					   <t t-esc="'%.2f €' % (amount)"/>, et ce, malgré le courrier de rappel du                    , qui vous a déjà été adressé. Veuillez trouver en annexe le détail de ce montant.<br/><br/>
 
-						<b>Par la présente, nous vous mettons en demeure de payer ce montant de <t t-esc="amount"/> pour le <t t-esc="payment_term" />
+						<b>Par la présente, nous vous mettons en demeure de payer ce montant de <t t-esc="'%.2f €' % (amount)"/> pour le <t t-esc="payment_term" />
 						au plus tard, au bénéfice du compte (IBAN) n° BE25 0960 2105 5182 (code BIC : GKCCBEBB),
 						avec la communication structurée suivante : <t t-esc="com_struct" />.</b><br/><br/>
 
