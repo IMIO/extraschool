@@ -81,15 +81,6 @@
                                     attrs="{'invisible':[('tag', '&gt;', 0)]}"
                             />
 
-                            <button name="set_tag"
-                                    string="Plan paiement"
-                                    type="object"
-                                    style="margin:5px;"
-                                    icon="fa-money"
-                                    context="{'tag': 'plan_de_paiement'}"
-                                    attrs="{'invisible':[('tag', '&gt;', 0)]}"
-                            />
-
 							<button name="set_tag"
                                     string="Bloqué"
                                     type="object"
