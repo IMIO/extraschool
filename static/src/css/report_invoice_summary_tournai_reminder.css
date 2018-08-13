@@ -1,0 +1,21 @@
+#invoice_summary{
+    width: 100%;
+    display: block;
+    margin: 0cm 0cm 0cm 0cm;
+    page-break-inside: avoid;
+    text-align: justify;
+    text-justify: inter-word;
+    font-size: 13px;
+ }
+
+ #invoice_summary div.your_ref{
+    width: 100%;
+    padding: 5mm 0mm 5mm 0mm;
+    display: block;
+ }
+
+
+div#invoice_summary h2{
+    font-size: 13px;
+    font-weight: bold;
+ }

@@ -2,87 +2,39 @@
 <openerp>
     <data>
         <template id="report_invoice_summary_tournai_text_rappel">
-				  <style type="text/css">
-					  #invoice_summary{
-						width: 100%;
-						display: block;
-						margin: 0cm 0cm 0cm 0cm;
-						page-break-inside: avoid;
-						text-align: justify;
-						text-justify: inter-word;
-						font-size: 13px;
-					 }
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_invoice_summary_tournai_reminder.css"/>
+            </xpath>
+              <div id="invoice_summary">
+                 <p>
+                     Objet: Factures AES pour la période du <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/>
+                         - <b>RAPPEL</b><br/>
+                       Nos réf. : AES / <t t-esc="reminder.reminders_journal_id.name"/> / <t t-esc="parent_id.name" /><br/><br/><br/>
+                        Cher Parent, <br/><br/>
+                       Nous vous avons adressé les factures relatives aux frais scolaires de votre (vos) enfant(s) pour la période du <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/>.
+                       Nous constatons que vous êtes encore redevable d'un solde dû de <t t-esc="'%.2f €' % (amount)"/> envers l'Administration
+                       Communale de <t t-esc="categ_id.po_city" />, somme dont vous trouverez le détail ci-annexé.<br/><br/>
 
-					 #invoice_summary div.your_ref{
-						width: 100%;
-						padding: 5mm 0mm 5mm 0mm;
-						display: block;
-					 }
+                       <b>Nous vous invitons à régler ce montant, pour le <t t-esc="payment_term" /> au plus tard, au bénéfice du compte (IBAN)
+                           n° <t t-esc="categ_id.bankaccount" /> (code BIC : GKCCBEBB), avec la communication structurée suivante : <t t-esc="com_struct" />.</b><br/><br/>
 
+                       Si vous souhaitez solliciter un plan de paiement, nous vous invitons à prendre contact avec notre service. <br/><br/>
 
-					div#invoice_summary h2{
-						font-size: 13px;
-						font-weight: bold;
-					 }
+                       À défaut de paiement, le recouvrement de la créance sera poursuivi suivant l'article L1124-40 §1er,1° du
+                       Code de la Démocratie locale et de la Décentralisation.<br/><br/>
 
-				 </style>
-					  <div id="invoice_summary">
-						 <p>
-							 Objet: Factures AES pour la période du <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/>
-								 - <b>RAPPEL</b><br/>
-							   Nos réf. : AES / <t t-esc="reminder.reminders_journal_id.name"/> / <t t-esc="parent_id.name" /><br/><br/><br/>
-								Cher Parent, <br/><br/>
-							   Nous vous avons adressé les factures relatives aux frais scolaires de votre (vos) enfant(s) pour la période du <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/>.
-							   Nous constatons que vous êtes encore redevable d'un solde dû de <t t-esc="'%.2f €' % (amount)"/> envers l'Administration
-							   Communale de <t t-esc="categ_id.po_city" />, somme dont vous trouverez le détail ci-annexé.<br/><br/>
+                       Si entretemps, la somme a été réglée, veuillez considérer ce rappel comme nul et non avenu.<br/><br/>
 
-							   <b>Nous vous invitons à régler ce montant, pour le <t t-esc="payment_term" /> au plus tard, au bénéfice du compte (IBAN)
-								   n° <t t-esc="categ_id.bankaccount" /> (code BIC : GKCCBEBB), avec la communication structurée suivante : <t t-esc="com_struct" />.</b><br/><br/>
-
-							   Si vous souhaitez solliciter un plan de paiement, nous vous invitons à prendre contact avec notre service. <br/><br/>
-
-							   À défaut de paiement, le recouvrement de la créance sera poursuivi suivant l'article L1124-40 §1er,1° du
-							   Code de la Démocratie locale et de la Décentralisation.<br/><br/>
-
-							   Si entretemps, la somme a été réglée, veuillez considérer ce rappel comme nul et non avenu.<br/><br/>
-
-							   Vous souhaitant bonne réception de la présente, nous vous prions de croire, Cher Parent, à l'assurance de
-							   notre considération distinguée.
-					 	</p>
-					 </div>
+                       Vous souhaitant bonne réception de la présente, nous vous prions de croire, Cher Parent, à l'assurance de
+                       notre considération distinguée.
+                </p>
+             </div>
 		</template>
 
 		<template id="report_invoice_summary_tournai_text_med">
-				  <style type="text/css">
-					  #invoice_summary{
-						width: 100%;
-					  	font-family:Calibri !important;
-						display: block;
-						margin: 0cm 0cm 0cm 0cm;
-						page-break-inside: avoid;
-						text-align: justify;
-						text-justify: inter-word;
-						font-size: 13px;
-					 }
-
-					  .ecrit {
-							text-decoration: underline;
-					  		font-weight: bold;
-					  }
-
-					 #invoice_summary div.your_ref{
-						width: 100%;
-						padding: 5mm 0mm 5mm 0mm;
-						display: block;
-					 }
-
-
-					div#invoice_summary h2{
-						font-size: 11px;
-						font-weight: bold;
-					 }
-
-				 </style>
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_invoice_summary_tournai_med.css"/>
+            </xpath>
 					  <div id="invoice_summary" >
 						 <p>
 							 Objet: Factures AES pour la période du <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/><br/> <b><span style=" margin-left:40px;">MISE EN DEMEURE AVANT CONTRAINTE NON FISCALE– art. L1124-40§1, 1° CDLD</span></b><br/>

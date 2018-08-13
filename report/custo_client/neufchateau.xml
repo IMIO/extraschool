@@ -2,7 +2,7 @@
 <openerp>
     <data>
 
-        <template id="report_invoice_summary_neufchaeteau">
+        <template id="report_invoice_summary_neufchateau">
 			<t t-set="zz" t-value="0" />
 			<t t-foreach="summary_invoice_ids" t-as="summary_invoice">
 				<t t-if="summary_invoice.id != invoice_id">
