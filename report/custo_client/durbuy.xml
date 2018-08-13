@@ -84,7 +84,7 @@
                 <div class="col-sm-12">
                     <div  style="border-width: 1px;display:block;border-style: solid;width: 100%;page-break-inside: avoid;font-size: 13px;">
                         <div id="payment_info">
-                              <span style="font-size: 15px;font-weight: bold;">Total à payer : <span style="float:right;"><t t-esc="'%.2f' %  (total)" /> €</span></span><br/>
+                            <span style="font-size: 15px;font-weight: bold;">Total à payer : <span style="float:right;"><t t-esc="'%.2f' %  (total)" /> €</span></span><br/>
                             <span>Échéance <span style="float:right;">avant le <t t-esc="payment_term" /></span></span><br/>
                             <span>Compte <span style="float:right;"><t t-esc="categ_id.bankaccount" /></span></span><br/>
                             <span>Communication structurée <span class="ecrit">obligatoire</span> <span style="float:right;"><t t-esc="reminder_com_struct"/></span></span>
@@ -134,6 +134,118 @@
 		</template>
 
 
+        <template id="report_invoice_summary_durbuy_med">
+			<t t-set="zz" t-value="0" />
+			<t t-foreach="summary_invoice_ids" t-as="summary_invoice">
+				<t t-if="summary_invoice.id != invoice_id">
+					<t t-set="zz" t-value="zz+1" />
+				</t>
+			</t>
+			<t t-if="zz" >
+                <xpath expr="//head" position="inside">
+                    <link rel="stylesheet" href="/extraschool/static/src/css/report_invoice_summary_durbuy.css"/>
+                </xpath>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div id="invoice_summary" >
+                            <h2>MISE EN DEMEURE RECOMMANDEE</h2>
+                            <p>Madame, Monsieur, Cher parent,<br/><br/>
+                                <span style="margin:30px;">Sauf erreur de notre part, vous n'avez pas donné suite à notre premier rappel vous invitant à solder la/les facture(s)
+                                 de l'accueil extrascolaire impayé(s) ci-dessous.</span><br/><br/>
+                            </p>
+                                <table class="col-sm-12">
+                                    <tr>
+                                        <th>Période</th>
+                                        <th>Facture</th>
+                                        <th>Montant dû</th>
+                                        <th>Montant payé</th>
+                                        <th>Solde</th>
+                                    </tr>
+                                    <t t-foreach="summary_invoice_ids.sorted(key=lambda r: r.number)" t-as="summary_invoice">
+                                        <tr>
+                                            <t t-if="summary_invoice.id != invoice_id">
+                                            <t t-if="summary_invoice.reminder_fees == False">
+                                                <tr>
+                                                    <td><span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_from,'%Y-%m-%d')))" /> - <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_to,'%Y-%m-%d')))" /></td>
+                                                    <td class="amount"><span t-field="summary_invoice.number" /></td>
+                                                    <td class="amount"><span t-esc="'%.2f €' % (summary_invoice.amount_total)"/></td>
+                                                    <td class="amount"><span t-esc="'%.2f €' % (summary_invoice.amount_received)" /></td>
+                                                    <td class="amount"><span t-esc="'%.2f €' %  (summary_invoice.balance)" /></td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="summary_invoice.reminder_fees == True">
+                                                <t t-foreach="summary_invoice.invoice_line_ids" t-as="invoice_line">
+                                                    <tr>
+                                                        <td></td>
+                                                        <td class="amount"><span t-field="summary_invoice.number" /></td>
+                                                        <td class="amount"><span t-esc="'%.2f €' % (summary_invoice.amount_total)"/></td>
+                                                        <td class="amount"><span t-esc="'%.2f €' % (summary_invoice.amount_received)" /></td>
+                                                        <td class="amount"><span t-esc="'%.2f €' %  (summary_invoice.balance)" /></td>
+                                                    </tr>
+                                                </t>
+                                            </t>
+                                            </t>
+                                        </tr>
+                                    </t>
+                                </table>
+                            <table class="col-sm-12">
+                                        <tr>
+                                                <tr>
+                                                    <td><span style="float:right;">Frais de rappel</span></td>
+                                                    <td class="amount"><t t-esc="'%.2f' %  (fees)" /> €</td>
+                                                </tr>
+                                        </tr>
+                                </table>
+                        </div>
+                    </div>
+                </div>
+			</t>
+
+		</template>
+
+
+
+        <template id="report_payment_info_amount_one_row_durbuy_med">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_payment_info_amount_one_row_durbuy_rappel.css"/>
+            </xpath>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div  style="border-width: 1px;display:block;border-style: solid;width: 100%;page-break-inside: avoid;font-size: 13px;">
+                        <div id="payment_info">
+                            <span style="font-size: 15px;font-weight: bold;">Total à payer : <span style="float:right;"><t t-esc="'%.2f' %  (balance + fees)" /> €</span></span><br/>
+                            <span>Échéance <span style="float:right;">avant le <t t-esc="payment_term" /></span></span><br/>
+                            <span>Compte <span style="float:right;"><t t-esc="categ_id.bankaccount" /></span></span><br/>
+                            <span>Communication structurée <span class="ecrit">obligatoire</span> <span style="float:right;"><t t-esc="reminder_com_struct"/></span></span>
+                        </div>
+                    </div>
+                    <div style="margin-top:15px;">
+                        <p>
+                            <br/><span style="margin:30px;"><b>Un dernier délai de 15 jours </b> à dater de la présente mise en demeure vous est accordé pour
+                                en effectuer le paiement.<br/></span>
+                        </p>
+                        <p>
+                            <span style="margin:30px;">Vous me dispenseriez ainsi de vous appliquer les rigueurs que la loi prescrit dans votre cas
+                                (Suivant l’article L1124-40 § 1er du Code de ma Démocratie Locale et de la Décentralisation
+                                (C.D.L.D)), qui consistent en <b>des poursuites par Maitre Sikivie, Huissier de Justice à Barvaux S/O.</b><br/></span>
+                        </p>
+                        <p>
+                            <span style="margin:30px;">Nous vous informons que seul le paiement intégral de la somme réclamée mettra fin à la procédure en cours.<br/></span>
+                        </p>
+                        <p>
+                            <span style="margin:30px;">Nous vous prions de croire, Madame, Monsieur, Cher parent, en l’assurance de notre considération distinguée.<br/></span>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-sm-3" style="float: right;display:block;margin-top:10px;">
+                    <div style="display:block;">
+                        <span t-esc="resp_name" /><br/>
+                        <span style="border-top:30px;"> <t t-esc="resp_fct"/> </span>
+                    </div>
+                </div>
+            </div>
+
+		</template>
 
 
 	</data>
