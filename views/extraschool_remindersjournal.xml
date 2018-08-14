@@ -11,6 +11,7 @@
                         <field name="name"/>
                         <newline/>
 						<field name="out_of_accounting"/>
+						<field name="bailiff"/>
 					</group>
 					<group col="4"  attrs="{'invisible':[('out_of_accounting', '=', True)]}">
                         <field name="fees_type" attrs="{'required':[('out_of_accounting', '!=', 'True')]}"/>
