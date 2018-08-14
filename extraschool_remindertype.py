@@ -46,6 +46,7 @@ class extraschool_remindertype(models.Model):
     payment_term_in_day = fields.Integer('payment_term_in_day')
     minimum_balance = fields.Float('Minimum balance', default=0.01)
     out_of_accounting = fields.Boolean(string="Out of accounting")
+    bailiff = fields.Boolean(string='Put to bailiff', default=False)
 
     @api.onchange('out_of_accounting')
     def onchange_week(self):
