@@ -37,6 +37,12 @@ class ExtraSchoolPaymentPlan(models.Model):
     def _get_due_amount(self):
         return self.total_amount - self.paid_amount
 
+    category_id = fields.Many2one(
+        'extraschool.activitycategory',
+        'Category',
+        required=True,
+    )
+
     parent_id = fields.Many2one(
         'extraschool.parent',
         string="Parent",
@@ -57,6 +63,7 @@ class ExtraSchoolPaymentPlan(models.Model):
     )
     payment_rate = fields.Float(
         string='Amount per month',
+        required=True,
     )
     month_rate = fields.Integer(
         string='Month to pay',
@@ -81,6 +88,16 @@ class ExtraSchoolPaymentPlan(models.Model):
         default=True,
     )
 
+    @api.onchange('parent_id', 'category_id')
+    def _onchange_parent_id_comm_struct(self):
+        if self.parent_id and self.category_id:
+            com_struct_prefix_str = self.category_id.payment_plan_comstruct_prefix
+            com_struct_id_str = str(self.parent_id.id).zfill(7)
+            com_struct_check_str = str(long(com_struct_prefix_str + com_struct_id_str) % 97).zfill(2)
+            com_struct_check_str = com_struct_check_str if com_struct_check_str != '00' else '97'
+            self.comm_struct = self.env['extraschool.payment'].format_comstruct(
+                '%s%s%s' % (com_struct_prefix_str, com_struct_id_str, com_struct_check_str))
+
     @api.onchange('invoice_ids')
     def _onchange_invoice_ids(self):
         self.total_amount = sum([invoice.balance for invoice in self.invoice_ids])
@@ -90,9 +107,14 @@ class ExtraSchoolPaymentPlan(models.Model):
     def _onchange_payment_rate(self):
         if not self.payment_rate:
             return False
-
+        # Todo: ask if the last month must be integrated to the precedence ex: 2€ each month and last month 3€ instead of 2€ and 1€
         total_month = self.total_amount / self.payment_rate
         self.month_rate = math.ceil(total_month)
+
+    @api.multi
+    def generate_documents(self):
+        print "test"
+
 
 class ExtraSchoolPaymentPlanDocument(models.Model):
     _name = 'extraschool.payment_plan_document'

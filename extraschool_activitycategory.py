@@ -62,6 +62,7 @@ class extraschool_activitycategory(models.Model):
 
 
     activities = fields.One2many('extraschool.activity', 'category','Activities')
+    payment_plan_ids = fields.One2many('extraschool.payment_plan', 'category_id','Payment Plans')
     placeids = fields.Many2many('extraschool.place','extraschool_activitycategory_place_rel', 'activitycategory_id', 'place_id','Schoolcare place')
     childpositiondetermination = fields.Selection((('byparent','by parent'),
                                                    ('byparentwp','by parent (only childs with prestations)'),
@@ -87,6 +88,11 @@ class extraschool_activitycategory(models.Model):
     reminderemailsubject = fields.Char('Reminder email subject', size=50)
     reminderemailtext = fields.Text('Reminder email text')
     reminer_type_ids = fields.One2many('extraschool.remindertype','activity_category_id', 'Reminder type')
+    payment_plan_comstruct_prefix = fields.Char('Payment Plan Comstruct prefix', size=3, required=True)
+    payment_plan_last_comstruct = fields.Integer('Last Payment Plan structured comunication number')
+    payment_plan_email_address = fields.Char('Payment Plan email address', size=50)
+    payment_plan_email_subject = fields.Char('Payment Plan email subject', size=50)
+    payment_plan_mail_text = fields.Text('Payment Plan email text')
 
     bankaccount = fields.Char('Bank account')
     bank_bic = fields.Char('Bank BIC')
@@ -219,7 +225,6 @@ class extraschool_activitycategory(models.Model):
 
         if type == 'invoice':
             com_struct_prefix_str = self.invoicecomstructprefix
-
 
         com_struct_prefix_str = com_struct_prefix_str.zfill(3)
         com_struct_id_str = ("%s" % (com_struct_id_str)).zfill(7)

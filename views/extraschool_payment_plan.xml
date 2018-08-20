@@ -7,22 +7,27 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
             <form string="Payment Plan">
+                <header>
+                    <button name="generate_documents" string="Generate the documents" class="btn-primary" type="object" groups="extraschool.extraschool_accounting"/>
+                </header>
                 <sheet>
                     <group col="4">
                         <field name="active" groups="extraschool.extraschool_gods"/>
                         <field name="create_date" widget="date" readonly="1"/>
+                        <field name="category_id"/>
                     </group>
+                    <newline/>
                     <group>
                         <field name="parent_id" options="{'no_create':True}"/>
                     </group>
                     <group>
                         <field name="payment_rate"/>
+                        <field name="total_amount"/>
                     </group>
                     <notebook>
-                        <page string="General Informations" readonly="1">
+                        <page string="General Informations" attrs="{'invisible':[('create_date', '=', False)]}">
                             <group col="2">
                                 <field name="month_rate"/>
-                                <field name="total_amount"/>
                                 <field name="paid_amount"/>
                                 <field name="due_amount"/>
                                 <field name="number_of_payment"/>
@@ -38,7 +43,7 @@
                                     <field name="structcom"/>
                                     <field name="amount_total"/>
                                     <field name="amount_received"/>
-                                    <field name="balance"/>
+                                    <field name="balance" sum="True"/>
                                     <field name="no_value"/>
                                     <field name="tag"/>
                                 </tree>
