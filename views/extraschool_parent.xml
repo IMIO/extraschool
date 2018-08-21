@@ -46,6 +46,10 @@
                             icon="fa-money"
                                 />
                     </div>
+                    <h2>
+                        <field name="lastname" class="oe_inline" on_change="onchange_name(lastname,firstname)"/>
+                        <field name="firstname" class="oe_inline" on_change="onchange_name(lastname,firstname)"/>
+                    </h2>
 				<group col="4">
 	            	<field name="isdisabled"/>
                     <newline/>
@@ -53,37 +57,50 @@
                     <field name="modified_since_last_import"/>
 	            </group>
                 <notebook>
-                <page string="Contact">
-                    <group col="4">
-
+                <page string="Signaletic">
+                    <newline/>
                     <field name="name" invisible="True"/>
                     <field name="streetcode" invisible="True"/>
-                    <field name="lastname" on_change="onchange_name(lastname,firstname)"/>
-                    <field name="firstname" on_change="onchange_name(lastname,firstname)"/>
                     <newline/>
-					<field name="rn"/>
-					<newline/>
-                    <field name="street" on_change="onchange_address(street,city)"/>
-                    <newline/>
-                    <field name="zipcode"/>
-                    <field name="city" on_change="onchange_address(street,city)"/>
-                    <newline/>
-                    <field name="housephone"/>
-                    <field name="workphone"/>
-                    <newline/>
-                    <field name="gsm"/>
-                    <!-- If invoicesendmethod use an email OR if remindersendmethod use an email. -->
-                    <field name="email" attrs="{'required':['|','|','|',('invoicesendmethod','=','onlyemail'),
+                    <group>
+                        <label for="rn" string="Registre National"/>
+                        <div>
+                            <field name="rn" class="oe_inline"/>
+                        </div>
+                    </group>
+                    <group>
+                        <label for="street" string="Address"/>
+                        <div>
+                            <field name="street" placeholder="Rue..." on_change="onchange_address(street,city)"/>
+                            <div>
+                                <field name="zipcode" class="oe_inline" placeholder="Code Postal"/>
+                                <field name="city" class="oe_inline" placeholder="Ville" on_change="onchange_address(street,city)"/>
+                            </div>
+                            <field name="country_id" placeholder="Country"/>
+                        </div>
+                    </group>
+                    <group>
+                        <label for="housephone" string="Contact"/>
+                        <div>
+                            <field name="housephone" placeholder="Téléphone Maison"/>
+                            <field name="workphone" placeholder="Téléphone Travail"/>
+                            <field name="gsm" placeholder="GSM"/>
+                            <field name="email" attrs="{'required':['|','|','|',('invoicesendmethod','=','onlyemail'),
                                                                         ('invoicesendmethod','=','emailandmail'),
                                                                         ('remindersendmethod','=','onlyemail'),
-                                                                        ('remindersendmethod','=','emailandmail')]}"/>
-                    <newline/>
-                    <field name="one_subvention_type"/>
-                    <newline/>
-                    <field name="invoicesendmethod"/>
-                    <newline/>
-                    <field name="remindersendmethod"/>
-                    <newline/>
+                                                                        ('remindersendmethod','=','emailandmail')]}"
+                                placeholder="Email"
+                            />
+                        </div>
+                    </group>
+                </page>
+                <page string="Configuration">
+                    <group col="2">
+                        <field name="one_subvention_type"/>
+                        <newline/>
+                        <field name="invoicesendmethod"/>
+                        <newline/>
+                        <field name="remindersendmethod"/>
                     </group>
                 </page>
                 <page string="Childs">
