@@ -8,7 +8,9 @@
             <field name="arch" type="xml">
             <form string="Payment Plan">
                 <header>
-                    <button name="generate_documents" string="Generate the documents" class="btn-primary" type="object" groups="extraschool.extraschool_accounting"/>
+                    <button name="validate" string="Validate" class="btn-primary" states="draft" type="object" groups="extraschool.extraschool_accounting"/>
+                    <button name="draft" string="Put to Draft" class="btn-primary" states="in_progress" type="object" groups="extraschool.extraschool_accounting"/>
+                    <field name="state" widget="statusbar" />
                 </header>
                 <sheet>
                     <group col="4">
@@ -17,13 +19,14 @@
                         <field name="category_id"/>
                     </group>
                     <newline/>
-                    <group>
-                        <field name="parent_id" options="{'no_create':True}"/>
-                    </group>
-                    <group>
-                        <field name="payment_rate"/>
-                        <field name="total_amount"/>
-                    </group>
+                    <label for="parent_id" class="oe_edit_only"/>
+                    <h3><field name="parent_id" options="{'no_create':True}"/></h3>
+
+                    <label for="payment_rate" class="oe_edit_only"/>
+                    <h4>
+                        <field name="payment_rate" class="oe_inline"/> € par mois
+                    </h4>
+                    <field name="total_amount" invisible="True"/>
                     <notebook>
                         <page string="General Informations" attrs="{'invisible':[('create_date', '=', False)]}">
                             <group col="2">
@@ -65,6 +68,7 @@
                     <field name="total_amount"/>
                     <field name="paid_amount"/>
                     <field name="due_amount"/>
+                    <field name="state"/>
 				</tree>
 			</field>
 		</record>

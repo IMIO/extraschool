@@ -87,6 +87,15 @@ class ExtraSchoolPaymentPlan(models.Model):
     active = fields.Boolean(
         default=True,
     )
+    state = fields.Selection(
+        [
+            ('draft', 'Draft'),
+            ('in_progress', 'In Progress'),
+            ('done', 'Done'),
+        ],
+        readonly=True,
+        default='draft',
+    )
 
     @api.onchange('parent_id', 'category_id')
     def _onchange_parent_id_comm_struct(self):
@@ -112,8 +121,19 @@ class ExtraSchoolPaymentPlan(models.Model):
         self.month_rate = math.ceil(total_month)
 
     @api.multi
-    def generate_documents(self):
-        print "test"
+    def validate(self):
+        for invoice in self.invoice_ids:
+            invoice.write({'tag': 2})
+        self.state = 'in_progress'
+
+    @api.multi
+    def draft(self):
+        if self.paid_amount == 0:
+            for invoice in self.invoice_ids:
+                invoice.write({'tag': None})
+            self.state = 'draft'
+        else:
+            raise Warning(_("You cannot put to draft a paid payment_plan"))
 
 
 class ExtraSchoolPaymentPlanDocument(models.Model):
