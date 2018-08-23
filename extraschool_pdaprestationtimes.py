@@ -125,7 +125,6 @@ class extraschool_pdaprestationtimes(models.Model):
     @api.multi
     def import_prestations(self, dict_prestations, smartphone_id):
         place_id = self.env['extraschool.smartphone'].search([('id', '=', smartphone_id)]).placeid.id
-        activity_category_id = self.env['extraschool.activitycategory'].search([])[0].id
         start_time = time.time()
 
         # Updating Tag ID of children
@@ -155,11 +154,27 @@ class extraschool_pdaprestationtimes(models.Model):
             })
 
             for children in dict_prestations['children']:
+                child_level = self.env['extraschool.child'].search([('id', '=', children['pk'])]).levelid.leveltype
+
                 # Xml RPC datetime to python datetime
                 datechild = datetime.datetime.strptime(str(children['date']), '%Y%m%dT%H%M%S')
 
-                #  Convert time to float
+                # Convert time to float
                 prestation_time = datechild.hour + datechild.minute / 60.0
+
+                # Get the category activity id if possible.
+                activity_occurrence_ids = self.env['extraschool.activityoccurrence'].search(
+                    [('occurrence_date', '=', datechild.date()), ('prest_from', '<=', prestation_time),
+                     ('prest_to', '>=', prestation_time), ('place_id', '=', place_id)])
+
+                activity_category_id = 0
+
+                if len(activity_occurrence_ids) != 1:
+                    for activity_occurrence in activity_occurrence_ids:
+                        if activity_occurrence.activityid.leveltype == child_level:
+                            activity_category_id = activity_occurrence.activity_category_id.id
+
+                print(activity_category_id)
 
                 self.create({   'childid': children['pk'],
                                 'placeid': place_id,

@@ -54,7 +54,7 @@
             <form string="Activity category">
             	<group col="4">
 	 			    <field name="name"/>
-	                <field name="childpositiondetermination"/>
+	                <!--<field name="childpositiondetermination"/>-->
 	                <field name="logo" widget="image" class="oe_avatar oe_left"/>
 	                <field name="slogan" />
 				</group>

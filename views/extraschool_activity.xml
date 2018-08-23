@@ -20,6 +20,7 @@
             <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree string="Activity" colors="red:expire_soon == True">
+                    <field name="category_id"/>
                     <field name="name"/>
                     <field name="root_id"/>
                     <field name="prest_from" widget="float_time"/>
