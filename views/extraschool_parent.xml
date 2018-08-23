@@ -47,8 +47,8 @@
                                 />
                     </div>
                     <h2>
-                        <field name="lastname" class="oe_inline" on_change="onchange_name(lastname,firstname)"/>
-                        <field name="firstname" class="oe_inline" on_change="onchange_name(lastname,firstname)"/>
+                        <field name="lastname" class="oe_inline" placeholder="Nom" on_change="onchange_name(lastname,firstname)"/>
+                        <field name="firstname" class="oe_inline" placeholder="Prénom" on_change="onchange_name(lastname,firstname)"/>
                     </h2>
 				<group col="4">
 	            	<field name="isdisabled"/>
