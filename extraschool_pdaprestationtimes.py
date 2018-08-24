@@ -171,17 +171,18 @@ class extraschool_pdaprestationtimes(models.Model):
 
                 if len(activity_occurrence_ids) != 1:
                     for activity_occurrence in activity_occurrence_ids:
-                        if activity_occurrence.activityid.leveltype == child_level:
-                            activity_category_id = activity_occurrence.activity_category_id.id
+                        if activity_occurrence.activityid.leveltype == child_level or activity_occurrence.activityid.leveltype == u'M,P':
+                            activity_category_id = activity_occurrence.activity_category_id
 
-                print(activity_category_id)
+                if not activity_category_id:
+                    activity_category_id = self.env['extraschool.activitycategory'].search([])[0]
 
                 self.create({   'childid': children['pk'],
                                 'placeid': place_id,
                                 'prestation_date': datechild.date(),
                                 'prestation_time': prestation_time,
                                 'es': children['eventType'],
-                                'activitycategoryid': activity_category_id,
+                                'activitycategoryid': activity_category_id.id,
                                 'pda_transmission_id': pda_transmission_id.id,
                             })
 
