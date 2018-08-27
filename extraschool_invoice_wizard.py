@@ -321,7 +321,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                     'period_to' : self.period_to,
                                     'payment_term': self.invoice_term,
                                     'invoices_date': self.invoice_date,
-                                    'activitycategoryid': self.activitycategory.ids,
+                                    'activitycategoryid': [(6, False, self.activitycategory.ids)]
                                     })
 
         #check if all manuel encodage are validated
