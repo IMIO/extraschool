@@ -102,7 +102,10 @@ class ExtraSchoolPaymentPlan(models.Model):
         if self.parent_id and self.category_id:
             com_struct_prefix_str = self.category_id.payment_plan_comstruct_prefix
             com_struct_id_str = str(self.parent_id.id).zfill(7)
-            com_struct_check_str = str(long(com_struct_prefix_str + com_struct_id_str) % 97).zfill(2)
+            try:
+                com_struct_check_str = str(long(com_struct_prefix_str + com_struct_id_str) % 97).zfill(2)
+            except:
+                raise Warning(_("There is no communication on payment plan"))
             com_struct_check_str = com_struct_check_str if com_struct_check_str != '00' else '97'
             self.comm_struct = self.env['extraschool.payment'].format_comstruct(
                 '%s%s%s' % (com_struct_prefix_str, com_struct_id_str, com_struct_check_str))
