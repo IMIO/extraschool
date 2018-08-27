@@ -102,7 +102,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                column2='schoolimplantation_id', default=_get_all_schoolimplantation, readonly=True)
     activitycategory = fields.Many2many(comodel_name='extraschool.activitycategory',
                                         relation='extraschool_invoice_wizard_activity_category_rel', column1='invoice_wizard_id',
-                                        column2='activity_category_id', string='activity_category_id')
+                                        column2='activity_category_id', string='activity category')
     period_from = fields.Date('Period from', required=True, default=_get_defaultfrom, help='Date où l\'on va commencer la facturation')
     period_to = fields.Date('Period to', required=True, default=_get_defaultto, help='Date où l\'on va terminer la facturation')
     invoice_date = fields.Date('invoice date', required=True, default=_get_defaultto)
@@ -761,7 +761,6 @@ class extraschool_invoice_wizard(models.TransientModel):
                 'target': 'current',
 #                'context': {'search_default_not_verified':1}
             }
-
 
     @api.multi
     def action_compute_invoices(self):
