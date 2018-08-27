@@ -36,6 +36,16 @@ class extraschool_guardian(models.Model):
     _description = 'Guardian'
     _inherit = 'mail.thread'
 
+    def _get_activity_category_id(self):
+        return self.env['extraschool.activitycategory'].search([])[0].filtered('id')
+
+    def _get_schoolimplantation_id(self):
+        return self.env['extraschool.schoolimplantation'].search([])[0].filtered('id')
+
+    activitycategoryid = fields.Many2one('extraschool.activitycategory', 'Activity Category',
+                                         track_visibility='onchange', default=_get_activity_category_id)
+    schoolimplantation = fields.Many2one('extraschool.schoolimplantation', 'School implantation', required=True,
+                                         track_visibility='onchange', default=_get_schoolimplantation_id)
     name = fields.Char(compute='_name_compute',string='FullName', size=100, store=True)
     firstname = fields.Char('FirstName', size=50)
     lastname = fields.Char('LastName', size=50 , required=True)
