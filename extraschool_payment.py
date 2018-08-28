@@ -84,8 +84,10 @@ class extraschool_payment(models.Model):
                          ('balance', '>', 0),
                          ]
         # On CODA payment, do not pay tagged or reminder/reminder fees invoice.
+        import wdb;
+        wdb.set_trace()
         if from_coda:
-            if payment_type == '2':
+            if payment_type == 2:
                 com_struct_id_str = str(parent_id).zfill(7)
                 com_struct_check_str = str(long(com_struct_prefix + com_struct_id_str) % 97).zfill(2)
                 com_struct_check_str = com_struct_check_str if com_struct_check_str != '00' else '97'
@@ -93,10 +95,10 @@ class extraschool_payment(models.Model):
                     '%s%s%s' % (com_struct_prefix, com_struct_id_str, com_struct_check_str))
                 invoice_ids = self.env['extraschool.payment_plan'].search(
                     [('comm_struct', '=', comm_struct)]).invoice_ids
-                search_domain += [('id', '=', invoice_ids.ids)]
+                search_domain += [('id', '=', tuple(invoice_ids.ids))]
             else:
                 search_domain += [('tag', '=', None), ('last_reminder_id', '=', None)]
-        elif payment_type == '1':  # Prepaid.
+        elif payment_type == 1:  # Prepaid.
             activity_category_ids = self.env['extraschool.activitycategory'].search([('payment_invitation_com_struct_prefix', '=', com_struct_prefix)]).ids
             search_domain += [('activitycategoryid', 'in',activity_category_ids),]
 
