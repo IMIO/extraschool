@@ -314,7 +314,7 @@ class extraschool_coda(models.Model):
                                                                              'paymentdate': transfertdate,
                                                                              'structcom_prefix': _prefix,
                                                                              'structcom': communication,
-                                                                             'paymenttype': '1',
+                                                                             'paymenttype': '6',
                                                                              'account': parentaccount,
                                                                              'name': name,
                                                                              'adr1': adr1,

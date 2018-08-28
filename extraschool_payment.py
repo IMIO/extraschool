@@ -36,7 +36,9 @@ class extraschool_payment(models.Model):
                                     ('2', 'Mandat classe 4'),
                                     ('3','Cash'),
                                     ('4','Non value'),
-                                    ('5','Reject')),'Payment type')
+                                    ('5','Reject'),
+                                    ('6','CODA Payment Plan'),
+                                    ),'Payment type')
     parent_id = fields.Many2one("extraschool.parent",domain="[('isdisabled','=',False)]")
     paymentdate = fields.Date(string='Date', required=True)
     structcom = fields.Char(string='Structured Communication', size=50)
@@ -84,17 +86,18 @@ class extraschool_payment(models.Model):
                          ('balance', '>', 0),
                          ]
         # On CODA payment, do not pay tagged or reminder/reminder fees invoice.
-        import wdb;
-        wdb.set_trace()
         if from_coda:
             if payment_type == 2:
+                # Recreate the comm struct based on parent's id
                 com_struct_id_str = str(parent_id).zfill(7)
                 com_struct_check_str = str(long(com_struct_prefix + com_struct_id_str) % 97).zfill(2)
                 com_struct_check_str = com_struct_check_str if com_struct_check_str != '00' else '97'
                 comm_struct = self.format_comstruct(
                     '%s%s%s' % (com_struct_prefix, com_struct_id_str, com_struct_check_str))
+
+                # Get invoices from In Progress payment plan only
                 invoice_ids = self.env['extraschool.payment_plan'].search(
-                    [('comm_struct', '=', comm_struct)]).invoice_ids
+                    [('comm_struct', '=', comm_struct),('state', '=', 'in_progress')]).invoice_ids
                 search_domain += [('id', '=', tuple(invoice_ids.ids))]
             else:
                 search_domain += [('tag', '=', None), ('last_reminder_id', '=', None)]

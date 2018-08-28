@@ -33,9 +33,19 @@ class ExtraSchoolPaymentPlan(models.Model):
     _name = 'extraschool.payment_plan'
     _description = 'Payment Plan'
 
-    @api.depends('total_amount', 'paid_amount')
-    def _get_due_amount(self):
-        return self.total_amount - self.paid_amount
+    def _compute_paid_amount(self):
+        for record in self:
+            reconcil_ids = record.env['extraschool.payment_reconciliation'].search([('invoice_id', 'in', tuple(record.invoice_ids.ids))])
+            total = 0
+            for reconcil in reconcil_ids:
+                if reconcil.payment_id.paymenttype == '6':
+                    total += reconcil.amount
+            record.paid_amount = total
+
+    @api.depends('total_amount')
+    def _compute_due_amount(self):
+        for record in self:
+            record.due_amount = record.total_amount - record.paid_amount
 
     category_id = fields.Many2one(
         'extraschool.activitycategory',
@@ -73,10 +83,11 @@ class ExtraSchoolPaymentPlan(models.Model):
     )
     paid_amount = fields.Float(
         string='Total paid',
+        compute=_compute_paid_amount,
     )
     due_amount = fields.Float(
         string='Amount Due',
-        default=_get_due_amount,
+        compute=_compute_due_amount,
     )
     number_of_payment = fields.Integer(
         string='Number of payment',
