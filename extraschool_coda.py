@@ -264,7 +264,7 @@ class extraschool_coda(models.Model):
                                 if prefixfound:
                                     parentid = int(communication[7:11]+communication[12:15])
                                     if len(self.env['extraschool.parent'].search([('id', '=',parentid)])) == 0 or self.env['extraschool.parent'].search([('id', '=',parentid)]).isdisabled == True:
-                                        reject=True;
+                                        reject=True
                                         rejectcause=_('Parent not found')
                                     else:
                                         payment_id = payment_obj.create({'parent_id': parentid,
@@ -287,8 +287,54 @@ class extraschool_coda(models.Model):
 
                                         paymentids.append(payment_id.id)
                                 else:
-                                    reject=True;
-                                    rejectcause=_('No valid structured Communication')
+                                    # Payment plan
+                                    cr.execute(
+                                        'select payment_plan_comstruct_prefix from extraschool_activitycategory')
+                                    prefixes = cr.dictfetchall()
+                                    prefixfound = False
+
+                                    for prefix in prefixes:
+                                        if prefix['payment_plan_comstruct_prefix']:
+                                            if len(communication) > len(prefix['payment_plan_comstruct_prefix']):
+                                                if communication[
+                                                   3:3 + len(prefix['payment_plan_comstruct_prefix'])] == prefix[
+                                                    'payment_plan_comstruct_prefix']:
+                                                    prefixfound = True
+                                                    _prefix = prefix['payment_plan_comstruct_prefix']
+
+                                    if prefixfound:
+                                        parentid = int(communication[7:11] + communication[12:15])
+                                        if len(self.env['extraschool.parent'].search([('id', '=', parentid)])) == 0 or \
+                                            self.env['extraschool.parent'].search(
+                                                [('id', '=', parentid)]).isdisabled == True:
+                                            reject = True
+                                            rejectcause = _('Parent not found')
+                                        else:
+                                            payment_id = payment_obj.create({'parent_id': parentid,
+                                                                             'paymentdate': transfertdate,
+                                                                             'structcom_prefix': _prefix,
+                                                                             'structcom': communication,
+                                                                             'paymenttype': '1',
+                                                                             'account': parentaccount,
+                                                                             'name': name,
+                                                                             'adr1': adr1,
+                                                                             'adr2': adr2,
+                                                                             'amount': amount})
+
+                                            for reconciliation in payment_id._get_reconciliation_list(parentid, prefix[
+                                                'payment_plan_comstruct_prefix'], 2, amount, True):
+                                                payment_reconciliation_obj.create({'payment_id': payment_id.id,
+                                                                                   'invoice_id': reconciliation[
+                                                                                       'invoice_id'],
+                                                                                   'date': transfertdate,
+                                                                                   # todo: si date facture <= coda: date coda sinon date facture
+                                                                                   'amount': reconciliation['amount']})
+                                                invoice_obj.browse(reconciliation['invoice_id'])._compute_balance()
+
+                                            paymentids.append(payment_id.id)
+                                    else:
+                                        reject=True
+                                        rejectcause=_('No valid structured Communication')
                     if reject:
                         reject_id = reject_obj.create({'account':parentaccount,
                                                        'paymenttype':'1',
