@@ -335,7 +335,7 @@
 		    model="extraschool.guardian"
 		    string="Guardian QrCode"
 		    report_type="qweb-pdf"
-		    name="extraschool.qrcode_report_layout"
+		    name="extraschool.tpl_guardian_qrcodes_wizard_report"
 		    attachment_use="False"
 		/>
 
