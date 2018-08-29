@@ -95,7 +95,7 @@ class extraschool_smartphone(models.Model):
 
 
     lasttransmissiondate = fields.Datetime('Last Transmission Date', readonly=True)
-    softwareurl = fields.Char('Software url', size=100, readonly=True, default='http://intranet.la-bruyere.be/garderies/V3-1/AESAndroid.apk')
+    softwareurl_v9 = fields.Char('Software url', size=100, readonly=True, default='https://static.imio.be/aes/aesmobile.apk')
     transmissiontime = fields.Char('Transmission time', size=5, default=_get_default_transmissiontime)
     serveraddress = fields.Char('Server address', size=50, default=_get_default_serveraddress, readonly=True)
     databasename = fields.Char('Database name', size=30, default=_get_default_databasename, readonly=True)
@@ -128,7 +128,8 @@ class extraschool_smartphone(models.Model):
                 humanReadable = 0
             )
         vals['qrconfig'] = base64.b64encode(barcode)
-        value = self.softwareurl
+
+        value = self.softwareurl_v9
         barcode = createBarcodeImageInMemory(
                 'QR', value=value, format='png', width=400, height=400,
                 humanReadable = 0
