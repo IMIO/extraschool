@@ -5949,6 +5949,21 @@ msgid "Signaletics"
 msgstr "Signalétiques"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
+msgid "Contact"
+msgstr "Données de contact"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
+msgid "Signaletic"
+msgstr "Signalétique"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
+msgid "Address"
+msgstr "Adresse"
+
+#. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_po_sign
 msgid "Signature"
 msgstr "Signature"
@@ -6094,6 +6109,11 @@ msgstr "Préfix"
 #, python-format
 msgid "Subscription from %s to %s"
 msgstr "Inscription du %s au %s"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
+msgid "Registre National"
+msgstr "Numéro de registre national"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_subsidizedbyone
