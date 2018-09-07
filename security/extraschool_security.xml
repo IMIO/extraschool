@@ -34,5 +34,8 @@
          <record id="extraschool_ittre" model="res.groups">
             <field name="name">AES Ittre</field>
          </record>
+          <record id="extraschool_activity" model="res.groups">
+            <field name="name">AES Activity</field>
+         </record>
    	  </data>
    </openerp>
