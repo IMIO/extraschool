@@ -47,8 +47,10 @@
                                 />
                     </div>
                     <h2>
-                        <field name="lastname" class="oe_inline" placeholder="Nom" on_change="onchange_name(lastname,firstname)"/>
-                        <field name="firstname" class="oe_inline" placeholder="Prénom" on_change="onchange_name(lastname,firstname)"/>
+                        <group>
+                            <field name="lastname" class="oe_inline" placeholder="Nom" on_change="onchange_name(lastname,firstname)"/>
+                            <field name="firstname" class="oe_inline" placeholder="Prénom" on_change="onchange_name(lastname,firstname)"/>
+                        </group>
                     </h2>
 				<group col="4">
 	            	<field name="isdisabled"/>
@@ -63,35 +65,37 @@
                     <field name="streetcode" invisible="True"/>
                     <newline/>
                     <group>
-                        <label for="rn" string="Registre National"/>
-                        <div>
-                            <field name="rn" class="oe_inline"/>
-                        </div>
-                    </group>
-                    <group>
-                        <label for="street" string="Address"/>
-                        <div>
-                            <field name="street" placeholder="Rue..." on_change="onchange_address(street,city)"/>
+                        <group>
+                            <label for="street" string="Address"/>
                             <div>
-                                <field name="zipcode" class="oe_inline" placeholder="Code Postal"/>
-                                <field name="city" class="oe_inline" placeholder="Ville" on_change="onchange_address(street,city)"/>
+                                <field name="street" placeholder="Rue..." on_change="onchange_address(street,city)"/>
+                                <div>
+                                    <field name="zipcode" class="oe_inline" placeholder="Code Postal"/>
+                                    <field name="city" class="oe_inline" placeholder="Ville" on_change="onchange_address(street,city)"/>
+                                </div>
+                                <field name="country_id" placeholder="Country"/>
                             </div>
-                            <field name="country_id" placeholder="Country"/>
-                        </div>
-                    </group>
-                    <group>
-                        <label for="housephone" string="Contact"/>
-                        <div>
-                            <field name="housephone" placeholder="Téléphone Maison"/>
-                            <field name="workphone" placeholder="Téléphone Travail"/>
-                            <field name="gsm" placeholder="GSM"/>
-                            <field name="email" attrs="{'required':['|','|','|',('invoicesendmethod','=','onlyemail'),
-                                                                        ('invoicesendmethod','=','emailandmail'),
-                                                                        ('remindersendmethod','=','onlyemail'),
-                                                                        ('remindersendmethod','=','emailandmail')]}"
-                                placeholder="Email"
-                            />
-                        </div>
+                        </group>
+                        <group>
+                            <label for="housephone" string="Contact"/>
+                            <div>
+                                <field name="housephone" placeholder="Téléphone Maison"/>
+                                <field name="workphone" placeholder="Téléphone Travail"/>
+                                <field name="gsm" placeholder="GSM"/>
+                                <field name="email" attrs="{'required':['|','|','|',('invoicesendmethod','=','onlyemail'),
+                                                                            ('invoicesendmethod','=','emailandmail'),
+                                                                            ('remindersendmethod','=','onlyemail'),
+                                                                            ('remindersendmethod','=','emailandmail')]}"
+                                    placeholder="Email"
+                                />
+                            </div>
+                        </group>
+                        <group>
+                            <label for="rn" string="Registre National"/>
+                            <div>
+                                <field name="rn" class="oe_inline"/>
+                            </div>
+                        </group>
                     </group>
                 </page>
                 <page string="Configuration">
