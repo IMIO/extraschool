@@ -28,7 +28,7 @@ import lbutils
 from datetime import datetime
 from openerp.exceptions import except_orm, Warning, RedirectWarning
 import requests
-import base64, hmac, hashlib, datetime
+import base64, hmac, hashlib
 from hashlib import sha256
 import random
 import urllib
