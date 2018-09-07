@@ -930,7 +930,7 @@ msgstr "Montant rejeté"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_payment_wizard_reconciliation_amount_balance
 msgid "Amount to reconcil"
-msgstr "Amount to reconcil"
+msgstr "Montant à réconcilier"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_discount_version_apply_on
@@ -4701,7 +4701,7 @@ msgstr "Tout payer"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_payment_form2
 #: model:ir.ui.view,arch_db:extraschool.extraschool_payment_report_graph
 msgid "Payment"
-msgstr "Paiement"
+msgstr "Paiements"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_payment_report_payment_date
@@ -4799,7 +4799,7 @@ msgstr "Rapport des paiements"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
 msgid "Payment status"
-msgstr "Payment status"
+msgstr "Prépaiement"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_payment_status_ids
@@ -5856,7 +5856,7 @@ msgstr "Disponible sur le formulaire 'Inscriptions multiactivités'"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_price_list_version_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_reminder_type_form
 msgid "Selection"
-msgstr "Selection"
+msgstr "Séléction"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_invoice_search_view
@@ -7238,7 +7238,7 @@ msgstr "Concernant les présences par jour"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_payment_wizard_form
 msgid "generate payment"
-msgstr "generate payment"
+msgstr "Générer le paiement"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_qrcodes_wizard_form
@@ -7382,7 +7382,7 @@ msgstr "Parent"
 #: model:ir.actions.act_window,name:extraschool.action_lbsc_payment_wizard
 #: model:ir.ui.view,arch_db:extraschool.extraschool_payment_wizard_form
 msgid "payment Wizard"
-msgstr "Wizard de création de paiement"
+msgstr "Création d'un paiement"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_remindertype_payment_term_in_day
