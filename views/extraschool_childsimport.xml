@@ -22,8 +22,8 @@
                 <form string="Chils Import">
                     <sheet>
                         <group>
-                            <field name="schoolimplantation"/>
-                            <field name="childsimportfilter"/>
+                            <field name="schoolimplantation" options="{'no_create':True}"/>
+                            <field name="childsimportfilter" options="{'no_create':True}"/>
                             <field name="childsfile"/>
                         </group>
                     </sheet>
