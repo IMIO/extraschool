@@ -33,7 +33,10 @@
                  'web',
                  ],
     'init_xml' : ['init.xml',],
-    'css': ['static/src/css/test.css'],
+    'css': [
+        'static/src/css/test.css',
+        'static/src/css/tpl_qrcodes_wizard_report.css',
+    ],
     'demo' : [],
     'test' : [],
     'data' : [
