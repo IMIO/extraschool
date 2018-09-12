@@ -1,0 +1,46 @@
+.page {
+    margin-left: 6mm;
+}
+
+.page_logo {
+    margin-left: -0.5mm;
+    margin-right: 2.5mm;
+}
+
+.qrcode {
+    width: 33%;
+    height: 85mm;
+    display: inline-block;
+    border: 1px hidden;
+    float: left;
+    position: relative;
+}
+
+.qrcode_logo {
+    width: 33%;
+    height: 85mm;
+    display: inline-block;
+    border: 1px hidden;
+    float: right;
+    position: relative;
+}
+
+.qrcode_img {
+    position: absolute;
+    top: 48mm;
+    left: 15mm;
+    width: 25mm;
+    height: 25mm;
+    }
+.logo_img {
+    position: absolute;
+    top: 10mm;
+    left: 10.5mm;
+    width: 35mm;
+    height: 35mm;
+    }
+
+h2 {
+    color: blue;
+    background-color: red;
+}
