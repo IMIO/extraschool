@@ -64,6 +64,7 @@
         'views/extraschool_payment_wizard.xml',
         'views/extraschool_place.xml',
         'views/extraschool_one_report.xml',
+        'views/extraschool_subvention_report.xml',
         'views/extraschool_pda_prestation_times.xml',
         'views/extraschool_pdaprestationtimes_correction_wizard.xml',
         'views/extraschool_prestationscheck_wizard.xml',

@@ -58,6 +58,7 @@ import extraschool_prestation_times_encodage_manuel
 import extraschool_prestation_times_encodage_manuel_wizard
 import extraschool_presta_stat
 import extraschool_presta_activity
+import extraschool_subvention_report
 import extraschool_price_list
 import extraschool_qrcodes_wizard
 import extraschool_refound_line
