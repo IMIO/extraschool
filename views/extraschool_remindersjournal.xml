@@ -27,6 +27,7 @@
 						<newline/>
 						<field name="delay" />
 						<field name="minimum_balance" />
+						<field name="minimum_general_balance" />
 						<field name="payment_term_in_day" />
 	                </group>
                 </form>
