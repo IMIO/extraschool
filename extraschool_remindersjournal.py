@@ -320,8 +320,18 @@ class extraschool_remindersjournal(models.Model):
                                              ('last_reminder_id.reminders_journal_item_id.payment_term', '<=',to_date)]
 
                 invoice_ids = self.env['extraschool.invoice'].search(invoice_search_domain).sorted(key=lambda r: r.parentid.id)
+                parent_id = invoice_ids.mapped('parentid')
+                remove_parent = []
 
+                # Get parent id where the total of invoices is under the limit (0.0 by default)
+                for parent in parent_id:
+                    if sum([invoice.balance for invoice in invoice_ids.search([('parentid', '=', parent.id)])]) <= reminder_type.minimum_general_balance:
+                        remove_parent.append(parent.id)
 
+                invoice_search_domain += [('parentid', 'not in', tuple(remove_parent))]
+
+                # New invoices
+                invoice_ids = self.env['extraschool.invoice'].search(invoice_search_domain).sorted(key=lambda r: r.parentid.id)
 
                 reminders_journal_item_id = self.env['extraschool.reminders_journal_item'].create({'name' : "%s - %s" % (self.name,reminder_type.name),
                                                                                                    'reminder_type_id' : reminder_type.id,
