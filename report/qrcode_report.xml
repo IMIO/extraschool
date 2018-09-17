@@ -174,54 +174,7 @@
 
 	<data>
 		<template id="tpl_guardian_qrcodes_wizard_report">
-			    <style type="text/css">
-			        .page {
-			        	margin-left: 3mm;
-			        }
-			        .page_logo {
-			        	margin-left: -0.5mm;
-			        	margin-right: 2.5mm;
-			        }
-					.qrcode {
-        				width: 33%;
-        				height: 57mm;
-        				display: inline-block;
-        				border: 1px hidden;
-        				float: left;
-        				position: relative;
-      				}
-
-					.qrcode_logo {
-        				width: 33%;
-        				height: 57mm;
-        				display: inline-block;
-        				border: 1px hidden;
-        				float: right;
-        				position: relative;
-      				}
-
-      				.qrcode_img {
-  						position: absolute;
-  						top: 18mm;
-  						left: 19mm;
-      					width: 25mm;
-      					height: 25mm;
-      					}
-
-      				.qr_guardian_name{
-  						position: absolute;
-  						top: 40mm;
-  						left: 18mm;
-      					width: 35mm;
-      					height: 10mm;
-      				}
-
-
-    			</style>
-
 				<span>nbr docs : <t t-esc="len(docs)" /></span>
-
-
 				<t t-set="nbr_page" t-value="len(docs) / 15" />
 				<t t-if="len(docs) % 15 != 0">
 					<t t-set="nbr_page" t-value="nbr_page + 1" />
@@ -229,8 +182,11 @@
 
 				<t t-foreach="range(0,nbr_page)" t-as="zz">
 					<div class="page">
-						<t t-foreach="range(15*zz,15*(zz+1))" t-as="i">
-				           	<div class="qrcode">
+                        <t t-foreach="range(15*zz,15*(zz+1))" t-as="i">
+                            <xpath expr="//head" position="inside">
+                                <link rel="stylesheet" href="/extraschool/static/src/css/tpl_guardian_qrcodes_wizard_report.css"/>
+                            </xpath>
+                            <div class="qrcode">
 				           		<t t-if="i &lt; len(docs)">
 				           			<img class="qrcode_img" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', docs[i].action_gentagid()[0], 300, 300)" />
 					           		<span class="qr_guardian_name"><t t-esc="docs[i].name"/></span>
