@@ -1615,6 +1615,11 @@ msgid "Compute invoices"
 msgstr "Générer les factures"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_remindertype_bailiff
+msgid "Put to bailiff"
+msgstr "Mettre en huissier"
+
+#. module: extraschool
 #: selection:extraschool.taxcertificates_wizard,state:0
 #: model:ir.ui.view,arch_db:extraschool.extraschool_taxcertificates_wizard_form
 msgid "Compute taxcertificates"
@@ -2778,6 +2783,11 @@ msgstr "Générer le fichier"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_config_smartphone_form
 msgid "Generate Smartphones"
 msgstr "Generate Smartphones"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_remindertype_minimum_general_balance
+msgid "Minimum general balance"
+msgstr "Montant minimum au TOTAL"
 
 #. module: extraschool
 #: model:ir.model.fields,help:extraschool.field_extraschool_inline_report_sequence
@@ -4015,7 +4025,7 @@ msgstr "Mettre à jour la liste des enfants"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_remindertype_minimum_balance
 msgid "Minimum balance"
-msgstr "Balance minimum"
+msgstr "Montant minimum"
 
 #. module: extraschool
 #: selection:extraschool.discount.version,quantity_type:0
