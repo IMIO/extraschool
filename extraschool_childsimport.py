@@ -344,7 +344,11 @@ class extraschool_childsimport(models.Model):
 
                             #MAJ PARENT
                             parent = obj_parent.read(cr, uid, [parentid],['firstname','lastname','rn','modified_since_last_import'])[0]
-                            if  parent['firstname'].lower() == parentfirstname.lower() and parent['lastname'].lower() == parentlastname.lower():
+
+                            # parent['firstname'] = parent['firstname'].encode('UTF-8') if isinstance(parent['firstname'], unicode) else parent['firstname']
+                            # parent['lastname'] = parent['lastname'].encode('UTF-8') if isinstance(parent['lastname'], unicode) else parent['lastname']
+
+                            if  parent['firstname'].lower() == parentfirstname.lower().decode('utf-8') and parent['lastname'].lower() == parentlastname.lower().decode('utf-8'):
                                 #print "check rn %s vs %s" % (parent['rn'],parentrn)
                                 if (parent['rn'] == False or parent['rn'] == '') and (parentrn != False and parentrn != ''):
                                     #print "upate rn"
@@ -367,7 +371,8 @@ class extraschool_childsimport(models.Model):
                                     if importfilter['majparentgsm']:
                                         obj_parent.write(cr,uid,[parentid],{'gsm':parentgsm})
                                     if importfilter['majparentemail']:
-                                        obj_parent.write(cr,uid,[parentid],{'email':parentemail})
+                                        if parentemail:
+                                            obj_parent.write(cr,uid,[parentid],{'email':parentemail})
 
                                     obj_parent.write(cr,uid,[parentid],{'modified_since_last_import':False,
                                                                         'last_import_date':fields.datetime.now()})
