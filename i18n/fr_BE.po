@@ -628,6 +628,7 @@ msgstr "Version de liste de prix"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_stat_activity_activity_id
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activity_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activity_tree
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_subvention_report_activity
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activityexclusiondates_tree
 #: model:ir.ui.view,arch_db:extraschool.presta_stat_search_view
 #: model:ir.ui.view,arch_db:extraschool.prestationtimes_search_view
@@ -4029,10 +4030,28 @@ msgid "Modified since last import"
 msgstr "Modifié depuis la dernière importation"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_subvention_report_start_date
+msgid "Start date"
+msgstr "Date de début"
+
+#. module: extraschool
+#: model:ir.actions.act_window,name:extraschool.action_extraschool_subvention_report
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_subvention_report
+#: model:ir.ui.view,arch_db:extraschool.extraschool_subvention_report_form
+#: model:ir.ui.view,arch_db:extraschool.extraschool_subvention_report_tree
+msgid "Subvention Report"
+msgstr "Rapport subvention ONE"
+
+#. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_line_monday
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_line_monday_activity_id
 msgid "Monday"
 msgstr "Lundi"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_subvention_report_end_date
+msgid "End date"
+msgstr "Date de fin"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_all_invoice_summary
