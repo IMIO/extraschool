@@ -8,7 +8,9 @@
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="Subvention Report">
-
+                    <field name="name"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
 				</tree>
 			</field>
 		</record>
@@ -21,6 +23,7 @@
                 <form string="Subvention Report">
                     <sheet>
                         <group>
+                            <field name="name"/>
                             <field name="start_date"/>
                             <field name="end_date"/>
                             <field name="activity" widget="many2many_tags"/>

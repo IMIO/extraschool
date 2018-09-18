@@ -23,28 +23,18 @@
 from docutils.utils.math.math2html import Formula
 
 from openerp import models, api, fields,_
-from openerp.api import Environment
-import cStringIO
 import base64
 import os
-from pyPdf import PdfFileWriter, PdfFileReader
 import datetime
-from xlrd import open_workbook
-from xlutils.copy import copy
-from xlutils.styles import Styles
-import xlwt
 import xlsxwriter
-from xlwt import *
 from datetime import date, datetime, timedelta as td
-from openerp.exceptions import Warning
-from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
-                           DEFAULT_SERVER_DATETIME_FORMAT)
-import json
+
 
 
 class extraschool_subvention_report(models.Model):
     _name = 'extraschool.subvention_report'
 
+    name = fields.Char('Nom', required=True)
     start_date = fields.Date('Start date', required=True)
     end_date = fields.Date('End date', required=True)
     activity = fields.Many2many(
@@ -62,9 +52,36 @@ class extraschool_subvention_report(models.Model):
         workbook = xlsxwriter.Workbook(report)
 
         title = workbook.add_format({'bold': True, 'bg_color': '#cccccc', 'font_size': 20, 'border': True})
-        bold = workbook.add_format({'bold': True})
+        bold = workbook.add_format({'bold': True, 'border': True})
+        border = workbook.add_format({'border': True})
 
-        worksheet = workbook.add_worksheet()
+        # - de 6 ans
+        worksheet = workbook.add_worksheet('- 6 ans')
+        worksheet.merge_range('A1:E1', "ENFANTS DE - DE 6 ANS", title)
+        worksheet.write(1,0, "Nom", bold)
+        worksheet.write(1,1, u"Prénom", bold)
+        worksheet.write(1,2, "Age", bold)
+        worksheet.write(1,3, "Nombre de jours", bold)
+        worksheet.write(1,4, "Prix", bold)
+
+        row = 2
+        total_prestation=total_price = 0
+
+        for child in under_6:
+            worksheet.write(row, 0, under_6[child]['lastname'], border)
+            worksheet.write(row, 1, under_6[child]['firstname'], border)
+            worksheet.write(row, 2, str(under_6[child]['age']) + " ans", border)
+            worksheet.write(row, 3, under_6[child]['prestation'], border)
+            worksheet.write(row, 4, str(under_6[child]['price']) + "€".decode('utf-8'), border)
+            row += 1
+            total_prestation += under_6[child]['prestation']
+            total_price += under_6[child]['price']
+        worksheet.merge_range('A' + str(row +1) + ':C' + str(row +1), "Total", bold)
+        worksheet.write(row, 3, total_prestation, border)
+        worksheet.write(row, 4, str(total_price) + "€".decode('utf-8'), border)
+
+        # + de 6 ans
+        worksheet = workbook.add_worksheet('+ 6 ans')
         worksheet.merge_range('A1:E1', "ENFANTS DE + DE 6 ANS", title)
         worksheet.write(1,0, "Nom", bold)
         worksheet.write(1,1, u"Prénom", bold)
@@ -73,13 +90,20 @@ class extraschool_subvention_report(models.Model):
         worksheet.write(1,4, "Prix", bold)
 
         row = 2
+        total_prestation = total_price = 0
 
-        for child in under_6:
-            worksheet.write(row, 0, under_6[child]['lastname'])
-            worksheet.write(row, 1, under_6[child]['firstname'])
-            worksheet.write(row, 2, under_6[child]['age'])
-            worksheet.write(row, 3, under_6[child]['prestation'])
+        for child in over_6:
+            worksheet.write(row, 0, over_6[child]['lastname'], border)
+            worksheet.write(row, 1, over_6[child]['firstname'], border)
+            worksheet.write(row, 2, str(over_6[child]['age']) + " ans", border)
+            worksheet.write(row, 3, over_6[child]['prestation'], border)
+            worksheet.write(row, 4, str(over_6[child]['price']) + "€".decode('utf-8'), border)
             row += 1
+            total_prestation += over_6[child]['prestation']
+            total_price += over_6[child]['price']
+        worksheet.merge_range('A' + str(row + 1) + ':C' + str(row + 1), "Total", bold)
+        worksheet.write(row, 3, total_prestation, border)
+        worksheet.write(row, 4, str(total_price) + "€".decode('utf-8'), border)
 
         workbook.close()
 
@@ -109,13 +133,21 @@ class extraschool_subvention_report(models.Model):
             if age >= 6 :
                 if prestation.childid.id in over_6:
                     over_6[prestation.childid.id]['prestation'] += 1
+                    over_6[prestation.childid.id]['price'] += prestation.invoiced_prestation_id.total_price
                 else:
-                    over_6[prestation.childid.id] = {'lastname': prestation.childid.lastname, 'firstname':  prestation.childid.firstname, 'age': age, 'prestation': 1}
-            else :
+                    over_6[prestation.childid.id] = {'lastname': prestation.childid.lastname.upper(),
+                                                     'firstname': prestation.childid.firstname, 'age': age,
+                                                     'prestation': 1,
+                                                     'price': prestation.invoiced_prestation_id.total_price}
+            else:
                 if prestation.childid.id in under_6:
                     under_6[prestation.childid.id]['prestation'] += 1
+                    under_6[prestation.childid.id]['price'] += prestation.invoiced_prestation_id.total_price
                 else:
-                    under_6[prestation.childid.id] = {'lastname': prestation.childid.lastname, 'firstname':  prestation.childid.firstname, 'age': age, 'prestation': 1}
+                    under_6[prestation.childid.id] = {'lastname': prestation.childid.lastname.upper(),
+                                                      'firstname': prestation.childid.firstname, 'age': age,
+                                                      'prestation': 1,
+                                                      'price': prestation.invoiced_prestation_id.total_price}
 
         id = super(extraschool_subvention_report, self).create(vals)
         self.generate_report(under_6,over_6,id)
