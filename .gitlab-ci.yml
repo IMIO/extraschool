@@ -113,6 +113,12 @@ restart-Lierneux:
   - mco shell run '/srv/docker_scripts/lierneux_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
   when: manual
 
+restart-Mettet:
+  stage: restart
+  script:
+    - mco shell run '/srv/docker_scripts/mettet_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
+  when: manual
+
 restart-Neufchateau:
   stage: restart
   script:
