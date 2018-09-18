@@ -1,0 +1,63 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+
+	    <record model="ir.ui.view" id="extraschool_subvention_report_tree">
+			<field name="name">extraschool.subvention.report.tree</field>
+			<field name="model">extraschool.subvention_report</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Subvention Report">
+                    <field name="name"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+				</tree>
+			</field>
+		</record>
+
+        <record model="ir.ui.view" id="extraschool_subvention_report_form">
+            <field name="name">extraschool.subvention.report.form</field>
+            <field name="model">extraschool.subvention_report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Subvention Report">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="activity" widget="many2many_tags"/>
+                       </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_extraschool_subvention_report">
+            <field name="name">Subvention Report</field>
+            <field name="res_model">extraschool.subvention_report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree, form</field>
+            <field name="view_id" ref="extraschool_subvention_report_tree"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_extraschool_subvention_report_form">
+			<field name="name">Subvention Report</field>
+            <field eval="2" name="sequence"/>
+			<field name="res_model">extraschool.subvention_report</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="extraschool_subvention_report_form" />
+            <field name="act_window_id" ref="action_extraschool_subvention_report" />
+            <field name="target">inline</field>
+		</record>
+
+        <record model="ir.actions.act_window.view" id="action_extraschool_subvention_report_tree">
+			<field name="name">Subvention Report</field>
+            <field eval="1" name="sequence"/>
+			<field name="res_model">extraschool.subvention_report</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="extraschool_subvention_report_tree" />
+            <field name="act_window_id" ref="action_extraschool_subvention_report" />
+        </record>
+
+
+	</data>
+</openerp>
