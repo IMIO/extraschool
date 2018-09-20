@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <openerp>
-	<data> 
+	<data>
         <record model="ir.ui.view" id="extraschool_prestation_times_of_the_day_tree">
 			<field name="name">prestation_times_of_the_day.tree</field>
 			<field name="model">extraschool.prestation_times_of_the_day</field>
@@ -9,12 +9,12 @@
 				<tree string="prestation_times_of_the_day" colors="red:verified==False" create="false">
 					<field name="date_of_the_day" />
 					<field name="child_id"/>
-					<field name="activity_category_id" />		
+					<field name="activity_category_id" />
 					<field name="verified"/>
 				</tree>
 			</field>
 		</record>
-        
+
 		<record model="ir.ui.view" id="extraschool_prestation_times_of_the_day_form">
 			<field name="name">prestation_times_of_the_day.form</field>
 			<field name="model">extraschool.prestation_times_of_the_day</field>
@@ -22,14 +22,14 @@
 			<field name="arch" type="xml">
 				<form string="prestation_times_of_the_day" create="false">
 					<header>
-						<button name="reset" group="admin" string="Reset" icon="gtk-apply" type="object" />	                    
+						<button name="reset" group="admin" string="Reset" icon="gtk-apply" type="object" />
 						<button name="check" group="admin" string="Check" icon="gtk-apply" type="object" />
 						<button name="delete_pod" groups="extraschool.extraschool_gods" string="Delete" class="oe_highlight" type="object" />
 						<button name="uniform_school" groups="extraschool.extraschool_ittre" string="Uniformiser Ecole" class="oe_highlight" type="object" />
 					</header>
 					<sheet>
 					<group col="4">
-						<field name="activity_category_id" readonly="True"/>	
+						<field name="activity_category_id" readonly="True"/>
 						<newline/>
 	                    <field name="child_id"  readonly="True"/>
 						<field name="date_of_the_day"  readonly="True"/>
@@ -39,8 +39,8 @@
 	                    <span attrs="{'invisible':[('verified', '=', True)]}">NON vérifié !!!</span>
 	                   	<newline/>
 	                    <field name="comment" />
-						<!--<field name="schoolimplantation" invisible="True"/>-->
-		                <separator string="Computed prestations" colspan="4"/> 
+						<field name="schoolimplantation" invisible="True"/>
+		                <separator string="Computed prestations" colspan="4"/>
 	                    <field name="prestationtime_ids" nolabel="1" colspan="4">
 	                    	<tree string="prestation_times" colors="red:verified==False" editable="bottom">
 	                    		<field name="placeid" />
@@ -50,7 +50,7 @@
 	                    		<field name="es" />
 	                    		<field name="exit_all"  readonly="True"/>
 	                    		<field name="verified" />
-	                    		<field name="invoiced_prestation_id" readonly="True"/>	                    			
+	                    		<field name="invoiced_prestation_id" readonly="True"/>
 	                    		<field name="error_msg"  readonly="True"/>
 	                    	</tree>
 	                    	<form string="prestation_times" colors="red:verified==False">
@@ -66,7 +66,7 @@
 	                    		</group>
 	                    	</form>
 	                    </field>
-		                <separator string="PDA prestations" colspan="4"/> 
+		                <separator string="PDA prestations" colspan="4"/>
 		            </group>
 	                <group expand="1" col="4">
 	                    <field name="pda_prestationtime_ids" nolabel="1" colspan="4" options='{"reload_on_button": True}'>
@@ -86,7 +86,7 @@
 				</form>
 			</field>
 		</record>
-        
+
         <record id="prestation_times_of_the_day_search_view" model="ir.ui.view">
             <field name="name">prestation_times_of_the_day.search</field>
             <field name="model">extraschool.prestation_times_of_the_day</field>
@@ -97,34 +97,34 @@
                    <filter string="not verified" name="not_verified" icon="terp-accessories-archiver" domain="[('verified','=',False)]"/>
                    <group  expand='0' string='Group by...'>
                        <filter string='Child' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'child_id'}"/>
-                       <!--<filter string='School Implantation' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'schoolimplantation'}"/>-->
+                       <filter string='School Implantation' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'schoolimplantation'}"/>
                    </group>
                 </search>
             </field>
-        </record>				
-        
+        </record>
+
         <record model="ir.actions.act_window" id="action_extraschool_prestation_times_of_the_day">
 			<field name="name">Prestations_of_the_day</field>
 			<field name="res_model">extraschool.prestation_times_of_the_day</field>
 			<field name="view_type">form</field>
 		</record>
-		
+
         <record model="ir.actions.act_window" id="action_extraschool_prestation_times_of_the_day_tree">
 			<field name="name">Prestations_of_the_day.tree</field>
 			<field name="res_model">extraschool.prestation_times_of_the_day</field>
 			<field name="view_type">form</field>
 			<field name="view_id" ref="extraschool_prestation_times_of_the_day_tree"/>
-            <field name="search_view_id" ref="prestation_times_of_the_day_search_view"/>			
-		</record>		
+            <field name="search_view_id" ref="prestation_times_of_the_day_search_view"/>
+		</record>
 
         <record model="ir.actions.act_window" id="action_extraschool_prestation_times_of_the_day_tree_not_verified">
 			<field name="name">Prestations_of_the_day.tree</field>
 			<field name="res_model">extraschool.prestation_times_of_the_day</field>
 			<field name="view_type">form</field>
 			<field name="view_id" ref="extraschool_prestation_times_of_the_day_tree"/>
-            <field name="search_view_id" ref="prestation_times_of_the_day_search_view"/>			
+            <field name="search_view_id" ref="prestation_times_of_the_day_search_view"/>
 			<field name="context">{'search_default_not_verified':1}</field>
 		</record>
-		
+
 	</data>
 </openerp>

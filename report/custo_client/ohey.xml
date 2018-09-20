@@ -1,0 +1,71 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+
+        <template id="report_invoice_ohey_tableau_tarif">
+                <xpath expr="//head" position="inside">
+                    <link rel="stylesheet" href="/extraschool/static/src/css/report_invoice_ohey_tableau_tarif.css"/>
+                </xpath>
+            <div id="invoice_summary" >
+                <div id="invoice">
+                    <p>Cette facture a été établie via le logiciel IMIO selon les tarifs suivants :</p>
+                </div>
+                <div id="tarif_ohey">
+                    <table>
+                        <tr>
+                            <th>Ecole d'Haillot</th>
+                            <th>7h00 à 7h15</th>
+                            <th>7h15 à 8h20</th>
+                            <th>15h10 à 16h45</th>
+                            <th>16h45 à 17h15</th>
+                            <th>17h15 à 18h00</th>
+                        </tr>
+                        <tr>
+                            <td>Familles - de 3 enfants</td>
+                            <td>0.066€/min</td>
+                            <td>Gratuit</td>
+                            <td>Gratuit</td>
+                            <td>0.033€/min</td>
+                            <td>0.066/min</td>
+                        </tr>
+                        <tr>
+                            <td>Familles de 3 enfants et +</td>
+                            <td>0.076€/min</td>
+                            <td>Gratuit</td>
+                            <td>Gratuit</td>
+                            <td>0.038€/min</td>
+                            <td>0.076/min</td>
+                        </tr>
+                    </table><br/>
+                    <table>
+                        <tr>
+                            <th>Ecoles de Perwez, Evelette et Ohey</th>
+                            <th>7h00 à 7h30</th>
+                            <th>7h30 à 8h40</th>
+                            <th>15h20 à 17h00</th>
+                            <th>17h00 à 17h30</th>
+                            <th>17h30 à 18h00</th>
+                        </tr>
+                        <tr>
+                            <td>Familles - de 3 enfants</td>
+                            <td>0.066€/min</td>
+                            <td>Gratuit</td>
+                            <td>Gratuit</td>
+                            <td>0.033€/min</td>
+                            <td>0.066/min</td>
+                        </tr>
+                        <tr>
+                            <td>Familles de 3 enfants et +</td>
+                            <td>0.076€/min</td>
+                            <td>Gratuit</td>
+                            <td>Gratuit</td>
+                            <td>0.038€/min</td>
+                            <td>0.076/min</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+		</template>
+
+	</data>
+</openerp>
