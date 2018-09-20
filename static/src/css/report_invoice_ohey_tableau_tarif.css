@@ -1,0 +1,41 @@
+#tarif_ohey table {
+    width: 100%;
+    font-size:13px;
+    border-width: 1px;
+    border-collapse: collapse;
+}
+#tarif_ohey table th {
+    border-width: 1px;
+    padding: 4px;
+    border-style: solid;
+    background-color: #dedede;
+}
+#tarif_ohey table td {
+    border-width: 1px;
+    padding: 4px;
+    border-style: solid;
+}
+
+#tarif_ohey table td.amount {
+    text-align: right;
+    width: 20%;
+}
+
+#invoice{
+    display: block;
+    margin: 0cm 0cm 0cm 0cm;
+    page-break-inside: avoid;
+    text-align: justify;
+    text-justify: inter-word;
+    font-size:13px;
+}
+
+#invoice_summary{
+    width: 100%;
+    display: block;
+    margin: 0cm 0cm 0cm 0cm;
+    page-break-inside: avoid;
+    text-align: justify;
+    text-justify: inter-word;
+}
+

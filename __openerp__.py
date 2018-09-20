@@ -149,6 +149,7 @@
         'report/custo_client/neufchateau.xml',
         'report/custo_client/durbuy.xml',
         'report/custo_client/engis.xml',
+        'report/custo_client/ohey.xml',
         'report/custo_client/ferrieres.xml',
         'report/custo_client/tournai.xml',
         'report/custo_client/ittre.xml',
