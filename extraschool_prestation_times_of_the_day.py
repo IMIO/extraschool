@@ -206,7 +206,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
                 activity_ids.append(presta.activity_occurrence_id.activityid.id)
 
         # Get the activity object sorted by prest_to for better search.
-        activity_range = self.env['extraschool.activity'].search([('id', '=', activity_ids)]).sorted(key=lambda r: (r.prest_to))
+        activity_range = self.env['extraschool.activity'].search([('id', 'in', activity_ids)]).sorted(key=lambda r: (r.prest_to))
 
         # Compare 2 activities at a time. If they have the same prest_to and prest_from
         # And if one of them has autoaddchilds=True it will delete the prestation from the other activity.
