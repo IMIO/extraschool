@@ -65,7 +65,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
     pda_prestationtime_ids = fields.One2many('extraschool.pdaprestationtimes','prestation_times_of_the_day_id',domain=['|',('active','=',False),('active','=',True)])
     verified = fields.Boolean(select=True)
     comment = fields.Text()
-    schoolimplantation = fields.Many2one(related="child_id.schoolimplantation", store=True)
+    # schoolimplantation = fields.Many2one(related="child_id.schoolimplantation", store=True)
 
     @api.multi
     def uniform_school(self):
