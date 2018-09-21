@@ -119,21 +119,18 @@
 			<field name="view_type">form</field>
 		</record>
 
-        <record model="ir.ui.view" id="extraschool_smartphone_detail_log_form">
-            <field name="name">extraschool.smartphone_detail_log.form</field>
+        <record model="ir.ui.view" id="extraschool_smartphone_detail_log_tree">
+            <field name="name">extraschool.smartphone_detail_log.tree</field>
             <field name="model">extraschool.smartphone_detail_log</field>
-            <field name="type">form</field>
+            <field name="type">tree</field>
             <field name="arch" type="xml">
-            <form string="Smartphone">
-                <field name="text"/>
-                <button name="generate_horaire" string="Imprimer" icon="gtk-apply" type="object" />
-            </form>
+                <tree string="Logs" colors="red:level == 'ERROR'">
+                    <field name="date_of_transmission"/>
+                    <field name="level"/>
+                    <field name="text"/>
+                </tree>
             </field>
         </record>
-        <record model="ir.actions.act_window" id="action_extraschool_smartphone_detail_log">
-			<field name="name">Smartphone Detailed Log</field>
-			<field name="res_model">extraschool.smartphone_detail_log</field>
-			<field name="view_type">form</field>
-		</record>
+
 	</data>
 </openerp>

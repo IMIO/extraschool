@@ -83,6 +83,12 @@ restart-Durbuy:
     - mco shell run '/srv/docker_scripts/durbuy_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
   when: manual
 
+restart-Engis:
+  stage: restart
+  script:
+    - mco shell run '/srv/docker_scripts/engis_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
+  when: manual
+
 restart-Ferrieres:
   stage: restart
   script:
@@ -124,11 +130,23 @@ restart-Neufchateau:
   script:
     - mco shell run '/srv/docker_scripts/neufchateau_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
   when: manual
-  
+
+restart-Ohey:
+  stage: restart
+  script:
+    - mco shell run '/srv/docker_scripts/ohey_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
+  when: manual
+
 restart-Rebecq:
   stage: restart
   script:
     - mco shell run '/srv/docker_scripts/rebecq_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
+  when: manual
+
+restart-Seraing:
+  stage: restart
+  script:
+    - mco shell run '/srv/docker_scripts/seraing_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
   when: manual
 
 restart-Tournai:
@@ -137,11 +155,17 @@ restart-Tournai:
     - mco shell run '/srv/docker_scripts/tournai_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
   when: manual
 
-#restart-Yvoir:
-#  stage: restart
-#  script:
-#    - mco shell run '/srv/docker_scripts/yvoir_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
-#  when: manual
+restart-Villers-le-Bouillet:
+  stage: restart
+  script:
+    - mco shell run '/srv/docker_scripts/villerslebouillet_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
+  when: manual
+
+restart-Yvoir:
+  stage: restart
+  script:
+    - mco shell run '/srv/docker_scripts/yvoir_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
+  when: manual
  
 restart-Staging:
   stage: restart

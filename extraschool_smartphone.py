@@ -30,6 +30,9 @@ import os
 from datetime import datetime, date, time, timedelta
 import pdb
 from openerp.exceptions import except_orm, Warning, RedirectWarning
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class extraschool_smartphone(models.Model):
@@ -253,18 +256,43 @@ class extraschool_smartphone_detail_log(models.Model):
 
     text = fields.Text('Texte', readonly=True)
     date_of_transmission = fields.Datetime('Date de transmission', default=datetime.now(), readonly=True)
+    level = fields.Char('Niveau', readonly=True)
     smartphone_id = fields.Many2one('extraschool.smartphone', 'smartphone_id', readonly=True)
 
     @api.multi
-    def print_log(self):
-        # datas = {
-        #     'ids': self.guardian_ids.ids,
-        #     'model': 'extraschool.horaire_guardian_wizard',
-        # }
+    def print_log(self, message, smartphone_id):
+        for line in message['logs']:
+            date = datetime.strptime(str(line['datetime']), '%Y%m%dT%H%M%S')
+            if "INFO" in line['level']:
+                _logger.info(
+                    str(date) + ' ' + line['phone_serial'] + ' ' + line['phone_imei'] + ' ' + line['logger'] + ' ' +
+                    line['message'])
+            elif "WARN" in line['level']:
+                _logger.warning(
+                    str(date) + ' ' + line['phone_serial'] + ' ' + line['phone_imei'] + ' ' + line['logger'] + ' ' +
+                    line['message'])
+            else:
+                _logger.error(
+                    str(date) + ' ' + line['phone_serial'] + ' ' + line['phone_imei'] + ' ' + line[
+                        'logger'] + ' ' +
+                    line['message'])
 
-        return {
-            'type': 'ir.actions.report.xml',
-            'report_name': 'extraschool.tpl_guardian_horaire_wizard_report',
-            # 'datas': datas,
-            'report_type': 'qweb-pdf',
-        }
+            self.env['extraschool.smartphone_detail_log'].create({
+                'text': line['message'],
+                'date_of_transmission': date,
+                'smartphone_id': smartphone_id,
+                'level': line['level']
+            })
+
+    @staticmethod
+    def send_log(cr, uid, message, smartphone_id, context=None):
+        """
+        :param cr, uid, context needed for a static method
+        :param smartphone_id: Id of the smartphone that contact us.
+        :return: Dictionnary of children {id: , nom: , prenom:, tagid:}
+        """
+        # Declare new Environment.
+        env = api.Environment(cr, uid, context={})
+        extraschool_smartphone_detail_log.print_log(env['extraschool.smartphone_detail_log'], message, smartphone_id)
+
+        return True
