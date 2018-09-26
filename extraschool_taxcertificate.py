@@ -229,45 +229,48 @@ class extraschool_tax_certificate_detail(models.Model):
     def init(self, cr):
         # Drop before a new view.
         tools.sql.drop_view_if_exists(cr, 'extraschool_tax_certificate_detail')
-        cr.execute("""
-            CREATE view extraschool_tax_certificate_detail as
-                SELECT  row_number() over() AS id,
-                        tax_item.id AS tax_certificate_item_id,
-                        c.lastname || ' ' || c.firstname AS child_name,
-                        inv.number AS invoice_number, 
-                        prest.prestation_date AS prestation_date, 
-                        act.short_name AS activity_name, 
-                        to_char(to_timestamp((prest.prestation_time) * 60), 'MI:SS') AS time_scan, 
-                        CASE 
-                            WHEN 
-                                prest.es = 'E' 
-                                THEN 'Entree' 
-                                ELSE 'Sortie' 
-                            END AS entry_exit, 
-                        to_char(total_price, '999.99') AS amount
-                FROM extraschool_prestationtimes AS prest
-                INNER JOIN extraschool_invoicedprestations AS inv_prest
-                ON prest.invoiced_prestation_id = inv_prest.id
-                INNER JOIN extraschool_invoice AS inv
-                ON inv.id = inv_prest.invoiceid
-                INNER JOIN extraschool_parent AS p
-                ON p.id = prest.parent_id
-                INNER JOIN extraschool_child AS c
-                ON c.id = prest.childid
-                INNER JOIN extraschool_taxcertificate_item AS tax_item
-                ON c.id = tax_item.child_id
-                INNER JOIN extraschool_activity AS act
-                ON act.id = inv_prest.activity_activity_id
-                WHERE inv_prest.invoiceid IN (	SELECT DISTINCT(inv.id) AS id
-                                FROM extraschool_payment_reconciliation AS pay_rec
-                                LEFT JOIN extraschool_invoice AS inv 
-                                ON inv.id = pay_rec.invoice_id
-                                LEFT JOIN extraschool_payment AS pay 
-                                ON pay.id = pay_rec.payment_id
-                                WHERE pay_rec.paymentdate BETWEEN '2017-01-01' AND '2017-12-31'
-                                AND inv.balance = 0 AND inv.reminder_fees = false) 
-                                AND act.on_tax_certificate = TRUE
-                                AND prest.prestation_date <= c.birthdate + interval '12 year'
-                ORDER BY inv.number, prest.prestation_date, act.short_name, prest.prestation_time
-                ;
-        """)
+        try:
+            cr.execute("""
+                CREATE view extraschool_tax_certificate_detail as
+                    SELECT  row_number() over() AS id,
+                            tax_item.id AS tax_certificate_item_id,
+                            c.lastname || ' ' || c.firstname AS child_name,
+                            inv.number AS invoice_number, 
+                            prest.prestation_date AS prestation_date, 
+                            act.short_name AS activity_name, 
+                            to_char(to_timestamp((prest.prestation_time) * 60), 'MI:SS') AS time_scan, 
+                            CASE 
+                                WHEN 
+                                    prest.es = 'E' 
+                                    THEN 'Entree' 
+                                    ELSE 'Sortie' 
+                                END AS entry_exit, 
+                            to_char(total_price, '999.99') AS amount
+                    FROM extraschool_prestationtimes AS prest
+                    INNER JOIN extraschool_invoicedprestations AS inv_prest
+                    ON prest.invoiced_prestation_id = inv_prest.id
+                    INNER JOIN extraschool_invoice AS inv
+                    ON inv.id = inv_prest.invoiceid
+                    INNER JOIN extraschool_parent AS p
+                    ON p.id = prest.parent_id
+                    INNER JOIN extraschool_child AS c
+                    ON c.id = prest.childid
+                    INNER JOIN extraschool_taxcertificate_item AS tax_item
+                    ON c.id = tax_item.child_id
+                    INNER JOIN extraschool_activity AS act
+                    ON act.id = inv_prest.activity_activity_id
+                    WHERE inv_prest.invoiceid IN (	SELECT DISTINCT(inv.id) AS id
+                                    FROM extraschool_payment_reconciliation AS pay_rec
+                                    LEFT JOIN extraschool_invoice AS inv 
+                                    ON inv.id = pay_rec.invoice_id
+                                    LEFT JOIN extraschool_payment AS pay 
+                                    ON pay.id = pay_rec.payment_id
+                                    WHERE pay_rec.paymentdate BETWEEN '2017-01-01' AND '2017-12-31'
+                                    AND inv.balance = 0 AND inv.reminder_fees = false) 
+                                    AND act.on_tax_certificate = TRUE
+                                    AND prest.prestation_date <= c.birthdate + interval '12 year'
+                    ORDER BY inv.number, prest.prestation_date, act.short_name, prest.prestation_time
+                    
+            """)
+        except:
+            pass
