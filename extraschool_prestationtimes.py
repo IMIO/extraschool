@@ -24,6 +24,9 @@
 from openerp import models, api, fields, _
 from openerp.api import Environment
 from openerp.exceptions import except_orm, Warning, RedirectWarning
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class extraschool_prestationtimes(models.Model):
@@ -54,6 +57,7 @@ class extraschool_prestationtimes(models.Model):
     @api.model
     def create(self, vals):
         if (not vals['childid']) or (not vals['placeid']):
+            _logger.error(vals)
             raise Warning('Create Prestation time - Child and Place must be filled')
 
         prestation_times_of_the_day_obj = self.env['extraschool.prestation_times_of_the_day']
