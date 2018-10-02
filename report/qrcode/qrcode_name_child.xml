@@ -83,6 +83,45 @@
                 <span class="qr_child_name"><t t-esc="name"/></span>
 		</template>
 
+        <template id="qrcode_name_child_classic_35mm_with_schoolname">
+            <style type="text/css">
+                .qrcode_img {
+                    position: absolute;
+                    top: 18mm;
+                    left: 19mm;
+                    width: 35mm;
+                    height: 35mm;
+                    }
+                .qr_child_name{
+                    position: absolute;
+                    top: 50mm;
+                    left: 19mm;
+                    text-align: center;
+                    width: 35mm;
+                    height: 10mm;
+                }
+                .qr_school_name{
+                    position: absolute;
+                    top: 55mm;
+                    left: 19mm;
+                    text-align: center;
+                    width: 35mm;
+                    height: 10mm;
+                }
+                .qrcode {
+                        width: 33%;
+                        height: 57mm;
+                        display: inline-block;
+                        float: left;
+                        position: relative;
+                    }
+            </style>
+                <!--div are exteriorize to be able to construct the page and display it correctly. wkhtmltopdf needs divs-->
+                <img class="qrcode_img" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR',tagid, 300, 300)" />
+                <span class="qr_child_name"><t t-esc="name"/></span>
+                <span class="qr_school_name"><t t-esc="school"/></span>
+		</template>
+
         <template id="qrcode_name_child_classic_35mm_verso">
             <style type="text/css">
                 .qrcode_img_logo {

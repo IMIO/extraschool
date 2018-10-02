@@ -34,6 +34,7 @@
                                 <t t-if="i &lt; len(docs)">
                                     <!--Initialize variables here.-->
                                     <t t-set="name" t-value="docs[i].name"/>
+                                    <t t-set="school" t-value="docs[i].schoolimplantation.name"/>
                                     <t t-set="tagid" t-value="docs[i].action_gentagid()[0]"/>
 
                                     <t t-foreach="docs[0].activitycategoryid.qrcode_report_id.inline_report_ids.filtered(lambda r: r.verso == False)" t-as="tmpl">
