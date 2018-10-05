@@ -2,44 +2,12 @@
 <openerp>
 	<data>
         <template id="tpl_guardian_horaire_wizard_report">
-		  <style type="text/css">
-		        .page{
-		    		width: 100%;
-		    		display: block;
-		    	}
-
-				.page table {
-		    		width: 100%;
-					font-size:11px;
-					border-width: 1px;
-					border-collapse: collapse;
-					margin-top: 1cm;
-				}
-				.page table th {
-                    text-align: center;
-					border-width: 1px;
-					padding: 8px;
-					border-style: solid;
-					background-color: #dedede;
-				}
-				.page table td {
-					border-width: 1px;
-					padding: 8px;
-					border-style: solid;
-				}
-				img {
-                    display: block;
-                    margin-left: auto;
-                    margin-right: auto;
-                    width: 15px;
-                    height: 15px;
-                    align: middle;
-                }
-
-			</style>
             <t t-call="report.html_container">
                 <t t-foreach="docs.guardian_ids" t-as="guardian">
                     <div class="page">
+                        <xpath expr="//head" position="inside">
+                            <link rel="stylesheet" href="/extraschool/static/src/css/guardian_report.css"/>
+                        </xpath>
 
                         <h2>Horaire de : <span t-field="guardian.name"/></h2>
                         <div>
