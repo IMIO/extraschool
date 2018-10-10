@@ -20,6 +20,7 @@
                         </group>
                         <group colspan="4" col="3">
                             <button name="action_prestationscheck" string="Check prestations" icon="gtk-apply" type="object" />
+                            <button name="action_verified_without_occurrence" string="Check empty occurrences" icon="gtk-apply" type="object" groups="extraschool.extraschool_gods"/>
                         </group>
                     </sheet>
                 </form>

@@ -233,6 +233,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
         if self.period_to:
             prestation_search_domain.append(('date_of_the_day', '<=', self.period_to))
         view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','extraschool.prestation_times_of_the_day'), ('name','=','Prestations_of_the_day.tree')])
+
         return {
                 'type': 'ir.actions.act_window',
                 'res_model': 'extraschool.prestation_times_of_the_day',
@@ -250,5 +251,25 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
         self.env['extraschool.prestation_times_of_the_day'].merge_duplicate_pod()
         return self._check(self.force)
 
+    @api.multi
+    def action_verified_without_occurrence(self):
+        prestation_ids = self.env['extraschool.prestation_times_of_the_day'].search(
+            [('date_of_the_day', '>=', self.period_from), ('date_of_the_day', '<=', self.period_to), ('verified', '=', True)])
+
+        list_prestation_times = set()
+
+        for prestation in prestation_ids:
+            for prestation_times in prestation.prestationtime_ids:
+                if not prestation_times.activity_occurrence_id:
+                    list_prestation_times.add(prestation.id)
+
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'extraschool.prestation_times_of_the_day',
+            'view_type': 'form',
+            'view_mode': 'tree,form',
+            'domain': [('id', 'in', list(list_prestation_times))],
+            'nodestroy': 'current',
+        }
 
 extraschool_prestationscheck_wizard()
