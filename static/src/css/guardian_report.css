@@ -1,0 +1,32 @@
+.page{
+    width: 100%;
+    display: block;
+}
+
+.page table {
+    width: 100%;
+    font-size:11px;
+    border-width: 1px;
+    border-collapse: collapse;
+    margin-top: 1cm;
+}
+.page table th {
+    text-align: center;
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    background-color: #dedede;
+}
+.page table td {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+}
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 15px;
+    height: 15px;
+    align: middle;
+}
