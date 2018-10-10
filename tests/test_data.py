@@ -21,9 +21,9 @@
 #
 ##############################################################################
 
-from openerp.tests.common import HttpCase
+from openerp.tests.common import HttpCase, TransactionCase
 
-class TestData(HttpCase):
+class TestData(TransactionCase):
 
     def setUp(self):
         super(TestData, self).setUp()
@@ -33,7 +33,6 @@ class TestData(HttpCase):
         self.parent_model = self.env['extraschool.parent']
         self.activity_model = self.env['extraschool.activity']
         self.prestation_times_of_the_day_model = self.env['extraschool.prestation_times_of_the_day']
-        self.pda_prestation_times_model = self.env['extraschool.pdaprestationtimes']
         self.activity_category_model = self.env['extraschool.activitycategory']
         self.school_implantation_model = self.env['extraschool.schoolimplantation']
         self.school_model = self.env['extraschool.school']
@@ -46,7 +45,7 @@ class TestData(HttpCase):
             'invoicecomstructprefix': 100,
             'remindercomstructprefix': 200,
             'payment_invitation_com_struct_prefix': 300,
-            'max_school_implantation': 1,
+            'max_school_implantation': 2,
         })
 
         # Creation of school
@@ -103,14 +102,4 @@ class TestData(HttpCase):
             'prest_to': 9,
             'placeids': [(4, place_1.id)],
             'short_name': 'splendide',
-        })
-
-        # Creation of pda prestation
-        pda_prestation_id = self.pda_prestation_times_model.create({
-            'activitycategoryid': activity_category_1.id,
-            'childid': child_1.id,
-            'prestation_date': '2018-07-18',
-            'es': 'E',
-            'placeid': place_1.id,
-            'prestation_time': 7.15,
         })
