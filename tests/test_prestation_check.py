@@ -34,7 +34,7 @@ class PrestationCheckTest(TestData):
 ##############################################################################
 #   Simple case of a single entry.
 #   I'll detail everything the first test but the rest will fillow the same
-#   strategy so I won't comment the next ones.
+#   patern so I won't comment the next ones.
 ##############################################################################
 
         # First we target the category activity, child and place to create the right pdaprestationtimes.
@@ -63,9 +63,11 @@ class PrestationCheckTest(TestData):
         prestation_times_ids_1 = self.env['extraschool.prestationtimes'].search(
             [('prestation_times_of_the_day_id', '=', pda_prestation_1.prestation_times_of_the_day_id.id)]).sorted(key=lambda r: r.prestation_time)
 
-        # Self exploratory
+        # Self explainatory
         self.assertEqual(pda_prestation_1.prestation_times_of_the_day_id.verified, True)
         self.assertEqual(prestation_times_ids_1[0].es, 'E')
         self.assertEqual(prestation_times_ids_1[1].es, 'S')
+        self.assertEqual(prestation_times_ids_1[0].prestation_date, '2018-07-18')
+        self.assertEqual(prestation_times_ids_1[1].prestation_date, '2018-07-18')
         self.assertEqual(prestation_times_ids_1[0].prestation_time, 7.15)
         self.assertEqual(prestation_times_ids_1[1].prestation_time, 9)
