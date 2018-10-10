@@ -102,7 +102,8 @@
                 }
                 .qr_school_name{
                     position: absolute;
-                    top: 55mm;
+                    font-size: 11px;
+                    top: 10mm;
                     left: 19mm;
                     text-align: center;
                     width: 35mm;
