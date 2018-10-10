@@ -47,7 +47,6 @@ class PrestationCheckTest(TestData):
         prestation_times_ids_1 = self.env['extraschool.prestationtimes'].search(
             [('prestation_times_of_the_day_id', '=', pda_prestation_1.prestation_times_of_the_day_id.id)]).sorted(key=lambda r: r.prestation_time)
 
-        
         self.assertEqual(pda_prestation_1.prestation_times_of_the_day_id.verified, True)
         self.assertEqual(prestation_times_ids_1[0].es, 'E')
         self.assertEqual(prestation_times_ids_1[1].es, 'S')
