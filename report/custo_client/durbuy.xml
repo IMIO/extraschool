@@ -247,6 +247,23 @@
 
 		</template>
 
+        <template id="report_footer_durbuy">
+		    <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_footer_durbuy.css"/>
+            </xpath>
+	    	<div class="aes_adresse">
+				Les périodes sont facturées à raison de 0.25€ le quart d'heure entamé. Pour les départs après 17h30(18h30 Barvaux) les lundi,
+					mardi, jeudi et vendredi et après 13h le mercredi (hors mercredi après-midi), un forfait de 10€ est comptabilisé par 1/4h
+					entamé.
+					Le mercredi après midi présente un forfait de 5€ pour toute l’après midi et l’école de devoirs, un forfait de 2.4€ par séance.
+					En cas de retard ou de non paiement, le recouvrement sera poursuivi conformément à l’article L1124-40 $ 1 du Code de la
+					Démocratie Locale.
+					Nous vous invitons à lire attentivement le Règlement d’Ordre Intérieur et le Projet Pédagogique de l’accueil extrascolaire reçu
+					via votre enfant à l’école. Plus d’infos : Coordination Enfance, <a style="text-decoration:underline;">enfance@durbuy.be</a> ou 0473 301 771
+			</div>
+		</template>
+
+
 
 	</data>
 </openerp>
