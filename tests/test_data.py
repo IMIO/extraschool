@@ -38,6 +38,7 @@ class TestData(TransactionCase):
         self.school_model = self.env['extraschool.school']
         self.place_model = self.env['extraschool.place']
         self.prestation_times_model = self.env['extraschool.prestationtimes']
+        self.exclusion_date_model = self.env['extraschool.activityexclusiondates']
 
         # Creation of activity category
         activity_category_1 = self.activity_category_model.create({
@@ -52,17 +53,28 @@ class TestData(TransactionCase):
         school_1 = self.school_model.create({
             'name': 'Los Angeles'
         })
+        school_2 = self.school_model.create({
+            'name': 'Courrières'
+        })
 
         # Creation of school implantation
         school_implantation_1 = self.school_implantation_model.create({
             'schoolid': school_1.id,
             'name': 'Hollywood',
         })
+        school_implantation_2 = self.school_implantation_model.create({
+            'schoolid': school_2.id,
+            'name': 'Gembloux',
+        })
 
         # Creation of place
         place_1 = self.place_model.create({
             'name': 'California',
             'schoolimplantation_ids': [school_implantation_1.id],
+        })
+        place_2 = self.place_model.create({
+            'name': 'Namur',
+            'schoolimplantation_ids': [school_implantation_2.id],
         })
 
         # Creation of parents.
@@ -89,17 +101,58 @@ class TestData(TransactionCase):
             'birthdate': '2005-05-29',
         })
 
+        # Creation of exclusion date.
+        exclusion_1 = self.exclusion_date_model.create({
+            'date_from': '2018-07-16',
+            'date_to': '2018-07-16',
+            'name': 'Exclude 16-07-2018',
+        })
+
         # Creation of activities.
         activity_1 = self.activity_model.create({
             'name': 'les bronzés font du ski',
             'category_id': activity_category_1.id,
-            'validity_from': '2018-07-18',
-            'validity_to': '2018-07-19',
+            'validity_from': '2018-07-16',
+            'validity_to': '2018-07-20',
             'leveltype': 'M,P',
             'days': '0,1,2,3,4',
             'default_from_to': 'to',
             'prest_from': 7,
             'prest_to': 9,
+            'exclusiondates_ids': [(4, exclusion_1.id)],
             'placeids': [(4, place_1.id)],
             'short_name': 'splendide',
+        })
+
+        activity_2 = self.activity_model.create({
+            'name': 'Accueil soir gratuit',
+            'category_id': activity_category_1.id,
+            'validity_from': '2018-07-23',
+            'validity_to': '2018-07-27',
+            'leveltype': 'M,P',
+            'days': '0,1,2,3,4',
+            'default_from_to': 'from',
+            'prest_from': 15.75,
+            'prest_to': 16,
+            'placeids': [(4, place_1.id)],
+            'short_name': 'soir gratuit',
+            'autoaddchilds': False,
+            'onlyregisteredchilds': False,
+        })
+
+        activity_3 = self.activity_model.create({
+            'name': 'Accueil soir payant',
+            'category_id': activity_category_1.id,
+            'validity_from': '2018-07-23',
+            'validity_to': '2018-07-27',
+            'leveltype': 'M,P',
+            'days': '0,1,2,3,4',
+            'default_from_to': 'from',
+            'prest_from': 16,
+            'prest_to': 18,
+            'placeids': [(4, place_1.id)],
+            'short_name': 'soir payant',
+            'parent_id': activity_2.id,
+            'autoaddchilds': False,
+            'onlyregisteredchilds': False,
         })
