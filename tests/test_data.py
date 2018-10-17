@@ -156,3 +156,36 @@ class TestData(TransactionCase):
             'autoaddchilds': False,
             'onlyregisteredchilds': False,
         })
+
+        activity_4 = self.activity_model.create({
+            'name': 'Accueil matin gratuit',
+            'category_id': activity_category_1.id,
+            'validity_from': '2018-07-23',
+            'validity_to': '2018-07-27',
+            'leveltype': 'M,P',
+            'days': '0,1,2,3,4',
+            'default_from_to': 'to',
+            'prest_from': 7,
+            'prest_to': 7.5,
+            'placeids': [(4, place_1.id)],
+            'short_name': 'matin gratuit',
+            'autoaddchilds': False,
+            'onlyregisteredchilds': False,
+        })
+
+        activity_5 = self.activity_model.create({
+            'name': 'Accueil matin payant',
+            'category_id': activity_category_1.id,
+            'validity_from': '2018-07-23',
+            'validity_to': '2018-07-27',
+            'leveltype': 'M,P',
+            'days': '0,1,2,3,4',
+            'default_from_to': 'to',
+            'prest_from': 7.5,
+            'prest_to': 8,
+            'placeids': [(4, place_1.id)],
+            'short_name': 'matin payant',
+            'parent_id': activity_4.id,
+            'autoaddchilds': False,
+            'onlyregisteredchilds': False,
+        })

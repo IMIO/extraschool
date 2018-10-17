@@ -201,3 +201,41 @@ class PrestationCheckTest(TestData):
         self.assertEqual(prestation_times_ids_5[0].es, 'S')
         self.assertEqual(prestation_times_ids_5[0].prestation_date, '2018-07-24')
         self.assertEqual(prestation_times_ids_5[0].prestation_time, 17)
+
+##################################################################################
+#   Sixth test
+#   Scenario: Single entry at 07h05.
+#   Expect: Get 2 activites from 07h05 to 08h00.
+##################################################################################
+
+        pda_prestation_6 = self.env['extraschool.pdaprestationtimes'].create({
+            'activitycategoryid': activity_category_1.id,
+            'childid': child_1.id,
+            'prestation_date': '2018-07-25',
+            'es': 'E',
+            'placeid': place_1.id,
+            'prestation_time': 7.05,
+        })
+
+        self.assertEqual(pda_prestation_6.prestation_times_of_the_day_id.verified, False)
+
+        pda_prestation_6.prestation_times_of_the_day_id.check()
+
+        prestation_times_ids_6 = self.env['extraschool.prestationtimes'].search(
+            [('prestation_times_of_the_day_id', '=', pda_prestation_6.prestation_times_of_the_day_id.id)])\
+            .sorted(key=lambda r: r.prestation_time)
+
+        self.assertEqual(len(prestation_times_ids_6), 4)
+        self.assertEqual(pda_prestation_6.prestation_times_of_the_day_id.verified, True)
+        self.assertEqual(prestation_times_ids_6[0].es, 'E')
+        self.assertEqual(prestation_times_ids_6[0].prestation_date, '2018-07-25')
+        self.assertEqual(prestation_times_ids_6[0].prestation_time, 7.05)
+        self.assertEqual(prestation_times_ids_6[1].es, 'S')
+        self.assertEqual(prestation_times_ids_6[1].prestation_date, '2018-07-25')
+        self.assertEqual(prestation_times_ids_6[1].prestation_time, 7.5)
+        self.assertEqual(prestation_times_ids_6[2].es, 'E')
+        self.assertEqual(prestation_times_ids_6[2].prestation_date, '2018-07-25')
+        self.assertEqual(prestation_times_ids_6[2].prestation_time, 7.5)
+        self.assertEqual(prestation_times_ids_6[3].es, 'S')
+        self.assertEqual(prestation_times_ids_6[3].prestation_date, '2018-07-25')
+        self.assertEqual(prestation_times_ids_6[3].prestation_time, 8)
