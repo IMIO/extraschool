@@ -1,6 +1,6 @@
 stages:
   - build
-  - test
+#  - test
   - staging
   - promote
   - restart
@@ -12,13 +12,13 @@ build:
     - cd docker-odoo-base
     - docker-compose -f prod.yaml build --no-cache
 
-test:
-  stage: test
-  script:
-    - git clone -b scaffolding http://gitlab.imio.be:10080/odoo/docker-odoo-base.git
-    - cd docker-odoo-base
-    - docker-compose run --rm odoo unittest extraschool -i extraschool
-  when: on_success
+#test:
+#  stage: test
+#  script:
+#    - git clone -b scaffolding http://gitlab.imio.be:10080/odoo/docker-odoo-base.git
+#    - cd docker-odoo-base
+#    - docker-compose run --rm odoo unittest extraschool -i extraschool
+#  when: on_success
 
 staging:
   stage: staging
