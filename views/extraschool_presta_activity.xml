@@ -8,6 +8,7 @@
 			<field name="arch" type="xml">
 				<tree string="stat_activity">
 					<field name="date"/>
+                    <field name="child_id"/>
 					<field name="activity_id" select="1"/>
 					<field name="place_id" select="1"/>
                     <field name="nbr_child"/>
@@ -21,13 +22,15 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="stat_activity">
-					<group col="4">
-					<field name="date"/>
-					<field name="activity_id" select="1"/>
-					<field name="place_id" select="1"/>
-                    <field name="nbr_child"/>
-					<field name="child_id"/>
-	                </group>
+                    <sheet>
+                        <group col="4">
+                        <field name="date"/>
+                        <field name="activity_id" select="1"/>
+                        <field name="place_id" select="1"/>
+                        <field name="nbr_child"/>
+                        <field name="child_id"/>
+                        </group>
+                    </sheet>
 				</form>
 			</field>
 		</record>
@@ -66,7 +69,7 @@
 			<field name="name">Stat activity</field>
 			<field name="res_model">extraschool.stat_activity</field>
 			<field name="view_type">form</field>
-			<field name="view_mode">graph,pivot</field>
+			<field name="view_mode">pivot</field>
             <field name="search_view_id" ref="stat_activity_search_view"/>
 		</record>
 
