@@ -39,7 +39,8 @@ import pytz
 from dateutil.relativedelta import *
 from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
-
+import logging
+_logger = logging.getLogger(__name__)
 
 
 class extraschool_prestationscheck_wizard(models.TransientModel):
@@ -173,7 +174,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
 
     @api.multi
     def _check(self, force = False):
-        print "# Check prestations from wizard"
+        _logger.info( "# Check prestations from wizard")
         if not force:
             prestation_search_domain = [('verified', '=', False),]
         else:
@@ -203,12 +204,12 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
             obj_prestation_of_the_day_rs.write({'verified': False,})
 
         total_check = len(obj_prestation_of_the_day_rs)
-        print "## Total prestations to check: %s" % total_check
+        _logger.info( "## Total prestations to check: %s" % total_check)
         count_check = 1
 
         for presta_of_the_day in obj_prestation_of_the_day_rs:
             presta_of_the_day.check()
-            print "### Check [%s/%s]" % (count_check,total_check)
+            _logger.info("### Check [%s/%s]" % (count_check,total_check))
             count_check += 1
 
             if len(presta_of_the_day.prestationtime_ids.filtered(lambda r: r.verified == False))  > 0:
@@ -221,7 +222,6 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
                     presta_of_the_day.verified = False
 
         self.state = 'end_of_verification'
-        print "## END CHECK PRESTATIONS ##"
 
         #construct domain for redirect user to unverified presta matching his selection
         prestation_search_domain = []
