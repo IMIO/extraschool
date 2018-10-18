@@ -231,15 +231,12 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
             prestation_search_domain.append(('date_of_the_day', '>=', self.period_from))
         if self.period_to:
             prestation_search_domain.append(('date_of_the_day', '<=', self.period_to))
-        view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','extraschool.prestation_times_of_the_day'), ('name','=','Prestations_of_the_day.tree')])
 
         return {
                 'type': 'ir.actions.act_window',
                 'res_model': 'extraschool.prestation_times_of_the_day',
-#                'name': _("Prestations_of_the_day.tree"),
                 'view_type': 'form',
                 'view_mode': 'tree,form',
-                'view_id': view_id,
                 'nodestroy': 'current',
                 'domain': prestation_search_domain,
                 'context': {'search_default_not_verified':1}
