@@ -171,9 +171,8 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
 
         return self
 
+    @api.multi
     def _check(self, force = False):
-        cr,uid = self.env.cr, self.env.user.id
-
         print "# Check prestations from wizard"
         if not force:
             prestation_search_domain = [('verified', '=', False),]
