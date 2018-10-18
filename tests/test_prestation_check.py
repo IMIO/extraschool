@@ -239,3 +239,5 @@ class PrestationCheckTest(TestData):
         self.assertEqual(prestation_times_ids_6[3].es, 'S')
         self.assertEqual(prestation_times_ids_6[3].prestation_date, '2018-07-25')
         self.assertEqual(prestation_times_ids_6[3].prestation_time, 8)
+
+        self.assertEqual('foo'.upper(), 'foo')
