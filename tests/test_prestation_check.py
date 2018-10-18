@@ -65,7 +65,8 @@ class PrestationCheckTest(TestData):
 
         # Get created prestation times order by time to check ES.
         prestation_times_ids_1 = self.env['extraschool.prestationtimes'].search(
-            [('prestation_times_of_the_day_id', '=', pda_prestation_1.prestation_times_of_the_day_id.id)]).sorted(key=lambda r: r.prestation_time)
+            [('prestation_times_of_the_day_id', '=', pda_prestation_1.prestation_times_of_the_day_id.id)])\
+            .sorted(key=lambda r: r.prestation_time)
 
         # Self explainatory
         self.assertEqual(len(prestation_times_ids_1), 2)
@@ -239,5 +240,3 @@ class PrestationCheckTest(TestData):
         self.assertEqual(prestation_times_ids_6[3].es, 'S')
         self.assertEqual(prestation_times_ids_6[3].prestation_date, '2018-07-25')
         self.assertEqual(prestation_times_ids_6[3].prestation_time, 8)
-
-        self.assertEqual('foo'.upper(), 'foo')
