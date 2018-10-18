@@ -174,7 +174,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
 
     @api.multi
     def _check(self, force = False):
-        _logger.info( "# Check prestations from wizards")
+        _logger.info( "# Check prestations from wizard")
         if not force:
             prestation_search_domain = [('verified', '=', False),]
         else:
