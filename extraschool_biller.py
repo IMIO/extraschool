@@ -163,7 +163,7 @@ class extraschool_biller(models.Model):
         _logger.info("%s invoices to delete" % len(self.invoice_ids))
         count = 1
         for invoice in self.invoice_ids:
-            _logger.info("[%s/%s] invoices deleted" % (count,len(self.invoice_ids)))
+            _logger.info("[%s/%s] invoices deleted [%s]" % (count,len(self.invoice_ids), invoice.id))
             invoice.payment_ids.unlink()
             count +=1
 
@@ -172,10 +172,9 @@ class extraschool_biller(models.Model):
         self.activitycategoryid.sequence_ids.search([('type', '=', 'invoice'),
                                                      ('year', '=', self.get_from_year()),]).sequence.number_next = invoicelastcomstruct
 
-
-
-
+        _logger.info("Trying to remove biller")
         return super(extraschool_biller, self).unlink()
+        _logger.info("Biller removed")
 
     @api.one
     def sendmails(self):
