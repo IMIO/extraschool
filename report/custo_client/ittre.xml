@@ -15,7 +15,7 @@
 	        	<div id="invoice_summary" >
 	        		<h2><span t-esc="summary_invoice_title" /></h2>
 	        		<h6>Madame, Monsieur,</h6>
-	        		<h6>A la suite de l'examen de nos comptes, nous constatons ue vous nous restez redevables pour les factures de frais de garderie extra-scolaire suivantes :</h6>
+	        		<h6>A la suite de l'examen de nos comptes, nous constatons que vous nous restez redevables pour les factures de frais de garderie extra-scolaire suivantes :</h6>
 	        		<table>
 	        			<tr>
 		        			<th>Période</th>
