@@ -221,6 +221,8 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
                 else:
                     presta_of_the_day.verified = False
 
+            self.env.cr.commit()
+
         self.state = 'end_of_verification'
 
         #construct domain for redirect user to unverified presta matching his selection
