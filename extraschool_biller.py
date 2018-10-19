@@ -38,6 +38,8 @@ except ImportError:
     import StringIO
 
 import time
+import logging
+_logger = logging.getLogger(__name__)
 
 
 class extraschool_biller(models.Model):
@@ -158,8 +160,12 @@ class extraschool_biller(models.Model):
         if self.search([]).sorted(key=lambda r: r.id)[-1].id != self.id:
             raise Warning(_("You can only delete the last biller !!!"))
 
+        _logger.info("%s invoices to delete" % len(self.invoice_ids))
+        count = 1
         for invoice in self.invoice_ids:
+            _logger.info("[%s/%s] invoices deleted" % (count,len(self.invoice_ids)))
             invoice.payment_ids.unlink()
+            self.env.cr.commit()
 
         invoicelastcomstruct = str(self.invoice_ids.sorted(key=lambda r: r.id)[0].number)[-5:]
 
