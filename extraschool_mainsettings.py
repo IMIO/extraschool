@@ -168,8 +168,8 @@ class extraschool_mainsettings(models.Model):
         obj_level = self.pool.get('extraschool.level')
         obj_child = self.pool.get('extraschool.child')
         levelbeforedisable = obj_level.read(cr, uid, [self.levelbeforedisable.id], ['ordernumber'])[0]['ordernumber']
-        cr.execute('select * from extraschool_child where create_date < %s', (str(datetime.now().year)+'-07-01',))
-        print 'select * from extraschool_child where create_date < %s' % (str(datetime.now().year)+'-07-01')
+        cr.execute('select * from extraschool_child where create_date < %s', (str(datetime.now().year)+'-08-20',))
+        print 'select * from extraschool_child where create_date < %s' % (str(datetime.now().year)+'-08-20')
         childs = cr.dictfetchall()
         cr.execute('select * from extraschool_level')
         levels = cr.dictfetchall()
