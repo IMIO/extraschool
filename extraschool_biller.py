@@ -165,7 +165,7 @@ class extraschool_biller(models.Model):
         for invoice in self.invoice_ids:
             _logger.info("[%s/%s] invoices deleted" % (count,len(self.invoice_ids)))
             invoice.payment_ids.unlink()
-            self.env.cr.commit()
+            count +=1
 
         invoicelastcomstruct = str(self.invoice_ids.sorted(key=lambda r: r.id)[0].number)[-5:]
 
