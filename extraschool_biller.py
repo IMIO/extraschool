@@ -173,6 +173,7 @@ class extraschool_biller(models.Model):
                                                      ('year', '=', self.get_from_year()),]).sequence.number_next = invoicelastcomstruct
 
         _logger.info("Trying to remove biller")
+        super(extraschool_biller, self).unlink()
         _logger.info("Biller removed")
 
     @api.one
@@ -354,7 +355,7 @@ class extraschool_biller(models.Model):
                                            ('res_model', '=', 'extraschool.invoice')]).unlink()
 
         self.pdf_ready = False
-        # self.env.invalidate_all()
+        self.env.invalidate_all()
 
         count = 0
 
