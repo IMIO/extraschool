@@ -154,6 +154,7 @@ class extraschool_biller(models.Model):
 
     @api.multi
     def unlink(self):
+        self.env.invalidate_all()
         if len(self) > 1:
             raise Warning(_("You can delete only one biller at a time !!!"))
 
@@ -162,8 +163,9 @@ class extraschool_biller(models.Model):
 
         _logger.info("%s invoices to delete" % len(self.invoice_ids))
         count = 1
+        total_invoice = len(self.invoice_ids)
         for invoice in self.invoice_ids:
-            _logger.info("[%s/%s] invoices deleted [%s]" % (count,len(self.invoice_ids), invoice.id))
+            _logger.info("[%s/%s] payment reconcil" % (count, total_invoice))
             invoice.payment_ids.unlink()
             count +=1
 
@@ -172,9 +174,13 @@ class extraschool_biller(models.Model):
         self.activitycategoryid.sequence_ids.search([('type', '=', 'invoice'),
                                                      ('year', '=', self.get_from_year()),]).sequence.number_next = invoicelastcomstruct
 
-        _logger.info("Trying to remove biller")
-        super(extraschool_biller, self).unlink()
-        _logger.info("Biller removed")
+        count = 1
+        for invoice in self.invoice_ids:
+            _logger.info("[%s/%s] invoices deleted" % (count, total_invoice))
+            invoice.unlink()
+            count += 1
+
+        return super(extraschool_biller, self).unlink()
 
     @api.one
     def sendmails(self):
