@@ -189,3 +189,19 @@ class TestData(TransactionCase):
             'autoaddchilds': False,
             'onlyregisteredchilds': False,
         })
+
+        activity_6 = self.activity_model.create({
+            'name': 'stage 1',
+            'category_id': activity_category_1.id,
+            'validity_from': '2018-07-30',
+            'validity_to': '2018-07-30',
+            'leveltype': 'M,P',
+            'days': '0',
+            'default_from_to': 'from_to',
+            'prest_from': 10,
+            'prest_to': 17,
+            'placeids': [(4, place_1.id)],
+            'short_name': 'matin payant',
+            'autoaddchilds': True,
+            'onlyregisteredchilds': True,
+        })

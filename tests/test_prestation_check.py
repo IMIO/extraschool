@@ -45,6 +45,8 @@ class PrestationCheckTest(TestData):
         child_1 = self.env['extraschool.child'].search([('lastname', '=', 'Jackson'), ('firstname', '=', 'Michael')])
         place_1 = self.env['extraschool.place'].search([('name', '=', 'California')])
         place_2 = self.env['extraschool.place'].search([('name', '=', 'Namur')])
+        school_implantation_1 = self.env['extraschool.schoolimplantation'].search([('name', '=', 'Hollywood')])
+        activity_1 = self.env['extraschool.activity'].search([('name', '=', 'stage 1')])
 
         # Then we simulate a scan from a smartphone.
         pda_prestation_1 = self.env['extraschool.pdaprestationtimes'].create({
@@ -240,3 +242,47 @@ class PrestationCheckTest(TestData):
         self.assertEqual(prestation_times_ids_6[3].es, 'S')
         self.assertEqual(prestation_times_ids_6[3].prestation_date, '2018-07-25')
         self.assertEqual(prestation_times_ids_6[3].prestation_time, 8)
+
+##################################################################################
+#   Seventh test
+#   Scenario: Registred activity.
+#   Expect: Get 1 activity from 10 to 17.
+##################################################################################
+
+        child_registration_1 = self.env['extraschool.child_registration'].create({
+            'school_implantation_id': school_implantation_1.id,
+            'place_id': place_1.id,
+            'activity_id': activity_1.id,
+            'week': 31,
+            'date_from': '2018-07-30',
+            'date_to': '2018-08-05',
+        })
+
+        child_registration_line_1 = self.env['extraschool.child_registration_line'].create({
+            'child_registration_id': child_registration_1.id,
+            'monday': True,
+            'child_id': child_1.id,
+        })
+
+        child_registration_1.validate()
+        child_registration_1.validate()
+
+        prestation_times_of_the_day_1 = self.env['extraschool.prestation_times_of_the_day'].search([('date_of_the_day', '=', '2018-07-30'), ('child_id', '=', child_1.id)])
+
+
+        self.assertEqual(prestation_times_of_the_day_1.verified, False)
+
+        prestation_times_of_the_day_1.check()
+
+        prestation_times_ids_7 = self.env['extraschool.prestationtimes'].search(
+            [('prestation_times_of_the_day_id', '=', prestation_times_of_the_day_1.id)])\
+            .sorted(key=lambda r: r.prestation_time)
+
+        self.assertEqual(len(prestation_times_ids_7), 2)
+        self.assertEqual(prestation_times_of_the_day_1.verified, True)
+        self.assertEqual(prestation_times_ids_7[0].es, 'E')
+        self.assertEqual(prestation_times_ids_7[0].prestation_date, '2018-07-30')
+        self.assertEqual(prestation_times_ids_7[0].prestation_time, 10)
+        self.assertEqual(prestation_times_ids_7[1].es, 'S')
+        self.assertEqual(prestation_times_ids_7[1].prestation_date, '2018-07-30')
+        self.assertEqual(prestation_times_ids_7[1].prestation_time, 17)
