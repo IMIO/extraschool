@@ -88,6 +88,12 @@ class extraschool_smartphone(models.Model):
     def _get_activity_category_id(self):
         return self.env['extraschool.config_smartphone'].search([])[-1].activitycategory_id.ids
 
+    def _get_last_transmission(self):
+        for rec in self:
+            last_transmission_date = self.env['extraschool.pda_transmission'].search([('smartphone_id', '=', rec.id)],
+                                                                   order='transmission_date_from DESC', limit=1).transmission_date_from
+            rec.lasttransmissiondate = last_transmission_date
+
 
     name = fields.Char('Name', size=50)
     placeid = fields.Many2one('extraschool.place', 'Schoolcare Place', required=True)
@@ -97,7 +103,7 @@ class extraschool_smartphone(models.Model):
                                               default=_get_activity_category_id, readonly=True)
 
 
-    lasttransmissiondate = fields.Datetime('Last Transmission Date', readonly=True)
+    lasttransmissiondate = fields.Datetime('Last Transmission Date', compute=_get_last_transmission, store=False, readonly=True)
     softwareurl_v9 = fields.Char('Software url', size=100, readonly=True, default='https://static.imio.be/aes/aesmobile.apk')
     transmissiontime = fields.Char('Transmission time', size=5, default=_get_default_transmissiontime)
     serveraddress = fields.Char('Server address', size=50, default=_get_default_serveraddress, readonly=True)
