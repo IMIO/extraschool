@@ -45,10 +45,12 @@ class extraschool_child_registration(models.Model):
             datetime.strptime(child_registration.date_to, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y"))))
         return res
 
+    current_date = str(datetime.now().date())
+
     school_implantation_id = fields.Many2one('extraschool.schoolimplantation', required=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
     class_id = fields.Many2one('extraschool.class', readonly=True, states={'draft': [('readonly', False)]}, domain="[('schoolimplantation','=',school_implantation_id)]", track_visibility='onchange')
     place_id = fields.Many2one('extraschool.place', required=True, readonly=True, states={'draft': [('readonly', False)]}, domain="[('schoolimplantation_ids','in',school_implantation_id)]", track_visibility='onchange')
-    activity_id = fields.Many2one('extraschool.activity', readonly=True, states={'draft': [('readonly', False)]}, domain="['&',('placeids','in',place_id),('selectable_on_registration','=',True)]", track_visibility='onchange')
+    activity_id = fields.Many2one('extraschool.activity', readonly=True, states={'draft': [('readonly', False)]}, domain="['&','&',('placeids','in',place_id),('selectable_on_registration','=',True),('validity_to', '>=', current_date)]", track_visibility='onchange')
     week = fields.Integer('Week', required=True, readonly=True, states={'draft': [('readonly', False)]}, help='Afin de trouver le bon numéro de semaine, Veuillez vous aider du champs situé juste en dessous afin de trouver le numéro de semaine. Une fois le numéro mis, l\'application recherchera et encodera toute seule les bonnes dates du numéro de semaine (Du lundi au vendredi)', track_visibility='onchange')
     date_from = fields.Date('Date from', required=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
     date_to = fields.Date('Date to', required=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
@@ -277,8 +279,6 @@ class extraschool_child_registration(models.Model):
 
         if not wizard:
             self.check_doublons_warning()
-
-        print "validate wizard-mode : %s" % (self.env.context["wizard"])
 
         pod_to_reset = []
 
@@ -529,6 +529,7 @@ class extraschool_child_registration_line(models.Model):
 
     _order = "child_lastname,child_firstname"
 
+    current_date = str(datetime.now().date())
     child_registration_id = fields.Many2one('extraschool.child_registration', required=True, ondelete="cascade", index = True)
     child_id = fields.Many2one('extraschool.child', required=True, domain="[('isdisabled', '=', False)]", index = True)
     child_firstname = fields.Char(related="child_id.firstname", store=True)
