@@ -62,6 +62,16 @@ class extraschool_activitycategory(models.Model):
 
     organising_power_id = fields.Many2one('extraschool.organising_power', 'Organising Power', required=True)
 
+    childpositiondetermination = fields.Selection((('byparent','by parent'),
+                                                   ('byparentwp','by parent (only childs with prestations)'),
+                                                   ('byparent_nb_childs','by parent (position replaced by nbr childs'),
+                                                   ('byparent_nb_childs_wp','by parent (position replaced by nbr childs with prestations'),
+                                                   ('byaddress','by address'),
+                                                   ('byaddresswp','by address (only childs with prestations)'),
+                                                   ('byaddress_nb_childs','by address (position replaced by nbr childs'),
+                                                   ('byaddress_nb_childs_wp','by address (position replaced by nbr childs with prestations'),
+                                                   ),'Child position determination', required = True)
+
     activities = fields.One2many('extraschool.activity', 'category_id','Activities')
     placeids = fields.Many2many('extraschool.place','extraschool_activitycategory_place_rel', 'activitycategory_id', 'place_id','Schoolcare place')
 
