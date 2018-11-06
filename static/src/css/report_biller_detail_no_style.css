@@ -1,0 +1,33 @@
+#biller_detail{
+    display:block;
+    width: 100%;
+}
+
+#biller_detail>div{
+    display: block;
+    padding: 0px 8px 0px 8px;
+    width: 100%;
+}
+
+#biller_detail>table {
+    width: 100%;
+    font-size:11px;
+    border-width: 1px;
+    border-collapse: collapse;
+}
+#biller_detail>table th {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    background-color: #dedede;
+}
+#biller_detail>table td {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+}
+
+#biller_detail table td.amount {
+    text-align: right;
+    width: 20%;
+}
