@@ -52,6 +52,15 @@
                                 </tree>
                             </field>
                         </page>
+                        <page string="Documents" readonly="True">
+                            <field name="payment_plan_document_ids">
+                                <tree string="Documents">
+                                    <field name="document_date"/>
+                                    <field name="number"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
                     </notebook>
                 </sheet>
             </form>

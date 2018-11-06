@@ -140,6 +140,8 @@ class ExtraSchoolPaymentPlan(models.Model):
             invoice.write({'tag': 2})
         self.state = 'in_progress'
 
+
+
     @api.multi
     def draft(self):
         if self.paid_amount == 0:
