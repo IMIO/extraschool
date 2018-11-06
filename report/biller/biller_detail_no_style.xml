@@ -1,43 +1,10 @@
 <?xml version="1.0" ?>
 <openerp>
-	<data> 		
+	<data>
 		<template id="report_biller_detail_no_style">
-			<style>
-				#biller_detail{
-					display:block;
-					width: 100%;
-				}
-								
-				#biller_detail>div{
-					display: block;
-					padding: 0px 8px 0px 8px;
-					width: 100%;				
-				}
-				   	
-				#biller_detail>table {
-		    		width: 100%;
-					font-size:11px;
-					border-width: 1px;
-					border-collapse: collapse;
-				}
-				#biller_detail>table th {
-					border-width: 1px;
-					padding: 8px;
-					border-style: solid;
-					background-color: #dedede;
-				}
-				#biller_detail>table td {
-					border-width: 1px;
-					padding: 8px;
-					border-style: solid;
-				}
-				
-				#biller_detail table td.amount {
-		    		text-align: right;
-		    		width: 20%;
-				}				
-			</style>
-			
+			<xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_biller_detail_no_style.css"/>
+            </xpath>
 			<div id="biller_detail">
         		<table>
         			<tr>
@@ -47,16 +14,45 @@
 					</tr>
 	       			<t t-foreach="biller.invoice_ids" t-as="biller_line">
         				<tr>
-	       					<td><span t-field="biller_line.parentid.name" /></td> 
-	       					<td><span t-field="biller_line.activitycategoryid.name" /></td> 
-	       					<td class="amount"><span t-esc="'%.2f €' %  (biller_line.amount_total)" /></td> 
+	       					<td><span t-field="biller_line.parentid.name" /></td>
+	       					<td><span t-field="biller_line.activitycategoryid.name" /></td>
+	       					<td class="amount"><span t-esc="'%.2f €' %  (biller_line.amount_total)" /></td>
 	       				</tr>
-	        		</t> 	            			        			
+	        		</t>
         		</table>
-			</div>			
+			</div>
+		</template>
+
+        <template id="report_biller_detail_lierneux_no_style">
+			<xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_biller_detail_no_style.css"/>
+            </xpath>
+			<div id="biller_detail">
+        		<table>
+        			<tr>
+	        			<th>Parent</th>
+	        			<th>Catégorie d'activité</th>
+                        <th>Communication structurée</th>
+                        <th>Montant</th>
+	        			<th>Reçu</th>
+                        <th>Solde</th>
+                        <th>Non Valeur</th>
+					</tr>
+	       			<t t-foreach="biller.invoice_ids" t-as="biller_line">
+        				<tr>
+	       					<td><span t-field="biller_line.parentid.name" /></td>
+	       					<td><span t-field="biller_line.activitycategoryid.name" /></td>
+                            <td><span t-field="biller_line.structcom" /></td>
+	       					<td class="amount"><span t-esc="'%.2f €' %  (biller_line.amount_total)" /></td>
+                            <td class="amount"><span t-esc="'%.2f €' %  (biller_line.amount_received)" /></td>
+                            <td class="amount"><span t-esc="'%.2f €' %  (biller_line.balance)" /></td>
+                            <td class="amount"><span t-esc="'%.2f €' %  (biller_line.no_value)" /></td>
+	       				</tr>
+	        		</t>
+        		</table>
+			</div>
 		</template>
 
 	</data>
-</openerp>	
-	
-	
+</openerp>
+

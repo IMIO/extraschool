@@ -1,0 +1,10 @@
+#biller_summary{
+    display:block;
+    width: 100%;
+}
+
+
+#biller_summary>div{
+    display: block;
+    width: 100%;
+				}
