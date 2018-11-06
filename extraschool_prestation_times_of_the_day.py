@@ -534,6 +534,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
             self.verified = False
         else:
             self.verified = True
+            self.env.cr.commit()
 
         return self.verified
 
