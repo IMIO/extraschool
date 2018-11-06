@@ -1,40 +1,61 @@
 <?xml version="1.0" ?>
 <openerp>
-	<data> 		
+	<data>
 		<template id="report_biller_summary_no_style">
-			<style>
-				#biller_summary{
-					display:block;
-					width: 100%;
-				}
-				
-				
-				#biller_summary>div{
-					display: block;
-					width: 100%;				
-				}								
-
-			</style>
+			<xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_biller_summary_no_style.css"/>
+            </xpath>
 			<div id="biller_summary">
 				<div id="period">
-					<span class="zz_label">Période de facturation du </span><span t-field="biller.period_from" /> au <span t-field="biller.period_to" />	
-				</div>								
+					<span class="zz_label">Période de facturation du </span><span t-field="biller.period_from" /> au <span t-field="biller.period_to" />
+				</div>
 				<div id="fact_dates">
 					<span class="zz_label">Date de facture : </span><span t-field="biller.invoices_date" />
 				</div>
 				<div id="fact_dates">
-					<span class="zz_label">Date d'échéance : </span><span t-field="biller.payment_term" />	
+					<span class="zz_label">Date d'échéance : </span><span t-field="biller.payment_term" />
 				</div>
 				<div id="nbr_fact">
-					<span class="zz_label">Nombre de factures : </span><span t-field="biller.nbinvoices" />							
+					<span class="zz_label">Nombre de factures : </span><span t-field="biller.nbinvoices" />
 				</div>
 				<div id="total">
-					<span class="zz_label">Total : </span><span t-esc="'%.2f €' %  (biller.total)" />	
+					<span class="zz_label">Total : </span><span t-esc="'%.2f €' %  (biller.total)" />
 				</div>
-			</div>			
+			</div>
+		</template>
+
+        <template id="report_biller_summary_lierneux_no_style">
+			<xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_biller_summary_no_style.css"/>
+            </xpath>
+			<div id="biller_summary">
+				<div id="period">
+					<span class="zz_label">Période de facturation du </span><span t-field="biller.period_from" /> au <span t-field="biller.period_to" />
+				</div>
+				<div id="fact_dates">
+					<span class="zz_label">Date de facture : </span><span t-field="biller.invoices_date" />
+				</div>
+				<div id="fact_dates">
+					<span class="zz_label">Date d'échéance : </span><span t-field="biller.payment_term" />
+				</div>
+				<div id="nbr_fact">
+					<span class="zz_label">Nombre de factures : </span><span t-field="biller.nbinvoices" />
+				</div>
+                <div id="total">
+					<span class="zz_label">Reçu : </span><span t-esc="'%.2f €' %  (biller.received)" />
+				</div>
+                <div id="total">
+					<span class="zz_label">Non valeur : </span><span t-esc="'%.2f €' %  (biller.novalue)" />
+				</div>
+                <div id="total">
+					<span class="zz_label">Solde : </span><span t-esc="'%.2f €' %  (biller.balance)" />
+				</div>
+				<div id="total">
+					<span class="zz_label">Total : </span><span t-esc="'%.2f €' %  (biller.total)" />
+				</div>
+			</div>
 		</template>
 
 	</data>
-</openerp>	
-	
-	
+</openerp>
+
