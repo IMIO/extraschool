@@ -263,6 +263,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
         prestation_times_rs = prestation_times_rs.sorted(key=lambda r: r.prestation_time)
         #check if first presta is an entry
         first_prestation_time = prestation_times_rs[0]
+        first_prestation_time.activity_category_id = root_activity.category_id
         if first_prestation_time.es == 'E':
             #correction if default_from_to
             if first_prestation_time.activity_occurrence_id.activityid.default_from_to == 'from_to':
@@ -308,6 +309,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
         prestation_times_rs = prestation_times_rs.sorted(key=lambda r: r.prestation_time)
         #check if last presta is an exit
         last_prestation_time = prestation_times_rs[len(prestation_times_rs)-1]
+        last_prestation_time.activity_category_id = root_activity.category_id
         if last_prestation_time.es == 'S':
             #correction if default_from_to
             if last_prestation_time.activity_occurrence_id.activityid.default_from_to == 'from_to':
@@ -483,6 +485,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
 
     @api.multi
     def check(self):
+        import wdb;wdb.set_trace()
         print "Checking......."
         #Check if presta is not invoiced
         if len(self.prestationtime_ids.filtered(lambda r: r.invoiced_prestation_id.id is not False).ids) == 0:
