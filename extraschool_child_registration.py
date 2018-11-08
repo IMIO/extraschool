@@ -276,8 +276,6 @@ class extraschool_child_registration(models.Model):
         if not wizard:
             self.check_doublons_warning()
 
-        print "validate wizard-mode : %s" % (self.env.context["wizard"])
-
         pod_to_reset = []
 
         if self.state == 'to_validate' or wizard:

@@ -21,4 +21,5 @@
 #
 ##############################################################################
 
-from . import test_foo
+from . import test_data
+from . import test_prestation_check

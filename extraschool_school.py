@@ -43,7 +43,7 @@ class extraschool_school(models.Model):
         # Override to check if they can create a new school.
         # AES should not be counted as school.
         schools_count = len(self.env['extraschool.school'].search([]).filtered(lambda r: r.name != 'AES'))
-        max_school = self.env['extraschool.activitycategory'].search([])[0].max_school_implantation
+        max_school = self.env['extraschool.organising_power'].search([]).max_school_implantation
 
 
         if schools_count >= max_school:

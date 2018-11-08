@@ -282,7 +282,7 @@ class extraschool_parent(models.Model):
 
         # Compute and store parent's commstruct for further use (search).
         parent_id = super(extraschool_parent, self).create(vals)
-        parent_id.write({'comstruct': parent_id.get_prepaid_comstruct(self.env['extraschool.activitycategory'].search([]))})
+        parent_id.write({'comstruct': parent_id.get_prepaid_comstruct(self.env['extraschool.activitycategory'].search([])[0])})
 
         return parent_id
 
