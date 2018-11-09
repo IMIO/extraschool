@@ -225,3 +225,19 @@ class TestData(TransactionCase):
             'autoaddchilds': True,
             'onlyregisteredchilds': True,
         })
+
+        activity_7 = self.activity_model.create({
+            'name': 'repas',
+            'category_id': activity_category_2.id,
+            'validity_from': '2018-08-01',
+            'validity_to': '2018-08-01',
+            'leveltype': 'M,P',
+            'days': '0',
+            'default_from_to': 'from_to',
+            'prest_from': 12,
+            'prest_to': 13,
+            'placeids': [(4, place_1.id)],
+            'short_name': 'repas',
+            'autoaddchilds': False,
+            'onlyregisteredchilds': False,
+        })

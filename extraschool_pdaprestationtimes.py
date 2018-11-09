@@ -33,7 +33,7 @@ class extraschool_pdaprestationtimes(models.Model):
     _description = 'PDA Prestation Times'
 
     placeid = fields.Many2one('extraschool.place', 'Schoolcare Place', required=True)
-    activitycategoryid = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False)
+    # activitycategoryid = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False)
     childid = fields.Many2one('extraschool.child', 'Child', required=False)
     prestation_date = fields.Date('Date')
     prestation_time = fields.Float('Time')
@@ -68,7 +68,8 @@ class extraschool_pdaprestationtimes(models.Model):
 
         vals['prestation_time'] = '%.6f' % round(vals['prestation_time'], 6)
 
-        search_domain = [   ('activitycategoryid', '=', vals['activitycategoryid']),
+        search_domain = [
+            # ('activitycategoryid', '=', vals['activitycategoryid']),
                             ('childid.id', '=', vals['childid']),
                             ('placeid.id', '=', vals['placeid']),
                             ('prestation_date', '=', vals['prestation_date']),
@@ -88,13 +89,15 @@ class extraschool_pdaprestationtimes(models.Model):
         prestation_times_of_the_day_obj = self.env['extraschool.prestation_times_of_the_day']
         prestation_times_obj = self.env['extraschool.prestationtimes']
 
-        prestation_times_of_the_day_ids = prestation_times_of_the_day_obj.search([('activity_category_id.id', '=', vals['activitycategoryid']),
+        prestation_times_of_the_day_ids = prestation_times_of_the_day_obj.search([
+            # ('activity_category_id.id', '=', vals['activitycategoryid']),
                                                                                   ('child_id.id', '=', vals['childid']),
                                                                                   ('date_of_the_day', '=', vals['prestation_date']),
                                                                                   ])
         if not prestation_times_of_the_day_ids:
             print "pod doesn't exist"
-            vals['prestation_times_of_the_day_id'] = prestation_times_of_the_day_obj.create({'activity_category_id' : vals['activitycategoryid'],
+            vals['prestation_times_of_the_day_id'] = prestation_times_of_the_day_obj.create({
+                # 'activity_category_id' : vals['activitycategoryid'],
                                                                                              'child_id' : vals['childid'],
                                                                                              'date_of_the_day' : vals['prestation_date'],
                                                                                              }).id
@@ -103,7 +106,7 @@ class extraschool_pdaprestationtimes(models.Model):
             vals['prestation_times_of_the_day_id'] = prestation_times_of_the_day_ids[0].id
 
         prestation_times_obj.create({'prestation_times_of_the_day_id': vals['prestation_times_of_the_day_id'],
-                                     'activity_category_id': vals['activitycategoryid'],
+                                     # 'activity_category_id': vals['activitycategoryid'],
                                      'childid': vals['childid'],
                                      'placeid': vals['placeid'],
                                      'prestation_date': vals['prestation_date'],
@@ -183,7 +186,7 @@ class extraschool_pdaprestationtimes(models.Model):
                                 'prestation_date': datechild.date(),
                                 'prestation_time': prestation_time,
                                 'es': children['eventType'],
-                                'activitycategoryid': activity_category_id.id,
+                                # 'activitycategoryid': activity_category_id.id,
                                 'pda_transmission_id': pda_transmission_id.id,
                             })
 
@@ -214,7 +217,7 @@ class extraschool_pdaprestationtimes(models.Model):
                                                                             'prestation_date': datesitter.date(),
                                                                             'prestation_time': prestation_time,
                                                                             'es': sitters['eventType'],
-                                                                            'activitycategoryid': activity_category_id,
+                                                                            # 'activitycategoryid': activity_category_id,
                                                                             'manualy_encoded': False,
                                                                             })
 

@@ -7,7 +7,7 @@
 			<field name="type">tree</field>
 			<field name="arch" type="xml" >
 				<tree string="pda_prestation_times">
-					<field name="activitycategoryid" />
+					<!--<field name="activitycategoryid" />-->
 					<field name="childid" select="1"/>
 					<field name="prestation_date" select="1"/>
                     <field name="prestation_time" widget="float_time"/>
@@ -24,7 +24,7 @@
 			<field name="arch" type="xml">
 				<form string="pda_prestation_times">
 					<group col="4">
-						<field name="activitycategoryid" readonly="1"/>
+						<!--<field name="activitycategoryid" readonly="1"/>-->
 	                    <field name="prestation_times_of_the_day_id" readonly="1"/>
 						<field name="childid" required="1" readonly="1"/>
 	                    <field name="placeid" required="1" readonly="1"/>
@@ -43,7 +43,7 @@
             <field name="arch" type="xml">
                 <search string="Prestations">
                     <field name="childid" string="childid"/>
-                   <field name="activitycategoryid" />
+                   <!--<field name="activitycategoryid" />-->
                    <field name="placeid" string="Place"/>
                    <field name="prestation_date" string="Date"/>
                     <filter string="Entry" icon="terp-accessories-archiver" domain="[('es','=','E')]"/>

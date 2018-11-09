@@ -51,7 +51,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
 
         return res
 
-    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False)
+    # activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False)
     date_of_the_day = fields.Date(required=True, select=True)
     child_id = fields.Many2one('extraschool.child', required=True, select=True)
     child_firstname = fields.Char(related="child_id.firstname", store=True)
@@ -89,7 +89,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
                     select min(id) as id
                     from extraschool_prestation_times_of_the_day pod
                     where date_of_the_day > '2016-09-01'
-                    group by child_id, activity_category_id, date_of_the_day
+                    group by child_id, date_of_the_day
                     having count(*) > 1
                     """
 
@@ -101,7 +101,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
         for pod in pod_ids:
             dup_pod_ids = self.search([('id', '!=', pod.id),
                                        ('child_id.id', '=', pod.child_id.id),
-                                       ('activity_category_id.id', '=', pod.activity_category_id.id),
+                                       # ('activity_category_id.id', '=', pod.activity_category_id.id),
                                        ('date_of_the_day', '=', pod.date_of_the_day),])
             for dup_pod in dup_pod_ids:
                 dup_pod.prestationtime_ids.unlink()
@@ -148,7 +148,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
                 for reg in reg_ids:
                     if reg.activity_occurrence_id.activityid.autoaddchilds:
                         reg.activity_occurrence_id.add_presta(reg.activity_occurrence_id, reg.child_id.id, None,False)
-                presta.verified = False;
+                presta.verified = False
 
             time_list.append(time.time() - start_time)
 
@@ -263,7 +263,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
         prestation_times_rs = prestation_times_rs.sorted(key=lambda r: r.prestation_time)
         #check if first presta is an entry
         first_prestation_time = prestation_times_rs[0]
-        # first_prestation_time.activity_category_id = root_activity.category_id
+        first_prestation_time.activity_category_id = root_activity.category_id
         if first_prestation_time.es == 'E':
             #correction if default_from_to
             if first_prestation_time.activity_occurrence_id.activityid.default_from_to == 'from_to':
@@ -309,7 +309,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
         prestation_times_rs = prestation_times_rs.sorted(key=lambda r: r.prestation_time)
         #check if last presta is an exit
         last_prestation_time = prestation_times_rs[len(prestation_times_rs)-1]
-        # last_prestation_time.activity_category_id = root_activity.category_id
+        last_prestation_time.activity_category_id = root_activity.category_id
         if last_prestation_time.es == 'S':
             #correction if default_from_to
             if last_prestation_time.activity_occurrence_id.activityid.default_from_to == 'from_to':
