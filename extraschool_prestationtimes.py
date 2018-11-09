@@ -90,7 +90,6 @@ class extraschool_prestationtimes(models.Model):
             prestaion_times_ids.write(vals)
             return prestaion_times_ids
         else:
-#            print "super_create"
             return super(extraschool_prestationtimes, self).create(vals)
 
     @api.multi

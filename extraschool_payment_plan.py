@@ -131,19 +131,38 @@ class ExtraSchoolPaymentPlan(models.Model):
         if not self.payment_rate:
             return False
         # Todo: ask if the last month must be integrated to the precedence ex: 2€ each month and last month 3€ instead of 2€ and 1€
-        total_month = self.total_amount / self.payment_rate
-        self.month_rate = math.ceil(total_month)
+        # total_month = self.total_amount / self.payment_rate
+        self.month_rate = int(self.total_amount / self.payment_rate)
 
     @api.multi
     def validate(self):
+        payment_plan_document_obj = self.env['extraschool.payment_plan_document']
+
         for invoice in self.invoice_ids:
             invoice.write({'tag': 2})
         self.state = 'in_progress'
+
+        range_invoice = range(int(self.total_amount/self.payment_rate))
+
+        for i in range_invoice:
+            if i != range_invoice[-1]:
+                payment_plan_document_obj.create({
+                    'payment_plan_id': self.id,
+                    'number': i + 1,
+                    'total_to_pay': self.payment_rate
+                })
+            else:
+                payment_plan_document_obj.create({
+                    'payment_plan_id': self.id,
+                    'number': i + 1,
+                    'total_to_pay': self.payment_rate + self.total_amount % self.payment_rate
+                })
 
 
 
     @api.multi
     def draft(self):
+        self.env['extraschool.payment_plan_document'].search([('payment_plan_id', '=', self.id)]).unlink()
         if self.paid_amount == 0:
             for invoice in self.invoice_ids:
                 invoice.write({'tag': None})
@@ -158,7 +177,8 @@ class ExtraSchoolPaymentPlanDocument(models.Model):
 
     payment_plan_id = fields.Many2one(
         'extraschool.payment_plan',
-        string='Payment Plan'
+        string='Payment Plan',
+        readonly=True,
     )
     document_date = fields.Datetime(
         string='Document date',
@@ -177,5 +197,9 @@ class ExtraSchoolPaymentPlanDocument(models.Model):
     )
     number = fields.Integer(
         string='Number of payment plan',
+        readonly=True,
+    )
+    total_to_pay = fields.Float(
+        string="Total to pay",
         readonly=True,
     )

@@ -58,6 +58,7 @@
                                     <field name="document_date"/>
                                     <field name="number"/>
                                     <field name="state"/>
+                                    <field name="total_to_pay"/>
                                 </tree>
                             </field>
                         </page>
