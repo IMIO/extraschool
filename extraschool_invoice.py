@@ -86,6 +86,17 @@ class extraschool_invoice(models.Model):
 #             invoice.amount_received = sum(reconcil_line.amount for reconcil_line in invoice.payment_ids)
 
 #    @api.depends('amount_total' ,'amount_received')
+    @api.model
+    def update_activity_category(self):
+        base_activity_category = self.env['extraschool.activitycategory'].search([])[0]
+        bille_ids = self.env['extraschool.biller'].search([('activitycategoryid', '=', False)])
+        invoice_ids = self.search([('activitycategoryid', '=', False)])
+        for invoice in invoice_ids:
+            invoice.activitycategoryid = base_activity_category
+
+        for biller in bille_ids:
+            biller.activitycategoryid = base_activity_category
+
     def _compute_balance(self):
         for invoice in self:
 

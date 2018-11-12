@@ -33,7 +33,7 @@ class extraschool_pdaprestationtimes(models.Model):
     _description = 'PDA Prestation Times'
 
     placeid = fields.Many2one('extraschool.place', 'Schoolcare Place', required=True)
-    # activitycategoryid = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False)
+    activitycategoryid = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False)
     childid = fields.Many2one('extraschool.child', 'Child', required=False)
     prestation_date = fields.Date('Date')
     prestation_time = fields.Float('Time')
@@ -69,7 +69,7 @@ class extraschool_pdaprestationtimes(models.Model):
         vals['prestation_time'] = '%.6f' % round(vals['prestation_time'], 6)
 
         search_domain = [
-            # ('activitycategoryid', '=', vals['activitycategoryid']),
+                            ('activitycategoryid', '=', vals['activitycategoryid']),
                             ('childid.id', '=', vals['childid']),
                             ('placeid.id', '=', vals['placeid']),
                             ('prestation_date', '=', vals['prestation_date']),
@@ -94,6 +94,7 @@ class extraschool_pdaprestationtimes(models.Model):
                                                                                   ('child_id.id', '=', vals['childid']),
                                                                                   ('date_of_the_day', '=', vals['prestation_date']),
                                                                                   ])
+
         if not prestation_times_of_the_day_ids:
             print "pod doesn't exist"
             vals['prestation_times_of_the_day_id'] = prestation_times_of_the_day_obj.create({
@@ -106,7 +107,7 @@ class extraschool_pdaprestationtimes(models.Model):
             vals['prestation_times_of_the_day_id'] = prestation_times_of_the_day_ids[0].id
 
         prestation_times_obj.create({'prestation_times_of_the_day_id': vals['prestation_times_of_the_day_id'],
-                                     # 'activity_category_id': vals['activitycategoryid'],
+                                     'activity_category_id': vals['activitycategoryid'],
                                      'childid': vals['childid'],
                                      'placeid': vals['placeid'],
                                      'prestation_date': vals['prestation_date'],

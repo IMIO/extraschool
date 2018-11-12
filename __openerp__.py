@@ -39,6 +39,7 @@
     'data' : [
         'scripts/update_seq.xml',
         'scripts/init_multiple_category_activity.sql',
+        'scripts/migration_organisingpower.xml',
 
         'views/extraschool_activitycategory.xml',
         'views/extraschool_organising_power.xml',

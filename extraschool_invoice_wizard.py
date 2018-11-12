@@ -300,7 +300,7 @@ class extraschool_invoice_wizard(models.TransientModel):
 
                }
 
-        return sql.get(self.env['extraschool.organising_power'].search([])[0].childpositiondetermination)
+        return sql.get(self.env['extraschool.activitycategory'].search([])[0].childpositiondetermination)
 
     @api.multi
     def _new_compute_invoices(self):

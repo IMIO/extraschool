@@ -133,6 +133,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
             if len(presta.prestationtime_ids.filtered(lambda r: r.invoiced_prestation_id.id is not False).ids) == 0:
                 presta.prestationtime_ids.unlink()
                 for pda_presta in presta.pda_prestationtime_ids.filtered(lambda r: r.active):
+                    # import wdb;wdb.set_trace()
                     presta.prestationtime_ids.create({'placeid': pda_presta.placeid.id,
                                                       'childid': pda_presta.childid.id,
                                                       'prestation_date': pda_presta.prestation_date,
@@ -143,7 +144,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
 
                 reg_ids = self.env['extraschool.activity_occurrence_child_registration'].search([('child_id', '=',presta.child_id.id),
                                                                                                  ('activity_occurrence_id.occurrence_date', '=', presta.date_of_the_day),
-                                                                                                 ('activity_occurrence_id.activity_category_id', '=', presta.activity_category_id.id),
+                                                                                                 # ('activity_occurrence_id.activity_category_id', '=', presta.activity_category_id.id),
                                                                                                  ])
                 for reg in reg_ids:
                     if reg.activity_occurrence_id.activityid.autoaddchilds:

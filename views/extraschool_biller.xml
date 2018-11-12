@@ -7,6 +7,7 @@
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="Biller" create="false">
+                    <field name="activitycategoryid" widget="many2many_tags"/>
 					<field name="period_from"/>
 					<field name="period_to"/>
                     <field name="payment_term"/>
@@ -46,7 +47,7 @@
 					<field name="period_to"/>
                     <newline/>
                     <field name="payment_term"/>
-                    <field name="activitycategoryid" options="{'no_create':True}"/>
+                    <field name="activitycategoryid" options="{'no_create':True}" widget="many2many_tags"/>
                     <newline/>
                     <field name="total"/>
                     <newline/>

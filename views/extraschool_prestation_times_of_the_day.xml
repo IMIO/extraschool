@@ -43,7 +43,7 @@
 		                <separator string="Computed prestations" colspan="4"/>
 	                    <field name="prestationtime_ids" nolabel="1" colspan="4">
 	                    	<tree string="prestation_times" colors="red:verified==False" editable="bottom">
-                                <!--<field name="activity_category_id" />-->
+                                <field name="activity_category_id" />
                                 <field name="placeid" />
 		                   		<field name="activity_occurrence_id" />
 	                    		<field name="prestation_time"  widget="float_time"/>

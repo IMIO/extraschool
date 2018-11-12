@@ -295,7 +295,7 @@ class PrestationCheckTest(TestData):
 ##################################################################################
 
         pda_prestation_7 = self.env['extraschool.pdaprestationtimes'].create({
-            'activitycategoryid': activity_category_2.id,
+            'activitycategoryid': activity_category_1.id,
             'childid': child_1.id,
             'prestation_date': '2018-08-01',
             'es': 'E',
