@@ -6,7 +6,7 @@
             <field name="model">extraschool.payment</field>
             <field name="type">tree</field>
             <field name="arch" type="xml">
-	            <tree string="Payment Status" create="false">
+	            <tree string="Payment Status" create="false" delete="false">
 	            	<field name="parent_id"></field>
 	            	<field name="paymentdate"/>
                     <field name="name"/>
@@ -50,7 +50,7 @@
             <field name="priority" eval="17"/>
 			<field name="type">form</field>
 			<field name="arch" type="xml">
-				<form string="Payment" create="false">
+				<form string="Payment" create="false" delete="false">
                     <sheet>
                         <group col="4">
                             <field name="parent_id"></field>

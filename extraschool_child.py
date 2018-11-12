@@ -130,10 +130,19 @@ class extraschool_child(models.Model):
 
     @api.multi
     def send_data(self):
-        self.env['extraschool.smartphone_detail_log'].create({
-            'text': '<h3>hello world</h3>',
-            'smartphone_id': 1,
-        })
+        data = {
+                "occurences_ids": [
+                        "7640",
+                        "7645",
+                        "7650",
+                        "7695",
+                         "7700"
+                        ],
+                "child_id": "752",
+                "activity_id": "6"
+                }
+
+        self.env['aes_api.child'].add_registration_child_activities(data)
 
 ##############################################################################
 #
