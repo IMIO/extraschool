@@ -107,6 +107,9 @@ class ExtraSchoolPaymentPlan(models.Model):
         readonly=True,
         default='draft',
     )
+    start_date = fields.Date(
+        string="Date of the begining of the payment plan"
+    )
 
     @api.onchange('parent_id', 'category_id')
     def _onchange_parent_id_comm_struct(self):
