@@ -25,6 +25,7 @@
 					<header>
 						<button name="wizard_action" string="Fusion" icon="gtk-apply" type="object" context="{'default_child_id': id}" groups="extraschool.extraschool_fusion"/>
                         <button name="send_data" string="smartphone" icon="gtk-apply" type="object" groups="extraschool.extraschool_gods"/>
+                        <button name="send_workflow" string="workflow" icon="gtk-apply" type="object" groups="extraschool.extraschool_gods"/>
             		</header>
                     <sheet>
                         <!--<header>-->

@@ -142,7 +142,11 @@ class extraschool_child(models.Model):
                 "activity_id": "6"
                 }
 
-        self.env['aes_api.child'].add_registration_child_activities(data)
+        self.env['extraschool.child_registration'].add_registration_child_activities(data)
+
+    @api.multi
+    def send_workflow(self):
+        self.env['aes_api.tools'].test_TS()
 
 ##############################################################################
 #
