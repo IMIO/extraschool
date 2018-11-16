@@ -236,6 +236,7 @@ class extraschool_biller(models.Model):
                 'target': 'current',
                 'limit': 50000,
                 'domain': [('biller_id.id', '=',self.id),
+                           ('balance', '>', 0),
                            '|',('invoicesendmethod','=','onlybymail'),('invoicesendmethod','=','emailandmail')]
             }
 
