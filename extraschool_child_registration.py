@@ -239,8 +239,8 @@ class extraschool_child_registration(models.Model):
 
     @api.model
     def create(self,vals):
-        if 'child_registration_line_ids' in vals:
-            vals['number_childs'] = len(vals['child_registration_line_ids'])
+        # if 'child_registration_line_ids' in vals:
+        #     vals['number_childs'] = len(vals['child_registration_line_ids'])
         self.check_validity_date(vals)
         res = super(extraschool_child_registration, self).create(vals)
         return res
