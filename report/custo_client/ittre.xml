@@ -110,5 +110,57 @@
 			</t>
 
 		</template>
+
+        <template id="report_payment_info_amount_one_row_ittre">
+			<xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_payment_info_amount_one_row_ittre.css"/>
+            </xpath>
+			<div id="total_row">
+			<div id="payment_info">
+				<span style="font-size:14px">Compte: <b><t t-esc="categ_id.bankaccount" /></b></span>
+				<br />
+				<span>BIC: <t t-esc="categ_id.bank_bic" /></span>
+				<br />
+				<div class="com_struct">
+					<span style="font-size:14px">Communication structurée <b>obligatoire</b>:<br/>
+					 <b><t t-esc="com_struct" /></b></span>
+				</div>
+			</div>
+				<div id="total">
+					<div class="amount">
+					  <span class="zz_label">Total</span><span class="amount"><t t-esc="'%.2f' %  (total)" /> €</span>
+					</div>
+					<div class="amount" t-if="received != 0">
+					  <span class="zz_label">Reçu</span><span class="amount"><t t-esc="'%.2f' %  (received)" /> €</span>
+					</div>
+                    <div class="amount" t-if="reminder_type == 'fix'">
+                        <span class="zz_label">Frais de rappel</span><span class="amount"><t t-esc="'%.2f' %  (fees)" /> €</span>
+                    </div>
+                    <div class="amount to_pay" t-if="reminder_type == 'fix'">
+                        <span style="font-size:14px">Solde</span><span class="amount"><t t-esc="'%.2f' %  (balance + fees)" /> €</span>
+                    </div>
+					<div class="amount to_pay" t-if="reminder_type == 'free'">
+						<span style="font-size:14px">Solde</span><span class="amount"><t t-esc="'%.2f' %  (balance)" /> €</span>
+					</div>
+					<div class="amount to_pay" t-if="not reminder_type">
+						<span style="font-size:14px">Solde</span><span class="amount"><t t-esc="'%.2f' %  (balance)" /> €</span>
+					</div>
+					<div class="amount to_pay">
+					  <b><span style="font-size:14px"> A payer avant le <t t-esc="payment_term" /></span></b>
+					</div>
+				</div>
+			</div>
+		</template>
+
+        <template id="report_invoice_your_ref_and_period_num_fact_one_row_ittre">
+        	<div style="width: 100%;display: block;margin: 0cm 0cm 0cm 0cm;font-size:14px;">
+        		<div class="your_ref">
+        			<b>Facture N°: <span t-field="invoice.number" />
+        			 - Période du <span t-field="invoice.biller_id.period_from" /> au <span t-field="invoice.biller_id.period_to" />
+        			</b>
+        		</div>
+
+       		</div>
+		</template>
     </data>
 </openerp>
