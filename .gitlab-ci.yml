@@ -25,6 +25,7 @@ staging:
   script:
     - docker tag dockerodoobase_odoo docker-staging.imio.be/extraschool-v9
     - docker push docker-staging.imio.be/extraschool-v9:latest
+    - mco shell run 'docker pull docker-staging.imio.be/extraschool-v9:latest' -C /role::docker::extraschool::instances$/ -I /staging/
     - mco shell run 'service stagingv9_extraschool stop' -C /role::docker::extraschool::instances$/ -I /staging/
     - mco shell run 'service stagingv9_extraschool start' -C /role::docker::extraschool::instances$/ -I /staging/
     - docker rmi docker-staging.imio.be/extraschool-v9:latest dockerodoobase_odoo
@@ -46,7 +47,7 @@ restart-Ans:
   script:
     - mco shell run '/srv/docker_scripts/ans_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
   when: manual
-  
+
 restart-Assesse:
   stage: restart
   script:
@@ -64,19 +65,19 @@ restart-Clavier:
   script:
     - mco shell run '/srv/docker_scripts/clavier_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
   when: manual
-  
+
 restart-Dinant:
   stage: restart
   script:
     - mco shell run '/srv/docker_scripts/dinant_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
   when: manual
-  
+
 restart-Dour:
   stage: restart
   script:
     - mco shell run '/srv/docker_scripts/dour_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
   when: manual
-  
+
 restart-Durbuy:
   stage: restart
   script:
@@ -94,7 +95,7 @@ restart-Ferrieres:
   script:
     - mco shell run '/srv/docker_scripts/ferrieres_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
   when: manual
-  
+
 restart-Fleron:
   stage: restart
   script:
@@ -106,17 +107,17 @@ restart-Hannut:
   script:
     - mco shell run '/srv/docker_scripts/hannut_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
   when: manual
-  
+
 restart-Ittre:
   stage: restart
   script:
-  - mco shell run '/srv/docker_scripts/ittre_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
+    - mco shell run '/srv/docker_scripts/ittre_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
   when: manual
 
 restart-Lierneux:
   stage: restart
   script:
-  - mco shell run '/srv/docker_scripts/lierneux_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
+    - mco shell run '/srv/docker_scripts/lierneux_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
   when: manual
 
 restart-Mettet:
@@ -166,10 +167,10 @@ restart-Yvoir:
   script:
     - mco shell run '/srv/docker_scripts/yvoir_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
   when: manual
- 
+
 restart-Staging:
   stage: restart
   script:
-  - mco shell run 'service stagingv9_extraschool stop' -C /role::docker::extraschool::instances$/ -I /staging/
-  - mco shell run 'service stagingv9_extraschool start' -C /role::docker::extraschool::instances$/ -I /staging/
+    - mco shell run 'service stagingv9_extraschool stop' -C /role::docker::extraschool::instances$/ -I /staging/
+    - mco shell run 'service stagingv9_extraschool start' -C /role::docker::extraschool::instances$/ -I /staging/
   when: manual
