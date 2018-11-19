@@ -309,3 +309,7 @@ class extraschool_mainsettings(models.Model):
         for invoice in invoice_ids:
             invoice.reconcil()
         _logger.info("End of reconcil")
+
+    @api.multi
+    def update_commstruct(self):
+        self.env['extraschool.parent'].update_commstruct()

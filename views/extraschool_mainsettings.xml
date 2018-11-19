@@ -25,6 +25,9 @@
                                 <page string="Update Prestation Statistic">
                                     <button name="update_presta_stat" string="Update presta stat" icon="gtk-apply" type="object"/>
                                 </page>
+                                <page string="Fiche parent">
+                                    <button name="update_commstruct" string="Update comm struct" icon="gtk-apply" type="object"/>
+                                </page>
                                 <page string="Re check POD - Error when building biller">
                                     <group col="2">
                                         <field name="date_from"/>
