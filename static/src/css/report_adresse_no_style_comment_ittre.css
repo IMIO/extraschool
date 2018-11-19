@@ -1,0 +1,31 @@
+.aes_adresse{
+    width: 100%;
+    display: block;
+    font-size:14px;
+}
+
+.aes_adresse::after {
+   clear: both;
+    content: "";
+    display: block;
+}
+
+.customer{
+    float: left;
+    width: 45%;
+}
+
+.po{
+    float: left;
+    width: 40%;
+}
+
+.customer{
+    float: right;
+    font-size:14px;
+}
+
+.aes_adresse_block > span{
+    display: block;
+    clear: both;
+}
