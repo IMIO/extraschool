@@ -104,10 +104,10 @@ class extraschool_invoice_wizard(models.TransientModel):
                                column1='invoice_wizard_id',
                                column2='schoolimplantation_id', default=_get_all_schoolimplantation, readonly=True)
     activitycategory = fields.Many2one('extraschool.activitycategory', 'Activity category', required=True)
-    period_from = fields.Date('Period from', required=True, default=_get_defaultfrom, help='Date où l\'on va commencer la facturation')
-    period_to = fields.Date('Period to', required=True, default=_get_defaultto, help='Date où l\'on va terminer la facturation')
-    invoice_date = fields.Date('invoice date', required=True, default=_get_defaultto)
-    invoice_term = fields.Date('invoice term', required=True, default=_get_defaultto)
+    period_from = fields.Date('Period from', required=True)#, default=_get_defaultfrom, help='Date où l\'on va commencer la facturation')
+    period_to = fields.Date('Period to', required=True)#, default=_get_defaultto, help='Date où l\'on va terminer la facturation')
+    invoice_date = fields.Date('invoice date', required=True)#, default=_get_defaultto)
+    invoice_term = fields.Date('invoice term', required=True)#, default=_get_defaultto)
     name = fields.Char('File Name', size=16, readonly=True)
     invoices = fields.Binary('File', readonly=True)
     state = fields.Selection([('init', 'Init'),
@@ -119,15 +119,95 @@ class extraschool_invoice_wizard(models.TransientModel):
                                  default="Attention, il y a un ou plusieurs smartphone(s) qui n'a / n'ont pas transmis. Vérifier avant de générer votre facturier ! ",
                                  readonly=True)
     warning_visibility = fields.Boolean(track_visibility='onchange')
+    check_manual = fields.Boolean(default=True)
+    check_registration = fields.Boolean(default=True)
+    check_prestation = fields.Boolean(default=True)
+    check_invoice = fields.Boolean(default=True)
 
-    @api.onchange('period_from')
+    @api.onchange('period_to')
     @api.multi
-    def check_date(self):
+    def check_all(self):
+        """
+        Method that unite all checks before pushing the button for invoicing.
+        Instead of having a warning during the invoicing, it shows before (and still during in case of errors).
+        :return: None
+        """
         smartphone_ids = self.env['extraschool.smartphone'].search([])
         self.warning_visibility = False
         for smartphone in smartphone_ids :
             if not smartphone.lasttransmissiondate > self.period_from:
                 self.warning_visibility = True
+
+        self.check_manual = self._check_manual_encodage()
+        self.check_registration = self._check_registration()
+
+        if self.activitycategory:
+            self.check_prestation = self._check_prestation()
+            self.check_invoice = self._check_invoice()
+
+    @api.multi
+    def _check_invoice(self):
+        sql_check_presta_to_invoice = """select count(*) as to_invoice_count
+                                    from extraschool_prestationtimes ept
+                                    left join extraschool_child c on ept.childid = c.id
+                                    where ept.prestation_date between %s and %s
+                                        and verified = True
+                                        and invoiced_prestation_id is NULL
+                                        and activity_category_id = %s
+                                        and c.schoolimplantation in %s
+                                ;"""
+
+        self.env.cr.execute(sql_check_presta_to_invoice, (self.period_from, self.period_to, self.activitycategory.id, tuple(self.schoolimplantationid.ids),))
+        to_invoice_count = self.env.cr.dictfetchall()
+
+        if not to_invoice_count[0]['to_invoice_count']:
+            return False
+        else:
+            return True
+
+    @api.multi
+    def _check_prestation(self):
+        sql_check_verified = """select count(*) as verified_count
+                                    from extraschool_prestationtimes ept
+                                    left join extraschool_child c on ept.childid = c.id
+                                    where ept.prestation_date between %s and %s
+                                        and verified = False
+                                        and activity_category_id = %s
+                                        and c.schoolimplantation in %s 
+                                ;"""
+
+        self.env.cr.execute(sql_check_verified, (self.period_from, self.period_to, self.activitycategory.id, tuple(self.schoolimplantationid.ids),))
+        verified_count = self.env.cr.dictfetchall()
+
+        if verified_count[0]['verified_count']:
+            return False
+        else:
+            return True
+
+    @api.multi
+    def _check_manual_encodage(self):
+        manuel_encodage_ids = self.env['extraschool.prestation_times_encodage_manuel'].search([('state', '!=', 'validated'),
+                                                                                               ('date_of_the_day', '>=', self.period_from),
+                                                                                               ('date_of_the_day', '<=', self.period_to),])
+        if len(manuel_encodage_ids):
+            return False
+        else:
+            return True
+
+    @api.multi
+    def _check_registration(self):
+        child_reg_ids = self.env['extraschool.child_registration'].search([('state', '!=', 'validated'),
+                                                                            '|',
+                                                                            '&',('date_from', '>=', self.period_from),
+                                                                                ('date_from', '<=', self.period_to),
+                                                                            '&',('date_to', '>=', self.period_from),
+                                                                                ('date_to', '<=', self.period_to),
+                                                                                ])
+
+        if len(child_reg_ids):
+            return False
+        else:
+            return True
 
     def _compute_invoices(self):
         cr,uid = self.env.cr, self.env.user.id
@@ -336,62 +416,22 @@ class extraschool_invoice_wizard(models.TransientModel):
                                     })
 
 
-        #check if all manuel encodage are validated
-        manuel_encodage_ids = self.env['extraschool.prestation_times_encodage_manuel'].search([('state', '!=', 'validated'),
-                                                                                               ('date_of_the_day', '>=', self.period_from),
-                                                                                               ('date_of_the_day', '<=', self.period_to),])
-        if len(manuel_encodage_ids):
-            raise Warning(_("At least one manuel encodage is not validated for this period!!!"))
+        # Check if all manuel encodage are validated.
+        if (not self._check_manual_encodage()):
+            raise Warning(_("Il y a au moins un encodage manuel non vérifié pour cette période"))
 
-        #check if all child registration are validated
-        child_reg_ids = self.env['extraschool.child_registration'].search([('state', '!=', 'validated'),
-                                                                            '|',
-                                                                            '&',('date_from', '>=', self.period_from),
-                                                                                ('date_from', '<=', self.period_to),
-                                                                            '&',('date_to', '>=', self.period_from),
-                                                                                ('date_to', '<=', self.period_to),
-                                                                                ])
-
-        if len(child_reg_ids):
-            print "child_reg_ids : %s" % (child_reg_ids)
-            raise Warning(_("At least one child registration is not validated for this period!!!"))
+        # Check if all child registration are validated.
+        if (not self._check_registration()):
+            raise Warning(_("Il y a au moins une fiche d'inscription non validée pour cette période"))
 
 
         #check if all presta are verified
-        print "----------------"
-        print str(self.schoolimplantationid.ids)
-
-        sql_check_verified = """select count(*) as verified_count
-                                    from extraschool_prestationtimes ept
-                                    left join extraschool_child c on ept.childid = c.id
-                                    where ept.prestation_date between %s and %s
-                                        and verified = False
-                                        and activity_category_id = %s
-                                        and c.schoolimplantation in (""" + ','.join(map(str, self.schoolimplantationid.ids))+ """)  
-                                ;"""
-
-        self.env.cr.execute(sql_check_verified, (self.period_from, self.period_to, self.activitycategory.id,))
-        verified_count = self.env.cr.dictfetchall()
-        print "verified_count:" + str(verified_count[0]['verified_count'])
-        if verified_count[0]['verified_count']:
-            raise Warning(_("At least one prestations is not verified !!!"))
+        if (not self._check_prestation()):
+            raise Warning(_("Il y a au moins une présence non vérifiée pour cette période"))
 
         #check if there are presta to invoice
-        sql_check_presta_to_invoice = """select count(*) as to_invoice_count
-                                    from extraschool_prestationtimes ept
-                                    left join extraschool_child c on ept.childid = c.id
-                                    where ept.prestation_date between %s and %s
-                                        and verified = True
-                                        and invoiced_prestation_id is NULL
-                                        and activity_category_id = %s
-                                        and c.schoolimplantation in (""" + ','.join(map(str, self.schoolimplantationid.ids))+ """)  
-                                ;"""
-
-        self.env.cr.execute(sql_check_presta_to_invoice, (self.period_from, self.period_to, self.activitycategory.id,))
-        to_invoice_count = self.env.cr.dictfetchall()
-        print "to_invoice_count:" + str(to_invoice_count[0]['to_invoice_count'])
-        if not to_invoice_count[0]['to_invoice_count']:
-            raise Warning(_("There is no presta to invoice !!!"))
+        if (not self._check_invoice()):
+            raise Warning(_("Il n'y a pas de présences à facturer pour cette période"))
 
         #search parent to be invoiced
         sql_mega_invoicing = """select c.schoolimplantation as schoolimplantation, ept.parent_id as parent_id, childid, min(activity_occurrence_id) activity_occurrence_id,
