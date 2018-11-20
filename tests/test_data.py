@@ -120,6 +120,15 @@ class TestData(TransactionCase):
             'parentid': parent_1.id,
             'birthdate': '2005-05-29',
         })
+        child_2 = self.child_model.create({
+            'lastname': 'Mercury',
+            'firstname': 'Freddy',
+            'schoolimplantation': school_implantation_1.id,
+            'childtypeid': 1,
+            'levelid': 4,
+            'parentid': parent_1.id,
+            'birthdate': '2003-06-12',
+        })
 
         # Creation of exclusion date.
         exclusion_1 = self.exclusion_date_model.create({
@@ -230,14 +239,62 @@ class TestData(TransactionCase):
             'name': 'repas',
             'category_id': activity_category_2.id,
             'validity_from': '2018-08-01',
-            'validity_to': '2018-08-01',
+            'validity_to': '2018-08-02',
             'leveltype': 'M,P',
-            'days': '0',
+            'days': '0,1,2,3,4',
             'default_from_to': 'from_to',
             'prest_from': 12,
             'prest_to': 13,
             'placeids': [(4, place_1.id)],
             'short_name': 'repas',
+            'autoaddchilds': False,
+            'onlyregisteredchilds': False,
+        })
+
+        activity_8 = self.activity_model.create({
+            'name': 'accueil matin',
+            'category_id': activity_category_1.id,
+            'validity_from': '2018-08-02',
+            'validity_to': '2018-08-02',
+            'leveltype': 'M,P',
+            'days': '0,1,2,3,4',
+            'default_from_to': 'to',
+            'prest_from': 7,
+            'prest_to': 8,
+            'placeids': [(4, place_1.id)],
+            'short_name': 'matin gratuit',
+            'autoaddchilds': False,
+            'onlyregisteredchilds': False,
+        })
+
+        activity_9 = self.activity_model.create({
+            'name': 'accueil soir',
+            'category_id': activity_category_1.id,
+            'validity_from': '2018-08-02',
+            'validity_to': '2018-08-02',
+            'leveltype': 'M,P',
+            'days': '0,1,2,3,4',
+            'default_from_to': 'from',
+            'prest_from': 16,
+            'prest_to': 17,
+            'placeids': [(4, place_1.id)],
+            'short_name': 'soir gratuit',
+            'autoaddchilds': False,
+            'onlyregisteredchilds': False,
+        })
+
+        activity_10 = self.activity_model.create({
+            'name': 'les bronzés font du ski',
+            'category_id': activity_category_1.id,
+            'validity_from': '2018-08-03',
+            'validity_to': '2018-08-03',
+            'leveltype': 'P',
+            'days': '0,1,2,3,4',
+            'default_from_to': 'to',
+            'prest_from': 7,
+            'prest_to': 9,
+            'placeids': [(4, place_1.id)],
+            'short_name': 'splendide',
             'autoaddchilds': False,
             'onlyregisteredchilds': False,
         })

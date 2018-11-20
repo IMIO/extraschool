@@ -22,6 +22,8 @@
 ##############################################################################
 
 from openerp.addons.extraschool.tests.test_data import TestData
+import logging
+_logger = logging.getLogger(__name__)
 
 class PrestationCheckTest(TestData):
 
@@ -44,6 +46,7 @@ class PrestationCheckTest(TestData):
         activity_category_1 = self.env['extraschool.activitycategory'].search([('name', '=', 'Accueil')])
         activity_category_2 = self.env['extraschool.activitycategory'].search([('name', '=', 'Repas')])
         child_1 = self.env['extraschool.child'].search([('lastname', '=', 'Jackson'), ('firstname', '=', 'Michael')])[1]
+        child_2 = self.env['extraschool.child'].search([('lastname', '=', 'Mercury'), ('firstname', '=', 'Freddy')])
         place_1 = self.env['extraschool.place'].search([('name', '=', 'California')])[1]
         place_2 = self.env['extraschool.place'].search([('name', '=', 'Namur')])[1]
         school_implantation_1 = self.env['extraschool.schoolimplantation'].search([('name', '=', 'Hollywood')])[1]
@@ -294,8 +297,8 @@ class PrestationCheckTest(TestData):
 #   Expect: Get 1 activity from 10 to 17.
 ##################################################################################
 
-        pda_prestation_7 = self.env['extraschool.pdaprestationtimes'].create({
-            'activitycategoryid': activity_category_1.id,
+        pda_prestation_8 = self.env['extraschool.pdaprestationtimes'].create({
+            'activitycategoryid': activity_category_2.id,
             'childid': child_1.id,
             'prestation_date': '2018-08-01',
             'es': 'E',
@@ -303,19 +306,145 @@ class PrestationCheckTest(TestData):
             'prestation_time': 12.5,
         })
 
-        self.assertEqual(pda_prestation_7.prestation_times_of_the_day_id.verified, False)
+        self.assertEqual(pda_prestation_8.prestation_times_of_the_day_id.verified, False)
 
-        pda_prestation_7.prestation_times_of_the_day_id.check()
+        pda_prestation_8.prestation_times_of_the_day_id.check()
 
-        prestation_times_ids_7 = self.env['extraschool.prestationtimes'].search(
-            [('prestation_times_of_the_day_id', '=', pda_prestation_7.prestation_times_of_the_day_id.id)])\
+        prestation_times_ids_8 = self.env['extraschool.prestationtimes'].search(
+            [('prestation_times_of_the_day_id', '=', pda_prestation_8.prestation_times_of_the_day_id.id)])\
             .sorted(key=lambda r: r.prestation_time)
 
-        self.assertEqual(len(prestation_times_ids_7), 4)
-        self.assertEqual(pda_prestation_7.prestation_times_of_the_day_id.verified, True)
-        self.assertEqual(prestation_times_ids_7[0].es, 'E')
-        self.assertEqual(prestation_times_ids_7[0].prestation_date, '2018-08-01')
-        self.assertEqual(prestation_times_ids_7[0].prestation_time, 12)
-        self.assertEqual(prestation_times_ids_7[1].es, 'S')
-        self.assertEqual(prestation_times_ids_7[1].prestation_date, '2018-08-01')
-        self.assertEqual(prestation_times_ids_7[1].prestation_time, 13)
+        self.assertEqual(len(prestation_times_ids_8), 2)
+        self.assertEqual(pda_prestation_8.prestation_times_of_the_day_id.verified, True)
+        self.assertEqual(prestation_times_ids_8[0].es, 'E')
+        self.assertEqual(prestation_times_ids_8[0].prestation_date, '2018-08-01')
+        self.assertEqual(prestation_times_ids_8[0].prestation_time, 12)
+        self.assertEqual(prestation_times_ids_8[1].es, 'S')
+        self.assertEqual(prestation_times_ids_8[1].prestation_date, '2018-08-01')
+        self.assertEqual(prestation_times_ids_8[1].prestation_time, 13)
+
+##################################################################################
+#   Nineth test
+#   Scenario: Repas + Accueil.
+#   Expect: Get 3 activities from different activity categories.
+##################################################################################
+
+        pda_prestation_9 = self.env['extraschool.pdaprestationtimes'].create({
+            'activitycategoryid': activity_category_1.id,
+            'childid': child_1.id,
+            'prestation_date': '2018-08-02',
+            'es': 'E',
+            'placeid': place_1.id,
+            'prestation_time': 7.15,
+        })
+        pda_prestation_10 = self.env['extraschool.pdaprestationtimes'].create({
+            'activitycategoryid': activity_category_1.id,
+            'childid': child_1.id,
+            'prestation_date': '2018-08-02',
+            'es': 'E',
+            'placeid': place_1.id,
+            'prestation_time': 12.5,
+        })
+        pda_prestation_11 = self.env['extraschool.pdaprestationtimes'].create({
+            'activitycategoryid': activity_category_1.id,
+            'childid': child_1.id,
+            'prestation_date': '2018-08-02',
+            'es': 'S',
+            'placeid': place_1.id,
+            'prestation_time': 16.5,
+        })
+
+        self.assertEqual(pda_prestation_9.prestation_times_of_the_day_id.verified, False)
+        self.assertEqual(pda_prestation_10.prestation_times_of_the_day_id.verified, False)
+        self.assertEqual(pda_prestation_11.prestation_times_of_the_day_id.verified, False)
+
+        pda_prestation_9.prestation_times_of_the_day_id.check()
+
+        prestation_times_ids_9 = self.env['extraschool.prestationtimes'].search(
+            [('prestation_times_of_the_day_id', '=', pda_prestation_9.prestation_times_of_the_day_id.id)])\
+            .sorted(key=lambda r: r.prestation_time)
+
+        self.assertEqual(pda_prestation_9.prestation_times_of_the_day_id.id, pda_prestation_10.prestation_times_of_the_day_id.id)
+        self.assertEqual(pda_prestation_10.prestation_times_of_the_day_id.id, pda_prestation_11.prestation_times_of_the_day_id.id)
+
+        self.assertEqual(len(prestation_times_ids_9), 6)
+        self.assertEqual(pda_prestation_9.prestation_times_of_the_day_id.verified, True)
+        self.assertEqual(prestation_times_ids_9[0].es, 'E')
+        self.assertEqual(prestation_times_ids_9[0].prestation_date, '2018-08-02')
+        self.assertEqual(prestation_times_ids_9[0].prestation_time, 7.15)
+        self.assertEqual(prestation_times_ids_9[1].es, 'S')
+        self.assertEqual(prestation_times_ids_9[1].prestation_date, '2018-08-02')
+        self.assertEqual(prestation_times_ids_9[1].prestation_time, 8)
+        self.assertEqual(prestation_times_ids_9[2].es, 'E')
+        self.assertEqual(prestation_times_ids_9[2].prestation_date, '2018-08-02')
+        self.assertEqual(prestation_times_ids_9[2].prestation_time, 12)
+        self.assertEqual(prestation_times_ids_9[3].es, 'S')
+        self.assertEqual(prestation_times_ids_9[3].prestation_date, '2018-08-02')
+        self.assertEqual(prestation_times_ids_9[3].prestation_time, 13)
+        self.assertEqual(prestation_times_ids_9[4].es, 'E')
+        self.assertEqual(prestation_times_ids_9[4].prestation_date, '2018-08-02')
+        self.assertEqual(prestation_times_ids_9[4].prestation_time, 16)
+        self.assertEqual(prestation_times_ids_9[5].es, 'S')
+        self.assertEqual(prestation_times_ids_9[5].prestation_date, '2018-08-02')
+        self.assertEqual(prestation_times_ids_9[5].prestation_time, 16.5)
+
+##################################################################################
+#   Tenth test
+#   Scenario: Entry at 7h30
+#   Expect: Verified = False, Just one entry at 7h30 because child not in right level
+##################################################################################
+
+        pda_prestation_12 = self.env['extraschool.pdaprestationtimes'].create({
+            'activitycategoryid': activity_category_1.id,
+            'childid': child_1.id,
+            'prestation_date': '2018-08-03',
+            'es': 'E',
+            'placeid': place_1.id,
+            'prestation_time': 7.5,
+        })
+
+        self.assertEqual(pda_prestation_12.prestation_times_of_the_day_id.verified, False)
+
+        pda_prestation_12.prestation_times_of_the_day_id.check()
+
+        prestation_times_ids_12 = self.env['extraschool.prestationtimes'].search(
+            [('prestation_times_of_the_day_id', '=', pda_prestation_12.prestation_times_of_the_day_id.id)])\
+            .sorted(key=lambda r: r.prestation_time)
+
+        self.assertEqual(len(prestation_times_ids_12), 1)
+        self.assertEqual(pda_prestation_12.prestation_times_of_the_day_id.verified, False)
+        self.assertEqual(prestation_times_ids_12[0].es, 'E')
+        self.assertEqual(prestation_times_ids_12[0].prestation_date, '2018-08-03')
+        self.assertEqual(prestation_times_ids_12[0].prestation_time, 7.5)
+
+##################################################################################
+#   Twelveth test
+#   Scenario: Entry at 7h30
+#   Expect: Verified = False, Just one entry at 7h30 because child not in right level
+##################################################################################
+
+        pda_prestation_13 = self.env['extraschool.pdaprestationtimes'].create({
+            'activitycategoryid': activity_category_1.id,
+            'childid': child_2.id,
+            'prestation_date': '2018-08-03',
+            'es': 'E',
+            'placeid': place_1.id,
+            'prestation_time': 7.5,
+        })
+
+        self.assertEqual(pda_prestation_13.prestation_times_of_the_day_id.verified, False)
+
+        pda_prestation_13.prestation_times_of_the_day_id.check()
+
+        prestation_times_ids_13 = self.env['extraschool.prestationtimes'].search(
+            [('prestation_times_of_the_day_id', '=', pda_prestation_13.prestation_times_of_the_day_id.id)])\
+            .sorted(key=lambda r: r.prestation_time)
+
+        self.assertEqual(len(prestation_times_ids_13), 2)
+        self.assertEqual(pda_prestation_13.prestation_times_of_the_day_id.verified, True)
+        self.assertEqual(prestation_times_ids_13[0].es, 'E')
+        self.assertEqual(prestation_times_ids_13[0].prestation_date, '2018-08-03')
+        self.assertEqual(prestation_times_ids_13[0].prestation_time, 7.5)
+        self.assertEqual(prestation_times_ids_13[1].es, 'S')
+        self.assertEqual(prestation_times_ids_13[1].prestation_date, '2018-08-03')
+        self.assertEqual(prestation_times_ids_13[1].prestation_time, 9)
