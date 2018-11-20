@@ -159,7 +159,7 @@ class extraschool_biller(models.Model):
 
         invoicelastcomstruct = str(self.invoice_ids.sorted(key=lambda r: r.id)[0].number)[-5:]
 
-        self.activitycategoryid.sequence_ids.search([('type', '=', 'invoice'),
+        self.activitycategoryid[0].sequence_ids.search([('type', '=', 'invoice'),
                                                      ('year', '=', self.get_from_year()),]).sequence.number_next = invoicelastcomstruct
 
 
