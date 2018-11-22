@@ -62,10 +62,9 @@ class extraschool_biller(models.Model):
     received = fields.Float(compute='_compute_received', string="Received", track_visibility='onchange')
     novalue = fields.Float(compute='_compute_novalue', string="No Value", track_visibility='onchange')
     balance = fields.Float(compute='_compute_balance', string="Balance", track_visibility='onchange')
-    nbinvoices = fields.Integer(compute='_compute_nbinvoices', string="Nb of invoices",)  # track_visibility='onchange')
+    nbinvoices = fields.Integer(compute='_compute_nbinvoices', string="Nb of invoices",)
     other_ref = fields.Char("Ref")
     comment = fields.Text("Comment",default="")
-#    paymentsstats = fields.Text(compute='_compute_paymentsstats', string="Payments stats")
     filename = fields.Char('filename', size=20,readonly=True)
     biller_file = fields.Binary('File', readonly=True)
     pdf_ready = fields.Boolean(string="Pdf ready", default=False)
@@ -75,7 +74,6 @@ class extraschool_biller(models.Model):
     @api.multi
     def biller_refactor(self):
         cr = self.env.cr
-        print ("Récupération des Prestation Times contenant des NULL.")
         cr.execute("SELECT DISTINCT(ep.prestation_times_of_the_day_id) "
                    "FROM extraschool_prestationtimes AS ep "
                    "WHERE prestation_date BETWEEN '2017-01-01' AND '2017-03-31' "
@@ -95,7 +93,7 @@ class extraschool_biller(models.Model):
                                                                   ('prestation_times_of_the_day_id', 'in', prestation_time_delete),
                                                                   ('invoiced_prestation_id', '=', 'Null')
                                                                   ])
-                print ("Suppression des Prestations: %s" % (to_delete))
+
                 arg.append(to_delete.ids)
 
         self.env['extraschool.prestationtimes'].search(['id', 'in', arg]).unlink(True)
@@ -323,7 +321,7 @@ class extraschool_biller(models.Model):
             report = new_env['report']
             for invoice in new_env['extraschool.invoice'].browse(invoices_ids):
                 count = count + 1
-                print "generate pdf %s count: %s" % (invoice.id, count)
+                _logger.info("generate pdf %s count: %s" % (invoice.id, count))
                 report.get_pdf(invoice ,'extraschool.invoice_report_layout')
 
 
@@ -368,7 +366,7 @@ class extraschool_biller(models.Model):
 
         for invoice in self.env['extraschool.invoice'].browse(self.invoice_ids.ids):
             count = count + 1
-            print "generate pdf %s count: %s" % (invoice.id, count)
+            _logger.info("generate pdf %s count: %s" % (invoice.id, count))
             self.env['report'].get_pdf(invoice, 'extraschool.invoice_report_layout')
 
         self.pdf_ready = True
@@ -438,22 +436,14 @@ class extraschool_biller(models.Model):
 
     @api.one
     def compute_discount(self):
-        print "------------------"
-        print self
-        print "------------------"
         for discount in self.env['extraschool.discount.version'].search([]):
-            print "++++++++"
-            print "%s - %s" %(discount, discount.name)
             discount.discount_forfait_week(self)
 
     @api.multi
     def pay_all(self):
-        print "# Pay All initiated..."
-        print "## %s to pay" % (len(self.invoice_ids))
         count = 0
         for invoice_id in self.invoice_ids:
             count += 1
-            print "### [%s/%s]" % (count, len(self.invoice_ids))
             payment_id = self.env['extraschool.payment'].create({'parent_id': invoice_id.parentid.id,
                             'paymentdate': self.period_to,# This is Coda date.
                             'structcom_prefix': self.activitycategoryid.payment_invitation_com_struct_prefix,
@@ -466,5 +456,3 @@ class extraschool_biller(models.Model):
                                                                     'amount' : invoice_id.amount_total,
                                                                     'date' : self.period_to})
             reconciliation.invoice_id._compute_balance()
-
-        print "### FIN DES PAIEMENTS ###"
