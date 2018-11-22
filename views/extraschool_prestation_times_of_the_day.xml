@@ -11,6 +11,7 @@
 					<field name="child_id"/>
 					<field name="activity_category_id" />
 					<field name="verified"/>
+					<field name="checked"/>
 				</tree>
 			</field>
 		</record>
