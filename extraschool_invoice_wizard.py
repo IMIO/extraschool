@@ -120,7 +120,7 @@ class extraschool_invoice_wizard(models.TransientModel):
 #   HELPER to the invoicing and output to the user what needs to be done before invoicing.
 ########################################################################################################################
 
-    @api.onchange('activitycategory')
+    @api.onchange('activitycategory', 'period_from', 'period_to')
     @api.multi
     def check_all(self):
         """
