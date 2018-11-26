@@ -418,9 +418,9 @@ class PrestationCheckTest(TestData):
         self.assertEqual(prestation_times_ids_12[0].prestation_time, 7.5)
 
 ##################################################################################
-#   Twelveth test
+#   Eleventh test
 #   Scenario: Entry at 7h30
-#   Expect: Verified = False, Just one entry at 7h30 because child not in right level
+#   Expect: Verified = True, like 10th but child in right level
 ##################################################################################
 
         pda_prestation_13 = self.env['extraschool.pdaprestationtimes'].create({

@@ -125,7 +125,7 @@ class TestData(TransactionCase):
             'firstname': 'Freddy',
             'schoolimplantation': school_implantation_1.id,
             'childtypeid': 1,
-            'levelid': 4,
+            'levelid': 5,
             'parentid': parent_1.id,
             'birthdate': '2003-06-12',
         })
