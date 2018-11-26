@@ -51,6 +51,7 @@ class PrestationCheckTest(TestData):
         place_2 = self.env['extraschool.place'].search([('name', '=', 'Namur')])[1]
         school_implantation_1 = self.env['extraschool.schoolimplantation'].search([('name', '=', 'Hollywood')])[1]
         activity_1 = self.env['extraschool.activity'].search([('name', '=', 'stage 1')])[1]
+        activity_2 = self.env['extraschool.activity'].search([('name', '=', 'Cirque')])[0]
 
         # Then we simulate a scan from a smartphone.
         pda_prestation_1 = self.env['extraschool.pdaprestationtimes'].create({
@@ -83,6 +84,8 @@ class PrestationCheckTest(TestData):
         self.assertEqual(prestation_times_ids_1[1].prestation_date, '2018-07-18')
         self.assertEqual(prestation_times_ids_1[0].prestation_time, 7.15)
         self.assertEqual(prestation_times_ids_1[1].prestation_time, 9)
+        self.assertEqual(prestation_times_ids_1[0].activity_category_id.id, activity_category_1.id)
+        self.assertEqual(prestation_times_ids_1[1].activity_category_id.id, activity_category_1.id)
 
 ##################################################################################
 #   Second test
@@ -112,6 +115,7 @@ class PrestationCheckTest(TestData):
         self.assertEqual(prestation_times_ids_2[0].es, 'E')
         self.assertEqual(prestation_times_ids_2[0].prestation_date, '2018-07-19')
         self.assertEqual(prestation_times_ids_2[0].prestation_time, 6.5)
+
 
 ##################################################################################
 #   Third test
@@ -170,15 +174,19 @@ class PrestationCheckTest(TestData):
         self.assertEqual(prestation_times_ids_4[0].es, 'E')
         self.assertEqual(prestation_times_ids_4[0].prestation_date, '2018-07-23')
         self.assertEqual(prestation_times_ids_4[0].prestation_time, 15.75)
+        self.assertEqual(prestation_times_ids_4[0].activity_category_id.id, activity_category_1.id)
         self.assertEqual(prestation_times_ids_4[1].es, 'S')
         self.assertEqual(prestation_times_ids_4[1].prestation_date, '2018-07-23')
         self.assertEqual(prestation_times_ids_4[1].prestation_time, 16)
+        self.assertEqual(prestation_times_ids_4[1].activity_category_id.id, activity_category_1.id)
         self.assertEqual(prestation_times_ids_4[2].es, 'E')
         self.assertEqual(prestation_times_ids_4[2].prestation_date, '2018-07-23')
         self.assertEqual(prestation_times_ids_4[2].prestation_time, 16)
+        self.assertEqual(prestation_times_ids_4[2].activity_category_id.id, activity_category_1.id)
         self.assertEqual(prestation_times_ids_4[3].es, 'S')
         self.assertEqual(prestation_times_ids_4[3].prestation_date, '2018-07-23')
         self.assertEqual(prestation_times_ids_4[3].prestation_time, 17)
+        self.assertEqual(prestation_times_ids_4[3].activity_category_id.id, activity_category_1.id)
 
 ##################################################################################
 #   Fifth test
@@ -237,15 +245,19 @@ class PrestationCheckTest(TestData):
         self.assertEqual(prestation_times_ids_6[0].es, 'E')
         self.assertEqual(prestation_times_ids_6[0].prestation_date, '2018-07-25')
         self.assertEqual(prestation_times_ids_6[0].prestation_time, 7.05)
+        self.assertEqual(prestation_times_ids_6[0].activity_category_id.id, activity_category_1.id)
         self.assertEqual(prestation_times_ids_6[1].es, 'S')
         self.assertEqual(prestation_times_ids_6[1].prestation_date, '2018-07-25')
         self.assertEqual(prestation_times_ids_6[1].prestation_time, 7.5)
+        self.assertEqual(prestation_times_ids_6[1].activity_category_id.id, activity_category_1.id)
         self.assertEqual(prestation_times_ids_6[2].es, 'E')
         self.assertEqual(prestation_times_ids_6[2].prestation_date, '2018-07-25')
         self.assertEqual(prestation_times_ids_6[2].prestation_time, 7.5)
+        self.assertEqual(prestation_times_ids_6[2].activity_category_id.id, activity_category_1.id)
         self.assertEqual(prestation_times_ids_6[3].es, 'S')
         self.assertEqual(prestation_times_ids_6[3].prestation_date, '2018-07-25')
         self.assertEqual(prestation_times_ids_6[3].prestation_time, 8)
+        self.assertEqual(prestation_times_ids_6[3].activity_category_id.id, activity_category_1.id)
 
 ##################################################################################
 #   Seventh test
@@ -287,9 +299,11 @@ class PrestationCheckTest(TestData):
         self.assertEqual(prestation_times_ids_7[0].es, 'E')
         self.assertEqual(prestation_times_ids_7[0].prestation_date, '2018-07-30')
         self.assertEqual(prestation_times_ids_7[0].prestation_time, 10)
+        self.assertEqual(prestation_times_ids_7[0].activity_category_id.id, activity_category_1.id)
         self.assertEqual(prestation_times_ids_7[1].es, 'S')
         self.assertEqual(prestation_times_ids_7[1].prestation_date, '2018-07-30')
         self.assertEqual(prestation_times_ids_7[1].prestation_time, 17)
+        self.assertEqual(prestation_times_ids_7[1].activity_category_id.id, activity_category_1.id)
 
 ##################################################################################
 #   Eigth test
@@ -319,9 +333,11 @@ class PrestationCheckTest(TestData):
         self.assertEqual(prestation_times_ids_8[0].es, 'E')
         self.assertEqual(prestation_times_ids_8[0].prestation_date, '2018-08-01')
         self.assertEqual(prestation_times_ids_8[0].prestation_time, 12)
+        self.assertEqual(prestation_times_ids_8[0].activity_category_id.id, activity_category_2.id)
         self.assertEqual(prestation_times_ids_8[1].es, 'S')
         self.assertEqual(prestation_times_ids_8[1].prestation_date, '2018-08-01')
         self.assertEqual(prestation_times_ids_8[1].prestation_time, 13)
+        self.assertEqual(prestation_times_ids_8[1].activity_category_id.id, activity_category_2.id)
 
 ##################################################################################
 #   Nineth test
@@ -372,21 +388,27 @@ class PrestationCheckTest(TestData):
         self.assertEqual(prestation_times_ids_9[0].es, 'E')
         self.assertEqual(prestation_times_ids_9[0].prestation_date, '2018-08-02')
         self.assertEqual(prestation_times_ids_9[0].prestation_time, 7.15)
+        self.assertEqual(prestation_times_ids_9[0].activity_category_id.id, activity_category_1.id)
         self.assertEqual(prestation_times_ids_9[1].es, 'S')
         self.assertEqual(prestation_times_ids_9[1].prestation_date, '2018-08-02')
         self.assertEqual(prestation_times_ids_9[1].prestation_time, 8)
+        self.assertEqual(prestation_times_ids_9[1].activity_category_id.id, activity_category_1.id)
         self.assertEqual(prestation_times_ids_9[2].es, 'E')
         self.assertEqual(prestation_times_ids_9[2].prestation_date, '2018-08-02')
         self.assertEqual(prestation_times_ids_9[2].prestation_time, 12)
+        self.assertEqual(prestation_times_ids_9[2].activity_category_id.id, activity_category_2.id)
         self.assertEqual(prestation_times_ids_9[3].es, 'S')
         self.assertEqual(prestation_times_ids_9[3].prestation_date, '2018-08-02')
         self.assertEqual(prestation_times_ids_9[3].prestation_time, 13)
+        self.assertEqual(prestation_times_ids_9[3].activity_category_id.id, activity_category_2.id)
         self.assertEqual(prestation_times_ids_9[4].es, 'E')
         self.assertEqual(prestation_times_ids_9[4].prestation_date, '2018-08-02')
         self.assertEqual(prestation_times_ids_9[4].prestation_time, 16)
+        self.assertEqual(prestation_times_ids_9[4].activity_category_id.id, activity_category_1.id)
         self.assertEqual(prestation_times_ids_9[5].es, 'S')
         self.assertEqual(prestation_times_ids_9[5].prestation_date, '2018-08-02')
         self.assertEqual(prestation_times_ids_9[5].prestation_time, 16.5)
+        self.assertEqual(prestation_times_ids_9[5].activity_category_id.id, activity_category_1.id)
 
 ##################################################################################
 #   Tenth test
@@ -445,6 +467,102 @@ class PrestationCheckTest(TestData):
         self.assertEqual(prestation_times_ids_13[0].es, 'E')
         self.assertEqual(prestation_times_ids_13[0].prestation_date, '2018-08-03')
         self.assertEqual(prestation_times_ids_13[0].prestation_time, 7.5)
+        self.assertEqual(prestation_times_ids_13[0].activity_category_id.id, activity_category_1.id)
         self.assertEqual(prestation_times_ids_13[1].es, 'S')
         self.assertEqual(prestation_times_ids_13[1].prestation_date, '2018-08-03')
         self.assertEqual(prestation_times_ids_13[1].prestation_time, 9)
+        self.assertEqual(prestation_times_ids_13[1].activity_category_id.id, activity_category_1.id)
+
+##################################################################################
+#   Twelveth test
+#   Scenario: Entry at 7h30
+#   Expect: Verified = True
+##################################################################################
+
+        pda_prestation_14 = self.env['extraschool.pdaprestationtimes'].create({
+            'activitycategoryid': activity_category_1.id,
+            'childid': child_1.id,
+            'prestation_date': '2018-08-06',
+            'es': 'E',
+            'placeid': place_1.id,
+            'prestation_time': 7.5,
+        })
+
+        self.assertEqual(pda_prestation_14.prestation_times_of_the_day_id.verified, False)
+
+        pda_prestation_14.prestation_times_of_the_day_id.check()
+
+        prestation_times_ids_14 = self.env['extraschool.prestationtimes'].search(
+            [('prestation_times_of_the_day_id', '=', pda_prestation_14.prestation_times_of_the_day_id.id)])\
+            .sorted(key=lambda r: r.prestation_time)
+
+        self.assertEqual(len(prestation_times_ids_14), 2)
+        self.assertEqual(pda_prestation_14.prestation_times_of_the_day_id.verified, True)
+        self.assertEqual(prestation_times_ids_14[0].es, 'E')
+        self.assertEqual(prestation_times_ids_14[0].prestation_date, '2018-08-06')
+        self.assertEqual(prestation_times_ids_14[0].prestation_time, 7.5)
+        self.assertEqual(prestation_times_ids_14[0].activity_category_id.id, activity_category_1.id)
+        self.assertEqual(prestation_times_ids_14[0].activity_name, 'Garderie')
+        self.assertEqual(prestation_times_ids_14[1].es, 'S')
+        self.assertEqual(prestation_times_ids_14[1].prestation_date, '2018-08-06')
+        self.assertEqual(prestation_times_ids_14[1].prestation_time, 10)
+        self.assertEqual(prestation_times_ids_14[1].activity_category_id.id, activity_category_1.id)
+        self.assertEqual(prestation_times_ids_14[1].activity_name, 'Garderie')
+
+##################################################################################
+#   Thirteenth test
+#   Scenario: Entry at 7h30
+#   Expect: Verified = True, but activity is Cirque because the child is registered to this activity.
+##################################################################################
+
+        child_registration_2 = self.env['extraschool.child_registration'].create({
+            'school_implantation_id': school_implantation_1.id,
+            'place_id': place_1.id,
+            'activity_id': activity_2.id,
+            'week': 32,
+            'date_from': '2018-08-06',
+            'date_to': '2018-08-10',
+        })
+
+        child_registration_line_2 = self.env['extraschool.child_registration_line'].create({
+            'child_registration_id': child_registration_2.id,
+            'monday': True,
+            'child_id': child_2.id,
+        })
+
+        child_registration_2.validate()
+        child_registration_2.validate()
+
+        prestation_times_of_the_day_15 = self.env['extraschool.prestation_times_of_the_day'].search([('date_of_the_day', '=', '2018-08-06'), ('child_id', '=', child_2.id)])
+
+        self.assertEqual(len(prestation_times_of_the_day_15), 0)
+
+        pda_prestation_15 = self.env['extraschool.pdaprestationtimes'].create({
+            'activitycategoryid': activity_category_1.id,
+            'childid': child_2.id,
+            'prestation_date': '2018-08-06',
+            'es': 'E',
+            'placeid': place_1.id,
+            'prestation_time': 7.5,
+        })
+
+        self.assertEqual(prestation_times_of_the_day_15.verified, False)
+
+        pda_prestation_15.prestation_times_of_the_day_id.check()
+
+        prestation_times_ids_15 = self.env['extraschool.prestationtimes'].search(
+            [('prestation_times_of_the_day_id', '=', pda_prestation_15.prestation_times_of_the_day_id.id)])\
+            .sorted(key=lambda r: r.prestation_time)
+
+        self.assertEqual(len(prestation_times_ids_15), 2)
+        self.assertEqual(pda_prestation_15.prestation_times_of_the_day_id.verified, True)
+        self.assertEqual(prestation_times_ids_15[0].es, 'E')
+        self.assertEqual(prestation_times_ids_15[0].prestation_date, '2018-08-06')
+        self.assertEqual(prestation_times_ids_15[0].prestation_time, 6)
+        self.assertEqual(prestation_times_ids_15[0].activity_category_id.id, activity_category_1.id)
+        self.assertEqual(prestation_times_ids_15[0].activity_name, 'Cirque')
+        self.assertEqual(prestation_times_ids_15[1].es, 'S')
+        self.assertEqual(prestation_times_ids_15[1].prestation_date, '2018-08-06')
+        self.assertEqual(prestation_times_ids_15[1].prestation_time, 9)
+        self.assertEqual(prestation_times_ids_15[1].activity_category_id.id, activity_category_1.id)
+        self.assertEqual(prestation_times_ids_15[1].activity_name, 'Cirque')

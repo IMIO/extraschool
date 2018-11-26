@@ -298,3 +298,35 @@ class TestData(TransactionCase):
             'autoaddchilds': False,
             'onlyregisteredchilds': False,
         })
+
+        activity_11 = self.activity_model.create({
+            'name': 'Garderie',
+            'category_id': activity_category_1.id,
+            'validity_from': '2018-08-06',
+            'validity_to': '2018-08-06',
+            'leveltype': 'M,P',
+            'days': '0,1,2,3,4',
+            'default_from_to': 'to',
+            'prest_from': 7,
+            'prest_to': 10,
+            'placeids': [(4, place_1.id)],
+            'short_name': 'Garderie',
+            'autoaddchilds': False,
+            'onlyregisteredchilds': False,
+        })
+
+        activity_12 = self.activity_model.create({
+            'name': 'Cirque',
+            'category_id': activity_category_1.id,
+            'validity_from': '2018-08-06',
+            'validity_to': '2018-08-06',
+            'leveltype': 'M,P',
+            'days': '0,1,2,3,4',
+            'default_from_to': 'from_to',
+            'prest_from': 6,
+            'prest_to': 9,
+            'placeids': [(4, place_1.id)],
+            'short_name': 'Cirque du soleil',
+            'autoaddchilds': False,
+            'onlyregisteredchilds': True,
+        })
