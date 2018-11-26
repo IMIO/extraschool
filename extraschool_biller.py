@@ -156,8 +156,8 @@ class extraschool_biller(models.Model):
         if len(self) > 1:
             raise Warning(_("You can delete only one biller at a time !!!"))
 
-        # if self.search([]).sorted(key=lambda r: r.id)[-1].id != self.id:
-        #     raise Warning(_("You can only delete the last biller !!!"))
+        if self.search([]).sorted(key=lambda r: r.id)[-1].id != self.id:
+            raise Warning(_("You can only delete the last biller !!!"))
 
         _logger.info("%s invoices to delete" % len(self.invoice_ids))
         count = 1
