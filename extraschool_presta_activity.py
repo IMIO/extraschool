@@ -74,3 +74,31 @@ class extraschool_stat_activity(models.Model):
             activity.id, activity.id))
             self.env.invalidate_all()
         print "### END: Prestation Statistics ###"
+
+    @api.multi
+    def get_presta_add(self):
+        print self.date
+        return {'name': 'Ajouter',
+                'type': 'ir.actions.act_window',
+                'res_model': 'extraschool.prestation_times_encodage_manuel',
+                'view_type': 'form',
+                'view_mode': 'form',
+                'target': 'current',
+                'context': {'default_date_of_the_day':self.date,
+                            'default_place_id':self.place_id.id
+                            },
+                }
+
+
+    @api.multi
+    def get_presta_move(self):
+        return {'name': 'Supprimer',
+                'type': 'ir.actions.act_window',
+                'res_model': 'extraschool.prestation_times_of_the_day',
+                'view_type': 'form',
+                'view_mode': 'tree,form',
+                'nodestroy': False,
+                'target': 'current',
+                'limit': 50000,
+                'domain': [('child_id', '=', self.child_id.id),('date_of_the_day','=',self.date ) ]
+                }

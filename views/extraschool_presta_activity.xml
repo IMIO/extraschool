@@ -21,15 +21,33 @@
 			<field name="model">extraschool.stat_activity</field>
 			<field name="type">form</field>
 			<field name="arch" type="xml">
-				<form string="stat_activity">
+				<form string="stat_activity" create="false" delete="false">
                     <sheet>
-                        <group col="4">
-                        <field name="date"/>
-                        <field name="activity_id" select="1"/>
-                        <field name="place_id" select="1"/>
-                        <field name="nbr_child"/>
-                        <field name="child_id"/>
-                        </group>
+                        <div class="oe_right oe_button_box" name="buttons">
+                            <button name="get_presta_add"
+                                string="Ajouter"
+                                type="object"
+                                class="oe_inline oe_stat_button"
+                                icon="fa-plus-circle"
+                                    />
+                            <button name="get_presta_move"
+                                string="Supprimer"
+                                type="object"
+                                class="oe_inline oe_stat_button"
+                                icon="fa-times"
+                            />
+					    </div>
+                        <notebook>
+                            <page string="Infos">
+                                <group col="4">
+                                <field name="date"/>
+                                <field name="activity_id" select="1"/>
+                                <field name="place_id" select="1"/>
+                                <field name="nbr_child"/>
+                                <field name="child_id"/>
+                                </group>
+                            </page>
+                        </notebook>
                     </sheet>
 				</form>
 			</field>
