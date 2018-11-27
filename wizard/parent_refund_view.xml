@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+        <record model="ir.ui.view" id="extraschool_parent_refund_wizard_form">
+            <field name="name">extraschool.parent.refund.wizard.form</field>
+            <field name="model">extraschool.parent_refund_wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Parent Refund Wizard">
+                    <group col="4">
+                        <field name="parent_id" readonly="1"  options="{'no_create':True}"/>
+                        <field name="amount"/>
+                    </group>
+                	<!--<group col="4"  states="init">-->
+                		<!--<field name="reconciliation_amount" readonly="True" />-->
+                		<!--<field name="reconciliation_amount_balance" readonly="True" />-->
+                  		<!--<separator string="Reconciliation" colspan="4"/>-->
+                  	<!--</group>-->
+                    <field name="payment_ids">
+                    	<tree editable="bottom" create="false" delete="false">
+                            <field name="paymentdate"></field>
+	                        <field name="structcom" readonly="True" />
+	        		        <field name="amount" />
+	                        <field name="solde" sum="True" />
+	                	</tree>
+                     </field>
+                    <!--<field name="payment_status_ids">-->
+                    	<!--<tree editable="bottom" create="false" delete="false">-->
+	                        <!--<field name="structcom"/>-->
+	                        <!--<field name="payment_date"/>-->
+	                        <!--<field name="amount" sum="True" />-->
+	                        <!--<field name="solde" sum="True" />-->
+	                	<!--</tree>-->
+                     <!--</field>-->
+                    <!--<separator string="" colspan="4"/>-->
+                    <!--<group colspan="4" col="3">-->
+                        <!--<button name="next" string="generate payment" icon="gtk-apply" type="object" attrs="{'invisible':[('reconciliation_amount_balance', '&lt;', '-0.001')]}"/>-->
+                    <!--</group>-->
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_lbsc_parent_refund_wizard">
+            <field name="name">Parent Refund Wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">extraschool.parent_refund_wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+	</data>
+</openerp>

@@ -45,6 +45,13 @@
                             class="oe_inline oe_stat_button"
                             icon="fa-money"
                                 />
+                        <button name="extraschool.action_lbsc_parent_refund_wizard"
+                            string="Refund"
+                            icon="fa-euro"
+                            type="action"
+                            context="{'default_parent_id': id}"
+                            groups="extraschool.extraschool_accounting"
+                                />
                     </div>
                     <h2>
                         <group>
@@ -201,7 +208,6 @@
                     </field>
                  </page>
                 <page string="Payment status">
-                    <button name="refund" string="Refund" type="object" class="oe_highlight" confirm="You are about to refund this parent. Are you sure ?" groups="extraschool.extraschool_accounting"/>
                     <field name="payment_status_ids" readonly="True">
                         <tree colors="red:solde &lt; 0;">
                 			<field name="activity_category_id" />

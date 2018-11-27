@@ -155,6 +155,7 @@
         'report/custo_client/ittre.xml',
         'report/reminder/reminder_text.xml',
         'extraschool_view.xml',
+        'wizard/parent_refund_view.xml',
 
     ],
     'installable' : True,
