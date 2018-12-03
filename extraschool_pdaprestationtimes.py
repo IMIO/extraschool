@@ -71,8 +71,7 @@ class extraschool_pdaprestationtimes(models.Model):
 
         vals['prestation_time'] = '%.6f' % round(vals['prestation_time'], 6)
 
-        search_domain = [   ('activitycategoryid', '=', vals['activitycategoryid']),
-                            ('childid.id', '=', vals['childid']),
+        search_domain = [   ('childid.id', '=', vals['childid']),
                             ('placeid.id', '=', vals['placeid']),
                             ('prestation_date', '=', vals['prestation_date']),
                             ('prestation_time', '=', vals['prestation_time']),
@@ -80,12 +79,10 @@ class extraschool_pdaprestationtimes(models.Model):
                             ('es', '=', vals['es']),
                             ]
 
-        print "search_domain : %s" % (search_domain)
         presta = self.search(search_domain)
+
         # if the same presta already exist than exit
-        print "len(presta) %s" % (len(presta))
         if len(presta):
-            print "presta already exist"
             return presta[0]
 
         prestation_times_of_the_day_obj = self.env['extraschool.prestation_times_of_the_day']
