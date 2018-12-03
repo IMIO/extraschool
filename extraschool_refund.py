@@ -4,7 +4,7 @@
 #    Extraschool
 #    Copyright (C) 2008-2014
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
+#    Michael Michot & Michaël Colicchia - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -21,34 +21,21 @@
 #
 ##############################################################################
 
-from openerp import models, fields, api
+from openerp import models, api, fields
+from openerp.api import Environment
+import openerp.addons.decimal_precision as dp
 
+class extraschool_refund(models.Model):
+    _name = 'extraschool.refund'
+    _description = 'Remboursement'
 
-class ParentRefund(models.TransientModel):
-    _name = 'extraschool.parent_refund_wizard'
+    amount = fields.Float(
+        string=u'Montant remboursé',
 
-    def _get_payment(self):
-        return self.env['extraschool.payment'].search([
-            ('parent_id', '=', self._context.get('default_parent_id')),
-            ('solde', '>', 0),
-        ])
-
-    parent_id = fields.Many2one(
-        'extraschool.parent',
-        string='Parent to be refund of payment',
-        required=True,
     )
     payment_ids = fields.One2many(
         'extraschool.payment',
-        'parent_id',
-        string='List of payment available to refund',
-        default=_get_payment,
+        'refund_id',
+        string=u'Payements impactés par le remboursement',
         readonly=True,
     )
-    amount = fields.Float(
-        string='Amount of refund'
-    )
-
-    @api.multi
-    def generate_refund_parent(self):
-        import wdb;wdb.set_trace()

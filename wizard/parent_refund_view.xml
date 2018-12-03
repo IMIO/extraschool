@@ -6,9 +6,11 @@
             <field name="model">extraschool.parent_refund_wizard</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <form string="Parent Refund Wizard">
-                    <group col="4">
-                        <field name="parent_id" readonly="1"  options="{'no_create':True}"/>
+                <form string="Remboursement">
+                    <group col="3">
+                        <h2>
+                            <field name="parent_id" readonly="1" nolabel="1"  options="{'no_create':True}"/>
+                        </h2>
                         <field name="amount"/>
                     </group>
                 	<!--<group col="4"  states="init">-->
@@ -16,14 +18,18 @@
                 		<!--<field name="reconciliation_amount_balance" readonly="True" />-->
                   		<!--<separator string="Reconciliation" colspan="4"/>-->
                   	<!--</group>-->
-                    <field name="payment_ids">
-                    	<tree editable="bottom" create="false" delete="false">
-                            <field name="paymentdate"></field>
-	                        <field name="structcom" readonly="True" />
-	        		        <field name="amount" />
-	                        <field name="solde" sum="True" />
-	                	</tree>
-                     </field>
+                    <notebook>
+                        <page string="Payments">
+                            <field name="payment_ids" readonly="1">
+                                <tree editable="bottom" create="false" delete="false">
+                                    <field name="paymentdate"></field>
+                                    <field name="structcom" readonly="True" />
+                                    <field name="amount" />
+                                    <field name="solde" sum="True" />
+                                </tree>
+                             </field>
+                        </page>
+                    </notebook>
                     <!--<field name="payment_status_ids">-->
                     	<!--<tree editable="bottom" create="false" delete="false">-->
 	                        <!--<field name="structcom"/>-->
@@ -33,9 +39,10 @@
 	                	<!--</tree>-->
                      <!--</field>-->
                     <!--<separator string="" colspan="4"/>-->
-                    <!--<group colspan="4" col="3">-->
-                        <!--<button name="next" string="generate payment" icon="gtk-apply" type="object" attrs="{'invisible':[('reconciliation_amount_balance', '&lt;', '-0.001')]}"/>-->
-                    <!--</group>-->
+                    <footer>
+                        <button name="xxxxxxxxxxxxx" string="Rembourser" class="btn btn-primary" type="object"/>
+                        <button special="cancel" class="btn" string="Annuler"/>
+                    </footer>
                 </form>
             </field>
         </record>
