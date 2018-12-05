@@ -9,16 +9,16 @@
          </record>
          <record id="extraschool_school" model="res.groups">
             <field name="name">AES school</field>
-         </record>   
+         </record>
          <record id="extraschool_accounting" model="res.groups">
             <field name="name">AES accounting</field>
-         </record> 
+         </record>
          <record id="extraschool_payment_correction" model="res.groups">
             <field name="name">AES Payment Correction</field>
          </record>
          <record id="extraschool_timeclock" model="res.groups">
             <field name="name">AES timeclock</field>
-         </record>                             
+         </record>
          <record id="extraschool_fusion" model="res.groups">
             <field name="name">AES fusion</field>
          </record>
@@ -36,6 +36,9 @@
          </record>
           <record id="extraschool_activity" model="res.groups">
             <field name="name">AES Activity</field>
+         </record>
+          <record id="extraschool_fiche_sante" model="res.groups">
+            <field name="name">AES Fiche Santé</field>
          </record>
    	  </data>
    </openerp>

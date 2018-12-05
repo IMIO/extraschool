@@ -98,7 +98,7 @@
 		<record forcecreate= "True" id= "decimal_extraschool_invoice" model= "decimal.precision">
 			<field name="name">extraschool_invoice</field>
 			<field name="digits">2</field>
-		</record>        
+		</record>
 		<record forcecreate= "True" id= "decimal_extraschool_invoice_line" model= "decimal.precision">
 			<field name="name">extraschool_invoice_line</field>
 			<field name="digits">3</field>
@@ -136,23 +136,23 @@
 			<field name="number_call">2016-01-01 05:00</field>
 			<field name="model">extraschool.prestation_times_of_the_day</field>
 			<field name="function">check_all</field>
-			<field name="args">()</field>	
-			<field eval="False" name="doall" />		
+			<field name="args">()</field>
+			<field eval="False" name="doall" />
 		</record>
  	</data>
-    <data noupdate="1">	
+    <data noupdate="1">
 		<record forcecreate= "True" id="extraschool_check_all_presta_auto" model= "ir.cron">
 			<field name="name">aes - check all presta</field>
 			<field eval="False" name="active" />
 			<field name="user_id" ref="base.user_root" />
 			<field name="inteval_number">1</field>
 			<field name="interval_type">days</field>
-			<field eval="-1" name="numbercall" />	
+			<field eval="-1" name="numbercall" />
 			<field name="model">extraschool.prestation_times_of_the_day</field>
 			<field name="function">check_all</field>
-			<field name="args">()</field>	
-			<field eval="False" name="doall" />		
-		</record>   		
+			<field name="args">()</field>
+			<field eval="False" name="doall" />
+		</record>
  	</data>
 
     <data noupdate="1">
@@ -215,6 +215,86 @@
 
         <record model="extraschool.invoice_tag" id="extraschool_tag_bloque">
             <field name="name">Bloquer</field>
+        </record>
+
+    </data>
+
+    <data noupdate="1">
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_diabete">
+            <field name="name">Diabète</field>
+        </record>
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_maladie_cardiaque">
+            <field name="name">Maladie cardiaque</field>
+        </record>
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_epilespie">
+            <field name="name">Epilepsie</field>
+        </record>
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_asthme">
+            <field name="name">Asthme</field>
+        </record>
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_insomnie">
+            <field name="name">Insomnie</field>
+        </record>
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_peau">
+            <field name="name">Affection de la peau</field>
+        </record>
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_sinusite">
+            <field name="name">Sinusite</field>
+        </record>
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_bronchite">
+            <field name="name">Bronchite</field>
+        </record>
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_saignement_de_nez">
+            <field name="name">Saignement de nez</field>
+        </record>
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_maux_de_tete">
+            <field name="name">Maux de tête</field>
+        </record>
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_coup_de_soleil">
+            <field name="name">Coup de soleil</field>
+        </record>
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_constipation">
+            <field name="name">Constipation</field>
+        </record>
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_diarrhee">
+            <field name="name">Diarrhée</field>
+        </record>
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_vomissements">
+            <field name="name">Vomissements</field>
+        </record>
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_incontinence">
+            <field name="name">Incontinence</field>
+        </record>
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_maladie_contagieuse">
+            <field name="name">Maladie contagieuse</field>
+        </record>
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_maux_de_ventre">
+            <field name="name">Maux de ventre</field>
+        </record>
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_mal_de_route">
+            <field name="name">Mal de route</field>
+        </record>
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_appareil_auditif">
+            <field name="name">Appareil auditif</field>
         </record>
 
     </data>

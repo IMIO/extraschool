@@ -54,6 +54,7 @@ class extraschool_child(models.Model):
     otherref = fields.Char('Other ref', size=50, track_visibility='onchange')
     isdisabled = fields.Boolean('Disabled', track_visibility='onchange')
     comment = fields.Text('Comment', track_visibility='onchange')
+    health_sheet_ids = fields.One2many('extraschool.health_sheet', 'child_id')
 
     def get_age(self):
         date_of_birth = datetime.strptime(self.birthdate,'%Y-%m-%d')
@@ -123,6 +124,21 @@ class extraschool_child(models.Model):
                 'limit': 50000,
                 'domain': [('child_id', '=',self.id),]
             }
+
+    @api.multi
+    def get_sante(self):
+
+        return {'name': 'Fiche santé',
+                'type': 'ir.actions.act_window',
+                'res_model': 'extraschool.health_sheet',
+                'view_type': 'form',
+                'view_mode': 'tree,form',
+                'nodestroy': False,
+                'target': 'current',
+                'limit': 50000,
+                'domain': [('child_id', '=', self.id), ],
+                'context' : {'child_id': self.id},
+                }
 
     @api.one
     def unlink(self):
