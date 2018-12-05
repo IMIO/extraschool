@@ -270,7 +270,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
             'nodestroy': 'current',
         }
 
-    @api.multi
+    @api.model
     def refactor(self):
         prestation_ids = self.env['extraschool.prestation_times_of_the_day'].search([('verified', '=', False)])
 
