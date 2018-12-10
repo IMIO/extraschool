@@ -81,6 +81,10 @@ class extraschool_health_sheet(models.Model):
          ('non_renseigne', 'Non renseigné')), default='non_renseigne', string='Swim level')
     intervention = fields.Boolean(string='Intervention', default=False)
     intervention_text = fields.Char(string='Type of intervention')
+    arnica = fields.Selection(
+        (('non_renseigne', 'Non renseigné'),
+         ('non', 'Non'),
+         ('oui', 'Oui')), default='non_renseigne', string='Arnica')
 
 
 class extraschool_doctor(models.Model):

@@ -109,6 +109,10 @@
                                 <separator string="Photo"/>
                                 <newline/>
                                 <field name="photo" widget='radio' options="{'horizontal': true}"/>
+                                <newline/>
+                                <separator string="Arnica"/>
+                                <newline/>
+                                <field name="arnica" widget='radio' options="{'horizontal': true}"/>
                             </group>
                         </page>
 						<page string="Comment">
