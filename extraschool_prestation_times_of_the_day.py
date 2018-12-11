@@ -152,16 +152,18 @@ class extraschool_prestation_times_of_the_day(models.Model):
                 for reg in reg_ids:
                     if reg.activity_occurrence_id.activityid.autoaddchilds:
                         reg.activity_occurrence_id.add_presta(reg.activity_occurrence_id, reg.child_id.id, None,False)
-                presta.verified = False;
+                presta.verified = False
+                presta.checked = False
 
             time_list.append(time.time() - start_time)
 
     @api.onchange('prestationtime_ids', 'pda_prestationtime_ids')
     def on_change_prestationtime_ids(self):
-        print "on_change_prestationtime_ids"
         if self.verified:
-            print "verified = False"
             self.verified = False
+
+        if self.checked:
+            self.checked = False
 
     def _check_duplicate(self,strict=False):
         prestation_time_ids = [prestation_time.id for prestation_time in self.prestationtime_ids]

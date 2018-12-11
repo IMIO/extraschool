@@ -93,14 +93,15 @@ class extraschool_pdaprestationtimes(models.Model):
                                                                                   ('date_of_the_day', '=', vals['prestation_date']),
                                                                                   ])
         if not prestation_times_of_the_day_ids:
-            print "pod doesn't exist"
+            # If prestation of the day doesn't exist, create it
             vals['prestation_times_of_the_day_id'] = prestation_times_of_the_day_obj.create({'activity_category_id' : vals['activitycategoryid'],
                                                                                              'child_id' : vals['childid'],
                                                                                              'date_of_the_day' : vals['prestation_date'],
                                                                                              }).id
-        else :
-            print "presta of day already exist"
+        else:
+            # Prestation of the day already exist.
             vals['prestation_times_of_the_day_id'] = prestation_times_of_the_day_ids[0].id
+            prestation_times_of_the_day_ids[0].checked = False
 
         prestation_times_obj.create({'prestation_times_of_the_day_id': vals['prestation_times_of_the_day_id'],
                                      'activity_category_id': vals['activitycategoryid'],
