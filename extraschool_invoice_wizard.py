@@ -235,6 +235,8 @@ class extraschool_invoice_wizard(models.TransientModel):
                                  where  i.parentid = ec.parentid
                                     and ec.id <> ip.childid
                                     and ec.birthdate <= (select birthdate from extraschool_child where id = ip.childid)
+                                    and ec.rn <> (select rn from extraschool_child where id = ip.childid)
+                                    and ec.isdisabled = False
                                     ))
                             """,
                'byparentwp' : """(select min(cp.id) 
@@ -259,6 +261,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                     and invoiced_prestation_id is not NULL
                                     and ep.childid <> ip.childid
                                     and ec.birthdate <= (select birthdate from extraschool_child where id = ip.childid)
+                                    and ec.isdisabled = False
                                     )
                                     -
                                     (select count(distinct ep.childid)
@@ -281,6 +284,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                         and invoiced_prestation_id is not NULL
                                         and ep.childid > ip.childid
                                         and ec.birthdate = (select birthdate from extraschool_child where id = ip.childid)
+                                        and ec.isdisabled = False
                                         ) 
                                     )
                             """,
@@ -289,6 +293,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                 where position = (select count(*)
                                  from extraschool_child ec 
                                  where  i.parentid = ec.parentid
+                                 and ec.isdisabled = False
                                     ))
                             """,
 
@@ -312,6 +317,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                           
                                         )
                                     and invoiced_prestation_id is not NULL
+                                    and ec.isdisabled = False
                             """,
 
                'byaddress' : """(select min(id)
@@ -322,6 +328,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                      where  pp.streetcode = p.streetcode
                                         and ec.id <> ip.childid
                                         and ec.birthdate <= (select birthdate from extraschool_child where id = ip.childid)
+                                        and ec.isdisabled = False
                                         ))
                             """,
                'byaddresswp' : """(select min(cp.id) 
@@ -347,6 +354,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                     and invoiced_prestation_id is not NULL
                                     and ep.childid <> ip.childid
                                     and ec.birthdate <= (select birthdate from extraschool_child where id = ip.childid)
+                                    and ec.isdisabled = False
                                     )
                                     -
                                     (select count(distinct ep.childid)
@@ -370,6 +378,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                         and invoiced_prestation_id is not NULL
                                         and ep.childid > ip.childid
                                         and ec.birthdate = (select birthdate from extraschool_child where id = ip.childid)
+                                        and ec.isdisabled = False
                                         ) 
                                     )
                             """,
@@ -379,6 +388,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                      from extraschool_child ec
                                      left join extraschool_parent pp on pp.id = ec.parentid
                                      where  pp.streetcode = p.streetcode
+                                     and ec.isdisabled = False
                                         ))
                             """,
 
@@ -403,6 +413,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                           
                                         )
                                         and invoiced_prestation_id is not NULL
+                                        and ec.isdisabled = False
                                         )) 
                             """,
 
