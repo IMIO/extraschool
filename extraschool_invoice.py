@@ -91,11 +91,16 @@ class extraschool_invoice(models.Model):
         base_activity_category = self.env['extraschool.activitycategory'].search([])[0]
         bille_ids = self.env['extraschool.biller'].search([('activitycategoryid', '=', False)])
         invoice_ids = self.search([('activitycategoryid', '=', False)])
+        activity_ids = self.env['extraschool.activity'].search([('category_id', '=', False)])
+
         for invoice in invoice_ids:
             invoice.activitycategoryid = base_activity_category
 
         for biller in bille_ids:
             biller.activitycategoryid = base_activity_category
+
+        for activity_id in activity_ids:
+            activity_id.category_id = base_activity_category
 
     def _compute_balance(self):
         for invoice in self:
