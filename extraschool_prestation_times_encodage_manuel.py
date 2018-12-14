@@ -158,9 +158,30 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
         if self.state == 'draft':
             self.state = 'validated'
 
-    @api.one
+    @api.multi
     def set_to_draft(self):
+        """
+        A manual registration implies lots of things. Going back implies also a lot of things.
+        We need to remove the pda prestation, reset, check and if needed remove the prestation times of the day
+        :return:
+        """
         if self.state == 'validated':
             self.state = 'draft'
-            presta_obj = self.env['extraschool.pdaprestationtimes']
-            presta_obj.search([('prestation_times_encodage_manuel_id', '=', self.id)]).unlink()
+
+            # Get all pdaprestationtimes
+            pda_prestation_ids = self.env['extraschool.pdaprestationtimes'].search([('prestation_times_encodage_manuel_id', '=', self.id)])
+
+
+            for pda_prestation_id in pda_prestation_ids:
+                # Lets' get the prestation times of the day
+                prestation_time_of_the_day = pda_prestation_id.prestation_times_of_the_day_id
+
+                pda_prestation_id.unlink()
+
+                # Reset will solve problems but most importantly, it will tell us if we need to remove ptotd
+                prestation_time_of_the_day.reset()
+
+                if not len(prestation_time_of_the_day.prestationtime_ids):
+                    prestation_time_of_the_day.unlink()
+
+                prestation_time_of_the_day.check()
