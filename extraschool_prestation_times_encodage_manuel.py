@@ -179,17 +179,24 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
             # Get all pdaprestationtimes
             pda_prestation_ids = self.env['extraschool.pdaprestationtimes'].search([('prestation_times_encodage_manuel_id', '=', self.id)])
 
+            ptotd_list = []
 
+            # First part is to unlink all pda_prestation.
             for pda_prestation_id in pda_prestation_ids:
                 # Lets' get the prestation times of the day
                 prestation_time_of_the_day = pda_prestation_id.prestation_times_of_the_day_id
 
+                if not prestation_time_of_the_day in ptotd_list:
+                    ptotd_list.append(prestation_time_of_the_day)
+
                 pda_prestation_id.unlink()
 
+            # Second reset and unlink if need be prestation time of the day.
+            for ptotd in ptotd_list:
                 # Reset will solve problems but most importantly, it will tell us if we need to remove ptotd
-                prestation_time_of_the_day.reset()
+                ptotd.reset()
 
-                if not len(prestation_time_of_the_day.prestationtime_ids):
-                    prestation_time_of_the_day.unlink()
-
-                prestation_time_of_the_day.check()
+                if not ptotd.pda_prestationtime_ids:
+                    ptotd.unlink()
+                else:
+                    ptotd.check()
