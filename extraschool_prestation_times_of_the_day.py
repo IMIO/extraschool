@@ -72,7 +72,10 @@ class extraschool_prestation_times_of_the_day(models.Model):
     def uniform_school(self):
         self.reset()
 
-        school_id = self.prestationtime_ids[0].placeid.id
+        if self.prestationtime_ids[0].placeid.name == 'AES':
+            school_id = self.prestationtime_ids[1].placeid.id
+        else:
+            school_id = self.prestationtime_ids[0].placeid.id
 
         for presta in self.prestationtime_ids:
             presta.write({'placeid': school_id})
