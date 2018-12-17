@@ -48,15 +48,6 @@ class extraschool_parent(models.Model):
     def _search_fullname(self, operator, value):
         return ['|',('firstname', operator, value),('lastname', operator, value)]
 
-    def onchange_name(self, cr, uid, ids, lastname,firstname):
-        v={}
-        if lastname:
-            if firstname:
-                v['name']='%s %s' % (lastname, firstname)
-            else:
-                v['name']=lastname
-        return {'value':v}
-
     def onchange_address(self, cr, uid, ids, street,city):
         v={}
         if street:
@@ -112,11 +103,11 @@ class extraschool_parent(models.Model):
 
     name = fields.Char(compute='_name_compute',string='FullName', search='_search_fullname', size=100)
     rn = fields.Char('RN', track_visibility='onchange')
-    firstname = fields.Char('FirstName', size=50,required=True, track_visibility='onchange')
-    lastname = fields.Char('LastName', size=50,required=True, track_visibility='onchange')
-    street = fields.Char('Street', size=50,required=True, track_visibility='onchange')
-    zipcode = fields.Char('ZipCode', size=6,required=True, track_visibility='onchange')
-    city = fields.Char('City', size=50,required=True, track_visibility='onchange')
+    firstname = fields.Char('FirstName', size=50, required=True, track_visibility='onchange')
+    lastname = fields.Char('LastName', size=50, required=True, track_visibility='onchange')
+    street = fields.Char('Street', size=50, required=True, track_visibility='onchange')
+    zipcode = fields.Char('ZipCode', size=6, required=True, track_visibility='onchange')
+    city = fields.Char('City', size=50, required=True, track_visibility='onchange')
     housephone = fields.Char('House Phone', size=20, track_visibility='onchange')
     workphone = fields.Char('Work Phone', size=20, track_visibility='onchange')
     gsm = fields.Char('GSM', size=20, track_visibility='onchange')
@@ -151,6 +142,32 @@ class extraschool_parent(models.Model):
     comment = fields.Text('Comment', track_visibility='onchange')
     comstruct = fields.Char('Structured Communication', readonly=True)
     country_id = fields.Many2one('res.country', string='Country', default=21, required=True)
+    check_name = fields.Boolean(default=True)
+    check_rn = fields.Boolean(default=True)
+
+    @api.onchange('firstname', 'lastname')
+    @api.multi
+    def _check_name(self):
+        if self.search([('lastname', 'ilike', self.lastname), ('firstname', 'ilike', self.firstname)]):
+            self.check_name = False
+        else:
+            self.check_name = True
+
+        v={}
+        if self.lastname:
+            if self.firstname:
+                v['name']='%s %s' % (self.lastname, self.firstname)
+            else:
+                v['name']=self.lastname
+        return {'value':v}
+
+    @api.onchange('rn')
+    @api.multi
+    def _check_rn(self):
+        if self.rn and self.search([('rn', '=', self.rn)]):
+            self.check_rn = False
+        else:
+            self.check_rn = True
 
     @api.multi
     def get_invoice(self):
@@ -315,6 +332,11 @@ class extraschool_parent(models.Model):
 
     @api.multi
     def write(self, vals):
+        if 'check_rn' in vals and vals['check_rn'] == False:
+            raise Warning("Un parent possède déjà ce registre national.")
+        if not self.check_rn:
+            raise Warning("Un parent possède déjà ce registre national.")
+
         fields_to_find = set(['firstname',
                               'lastname',
                               'street',

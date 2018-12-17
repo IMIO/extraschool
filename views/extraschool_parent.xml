@@ -25,6 +25,15 @@
 					<button name="wizard_action" string="Fusion" icon="gtk-apply" type="object" context="{'default_parent_id': id}" groups="extraschool.extraschool_fusion"/>
 					<button name="test_TS" string="envois TS" icon="gtk-apply" type="object" groups="extraschool.extraschool_gods"/>
             	</header>
+                <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+                <div class="alert alert-warning" attrs="{'invisible':[('check_name', '=', True)]}">
+                    Le nom et prénom de ce parent existe déjà. S'agit-il du même parent ?
+                </div>
+                <div class="alert alert-danger" attrs="{'invisible':[('check_rn', '=', True)]}">
+                    Un parent possède déjà ce registre national.
+                </div>
+                <field name="check_name" invisible="1" />
+                <field name="check_rn" invisible="1" />
                 <sheet>
                     <div class="oe_right oe_button_box" name="buttons">
                         <button name="get_invoice"
@@ -48,8 +57,8 @@
                     </div>
                     <h2>
                         <group>
-                            <field name="lastname" class="oe_inline" placeholder="Nom" on_change="onchange_name(lastname,firstname)"/>
-                            <field name="firstname" class="oe_inline" placeholder="Prénom" on_change="onchange_name(lastname,firstname)"/>
+                            <field name="lastname" class="oe_inline" placeholder="Nom"/>
+                            <field name="firstname" class="oe_inline" placeholder="Prénom"/>
                         </group>
                     </h2>
 				<group col="4">
