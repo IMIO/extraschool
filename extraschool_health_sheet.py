@@ -50,7 +50,7 @@ class extraschool_health_sheet(models.Model):
     tetanus = fields.Boolean(string='Tetanus', default=False)
     first_date_tetanus = fields.Date(string='First date tetanus')
     last_date_tetanus = fields.Date(string='Last date tetanus')
-    contact_ids = fields.One2many('extraschool.other_contact', 'child_id', string='contact', )
+    contact_ids = fields.One2many('extraschool.other_contact', 'health_sheet_id', string='contact', )
     allergy = fields.Boolean(string='Allergy', default=False)
     allergy_ids = fields.Many2many('extraschool.allergy', 'extraschool_child_allergy_rel', 'child_id', 'allergy_id', 'Allergy list')
     handicap = fields.Boolean(string='Handicap', default=False)
@@ -59,7 +59,7 @@ class extraschool_health_sheet(models.Model):
     specific_regime_text = fields.Char(string='Type specific regime')
     activity_no_available = fields.Boolean(string='Activity no available', default=False)
     activity_no_available_text = fields.Char(string='Type of activity no available')
-    disease_ids = fields.One2many('extraschool.disease','child_id', 'disease_id')
+    disease_ids = fields.One2many('extraschool.disease','health_sheet_id', 'disease_id')
     facebook = fields.Selection(
         (('non_renseigne', 'Non renseigné'),
          ('non', 'Non'),
@@ -85,7 +85,7 @@ class extraschool_health_sheet(models.Model):
         (('non_renseigne', 'Non renseigné'),
          ('non', 'Non'),
          ('oui', 'Oui')), default='non_renseigne', string='Arnica')
-
+    
 
 class extraschool_doctor(models.Model):
     _name = 'extraschool.doctor'
@@ -105,7 +105,7 @@ class extraschool_other_contact(models.Model):
     _name = 'extraschool.other_contact'
     _description = 'Other contact'
 
-    child_id = fields.Many2one('extraschool.child', string='Child')
+    health_sheet_id = fields.Many2one('extraschool.health_sheet', string='Health Sheet')
     contact_name = fields.Char(string='Contact name')
     contact_relation = fields.Char(string='Contact relation')
     contact_tel = fields.Char(string='Tél. contact', size=20)
@@ -121,7 +121,7 @@ class extraschool_disease(models.Model):
     _name = 'extraschool.disease'
     _description = 'Disease'
 
-    child_id = fields.Many2one('extraschool.child', string='Child')
+    health_sheet_id = fields.Many2one('extraschool.health_sheet', string='Health Sheet')
     disease = fields.Many2one('extraschool.disease_type', string='Disease')
     disease_text = fields.Char(string='Treatment')
 

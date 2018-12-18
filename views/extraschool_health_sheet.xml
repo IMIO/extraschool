@@ -53,7 +53,7 @@
                                 <newline/>
                                 <field name="contact_ids">
                                     <tree editable="bottom" string="Other Contacts">
-                                        <field name="child_id"/>
+                                        <!--<field name="child_id"/>-->
                                         <field name="contact_name" required="1"/>
                                         <field name="contact_relation" required="1"/>
                                         <field name="contact_tel"/>
@@ -85,7 +85,7 @@
                                     <newline/>
                                     <field name="disease_ids" nolabel="1">
                                         <tree editable="bottom" string="Diseases">
-                                            <field name="child_id"/>
+                                            <!--<field name="child_id"/>-->
                                             <field name="disease" required="1"/>
                                             <field name="disease_text" required="1"/>
                                         </tree>
