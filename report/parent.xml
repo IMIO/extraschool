@@ -29,12 +29,26 @@
 
 		<template id="reminder_parent_list">
 			<t t-foreach="docs" t-as="reminder">
-
-		        <div class="page">
-		            <h2>Liste des parents</h2>
-                    <t t-foreach="reminder.reminder_ids.sorted(lambda r: r.parentid.name)" t-as="parent_reminder">
-                        <h6><span t-field="parent_reminder.parentid"/></h6>
-                    </t>
+                <div class="page">
+                        <h2>Liste des parents</h2>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Nom du parent</th>
+                                    <th>Communication structurée</th>
+                                    <th>Montant</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="reminder.reminder_ids.sorted(lambda r: r.parentid.name)" t-as="parent_reminder">
+                                    <tr>
+                                        <td><span t-field="parent_reminder.parentid"/></td>
+                                        <td><span t-field="parent_reminder.structcom"/></td>
+                                        <td><span t-field="parent_reminder.amount"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
 		        </div>
 			</t>
 		</template>
@@ -59,5 +73,4 @@
 		/>
 	</data>
 </openerp>	
-	
 	
