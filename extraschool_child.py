@@ -21,9 +21,10 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from openerp import models, api, fields, _
 from openerp.api import Environment
 from datetime import date, datetime
+from openerp.exceptions import except_orm, Warning, RedirectWarning
 import time
 import timeit
 
@@ -54,6 +55,8 @@ class extraschool_child(models.Model):
     otherref = fields.Char('Other ref', size=50, track_visibility='onchange')
     isdisabled = fields.Boolean('Disabled', track_visibility='onchange')
     comment = fields.Text('Comment', track_visibility='onchange')
+    check_name = fields.Boolean(default=True)
+    check_rn = fields.Boolean(default=True)
 
     def get_age(self):
         date_of_birth = datetime.strptime(self.birthdate,'%Y-%m-%d')
@@ -82,14 +85,21 @@ class extraschool_child(models.Model):
         for record in self:
             record.name = '%s %s'  % (record.lastname, record.firstname)
 
-    def onchange_name(self, cr, uid, ids, lastname,firstname):
-        v={}
-        if lastname:
-            if firstname:
-                v['name']='%s %s' % (lastname, firstname)
-            else:
-                v['name']=lastname
-        return {'value':v}
+    @api.onchange('firstname', 'lastname')
+    @api.multi
+    def _check_name(self):
+        if self.search([('lastname', 'ilike', self.lastname), ('firstname', 'ilike', self.firstname)]):
+            self.check_name = False
+        else:
+            self.check_name = True
+
+    @api.onchange('rn')
+    @api.multi
+    def _check_rn(self):
+        if self.rn and self.search([('rn', '=', self.rn)]):
+            self.check_rn = False
+        else:
+            self.check_rn = True
 
     @api.one
     def action_gentagid(self):
@@ -100,8 +110,16 @@ class extraschool_child(models.Model):
         # return long(self.tagid)
         return self.tagid
 
+    @api.model
+    def create(self, vals):
+        if 'check_rn' in vals and vals['check_rn'] == False:
+            raise Warning("Un enfant possède déjà ce registre national.")
+        return super(extraschool_child, self).create(vals)
+
     @api.multi
     def write(self, vals):
+        if 'check_rn' in vals and vals['check_rn'] == False:
+            raise Warning("Un enfant possède déjà ce registre national.")
         fields_to_find = set(['firstname',
                               'lastname'])
 

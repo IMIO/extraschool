@@ -25,7 +25,6 @@
 					<button name="wizard_action" string="Fusion" icon="gtk-apply" type="object" context="{'default_parent_id': id}" groups="extraschool.extraschool_fusion"/>
 					<button name="test_TS" string="envois TS" icon="gtk-apply" type="object" groups="extraschool.extraschool_gods"/>
             	</header>
-                <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
                 <div class="alert alert-warning" attrs="{'invisible':[('check_name', '=', True)]}">
                     Le nom et prénom de ce parent existe déjà. S'agit-il du même parent ?
                 </div>

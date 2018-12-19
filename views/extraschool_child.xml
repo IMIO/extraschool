@@ -27,6 +27,14 @@
                         <button name="send_data" string="smartphone" icon="gtk-apply" type="object" groups="extraschool.extraschool_gods"/>
                         <button name="send_workflow" string="workflow" icon="gtk-apply" type="object" groups="extraschool.extraschool_gods"/>
             		</header>
+                    <div class="alert alert-warning" attrs="{'invisible':[('check_name', '=', True)]}">
+                        Le nom et prénom de cet enfant existe déjà. S'agit-il du même enfant ?
+                    </div>
+                    <div class="alert alert-danger" attrs="{'invisible':[('check_rn', '=', True)]}">
+                        Un enfant possède déjà ce registre national.
+                    </div>
+                    <field name="check_name" invisible="1" />
+                    <field name="check_rn" invisible="1" />
                     <sheet>
                         <!--<header>-->
                             <!--<button string="test" type="object" name="test"/>-->
