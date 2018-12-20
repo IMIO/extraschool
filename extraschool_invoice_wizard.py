@@ -421,6 +421,7 @@ class extraschool_invoice_wizard(models.TransientModel):
         args=[]
         invoice = False
         lines = []
+        # invoice_id = [] NEW WAY
         for invoice_line in invoice_lines:
             if saved_parent_id != invoice_line['parent_id']:# or saved_schoolimplantation_id != invoice_line['schoolimplantation']:
                 saved_parent_id = invoice_line['parent_id']
@@ -436,6 +437,20 @@ class extraschool_invoice_wizard(models.TransientModel):
 #                                             'schoolimplantationid': saved_schoolimplantation_id,
 #                                             'payment_term': biller.payment_term,
 #                                             'structcom': next_invoice_num['com_struct']})
+                #NEW WAY
+                # id = self.env['extraschool.invoice'].create({
+                #     'name': ('invoice_%s') % (next_invoice_num['num'],),
+                #     'number': next_invoice_num['num'],
+                #     'parentid': saved_parent_id,
+                #     'biller_id': biller.id,
+                #     'activitycategoryid': self.activitycategory,
+                #     'schoolimplantationid': saved_schoolimplantation_id,
+                #     'payment_term': biller.payment_term,
+                #     'structcom': next_invoice_num['com_struct'],
+                # })
+                #
+                # invoice_id.append(id)
+
                 if invoice:
                     args.append(invoice)
                 invoice = {'number': next_invoice_num['num'],
@@ -480,11 +495,12 @@ class extraschool_invoice_wizard(models.TransientModel):
 
         print "exec sql create headers"
         #print insert_data
-        invoice_ids = cr.execute("""insert into extraschool_invoice 
+        invoice_ids = cr.execute("""insert into extraschool_invoice
                                     (create_uid, create_date, write_uid, write_date,
-                                    name, number, parentid, biller_id, activitycategoryid,  
-                                    schoolimplantationid, payment_term, structcom) 
+                                    name, number, parentid, biller_id, activitycategoryid,
+                                    schoolimplantationid, payment_term, structcom)
                                     VALUES"""  + args_str)
+
         print "get created invoice ids"
         invoice_ids = cr.execute("""select id, number 
                                    from extraschool_invoice 
@@ -742,10 +758,10 @@ class extraschool_invoice_wizard(models.TransientModel):
 
         invoice_ids_rs.reconcil()
 
-        if self.env['ir.config_parameter'].get_param('extraschool.invoice.generate_pdf',1) == 1:
-            biller.generate_pdf()
-        else:
-            biller.pdf_ready = True
+        # if self.env['ir.config_parameter'].get_param('extraschool.invoice.generate_pdf',1) == 1:
+        #     biller.generate_pdf()
+        # else:
+        #     biller.pdf_ready = True
 
         view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','extraschool.biller'),
                                                              ('name','=','Biller.form')])
