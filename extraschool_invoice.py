@@ -255,7 +255,7 @@ class extraschool_invoice(models.Model):
     def export_onyx(self):
         res = []
         #split street
-        p = re.compile(r"([^0-9^,]*|.*\b11 novembre\b)[\s,]*([0-9]*)[\/\s]*([a-zA-Z]*[0-9]*)[\/\s]*([a-zA-Z]*)$")
+        p = re.compile(r"([^0-9^,]*|.*\b11 novembre\b)[\s,]*([0-9]*)[\/\s]*([a-zA-Z]*[0-9]*)[\/\s]*([a-zA-Z]*[0-9]*)$")
 
         splited_street = p.findall(self.parentid.street)
         if len(splited_street) == 0:
