@@ -197,7 +197,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
             self._prestation_activity_occurrence_completion(prestation)
 
         #get distinc presta of the day
-        obj_prestation_of_the_day_rs = self.env['extraschool.prestation_times_of_the_day'].search([('prestationtime_ids', 'in', prestation_ids), ('checked', '=', False)])
+        obj_prestation_of_the_day_rs = self.env['extraschool.prestation_times_of_the_day'].search([('prestationtime_ids', 'in', prestation_ids)])
 
         if force:
             obj_prestation_rs.write({'verified': False,})
