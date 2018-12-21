@@ -33,9 +33,13 @@ class ParentRefund(models.TransientModel):
             ('solde', '>', 0),
         ])
 
+    def _get_parent_id(self):
+        return self.env['extraschool.parent'].search([('id', '=', self._context.get('default_parent_id'))])
+
     parent_id = fields.Many2one(
         'extraschool.parent',
         string='Parent to be refund of payment',
+        default=_get_parent_id,
         required=True,
     )
     payment_ids = fields.One2many(

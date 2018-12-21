@@ -151,6 +151,7 @@ class extraschool_parent(models.Model):
     comment = fields.Text('Comment', track_visibility='onchange')
     comstruct = fields.Char('Structured Communication', readonly=True)
     country_id = fields.Many2one('res.country', string='Country', default=21, required=True)
+    refund_ids = fields.One2many('extraschool.parent_refund_wizard', 'parent_id')
 
     @api.multi
     def get_invoice(self):
