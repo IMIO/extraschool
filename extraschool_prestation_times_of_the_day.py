@@ -568,7 +568,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
         self.env.cr.execute(presta_correction)
 
         self.merge_duplicate_pod()
-        for presta in self.search([('verified', '=', False), ('checked', '=', False)]):
+        for presta in self.search([('verified', '=', False)]):
             presta.check()
 
 class extraschool_prestation_times_history(models.Model):
