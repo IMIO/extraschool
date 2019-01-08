@@ -138,10 +138,7 @@ class extraschool_payment_status_report(models.Model):
     _auto = False # Disable creation of table.
     _order = 'totalbalance DESC'
 
-    def _get_activity_category_id(self):
-        return self.env['extraschool.activitycategory'].search([])[0].filtered('id').id
-
-    activity_category_id = fields.Many2one('extraschool.activitycategory',select=True, default=_get_activity_category_id)
+    activity_category_id = fields.Many2one('extraschool.activitycategory',select=True)
     parent_id = fields.Many2one('extraschool.parent',select=True)
     solde = fields.Float('solde',select=True)
     com_struct = fields.Char('Structured Communication')

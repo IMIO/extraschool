@@ -4,7 +4,7 @@
 		<template id="report_activity_categ_invoice_comment_no_style">
 			<div style="page-break-inside: avoid;display: block;width: 100%;padding: 0 0 0 0px;margin 0 0 0 0;">
 				<p>
-					<t t-raw="invoice.activitycategoryid.invoice_comment" />
+					<t t-raw="activity_category.invoice_comment" />
 				</p>
 			</div>
 		</template>
@@ -12,7 +12,7 @@
 		<template id="report_activity_categ_invoice_comment2_no_style">
 			<div style="page-break-inside: avoid;display: block;width: 100%;padding: 0 0 0 0px;margin 0 0 0 0;">
 				<p>
-					<t t-raw="invoice.activitycategoryid.invoice_comment2" />
+					<t t-raw="activity_category.invoice_comment2" />
 				</p>
 			</div>
 		</template>

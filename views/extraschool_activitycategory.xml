@@ -52,35 +52,16 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
             <form string="Activity category">
-            	<group col="4">
-	 			    <field name="name"/>
-	                <field name="childpositiondetermination"/>
-	                <field name="logo" widget="image" class="oe_avatar oe_left"/>
-	                <field name="slogan" />
-				</group>
             	<notebook>
-            		<page string="Po">
-            			<group col="4">
-			                <field name="po_name" />
-			                <newline />
-			                <field name="po_street" />
-							<field name="po_email" />
-			                <field name="po_zipcode" />
-			                <field name="po_city" />
-			                <field name="po_sign" widget="image" class="oe_avatar oe_left"/>
-			                <field name="po_stamp" widget="image" class="oe_avatar oe_left"/>
-							<newline />
-							<field name="po_tel" />
-			               	<field name="po_addresse_free_text"  widget="html" />
-							<newline />
-							<field name="po_addresse_free_text2"  widget="html" />
+            		<page string="Configuration">
+            			<group col="2">
+
+			                <field name="organising_power_id" />
+                            <field name="childpositiondetermination" />
 			        	</group>
             		</page>
     	            <page string="Activities">
 						<field name="activities" readonly="True"/>
-					</page>
-    	            <page string="Place">
-		                <field name="placeids" />
 					</page>
     	            <page string="Bank">
 						<group col="4">
@@ -113,17 +94,6 @@
 			                <newline/>
 			                <field name="invoice_report_id" />
 			                <field name="invoice_detail_report_id" />
-			                <field name="biller_report_id" />
-						</group>
-						<group col="4">
-							 <separator string="Informations de la facture" colspan="4"/>
-							<field name="po_resp_name" />
-			            	<field name="po_resp_fct" />
-							<field name="po_sign_img" widget="image" class="oe_avatar oe_left"/>
-							<newline />
-			                <field name="po_resp2_name" />
-			            	<field name="po_resp2_fct" />
-			        		<field name="po_resp2_sign" widget="image" class="oe_avatar oe_left"/>
 						</group>
 					</page>
 					<page string="Reminder">
@@ -137,30 +107,6 @@
 			                <field name="reminderemailtext" />
 			                <separator string="Reminder type" colspan="4"/>
 			                <field name="reminer_type_ids"  nolabel="1" colspan="4"/>
-						</group>
-						<group col="4">
-							<separator string="Informations du rappel" colspan="4"/>
-                            <field name="logo_reminder" widget="image" class="oe_avatar oe_left"/>
-                            <newline />
-							<field name="po_rappel_name" />
-			            	<field name="po_rappel_fct" />
-							<field name="po_rappel_sign" widget="image" class="oe_avatar oe_left"/>
-						</group>
-					</page>
-					<page string="QRCode">
-						<group col="4">
-							<field name="qrcode_report_id"/>
-						</group>
-					</page>
-					<page string="Tax certificate">
-						<group col="4">
-			                <field name="taxcertificatetemplate" />
-						</group>
-						<group col="4">
-							 <separator string="Informations de l'attestation fiscale" colspan="4"/>
-			            	<field name="po_attestation_name" />
-			            	<field name="po_attestation_fct" />
-							<field name="po_attestation_sign" widget="image" class="oe_avatar oe_left"/>
 						</group>
 					</page>
 					<page string="Pre Payment">
@@ -177,11 +123,6 @@
 					<page string="Sequences">
 						<group col="4">
 							<field name="sequence_ids"  nolabel="1"/>
-						</group>
-					</page>
-					<page string="Max School" groups="extraschool.extraschool_gods">
-						<group col="4">
-							<field name="max_school_implantation"/>
 						</group>
 					</page>
               	</notebook>

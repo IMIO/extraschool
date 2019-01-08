@@ -45,10 +45,7 @@ class extraschool_activity(models.Model):
 
     name = fields.Char('Name', required=True)
 
-    def _get_activity_category_id(self):
-        return self.env['extraschool.activitycategory'].search([])[0].filtered('id').id
-
-    category = fields.Many2one('extraschool.activitycategory', 'Category', required=True, track_visibility='onchange', default=_get_activity_category_id)
+    category_id = fields.Many2one('extraschool.activitycategory', 'Category', required=True, track_visibility='onchange')
     parent_id = fields.Many2one('extraschool.activity', 'Parent', index=True, track_visibility='onchange')
     root_id = fields.Many2one('extraschool.activity', 'Root', compute='_compute_root_activity', store=True, index=True, track_visibility='onchange')
     activity_child_ids = fields.One2many('extraschool.activity', 'parent_id', 'Activity child', track_visibility='onchange')
@@ -137,6 +134,7 @@ class extraschool_activity(models.Model):
                                                    'activityid': activity.id,
                                                    'prest_from': activity.prest_from,
                                                    'prest_to': activity.prest_to,
+                                                   'activity_category_id': activity.category_id.id,
                                                    })
             else:
                 d1 = activity.validity_from
@@ -176,12 +174,13 @@ class extraschool_activity(models.Model):
                                              self.build_timestamp(str_current_day_date, activity.prest_from),
                                              activity.name + ' - ' + str_current_day_date,
                                              uid,
-                                             activity.category.id,
                                              place.id,
                                              current_day_date,
                                              activity.id,
                                              activity.prest_from,
-                                             activity.prest_to))
+                                             activity.prest_to,
+                                             activity.category_id.id,
+                                             ))
 
                                 # insert_data = insert_data.join('('+str(place.id)+','+str(current_day_date)+','+str(activity.id)+','+str(activity.prest_from)+','+str(activity.prest_to)+')')
                 if len(args):
@@ -189,7 +188,7 @@ class extraschool_activity(models.Model):
                     args_str = ','.join(cr.mogrify("(%s,%s,%s,current_timestamp,%s,%s,current_timestamp,%s,%s,%s,%s,%s,%s)", x) for x in args)
                     print str(datetime.now())+" START QUERY"
                     # print insert_data
-                    cr.execute("insert into extraschool_activityoccurrence (create_uid,date_stop,date_start,create_date,name,write_uid,write_date,activity_category_id,place_id,occurrence_date,activityid,prest_from,prest_to) VALUES "+args_str)
+                    cr.execute("insert into extraschool_activityoccurrence (create_uid,date_stop,date_start,create_date,name,write_uid,write_date,place_id,occurrence_date,activityid,prest_from,prest_to,activity_category_id) VALUES "+args_str)
                     print str(datetime.now())+" END"
                     # get ids of created occu
                     cr.execute("""select id 
@@ -210,7 +209,7 @@ class extraschool_activity(models.Model):
         # # If there is an invoiced prestation for the activity.
         if (invoiced_obj.search(
                 [('activity_occurrence_id.activityid', '=', self.id)])):
-            date_last_invoice = vals['validity_from'] if 'validity_from' in vals else self.validity_from
+            date_last_invoice = vals['validity_from'] if vals.get('validity_from') else self.validity_from
             activity_occurrence_ids = self.env['extraschool.activityoccurrence'].search([('activityid', '=', self.id),
                 ('occurrence_date', '>=', date_last_invoice),
             ])
@@ -279,7 +278,7 @@ class extraschool_activity(models.Model):
             for presta in prestation_time_compute:
                 print total
                 total -= 1
-                presta.check()
+                # presta.check()
 
         print "Final time: ", time.strftime('%M:%S', time.gmtime((time.time() - start_time)))
         self.warning_visibility = False
@@ -353,7 +352,7 @@ class extraschool_activity(models.Model):
         for activity in self:
             print "# Modification of an activity -------------------"
             # Check Validity Date & Hour.
-            self.check_validity_date(vals)
+            activity.check_validity_date(vals)
 
             # This will go through a specific process if there is one change in these fields.
             if 'validity_from' in vals \
@@ -367,10 +366,10 @@ class extraschool_activity(models.Model):
                     or 'prest_to' in vals \
                     or 'days' in vals:
                 # Follow the white rabbit.
-                self.check_if_modifiable(vals)
+                activity.check_if_modifiable(vals)
 
             else:
-                super(extraschool_activity, self).write(vals)
+                super(extraschool_activity, activity).write(vals)
 
         return True
 

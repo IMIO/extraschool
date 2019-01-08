@@ -1,0 +1,71 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+        <record model="ir.ui.view" id="extraschool_organising_power_form">
+            <field name="name">extraschool.organising_power.form</field>
+            <field name="model">extraschool.organising_power</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            <form string="Place">
+                <sheet>
+                    <h2>
+                        <field name="town"/>
+                    </h2>
+                    <notebook>
+                        <page string="Signalétique">
+                            <group col="2">
+                                <field name="logo" widget="image" class="oe_avatar oe_left"/>
+                                <field name="slogan"/>
+                                <field name="po_name" />
+                                <field name="po_street" />
+                                <field name="po_email" />
+                                <field name="po_zipcode" />
+                                <field name="po_city" />
+                                <field name="po_sign" widget="image" class="oe_avatar oe_left"/>
+                                <field name="po_stamp" widget="image" class="oe_avatar oe_left"/>
+                                <newline/>
+                                <field name="po_tel" />
+                                <field name="po_addresse_free_text"  widget="html" />
+                                <newline/>
+                                <field name="po_addresse_free_text2"  widget="html" />
+                                <newline/>
+                                <separator string="Informations sur les factures" colspan="4"/>
+                                <field name="po_resp_name" />
+                                <field name="po_resp_fct" />
+                                <field name="po_sign_img" widget="image" class="oe_avatar oe_left"/>
+                                <newline />
+                                <field name="po_resp2_name" />
+                                <field name="po_resp2_fct" />
+                                <field name="po_resp2_sign" widget="image" class="oe_avatar oe_left"/>
+                                <separator string="Informations sur les rappels" colspan="4"/>
+                                <field name="po_rappel_name" />
+                                <field name="po_rappel_fct" />
+                                <field name="po_rappel_sign" widget="image" class="oe_avatar oe_left"/>
+                                <separator string="Informations sur les attestations fiscale" colspan="4"/>
+                                <field name="po_attestation_name" />
+                                <field name="po_attestation_fct" />
+                                <field name="po_attestation_sign" widget="image" class="oe_avatar oe_left"/>
+                            </group>
+                        </page>
+                        <page string="Configuration">
+                            <group col="2">
+                                <field name="activity_category_ids" widget="many2many_tags"/>
+                                <field name="max_school_implantation"/>
+                                <field name="dominant_activity_category_id"/>
+                                <field name="biller_report_id" />
+                                <field name="qrcode_report_id" />
+                                <field name="taxcertificatetemplate" />
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_extraschool_organising_power">
+			<field name="name">Organising Power</field>
+			<field name="res_model">extraschool.organising_power</field>
+			<field name="view_type">form</field>
+		</record>
+	</data>
+</openerp>

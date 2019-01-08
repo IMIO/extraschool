@@ -63,12 +63,9 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
     def _get_defaultto(self):
         return datetime.datetime.now().strftime("%Y-%m-%d")
 
-    def _get_activity_category_id(self):
-        return self.env['extraschool.activitycategory'].search([])[0].filtered('id').id
-
     period_from = fields.Date(default=_get_defaultfrom)
     period_to = fields.Date(default=_get_defaultto)
-    activitycategory = fields.Many2one('extraschool.activitycategory', default=_get_activity_category_id)
+    activitycategory = fields.Many2one('extraschool.activitycategory')
     force = fields.Boolean(string="Force verification")
     state = fields.Selection([('init', 'Init'),
                                 ('prestations_to_verify', 'Prestations to verify'),
@@ -175,6 +172,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
     @api.multi
     def _check(self, force = False):
         _logger.info( "# Check prestations from wizards")
+
         if not force:
             prestation_search_domain = [('verified', '=', False),]
         else:

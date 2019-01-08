@@ -60,9 +60,8 @@ class extraschool_activitycategory(models.Model):
     po_addresse_free_text = fields.Char('Adresse texte libre')
     po_addresse_free_text2 = fields.Char('Adresse texte libre 2')
 
+    organising_power_id = fields.Many2one('extraschool.organising_power', 'Organising Power', required=True)
 
-    activities = fields.One2many('extraschool.activity', 'category','Activities')
-    placeids = fields.Many2many('extraschool.place','extraschool_activitycategory_place_rel', 'activitycategory_id', 'place_id','Schoolcare place')
     childpositiondetermination = fields.Selection((('byparent','by parent'),
                                                    ('byparentwp','by parent (only childs with prestations)'),
                                                    ('byparent_nb_childs','by parent (position replaced by nbr childs'),
@@ -72,6 +71,10 @@ class extraschool_activitycategory(models.Model):
                                                    ('byaddress_nb_childs','by address (position replaced by nbr childs'),
                                                    ('byaddress_nb_childs_wp','by address (position replaced by nbr childs with prestations'),
                                                    ),'Child position determination', required = True)
+
+    activities = fields.One2many('extraschool.activity', 'category_id','Activities')
+    placeids = fields.Many2many('extraschool.place','extraschool_activitycategory_place_rel', 'activitycategory_id', 'place_id','Schoolcare place')
+
     priorityorder = fields.Integer('Priority order')
     invoicetemplate = fields.Char('Invoice Template', size=50, default='facture.odt')
     invoicecomstructprefix = fields.Char('Invoice Comstruct prefix', size=3, required = True)
@@ -107,7 +110,6 @@ class extraschool_activitycategory(models.Model):
     logo_reminder = fields.Binary()
     slogan = fields.Char('Slogan', size=50)
     sequence_ids = fields.One2many('extraschool.activitycategory.sequence', 'activity_category_id',string = 'Sequences')
-    max_school_implantation = fields.Integer()
 
     def check_invoice_prefix(self,invoicecomstructprefix):
         res = {'return_val' : True,

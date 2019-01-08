@@ -66,7 +66,8 @@ class extraschool_invoice(models.Model):
     invoice_line_ids = fields.One2many('extraschool.invoicedprestations', 'invoiceid','Details', track_visibility='onchange')
     refound_line_ids = fields.One2many('extraschool.refound_line', 'invoiceid','Refound', track_visibility='onchange')
     oldid = fields.Char('oldid', size=20, track_visibility='onchange')
-    activitycategoryid = fields.Many2one(related='biller_id.activitycategoryid', store=True, auto_join=True, track_visibility='onchange')
+    activitycategoryid = fields.Many2many('extraschool.activitycategory', 'extraschool_invoice_activity_category_rel', store=True, auto_join=True, track_visibility='onchange')
+    # activitycategoryid = fields.Many2one(related='biller_id.activitycategoryid', store=True, auto_join=True, track_visibility='onchange')
     period_from = fields.Date(related='biller_id.period_from', index=True, track_visibility='onchange')
     period_to = fields.Date(related='biller_id.period_to', index=True, track_visibility='onchange')
     payment_term = fields.Date('Payment term', track_visibility='onchange')
@@ -85,6 +86,25 @@ class extraschool_invoice(models.Model):
 #             invoice.amount_received = sum(reconcil_line.amount for reconcil_line in invoice.payment_ids)
 
 #    @api.depends('amount_total' ,'amount_received')
+    @api.model
+    def update_activity_category(self):
+        base_activity_category = self.env['extraschool.activitycategory'].search([])[0]
+        bille_ids = self.env['extraschool.biller'].search([('activitycategoryid', '=', False)])
+        invoice_ids = self.search([('activitycategoryid', '=', False)])
+        activity_ids = self.env['extraschool.activity'].search([('category_id', '=', False)])
+
+        for invoice in invoice_ids:
+            invoice.activitycategoryid = base_activity_category
+
+        for biller in bille_ids:
+            biller.activitycategoryid = base_activity_category
+
+        for activity_id in activity_ids:
+            try:
+                activity_id.category_id = base_activity_category
+            except:
+                pass
+
     def _compute_balance(self):
         for invoice in self:
 

@@ -45,13 +45,10 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
 
         return res
 
-    def _get_activity_category_id(self):
-        return self.env['extraschool.activitycategory'].search([])[0].filtered('id').id
-
     date_of_the_day = fields.Date(required=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
     place_id = fields.Many2one('extraschool.place', required=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
-    levelid = fields.Many2many('extraschool.level', 'extraschool_encodage_manuel_level_rel', string='Level', track_visibility='onchange', readonly=True, states={'draft': [('readonly', False)]},)
-    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False, track_visibility='onchange', default=_get_activity_category_id)
+    levelid = fields.Many2one('extraschool.level', 'Level', track_visibility='onchange', readonly=True, states={'draft': [('readonly', False)]},)
+    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False, track_visibility='onchange')
     prestationtime_ids = fields.One2many('extraschool.prestation_times_manuel','prestation_times_encodage_manuel_id',copy=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
     comment = fields.Text(track_visibility='onchange')
     prestation_time_all_entry = fields.Float('Entry Time for all')
@@ -166,7 +163,7 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
         if self.state == 'draft':
             self.state = 'validated'
 
-    @api.one
+    @api.multi
     def set_to_draft(self):
         """
         A manual registration implies lots of things. Going back implies also a lot of things.

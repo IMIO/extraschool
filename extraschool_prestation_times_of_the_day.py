@@ -51,10 +51,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
 
         return res
 
-    def _get_activity_category_id(self):
-        return self.env['extraschool.activitycategory'].search([])[0].filtered('id').id
-
-    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False, default=_get_activity_category_id)
+    # activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False)
     date_of_the_day = fields.Date(required=True, select=True)
     child_id = fields.Many2one('extraschool.child', required=True, select=True)
     child_firstname = fields.Char(related="child_id.firstname", store=True)
@@ -96,7 +93,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
                     select min(id) as id
                     from extraschool_prestation_times_of_the_day pod
                     where date_of_the_day > '2016-09-01'
-                    group by child_id, activity_category_id, date_of_the_day
+                    group by child_id, date_of_the_day
                     having count(*) > 1
                     """
 
@@ -108,7 +105,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
         for pod in pod_ids:
             dup_pod_ids = self.search([('id', '!=', pod.id),
                                        ('child_id.id', '=', pod.child_id.id),
-                                       ('activity_category_id.id', '=', pod.activity_category_id.id),
+                                       # ('activity_category_id.id', '=', pod.activity_category_id.id),
                                        ('date_of_the_day', '=', pod.date_of_the_day),])
             for dup_pod in dup_pod_ids:
                 dup_pod.prestationtime_ids.unlink()
@@ -140,6 +137,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
             if len(presta.prestationtime_ids.filtered(lambda r: r.invoiced_prestation_id.id is not False).ids) == 0:
                 presta.prestationtime_ids.unlink()
                 for pda_presta in presta.pda_prestationtime_ids.filtered(lambda r: r.active):
+                    # import wdb;wdb.set_trace()
                     presta.prestationtime_ids.create({'placeid': pda_presta.placeid.id,
                                                       'childid': pda_presta.childid.id,
                                                       'prestation_date': pda_presta.prestation_date,
@@ -150,7 +148,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
 
                 reg_ids = self.env['extraschool.activity_occurrence_child_registration'].search([('child_id', '=',presta.child_id.id),
                                                                                                  ('activity_occurrence_id.occurrence_date', '=', presta.date_of_the_day),
-                                                                                                 ('activity_occurrence_id.activity_category_id', '=', presta.activity_category_id.id),
+                                                                                                 # ('activity_occurrence_id.activity_category_id', '=', presta.activity_category_id.id),
                                                                                                  ])
                 for reg in reg_ids:
                     if reg.activity_occurrence_id.activityid.autoaddchilds:
@@ -277,6 +275,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
         prestation_times_rs = prestation_times_rs.sorted(key=lambda r: r.prestation_time)
         #check if first presta is an entry
         first_prestation_time = prestation_times_rs[0]
+        first_prestation_time.activity_category_id = root_activity.category_id
         if first_prestation_time.es == 'E':
             #correction if default_from_to
             if first_prestation_time.activity_occurrence_id.activityid.default_from_to == 'from_to':
@@ -322,6 +321,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
         prestation_times_rs = prestation_times_rs.sorted(key=lambda r: r.prestation_time)
         #check if last presta is an exit
         last_prestation_time = prestation_times_rs[len(prestation_times_rs)-1]
+        last_prestation_time.activity_category_id = root_activity.category_id
         if last_prestation_time.es == 'S':
             #correction if default_from_to
             if last_prestation_time.activity_occurrence_id.activityid.default_from_to == 'from_to':
@@ -574,9 +574,6 @@ class extraschool_prestation_times_of_the_day(models.Model):
 class extraschool_prestation_times_history(models.Model):
     _name = 'extraschool.prestation_times_history'
 
-    def _get_activity_category_id(self):
-        return self.env['extraschool.activitycategory'].search([])[0].filtered('id').id
-
     placeid = fields.Many2one('extraschool.place', 'Schoolcare Place')
     childid = fields.Many2one('extraschool.child', 'Child')
     parent_id = fields.Many2one(related='childid.parentid')
@@ -589,7 +586,7 @@ class extraschool_prestation_times_history(models.Model):
     error_msg = fields.Char('Error', size=255)
     activity_occurrence_id = fields.Many2one('extraschool.activityoccurrence', 'Activity occurrence')
     activity_name = fields.Char(related='activity_occurrence_id.activityname')
-    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', default=_get_activity_category_id)
+    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category')
     prestation_times_of_the_day_id = fields.Many2one('extraschool.prestation_times_of_the_day', 'Prestation of the day')
     invoiced_prestation_id = fields.Many2one('extraschool.invoicedprestations', string='Invoiced prestation')
 

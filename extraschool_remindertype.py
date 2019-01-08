@@ -28,12 +28,9 @@ class extraschool_remindertype(models.Model):
     _name = 'extraschool.remindertype'
     _description = 'Reminder type'
 
-    def _get_activity_category_id(self):
-        return self.env['extraschool.activitycategory'].search([])[0].filtered('id').id
-
     name = fields.Char('name', required=True)
     sequence = fields.Integer('Order')
-    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity category', default=_get_activity_category_id)
+    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity category')
     fees_type = fields.Selection([('free','Free'),('fix','Fixed amount'),], 'Reminder cost type',required=True)
     fees_amount = fields.Float('Fees amount')
     fees_description = fields.Char('Fees description')

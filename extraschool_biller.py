@@ -49,10 +49,7 @@ class extraschool_biller(models.Model):
 
     _order = "id desc"
 
-    def _get_activity_category_id(self):
-        return self.env['extraschool.activitycategory'].search([])[0].filtered('id').id
-
-    activitycategoryid = fields.Many2one('extraschool.activitycategory', 'Activity Category', track_visibility='onchange', default=_get_activity_category_id)
+    activitycategoryid = fields.Many2many('extraschool.activitycategory', 'extraschool_biller_activity_category_rel', string='Activity Category', track_visibility='onchange')
     period_from = fields.Date('Period from')
     period_to = fields.Date('Period to')
     payment_term = fields.Date('Payment term')
@@ -169,7 +166,7 @@ class extraschool_biller(models.Model):
 
         invoicelastcomstruct = str(self.invoice_ids.sorted(key=lambda r: r.id)[0].number)[-5:]
 
-        self.activitycategoryid.sequence_ids.search([('type', '=', 'invoice'),
+        self.activitycategoryid[0].sequence_ids.search([('type', '=', 'invoice'),
                                                      ('year', '=', self.get_from_year()),]).sequence.number_next = invoicelastcomstruct
 
         count = 1

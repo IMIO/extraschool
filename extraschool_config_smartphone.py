@@ -35,9 +35,6 @@ class extraschool_config_smartphone(models.Model):
     _name = 'extraschool.config_smartphone'
     _description = 'Configuration of Smartphone'
 
-    def _get_activity_category_id(self):
-        return self.env['extraschool.activitycategory'].search([])[0].filtered('id').id
-
     activitycategory_id = fields.Many2one('extraschool.activitycategory', 'Activity category', required=True,
                                        default=1)
     start_transmissiontime = fields.Char('Transmission time', size=5, default='22:00', required=True)

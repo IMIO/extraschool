@@ -53,11 +53,8 @@ class extraschool_remindersjournal(models.Model):
     _description = 'Reminders journal'
     _inherit = 'mail.thread'
 
-    def _get_activity_category_id(self):
-        return self.env['extraschool.activitycategory'].search([])[0].filtered('id').id
-
     name = fields.Char('Name', required=True, track_visibility='onchange')
-    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=True, readonly=True, default=_get_activity_category_id, states={'draft': [('readonly', False)]})
+    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=True, readonly=True, states={'draft': [('readonly', False)]})
     transmission_date = fields.Date('Transmission date', default=datetime.date.today(), required=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
     reminders_journal_item_ids = fields.One2many('extraschool.reminders_journal_item', 'reminders_journal_id','Reminder journal item')
     reminder_ids = fields.One2many('extraschool.reminder', 'reminders_journal_id','Reminders', track_visibility='onchange')

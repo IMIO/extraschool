@@ -32,11 +32,8 @@ class extraschool_pdaprestationtimes(models.Model):
     _name = 'extraschool.pdaprestationtimes'
     _description = 'PDA Prestation Times'
 
-    def _get_activity_category_id(self):
-        return self.env['extraschool.activitycategory'].search([])[0].filtered('id').id
-
     placeid = fields.Many2one('extraschool.place', 'Schoolcare Place', required=True)
-    activitycategoryid = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False, default=_get_activity_category_id)
+    activitycategoryid = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False)
     childid = fields.Many2one('extraschool.child', 'Child', required=False)
     prestation_date = fields.Date('Date')
     prestation_time = fields.Float('Time')
@@ -92,9 +89,11 @@ class extraschool_pdaprestationtimes(models.Model):
                                                                                   ('child_id.id', '=', vals['childid']),
                                                                                   ('date_of_the_day', '=', vals['prestation_date']),
                                                                                   ])
+
         if not prestation_times_of_the_day_ids:
-            # If prestation of the day doesn't exist, create it
-            vals['prestation_times_of_the_day_id'] = prestation_times_of_the_day_obj.create({'activity_category_id' : vals['activitycategoryid'],
+            print "pod doesn't exist"
+            vals['prestation_times_of_the_day_id'] = prestation_times_of_the_day_obj.create({
+                # 'activity_category_id' : vals['activitycategoryid'],
                                                                                              'child_id' : vals['childid'],
                                                                                              'date_of_the_day' : vals['prestation_date'],
                                                                                              }).id
@@ -126,7 +125,6 @@ class extraschool_pdaprestationtimes(models.Model):
     @api.multi
     def import_prestations(self, dict_prestations, smartphone_id):
         place_id = self.env['extraschool.smartphone'].search([('id', '=', smartphone_id)]).placeid.id
-        activity_category_id = self.env['extraschool.activitycategory'].search([])[0].id
         start_time = time.time()
 
         # Updating Tag ID of children
@@ -156,18 +154,36 @@ class extraschool_pdaprestationtimes(models.Model):
             })
 
             for children in dict_prestations['children']:
+                child_level = self.env['extraschool.child'].search([('id', '=', children['pk'])]).levelid.leveltype
+
                 # Xml RPC datetime to python datetime
                 datechild = datetime.datetime.strptime(str(children['date']), '%Y%m%dT%H%M%S')
 
-                #  Convert time to float
+                # Convert time to float
                 prestation_time = datechild.hour + datechild.minute / 60.0
+
+                # Get the category activity id if possible.
+                activity_occurrence_ids = self.env['extraschool.activityoccurrence'].search(
+                    [('occurrence_date', '=', datechild.date()), ('prest_from', '<=', prestation_time),
+                     ('prest_to', '>=', prestation_time), ('place_id', '=', place_id)])
+
+                activity_category_id = activity_occurrence_ids
+
+                if len(activity_occurrence_ids) != 1:
+                    for activity_occurrence in activity_occurrence_ids:
+                        if activity_occurrence.activityid.leveltype == child_level or activity_occurrence.activityid.leveltype == u'M,P':
+                            activity_category_id = activity_occurrence.activity_category_id
+
+                # Last resort if there is a scan error.
+                if not activity_category_id:
+                    activity_category_id = self.env['extraschool.activitycategory'].search([])[0]
 
                 self.create({   'childid': children['pk'],
                                 'placeid': place_id,
                                 'prestation_date': datechild.date(),
                                 'prestation_time': prestation_time,
                                 'es': children['eventType'],
-                                'activitycategoryid': activity_category_id,
+                                # 'activitycategoryid': activity_category_id.id,
                                 'pda_transmission_id': pda_transmission_id.id,
                             })
 
@@ -198,7 +214,7 @@ class extraschool_pdaprestationtimes(models.Model):
                                                                             'prestation_date': datesitter.date(),
                                                                             'prestation_time': prestation_time,
                                                                             'es': sitters['eventType'],
-                                                                            'activitycategoryid': activity_category_id,
+                                                                            # 'activitycategoryid': activity_category_id,
                                                                             'manualy_encoded': False,
                                                                             })
 

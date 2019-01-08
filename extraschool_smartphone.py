@@ -85,22 +85,17 @@ class extraschool_smartphone(models.Model):
     def _get_default_transfertmethod(self):
         return self.env['extraschool.config_smartphone'].search([])[-1].transfertmethod
 
-    def _get_activity_category_id(self):
-        return self.env['extraschool.config_smartphone'].search([])[-1].activitycategory_id.ids
-
     def _get_last_transmission(self):
         for rec in self:
             last_transmission_date = self.env['extraschool.pda_transmission'].search([('smartphone_id', '=', rec.id)],
                                                                    order='transmission_date_from DESC', limit=1).transmission_date_from
             rec.lasttransmissiondate = last_transmission_date
 
-
     name = fields.Char('Name', size=50)
     placeid = fields.Many2one('extraschool.place', 'Schoolcare Place', required=True)
     activitycategories_ids = fields.Many2many('extraschool.activitycategory',
                                               'extraschool_smartphone_activitycategory_rel', 'smartphone_id',
-                                              'activitycategory_id', 'Activity categories',
-                                              default=_get_activity_category_id, readonly=True)
+                                              'activitycategory_id', 'Activity categories', readonly=True)
 
 
     lasttransmissiondate = fields.Datetime('Last Transmission Date', compute=_get_last_transmission, store=False, readonly=True)

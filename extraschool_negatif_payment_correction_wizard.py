@@ -32,14 +32,11 @@ from openerp.exceptions import except_orm, Warning, RedirectWarning
 class extraschool_negatif_payment_correction_wizard(models.TransientModel):
     _name = 'extraschool.negatif_payment_correction_wizard'
 
-    def _get_activity_category_id(self):
-        return self.env['extraschool.activitycategory'].search([])[0].filtered('id').id
-
     parent_id = fields.Many2one("extraschool.parent")
     invoice_date = fields.Date('Date', required=True)
     payment_term = fields.Date('Payment term', required=True)
     description = fields.Char('Description')
-    activity_category_id = fields.Many2one("extraschool.activitycategory", required=True, default=_get_activity_category_id)
+    activity_category_id = fields.Many2one("extraschool.activitycategory", required=True)
     state = fields.Selection([('init', 'Init'),
                              ('redirect', 'Redirect'),],
                             'State', required=True, default='init'
