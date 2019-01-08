@@ -30,4 +30,5 @@ class extraschool_organising_power(models.Model):
     activity_category_ids = fields.One2many('extraschool.activitycategory', 'organising_power_id', 'Activity Category')
     town = fields.Char('Name of the town', required=True)
     max_school_implantation = fields.Integer()
+    dominant_activity_category_id = fields.Many2one('extraschool.activitycategory')
 

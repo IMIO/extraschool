@@ -264,7 +264,7 @@ class extraschool_activity(models.Model):
             for presta in prestation_time_compute:
                 print total
                 total -= 1
-                presta.check()
+                # presta.check()
 
         print "Final time: ", time.strftime('%M:%S', time.gmtime((time.time() - start_time)))
         self.warning_visibility = False
@@ -338,7 +338,7 @@ class extraschool_activity(models.Model):
         for activity in self:
             print "# Modification of an activity -------------------"
             # Check Validity Date & Hour.
-            self.check_validity_date(vals)
+            activity.check_validity_date(vals)
 
             # This will go through a specific process if there is one change in these fields.
             if 'validity_from' in vals \
@@ -352,10 +352,10 @@ class extraschool_activity(models.Model):
                     or 'prest_to' in vals \
                     or 'days' in vals:
                 # Follow the white rabbit.
-                self.check_if_modifiable(vals)
+                activity.check_if_modifiable(vals)
 
             else:
-                super(extraschool_activity, self).write(vals)
+                super(extraschool_activity, activity).write(vals)
 
         return True
 

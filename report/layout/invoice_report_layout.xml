@@ -6,10 +6,10 @@
                 <attribute t-translation="off" name="onload">subst(); pagination_hide();</attribute>
             </xpath>
             <xpath expr="//html" position="attributes">
-		    	<attribute name="t-att-data-report-margin-top">docs[0].activitycategoryid.invoice_report_id.paper_format_id.margin_top</attribute>
-		        <attribute name="t-att-data-report-margin-bottom">docs[0].activitycategoryid.invoice_report_id.paper_format_id.margin_bottom</attribute>
-		        <attribute name="t-att-data-report-margin-right">docs[0].activitycategoryid.invoice_report_id.paper_format_id.margin_right</attribute>
-		        <attribute name="t-att-data-report-margin-left">docs[0].activitycategoryid.invoice_report_id.paper_format_id.margin_left</attribute>
+		    	<attribute name="t-att-data-report-margin-top">docs[0].activitycategoryid[0].invoice_report_id.paper_format_id.margin_top</attribute>
+		        <attribute name="t-att-data-report-margin-bottom">docs[0].activitycategoryid[0].invoice_report_id.paper_format_id.margin_bottom</attribute>
+		        <attribute name="t-att-data-report-margin-right">docs[0].activitycategoryid[0].invoice_report_id.paper_format_id.margin_right</attribute>
+		        <attribute name="t-att-data-report-margin-left">docs[0].activitycategoryid[0].invoice_report_id.paper_format_id.margin_left</attribute>
 		    </xpath>
 
             <xpath expr="//body" position="attributes">
@@ -18,16 +18,22 @@
 
             <xpath expr="//body" position="inside">
 				<div id="invoice">
+                    <t t-if="len(docs[0].activitycategoryid) > 1">
+                        <t t-set="activity_category" t-value="docs[0].activitycategoryid[0]"/>
+                    </t>
+                    <t t-if="len(docs[0].activitycategoryid) == 1">
+                        <t t-set="activity_category" t-value="docs[0].activitycategoryid[0]"/>
+                    </t>
 					<t t-foreach="docs" t-as="invoice">
-						<t t-set="logo" t-value="invoice.activitycategoryid.logo"/>
-						<t t-set="slogan" t-value="docs[0].activitycategoryid.slogan"/>
+						<t t-set="logo" t-value="activity_category.logo"/>
+						<t t-set="slogan" t-value="activity_category.slogan"/>
 						<t t-set="amount_int" t-value="int(invoice.amount_total)"/>
 						<t t-set="amount_dec" t-value="int(round((invoice.amount_total-int(invoice.amount_total))*100))"/>
-			        	<t t-set="bankaccount" t-value="docs[0].activitycategoryid.bankaccount"/>
-						<t t-set="bank_bic" t-value="docs[0].activitycategoryid.bank_bic"/>
-						<t t-set="bank_address" t-value="docs[0].activitycategoryid.bank_address"/>
-						<t t-set="bank_zip" t-value="docs[0].activitycategoryid.bank_zip"/>
-						<t t-set="bank_city" t-value="docs[0].activitycategoryid.bank_city"/>
+			        	<t t-set="bankaccount" t-value="activity_category.bankaccount"/>
+						<t t-set="bank_bic" t-value="activity_category.bank_bic"/>
+						<t t-set="bank_address" t-value="activity_category.bank_address"/>
+						<t t-set="bank_zip" t-value="activity_category.bank_zip"/>
+						<t t-set="bank_city" t-value="activity_category.bank_city"/>
 						<t t-set="com_struct" t-value="invoice.structcom"/>
 						<t t-set="total" t-value="invoice.amount_total"/>
 						<t t-set="no_value" t-value="invoice.no_value"/>

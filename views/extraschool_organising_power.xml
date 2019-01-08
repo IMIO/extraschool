@@ -12,6 +12,7 @@
                         <field name="town"/>
                         <field name="activity_category_ids"/>
                         <field name="max_school_implantation"/>
+                        <field name="dominant_activity_category_id"/>
                     </group>
                 </sheet>
             </form>
