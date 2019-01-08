@@ -61,21 +61,9 @@
             	<notebook>
             		<page string="Po">
             			<group col="4">
-			                <field name="po_name" />
+
 			                <field name="organising_power_id" />
                             <field name="childpositiondetermination" />
-			                <newline />
-			                <field name="po_street" />
-							<field name="po_email" />
-			                <field name="po_zipcode" />
-			                <field name="po_city" />
-			                <field name="po_sign" widget="image" class="oe_avatar oe_left"/>
-			                <field name="po_stamp" widget="image" class="oe_avatar oe_left"/>
-							<newline />
-							<field name="po_tel" />
-			               	<field name="po_addresse_free_text"  widget="html" />
-							<newline />
-							<field name="po_addresse_free_text2"  widget="html" />
 			        	</group>
             		</page>
     	            <page string="Activities">
@@ -117,16 +105,6 @@
 			                <field name="invoice_detail_report_id" />
 			                <field name="biller_report_id" />
 						</group>
-						<group col="4">
-							 <separator string="Informations de la facture" colspan="4"/>
-							<field name="po_resp_name" />
-			            	<field name="po_resp_fct" />
-							<field name="po_sign_img" widget="image" class="oe_avatar oe_left"/>
-							<newline />
-			                <field name="po_resp2_name" />
-			            	<field name="po_resp2_fct" />
-			        		<field name="po_resp2_sign" widget="image" class="oe_avatar oe_left"/>
-						</group>
 					</page>
 					<page string="Reminder">
 						<group col="4">
@@ -140,12 +118,6 @@
 			                <separator string="Reminder type" colspan="4"/>
 			                <field name="reminer_type_ids"  nolabel="1" colspan="4"/>
 						</group>
-						<group col="4">
-							<separator string="Informations du rappel" colspan="4"/>
-							<field name="po_rappel_name" />
-			            	<field name="po_rappel_fct" />
-							<field name="po_rappel_sign" widget="image" class="oe_avatar oe_left"/>
-						</group>
 					</page>
 					<page string="QRCode">
 						<group col="4">
@@ -155,12 +127,6 @@
 					<page string="Tax certificate">
 						<group col="4">
 			                <field name="taxcertificatetemplate" />
-						</group>
-						<group col="4">
-							 <separator string="Informations de l'attestation fiscale" colspan="4"/>
-			            	<field name="po_attestation_name" />
-			            	<field name="po_attestation_fct" />
-							<field name="po_attestation_sign" widget="image" class="oe_avatar oe_left"/>
 						</group>
 					</page>
 					<page string="Pre Payment">
