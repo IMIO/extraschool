@@ -13,7 +13,9 @@
                     </h2>
                     <notebook>
                         <page string="Signalétique">
-                            <group col="4">
+                            <group col="2">
+                                <field name="logo" widget="image" class="oe_avatar oe_left"/>
+                                <field name="slogan"/>
                                 <field name="po_name" />
                                 <field name="po_street" />
                                 <field name="po_email" />
@@ -45,12 +47,17 @@
                                 <field name="po_attestation_sign" widget="image" class="oe_avatar oe_left"/>
                             </group>
                         </page>
+                        <page string="Configuration">
+                            <group col="2">
+                                <field name="activity_category_ids" widget="many2many_tags"/>
+                                <field name="max_school_implantation"/>
+                                <field name="dominant_activity_category_id"/>
+                                <field name="biller_report_id" />
+                                <field name="qrcode_report_id" />
+                                <field name="taxcertificatetemplate" />
+                            </group>
+                        </page>
                     </notebook>
-                    <group col="2">
-                        <field name="activity_category_ids"/>
-                        <field name="max_school_implantation"/>
-                        <field name="dominant_activity_category_id"/>
-                    </group>
                 </sheet>
             </form>
             </field>

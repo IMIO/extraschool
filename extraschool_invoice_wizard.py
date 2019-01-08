@@ -752,16 +752,19 @@ class extraschool_invoice_wizard(models.TransientModel):
         self.env.invalidate_all()
 
         invoice_ids_rs = inv_obj.browse(invoice_ids)
+
+        invoice_ids_rs.activitycategoryid = [(6, False, self.activitycategory.ids)]
+
         print "Discount ..............."
         self.env['extraschool.discount'].compute(biller)
         print "Discount ..............."
 
         invoice_ids_rs.reconcil()
 
-        # if self.env['ir.config_parameter'].get_param('extraschool.invoice.generate_pdf',1) == 1:
-        #     biller.generate_pdf()
-        # else:
-        #     biller.pdf_ready = True
+        if self.env['ir.config_parameter'].get_param('extraschool.invoice.generate_pdf',1) == 1:
+            biller.generate_pdf()
+        else:
+            biller.pdf_ready = True
 
         view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','extraschool.biller'),
                                                              ('name','=','Biller.form')])

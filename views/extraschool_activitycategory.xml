@@ -52,15 +52,9 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
             <form string="Activity category">
-            	<group col="4">
-	 			    <field name="name"/>
-	                <!--<field name="childpositiondetermination"/>-->
-	                <field name="logo" widget="image" class="oe_avatar oe_left"/>
-	                <field name="slogan" />
-				</group>
             	<notebook>
-            		<page string="Po">
-            			<group col="4">
+            		<page string="Configuration">
+            			<group col="2">
 
 			                <field name="organising_power_id" />
                             <field name="childpositiondetermination" />
@@ -68,9 +62,6 @@
             		</page>
     	            <page string="Activities">
 						<field name="activities" readonly="True"/>
-					</page>
-    	            <page string="Place">
-		                <field name="placeids" />
 					</page>
     	            <page string="Bank">
 						<group col="4">
@@ -103,7 +94,6 @@
 			                <newline/>
 			                <field name="invoice_report_id" />
 			                <field name="invoice_detail_report_id" />
-			                <field name="biller_report_id" />
 						</group>
 					</page>
 					<page string="Reminder">
@@ -117,16 +107,6 @@
 			                <field name="reminderemailtext" />
 			                <separator string="Reminder type" colspan="4"/>
 			                <field name="reminer_type_ids"  nolabel="1" colspan="4"/>
-						</group>
-					</page>
-					<page string="QRCode">
-						<group col="4">
-							<field name="qrcode_report_id"/>
-						</group>
-					</page>
-					<page string="Tax certificate">
-						<group col="4">
-			                <field name="taxcertificatetemplate" />
 						</group>
 					</page>
 					<page string="Pre Payment">
