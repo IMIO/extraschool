@@ -313,3 +313,41 @@ class extraschool_mainsettings(models.Model):
     @api.multi
     def update_commstruct(self):
         self.env['extraschool.parent'].update_commstruct()
+
+    @api.multi
+    def reprise_signaletic(self):
+        """
+        First phase. Get all the infos from activity category and put them in organising power.
+        :return:
+        """
+        activity_category = self.env['extraschool.activitycategory'].search([])[0]
+
+        self.env['extraschool.organising_power'].search([])[0].write({
+            'po_name': activity_category.po_name,
+            'po_street': activity_category.po_street,
+            'po_email': activity_category.po_email,
+            'po_zipcode': activity_category.po_zipcode,
+            'po_city': activity_category.po_city,
+            'po_sign': activity_category.po_sign,
+            'po_stamp': activity_category.po_stamp,
+            'po_tel': activity_category.po_tel,
+            'po_addresse_free_text': activity_category.po_addresse_free_text,
+            'po_addresse_free_text2': activity_category.po_addresse_free_text2,
+            'po_resp_name': activity_category.po_resp_name,
+            'po_resp_fct': activity_category.po_resp_fct,
+            'po_sign_img': activity_category.po_sign_img,
+            'po_resp2_name': activity_category.po_resp2_name,
+            'po_resp2_fct': activity_category.po_resp2_fct,
+            'po_resp2_sign': activity_category.po_resp2_sign,
+            'po_rappel_name': activity_category.po_rappel_name,
+            'po_rappel_fct': activity_category.po_rappel_fct,
+            'po_rappel_sign': activity_category.po_rappel_sign,
+            'po_attestation_name': activity_category.po_attestation_name,
+            'po_attestation_fct': activity_category.po_attestation_fct,
+            'po_attestation_sign': activity_category.po_attestation_sign,
+            'logo': activity_category.logo,
+            'slogan': activity_category.slogan,
+            'biller_report_id': activity_category.biller_report_id,
+            'qrcode_report_id': activity_category.qrcode_report_id,
+            'taxcertificatetemplate': activity_category.taxcertificatetemplate,
+        })

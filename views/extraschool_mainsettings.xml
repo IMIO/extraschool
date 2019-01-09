@@ -70,6 +70,9 @@
                                     <button name="reset_biller" string="Reset" icon="gtk-apply" type="object"/>
                                     <button name="reconcil_all" string="Reconcil" icon="gtk-apply" type="object"/>
                                 </page>
+                                <page string="PO reprise">
+                                    <button name="reprise_signaletic" string="Reprise" icon="gtk-apply" type="object"/>
+                                </page>
                         </notebook>
                     </sheet>
 				</form>

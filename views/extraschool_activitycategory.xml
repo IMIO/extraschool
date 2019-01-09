@@ -52,80 +52,82 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
             <form string="Activity category">
-            	<notebook>
-            		<page string="Configuration">
-            			<group col="2">
+                <sheet>
+                    <notebook>
+                        <page string="Configuration">
+                            <group col="2">
 
-			                <field name="organising_power_id" />
-                            <field name="childpositiondetermination" />
-			        	</group>
-            		</page>
-    	            <page string="Activities">
-						<field name="activities" readonly="True"/>
-					</page>
-    	            <page string="Bank">
-						<group col="4">
-			                <field name="bankaccount" />
-			                <field name="bank_bic" />
-			                <field name="bank_address" />
-			                <newline/>
-			                <field name="bank_zip" />
-			                <field name="bank_city" />
-			                <newline/>
-						</group>
-					</page>
-					<page string="Invoice">
-						<group col="4">
-			                <field name="invoicetemplate" />
-			                <field name="invoicecomstructprefix" />
-			                <field name="invoicelastcomstruct" />
-			                <field name="invoiceemailaddress" />
-			                <newline/>
-			                <field name="invoiceemailsubject" />
-			                <newline/>
-			                <separator string="Text de l email" colspan="4"/>
-			                <field name="invoiceemailtext"  nolabel="1" colspan="4" />
-			                <newline/>
-			                <separator string="Commentaire de la facture" colspan="4"/>
-			                <field name="invoice_comment" nolabel="1"  colspan="4" widget="html"/>
-			                <newline/>
-							<separator string="Commentaire de la facture 2" colspan="4"/>
-			                <field name="invoice_comment2" nolabel="1"  colspan="4" widget="html"/>
-			                <newline/>
-			                <field name="invoice_report_id" />
-			                <field name="invoice_detail_report_id" />
-						</group>
-					</page>
-					<page string="Reminder">
-						<group col="4">
-			                <field name="remindercomstructprefix" />
-			                <field name="reminderlastcomstruct" />
-			                <field name="reminderemailaddress" />
-			                <newline/>
-			                <field name="reminderemailsubject" />
-			                <newline/>
-			                <field name="reminderemailtext" />
-			                <separator string="Reminder type" colspan="4"/>
-			                <field name="reminer_type_ids"  nolabel="1" colspan="4"/>
-						</group>
-					</page>
-					<page string="Pre Payment">
-						<group col="4">
-							<field name="payment_invitation_report_id" />
-							<newline/>
-							<field name="payment_invitation_email_subject" />
-							<newline/>
-							<field name="payment_invitation_com_struct_prefix" />
-							<newline/>
-							<field name="payment_invitation_courrier_text" widget="html"/>
-						</group>
-					</page>
-					<page string="Sequences">
-						<group col="4">
-							<field name="sequence_ids"  nolabel="1"/>
-						</group>
-					</page>
-              	</notebook>
+                                <field name="organising_power_id" />
+                                <field name="childpositiondetermination" />
+                            </group>
+                        </page>
+                        <page string="Activities">
+                            <field name="activities" readonly="True"/>
+                        </page>
+                        <page string="Bank">
+                            <group col="4">
+                                <field name="bankaccount" />
+                                <field name="bank_bic" />
+                                <field name="bank_address" />
+                                <newline/>
+                                <field name="bank_zip" />
+                                <field name="bank_city" />
+                                <newline/>
+                            </group>
+                        </page>
+                        <page string="Invoice">
+                            <group col="4">
+                                <field name="invoicetemplate" />
+                                <field name="invoicecomstructprefix" />
+                                <field name="invoicelastcomstruct" />
+                                <field name="invoiceemailaddress" />
+                                <newline/>
+                                <field name="invoiceemailsubject" />
+                                <newline/>
+                                <separator string="Text de l email" colspan="4"/>
+                                <field name="invoiceemailtext"  nolabel="1" colspan="4" />
+                                <newline/>
+                                <separator string="Commentaire de la facture" colspan="4"/>
+                                <field name="invoice_comment" nolabel="1"  colspan="4" widget="html"/>
+                                <newline/>
+                                <separator string="Commentaire de la facture 2" colspan="4"/>
+                                <field name="invoice_comment2" nolabel="1"  colspan="4" widget="html"/>
+                                <newline/>
+                                <field name="invoice_report_id" />
+                                <field name="invoice_detail_report_id" />
+                            </group>
+                        </page>
+                        <page string="Reminder">
+                            <group col="4">
+                                <field name="remindercomstructprefix" />
+                                <field name="reminderlastcomstruct" />
+                                <field name="reminderemailaddress" />
+                                <newline/>
+                                <field name="reminderemailsubject" />
+                                <newline/>
+                                <field name="reminderemailtext" />
+                                <separator string="Reminder type" colspan="4"/>
+                                <field name="reminer_type_ids"  nolabel="1" colspan="4"/>
+                            </group>
+                        </page>
+                        <page string="Pre Payment">
+                            <group col="4">
+                                <field name="payment_invitation_report_id" />
+                                <newline/>
+                                <field name="payment_invitation_email_subject" />
+                                <newline/>
+                                <field name="payment_invitation_com_struct_prefix" />
+                                <newline/>
+                                <field name="payment_invitation_courrier_text" widget="html"/>
+                            </group>
+                        </page>
+                        <page string="Sequences">
+                            <group col="4">
+                                <field name="sequence_ids"  nolabel="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
             </form>
             </field>
         </record>

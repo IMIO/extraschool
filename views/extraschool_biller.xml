@@ -27,61 +27,75 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Biller" create="false">
-					<header>
-						<button name="export_onyx" string="Export Onyx" type="object" class="oe_highlight" groups="base.group_erp_manager"/>
-						<button name="generate_pdf" string="Création PDF" type="object" class="oe_highlight" groups="base.group_erp_manager"/>
-						<button name="pay_all" string="Pay All" type="object" confirm="Are you sure you want to pay all invoices in this biller ? This is not reversible !!" groups="extraschool.extraschool_gods"/>
-						<!--<button name="compute_discount" string="discount" type="object" class="oe_highlight" groups="base.group_erp_manager"/>	-->
-					</header>
-					<div class="oe_right oe_button_box" name="processin" attrs="{'invisible':[('pdf_ready', '=', True)]}">
-						<h2>Création des PDF en cours .....</h2>
-					</div>
-					<div class="oe_right oe_button_box" name="buttons" attrs="{'invisible':[('pdf_ready', '=', False)]}">
-						<button name="mail_invoices" string="Factures courrier" type="object" class="oe_inline oe_stat_button" icon="fa-print"/>
-						<button name="email_invoices" string="Email factures" type="object" class="oe_inline oe_stat_button" icon="fa-envelope-o"/>
-						<button name="all_invoices" string="Toutes les factures" type="object" class="oe_inline oe_stat_button" icon="fa-files-o"/>
-						<button name="all_pdf" string="Docs" type="object" class="oe_inline oe_stat_button" icon="fa-files-o" groups="base.group_erp_manager"/>
-					</div>
-				<field name="pdf_ready" invisible="True"/>
-				<group col="4">
-                    <field name="period_from"/>
-					<field name="period_to"/>
-                    <newline/>
-                    <field name="payment_term"/>
-                    <field name="activitycategoryid" options="{'no_create':True}" widget="many2many_tags"/>
-                    <newline/>
-                    <field name="total"/>
-                    <newline/>
-                    <field name="received"/>
-                    <newline/>
-                    <field name="novalue"/>
-                    <newline/>
-                    <field name="balance"/>
-                    <newline/>
-                    <field name="biller_file" filename="filename" invisible="True"/>
-                    <newline/>
-                    <field name="nbinvoices"/>
-                    <newline/>
-                    <field name="other_ref"/>
-                    <newline/>
-                    <field name="comment" widget="html"/>
+                    <header>
+                        <button name="export_onyx" string="Export Onyx" type="object" class="oe_highlight" groups="base.group_erp_manager"/>
+                        <button name="generate_pdf" string="Création PDF" type="object" class="oe_highlight" groups="base.group_erp_manager"/>
+                        <button name="pay_all" string="Pay All" type="object" confirm="Are you sure you want to pay all invoices in this biller ? This is not reversible !!" groups="extraschool.extraschool_gods"/>
+                        <!--<button name="compute_discount" string="discount" type="object" class="oe_highlight" groups="base.group_erp_manager"/>	-->
+                    </header>
+                    <sheet>
+                        <div class="oe_right oe_button_box" name="processin" attrs="{'invisible':[('pdf_ready', '=', True)]}">
+                            <h2>Création des PDF en cours .....</h2>
+                        </div>
+                        <div class="oe_right oe_button_box" name="buttons" attrs="{'invisible':[('pdf_ready', '=', False)]}">
+                            <button name="mail_invoices" string="Factures courrier" type="object" class="oe_inline oe_stat_button" icon="fa-print"/>
+                            <button name="email_invoices" string="Email factures" type="object" class="oe_inline oe_stat_button" icon="fa-envelope-o"/>
+                            <button name="all_invoices" string="Toutes les factures" type="object" class="oe_inline oe_stat_button" icon="fa-files-o"/>
+                            <button name="all_pdf" string="Docs" type="object" class="oe_inline oe_stat_button" icon="fa-files-o" groups="base.group_erp_manager"/>
+                        </div>
+                    <field name="pdf_ready" invisible="True"/>
+                    <group col="4">
+                        <field name="period_from"/>
+                        <field name="period_to"/>
+                        <newline/>
+                        <field name="payment_term"/>
+                        <field name="activitycategoryid" options="{'no_create':True}" widget="many2many_tags"/>
+                        <newline/>
+                        <field name="total"/>
+                        <newline/>
+                        <field name="received"/>
+                        <newline/>
+                        <field name="novalue"/>
+                        <newline/>
+                        <field name="balance"/>
+                        <newline/>
+                        <field name="biller_file" filename="filename" invisible="True"/>
+                        <newline/>
+                        <field name="nbinvoices"/>
+                        <newline/>
+                        <field name="other_ref"/>
+                        <newline/>
+                        <field name="comment" widget="html"/>
 
-                    </group>
-                    <separator string="Invoices"/>
-					<field name="invoice_ids">
-						<tree>
-							<field name="parentid"/>
-	                        <field name="activitycategoryid"/>
-							<field name="structcom"/>
-	                        <field name="period_from"/>
-	                        <field name="period_to"/>
-	                        <field name="payment_term"/>
-	                        <field name="amount_total" sum="True"/>
-	                        <field name="amount_received" sum="True"/>
-	                        <field name="balance" sum="True"/>
-	                        <field name="no_value"/>
-						</tree>
-					</field>
+                        </group>
+                        <notebook>
+                            <page string="Invoices">
+                                <field name="invoice_ids">
+                                    <tree>
+                                        <field name="parentid"/>
+                                        <field name="activitycategoryid"/>
+                                        <field name="structcom"/>
+                                        <field name="period_from"/>
+                                        <field name="period_to"/>
+                                        <field name="payment_term"/>
+                                        <field name="amount_total" sum="True"/>
+                                        <field name="amount_received" sum="True"/>
+                                        <field name="balance" sum="True"/>
+                                        <field name="no_value"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Accrued">
+                                <field name="accrued_ids" create="False" delete="False">
+                                    <tree editable="bottom">
+                                        <field name="activity_category_id" readonly="True"/>
+                                        <field name="amount" sum="true" readonly="True"/>
+                                        <field name="ref"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
                     <div class="oe_chatter" groups="extraschool.extraschool_gods">
                         <field name="message_follower_ids" widget="mail_followers"/>
                         <field name="message_ids" widget="mail_thread"/>

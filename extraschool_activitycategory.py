@@ -61,6 +61,7 @@ class extraschool_activitycategory(models.Model):
     po_addresse_free_text2 = fields.Char('Adresse texte libre 2')
 
     organising_power_id = fields.Many2one('extraschool.organising_power', 'Organising Power', required=True)
+    accrued_ids = fields.One2many('extraschool.accrued', 'activity_category_id')
 
     childpositiondetermination = fields.Selection((('byparent','by parent'),
                                                    ('byparentwp','by parent (only childs with prestations)'),

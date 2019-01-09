@@ -155,11 +155,11 @@ class extraschool_invoice_wizard(models.TransientModel):
                                     where ept.prestation_date between %s and %s
                                         and verified = True
                                         and invoiced_prestation_id is NULL
-                                        and activity_category_id = %s
+                                        and activity_category_id IN %s
                                         and c.schoolimplantation in %s
                                 ;"""
 
-        self.env.cr.execute(sql_check_presta_to_invoice, (self.period_from, self.period_to, self.activitycategory.id, tuple(self.schoolimplantationid.ids),))
+        self.env.cr.execute(sql_check_presta_to_invoice, (self.period_from, self.period_to, tuple(self.activitycategory.ids), tuple(self.schoolimplantationid.ids),))
         to_invoice_count = self.env.cr.dictfetchall()
 
         if not to_invoice_count[0]['to_invoice_count']:
@@ -178,11 +178,11 @@ class extraschool_invoice_wizard(models.TransientModel):
                                     left join extraschool_child c on ept.childid = c.id
                                     where ept.prestation_date between %s and %s
                                         and verified = False
-                                        and activity_category_id = %s
+                                        and activity_category_id IN %s
                                         and c.schoolimplantation in %s 
                                 ;"""
 
-        self.env.cr.execute(sql_check_verified, (self.period_from, self.period_to, self.activitycategory.id, tuple(self.schoolimplantationid.ids),))
+        self.env.cr.execute(sql_check_verified, (self.period_from, self.period_to, tuple(self.activitycategory.ids), tuple(self.schoolimplantationid.ids),))
         verified_count = self.env.cr.dictfetchall()
 
         if verified_count[0]['verified_count']:
@@ -437,6 +437,7 @@ class extraschool_invoice_wizard(models.TransientModel):
         inv_line_obj = self.env['extraschool.invoicedprestations']
 
         obj_biller = self.env['extraschool.biller']
+        obj_accrued = self.env['extraschool.accrued']
 
         #create a bille to store invoice
         biller = obj_biller.create({'period_from' : self.period_from,
@@ -480,9 +481,9 @@ class extraschool_invoice_wizard(models.TransientModel):
                                 group by ept.parent_id,c.schoolimplantation,childid, p.streetcode,case when tarif_group_name = '' or tarif_group_name is NULL then a.name else tarif_group_name  end, ept.prestation_date, ept.activity_category_id
                                 order by parent_id, c.schoolimplantation, min(activity_occurrence_id);"""
 
-#         print "---------------"
-#         print (sql_mega_invoicing) % (self.period_from, self.period_to, self.activitycategory.id)
-#         print "---------------"
+        #         print "---------------"
+        #         print (sql_mega_invoicing) % (self.period_from, self.period_to, self.activitycategory.id)
+        #         print "---------------"
 
         self.env.cr.execute(sql_mega_invoicing, (self.period_from, self.period_to, tuple(self.activitycategory.ids),))
 
@@ -500,7 +501,6 @@ class extraschool_invoice_wizard(models.TransientModel):
         year = biller.get_from_year()
 
         sequence_id = self.env['extraschool.activitycategory'].get_sequence('invoice',year)
-        print "Start - Create invoice header"
 
         args=[]
         invoice = False
@@ -513,14 +513,14 @@ class extraschool_invoice_wizard(models.TransientModel):
                 next_invoice_num = self.env['extraschool.activitycategory'].search(
                     [('id', '=', invoice_line['activity_category_id'])]).get_next_comstruct('invoice', year,
                                                                                             sequence_id, )
-#                 invoice = inv_obj.with_context(ctx).create({'name' : _('invoice_%s') % (next_invoice_num['num'],),
-#                                             'number' : next_invoice_num['num'],
-#                                             'parentid' : saved_parent_id,
-#                                             'biller_id' : biller.id,
-#                                             'activitycategoryid': self.activitycategory.id,
-#                                             'schoolimplantationid': saved_schoolimplantation_id,
-#                                             'payment_term': biller.payment_term,
-#                                             'structcom': next_invoice_num['com_struct']})
+                #                 invoice = inv_obj.with_context(ctx).create({'name' : _('invoice_%s') % (next_invoice_num['num'],),
+                #                                             'number' : next_invoice_num['num'],
+                #                                             'parentid' : saved_parent_id,
+                #                                             'biller_id' : biller.id,
+                #                                             'activitycategoryid': self.activitycategory.id,
+                #                                             'schoolimplantationid': saved_schoolimplantation_id,
+                #                                             'payment_term': biller.payment_term,
+                #                                             'structcom': next_invoice_num['com_struct']})
                 #NEW WAY
                 # id = self.env['extraschool.invoice'].create({
                 #     'name': ('invoice_%s') % (next_invoice_num['num'],),
@@ -548,7 +548,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                       saved_schoolimplantation_id,
                                       biller.payment_term,
                                       next_invoice_num['com_struct']
-                                     ),
+                                      ),
                            'lines': []}
 
 
@@ -570,7 +570,6 @@ class extraschool_invoice_wizard(models.TransientModel):
                                             %s,%s,%s,%s,%s,
                                             %s,%s,%s)""", x["values"]) for x in args)
 
-        print "exec sql create headers"
         #print insert_data
         invoice_ids = cr.execute("""insert into extraschool_invoice
                                     (create_uid, create_date, write_uid, write_date,
@@ -595,7 +594,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                     lines_args_str += ","
                 lines_args_str += ','.join(cr.mogrify("""(%s, current_timestamp, %s, current_timestamp,
                                                             """ + str(invoice_ids[i]['id']) +
-                                                            """,%s,%s,%s)""", x) for x in args[i]['lines'])
+                                                      """,%s,%s,%s)""", x) for x in args[i]['lines'])
 
             i+=1
 
@@ -801,12 +800,29 @@ class extraschool_invoice_wizard(models.TransientModel):
 
         invoice_ids_rs = inv_obj.browse(invoice_ids)
 
-        invoice_ids_rs.activitycategoryid = [(6, False, self.activitycategory.ids)]
+        # Put activity categories in invoices
+        for invoice in invoice_ids_rs:
+            invoice.activitycategoryid = [(6, False, self.activitycategory.ids)]
 
         print "Discount ..............."
         self.env['extraschool.discount'].compute(biller)
 
         invoice_ids_rs.reconcil()
+
+        # Create the accrued for the biller
+        invoice_ids = self.env['extraschool.invoice'].search([('biller_id', '=', biller.id)])
+        invoice_line_ids = self.env['extraschool.invoicedprestations'].search([('invoiceid', 'in', invoice_ids.ids)])
+
+        for activity_category in self.activitycategory.ids:
+            amount = 0
+            for invoice_line in invoice_line_ids.filtered(lambda r: r.activity_occurrence_id.activity_category_id.id == activity_category):
+                amount += invoice_line.total_price
+
+            obj_accrued.create({
+                'biller_id': biller.id,
+                'activity_category_id': activity_category,
+                'amount': amount,
+            })
 
         _logger.info("End invoicing")
         _logger.info("Start generation of PDF")
@@ -819,15 +835,15 @@ class extraschool_invoice_wizard(models.TransientModel):
                                                              ('name','=','Biller.form')])
 
         return {
-                'type': 'ir.actions.act_window',
-                'res_model': 'extraschool.biller',
-                'res_id': biller.id,
-                'view_type': 'form',
-                'view_mode': 'form',
-                'view_id': view_id,
-                'nodestroy': True,
-                'target': 'current',
-            }
+            'type': 'ir.actions.act_window',
+            'res_model': 'extraschool.biller',
+            'res_id': biller.id,
+            'view_type': 'form',
+            'view_mode': 'form',
+            'view_id': view_id,
+            'nodestroy': True,
+            'target': 'current',
+        }
 
     @api.multi
     def action_compute_invoices(self):
