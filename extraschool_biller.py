@@ -416,7 +416,7 @@ class extraschool_biller(models.Model):
         output += u"Numéro\tBoîte\tIndex\tCode postal\tLocalité\tPays\tLangue du redevable\tCivilité\tCode rue\tLibellé rue\t"
         output += u"Numéro\tBoîte\tIndex\tCode postal\tLocalité\tDate debut\tdate fin\tCommentaires\tsepar\tN fact\tN°\tM/P\t"
         output += u"NOM\tPRENOM\tDATE DE NAISSANCE\tN° REGISTRE NATIONAL\tANNEE D'ETUDE\tDate accueil\t"
-        output += u"activité\tNbr j presences\tfisc\ttotal\n"
+        output += u"activité\tNbr j presences\tfisc\ttotal\tquantité\n"
         total = 0
         for invoice in self.invoice_ids:
             export = invoice.export_onyx()
