@@ -249,6 +249,7 @@ class extraschool_invoice(models.Model):
         saved_child['inv_date_str'] = time.strftime('%d/%m/%Y',time.strptime(invoicedline.prestation_date,'%Y-%m-%d'))
         saved_child['splited_place_street'] = p.findall(invoicedline.placeid.street)
         saved_child['place'] = invoicedline.placeid
+        saved_child['quantity'] = invoicedline.quantity
 
         return saved_child
 
@@ -307,7 +308,8 @@ class extraschool_invoice(models.Model):
         format_str += "%s\t" # activity
         format_str += "%s\t" # nbr j présences
         format_str += "%.2f\t" # fisc amount
-        format_str += "%.2f" # amount
+        format_str += "%.2f\t" # amount
+        format_str += "%.2f" # quantity
 
 
         format_activities_str = ""
@@ -339,6 +341,7 @@ class extraschool_invoice(models.Model):
         saved_child['inv_date_str'] = ""
         saved_child['splited_place_street'] = []
         saved_child['place'] = ''
+        saved_child['quantity'] = 0.0
 
 
         total = 0
@@ -391,7 +394,8 @@ class extraschool_invoice(models.Model):
                                         saved_child['saved_activity'],
                                         1 if saved_child['nbr_jour'] >= 1 and not saved_child['nbr_jour_printed'] else 0,
                                         saved_child['fisc_amount'],
-                                        saved_child['amount']
+                                        saved_child['amount'],
+                                        saved_child['quantity']
                                         )
                 total+=saved_child['amount']
                 if saved_child['nbr_jour']:
@@ -456,7 +460,8 @@ class extraschool_invoice(models.Model):
             saved_child['saved_activity'],
             1 if saved_child['nbr_jour'] >= 1 and not saved_child['nbr_jour_printed'] else 0,
             saved_child['fisc_amount'],
-            saved_child['amount']
+            saved_child['amount'],
+            saved_child['quantity'],
                                         )
             total+=saved_child['amount']
             res.append(str_line)
