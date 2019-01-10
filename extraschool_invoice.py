@@ -53,7 +53,7 @@ class extraschool_invoice(models.Model):
     parentid = fields.Many2one('extraschool.parent', 'Parent', required=False, index = True, track_visibility='onchange')
     invoicesendmethod = fields.Selection(related="parentid.invoicesendmethod", store=True, track_visibility='onchange')
     number = fields.Integer('Number',readonly=True, track_visibility='onchange')
-    structcom = fields.Char('Structured Communication', size=50,readonly=True, index = True, track_visibility='onchange')
+    structcom = fields.Char('Structured Communication', size=50, readonly=True, required=True, track_visibility='onchange')
     amount_total = fields.Float(string='Amount',digits_compute=dp.get_precision('extraschool_invoice'),readonly=True, store=True, track_visibility='onchange')
     amount_received = fields.Float( string='Received',readonly=True,store=True, track_visibility='onchange')
     balance = fields.Float(digits_compute=dp.get_precision('extraschool_invoice'), string='Balance',readonly=True, store=True, track_visibility='onchange')
@@ -78,14 +78,11 @@ class extraschool_invoice(models.Model):
     fees_huissier = fields.Float('Fees Huissier', default=0.0, track_visibility='onchange')
     tag = fields.Many2one('extraschool.invoice_tag', 'Tag', readonly=True, track_visibility='onchange')
 
-#
-#     @api.onchange('payment_ids')
-#     @api.depends('payment_ids')
-#     def _compute_amount_received(self):
-#         for invoice in self:
-#             invoice.amount_received = sum(reconcil_line.amount for reconcil_line in invoice.payment_ids)
+    _sql_constraints = [
+        ('structcom_uniq', 'unique(structcom)',
+            "The structured communication is already distributed. Please contact support-aes@imio.be"),
+    ]
 
-#    @api.depends('amount_total' ,'amount_received')
     @api.model
     def update_activity_category(self):
         base_activity_category = self.env['extraschool.activitycategory'].search([])[0]
