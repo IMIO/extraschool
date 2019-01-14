@@ -44,7 +44,7 @@
 				        					<td><span t-field="invoice_line.description" /></td>
 					       					<td><span t-field="summary_invoice.payment_term" /></td>
 					       					<td class="amount"><span t-esc="TODO" /></td>
-											<!--<td class="amount"><span t-esc="'%.2f €' %  (invoice_line.balance)" /></td>-->
+											<td class="amount"><span t-esc="'%.2f €' %  (summary_invoice.balance)" /></td>
 				       					</tr>
 	        						</t>
 								</t>
@@ -65,6 +65,7 @@
                 <span style="font-weight: bold;">Services urbanisme, travaux, environnement</span> les vendredis de 15h00 à 18h00<br/>
                 <span style="font-weight: bold;">Service population et état civil</span> les vendredis de 15h00 à 18h00<br/>
                 <span style="font-weight: bold;">Permanence du Bourgmestre</span> le vendredi de 15h00 à 19h00<br/>
+                Ces permanences sont maintenues en juillet et août mais les services pourraient être restreints durant ces périodes précises.
             </div>
 		</template>
 
