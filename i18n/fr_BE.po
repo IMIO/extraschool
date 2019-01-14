@@ -893,7 +893,7 @@ msgstr "Montant accepté"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_logo_reminder
 msgid "Logo reminder"
-msgstr "Logo du rappe"
+msgstr "Logo du rappel"
 
 #. module: extraschool
 #: code:addons/extraschool/extraschool_coda.py:154
