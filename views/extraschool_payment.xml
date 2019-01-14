@@ -167,6 +167,7 @@
 		            	<!--<field name="payment_date"/>-->
 		                <field name="parent_id"/>
 		                <field name="com_struct"/>
+                        <field name="reminder_to_pay"/>
 		                <field name="solde" sum="True"/>
 		                <field name="totalbalance" sum="True"/>
 		                <field name="nbr_actif_child"/>

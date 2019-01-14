@@ -58,8 +58,8 @@
 		</template>
 
         <template id="report_std_footer_clavier">
-		    <div class="col-sm-12" style="margin-top:100px; font-size:12px;color:brown">
-                <h3>heures d'ouvertures :</h3><br/>
+		    <div class="col-sm-12" style="margin-top:100px; font-size:10px;color:brown">
+                <span style="font-size: 12px;">heures d'ouvertures :</span><br/>
                 <span style="font-weight: bold;">Tous services</span><br/>
                 du lundi au jeudi de 09h00 à 12h00<br/>
                 <span style="font-weight: bold;">Services urbanisme, travaux, environnement</span> les vendredis de 15h00 à 18h00<br/>
