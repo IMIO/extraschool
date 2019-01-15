@@ -2,7 +2,6 @@
 <openerp>
 	<data>
 		<template id="tpl_taxe_certificate_wizard_report" inherit_id="report.layout" primary="True">
-                <!--<link rel="stylesheet" href="/extraschool/static/src/css/tpl_taxe_certificate_wizard_report.css"/>-->
 
         	<xpath expr="//head" position="inside">
               <script src="/extraschool/static/src/js/pagination_hide.js"></script>
@@ -15,98 +14,164 @@
             <xpath expr="//body" position="attributes">
 				<attribute name="t-att-class">container</attribute>
 		    </xpath>
+            <xpath expr="//head" position="inside">
+                <link href="/web/static/lib/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+                <link href="/website/static/src/css/website.css" rel="stylesheet"/>
+                <link href="/web/static/lib/fontawesome/css/font-awesome.css" rel="stylesheet"/>
+            </xpath>
 
+            <xpath expr="//head" position="inside">
+                <script src="/extraschool/static/src/js/pagination_hide.js"></script>
+            </xpath>
+
+            <xpath expr="//body" position="attributes">
+                <attribute t-translation="off" name="onload">subst(); pagination_hide();</attribute>
+            </xpath>
+
+            <xpath expr="//body" position="attributes">
+                <attribute name="t-att-class">container</attribute>
+            </xpath>
             <xpath expr="//body" position="inside">
-                <div class="test">
-                    <h3>Hello world!</h3>
+                <t t-foreach="docs" t-as="attest">
+                <div class="page">
+                    <style type="text/css">
+                        body {
+                              font-family: arial !important;
+                              font-size:18px;
+                            }
+
+                            .frame {
+                                border-style: solid;
+                                border-width: 1px;
+                                padding: 7mm;
+                                margin : 0 5mm;
+                            }
+
+                            .frame>div {
+                                margin-left : 5mm;
+                            }
+
+                            .frame>ol>li>div {
+                                margin-left : 1cm;
+                            }
+
+                            .parent_adr{
+                                display: block;
+                                float: right;
+                                width: 7cm;
+                            }
+
+                            .signature {
+                                display: block;
+                                float: right;
+                                width: 10cm;
+                            }
+
+                            ol>li {
+                                counter-increment:item;
+                                list-style:none inside;
+                                clear: both;
+                            }
+
+                            ol>li:before {content:"(" counter(item) ")"; padding-right:0.5em}
+
+                            ol>li>div {
+                                margin-left: 2cm;
+                            }
+                            ol.main_list>li{
+                                margin: 15px 0;
+                            }
+
+                            .po>span {
+                                display: block;
+                                clear: both;
+                            }
+
+                            .signature>span {
+                                display: block;
+                                clear: both;
+                            }
+
+                            .po_sign {
+                                display: block;
+                                clear: both;
+                                max-width: 6cm;
+                            }
+
+                            .attest_comment{
+                                font-size:9px;
+                            }
+                    </style>
+                    <div class="frame">
+							<span>Cadre II</span> (A remplir par l'institution, le milieu d'accueil, la crèche, la famille d'accueil, l'école maternelle ou primaire, le pouvoir organisateur de l'école maternelle ou primaire, le pouvoir public local, communautaire ou régional)
+							<ol class="main_list">
+								<li>Numéro d'ordre de l'attestation : <span t-field="attest.name" /></li>
+								<li>Nom, prénom et adresse du débiteur des frais de garde d'enfant :
+									<div class="row">
+										<div class="parent_adr">
+											<div class="row">
+												<span t-field="attest.parent_id.lastname" /> <span t-field="attest.parent_id.firstname" />
+											</div>
+											<div class="row">
+												<span t-field="attest.parent_id.street" />
+											</div>
+											<div class="row">
+												<span t-field="attest.parent_id.zipcode" /> <span t-field="attest.parent_id.city" />
+											</div>
+										</div>
+									</div>
+								</li>
+								<!--<li>Nom et prénom de l'enfant : <span t-field="attest.child_id.firstname" /> <span t-field="attest.child_id.lastname" /> (<span t-field="attest.child_id.schoolimplantation.name" /> - <span t-field="attest.child_id.classid.name" />)</li>-->
+								<li>Nom et prénom de l'enfant : <span t-field="attest.child_id.lastname" /> <span t-field="attest.child_id.firstname" /> (<span t-field="attest.child_id.schoolimplantation.name" />)</li>
+								<li>Date de naissance de l'enfant : <span t-field="attest.child_id.birthdate" /> </li>
+								<li>Période pendant laquelle l'enfant a été gardé (1) :
+									<div class="row">du 01/01/<t t-esc="attest.taxcertificate_id.name"/> au 31/12/<t t-esc="attest.taxcertificate_id.name"/></div>
+								</li>
+								<li>Nombre de jours de garde :  <t t-esc="attest.nbr_day"/> </li>
+								<li>Tarif journalier (2) : </li>
+								<li>Montant total perçu :  <t t-esc="str('%.2f' % (attest.amount)).replace('.', ',')"/>  EUR</li>
+							</ol>
+							<div class="row">
+							Le soussigné certifie exacts les renseignements mentionnés ci-avant.
+							</div>
+							<div class="row">
+								<div>
+									<div class="cachet">
+										<img class="po_stamp" t-att-src="'data:image/jpeg;base64,%s' % attest.taxcertificate_id.activity_category_id.po_stamp" />
+									</div>
+									<div class="signature">
+										<span>Fait à <t t-esc="attest.taxcertificate_id.activity_category_id.po_city"/>, le <span t-field="attest.taxcertificate_id.doc_date" /></span>
+										<span class="po_resp_name"><t t-esc="attest.taxcertificate_id.activity_category_id.po_attestation_name"/></span>
+										<span class="po_resp_name"><t t-esc="attest.taxcertificate_id.activity_category_id.po_attestation_fct"/></span>
+										<img class="po_sign" t-att-src="'data:image/jpeg;base64,%s' % attest.taxcertificate_id.activity_category_id.po_attestation_sign" />
+										<span class="attest_comment">(Nom, qualité et signature de la personne habilitée à représenter l'institution, le milieu d'accueil, la crèche, la famille   d'accueil,   l'école   maternelle   ou   primaire,   le pouvoir organisateur de l'école maternelle ou primaire, le pouvoir public local, communautaire ou régional)</span>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								Nom et adresse complète de l'école maternelle ou primaire, du pouvoir organisateur de l'école maternelle ou primaire, du pouvoir public local, communautaire ou régional (3) :
+							</div>
+							<div class="po">
+								<span><t t-esc="attest.taxcertificate_id.activity_category_id.po_name"/></span>
+								<span><t t-esc="attest.taxcertificate_id.activity_category_id.po_street"/></span>
+								<span><t t-esc="attest.taxcertificate_id.activity_category_id.po_zipcode"/> <t t-esc="attest.taxcertificate_id.activity_category_id.po_city"/></span>
+							</div>
+						</div>
+						<ol class="attest_comment">
+							<li>Les données mentionnées sur l'attestation ne peuvent concerner que la partie de l'année précédant le 12ème anniversaire de l'enfant.</li>
+							<li>Si plusieurs tarifs sont appliqués, il convient de fournir le détail du nombre total de jours de garde par tarif
+appliqué.   Ce   détail   peut,   le   cas   échéant,   être   joint   dans   une   annexe   à   la   présente   attestation.
+Pour les frais de garde payés soit aux écoles maternelles ou primaires, soit aux pouvoirs organisateurs de ces
+écoles maternelles ou  primaires,  soit aux institutions ou  milieux d'accueil  ayant un  lien  avec ces écoles
+maternelles ou primaires ou les pouvoirs organisateurs des écoles maternelles ou primaires, le tarif journalier
+ne doit cependant être mentionné que s'il est supérieur au montant maximum de 11,20 EUR par jour de garde.
+								</li>
+							<li>A ne compléter que lorsque les frais de garde sont payés directement aux instances mentionnées.</li>
+						</ol>
+
                 </div>
-			</xpath>
-
-                    <!--<xpath expr="//head" position="inside">-->
-                        <!--<link rel="stylesheet" href="/extraschool/static/src/css/tpl_taxe_certificate_wizard_report.css"/>-->
-                        <!--<link href="/web/static/lib/bootstrap/css/bootstrap.css" rel="stylesheet"/>-->
-                        <!--<link href="/website/static/src/css/website.css" rel="stylesheet"/>-->
-                        <!--<link href="/web/static/lib/fontawesome/css/font-awesome.css" rel="stylesheet"/>-->
-                    <!--</xpath>-->
-
-                    <!--<xpath expr="//head" position="inside">-->
-                        <!--<script src="/extraschool/static/src/js/pagination_hide.js"></script>-->
-                    <!--</xpath>-->
-
-                    <!--<xpath expr="//body" position="attributes">-->
-                        <!--<attribute t-translation="off" name="onload">subst(); pagination_hide();</attribute>-->
-                    <!--</xpath>-->
-
-                    <!--<xpath expr="//body" position="attributes">-->
-                        <!--<attribute name="t-att-class">container</attribute>-->
-                    <!--</xpath>-->
-                    <!--<xpath expr="//body" position="inside">-->
-                        <!--<t t-foreach="docs" t-as="attest">-->
-                        <!--<div class="page">-->
-                            <!--<div style="border-style: solid;border-width: 1px;padding: 5mm;">-->
-                                <!--<span>Cadre II</span> (A remplir par l'institution, le milieu d'accueil, la crèche, la famille d'accueil, l'école maternelle ou primaire, le pouvoir organisateur de l'école maternelle ou primaire, le pouvoir public local, communautaire ou régional)-->
-                                <!--<ol class="main_list">-->
-                                    <!--<li style="margin: 15px 0;">Numéro d'ordre de l'attestation : <span t-field="attest.name" /></li>-->
-                                    <!--<li style="margin: 15px 0;">Nom, prénom et adresse du débiteur des frais de garde d'enfant :-->
-                                        <!--<div style="margin-left : 1cm;">-->
-                                            <!--<div style="display: block;float: right;width: 7cm;">-->
-                                                <!--<div style="margin-left: 2cm;">-->
-                                                    <!--<span t-field="attest.parent_id.lastname" /> <span t-field="attest.parent_id.firstname" />-->
-                                                <!--</div>-->
-                                                <!--<div style="margin-left: 2cm;">-->
-                                                    <!--<span t-field="attest.parent_id.street" />-->
-                                                <!--</div>-->
-                                                <!--<div style="margin-left: 2cm;">-->
-                                                    <!--<span t-field="attest.parent_id.zipcode" /> <span t-field="attest.parent_id.city" />-->
-                                                <!--</div>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                    <!--</li>-->
-                                    <!--&lt;!&ndash;<li>Nom et prénom de l'enfant : <span t-field="attest.child_id.firstname" /> <span t-field="attest.child_id.lastname" /> (<span t-field="attest.child_id.schoolimplantation.name" /> - <span t-field="attest.child_id.classid.name" />)</li>&ndash;&gt;-->
-                                    <!--<li style="margin: 15px 0;">Nom et prénom de l'enfant : <span t-field="attest.child_id.lastname" /> <span t-field="attest.child_id.firstname" /> (<span t-field="attest.child_id.schoolimplantation.name" />)</li>-->
-                                    <!--<li style="margin: 15px 0;">Date de naissance de l'enfant : <span t-field="attest.child_id.birthdate" /> </li>-->
-                                    <!--<li style="margin: 15px 0;">Période pendant laquelle l'enfant a été gardé (1) :-->
-                                        <!--<div style="margin-left: 2cm;">du 01/01/<t t-esc="attest.taxcertificate_id.name"/> au 31/12/<t t-esc="attest.taxcertificate_id.name"/></div>-->
-                                    <!--</li>-->
-                                    <!--<li style="margin: 15px 0;">Nombre de jours de garde :  <t t-esc="attest.nbr_day"/> </li>-->
-                                    <!--<li style="margin: 15px 0;">Tarif journalier (2) : </li>-->
-                                    <!--<li style="margin: 15px 0;">Montant total perçu :  <t t-esc="str('%.2f' % (attest.amount)).replace('.', ',')"/>  EUR</li>-->
-                                <!--</ol>-->
-                                <!--<div class="row">-->
-                                <!--Le soussigné certifie exacts les renseignements mentionnés ci-avant.-->
-                                <!--</div>-->
-                                <!--<div class="row">-->
-                                    <!--<div style="display: block;float: right;width: 10cm;">-->
-                                        <!--<span style="display: block;clear: both;">Fait à <t t-esc="attest.taxcertificate_id.activity_category_id.po_city"/>, le <span t-field="attest.taxcertificate_id.doc_date" /></span>-->
-                                        <!--<span class="po_resp_name"><t t-esc="attest.taxcertificate_id.activity_category_id.po_attestation_name"/></span>-->
-                                        <!--<span class="po_resp_name"><t t-esc="attest.taxcertificate_id.activity_category_id.po_attestation_fct"/></span>-->
-                                        <!--<img style="display: block;clear: both;max-width: 6cm;" t-att-src="'data:image/jpeg;base64,%s' % attest.taxcertificate_id.activity_category_id.po_attestation_sign" />-->
-                                        <!--<span class="attest_comment">(Nom, qualité et signature de la personne habilitée à représenter l'institution, le milieu d'accueil, la crèche, la famille   d'accueil,   l'école   maternelle   ou   primaire,   le pouvoir organisateur de l'école maternelle ou primaire, le pouvoir public local, communautaire ou régional)</span>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="row">-->
-                                    <!--Nom et adresse complète de l'école maternelle ou primaire, du pouvoir organisateur de l'école maternelle ou primaire, du pouvoir public local, communautaire ou régional (3) :-->
-                                <!--</div>-->
-                                <!--<div class="po">-->
-                                    <!--<span style="display: block;clear: both;"><t t-esc="attest.taxcertificate_id.activity_category_id.po_name"/></span>-->
-                                    <!--<span style="display: block;clear: both;"><t t-esc="attest.taxcertificate_id.activity_category_id.po_street"/></span>-->
-                                    <!--<span style="display: block;clear: both;"><t t-esc="attest.taxcertificate_id.activity_category_id.po_zipcode"/> <t t-esc="attest.taxcertificate_id.activity_category_id.po_city"/></span>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                            <!--<ol style="font-size:9px;">-->
-                                <!--<li>Les données mentionnées sur l'attestation ne peuvent concerner que la partie de l'année précédant le 12ème anniversaire de l'enfant.</li>-->
-                                <!--<li>Si plusieurs tarifs sont appliqués, il convient de fournir le détail du nombre total de jours de garde par tarif-->
-    <!--appliqué.   Ce   détail   peut,   le   cas   échéant,   être   joint   dans   une   annexe   à   la   présente   attestation.-->
-    <!--Pour les frais de garde payés soit aux écoles maternelles ou primaires, soit aux pouvoirs organisateurs de ces-->
-    <!--écoles maternelles ou  primaires,  soit aux institutions ou  milieux d'accueil  ayant un  lien  avec ces écoles-->
-    <!--maternelles ou primaires ou les pouvoirs organisateurs des écoles maternelles ou primaires, le tarif journalier-->
-    <!--ne doit cependant être mentionné que s'il est supérieur au montant maximum de 11,20 EUR par jour de garde.-->
-                                    <!--</li>-->
-                                <!--<li>A ne compléter que lorsque les frais de garde sont payés directement aux instances mentionnées.</li>-->
-                            <!--</ol>-->
-                        <!--</div>-->
-                        <!--</t>-->
-                    <!--</xpath>-->
+                </t>
+            </xpath>
 
 
 		</template>
