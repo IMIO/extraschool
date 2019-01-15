@@ -240,7 +240,7 @@ class extraschool_parent(models.Model):
             'description': "Remboursement prépaiement",
         })
 
-        # Reconcil the invoice
+        # ReconcilReconcil the invoice
         self.env['extraschool.invoice'].browse(invoice_id.id).reconcil()
 
     def email_validation(self,email):

@@ -54,6 +54,19 @@ class extraschool_payment(models.Model):
     # refund_id = fields.Many2one('extraschool.refund')
 
     @api.multi
+    def cancel_payment(self):
+        for reconcil in self.payment_reconciliation_ids:
+            invoice = reconcil.invoice_id
+            reconcil.unlink()
+            invoice._compute_balance()
+
+        # Reload the page.
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'reload',
+        }
+
+    @api.multi
     def name_get(self):
         res=[]
         for payment in self:

@@ -204,6 +204,7 @@
 							<field name="comment" />
 							<field name="amount" sum="True"  readonly="True"/>
 							<field name="solde"  sum="True"/>
+                            <button name="cancel_payment" type="object" string="Cancel" confirm="Do you really want to cancel this payment ?" groups="extraschool.extraschool_accounting" />
                 		</tree>
                     </field>
                  </page>
