@@ -94,7 +94,6 @@ class extraschool_health_sheet(models.Model):
         else:
             return super(extraschool_health_sheet,self).create(vals)
 
-
 class extraschool_doctor(models.Model):
     _name = 'extraschool.doctor'
     _description = 'Doctor'
@@ -117,7 +116,6 @@ class extraschool_other_contact(models.Model):
     contact_name = fields.Char(string='Contact name')
     contact_relation = fields.Char(string='Contact relation')
     contact_tel = fields.Char(string='Tél. contact', size=20)
-
 
 class extraschool_allergy(models.Model):
     _name = 'extraschool.allergy'
