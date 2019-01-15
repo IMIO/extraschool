@@ -46,6 +46,13 @@
 							class="oe_inline oe_stat_button"
 							icon="fa-qrcode"
 								/>
+                        <button name="get_sante"
+							string="Fiche Santé"
+                            groups="extraschool.extraschool_fiche_sante"
+							type="object"
+							class="oe_inline oe_stat_button"
+							icon="fa-heart"
+								/>
 					</div>
 					<field name="name"  invisible="True"/>
 					<group col="4">

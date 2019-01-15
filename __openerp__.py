@@ -93,6 +93,7 @@
         'views/extraschool_child_fusion_wizard.xml',
         'views/extraschool_child_registration.xml',
         'views/extraschool_child_registration_wizard.xml',
+        'views/extraschool_health_sheet.xml',
         'views/extraschool_settings.xml',
         #'views/widgets.xml',
         'views/extraschool_config_smartphone.xml',

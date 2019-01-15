@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-24 09:50+0000\n"
-"PO-Revision-Date: 2018-04-24 09:50+0000\n"
+"POT-Creation-Date: 2018-12-04 14:55+0000\n"
+"PO-Revision-Date: 2018-12-04 14:55+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -60,16 +60,13 @@ msgid "\n"
 "</div>\n"
 "            "
 msgstr "\n"
-"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"<div style='color: rgb(34, 34, 34); font-family: \"Lucica Grande\", Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; background-color: rgb(255, 255, 255);'>\n"
 "\n"
-"    <p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Bonjour ${object.parentid.name},</p>\n"
+"    <p>Bonjour ${object.parentid.name},</p>\n"
 "\n"
-"    <p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Vous trouverez en pièce jointe la facture correspondant aux activités de vos enfants</p>\n"
-"    <h2 style=\"margin:0px 0px 4px 0px;font-size:1.5em;color:inherit;line-height:1.1;font-weight:bold;font-family:inherit;\">Informations de paiement</h2>\n"
-"    <p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">\n"
-"    tNum de compte : ${object.activitycategoryid.bankaccount}\n"
-"    tCom structurée : ${object.structcom}\n"
-"    </p>    \n"
+"    <p>Vous trouverez en pièce jointe la facture correspondant aux frais scolaires et/ou extrascolaires de votre(vos)\n"
+" enfant(s).</p><p>Pour toutes informations complémentaires merci de transmettre un courriel à l'adresse <a href=\"mailto:stephanie.limbourg@mettet.be\">stephanie.limbourg@mettet.be</a></p><p>Bien à vous.</p><p><br></p><p>M-N BOCART</p><p>Directrice Financière</p><p><br></p>\n"
+"    <h2>&nbsp;&nbsp;&nbsp; </h2>    \n"
 "</div>\n"
 "            "
 
@@ -85,13 +82,14 @@ msgid "\n"
 "</div>\n"
 "            "
 msgstr "\n"
-"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
-"\n"
-"    <p>Bonjour ${object.parentid.name},</p>\n"
-"\n"
-"    <p>Vous trouverez en pièce jointe le détail du rapple de paiement</p>\n"
-"   \n"
-"</div>\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \"><p class=\"MsoNormal\" style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;text-autospace:none\"><span style=\"font-family:DejaVuSans\">Madame, Monsieur,</span></p>\n"
+"<p class=\"MsoNormal\" style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;text-autospace:none\"><span style=\"font-family:DejaVuSans\">Après vérification, il semblerait que vous restiez redevable pour l’accueil</span></p>\n"
+"<p class=\"MsoNormal\" style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;text-autospace:none\"><span style=\"font-family:DejaVuSans\">extra-scolaire de vos enfants pour les factures suivantes.</span></p>\n"
+"<p class=\"MsoNormal\" style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;text-autospace:none\"><span style=\"font-family:DejaVuSans\">Je vous prie de bien vouloir procéder à leur(s) règlement(s) dans les</span></p>\n"
+"<p class=\"MsoNormal\" style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;text-autospace:none\"><span style=\"font-family:DejaVuSans\">meilleurs délais.</span></p>\n"
+"<p class=\"MsoNormal\" style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;text-autospace:none\"><span style=\"font-family:DejaVuSans\">Si cette somme a été versée en son temps, je vous prie de me communiquer</span></p>\n"
+"<p class=\"MsoNormal\" style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;text-autospace:none\"><span style=\"font-family:DejaVuSans\">une preuve de ce paiement et vous présente mes excuses pour le désagrément</span></p>\n"
+"<span style=\"font-family:DejaVuSans\">occasionné par ce courrier.</span></div>\n"
 "            "
 
 #. module: extraschool
@@ -123,28 +121,99 @@ msgid "(Famille:"
 msgstr "(Famille:"
 
 #. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.tpl_taxe_certificate_wizard_report
-msgid ", le"
-msgstr ", le"
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text_rappel
+msgid "(code BIC : GKCCBEBB), avec la communication structurée suivante :"
+msgstr "(code BIC : GKCCBEBB), avec la communication structurée suivante :"
 
 #. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text_med
+msgid ", et ce, malgré le courrier de rappel du                    , qui vous a déjà été adressé. Veuillez trouver en annexe le détail de ce montant.<br/><br/>"
+msgstr ", et ce, malgré le courrier de rappel du                    , qui vous a déjà été adressé. Veuillez trouver en annexe le détail de ce montant.<br/><br/>"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text_rappel
+msgid ", somme dont vous trouverez le détail ci-annexé.<br/><br/>"
+msgstr ", somme dont vous trouverez le détail ci-annexé.<br/><br/>"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text_rappel
 msgid "- <b>RAPPEL</b><br/>\n"
-"					   Nos réf. : AES /"
+"                       Nos réf. : AES /"
 msgstr "- <b>RAPPEL</b><br/>\n"
-"					   Nos réf. : AES /"
+"                       Nos réf. : AES /"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_your_ref_and_period_num_fact_one_row
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_your_ref_and_period_num_fact_one_row_ittre
 msgid "- Période du"
 msgstr "- Période du"
 
 #. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text_rappel
 msgid ".\n"
-"					   Nous constatons que vous êtes encore redevable d'un solde dû de"
+"                       Nous constatons que vous êtes encore redevable d'un solde dû de"
 msgstr ".\n"
-"					   Nous constatons que vous êtes encore redevable d'un solde dû de"
+"                       Nous constatons que vous êtes encore redevable d'un solde dû de"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_ohey_tableau_tarif
+msgid "0.033€/min"
+msgstr "0.033€/min"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_ohey_tableau_tarif
+msgid "0.038€/min"
+msgstr "0.038€/min"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_ohey_tableau_tarif
+msgid "0.066/min"
+msgstr "0.066/min"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_ohey_tableau_tarif
+msgid "0.066€/min"
+msgstr "0.066€/min"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_ohey_tableau_tarif
+msgid "0.076/min"
+msgstr "0.076/min"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_ohey_tableau_tarif
+msgid "0.076€/min"
+msgstr "0.076€/min"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_ohey_tableau_tarif
+msgid "15h10 à 16h45"
+msgstr "15h10 à 16h45"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_ohey_tableau_tarif
+msgid "15h20 à 17h00"
+msgstr "15h20 à 17h00"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_ohey_tableau_tarif
+msgid "16h45 à 17h15"
+msgstr "16h45 à 17h15"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_ohey_tableau_tarif
+msgid "17h00 à 17h30"
+msgstr "17h00 à 17h30"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_ohey_tableau_tarif
+msgid "17h15 à 18h00"
+msgstr "17h15 à 18h00"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_ohey_tableau_tarif
+msgid "17h30 à 18h00"
+msgstr "17h30 à 18h00"
 
 #. module: extraschool
 #: selection:extraschool.one_report,quarter:0
@@ -176,6 +245,26 @@ msgstr "3eme"
 #: selection:extraschool.one_report,quarter:0
 msgid "4eme"
 msgstr "4eme"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_ohey_tableau_tarif
+msgid "7h00 à 7h15"
+msgstr "7h00 à 7h15"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_ohey_tableau_tarif
+msgid "7h00 à 7h30"
+msgstr "7h00 à 7h30"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_ohey_tableau_tarif
+msgid "7h15 à 8h20"
+msgstr "7h15 à 8h20"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_ohey_tableau_tarif
+msgid "7h30 à 8h40"
+msgstr "7h30 à 8h40"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_child_registration
@@ -236,6 +325,20 @@ msgstr "<br/>\n"
 "										<b>Tel Travail: </b>"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.tpl_tax_certificate_detail_report
+msgid "<br/>\n"
+"								Montant:"
+msgstr "<br/>\n"
+"								Montant:"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.tpl_tax_certificate_detail_report
+msgid "<br/>\n"
+"								Nombres de jours:"
+msgstr "<br/>\n"
+"								Nombres de jours:"
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_no_style
 msgid "<br/>\n"
 "				<span>BIC : </span>"
@@ -243,13 +346,103 @@ msgstr "<br/>\n"
 "				<span>BIC : </span>"
 
 #. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text_med
+msgid "<br/> <b><span style=\" margin-left:40px;\">MISE EN DEMEURE AVANT CONTRAINTE NON FISCALE– art. L1124-40§1, 1° CDLD</span></b><br/>\n"
+"					   Nos réf. : AES /"
+msgstr "<br/> <b><span style=\" margin-left:40px;\">MISE EN DEMEURE AVANT CONTRAINTE NON FISCALE– art. L1124-40§1, 1° CDLD</span></b><br/>\n"
+"					   Nos réf. : AES /"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text_med
+msgid "<br/><br/>\n"
+"\n"
+"						Si entretemps, la somme a été réglée, veuillez considérer ce rappel comme nul et non avenu.<br/><br/>\n"
+"\n"
+"					   Si vous estimez toutefois ne pas être redevable du montant qui vous est réclamé, nous vous prions de formuler <span class=\"ecrit\">par écrit</span> les motifs de votre contestation,\n"
+"						dès réception de la présente en veillant à bien indiquer la référence du présent courrier. <br/><br/>\n"
+"\n"
+"					   Nous profitons également de ce courrier pour vous informer qu’à défaut de recevoir soit un paiement endéans le délai imparti, soit le courrier de contestation dûment motivé dont question ci-dessus,\n"
+"						nous nous réservons la possibilité d’appliquer à votre encontre la procédure de contrainte prévue par l’article L1124-40§1, 1°i1 du Code de la Démocratie Locale et de la Décentralisation et de recouvrer\n"
+"						la créance de la Ville selon les modalités qui y sont prévues. Nous espérons néanmoins ne pas devoir en arriver à de telles alternatives et comptons sur votre diligence.<br/><br/>\n"
+"\n"
+"					   Nous vous signalons enfin, à titre infiniment subsidiaire, que si nous devions avoir recours à la contrainte pour récupérer la somme due, les frais de l’intervention de l’huissier\n"
+"						seront mis à votre charge ainsi que les frais administratifs du présent courrier recommandé.<br/><br/>\n"
+"\n"
+"					   Nous tenions à vous en informer et vous prions de croire, Cher Parent, à l’assurance de notre considération distinguée."
+msgstr "<br/><br/>\n"
+"\n"
+"						Si entretemps, la somme a été réglée, veuillez considérer ce rappel comme nul et non avenu.<br/><br/>\n"
+"\n"
+"					   Si vous estimez toutefois ne pas être redevable du montant qui vous est réclamé, nous vous prions de formuler <span class=\"ecrit\">par écrit</span> les motifs de votre contestation,\n"
+"						dès réception de la présente en veillant à bien indiquer la référence du présent courrier. <br/><br/>\n"
+"\n"
+"					   Nous profitons également de ce courrier pour vous informer qu’à défaut de recevoir soit un paiement endéans le délai imparti, soit le courrier de contestation dûment motivé dont question ci-dessus,\n"
+"						nous nous réservons la possibilité d’appliquer à votre encontre la procédure de contrainte prévue par l’article L1124-40§1, 1°i1 du Code de la Démocratie Locale et de la Décentralisation et de recouvrer\n"
+"						la créance de la Ville selon les modalités qui y sont prévues. Nous espérons néanmoins ne pas devoir en arriver à de telles alternatives et comptons sur votre diligence.<br/><br/>\n"
+"\n"
+"					   Nous vous signalons enfin, à titre infiniment subsidiaire, que si nous devions avoir recours à la contrainte pour récupérer la somme due, les frais de l’intervention de l’huissier\n"
+"						seront mis à votre charge ainsi que les frais administratifs du présent courrier recommandé.<br/><br/>\n"
+"\n"
+"					   Nous tenions à vous en informer et vous prions de croire, Cher Parent, à l’assurance de notre considération distinguée."
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text_rappel
+msgid "<br/><br/>\n"
+"\n"
+"                       Si vous souhaitez solliciter un plan de paiement, nous vous invitons à prendre contact avec notre service. <br/><br/>\n"
+"\n"
+"                       À défaut de paiement, le recouvrement de la créance sera poursuivi suivant l'article L1124-40 §1er,1° du\n"
+"                       Code de la Démocratie locale et de la Décentralisation.<br/><br/>\n"
+"\n"
+"                       Si entretemps, la somme a été réglée, veuillez considérer ce rappel comme nul et non avenu.<br/><br/>\n"
+"\n"
+"                       Vous souhaitant bonne réception de la présente, nous vous prions de croire, Cher Parent, à l'assurance de\n"
+"                       notre considération distinguée."
+msgstr "<br/><br/>\n"
+"\n"
+"                       Si vous souhaitez solliciter un plan de paiement, nous vous invitons à prendre contact avec notre service. <br/><br/>\n"
+"\n"
+"                       À défaut de paiement, le recouvrement de la créance sera poursuivi suivant l'article L1124-40 §1er,1° du\n"
+"                       Code de la Démocratie locale et de la Décentralisation.<br/><br/>\n"
+"\n"
+"                       Si entretemps, la somme a été réglée, veuillez considérer ce rappel comme nul et non avenu.<br/><br/>\n"
+"\n"
+"                       Vous souhaitant bonne réception de la présente, nous vous prions de croire, Cher Parent, à l'assurance de\n"
+"                       notre considération distinguée."
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text_med
 msgid "<br/><br/><br/>\n"
 "						Cher Parent, <br/><br/>\n"
-"					   Nous vous avons adressé les factures relatives aux frais scolaires de votre (vos) enfant(s) pour la période du"
+"\n"
+"					   Le service Comptabilité de la Ville de Tournai a constaté que, pour les frais scolaires de votre (vos) enfant(s) pour la période du"
 msgstr "<br/><br/><br/>\n"
 "						Cher Parent, <br/><br/>\n"
-"					   Nous vous avons adressé les factures relatives aux frais scolaires de votre (vos) enfant(s) pour la période du"
+"\n"
+"					   Le service Comptabilité de la Ville de Tournai a constaté que, pour les frais scolaires de votre (vos) enfant(s) pour la période du"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text_rappel
+msgid "<br/><br/><br/>\n"
+"                        Cher Parent, <br/><br/>\n"
+"                       Nous vous avons adressé les factures relatives aux frais scolaires de votre (vos) enfant(s) pour la période du"
+msgstr "<br/><br/><br/>\n"
+"                        Cher Parent, <br/><br/>\n"
+"                       Nous vous avons adressé les factures relatives aux frais scolaires de votre (vos) enfant(s) pour la période du"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_durbuy_med
+msgid "<br/><span style=\"margin:30px;\"><b>Un dernier délai de 15 jours </b> à dater de la présente mise en demeure vous est accordé pour\n"
+"                                en effectuer le paiement.<br/></span>"
+msgstr "<br/><span style=\"margin:30px;\"><b>Un dernier délai de 15 jours </b> à dater de la présente mise en demeure vous est accordé pour\n"
+"                                en effectuer le paiement.<br/></span>"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_durbuy_rappel
+msgid "<br/><span style=\"margin:30px;\">En l'absence de contestation, nous vous invitons à procéder au paiement en respectant le délai, le numéro de compte, ainsi\n"
+"                                que la communication mentionnés ci-dessus.<sup>1</sup><br/></span>"
+msgstr "<br/><span style=\"margin:30px;\">En l'absence de contestation, nous vous invitons à procéder au paiement en respectant le délai, le numéro de compte, ainsi\n"
+"                                que la communication mentionnés ci-dessus.<sup>1</sup><br/></span>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_prestation_times_of_the_day_form
@@ -257,11 +450,6 @@ msgid "<span attrs=\"{'invisible':[('verified', '=', False)]}\">Vérifié</span>
 "	                    <span attrs=\"{'invisible':[('verified', '=', True)]}\">NON vérifié !!!</span>"
 msgstr "<span attrs=\"{'invisible':[('verified', '=', False)]}\">Vérifié</span>\n"
 "	                    <span attrs=\"{'invisible':[('verified', '=', True)]}\">NON vérifié !!!</span>"
-
-#. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.tpl_taxe_certificate_wizard_report
-msgid "<span class=\"attest_comment\">(Nom, qualité et signature de la personne habilitée à représenter l'institution, le milieu d'accueil, la crèche, la famille   d'accueil,   l'école   maternelle   ou   primaire,   le pouvoir organisateur de l'école maternelle ou primaire, le pouvoir public local, communautaire ou régional)</span>"
-msgstr "<span class=\"attest_comment\">(Nom, qualité et signature de la personne habilitée à représenter l'institution, le milieu d'accueil, la crèche, la famille   d'accueil,   l'école   maternelle   ou   primaire,   le pouvoir organisateur de l'école maternelle ou primaire, le pouvoir public local, communautaire ou régional)</span>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_child
@@ -310,11 +498,13 @@ msgid "<span class=\"zz_label\">Correction</span>"
 msgstr "<span class=\"zz_label\">Correction</span>"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_biller_summary_lierneux_no_style
 #: model:ir.ui.view,arch_db:extraschool.report_biller_summary_no_style
 msgid "<span class=\"zz_label\">Date d'échéance : </span>"
 msgstr "<span class=\"zz_label\">Date d'échéance : </span>"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_biller_summary_lierneux_no_style
 #: model:ir.ui.view,arch_db:extraschool.report_biller_summary_no_style
 msgid "<span class=\"zz_label\">Date de facture : </span>"
 msgstr "<span class=\"zz_label\">Date de facture : </span>"
@@ -324,20 +514,33 @@ msgstr "<span class=\"zz_label\">Date de facture : </span>"
 #: model:ir.ui.view,arch_db:extraschool.report_amount_no_style_sans_payment_term
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_hannut
+#: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_ittre
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_no_value
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_prepaid_no_value
 msgid "<span class=\"zz_label\">Frais de rappel</span>"
 msgstr "<span class=\"zz_label\">Frais de rappel</span>"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_biller_summary_lierneux_no_style
 #: model:ir.ui.view,arch_db:extraschool.report_biller_summary_no_style
 msgid "<span class=\"zz_label\">Nombre de factures : </span>"
 msgstr "<span class=\"zz_label\">Nombre de factures : </span>"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_biller_summary_lierneux_no_style
+msgid "<span class=\"zz_label\">Non valeur : </span>"
+msgstr "<span class=\"zz_label\">Non valeur : </span>"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_biller_summary_lierneux_no_style
 #: model:ir.ui.view,arch_db:extraschool.report_biller_summary_no_style
 msgid "<span class=\"zz_label\">Période de facturation du </span>"
 msgstr "<span class=\"zz_label\">Période de facturation du </span>"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_biller_summary_lierneux_no_style
+msgid "<span class=\"zz_label\">Reçu : </span>"
+msgstr "<span class=\"zz_label\">Reçu : </span>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_amount_no_style
@@ -345,10 +548,16 @@ msgstr "<span class=\"zz_label\">Période de facturation du </span>"
 #: model:ir.ui.view,arch_db:extraschool.report_amount_no_style_sans_payment_term
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_hannut
+#: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_ittre
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_no_value
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_prepaid_no_value
 msgid "<span class=\"zz_label\">Reçu</span>"
 msgstr "<span class=\"zz_label\">Reçu</span>"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_biller_summary_lierneux_no_style
+msgid "<span class=\"zz_label\">Solde : </span>"
+msgstr "<span class=\"zz_label\">Solde : </span>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_amount_no_style
@@ -361,6 +570,7 @@ msgid "<span class=\"zz_label\">Solde</span>"
 msgstr "<span class=\"zz_label\">Solde</span>"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_biller_summary_lierneux_no_style
 #: model:ir.ui.view,arch_db:extraschool.report_biller_summary_no_style
 msgid "<span class=\"zz_label\">Total : </span>"
 msgstr "<span class=\"zz_label\">Total : </span>"
@@ -371,15 +581,55 @@ msgstr "<span class=\"zz_label\">Total : </span>"
 #: model:ir.ui.view,arch_db:extraschool.report_amount_no_style_sans_payment_term
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_hannut
+#: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_ittre
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_no_value
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_prepaid_no_value
 msgid "<span class=\"zz_label\">Total</span>"
 msgstr "<span class=\"zz_label\">Total</span>"
 
 #. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_tableau
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_durbuy_med
+msgid "<span style=\"float:right;\">Frais de rappel</span>"
+msgstr "<span style=\"float:right;\">Frais de rappel</span>"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_tableau_rappel
 msgid "<span style=\"font-decoration:underline; font-size: 15px;\">Liste des factures couvrant cette période </span>"
 msgstr "<span style=\"font-decoration:underline; font-size: 15px;\">Liste des factures couvrant cette période </span>"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_ittre
+msgid "<span style=\"font-size:14px\">Solde</span>"
+msgstr "<span style=\"font-size:14px\">Solde</span>"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_durbuy_med
+msgid "<span style=\"margin:30px;\">Nous vous informons que seul le paiement intégral de la somme réclamée mettra fin à la procédure en cours.<br/></span>"
+msgstr "<span style=\"margin:30px;\">Nous vous informons que seul le paiement intégral de la somme réclamée mettra fin à la procédure en cours.<br/></span>"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_durbuy_rappel
+msgid "<span style=\"margin:30px;\">Nous vous prions de croire, Madame, Monsieur, Cher parent, en l'assurance de notre considération distinguée.<br/></span>"
+msgstr "<span style=\"margin:30px;\">Nous vous prions de croire, Madame, Monsieur, Cher parent, en l'assurance de notre considération distinguée.<br/></span>"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_durbuy_med
+msgid "<span style=\"margin:30px;\">Nous vous prions de croire, Madame, Monsieur, Cher parent, en l’assurance de notre considération distinguée.<br/></span>"
+msgstr "<span style=\"margin:30px;\">Nous vous prions de croire, Madame, Monsieur, Cher parent, en l’assurance de notre considération distinguée.<br/></span>"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_durbuy_med
+msgid "<span style=\"margin:30px;\">Vous me dispenseriez ainsi de vous appliquer les rigueurs que la loi prescrit dans votre cas\n"
+"                                (Suivant l’article L1124-40 § 1er du Code de la Démocratie Locale et de la Décentralisation\n"
+"                                (C.D.L.D)), qui consistent en <b>des poursuites par Maître Sikivie, Huissier de Justice à Barvaux S/O.</b><br/></span>"
+msgstr "<span style=\"margin:30px;\">Vous me dispenseriez ainsi de vous appliquer les rigueurs que la loi prescrit dans votre cas\n"
+"                                (Suivant l’article L1124-40 § 1er du Code de la Démocratie Locale et de la Décentralisation\n"
+"                                (C.D.L.D)), qui consistent en <b>des poursuites par Maître Sikivie, Huissier de Justice à Barvaux S/O.</b><br/></span>"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_durbuy_rappel
+msgid "<span style=\"margin:30px;\">À défaut de paiement dans le délai imparti, une mise en demeure recommandée majorée de 7,50€ vous sera adressée.<br/></span>"
+msgstr "<span style=\"margin:30px;\">À défaut de paiement dans le délai imparti, une mise en demeure recommandée majorée de 7,50€ vous sera adressée.<br/></span>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_hannut_all_invoice_summary
@@ -390,11 +640,6 @@ msgid "<span> Les éventuels recouvrements qui seraient à charge d’un huissie
 msgstr "<span> Les éventuels recouvrements qui seraient à charge d’un huissier ne sont\n"
 "pas pris en compte sur le présent document. Toute réclamation relative à la facture doit être transmise à l’asbl\n"
 "L’Eveil avant la date d'échéance. Toute facture non contestée est considérée comme acceptée.</span>"
-
-#. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.tpl_taxe_certificate_wizard_report
-msgid "<span>Cadre II</span> (A remplir par l'institution, le milieu d'accueil, la crèche, la famille d'accueil, l'école maternelle ou primaire, le pouvoir organisateur de l'école maternelle ou primaire, le pouvoir public local, communautaire ou régional)"
-msgstr "<span>Cadre II</span> (A remplir par l'institution, le milieu d'accueil, la crèche, la famille d'accueil, l'école maternelle ou primaire, le pouvoir organisateur de l'école maternelle ou primaire, le pouvoir public local, communautaire ou régional)"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_invoice_no_style
@@ -446,9 +691,22 @@ msgid "<span>std footer</span>"
 msgstr "<span>std footer</span>"
 
 #. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.tpl_taxe_certificate_wizard_report
-msgid "A ne compléter que lorsque les frais de garde sont payés directement aux instances mentionnées."
-msgstr "A ne compléter que lorsque les frais de garde sont payés directement aux instances mentionnées."
+#: model:ir.ui.view,arch_db:extraschool.report_std_footer_durbuy_rappel
+msgid "<sup>1</sup> Si votre paiement croise ce courrier, veuillez considérer ce rappel comme nul et non avenu."
+msgstr "<sup>1</sup> Si votre paiement croise ce courrier, veuillez considérer ce rappel comme nul et non avenu."
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_invoice_wizard_form
+msgid "A biller is curently in creation. You will recieve an Email when the biller is completed.\n"
+"                    In the meantime, here is a picture of a cat slightly annoyed:"
+msgstr "Un facturier est en cours de création.Vous allez recevoir un E-mail lorsque le facturier est créé.\n"
+""
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_ittre
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_ittre2
+msgid "A la suite de l'examen de nos comptes, nous constatons que vous nous restez redevables pour les factures de frais de garderie extra-scolaire suivantes :"
+msgstr "A la suite de l'examen de nos comptes, nous constatons que vous nous restez redevables pour les factures de frais de garderie extra-scolaire suivantes :"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_amount_no_style
@@ -456,6 +714,7 @@ msgstr "A ne compléter que lorsque les frais de garde sont payés directement a
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_durbuy
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_hannut
+#: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_ittre
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_no_value
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_prepaid_no_value
 msgid "A payer avant le"
@@ -468,14 +727,39 @@ msgid "A reminder has been found but the amount is not corresponding to balances
 msgstr "Un rappel a été trouvé mais le montant ne correspond pas aux montants ouverts des factures."
 
 #. module: extraschool
+#: selection:extraschool.health_sheet,blood_type:0
+msgid "AB+"
+msgstr "AB+"
+
+#. module: extraschool
+#: selection:extraschool.health_sheet,blood_type:0
+msgid "AB-"
+msgstr "AB-"
+
+#. module: extraschool
+#: model:res.groups,name:extraschool.extraschool_activity
+msgid "AES Activity"
+msgstr "AES Activity"
+
+#. module: extraschool
 #: model:res.groups,name:extraschool.extraschool_direction
 msgid "AES Direction +"
 msgstr "AES Direction +"
 
 #. module: extraschool
+#: model:res.groups,name:extraschool.extraschool_fiche_sante
+msgid "AES Fiche Santé"
+msgstr "AES Fiche Santé"
+
+#. module: extraschool
 #: model:res.groups,name:extraschool.extraschool_gods
 msgid "AES Gods"
 msgstr "AES Gods"
+
+#. module: extraschool
+#: model:res.groups,name:extraschool.extraschool_ittre
+msgid "AES Ittre"
+msgstr "AES Ittre"
 
 #. module: extraschool
 #: model:res.groups,name:extraschool.extraschool_payment_correction
@@ -547,7 +831,6 @@ msgstr "Compte"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_guardian_search_view
 #: model:ir.ui.view,arch_db:extraschool.extraschool_parent_search_view
 #: model:ir.ui.view,arch_db:extraschool.extraschool_payment_status_report_search_view
-#: model:ir.model.fields,field_description:extraschool.field_extraschool_place_active
 msgid "Actif"
 msgstr "Actif"
 
@@ -570,9 +853,10 @@ msgid "Action Needed"
 msgstr "A besoin d'une action"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_place_active
 #: model:ir.ui.view,arch_db:extraschool.extraschool_prestation_times_of_the_day_form
 msgid "Active"
-msgstr "Activer"
+msgstr "Actif"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_pda_prestation_times_tree
@@ -626,6 +910,7 @@ msgstr "Version de liste de prix"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_presta_stat_activity_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_price_list_version_activity_ids
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_stat_activity_activity_id
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_subvention_report_activity
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activity_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activity_tree
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activityexclusiondates_tree
@@ -638,6 +923,7 @@ msgstr "Activité"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_biller_activitycategoryid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_activitycategoryid
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_guardian_activitycategoryid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_activitycategoryid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_mainsettings_activitycategoryid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_pdaprestationtimes_activitycategoryid
@@ -703,14 +989,14 @@ msgid "Activity name"
 msgstr "Activité"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_activity_no_available
+msgid "Activity no available"
+msgstr "L'enfant a-t-il des interdiction pour certaines activités ?"
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activityoccurrence_cal
 msgid "Activity occurences"
 msgstr "Activity occurences"
-
-#. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.extraschool_taxcertificate_item_form
-msgid "Detail"
-msgstr "Détail"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_occurrence_child_registration_activity_occurrence_id
@@ -726,16 +1012,6 @@ msgid "Activity occurrence calendar"
 msgstr "Calendrier des activités"
 
 #. module: extraschool
-#: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificate_title
-msgid "Title"
-msgstr "Titre"
-
-#. module: extraschool
-#: model:ir.model.fields,field_description:extraschool.field_extraschool_tax_certificate_detail_child_name
-msgid "child_name"
-msgstr "Nom de l'enfant"
-
-#. module: extraschool
 #: model:ir.ui.menu,name:extraschool.extraschool_menu_stat_activity_tree
 msgid "Activity stat"
 msgstr "Statistique d'activité"
@@ -745,6 +1021,11 @@ msgstr "Statistique d'activité"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_prestationscheck_wizard_activitycategory
 msgid "Activitycategory"
 msgstr "Catégorie d'activité"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_activityplanneddate_activitydate
+msgid "Activitydate"
+msgstr "Activitydate"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.presta_stat_search_view
@@ -757,6 +1038,11 @@ msgstr "Catégorie d'activité"
 #: model:ir.ui.view,arch_db:extraschool.stat_activity_search_view
 msgid "Activité"
 msgstr "Activité"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_health_sheet_form
+msgid "Activité non praticables"
+msgstr "Activité non praticables"
 
 #. module: extraschool
 #: selection:extraschool.timecorrection_wizard,correctiontype:0
@@ -779,6 +1065,12 @@ msgstr "Adr1"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_reject_addr2
 msgid "Addr2"
 msgstr "Adr2"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_doctor_form
+#: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
+msgid "Address"
+msgstr "Adresse"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_po_addresse_free_text
@@ -868,6 +1160,24 @@ msgid "All Wednesdays"
 msgstr "Tous les mercredis"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_allergy_name
+#: model:ir.ui.view,arch_db:extraschool.extraschool_health_sheet_form
+msgid "Allergie"
+msgstr "Allergie"
+
+#. module: extraschool
+#: model:ir.model,name:extraschool.model_extraschool_allergy
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_allergy_ids
+msgid "Allergy list"
+msgstr "Liste des allergies"
+
+#. module: extraschool
+#: model:ir.model,name:extraschool.model_extraschool_allergy
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_allergy
+msgid "Allergy"
+msgstr "L'enfant possède-t-il des allergies ?"
+
+#. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_amount_total
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_mainsettings_amount
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_manuel_invoice_wizard_amount
@@ -879,8 +1189,8 @@ msgstr "Tous les mercredis"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_reject_amount
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_reminder_amount
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_reminders_journal_item_amount
-#: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificate_item_amount
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_tax_certificate_detail_amount
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificate_item_amount
 msgid "Amount"
 msgstr "Montant"
 
@@ -889,30 +1199,13 @@ msgstr "Montant"
 msgid "Amount accepted"
 msgstr "Montant accepté"
 
-
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_logo_reminder
 msgid "Logo reminder"
 msgstr "Logo du rappel"
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_coda.py:154
-#, python-format
-msgid "This invoice has a reminder and cannot be paid with the invoice communication"
-msgstr "Cette facture possède un rappel et ne peut pas être payé avec la communication structurée de la facture"
-
-#. module: extraschool
-#: model:ir.actions.report.xml,name:extraschool.tax_certificate_detail_report
-msgid "Tax Detail"
-msgstr "Détail attestation fiscale"
-
-#. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.tpl_tax_certificate_detail_report
-msgid "Tax Detail -"
-msgstr "Détail attestation fiscale"
-
-#. module: extraschool
-#: code:addons/extraschool/extraschool_coda.py:150
+#: code:addons/extraschool/extraschool_coda.py:151
 #, python-format
 msgid "Amount greather than invoice balance"
 msgstr "Montant supérieur à la balance de la facture"
@@ -933,6 +1226,16 @@ msgid "Amount to reconcil"
 msgstr "Montant à réconcilier"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_invoice_form
+msgid "Annuler"
+msgstr "Annuler"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.tpl_tax_certificate_detail_report
+msgid "Année fiscale:"
+msgstr "Année fiscale:"
+
+#. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_discount_version_apply_on
 msgid "Apply on"
 msgstr "Appliqué sur"
@@ -948,25 +1251,25 @@ msgid "Are you sure you want to pay all invoices in this biller ? This is not re
 msgstr "Are you sure you want to pay all invoices in this biller ? This is not reversible !!"
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_invoice_wizard.py:345
+#: code:addons/extraschool/extraschool_invoice_wizard.py:357
 #, python-format
 msgid "At least one child registration is not validated for this period!!!"
 msgstr "Au moins une inscription n'est pas validé pour cette période!!!"
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_invoice_wizard.py:332
+#: code:addons/extraschool/extraschool_invoice_wizard.py:344
 #, python-format
 msgid "At least one manuel encodage is not validated for this period!!!"
 msgstr "Au moins un encodage manuel n'est pas validé pour cette période!!!. module: extraschoo: code:addons/extraschool/extraschool_invoice_wizard.py:35, python-formasgid \"At least one prestations is not verified !!!sgstr \"Toutes les présences concernées doivent être vérifiées"
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_invoice_wizard.py:365
+#: code:addons/extraschool/extraschool_invoice_wizard.py:377
 #, python-format
 msgid "At least one prestations is not verified !!!"
 msgstr "Toutes les présences concernées doivent être vérifiées"
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_invoice_wizard.py:669
+#: code:addons/extraschool/extraschool_invoice_wizard.py:680
 #, python-format
 msgid "At least one price list is missing !!!\n"
 " "
@@ -980,7 +1283,7 @@ msgid "At least one reconciliation line is not correct : amount greater than bal
 msgstr "le montant réconcilié doit toujours être inférieur à la balance"
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_child_registration.py:438
+#: code:addons/extraschool/extraschool_child_registration.py:492
 #, python-format
 msgid "At least one registration line is already invoiced !"
 msgstr "Au moins une ligne d'inscription est facturée"
@@ -1009,6 +1312,11 @@ msgid "Autre"
 msgstr "Autre"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_health_sheet_form
+msgid "Autres contacts"
+msgstr "Autres contacts"
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_durbuy
 msgid "Avec la communication structurée <b>obligatoire</b> :"
 msgstr "Avec la communication structurée <b>obligatoire</b> :"
@@ -1016,6 +1324,7 @@ msgstr "Avec la communication structurée <b>obligatoire</b> :"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_hannut
+#: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_ittre
 msgid "BIC:"
 msgstr "BIC:"
 
@@ -1057,6 +1366,11 @@ msgid "Bank zip"
 msgstr "Code postal"
 
 #. module: extraschool
+#: selection:extraschool.health_sheet,swim_level:0
+msgid "Bien"
+msgstr "Bien"
+
+#. module: extraschool
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_biller
 #: model:ir.model,name:extraschool.model_extraschool_biller
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_biller_id
@@ -1066,11 +1380,12 @@ msgstr "Code postal"
 #: model:ir.ui.menu,name:extraschool.extraschool_menu_biller
 #: model:ir.ui.view,arch_db:extraschool.extraschool_biller_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_biller_tree
+#: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
 msgid "Biller"
 msgstr "Facturier"
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_biller.py:104
+#: code:addons/extraschool/extraschool_biller.py:107
 #, python-format
 msgid "Biller from %s to %s"
 msgstr "Facturier du %s au %s"
@@ -1084,6 +1399,16 @@ msgstr "Rapport du facturier"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_birthdate
 msgid "Birthdate"
 msgstr "Date de Naissance"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_blood_type
+msgid "Blood type"
+msgstr "Groupe sanguin"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_invoice_form
+msgid "Bloqué"
+msgstr "Bloqué"
 
 #. module: extraschool
 #: selection:extraschool.inline_report,section:0
@@ -1156,6 +1481,7 @@ msgid "Category"
 msgstr "Catégorie"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_biller_detail_lierneux_no_style
 #: model:ir.ui.view,arch_db:extraschool.report_biller_detail_no_style
 msgid "Catégorie d'activité"
 msgstr "Catégorie d'activité"
@@ -1176,9 +1502,29 @@ msgid "Ce champs permet de définir si l'enfant a le droit à un tarif préfére
 msgstr "Ce champs permet de définir si l'enfant a le droit à un tarif préférentiel (ex: enfants du CPAS, enfants de la croix rouge, enfants des accueillantes,...)"
 
 #. module: extraschool
+#: model:ir.model.fields,help:extraschool.field_extraschool_remindertype_minimum_general_balance
+msgid "Ceci est le montant minimum TOTAL des factures à sortir en rappel"
+msgstr "Ceci est le montant minimum TOTAL des factures à sortir en rappel"
+
+#. module: extraschool
+#: model:ir.model.fields,help:extraschool.field_extraschool_remindertype_minimum_balance
+msgid "Ceci est le montant minimum des factures à sortir en rappel (concerne donc facture par facture)"
+msgstr "Ceci est le montant minimum des factures à sortir en rappel (concerne donc facture par facture)"
+
+#. module: extraschool
+#: model:ir.model.fields,help:extraschool.field_extraschool_remindertype_bailiff
+msgid "Ceci permet d'affecter un tag \"huissier\" sur toutes les factures de ce niveau"
+msgstr "Ceci permet d'affecter un tag \"huissier\" sur toutes les factures de ce niveau"
+
+#. module: extraschool
 #: model:ir.model.fields,help:extraschool.field_extraschool_child_registration_day_ids
 msgid "Ceci permet de précocher pour tous les enfants, les jours que l'on souhaite"
 msgstr "Ceci permet de précocher pour tous les enfants, les jours que l'on souhaite"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_ohey_tableau_tarif
+msgid "Cette facture a été établie via le logiciel IMIO selon les tarifs suivants :"
+msgstr "Cette facture a été établie via le logiciel IMIO selon les tarifs suivants :"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_prestation_times_encodage_manuel_validation_wizard_form
@@ -1208,6 +1554,11 @@ msgstr "Check ES"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_prestationscheck_wizard_form
+msgid "Check empty occurrences"
+msgstr "Check empty occurrences"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_prestationscheck_wizard_form
 msgid "Check prestations"
 msgstr "Vérifier"
 
@@ -1218,8 +1569,10 @@ msgstr "Vérifier"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitychildregistration_child_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_fusion_wizard_child_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_childsworkbook_wizard_child_id
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_disease_child_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoicedprestations_childid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_mainsettings_childid
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_other_contact_child_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_fusion_child_child_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_pdaprestationtimes_childid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_presta_stat_child_id
@@ -1233,11 +1586,6 @@ msgstr "Vérifier"
 #: model:ir.ui.view,arch_db:extraschool.prestation_times_of_the_day_search_view
 msgid "Child"
 msgstr "Enfant"
-
-#. module: extraschool
-#: model:ir.actions.report.xml,name:extraschool.child_qrcodes_wizard_report
-msgid "Child QrCode"
-msgstr "QrCode"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_child_search_view
@@ -1483,6 +1831,11 @@ msgid "Childsimportfilter"
 msgstr "Filtre d'importation enfant"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_child_import_form
+msgid "Chils Import"
+msgstr "Chils Import"
+
+#. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_remindersjournal_based_reminder_id
 msgid "Choose the reminder to be based on"
 msgstr "Choisir le rappel sur lequel se baser"
@@ -1494,6 +1847,7 @@ msgstr "Modèle"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_po_city
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_doctor_city
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_city
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_place_city
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_school_city
@@ -1534,6 +1888,12 @@ msgid "Coda"
 msgstr "Fichier CODA"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_doctor_form
+#: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
+msgid "Code Postal"
+msgstr "Code Postal"
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_coda_report
 msgid "Com libre"
 msgstr "Com libre"
@@ -1547,7 +1907,9 @@ msgstr "Com struct"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_biller_comment
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_comment
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_comment
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_doctor_comment
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_guardian_comment
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_comment
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_comment
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_comment
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_fusion_wizard_comment
@@ -1558,7 +1920,9 @@ msgstr "Com struct"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_prestation_times_manuel_comment
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_prestation_times_of_the_day_comment
 #: model:ir.ui.view,arch_db:extraschool.extraschool_child_form
+#: model:ir.ui.view,arch_db:extraschool.extraschool_doctor_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_guardian_form
+#: model:ir.ui.view,arch_db:extraschool.extraschool_health_sheet_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_invoice_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
 msgid "Comment"
@@ -1575,7 +1939,8 @@ msgid "Commentaire de la facture 2"
 msgstr "Commentaire de la facture 2"
 
 #. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_tableau
+#: model:ir.ui.view,arch_db:extraschool.report_biller_detail_lierneux_no_style
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_hannut
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_yvoir
 msgid "Communication structurée"
 msgstr "Communication structurée"
@@ -1583,8 +1948,15 @@ msgstr "Communication structurée"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_hannut
+#: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_ittre
 msgid "Communication structurée <b>obligatoire</b>:<br/>"
 msgstr "Communication structurée <b>obligatoire</b>:<br/>"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_durbuy_med
+#: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_durbuy_rappel
+msgid "Communication structurée <span class=\"ecrit\">obligatoire</span>"
+msgstr "Communication structurée <span class=\"ecrit\">obligatoire</span>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_prepaid
@@ -1597,8 +1969,15 @@ msgid "Completed activity"
 msgstr "Completed activity"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_durbuy_med
+#: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_durbuy_rappel
+msgid "Compte"
+msgstr "Compte"
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_hannut
+#: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_ittre
 msgid "Compte:"
 msgstr "Compte:"
 
@@ -1615,11 +1994,6 @@ msgid "Compute invoices"
 msgstr "Générer les factures"
 
 #. module: extraschool
-#: model:ir.model.fields,field_description:extraschool.field_extraschool_remindertype_bailiff
-msgid "Put to bailiff"
-msgstr "Mettre en huissier"
-
-#. module: extraschool
 #: selection:extraschool.taxcertificates_wizard,state:0
 #: model:ir.ui.view,arch_db:extraschool.extraschool_taxcertificates_wizard_form
 msgid "Compute taxcertificates"
@@ -1633,7 +2007,7 @@ msgstr "Présences complétées"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_reminder_concerned_invoice_ids
 msgid "Concerned invoices"
-msgstr "Concerned invoices"
+msgstr "Factures concernées"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_config_smartphone_cfgpassword
@@ -1643,6 +2017,7 @@ msgstr "Mot de passe de la Config"
 
 #. module: extraschool
 #: model:ir.ui.menu,name:extraschool.extraschool_menu_configuration
+#: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_smartphone_form
 msgid "Configuration"
 msgstr "Paramètres"
@@ -1664,7 +2039,18 @@ msgid "Contact"
 msgstr "Contact"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_other_contact_contact_name
+msgid "Contact name"
+msgstr "Nom et prénom"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_other_contact_contact_relation
+msgid "Contact relation"
+msgstr "Lien parenté"
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_pdaprestationtimes_correction_wizard_form
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_tableau_rappel
 msgid "Correction"
 msgstr "Correction"
 
@@ -1690,6 +2076,13 @@ msgid "Corriger"
 msgstr "Corriger"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_doctor_country_id
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_country_id
+#: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
+msgid "Country"
+msgstr "Pays"
+
+#. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_occurrence_child_registration_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_occurrence_correction_wizard_create_uid
@@ -1701,6 +2094,7 @@ msgstr "Corriger"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activityplanneddate_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_aged_balance_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_aged_balance_item_create_uid
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_allergy_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_biller_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_fusion_wizard_create_uid
@@ -1718,15 +2112,20 @@ msgstr "Corriger"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_day_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_discount_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_discount_version_create_uid
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_disease_create_uid
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_disease_type_create_uid
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_doctor_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_encodage_manuel_validation_wizard_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_guardian_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_guardianprestationtimes_create_uid
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_horaire_guardian_wizard_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_importlevelrule_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_importreject_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_initupdate_wizard_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_inline_report_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_create_uid
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_tag_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_wizard_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoicedprestations_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_level_create_uid
@@ -1737,6 +2136,7 @@ msgstr "Corriger"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_one_report_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_one_report_day_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_onereport_settings_create_uid
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_other_contact_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_fusion_child_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_fusion_wizard_create_uid
@@ -1771,7 +2171,10 @@ msgstr "Corriger"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_school_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_schoolimplantation_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_create_uid
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_detail_log_create_uid
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_log_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_stat_activity_create_uid
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_subvention_report_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificate_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificate_item_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificates_wizard_create_uid
@@ -1791,6 +2194,7 @@ msgstr "Créé par"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activityplanneddate_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_aged_balance_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_aged_balance_item_create_date
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_allergy_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_biller_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_fusion_wizard_create_date
@@ -1808,15 +2212,20 @@ msgstr "Créé par"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_day_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_discount_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_discount_version_create_date
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_disease_create_date
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_disease_type_create_date
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_doctor_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_encodage_manuel_validation_wizard_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_guardian_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_guardianprestationtimes_create_date
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_horaire_guardian_wizard_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_importlevelrule_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_importreject_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_initupdate_wizard_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_inline_report_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_create_date
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_tag_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_wizard_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoicedprestations_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_level_create_date
@@ -1827,6 +2236,7 @@ msgstr "Créé par"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_one_report_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_one_report_day_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_onereport_settings_create_date
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_other_contact_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_fusion_child_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_fusion_wizard_create_date
@@ -1861,7 +2271,10 @@ msgstr "Créé par"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_school_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_schoolimplantation_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_create_date
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_detail_log_create_date
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_log_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_stat_activity_create_date
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_subvention_report_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificate_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificate_item_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificates_wizard_create_date
@@ -1887,6 +2300,7 @@ msgstr "Création des PDF en cours ....."
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_lierneux_report_parent_credit
+#: model:ir.ui.view,arch_db:extraschool.report_lierneux_report_parent_credit_huissier
 msgid "Dans l’attente de vos nouvelles, nous vous prions de croire, Madame, Monsieur, Chers Parents,\n"
 "                        en l’assurance de nos salutations distinguées."
 msgstr "Dans l’attente de vos nouvelles, nous vous prions de croire, Madame, Monsieur, Chers Parents,\n"
@@ -1900,7 +2314,6 @@ msgstr "Nom base de données"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activityoccurrence_occurrence_date
-#: model:ir.model.fields,field_description:extraschool.field_extraschool_activityplanneddate_activitydate
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_guardian_prestation_times_report_prestation_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_guardianprestationtimes_prestation_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoicedprestations_prestation_date
@@ -1927,9 +2340,15 @@ msgid "Date"
 msgstr "Date"
 
 #. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.tpl_taxe_certificate_wizard_report
-msgid "Date de naissance de l'enfant :"
-msgstr "Date de naissance de l'enfant :"
+#: model:ir.ui.view,arch_db:extraschool.tpl_tax_certificate_detail_report
+msgid "Date de la présence"
+msgstr "Date de la présence"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_detail_log_date_of_transmission
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_log_date_of_transmission
+msgid "Date de transmission"
+msgstr "Date de transmission"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.prestation_times_of_the_day_search_view
@@ -1983,6 +2402,11 @@ msgid "Date où l'on va terminer la facturation"
 msgstr "Date où l'on va terminer la facturation"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_activityplanneddate_form
+msgid "Date planned"
+msgstr "Date planned"
+
+#. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activityoccurrence_date_start
 msgid "Date start"
 msgstr "Date de début"
@@ -2012,16 +2436,10 @@ msgid "Date to"
 msgstr "Jusqu'au"
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_remindersjournal.py:276
+#: code:addons/extraschool/extraschool_remindersjournal.py:284
 #, python-format
 msgid "Date to must be bigger than date from !!!"
 msgstr "Date to must be bigger than date from !!!"
-
-#. module: extraschool
-#: code:addons/extraschool/extraschool_activity.py:309
-#, python-format
-msgid "Date_from must be in range of Validity_from and Validity_to (Exclusion)"
-msgstr "Veuillez vérifier que vos dates exclues soient bonnes"
 
 #. module: extraschool
 #: selection:extraschool.discount.version,period:0
@@ -2040,7 +2458,7 @@ msgid "Days"
 msgstr "Jours"
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_activity.py:291
+#: code:addons/extraschool/extraschool_activity.py:305
 #, python-format
 msgid "Debut hour is equal to final hour"
 msgstr "L'heure de début est égale à l'heure de fin."
@@ -2087,11 +2505,31 @@ msgid "Destination child"
 msgstr "Destination de l'enfant"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_taxcertificate_item_form
+msgid "Detail"
+msgstr "Détail"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_smartphone_form
+msgid "Detailed Transmission Log"
+msgstr "Detailed Transmission Log"
+
+#. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_invoice_line_ids
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificate_taxcertificate_item_ids
 #: model:ir.ui.view,arch_db:extraschool.extraschool_invoice_form
 msgid "Details"
 msgstr "Détails"
+
+#. module: extraschool
+#: model:ir.model,name:extraschool.model_extraschool_invoice_tag
+msgid "Different tag can be used but they all block the process of this invoice. No reminder and so on."
+msgstr "Different tag can be used but they all block the process of this invoice. No reminder and so on."
+
+#. module: extraschool
+#: selection:extraschool.health_sheet,swim_level:0
+msgid "Difficilement"
+msgstr "Difficilement"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_isdisabled
@@ -2110,6 +2548,11 @@ msgid "Discount"
 msgstr "Réduction"
 
 #. module: extraschool
+#: model:ir.model,name:extraschool.model_extraschool_discountrule
+msgid "Discount Rule"
+msgstr "Règles de réductions"
+
+#. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoicedprestations_discount_value
 msgid "Discount value"
 msgstr "Discount value"
@@ -2126,6 +2569,18 @@ msgid "Discounts"
 msgstr "Réductions"
 
 #. module: extraschool
+#: model:ir.model,name:extraschool.model_extraschool_disease
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_disease_disease
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_disease_type_name
+msgid "Disease"
+msgstr "Maladie"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_health_sheet_form
+msgid "Diseases"
+msgstr "Maladie"
+
+#. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_occurrence_child_registration_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_occurrence_correction_wizard_display_name
@@ -2137,6 +2592,7 @@ msgstr "Réductions"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activityplanneddate_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_aged_balance_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_aged_balance_item_display_name
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_allergy_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_biller_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_fusion_wizard_display_name
@@ -2154,16 +2610,21 @@ msgstr "Réductions"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_day_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_discount_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_discount_version_display_name
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_disease_display_name
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_disease_type_display_name
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_doctor_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_encodage_manuel_validation_wizard_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_guardian_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_guardian_prestation_times_report_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_guardianprestationtimes_display_name
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_horaire_guardian_wizard_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_importlevelrule_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_importreject_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_initupdate_wizard_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_inline_report_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_display_name
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_tag_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_wizard_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoicedprestations_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_level_display_name
@@ -2174,6 +2635,7 @@ msgstr "Réductions"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_one_report_day_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_one_report_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_onereport_settings_display_name
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_other_contact_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_fusion_child_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_fusion_wizard_display_name
@@ -2209,8 +2671,12 @@ msgstr "Réductions"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_scheduledtasks_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_school_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_schoolimplantation_display_name
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_detail_log_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_display_name
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_log_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_stat_activity_display_name
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_subvention_report_display_name
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_tax_certificate_detail_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificate_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificate_item_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificates_wizard_display_name
@@ -2220,11 +2686,39 @@ msgid "Display Name"
 msgstr "Display Name"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_health_sheet_form
+msgid "Divers"
+msgstr "Divers"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
+msgid "Do you really want to reconciliate this invoice ?"
+msgstr "Do you really want to reconciliate this invoice ?"
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_biller_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_reminders_journal_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_taxcertificate_form
 msgid "Docs"
 msgstr "Docs"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_health_sheet_form
+msgid "Docteur"
+msgstr "Docteur"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_doctor_form
+msgid "Docteur .."
+msgstr "Docteur .."
+
+#. module: extraschool
+#: model:ir.model,name:extraschool.model_extraschool_doctor
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_doctor_name
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_doctor_id
+#: model:ir.ui.view,arch_db:extraschool.extraschool_doctor_form
+msgid "Doctor"
+msgstr "Docteur"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificate_doc_date
@@ -2255,7 +2749,7 @@ msgid "Draft"
 msgstr "Brouillon"
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_child_registration.py:395
+#: code:addons/extraschool/extraschool_child_registration.py:449
 #, python-format
 msgid "Duplicated registration\n"
 ""
@@ -2265,7 +2759,7 @@ msgstr "Duplicated registration\n"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoicedprestations_duration
 msgid "Duration"
-msgstr "Durée"
+msgstr "Horaire cumulé"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_std_body
@@ -2277,6 +2771,11 @@ msgstr "Durée"
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_regroup_by_activity_by_child_by_day_enter_exit
 msgid "Détail des présences"
 msgstr "Détail des présences"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_report_form
+msgid "Détails"
+msgstr "Détails"
 
 #. module: extraschool
 #: code:addons/extraschool/extraschool_coda.py:94
@@ -2303,11 +2802,6 @@ msgid "ET QUE TOUS LES UTILISATEURS SONT DECONNECTES (REDEMARRAGE DU SERVEUR)"
 msgstr "ET QUE TOUS LES UTILISATEURS SONT DECONNECTES (REDEMARRAGE DU SERVEUR)"
 
 #. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.tpl_taxe_certificate_wizard_report
-msgid "EUR"
-msgstr "EUR"
-
-#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_all_invoice_summary
 #: model:ir.ui.view,arch_db:extraschool.report_all_invoice_summary_hannut_facture
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary
@@ -2316,14 +2810,28 @@ msgstr "EUR"
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_engis_2
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_ferrieres
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_hannut
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_invoice_ferrieres
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_ittre
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_ittre2
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_lierneux
-#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_tableau
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_neufchateau
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_yvoir
 msgid "Echéance"
 msgstr "Echéance"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_ohey_tableau_tarif
+msgid "Ecole d'Haillot"
+msgstr "Ecole d'Haillot"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_ohey_tableau_tarif
+msgid "Ecoles de Perwez, Evelette et Ohey"
+msgstr "Ecoles de Perwez, Evelette et Ohey"
+
+#. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_email
+#: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
 msgid "Email"
 msgstr "Courriel"
 
@@ -2344,6 +2852,7 @@ msgstr "Modèle d'E-mail"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_lierneux_report_parent_credit
+#: model:ir.ui.view,arch_db:extraschool.report_lierneux_report_parent_credit_huissier
 msgid "En cas de difficultés ou de demande d’informations supplémentaires,\n"
 "                        veuillez contacter nos services."
 msgstr "En cas de difficultés ou de demande d’informations supplémentaires,\n"
@@ -2361,6 +2870,11 @@ msgstr "Encodage manuel"
 #: model:ir.ui.menu,name:extraschool.extraschool_menu_prestation_times_encodage_manuel_tree
 msgid "Encodage manuel"
 msgstr "Encodage manuel"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_subvention_report_end_date
+msgid "End date"
+msgstr "End date"
 
 #. module: extraschool
 #: selection:extraschool.prestationscheck_wizard,state:0
@@ -2389,6 +2903,11 @@ msgstr "Enfant"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_child_fusion_wizard_form
 msgid "Enfant à fusionner"
 msgstr "Enfants à fusionner"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.tpl_tax_certificate_detail_report
+msgid "Enfant:"
+msgstr "Enfant:"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_parent_fusion_wizard_form
@@ -2422,6 +2941,11 @@ msgid "Entrée /Sortie"
 msgstr "Entrée /Sortie"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.tpl_tax_certificate_detail_report
+msgid "Entrée-Sortie"
+msgstr "Entrée-Sortie"
+
+#. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_importlevelrule_equalto1
 msgid "Equals to1"
 msgstr "égal à 1"
@@ -2435,7 +2959,7 @@ msgid "Error"
 msgstr "Erreur"
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_invoice_wizard.py:494
+#: code:addons/extraschool/extraschool_invoice_wizard.py:505
 #, python-format
 msgid "Error : number of invoice created differ from original"
 msgstr "Error : number of invoice created differ from original"
@@ -2451,11 +2975,6 @@ msgstr "Dates exclues"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_parent_fusion_wizard_form
 msgid "Execute SQL"
 msgstr "Fusionner"
-
-#. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
-msgid "Execute sql"
-msgstr "Execute sql"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.pda_prestation_times_search_view
@@ -2517,6 +3036,11 @@ msgid "Extraschool configuration"
 msgstr "Configuration du module AES"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_facebook
+msgid "Facebook"
+msgstr "Les photos de l'enfant peuvent-elles être publiées sur les réseaux sociaux ? (site de l'école, Facebook,..) ?"
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_manuel_invoice_wizard_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_negatif_payment_correction_wizard_form
 msgid "Facturation"
@@ -2527,20 +3051,31 @@ msgstr "Facturation"
 #: model:ir.ui.view,arch_db:extraschool.report_all_invoice_summary_hannut_facture
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_durbuy
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_durbuy_med
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_durbuy_rappel
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_engis
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_engis_2
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_ferrieres
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_hannut
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_invoice_ferrieres
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_ittre
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_ittre2
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_lierneux
-#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_tableau
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_neufchateau
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_yvoir
 msgid "Facture"
 msgstr "Facture"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_your_ref_and_period_num_fact_one_row
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_your_ref_and_period_num_fact_one_row_ittre
 msgid "Facture N°:"
 msgstr "Facture N°:"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_tableau_rappel
+msgid "Facture n°"
+msgstr "Facture n°"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_all_invoice_summary_hannut_facture
@@ -2549,7 +3084,7 @@ msgid "Facture(s) échue(s) ou en attente de paiement"
 msgstr "Facture(s) échue(s) ou en attente de paiement"
 
 #. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
+#: model:ir.ui.view,arch_db:extraschool.extraschool_reminder_form
 msgid "Factures"
 msgstr "Factures"
 
@@ -2564,9 +3099,14 @@ msgid "Factures de:"
 msgstr "Factures de:"
 
 #. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.tpl_taxe_certificate_wizard_report
-msgid "Fait à"
-msgstr "Fait à"
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_ohey_tableau_tarif
+msgid "Familles - de 3 enfants"
+msgstr "Familles - de 3 enfants"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_ohey_tableau_tarif
+msgid "Familles de 3 enfants et +"
+msgstr "Familles de 3 enfants et +"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_po_resp_fct
@@ -2605,6 +3145,16 @@ msgid "Fees description"
 msgstr "Description des frais"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_child_form
+msgid "Fiche Santé"
+msgstr "Fiche Santé"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
+msgid "Fiche parent"
+msgstr "Fiche parent"
+
+#. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_biller_biller_file
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_childsworkbook_wizard_childsworkbook
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_invoice_file
@@ -2619,12 +3169,17 @@ msgstr "Fichier"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_qrcodes_wizard_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificates_wizard_name
 msgid "File Name"
-msgstr "Nom du Fichier"
+msgstr "Nom du fichier"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activity_form
 msgid "Finance"
 msgstr "Finance"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_first_date_tetanus
+msgid "First date tetanus"
+msgstr "Date de la première injection"
 
 #. module: extraschool
 #: selection:extraschool.inline_report,visibility:0
@@ -2766,6 +3321,7 @@ msgstr "Fusion wizard parent id"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_gsm
+#: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
 msgid "GSM"
 msgstr "GSM"
 
@@ -2785,14 +3341,14 @@ msgid "Generate Smartphones"
 msgstr "Generate Smartphones"
 
 #. module: extraschool
-#: model:ir.model.fields,field_description:extraschool.field_extraschool_remindertype_minimum_general_balance
-msgid "Minimum general balance"
-msgstr "Montant minimum au TOTAL"
-
-#. module: extraschool
 #: model:ir.model.fields,help:extraschool.field_extraschool_inline_report_sequence
 msgid "Gives the sequence order when displaying a list."
 msgstr "Gives the sequence order when displaying a list."
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_ohey_tableau_tarif
+msgid "Gratuit"
+msgstr "Gratuit"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activity_search_view
@@ -2814,6 +3370,11 @@ msgstr "Gives the sequence order when displaying a list."
 #: model:ir.ui.view,arch_db:extraschool.stat_activity_search_view
 msgid "Group by..."
 msgstr "Regrouper par..."
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_doctor_doctor_gsm
+msgid "Gsm Doctor"
+msgstr "Gsm docteur"
 
 #. module: extraschool
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_guardian
@@ -2878,6 +3439,12 @@ msgid "Guardians"
 msgstr "Accueillantes"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_handicap
+#: model:ir.ui.view,arch_db:extraschool.extraschool_health_sheet_form
+msgid "Handicap"
+msgstr "L'enfant possède-t-il un handicap ? "
+
+#. module: extraschool
 #: selection:extraschool.coda,state:0
 msgid "Handled"
 msgstr "Traité"
@@ -2888,9 +3455,35 @@ msgid "Header"
 msgstr "Entête"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_health_sheet_form
+#: model:ir.ui.view,arch_db:extraschool.extraschool_health_sheet_tree
+msgid "Health Sheet"
+msgstr "Health Sheet"
+
+#. module: extraschool
+#: model:ir.model,name:extraschool.model_extraschool_health_sheet
+msgid "Health sheet"
+msgstr "Health sheet"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_child_health_sheet_ids
+msgid "Health sheet ids"
+msgstr "Health sheet ids"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.tpl_taxe_certificate_wizard_report
+msgid "Hello world!"
+msgstr "Hello world!"
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.tpl_guardian_horaire_wizard_report
 msgid "Heure"
 msgstr "Heure"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.tpl_tax_certificate_detail_report
+msgid "Heure de la présence"
+msgstr "Heure de la présence"
 
 #. module: extraschool
 #: selection:extraschool.inline_report,visibility:0
@@ -2919,7 +3512,7 @@ msgid "Horaire hebdomadaire"
 msgstr "Horaire hebdomadaire"
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_activity.py:288
+#: code:addons/extraschool/extraschool_activity.py:302
 #, python-format
 msgid "Hour must be greater than 0"
 msgstr "Vous devez entrez une heure de début et une heure de fin."
@@ -2931,6 +3524,7 @@ msgstr "Tél. maison"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_huissier
+#: model:ir.ui.view,arch_db:extraschool.extraschool_invoice_form
 msgid "Huissier"
 msgstr "Huissier"
 
@@ -2946,6 +3540,7 @@ msgstr "Huissier"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activityplanneddate_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_aged_balance_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_aged_balance_item_id
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_allergy_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_biller_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_fusion_wizard_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_id
@@ -2963,16 +3558,21 @@ msgstr "Huissier"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_day_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_discount_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_discount_version_id
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_disease_id
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_disease_type_id
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_doctor_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_encodage_manuel_validation_wizard_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_guardian_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_guardian_prestation_times_report_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_guardianprestationtimes_id
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_horaire_guardian_wizard_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_importlevelrule_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_importreject_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_initupdate_wizard_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_inline_report_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_id
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_tag_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_wizard_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoicedprestations_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_level_id
@@ -2983,6 +3583,7 @@ msgstr "Huissier"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_one_report_day_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_one_report_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_onereport_settings_id
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_other_contact_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_fusion_child_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_fusion_wizard_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_id
@@ -3018,8 +3619,12 @@ msgstr "Huissier"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_scheduledtasks_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_school_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_schoolimplantation_id
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_detail_log_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_id
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_log_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_stat_activity_id
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_subvention_report_id
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_tax_certificate_detail_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificate_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificate_item_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificates_wizard_id
@@ -3125,6 +3730,11 @@ msgid "In"
 msgstr "Entrée"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_biller_in_creation
+msgid "In creation"
+msgstr "In creation"
+
+#. module: extraschool
 #: selection:extraschool.pda_transmission,state:0
 msgid "In progress"
 msgstr "En cours"
@@ -3143,6 +3753,11 @@ msgstr "Informations de la facture"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activitycategory_form
 msgid "Informations du rappel"
 msgstr "Informations du rappel"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_health_sheet_form
+msgid "Informations médicales"
+msgstr "Informations médicales"
 
 #. module: extraschool
 #: selection:extraschool.childsworkbook_wizard,state:0
@@ -3190,6 +3805,16 @@ msgid "Inscriptions"
 msgstr "Inscriptions"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_intervention
+msgid "Intervention"
+msgstr "L'enfant a-t-il subi une intervention ou une maladie grave ?"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_health_sheet_form
+msgid "Intervention grave ou maladie"
+msgstr "Intervention grave ou maladie"
+
+#. module: extraschool
 #: selection:extraschool.activitycategory.sequence,type:0
 #: selection:extraschool.discount.version,apply_on:0
 #: model:ir.actions.report.xml,name:extraschool.extraschool_invoice_std
@@ -3218,8 +3843,8 @@ msgid "Invoice all of the children"
 msgstr "Facturer tous les enfants"
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_invoice.py:157
-#: code:addons/extraschool/extraschool_invoice.py:168
+#: code:addons/extraschool/extraschool_invoice.py:162
+#: code:addons/extraschool/extraschool_invoice.py:173
 #, python-format
 msgid "Invoice cancelled"
 msgstr "Invoice cancelled"
@@ -3303,7 +3928,6 @@ msgstr "Présences facturées"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_biller_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_invoice_graph
 #: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
-#: model:ir.ui.view,arch_db:extraschool.extraschool_reminder_form
 msgid "Invoices"
 msgstr "Factures"
 
@@ -3343,7 +3967,12 @@ msgid "Is created"
 msgstr "Is created"
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_prestationtimes.py:108
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_wizard_isready
+msgid "Isready"
+msgstr "Isready"
+
+#. module: extraschool
+#: code:addons/extraschool/extraschool_prestationtimes.py:112
 #, python-format
 msgid "It's not allowed to delete invoiced presta !!!"
 msgstr "It's not allowed to delete invoiced presta !!!"
@@ -3365,7 +3994,12 @@ msgid "Jeudi"
 msgstr "Jeudi"
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_guardian.py:107
+#: model:ir.ui.view,arch_db:extraschool.extraschool_health_sheet_form
+msgid "L'enfant souffre de :"
+msgstr "L'enfant souffre de :"
+
+#. module: extraschool
+#: code:addons/extraschool/extraschool_guardian.py:170
 #, python-format
 msgid "La date de fin doit être plus grande que la date de début !"
 msgstr "La date de fin doit être plus grande que la date de début !"
@@ -3410,6 +4044,7 @@ msgstr "Date du dernier message"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activityplanneddate___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_aged_balance___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_aged_balance_item___last_update
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_allergy___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_biller___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_fusion_wizard___last_update
@@ -3427,16 +4062,21 @@ msgstr "Date du dernier message"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_day___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_discount___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_discount_version___last_update
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_disease___last_update
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_disease_type___last_update
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_doctor___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_encodage_manuel_validation_wizard___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_guardian___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_guardian_prestation_times_report___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_guardianprestationtimes___last_update
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_horaire_guardian_wizard___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_importlevelrule___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_importreject___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_initupdate_wizard___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_inline_report___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice___last_update
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_tag___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_wizard___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoicedprestations___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_level___last_update
@@ -3447,6 +4087,7 @@ msgstr "Date du dernier message"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_one_report___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_one_report_day___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_onereport_settings___last_update
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_other_contact___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_fusion_child___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_fusion_wizard___last_update
@@ -3483,7 +4124,11 @@ msgstr "Date du dernier message"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_school___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_schoolimplantation___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone___last_update
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_detail_log___last_update
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_log___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_stat_activity___last_update
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_subvention_report___last_update
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_tax_certificate_detail___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificate___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificate_item___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificates_wizard___last_update
@@ -3514,6 +4159,7 @@ msgstr "Dernière date de transmission"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activityplanneddate_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_aged_balance_item_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_aged_balance_write_uid
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_allergy_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_biller_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_fusion_wizard_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_line_write_uid
@@ -3531,14 +4177,19 @@ msgstr "Dernière date de transmission"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_day_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_discount_version_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_discount_write_uid
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_disease_type_write_uid
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_disease_write_uid
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_doctor_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_encodage_manuel_validation_wizard_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_guardian_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_guardianprestationtimes_write_uid
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_horaire_guardian_wizard_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_importlevelrule_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_importreject_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_initupdate_wizard_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_inline_report_write_uid
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_tag_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_wizard_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoicedprestations_write_uid
@@ -3550,6 +4201,7 @@ msgstr "Dernière date de transmission"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_one_report_day_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_one_report_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_onereport_settings_write_uid
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_other_contact_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_fusion_child_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_fusion_wizard_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_write_uid
@@ -3583,8 +4235,11 @@ msgstr "Dernière date de transmission"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_scheduledtasks_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_school_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_schoolimplantation_write_uid
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_detail_log_write_uid
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_log_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_stat_activity_write_uid
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_subvention_report_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificate_item_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificate_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificates_wizard_write_uid
@@ -3604,6 +4259,7 @@ msgstr "Derniere fois mis à jour par"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activityplanneddate_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_aged_balance_item_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_aged_balance_write_date
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_allergy_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_biller_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_fusion_wizard_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_line_write_date
@@ -3621,14 +4277,19 @@ msgstr "Derniere fois mis à jour par"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_day_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_discount_version_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_discount_write_date
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_disease_type_write_date
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_disease_write_date
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_doctor_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_encodage_manuel_validation_wizard_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_guardian_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_guardianprestationtimes_write_date
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_horaire_guardian_wizard_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_importlevelrule_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_importreject_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_initupdate_wizard_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_inline_report_write_date
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_tag_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_wizard_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoicedprestations_write_date
@@ -3640,6 +4301,7 @@ msgstr "Derniere fois mis à jour par"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_one_report_day_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_one_report_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_onereport_settings_write_date
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_other_contact_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_fusion_child_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_fusion_wizard_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_write_date
@@ -3673,8 +4335,11 @@ msgstr "Derniere fois mis à jour par"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_scheduledtasks_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_school_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_schoolimplantation_write_date
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_detail_log_write_date
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_log_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_stat_activity_write_date
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_subvention_report_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificate_item_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificate_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificates_wizard_write_date
@@ -3686,6 +4351,11 @@ msgstr "Dernière mis à jour le"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_mainsettings_last_child_upgrade_levels
 msgid "Last child upgrade level"
 msgstr "Dernière mise à jour :"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_last_date_tetanus
+msgid "Last date tetanus"
+msgstr "Date du dernier rappel"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_qrcodes_wizard_last_id
@@ -3710,16 +4380,6 @@ msgstr "Dernier rappel"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_prestation_times_of_the_day_child_lastname
 msgid "LastName"
 msgstr "Nom"
-
-#. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.tpl_taxe_certificate_wizard_report
-msgid "Le soussigné certifie exacts les renseignements mentionnés ci-avant."
-msgstr "Le soussigné certifie exacts les renseignements mentionnés ci-avant."
-
-#. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.tpl_taxe_certificate_wizard_report
-msgid "Les données mentionnées sur l'attestation ne peuvent concerner que la partie de l'année précédant le 12ème anniversaire de l'enfant."
-msgstr "Les données mentionnées sur l'attestation ne peuvent concerner que la partie de l'année précédant le 12ème anniversaire de l'enfant."
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_durbuy
@@ -3758,7 +4418,7 @@ msgstr "Les factures suivantes sont toujours en attente de paiement. Nous vous p
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_footer_durbuy
-msgid "Les périodes sont facturées à raison de 0.50€ la demi-heure entamée. Pour les départs après 17h30(18h30 Barvaux) les lundi,\n"
+msgid "Les périodes sont facturées à raison de 0.25€ le quart d'heure entamé. Pour les départs après 17h30(18h30 Barvaux) les lundi,\n"
 "					mardi, jeudi et vendredi et après 13h le mercredi (hors mercredi après-midi), un forfait de 10€ est comptabilisé par 1/4h\n"
 "					entamé.\n"
 "					Le mercredi après midi présente un forfait de 5€ pour toute l’après midi et l’école de devoirs, un forfait de 2.4€ par séance.\n"
@@ -3766,7 +4426,7 @@ msgid "Les périodes sont facturées à raison de 0.50€ la demi-heure entamée
 "					Démocratie Locale.\n"
 "					Nous vous invitons à lire attentivement le Règlement d’Ordre Intérieur et le Projet Pédagogique de l’accueil extrascolaire reçu\n"
 "					via votre enfant à l’école. Plus d’infos : Coordination Enfance,"
-msgstr "Les périodes sont facturées à raison de 0.50€ la demi-heure entamée. Pour les départs après 17h30(18h30 Barvaux) les lundi,\n"
+msgstr "Les périodes sont facturées à raison de 0.25€ le quart d'heure entamé. Pour les départs après 17h30(18h30 Barvaux) les lundi,\n"
 "					mardi, jeudi et vendredi et après 13h le mercredi (hors mercredi après-midi), un forfait de 10€ est comptabilisé par 1/4h\n"
 "					entamé.\n"
 "					Le mercredi après midi présente un forfait de 5€ pour toute l’après midi et l’école de devoirs, un forfait de 2.4€ par séance.\n"
@@ -3810,7 +4470,7 @@ msgstr "Lieux d'accueil"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_importreject_line
 msgid "Line"
-msgstr "Ligne"
+msgstr "Line"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activity_form
@@ -3838,6 +4498,16 @@ msgid "Location"
 msgstr "Lieux d'accueil"
 
 #. module: extraschool
+#: model:ir.model,name:extraschool.model_extraschool_smartphone_detail_log
+msgid "Log détaillé pour smartphones"
+msgstr "Log détaillé pour smartphones"
+
+#. module: extraschool
+#: model:ir.model,name:extraschool.model_extraschool_smartphone_log
+msgid "Log pour smartphones"
+msgstr "Log pour smartphones"
+
+#. module: extraschool
 #: selection:extraschool.qrcodes_wizard,print_type:0
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_logo
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_mainsettings_logo
@@ -3845,6 +4515,16 @@ msgstr "Lieux d'accueil"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_school_logo
 msgid "Logo"
 msgstr "Logo"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_logo_reminder
+msgid "Logo reminder"
+msgstr "Logo du rappe"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_smartphone_detail_log_tree
+msgid "Logs"
+msgstr "Historiques"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_child_registration
@@ -3874,6 +4554,35 @@ msgid "MAJ implantation"
 msgstr "MAJ des implantations"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_durbuy_med
+msgid "MISE EN DEMEURE RECOMMANDEE"
+msgstr "MISE EN DEMEURE RECOMMANDEE"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_ittre
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_ittre2
+msgid "Madame, Monsieur,"
+msgstr "Madame, Monsieur,"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_durbuy_rappel
+msgid "Madame, Monsieur, Cher parent,<br/><br/>\n"
+"                                <span style=\"margin:30px;\">Sauf erreur de notre part, votre compte présente un solde en notre faveur. Veuillez trouvez, ci-dessous, le détail de la/ des facture(s) de l'accueil\n"
+"                                    Extrascolaire dont la somme reste impayée.</span><br/><br/>"
+msgstr "Madame, Monsieur, Cher parent,<br/><br/>\n"
+"                                <span style=\"margin:30px;\">Sauf erreur de notre part, votre compte présente un solde en notre faveur. Veuillez trouvez, ci-dessous, le détail de la/ des facture(s) de l'accueil\n"
+"                                    Extrascolaire dont la somme reste impayée.</span><br/><br/>"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_durbuy_med
+msgid "Madame, Monsieur, Cher parent,<br/><br/>\n"
+"                                <span style=\"margin:30px;\">Sauf erreur de notre part, vous n'avez pas donné suite à notre premier rappel vous invitant à solder la/les facture(s)\n"
+"                                 de l'accueil extrascolaire ci-dessous.</span><br/><br/>"
+msgstr "Madame, Monsieur, Cher parent,<br/><br/>\n"
+"                                <span style=\"margin:30px;\">Sauf erreur de notre part, vous n'avez pas donné suite à notre premier rappel vous invitant à solder la/les facture(s)\n"
+"                                 de l'accueil extrascolaire ci-dessous.</span><br/><br/>"
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_hannut
 msgid "Madame, Monsieur, Chers Parents,<br/>\n"
 "                        Nous constatons que vous n'avez pas réglé votre/vos facture(s) de l'accueil extrascolaire.\n"
@@ -3892,6 +4601,15 @@ msgstr "Madame, Monsieur,<br/>\n"
 "envers la               Commune des sommes ci-après."
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_neufchateau
+msgid "Madame, Monsieur,<br/>\n"
+"                        Malgré un premier rappel, vous êtes toujours redevable des sommes reprises ci-dessous\n"
+"                        auxquelles s'ajoutent des frais de rappel de 5.30 euros."
+msgstr "Madame, Monsieur,<br/>\n"
+"                        Malgré un premier rappel, vous êtes toujours redevable des sommes reprises ci-dessous\n"
+"                        auxquelles s'ajoutent des frais de rappel de 5.30 euros."
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_engis_2
 msgid "Madame, Monsieur,<br/>\n"
 "                        Malgré un premier rappel, vous êtes toujours redevable des sommes reprises ci-dessous\n"
@@ -3902,6 +4620,7 @@ msgstr "Madame, Monsieur,<br/>\n"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_ferrieres
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_invoice_ferrieres
 msgid "Madame, Monsieur,<br/><br/>\n"
 "						À ce jour, je n'ai toujours pas reçu le versement correspondant aux factures d'accueil extra-scolaire suivantes dont vous êtes\n"
 "						redevable envers la Commune de Ferrières :<br/><br/>"
@@ -3916,6 +4635,11 @@ msgstr "Madame, Monsieur,<br/><br/>\n"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
 msgid "Main Settings"
 msgstr "Paramètres généraux"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_health_sheet_form
+msgid "Maladies"
+msgstr "Maladies"
 
 #. module: extraschool
 #: selection:extraschool.payment,paymenttype:0
@@ -4028,6 +4752,11 @@ msgid "Minimum balance"
 msgstr "Montant minimum"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_remindertype_minimum_general_balance
+msgid "Minimum general balance"
+msgstr "Montant minimum au TOTAL"
+
+#. module: extraschool
 #: selection:extraschool.discount.version,quantity_type:0
 msgid "Minute"
 msgstr "Minute"
@@ -4047,6 +4776,7 @@ msgstr "Lundi"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_all_invoice_summary
 #: model:ir.ui.view,arch_db:extraschool.report_all_invoice_summary_hannut_facture
+#: model:ir.ui.view,arch_db:extraschool.report_biller_detail_lierneux_no_style
 #: model:ir.ui.view,arch_db:extraschool.report_coda_report
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_durbuy
@@ -4054,21 +4784,37 @@ msgstr "Lundi"
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_engis_2
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_ferrieres
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_hannut
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_invoice_ferrieres
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_ittre
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_ittre2
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_lierneux
-#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_tableau
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_neufchateau
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_tableau_rappel
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_yvoir
 msgid "Montant"
 msgstr "Montant"
 
 #. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.tpl_taxe_certificate_wizard_report
-msgid "Montant total perçu :"
-msgstr "Montant total perçu :"
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_durbuy_med
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_durbuy_rappel
+msgid "Montant dû"
+msgstr "Montant dû"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_durbuy_med
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_durbuy_rappel
+msgid "Montant payé"
+msgstr "Montant payé"
 
 #. module: extraschool
 #: selection:extraschool.discount.version,period:0
 msgid "Month"
 msgstr "Mois"
+
+#. module: extraschool
+#: selection:extraschool.health_sheet,swim_level:0
+msgid "Moyen"
+msgstr "Moyen"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_initupdate_wizard_form
@@ -4089,6 +4835,7 @@ msgstr "NE CLIQUER SUR CE BOUTTON QUE LORSQU'IL EST NECESSAIRE DE FAIRE UNE MISE
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_coda_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_discount_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_discount_version_name
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_child_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_inline_report_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_level_name
@@ -4141,6 +4888,16 @@ msgid "Name of the query"
 msgstr "Name of the query"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_tag_name
+msgid "Name of the tag"
+msgstr "Name of the tag"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_health_sheet_form
+msgid "Natation"
+msgstr "Natation"
+
+#. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_one_report_day_nb_childs
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_one_report_nb_childs
 msgid "Nb childs"
@@ -4182,6 +4939,7 @@ msgstr "Nbre jours"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_line_child_level
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_detail_log_level
 #: model:ir.ui.view,arch_db:extraschool.extraschool_taxcertificate_item_search
 msgid "Niveau"
 msgstr "Niveau"
@@ -4204,9 +4962,9 @@ msgid "No structured Communication"
 msgstr "Communication structurée"
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_coda.py:174
-#: code:addons/extraschool/extraschool_coda.py:254
-#: code:addons/extraschool/extraschool_coda.py:293
+#: code:addons/extraschool/extraschool_coda.py:175
+#: code:addons/extraschool/extraschool_coda.py:252
+#: code:addons/extraschool/extraschool_coda.py:291
 #, python-format
 msgid "No valid structured Communication"
 msgstr "Communication structurée non valide"
@@ -4217,25 +4975,18 @@ msgid "No value"
 msgstr "Non valeur"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_subvention_report_name
+#: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
 #: model:ir.ui.view,arch_db:extraschool.report_child_registration
 #: model:ir.ui.view,arch_db:extraschool.report_coda_report
+#: model:ir.ui.view,arch_db:extraschool.tpl_tax_certificate_detail_report
 msgid "Nom"
 msgstr "Nom"
 
 #. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.tpl_taxe_certificate_wizard_report
-msgid "Nom et adresse complète de l'école maternelle ou primaire, du pouvoir organisateur de l'école maternelle ou primaire, du pouvoir public local, communautaire ou régional (3) :"
-msgstr "Nom et adresse complète de l'école maternelle ou primaire, du pouvoir organisateur de l'école maternelle ou primaire, du pouvoir public local, communautaire ou régional (3) :"
-
-#. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.tpl_taxe_certificate_wizard_report
-msgid "Nom et prénom de l'enfant :"
-msgstr "Nom et prénom de l'enfant :"
-
-#. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.tpl_taxe_certificate_wizard_report
-msgid "Nom, prénom et adresse du débiteur des frais de garde d'enfant :"
-msgstr "Nom, prénom et adresse du débiteur des frais de garde d'enfant :"
+#: model:ir.ui.view,arch_db:extraschool.tpl_tax_certificate_detail_report
+msgid "Nom de l'activité"
+msgstr "Nom de l'activité"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_child_registration
@@ -4243,14 +4994,22 @@ msgid "Nombre d'enfants"
 msgstr "Nombre d'enfants"
 
 #. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.tpl_taxe_certificate_wizard_report
-msgid "Nombre de jours de garde :"
-msgstr "Nombre de jours de garde :"
+#: selection:extraschool.health_sheet,facebook:0
+#: selection:extraschool.health_sheet,photo:0
+msgid "Non"
+msgstr "Non"
 
 #. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_refound_line
-msgid "Non valeurs"
-msgstr "Non valeurs"
+#: model:ir.ui.view,arch_db:extraschool.report_biller_detail_lierneux_no_style
+msgid "Non Valeur"
+msgstr "Non Valeur"
+
+#. module: extraschool
+#: selection:extraschool.health_sheet,facebook:0
+#: selection:extraschool.health_sheet,photo:0
+#: selection:extraschool.health_sheet,swim_level:0
+msgid "Non renseigné"
+msgstr "Non renseigné"
 
 #. module: extraschool
 #: selection:extraschool.payment,paymenttype:0
@@ -4264,6 +5023,11 @@ msgid "Not validated"
 msgstr "Non validé"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text_rappel
+msgid "Nous vous invitons à régler ce montant, pour le"
+msgstr "Nous vous invitons à régler ce montant, pour le"
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_lierneux_report_parent_credit
 msgid "Nous vous prions de bien vouloir régulariser votre situation\n"
 "                        <u><b>dans un délai de 10 jours à dater du présent rappel.</b></u>"
@@ -4271,34 +5035,16 @@ msgstr "Nous vous prions de bien vouloir régulariser votre situation\n"
 "                        <u><b>dans un délai de 10 jours à dater du présent rappel.</b></u>"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_lierneux_report_parent_credit_huissier
+msgid "Nous vous prions de bien vouloir régulariser votre situation\n"
+"                        <u><b>dans un délai de 15 jours à dater du présent rappel.</b></u>"
+msgstr "Nous vous prions de bien vouloir régulariser votre situation\n"
+"                        <u><b>dans un délai de 15 jours à dater du présent rappel.</b></u>"
+
+#. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_number
 msgid "Number"
 msgstr "Numéro"
-
-#. module: extraschool
-#: model:ir.model.fields,field_description:extraschool.field_extraschool_tax_certificate_detail_invoice_number
-msgid "invoice_number"
-msgstr "Numéro de facture"
-
-#. module: extraschool
-#: model:ir.model.fields,field_description:extraschool.field_extraschool_tax_certificate_detail_activity_name
-msgid "activity_name"
-msgstr "Activité"
-
-#. module: extraschool
-#: model:ir.model.fields,field_description:extraschool.field_extraschool_tax_certificate_detail_prestation_date
-msgid "prestation_date"
-msgstr "Date"
-
-#. module: extraschool
-#: model:ir.model.fields,field_description:extraschool.field_extraschool_tax_certificate_detail_time_scan
-msgid "time_scan"
-msgstr "Heure"
-
-#. module: extraschool
-#: model:ir.model.fields,field_description:extraschool.field_extraschool_tax_certificate_detail_entry_exit
-msgid "entry_exit"
-msgstr "Entrée/Sortie"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_message_needaction_counter
@@ -4321,7 +5067,7 @@ msgstr "Nombre d'Actions"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_number_childs
 msgid "Number of childs"
-msgstr "Nombre d'enfants"
+msgstr "Nombre d'élèves"
 
 #. module: extraschool
 #: model:ir.model.fields,help:extraschool.field_extraschool_activity_message_needaction_counter
@@ -4365,9 +5111,9 @@ msgid "Numéro contenu dans le QR Code"
 msgstr "Numéro contenu dans le QR Code"
 
 #. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.tpl_taxe_certificate_wizard_report
-msgid "Numéro d'ordre de l'attestation :"
-msgstr "Numéro d'ordre de l'attestation :"
+#: model:ir.ui.view,arch_db:extraschool.tpl_tax_certificate_detail_report
+msgid "N° de facture"
+msgstr "N° de facture"
 
 #. module: extraschool
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_one_report
@@ -4391,9 +5137,15 @@ msgid "ONE report configuration"
 msgstr "Configuration du rapport ONE"
 
 #. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text_med
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text_rappel
 msgid "Objet: Factures AES pour la période du"
 msgstr "Objet: Factures AES pour la période du"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_activity_form
+msgid "Occurrence"
+msgstr "Occurrence"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_childsworkbook_wizard_form
@@ -4456,13 +5208,29 @@ msgstr "Seulement les enfants inscrits"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_remindertype_sequence
 msgid "Order"
-msgstr "Order"
+msgstr "Ordre"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_health_sheet_form
+msgid "Other Contacts"
+msgstr "Other Contacts"
+
+#. module: extraschool
+#: model:ir.model,name:extraschool.model_extraschool_other_contact
+msgid "Other contact"
+msgstr "Other contact"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_otherref
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_guardian_otherref
 msgid "Other ref"
 msgstr "Autre référence"
+
+#. module: extraschool
+#: selection:extraschool.health_sheet,facebook:0
+#: selection:extraschool.health_sheet,photo:0
+msgid "Oui"
+msgstr "Oui"
 
 #. module: extraschool
 #: selection:extraschool.guardianprestationtimes,es:0
@@ -4510,6 +5278,11 @@ msgid "Page break after"
 msgstr "Page break after"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_tableau_rappel
+msgid "Paiement"
+msgstr "Paiement"
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_coda_report
 msgid "Paiements acceptés"
 msgstr "Paiements acceptés"
@@ -4522,7 +5295,12 @@ msgstr "Paiements rejetés"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_report_paper_format_id
 msgid "Paper format"
-msgstr "Format de papier"
+msgstr "Paper format"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text_med
+msgid "Par la présente, nous vous mettons en demeure de payer ce montant de"
+msgstr "Par la présente, nous vous mettons en demeure de payer ce montant de"
 
 #. module: extraschool
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_parent
@@ -4541,6 +5319,7 @@ msgstr "Format de papier"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificates_wizard_parentid
 #: model:ir.ui.view,arch_db:extraschool.extraschool_parent_tree
 #: model:ir.ui.view,arch_db:extraschool.extraschool_taxcertificate_item_search
+#: model:ir.ui.view,arch_db:extraschool.report_biller_detail_lierneux_no_style
 #: model:ir.ui.view,arch_db:extraschool.report_biller_detail_no_style
 #: model:ir.ui.view,arch_db:extraschool.report_parent
 msgid "Parent"
@@ -4639,7 +5418,7 @@ msgid "Parent lastname column name"
 msgstr "Nom colonne nom parent"
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_coda.py:270
+#: code:addons/extraschool/extraschool_coda.py:268
 #, python-format
 msgid "Parent not found"
 msgstr "Parent non trouvé"
@@ -4701,6 +5480,11 @@ msgid "Parents"
 msgstr "Parents"
 
 #. module: extraschool
+#: selection:extraschool.health_sheet,swim_level:0
+msgid "Pas du tout"
+msgstr "Pas du tout"
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_biller_form
 msgid "Pay All"
 msgstr "Tout payer"
@@ -4730,6 +5514,7 @@ msgid "Payment Search"
 msgstr "Payment Search"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_payment_parent_tree
 #: model:ir.ui.view,arch_db:extraschool.extraschool_payment_report_tree
 #: model:ir.ui.view,arch_db:extraschool.extraschool_payment_status_report_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_payment_status_report_graph
@@ -4873,6 +5658,11 @@ msgid "Payments reconciliation"
 msgstr "Réconciliation des paiements"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_doctor_form
+msgid "Pays"
+msgstr "Pays"
+
+#. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_pda_transmission_pda_prestation_times_ids
 msgid "Pda prestation times ids"
 msgstr "Pda prestation times ids"
@@ -4938,12 +5728,19 @@ msgid "Period to"
 msgstr "Fin par défaut"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_photo
+#: model:ir.ui.view,arch_db:extraschool.extraschool_health_sheet_form
+msgid "Photo"
+msgstr "L'enfant peut-il être pris en photo durant les stages ou plaines ?"
+
+#. module: extraschool
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_place
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitychildregistration_place_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activityoccurrence_place_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoicedprestations_placeid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_presta_stat_place_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_stat_activity_place_id
+#: model:ir.ui.view,arch_db:extraschool.extraschool_activity_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activitycategory_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activityoccurrence_search_view
 #: model:ir.ui.view,arch_db:extraschool.extraschool_place_form
@@ -4977,12 +5774,6 @@ msgstr "Lieux d'accueil"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activity_form
 msgid "Planification"
 msgstr "Planification"
-
-#. module: extraschool
-#: code:addons/extraschool/extraschool_activity.py:304
-#, python-format
-msgid "Planned Dates must be in the range of Validity_to and Validity_from (Planned)"
-msgstr "Veuillez vérifier que vos dates plannifiées soient bonnes."
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_planneddates_ids
@@ -5118,13 +5909,13 @@ msgstr "Présences"
 
 #. module: extraschool
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_prestation_times_encodage_manuel
-#: model:ir.actions.act_window,name:extraschool.action_extraschool_prestation_times_encodage_manuel_tree
+#: model:ir.actions.act_window,name:extraschool.action_extraschool_prestation_times_of_the_day
 msgid "Prestations_of_the_day"
 msgstr "Encodage manuel"
 
 #. module: extraschool
+#: model:ir.actions.act_window,name:extraschool.action_extraschool_prestation_times_encodage_manuel_tree
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_prestation_times_of_the_day_tree
-#: model:ir.actions.act_window,name:extraschool.action_extraschool_prestation_times_of_the_day
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_prestation_times_of_the_day_tree_not_verified
 msgid "Prestations_of_the_day.tree"
 msgstr "Présences par jour"
@@ -5238,6 +6029,11 @@ msgid "Prix unit."
 msgstr "Prix unit."
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
+msgid "Prénom"
+msgstr "Prénom"
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_child_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_guardian_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
@@ -5250,16 +6046,26 @@ msgid "Prêt à être validé"
 msgstr "Prêt à être validé"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_remindertype_bailiff
+msgid "Put to bailiff"
+msgstr "Mettre en huissier"
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_all_invoice_summary
 #: model:ir.ui.view,arch_db:extraschool.report_all_invoice_summary_hannut_facture
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_durbuy
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_durbuy_med
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_durbuy_rappel
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_engis
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_engis_2
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_ferrieres
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_hannut
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_invoice_ferrieres
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_ittre
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_ittre2
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_lierneux
-#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_tableau
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_neufchateau
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_yvoir
 msgid "Période"
 msgstr "Période"
@@ -5270,9 +6076,9 @@ msgid "Période du"
 msgstr "Période du"
 
 #. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.tpl_taxe_certificate_wizard_report
-msgid "Période pendant laquelle l'enfant a été gardé (1) :"
-msgstr "Période pendant laquelle l'enfant a été gardé (1) :"
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_tableau_rappel
+msgid "Période facturée"
+msgstr "Période facturée"
 
 #. module: extraschool
 #: selection:extraschool.config_smartphone,scanmethod:0
@@ -5378,6 +6184,17 @@ msgid "Query Sql"
 msgstr "Query Sql"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_durbuy_rappel
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_ittre
+msgid "RAPPEL"
+msgstr "RAPPEL"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_ittre2
+msgid "RAPPEL 2"
+msgstr "RAPPEL 2"
+
+#. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_rn
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_rn
 msgid "RN"
@@ -5421,6 +6238,7 @@ msgstr "Reçu"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_invoice_tree
+#: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
 msgid "Reconcil"
 msgstr "Réconciliation"
@@ -5495,6 +6313,11 @@ msgstr "au"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_child_registration_form_multi
 msgid "Registrations"
 msgstr "Inscriptions"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
+msgid "Registre National"
+msgstr "Numéro de registre national"
 
 #. module: extraschool
 #: selection:extraschool.payment,paymenttype:0
@@ -5710,11 +6533,6 @@ msgstr "Rapports"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
-msgid "Requete SQL"
-msgstr "Requête SQL"
-
-#. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_prestation_times_of_the_day_form
 msgid "Reset"
 msgstr "Réinitialiser"
@@ -5723,6 +6541,11 @@ msgstr "Réinitialiser"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
 msgid "Reset AND Check"
 msgstr "Reset AND Check"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_biller_detail_lierneux_no_style
+msgid "Reçu"
+msgstr "Reçu"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_root_id
@@ -5735,14 +6558,25 @@ msgid "Root activity"
 msgstr "Activité principale"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_doctor_form
+#: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
+msgid "Rue..."
+msgstr "Rue..."
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_health_sheet_form
+msgid "Régime spécifique"
+msgstr "Régime spécifique"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_health_sheet_form
+msgid "Réseaux sociaux"
+msgstr "Réseaux sociaux"
+
+#. module: extraschool
 #: model:ir.actions.report.xml,name:extraschool.extraschool_child_registration_summary_report
 msgid "Résumé"
 msgstr "Résumé"
-
-#. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_tableau
-msgid "SOLDE RESTANT DÛ:"
-msgstr "SOLDE RESTANT DÛ:"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_line_saturday
@@ -5778,6 +6612,7 @@ msgstr "Ecole"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_school_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_schoolimplantation_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_schoolimplantation_tree
+#: model:ir.ui.view,arch_db:extraschool.prestation_times_of_the_day_search_view
 msgid "School Implantation"
 msgstr "Implantation scolaire"
 
@@ -5788,7 +6623,6 @@ msgstr "Implantation scolaire"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_class_schoolimplantation
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_guardian_schoolimplantation
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_schoolimplantationid
-#: model:ir.model.fields,field_description:extraschool.field_extraschool_prestation_times_of_the_day_schoolimplantation
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_reminder_school_implantation_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificate_item_implantation
 #: model:ir.ui.view,arch_db:extraschool.extraschool_invoice_search_view
@@ -5889,7 +6723,7 @@ msgid "Sequence"
 msgstr "Séquence"
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_activitycategory.py:194
+#: code:addons/extraschool/extraschool_activitycategory.py:195
 #, python-format
 msgid "Sequence not defined"
 msgstr "Sequence not defined"
@@ -5916,9 +6750,9 @@ msgid "Set to draft"
 msgstr "Remettre en brouillon"
 
 #. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.extraschool_child_registration_form"Force
+#: model:ir.ui.view,arch_db:extraschool.extraschool_child_registration_form
 msgid "Set to validate"
-msgstr "Mettre à valider"
+msgstr "Set to validate"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_short_name
@@ -5941,39 +6775,14 @@ msgid "Si l'on met une tolérance à 2, cela permet de pas facturer 120 minutes 
 msgstr "Si l'on met une tolérance à 2, cela permet de pas facturer 120 minutes si l'enfant est resté 62 minutes"
 
 #. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.tpl_taxe_certificate_wizard_report
-msgid "Si plusieurs tarifs sont appliqués, il convient de fournir le détail du nombre total de jours de garde par tarif\n"
-"appliqué.   Ce   détail   peut,   le   cas   échéant,   être   joint   dans   une   annexe   à   la   présente   attestation.\n"
-"Pour les frais de garde payés soit aux écoles maternelles ou primaires, soit aux pouvoirs organisateurs de ces\n"
-"écoles maternelles ou  primaires,  soit aux institutions ou  milieux d'accueil  ayant un  lien  avec ces écoles\n"
-"maternelles ou primaires ou les pouvoirs organisateurs des écoles maternelles ou primaires, le tarif journalier\n"
-"ne doit cependant être mentionné que s'il est supérieur au montant maximum de 11,20 EUR par jour de garde."
-msgstr "Si plusieurs tarifs sont appliqués, il convient de fournir le détail du nombre total de jours de garde par tarif\n"
-"appliqué.   Ce   détail   peut,   le   cas   échéant,   être   joint   dans   une   annexe   à   la   présente   attestation.\n"
-"Pour les frais de garde payés soit aux écoles maternelles ou primaires, soit aux pouvoirs organisateurs de ces\n"
-"écoles maternelles ou  primaires,  soit aux institutions ou  milieux d'accueil  ayant un  lien  avec ces écoles\n"
-"maternelles ou primaires ou les pouvoirs organisateurs des écoles maternelles ou primaires, le tarif journalier\n"
-"ne doit cependant être mentionné que s'il est supérieur au montant maximum de 11,20 EUR par jour de garde."
-
-#. module: extraschool
-#: model:ir.ui.menu,name:extraschool.extraschool_menu_signaletics
-msgid "Signaletics"
-msgstr "Signalétiques"
-
-#. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
-msgid "Contact"
-msgstr "Données de contact"
-
-#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
 msgid "Signaletic"
 msgstr "Signalétique"
 
 #. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
-msgid "Address"
-msgstr "Adresse"
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_signaletics
+msgid "Signaletics"
+msgstr "Signalétiques"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_po_sign
@@ -6017,12 +6826,27 @@ msgid "Smartphone"
 msgstr "Smartphone"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_smartphone_detail_log_ids
+msgid "Smartphone detail log ids"
+msgstr "Smartphone detail log ids"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_smartphone_log_ids
+msgid "Smartphone log ids"
+msgstr "Smartphone log ids"
+
+#. module: extraschool
 #: model:ir.ui.menu,name:extraschool.extraschool_menu_smartphone
 msgid "Smartphones"
 msgstr "Smartphones"
 
 #. module: extraschool
-#: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_softwareurl
+#: model:ir.ui.view,arch_db:extraschool.extraschool_health_sheet_form
+msgid "Social / Physique"
+msgstr "Social / Physique"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_softwareurl_v9
 msgid "Software url"
 msgstr "Chemin du logiciel"
 
@@ -6033,8 +6857,16 @@ msgstr "Version de l'application"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_payment_solde
+#: model:ir.ui.view,arch_db:extraschool.report_biller_detail_lierneux_no_style
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_durbuy_med
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_durbuy_rappel
 msgid "Solde"
 msgstr "Solde"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_tableau_rappel
+msgid "Solde restant dû"
+msgstr "Solde restant dû"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_regroup_by_activity_by_child_by_day_enter_exit
@@ -6042,9 +6874,19 @@ msgid "Sortie"
 msgstr "Sortie"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_specific_regime
+msgid "Specific Regime"
+msgstr "L'enfant a-t-il un régime alimentaire spécial ?"
+
+#. module: extraschool
 #: selection:extraschool.qrcodes_wizard,format:0
 msgid "Standard"
 msgstr "Standard"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_subvention_report_start_date
+msgid "Start date"
+msgstr "Start date"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_importlevelrule_startpos1
@@ -6077,6 +6919,7 @@ msgstr "État"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_po_street
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_doctor_street
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_street
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_place_street
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_school_street
@@ -6117,20 +6960,23 @@ msgid "Structured communication prefix"
 msgstr "Préfix"
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_child_registration.py:44
+#: code:addons/extraschool/extraschool_child_registration.py:43
 #, python-format
 msgid "Subscription from %s to %s"
 msgstr "Inscription du %s au %s"
 
 #. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
-msgid "Registre National"
-msgstr "Numéro de registre national"
-
-#. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_subsidizedbyone
 msgid "Subsidized by one"
 msgstr "Subsidié par l'ONE"
+
+#. module: extraschool
+#: model:ir.actions.act_window,name:extraschool.action_extraschool_subvention_report
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_subvention_report
+#: model:ir.ui.view,arch_db:extraschool.extraschool_subvention_report_form
+#: model:ir.ui.view,arch_db:extraschool.extraschool_subvention_report_tree
+msgid "Subvention Report"
+msgstr "Subvention Report"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_one_report_day_subvention_type
@@ -6144,14 +6990,24 @@ msgid "Sunday"
 msgstr "Dimanche"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_swim
+msgid "Swim"
+msgstr "L'enfant sait-il nager ?"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_swim_level
+msgid "Swim level"
+msgstr "Le niveau de natation"
+
+#. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_one_report_synthesis
 msgid "Synthesis"
 msgstr "Synthèse"
 
 #. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_tableau
-msgid "TOTAL PAYÉ:"
-msgstr "TOTAL PAYÉ:"
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_tableau_rappel
+msgid "TOTAUX"
+msgstr "TOTAUX"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_prestation_times_encodage_manuel_form
@@ -6161,6 +7017,9 @@ msgstr "Tableau"
 #. module: extraschool
 #: selection:extraschool.config_smartphone,scanmethod:0
 #: selection:extraschool.smartphone,scanmethod:0
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_tag
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_payment_wizard_reconcil_tag
+#: model:ir.ui.view,arch_db:extraschool.extraschool_invoice_search_view
 msgid "Tag"
 msgstr "Étiquette"
 
@@ -6176,23 +7035,29 @@ msgid "Tarif group name"
 msgstr "Nom du tarif de groupe"
 
 #. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.tpl_taxe_certificate_wizard_report
-msgid "Tarif journalier (2) :"
-msgstr "Tarif journalier (2) :"
-
-#. module: extraschool
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_taxcertificate
 #: model:ir.ui.menu,name:extraschool.extraschool_menu_taxcertificate
 #: model:ir.ui.view,arch_db:extraschool.extraschool_taxcertificate_form
+#: model:ir.ui.view,arch_db:extraschool.extraschool_taxcertificate_item_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_taxcertificate_item_tree
 #: model:ir.ui.view,arch_db:extraschool.extraschool_taxcertificate_tree
 msgid "Tax Certificate"
 msgstr "Attestation fiscale"
 
 #. module: extraschool
+#: model:ir.model,name:extraschool.model_extraschool_tax_certificate_detail
+msgid "Tax Certificate Detail"
+msgstr "Tax Certificate Detail"
+
+#. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_taxcertificatetemplate
 msgid "Tax Certificate Template"
 msgstr "Modèle d'attestation fiscale"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
+msgid "Tax Certificates"
+msgstr "Attestations fiscales"
 
 #. module: extraschool
 #: model:ir.actions.act_window,name:extraschool.action_lbsc_taxcertificates_wizard
@@ -6201,10 +7066,25 @@ msgid "Tax Certificates Wizard"
 msgstr "Attestations fiscales"
 
 #. module: extraschool
+#: model:ir.actions.report.xml,name:extraschool.tax_certificate_detail_report
+msgid "Tax Detail"
+msgstr "Détail attestation fiscale"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.tpl_tax_certificate_detail_report
+msgid "Tax Detail -"
+msgstr "Détail attestation fiscale"
+
+#. module: extraschool
 #: model:ir.actions.report.xml,name:extraschool.taxe_certificate_wizard_report
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activitycategory_form
 msgid "Tax certificate"
 msgstr "Attestations fiscales"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificate_item_tax_certificate_detail_ids
+msgid "Tax certificate detail ids"
+msgstr "Tax certificate detail ids"
 
 #. module: extraschool
 #: model:ir.model,name:extraschool.model_extraschool_taxcertificate
@@ -6227,7 +7107,7 @@ msgid "Taxe certificate"
 msgstr "Attestations fiscales"
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_taxcertificate.py:30
+#: code:addons/extraschool/extraschool_taxcertificate.py:31
 #, python-format
 msgid "Taxe certificate already exist"
 msgstr "L'attestation fiscale existe déjà"
@@ -6236,6 +7116,16 @@ msgstr "L'attestation fiscale existe déjà"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_discount_version_tree
 msgid "Template"
 msgstr "Modèle"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_log_time_of_transmission
+msgid "Temps d'éxécution"
+msgstr "Temps d'éxécution"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_tetanus
+msgid "Tetanus"
+msgstr "L'enfant a-il été vacciné contre le tétanos ?"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_remindertype_text
@@ -6248,28 +7138,24 @@ msgid "Text de l email"
 msgstr "Text de l email"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_detail_log_text
+msgid "Texte"
+msgstr "Texte"
+
+#. module: extraschool
+#: code:addons/extraschool/extraschool_child_registration.py:363
+#, python-format
+msgid "The child %s already has a registration on the activity %s from date %s to date %s. You can find the duplicate at ID: %s"
+msgstr "The child %s already has a registration on the activity %s from date %s to date %s. You can find the duplicate at ID: %s"
+
+#. module: extraschool
 #: code:addons/extraschool/extraschool_coda.py:205
 #, python-format
 msgid "The communication is outdated. Another reminder has been created."
 msgstr "The communication is outdated. Another reminder has been created."
 
-
 #. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
-msgid "Tax Certificates"
-msgstr "Attestations fiscales"
-
-
-#. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.extraschool_invoice_wizard_form
-msgid "A biller is curently in creation. You will recieve an Email when the biller is completed.\n"
-"                    In the meantime, here is a picture of a cat slightly annoyed:"
-msgstr "Un facturier est en cours de création.Vous allez recevoir un E-mail lorsque le facturier est créé.\n"
-""
-
-
-#. module: extraschool
-#: code:addons/extraschool/extraschool_child_registration.py:222
+#: code:addons/extraschool/extraschool_child_registration.py:226
 #, python-format
 msgid "The date from must be lower than the date to"
 msgstr "The date from must be lower than the date to"
@@ -6281,10 +7167,22 @@ msgid "The date must be higher than today"
 msgstr "The date must be higher than today"
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_smartphone.py:52
+#: code:addons/extraschool/extraschool_price_list.py:67
+#, python-format
+msgid "The period must be higher than 0"
+msgstr "The period must be higher than 0"
+
+#. module: extraschool
+#: code:addons/extraschool/extraschool_smartphone.py:55
 #, python-format
 msgid "Ther is no configuration for create smartphone"
 msgstr "Ther is no configuration for create smartphone"
+
+#. module: extraschool
+#: code:addons/extraschool/extraschool_invoice_wizard.py:701
+#, python-format
+msgid "There is a problem with the price list."
+msgstr "There is a problem with the price list."
 
 #. module: extraschool
 #: code:addons/extraschool/extraschool_one_report.py:190
@@ -6293,25 +7191,25 @@ msgid "There is no ONE report configuration"
 msgstr "Il n'y a pas de configuration pour le rapport ONE"
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_remindersjournal.py:158
+#: code:addons/extraschool/extraschool_remindersjournal.py:159
 #, python-format
 msgid "There is no next reminder."
 msgstr "There is no next reminder."
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_invoice_wizard.py:382
+#: code:addons/extraschool/extraschool_invoice_wizard.py:394
 #, python-format
 msgid "There is no presta to invoice !!!"
 msgstr "Il n'y a pas de présences à facturer ! Le facturier de cette période a peut-être déjà été généré"
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_parent.py:179
+#: code:addons/extraschool/extraschool_parent.py:203
 #, python-format
 msgid "There is no refund possible."
 msgstr "Il n'y a pas de remboursement possible."
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_child_registration.py:262
+#: code:addons/extraschool/extraschool_child_registration.py:268
 #, python-format
 msgid "These childs are duplicated !!\n"
 ""
@@ -6319,10 +7217,10 @@ msgstr "These childs are duplicated !!\n"
 ""
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_coda.py:153
+#: code:addons/extraschool/extraschool_coda.py:154
 #, python-format
 msgid "This invoice has a reminder and cannot be paid with the invoice communication"
-msgstr "This invoice has a reminder and cannot be paid with the invoice communication"
+msgstr "Cette facture possède un rappel et ne peut pas être payé avec la communication structurée de la facture"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_line_thursday
@@ -6350,6 +7248,11 @@ msgstr "Correction des heures"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_timecorrection_wizard_form
 msgid "Time correction Wizard"
 msgstr "Time correction Wizard"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificate_title
+msgid "Title"
+msgstr "Civilité"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_prest_to
@@ -6411,6 +7314,12 @@ msgid "Total received"
 msgstr "Total des montants reçus"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_durbuy_med
+#: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_durbuy_rappel
+msgid "Total à payer :"
+msgstr "Total à payer :"
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_taxcertificate_form
 msgid "Toutes les attestations"
 msgstr "Toutes les attestations"
@@ -6439,9 +7348,15 @@ msgstr "Méthode de transfert"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_mainsettings_pda_transmission_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_pdaprestationtimes_pda_transmission_id
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_log_title
 #: model:ir.ui.view,arch_db:extraschool.extraschool_smartphone_form
 msgid "Transmission"
 msgstr "Transmission"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_smartphone_form
+msgid "Transmission Log"
+msgstr "Transmission Log"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_remindersjournal_transmission_date
@@ -6458,6 +7373,11 @@ msgstr "Heure de transmission"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_one_report_transmissiondate
 msgid "Transmissiondate"
 msgstr "Date de transmission"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_disease_disease_text
+msgid "Treatment"
+msgstr "Traitement"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_aged_balance_item_tree
@@ -6478,6 +7398,11 @@ msgid "True"
 msgstr "True"
 
 #. module: extraschool
+#: selection:extraschool.health_sheet,swim_level:0
+msgid "Très bien"
+msgstr "Très bien"
+
+#. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_line_tuesday
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_line_tuesday_activity_id
 msgid "Tuesday"
@@ -6490,7 +7415,62 @@ msgstr "Mardi"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_mainsettings_type
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_pdaprestationtimes_type
 msgid "Type"
-msgstr "Catégorie tarifaire"
+msgstr "Type"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_activity_no_available_text
+msgid "Type of activity no available"
+msgstr "Laquelle / Lesquelles ?"
+
+#. module: extraschool
+#: model:ir.model,name:extraschool.model_extraschool_disease_type
+msgid "Type of disease"
+msgstr "Type of disease"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_type_handicap
+msgid "Type of handicap"
+msgstr "Type d'handicap"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_intervention_text
+msgid "Type of intervention"
+msgstr "Laquelle / Lesquelles ?"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_specific_regime_text
+msgid "Type specific regime"
+msgstr "Type de régime alimentaire"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_doctor_doctor_contact
+msgid "Tél. Doctor"
+msgstr "Téléphone"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_other_contact_contact_tel
+msgid "Tél. contact"
+msgstr "Téléphone"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
+msgid "Téléphone Maison"
+msgstr "Téléphone Maison"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
+msgid "Téléphone Travail"
+msgstr "Téléphone Travail"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_health_sheet_form
+msgid "Tétanos"
+msgstr "Tétanos"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_prestation_times_of_the_day_form
+msgid "Uniformiser Ecole"
+msgstr "Uniformiser Ecole"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_std_body
@@ -6548,6 +7528,11 @@ msgstr "Unsolved Reminders"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
 msgid "Update Prestation Statistic"
 msgstr "Update Prestation Statistic"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
+msgid "Update comm struct"
+msgstr "Update comm struct"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
@@ -6623,13 +7608,13 @@ msgid "Validity to"
 msgstr "Valide jusqu'au"
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_activity.py:295
+#: code:addons/extraschool/extraschool_activity.py:309
 #, python-format
 msgid "Validity to must be greater than validity from (date)"
 msgstr "Veuillez vérifier les dates de l'activité. La date de début doit être inférieure à la date de fin."
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_activity.py:299
+#: code:addons/extraschool/extraschool_activity.py:313
 #, python-format
 msgid "Validity to must be greater than validity from (hours)"
 msgstr "Veuillez vérifier les heures de l'activité. L'heure de début doit être inférieure à l'heure de fin."
@@ -6667,6 +7652,12 @@ msgid "Verso"
 msgstr "Verso"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_doctor_form
+#: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
+msgid "Ville"
+msgstr "Ville"
+
+#. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_inline_report_visibility
 msgid "Visibility"
 msgstr "Visibilité"
@@ -6688,8 +7679,9 @@ msgid "Voulez-vous vraiment supprimer définitivement cette facture ? Les prése
 msgstr "Voulez-vous vraiment supprimer définitivement cette facture ? Les présences liées à celle-ci ne seront plus facturables. Confirmation de la manipulation ?"
 
 #. module: extraschool
-#: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_warning_date_invoice
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_warning_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_warning_biller
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_wizard_warning_smartphone
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_prestation_times_encodage_manuel_warning_biller
 msgid "WARNING"
 msgstr "ATTENTION"
@@ -6706,7 +7698,7 @@ msgid "Warning"
 msgstr "Avertissement"
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_prestation_times_of_the_day.py:503
+#: code:addons/extraschool/extraschool_prestation_times_of_the_day.py:498
 #, python-format
 msgid "Warning : No presta found"
 msgstr "Avertissement : Pas de présences trouvées"
@@ -6714,6 +7706,7 @@ msgstr "Avertissement : Pas de présences trouvées"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_warning_visibility
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_warning_visibility
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_wizard_warning_visibility
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_prestation_times_encodage_manuel_warning_visibility
 msgid "Warning visibility"
 msgstr "Warning visibility"
@@ -6751,13 +7744,13 @@ msgid "You are about to refund this parent. Are you sure ?"
 msgstr "You are about to refund this parent. Are you sure ?"
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_biller.py:155
+#: code:addons/extraschool/extraschool_biller.py:159
 #, python-format
 msgid "You can delete only one biller at a time !!!"
 msgstr "You can delete only one biller at a time !!!"
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_biller.py:158
+#: code:addons/extraschool/extraschool_biller.py:162
 #, python-format
 msgid "You can only delete the last biller !!!"
 msgstr "You can only delete the last biller !!!"
@@ -6787,13 +7780,14 @@ msgid "You have reached the maximum school"
 msgstr "You have reached the maximum school"
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_child_registration.py:470
+#: code:addons/extraschool/extraschool_child_registration.py:524
 #, python-format
 msgid "Your are not allowed to delete a validated registration !!"
 msgstr "Vous n'êtes pas autorisé de supprimer une inscription validée !!"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_po_zipcode
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_doctor_zipcode
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_zipcode
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_place_zipcode
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_school_zipcode
@@ -6842,6 +7836,11 @@ msgid "activity_id"
 msgstr "Activité"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_tax_certificate_detail_activity_name
+msgid "activity_name"
+msgstr "Activité"
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activityoccurrence_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activityoccurrence_tree
 msgid "activityoccurrence"
@@ -6859,24 +7858,40 @@ msgid "ans"
 msgstr "ans"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_biller_summary_lierneux_no_style
 #: model:ir.ui.view,arch_db:extraschool.report_biller_summary_no_style
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_regroup_by_activity_by_child_calendar_style
-#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_your_ref_and_period_num_fact_one_row
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_your_ref_and_period_num_fact_one_row_ittre
 #: model:ir.ui.view,arch_db:extraschool.tpl_guardian_horaire_wizard_report
 msgid "au"
 msgstr "au"
-
-#. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.tpl_taxe_certificate_wizard_report
-msgid "au 31/12/"
-msgstr "au 31/12/"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_child_registration
 #: model:ir.ui.view,arch_db:extraschool.report_child_registration_summary
 msgid "au :"
 msgstr "au :"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text_rappel
+msgid "au plus tard, au bénéfice du compte (IBAN)\n"
+"                           n°"
+msgstr "au plus tard, au bénéfice du compte (IBAN)\n"
+"                           n°"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text_med
+msgid "au plus tard, au bénéfice du compte (IBAN) n° BE25 0960 2105 5182 (code BIC : GKCCBEBB),\n"
+"						avec la communication structurée suivante :"
+msgstr "au plus tard, au bénéfice du compte (IBAN) n° BE25 0960 2105 5182 (code BIC : GKCCBEBB),\n"
+"						avec la communication structurée suivante :"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_durbuy_med
+#: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_durbuy_rappel
+msgid "avant le"
+msgstr "avant le"
 
 #. module: extraschool
 #: model:ir.actions.report.xml,name:extraschool.extraschool_biller_std
@@ -6947,6 +7962,11 @@ msgid "child registration"
 msgstr "child registration"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_tax_certificate_detail_child_name
+msgid "child_name"
+msgstr "Nom de l'enfant"
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_child_registration_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_child_registration_form_multi
 msgid "child_registration"
@@ -6994,6 +8014,11 @@ msgstr "Classe"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_mainsettings_codasfolder
 msgid "codasfolder"
 msgstr "Dossier des fichiers coda"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_contact_ids
+msgid "contact"
+msgstr "contact"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_timecorrection_wizard_form
@@ -7047,14 +8072,14 @@ msgid "discount_version_tree"
 msgstr "discount_version_tree"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_disease_ids
+msgid "disease_id"
+msgstr "disease_id"
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_regroup_by_activity_by_child_calendar_style
 msgid "du"
 msgstr "du"
-
-#. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.tpl_taxe_certificate_wizard_report
-msgid "du 01/01/"
-msgstr "du 01/01/"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_child_registration
@@ -7078,6 +8103,23 @@ msgid "enfance@durbuy.be"
 msgstr "enfance@durbuy.be"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_tax_certificate_detail_entry_exit
+msgid "entry_exit"
+msgstr "Entrée/Sortie"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text_rappel
+msgid "envers l'Administration\n"
+"                       Communale de"
+msgstr "envers l'Administration\n"
+"                       Communale de"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
+msgid "envois TS"
+msgstr "envois TS"
+
+#. module: extraschool
 #: selection:extraschool.pda_transmission,state:0
 msgid "error"
 msgstr "error"
@@ -7091,7 +8133,7 @@ msgid "es"
 msgstr "Entrée / Sortie"
 
 #. module: extraschool
-#: code:addons/extraschool/extraschool_remindersjournal.py:426
+#: code:addons/extraschool/extraschool_remindersjournal.py:445
 #, python-format
 msgid "exit from accounting"
 msgstr "exit from accounting"
@@ -7242,6 +8284,11 @@ msgid "extraschool.qrconfig"
 msgstr "extraschool.qrconfig"
 
 #. module: extraschool
+#: model:ir.model,name:extraschool.model_extraschool_subvention_report
+msgid "extraschool.subvention_report"
+msgstr "extraschool.subvention_report"
+
+#. module: extraschool
 #: model:ir.model,name:extraschool.model_extraschool_taxcertificates_wizard
 msgid "extraschool.taxcertificates_wizard"
 msgstr "extraschool.taxcertificates_wizard"
@@ -7283,6 +8330,11 @@ msgid "generate workbook"
 msgstr "Générer le classeur"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text_med
+msgid "il restait un montant impayé de"
+msgstr "il restait un montant impayé de"
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_prestation_times_of_the_day_form
 msgid "inverser"
 msgstr "inverser"
@@ -7317,14 +8369,25 @@ msgstr "Echéance"
 #: code:addons/extraschool/extraschool_manuel_invoice_wizard.py:85
 #: code:addons/extraschool/extraschool_manuel_invoice_wizard.py:106
 #: code:addons/extraschool/extraschool_negatif_payment_correction_wizard.py:69
-#: code:addons/extraschool/extraschool_remindersjournal.py:236
-#: code:addons/extraschool/extraschool_remindersjournal.py:365
+#: code:addons/extraschool/extraschool_remindersjournal.py:244
+#: code:addons/extraschool/extraschool_remindersjournal.py:384
 #, python-format
 msgid "invoice_%s"
 msgstr "invoice_%s"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_tag_invoice_ids
+msgid "invoice_id"
+msgstr "invoice_id"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_tax_certificate_detail_invoice_number
+msgid "invoice_number"
+msgstr "Numéro de facture"
+
+#. module: extraschool
 #: model:ir.model,name:extraschool.model_extraschool_invoicedprestations
+#: model:ir.model,name:extraschool.model_extraschool_refound_line
 msgid "invoiced Prestations"
 msgstr "Présences facturées"
 
@@ -7359,7 +8422,6 @@ msgid "name"
 msgstr "Nom"
 
 #. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.tpl_child_qrcodes_wizard_report
 #: model:ir.ui.view,arch_db:extraschool.tpl_guardian_qrcodes_wizard_report
 msgid "nbr docs :"
 msgstr "nbr docs :"
@@ -7444,6 +8506,11 @@ msgid "positive differentiation grants"
 msgstr "différenciation positive"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text_med
+msgid "pour le"
+msgstr "pour le"
+
+#. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activityoccurrence_prest_from
 msgid "prest_from"
 msgstr "de"
@@ -7464,6 +8531,11 @@ msgstr "presta"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_presta_stat_tree
 msgid "presta_stat"
 msgstr "presta_stat"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_tax_certificate_detail_prestation_date
+msgid "prestation_date"
+msgstr "Date"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_prestation_times_of_the_day_form
@@ -7544,6 +8616,17 @@ msgid "schoolimplantations"
 msgstr "Implantations scolaires"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_child_form
+msgid "smartphone"
+msgstr "smartphone"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_detail_log_smartphone_id
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_log_smartphone_id
+msgid "smartphone_id"
+msgstr "smartphone_id"
+
+#. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_payment_report_solde
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_payment_status_report_solde
 msgid "solde"
@@ -7572,6 +8655,11 @@ msgid "structcom_prefix"
 msgstr "Préfix com. Struct."
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_tax_certificate_detail_tax_certificate_item_id
+msgid "tax_certificate_detail_ids"
+msgstr "tax_certificate_detail_ids"
+
+#. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_po_tel
 msgid "tel"
 msgstr "Téléphone"
@@ -7585,6 +8673,16 @@ msgstr "Dossier des fichiers temporaires"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_mainsettings_templatesfolder
 msgid "templatesfolder"
 msgstr "Dossier des modèles de documents"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_tax_certificate_detail_time_scan
+msgid "time_scan"
+msgstr "Heure"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_taxcertificate_item_form
+msgid "true"
+msgstr "true"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_child_search_view
@@ -7627,6 +8725,26 @@ msgid "week"
 msgstr "Semaine"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_child_form
+msgid "workflow"
+msgstr "workflow"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_lierneux_report_parent_credit_huissier
+msgid "À défaut de paiement dans le délai qui vous est imparti, je me verrai contraint de poursuivre le recouvrement par voie judiciaire avec les conséquences financières qui en résulteront.<br/>\n"
+"						J'attire tout spécialement votre attention sur le fait que la présente constitue\n"
+"						<u><b>le dernier avertissement avant les poursuites judiciaires</b></u> dont vous devrez supporter le coût."
+msgstr "À défaut de paiement dans le délai qui vous est imparti, je me verrai contraint de poursuivre le recouvrement par voie judiciaire avec les conséquences financières qui en résulteront.<br/>\n"
+"						J'attire tout spécialement votre attention sur le fait que la présente constitue\n"
+"						<u><b>le dernier avertissement avant les poursuites judiciaires</b></u> dont vous devrez supporter le coût."
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_durbuy_med
+#: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_durbuy_rappel
+msgid "Échéance"
+msgstr "Échéance"
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_child_registration_form
 msgid "Êtes-vous sûr de vouloir attribuer tous les enfants à cette activité ?"
 msgstr "Êtes-vous sûr de vouloir attribuer tous les enfants à cette activité ?"
@@ -7636,23 +8754,4 @@ msgstr "Êtes-vous sûr de vouloir attribuer tous les enfants à cette activité
 #: model:ir.ui.view,arch_db:extraschool.extraschool_prestation_times_encodage_manuel_form
 msgid "Ëtes-vous sûr de vouloir attribuer tous les enfants à cette activité ?"
 msgstr "Ëtes-vous sûr de vouloir attribuer tous les enfants à cette activité ?"
-
-#. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text
-msgid "€ envers l'Administration\n"
-"					   Communale de Tournai, somme dont vous trouverez le détail ci-annexé.<br/><br/>\n"
-"					   Si vous souhaitez solliciter un plan de paiement, nous vous invitons à prendre contact avec notre service. <br/><br/>\n"
-"					   À défaut de paiement, le recouvrement de la créance sera poursuivi suivant l'article L1124-40 §1er,1° du\n"
-"					   Code de la Démocratie locale et de la Décentralisation.<br/><br/>\n"
-"					   Si entretemps, la somme a été réglée, veuillez considérer ce rappel comme nul et non avenu.<br/><br/>\n"
-"					   Vous souhaitant bonne réception de la présente, nous vous prions de croire, Cher Parent, à l'assurance de\n"
-"					   notre considération distinguée."
-msgstr "€ envers l'Administration\n"
-"					   Communale de Tournai, somme dont vous trouverez le détail ci-annexé.<br/><br/>\n"
-"					   Si vous souhaitez solliciter un plan de paiement, nous vous invitons à prendre contact avec notre service. <br/><br/>\n"
-"					   À défaut de paiement, le recouvrement de la créance sera poursuivi suivant l'article L1124-40 §1er,1° du\n"
-"					   Code de la Démocratie locale et de la Décentralisation.<br/><br/>\n"
-"					   Si entretemps, la somme a été réglée, veuillez considérer ce rappel comme nul et non avenu.<br/><br/>\n"
-"					   Vous souhaitant bonne réception de la présente, nous vous prions de croire, Cher Parent, à l'assurance de\n"
-"					   notre considération distinguée."
 

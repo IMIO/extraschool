@@ -311,7 +311,7 @@
             <field name="auto_delete" eval="True"/>
             <field name="partner_to">${object.id}</field>
             <field name="subject">${('Accueil extrascolaire')|safe}</field>
-            <field name="email_to">${(object.email or 'support-aes@imio.be')|safe}</field>
+            <field name="email_to">${(object.email)|safe}</field>
             <field name="email_from">${('noreply@localhost')|safe}</field>
             <field name="reply_to">${('noreply@localhost')|safe}</field>
             <field name="mail_server_id" ref="base.ir_mail_server_localhost0"/>
