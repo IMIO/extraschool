@@ -44,7 +44,7 @@ class ParentRefund(models.TransientModel):
     )
     payment_ids = fields.One2many(
         'extraschool.payment',
-        'parent_id',
+        'refund_id',
         string='List of payment available to refund',
         default=_get_payment,
         readonly=True,
@@ -55,4 +55,9 @@ class ParentRefund(models.TransientModel):
 
     @api.multi
     def generate_refund_parent(self):
-        import wdb;wdb.set_trace()
+        self.env['extraschool.refund'].create(
+            {
+             'amount': self.amount,
+             'payment_ids': [(6, False, self.payment_ids.ids)]
+             }
+        )

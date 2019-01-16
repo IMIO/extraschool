@@ -51,7 +51,7 @@ class extraschool_payment(models.Model):
     payment_reconciliation_ids = fields.One2many('extraschool.payment_reconciliation','payment_id')
     coda = fields.Many2one('extraschool.coda', string='Coda', required=False,ondelete='cascade')
     reject_id = fields.Many2one('extraschool.reject', string='Reject',ondelete='cascade')
-    # refund_id = fields.Many2one('extraschool.refund')
+    refund_id = fields.Many2one('extraschool.refund')
 
     @api.multi
     def cancel_payment(self):
@@ -84,6 +84,7 @@ class extraschool_payment(models.Model):
     def compute_solde(self):
         for record in self:
             record.solde = record.amount - sum(reconciliation.amount for reconciliation in record.payment_reconciliation_ids)
+            record.solde = record.solde - record.refund_id.amount
 
     def format_comstruct(self,comstruct):
         return ('+++%s/%s/%s+++' % (comstruct[0:3],comstruct[3:7],comstruct[7:12]))
