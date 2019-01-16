@@ -111,16 +111,8 @@ class extraschool_child(models.Model):
         # return long(self.tagid)
         return self.tagid
 
-    @api.model
-    def create(self, vals):
-        if 'check_rn' in vals and vals['check_rn'] == False:
-            raise Warning("Un enfant possède déjà ce registre national.")
-        return super(extraschool_child, self).create(vals)
-
     @api.multi
     def write(self, vals):
-        if 'check_rn' in vals and vals['check_rn'] == False:
-            raise Warning("Un enfant possède déjà ce registre national.")
         fields_to_find = set(['firstname',
                               'lastname'])
 
