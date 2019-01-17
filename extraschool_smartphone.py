@@ -150,6 +150,15 @@ class extraschool_smartphone(models.Model):
         print str(datetime.today())
         return datetime.today()
 
+    @api.multi
+    def update_app_version(self, version):
+        version = str(version)
+        version = version[0] + '.' + version[1] + '.' + version[2] + version[3]
+        if version == False:
+            self.softwareversion = "Aucune info"
+        else:
+            self.softwareversion = version
+
     @api.model
     def create(self,vals):
         res = super(extraschool_smartphone, self).create(vals)
@@ -290,6 +299,15 @@ class extraschool_smartphone_detail_log(models.Model):
                 'level': line['level']
             })
 
+        if "app_version" in message:
+            app_version = message["app_version"]
+        else:
+            app_version = False
+
+        smartphone_obj = self.env['extraschool.smartphone'].search([('id', '=', smartphone_id)])
+        smartphone_obj.update_app_version(app_version)
+
+
     @staticmethod
     def send_log(cr, uid, message, smartphone_id, context=None):
         """
@@ -302,3 +320,4 @@ class extraschool_smartphone_detail_log(models.Model):
         extraschool_smartphone_detail_log.print_log(env['extraschool.smartphone_detail_log'], message, smartphone_id)
 
         return True
+

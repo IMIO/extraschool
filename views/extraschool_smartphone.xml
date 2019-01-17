@@ -13,6 +13,7 @@
                     <field name="lasttransmissiondate"/>
                     <field name="softwareurl_v9"/>
 					<field name="transmissiontime"/>
+                    <field name="softwareversion"/>
 				</tree>
 			</field>
 		</record>
