@@ -150,7 +150,7 @@ class extraschool_smartphone(models.Model):
         print str(datetime.today())
         return datetime.today()
 
-    @api.model
+    @api.multi
     def update_app_version(self, version):
         version = str(version)
         version = version[0] + '.' + version[1] + '.' + version[2] + version[3]
