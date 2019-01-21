@@ -1,10 +1,10 @@
 <?xml version="1.0" ?>
 <openerp>
-	<data> 
+	<data>
 		<template id="report_parent">
 		<t t-call="report.html_container">
 			<t t-foreach="docs" t-as="parent">
-				
+
 		        <div class="page">
 		            <h2>Report Parent</h2>
 		            <p>Parent <span t-field="parent.name"/></p>
@@ -13,15 +13,15 @@
 		            		<tr>
 		            			<td><span t-field="child.name"/></td>
 		            			<td><span t-field="child.firstname"/></td>
-		            			<td><img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', child.firstname, 200, 200)"/></td>		            			
-		            			
+		            			<td><img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', child.firstname, 200, 200)"/></td>
+
 		            		</tr>
 		            	</t>
 		            </table>
 		        </div>
 		        <div class="page">
 		            <h2>2eme page</h2>
-		            
+
 		        </div>
 			</t>
 			</t>
@@ -44,7 +44,7 @@
                                     <tr>
                                         <td><span t-field="parent_reminder.parentid"/></td>
                                         <td><span t-field="parent_reminder.structcom"/></td>
-                                        <td><span t-field="parent_reminder.amount"/></td>
+                                        <td><span class="amount"><t t-esc="'%.2f' %  (parent_reminder.amount)" /> €</span></td>
                                     </tr>
                                 </t>
                             </tbody>
@@ -53,13 +53,48 @@
 			</t>
 		</template>
 
-		
+        <template id="reminder_huissier_list">
+			<t t-foreach="docs" t-as="reminder">
+                <div class="page">
+                        <h2>Liste pour huissier</h2>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Nom du parent</th>
+                                    <th>Adresse du parent</th>
+                                    <th>Montant</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="reminder.reminder_ids.sorted(lambda r: r.parentid.name)" t-as="parent_reminder">
+                                    <tr>
+                                        <td><span t-field="parent_reminder.parentid"/></td>
+                                        <td><span t-field="parent_reminder.parentid.street"/> <span t-field="parent_reminder.parentid.zipcode"/> <span t-field="parent_reminder.parentid.city"/></td>
+                                        <td><span class="amount"><t t-esc="'%.2f' %  (parent_reminder.amount)" /> €</span></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+		        </div>
+			</t>
+		</template>
+
+
 		<report
 		    id="extraschool_parent"
 		    model="extraschool.parent"
 		    string="Parent"
 		    report_type="qweb-pdf"
 		    name="extraschool.report_parent"
+		    attachment_use="False"
+		/>
+
+		<report
+		    id="extraschool_reminder_huissier"
+		    model="extraschool.remindersjournal"
+		    string="Liste Huissier"
+		    report_type="qweb-pdf"
+		    name="extraschool.reminder_huissier_list"
 		    attachment_use="False"
 		/>
 
@@ -71,6 +106,12 @@
 		    name="extraschool.reminder_parent_list"
 		    attachment_use="False"
 		/>
+
+
+
+
+
+
 	</data>
-</openerp>	
-	
+</openerp>
+
