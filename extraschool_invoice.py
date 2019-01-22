@@ -180,7 +180,7 @@ class extraschool_invoice(models.Model):
             if line.activity_activity_id.short_name not in res:
                 res.append(line.activity_activity_id.short_name)
 
-        return res
+        return sorted(res)
 
 
     def get_concerned_child(self):
@@ -189,6 +189,8 @@ class extraschool_invoice(models.Model):
         for line in self.invoice_line_ids:
             if line.childid not in res:
                 res.append(line.childid)
+
+        res.sort(key=lambda r: r.name)
 
         return res
 
@@ -216,8 +218,6 @@ class extraschool_invoice(models.Model):
                     month['quantity'][zz].append(d)
 
                 zz+=1
-
-#        print concened_months
 
         return concened_months
 

@@ -19,7 +19,7 @@
 					<t t-set="activity_amount" t-value="0"/>
 					<t t-set="activity_time" t-value="0"/>
 
-	       			<t t-foreach="invoice.invoice_line_ids.sorted(key=lambda r: (('%s%s') % (r.childid,r.activity_occurrence_id.activityid.short_name)))" t-as="invoice_line">
+	       			<t t-foreach="invoice.invoice_line_ids.sorted(key=lambda r: (('%s%s') % (r.childid.name,r.activity_occurrence_id.activityid.short_name)))" t-as="invoice_line">
 	       				<t t-if="saved_child_id != invoice_line.childid or saved_activity != invoice_line.activity_occurrence_id.activityid.short_name">
 	       					<t t-if="activity_count != 0">
 		        				<tr>
