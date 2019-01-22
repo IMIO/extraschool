@@ -148,6 +148,7 @@
         'report/custo_client/hannut.xml',
         'report/custo_client/lierneux.xml',
         'report/custo_client/neufchateau.xml',
+        'report/custo_client/yvoir.xml',
         'report/custo_client/durbuy.xml',
         'report/custo_client/clavier.xml',
         'report/custo_client/engis.xml',
