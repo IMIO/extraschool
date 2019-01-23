@@ -210,55 +210,6 @@ class extraschool_parent(models.Model):
                 'domain': [('payment_id.parent_id', '=', self.id), ('amount', '>', 0.0001)]
                 }
 
-    @api.multi
-    def refund(self):
-        # Compute the solde.
-        solde = self.payment_status_ids.solde
-        solde = round(solde,2)
-
-        if solde == 0.00:
-            raise Warning(_("There is no refund possible."))
-
-        now = datetime.now().strftime("%Y-%m-%d")
-
-        # Create the biller to store the invoices.
-        biller_id = self.env['extraschool.biller'].create({'period_from': now,
-                                                           'period_to': now,
-                                                           'payment_term': now,
-                                                           'invoices_date': now,
-                                                           })
-
-        # Get the activity and the next invoice number.
-        activity_id = self.env['extraschool.activitycategory'].search([], limit = 1)
-        next_invoice_num = activity_id.get_next_comstruct('refund',datetime.now().year)
-
-        # Create an invoice for the refund.
-        invoice_id = self.env['extraschool.invoice'].create({
-            'name': ('refund_%s') % (next_invoice_num['num'],),
-            'number': next_invoice_num['num'],
-            'biller_id': biller_id.id,
-            'parentid': self.id,
-            'structcom': next_invoice_num['com_struct'],
-            'payment_term': biller_id.payment_term,
-        })
-
-        # I had to do this otherwise the activitycategory was False.
-        self.env['extraschool.invoice'].search([('id', '=', invoice_id.id)]).write(
-            {'activitycategoryid': activity_id.id,
-             })
-
-        # Create an invoiced prestations line.
-        self.env['extraschool.invoicedprestations'].create({
-            'invoiceid': invoice_id.id,
-            'quantity': 1,
-            'unit_price': solde,
-            'total_price': solde,
-            'description': "Remboursement prépaiement",
-        })
-
-        # Reconcil the invoice
-        self.env['extraschool.invoice'].browse(invoice_id.id).reconcil()
-
     def email_validation(self,email):
         if re.match("^[a-zA-Z0-9._%-]+@[a-zA-Z0-9._%-]+.[a-zA-Z]{2,6}$", email) != None:
             return True

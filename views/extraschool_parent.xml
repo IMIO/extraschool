@@ -202,6 +202,7 @@
                 			<field name="paymentdate"  readonly="True"/>
 							<field name="paymenttype"  readonly="True"/>
 							<field name="structcom" readonly="True"/>
+							<field name="activity_category_id" widget="many2many_tags" readonly="True"/>
 							<field name="comment" />
 							<field name="amount" sum="True"  readonly="True"/>
 							<field name="solde"  sum="True"/>
@@ -209,7 +210,6 @@
                     </field>
                  </page>
                 <page string="Payment status">
-                    <button name="refund" string="Refund" type="object" class="oe_highlight" confirm="You are about to refund this parent. Are you sure ?" groups="extraschool.extraschool_accounting"/>
                     <field name="payment_status_ids" readonly="True">
                         <tree colors="red:solde &lt; 0;">
                 			<field name="activity_category_id" />
