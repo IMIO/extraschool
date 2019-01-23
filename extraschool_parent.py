@@ -259,6 +259,9 @@ class extraschool_parent(models.Model):
         # Reconcil the invoice
         self.env['extraschool.invoice'].browse(invoice_id.id).reconcil()
 
+        # Put biller to not block future biller
+        biller_id.in_creation = False
+
     def email_validation(self,email):
         if re.match("^[a-zA-Z0-9._%-]+@[a-zA-Z0-9._%-]+.[a-zA-Z]{2,6}$", email) != None:
             return True
