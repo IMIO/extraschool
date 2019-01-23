@@ -139,13 +139,11 @@ class extraschool_payment_wizard(models.TransientModel):
     @api.multi
     def create_payment(self):
         payment = self.env['extraschool.payment']
-        print "-------------------"
-        print self.reject_id
-        print "-------------------"
 
         payment = payment.create({'parent_id': self.parent_id.id,
                         'paymentdate': self.payment_date,# This is Coda date.
                         'structcom_prefix': self.activity_category_id.payment_invitation_com_struct_prefix,
+                        'activity_category_id': [(6, 0, [self.activity_category_id.id])],
                         'amount': self.amount,
                         'reject_id': self.reject_id.id if self.reject_id else False,
                         'comment': self.comment})
@@ -153,14 +151,13 @@ class extraschool_payment_wizard(models.TransientModel):
         if self.reject_id:
             self.env['extraschool.reject'].browse(self.reject_id.id).corrected_payment_id = payment.id
 
-        print "payment id : %s" % (payment.id)
-
         payment_reconciliation = self.env['extraschool.payment_reconciliation']
+
         for reconciliation in self.payment_reconciliation_ids:
-            payment_reconciliation.create({'payment_id' : payment.id,
-                                           'invoice_id' : reconciliation.invoice_id.id,
-                                           'amount' : reconciliation.amount,
-                                           'date' : fields.Date.today()})# Todo: si la date facture <= coda: date coda sinon date facture
+            payment_reconciliation.create({'payment_id': payment.id,
+                                           'invoice_id': reconciliation.invoice_id.id,
+                                           'amount': reconciliation.amount,
+                                           'date': fields.Date.today()}) # Todo: si la date facture <= coda: date coda sinon date facture
             reconciliation.invoice_id._compute_balance()
         return {}
 

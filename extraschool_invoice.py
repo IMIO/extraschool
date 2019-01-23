@@ -89,6 +89,7 @@ class extraschool_invoice(models.Model):
         bille_ids = self.env['extraschool.biller'].search([('activitycategoryid', '=', False)])
         invoice_ids = self.search([('activitycategoryid', '=', False)])
         activity_ids = self.env['extraschool.activity'].search([('category_id', '=', False)])
+        payment_ids = self.env['extraschool.payment'].search([])
 
         for invoice in invoice_ids:
             invoice.activitycategoryid = base_activity_category
@@ -101,6 +102,9 @@ class extraschool_invoice(models.Model):
                 activity_id.category_id = base_activity_category
             except:
                 pass
+
+        for payment_id in payment_ids:
+            payment_id.activity_category_id = base_activity_category
 
     def _compute_balance(self):
         for invoice in self:
@@ -138,6 +142,10 @@ class extraschool_invoice(models.Model):
     def is_echue_and_not_reminder(self):
         return False if self.last_reminder_id and not self.reminder_fees else True
 
+    @api.multi
+    def get_balance(self, activity_category_id):
+        return sum(invoiced_line.total_price for invoiced_line in self.invoice_line_ids.filtered(
+            lambda r: r.activity_occurrence_id.activity_category_id.id == activity_category_id))
 
     @api.multi
     def reconcil(self):
@@ -147,26 +155,25 @@ class extraschool_invoice(models.Model):
         for invoice in self:
             # todo: Check if the biller (invoices_date) <= today(). Do a cron to launch this method everyday.
             #search for open payment
-            payments = payment_obj.search([('parent_id','=',invoice.parentid.id),
-#                                        ('structcom_prefix','=',invoice.activitycategoryid.payment_invitation_com_struct_prefix),
+            for invoice_category in invoice.activitycategoryid:
+                payments = payment_obj.search([('parent_id','=',invoice.parentid.id),
+                                        ('activity_category_id', '=', invoice_category.id),
                                         ('solde','>',0),
                                         ]).sorted(key=lambda r: r.paymentdate)
-#            print "%s payments found for invoice %s and prefix : %s" % (len(payments),invoice.id,invoice.activitycategoryid.payment_invitation_com_struct_prefix)
-#            print payments
-            zz = 0
-#            print "invoice balance = %s" % (invoice.amount_total)
 
-            solde = invoice.balance
-            while zz < len(payments) and solde > 0:
-                amount = solde if payments[zz].solde >= solde else payments[zz].solde
-#                print "Add payment reconcil - amount : %s" % (amount)
-                payment_reconcil_obj.create({'payment_id': payments[zz].id,
-                                         'invoice_id': invoice.id,
-                                         'amount': amount,
-                                         'date': fields.Date.today(),
-                                         })
-                solde -= amount
-                zz += 1
+                zz = 0
+
+                solde = invoice.get_balance(invoice_category.id)
+
+                while zz < len(payments) and solde > 0:
+                    amount = solde if payments[zz].solde >= solde else payments[zz].solde
+                    payment_reconcil_obj.create({'payment_id': payments[zz].id,
+                                             'invoice_id': invoice.id,
+                                             'amount': amount,
+                                             'date': fields.Date.today(),
+                                             })
+                    solde -= amount
+                    zz += 1
 
             invoice._compute_balance()
 

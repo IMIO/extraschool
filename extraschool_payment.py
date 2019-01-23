@@ -51,6 +51,11 @@ class extraschool_payment(models.Model):
     payment_reconciliation_ids = fields.One2many('extraschool.payment_reconciliation','payment_id')
     coda = fields.Many2one('extraschool.coda', string='Coda', required=False,ondelete='cascade')
     reject_id = fields.Many2one('extraschool.reject', string='Reject',ondelete='cascade')
+    activity_category_id = fields.Many2many(
+        'extraschool.activitycategory',
+        'extraschool_payment_activity_category_rel',
+        string='Activity Category'
+    )
 
     @api.multi
     def name_get(self):

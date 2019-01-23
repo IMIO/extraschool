@@ -86,8 +86,8 @@
                                 </field>
                             </page>
                             <page string="Accrued">
-                                <field name="accrued_ids" create="False" delete="False">
-                                    <tree editable="bottom">
+                                <field name="accrued_ids">
+                                    <tree editable="bottom" create="false" delete="false">
                                         <field name="activity_category_id" readonly="True"/>
                                         <field name="amount" sum="true" readonly="True"/>
                                         <field name="ref"/>
