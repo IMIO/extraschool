@@ -100,6 +100,7 @@
 
                             .attest_comment{
                                 font-size:9px;
+                                margin: 0 20px;
                             }
                     </style>
                     <div class="frame">
