@@ -84,6 +84,7 @@ class extraschool_payment(models.Model):
         form = self.read(cr,uid,ids,)[-1]
         payment_id = obj_payment.write(cr, uid, ids[0], {'parent_id':context['parent_id'],'account':form['account'],'paymenttype':form['paymenttype'],'paymentdate':form['paymentdate'],'structcom':form['structcom'],'name':form['name'],'amount':form['amount']}, context=context)
 
+    @api.multi
     def _get_reconciliation_list(self,parent_id,com_struct_prefix,payment_type,amount,from_coda=False):
         search_domain = [('parentid', '=', parent_id),
                          ('balance', '>', 0),
@@ -93,6 +94,7 @@ class extraschool_payment(models.Model):
             search_domain += [('tag', '=', None), ('last_reminder_id', '=', None)]
         elif payment_type == 1:  # Prepaid.
             activity_category_ids = self.env['extraschool.activitycategory'].search([('payment_invitation_com_struct_prefix', '=', com_struct_prefix)]).ids
+
             search_domain += [('activitycategoryid', 'in',activity_category_ids),]
 
         invoices = self.env['extraschool.invoice'].search(search_domain)
