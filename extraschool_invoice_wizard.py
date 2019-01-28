@@ -382,6 +382,63 @@ class extraschool_invoice_wizard(models.TransientModel):
                                         ) 
                                     )
                             """,
+               'by_address_by_activity': """(select min(cp.id) 
+                         from extraschool_childposition cp
+                         where position = (select count(distinct ep.childid) + 1
+                          from extraschool_prestationtimes ep
+                          left join extraschool_child ec on ep.childid = ec.id
+                          left join extraschool_parent pp on pp.id = ep.parent_id
+                          left join extraschool_activityoccurrence aao on aao.id = ep.activity_occurrence_id
+                          left join extraschool_activity aa on aa.id = aao.activityid   
+                          where  pp.streetcode = p.streetcode 
+                             and (
+                                   (
+                                     tarif_group_name is null and  
+                                     (ep.activity_occurrence_id = ip.activity_occurrence_id
+                                     or
+                                     ip.activity_activity_id = (select activityid from extraschool_activityoccurrence where id = ep.activity_occurrence_id)
+                                     )
+                                   ) or
+                                   ( 
+                                     tarif_group_name is not null 
+                                     and tarif_group_name = aa.tarif_group_name 
+                                     and ep.prestation_date = ip.prestation_date)
+
+                                 )
+                             and invoiced_prestation_id is not NULL
+                             and ep.childid <> ip.childid
+                             and ec.birthdate <= (select birthdate from extraschool_child where id = ip.childid)
+                             and ec.isdisabled = False
+                             )
+                             -
+                             (select count(distinct ep.childid)
+                              from extraschool_prestationtimes ep
+                              left join extraschool_child ec on ep.childid = ec.id
+                              left join extraschool_parent pp on pp.id = ep.parent_id
+                              left join extraschool_activityoccurrence aao on aao.id = ep.activity_occurrence_id
+                              left join extraschool_activity aa on aa.id = aao.activityid   
+                              where  pp.streetcode = p.streetcode 
+                                 and (
+                                       (
+                                         tarif_group_name is null and  
+                                         (ep.activity_occurrence_id = ip.activity_occurrence_id
+                                         or
+                                         ip.activity_activity_id = (select activityid from extraschool_activityoccurrence where id = ep.activity_occurrence_id)
+                                         )
+                                       ) or
+                                       ( 
+                                         tarif_group_name is not null 
+                                         and tarif_group_name = aa.tarif_group_name 
+                                         and ep.prestation_date = ip.prestation_date)
+
+                                     )
+                                 and invoiced_prestation_id is not NULL
+                                 and ep.childid > ip.childid
+                                 and ec.birthdate = (select birthdate from extraschool_child where id = ip.childid)
+                                 and ec.isdisabled = False
+                                 ) 
+                             )
+                     """,
                'byaddress_nb_childs' : """(select min(id)
                                     from extraschool_childposition
                                     where position = (select count(*)

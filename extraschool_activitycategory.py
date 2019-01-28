@@ -71,6 +71,7 @@ class extraschool_activitycategory(models.Model):
                                                    ('byaddresswp','by address (only childs with prestations)'),
                                                    ('byaddress_nb_childs','by address (position replaced by nbr childs'),
                                                    ('byaddress_nb_childs_wp','by address (position replaced by nbr childs with prestations'),
+                                                   ('by_address_by_activity','by address and by activity (only childs with prestations'),
                                                    ),'Child position determination', required = True)
     priorityorder = fields.Integer('Priority order')
     invoicetemplate = fields.Char('Invoice Template', size=50, default='facture.odt')
