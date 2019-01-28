@@ -263,6 +263,13 @@
                                 clear: both;
                             }
 
+                            .po_stamp {
+                                    width: 5cm;
+                                    height: 5cm;
+                                    display:block;
+                                    float:left;
+                                }
+
                             .po_sign {
                                 display: block;
                                 clear: both;
