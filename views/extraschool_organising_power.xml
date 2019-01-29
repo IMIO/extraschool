@@ -62,6 +62,18 @@
             </form>
             </field>
         </record>
+
+        <record model="ir.ui.view" id="extraschool_organising_power_tree">
+            <field name="name">extraschool.organising_power.tree</field>
+            <field name="model">extraschool.organising_power</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+            <tree>
+                <field name="slogan"/>
+            </tree>
+            </field>
+        </record>
+
         <record model="ir.actions.act_window" id="action_extraschool_organising_power">
 			<field name="name">Organising Power</field>
 			<field name="res_model">extraschool.organising_power</field>
