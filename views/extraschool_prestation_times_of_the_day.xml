@@ -33,6 +33,7 @@
 						<field name="activity_category_id" readonly="True"/>
 						<newline/>
 	                    <field name="child_id"  readonly="True"/>
+	                    <field name="child_level"  readonly="True"/>
 						<field name="date_of_the_day"  readonly="True"/>
 	                    <newline/>
 	                    <field name="verified" invisible="True"/>
