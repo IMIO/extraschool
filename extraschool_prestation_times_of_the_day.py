@@ -59,7 +59,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
     child_id = fields.Many2one('extraschool.child', required=True, select=True)
     child_firstname = fields.Char(related="child_id.firstname", store=True)
     child_lastname = fields.Char(related="child_id.lastname", store=True)
-    # child_level= fields.Many2one('extraschool.level', related="child_id.levelid", store=True)
+    child_level= fields.Many2one('extraschool.level', related="child_id.levelid", index=True)
     parent_id = fields.Many2one(related='child_id.parentid', store=True, select=True)
     # place_id = fields.Many2one(related='child_id.schoolimplantation', store=True, select=True)
     prestationtime_ids = fields.One2many('extraschool.prestationtimes','prestation_times_of_the_day_id')

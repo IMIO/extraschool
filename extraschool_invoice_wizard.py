@@ -537,6 +537,8 @@ class extraschool_invoice_wizard(models.TransientModel):
         self.env.cr.execute(sql_mega_invoicing, (self.period_from, self.period_to, self.activitycategory.id,))
         invoice_lines = self.env.cr.dictfetchall()
 
+        _logger.info("End mega invoicing")
+
         ctx = self.env.context.copy()
         ctx.update({'defer__compute_balance' : True,
                     })
@@ -605,6 +607,8 @@ class extraschool_invoice_wizard(models.TransientModel):
                                    order by number""",[biller.id])
         invoice_ids = cr.dictfetchall()
 
+        _logger.info("End creation of Invoices")
+
         if len(args) - len(invoice_ids):
             raise Warning(_("Error : number of invoice created differ from original"))
 
@@ -644,6 +648,8 @@ class extraschool_invoice_wizard(models.TransientModel):
                             """
         self.env.cr.execute(sql_update_class)
 
+        _logger.info("End update class")
+
         # Mise à jour activity_activity_id.
         sql_update_activity_id = """update extraschool_invoicedprestations ip
                                     set activity_activity_id = ao.activityid
@@ -655,6 +661,8 @@ class extraschool_invoice_wizard(models.TransientModel):
                                     """
         self.env.cr.execute(sql_update_activity_id)
 
+        _logger.info("End update activity")
+
         # Mise à jour sendmethod on invoice.
         sql_update_invoice_sendmethod = """update extraschool_invoice i
                                             set invoicesendmethod = p.invoicesendmethod
@@ -664,6 +672,8 @@ class extraschool_invoice_wizard(models.TransientModel):
                                             and p.id = i.parentid;        
                                         """
         self.env.cr.execute(sql_update_invoice_sendmethod,[biller.id])
+
+        _logger.info("End update send method")
 
         # Mise à jour lien entre invoice line et presta.
         sql_update_link_to_presta = """update extraschool_prestationtimes ept
@@ -686,6 +696,8 @@ class extraschool_invoice_wizard(models.TransientModel):
                                     """
         self.env.cr.execute(sql_update_link_to_presta, (self.period_from, self.period_to, self.activitycategory.id,))
 
+        _logger.info("End update link to prestattions")
+
         # Mise à jour position de l'enfant.
         sql_update_prestationdate = """
                                         UPDATE extraschool_invoicedprestations ip
@@ -698,6 +710,8 @@ class extraschool_invoice_wizard(models.TransientModel):
 
         self.env.cr.execute(sql_update_prestationdate, ())
 
+        _logger.info("End update prestation date")
+
         # Mise à jour position de l'enfant.
         sql_update_child_position = """
                                         UPDATE extraschool_invoicedprestations ip
@@ -708,6 +722,8 @@ class extraschool_invoice_wizard(models.TransientModel):
                                             ip.id in (""" + ','.join(map(str, invoice_line_ids))+ """); 
                                     """
         self.env.cr.execute(sql_update_child_position, ())
+
+        _logger.info("End update child postition")
 
         # Mise à jour description with.
         sql_update_description = """
@@ -720,6 +736,8 @@ class extraschool_invoice_wizard(models.TransientModel):
                                             ip.id in (""" + ','.join(map(str, invoice_line_ids))+ """); 
                                     """
         self.env.cr.execute(sql_update_description, ())
+
+        _logger.info("End update description")
 
         # Mise à jour des pricelist.
         sql_update_price_list = """UPDATE extraschool_invoicedprestations ip
@@ -741,6 +759,8 @@ class extraschool_invoice_wizard(models.TransientModel):
                                     AND ip.childid = c.id;"""
 
         self.env.cr.execute(sql_update_price_list)
+
+        _logger.info("End update price list")
 
         # Check if pricelist is correctly set.
         sql_check_verified = """select count(*) as verified_count
