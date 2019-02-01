@@ -32,177 +32,177 @@
                 <attribute name="t-att-class">container</attribute>
             </xpath>
             <xpath expr="//body" position="inside">
-                <div class="page">
-                    <style type="text/css">
-                        body {
-                              font-family: arial !important;
-                              font-size:18px;
-                            }
+                <!--<div class="page">-->
+                    <!--<style type="text/css">-->
+                        <!--body {-->
+                              <!--font-family: arial !important;-->
+                              <!--font-size:18px;-->
+                            <!--}-->
 
-                            .frame {
-                                border-style: solid;
-                                border-width: 1px;
-                                padding: 7mm;
-                                margin : 0 5mm;
-                            }
+                            <!--.frame {-->
+                                <!--border-style: solid;-->
+                                <!--border-width: 1px;-->
+                                <!--padding: 7mm;-->
+                                <!--margin : 0 5mm;-->
+                            <!--}-->
 
-                            .frame>div {
-                                margin-left : 5mm;
-                            }
+                            <!--.frame>div {-->
+                                <!--margin-left : 5mm;-->
+                            <!--}-->
 
-                            .frame>ol>li>div {
-                                margin-left : 1cm;
-                            }
+                            <!--.frame>ol>li>div {-->
+                                <!--margin-left : 1cm;-->
+                            <!--}-->
 
-                            .parent_adr{
-                                display: block;
-                                float: right;
-                                width: 7cm;
-                            }
+                            <!--.parent_adr{-->
+                                <!--display: block;-->
+                                <!--float: right;-->
+                                <!--width: 7cm;-->
+                            <!--}-->
 
-                            .signature {
-                                display: block;
-                                float: right;
-                                width: 10cm;
-                            }
+                            <!--.signature {-->
+                                <!--display: block;-->
+                                <!--float: right;-->
+                                <!--width: 10cm;-->
+                            <!--}-->
 
-                            ol>li {
-                                counter-increment:item;
-                                list-style:none inside;
-                                clear: both;
-                            }
+                            <!--ol>li {-->
+                                <!--counter-increment:item;-->
+                                <!--list-style:none inside;-->
+                                <!--clear: both;-->
+                            <!--}-->
 
-                            ol>li:before {content:"(" counter(item) ")"; padding-right:0.5em}
+                            <!--ol>li:before {content:"(" counter(item) ")"; padding-right:0.5em}-->
 
-                            ol>li>div {
-                                margin-left: 2cm;
-                            }
-                            ol.main_list>li{
-                                margin: 15px 0;
-                            }
+                            <!--ol>li>div {-->
+                                <!--margin-left: 2cm;-->
+                            <!--}-->
+                            <!--ol.main_list>li{-->
+                                <!--margin: 15px 0;-->
+                            <!--}-->
 
-                            .po>span {
-                                display: block;
-                                clear: both;
-                            }
+                            <!--.po>span {-->
+                                <!--display: block;-->
+                                <!--clear: both;-->
+                            <!--}-->
 
-                            .signature>span {
-                                display: block;
-                                clear: both;
-                            }
+                            <!--.signature>span {-->
+                                <!--display: block;-->
+                                <!--clear: both;-->
+                            <!--}-->
 
-                            .po_sign {
-                                display: block;
-                                clear: both;
-                                max-width: 6cm;
-                            }
+                            <!--.po_sign {-->
+                                <!--display: block;-->
+                                <!--clear: both;-->
+                                <!--max-width: 6cm;-->
+                            <!--}-->
 
-                            .attest_comment{
-                                font-size:9px;
-                                margin: 0 20px;
-                            }
-                    </style>
-                    <div class="container">
-                       <!-- Logo -->
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRScdNw-XhVmvRM3Pdac88fQEOdFBQUgpEBm1rPFERAXV2Cge4G"/>
-                            </div>
-                        </div>
-                        <!-- Titre -->
-                        <div class="row">
-                            <div class="col-xs-4" style="font-size: 9px;">
-                                sous le Haut Patronage de LL. MM. le Roi et la Reine
-                            </div>
-                            <div class="col-xs-8" style="border: solid 1px black;">
-                                ATTESTATION EN MATIERE DE FRAIS DE GARDE D'ENFANTS AGES DE MOINS DE 12 ANS OU D'ENFANTS AVEC UN HANDICAP LOURD AGES DE MOINS DE 18 ANS DANS L'ESPACE ECONOMIQUE EUROPEEN PAYES EN 2018<sup>(1)</sup>
-                            </div>
-                        </div>
-                        <!-- CADRE 1 -->
-                        <div class="row" style="">
-                            <div class="col-xs-12" style="border: solid 1px black;">
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                       <br></br><br></br>
-                                        <b><u>Cadre I</u> (2)</b>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-4">
-                                        Le sousigné certifie que: (3)
-                                    </div>
-                                    <div class="col-xs-8">
-                                        ADMINISTRATION COMMUNALE DE FERRIERES<br></br> PLACE DE CHABLIS 21<br></br> 4190 FERRIERES<br></br><br></br><br></br>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        est agréé(e), subsidié(e), contrôlé(e) ou surveillé(e) par l'Office de la Naissance et de l'Enfance, Chaussée de Charleroi 95 à 1060 Bruxelles ;<br></br>
-                                        en application de l'article 113, § 1<sup>er</sup>, 3<sup>e</sup>, du Code des impôts sur les revenus 1992.<br></br><br></br>
-                                        La présente attestation est valable pour la période du 01/01/2018 au 31/01/2018<br></br><br></br>
-                                    </div>
-                                </div>
-                                <!-- ROW cachet+signature -->
-                                <div class="row">
-                                    <div class="col-xs-6">
-                                        cachet
-                                    </div>
-                                    <div class="col-xs-6">
-                                        <div class="row">
-                                            <div class="col-xs-12">
-                                                Fait à Bruxelles, le 6 mars 2017
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-xs-12">
-                                                signature
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-xs-12">
-                                                Benoît PARMENTIER,<br></br>
-                                                Administrateur général (4)
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div><!-- Fin row cachet+signature -->
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        Office de la Naissance et de l'Enfance<br></br>
-                                        Chaussée de Charleroi, 95<br></br>
-                                        1060 BRUXELLES<br></br><br></br>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- Fin CADRE 1 -->
-                        <!-- Bas de page -->
-                        <div class="row" style="margin: -20 px; padding: -20 px;">
-                            <div class="col-xs-12">
-                               <ul style="list-style-type: none; font-size: 9px; margin: 0 -20px;">
-                                <li>
-                                    (1) Cette attestation, qui ne doit être complétée qu'en un seul exemplaire, doit être délivrée au débiteur des dépenses, qui devra la tenir à la disposition de l'administration.
-                                </li>
-                                <li>
-                                    (2) Le cadre I ne doit être complété que:
-                                    <ul>
-                                        <li>Soit par l'Office de la Naissance et de l'Enfance ;</li>
-                                        <li>Soit par les pouvoirs publics locaux, communautaires ou régionaux ;</li>
-                                        <li>Soit par des institutions publiques étrangères établie dans un autre Etat membre de l'Espace économique européen ;</li>
-                                        <li>Soit par l'école établie dans l'Espace économique européen ou le pouvoir organisateur de l'école établie dans l'Espace économique européen avec laquelle (lequel) les institutions ou les milieux d'accueil ont un lien.</li>
-                                    </ul>
-                                    Lorsque l'accueil est directement payé à l'une des instance précitées, seul le cadre II doit être complété.
-                                </li>
-                                <li>
-                                    (3) Nom ou dénomination de l'institution, du milieu d'accueil, de la famille d'accueil ou de la crèche.
-                                </li>
-                                <li>
-                                    (4) S'il y a un mandataire, sa signature doit être précédée de la mention "par procuration".
-                                </li>
-                                </ul>
-                            </div>
-                        </div><!-- Fin Bas de page -->
-                    </div><!-- Fin container -->
-                </div>
+                            <!--.attest_comment{-->
+                                <!--font-size:9px;-->
+                                <!--margin: 0 20px;-->
+                            <!--}-->
+                    <!--</style>-->
+                    <!--<div class="container">-->
+                       <!--&lt;!&ndash; Logo &ndash;&gt;-->
+                        <!--<div class="row">-->
+                            <!--<div class="col-xs-12">-->
+                                <!--<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRScdNw-XhVmvRM3Pdac88fQEOdFBQUgpEBm1rPFERAXV2Cge4G"/>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash; Titre &ndash;&gt;-->
+                        <!--<div class="row">-->
+                            <!--<div class="col-xs-4" style="font-size: 9px;">-->
+                                <!--sous le Haut Patronage de LL. MM. le Roi et la Reine-->
+                            <!--</div>-->
+                            <!--<div class="col-xs-8" style="border: solid 1px black;">-->
+                                <!--ATTESTATION EN MATIERE DE FRAIS DE GARDE D'ENFANTS AGES DE MOINS DE 12 ANS OU D'ENFANTS AVEC UN HANDICAP LOURD AGES DE MOINS DE 18 ANS DANS L'ESPACE ECONOMIQUE EUROPEEN PAYES EN 2018<sup>(1)</sup>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash; CADRE 1 &ndash;&gt;-->
+                        <!--<div class="row" style="">-->
+                            <!--<div class="col-xs-12" style="border: solid 1px black;">-->
+                                <!--<div class="row">-->
+                                    <!--<div class="col-xs-12">-->
+                                       <!--<br></br><br></br>-->
+                                        <!--<b><u>Cadre I</u> (2)</b>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="row">-->
+                                    <!--<div class="col-xs-4">-->
+                                        <!--Le sousigné certifie que: (3)-->
+                                    <!--</div>-->
+                                    <!--<div class="col-xs-8">-->
+                                        <!--ADMINISTRATION COMMUNALE DE FERRIERES<br></br> PLACE DE CHABLIS 21<br></br> 4190 FERRIERES<br></br><br></br><br></br>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="row">-->
+                                    <!--<div class="col-xs-12">-->
+                                        <!--est agréé(e), subsidié(e), contrôlé(e) ou surveillé(e) par l'Office de la Naissance et de l'Enfance, Chaussée de Charleroi 95 à 1060 Bruxelles ;<br></br>-->
+                                        <!--en application de l'article 113, § 1<sup>er</sup>, 3<sup>e</sup>, du Code des impôts sur les revenus 1992.<br></br><br></br>-->
+                                        <!--La présente attestation est valable pour la période du 01/01/2018 au 31/01/2018<br></br><br></br>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--&lt;!&ndash; ROW cachet+signature &ndash;&gt;-->
+                                <!--<div class="row">-->
+                                    <!--<div class="col-xs-6">-->
+                                        <!--cachet-->
+                                    <!--</div>-->
+                                    <!--<div class="col-xs-6">-->
+                                        <!--<div class="row">-->
+                                            <!--<div class="col-xs-12">-->
+                                                <!--Fait à Bruxelles, le 6 mars 2017-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<div class="row">-->
+                                            <!--<div class="col-xs-12">-->
+                                                <!--signature-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<div class="row">-->
+                                            <!--<div class="col-xs-12">-->
+                                                <!--Benoît PARMENTIER,<br></br>-->
+                                                <!--Administrateur général (4)-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>&lt;!&ndash; Fin row cachet+signature &ndash;&gt;-->
+                                <!--<div class="row">-->
+                                    <!--<div class="col-xs-12">-->
+                                        <!--Office de la Naissance et de l'Enfance<br></br>-->
+                                        <!--Chaussée de Charleroi, 95<br></br>-->
+                                        <!--1060 BRUXELLES<br></br><br></br>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>&lt;!&ndash; Fin CADRE 1 &ndash;&gt;-->
+                        <!--&lt;!&ndash; Bas de page &ndash;&gt;-->
+                        <!--<div class="row" style="margin: -20 px; padding: -20 px;">-->
+                            <!--<div class="col-xs-12">-->
+                               <!--<ul style="list-style-type: none; font-size: 9px; margin: 0 -20px;">-->
+                                <!--<li>-->
+                                    <!--(1) Cette attestation, qui ne doit être complétée qu'en un seul exemplaire, doit être délivrée au débiteur des dépenses, qui devra la tenir à la disposition de l'administration.-->
+                                <!--</li>-->
+                                <!--<li>-->
+                                    <!--(2) Le cadre I ne doit être complété que:-->
+                                    <!--<ul>-->
+                                        <!--<li>Soit par l'Office de la Naissance et de l'Enfance ;</li>-->
+                                        <!--<li>Soit par les pouvoirs publics locaux, communautaires ou régionaux ;</li>-->
+                                        <!--<li>Soit par des institutions publiques étrangères établie dans un autre Etat membre de l'Espace économique européen ;</li>-->
+                                        <!--<li>Soit par l'école établie dans l'Espace économique européen ou le pouvoir organisateur de l'école établie dans l'Espace économique européen avec laquelle (lequel) les institutions ou les milieux d'accueil ont un lien.</li>-->
+                                    <!--</ul>-->
+                                    <!--Lorsque l'accueil est directement payé à l'une des instance précitées, seul le cadre II doit être complété.-->
+                                <!--</li>-->
+                                <!--<li>-->
+                                    <!--(3) Nom ou dénomination de l'institution, du milieu d'accueil, de la famille d'accueil ou de la crèche.-->
+                                <!--</li>-->
+                                <!--<li>-->
+                                    <!--(4) S'il y a un mandataire, sa signature doit être précédée de la mention "par procuration".-->
+                                <!--</li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                        <!--</div>&lt;!&ndash; Fin Bas de page &ndash;&gt;-->
+                    <!--</div>&lt;!&ndash; Fin container &ndash;&gt;-->
+                <!--</div>-->
                 <t t-foreach="docs" t-as="attest">
                 <div class="page">
                     <style type="text/css">
