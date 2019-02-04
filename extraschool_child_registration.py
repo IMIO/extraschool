@@ -242,6 +242,7 @@ class extraschool_child_registration(models.Model):
         # if 'child_registration_line_ids' in vals:
         #     vals['number_childs'] = len(vals['child_registration_line_ids'])
         self.check_validity_date(vals)
+        vals['number_childs'] = len(vals['child_registration_line_ids'])
         res = super(extraschool_child_registration, self).create(vals)
         return res
 
