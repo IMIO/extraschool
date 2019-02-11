@@ -69,7 +69,7 @@
             <field name="type">tree</field>
             <field name="arch" type="xml">
             <tree>
-                <field name="slogan"/>
+                <field name="town"/>
             </tree>
             </field>
         </record>

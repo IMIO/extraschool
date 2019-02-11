@@ -111,6 +111,7 @@ class extraschool_activitycategory(models.Model):
     logo_reminder = fields.Binary()
     slogan = fields.Char('Slogan', size=50)
     sequence_ids = fields.One2many('extraschool.activitycategory.sequence', 'activity_category_id',string = 'Sequences')
+    max_school_implantation = fields.Integer()
 
     def check_invoice_prefix(self,invoicecomstructprefix):
         res = {'return_val' : True,

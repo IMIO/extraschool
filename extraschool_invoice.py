@@ -90,6 +90,10 @@ class extraschool_invoice(models.Model):
         invoice_ids = self.search([('activitycategoryid', '=', False)])
         activity_ids = self.env['extraschool.activity'].search([('category_id', '=', False)])
         payment_ids = self.env['extraschool.payment'].search([])
+        
+        self.env['extraschool.organising_power'].create({
+            'town': "Replace this",
+        })
 
         for invoice in invoice_ids:
             invoice.activitycategoryid = base_activity_category
