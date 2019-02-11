@@ -71,6 +71,7 @@ class extraschool_child_registration(models.Model):
         ('primaire', 'Primaire'),
         ('maternelle', 'Maternelle'),
     ])
+    comment = fields.Text('Comment', track_visibility='onchange')
 
     @api.onchange('date_to','date_from')
     @api.multi
