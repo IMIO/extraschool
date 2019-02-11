@@ -259,11 +259,14 @@ class extraschool_aged_balance(models.TransientModel):
         tmp_item_ids = []
         self.env.cr.execute(sql_aged_balance, (self.aged_date,self.aged_date))
         for item in self.env.cr.dictfetchall():
+            item['total_fact'] = item['total_fact'] if item['total_fact'] else 0
+            item['aged_no_value'] = item['aged_no_value'] if item['aged_no_value'] else 0
+            item['received'] = item['received'] if item['received'] else 0
             tmp_item_ids.append((0,0,{'year' : item['b_year'],
                                       'total_fact' : item['total_fact'],
                                       'total_no_value' : item['aged_no_value'],
                                       'total_received' : item['received'],
-                                      'total_balance' : 0.0,
+                                      'total_balance' : item['total_fact'] - item['aged_no_value'] - item['received'],
                                       }))
 
         self.aged_balance_item_ids = tmp_item_ids
