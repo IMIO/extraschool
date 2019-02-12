@@ -263,7 +263,7 @@ class extraschool_parent(models.Model):
         biller_id.in_creation = False
 
     def email_validation(self,email):
-        if re.match("^[a-zA-Z0-9._%-]+@[a-zA-Z0-9._%-]+.[a-zA-Z]{2,6}$", email) != None:
+        if re.match("^[a-zA-Z0-9.+_%-]+@[a-zA-Z0-9._%-]+.[a-zA-Z]{2,6}$", email) != None:
             return True
         else:
             return False
