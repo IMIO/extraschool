@@ -206,7 +206,6 @@ class extraschool_prestation_times_of_the_day(models.Model):
         zz=0
         activity_ids = []
         self.activity_to_delete = 0
-        self.checked = True
 
         # Get all the activity ID from the prestations.
         for presta in self.prestationtime_ids.sorted(key=lambda r: (r.prestation_time)):
@@ -569,8 +568,9 @@ class extraschool_prestation_times_of_the_day(models.Model):
         self.env.cr.execute(presta_correction)
 
         self.merge_duplicate_pod()
-        for presta in self.search([('verified', '=', False)]):
+        for presta in self.search([('verified', '=', False), ('checked', '=', False)]):
             presta.check()
+            presta.checked = True
 
 class extraschool_prestation_times_history(models.Model):
     _name = 'extraschool.prestation_times_history'
