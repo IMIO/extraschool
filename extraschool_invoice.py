@@ -485,6 +485,17 @@ class extraschool_invoice(models.Model):
         else:
             self.tag = invoice_tag_obj.search([('name', '=', 'Bloquer')]).id  # Bloquer.
 
+    @api.multi
+    def cancel_payment(self):
+        self.amount_received = 0.0
+        for payment in self.payment_ids:
+            payment.unlink()
+
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'reload',
+        }
+
 
 class extraschool_invoice_tag(models.Model):
     _name = 'extraschool.invoice_tag'
