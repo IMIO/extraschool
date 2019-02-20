@@ -491,6 +491,8 @@ class extraschool_invoice(models.Model):
         for payment in self.payment_ids:
             payment.unlink()
 
+        self._compute_balance()
+        
         return {
             'type': 'ir.actions.client',
             'tag': 'reload',
