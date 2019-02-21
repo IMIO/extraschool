@@ -14,7 +14,6 @@
                         <group col="2">
                             <field name="total_amount" />
                             <field name="total_reconcil_amount" />
-                            <field name="total_no_value" />
                             <field name="total_reconcil_no_fees" />
                             <field name="total_fees" />
                         </group>

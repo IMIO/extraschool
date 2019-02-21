@@ -34,7 +34,6 @@ class extraschool_annual_report(models.Model):
     year = fields.Char(default=datetime.now().year - 1, string='Inscrivez l\'année souhaitée')
     total_amount = fields.Float(string='Montant total')
     total_reconcil_amount = fields.Float(string='Montant total réconcilié')
-    total_no_value = fields.Float(string='Total des non valeurs')
     total_reconcil_no_fees = fields.Float(string='Total sans les frais de rappels')
     total_fees = fields.Float(string='Montant total des frais de rappels')
 
@@ -56,8 +55,6 @@ class extraschool_annual_report(models.Model):
         self.total_amount = sum(amount.amount for amount in total_payment_ids)
 
         self.total_reconcil_amount = sum(amount.amount for amount in total_reconcil)
-
-        self.total_no_value = sum(amount.amount for amount in total_reconcil_ids.filtered(lambda r: r.invoice_id.no_value != 0))
 
         total_reconcil_no_fees = total_reconcil_ids.filtered(lambda r: r.invoice_id.no_value == 0)
 
