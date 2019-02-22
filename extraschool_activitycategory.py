@@ -96,6 +96,8 @@ class extraschool_activitycategory(models.Model):
     bank_city = fields.Char('Bank city')
 
     taxcertificatetemplate = fields.Char('Tax Certificate Template', size=50)
+    tax_certificate_code = fields.Char()
+
     invoice_report_id = fields.Many2one('extraschool.report', 'Invoice report')
     invoice_detail_report_id = fields.Many2one('extraschool.report', 'Invoice detail report')
     biller_report_id = fields.Many2one('extraschool.report', 'Biller report')
