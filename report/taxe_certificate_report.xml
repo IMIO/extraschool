@@ -102,6 +102,11 @@
                                     font-size:9px;
                                     margin: 0 20px;
                                 }
+                                .break{
+                                    display: block;
+                                    clear: both;
+                                    page-break-after: always;
+                                }
                         </style>
                         <div class="container">
                            <!-- Logo -->
@@ -201,86 +206,87 @@
                                 </div>
                             </div><!-- Fin Bas de page -->
                         </div><!-- Fin container -->
-                    </div>
-                </t>
-                <t t-foreach="docs" t-as="attest">
-                <div class="page">
-                    <style type="text/css">
-                        body {
-                              font-family: arial !important;
-                              font-size:18px;
-                            }
+                        <div class="break"></div>
+                    <!--</div>-->
+                <!--</t>-->
+                <!--<t t-foreach="docs" t-as="attest">-->
+                <!--<div class="page">-->
+                    <!--<style type="text/css">-->
+                        <!--body {-->
+                              <!--font-family: arial !important;-->
+                              <!--font-size:18px;-->
+                            <!--}-->
 
-                            .frame {
-                                border-style: solid;
-                                border-width: 1px;
-                                padding: 7mm;
-                                margin : 0 5mm;
-                            }
+                            <!--.frame {-->
+                                <!--border-style: solid;-->
+                                <!--border-width: 1px;-->
+                                <!--padding: 7mm;-->
+                                <!--margin : 0 5mm;-->
+                            <!--}-->
 
-                            .frame>div {
-                                margin-left : 5mm;
-                            }
+                            <!--.frame>div {-->
+                                <!--margin-left : 5mm;-->
+                            <!--}-->
 
-                            .frame>ol>li>div {
-                                margin-left : 1cm;
-                            }
+                            <!--.frame>ol>li>div {-->
+                                <!--margin-left : 1cm;-->
+                            <!--}-->
 
-                            .parent_adr{
-                                display: block;
-                                float: right;
-                                width: 7cm;
-                            }
+                            <!--.parent_adr{-->
+                                <!--display: block;-->
+                                <!--float: right;-->
+                                <!--width: 7cm;-->
+                            <!--}-->
 
-                            .signature {
-                                display: block;
-                                float: right;
-                                width: 10cm;
-                            }
+                            <!--.signature {-->
+                                <!--display: block;-->
+                                <!--float: right;-->
+                                <!--width: 10cm;-->
+                            <!--}-->
 
-                            ol>li {
-                                counter-increment:item;
-                                list-style:none inside;
-                                clear: both;
-                            }
+                            <!--ol>li {-->
+                                <!--counter-increment:item;-->
+                                <!--list-style:none inside;-->
+                                <!--clear: both;-->
+                            <!--}-->
 
-                            ol>li:before {content:"(" counter(item) ")"; padding-right:0.5em}
+                            <!--ol>li:before {content:"(" counter(item) ")"; padding-right:0.5em}-->
 
-                            ol>li>div {
-                                margin-left: 2cm;
-                            }
-                            ol.main_list>li{
-                                margin: 15px 0;
-                            }
+                            <!--ol>li>div {-->
+                                <!--margin-left: 2cm;-->
+                            <!--}-->
+                            <!--ol.main_list>li{-->
+                                <!--margin: 15px 0;-->
+                            <!--}-->
 
-                            .po>span {
-                                display: block;
-                                clear: both;
-                            }
+                            <!--.po>span {-->
+                                <!--display: block;-->
+                                <!--clear: both;-->
+                            <!--}-->
 
-                            .signature>span {
-                                display: block;
-                                clear: both;
-                            }
+                            <!--.signature>span {-->
+                                <!--display: block;-->
+                                <!--clear: both;-->
+                            <!--}-->
 
-                            .po_stamp {
-                                    width: 5cm;
-                                    height: 5cm;
-                                    display:block;
-                                    float:left;
-                                }
+                            <!--.po_stamp {-->
+                                    <!--width: 5cm;-->
+                                    <!--height: 5cm;-->
+                                    <!--display:block;-->
+                                    <!--float:left;-->
+                                <!--}-->
 
-                            .po_sign {
-                                display: block;
-                                clear: both;
-                                max-width: 6cm;
-                            }
+                            <!--.po_sign {-->
+                                <!--display: block;-->
+                                <!--clear: both;-->
+                                <!--max-width: 6cm;-->
+                            <!--}-->
 
-                            .attest_comment{
-                                font-size:9px;
-                                margin: 0 20px;
-                            }
-                    </style>
+                            <!--.attest_comment{-->
+                                <!--font-size:9px;-->
+                                <!--margin: 0 20px;-->
+                            <!--}-->
+                    <!--</style>-->
                     <div class="frame">
 							<span>Cadre II</span> (A remplir par l'institution, le milieu d'accueil, la crèche, la famille d'accueil, l'école maternelle ou primaire, le pouvoir organisateur de l'école maternelle ou primaire, le pouvoir public local, communautaire ou régional)
 							<ol class="main_list">
