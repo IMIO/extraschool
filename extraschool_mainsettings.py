@@ -349,4 +349,6 @@ class extraschool_mainsettings(models.Model):
             'slogan': activity_category.slogan,
             'taxcertificatetemplate': activity_category.taxcertificatetemplate,
             'max_school_implantation': activity_category.max_school_implantation,
+            'town': activity_category.po_city,
+            'qrcode_report_id': activity_category.qrcode_report_id.id,
         })
