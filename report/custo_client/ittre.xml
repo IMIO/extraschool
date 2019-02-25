@@ -96,7 +96,7 @@
 	        	<div id="invoice_summary" >
 	        		<p style="font-size:18px;font-weight: bold;">RAPPEL 2</p>
 	        		<h5>Madame, Monsieur,</h5>
-	        		<h5>A la suite de l'examen de nos comptes, nous constatons que vous nous restez redevables pour les factures de frais de garderie extra-scolaire suivantes :</h5>
+	        		<h5>A la suite de l'examen de nos comptes, et malgré l'envoi de notre 1er rappel, nous constatons que vous nous restez redevables pour les factures de frais de garderie extra-scolaire suivantes :</h5>
 	        		<table>
 	        			<tr>
 		        			<th>Période</th>
@@ -134,7 +134,60 @@
 	        		</table>
 	       		</div>
 			</t>
+		</template>
 
+        <template id="report_invoice_summary_ittre3">
+			<t t-set="zz" t-value="0" />
+			<t t-foreach="summary_invoice_ids" t-as="summary_invoice">
+				<t t-if="summary_invoice.id != invoice_id">
+					<t t-set="zz" t-value="zz+1" />
+				</t>
+			</t>
+			<t t-if="zz" >
+                <xpath expr="//head" position="inside">
+                    <link rel="stylesheet" href="/extraschool/static/src/css/report_invoice_summary.css"/>
+                </xpath>
+	        	<div id="invoice_summary" >
+	        		<p style="font-size:18px;font-weight: bold;">RAPPEL 3</p>
+	        		<h5>Madame, Monsieur,</h5>
+	        		<h5>A la suite de l'examen de nos comptes, et malgré l'envoi de notre 1er rappel et 2ème rappel, nous constatons que vous nous restez redevables pour les factures de frais de garderie extra-scolaire suivantes :</h5>
+	        		<table>
+	        			<tr>
+		        			<th>Période</th>
+		        			<th>Facture</th>
+		        			<th>Echéance</th>
+		        			<th>Montant</th>
+						</tr>
+		       			<t t-foreach="summary_invoice_ids.sorted(key=lambda r: r.number)" t-as="summary_invoice">
+	        				<tr>
+	        					<t t-if="summary_invoice.id != invoice_id">
+	        					<t t-if="summary_invoice.reminder_fees == False">
+	        						<tr>
+				       					<td><span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_from,'%Y-%m-%d')))" /> - <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_to,'%Y-%m-%d')))" /></td>
+			        					<td><span t-field="summary_invoice.number" /></td>
+				       					<td><span t-field="summary_invoice.payment_term" /></td>
+				       					<td class="amount"><span t-esc="'%.2f €' %  (summary_invoice.balance)" /></td>
+
+	        						</tr>
+								</t>
+	        					<t t-if="summary_invoice.reminder_fees == True">
+	        						<t t-foreach="summary_invoice.invoice_line_ids" t-as="invoice_line">
+	        							<tr>
+					       					<td></td>
+				        					<td><span t-field="invoice_line.description" /></td>
+					       					<td><span t-field="summary_invoice.payment_term" /></td>
+					       					<td class="amount"><span t-esc="TODO" /></td>
+											<!--<td class="amount"><span t-esc="'%.2f €' %  (invoice_line.balance)" /></td>-->
+				       					</tr>
+	        						</t>
+								</t>
+								</t>
+		       				</tr>
+		        		</t>
+
+	        		</table>
+	       		</div>
+			</t>
 		</template>
 
         <template id="report_payment_info_amount_one_row_ittre">

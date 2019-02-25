@@ -151,6 +151,7 @@ class extraschool_payment_status_report(models.Model):
     com_struct = fields.Char('Structured Communication')
     totalbalance = fields.Float('Total balance')
     nbr_actif_child = fields.Integer('Nbr actif child')
+    reminder_to_pay = fields.Boolean('Reminder to pay')
     # payment_date = fields.Date('Payment Date', select=True)
 
     # This is the view we use.
@@ -174,7 +175,11 @@ class extraschool_payment_status_report(models.Model):
                     else LPAD(((LPAD(case when zz.ac_com_struct_prefix is NULL then '0' else zz.ac_com_struct_prefix end, 3, '0') || LPAD(zz.p_id::TEXT,7,'0'))::bigint % 97)::TEXT,2,'0') end
                     || '+++' as com_struct,
                     COALESCE((select sum(i.balance) from extraschool_invoice i where i.parentid = zz.p_id),0.0) as totalbalance,
-                    (select count(*) from extraschool_child c where c.parentid = zz.p_id and c.isdisabled = False) as nbr_actif_child
+                    (select count(*) from extraschool_child c where c.parentid = zz.p_id and c.isdisabled = False) as nbr_actif_child, 
+                    (select count(*)
+                    
+                    from extraschool_invoice
+                    where parentid = zz.p_id and last_reminder_id is not NULL and balance > 0) AS reminder_to_pay
                     
                 from (select ac.id as ac_id, p.id as p_id, ac.payment_invitation_com_struct_prefix as ac_com_struct_prefix, 
           ac.invoicecomstructprefix as ac_invoicecomstructprefix, ac.remindercomstructprefix as ac_remindercomstructprefix from extraschool_activitycategory ac, extraschool_parent p) zz
@@ -258,11 +263,14 @@ class extraschool_aged_balance(models.TransientModel):
         tmp_item_ids = []
         self.env.cr.execute(sql_aged_balance, (self.aged_date,self.aged_date))
         for item in self.env.cr.dictfetchall():
+            item['total_fact'] = item['total_fact'] if item['total_fact'] else 0
+            item['aged_no_value'] = item['aged_no_value'] if item['aged_no_value'] else 0
+            item['received'] = item['received'] if item['received'] else 0
             tmp_item_ids.append((0,0,{'year' : item['b_year'],
                                       'total_fact' : item['total_fact'],
                                       'total_no_value' : item['aged_no_value'],
                                       'total_received' : item['received'],
-                                      'total_balance' : 0.0,
+                                      'total_balance' : item['total_fact'] - item['aged_no_value'] - item['received'],
                                       }))
 
         self.aged_balance_item_ids = tmp_item_ids

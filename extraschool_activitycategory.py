@@ -71,6 +71,7 @@ class extraschool_activitycategory(models.Model):
                                                    ('byaddresswp','by address (only childs with prestations)'),
                                                    ('byaddress_nb_childs','by address (position replaced by nbr childs'),
                                                    ('byaddress_nb_childs_wp','by address (position replaced by nbr childs with prestations'),
+                                                   ('by_address_by_activity','by address and by activity (only childs with prestations'),
                                                    ),'Child position determination', required = True)
 
     activities = fields.One2many('extraschool.activity', 'category_id','Activities')
@@ -99,6 +100,8 @@ class extraschool_activitycategory(models.Model):
     bank_city = fields.Char('Bank city')
 
     taxcertificatetemplate = fields.Char('Tax Certificate Template', size=50)
+    tax_certificate_code = fields.Char()
+
     invoice_report_id = fields.Many2one('extraschool.report', 'Invoice report')
     invoice_detail_report_id = fields.Many2one('extraschool.report', 'Invoice detail report')
     biller_report_id = fields.Many2one('extraschool.report', 'Biller report')

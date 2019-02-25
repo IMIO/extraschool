@@ -54,6 +54,7 @@ class extraschool_child(models.Model):
     comment = fields.Text('Comment', track_visibility='onchange')
     check_name = fields.Boolean(default=True)
     check_rn = fields.Boolean(default=True)
+    health_sheet_ids = fields.One2many('extraschool.health_sheet', 'child_id')
 
     def get_age(self):
         date_of_birth = datetime.strptime(self.birthdate,'%Y-%m-%d')
@@ -107,16 +108,8 @@ class extraschool_child(models.Model):
         # return long(self.tagid)
         return self.tagid
 
-    @api.model
-    def create(self, vals):
-        if 'check_rn' in vals and vals['check_rn'] == False:
-            raise Warning("Un enfant possède déjà ce registre national.")
-        return super(extraschool_child, self).create(vals)
-
     @api.multi
     def write(self, vals):
-        if 'check_rn' in vals and vals['check_rn'] == False:
-            raise Warning("Un enfant possède déjà ce registre national.")
         fields_to_find = set(['firstname',
                               'lastname'])
 
@@ -139,29 +132,25 @@ class extraschool_child(models.Model):
                 'domain': [('child_id', '=',self.id),]
             }
 
+    @api.multi
+    def get_sante(self):
+
+        return {'name': 'Fiche santé',
+                'type': 'ir.actions.act_window',
+                'res_model': 'extraschool.health_sheet',
+                'view_type': 'form',
+                'view_mode': 'tree,form',
+                'nodestroy': False,
+                'target': 'current',
+                'limit': 50000,
+                'domain': [('child_id', '=', self.id), ],
+                'context' : {'child_id': self.id},
+                }
+
     @api.one
     def unlink(self):
         self.isdisabled = True
 
-    @api.multi
-    def send_data(self):
-        data = {
-                "occurences_ids": [
-                        "7640",
-                        "7645",
-                        "7650",
-                        "7695",
-                         "7700"
-                        ],
-                "child_id": "752",
-                "activity_id": "6"
-                }
-
-        self.env['extraschool.child_registration'].add_registration_child_activities(data)
-
-    @api.multi
-    def send_workflow(self):
-        self.env['aes_api.tools'].test_TS()
 
 ##############################################################################
 #

@@ -23,7 +23,6 @@
             <form string="Parents">
 				<header>
 					<button name="wizard_action" string="Fusion" icon="gtk-apply" type="object" context="{'default_parent_id': id}" groups="extraschool.extraschool_fusion"/>
-					<button name="test_TS" string="envois TS" icon="gtk-apply" type="object" groups="extraschool.extraschool_gods"/>
             	</header>
                 <div class="alert alert-warning" attrs="{'invisible':[('check_name', '=', True)]}">
                     Le nom et prénom de ce parent existe déjà. S'agit-il du même parent ?
@@ -179,6 +178,7 @@
 	                        <field name="no_value"/>
 	                        <field name="tag"/>
 	                        <button name="reconcil" type="object" string="Reconcil" confirm="Do you really want to reconciliate this invoice ?" groups="extraschool.extraschool_accounting" />
+	                        <button name="cancel_payment" type="object" string="Cancel Payment" confirm="Do you really want to cancel payment on this invoice ?" groups="extraschool.extraschool_gods" />
 	                    </tree>
                     </field>
                     </group>

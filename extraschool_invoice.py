@@ -209,7 +209,7 @@ class extraschool_invoice(models.Model):
             if line.activity_activity_id.short_name not in res:
                 res.append(line.activity_activity_id.short_name)
 
-        return res
+        return sorted(res)
 
 
     def get_concerned_child(self):
@@ -218,6 +218,8 @@ class extraschool_invoice(models.Model):
         for line in self.invoice_line_ids:
             if line.childid not in res:
                 res.append(line.childid)
+
+        res.sort(key=lambda r: r.name)
 
         return res
 
@@ -245,8 +247,6 @@ class extraschool_invoice(models.Model):
                     month['quantity'][zz].append(d)
 
                 zz+=1
-
-#        print concened_months
 
         return concened_months
 
@@ -278,6 +278,7 @@ class extraschool_invoice(models.Model):
         saved_child['inv_date_str'] = time.strftime('%d/%m/%Y',time.strptime(invoicedline.prestation_date,'%Y-%m-%d'))
         saved_child['splited_place_street'] = p.findall(invoicedline.placeid.street)
         saved_child['place'] = invoicedline.placeid
+        saved_child['quantity'] = invoicedline.quantity
 
         return saved_child
 
@@ -336,7 +337,8 @@ class extraschool_invoice(models.Model):
         format_str += "%s\t" # activity
         format_str += "%s\t" # nbr j présences
         format_str += "%.2f\t" # fisc amount
-        format_str += "%.2f" # amount
+        format_str += "%.2f\t" # amount
+        format_str += "%.2f" # quantity
 
 
         format_activities_str = ""
@@ -368,10 +370,11 @@ class extraschool_invoice(models.Model):
         saved_child['inv_date_str'] = ""
         saved_child['splited_place_street'] = []
         saved_child['place'] = ''
+        saved_child['quantity'] = 0.0
 
 
         total = 0
-        lines_ids = self.invoice_line_ids.filtered(lambda r: r.total_price > 0.0001).sorted(key=lambda r: "%s%s%s%s" % (r.childid.name,r.placeid.street_code,r.prestation_date,r.activity_activity_id.short_name))
+        lines_ids = self.invoice_line_ids.filtered(lambda r: r.total_price > 0.0001).sorted(key=lambda r: "%s%s%s%s%s" % (r.childid.rn, r.childid.name, r.prestation_date, r.placeid.street_code,r.activity_activity_id.short_name))
 
         if len(lines_ids) == 0:
             return {'lines': res,
@@ -420,7 +423,8 @@ class extraschool_invoice(models.Model):
                                         saved_child['saved_activity'],
                                         1 if saved_child['nbr_jour'] >= 1 and not saved_child['nbr_jour_printed'] else 0,
                                         saved_child['fisc_amount'],
-                                        saved_child['amount']
+                                        saved_child['amount'],
+                                        saved_child['quantity']
                                         )
                 total+=saved_child['amount']
                 if saved_child['nbr_jour']:
@@ -485,7 +489,8 @@ class extraschool_invoice(models.Model):
             saved_child['saved_activity'],
             1 if saved_child['nbr_jour'] >= 1 and not saved_child['nbr_jour_printed'] else 0,
             saved_child['fisc_amount'],
-            saved_child['amount']
+            saved_child['amount'],
+            saved_child['quantity'],
                                         )
             total+=saved_child['amount']
             res.append(str_line)
@@ -508,6 +513,19 @@ class extraschool_invoice(models.Model):
             self.tag = invoice_tag_obj.search([('name', '=', 'Plan de paiement')]).id  # Plan de paiement.
         else:
             self.tag = invoice_tag_obj.search([('name', '=', 'Bloquer')]).id  # Bloquer.
+
+    @api.multi
+    def cancel_payment(self):
+        self.amount_received = 0.0
+        for payment in self.payment_ids:
+            payment.unlink()
+
+        self._compute_balance()
+        
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'reload',
+        }
 
 
 class extraschool_invoice_tag(models.Model):

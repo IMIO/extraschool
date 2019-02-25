@@ -24,8 +24,7 @@
 				<form string="Child">
 					<header>
 						<button name="wizard_action" string="Fusion" icon="gtk-apply" type="object" context="{'default_child_id': id}" groups="extraschool.extraschool_fusion"/>
-                        <button name="send_data" string="smartphone" icon="gtk-apply" type="object" groups="extraschool.extraschool_gods"/>
-                        <button name="send_workflow" string="workflow" icon="gtk-apply" type="object" groups="extraschool.extraschool_gods"/>
+                        <button name="orm" string="ORM" icon="gtk-apply" type="object" groups="extraschool.extraschool_gods"/>
             		</header>
                     <div class="alert alert-warning" attrs="{'invisible':[('check_name', '=', True)]}">
                         Le nom et prénom de cet enfant existe déjà. S'agit-il du même enfant ?
@@ -45,6 +44,13 @@
 							type="object"
 							class="oe_inline oe_stat_button"
 							icon="fa-qrcode"
+								/>
+                        <button name="get_sante"
+							string="Fiche Santé"
+                            groups="extraschool.extraschool_fiche_sante"
+							type="object"
+							class="oe_inline oe_stat_button"
+							icon="fa-heart"
 								/>
 					</div>
 					<field name="name"  invisible="True"/>

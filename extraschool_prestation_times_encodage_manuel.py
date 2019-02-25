@@ -145,6 +145,8 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
                     if new_presate.prestation_times_of_the_day_id.id not in pod_allready_reseted_ids:
                         pod_allready_reseted_ids.append(new_presate.prestation_times_of_the_day_id.id)
                         new_presate.prestation_times_of_the_day_id.reset()
+                        new_presate.prestation_times_of_the_day_id.checked = False
+                        new_presate.prestation_times_of_the_day_id.check()
 
                 if presta.prestation_time_exit > 0:
                     print "presta out %s" % (presta)
@@ -159,6 +161,8 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
                     if new_presate.prestation_times_of_the_day_id.id not in pod_allready_reseted_ids:
                         pod_allready_reseted_ids.append(new_presate.prestation_times_of_the_day_id.id)
                         new_presate.prestation_times_of_the_day_id.reset()
+                        new_presate.prestation_times_of_the_day_id.checked = False
+                        new_presate.prestation_times_of_the_day_id.check()
 
         if self.state == 'draft':
             self.state = 'validated'
@@ -193,7 +197,7 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
                 # Reset will solve problems but most importantly, it will tell us if we need to remove ptotd
                 ptotd.reset()
 
-                if not ptotd.pda_prestationtime_ids:
+                if not ptotd.pda_prestationtime_ids and not ptotd.prestationtime_ids:
                     ptotd.unlink()
                 else:
                     ptotd.check()

@@ -48,7 +48,7 @@ class extraschool_taxcertificate(models.Model):
                                             left join extraschool_invoice iii on iii.id = ppr.invoice_id
                                             left join extraschool_payment pp on pp.id = ppr.payment_id
                                             where ppr.paymentdate BETWEEN '%s-01-01' and '%s-12-31'
-                                                AND iii.balance = 0 AND iii.reminder_fees = false                                            
+                                                AND iii.balance = 0 AND (iii.reminder_fees IS NULL OR iii.reminder_fees = false)                                             
                                 """ % (vals['name'], vals['name'])
 
 
@@ -262,8 +262,8 @@ class extraschool_tax_certificate_detail(models.Model):
                                     ON inv.id = pay_rec.invoice_id
                                     LEFT JOIN extraschool_payment AS pay 
                                     ON pay.id = pay_rec.payment_id
-                                    WHERE pay_rec.paymentdate BETWEEN '2017-01-01' AND '2017-12-31'
-                                    AND inv.balance = 0 AND inv.reminder_fees = false) 
+                                    WHERE pay_rec.paymentdate BETWEEN '2018-01-01' AND '2018-12-31'
+                                    AND inv.balance = 0 AND inv.reminder_fees = false OR inv.reminder_fees IS NULL) 
                                     AND act.on_tax_certificate = TRUE
                                     AND prest.prestation_date <= c.birthdate + interval '12 year'
                     ORDER BY inv.number, prest.prestation_date, act.short_name, prest.prestation_time

@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+        <record id="extraschool_annual_report" model="ir.ui.view">
+            <field name="name">extraschool.annual.report</field>
+            <field name="model">extraschool.annual_report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Annual Report">
+                    <sheet>
+                        <group>
+                             <field name="year" />
+                        </group>
+                        <group col="2">
+                            <field name="total_amount" />
+                            <field name="total_reconcil_amount" />
+                            <field name="total_reconcil_no_fees" />
+                            <field name="total_fees" />
+                        </group>
+                        <group>
+                            <field name="annual_report_item_ids"/>
+                        </group>
+                    </sheet>
+                 </form>
+             </field>
+        </record>
+
+        <record id="extraschool_annual_report_item_tree" model="ir.ui.view">
+            <field name="name">extraschool.annual.item.report</field>
+            <field name="model">extraschool.annual_report_item</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Reconciliation items" create="false" delete="false" >
+                     <field name="biller_id" />
+                     <field name="date" />
+                     <field name="ref" />
+                     <field name="amount" sum="True"/>
+                </tree>
+             </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_extraschool_annual_report_report">
+            <field name="name">Annual Report</field>
+            <field name="res_model">extraschool.annual_report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+        </record>
+
+	</data>
+</openerp>

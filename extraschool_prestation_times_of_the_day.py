@@ -56,6 +56,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
     child_id = fields.Many2one('extraschool.child', required=True, select=True)
     child_firstname = fields.Char(related="child_id.firstname", store=True)
     child_lastname = fields.Char(related="child_id.lastname", store=True)
+    child_level= fields.Many2one('extraschool.level', related="child_id.levelid", index=True)
     parent_id = fields.Many2one(related='child_id.parentid', store=True, select=True)
     # place_id = fields.Many2one(related='child_id.schoolimplantation', store=True, select=True)
     prestationtime_ids = fields.One2many('extraschool.prestationtimes','prestation_times_of_the_day_id')
@@ -203,7 +204,6 @@ class extraschool_prestation_times_of_the_day(models.Model):
         zz=0
         activity_ids = []
         self.activity_to_delete = 0
-        self.checked = True
 
         # Get all the activity ID from the prestations.
         for presta in self.prestationtime_ids.sorted(key=lambda r: (r.prestation_time)):
@@ -568,8 +568,9 @@ class extraschool_prestation_times_of_the_day(models.Model):
         self.env.cr.execute(presta_correction)
 
         self.merge_duplicate_pod()
-        for presta in self.search([('verified', '=', False)]):
+        for presta in self.search([('verified', '=', False), ('checked', '=', False)]):
             presta.check()
+            presta.checked = True
 
 class extraschool_prestation_times_history(models.Model):
     _name = 'extraschool.prestation_times_history'
