@@ -66,3 +66,4 @@ class extraschool_organising_power(models.Model):
     biller_report_id = fields.Many2one('extraschool.report', 'Biller report')
     qrcode_report_id = fields.Many2one('extraschool.report', string ='QRCode report')
     taxcertificatetemplate = fields.Char('Tax Certificate Template', size=50)
+    tax_certificate_code = fields.Char()

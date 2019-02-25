@@ -138,12 +138,12 @@
                                             Le sousigné certifie que: (3)
                                         </div>
                                         <div class="col-xs-8">
-                                            <t t-if="attest.taxcertificate_id.activity_category_id.tax_certificate_code==True">
+                                            <t t-if="attest.taxcertificate_id.activity_category_id.organising_power_id.tax_certificate_code==True">
                                                 <t t-esc="attest.taxcertificate_id.activity_category_id.tax_certificate_code"/><br></br>
                                             </t>
-                                            <t t-esc="attest.taxcertificate_id.activity_category_id.po_name"/><br></br>
-                                            <t t-esc="attest.taxcertificate_id.activity_category_id.po_street"/><br></br>
-                                            <t t-esc="attest.taxcertificate_id.activity_category_id.po_zipcode"/> <t t-esc="attest.taxcertificate_id.activity_category_id.po_city"/>
+                                            <t t-esc="attest.taxcertificate_id.activity_category_id.organising_power_id.po_name"/><br></br>
+                                            <t t-esc="attest.taxcertificate_id.activity_category_id.organising_power_id.po_street"/><br></br>
+                                            <t t-esc="attest.taxcertificate_id.activity_category_id.organising_power_id.po_zipcode"/> <t t-esc="attest.taxcertificate_id.activity_category_id.organising_power_id.po_city"/>
 
                                         </div>
                                     </div>
