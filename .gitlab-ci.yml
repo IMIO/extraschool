@@ -23,7 +23,7 @@ build:
 staging:
   stage: staging
   script:
-    - docker tag dockerodoobase_odoo docker-staging.imio.be/extraschool-v9
+    - docker tag dockerodoobase_odoo docker-staging.imio.be/extraschool-v9:9.1
     - docker push docker-staging.imio.be/extraschool-v9:9.1
     - mco shell run 'docker pull docker-staging.imio.be/extraschool-v9:9.1' -C /role::docker::extraschool::instances$/ -I /staging/
     - mco shell run 'service stagingv9_extraschool stop' -C /role::docker::extraschool::instances$/ -I /staging/
