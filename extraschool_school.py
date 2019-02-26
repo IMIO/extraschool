@@ -43,10 +43,9 @@ class extraschool_school(models.Model):
         # Override to check if they can create a new school.
         # AES should not be counted as school.
         schools_count = len(self.env['extraschool.school'].search([]).filtered(lambda r: r.name != 'AES'))
-        max_school = self.env['extraschool.organising_power'].search([]).max_school_implantation
+        max_school = self.env['extraschool.organising_power'].search([])[0].max_school_implantation
 
-
-        if schools_count >= max_school:
+        if schools_count > max_school:
             self.send_mail()
             raise Warning(_("You have reached the maximum school"))
         else:
@@ -60,7 +59,7 @@ class extraschool_school(models.Model):
         server.starttls()
 
         message = "%s a essayé de créer une école supplémentaire alors qu'ils sont à la limite autorisée" % (self.env[
-            'extraschool.activitycategory'].search([])[0].po_name.encode("utf-8"))
+            'extraschool.organising_power'].search([])[0].town.encode("utf-8"))
 
         server.sendmail("aes@imio.be", "support-aes@imio.be", message)
 
