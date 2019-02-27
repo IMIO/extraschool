@@ -54,6 +54,7 @@
         <menuitem action="action_extraschool_taxcertificate" id="extraschool_menu_taxcertificate" parent="extraschool_menu_documents"/>
         <menuitem action="action_extraschool_one_report" id="extraschool_menu_one_report" parent="extraschool_menu_documents"/>
         <menuitem action="action_extraschool_subvention_report" id="extraschool_menu_subvention_report" parent="extraschool_menu_documents"/>
+        <menuitem action="action_extraschool_plaine_report" id="extraschool_menu_plaine_report" parent="extraschool_menu_documents"/>
         <menuitem action="action_lbsc_qrcodes_wizard" id="extraschool_menu_qrcodes_wizard" parent="extraschool_menu_documents"/>
         <menuitem action="action_lbsc_childsworkbook_wizard" id="extraschool_menu_childsworkbook_wizard" parent="extraschool_menu_documents"/>
         <menuitem action="action_extraschool_prestationtimes" id="extraschool_menu_guardianprestationtimes" parent="extraschool_menu_documents"/>

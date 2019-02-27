@@ -1,0 +1,116 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+
+	    <record model="ir.ui.view" id="extraschool_plaine_report_tree">
+			<field name="name">extraschool.plaine.report.tree</field>
+			<field name="model">extraschool.plaine_report</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Plaine Report">
+                    <field name="name"/>
+				</tree>
+			</field>
+		</record>
+
+        <record model="ir.ui.view" id="extraschool_plaine_report_form">
+            <field name="name">extraschool.plaine.report.form</field>
+            <field name="model">extraschool.plaine_report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Plaine Report">
+                    <sheet>
+                        <group colspan="2">
+                            <field name="name" required="True"/>
+                        </group>
+                        <newline/>
+                        Pouvez-vous préciser la date de début et de fin des plaines pour le document ?
+                        <group>
+                            <field name="validity_from" required="True"/>
+                            <field name="validity_to" required="True"/>
+                        </group>
+                        <group colspan="4" col="3">
+                            <button name="generate_plaine" string="Imprimer" icon="gtk-apply" type="object" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_extraschool_plaine_report">
+            <field name="name">Plaine Report</field>
+            <field name="res_model">extraschool.plaine_report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree, form</field>
+            <field name="view_id" ref="extraschool_plaine_report_tree"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_extraschool_plaine_report_form">
+			<field name="name">Plaine Report</field>
+            <field eval="2" name="sequence"/>
+			<field name="res_model">extraschool.plaine_report</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="extraschool_plaine_report_form" />
+            <field name="act_window_id" ref="action_extraschool_plaine_report" />
+            <field name="target">inline</field>
+		</record>
+
+        <record model="ir.actions.act_window.view" id="action_extraschool_plaine_report_tree">
+			<field name="name">Plaine Report</field>
+            <field eval="1" name="sequence"/>
+			<field name="res_model">extraschool.plaine_report</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="extraschool_plaine_report_tree" />
+            <field name="act_window_id" ref="action_extraschool_plaine_report" />
+        </record>
+
+
+        <template id="tpl_plaine_report_wizard_report">
+            <t t-call="report.html_container">
+                <t t-foreach="docs.guardian_ids" t-as="guardian">
+                    <div class="page">
+                        <xpath expr="//head" position="inside">
+                            <link rel="stylesheet" href="/extraschool/static/src/css/guardian_report.css"/>
+                        </xpath>
+
+                        <h2>Horaire de : <span t-field="guardian.name"/></h2>
+                        <div>
+                            Période du <span t-field="docs[0].validity_from"/> au <span t-field="docs[0].validity_to"/>
+                        </div>
+                        <table>
+                            <tr>
+                                <th>Date</th>
+                                <th>Entrée /Sortie</th>
+                                <th>Heure</th>
+                            </tr>
+                            <t t-set="validity_from" t-value="docs[0].validity_from"/>
+                            <t t-set="validity_to" t-value="docs[0].validity_to"/>
+
+                            <t t-foreach="guardian.prestation_ids" t-as="horaire">
+                                <tr>
+                                    <t t-if="horaire.prestation_date >= validity_from and horaire.prestation_date &lt;= validity_to">
+                                        <td><span t-field="horaire.prestation_date"/></td>
+                                        <td><span t-field="horaire.es"/></td>
+                                        <td><t t-esc="'%02d:%02d' % (int(horaire.prestation_time), horaire.prestation_time % 1 * 60)" /></td>
+                                    </t>
+                                </tr>
+                            </t>
+                        </table>
+                    </div>
+                </t>
+            </t>
+		</template>
+
+        <report
+		    id="plaine_report_wizard_report"
+		    model="extraschool.plaine_report_wizard"
+		    string="Plaine Report"
+		    report_type="qweb-pdf"
+		    name="extraschool.tpl_plaine_report_wizard_report"
+		    attachment_use="False"
+		/>
+
+
+
+	</data>
+</openerp>
