@@ -152,7 +152,7 @@ class extraschool_pdaprestationtimes(models.Model):
                 'transmission_date_from': datetime.datetime.now(),
                 'smartphone_id': smartphone_id,
             })
-            import wdb;wdb.set_trace()
+
             for children in dict_prestations['children']:
                 child_level = self.env['extraschool.child'].search([('id', '=', children['pk'])]).levelid.leveltype
 
