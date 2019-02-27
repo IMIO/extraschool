@@ -36,6 +36,7 @@ class extraschool_annual_report(models.Model):
     total_reconcil_amount = fields.Float(string='Montant total réconcilié')
     total_reconcil_no_fees = fields.Float(string='Total sans les frais de rappels')
     total_fees = fields.Float(string='Montant total des frais de rappels')
+    previous_amount= fields.Float(string='Montant total précédent')
 
     @api.onchange('year')
     @api.multi
@@ -50,6 +51,17 @@ class extraschool_annual_report(models.Model):
             ('paymentdate', '<=', '{}-12-31'.format(self.year)),
         ])
 
+        previous_total_payment_ids = self.env['extraschool.payment'].search([
+            ('paymentdate', '<=', '2017-12-31'.format(self.year)),
+        ])
+
+        previous_total_reconcil_ids = self.env['extraschool.payment_reconciliation'].search([
+            ('paymentdate', '<=', '2017-12-31'.format(self.year)),
+        ])
+
+        self.previous_amount = sum(amount.amount for amount in previous_total_payment_ids) - sum(
+            amount.amount for amount in previous_total_reconcil_ids)
+
         total_reconcil = total_reconcil_ids.filtered(lambda r: r.invoice_id.no_value == 0)
 
         self.total_amount = sum(amount.amount for amount in total_payment_ids)
@@ -58,7 +70,8 @@ class extraschool_annual_report(models.Model):
 
         total_reconcil_no_fees = total_reconcil_ids.filtered(lambda r: r.invoice_id.no_value == 0)
 
-        self.total_reconcil_no_fees = sum(amount.amount for amount in total_reconcil_no_fees.filtered(lambda r: r.invoice_id.reminder_fees == False))
+        self.total_reconcil_no_fees = sum(
+            amount.amount for amount in total_reconcil_no_fees.filtered(lambda r: r.invoice_id.reminder_fees == False))
 
         self.total_fees = self.total_reconcil_amount - self.total_reconcil_no_fees
 

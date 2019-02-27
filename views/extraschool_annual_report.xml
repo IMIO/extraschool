@@ -16,6 +16,7 @@
                             <field name="total_reconcil_amount" />
                             <field name="total_reconcil_no_fees" />
                             <field name="total_fees" />
+                            <field name="previous_amount" />
                         </group>
                         <group>
                             <field name="annual_report_item_ids"/>
