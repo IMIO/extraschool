@@ -152,7 +152,7 @@ class extraschool_pdaprestationtimes(models.Model):
                 'transmission_date_from': datetime.datetime.now(),
                 'smartphone_id': smartphone_id,
             })
-
+            import wdb;wdb.set_trace()
             for children in dict_prestations['children']:
                 child_level = self.env['extraschool.child'].search([('id', '=', children['pk'])]).levelid.leveltype
 
@@ -167,7 +167,7 @@ class extraschool_pdaprestationtimes(models.Model):
                     [('occurrence_date', '=', datechild.date()), ('prest_from', '<=', prestation_time),
                      ('prest_to', '>=', prestation_time), ('place_id', '=', place_id)])
 
-                activity_category_id = activity_occurrence_ids
+                activity_category_id = activity_occurrence_ids.activity_category_id
 
                 if len(activity_occurrence_ids) != 1:
                     for activity_occurrence in activity_occurrence_ids:
