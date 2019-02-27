@@ -167,15 +167,15 @@ class extraschool_pdaprestationtimes(models.Model):
                     [('occurrence_date', '=', datechild.date()), ('prest_from', '<=', prestation_time),
                      ('prest_to', '>=', prestation_time), ('place_id', '=', place_id)])
 
-                activity_category_id = activity_occurrence_ids.activity_category_id
-
                 if len(activity_occurrence_ids) != 1:
                     for activity_occurrence in activity_occurrence_ids:
                         if activity_occurrence.activityid.leveltype == child_level or activity_occurrence.activityid.leveltype == u'M,P':
                             activity_category_id = activity_occurrence.activity_category_id
 
-                # Last resort if there is a scan error.
-                if not activity_category_id:
+                if len(activity_occurrence_ids) == 1:
+                    activity_category_id = activity_occurrence_ids.activity_category_id
+
+                if len(activity_occurrence_ids) == 0:
                     activity_category_id = self.env['extraschool.activitycategory'].search([])[0]
 
                 self.create({   'childid': children['pk'],
