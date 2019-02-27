@@ -183,7 +183,7 @@ class extraschool_pdaprestationtimes(models.Model):
                                 'prestation_date': datechild.date(),
                                 'prestation_time': prestation_time,
                                 'es': children['eventType'],
-                                # 'activitycategoryid': activity_category_id.id,
+                                'activitycategoryid': activity_category_id.id,
                                 'pda_transmission_id': pda_transmission_id.id,
                             })
 
