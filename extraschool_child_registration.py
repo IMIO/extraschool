@@ -243,7 +243,10 @@ class extraschool_child_registration(models.Model):
         # if 'child_registration_line_ids' in vals:
         #     vals['number_childs'] = len(vals['child_registration_line_ids'])
         self.check_validity_date(vals)
-        vals['number_childs'] = len(vals['child_registration_line_ids'])
+        if 'child_registration_line_ids' in vals:
+            vals['number_childs'] = len(vals['child_registration_line_ids'])
+        else:
+            vals['number_childs'] = 0
         res = super(extraschool_child_registration, self).create(vals)
         return res
 
@@ -372,6 +375,7 @@ class extraschool_child_registration(models.Model):
 
             for pod in self.env['extraschool.prestation_times_of_the_day'].browse(pod_to_reset):
                 pod.reset()
+                pod.check()
 
         if self.state == 'draft':
             self.state = 'to_validate'
@@ -465,6 +469,7 @@ class extraschool_child_registration(models.Model):
                                 pod_to_reset = list(set(pod_to_reset + occu.add_presta(occu, line.child_id.id, None,False)))
             for pod in self.env['extraschool.prestation_times_of_the_day'].browse(pod_to_reset):
                 pod.reset()
+                pod.check()
 
 
         if self.state == 'draft':

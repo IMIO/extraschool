@@ -154,25 +154,6 @@ class extraschool_child(models.Model):
     def unlink(self):
         self.isdisabled = True
 
-    @api.multi
-    def send_data(self):
-        data = {
-                "occurences_ids": [
-                        "7640",
-                        "7645",
-                        "7650",
-                        "7695",
-                         "7700"
-                        ],
-                "child_id": "752",
-                "activity_id": "6"
-                }
-
-        self.env['extraschool.child_registration'].add_registration_child_activities(data)
-
-    @api.multi
-    def send_workflow(self):
-        self.env['aes_api.tools'].test_TS()
 
 ##############################################################################
 #
