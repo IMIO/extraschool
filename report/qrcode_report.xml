@@ -195,6 +195,9 @@
 						</t>
 					</div>
 					<div class="page_logo page">
+                        <xpath expr="//head" position="inside">
+                            <link rel="stylesheet" href="/extraschool/static/src/css/tpl_guardian_qrcodes_wizard_report.css"/>
+                        </xpath>
 						<t t-foreach="range(15*zz,15*(zz+1))" t-as="i">
 				           	<div class="qrcode_logo">
 				           		<t t-if="i &lt; len(docs)">
