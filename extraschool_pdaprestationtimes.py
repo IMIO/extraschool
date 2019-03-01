@@ -20,8 +20,9 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import models, api, fields
+from openerp import models, api, fields, _
 from openerp.api import Environment
+from openerp.exceptions import Warning
 import datetime
 import time
 import logging
@@ -55,6 +56,15 @@ class extraschool_pdaprestationtimes(models.Model):
 
         self.prestation_times_of_the_day_id.reset()
         self.prestation_times_of_the_day_id.check()
+
+    @api.model
+    def unlink(self):
+        prestation_times_ids = self.prestation_times_of_the_day_id.prestationtime_ids
+        for prestation_times_id in prestation_times_ids:
+            if prestation_times_id.invoiced_prestation_id:
+                raise Warning(_("At least one registration line is already invoiced !"))
+
+        return super(extraschool_pdaprestationtimes, self).unlink()
 
     @api.model
     def create(self,vals):

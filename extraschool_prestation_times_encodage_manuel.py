@@ -175,8 +175,6 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
         :return:
         """
         if self.state == 'validated':
-            self.state = 'draft'
-
             # Get all pdaprestationtimes
             pda_prestation_ids = self.env['extraschool.pdaprestationtimes'].search([('prestation_times_encodage_manuel_id', '=', self.id)])
 
@@ -201,3 +199,5 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
                     ptotd.unlink()
                 else:
                     ptotd.check()
+
+        self.state = 'draft'
