@@ -21,6 +21,7 @@
 #
 ##############################################################################
 from openerp import models, api, fields, _
+from openerp.exceptions import Warning
 from openerp.api import Environment
 from openerp.exceptions import Warning
 import datetime
