@@ -292,12 +292,12 @@ class extraschool_smartphone_detail_log(models.Model):
                         'logger'] + ' ' +
                     line['message'])
 
-            self.env['extraschool.smartphone_detail_log'].create({
-                'text': line['message'],
-                'date_of_transmission': date,
-                'smartphone_id': smartphone_id,
-                'level': line['level']
-            })
+            # self.env['extraschool.smartphone_detail_log'].create({
+            #     'text': line['message'],
+            #     'date_of_transmission': date,
+            #     'smartphone_id': smartphone_id,
+            #     'level': line['level']
+            # })
 
         if "app_version" in message:
             app_version = message["app_version"]
