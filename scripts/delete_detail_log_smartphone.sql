@@ -1,0 +1,1 @@
+DELETE FROM extraschool_smartphone_detail_log;
