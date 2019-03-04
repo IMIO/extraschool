@@ -409,6 +409,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                              and ep.childid <> ip.childid
                              and ec.birthdate <= (select birthdate from extraschool_child where id = ip.childid)
                              and ec.isdisabled = False
+                             AND ip.prestation_date = ep.prestation_date
                              )
                              -
                              (select count(distinct ep.childid)
@@ -436,6 +437,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                  and ep.childid > ip.childid
                                  and ec.birthdate = (select birthdate from extraschool_child where id = ip.childid)
                                  and ec.isdisabled = False
+                                 AND ip.prestation_date = ep.prestation_date
                                  ) 
                              )
                      """,
