@@ -117,6 +117,7 @@ class extraschool_invoice_wizard(models.TransientModel):
     check_registration = fields.Boolean(default=True)
     check_prestation = fields.Boolean(default=True)
     check_invoice = fields.Boolean(default=True)
+    generate_pdf = fields.Boolean(default=True)
 
 ########################################################################################################################
 #   HELPER to the invoicing and output to the user what needs to be done before invoicing.
@@ -904,12 +905,17 @@ class extraschool_invoice_wizard(models.TransientModel):
             })
 
         _logger.info("End invoicing")
-        _logger.info("Start generation of PDF")
-        if self.env['ir.config_parameter'].get_param('extraschool.invoice.generate_pdf',1) == 1:
-            biller.generate_pdf()
+        if self.generate_pdf:
+            _logger.info("Start generation of PDF")
+            if self.env['ir.config_parameter'].get_param('extraschool.invoice.generate_pdf',1) == 1:
+                biller.generate_pdf()
+            else:
+                biller.pdf_ready = True
+            _logger.info("ALL PDF GENERATED")
         else:
             biller.pdf_ready = True
-        _logger.info("ALL PDF GENERATED")
+            biller.in_creation = False
+            biller.send_mail()
         view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','extraschool.biller'),
                                                              ('name','=','Biller.form')])
 
