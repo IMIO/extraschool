@@ -112,6 +112,7 @@ class extraschool_pdaprestationtimes(models.Model):
             # Prestation of the day already exist.
             vals['prestation_times_of_the_day_id'] = prestation_times_of_the_day_ids[0].id
             prestation_times_of_the_day_ids[0].checked = False
+            prestation_times_of_the_day_ids[0].verified = False
 
         prestation_times_obj.create({'prestation_times_of_the_day_id': vals['prestation_times_of_the_day_id'],
                                      'activity_category_id': vals['activitycategoryid'],
