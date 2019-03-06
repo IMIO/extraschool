@@ -51,6 +51,7 @@ class extraschool_payment(models.Model):
     payment_reconciliation_ids = fields.One2many('extraschool.payment_reconciliation','payment_id')
     coda = fields.Many2one('extraschool.coda', string='Coda', required=False,ondelete='cascade')
     reject_id = fields.Many2one('extraschool.reject', string='Reject',ondelete='cascade')
+    refund = fields.Float(default=0.0)
 
     @api.multi
     def name_get(self):
@@ -66,10 +67,10 @@ class extraschool_payment(models.Model):
                 if len(self.structcom) > 3:
                     record.structcom_prefix = self.structcom[0:3]
 
-    @api.depends('amount', 'payment_reconciliation_ids')
+    @api.depends('amount', 'payment_reconciliation_ids', 'refund')
     def compute_solde(self):
         for record in self:
-            record.solde = record.amount - sum(reconciliation.amount for reconciliation in record.payment_reconciliation_ids)
+            record.solde = record.amount - sum(reconciliation.amount for reconciliation in record.payment_reconciliation_ids) - record.refund
 
     def format_comstruct(self,comstruct):
         return ('+++%s/%s/%s+++' % (comstruct[0:3],comstruct[3:7],comstruct[7:12]))
@@ -109,6 +110,45 @@ class extraschool_payment(models.Model):
                                                    'date': fields.Date.today(),
                                                    })
         return tmp_payment_reconciliation_ids
+
+    @api.multi
+    def refunds(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'extraschool.refund_wizard',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {
+                'payment_id': self.id,
+                'amount': self.solde,
+            }
+        }
+
+    @api.multi
+    def cancel_refund(self):
+        self.refund = 0.0
+        self.comment += "\n"+ "[" + datetime.now().strftime('%d-%m-%Y') + "][" + self.env['res.users'].browse(self._context.get('uid')).name + "] " + " cancel of refund"
+
+class extraschool_refund_wizard(models.Model):
+    _name = 'extraschool.refund_wizard'
+
+    amount = fields.Float(string='Amount to refund', required=True)
+    comment = fields.Char(string='Comment about the refund', required=True)
+
+    @api.multi
+    def refund(self):
+        if self.amount > self._context.get('amount'):
+            raise Warning(_('You cannot refund more than the actual amount'))
+        elif self.amount < 0.01:
+            raise Warning(_('Please input a number greater than 0.01'))
+        else:
+            self.env['extraschool.payment'].search([('id', '=', self._context.get('payment_id'))]).refund += self.amount
+            comment = self.env['extraschool.payment'].search([('id', '=', self._context.get('payment_id'))]).comment
+            if comment:
+                self.env['extraschool.payment'].search([('id', '=', self._context.get('payment_id'))]).comment += "\n" + "[" + datetime.now().strftime('%d-%m-%Y') + "][" + self.env['res.users'].browse(self._context.get('uid')).name + "] " + self.comment
+            else:
+                self.env['extraschool.payment'].search([('id', '=', self._context.get('payment_id'))]).comment = self.comment
 
 
 class extraschool_payment_reconciliation(models.Model):
