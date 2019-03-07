@@ -177,8 +177,8 @@
 	                        <field name="balance"  sum="True"/>
 	                        <field name="no_value"/>
 	                        <field name="tag"/>
-	                        <button name="reconcil" type="object" string="Reconcil" confirm="Do you really want to reconciliate this invoice ?" groups="extraschool.extraschool_accounting" />
-	                        <button name="cancel_payment" type="object" string="Cancel Payment" confirm="Do you really want to cancel payment on this invoice ?" groups="extraschool.extraschool_gods" />
+	                        <button name="reconcil" type="object" string="Reconcil" icon="terp-dolar" confirm="Do you really want to reconciliate this invoice ?" groups="extraschool.extraschool_accounting"/>
+	                        <button name="cancel_payment" type="object" string="Cancel Payment" icon="terp-gtk-stop" confirm="Do you really want to cancel payment on this invoice ?" groups="extraschool.extraschool_accounting" />
 	                    </tree>
                     </field>
                     </group>
@@ -206,6 +206,24 @@
 							<field name="comment" />
 							<field name="amount" sum="True"  readonly="True"/>
 							<field name="solde"  sum="True"/>
+							<field name="refund"  sum="True" readonly="True"/>
+                            <button
+                                name="refunds"
+                                string="Refund"
+                                icon="stock_translate"
+                                type="object"
+                                groups="extraschool.extraschool_accounting"
+                                attrs="{'invisible':[('solde', '=', 0.00)]}"
+                            />
+                            <button
+                                name="cancel_refund"
+                                string="cancel Refund"
+                                icon="terp-gtk-stop"
+                                confirm="Do you really want to cancel the refund ?"
+                                type="object"
+                                groups="extraschool.extraschool_accounting"
+                                attrs="{'invisible':[('refund', '=', 0.00)]}"
+                            />
                 		</tree>
                     </field>
                  </page>

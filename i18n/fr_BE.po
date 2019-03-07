@@ -1,79 +1,99 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* extraschool
+# 	* extraschool
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-04 14:55+0000\n"
-"PO-Revision-Date: 2018-12-04 14:55+0000\n"
+"PO-Revision-Date: 2019-03-07 10:11+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"Language: fr_BE\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
 #. module: extraschool
 #: model:mail.template,body_html:extraschool.email_template_payment_invitation
-msgid "\n"
-"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+msgid ""
+"\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-"
+"serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
 "\n"
 "    <p>Bonjour ${object.parent_id.name},</p>\n"
 "\n"
-"    <p>Nous vous invitons à pré-payer l'activité ${object.activity_category_id.name} de vos enfants</p>\n"
+"    <p>Nous vous invitons à pré-payer l'activité ${object."
+"activity_category_id.name} de vos enfants</p>\n"
 "    <h2>Informations de paiement</h2>\n"
 "    <p>\n"
-"    	Num de compte : ${object.activity_category_id.bankaccount}\n"
-"    	Com structurée : ${object.com_struct}\n"
+"    \tNum de compte : ${object.activity_category_id.bankaccount}\n"
+"    \tCom structurée : ${object.com_struct}\n"
 "    </p>    \n"
 "</div>\n"
 "            "
-msgstr "\n"
-"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+msgstr ""
+"\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-"
+"serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
 "\n"
 "    <p>Bonjour ${object.parent_id.name},</p>\n"
 "\n"
-"    <p>Nous vous invitons à pré-payer l'activité ${object.activity_category_id.name} de vos enfants</p>\n"
+"    <p>Nous vous invitons à pré-payer l'activité ${object."
+"activity_category_id.name} de vos enfants</p>\n"
 "    <h2>Informations de paiement</h2>\n"
 "    <p>\n"
-"    	Num de compte : ${object.activity_category_id.bankaccount}\n"
-"    	Com structurée : ${object.com_struct}\n"
+"    \tNum de compte : ${object.activity_category_id.bankaccount}\n"
+"    \tCom structurée : ${object.com_struct}\n"
 "    </p>    \n"
 "</div>\n"
 "            "
 
 #. module: extraschool
 #: model:mail.template,body_html:extraschool.email_template_invoice
-msgid "\n"
-"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+msgid ""
+"\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-"
+"serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
 "\n"
 "    <p>Bonjour ${object.parentid.name},</p>\n"
 "\n"
-"    <p>Vous trouverez en pièce jointe la facture correspondant aux activités de vos enfants</p>\n"
+"    <p>Vous trouverez en pièce jointe la facture correspondant aux activités "
+"de vos enfants</p>\n"
 "    <h2>Informations de paiement</h2>\n"
 "    <p>\n"
-"    	Num de compte : ${object.activitycategoryid.bankaccount}\n"
-"    	Com structurée : ${object.structcom}\n"
+"    \tNum de compte : ${object.activitycategoryid.bankaccount}\n"
+"    \tCom structurée : ${object.structcom}\n"
 "    </p>    \n"
 "</div>\n"
 "            "
-msgstr "\n"
-"<div style='color: rgb(34, 34, 34); font-family: \"Lucica Grande\", Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; background-color: rgb(255, 255, 255);'>\n"
+msgstr ""
+"\n"
+"<div style='color: rgb(34, 34, 34); font-family: \"Lucica Grande\", Ubuntu, "
+"Arial, Verdana, sans-serif; font-size: 12px; background-color: rgb(255, 255, "
+"255);'>\n"
 "\n"
 "    <p>Bonjour ${object.parentid.name},</p>\n"
 "\n"
-"    <p>Vous trouverez en pièce jointe la facture correspondant aux frais scolaires et/ou extrascolaires de votre(vos)\n"
-" enfant(s).</p><p>Pour toutes informations complémentaires merci de transmettre un courriel à l'adresse <a href=\"mailto:stephanie.limbourg@mettet.be\">stephanie.limbourg@mettet.be</a></p><p>Bien à vous.</p><p><br></p><p>M-N BOCART</p><p>Directrice Financière</p><p><br></p>\n"
+"    <p>Vous trouverez en pièce jointe la facture correspondant aux frais "
+"scolaires et/ou extrascolaires de votre(vos)\n"
+" enfant(s).</p><p>Pour toutes informations complémentaires merci de "
+"transmettre un courriel à l'adresse <a href=\"mailto:stephanie."
+"limbourg@mettet.be\">stephanie.limbourg@mettet.be</a></p><p>Bien à vous.</"
+"p><p><br></p><p>M-N BOCART</p><p>Directrice Financière</p><p><br></p>\n"
 "    <h2>&nbsp;&nbsp;&nbsp; </h2>    \n"
 "</div>\n"
 "            "
 
 #. module: extraschool
 #: model:mail.template,body_html:extraschool.email_template_reminder
-msgid "\n"
-"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+msgid ""
+"\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-"
+"serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
 "\n"
 "    <p>Bonjour ${object.parentid.name},</p>\n"
 "\n"
@@ -81,21 +101,50 @@ msgid "\n"
 "   \n"
 "</div>\n"
 "            "
-msgstr "\n"
-"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \"><p class=\"MsoNormal\" style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;text-autospace:none\"><span style=\"font-family:DejaVuSans\">Madame, Monsieur,</span></p>\n"
-"<p class=\"MsoNormal\" style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;text-autospace:none\"><span style=\"font-family:DejaVuSans\">Après vérification, il semblerait que vous restiez redevable pour l’accueil</span></p>\n"
-"<p class=\"MsoNormal\" style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;text-autospace:none\"><span style=\"font-family:DejaVuSans\">extra-scolaire de vos enfants pour les factures suivantes.</span></p>\n"
-"<p class=\"MsoNormal\" style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;text-autospace:none\"><span style=\"font-family:DejaVuSans\">Je vous prie de bien vouloir procéder à leur(s) règlement(s) dans les</span></p>\n"
-"<p class=\"MsoNormal\" style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;text-autospace:none\"><span style=\"font-family:DejaVuSans\">meilleurs délais.</span></p>\n"
-"<p class=\"MsoNormal\" style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;text-autospace:none\"><span style=\"font-family:DejaVuSans\">Si cette somme a été versée en son temps, je vous prie de me communiquer</span></p>\n"
-"<p class=\"MsoNormal\" style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;text-autospace:none\"><span style=\"font-family:DejaVuSans\">une preuve de ce paiement et vous présente mes excuses pour le désagrément</span></p>\n"
-"<span style=\"font-family:DejaVuSans\">occasionné par ce courrier.</span></div>\n"
+msgstr ""
+"\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-"
+"serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; "
+"\"><p class=\"MsoNormal\" style=\"margin:0px 0px 10px 0px;font-size:13px;"
+"font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;"
+"text-autospace:none\"><span style=\"font-family:DejaVuSans\">Madame, "
+"Monsieur,</span></p>\n"
+"<p class=\"MsoNormal\" style=\"margin:0px 0px 10px 0px;font-size:13px;font-"
+"family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;text-"
+"autospace:none\"><span style=\"font-family:DejaVuSans\">Après vérification, "
+"il semblerait que vous restiez redevable pour l’accueil</span></p>\n"
+"<p class=\"MsoNormal\" style=\"margin:0px 0px 10px 0px;font-size:13px;font-"
+"family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;text-"
+"autospace:none\"><span style=\"font-family:DejaVuSans\">extra-scolaire de "
+"vos enfants pour les factures suivantes.</span></p>\n"
+"<p class=\"MsoNormal\" style=\"margin:0px 0px 10px 0px;font-size:13px;font-"
+"family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;text-"
+"autospace:none\"><span style=\"font-family:DejaVuSans\">Je vous prie de bien "
+"vouloir procéder à leur(s) règlement(s) dans les</span></p>\n"
+"<p class=\"MsoNormal\" style=\"margin:0px 0px 10px 0px;font-size:13px;font-"
+"family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;text-"
+"autospace:none\"><span style=\"font-family:DejaVuSans\">meilleurs délais.</"
+"span></p>\n"
+"<p class=\"MsoNormal\" style=\"margin:0px 0px 10px 0px;font-size:13px;font-"
+"family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;text-"
+"autospace:none\"><span style=\"font-family:DejaVuSans\">Si cette somme a été "
+"versée en son temps, je vous prie de me communiquer</span></p>\n"
+"<p class=\"MsoNormal\" style=\"margin:0px 0px 10px 0px;font-size:13px;font-"
+"family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;text-"
+"autospace:none\"><span style=\"font-family:DejaVuSans\">une preuve de ce "
+"paiement et vous présente mes excuses pour le désagrément</span></p>\n"
+"<span style=\"font-family:DejaVuSans\">occasionné par ce courrier.</span></"
+"div>\n"
 "            "
 
 #. module: extraschool
 #: model:mail.template,subject:extraschool.email_template_payment_invitation
-msgid "${(object.activity_category_id.payment_invitation_email_subject or 'Payment invitation')|safe}"
-msgstr "${(object.activity_category_id.payment_invitation_email_subject or 'Payment invitation')|safe}"
+msgid ""
+"${(object.activity_category_id.payment_invitation_email_subject or 'Payment "
+"invitation')|safe}"
+msgstr ""
+"${(object.activity_category_id.payment_invitation_email_subject or 'Payment "
+"invitation')|safe}"
 
 #. module: extraschool
 #: model:mail.template,subject:extraschool.email_template_invoice
@@ -127,8 +176,14 @@ msgstr "(code BIC : GKCCBEBB), avec la communication structurée suivante :"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text_med
-msgid ", et ce, malgré le courrier de rappel du                    , qui vous a déjà été adressé. Veuillez trouver en annexe le détail de ce montant.<br/><br/>"
-msgstr ", et ce, malgré le courrier de rappel du                    , qui vous a déjà été adressé. Veuillez trouver en annexe le détail de ce montant.<br/><br/>"
+msgid ""
+", et ce, malgré le courrier de rappel du                    , qui vous a "
+"déjà été adressé. Veuillez trouver en annexe le détail de ce montant.<br/"
+"><br/>"
+msgstr ""
+", et ce, malgré le courrier de rappel du                    , qui vous a "
+"déjà été adressé. Veuillez trouver en annexe le détail de ce montant.<br/"
+"><br/>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text_rappel
@@ -137,9 +192,11 @@ msgstr ", somme dont vous trouverez le détail ci-annexé.<br/><br/>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text_rappel
-msgid "- <b>RAPPEL</b><br/>\n"
+msgid ""
+"- <b>RAPPEL</b><br/>\n"
 "                       Nos réf. : AES /"
-msgstr "- <b>RAPPEL</b><br/>\n"
+msgstr ""
+"- <b>RAPPEL</b><br/>\n"
 "                       Nos réf. : AES /"
 
 #. module: extraschool
@@ -150,10 +207,14 @@ msgstr "- Période du"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text_rappel
-msgid ".\n"
-"                       Nous constatons que vous êtes encore redevable d'un solde dû de"
-msgstr ".\n"
-"                       Nous constatons que vous êtes encore redevable d'un solde dû de"
+msgid ""
+".\n"
+"                       Nous constatons que vous êtes encore redevable d'un "
+"solde dû de"
+msgstr ""
+".\n"
+"                       Nous constatons que vous êtes encore redevable d'un "
+"solde dû de"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_ohey_tableau_tarif
@@ -268,10 +329,12 @@ msgstr "7h30 à 8h40"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_child_registration
-msgid "<b>\n"
-"										Parent: </b>"
-msgstr "<b>\n"
-"										Parent: </b>"
+msgid ""
+"<b>\n"
+"\t\t\t\t\t\t\t\t\t\tParent: </b>"
+msgstr ""
+"<b>\n"
+"\t\t\t\t\t\t\t\t\t\tParent: </b>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_child_registration
@@ -305,186 +368,294 @@ msgstr "<b>Période du : </b>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_child_registration
-msgid "<br/>\n"
-"											<b>Tel Maison: </b>"
-msgstr "<br/>\n"
-"											<b>Tel Maison: </b>"
+msgid ""
+"<br/>\n"
+"\t\t\t\t\t\t\t\t\t\t\t<b>Tel Maison: </b>"
+msgstr ""
+"<br/>\n"
+"\t\t\t\t\t\t\t\t\t\t\t<b>Tel Maison: </b>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_child_registration
-msgid "<br/>\n"
-"										<b>GSM: </b>"
-msgstr "<br/>\n"
-"										<b>GSM: </b>"
+msgid ""
+"<br/>\n"
+"\t\t\t\t\t\t\t\t\t\t<b>GSM: </b>"
+msgstr ""
+"<br/>\n"
+"\t\t\t\t\t\t\t\t\t\t<b>GSM: </b>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_child_registration
-msgid "<br/>\n"
-"										<b>Tel Travail: </b>"
-msgstr "<br/>\n"
-"										<b>Tel Travail: </b>"
+msgid ""
+"<br/>\n"
+"\t\t\t\t\t\t\t\t\t\t<b>Tel Travail: </b>"
+msgstr ""
+"<br/>\n"
+"\t\t\t\t\t\t\t\t\t\t<b>Tel Travail: </b>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.tpl_tax_certificate_detail_report
-msgid "<br/>\n"
-"								Montant:"
-msgstr "<br/>\n"
-"								Montant:"
+msgid ""
+"<br/>\n"
+"\t\t\t\t\t\t\t\tMontant:"
+msgstr ""
+"<br/>\n"
+"\t\t\t\t\t\t\t\tMontant:"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.tpl_tax_certificate_detail_report
-msgid "<br/>\n"
-"								Nombres de jours:"
-msgstr "<br/>\n"
-"								Nombres de jours:"
+msgid ""
+"<br/>\n"
+"\t\t\t\t\t\t\t\tNombres de jours:"
+msgstr ""
+"<br/>\n"
+"\t\t\t\t\t\t\t\tNombres de jours:"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_no_style
-msgid "<br/>\n"
-"				<span>BIC : </span>"
-msgstr "<br/>\n"
-"				<span>BIC : </span>"
+msgid ""
+"<br/>\n"
+"\t\t\t\t<span>BIC : </span>"
+msgstr ""
+"<br/>\n"
+"\t\t\t\t<span>BIC : </span>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text_med
-msgid "<br/> <b><span style=\" margin-left:40px;\">MISE EN DEMEURE AVANT CONTRAINTE NON FISCALE– art. L1124-40§1, 1° CDLD</span></b><br/>\n"
-"					   Nos réf. : AES /"
-msgstr "<br/> <b><span style=\" margin-left:40px;\">MISE EN DEMEURE AVANT CONTRAINTE NON FISCALE– art. L1124-40§1, 1° CDLD</span></b><br/>\n"
-"					   Nos réf. : AES /"
+msgid ""
+"<br/> <b><span style=\" margin-left:40px;\">MISE EN DEMEURE AVANT CONTRAINTE "
+"NON FISCALE– art. L1124-40§1, 1° CDLD</span></b><br/>\n"
+"\t\t\t\t\t   Nos réf. : AES /"
+msgstr ""
+"<br/> <b><span style=\" margin-left:40px;\">MISE EN DEMEURE AVANT CONTRAINTE "
+"NON FISCALE– art. L1124-40§1, 1° CDLD</span></b><br/>\n"
+"\t\t\t\t\t   Nos réf. : AES /"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text_med
-msgid "<br/><br/>\n"
+msgid ""
+"<br/><br/>\n"
 "\n"
-"						Si entretemps, la somme a été réglée, veuillez considérer ce rappel comme nul et non avenu.<br/><br/>\n"
+"\t\t\t\t\t\tSi entretemps, la somme a été réglée, veuillez considérer ce "
+"rappel comme nul et non avenu.<br/><br/>\n"
 "\n"
-"					   Si vous estimez toutefois ne pas être redevable du montant qui vous est réclamé, nous vous prions de formuler <span class=\"ecrit\">par écrit</span> les motifs de votre contestation,\n"
-"						dès réception de la présente en veillant à bien indiquer la référence du présent courrier. <br/><br/>\n"
+"\t\t\t\t\t   Si vous estimez toutefois ne pas être redevable du montant qui "
+"vous est réclamé, nous vous prions de formuler <span class=\"ecrit\">par "
+"écrit</span> les motifs de votre contestation,\n"
+"\t\t\t\t\t\tdès réception de la présente en veillant à bien indiquer la "
+"référence du présent courrier. <br/><br/>\n"
 "\n"
-"					   Nous profitons également de ce courrier pour vous informer qu’à défaut de recevoir soit un paiement endéans le délai imparti, soit le courrier de contestation dûment motivé dont question ci-dessus,\n"
-"						nous nous réservons la possibilité d’appliquer à votre encontre la procédure de contrainte prévue par l’article L1124-40§1, 1°i1 du Code de la Démocratie Locale et de la Décentralisation et de recouvrer\n"
-"						la créance de la Ville selon les modalités qui y sont prévues. Nous espérons néanmoins ne pas devoir en arriver à de telles alternatives et comptons sur votre diligence.<br/><br/>\n"
+"\t\t\t\t\t   Nous profitons également de ce courrier pour vous informer qu’à "
+"défaut de recevoir soit un paiement endéans le délai imparti, soit le "
+"courrier de contestation dûment motivé dont question ci-dessus,\n"
+"\t\t\t\t\t\tnous nous réservons la possibilité d’appliquer à votre encontre "
+"la procédure de contrainte prévue par l’article L1124-40§1, 1°i1 du Code de "
+"la Démocratie Locale et de la Décentralisation et de recouvrer\n"
+"\t\t\t\t\t\tla créance de la Ville selon les modalités qui y sont prévues. "
+"Nous espérons néanmoins ne pas devoir en arriver à de telles alternatives et "
+"comptons sur votre diligence.<br/><br/>\n"
 "\n"
-"					   Nous vous signalons enfin, à titre infiniment subsidiaire, que si nous devions avoir recours à la contrainte pour récupérer la somme due, les frais de l’intervention de l’huissier\n"
-"						seront mis à votre charge ainsi que les frais administratifs du présent courrier recommandé.<br/><br/>\n"
+"\t\t\t\t\t   Nous vous signalons enfin, à titre infiniment subsidiaire, que "
+"si nous devions avoir recours à la contrainte pour récupérer la somme due, "
+"les frais de l’intervention de l’huissier\n"
+"\t\t\t\t\t\tseront mis à votre charge ainsi que les frais administratifs du "
+"présent courrier recommandé.<br/><br/>\n"
 "\n"
-"					   Nous tenions à vous en informer et vous prions de croire, Cher Parent, à l’assurance de notre considération distinguée."
-msgstr "<br/><br/>\n"
+"\t\t\t\t\t   Nous tenions à vous en informer et vous prions de croire, Cher "
+"Parent, à l’assurance de notre considération distinguée."
+msgstr ""
+"<br/><br/>\n"
 "\n"
-"						Si entretemps, la somme a été réglée, veuillez considérer ce rappel comme nul et non avenu.<br/><br/>\n"
+"\t\t\t\t\t\tSi entretemps, la somme a été réglée, veuillez considérer ce "
+"rappel comme nul et non avenu.<br/><br/>\n"
 "\n"
-"					   Si vous estimez toutefois ne pas être redevable du montant qui vous est réclamé, nous vous prions de formuler <span class=\"ecrit\">par écrit</span> les motifs de votre contestation,\n"
-"						dès réception de la présente en veillant à bien indiquer la référence du présent courrier. <br/><br/>\n"
+"\t\t\t\t\t   Si vous estimez toutefois ne pas être redevable du montant qui "
+"vous est réclamé, nous vous prions de formuler <span class=\"ecrit\">par "
+"écrit</span> les motifs de votre contestation,\n"
+"\t\t\t\t\t\tdès réception de la présente en veillant à bien indiquer la "
+"référence du présent courrier. <br/><br/>\n"
 "\n"
-"					   Nous profitons également de ce courrier pour vous informer qu’à défaut de recevoir soit un paiement endéans le délai imparti, soit le courrier de contestation dûment motivé dont question ci-dessus,\n"
-"						nous nous réservons la possibilité d’appliquer à votre encontre la procédure de contrainte prévue par l’article L1124-40§1, 1°i1 du Code de la Démocratie Locale et de la Décentralisation et de recouvrer\n"
-"						la créance de la Ville selon les modalités qui y sont prévues. Nous espérons néanmoins ne pas devoir en arriver à de telles alternatives et comptons sur votre diligence.<br/><br/>\n"
+"\t\t\t\t\t   Nous profitons également de ce courrier pour vous informer qu’à "
+"défaut de recevoir soit un paiement endéans le délai imparti, soit le "
+"courrier de contestation dûment motivé dont question ci-dessus,\n"
+"\t\t\t\t\t\tnous nous réservons la possibilité d’appliquer à votre encontre "
+"la procédure de contrainte prévue par l’article L1124-40§1, 1°i1 du Code de "
+"la Démocratie Locale et de la Décentralisation et de recouvrer\n"
+"\t\t\t\t\t\tla créance de la Ville selon les modalités qui y sont prévues. "
+"Nous espérons néanmoins ne pas devoir en arriver à de telles alternatives et "
+"comptons sur votre diligence.<br/><br/>\n"
 "\n"
-"					   Nous vous signalons enfin, à titre infiniment subsidiaire, que si nous devions avoir recours à la contrainte pour récupérer la somme due, les frais de l’intervention de l’huissier\n"
-"						seront mis à votre charge ainsi que les frais administratifs du présent courrier recommandé.<br/><br/>\n"
+"\t\t\t\t\t   Nous vous signalons enfin, à titre infiniment subsidiaire, que "
+"si nous devions avoir recours à la contrainte pour récupérer la somme due, "
+"les frais de l’intervention de l’huissier\n"
+"\t\t\t\t\t\tseront mis à votre charge ainsi que les frais administratifs du "
+"présent courrier recommandé.<br/><br/>\n"
 "\n"
-"					   Nous tenions à vous en informer et vous prions de croire, Cher Parent, à l’assurance de notre considération distinguée."
+"\t\t\t\t\t   Nous tenions à vous en informer et vous prions de croire, Cher "
+"Parent, à l’assurance de notre considération distinguée."
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text_rappel
-msgid "<br/><br/>\n"
+msgid ""
+"<br/><br/>\n"
 "\n"
-"                       Si vous souhaitez solliciter un plan de paiement, nous vous invitons à prendre contact avec notre service. <br/><br/>\n"
+"                       Si vous souhaitez solliciter un plan de paiement, "
+"nous vous invitons à prendre contact avec notre service. <br/><br/>\n"
 "\n"
-"                       À défaut de paiement, le recouvrement de la créance sera poursuivi suivant l'article L1124-40 §1er,1° du\n"
-"                       Code de la Démocratie locale et de la Décentralisation.<br/><br/>\n"
+"                       À défaut de paiement, le recouvrement de la créance "
+"sera poursuivi suivant l'article L1124-40 §1er,1° du\n"
+"                       Code de la Démocratie locale et de la "
+"Décentralisation.<br/><br/>\n"
 "\n"
-"                       Si entretemps, la somme a été réglée, veuillez considérer ce rappel comme nul et non avenu.<br/><br/>\n"
+"                       Si entretemps, la somme a été réglée, veuillez "
+"considérer ce rappel comme nul et non avenu.<br/><br/>\n"
 "\n"
-"                       Vous souhaitant bonne réception de la présente, nous vous prions de croire, Cher Parent, à l'assurance de\n"
+"                       Vous souhaitant bonne réception de la présente, nous "
+"vous prions de croire, Cher Parent, à l'assurance de\n"
 "                       notre considération distinguée."
-msgstr "<br/><br/>\n"
+msgstr ""
+"<br/><br/>\n"
 "\n"
-"                       Si vous souhaitez solliciter un plan de paiement, nous vous invitons à prendre contact avec notre service. <br/><br/>\n"
+"                       Si vous souhaitez solliciter un plan de paiement, "
+"nous vous invitons à prendre contact avec notre service. <br/><br/>\n"
 "\n"
-"                       À défaut de paiement, le recouvrement de la créance sera poursuivi suivant l'article L1124-40 §1er,1° du\n"
-"                       Code de la Démocratie locale et de la Décentralisation.<br/><br/>\n"
+"                       À défaut de paiement, le recouvrement de la créance "
+"sera poursuivi suivant l'article L1124-40 §1er,1° du\n"
+"                       Code de la Démocratie locale et de la "
+"Décentralisation.<br/><br/>\n"
 "\n"
-"                       Si entretemps, la somme a été réglée, veuillez considérer ce rappel comme nul et non avenu.<br/><br/>\n"
+"                       Si entretemps, la somme a été réglée, veuillez "
+"considérer ce rappel comme nul et non avenu.<br/><br/>\n"
 "\n"
-"                       Vous souhaitant bonne réception de la présente, nous vous prions de croire, Cher Parent, à l'assurance de\n"
+"                       Vous souhaitant bonne réception de la présente, nous "
+"vous prions de croire, Cher Parent, à l'assurance de\n"
 "                       notre considération distinguée."
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text_med
-msgid "<br/><br/><br/>\n"
-"						Cher Parent, <br/><br/>\n"
+msgid ""
+"<br/><br/><br/>\n"
+"\t\t\t\t\t\tCher Parent, <br/><br/>\n"
 "\n"
-"					   Le service Comptabilité de la Ville de Tournai a constaté que, pour les frais scolaires de votre (vos) enfant(s) pour la période du"
-msgstr "<br/><br/><br/>\n"
-"						Cher Parent, <br/><br/>\n"
+"\t\t\t\t\t   Le service Comptabilité de la Ville de Tournai a constaté que, "
+"pour les frais scolaires de votre (vos) enfant(s) pour la période du"
+msgstr ""
+"<br/><br/><br/>\n"
+"\t\t\t\t\t\tCher Parent, <br/><br/>\n"
 "\n"
-"					   Le service Comptabilité de la Ville de Tournai a constaté que, pour les frais scolaires de votre (vos) enfant(s) pour la période du"
+"\t\t\t\t\t   Le service Comptabilité de la Ville de Tournai a constaté que, "
+"pour les frais scolaires de votre (vos) enfant(s) pour la période du"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text_rappel
-msgid "<br/><br/><br/>\n"
+msgid ""
+"<br/><br/><br/>\n"
 "                        Cher Parent, <br/><br/>\n"
-"                       Nous vous avons adressé les factures relatives aux frais scolaires de votre (vos) enfant(s) pour la période du"
-msgstr "<br/><br/><br/>\n"
+"                       Nous vous avons adressé les factures relatives aux "
+"frais scolaires de votre (vos) enfant(s) pour la période du"
+msgstr ""
+"<br/><br/><br/>\n"
 "                        Cher Parent, <br/><br/>\n"
-"                       Nous vous avons adressé les factures relatives aux frais scolaires de votre (vos) enfant(s) pour la période du"
+"                       Nous vous avons adressé les factures relatives aux "
+"frais scolaires de votre (vos) enfant(s) pour la période du"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_durbuy_med
-msgid "<br/><span style=\"margin:30px;\"><b>Un dernier délai de 15 jours </b> à dater de la présente mise en demeure vous est accordé pour\n"
+msgid ""
+"<br/><span style=\"margin:30px;\"><b>Un dernier délai de 15 jours </b> à "
+"dater de la présente mise en demeure vous est accordé pour\n"
 "                                en effectuer le paiement.<br/></span>"
-msgstr "<br/><span style=\"margin:30px;\"><b>Un dernier délai de 15 jours </b> à dater de la présente mise en demeure vous est accordé pour\n"
+msgstr ""
+"<br/><span style=\"margin:30px;\"><b>Un dernier délai de 15 jours </b> à "
+"dater de la présente mise en demeure vous est accordé pour\n"
 "                                en effectuer le paiement.<br/></span>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_durbuy_rappel
-msgid "<br/><span style=\"margin:30px;\">En l'absence de contestation, nous vous invitons à procéder au paiement en respectant le délai, le numéro de compte, ainsi\n"
-"                                que la communication mentionnés ci-dessus.<sup>1</sup><br/></span>"
-msgstr "<br/><span style=\"margin:30px;\">En l'absence de contestation, nous vous invitons à procéder au paiement en respectant le délai, le numéro de compte, ainsi\n"
-"                                que la communication mentionnés ci-dessus.<sup>1</sup><br/></span>"
+msgid ""
+"<br/><span style=\"margin:30px;\">En l'absence de contestation, nous vous "
+"invitons à procéder au paiement en respectant le délai, le numéro de compte, "
+"ainsi\n"
+"                                que la communication mentionnés ci-dessus."
+"<sup>1</sup><br/></span>"
+msgstr ""
+"<br/><span style=\"margin:30px;\">En l'absence de contestation, nous vous "
+"invitons à procéder au paiement en respectant le délai, le numéro de compte, "
+"ainsi\n"
+"                                que la communication mentionnés ci-dessus."
+"<sup>1</sup><br/></span>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_prestation_times_of_the_day_form
-msgid "<span attrs=\"{'invisible':[('verified', '=', False)]}\">Vérifié</span>\n"
-"	                    <span attrs=\"{'invisible':[('verified', '=', True)]}\">NON vérifié !!!</span>"
-msgstr "<span attrs=\"{'invisible':[('verified', '=', False)]}\">Vérifié</span>\n"
-"	                    <span attrs=\"{'invisible':[('verified', '=', True)]}\">NON vérifié !!!</span>"
+msgid ""
+"<span attrs=\"{'invisible':[('verified', '=', False)]}\">Vérifié</span>\n"
+"\t                    <span attrs=\"{'invisible':[('verified', '=', "
+"True)]}\">NON vérifié !!!</span>"
+msgstr ""
+"<span attrs=\"{'invisible':[('verified', '=', False)]}\">Vérifié</span>\n"
+"\t                    <span attrs=\"{'invisible':[('verified', '=', "
+"True)]}\">NON vérifié !!!</span>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_child
-msgid "<span class=\"mylabel\" style=\"font-weight: bold;width: 7cm;\">Class : </span>"
-msgstr "<span class=\"mylabel\" style=\"font-weight: bold;width: 7cm;\">Class : </span>"
+msgid ""
+"<span class=\"mylabel\" style=\"font-weight: bold;width: 7cm;\">Class : </"
+"span>"
+msgstr ""
+"<span class=\"mylabel\" style=\"font-weight: bold;width: 7cm;\">Class : </"
+"span>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_child
-msgid "<span class=\"mylabel\" style=\"font-weight: bold;width: 7cm;\">Ecole : </span>"
-msgstr "<span class=\"mylabel\" style=\"font-weight: bold;width: 7cm;\">Ecole : </span>"
+msgid ""
+"<span class=\"mylabel\" style=\"font-weight: bold;width: 7cm;\">Ecole : </"
+"span>"
+msgstr ""
+"<span class=\"mylabel\" style=\"font-weight: bold;width: 7cm;\">Ecole : </"
+"span>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_child
-msgid "<span class=\"mylabel\" style=\"font-weight: bold;width: 7cm;\">Email : </span>"
-msgstr "<span class=\"mylabel\" style=\"font-weight: bold;width: 7cm;\">Email : </span>"
+msgid ""
+"<span class=\"mylabel\" style=\"font-weight: bold;width: 7cm;\">Email : </"
+"span>"
+msgstr ""
+"<span class=\"mylabel\" style=\"font-weight: bold;width: 7cm;\">Email : </"
+"span>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_child
-msgid "<span class=\"mylabel\" style=\"font-weight: bold;width: 7cm;\">Gsm : </span>"
-msgstr "<span class=\"mylabel\" style=\"font-weight: bold;width: 7cm;\">Gsm : </span>"
+msgid ""
+"<span class=\"mylabel\" style=\"font-weight: bold;width: 7cm;\">Gsm : </span>"
+msgstr ""
+"<span class=\"mylabel\" style=\"font-weight: bold;width: 7cm;\">Gsm : </span>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_child
-msgid "<span class=\"mylabel\" style=\"font-weight: bold;width: 7cm;\">Responsable : </span>"
-msgstr "<span class=\"mylabel\" style=\"font-weight: bold;width: 7cm;\">Responsable : </span>"
+msgid ""
+"<span class=\"mylabel\" style=\"font-weight: bold;width: 7cm;"
+"\">Responsable : </span>"
+msgstr ""
+"<span class=\"mylabel\" style=\"font-weight: bold;width: 7cm;"
+"\">Responsable : </span>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_child
-msgid "<span class=\"mylabel\" style=\"font-weight: bold;width: 7cm;\">Tél du travail : </span>"
-msgstr "<span class=\"mylabel\" style=\"font-weight: bold;width: 7cm;\">Tél du travail : </span>"
+msgid ""
+"<span class=\"mylabel\" style=\"font-weight: bold;width: 7cm;\">Tél du "
+"travail : </span>"
+msgstr ""
+"<span class=\"mylabel\" style=\"font-weight: bold;width: 7cm;\">Tél du "
+"travail : </span>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_child
-msgid "<span class=\"mylabel\" style=\"font-weight: bold;width: 7cm;\">Tél. maison : </span>"
-msgstr "<span class=\"mylabel\" style=\"font-weight: bold;width: 7cm;\">Tél. maison : </span>"
+msgid ""
+"<span class=\"mylabel\" style=\"font-weight: bold;width: 7cm;\">Tél. "
+"maison : </span>"
+msgstr ""
+"<span class=\"mylabel\" style=\"font-weight: bold;width: 7cm;\">Tél. "
+"maison : </span>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_double_sign_no_style
@@ -594,8 +765,12 @@ msgstr "<span style=\"float:right;\">Frais de rappel</span>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_tableau_rappel
-msgid "<span style=\"font-decoration:underline; font-size: 15px;\">Liste des factures couvrant cette période </span>"
-msgstr "<span style=\"font-decoration:underline; font-size: 15px;\">Liste des factures couvrant cette période </span>"
+msgid ""
+"<span style=\"font-decoration:underline; font-size: 15px;\">Liste des "
+"factures couvrant cette période </span>"
+msgstr ""
+"<span style=\"font-decoration:underline; font-size: 15px;\">Liste des "
+"factures couvrant cette période </span>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_ittre
@@ -604,42 +779,76 @@ msgstr "<span style=\"font-size:14px\">Solde</span>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_durbuy_med
-msgid "<span style=\"margin:30px;\">Nous vous informons que seul le paiement intégral de la somme réclamée mettra fin à la procédure en cours.<br/></span>"
-msgstr "<span style=\"margin:30px;\">Nous vous informons que seul le paiement intégral de la somme réclamée mettra fin à la procédure en cours.<br/></span>"
+msgid ""
+"<span style=\"margin:30px;\">Nous vous informons que seul le paiement "
+"intégral de la somme réclamée mettra fin à la procédure en cours.<br/></span>"
+msgstr ""
+"<span style=\"margin:30px;\">Nous vous informons que seul le paiement "
+"intégral de la somme réclamée mettra fin à la procédure en cours.<br/></span>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_durbuy_rappel
-msgid "<span style=\"margin:30px;\">Nous vous prions de croire, Madame, Monsieur, Cher parent, en l'assurance de notre considération distinguée.<br/></span>"
-msgstr "<span style=\"margin:30px;\">Nous vous prions de croire, Madame, Monsieur, Cher parent, en l'assurance de notre considération distinguée.<br/></span>"
+msgid ""
+"<span style=\"margin:30px;\">Nous vous prions de croire, Madame, Monsieur, "
+"Cher parent, en l'assurance de notre considération distinguée.<br/></span>"
+msgstr ""
+"<span style=\"margin:30px;\">Nous vous prions de croire, Madame, Monsieur, "
+"Cher parent, en l'assurance de notre considération distinguée.<br/></span>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_durbuy_med
-msgid "<span style=\"margin:30px;\">Nous vous prions de croire, Madame, Monsieur, Cher parent, en l’assurance de notre considération distinguée.<br/></span>"
-msgstr "<span style=\"margin:30px;\">Nous vous prions de croire, Madame, Monsieur, Cher parent, en l’assurance de notre considération distinguée.<br/></span>"
+msgid ""
+"<span style=\"margin:30px;\">Nous vous prions de croire, Madame, Monsieur, "
+"Cher parent, en l’assurance de notre considération distinguée.<br/></span>"
+msgstr ""
+"<span style=\"margin:30px;\">Nous vous prions de croire, Madame, Monsieur, "
+"Cher parent, en l’assurance de notre considération distinguée.<br/></span>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_durbuy_med
-msgid "<span style=\"margin:30px;\">Vous me dispenseriez ainsi de vous appliquer les rigueurs que la loi prescrit dans votre cas\n"
-"                                (Suivant l’article L1124-40 § 1er du Code de la Démocratie Locale et de la Décentralisation\n"
-"                                (C.D.L.D)), qui consistent en <b>des poursuites par Maître Sikivie, Huissier de Justice à Barvaux S/O.</b><br/></span>"
-msgstr "<span style=\"margin:30px;\">Vous me dispenseriez ainsi de vous appliquer les rigueurs que la loi prescrit dans votre cas\n"
-"                                (Suivant l’article L1124-40 § 1er du Code de la Démocratie Locale et de la Décentralisation\n"
-"                                (C.D.L.D)), qui consistent en <b>des poursuites par Maître Sikivie, Huissier de Justice à Barvaux S/O.</b><br/></span>"
+msgid ""
+"<span style=\"margin:30px;\">Vous me dispenseriez ainsi de vous appliquer "
+"les rigueurs que la loi prescrit dans votre cas\n"
+"                                (Suivant l’article L1124-40 § 1er du Code de "
+"la Démocratie Locale et de la Décentralisation\n"
+"                                (C.D.L.D)), qui consistent en <b>des "
+"poursuites par Maître Sikivie, Huissier de Justice à Barvaux S/O.</b><br/></"
+"span>"
+msgstr ""
+"<span style=\"margin:30px;\">Vous me dispenseriez ainsi de vous appliquer "
+"les rigueurs que la loi prescrit dans votre cas\n"
+"                                (Suivant l’article L1124-40 § 1er du Code de "
+"la Démocratie Locale et de la Décentralisation\n"
+"                                (C.D.L.D)), qui consistent en <b>des "
+"poursuites par Maître Sikivie, Huissier de Justice à Barvaux S/O.</b><br/></"
+"span>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_durbuy_rappel
-msgid "<span style=\"margin:30px;\">À défaut de paiement dans le délai imparti, une mise en demeure recommandée majorée de 7,50€ vous sera adressée.<br/></span>"
-msgstr "<span style=\"margin:30px;\">À défaut de paiement dans le délai imparti, une mise en demeure recommandée majorée de 7,50€ vous sera adressée.<br/></span>"
+msgid ""
+"<span style=\"margin:30px;\">À défaut de paiement dans le délai imparti, une "
+"mise en demeure recommandée majorée de 7,50€ vous sera adressée.<br/></span>"
+msgstr ""
+"<span style=\"margin:30px;\">À défaut de paiement dans le délai imparti, une "
+"mise en demeure recommandée majorée de 7,50€ vous sera adressée.<br/></span>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_hannut_all_invoice_summary
 #: model:ir.ui.view,arch_db:extraschool.report_hannut_all_invoice_summary_hannut_facture
-msgid "<span> Les éventuels recouvrements qui seraient à charge d’un huissier ne sont\n"
-"pas pris en compte sur le présent document. Toute réclamation relative à la facture doit être transmise à l’asbl\n"
-"L’Eveil avant la date d'échéance. Toute facture non contestée est considérée comme acceptée.</span>"
-msgstr "<span> Les éventuels recouvrements qui seraient à charge d’un huissier ne sont\n"
-"pas pris en compte sur le présent document. Toute réclamation relative à la facture doit être transmise à l’asbl\n"
-"L’Eveil avant la date d'échéance. Toute facture non contestée est considérée comme acceptée.</span>"
+msgid ""
+"<span> Les éventuels recouvrements qui seraient à charge d’un huissier ne "
+"sont\n"
+"pas pris en compte sur le présent document. Toute réclamation relative à la "
+"facture doit être transmise à l’asbl\n"
+"L’Eveil avant la date d'échéance. Toute facture non contestée est considérée "
+"comme acceptée.</span>"
+msgstr ""
+"<span> Les éventuels recouvrements qui seraient à charge d’un huissier ne "
+"sont\n"
+"pas pris en compte sur le présent document. Toute réclamation relative à la "
+"facture doit être transmise à l’asbl\n"
+"L’Eveil avant la date d'échéance. Toute facture non contestée est considérée "
+"comme acceptée.</span>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_invoice_no_style
@@ -692,21 +901,33 @@ msgstr "<span>std footer</span>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_std_footer_durbuy_rappel
-msgid "<sup>1</sup> Si votre paiement croise ce courrier, veuillez considérer ce rappel comme nul et non avenu."
-msgstr "<sup>1</sup> Si votre paiement croise ce courrier, veuillez considérer ce rappel comme nul et non avenu."
+msgid ""
+"<sup>1</sup> Si votre paiement croise ce courrier, veuillez considérer ce "
+"rappel comme nul et non avenu."
+msgstr ""
+"<sup>1</sup> Si votre paiement croise ce courrier, veuillez considérer ce "
+"rappel comme nul et non avenu."
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_invoice_wizard_form
-msgid "A biller is curently in creation. You will recieve an Email when the biller is completed.\n"
-"                    In the meantime, here is a picture of a cat slightly annoyed:"
-msgstr "Un facturier est en cours de création.Vous allez recevoir un E-mail lorsque le facturier est créé.\n"
-""
+msgid ""
+"A biller is curently in creation. You will recieve an Email when the biller "
+"is completed.\n"
+"                    In the meantime, here is a picture of a cat slightly "
+"annoyed:"
+msgstr ""
+"Un facturier est en cours de création.Vous allez recevoir un E-mail lorsque "
+"le facturier est créé.\n"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_ittre
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_ittre2
-msgid "A la suite de l'examen de nos comptes, nous constatons que vous nous restez redevables pour les factures de frais de garderie extra-scolaire suivantes :"
-msgstr "A la suite de l'examen de nos comptes, nous constatons que vous nous restez redevables pour les factures de frais de garderie extra-scolaire suivantes :"
+msgid ""
+"A la suite de l'examen de nos comptes, nous constatons que vous nous restez "
+"redevables pour les factures de frais de garderie extra-scolaire suivantes :"
+msgstr ""
+"A la suite de l'examen de nos comptes, nous constatons que vous nous restez "
+"redevables pour les factures de frais de garderie extra-scolaire suivantes :"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_amount_no_style
@@ -723,8 +944,12 @@ msgstr "A payer avant le"
 #. module: extraschool
 #: code:addons/extraschool/extraschool_coda.py:200
 #, python-format
-msgid "A reminder has been found but the amount is not corresponding to balances of invoices"
-msgstr "Un rappel a été trouvé mais le montant ne correspond pas aux montants ouverts des factures."
+msgid ""
+"A reminder has been found but the amount is not corresponding to balances of "
+"invoices"
+msgstr ""
+"Un rappel a été trouvé mais le montant ne correspond pas aux montants "
+"ouverts des factures."
 
 #. module: extraschool
 #: selection:extraschool.health_sheet,blood_type:0
@@ -810,8 +1035,10 @@ msgstr "AES utilisateur"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_timecorrection_wizard_form
-msgid "ATTENTION!!! Cet assistant modifie définitivement toutes les heures encodées"
-msgstr "ATTENTION!!! Cet assistant modifie définitivement toutes les heures encodées"
+msgid ""
+"ATTENTION!!! Cet assistant modifie définitivement toutes les heures encodées"
+msgstr ""
+"ATTENTION!!! Cet assistant modifie définitivement toutes les heures encodées"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_coda_form
@@ -1060,6 +1287,64 @@ msgstr "Assistant d'ajout de paiement"
 msgid "Addr1"
 msgstr "Adr1"
 
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_refund_wizard_amount
+msgid "Amount to refund"
+msgstr "Montant à rembourser"
+
+#. module: extraschool
+#: model:ir.actions.act_window,name:extraschool.action_extraschool_annual_report_report
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_annual_report_report
+#: model:ir.ui.view,arch_db:extraschool.extraschool_annual_report
+msgid "Annual Report"
+msgstr "Rapport Annuel"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_wizard_generate_pdf
+msgid "Generate pdf"
+msgstr "Générer les PDF"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
+msgid "cancel Refund"
+msgstr "Annuler le remboursement"
+
+#. module: extraschool
+#: code:addons/extraschool/extraschool_payment.py:142
+#, python-format
+msgid "You cannot refund more than the actual amount"
+msgstr "Vous ne pouvez pas rembourser plus que le montant actuel"
+
+#. module: extraschool
+#: code:addons/extraschool/extraschool_payment.py:144
+#, python-format
+msgid "Please input a number greater than 0.01"
+msgstr "Veuillez indiquer un montant supérieur à 0.01"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_annual_report_item_annual_report_id
+msgid "Annual report id"
+msgstr "Annual report id"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
+msgid "Do you really want to cancel payment on this invoice ?"
+msgstr "Voulez-vous annuler cette facture ?"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
+msgid "Do you really want to cancel the refund ?"
+msgstr "Voulez-vous annuler ce remboursement ?"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
+msgid "Cancel Payment"
+msgstr "Annuel le paiement"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_refund_wizard_comment
+msgid "Comment about the refund"
+msgstr "Commentaire pour le remboursement"
+
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_payment_addr2
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_reject_addr2
@@ -1089,8 +1374,16 @@ msgstr "Affectations"
 
 #. module: extraschool
 #: model:ir.model.fields,help:extraschool.field_extraschool_child_registration_week
-msgid "Afin de trouver le bon numéro de semaine, Veuillez vous aider du champs situé juste en dessous afin de trouver le numéro de semaine. Une fois le numéro mis, l'application recherchera et encodera toute seule les bonnes dates du numéro de semaine (Du lundi au vendredi)"
-msgstr "Afin de trouver le bon numéro de semaine, Veuillez vous aider du champs situé juste en dessous afin de trouver le numéro de semaine. Une fois le numéro mis, l'application recherchera et encodera toute seule les bonnes dates du numéro de semaine (Du lundi au vendredi)"
+msgid ""
+"Afin de trouver le bon numéro de semaine, Veuillez vous aider du champs "
+"situé juste en dessous afin de trouver le numéro de semaine. Une fois le "
+"numéro mis, l'application recherchera et encodera toute seule les bonnes "
+"dates du numéro de semaine (Du lundi au vendredi)"
+msgstr ""
+"Afin de trouver le bon numéro de semaine, Veuillez vous aider du champs "
+"situé juste en dessous afin de trouver le numéro de semaine. Une fois le "
+"numéro mis, l'application recherchera et encodera toute seule les bonnes "
+"dates du numéro de semaine (Du lundi au vendredi)"
 
 #. module: extraschool
 #: model:ir.model,name:extraschool.model_extraschool_aged_balance_item
@@ -1201,8 +1494,13 @@ msgstr "Montant accepté"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_logo_reminder
+#, fuzzy
 msgid "Logo reminder"
-msgstr "Logo du rappel"
+msgstr ""
+"#-#-#-#-#  0catalog.po (Odoo Server 9.0c)  #-#-#-#-#\n"
+"Logo du rappel\n"
+"#-#-#-#-#  0catalog.po (Odoo Server 9.0c)  #-#-#-#-#\n"
+"Logo du rappe"
 
 #. module: extraschool
 #: code:addons/extraschool/extraschool_coda.py:151
@@ -1247,8 +1545,12 @@ msgstr "Après comptabilisation de cette facture, votre compte famille présente
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_biller_form
-msgid "Are you sure you want to pay all invoices in this biller ? This is not reversible !!"
-msgstr "Are you sure you want to pay all invoices in this biller ? This is not reversible !!"
+msgid ""
+"Are you sure you want to pay all invoices in this biller ? This is not "
+"reversible !!"
+msgstr ""
+"Are you sure you want to pay all invoices in this biller ? This is not "
+"reversible !!"
 
 #. module: extraschool
 #: code:addons/extraschool/extraschool_invoice_wizard.py:357
@@ -1260,7 +1562,11 @@ msgstr "Au moins une inscription n'est pas validé pour cette période!!!"
 #: code:addons/extraschool/extraschool_invoice_wizard.py:344
 #, python-format
 msgid "At least one manuel encodage is not validated for this period!!!"
-msgstr "Au moins un encodage manuel n'est pas validé pour cette période!!!. module: extraschoo: code:addons/extraschool/extraschool_invoice_wizard.py:35, python-formasgid \"At least one prestations is not verified !!!sgstr \"Toutes les présences concernées doivent être vérifiées"
+msgstr ""
+"Au moins un encodage manuel n'est pas validé pour cette période!!!. module: "
+"extraschoo: code:addons/extraschool/extraschool_invoice_wizard.py:35, python-"
+"formasgid \"At least one prestations is not verified !!!sgstr \"Toutes les "
+"présences concernées doivent être vérifiées"
 
 #. module: extraschool
 #: code:addons/extraschool/extraschool_invoice_wizard.py:377
@@ -1271,15 +1577,18 @@ msgstr "Toutes les présences concernées doivent être vérifiées"
 #. module: extraschool
 #: code:addons/extraschool/extraschool_invoice_wizard.py:680
 #, python-format
-msgid "At least one price list is missing !!!\n"
+msgid ""
+"At least one price list is missing !!!\n"
 " "
-msgstr "Au moins une liste de prix est manquante !!!\n"
+msgstr ""
+"Au moins une liste de prix est manquante !!!\n"
 " "
 
 #. module: extraschool
 #: code:addons/extraschool/extraschool_payment_wizard.py:123
 #, python-format
-msgid "At least one reconciliation line is not correct : amount greater than balance"
+msgid ""
+"At least one reconciliation line is not correct : amount greater than balance"
 msgstr "le montant réconcilié doit toujours être inférieur à la balance"
 
 #. module: extraschool
@@ -1493,13 +1802,29 @@ msgstr "Cause du rejet"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_invoice_form
-msgid "Ce bouton permet d'annuler la facture de ce facturier et de libérer les présences liées à celle-ci, vous pourrez refacturer par la suite       les présences de cette facture. Est-ce cela que vous désirez ? Si vous désirez complètement annuler cette facture, choisissez plutôt le bouton 'Annuler définitivement la facture'. Confirmation de la manipulation ?"
-msgstr "Ce bouton permet d'annuler la facture de ce facturier et de libérer les présences liées à celle-ci, vous pourrez refacturer par la suite       les présences de cette facture. Est-ce cela que vous désirez ? Si vous désirez complètement annuler cette facture, choisissez plutôt le bouton 'Annuler définitivement la facture'. Confirmation de la manipulation ?"
+msgid ""
+"Ce bouton permet d'annuler la facture de ce facturier et de libérer les "
+"présences liées à celle-ci, vous pourrez refacturer par la suite       les "
+"présences de cette facture. Est-ce cela que vous désirez ? Si vous désirez "
+"complètement annuler cette facture, choisissez plutôt le bouton 'Annuler "
+"définitivement la facture'. Confirmation de la manipulation ?"
+msgstr ""
+"Ce bouton permet d'annuler la facture de ce facturier et de libérer les "
+"présences liées à celle-ci, vous pourrez refacturer par la suite       les "
+"présences de cette facture. Est-ce cela que vous désirez ? Si vous désirez "
+"complètement annuler cette facture, choisissez plutôt le bouton 'Annuler "
+"définitivement la facture'. Confirmation de la manipulation ?"
 
 #. module: extraschool
 #: model:ir.model.fields,help:extraschool.field_extraschool_child_childtypeid
-msgid "Ce champs permet de définir si l'enfant a le droit à un tarif préférentiel (ex: enfants du CPAS, enfants de la croix rouge, enfants des accueillantes,...)"
-msgstr "Ce champs permet de définir si l'enfant a le droit à un tarif préférentiel (ex: enfants du CPAS, enfants de la croix rouge, enfants des accueillantes,...)"
+msgid ""
+"Ce champs permet de définir si l'enfant a le droit à un tarif préférentiel "
+"(ex: enfants du CPAS, enfants de la croix rouge, enfants des "
+"accueillantes,...)"
+msgstr ""
+"Ce champs permet de définir si l'enfant a le droit à un tarif préférentiel "
+"(ex: enfants du CPAS, enfants de la croix rouge, enfants des "
+"accueillantes,...)"
 
 #. module: extraschool
 #: model:ir.model.fields,help:extraschool.field_extraschool_remindertype_minimum_general_balance
@@ -1508,23 +1833,35 @@ msgstr "Ceci est le montant minimum TOTAL des factures à sortir en rappel"
 
 #. module: extraschool
 #: model:ir.model.fields,help:extraschool.field_extraschool_remindertype_minimum_balance
-msgid "Ceci est le montant minimum des factures à sortir en rappel (concerne donc facture par facture)"
-msgstr "Ceci est le montant minimum des factures à sortir en rappel (concerne donc facture par facture)"
+msgid ""
+"Ceci est le montant minimum des factures à sortir en rappel (concerne donc "
+"facture par facture)"
+msgstr ""
+"Ceci est le montant minimum des factures à sortir en rappel (concerne donc "
+"facture par facture)"
 
 #. module: extraschool
 #: model:ir.model.fields,help:extraschool.field_extraschool_remindertype_bailiff
-msgid "Ceci permet d'affecter un tag \"huissier\" sur toutes les factures de ce niveau"
-msgstr "Ceci permet d'affecter un tag \"huissier\" sur toutes les factures de ce niveau"
+msgid ""
+"Ceci permet d'affecter un tag \"huissier\" sur toutes les factures de ce "
+"niveau"
+msgstr ""
+"Ceci permet d'affecter un tag \"huissier\" sur toutes les factures de ce "
+"niveau"
 
 #. module: extraschool
 #: model:ir.model.fields,help:extraschool.field_extraschool_child_registration_day_ids
-msgid "Ceci permet de précocher pour tous les enfants, les jours que l'on souhaite"
-msgstr "Ceci permet de précocher pour tous les enfants, les jours que l'on souhaite"
+msgid ""
+"Ceci permet de précocher pour tous les enfants, les jours que l'on souhaite"
+msgstr ""
+"Ceci permet de précocher pour tous les enfants, les jours que l'on souhaite"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_ohey_tableau_tarif
-msgid "Cette facture a été établie via le logiciel IMIO selon les tarifs suivants :"
-msgstr "Cette facture a été établie via le logiciel IMIO selon les tarifs suivants :"
+msgid ""
+"Cette facture a été établie via le logiciel IMIO selon les tarifs suivants :"
+msgstr ""
+"Cette facture a été établie via le logiciel IMIO selon les tarifs suivants :"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_prestation_times_encodage_manuel_validation_wizard_form
@@ -2301,9 +2638,13 @@ msgstr "Création des PDF en cours ....."
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_lierneux_report_parent_credit
 #: model:ir.ui.view,arch_db:extraschool.report_lierneux_report_parent_credit_huissier
-msgid "Dans l’attente de vos nouvelles, nous vous prions de croire, Madame, Monsieur, Chers Parents,\n"
+msgid ""
+"Dans l’attente de vos nouvelles, nous vous prions de croire, Madame, "
+"Monsieur, Chers Parents,\n"
 "                        en l’assurance de nos salutations distinguées."
-msgstr "Dans l’attente de vos nouvelles, nous vous prions de croire, Madame, Monsieur, Chers Parents,\n"
+msgstr ""
+"Dans l’attente de vos nouvelles, nous vous prions de croire, Madame, "
+"Monsieur, Chers Parents,\n"
 "                        en l’assurance de nos salutations distinguées."
 
 #. module: extraschool
@@ -2523,8 +2864,12 @@ msgstr "Détails"
 
 #. module: extraschool
 #: model:ir.model,name:extraschool.model_extraschool_invoice_tag
-msgid "Different tag can be used but they all block the process of this invoice. No reminder and so on."
-msgstr "Different tag can be used but they all block the process of this invoice. No reminder and so on."
+msgid ""
+"Different tag can be used but they all block the process of this invoice. No "
+"reminder and so on."
+msgstr ""
+"Different tag can be used but they all block the process of this invoice. No "
+"reminder and so on."
 
 #. module: extraschool
 #: selection:extraschool.health_sheet,swim_level:0
@@ -2693,7 +3038,7 @@ msgstr "Divers"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
 msgid "Do you really want to reconciliate this invoice ?"
-msgstr "Do you really want to reconciliate this invoice ?"
+msgstr "Voulez-vous réconcilier cette facture ?"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_biller_form
@@ -2752,9 +3097,7 @@ msgstr "Brouillon"
 #: code:addons/extraschool/extraschool_child_registration.py:449
 #, python-format
 msgid "Duplicated registration\n"
-""
 msgstr "Duplicated registration\n"
-""
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoicedprestations_duration
@@ -2780,8 +3123,12 @@ msgstr "Détails"
 #. module: extraschool
 #: code:addons/extraschool/extraschool_coda.py:94
 #, python-format
-msgid "ERROR: The account number in this CODA file is not used in this application !!!"
-msgstr "ERREUR: Le numéro de compte de ce fichier CODA n'est pas utilisé dans cette application !!!"
+msgid ""
+"ERROR: The account number in this CODA file is not used in this "
+"application !!!"
+msgstr ""
+"ERREUR: Le numéro de compte de ce fichier CODA n'est pas utilisé dans cette "
+"application !!!"
 
 #. module: extraschool
 #: code:addons/extraschool/extraschool_coda.py:92
@@ -2853,9 +3200,11 @@ msgstr "Modèle d'E-mail"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_lierneux_report_parent_credit
 #: model:ir.ui.view,arch_db:extraschool.report_lierneux_report_parent_credit_huissier
-msgid "En cas de difficultés ou de demande d’informations supplémentaires,\n"
+msgid ""
+"En cas de difficultés ou de demande d’informations supplémentaires,\n"
 "                        veuillez contacter nos services."
-msgstr "En cas de difficultés ou de demande d’informations supplémentaires,\n"
+msgstr ""
+"En cas de difficultés ou de demande d’informations supplémentaires,\n"
 "                        veuillez contacter nos services."
 
 #. module: extraschool
@@ -3038,7 +3387,9 @@ msgstr "Configuration du module AES"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_facebook
 msgid "Facebook"
-msgstr "Les photos de l'enfant peuvent-elles être publiées sur les réseaux sociaux ? (site de l'école, Facebook,..) ?"
+msgstr ""
+"Les photos de l'enfant peuvent-elles être publiées sur les réseaux sociaux ? "
+"(site de l'école, Facebook,..) ?"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_manuel_invoice_wizard_form
@@ -3979,7 +4330,8 @@ msgstr "It's not allowed to delete invoiced presta !!!"
 
 #. module: extraschool
 #: sql_constraint:extraschool.activity_occurrence_child_registration:0
-msgid "It's not allowed to register a child more than once to the same occurrence!"
+msgid ""
+"It's not allowed to register a child more than once to the same occurrence!"
 msgstr "Un enfant ne peut être inscrit qu'une seule fois à la même activité"
 
 #. module: extraschool
@@ -4383,57 +4735,99 @@ msgstr "Nom"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_durbuy
-msgid "Les factures suivantes sont toujours en attente de paiement. Nous vous prions de bien vouloir\n"
-"						procéder à\n"
-"						leur(s) règlement(s) dans les meilleurs délais. Si un paiement mentionné dans le tableau ci-dessous\n"
-"						et notre\n"
-"						courrier devaient se croiser, veuillez considérer ce paiement comme nul et non avenu. Les\n"
-"						éventuels\n"
-"						recouvrements qui seraient à charge d’un huissier ne sont pas pris en compte sur le présent\n"
-"						document.\n"
-"						Toute réclamation relative à la facture doit être transmise à la Ville de Durbuy, coordination\n"
-"						enfance, avant la date d'échéance. Toute facture non contestée est considérée comme acceptée."
-msgstr "Les factures suivantes sont toujours en attente de paiement. Nous vous prions de bien vouloir\n"
-"						procéder à\n"
-"						leur(s) règlement(s) dans les meilleurs délais. Si un paiement mentionné dans le tableau ci-dessous\n"
-"						et notre\n"
-"						courrier devaient se croiser, veuillez considérer ce paiement comme nul et non avenu. Les\n"
-"						éventuels\n"
-"						recouvrements qui seraient à charge d’un huissier ne sont pas pris en compte sur le présent\n"
-"						document.\n"
-"						Toute réclamation relative à la facture doit être transmise à la Ville de Durbuy, coordination\n"
-"						enfance, avant la date d'échéance. Toute facture non contestée est considérée comme acceptée."
+msgid ""
+"Les factures suivantes sont toujours en attente de paiement. Nous vous "
+"prions de bien vouloir\n"
+"\t\t\t\t\t\tprocéder à\n"
+"\t\t\t\t\t\tleur(s) règlement(s) dans les meilleurs délais. Si un paiement "
+"mentionné dans le tableau ci-dessous\n"
+"\t\t\t\t\t\tet notre\n"
+"\t\t\t\t\t\tcourrier devaient se croiser, veuillez considérer ce paiement "
+"comme nul et non avenu. Les\n"
+"\t\t\t\t\t\téventuels\n"
+"\t\t\t\t\t\trecouvrements qui seraient à charge d’un huissier ne sont pas "
+"pris en compte sur le présent\n"
+"\t\t\t\t\t\tdocument.\n"
+"\t\t\t\t\t\tToute réclamation relative à la facture doit être transmise à la "
+"Ville de Durbuy, coordination\n"
+"\t\t\t\t\t\tenfance, avant la date d'échéance. Toute facture non contestée "
+"est considérée comme acceptée."
+msgstr ""
+"Les factures suivantes sont toujours en attente de paiement. Nous vous "
+"prions de bien vouloir\n"
+"\t\t\t\t\t\tprocéder à\n"
+"\t\t\t\t\t\tleur(s) règlement(s) dans les meilleurs délais. Si un paiement "
+"mentionné dans le tableau ci-dessous\n"
+"\t\t\t\t\t\tet notre\n"
+"\t\t\t\t\t\tcourrier devaient se croiser, veuillez considérer ce paiement "
+"comme nul et non avenu. Les\n"
+"\t\t\t\t\t\téventuels\n"
+"\t\t\t\t\t\trecouvrements qui seraient à charge d’un huissier ne sont pas "
+"pris en compte sur le présent\n"
+"\t\t\t\t\t\tdocument.\n"
+"\t\t\t\t\t\tToute réclamation relative à la facture doit être transmise à la "
+"Ville de Durbuy, coordination\n"
+"\t\t\t\t\t\tenfance, avant la date d'échéance. Toute facture non contestée "
+"est considérée comme acceptée."
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_all_invoice_summary
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_yvoir
-msgid "Les factures suivantes sont toujours en attente de paiement. Nous vous prions de bien vouloir procéder à leur(s) règlement(s) dans les meilleurs délais."
-msgstr "Les factures suivantes sont toujours en attente de paiement. Nous vous prions de bien vouloir procéder à leur(s) règlement(s) dans les meilleurs délais."
+msgid ""
+"Les factures suivantes sont toujours en attente de paiement. Nous vous "
+"prions de bien vouloir procéder à leur(s) règlement(s) dans les meilleurs "
+"délais."
+msgstr ""
+"Les factures suivantes sont toujours en attente de paiement. Nous vous "
+"prions de bien vouloir procéder à leur(s) règlement(s) dans les meilleurs "
+"délais."
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_all_invoice_summary_hannut_facture
-msgid "Les factures suivantes sont toujours en attente de paiement. Nous vous prions de bien vouloir procéder à leur(s) règlement(s) dans les meilleurs délais. Si un paiement mentionné dans le tableau ci-dessous et notre courrier devaient se croiser, veuillez considérer ce paiement  comme nul et non avenu."
-msgstr "Les factures suivantes sont toujours en attente de paiement. Nous vous prions de bien vouloir procéder à leur(s) règlement(s) dans les meilleurs délais. Si un paiement mentionné dans le tableau ci-dessous et notre courrier devaient se croiser, veuillez considérer ce paiement  comme nul et non avenu."
+msgid ""
+"Les factures suivantes sont toujours en attente de paiement. Nous vous "
+"prions de bien vouloir procéder à leur(s) règlement(s) dans les meilleurs "
+"délais. Si un paiement mentionné dans le tableau ci-dessous et notre "
+"courrier devaient se croiser, veuillez considérer ce paiement  comme nul et "
+"non avenu."
+msgstr ""
+"Les factures suivantes sont toujours en attente de paiement. Nous vous "
+"prions de bien vouloir procéder à leur(s) règlement(s) dans les meilleurs "
+"délais. Si un paiement mentionné dans le tableau ci-dessous et notre "
+"courrier devaient se croiser, veuillez considérer ce paiement  comme nul et "
+"non avenu."
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_footer_durbuy
-msgid "Les périodes sont facturées à raison de 0.25€ le quart d'heure entamé. Pour les départs après 17h30(18h30 Barvaux) les lundi,\n"
-"					mardi, jeudi et vendredi et après 13h le mercredi (hors mercredi après-midi), un forfait de 10€ est comptabilisé par 1/4h\n"
-"					entamé.\n"
-"					Le mercredi après midi présente un forfait de 5€ pour toute l’après midi et l’école de devoirs, un forfait de 2.4€ par séance.\n"
-"					En cas de retard ou de non paiement, le recouvrement sera poursuivi conformément à l’article L1124-40 $ 1 du Code de la\n"
-"					Démocratie Locale.\n"
-"					Nous vous invitons à lire attentivement le Règlement d’Ordre Intérieur et le Projet Pédagogique de l’accueil extrascolaire reçu\n"
-"					via votre enfant à l’école. Plus d’infos : Coordination Enfance,"
-msgstr "Les périodes sont facturées à raison de 0.25€ le quart d'heure entamé. Pour les départs après 17h30(18h30 Barvaux) les lundi,\n"
-"					mardi, jeudi et vendredi et après 13h le mercredi (hors mercredi après-midi), un forfait de 10€ est comptabilisé par 1/4h\n"
-"					entamé.\n"
-"					Le mercredi après midi présente un forfait de 5€ pour toute l’après midi et l’école de devoirs, un forfait de 2.4€ par séance.\n"
-"					En cas de retard ou de non paiement, le recouvrement sera poursuivi conformément à l’article L1124-40 $ 1 du Code de la\n"
-"					Démocratie Locale.\n"
-"					Nous vous invitons à lire attentivement le Règlement d’Ordre Intérieur et le Projet Pédagogique de l’accueil extrascolaire reçu\n"
-"					via votre enfant à l’école. Plus d’infos : Coordination Enfance,"
+msgid ""
+"Les périodes sont facturées à raison de 0.25€ le quart d'heure entamé. Pour "
+"les départs après 17h30(18h30 Barvaux) les lundi,\n"
+"\t\t\t\t\tmardi, jeudi et vendredi et après 13h le mercredi (hors mercredi "
+"après-midi), un forfait de 10€ est comptabilisé par 1/4h\n"
+"\t\t\t\t\tentamé.\n"
+"\t\t\t\t\tLe mercredi après midi présente un forfait de 5€ pour toute "
+"l’après midi et l’école de devoirs, un forfait de 2.4€ par séance.\n"
+"\t\t\t\t\tEn cas de retard ou de non paiement, le recouvrement sera "
+"poursuivi conformément à l’article L1124-40 $ 1 du Code de la\n"
+"\t\t\t\t\tDémocratie Locale.\n"
+"\t\t\t\t\tNous vous invitons à lire attentivement le Règlement d’Ordre "
+"Intérieur et le Projet Pédagogique de l’accueil extrascolaire reçu\n"
+"\t\t\t\t\tvia votre enfant à l’école. Plus d’infos : Coordination Enfance,"
+msgstr ""
+"Les périodes sont facturées à raison de 0.25€ le quart d'heure entamé. Pour "
+"les départs après 17h30(18h30 Barvaux) les lundi,\n"
+"\t\t\t\t\tmardi, jeudi et vendredi et après 13h le mercredi (hors mercredi "
+"après-midi), un forfait de 10€ est comptabilisé par 1/4h\n"
+"\t\t\t\t\tentamé.\n"
+"\t\t\t\t\tLe mercredi après midi présente un forfait de 5€ pour toute "
+"l’après midi et l’école de devoirs, un forfait de 2.4€ par séance.\n"
+"\t\t\t\t\tEn cas de retard ou de non paiement, le recouvrement sera "
+"poursuivi conformément à l’article L1124-40 $ 1 du Code de la\n"
+"\t\t\t\t\tDémocratie Locale.\n"
+"\t\t\t\t\tNous vous invitons à lire attentivement le Règlement d’Ordre "
+"Intérieur et le Projet Pédagogique de l’accueil extrascolaire reçu\n"
+"\t\t\t\t\tvia votre enfant à l’école. Plus d’infos : Coordination Enfance,"
 
 #. module: extraschool
 #: model:ir.model,name:extraschool.model_extraschool_level
@@ -4517,11 +4911,6 @@ msgid "Logo"
 msgstr "Logo"
 
 #. module: extraschool
-#: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_logo_reminder
-msgid "Logo reminder"
-msgstr "Logo du rappe"
-
-#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_smartphone_detail_log_tree
 msgid "Logs"
 msgstr "Historiques"
@@ -4566,67 +4955,109 @@ msgstr "Madame, Monsieur,"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_durbuy_rappel
-msgid "Madame, Monsieur, Cher parent,<br/><br/>\n"
-"                                <span style=\"margin:30px;\">Sauf erreur de notre part, votre compte présente un solde en notre faveur. Veuillez trouvez, ci-dessous, le détail de la/ des facture(s) de l'accueil\n"
-"                                    Extrascolaire dont la somme reste impayée.</span><br/><br/>"
-msgstr "Madame, Monsieur, Cher parent,<br/><br/>\n"
-"                                <span style=\"margin:30px;\">Sauf erreur de notre part, votre compte présente un solde en notre faveur. Veuillez trouvez, ci-dessous, le détail de la/ des facture(s) de l'accueil\n"
-"                                    Extrascolaire dont la somme reste impayée.</span><br/><br/>"
+msgid ""
+"Madame, Monsieur, Cher parent,<br/><br/>\n"
+"                                <span style=\"margin:30px;\">Sauf erreur de "
+"notre part, votre compte présente un solde en notre faveur. Veuillez "
+"trouvez, ci-dessous, le détail de la/ des facture(s) de l'accueil\n"
+"                                    Extrascolaire dont la somme reste "
+"impayée.</span><br/><br/>"
+msgstr ""
+"Madame, Monsieur, Cher parent,<br/><br/>\n"
+"                                <span style=\"margin:30px;\">Sauf erreur de "
+"notre part, votre compte présente un solde en notre faveur. Veuillez "
+"trouvez, ci-dessous, le détail de la/ des facture(s) de l'accueil\n"
+"                                    Extrascolaire dont la somme reste "
+"impayée.</span><br/><br/>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_durbuy_med
-msgid "Madame, Monsieur, Cher parent,<br/><br/>\n"
-"                                <span style=\"margin:30px;\">Sauf erreur de notre part, vous n'avez pas donné suite à notre premier rappel vous invitant à solder la/les facture(s)\n"
-"                                 de l'accueil extrascolaire ci-dessous.</span><br/><br/>"
-msgstr "Madame, Monsieur, Cher parent,<br/><br/>\n"
-"                                <span style=\"margin:30px;\">Sauf erreur de notre part, vous n'avez pas donné suite à notre premier rappel vous invitant à solder la/les facture(s)\n"
-"                                 de l'accueil extrascolaire ci-dessous.</span><br/><br/>"
+msgid ""
+"Madame, Monsieur, Cher parent,<br/><br/>\n"
+"                                <span style=\"margin:30px;\">Sauf erreur de "
+"notre part, vous n'avez pas donné suite à notre premier rappel vous invitant "
+"à solder la/les facture(s)\n"
+"                                 de l'accueil extrascolaire ci-dessous.</"
+"span><br/><br/>"
+msgstr ""
+"Madame, Monsieur, Cher parent,<br/><br/>\n"
+"                                <span style=\"margin:30px;\">Sauf erreur de "
+"notre part, vous n'avez pas donné suite à notre premier rappel vous invitant "
+"à solder la/les facture(s)\n"
+"                                 de l'accueil extrascolaire ci-dessous.</"
+"span><br/><br/>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_hannut
-msgid "Madame, Monsieur, Chers Parents,<br/>\n"
-"                        Nous constatons que vous n'avez pas réglé votre/vos facture(s) de l'accueil extrascolaire.\n"
-"                        Vous trouverez ci-dessous le détail de celle(s)-ci concernant la période mentionnée et l'ajout de <b>3 €</b> de frais administratifs."
-msgstr "Madame, Monsieur, Chers Parents,<br/>\n"
-"                        Nous constatons que vous n'avez pas réglé votre/vos facture(s) de l'accueil extrascolaire.\n"
-"                        Vous trouverez ci-dessous le détail de celle(s)-ci concernant la période mentionnée et l'ajout de <b>3 €</b> de frais administratifs."
+msgid ""
+"Madame, Monsieur, Chers Parents,<br/>\n"
+"                        Nous constatons que vous n'avez pas réglé votre/vos "
+"facture(s) de l'accueil extrascolaire.\n"
+"                        Vous trouverez ci-dessous le détail de celle(s)-ci "
+"concernant la période mentionnée et l'ajout de <b>3 €</b> de frais "
+"administratifs."
+msgstr ""
+"Madame, Monsieur, Chers Parents,<br/>\n"
+"                        Nous constatons que vous n'avez pas réglé votre/vos "
+"facture(s) de l'accueil extrascolaire.\n"
+"                        Vous trouverez ci-dessous le détail de celle(s)-ci "
+"concernant la période mentionnée et l'ajout de <b>3 €</b> de frais "
+"administratifs."
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_engis
-msgid "Madame, Monsieur,<br/>\n"
-"                        A l'examen de votre dossier relatif à l'Accueil extrascolaire, il ressort que vous restez redevable\n"
+msgid ""
+"Madame, Monsieur,<br/>\n"
+"                        A l'examen de votre dossier relatif à l'Accueil "
+"extrascolaire, il ressort que vous restez redevable\n"
 "envers la               Commune des sommes ci-après."
-msgstr "Madame, Monsieur,<br/>\n"
-"                        A l'examen de votre dossier relatif à l'Accueil extrascolaire, il ressort que vous restez redevable\n"
+msgstr ""
+"Madame, Monsieur,<br/>\n"
+"                        A l'examen de votre dossier relatif à l'Accueil "
+"extrascolaire, il ressort que vous restez redevable\n"
 "envers la               Commune des sommes ci-après."
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_neufchateau
-msgid "Madame, Monsieur,<br/>\n"
-"                        Malgré un premier rappel, vous êtes toujours redevable des sommes reprises ci-dessous\n"
-"                        auxquelles s'ajoutent des frais de rappel de 5.30 euros."
-msgstr "Madame, Monsieur,<br/>\n"
-"                        Malgré un premier rappel, vous êtes toujours redevable des sommes reprises ci-dessous\n"
-"                        auxquelles s'ajoutent des frais de rappel de 5.30 euros."
+msgid ""
+"Madame, Monsieur,<br/>\n"
+"                        Malgré un premier rappel, vous êtes toujours "
+"redevable des sommes reprises ci-dessous\n"
+"                        auxquelles s'ajoutent des frais de rappel de 5.30 "
+"euros."
+msgstr ""
+"Madame, Monsieur,<br/>\n"
+"                        Malgré un premier rappel, vous êtes toujours "
+"redevable des sommes reprises ci-dessous\n"
+"                        auxquelles s'ajoutent des frais de rappel de 5.30 "
+"euros."
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_engis_2
-msgid "Madame, Monsieur,<br/>\n"
-"                        Malgré un premier rappel, vous êtes toujours redevable des sommes reprises ci-dessous\n"
+msgid ""
+"Madame, Monsieur,<br/>\n"
+"                        Malgré un premier rappel, vous êtes toujours "
+"redevable des sommes reprises ci-dessous\n"
 "                        auxquelles s'ajoutent des frais de rappel de 7 euros."
-msgstr "Madame, Monsieur,<br/>\n"
-"                        Malgré un premier rappel, vous êtes toujours redevable des sommes reprises ci-dessous\n"
+msgstr ""
+"Madame, Monsieur,<br/>\n"
+"                        Malgré un premier rappel, vous êtes toujours "
+"redevable des sommes reprises ci-dessous\n"
 "                        auxquelles s'ajoutent des frais de rappel de 7 euros."
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_ferrieres
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_invoice_ferrieres
-msgid "Madame, Monsieur,<br/><br/>\n"
-"						À ce jour, je n'ai toujours pas reçu le versement correspondant aux factures d'accueil extra-scolaire suivantes dont vous êtes\n"
-"						redevable envers la Commune de Ferrières :<br/><br/>"
-msgstr "Madame, Monsieur,<br/><br/>\n"
-"						À ce jour, je n'ai toujours pas reçu le versement correspondant aux factures d'accueil extra-scolaire suivantes dont vous êtes\n"
-"						redevable envers la Commune de Ferrières :<br/><br/>"
+msgid ""
+"Madame, Monsieur,<br/><br/>\n"
+"\t\t\t\t\t\tÀ ce jour, je n'ai toujours pas reçu le versement correspondant "
+"aux factures d'accueil extra-scolaire suivantes dont vous êtes\n"
+"\t\t\t\t\t\tredevable envers la Commune de Ferrières :<br/><br/>"
+msgstr ""
+"Madame, Monsieur,<br/><br/>\n"
+"\t\t\t\t\t\tÀ ce jour, je n'ai toujours pas reçu le versement correspondant "
+"aux factures d'accueil extra-scolaire suivantes dont vous êtes\n"
+"\t\t\t\t\t\tredevable envers la Commune de Ferrières :<br/><br/>"
 
 #. module: extraschool
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_mainsettings
@@ -4818,8 +5249,12 @@ msgstr "Moyen"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_initupdate_wizard_form
-msgid "NE CLIQUER SUR CE BOUTTON QUE LORSQU'IL EST NECESSAIRE DE FAIRE UNE MISE A JOUR"
-msgstr "NE CLIQUER SUR CE BOUTTON QUE LORSQU'IL EST NECESSAIRE DE FAIRE UNE MISE A JOUR"
+msgid ""
+"NE CLIQUER SUR CE BOUTTON QUE LORSQU'IL EST NECESSAIRE DE FAIRE UNE MISE A "
+"JOUR"
+msgstr ""
+"NE CLIQUER SUR CE BOUTTON QUE LORSQU'IL EST NECESSAIRE DE FAIRE UNE MISE A "
+"JOUR"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_name
@@ -5029,17 +5464,25 @@ msgstr "Nous vous invitons à régler ce montant, pour le"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_lierneux_report_parent_credit
-msgid "Nous vous prions de bien vouloir régulariser votre situation\n"
-"                        <u><b>dans un délai de 10 jours à dater du présent rappel.</b></u>"
-msgstr "Nous vous prions de bien vouloir régulariser votre situation\n"
-"                        <u><b>dans un délai de 10 jours à dater du présent rappel.</b></u>"
+msgid ""
+"Nous vous prions de bien vouloir régulariser votre situation\n"
+"                        <u><b>dans un délai de 10 jours à dater du présent "
+"rappel.</b></u>"
+msgstr ""
+"Nous vous prions de bien vouloir régulariser votre situation\n"
+"                        <u><b>dans un délai de 10 jours à dater du présent "
+"rappel.</b></u>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_lierneux_report_parent_credit_huissier
-msgid "Nous vous prions de bien vouloir régulariser votre situation\n"
-"                        <u><b>dans un délai de 15 jours à dater du présent rappel.</b></u>"
-msgstr "Nous vous prions de bien vouloir régulariser votre situation\n"
-"                        <u><b>dans un délai de 15 jours à dater du présent rappel.</b></u>"
+msgid ""
+"Nous vous prions de bien vouloir régulariser votre situation\n"
+"                        <u><b>dans un délai de 15 jours à dater du présent "
+"rappel.</b></u>"
+msgstr ""
+"Nous vous prions de bien vouloir régulariser votre situation\n"
+"                        <u><b>dans un délai de 15 jours à dater du présent "
+"rappel.</b></u>"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_number
@@ -5800,8 +6243,10 @@ msgstr "Pour rappel,"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_horaire_guardian_wizard_form
-msgid "Pouvez-vous préciser la date de début et de fin des horaires à imprimer ?"
-msgstr "Pouvez-vous préciser la date de début et de fin des horaires à imprimer ?"
+msgid ""
+"Pouvez-vous préciser la date de début et de fin des horaires à imprimer ?"
+msgstr ""
+"Pouvez-vous préciser la date de début et de fin des horaires à imprimer ?"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activitycategory_form
@@ -6771,8 +7216,12 @@ msgstr "Trimestre"
 
 #. module: extraschool
 #: model:ir.model.fields,help:extraschool.field_extraschool_price_list_version_period_tolerance
-msgid "Si l'on met une tolérance à 2, cela permet de pas facturer 120 minutes si l'enfant est resté 62 minutes"
-msgstr "Si l'on met une tolérance à 2, cela permet de pas facturer 120 minutes si l'enfant est resté 62 minutes"
+msgid ""
+"Si l'on met une tolérance à 2, cela permet de pas facturer 120 minutes si "
+"l'enfant est resté 62 minutes"
+msgstr ""
+"Si l'on met une tolérance à 2, cela permet de pas facturer 120 minutes si "
+"l'enfant est resté 62 minutes"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
@@ -7145,8 +7594,12 @@ msgstr "Texte"
 #. module: extraschool
 #: code:addons/extraschool/extraschool_child_registration.py:363
 #, python-format
-msgid "The child %s already has a registration on the activity %s from date %s to date %s. You can find the duplicate at ID: %s"
-msgstr "The child %s already has a registration on the activity %s from date %s to date %s. You can find the duplicate at ID: %s"
+msgid ""
+"The child %s already has a registration on the activity %s from date %s to "
+"date %s. You can find the duplicate at ID: %s"
+msgstr ""
+"The child %s already has a registration on the activity %s from date %s to "
+"date %s. You can find the duplicate at ID: %s"
 
 #. module: extraschool
 #: code:addons/extraschool/extraschool_coda.py:205
@@ -7200,7 +7653,9 @@ msgstr "There is no next reminder."
 #: code:addons/extraschool/extraschool_invoice_wizard.py:394
 #, python-format
 msgid "There is no presta to invoice !!!"
-msgstr "Il n'y a pas de présences à facturer ! Le facturier de cette période a peut-être déjà été généré"
+msgstr ""
+"Il n'y a pas de présences à facturer ! Le facturier de cette période a peut-"
+"être déjà été généré"
 
 #. module: extraschool
 #: code:addons/extraschool/extraschool_parent.py:203
@@ -7212,15 +7667,16 @@ msgstr "Il n'y a pas de remboursement possible."
 #: code:addons/extraschool/extraschool_child_registration.py:268
 #, python-format
 msgid "These childs are duplicated !!\n"
-""
 msgstr "These childs are duplicated !!\n"
-""
 
 #. module: extraschool
 #: code:addons/extraschool/extraschool_coda.py:154
 #, python-format
-msgid "This invoice has a reminder and cannot be paid with the invoice communication"
-msgstr "Cette facture possède un rappel et ne peut pas être payé avec la communication structurée de la facture"
+msgid ""
+"This invoice has a reminder and cannot be paid with the invoice communication"
+msgstr ""
+"Cette facture possède un rappel et ne peut pas être payé avec la "
+"communication structurée de la facture"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_line_thursday
@@ -7611,13 +8067,17 @@ msgstr "Valide jusqu'au"
 #: code:addons/extraschool/extraschool_activity.py:309
 #, python-format
 msgid "Validity to must be greater than validity from (date)"
-msgstr "Veuillez vérifier les dates de l'activité. La date de début doit être inférieure à la date de fin."
+msgstr ""
+"Veuillez vérifier les dates de l'activité. La date de début doit être "
+"inférieure à la date de fin."
 
 #. module: extraschool
 #: code:addons/extraschool/extraschool_activity.py:313
 #, python-format
 msgid "Validity to must be greater than validity from (hours)"
-msgstr "Veuillez vérifier les heures de l'activité. L'heure de début doit être inférieure à l'heure de fin."
+msgstr ""
+"Veuillez vérifier les heures de l'activité. L'heure de début doit être "
+"inférieure à l'heure de fin."
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_discount_version_value
@@ -7675,8 +8135,14 @@ msgstr "Votre compte famille présente"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_invoice_form
-msgid "Voulez-vous vraiment supprimer définitivement cette facture ? Les présences liées à celle-ci ne seront plus facturables. Confirmation de la manipulation ?"
-msgstr "Voulez-vous vraiment supprimer définitivement cette facture ? Les présences liées à celle-ci ne seront plus facturables. Confirmation de la manipulation ?"
+msgid ""
+"Voulez-vous vraiment supprimer définitivement cette facture ? Les présences "
+"liées à celle-ci ne seront plus facturables. Confirmation de la "
+"manipulation ?"
+msgstr ""
+"Voulez-vous vraiment supprimer définitivement cette facture ? Les présences "
+"liées à celle-ci ne seront plus facturables. Confirmation de la "
+"manipulation ?"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_warning_date
@@ -7875,17 +8341,23 @@ msgstr "au :"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text_rappel
-msgid "au plus tard, au bénéfice du compte (IBAN)\n"
+msgid ""
+"au plus tard, au bénéfice du compte (IBAN)\n"
 "                           n°"
-msgstr "au plus tard, au bénéfice du compte (IBAN)\n"
+msgstr ""
+"au plus tard, au bénéfice du compte (IBAN)\n"
 "                           n°"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text_med
-msgid "au plus tard, au bénéfice du compte (IBAN) n° BE25 0960 2105 5182 (code BIC : GKCCBEBB),\n"
-"						avec la communication structurée suivante :"
-msgstr "au plus tard, au bénéfice du compte (IBAN) n° BE25 0960 2105 5182 (code BIC : GKCCBEBB),\n"
-"						avec la communication structurée suivante :"
+msgid ""
+"au plus tard, au bénéfice du compte (IBAN) n° BE25 0960 2105 5182 (code "
+"BIC : GKCCBEBB),\n"
+"\t\t\t\t\t\tavec la communication structurée suivante :"
+msgstr ""
+"au plus tard, au bénéfice du compte (IBAN) n° BE25 0960 2105 5182 (code "
+"BIC : GKCCBEBB),\n"
+"\t\t\t\t\t\tavec la communication structurée suivante :"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_durbuy_med
@@ -8109,9 +8581,11 @@ msgstr "Entrée/Sortie"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_text_rappel
-msgid "envers l'Administration\n"
+msgid ""
+"envers l'Administration\n"
 "                       Communale de"
-msgstr "envers l'Administration\n"
+msgstr ""
+"envers l'Administration\n"
 "                       Communale de"
 
 #. module: extraschool
@@ -8731,12 +9205,22 @@ msgstr "workflow"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_lierneux_report_parent_credit_huissier
-msgid "À défaut de paiement dans le délai qui vous est imparti, je me verrai contraint de poursuivre le recouvrement par voie judiciaire avec les conséquences financières qui en résulteront.<br/>\n"
-"						J'attire tout spécialement votre attention sur le fait que la présente constitue\n"
-"						<u><b>le dernier avertissement avant les poursuites judiciaires</b></u> dont vous devrez supporter le coût."
-msgstr "À défaut de paiement dans le délai qui vous est imparti, je me verrai contraint de poursuivre le recouvrement par voie judiciaire avec les conséquences financières qui en résulteront.<br/>\n"
-"						J'attire tout spécialement votre attention sur le fait que la présente constitue\n"
-"						<u><b>le dernier avertissement avant les poursuites judiciaires</b></u> dont vous devrez supporter le coût."
+msgid ""
+"À défaut de paiement dans le délai qui vous est imparti, je me verrai "
+"contraint de poursuivre le recouvrement par voie judiciaire avec les "
+"conséquences financières qui en résulteront.<br/>\n"
+"\t\t\t\t\t\tJ'attire tout spécialement votre attention sur le fait que la "
+"présente constitue\n"
+"\t\t\t\t\t\t<u><b>le dernier avertissement avant les poursuites judiciaires</"
+"b></u> dont vous devrez supporter le coût."
+msgstr ""
+"À défaut de paiement dans le délai qui vous est imparti, je me verrai "
+"contraint de poursuivre le recouvrement par voie judiciaire avec les "
+"conséquences financières qui en résulteront.<br/>\n"
+"\t\t\t\t\t\tJ'attire tout spécialement votre attention sur le fait que la "
+"présente constitue\n"
+"\t\t\t\t\t\t<u><b>le dernier avertissement avant les poursuites judiciaires</"
+"b></u> dont vous devrez supporter le coût."
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_durbuy_med
@@ -8754,4 +9238,3 @@ msgstr "Êtes-vous sûr de vouloir attribuer tous les enfants à cette activité
 #: model:ir.ui.view,arch_db:extraschool.extraschool_prestation_times_encodage_manuel_form
 msgid "Ëtes-vous sûr de vouloir attribuer tous les enfants à cette activité ?"
 msgstr "Ëtes-vous sûr de vouloir attribuer tous les enfants à cette activité ?"
-
