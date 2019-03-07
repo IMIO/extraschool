@@ -46,6 +46,22 @@ class extraschool_coda(models.Model):
                               ('handled', 'Handled')],
                               'validated', required=True, default='todo'
                               )
+
+    @api.multi
+    def unlink(self):
+        for payment in self.paymentids:
+            for reconciliation in payment.payment_reconciliation_ids:
+                if reconciliation:
+                    reconciliation.invoice_id.cancel_payment()
+            payment.unlink()
+        for reject in self.rejectids:
+            for reconciliation_reject in reject.corrected_payment_id.payment_reconciliation_ids:
+                if reconciliation_reject:
+                    reconciliation_reject.invoice_id.cancel_payment()
+            reject.unlink()
+        return super(extraschool_coda, self).unlink()
+
+
     @api.one
     def validate(self):
         print "validate"
