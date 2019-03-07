@@ -41,7 +41,6 @@
     'test' : [],
     'data' : [
         'scripts/update_seq.xml',
-        'scripts/delete_detail_log_smartphone.sql',
 
         'views/extraschool_activitycategory.xml',
         'views/extraschool_activity.xml',
