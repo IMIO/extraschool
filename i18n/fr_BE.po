@@ -991,7 +991,7 @@ msgstr "Activité"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_activity_no_available
 msgid "Activity no available"
-msgstr "L'enfant a-t-il des interdiction pour certaines activités ?"
+msgstr "L'enfant a-t-il des interdictions pour certaines activités ?"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activityoccurrence_cal
@@ -1042,7 +1042,7 @@ msgstr "Activité"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_health_sheet_form
 msgid "Activité non praticables"
-msgstr "Activité non praticables"
+msgstr "Activités non praticables"
 
 #. module: extraschool
 #: selection:extraschool.timecorrection_wizard,correctiontype:0
@@ -3812,7 +3812,7 @@ msgstr "L'enfant a-t-il subi une intervention ou une maladie grave ?"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_health_sheet_form
 msgid "Intervention grave ou maladie"
-msgstr "Intervention grave ou maladie"
+msgstr "Intervention ou maladie grave"
 
 #. module: extraschool
 #: selection:extraschool.activitycategory.sequence,type:0
