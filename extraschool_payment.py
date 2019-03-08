@@ -128,7 +128,8 @@ class extraschool_payment(models.Model):
     @api.multi
     def cancel_refund(self):
         self.refund = 0.0
-        self.comment += "\n"+ "[" + datetime.now().strftime('%d-%m-%Y') + "][" + self.env['res.users'].browse(self._context.get('uid')).name + "] " + " cancel of refund"
+        self.comment += self.env['extraschool.helper'].add_date_user("Annulation remboursement")
+
 
 class extraschool_refund_wizard(models.Model):
     _name = 'extraschool.refund_wizard'
@@ -146,9 +147,9 @@ class extraschool_refund_wizard(models.Model):
             self.env['extraschool.payment'].search([('id', '=', self._context.get('payment_id'))]).refund += self.amount
             comment = self.env['extraschool.payment'].search([('id', '=', self._context.get('payment_id'))]).comment
             if comment:
-                self.env['extraschool.payment'].search([('id', '=', self._context.get('payment_id'))]).comment += "\n" + "[" + datetime.now().strftime('%d-%m-%Y') + "][" + self.env['res.users'].browse(self._context.get('uid')).name + "] " + self.comment
+                self.env['extraschool.payment'].search([('id', '=', self._context.get('payment_id'))]).comment += self.env['extraschool.helper'].add_date_user(self.comment)
             else:
-                self.env['extraschool.payment'].search([('id', '=', self._context.get('payment_id'))]).comment = self.comment
+                self.env['extraschool.payment'].search([('id', '=', self._context.get('payment_id'))]).comment = self.env['extraschool.helper'].add_date_user(self.comment)
 
 
 class extraschool_payment_reconciliation(models.Model):

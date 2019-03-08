@@ -205,7 +205,7 @@
 							<field name="comment" />
 							<field name="amount" sum="True"  readonly="True"/>
 							<field name="solde"  sum="True"/>
-							<field name="refund"  sum="True"/>
+							<field name="refund"  sum="True" readonly="True"/>
                             <button
                                 name="refunds"
                                 string="Refund"
