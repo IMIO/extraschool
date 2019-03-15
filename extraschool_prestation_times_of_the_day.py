@@ -113,7 +113,8 @@ class extraschool_prestation_times_of_the_day(models.Model):
                 for presta in dup_pod.pda_prestationtime_ids:
                     if len(pod.pda_prestationtime_ids.filtered(lambda r: r.es == presta.es and r.placeid == presta.placeid and r.prestation_time == presta.prestation_time)) == 0:
                         presta.prestation_times_of_the_day_id = pod.id
-                dup_pod.pda_prestationtime_ids[0].unlink()
+                for pda_unlink in dup_pod.pda_prestationtime_ids:
+                    pda_unlink.unlink()
 
             dup_pod_ids.unlink()
             pod.reset()
