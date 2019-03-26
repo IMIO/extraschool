@@ -30,6 +30,8 @@
 					</div>
 
 					<div class="oe_right oe_button_box" name="buttons" attrs="{'invisible':[('pdf_ready', '=', False)]}">
+                        <button name="mail_invoices" string="Attestation Courrier" type="object" class="oe_inline oe_stat_button" icon="fa-print"/>
+						<button name="email_invoices" string="Attestation Email" type="object" class="oe_inline oe_stat_button" icon="fa-envelope-o"/>
 						<button name="all_taxecertificate" string="Toutes les attestations" type="object" class="oe_inline oe_stat_button" icon="fa-files-o"/>
 						<button name="all_pdf" string="Docs" type="object" class="oe_inline oe_stat_button" icon="fa-files-o" groups="base.group_erp_manager"/>
 					</div>
