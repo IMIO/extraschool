@@ -206,7 +206,6 @@
             <field name="name">Tax Certificate Email</field>
             <field name="model_id" ref="model_extraschool_taxcertificate_item"/>
             <field name="auto_delete" eval="True"/>
-            <field name="partner_to">${object.id}</field>
             <field name="subject">Rappel</field>
             <field name="email_to">${(object.parent_id.email or 'support-aes@imio.be')|safe}</field>
             <field name="email_from">${(object.taxcertificate_id.activity_category_id.invoiceemailaddress or 'noreply@localhost')|safe}</field>
