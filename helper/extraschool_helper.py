@@ -23,6 +23,7 @@
 
 from openerp import models, api
 from datetime import date, datetime, timedelta as td
+import time
 
 
 class extraschool_helper(models.Model):
@@ -32,3 +33,16 @@ class extraschool_helper(models.Model):
     def add_date_user(self, data):
         return "\n" + "[" + datetime.now().strftime('%d-%m-%Y') + "][" + self.env['res.users'].browse(
             self._context.get('uid')).name + "] " + data
+
+
+def timeit(method):
+    def timed(*args, **kw):
+        ts = time.time()
+        result = method(*args, **kw)
+        te = time.time()
+
+        print '%r (%r, %r) %2.2f sec' % \
+              (method.__name__, args, kw, te - ts)
+        return result
+
+    return timed

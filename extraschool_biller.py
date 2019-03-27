@@ -30,6 +30,7 @@ from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
 from openerp.exceptions import except_orm, Warning, RedirectWarning
 import threading
+from helper import extraschool_helper
 
 import base64
 try:
@@ -104,6 +105,7 @@ class extraschool_biller(models.Model):
 
         return res
 
+    @extraschool_helper.timeit
     @api.depends('invoice_ids.amount_total')
     def _compute_total(self):
         for record in self:
