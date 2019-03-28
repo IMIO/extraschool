@@ -894,9 +894,9 @@ class extraschool_invoice_wizard(models.TransientModel):
         invoice_line_ids = self.env['extraschool.invoicedprestations'].search([('invoiceid', 'in', invoice_ids.ids)])
 
         for activity_category in self.activitycategory.ids:
-            amount = 0
-            for invoice_line in invoice_line_ids.filtered(lambda r: r.activity_occurrence_id.activity_category_id.id == activity_category):
-                amount += invoice_line.total_price
+            import wdb;wdb.set_trace()
+            amount = sum(invoice.total_amount for invoice in invoice_ids.filtered(
+                lambda r: r.activity_occurrence_id.activity_category_id.id == activity_category))
 
             obj_accrued.create({
                 'biller_id': biller.id,
