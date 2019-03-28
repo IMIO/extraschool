@@ -10,8 +10,7 @@
                     <field name="state" invisible="1" />
                     <group states="init">
                         <field name="parent_id" />
-                        <!-- field name="payment_type" / -->
-                        <field name="activity_category_id" required="1"/>
+                        <field name="activity_category_id" widget="many2many_tags"/>
                         <field name="payment_date" />
                         <field name="comment" />                        	
                         <field name="amount" />
