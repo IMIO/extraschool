@@ -97,16 +97,10 @@ class extraschool_invoice(models.Model):
             })
 
         for invoice in invoice_ids:
-            try:
-                invoice.activitycategoryid = base_activity_category
-            except:
-                pass
+            invoice.activitycategoryid = base_activity_category
 
         for biller in bille_ids:
-            try:
-                biller.activitycategoryid = base_activity_category
-            except:
-                pass
+            biller.activitycategoryid = base_activity_category
 
         for activity_id in activity_ids:
             try:
@@ -115,10 +109,7 @@ class extraschool_invoice(models.Model):
                 pass
 
         for payment_id in payment_ids:
-            try:
-                payment_id.activity_category_id = base_activity_category
-            except:
-                pass
+            payment_id.activity_category_id = base_activity_category
 
     def _compute_balance(self):
         for invoice in self:
