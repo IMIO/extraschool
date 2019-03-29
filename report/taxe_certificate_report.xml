@@ -329,11 +329,6 @@
                                 <div class="col-xs-6">
                                     <div class="row">
                                         <div class="col-xs-12">
-                                            Fait à Bruxelles, le 19 février 2018
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-12">
                                             <span>Fait à <t t-esc="attest.taxcertificate_id.activity_category_id.po_city"/>, le <span t-field="attest.taxcertificate_id.doc_date" /></span>
 										<span class="po_resp_name"><t t-esc="attest.taxcertificate_id.activity_category_id.po_attestation_name"/></span>
 										<span class="po_resp_name"><t t-esc="attest.taxcertificate_id.activity_category_id.po_attestation_fct"/></span>
