@@ -218,9 +218,7 @@ class extraschool_smartphone(models.Model):
 
         type = "Children" if error == 1 else "Guardians"
 
-        print "Smartphone id: ", smartphone_id
-        print "Error number: ", type
-        print "Error message: ", string_error
+        _logger.error( "Smartphone id: " + smartphone_id + "Error number: " + type + "Error message: " + string_error)
 
     @staticmethod
     def set_error(cr, uid, smartphone_id, error, string_error, context=None):
@@ -231,7 +229,6 @@ class extraschool_smartphone(models.Model):
         """
         # Declare new Environment.
         env = api.Environment(cr, uid, context={})
-        print "inside set_error"
 
         extraschool_smartphone.set_smartphone_error(env['extraschool.smartphone'], smartphone_id, error,
                                                     string_error)
