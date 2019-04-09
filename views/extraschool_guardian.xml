@@ -1,22 +1,23 @@
 <?xml version="1.0" ?>
 <openerp>
-	<data> 
+	<data>
         <record model="ir.ui.view" id="extraschool_guardian_tree">
 			<field name="name">extraschool.guardian.tree</field>
 			<field name="model">extraschool.guardian</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="Guardian">
+                    <field name="type"/>
                     <field name="firstname"/>
-                    <field name="lastname"/> 
-                    			
+                    <field name="lastname"/>
+
 				</tree>
 			</field>
 		</record>
-        
+
         <record model="ir.ui.view" id="extraschool_guardian_form">
             <field name="name">extraschool.guardian.form</field>
-            <field name="model">extraschool.guardian</field>    
+            <field name="model">extraschool.guardian</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
             <form string="Guardian">
@@ -29,22 +30,46 @@
                         icon="fa-qrcode"
                             />
                 </div>
+                  <field name="type" widget='radio' options="{'horizontal': true}"/>
                   <group col="4">
                     <field name="isdisabled"/>
                     <newline/>
                     <field name="firstname"/>
-                    <newline/>
                     <field name="lastname"/>
                     <newline/>
+                    <field name="birthdate"/>
                     <field name="weekly_schedule"/>
                     <newline/>
                     <field name="tagid" />
                     <newline/>
                     <field name="otherref" />
+                    <newline/>
+                    <field name="brevete" attrs="{'invisible':[('type', '=', 'accueillante')]}"/>
                    </group>
                 <notebook>
                     <page string="Comment">
                         <field name="comment" />
+                    </page>
+                    <page string="Informations personnelles">
+                        <group>
+                            <label for="street" string="Address"/>
+                            <div>
+                                <field name="street" placeholder="Rue..."/>
+                                <div>
+                                    <field name="zipcode" class="oe_inline" placeholder="Code Postal"/>
+                                    <field name="city" class="oe_inline" placeholder="Ville"/>
+                                </div>
+                                <field name="country_id" placeholder="Country"/>
+                            </div>
+                        </group>
+                        <group col="4">
+                            <label for="housephone" string="Contact"/>
+                            <div>
+                                <field name="housephone" placeholder="Téléphone Maison"/>
+                                <field name="gsm" placeholder="GSM"/>
+                                <field name="email" placeholder="Email"/>
+                            </div>
+                        </group>
                     </page>
                 </notebook>
                 </sheet>
@@ -53,7 +78,7 @@
                     <field name="message_ids" widget="mail_thread"/>
                 </div>
             </form>
-            </field> 
+            </field>
         </record>
 
         <record id="extraschool_guardian_search_view" model="ir.ui.view">
@@ -62,6 +87,9 @@
             <field name="arch" type="xml">
                 <search string="Guardian Search">
                    <filter string="Actif" name="actif" icon="terp-accessories-archiver" domain="[('isdisabled','=',False)]"/>
+                    <group  expand='0' string='Group by...'>
+                       <filter string='Type' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'type'}"/>
+                    </group>
                 </search>
             </field>
         </record>

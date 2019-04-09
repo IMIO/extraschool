@@ -1353,6 +1353,7 @@ msgstr "Adr2"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_doctor_form
+#: model:ir.ui.view,arch_db:extraschool.extraschool_guardian_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
 msgid "Address"
 msgstr "Adresse"
@@ -1706,6 +1707,7 @@ msgstr "Rapport du facturier"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_birthdate
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_guardian_birthdate
 msgid "Birthdate"
 msgstr "Date de Naissance"
 
