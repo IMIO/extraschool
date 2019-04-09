@@ -280,15 +280,15 @@ class extraschool_smartphone_detail_log(models.Model):
             date = datetime.strptime(str(line['datetime']), '%Y%m%dT%H%M%S')
             if "INFO" in line['level']:
                 _logger.info(
-                    str(date) + ' ' + line['phone_serial'] + ' ' + line['phone_imei'] + ' ' + line['logger'] + ' ' +
+                    str(date) + 'Smartphone Id:' + smartphone_id + ' ' + line['phone_serial'] + ' ' + line['phone_imei'] + ' ' + line['logger'] + ' ' +
                     line['message'])
             elif "WARN" in line['level']:
                 _logger.warning(
-                    str(date) + ' ' + line['phone_serial'] + ' ' + line['phone_imei'] + ' ' + line['logger'] + ' ' +
+                    str(date) + 'Smartphone Id:' + smartphone_id + ' ' + line['phone_serial'] + ' ' + line['phone_imei'] + ' ' + line['logger'] + ' ' +
                     line['message'])
             else:
                 _logger.error(
-                    str(date) + ' ' + line['phone_serial'] + ' ' + line['phone_imei'] + ' ' + line[
+                    str(date) + 'Smartphone Id:' + smartphone_id + ' ' + line['phone_serial'] + ' ' + line['phone_imei'] + ' ' + line[
                         'logger'] + ' ' +
                     line['message'])
 
