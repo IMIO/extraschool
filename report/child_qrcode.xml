@@ -2,28 +2,10 @@
 <openerp>
 	<data>
 		<template id="report_child">
-
-			<style type="text/css">
-		        .page{
-		    		width: 100%;
-		    		display: block;
-		    	}
-
-				h2 {
-		    		font-size: 60px;
-				}
-
-				.row {
-		    		font-size:30px;
-				}
-				.mylabel {
-		    		font-weight: bold;
-		    		width: 7cm;
-				}
-
-			</style>
+			<xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_child.css"/>
+            </xpath>
 				<t t-foreach="docs" t-as="child">
-
 			        <div class="page" style="width: 100%;display: block;">
 			            <div class="row">
 				            <div class="col-xs-6 col-xs-offset-3">
@@ -65,8 +47,46 @@
 		    	</t>
 		</template>
 
+        <template id="report_child_info">
+			<xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_child_info.css"/>
+            </xpath>
+				<t t-foreach="docs" t-as="child">
+			        <div class="page" style="width: 100%;display: block;">
+                        <div>
+                            <h2 style="font-size: 20px;">Fiche enfant de <span t-field="child.name" /></h2>
+			            </div><br/>
+			            <div class="row">
+				            Fiche généré le <span t-field="child.create_date"/>.
+			            </div>
+			            <div class="row">
+				            <span class="mylabel" style="font-weight: bold; text-decoration: underline;">Informations générales : </span><br/>
+                        </div>
+			            <div class="row">
+				            Nom : <span t-field="child.lastname" /><br/>
+                        </div>
+			            <div class="row">
+				            Prénom : <span t-field="child.firstname" />
+                            Date de naissance : <span t-field="child.birthdate" /><br/>
+                            Adresse : <span t-field="child.parentid.street" /><br/> <span t-field="child.parentid.zipcode"  /> <span t-field="child.parentid.city"  /><br/>
+                            Téléphone en cas d'urgence n°1 : <span t-field="child.parentid.housephone" /><br/>
+                            Téléphone en cas d'urgence n°2 : <span t-field="child.parentid.workphone" /><br/>
+                            Téléphone en cas d'urgence n°3 : <span t-field="child.parentid.gsm" /><br/>
+			            </div>
+		    	    </div>
+		    	</t>
+		</template>
 
 		<report
+		    id="extraschool_child2"
+		    model="extraschool.child"
+		    string="Fiche Enfant"
+		    report_type="qweb-pdf"
+		    name="extraschool.report_child_info"
+		    attachment_use="False"
+		/>
+
+        <report
 		    id="extraschool_child"
 		    model="extraschool.child"
 		    string="Child book"

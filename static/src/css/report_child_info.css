@@ -1,0 +1,18 @@
+.page{
+    width: 100%;
+    display: block;
+    line-height:20px;
+}
+
+h2 {
+    font-size: 16px;
+}
+
+.row {
+    font-size:16px;
+    line-height: 20px;
+}
+.mylabel {
+    font-weight: bold;
+    width: 7cm;
+}
