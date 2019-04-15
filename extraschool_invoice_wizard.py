@@ -848,7 +848,7 @@ class extraschool_invoice_wizard(models.TransientModel):
         # Mise à jour du quantity et total price.
         sql_update_total_price = """UPDATE extraschool_invoicedprestations ip
                               SET   quantity = duration / plv.period_duration + (case when duration % plv.period_duration > plv.period_tolerance then 1 else 0 end),
-                                    total_price = quantity * unit_price
+                                    total_price = round(quantity * unit_price, 2)
                               FROM extraschool_price_list_version plv
                               WHERE ip.id in (""" + ','.join(map(str, invoice_line_ids))+ """)
                                     AND plv.id = ip.price_list_version_id;"""
@@ -857,7 +857,7 @@ class extraschool_invoice_wizard(models.TransientModel):
 
         # Mise à jour du total sur invoice.
         sql_update_invoice_total_price = """update extraschool_invoice i
-                                        set amount_total = (select sum(ip.total_price) 
+                                        set amount_total = (select sum(round(ip.total_price, 2)) 
                                     from extraschool_invoicedprestations ip
                                     where ip.invoiceid = i.id)
                                     where i.id in (""" + ','.join(map(str, invoice_ids))+ """)
@@ -891,12 +891,12 @@ class extraschool_invoice_wizard(models.TransientModel):
 
         # Create the accrued for the biller
         invoice_ids = self.env['extraschool.invoice'].search([('biller_id', '=', biller.id)])
-        invoice_line_ids = self.env['extraschool.invoicedprestations'].search([('invoiceid', 'in', invoice_ids.ids)])
 
         for activity_category in self.activitycategory.ids:
             amount = 0
-            for invoice_line in invoice_line_ids.filtered(lambda r: r.activity_occurrence_id.activity_category_id.id == activity_category):
-                amount += invoice_line.total_price
+            for invoice in invoice_ids:
+                total = sum(invoice_line.total_price for invoice_line in invoice.invoice_line_ids.filtered(lambda r: r.activity_occurrence_id.activity_category_id.id == activity_category))
+                amount += 0 if total < 0.0001 else total
 
             obj_accrued.create({
                 'biller_id': biller.id,
