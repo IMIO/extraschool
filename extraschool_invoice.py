@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014
+#    Copyright (C) 2008-2019
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
 #
@@ -165,29 +165,48 @@ class extraschool_invoice(models.Model):
     def reconcil(self):
         payment_obj = self.env['extraschool.payment']
         payment_reconcil_obj = self.env['extraschool.payment_reconciliation']
+        organizing_power = self.env['extraschool.organising_power'].search([])[0]
         self._compute_balance()
         for invoice in self:
             # todo: Check if the biller (invoices_date) <= today(). Do a cron to launch this method everyday.
-            #search for open payment
-            for invoice_category in invoice.activitycategoryid:
-                payments = payment_obj.search([('parent_id','=',invoice.parentid.id),
-                                        ('activity_category_id', '=', invoice_category.id),
-                                        ('solde','>',0),
-                                        ]).sorted(key=lambda r: r.paymentdate)
+            # If there is a dominant payment
+            if (organizing_power.dominant_payment_activity_category_id):
+                payment_ids = payment_obj.search([('parent_id','=',invoice.parentid.id),
+                                    ('solde','>',0),
+                                    ]).sorted(key=lambda r: r.paymentdate)
 
-                zz = 0
+                count = 0
+                solde = invoice.balance
 
-                solde = invoice.get_balance(invoice_category.id)
-
-                while zz < len(payments) and solde > 0:
-                    amount = solde if payments[zz].solde >= solde else payments[zz].solde
-                    payment_reconcil_obj.create({'payment_id': payments[zz].id,
-                                             'invoice_id': invoice.id,
-                                             'amount': amount,
-                                             'date': fields.Date.today(),
-                                             })
+                while count < len(payment_ids) and solde > 0:
+                    amount = solde if payment_ids[count].solde >= solde else payment_ids[count].solde
+                    payment_reconcil_obj.create({'payment_id': payment_ids[count].id,
+                                                 'invoice_id': invoice.id,
+                                                 'amount': amount,
+                                                 'date': fields.Date.today(),
+                                                 })
                     solde -= amount
-                    zz += 1
+                    count += 1
+            else:
+                for invoice_category in invoice.activitycategoryid:
+                    payments = payment_obj.search([('parent_id','=',invoice.parentid.id),
+                                            ('activity_category_id', '=', invoice_category.id),
+                                            ('solde','>',0),
+                                            ]).sorted(key=lambda r: r.paymentdate)
+
+                    zz = 0
+
+                    solde = invoice.get_balance(invoice_category.id)
+
+                    while zz < len(payments) and solde > 0:
+                        amount = solde if payments[zz].solde >= solde else payments[zz].solde
+                        payment_reconcil_obj.create({'payment_id': payments[zz].id,
+                                                 'invoice_id': invoice.id,
+                                                 'amount': amount,
+                                                 'date': fields.Date.today(),
+                                                 })
+                        solde -= amount
+                        zz += 1
 
             invoice._compute_balance()
 

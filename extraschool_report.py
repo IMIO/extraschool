@@ -2,9 +2,9 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014 
+#    Copyright (C) 2008-2019
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -51,4 +51,3 @@ class extraschool_inline_report(models.Model):
     page_break_after = fields.Boolean(string="Page break after", default=False)
     visibility = fields.Selection([('hide_firstpage','Hidden on first page'),('show_firstpage','First page only'),('show_lastpage','Last page only'),])
     verso = fields.Boolean(default=False)
-    

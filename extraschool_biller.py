@@ -2,9 +2,9 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014
+#    Copyright (C) 2008-2019
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -150,7 +150,8 @@ class extraschool_biller(models.Model):
 
         invoicelastcomstruct = str(self.invoice_ids.sorted(key=lambda r: r.id)[0].number)[-5:]
 
-        self.activitycategoryid[0].sequence_ids.search([('type', '=', 'invoice'),
+        for activity_category in self.activitycategoryid:
+            activity_category.sequence_ids.search([('type', '=', 'invoice'),
                                                      ('year', '=', self.get_from_year()),]).sequence.number_next = invoicelastcomstruct
 
         count = 1
