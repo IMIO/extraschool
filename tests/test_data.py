@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014
+#    Copyright (C) 2008-2019
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot & Michael Colicchia- Imio (<http://www.imio.be>).
 #
@@ -33,6 +33,7 @@ class TestData(TransactionCase):
         self.parent_model = self.env['extraschool.parent']
         self.activity_model = self.env['extraschool.activity']
         self.prestation_times_of_the_day_model = self.env['extraschool.prestation_times_of_the_day']
+        self.prestation_times_model = self.env['extraschool.prestationtimes']
         self.activity_category_model = self.env['extraschool.activitycategory']
         self.school_implantation_model = self.env['extraschool.schoolimplantation']
         self.school_model = self.env['extraschool.school']
@@ -40,6 +41,9 @@ class TestData(TransactionCase):
         self.prestation_times_model = self.env['extraschool.prestationtimes']
         self.exclusion_date_model = self.env['extraschool.activityexclusiondates']
         self.organising_power_model = self.env['extraschool.organising_power']
+        self.child_registration_model = self.env['extraschool.child_registration']
+        self.price_list_model = self.env['extraschool.price_list']
+        self.price_list_version_model = self.env['extraschool.price_list_version']
 
         # Creation of Organising Power.
         organising_power = self.organising_power_model.create({
@@ -53,6 +57,7 @@ class TestData(TransactionCase):
             'invoicecomstructprefix': 100,
             'remindercomstructprefix': 200,
             'payment_invitation_com_struct_prefix': 300,
+            'organising_power_id': organising_power.id,
         })
 
         # Creation of activity category.
@@ -62,11 +67,12 @@ class TestData(TransactionCase):
             'invoicecomstructprefix': 101,
             'remindercomstructprefix': 202,
             'payment_invitation_com_struct_prefix': 303,
+            'organising_power_id': organising_power.id,
         })
 
         organising_power.write({
-            'activity_category_ids': [(6, 0, [activity_category_1.id, activity_category_2.id])],
-            'max_school_implantation': 5,
+            # 'activity_category_ids': [(6, 0, [activity_category_1.id, activity_category_2.id])],
+            'max_school_implantation': 100,
         })
 
         # Creation of school
@@ -330,4 +336,22 @@ class TestData(TransactionCase):
             'short_name': 'Cirque du soleil',
             'autoaddchilds': False,
             'onlyregisteredchilds': True,
+        })
+
+        price_list_version_1 = self.price_list_version_model.create({
+            'name': 'matin payant',
+            'validity_from': '2018-01-01',
+            'validity_to': '2018-12-31',
+            'activity_ids': [(4, activity_5.id)],
+            'child_type_ids': [(4, 1)],
+            'child_position_ids': [(4, 1)],
+            'period_duration': 15,
+            'price': 0.150,
+            'period_tolerance': 0,
+            'max_price': 0.000,
+        })
+
+        price_list_1 = self.price_list_model.create({
+            'name': 'matin payant',
+            'price_list_version_ids': [(4, price_list_version_1.id)]
         })
