@@ -107,7 +107,7 @@ class extraschool_presta_stat(models.Model):
 
                 period_str = "%s - %s" % (self.convert_time(last_period), self.convert_time(prest_to))
 
-                start_date, end_date = '2017-01-01', '2019-06-30'
+                start_date, end_date = '2018-01-01', '2019-06-30'
 
                 print "##Computing Statistics for range: ", period_str, " activity: ", activity.name.encode("utf-8")
 
