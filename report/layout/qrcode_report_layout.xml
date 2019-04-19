@@ -11,10 +11,10 @@
 		    </xpath>
 
             <xpath expr="//html" position="attributes">
-		    	<attribute name="t-att-data-report-margin-top">docs[0].activitycategoryid[0].organising_power_id.qrcode_report_id.paper_format_id.margin_top</attribute>
-		        <attribute name="t-att-data-report-margin-bottom">docs[0].activitycategoryid[0].organising_power_id.qrcode_report_id.paper_format_id.margin_bottom</attribute>
-		        <attribute name="t-att-data-report-margin-right">docs[0].activitycategoryid[0].organising_power_id.qrcode_report_id.paper_format_id.margin_right</attribute>
-		        <attribute name="t-att-data-report-margin-left">docs[0].activitycategoryid[0].organising_power_id.qrcode_report_id.paper_format_id.margin_left</attribute>
+		    	<attribute name="t-att-data-report-margin-top">docs[0].organising_power_id.qrcode_report_id.paper_format_id.margin_top</attribute>
+		        <attribute name="t-att-data-report-margin-bottom">docs[0].organising_power_id.qrcode_report_id.paper_format_id.margin_bottom</attribute>
+		        <attribute name="t-att-data-report-margin-right">docs[0].organising_power_id.qrcode_report_id.paper_format_id.margin_right</attribute>
+		        <attribute name="t-att-data-report-margin-left">docs[0].organising_power_id.qrcode_report_id.paper_format_id.margin_left</attribute>
 		    </xpath>
 
             <xpath expr="//body" position="inside">
@@ -37,7 +37,7 @@
                                     <t t-set="school" t-value="docs[i].schoolimplantation.name"/>
                                     <t t-set="tagid" t-value="docs[i].action_gentagid()[0]"/>
 
-                                    <t t-foreach="docs[0].activitycategoryid[0].organising_power_id.qrcode_report_id.inline_report_ids.filtered(lambda r: r.verso == False)" t-as="tmpl">
+                                    <t t-foreach="docs[0].organising_power_id.qrcode_report_id.inline_report_ids.filtered(lambda r: r.verso == False)" t-as="tmpl">
                                         <div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">
                                             <t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
                                         </div>
@@ -56,7 +56,7 @@
                                     <!--Initialize variables here.-->
                                     <t t-set="img" t-value="docs[0].schoolimplantation.schoolid.logo"/>
 
-                                    <t t-foreach="docs[0].activitycategoryid[0].organising_power_id.qrcode_report_id.inline_report_ids.filtered(lambda r: r.verso == True)" t-as="tmpl">
+                                    <t t-foreach="docs[0].organising_power_id.qrcode_report_id.inline_report_ids.filtered(lambda r: r.verso == True)" t-as="tmpl">
                                         <div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">
                                             <t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
                                         </div>
