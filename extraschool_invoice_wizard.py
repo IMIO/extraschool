@@ -856,6 +856,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                 biller.generate_pdf()
             else:
                 biller.pdf_ready = True
+                biller.in_creation = False
             _logger.info("ALL PDF GENERATED")
         else:
             biller.pdf_ready = True
