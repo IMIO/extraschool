@@ -86,15 +86,24 @@ class extraschool_invoice(models.Model):
     @api.model
     def update_activity_category(self):
         base_activity_category = self.env['extraschool.activitycategory'].search([])[0]
-        bille_ids = self.env['extraschool.biller'].search([('activitycategoryid', '=', False)])
+        biller_ids = self.env['extraschool.biller'].search([('activitycategoryid', '=', False)])
         invoice_ids = self.search([('activitycategoryid', '=', False)])
         activity_ids = self.env['extraschool.activity'].search([('category_id', '=', False)])
         payment_ids = self.env['extraschool.payment'].search([])
+        child_ids = self.env['extraschool.child'].search([])
 
-        if not self.env['extraschool.organising_power'].search([]):
-            self.env['extraschool.organising_power'].create({
+        organising_power_id = self.env['extraschool.organising_power'].search([])
+
+        if not organising_power_id:
+            organising_power_id = self.env['extraschool.organising_power'].create({
                 'town': "Replace this",
             })
+
+        for child_id in child_ids:
+            try:
+                child_id.organising_power_id = organising_power_id
+            except:
+                pass
 
         for invoice in invoice_ids:
             try:
@@ -102,7 +111,7 @@ class extraschool_invoice(models.Model):
             except:
                 pass
 
-        for biller in bille_ids:
+        for biller in biller_ids:
             try:
                 biller.activitycategoryid = base_activity_category
             except:

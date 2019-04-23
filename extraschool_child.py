@@ -34,14 +34,10 @@ class extraschool_child(models.Model):
     _description = 'Child'
     _inherit = 'mail.thread'
 
-    def _get_organising_power(self):
-        return self.env['extraschool.organising_power'].search([])[0]
-
     organising_power_id = fields.Many2one(
         'extraschool.organising_power',
         'Organising Power',
         track_visibility='onchange',
-        default=_get_organising_power,
                                           )
     name = fields.Char(compute='_name_compute',string='FullName', search='_search_fullname', size=100)
     childtypeid = fields.Many2one('extraschool.childtype', 'Type',required=True, ondelete='restrict', help='Ce champs permet de définir si l\'enfant a le droit à un tarif préférentiel (ex: enfants du CPAS, enfants de la croix rouge, enfants des accueillantes,...)')
@@ -157,6 +153,12 @@ class extraschool_child(models.Model):
     @api.one
     def unlink(self):
         self.isdisabled = True
+
+    @api.model
+    def create(self, vals):
+        vals[u'organising_power_id'] = self.env['extraschool.organising_power'].search([]).mapped('id')[0]
+
+        return super(extraschool_child, self).create(vals)
 
 
 ##############################################################################
