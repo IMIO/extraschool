@@ -173,12 +173,12 @@ class extraschool_remindersjournal(models.Model):
                                                 INNER JOIN extraschool_parent AS p		
                                                 ON r.parentid = p.id		
                                                 WHERE r.reminders_journal_id = %s 
-                                                AND i.balance > 0
+                                                AND i.balance >= %s
                                                 AND i.tag IS NULL
                                                 )
                                 ORDER BY p.id"""
                            )
-        cr.execute(get_invoice_sql, (new_remindersjournal.id,))
+        cr.execute(get_invoice_sql, (new_remindersjournal.id, reminder_type.minimum_general_balance))
         invoice_ids = cr.fetchall()
 
         print "#%s invoices to process" % (len(invoice_ids))
