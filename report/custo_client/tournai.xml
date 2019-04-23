@@ -53,9 +53,12 @@
 					   Si vous estimez toutefois ne pas être redevable du montant qui vous est réclamé, nous vous prions de formuler <span class="ecrit">par écrit</span> les motifs de votre contestation,
 						dès réception de la présente en veillant à bien indiquer la référence du présent courrier. <br/><br/>
 
-					   Nous profitons également de ce courrier pour vous informer qu’à défaut de recevoir soit un paiement endéans le délai imparti, soit le courrier de contestation dûment motivé dont question ci-dessus,
-						nous nous réservons la possibilité d’appliquer à votre encontre la procédure de contrainte prévue par l’article L1124-40§1, 1°i1 du Code de la Démocratie Locale et de la Décentralisation et de recouvrer
-						la créance de la Ville selon les modalités qui y sont prévues. Nous espérons néanmoins ne pas devoir en arriver à de telles alternatives et comptons sur votre diligence.<br/><br/>
+					   Par ailleurs, nous vous informons qu’à défaut de recevoir soit un paiement endéans le délai
+                        imparti, soit le courrier de contestation dûment motivé dont question ci-dessus, nous nous
+                        réservons la possibilité d’appliquer à votre encontre la procédure de contrainte prévue par
+                        l’article L1124-40§1, 1° du Code de la Démocratie Locale et de la Décentralisation et de
+                        recouvrer la créance de la Ville selon les modalités qui y sont prévues. Nous espérons
+                        néanmoins ne pas devoir en arriver à de telles alternatives et comptons sur votre diligence.<br/><br/>
 
 					   Nous vous signalons enfin, à titre infiniment subsidiaire, que si nous devions avoir recours à la contrainte pour récupérer la somme due, les frais de l’intervention de l’huissier
 						seront mis à votre charge ainsi que les frais administratifs du présent courrier recommandé.<br/><br/>
@@ -146,6 +149,27 @@
                 TOURNAI.be<br/>
                 Toute la correspondance est à adresser à Monsieur le Bourgmestre
             </div>
+		</template>
+
+        <template id="report_adresse_no_style_tournai">
+		    <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_adresse_no_style_tournai.css"/>
+            </xpath>
+	    	<div class="aes_adresse">
+				<span t-field="po_addresse.po_name" />
+					<span t-field="po_addresse.po_street" />
+					<span><t t-esc="po_addresse.po_zipcode" /> <t t-esc="po_addresse.po_city" /></span><br/>
+					<span t-field="po_addresse.po_email" />
+					<span t-field="po_addresse.po_tel" />
+					<span t-raw="po_addresse.po_addresse_free_text2" /><br/>
+                    Recommandé
+
+				<div class="aes_adresse_block customer">
+					<span t-field="addresse.name" />
+					<span t-field="addresse.street" />
+					<span><t t-esc="addresse.zipcode" /> <t t-esc="addresse.city" /></span>
+				</div>
+			</div>
 		</template>
 
     </data>

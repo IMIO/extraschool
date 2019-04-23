@@ -216,7 +216,7 @@
                         <span class="zz_label">Frais de rappel</span><span class="amount"><t t-esc="'%.2f' %  (fees)" /> €</span>
                     </div>
                     <div class="amount" t-if="no_value">
-						<span class="zz_label">Erreur conf. péd. 25/01</span><span class="amount"><t t-esc="'%.2f' %  (no_value)" /> €</span>
+						<span class="zz_label">Erreur conf. péd. 25/01</span><span class="amount">-<t t-esc="'%.2f' %  (no_value)" /> €</span>
 					</div>
                     <div class="amount to_pay" t-if="reminder_type == 'fix'">
                         <span style="font-size:14px">Solde</span><span class="amount"><t t-esc="'%.2f' %  (balance + fees)" /> €</span>
