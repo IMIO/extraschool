@@ -153,11 +153,10 @@ class extraschool_smartphone(models.Model):
     @api.multi
     def update_app_version(self, version):
         version = str(version)
-        version = version[0] + '.' + version[1] + '.' + version[2] + version[3]
-        if version == False:
-            self.softwareversion = "Aucune info"
-        else:
+        if version:
             self.softwareversion = version
+        else:
+            self.softwareversion = "Aucune info"
 
     @api.model
     def create(self,vals):
@@ -275,19 +274,20 @@ class extraschool_smartphone_detail_log(models.Model):
     def print_log(self, message, smartphone_id):
         for line in message['logs']:
             date = datetime.strptime(str(line['datetime']), '%Y%m%dT%H%M%S')
+            message_log = '{} Smartphone Id {} {} {} {} {} {}'.format(str(date),
+                                                                      smartphone_id,
+                                                                      message["app_version"],
+                                                                      line['phone_serial'],
+                                                                      line['phone_imei'],
+                                                                      line['logger'],
+                                                                      line['message'])
             if "INFO" in line['level']:
-                _logger.info(
-                    str(date) + 'Smartphone Id:' + smartphone_id + ' ' + line['phone_serial'] + ' ' + line['phone_imei'] + ' ' + line['logger'] + ' ' +
-                    line['message'])
+                _logger.info(message_log)
+
             elif "WARN" in line['level']:
-                _logger.warning(
-                    str(date) + 'Smartphone Id:' + smartphone_id + ' ' + line['phone_serial'] + ' ' + line['phone_imei'] + ' ' + line['logger'] + ' ' +
-                    line['message'])
+                _logger.warning(message_log)
             else:
-                _logger.error(
-                    str(date) + 'Smartphone Id:' + smartphone_id + ' ' + line['phone_serial'] + ' ' + line['phone_imei'] + ' ' + line[
-                        'logger'] + ' ' +
-                    line['message'])
+                _logger.error(message_log)
 
             # self.env['extraschool.smartphone_detail_log'].create({
             #     'text': line['message'],
@@ -296,13 +296,13 @@ class extraschool_smartphone_detail_log(models.Model):
             #     'level': line['level']
             # })
 
-        # if "app_version" in message:
-        #     app_version = message["app_version"]
-        # else:
-        #     app_version = False
-        #
-        # smartphone_obj = self.env['extraschool.smartphone'].search([('id', '=', smartphone_id)])
-        # smartphone_obj.update_app_version(app_version)
+        if "app_version" in message:
+            app_version = message["app_version"]
+        else:
+            app_version = False
+
+        smartphone_obj = self.env['extraschool.smartphone'].search([('id', '=', smartphone_id)])
+        smartphone_obj.update_app_version(app_version)
 
 
     @staticmethod
