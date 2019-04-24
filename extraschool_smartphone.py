@@ -296,13 +296,13 @@ class extraschool_smartphone_detail_log(models.Model):
             #     'level': line['level']
             # })
 
-        if "app_version" in message:
-            app_version = message["app_version"]
-        else:
-            app_version = False
-
-        smartphone_obj = self.env['extraschool.smartphone'].search([('id', '=', smartphone_id)])
-        smartphone_obj.update_app_version(app_version)
+        # if "app_version" in message:
+        #     app_version = message["app_version"]
+        # else:
+        #     app_version = False
+        #
+        # smartphone_obj = self.env['extraschool.smartphone'].search([('id', '=', smartphone_id)])
+        # smartphone_obj.update_app_version(app_version)
 
 
     @staticmethod
