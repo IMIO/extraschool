@@ -178,23 +178,38 @@ class extraschool_remindersjournal(models.Model):
                                                 )
                                 ORDER BY p.id"""
                            )
-        cr.execute(get_invoice_sql, (new_remindersjournal.id, reminder_type.minimum_general_balance))
+        cr.execute(get_invoice_sql, (new_remindersjournal.id, reminder_type.minimum_balance))
         invoice_ids = cr.fetchall()
 
         print "#%s invoices to process" % (len(invoice_ids))
 
         # Build dictionnary of invoices sorted by parents.
         invoice_dict = {}
+        amount_dict = {}
 
         print "##Building dictionnary of invoices sorted by parents..."
 
         for invoice in invoice_ids:
             invoice_dict.setdefault(invoice[2], []).append(invoice[0])
+            amount_dict.setdefault(invoice[2], []).append(invoice[1])
             if reminder_type.bailiff:
                 invoice_obj.search([('id', '=', invoice[0])]).write({'tag': 1})
 
-        # Write the reminders_journal
-        reminders_journal_item_amount = sum([invoice[1] for invoice in invoice_ids])
+        parent_to_del = []
+        for parent in invoice_dict:
+            sum_parent_balance = sum(
+                self.env['extraschool.invoice'].search([('id', 'in', invoice_dict[parent])]).mapped('balance'))
+            
+            if sum_parent_balance <= reminder_type.minimum_general_balance:
+                parent_to_del.append(parent)
+
+        for parent in parent_to_del:
+            invoice_dict.pop(parent, None)
+            amount_dict.pop(parent, None)
+
+        reminders_journal_amount = 0
+        for amount in amount_dict:
+            reminders_journal_amount += sum([i for i in amount_dict[amount]])
 
         # Create a reminder journal
         reminders_journal_item_id = self.env['extraschool.reminders_journal_item'].create(
@@ -202,7 +217,7 @@ class extraschool_remindersjournal(models.Model):
              'reminder_type_id': reminder_type.id,
              'reminders_journal_id': self.id,
              'payment_term': datetime.date.today() + datetime.timedelta(days=reminder_type.payment_term_in_day),
-             'amount': reminders_journal_item_amount,
+             'amount': reminders_journal_amount,
              })
 
         count = 1
