@@ -274,22 +274,38 @@ class extraschool_smartphone_detail_log(models.Model):
     def print_log(self, message, smartphone_id):
         for line in message['logs']:
             date = datetime.strptime(str(line['datetime']), '%Y%m%dT%H%M%S')
+            error_message = "Error message for Smartphone logs"
+            message_decode = line['message']
+            try:
+                message_decode.encode('utf-8')
+            except:
+                message_decode = "Error encoding message log"
+
             message_log = '{} Smartphone id: {} version: {} logger: {} message: {} ###### serial: {} imei: {}'.format(
                 str(date),
                 smartphone_id,
                 message["app_version"],
                 line['logger'],
-                line['message'].encode('utf-8'),
+                message_decode,
                 line['phone_serial'],
                 line['phone_imei'],
             )
             if "INFO" in line['level']:
-                _logger.info(message_log)
+                try:
+                    _logger.info(message_log)
+                except:
+                    _logger.error(error_message)
 
             elif "WARN" in line['level']:
-                _logger.warning(message_log)
+                try:
+                    _logger.warning(message_log)
+                except:
+                    _logger.error(error_message)
             else:
-                _logger.error(message_log)
+                try:
+                    _logger.error(message_log)
+                except:
+                    _logger.error(error_message)
 
         if "app_version" in message:
             app_version = message["app_version"]
