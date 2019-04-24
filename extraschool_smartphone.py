@@ -279,7 +279,7 @@ class extraschool_smartphone_detail_log(models.Model):
                 smartphone_id,
                 message["app_version"],
                 line['logger'],
-                line['message'],
+                line['message'].encode('utf-8'),
                 line['phone_serial'],
                 line['phone_imei'],
             )
