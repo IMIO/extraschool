@@ -276,6 +276,11 @@ class extraschool_smartphone_detail_log(models.Model):
             date = datetime.strptime(str(line['datetime']), '%Y%m%dT%H%M%S')
             error_message = "Error message for Smartphone logs"
             message_decode = line['message']
+            imei = line['phone_imei']
+            try:
+                imei = imei.encode('utf-8')
+            except:
+                imei = 'Error decode'
             try:
                 message_decode.encode('utf-8')
             except:
@@ -288,7 +293,7 @@ class extraschool_smartphone_detail_log(models.Model):
                 line['logger'],
                 message_decode,
                 line['phone_serial'],
-                line['phone_imei'],
+                imei,
             )
             if "INFO" in line['level']:
                 try:
