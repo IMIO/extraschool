@@ -241,7 +241,7 @@ class extraschool_pda_transmission(models.Model):
     transmission_date_from = fields.Datetime('Date from')
     transmission_date_to = fields.Datetime('Date to')
     smartphone_id = fields.Many2one('extraschool.smartphone', 'Smartphone')
-    pda_prestation_times_ids = fields.One2many('extraschool.pdaprestationtimes','pda_transmission_id')
+    pda_prestation_times_ids = fields.One2many('extraschool.pdaprestationtimes', 'pda_transmission_id')
     state = fields.Selection([('init', 'Init'),
                               ('in_progress', 'In progress'),
                               ('warning', 'Warning'),
@@ -274,13 +274,15 @@ class extraschool_smartphone_detail_log(models.Model):
     def print_log(self, message, smartphone_id):
         for line in message['logs']:
             date = datetime.strptime(str(line['datetime']), '%Y%m%dT%H%M%S')
-            message_log = '{} Smartphone Id {} {} {} {} {} {}'.format(str(date),
-                                                                      smartphone_id,
-                                                                      message["app_version"],
-                                                                      line['phone_serial'],
-                                                                      line['phone_imei'],
-                                                                      line['logger'],
-                                                                      line['message'])
+            message_log = '{} Smartphone id: {} version: {} logger: {} message: {} ###### serial: {} imei: {}'.format(
+                str(date),
+                smartphone_id,
+                message["app_version"],
+                line['logger'],
+                line['message'],
+                line['phone_serial'],
+                line['phone_imei'],
+            )
             if "INFO" in line['level']:
                 _logger.info(message_log)
 
@@ -288,13 +290,6 @@ class extraschool_smartphone_detail_log(models.Model):
                 _logger.warning(message_log)
             else:
                 _logger.error(message_log)
-
-            # self.env['extraschool.smartphone_detail_log'].create({
-            #     'text': line['message'],
-            #     'date_of_transmission': date,
-            #     'smartphone_id': smartphone_id,
-            #     'level': line['level']
-            # })
 
         if "app_version" in message:
             app_version = message["app_version"]
