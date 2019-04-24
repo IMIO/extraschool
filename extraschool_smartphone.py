@@ -279,22 +279,24 @@ class extraschool_smartphone_detail_log(models.Model):
             imei = line['phone_imei']
             try:
                 imei = imei.encode('utf-8')
-            except:
+            except :
                 imei = 'Error decode'
             try:
                 message_decode.encode('utf-8')
             except:
                 message_decode = "Error encoding message log"
-
-            message_log = '{} Smartphone id: {} version: {} logger: {} message: {} ###### serial: {} imei: {}'.format(
-                str(date),
-                smartphone_id,
-                message["app_version"],
-                line['logger'],
-                message_decode,
-                line['phone_serial'],
-                imei,
-            )
+            try:
+                message_log = '{} Smartphone id: {} version: {} logger: {} message: {} ###### serial: {} imei: {}'.format(
+                    str(date),
+                    smartphone_id,
+                    message["app_version"],
+                    line['logger'],
+                    message_decode,
+                    line['phone_serial'],
+                    imei,
+                )
+            except:
+                message_log = "There has been an error on the construction of the log message"
             if "INFO" in line['level']:
                 try:
                     _logger.info(message_log)
