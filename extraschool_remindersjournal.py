@@ -216,7 +216,7 @@ class extraschool_remindersjournal(models.Model):
             {'name': "%s - %s" % (self.name, reminder_type.name),
              'reminder_type_id': reminder_type.id,
              'reminders_journal_id': self.id,
-             'payment_term': datetime.date.today() + datetime.timedelta(days=reminder_type.payment_term_in_day),
+             'payment_term': datetime.datetime.strptime(self.transmission_date, "%Y-%m-%d") + datetime.timedelta(days=reminder_type.payment_term_in_day),
              'amount': reminders_journal_amount,
              })
 
@@ -352,7 +352,7 @@ class extraschool_remindersjournal(models.Model):
                 reminders_journal_item_id = self.env['extraschool.reminders_journal_item'].create({'name' : "%s - %s" % (self.name,reminder_type.name),
                                                                                                    'reminder_type_id' : reminder_type.id,
                                                                                                    'reminders_journal_id' : self.id,
-                                                                                                   'payment_term' : datetime.date.today() + datetime.timedelta(days=reminder_type.payment_term_in_day),
+                                                                                                   'payment_term' : datetime.datetime.strptime(self.transmission_date, "%Y-%m-%d") + datetime.timedelta(days=reminder_type.payment_term_in_day),
                                                                                                    'amount' : sum([invoice.balance for invoice in invoice_ids])})
                 reminder = False
                 parent_id = -1
