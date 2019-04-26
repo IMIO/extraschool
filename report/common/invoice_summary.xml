@@ -111,54 +111,10 @@
 			</t>
 		</template>
 
-        		<template id="report_invoice_summary_tournai_tableau_rappel">
-			<style type="text/css">
-				#invoice_summary{
-					width: 100%;
-					display: block;
-					margin: 0cm 0cm 0cm 0cm;
-					page-break-inside: avoid;
-					text-align: justify;
-					text-justify: inter-word;
-					font-size: 17px;
-				}
-
-				#invoice_summary div.your_ref{
-					width: 100%;
-					padding: 5mm 0mm 5mm 0mm;
-					display: block;
-				}
-
-				#invoice_summary table {
-					width: 100%;
-					font-size:11px;
-					border-width: 1px;
-					border-collapse: collapse;
-				}
-				#invoice_summary table th {
-					border-width: 1px;
-					padding: 4px;
-					border-style: solid;
-					background-color: #dedede;
-				}
-				#invoice_summary table td {
-					border-width: 1px;
-					padding: 4px;
-					border-style: solid;
-				}
-
-				#invoice_summary table td.amount {
-					text-align: right;
-					width: 20%;
-				}
-
-				div#invoice_summary h2{
-					font-size: 12px;
-					font-weight: bold;
-				}
-
-			</style>
-
+        <template id="report_invoice_summary_tournai_tableau_rappel">
+			<xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_invoice_summary_tournai_tableau_rappel.css"/>
+            </xpath>
 			<div id="invoice_summary" >
 				<p>
 					<span style="font-decoration:underline; font-size: 15px;">Liste des factures couvrant cette période </span>
@@ -194,7 +150,16 @@
 						<th style="text-align:right;"><span t-esc="'%.2f €' % (sum([summary_invoice.balance for summary_invoice in summary_invoice_ids]))"/></th>
 					</tr>
 				</table>
-			</div>
+			</div><br/>
+            <div style="font-size: 11px;">
+                <sup>11</sup>Article L1124-40 « § 1er. Le directeur financier est chargé :<br/>
+                    1° d'effectuer les recettes de la commune.<br/>
+                    En vue du recouvrement des créances non fiscales certaines et exigibles, le directeur financier peut envoyer une contrainte visée et rendue exécutoire par le collège communal. <br/>
+                    Une telle contrainte est signifiée par exploit d'huissier. Cet exploit interrompt la prescription. <br/>
+                    Une contrainte ne peut être visée et rendue exécutoire par le collège communal que si la dette est exigible, liquide et certaine. Le débiteur doit en outre être préalablement mis en demeure par courrier recommandé. La commune
+                peut imputer des frais administratifs pour ce courrier recommandé. Ces frais sont à charge du débiteur et peuvent
+                être recouvrés par la contrainte. Les dettes des personnes de droit public ne peuvent jamais être recouvrées par contrainte. Un recours contre cet exploit peut être introduit dans le mois de la signification par requête ou par citation;(...) ».
+            </div>
 		</template>
 
 		<template id="report_all_invoice_summary">
