@@ -42,13 +42,13 @@
 						Cher Parent, <br/><br/>
 
 					   Le service Comptabilité de la Ville de Tournai a constaté que, pour les frais scolaires de votre (vos) enfant(s) pour la période du <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/> il restait un montant impayé de
-					   <t t-esc="'%.2f €' % (amount)"/>, et ce, malgré le courrier de rappel du                    , qui vous a déjà été adressé. Veuillez trouver en annexe le détail de ce montant.<br/><br/>
+					   <t t-esc="'%.2f €' % (amount)"/>, et ce, malgré le courrier de rappel du <t t-esc="datetime.datetime.strptime(reminder.reminders_journal_id.based_reminder_id.transmission_date, '%Y-%m-%d').strftime('%d-%m-%Y')"/>, qui vous a déjà été adressé. Veuillez trouver en annexe le détail de ce montant.<br/><br/>
 
 						<b>Par la présente, nous vous mettons en demeure de payer ce montant de <t t-esc="'%.2f €' % (amount)"/> pour le <t t-esc="payment_term" />
 						au plus tard, au bénéfice du compte (IBAN) n° BE25 0960 2105 5182 (code BIC : GKCCBEBB),
 						avec la communication structurée suivante : <t t-esc="com_struct" />.</b><br/><br/>
 
-						Si entretemps, la somme a été réglée, veuillez considérer ce rappel comme nul et non avenu.<br/><br/>
+						Si entretemps, la somme a été réglée, veuillez considérer cette mise en demeure comme nulle et non avenue.<br/><br/>
 
 					   Si vous estimez toutefois ne pas être redevable du montant qui vous est réclamé, nous vous prions de formuler <span class="ecrit">par écrit</span> les motifs de votre contestation,
 						dès réception de la présente en veillant à bien indiquer la référence du présent courrier. <br/><br/>
