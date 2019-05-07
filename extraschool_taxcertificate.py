@@ -249,7 +249,7 @@ class extraschool_taxcertificate_item(models.Model):
 class extraschool_tax_certificate_detail(models.Model):
     _name = 'extraschool.tax_certificate_detail'
     _description = 'Tax Certificate Detail'
-    _auto = False # Disable creation of table.
+    _auto = False  # Disable creation of table.
     _order = ''
 
     tax_certificate_item_id = fields.Many2one('extraschool.taxcertificate_item', 'tax_certificate_detail_ids', select=True)
@@ -302,7 +302,7 @@ class extraschool_tax_certificate_detail(models.Model):
                                     LEFT JOIN extraschool_payment AS pay 
                                     ON pay.id = pay_rec.payment_id
                                     WHERE pay_rec.paymentdate BETWEEN '2018-01-01' AND '2018-12-31'
-                                    AND inv.balance = 0 AND inv.reminder_fees = false OR inv.reminder_fees IS NULL) 
+                                    AND inv.balance = 0 AND (inv.reminder_fees IS NULL OR inv.reminder_fees = false )) 
                                     AND act.on_tax_certificate = TRUE
                                     AND prest.prestation_date <= c.birthdate + interval '12 year'
                     ORDER BY inv.number, prest.prestation_date, act.short_name, prest.prestation_time
