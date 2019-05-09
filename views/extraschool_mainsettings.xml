@@ -70,6 +70,10 @@
                                     <button name="reset_biller" string="Reset" icon="gtk-apply" type="object"/>
                                     <button name="reconcil_all" string="Reconcil" icon="gtk-apply" type="object"/>
                                 </page>
+                                <page string="Reminder">
+                                    <field name="reminder_journal_id"/>
+                                    <button name="update_comm_struct" string="Update Comm Struct" icon="gtk-apply" type="object"/>
+                                </page>
                         </notebook>
                     </sheet>
 				</form>
