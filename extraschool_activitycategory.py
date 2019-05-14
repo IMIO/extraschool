@@ -202,6 +202,14 @@ class extraschool_activitycategory(models.Model):
         return sequence_id
 
     @api.multi
+    def get_next_sequence_id(self, sequence):
+        self.ensure_one()
+        com_struct_id_str = sequence.next_by_id()
+        if self.env['extraschool.invoice'].search([], order='number DESC', limit=1).number >= int(com_struct_id_str):
+            return self.get_next_sequence_id(sequence)
+        return com_struct_id_str
+
+    @api.multi
     def get_next_comstruct(self,type,year, sequence_id = False):
 
         # Added a refund comstruct.
@@ -215,8 +223,8 @@ class extraschool_activitycategory(models.Model):
 
         if not sequence_id:
             sequence_id = self.get_sequence(type,year)
-        # com_struct_id_str = self.env['ir.sequence'].next_by_id(sequence_id.id)
-        com_struct_id_str = sequence_id.next_by_id()
+
+        com_struct_id_str = self.get_next_sequence_id(sequence_id)
 
         if type == 'reminder':
             com_struct_prefix_str = self.remindercomstructprefix

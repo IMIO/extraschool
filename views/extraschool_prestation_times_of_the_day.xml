@@ -76,6 +76,7 @@
 	                    	<tree string="prestation_times" colors="red:active == False">
 								<field name="active" invisible="1"/>
 								<field name="type" readonly="1"/>
+								<field name="create_date" readonly="1"/>
 		                   		<field name="childid" readonly="1"/>
 	                    		<field name="placeid" readonly="1"/>
 	                    		<field name="prestation_time"  widget="float_time" readonly="1"/>
