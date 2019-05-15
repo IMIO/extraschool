@@ -40,14 +40,15 @@ class extraschool_health_sheet(models.Model):
     comment = fields.Text(string='Comment')
     doctor_id = fields.Many2one('extraschool.doctor', string='Doctor', select=True)
     blood_type = fields.Selection(
-        (('ab+','AB+'),
-         ('ab-','AB-'),
-         ('a+', 'A+'),
-         ('a-', 'A-'),
-         ('b+', 'B+'),
-         ('b-', 'B-'),
-         ('o+', 'O+'),
-         ('o-', 'O-')), string='Blood type')
+        (('AB+','AB+'),
+         ('AB-','AB-'),
+         ('A+', 'A+'),
+         ('A-', 'A-'),
+         ('B+', 'B+'),
+         ('B-', 'B-'),
+         ('O+', 'O+'),
+         ('O-', 'O-'),
+         ('inconnu', 'Inconnu')), string='Blood type')
     tetanus = fields.Boolean(string='Tetanus', default=False)
     first_date_tetanus = fields.Date(string='First date tetanus')
     last_date_tetanus = fields.Date(string='Last date tetanus')
