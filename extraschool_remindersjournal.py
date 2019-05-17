@@ -62,6 +62,7 @@ class extraschool_remindersjournal(models.Model):
     reminders_journal_item_ids = fields.One2many('extraschool.reminders_journal_item', 'reminders_journal_id','Reminder journal item')
     reminder_ids = fields.One2many('extraschool.reminder', 'reminders_journal_id','Reminders', track_visibility='onchange')
     biller_id = fields.Many2one('extraschool.biller', 'Biller', readonly=True, states={'draft': [('readonly', False)]})
+    biller_ids = fields.One2many('extraschool.biller', 'reminder_journal_id')
     remindersjournal_biller_item_ids = fields.One2many('extraschool.reminders_journal_biller_item', 'reminders_journal_id','Reminders biller item')
     ready_to_print = fields.Boolean(String = 'Ready to print', default = False)
     date_from = fields.Date(string='Date from', readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
@@ -73,6 +74,16 @@ class extraschool_remindersjournal(models.Model):
     based_reminder_id = fields.Many2one('extraschool.remindersjournal', 'Choose the reminder to be based on', track_visibility='onchange')
     show_based_reminder = fields.Boolean('Clic here if it\'s not the first reminder', default=False, track_visibility='onchange')
     unsolved_reminder_ids = fields.One2many('extraschool.reminder', 'reminders_journal_id', 'Unsolved Reminders', compute="_get_unsolved_reminder_method", track_visibility='onchange')
+
+    @api.onchange('date_from', 'date_to')
+    @api.multi
+    def get_concerned_biller(self):
+        if self.date_from and self.date_to:
+
+            self.biller_ids = self.env['extraschool.biller'].search(
+                [('payment_term', '<=', self.date_to),
+                 ('payment_term', '>=', self.date_from),
+                 ]).ids
 
     @api.one
     def _get_unsolved_reminder_method(self):
