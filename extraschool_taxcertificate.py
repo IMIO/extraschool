@@ -245,6 +245,7 @@ class extraschool_taxcertificate_item(models.Model):
     amount = fields.Float('Amount')
     tax_certificate_detail_ids = fields.One2many('extraschool.tax_certificate_detail', 'tax_certificate_item_id')
     tax_certificate_send_method = fields.Char()
+    annee = fields.Integer(String='Annee' , related="taxcertificate_id.name", index=True)
 
 class extraschool_tax_certificate_detail(models.Model):
     _name = 'extraschool.tax_certificate_detail'

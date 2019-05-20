@@ -3551,6 +3551,7 @@ msgid "FirstName"
 msgstr "Prénom"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificate_item_annee
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificate_name
 msgid "Fiscal Year"
 msgstr "Année fiscale"
@@ -7712,7 +7713,7 @@ msgstr "Time correction Wizard"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificate_title
 msgid "Title"
-msgstr "Civilité"
+msgstr "Titre (Année fiscale)"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_prest_to
