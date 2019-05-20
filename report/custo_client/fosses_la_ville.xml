@@ -1,0 +1,64 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+
+        <template id="report_invoice_summary_flv">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_invoice_summary_yvoir.css"/>
+            </xpath>
+			<t t-set="zz" t-value="0" />
+			<t t-foreach="summary_invoice_ids" t-as="summary_invoice">
+				<t t-if="summary_invoice.id != invoice_id">
+					<t t-set="zz" t-value="zz+1" />
+				</t>
+			</t>
+			<t t-if="zz" >
+	        	<div id="invoice_summary" >
+	        		<h2><span t-esc="summary_invoice_title" /></h2>
+	        		<p>Les factures suivantes sont toujours en attente de paiement. Nous vous prions de bien vouloir procéder à leur(s) règlement(s) dans les meilleurs délais.</p>
+	        		<table>
+	        			<tr>
+		        			<th>Période</th>
+		        			<th>Facture</th>
+		        			<th>Echéance</th>
+		        			<th>Communication structurée</th>
+							<th>Montant</th>
+						</tr>
+		       			<t t-foreach="summary_invoice_ids.sorted(key=lambda r: r.number)" t-as="summary_invoice">
+	        				<tr>
+	        					<t t-if="summary_invoice.id != invoice_id">
+                                <t t-if="summary_invoice.activitycategoryid == invoice_id.activitycategoryid">
+	        					<t t-if="summary_invoice.reminder_fees == False">
+	        						<tr>
+				       					<td><span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_from,'%Y-%m-%d')))" /> - <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_to,'%Y-%m-%d')))" /></td>
+			        					<td><span t-field="summary_invoice.number" /></td>
+				       					<td><span t-field="summary_invoice.payment_term" /></td>
+										<td><t t-esc="parent_id.get_prepaid_comstruct(categ_id)" /></td>
+				       					<td class="amount"><span t-esc="'%.2f €' %  (summary_invoice.balance)" /></td>
+
+	        						</tr>
+								</t>
+	        					<t t-if="summary_invoice.reminder_fees == True">
+	        						<t t-foreach="summary_invoice.invoice_line_ids" t-as="invoice_line">
+	        							<tr>
+					       					<td></td>
+				        					<td><span t-field="invoice_line.description" /></td>
+					       					<td><span t-field="summary_invoice.payment_term" /></td>
+											<td><t t-esc="parent_id.get_prepaid_comstruct(categ_id)" /></td>
+					       					<td class="amount"><span t-esc="TODO" /></td>
+											<!--<td class="amount"><span t-esc="'%.2f €' %  (invoice_line.balance)" /></td>-->
+				       					</tr>
+	        						</t>
+								</t>
+                                </t>
+								</t>
+		       				</tr>
+		        		</t>
+
+	        		</table>
+	       		</div>
+			</t>
+		</template>
+
+    </data>
+</openerp>
