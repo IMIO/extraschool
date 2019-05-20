@@ -2378,11 +2378,13 @@ msgid "Contact"
 msgstr "Contact"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_interdiction_other_contact_contact_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_other_contact_contact_name
 msgid "Contact name"
 msgstr "Nom et prénom"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_interdiction_other_contact_contact_relation
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_other_contact_contact_relation
 msgid "Contact relation"
 msgstr "Lien parenté"
@@ -7906,6 +7908,7 @@ msgid "Tél. Doctor"
 msgstr "Téléphone"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_interdiction_other_contact_contact_tel
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_other_contact_contact_tel
 msgid "Tél. contact"
 msgstr "Téléphone"

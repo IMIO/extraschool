@@ -87,6 +87,8 @@ class extraschool_health_sheet(models.Model):
         (('non_renseigne', 'Non renseigné'),
          ('non', 'Non'),
          ('oui', 'Oui')), default='non_renseigne', string='Arnica')
+    diabetique = fields.Boolean(string='Diabétique', default=False)
+    interdiction_contact_ids = fields.One2many('extraschool.interdiction_other_contact', 'health_id', string='Interdiction contact', )
 
     @api.model
     def create(self, vals):
@@ -112,6 +114,15 @@ class extraschool_doctor(models.Model):
 class extraschool_other_contact(models.Model):
     _name = 'extraschool.other_contact'
     _description = 'Other contact'
+
+    health_id = fields.Many2one('extraschool.health_sheet', string='Health sheet')
+    contact_name = fields.Char(string='Contact name')
+    contact_relation = fields.Char(string='Contact relation')
+    contact_tel = fields.Char(string='Tél. contact', size=20)
+
+class extraschool_interdiction_other_contact(models.Model):
+    _name = 'extraschool.interdiction_other_contact'
+    _description = 'Interdiction contact'
 
     health_id = fields.Many2one('extraschool.health_sheet', string='Health sheet')
     contact_name = fields.Char(string='Contact name')
