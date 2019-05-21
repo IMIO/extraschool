@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014
+#    Copyright (C) 2008-2019
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
 #
@@ -31,6 +31,7 @@ class extraschool_organising_power(models.Model):
     town = fields.Char('Name of the town', required=True)
     max_school_implantation = fields.Integer()
     dominant_activity_category_id = fields.Many2one('extraschool.activitycategory')
+    dominant_payment_activity_category_id = fields.Many2one('extraschool.activitycategory')
 
     po_name = fields.Char('Name of PO')
     po_street = fields.Char('Street')

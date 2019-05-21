@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014
+#    Copyright (C) 2008-2019
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
 #
@@ -86,21 +86,36 @@ class extraschool_invoice(models.Model):
     @api.model
     def update_activity_category(self):
         base_activity_category = self.env['extraschool.activitycategory'].search([])[0]
-        bille_ids = self.env['extraschool.biller'].search([('activitycategoryid', '=', False)])
+        biller_ids = self.env['extraschool.biller'].search([('activitycategoryid', '=', False)])
         invoice_ids = self.search([('activitycategoryid', '=', False)])
         activity_ids = self.env['extraschool.activity'].search([('category_id', '=', False)])
         payment_ids = self.env['extraschool.payment'].search([])
+        child_ids = self.env['extraschool.child'].search([])
 
-        if not self.env['extraschool.organising_power'].search([]):
-            self.env['extraschool.organising_power'].create({
+        organising_power_id = self.env['extraschool.organising_power'].search([])
+
+        if not organising_power_id:
+            organising_power_id = self.env['extraschool.organising_power'].create({
                 'town': "Replace this",
             })
 
-        for invoice in invoice_ids:
-            invoice.activitycategoryid = base_activity_category
+        for child_id in child_ids:
+            try:
+                child_id.organising_power_id = organising_power_id
+            except:
+                pass
 
-        for biller in bille_ids:
-            biller.activitycategoryid = base_activity_category
+        for invoice in invoice_ids:
+            try:
+                invoice.activitycategoryid = base_activity_category
+            except:
+                pass
+
+        for biller in biller_ids:
+            try:
+                biller.activitycategoryid = base_activity_category
+            except:
+                pass
 
         for activity_id in activity_ids:
             try:
@@ -109,7 +124,10 @@ class extraschool_invoice(models.Model):
                 pass
 
         for payment_id in payment_ids:
-            payment_id.activity_category_id = base_activity_category
+            try:
+                payment_id.activity_category_id = base_activity_category
+            except:
+                pass
 
     def _compute_balance(self):
         for invoice in self:
@@ -156,29 +174,48 @@ class extraschool_invoice(models.Model):
     def reconcil(self):
         payment_obj = self.env['extraschool.payment']
         payment_reconcil_obj = self.env['extraschool.payment_reconciliation']
+        organizing_power = self.env['extraschool.organising_power'].search([])[0]
         self._compute_balance()
         for invoice in self:
             # todo: Check if the biller (invoices_date) <= today(). Do a cron to launch this method everyday.
-            #search for open payment
-            for invoice_category in invoice.activitycategoryid:
-                payments = payment_obj.search([('parent_id','=',invoice.parentid.id),
-                                        ('activity_category_id', '=', invoice_category.id),
-                                        ('solde','>',0),
-                                        ]).sorted(key=lambda r: r.paymentdate)
+            # If there is a dominant payment
+            if (organizing_power.dominant_payment_activity_category_id):
+                payment_ids = payment_obj.search([('parent_id','=',invoice.parentid.id),
+                                    ('solde','>',0),
+                                    ]).sorted(key=lambda r: r.paymentdate)
 
-                zz = 0
+                count = 0
+                solde = invoice.balance
 
-                solde = invoice.get_balance(invoice_category.id)
-
-                while zz < len(payments) and solde > 0:
-                    amount = solde if payments[zz].solde >= solde else payments[zz].solde
-                    payment_reconcil_obj.create({'payment_id': payments[zz].id,
-                                             'invoice_id': invoice.id,
-                                             'amount': amount,
-                                             'date': fields.Date.today(),
-                                             })
+                while count < len(payment_ids) and solde > 0:
+                    amount = solde if payment_ids[count].solde >= solde else payment_ids[count].solde
+                    payment_reconcil_obj.create({'payment_id': payment_ids[count].id,
+                                                 'invoice_id': invoice.id,
+                                                 'amount': amount,
+                                                 'date': fields.Date.today(),
+                                                 })
                     solde -= amount
-                    zz += 1
+                    count += 1
+            else:
+                for invoice_category in invoice.activitycategoryid:
+                    payments = payment_obj.search([('parent_id','=',invoice.parentid.id),
+                                            ('activity_category_id', '=', invoice_category.id),
+                                            ('solde','>',0),
+                                            ]).sorted(key=lambda r: r.paymentdate)
+
+                    zz = 0
+
+                    solde = invoice.get_balance(invoice_category.id)
+
+                    while zz < len(payments) and solde > 0:
+                        amount = solde if payments[zz].solde >= solde else payments[zz].solde
+                        payment_reconcil_obj.create({'payment_id': payments[zz].id,
+                                                 'invoice_id': invoice.id,
+                                                 'amount': amount,
+                                                 'date': fields.Date.today(),
+                                                 })
+                        solde -= amount
+                        zz += 1
 
             invoice._compute_balance()
 
@@ -223,14 +260,30 @@ class extraschool_invoice(models.Model):
 
         return res
 
-
-    def get_invoice_calendar(self, child_id = None):
-#        print "child:%s" % (child_id)
+    @api.multi
+    def get_invoice_calendar(self, child_id = None, exclued_free=False):
+        """
+        Build a calendar of activities by child for this invoice
+        :param child_id: The id of the child
+        :param exclued_free: True if you want to exclued free activities. False by default
+        :return: Dictionnary of concerned month with the quantity of presences by day and name of activities.
+        """
         concened_months = self.biller_id.get_concerned_months()
         for month in concened_months:
             month['days'] = calendar.monthcalendar(month['year'], month['month'])
             month['activity'] = self.get_concerned_short_name()
             month['quantity'] = []
+
+            if exclued_free:
+                activity_to_remove = []
+                for activity in month['activity']:
+                    if self.isfree(activity):
+                        activity_to_remove.append(activity)
+
+                if activity_to_remove:
+                    for activity in activity_to_remove:
+                        month['activity'].remove(activity)
+
             zz=0
             for week in month['days']:
                 month['quantity'].append([])
@@ -243,12 +296,19 @@ class extraschool_invoice(models.Model):
                     for activity in month['activity']:
                         d['quantity'].append(sum(self.invoice_line_ids.filtered(lambda r: r.childid.id == child_id
                                                                                 and r.prestation_date == '%s-%02d-%02d' % (month['year'],month['month'],d['day_id'])
-                                                                                and r.activity_activity_id.short_name == activity).mapped('quantity')))
+                                                                                and r.activity_activity_id.short_name == activity
+                                                                                ).mapped('quantity')))
                     month['quantity'][zz].append(d)
 
                 zz+=1
 
         return concened_months
+
+    def isfree(self, activity_name):
+        for line in self.invoice_line_ids.filtered(lambda r: r.activity_activity_id.short_name == activity_name):
+            if line.total_price == 0.00:
+                return True
+        return False
 
     @api.one
     def export_onyx_but(self):

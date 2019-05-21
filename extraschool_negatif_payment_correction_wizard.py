@@ -2,9 +2,9 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014
+#    Copyright (C) 2008-2019
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -49,7 +49,7 @@ class extraschool_negatif_payment_correction_wizard(models.TransientModel):
             biller = self.env['extraschool.biller'].create({'period_from' : self.invoice_date,
                                                             'period_to' : self.invoice_date,
                                                             'payment_term': self.payment_term,
-                                                            'activitycategoryid': self.activity_category_id.id,
+                                                            'activitycategoryid': [(6, 0, [self.activity_category_id.id])],
                                                             'invoices_date': self.invoice_date,
                                                             })
         else:
@@ -68,7 +68,7 @@ class extraschool_negatif_payment_correction_wizard(models.TransientModel):
                             'parentid' : payment.parent_id.id,
                             'biller_id' : biller.id,
                             'payment_term': biller.payment_term,
-                            'activitycategoryid': self.activity_category_id.id,
+                            'activitycategoryid': [(6, 0, [self.activity_category_id.id])],
                             'structcom': next_invoice_num['com_struct']})
             inv_line_obj.create({'invoiceid' : invoice.id,
                 'description' : payment.comment,

@@ -52,6 +52,7 @@
                                 <field name="activity_category_ids" widget="many2many_tags"/>
                                 <field name="max_school_implantation"/>
                                 <field name="dominant_activity_category_id"/>
+                                <field name="dominant_payment_activity_category_id"/>
                                 <field name="biller_report_id" />
                                 <field name="qrcode_report_id" />
                                 <field name="taxcertificatetemplate" />

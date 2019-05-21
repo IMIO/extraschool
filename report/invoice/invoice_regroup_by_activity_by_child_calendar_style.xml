@@ -239,7 +239,7 @@
         		<t t-foreach="invoice.get_concerned_child()" t-as="child">
         		    <div>
         		    <b><span t-esc="child.name"/></b>
-		       		<t t-foreach="invoice.get_invoice_calendar(child.id)" t-as="month">
+		       		<t t-foreach="invoice.get_invoice_calendar(child.id, True)" t-as="month">
 	        		    <table>
 		        			<tr>
 			        			<th><span t-esc="monthname[month['month']-1]" /></th>

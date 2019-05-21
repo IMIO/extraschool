@@ -2,9 +2,9 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014
+#    Copyright (C) 2008-2019
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -21,6 +21,7 @@
 #
 ##############################################################################
 from openerp import models, api, fields, _
+from openerp.exceptions import Warning
 from openerp.api import Environment
 from openerp.exceptions import Warning
 import datetime
@@ -111,6 +112,7 @@ class extraschool_pdaprestationtimes(models.Model):
             # Prestation of the day already exist.
             vals['prestation_times_of_the_day_id'] = prestation_times_of_the_day_ids[0].id
             prestation_times_of_the_day_ids[0].checked = False
+            prestation_times_of_the_day_ids[0].verified = False
 
         prestation_times_obj.create({'prestation_times_of_the_day_id': vals['prestation_times_of_the_day_id'],
                                      'activity_category_id': vals['activitycategoryid'],

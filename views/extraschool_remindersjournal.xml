@@ -195,7 +195,6 @@
             <field name="name">reminder mail</field>
             <field name="model_id" ref="model_extraschool_payment_status_report"/>
             <field name="auto_delete" eval="True"/>
-            <field name="partner_to">${object.id}</field>
             <field name="subject">Rappel</field>
             <field name="email_to">${(object.parentid.email or 'michotm@gmail.com')|safe}</field>
             <field name="email_from">${(object.activity_category_id.reminderemailaddress or 'noreply@localhost')|safe}</field>

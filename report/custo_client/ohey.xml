@@ -67,5 +67,40 @@
             </div>
 		</template>
 
+        <template id="report_invoice_ohey_contact_line">
+            <div class="container">
+                <div class="row" >
+                    <div class="col-sm-6">
+                        <b><u>Accueil Extrascolaire</u></b><br></br>
+                        aes@ohey.be<br></br>
+                        085 21 58 83
+                    </div>
+                    <div class="col-sm-6">
+                        <b><u>Repas de midi</u></b><br></br>
+                        laurent.hernandez@ohey.be<br></br>
+                        0477 96 00 73
+                    </div>
+                </div>
+            </div>
+		</template>
+
+        <template id="report_adresse_no_style_ohey">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_adresse_no_style.css"/>
+            </xpath>
+	    	<div class="aes_adresse">
+				<div id="aes_po_adresse" class="aes_adresse_block po">
+					<span t-field="po_addresse.po_name" />
+					<span t-field="po_addresse.po_street" />
+					<span><t t-esc="po_addresse.po_zipcode" /> <t t-esc="po_addresse.po_city" /></span>
+				</div>
+
+				<div class="aes_adresse_block customer">
+					<span t-field="addresse.name" />
+					<span t-field="addresse.street" />
+					<span><t t-esc="addresse.zipcode" /> <t t-esc="addresse.city" /></span>
+				</div>
+			</div>
+		</template>
 	</data>
 </openerp>

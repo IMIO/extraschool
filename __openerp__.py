@@ -3,9 +3,9 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014
+#    Copyright (C) 2008-2019
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -24,7 +24,7 @@
 
 {
     'name' : 'Extraschool',
-    'version' : '9.0.0.8',
+    'version' : '9.1.0.0',
     'author' : 'Town of La Bruyère and Imio',
     'depends' : ['base',
                  'report',
@@ -99,6 +99,7 @@
         'views/extraschool_health_sheet.xml',
         'views/extraschool_settings.xml',
         'views/extraschool_annual_report.xml',
+        'views/extraschool_refund_wizard.xml',
         #'views/widgets.xml',
         'views/extraschool_config_smartphone.xml',
         'views/extraschool_query_sql.xml',

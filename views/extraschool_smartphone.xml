@@ -100,16 +100,6 @@
                     		</field>
                     	</group>
 			    	</page>
-                    <page  string="Detailed Transmission Log">
-			    		<group col="4">
-                    		<field name="smartphone_detail_log_ids" nolabel="1" readonly="True">
-                    			<tree>
-			                		<field name="date_of_transmission"/>
-			                		<field name="smartphone_id" invisible="1"/>
-			                	</tree>
-                    		</field>
-                    	</group>
-			    	</page>
 		    	</notebook>
             </form>
             </field>

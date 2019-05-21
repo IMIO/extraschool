@@ -2,9 +2,9 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014
+#    Copyright (C) 2008-2019
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -30,6 +30,7 @@ from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
 from openerp.exceptions import except_orm, Warning, RedirectWarning
 import threading
+from helper import extraschool_helper
 
 import base64
 try:
@@ -104,6 +105,7 @@ class extraschool_biller(models.Model):
 
         return res
 
+    @extraschool_helper.timeit
     @api.depends('invoice_ids.amount_total')
     def _compute_total(self):
         for record in self:
@@ -148,7 +150,8 @@ class extraschool_biller(models.Model):
 
         invoicelastcomstruct = str(self.invoice_ids.sorted(key=lambda r: r.id)[0].number)[-5:]
 
-        self.activitycategoryid[0].sequence_ids.search([('type', '=', 'invoice'),
+        for activity_category in self.activitycategoryid:
+            activity_category.sequence_ids.search([('type', '=', 'invoice'),
                                                      ('year', '=', self.get_from_year()),]).sequence.number_next = invoicelastcomstruct
 
         count = 1

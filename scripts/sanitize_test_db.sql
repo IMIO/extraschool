@@ -1,0 +1,13 @@
+DELETE FROM extraschool_prestationtimes;
+DELETE FROM extraschool_prestation_times_of_the_day;
+DELETE FROM extraschool_child_registration;
+DELETE FROM extraschool_child;
+DELETE FROM extraschool_school;
+DELETE FROM extraschool_schoolimplantation;
+DELETE FROM extraschool_parent;
+DELETE FROM extraschool_activityoccurrence;
+DELETE FROM extraschool_activity;
+DELETE FROM extraschool_place;
+DELETE FROM extraschool_activitycategory_sequence;
+DELETE FROM extraschool_activitycategory;
+DELETE FROM extraschool_organising_power;

@@ -99,6 +99,32 @@
 		</template>
 
 
+        <template id="report_std_header_name_right_tournai">
+		    <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_std_header_name_right.css"/>
+            </xpath>
+		    <div id="aes_header">
+		    	<div class="row">
+		    		<div id="b_logo2">
+						<img class="logo2" t-attf-src="data:image/jpeg;base64,{{logo}}"/>
+		    		</div>
+                    <div id="b_slogan">
+                        <div id="b_slogan1">
+                            <span class="slogan1"><t t-esc="slogan" /></span>
+                        </div>
+                        <div id="b_slogan2">
+                            Direction financière et comptable<br/>
+                            Service Recouvrement
+                        </div>
+                    </div>
+					<div id="b_date">
+						<span class="doc_date"><t t-esc="doc_date" /></span>
+					</div>
+		    	</div>
+			</div>
+		</template>
+
+
 	</data>
 </openerp>
 

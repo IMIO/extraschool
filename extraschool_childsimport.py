@@ -2,9 +2,9 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014
+#    Copyright (C) 2008-2019
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -320,8 +320,8 @@ class extraschool_childsimport(models.Model):
                         #MAJ Child
                         for child_id in childid:
                             child = obj_child.read(cr, uid, [child_id],['parentid','modified_since_last_import','rn'])[0]
+                            parentid = child['parentid'][0]
                             if child['modified_since_last_import'] == False:
-                                parentid = child['parentid'][0]
                                 if importfilter['majschoolimplantation']:
                                     obj_child.write(cr,uid,[child_id],{'schoolimplantation':schoolimplantationid})
                                 if importfilter['majchildclassname']:
@@ -399,7 +399,7 @@ class extraschool_childsimport(models.Model):
                                                                            'email':parentemail,
                                                                            'modified_since_last_import': False,
                                                                            'last_import_date':fields.datetime.now(),
-                                                                            })
+                                                                           })
                                 else:
                                     parentid=parentids[0]
                                 print "parent_id : %s" % (parentid)

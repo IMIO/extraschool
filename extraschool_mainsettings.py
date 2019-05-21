@@ -2,9 +2,9 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014
+#    Copyright (C) 2008-2019
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -141,7 +141,7 @@ class extraschool_mainsettings(models.Model):
 
         footer = "21000300003101983094049002623  0000000000000800190917001500001101200160019857                                      19091717101 0"
 
-        file = open("coda", "wb+")
+        file = open("/opt/coda/coda", "wb+")
 
         file.write(header_1 + "\n")
         file.write(header_2 + "\n")

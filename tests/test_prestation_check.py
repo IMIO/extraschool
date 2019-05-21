@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014
+#    Copyright (C) 2008-2019
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot & Michael Colicchia- Imio (<http://www.imio.be>).
 #
@@ -45,13 +45,13 @@ class PrestationCheckTest(TestData):
         # First we target the category activity, child and place to create the right pdaprestationtimes.
         activity_category_1 = self.env['extraschool.activitycategory'].search([('name', '=', 'Accueil')])
         activity_category_2 = self.env['extraschool.activitycategory'].search([('name', '=', 'Repas')])
-        child_1 = self.env['extraschool.child'].search([('lastname', '=', 'Jackson'), ('firstname', '=', 'Michael')])[1]
+        child_1 = self.env['extraschool.child'].search([('lastname', '=', 'Jackson'), ('firstname', '=', 'Michael')])
         child_2 = self.env['extraschool.child'].search([('lastname', '=', 'Mercury'), ('firstname', '=', 'Freddy')])
-        place_1 = self.env['extraschool.place'].search([('name', '=', 'California')])[1]
-        place_2 = self.env['extraschool.place'].search([('name', '=', 'Namur')])[1]
-        school_implantation_1 = self.env['extraschool.schoolimplantation'].search([('name', '=', 'Hollywood')])[1]
-        activity_1 = self.env['extraschool.activity'].search([('name', '=', 'stage 1')])[1]
-        activity_2 = self.env['extraschool.activity'].search([('name', '=', 'Cirque')])[0]
+        place_1 = self.env['extraschool.place'].search([('name', '=', 'California')])
+        place_2 = self.env['extraschool.place'].search([('name', '=', 'Namur')])
+        school_implantation_1 = self.env['extraschool.schoolimplantation'].search([('name', '=', 'Hollywood')])
+        activity_1 = self.env['extraschool.activity'].search([('name', '=', 'stage 1')])
+        activity_2 = self.env['extraschool.activity'].search([('name', '=', 'Cirque')])
 
         # Then we simulate a scan from a smartphone.
         pda_prestation_1 = self.env['extraschool.pdaprestationtimes'].create({
@@ -283,10 +283,11 @@ class PrestationCheckTest(TestData):
         child_registration_1.validate()
         child_registration_1.validate()
 
-        prestation_times_of_the_day_1 = self.env['extraschool.prestation_times_of_the_day'].search([('date_of_the_day', '=', '2018-07-30'), ('child_id', '=', child_1.id)])
+        prestation_times_of_the_day_1 = self.env['extraschool.prestation_times_of_the_day'].search(
+            [('date_of_the_day', '=', '2018-07-30'), ('child_id', '=', child_1.id)])
 
 
-        self.assertEqual(prestation_times_of_the_day_1.verified, False)
+        self.assertEqual(prestation_times_of_the_day_1.verified, True)
 
         prestation_times_of_the_day_1.check()
 
@@ -380,8 +381,10 @@ class PrestationCheckTest(TestData):
             [('prestation_times_of_the_day_id', '=', pda_prestation_9.prestation_times_of_the_day_id.id)])\
             .sorted(key=lambda r: r.prestation_time)
 
-        self.assertEqual(pda_prestation_9.prestation_times_of_the_day_id.id, pda_prestation_10.prestation_times_of_the_day_id.id)
-        self.assertEqual(pda_prestation_10.prestation_times_of_the_day_id.id, pda_prestation_11.prestation_times_of_the_day_id.id)
+        self.assertEqual(pda_prestation_9.prestation_times_of_the_day_id.id,
+                         pda_prestation_10.prestation_times_of_the_day_id.id)
+        self.assertEqual(pda_prestation_10.prestation_times_of_the_day_id.id,
+                         pda_prestation_11.prestation_times_of_the_day_id.id)
 
         self.assertEqual(len(prestation_times_ids_9), 6)
         self.assertEqual(pda_prestation_9.prestation_times_of_the_day_id.verified, True)
@@ -533,7 +536,8 @@ class PrestationCheckTest(TestData):
         child_registration_2.validate()
         child_registration_2.validate()
 
-        prestation_times_of_the_day_15 = self.env['extraschool.prestation_times_of_the_day'].search([('date_of_the_day', '=', '2018-08-06'), ('child_id', '=', child_2.id)])
+        prestation_times_of_the_day_15 = self.env['extraschool.prestation_times_of_the_day'].search(
+            [('date_of_the_day', '=', '2018-08-06'), ('child_id', '=', child_2.id)])
 
         self.assertEqual(len(prestation_times_of_the_day_15), 0)
 

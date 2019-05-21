@@ -2,9 +2,9 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014
+#    Copyright (C) 2008-2019
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -117,6 +117,7 @@ class extraschool_invoice_wizard(models.TransientModel):
     check_registration = fields.Boolean(default=True)
     check_prestation = fields.Boolean(default=True)
     check_invoice = fields.Boolean(default=True)
+    generate_pdf = fields.Boolean(default=True)
 
 ########################################################################################################################
 #   HELPER to the invoicing and output to the user what needs to be done before invoicing.
@@ -411,6 +412,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                              and ep.childid <> ip.childid
                              and ec.birthdate <= (select birthdate from extraschool_child where id = ip.childid)
                              and ec.isdisabled = False
+                             AND ip.prestation_date = ep.prestation_date
                              )
                              -
                              (select count(distinct ep.childid)
@@ -438,6 +440,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                  and ep.childid > ip.childid
                                  and ec.birthdate = (select birthdate from extraschool_child where id = ip.childid)
                                  and ec.isdisabled = False
+                                 AND ip.prestation_date = ep.prestation_date
                                  ) 
                              )
                      """,
@@ -495,7 +498,7 @@ class extraschool_invoice_wizard(models.TransientModel):
 
         obj_biller = self.env['extraschool.biller']
         obj_accrued = self.env['extraschool.accrued']
-
+        print(self._context)
         #create a bille to store invoice
         biller = obj_biller.create({'period_from' : self.period_from,
                                     'period_to' : self.period_to,
@@ -514,12 +517,53 @@ class extraschool_invoice_wizard(models.TransientModel):
 
 
         #check if all presta are verified
-        if (not self._check_prestation()):
-            raise Warning(_("Il y a au moins une présence non vérifiée pour cette période"))
+
+        print "----------------"
+        print str(self.schoolimplantationid.ids)
+
+        sql_check_verified = """select count(*) as verified_count
+                                    from extraschool_prestationtimes ept
+                                    left join extraschool_child c on ept.childid = c.id
+                                    where ept.prestation_date between %s and %s
+                                        and verified = False
+                                        and activity_category_id IN %s
+                                        and c.schoolimplantation IN %s  
+                                ;"""
+
+        self.env.cr.execute(sql_check_verified, (self.period_from,
+                                                 self.period_to,
+                                                 tuple(self.activitycategory.ids),
+                                                 tuple(self.schoolimplantationid.ids),
+                                                 )
+                            )
+
+        verified_count = self.env.cr.dictfetchall()
+        print "verified_count:" + str(verified_count[0]['verified_count'])
+        if verified_count[0]['verified_count']:
+            raise Warning(_("At least one prestations is not verified !!!"))
 
         #check if there are presta to invoice
-        if (not self._check_invoice()):
-            raise Warning(_("Il n'y a pas de présences à facturer pour cette période"))
+        sql_check_presta_to_invoice = """select count(*) as to_invoice_count
+                                    from extraschool_prestationtimes ept
+                                    left join extraschool_child c on ept.childid = c.id
+                                    where ept.prestation_date between %s and %s
+                                        and verified = True
+                                        and invoiced_prestation_id is NULL
+                                        and activity_category_id IN %s
+                                        and c.schoolimplantation IN %s  
+                                ;"""
+
+        self.env.cr.execute(sql_check_presta_to_invoice, (self.period_from,
+                                                          self.period_to,
+                                                          tuple(self.activitycategory.ids),
+                                                          tuple(self.schoolimplantationid.ids),
+                                                          )
+                            )
+        to_invoice_count = self.env.cr.dictfetchall()
+        print "to_invoice_count:" + str(to_invoice_count[0]['to_invoice_count'])
+        if not to_invoice_count[0]['to_invoice_count']:
+            raise Warning(_("There is no presta to invoice !!!"))
+
 
         #search parent to be invoiced
         sql_mega_invoicing = """select c.schoolimplantation as schoolimplantation, ept.parent_id as parent_id, childid, min(activity_occurrence_id) activity_occurrence_id,
@@ -534,7 +578,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                         and verified = True
                                         and ept.activity_category_id IN %s
                                         and invoiced_prestation_id is NULL
-                                        and c.schoolimplantation in (""" + ','.join(map(str, self.schoolimplantationid.ids))+ """)  
+                                        and c.schoolimplantation IN %s 
                                 group by ept.parent_id,c.schoolimplantation,childid, p.streetcode,case when tarif_group_name = '' or tarif_group_name is NULL then a.name else tarif_group_name  end, ept.prestation_date, ept.activity_category_id
                                 order by parent_id, c.schoolimplantation, min(activity_occurrence_id);"""
 
@@ -542,8 +586,12 @@ class extraschool_invoice_wizard(models.TransientModel):
         #         print (sql_mega_invoicing) % (self.period_from, self.period_to, self.activitycategory.id)
         #         print "---------------"
 
-        self.env.cr.execute(sql_mega_invoicing, (self.period_from, self.period_to, tuple(self.activitycategory.ids),))
-
+        self.env.cr.execute(sql_mega_invoicing, (self.period_from,
+                                                 self.period_to,
+                                                 tuple(self.activitycategory.ids),
+                                                 tuple(self.schoolimplantationid.ids),
+                                                 )
+                            )
         invoice_lines = self.env.cr.dictfetchall()
 
         _logger.info("End mega invoicing")
@@ -727,9 +775,14 @@ class extraschool_invoice_wizard(models.TransientModel):
                                         ept.prestation_date between %s and %s
                                         and verified = True
                                         and ept.activity_category_id IN %s
-                                        and c.schoolimplantation in (""" + ','.join(map(str, self.schoolimplantationid.ids))+ """);
+                                        and c.schoolimplantation IN %s;
                                     """
-        self.env.cr.execute(sql_update_link_to_presta, (self.period_from, self.period_to, tuple(self.activitycategory.ids),))
+        self.env.cr.execute(sql_update_link_to_presta, (self.period_from,
+                                                        self.period_to,
+                                                        tuple(self.activitycategory.ids),
+                                                        tuple(self.schoolimplantationid.ids),
+                                                        )
+                            )
 
         _logger.info("End update link to prestattions")
 
@@ -740,10 +793,10 @@ class extraschool_invoice_wizard(models.TransientModel):
                                             placeid = place_id
                                         from extraschool_activityoccurrence ao
                                         where ao.id = ip.activity_occurrence_id and
-                                            ip.id in (""" + ','.join(map(str, invoice_line_ids))+ """); 
+                                            ip.id IN %s; 
                                     """
 
-        self.env.cr.execute(sql_update_prestationdate, ())
+        self.env.cr.execute(sql_update_prestationdate, (tuple(invoice_line_ids),))
 
         _logger.info("End update prestation date")
 
@@ -754,9 +807,11 @@ class extraschool_invoice_wizard(models.TransientModel):
                                         from extraschool_invoice i, extraschool_parent p
                                         where i.id = ip.invoiceid and
                                               p.id = i.parentid and
-                                            ip.id in (""" + ','.join(map(str, invoice_line_ids))+ """); 
+                                            ip.id IN %s; 
                                     """
-        self.env.cr.execute(sql_update_child_position, ())
+
+#        print sql_update_child_position
+        self.env.cr.execute(sql_update_child_position, (tuple(invoice_line_ids),))
 
         _logger.info("End update child postition")
 
@@ -768,9 +823,12 @@ class extraschool_invoice_wizard(models.TransientModel):
                                         where ao.id = ip.activity_occurrence_id and
                                         a.id = ao.activityid and
                                         a.tarif_group_name is not Null and a.tarif_group_name <> '' and
-                                            ip.id in (""" + ','.join(map(str, invoice_line_ids))+ """); 
+                                            ip.id IN %s; 
                                     """
-        self.env.cr.execute(sql_update_description, ())
+
+#        print sql_update_description
+        self.env.cr.execute(sql_update_description, (tuple(invoice_line_ids),))
+
 
         _logger.info("End update description")
 
@@ -789,11 +847,14 @@ class extraschool_invoice_wizard(models.TransientModel):
                                     )
                                 
                                 FROM extraschool_activityoccurrence ao, extraschool_child c
-                                WHERE ip.id in (""" + ','.join(map(str, invoice_line_ids))+ """)
+                                WHERE ip.id IN %s
                                     AND ao.id = ip.activity_occurrence_id
                                     AND ip.childid = c.id;"""
 
-        self.env.cr.execute(sql_update_price_list)
+
+#        self.env.invalidate_all()
+        self.env.cr.execute(sql_update_price_list, (tuple(invoice_line_ids),))
+
 
         _logger.info("End update price list")
 
@@ -845,7 +906,7 @@ class extraschool_invoice_wizard(models.TransientModel):
         # Mise à jour du quantity et total price.
         sql_update_total_price = """UPDATE extraschool_invoicedprestations ip
                               SET   quantity = duration / plv.period_duration + (case when duration % plv.period_duration > plv.period_tolerance then 1 else 0 end),
-                                    total_price = quantity * unit_price
+                                    total_price = round(quantity * unit_price, 2)
                               FROM extraschool_price_list_version plv
                               WHERE ip.id in (""" + ','.join(map(str, invoice_line_ids))+ """)
                                     AND plv.id = ip.price_list_version_id;"""
@@ -854,7 +915,7 @@ class extraschool_invoice_wizard(models.TransientModel):
 
         # Mise à jour du total sur invoice.
         sql_update_invoice_total_price = """update extraschool_invoice i
-                                        set amount_total = (select sum(ip.total_price) 
+                                        set amount_total = (select sum(round(ip.total_price, 2)) 
                                     from extraschool_invoicedprestations ip
                                     where ip.invoiceid = i.id)
                                     where i.id in (""" + ','.join(map(str, invoice_ids))+ """)
@@ -888,12 +949,12 @@ class extraschool_invoice_wizard(models.TransientModel):
 
         # Create the accrued for the biller
         invoice_ids = self.env['extraschool.invoice'].search([('biller_id', '=', biller.id)])
-        invoice_line_ids = self.env['extraschool.invoicedprestations'].search([('invoiceid', 'in', invoice_ids.ids)])
 
         for activity_category in self.activitycategory.ids:
             amount = 0
-            for invoice_line in invoice_line_ids.filtered(lambda r: r.activity_occurrence_id.activity_category_id.id == activity_category):
-                amount += invoice_line.total_price
+            for invoice in invoice_ids:
+                total = sum(invoice_line.total_price for invoice_line in invoice.invoice_line_ids.filtered(lambda r: r.activity_occurrence_id.activity_category_id.id == activity_category))
+                amount += 0 if total < 0.0001 else total
 
             obj_accrued.create({
                 'biller_id': biller.id,
@@ -902,12 +963,17 @@ class extraschool_invoice_wizard(models.TransientModel):
             })
 
         _logger.info("End invoicing")
-        _logger.info("Start generation of PDF")
-        if self.env['ir.config_parameter'].get_param('extraschool.invoice.generate_pdf',1) == 1:
-            biller.generate_pdf()
+        if self.generate_pdf:
+            _logger.info("Start generation of PDF")
+            if self.env['ir.config_parameter'].get_param('extraschool.invoice.generate_pdf',1) == 1:
+                biller.generate_pdf()
+            else:
+                biller.pdf_ready = True
+            _logger.info("ALL PDF GENERATED")
         else:
             biller.pdf_ready = True
-        _logger.info("ALL PDF GENERATED")
+            biller.in_creation = False
+            biller.send_mail()
         view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','extraschool.biller'),
                                                              ('name','=','Biller.form')])
 

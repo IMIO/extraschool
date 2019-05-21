@@ -2,9 +2,9 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014
+#    Copyright (C) 2008-2019
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -34,8 +34,11 @@ class extraschool_child(models.Model):
     _description = 'Child'
     _inherit = 'mail.thread'
 
-    activitycategoryid = fields.Many2one('extraschool.activitycategory', 'Activity Category',
-                                         track_visibility='onchange')
+    organising_power_id = fields.Many2one(
+        'extraschool.organising_power',
+        'Organising Power',
+        track_visibility='onchange',
+                                          )
     name = fields.Char(compute='_name_compute',string='FullName', search='_search_fullname', size=100)
     childtypeid = fields.Many2one('extraschool.childtype', 'Type',required=True, ondelete='restrict', help='Ce champs permet de définir si l\'enfant a le droit à un tarif préférentiel (ex: enfants du CPAS, enfants de la croix rouge, enfants des accueillantes,...)')
     rn = fields.Char('RN')
@@ -150,6 +153,12 @@ class extraschool_child(models.Model):
     @api.one
     def unlink(self):
         self.isdisabled = True
+
+    @api.model
+    def create(self, vals):
+        vals[u'organising_power_id'] = self.env['extraschool.organising_power'].search([]).mapped('id')[0]
+
+        return super(extraschool_child, self).create(vals)
 
 
 ##############################################################################

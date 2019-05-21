@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014
+#    Copyright (C) 2008-2019
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
 #
@@ -148,11 +148,10 @@ class extraschool_smartphone(models.Model):
     @api.multi
     def update_app_version(self, version):
         version = str(version)
-        version = version[0] + '.' + version[1] + '.' + version[2] + version[3]
-        if version == False:
-            self.softwareversion = "Aucune info"
-        else:
+        if version:
             self.softwareversion = version
+        else:
+            self.softwareversion = "Aucune info"
 
     @api.model
     def create(self,vals):
@@ -273,26 +272,45 @@ class extraschool_smartphone_detail_log(models.Model):
     def print_log(self, message, smartphone_id):
         for line in message['logs']:
             date = datetime.strptime(str(line['datetime']), '%Y%m%dT%H%M%S')
+            error_message = "Error message for Smartphone logs"
+            message_decode = line['message']
+            imei = line['phone_imei']
+            try:
+                imei = imei.encode('utf-8')
+            except :
+                imei = 'Error decode'
+            try:
+                message_decode.encode('utf-8')
+            except:
+                message_decode = "Error encoding message log"
+            try:
+                message_log = '{} Smartphone id: {} version: {} logger: {} message: {} ###### serial: {} imei: {}'.format(
+                    str(date),
+                    smartphone_id,
+                    message["app_version"],
+                    line['logger'],
+                    message_decode,
+                    line['phone_serial'],
+                    imei,
+                )
+            except:
+                message_log = "There has been an error on the construction of the log message"
             if "INFO" in line['level']:
-                _logger.info(
-                    str(date) + ' ' + line['phone_serial'] + ' ' + line['phone_imei'] + ' ' + line['logger'] + ' ' +
-                    line['message'])
-            elif "WARN" in line['level']:
-                _logger.warning(
-                    str(date) + ' ' + line['phone_serial'] + ' ' + line['phone_imei'] + ' ' + line['logger'] + ' ' +
-                    line['message'])
-            else:
-                _logger.error(
-                    str(date) + ' ' + line['phone_serial'] + ' ' + line['phone_imei'] + ' ' + line[
-                        'logger'] + ' ' +
-                    line['message'])
+                try:
+                    _logger.info(message_log)
+                except:
+                    _logger.error(error_message)
 
-            self.env['extraschool.smartphone_detail_log'].create({
-                'text': line['message'],
-                'date_of_transmission': date,
-                'smartphone_id': smartphone_id,
-                'level': line['level']
-            })
+            elif "WARN" in line['level']:
+                try:
+                    _logger.warning(message_log)
+                except:
+                    _logger.error(error_message)
+            else:
+                try:
+                    _logger.error(message_log)
+                except:
+                    _logger.error(error_message)
 
         if "app_version" in message:
             app_version = message["app_version"]

@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+        <record model="ir.ui.view" id="extraschool_refund_wizard_form">
+            <field name="name">extraschool.refund_wizard.form</field>
+            <field name="model">extraschool.refund_wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Refund">
+                    <group col="2">
+                        <field name="amount" />
+                        <field name="comment" />
+                        <button name="refund" string="Refund" type="object" class="btn btn-primary" groups="extraschool.extraschool_accounting"/>
+                        <button name="cancel" string="Cancel" class="btn btn-default" groups="extraschool.extraschool_accounting"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="extraschool_refund_wizard_form_action">
+			<field name="name">refund_wizard</field>
+			<field name="res_model">extraschool.refund_wizard</field>
+			<field name="view_type">form</field>
+		</record>
+
+	</data>
+</openerp>

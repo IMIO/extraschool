@@ -2,9 +2,9 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2014
+#    Copyright (C) 2008-2019
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -113,7 +113,8 @@ class extraschool_prestation_times_of_the_day(models.Model):
                 for presta in dup_pod.pda_prestationtime_ids:
                     if len(pod.pda_prestationtime_ids.filtered(lambda r: r.es == presta.es and r.placeid == presta.placeid and r.prestation_time == presta.prestation_time)) == 0:
                         presta.prestation_times_of_the_day_id = pod.id
-                dup_pod.pda_prestationtime_ids.unlink()
+                for pda_unlink in dup_pod.pda_prestationtime_ids:
+                    pda_unlink.unlink()
 
             dup_pod_ids.unlink()
             pod.reset()

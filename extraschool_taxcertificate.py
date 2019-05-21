@@ -18,6 +18,38 @@ class extraschool_taxcertificate(models.Model):
     taxcertificate_item_ids = fields.One2many('extraschool.taxcertificate_item', 'taxcertificate_id','Details')
     pdf_ready = fields.Boolean(string="Pdf ready", default=False)
 
+    @api.multi
+    def mail_invoices(self):
+
+        return {'name': 'Tax Certificate',
+                'type': 'ir.actions.act_window',
+                'res_model': 'extraschool.taxcertificate_item',
+                'view_type': 'form',
+                'view_mode': 'tree,form',
+                'nodestroy': False,
+                'target': 'current',
+                'limit': 50000,
+                'domain': [('taxcertificate_id.id', '=',self.id),
+                           '|',('tax_certificate_send_method','=','onlybymail'),('tax_certificate_send_method','=','emailandmail')]
+            }
+
+    @api.multi
+    def email_invoices(self):
+
+        return {'name': 'Tax Certificate',
+                'type': 'ir.actions.act_window',
+                'res_model': 'extraschool.taxcertificate_item',
+                'view_type': 'form',
+                'view_mode': 'tree,form',
+                'nodestroy': False,
+                'target': 'current',
+                'limit': 50000,
+                'domain': [('taxcertificate_id.id', '=',self.id),
+                           '|',('tax_certificate_send_method','=','onlyemail'),('tax_certificate_send_method','=','emailandmail')],
+                'context': {"search_default_actif":1},
+
+            }
+
     @api.model
     def create(self, vals):
         #check if already exist
@@ -89,11 +121,14 @@ class extraschool_taxcertificate(models.Model):
         attest_item_obj = self.env['extraschool.taxcertificate_item']
         zz=1
         for attest in childattestations:
+            send_method = self.env['extraschool.parent'].search([('id', '=', attest['parentid'])]).mapped('invoicesendmethod')[0].encode("UTF-8")
             attest_item_ids.append(attest_item_obj.create({'name': zz,
                                                            'parent_id': attest['parentid'],
                                                            'child_id': attest['childid'],
                                                            'nbr_day': attest['nbdays'],
-                                                           'amount': attest['amount']}).id)
+                                                           'amount': attest['amount'],
+                                                           'tax_certificate_send_method': send_method,
+                                                           }).id)
             zz += 1
 
         vals['taxcertificate_item_ids'] = [(6,0,attest_item_ids)]
@@ -206,6 +241,7 @@ class extraschool_taxcertificate_item(models.Model):
     prest_to = fields.Float('To')
     amount = fields.Float('Amount')
     tax_certificate_detail_ids = fields.One2many('extraschool.tax_certificate_detail', 'tax_certificate_item_id')
+    tax_certificate_send_method = fields.Char()
 
 class extraschool_tax_certificate_detail(models.Model):
     _name = 'extraschool.tax_certificate_detail'
@@ -226,6 +262,7 @@ class extraschool_tax_certificate_detail(models.Model):
     def init(self, cr):
         # Drop before a new view.
         tools.sql.drop_view_if_exists(cr, 'extraschool_tax_certificate_detail')
+
         try:
             cr.execute("""
                 CREATE view extraschool_tax_certificate_detail as
@@ -263,7 +300,7 @@ class extraschool_tax_certificate_detail(models.Model):
                                     LEFT JOIN extraschool_payment AS pay 
                                     ON pay.id = pay_rec.payment_id
                                     WHERE pay_rec.paymentdate BETWEEN '2018-01-01' AND '2018-12-31'
-                                    AND inv.balance = 0 AND inv.reminder_fees = false OR inv.reminder_fees IS NULL) 
+                                    AND inv.balance = 0 AND (inv.reminder_fees IS NULL OR inv.reminder_fees = false)) 
                                     AND act.on_tax_certificate = TRUE
                                     AND prest.prestation_date <= c.birthdate + interval '12 year'
                     ORDER BY inv.number, prest.prestation_date, act.short_name, prest.prestation_time
