@@ -102,6 +102,12 @@ restart-Fleron:
     - mco shell run '/srv/docker_scripts/fleron_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
   when: manual
 
+restart-Fosses-la-ville:
+  stage: restart
+  script:
+    - mco shell run '/srv/docker_scripts/fosseslaville_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
+  when: manual
+
 restart-Hannut:
   stage: restart
   script:
