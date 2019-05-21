@@ -27,7 +27,7 @@
 		       			<t t-foreach="summary_invoice_ids.sorted(key=lambda r: r.number)" t-as="summary_invoice">
 	        				<tr>
 	        					<t t-if="summary_invoice.id != invoice_id">
-                                <t t-if="summary_invoice.activitycategoryid == invoice_id.activitycategoryid">
+                                <t t-if="summary_invoice.activitycategoryid == activity_category">
 	        					<t t-if="summary_invoice.reminder_fees == False">
 	        						<tr>
 				       					<td><span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_from,'%Y-%m-%d')))" /> - <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_to,'%Y-%m-%d')))" /></td>
