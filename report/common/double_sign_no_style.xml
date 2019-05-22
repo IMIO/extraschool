@@ -1,79 +1,7 @@
 <?xml version="1.0" ?>
 <openerp>
-	<data> 		
+	<data>
 		<template id="report_double_sign_no_style">
-			<style>
-				#doc_resp_sign{
-					display: block;
-					width: 100%;
-				}
-				
-				#doc_resp_sign>div{				
-					float: right;
-					width : 33%;							
-				}
-
-				#doc_resp_sign>div>div{
-					display: block;
-    				margin-top: 8mm;						
-				}								
-
-				.sign_elem {
-					display:block;
-					width: 100%;
-					text-align: center;
-					font-size: 4mm;
-				}
-				
-				.sign_img{
-					display: block;
-					margin-left: auto;
-					margin-right: auto;
-					vertical-align: bottom;								
-				}
-								
-				.stamp{
-					display: block;
-    				margin: auto;
-				}	
-				
-				#stamp {
-					height: 4.5cm;
-					background-repeat: no-repeat;
-					background-position: center;	
-										
-				}
-												
-			</style>
-			<div id="doc_resp_sign">
-				<div id="sign_resp1">
-					<div>
-						<span class="sign_elem" t-esc="resp_fct" />										
-						<span class="sign_elem" t-esc="resp_name" />
-						<t t-if="resp_sign">					
-							<img class="sign_img" t-attf-src="data:image/jpeg;base64,{{resp_sign}}"/>
-						</t>																		
-					</div>					
-				</div>
-				<t t-if="not po_stamp">	
-					<div>					
-						<span class="sign_elem">Par le Collège :</span>									
-					</div>						
-				</t>
-								
-				<div id="sign_resp2">
-					<div>
-						<span class="sign_elem" t-esc="resp2_fct" />										
-						<span class="sign_elem" t-esc="resp2_name" />
-						<t t-if="resp2_sign">						
-							<img class="sign_img" t-attf-src="data:image/jpeg;base64,{{resp2_sign}}"/>
-						</t>																		
-					</div>
-				</div>
-			</div>
-		</template>
-
-		<template id="report_double_sign_no_style_sans_texte">
 			<style>
 				#doc_resp_sign{
 					display: block;
@@ -118,6 +46,38 @@
 
 			</style>
 			<div id="doc_resp_sign">
+				<div id="sign_resp1">
+					<div>
+						<span class="sign_elem" t-esc="resp_fct" />
+						<span class="sign_elem" t-esc="resp_name" />
+						<t t-if="resp_sign_img">
+							<img class="sign_img" t-attf-src="data:image/jpeg;base64,{{resp_sign_img}}"/>
+						</t>
+					</div>
+				</div>
+				<t t-if="not po_stamp">
+					<div>
+						<span class="sign_elem">Par le Collège :</span>
+					</div>
+				</t>
+
+				<div id="sign_resp2">
+					<div>
+						<span class="sign_elem" t-esc="resp2_fct" />
+						<span class="sign_elem" t-esc="resp2_name" />
+						<t t-if="resp2_sign">
+							<img class="sign_img" t-attf-src="data:image/jpeg;base64,{{resp2_sign}}"/>
+						</t>
+					</div>
+				</div>
+			</div>
+		</template>
+
+		<template id="report_double_sign_no_style_sans_texte">
+			<xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_double_sign_no_style_sans_texte.css"/>
+            </xpath>
+			<div id="doc_resp_sign">
 				<div id="sign_resp2" style="margin-left:30px">
 					<div>
 						<span class="sign_elem" t-esc="resp2_fct" />
@@ -131,8 +91,38 @@
 					<div>
 						<span class="sign_elem" t-esc="resp_fct" />
 						<span class="sign_elem" t-esc="resp_name" />
-						<t t-if="resp_sign">
-							<img class="sign_img" t-attf-src="data:image/jpeg;base64,{{resp_sign}}"/>
+						<t t-if="resp_sign_img">
+							<img class="sign_img" t-attf-src="data:image/jpeg;base64,{{resp_sign_img}}"/>
+						</t>
+					</div>
+				</div>
+			</div>
+		</template>
+
+        <template id="report_double_sign_stamp_no_style">
+			<xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_double_sign_stamp_no_style.css"/>
+            </xpath>
+			<div id="doc_resp_sign">
+				<div class="col-xs-4" id="sign_resp1">
+					<div>
+						<span class="sign_elem" t-esc="resp2_fct" />
+						<span class="sign_elem" t-esc="resp2_name" />
+						<t t-if="resp2_sign">
+							<img class="sign_img" t-attf-src="data:image/jpeg;base64,{{resp2_sign}}"/>
+						</t>
+					</div>
+				</div>
+                <div class="col-xs-4">
+                    <span class="sign_elem">Par le Collège :</span>
+                    <img class="stamp" t-attf-src="data:image/jpeg;base64,{{po_stamp}}"/>
+                </div>
+				<div class="col-xs-4" id="sign_resp2">
+					<div>
+						<span class="sign_elem" t-esc="resp_fct" />
+						<span class="sign_elem" t-esc="resp_name" />
+						<t t-if="resp_sign_img">
+							<img class="sign_img" t-attf-src="data:image/jpeg;base64,{{resp_sign_img}}"/>
 						</t>
 					</div>
 				</div>
@@ -140,6 +130,5 @@
 		</template>
 
 	</data>
-</openerp>	
-	
-	
+</openerp>
+

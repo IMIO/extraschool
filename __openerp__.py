@@ -157,6 +157,7 @@
         'report/custo_client/ohey.xml',
         'report/custo_client/ferrieres.xml',
         'report/custo_client/tournai.xml',
+        'report/custo_client/burdinne.xml',
         'report/custo_client/ittre.xml',
         'report/reminder/reminder_text.xml',
         'extraschool_view.xml',
