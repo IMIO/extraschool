@@ -33,7 +33,7 @@
                             Cette présence n'est pas vérifiée.
                         </div>
                         <div class="alert alert-success" attrs="{'invisible':[('verified', '=', False)]}">
-                            Cette présence correctement vérifiée.
+                            Cette présence est correctement vérifiée.
                         </div>
                         <div class="alert alert-warning" attrs="{'invisible':[('place_check', '=', True)]}">
                             Veuillez vérifier que les lieux d'accueil soient corrects.
