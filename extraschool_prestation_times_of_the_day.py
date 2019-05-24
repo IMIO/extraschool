@@ -65,6 +65,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
     prestationtime_ids = fields.One2many('extraschool.prestationtimes','prestation_times_of_the_day_id')
     pda_prestationtime_ids = fields.One2many('extraschool.pdaprestationtimes','prestation_times_of_the_day_id',domain=['|',('active','=',False),('active','=',True)])
     verified = fields.Boolean(select=True)
+    place_check = fields.Boolean(default=True)
     comment = fields.Text()
     checked = fields.Boolean(default=False)
     # schoolimplantation = fields.Many2one(related="child_id.schoolimplantation", store=True)
@@ -127,6 +128,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
 
     @api.multi
     def reset(self):
+        self.place_check = True
         total = len(self)
         time_list = []
         for presta in self:
@@ -540,11 +542,50 @@ class extraschool_prestation_times_of_the_day(models.Model):
 
         if len(self.prestationtime_ids.filtered(lambda r: r.verified is False).ids) or len(self.prestationtime_ids) % 2:
             self.verified = False
+        # Check if the place_ids are correct.
+        elif not self.check_place():
+            self.verified = False
+            self.place_check = False
         else:
             self.verified = True
             self.env.cr.commit()
 
         return self.verified
+
+##############################################################################
+#   Verification that all place ids are the same for the occurrence activity #
+#   https://support.imio.be/browse/AESS-98                                   #
+##############################################################################
+    @api.multi
+    def check_place(self):
+        # We need to make sure that for every activity occurrence, they have the same schoolimplantation
+        activity_occurrence_ids = set(map(self.get_activity_occurrence, self.prestationtime_ids))
+
+        for activity_occurrence in activity_occurrence_ids:
+            prestation_ids = self.prestationtime_ids.filtered(
+                lambda r: r.activity_occurrence_id.id == activity_occurrence)
+            if not self.is_same_place(prestation_ids):
+                return False
+
+        return True
+
+    @api.multi
+    def is_same_place(self, prestation_ids):
+        # If we have less than 1, there has been an error on the verification
+        if len(prestation_ids) <= 1:
+            return False
+        # They don't have the same place id
+        elif len(prestation_ids.mapped('placeid')) > 1:
+            return False
+        else:
+            return True
+
+    @api.multi
+    def get_activity_occurrence(self, prestation):
+        # Return the id of the activity occurrence
+        return prestation.activity_occurrence_id.id
+
+##############################################################################
 
     @api.model
     def check_all(self):
