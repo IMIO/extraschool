@@ -83,13 +83,8 @@
                      Vu les réglements en vigueur approuvés par le Conseil Communal. <br/>
                      </div>
                     <div>
-<<<<<<< HEAD
-                     Enjoint à Maïtre Yves BOGAERT, huissier de Justice à Tournai, de se rendre au domicile du débiteur repris ci-dessous et de lui signifier la présente
-                         contrainte et, le cas échéant, de le poursuivre par toutes voies de droit que toutes personnes qui pourraient en être poursuivies en vertu du présent titre ;<br/>
-=======
                      Enjoint à Maître Yves BOGAERT, huissier de Justice à Tournai, de se rendre au domicile du débiteur repris ci-dessous et de lui signifier la présente
                          contrainte et, le cas échéant, de le poursuivre par toutes voies de droit ainsi que toutes personnes qui pourraient en être poursuivies en vertu du présent titre ;<br/>
->>>>>>> origin/9.0
                      </div>
                     <div style="line-height:300%;">
                      Débiteur : <t t-esc="parent_id.firstname"/> <t t-esc="parent_id.lastname"/> (domicile: <t t-esc="parent_id.street"/> à <t t-esc="parent_id.zipcode"/> <t t-esc="parent_id.city"/>).<br/>
@@ -98,28 +93,17 @@
 
                      <div><b style="float:left">Nature de la créance : </b><b style="float:right">Montant</b></div>
                      <hr style="border-top: solid 1px black;"></hr><br/>
-<<<<<<< HEAD
-                     <span style="float:left">- Factures AES pour la période du <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/>** :</span> <span style="float:right"> <t t-esc="'%.2f €' % (amount)"/></span><br/>
-=======
                      <span style="float:left">- Factures relative(s) aux repas et garderies scolaires pour la période du <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/>** :</span> <span style="float:right"> <t t-esc="'%.2f €' % (amount)"/></span><br/>
->>>>>>> origin/9.0
                      <span style="float:left">- Frais de recommandé :</span> <span style="float:right"><span class="amount"><t t-esc="'%.2f' %  (fees)" /> €</span></span><br/>
                      <span style="float:left; font-weight:bold;">- Total de la contrainte :</span> <span style="float:right; font-weight:bold;"><t t-esc="'%.2f' %  (balance + fees)" /> €</span><br/>
                      <br/><br/>
                      <b>Compte bancaire n° BE25 0960 2105 5182</b><br/><br/>
                      <b>Communication pour les paiements : <t t-esc="com_struct" /></b><br/>
                      * Les modalités de recours contre la contrainte non fiscale sont détaillées au verso.<br/>
-<<<<<<< HEAD
-                     ** copie de la/des facture(s), du récépissé de recommandé<br/><br/>
-                     A Tournai, le <t t-esc="datetime.datetime.strptime(reminder.reminders_journal_id.transmission_date, '%Y-%m-%d').strftime('%d-%m-%Y')"/><br/>
-                     <span style="float:right">Le Directeur financier,</span><br/><br/>
-                     <span style="float:right">Eddy Moulin</span><br/><br/>
-=======
                      ** copie de la/des facture(s), du récépissé de recommandé en annexe<br/><br/>
                      A Tournai, le <t t-esc="datetime.datetime.strptime(reminder.reminders_journal_id.transmission_date, '%Y-%m-%d').strftime('%d-%m-%Y')"/><br/>
                      <span style="float:right">Le Directeur financier,</span><br/><br/>
                      <span style="float:right">Eddy MOULIN</span><br/><br/>
->>>>>>> origin/9.0
                      <span style="font-style:italic">Visé et rendu exécutoire par délibération du Collège communal du</span>
                 </p>
              </div>
@@ -140,15 +124,6 @@
                          quelconques et nonobstant les exceptions prévues par la Loi, le recours devra être introduit :<br/><br/>
 
                          <div style="margin-left:20px;">
-<<<<<<< HEAD
-                         -<span style="margin-left:20px;"> </span> Devant le Tribunal de la <u>Justice de Paix</u> du Canton où se situe le siège de la Commune de Tournai ou dans le Cantondans lequel la (les)
-                         prestation(s) a (ont) été effectuée(s) lorsque le montant total reprissur la présnete contrainte est <u>inférieur ou égal à 2.500,00 €.</u><br/>
-                         -<span style="margin-left:20px;"> </span> Devant le Tribunal de <u>Première Instance</u> de l'arrondissement judiciaire où se situe le siège de la Commune de Tournai lorsque le montant
-                         repris sur la présente contrainte est <u>supérieur à 2.500,00 €.</u><br/><br/>
-                         </div>
-
-                         Pour tout renseignement complémentaire relatif à l'introduction d'un recours, nous vous invitons à prendre contact avec la greffe de la juridiction compétente
-=======
                          -<span style="margin-left:20px;"> </span> Devant le Tribunal de la <u>Justice de Paix</u> du Canton où se situe le siège de la Commune de Tournai ou dans le Canton dans lequel la (les)
                          prestation(s) a (ont) été effectuée(s) lorsque le montant total repris sur la présente contrainte est <u>inférieur ou égal à 2.500,00 €.</u><br/>
                          -<span style="margin-left:20px;"> </span> Devant le Tribunal de <u>Première Instance</u> de l'arrondissement judiciaire où se situe le siège de la Commune de Tournai lorsque le montant total
@@ -156,7 +131,6 @@
                          </div>
 
                          Pour tout renseignement complémentaire relatif à l'introduction d'un recours, nous vous invitons à prendre contact avec le greffe de la juridiction compétente
->>>>>>> origin/9.0
                          (soit à la Justice de Paix de Tournai sise Boulevard Léopold, 72 à 7500 Tournai - soit au Tribunal de Première Instance de Tournai sis Rue du Château,
                          47 à 7500 Tournai) ou de vous mettre en contact avec un avocat ou un huissier de justice.
                      </div>
@@ -166,11 +140,7 @@
 
         <template id="report_std_footer_tournai">
 		    <div class="col-sm-12" style="margin-top:100px; font-size:10px; font-style:italic;">
-<<<<<<< HEAD
-                Agent traitant : Joannie VISEUR - Employée d'amninistration<br/>
-=======
                 Agent traitant : Joannie VISEUR - Employée d'admninistration<br/>
->>>>>>> origin/9.0
                 Tél. : +32 (0)69/33.23.95<br/>
                 Email : joannie.viseur@tournai.be
                 <hr style="border-top: solid 1px #FF69B4; border-style:dotted;"></hr>
@@ -181,8 +151,6 @@
             </div>
 		</template>
 
-<<<<<<< HEAD
-=======
         <template id="report_adresse_no_style_tournai">
 		    <xpath expr="//head" position="inside">
                 <link rel="stylesheet" href="/extraschool/static/src/css/report_adresse_no_style_tournai.css"/>
@@ -251,7 +219,5 @@
                 être recouvrés par la contrainte. Les dettes des personnes de droit public ne peuvent jamais être recouvrées par contrainte. Un recours contre cet exploit peut être introduit dans le mois de la signification par requête ou par citation;(...) ».
             </div>
 		</template>
-
->>>>>>> origin/9.0
     </data>
 </openerp>

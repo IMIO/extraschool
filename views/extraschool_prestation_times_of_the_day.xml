@@ -40,8 +40,6 @@
                         </div>
                         <field name="place_check" invisible="True"/>
                         <group col="4">
-                        <newline/>
-						<field name="activity_category_id" readonly="True"/>
 						<newline/>
 	                    <field name="child_id"  readonly="True"/>
 	                    <field name="child_level"  readonly="True"/>
