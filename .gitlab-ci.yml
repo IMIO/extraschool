@@ -60,6 +60,12 @@ restart-Braine-l-Alleud:
     - mco shell run '/srv/docker_scripts/brainelalleud_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
   when: manual
 
+restart-Burdinne:
+  stage: restart
+  script:
+    - mco shell run '/srv/docker_scripts/burdinne_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
+  when: manual
+
 restart-Clavier:
   stage: restart
   script:

@@ -147,6 +147,11 @@
                         <field name="biller_id" readonly="True"/>
     	            </group>
                     <notebook>
+                        <page string="Concerned Biller">
+                            <group col="4">
+                                <field name="biller_ids" nolabel="1" readonly="True" delete="False"/>
+                            </group>
+                        </page>
             			<page string="Reminders type">
             				<group col="4">
                 				<field name="reminders_journal_item_ids" nolabel="1" >

@@ -65,6 +65,17 @@ class extraschool_mainsettings(models.Model):
                            ('S','Out')),'ES' )
     prestation_times_of_the_day_id = fields.Many2one('extraschool.prestation_times_of_the_day', 'Prestation of the day',ondelete='cascade')
     pda_transmission_id = fields.Many2one('extraschool.pda_transmission', 'Transmission')
+    reminder_journal_id = fields.Many2one(
+        'extraschool.remindersjournal'
+    )
+
+    @api.multi
+    def update_comm_struct(self):
+        new_prefix = self.env['extraschool.activitycategory'].search([])[0].remindercomstructprefix
+        for rec in self:
+            for reminder in rec.reminder_journal_id.reminder_ids:
+                old_prefix = reminder.structcom[3:6]
+                reminder.structcom = reminder.structcom.replace(old_prefix, new_prefix, 1)
 
     @api.multi
     def send_presta(self):

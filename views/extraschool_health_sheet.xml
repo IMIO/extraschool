@@ -60,6 +60,17 @@
                                 </field>
                             </div>
                             <div>
+                                <separator string="Interdiction à ces personnes"/>
+                                <newline/>
+                                <field name="interdiction_contact_ids">
+                                    <tree editable="bottom" string="Contacts sans permission">
+                                        <field name="contact_name" required="1"/>
+                                        <field name="contact_relation" required="1"/>
+                                        <field name="contact_tel"/>
+                                    </tree>
+                                </field>
+                            </div>
+                            <div>
                                 <group>
                                 <separator string="Activité non praticables" colspan="2"/>
                                 <newline/>
@@ -95,6 +106,10 @@
                                 <separator string="Intervention grave ou maladie" colspan="2"/>
                                     <field name="intervention"/>
                                     <field name="intervention_text" attrs="{'invisible':[('intervention', '!=', True)], 'required':[('intervention', '=', True)]}"/>
+                                </group>
+                                <group>
+                                <separator string="Diabète" colspan="2"/>
+                                    <field name="diabetique"/>
                                 </group>
                             </div>
 						</page>

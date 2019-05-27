@@ -166,8 +166,9 @@
                         <separator string="Factures de:"  colspan="4"/>
                         <field name="name" nolabel="1" style="font-size:16px" attrs="{'invisible':[('lastname','=',False),('firstname', '=', False)]}"/>
                         <field name="invoice_ids" nolabel="1" colspan="4">
-	                    <tree string="Invoices"  create="false" delete="false" colors="red:tag IS NOT NULL">
+	                    <tree string="Invoices"  create="false" delete="false" colors="red:tag IS NOT NULL;orange:last_reminder_id IS NOT NULL ">
 	                        <field name="activitycategoryid"/>
+	                        <field name="last_reminder_id" invisible="True"/>
 							<field name="structcom"/>
 	                        <field name="period_from"/>
 	                        <field name="period_to"/>

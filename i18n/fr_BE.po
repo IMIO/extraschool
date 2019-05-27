@@ -10716,6 +10716,7 @@ msgstr "Adr2"
 #: model:ir.ui.view,arch_db:base.view_partner_form
 #: model:ir.ui.view,arch_db:base.view_res_bank_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_doctor_form
+#: model:ir.ui.view,arch_db:extraschool.extraschool_guardian_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
 msgid "Address"
 msgstr "Adresse"
@@ -12601,6 +12602,8 @@ msgstr "Fichier binaire"
 #: model:ir.model.fields,field_description:base.field_res_partner_birthdate
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_birthdate
 #: model:ir.model.fields,field_description:mail.field_res_users_birthdate
+=======
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_guardian_birthdate
 msgid "Birthdate"
 msgstr "Date de Naissance"
 
@@ -14878,11 +14881,13 @@ msgid "Contact Titles"
 msgstr "Civilités"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_interdiction_other_contact_contact_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_other_contact_contact_name
 msgid "Contact name"
 msgstr "Nom et prénom"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_interdiction_other_contact_contact_relation
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_other_contact_contact_relation
 msgid "Contact relation"
 msgstr "Lien parenté"
@@ -19466,6 +19471,7 @@ msgid "FirstName"
 msgstr "Prénom"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificate_item_annee
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificate_name
 msgid "Fiscal Year"
 msgstr "Année fiscale"
@@ -35736,7 +35742,7 @@ msgstr "Conseils"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificate_title
 #: model:ir.model.fields,field_description:mail.field_res_users_title
 msgid "Title"
-msgstr "Civilité"
+msgstr "Titre (Année fiscale)"
 
 #. module: web_editor
 #. openerp-web
@@ -36434,6 +36440,7 @@ msgid "Tél. Doctor"
 msgstr "Téléphone"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_interdiction_other_contact_contact_tel
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_other_contact_contact_tel
 msgid "Tél. contact"
 msgstr "Téléphone"

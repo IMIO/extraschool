@@ -199,5 +199,15 @@ envers la               Commune des sommes ci-après.
 			</t>
 
 		</template>
+
+        <template id="report_info_line_engis">
+            <div class="row">
+                <div class="col-lg-12" style="color: red;">
+                    <b>ATTENTION</b>
+                    <br></br>
+                    Pour le bon suivi de votre paiement, merci d’utiliser uniquement la communication structurée mentionnée ci-dessus. Elle est spécifique aux  RAPPELS.
+                </div>
+            </div>
+		</template>
     </data>
 </openerp>

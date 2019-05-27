@@ -29,8 +29,19 @@
 						<button name="uniform_school" groups="extraschool.extraschool_ittre" string="Uniformiser Ecole" class="oe_highlight" type="object" />
 					</header>
 					<sheet>
-					<group col="4">
-						<!--<field name="activity_category_id" readonly="True"/>-->
+                        <div class="alert alert-danger" attrs="{'invisible':[('verified', '=', True)]}">
+                            Cette présence n'est pas vérifiée.
+                        </div>
+                        <div class="alert alert-success" attrs="{'invisible':[('verified', '=', False)]}">
+                            Cette présence est correctement vérifiée.
+                        </div>
+                        <div class="alert alert-warning" attrs="{'invisible':[('place_check', '=', True)]}">
+                            Veuillez vérifier que les lieux d'accueil soient corrects.
+                        </div>
+                        <field name="place_check" invisible="True"/>
+                        <group col="4">
+                        <newline/>
+						<field name="activity_category_id" readonly="True"/>
 						<newline/>
 	                    <field name="child_id"  readonly="True"/>
 	                    <field name="child_level"  readonly="True"/>
@@ -38,9 +49,6 @@
                         <field name="date_of_the_day"  readonly="True"/>
                         <field name="verified" invisible="True"/>
                         <newline/>
-                        <span attrs="{'invisible':[('verified', '=', False)]}">Vérifié</span>
-	                    <span attrs="{'invisible':[('verified', '=', True)]}">NON vérifié !!!</span>
-	                   	<newline/>
 	                    <field name="comment" />
 						<!--<field name="schoolimplantation" invisible="True"/>-->
 		                <separator string="Computed prestations" colspan="4"/>
@@ -78,6 +86,7 @@
 								<field name="active" invisible="1"/>
                                 <!--<field name="activitycategoryid"/>-->
 								<field name="type" readonly="1"/>
+								<field name="create_date" readonly="1"/>
 		                   		<field name="childid" readonly="1"/>
 	                    		<field name="placeid" readonly="1"/>
 	                    		<field name="prestation_time"  widget="float_time" readonly="1"/>

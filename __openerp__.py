@@ -160,6 +160,7 @@
         'report/custo_client/ohey.xml',
         'report/custo_client/ferrieres.xml',
         'report/custo_client/tournai.xml',
+        'report/custo_client/burdinne.xml',
         'report/custo_client/ittre.xml',
         'report/custo_client/fosses_la_ville.xml',
         'report/reminder/reminder_text.xml',

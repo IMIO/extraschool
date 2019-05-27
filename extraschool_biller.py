@@ -69,6 +69,11 @@ class extraschool_biller(models.Model):
     pdf_ready = fields.Boolean(string="Pdf ready", default=False)
     oldid = fields.Integer('oldid')
     in_creation = fields.Boolean(default=True)
+    reminder_journal_id = fields.Many2one(
+        'extraschool.remindersjournal',
+        'Reminders journal',
+        ondelete='cascade',
+        required=False)
 
     @api.multi
     def biller_refactor(self):

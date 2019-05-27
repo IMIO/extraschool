@@ -58,14 +58,13 @@
             <field name="model">extraschool.taxcertificate_item</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <form string="Tax Certificate">
+                <form create="false" delete="false" string="Tax Certificate">
                     <sheet>
                         <group>
                             <group>
                                 <field name="parent_id" />
                                 <field name="implantation" />
                                 <field name="nbr_day" />
-
                             </group>
                             <group>
                                 <field name="child_id" />
@@ -89,6 +88,7 @@
                     <field name="child_id" />
                     <field name="nbr_day" />
                     <field name="amount" />
+                    <field name="annee" />
                 </tree>
             </field>
         </record>

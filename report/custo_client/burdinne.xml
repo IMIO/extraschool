@@ -1,0 +1,134 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+
+    <template id="report_std_header_burdinne">
+        <xpath expr="//head" position="inside">
+            <link rel="stylesheet" href="/extraschool/static/src/css/report_std_header_burdinne.css"/>
+        </xpath>
+        <div id="aes_header">
+            <div class="row">
+                <div id="b_logo2">
+                        <img class="logo2" t-attf-src="data:image/jpeg;base64,{{logo}}"/>
+                       <B>COMMUNE DE BURDINNE</B><br/>
+                        Province de LIEGE - Arrondissement de HUY
+                </div>
+                <div id="b_date">
+                    <span class="doc_date"><t t-esc="doc_date" /></span>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="report_invoice_texte_roi_burdinne">
+        <xpath expr="//head" position="inside">
+            <link rel="stylesheet" href="/extraschool/static/src/css/report_invoice_summary_tournai_med.css"/>
+        </xpath>
+              <div style="page-break-before: always;">
+
+              </div>
+              <div style="page-break-before: always;" >
+                  <div>
+                      <h5><B>Extrait du Règlement d'Ordre Intérieur du Service d'Accueil Extrascolaire de Burdinne</B></h5>
+                  </div>
+                  <div class="col-xs-6">
+                      <p>
+                         <span style="font-weight: bold; font-size: 10px; text-decoration: underline;">
+                             - ACCUEIL ORGANISE DURANT LES PERODES SCOLAIRES<br/>
+                         </span>
+                          <span style="font-size: 9px; align-content: center;">
+                              L’accueil extrascolaire est accessible à tous les enfants de 2,5 à 12 ans inscrits dans l’une des écoles sur le territoire de Burdinne.<br/><br/>
+                          </span>
+                          <span style="font-weight: bold; font-size: 9px;">
+                              Horaires : <br/>
+                          </span>
+                          <span style="font-size: 9px; align-content: center;">
+                              <span style="margin-left:30px">- Tous les matins : de 7H00 à 8H30</span> <br/>
+                              <span style="margin-left:30px">- Tous les soirs : de 15H40 à 18H30 à Burdinne</span> <br/>
+                              <span style="margin-left:30px">- Tous les soirs : de 15h40 à 18H30 à Marneffe</span> <br/>
+                              <span style="margin-left:30px">- Tous les mercredis après-midi : de 12H00 à 18H30 dans les deux implantations</span> <br/><br/>
+                          </span>
+                          <span style="font-weight: bold; font-size: 9px;">
+                              Participation financière : <br/>
+                          </span>
+                          <span style="font-size: 9px; align-content: center;">
+                              <span style="margin-left:30px">- L’intervention financière des parents est fixée comme suit : 1.5 €/heure pour le 1<sup>ier</sup> enfant, 1€/heure pour le 2<sup>ième</sup> enfant et gratuit pour le 3<sup>ième</sup>.</span> <br/>
+                              <span style="margin-left:30px">- La garderie est payante de 7h à 8h30 et de 16h à 18h30 dans les deux implantations.</span> <br/>
+                              <span style="margin-left:30px">- L’intervention est comptabilisée par demi-heure au minimum ; toute demi-heure entamée est une demi-heure facturée (0,75 €).</span> <br/><br/>
+                          </span>
+                          <span style="font-weight: bold; font-size: 9px;">
+                              Inscriptions : <br/>
+                          </span>
+                          <span style="font-size: 9px; align-content: center;">
+                              <span style="margin-left:30px">- Les parents s’engagent à remplir la fiche de renseignements ainsi que la fiche médicale et à les remettre aux accueillantes dans les plus brefs délais.  Sans fiche d’inscription complétée, votre (vos) enfant(s) pourrai(en)t se voir refuser l’accès à l’accueil extrascolaire.</span> <br/>
+                              <span style="margin-left:30px">- Sauf indication contraire dans la fiche d’inscription et/ou dans la fiche médicale et uniquement en cas d’urgence, les accueillantes se réservent le droit de s’adresser en cas de besoin au médecin et/ou à la structure de soin de leur choix.</span> <br/>
+                              <span style="margin-left:30px">- Les parents qui souhaitent inscrire leur(s) enfant(s) à la garderie du mercredi (hors activité du dernier mercredi) sont tenus de le signaler au plus tard le <u>mercredi</u> de la semaine précédente aux accueillantes.</span> <br/><br/>
+                          </span>
+                          <span style="font-weight: bold; font-size: 10px; text-decoration: underline;">
+                             - ACTIVITE MENSUELLE EXCEPTIONNELLE DU MERCREDI<br/><br/>
+                         </span>
+                          <span style="font-size: 9px; align-content: center;">
+                              Les activités mensuelles (excursion, spectacle, atelier créatif, animation nature…) du dernier mercredi après-midi sont accessibles aux enfants fréquentant les écoles de la commune et également à tous les enfants domiciliés sur le territoire de Burdinne. <br/><br/>
+                          </span>
+                          <span style="font-weight: bold; font-size: 9px;">
+                              Horaires : <br/>
+                          </span>
+                          <span style="font-size: 9px; align-content: center;">
+                              <span style="margin-left:30px">- L’horaire est établi en fonction des besoins de l’activité. Celui-ci sera indiqué sur le papier d’informations distribué dans les écoles</span> <br/><br/>
+                          </span>
+                          <span style="font-weight: bold; font-size: 9px;">
+                              Participation financière : <br/>
+                          </span>
+                          <span style="font-size: 9px; align-content: center;">
+                              <span style="margin-left:30px">- La participation aux activités est de 5€ pour le premier enfant et de 2,50€ pour les suivants. </span> <br/>
+                              <span style="margin-left:30px">- Un remboursement se fera uniquement sur présentation d’un certificat médical.</span> <br/>
+                              <span style="margin-left:30px">- Pour les enfants qui retournent avant le début de l’activité, le tarif suivant sera appliqué : 1 €/heure pour le 1<sup>ier</sup> enfant,  0,50 €/heure pour le 2<sup>ième</sup> enfant et gratuit pour le 3<sup>ième</sup> </span> <br/>
+                              <span style="margin-left:30px">- Des changements concernant l’activité peuvent survenir suite à des problèmes indépendants de la volonté  de la commune tels que conditions météorologiques défavorables, annulation d’un spectacle...</span> <br/><br/>
+                          </span>
+
+
+                      </p>
+                  </div>
+                  <div class="col-xs-6">
+                        <span style="font-weight: bold; font-size: 9px;">
+                              Inscriptions : <br/>
+                        </span>
+                        <span style="font-size: 9px; align-content: center;">
+                              <span style="margin-left:30px">- Les inscriptions à l’activité mensuelle exceptionnelle du mercredi doivent être déposées dans les boîtes aux lettres du service de l’accueil extrascolaire se trouvant sur les 2 implantations au plus tard le jour indiqué sur le courrier d’information.</span> <br/>
+                              <span style="margin-left:30px">- Aucune inscription hors délais ne sera prise en compte</span> <br/>
+                              <span style="margin-left:30px">- Pour des mesures de sécurité et d’encadrement, le nombre d’inscriptions est limité. Dès celui-ci atteint, la demande sera mise en attente d’un éventuel désistement.</span> <br/><br/>
+                        </span>
+                        <span style="font-weight: bold; font-size: 10px; text-decoration: underline;">
+                             - FACTURATION<br/><br/>
+                        </span>
+                        <span style="font-size: 9px; align-content: center; font-weight: bold;">
+                            Une facture trimestrielle reprenant les présences du ou des enfant(s) sera distribuée dans les mallettes : <br/><br/>
+                        </span>
+                        <span style="font-size: 9px; align-content: center;">
+                            <span>- Avril, Mai pour la période du 1<sup>ier</sup> trimestre (janvier-février-mars) </span> <br/>
+                            <span>- Juillet, Aout pour la période du 2<sup>ème</sup> trimestre (avril-mai-juin)</span> <br/>
+                            <span>- Octobre, Novembre pour la période du 3<sup>ème</sup> trimestre (septembre) </span> <br/>
+                            <span>- Janvier, Février pour la période du 4<sup>ème</sup> trimestre (octobre-novembre-décembre)</span> <br/><br/>
+                            <span>Toute facture est payable, au plus tard, endéans le mois de sa réception.</span><br/><br/>
+                        </span>
+                        <span style="font-size: 9px; align-content: center; font-weight: bold; text-decoration: underline;">
+                            En cas de non-paiement, endéans le délai précité :  <br/>
+                        </span>
+                        <span style="font-size: 9px; align-content: center; font-weight: bold;">
+                            <span style="margin-left:30px">- Un 1<sup>er</sup> rappel vous sera adressé, sans frais </span> <br/>
+                            <span style="margin-left:30px">- Le 2<sup>ème</sup> rappel sera envoyé par le service du receveur communal et envoyé par recommandé (en y additionnant les frais) et fera si nécessaire appel à un huissier de justice.</span> <br/>
+                            <span style="margin-left:30px">- La commune se réserve également le droit, en dernier recours, de ne plus admettre le(s) enfant(s) au service de l’accueil extrascolaire </span> <br/><br/>
+                            <span>Toute réclamation relative à la facture doit être introduite dans les huit jours à dater de sa notification. En cas de litige, les Tribunaux de Huy sont seuls compétents.</span><br/><br/>
+                        </span>
+                        <span style="font-weight: bold; font-size: 10px; text-decoration: underline;">
+                             - DEDUCTION FISCALE<br/><br/>
+                        </span>
+                        <span style="font-size: 9px; align-content: center; font-weight: bold;">
+                            Depuis le 1<sup>er</sup> janvier 2006, les frais de garde des enfants de 0 à 12 ans sont fiscalement déductibles. L’attestation nécessaire à la déductibilité sera transmise aux parents durant le mois de mars. <br/><br/>
+                        </span>
+                  </div>
+             </div>
+		</template>
+
+    </data>
+</openerp>

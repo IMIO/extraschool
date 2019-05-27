@@ -212,9 +212,7 @@ class extraschool_smartphone(models.Model):
 
         type = "Children" if error == 1 else "Guardians"
 
-        print "Smartphone id: ", smartphone_id
-        print "Error number: ", type
-        print "Error message: ", string_error
+        _logger.error( "Smartphone id: " + smartphone_id + "Error number: " + type + "Error message: " + string_error)
 
     @staticmethod
     def set_error(cr, uid, smartphone_id, error, string_error, context=None):
@@ -225,7 +223,6 @@ class extraschool_smartphone(models.Model):
         """
         # Declare new Environment.
         env = api.Environment(cr, uid, context={})
-        print "inside set_error"
 
         extraschool_smartphone.set_smartphone_error(env['extraschool.smartphone'], smartphone_id, error,
                                                     string_error)
@@ -239,7 +236,7 @@ class extraschool_pda_transmission(models.Model):
     transmission_date_from = fields.Datetime('Date from')
     transmission_date_to = fields.Datetime('Date to')
     smartphone_id = fields.Many2one('extraschool.smartphone', 'Smartphone')
-    pda_prestation_times_ids = fields.One2many('extraschool.pdaprestationtimes','pda_transmission_id')
+    pda_prestation_times_ids = fields.One2many('extraschool.pdaprestationtimes', 'pda_transmission_id')
     state = fields.Selection([('init', 'Init'),
                               ('in_progress', 'In progress'),
                               ('warning', 'Warning'),

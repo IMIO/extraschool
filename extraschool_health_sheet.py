@@ -40,14 +40,15 @@ class extraschool_health_sheet(models.Model):
     comment = fields.Text(string='Comment')
     doctor_id = fields.Many2one('extraschool.doctor', string='Doctor', select=True)
     blood_type = fields.Selection(
-        (('ab+','AB+'),
-         ('ab-','AB-'),
-         ('a+', 'A+'),
-         ('a-', 'A-'),
-         ('b+', 'B+'),
-         ('b-', 'B-'),
-         ('o+', 'O+'),
-         ('o-', 'O-')), string='Blood type')
+        (('AB+','AB+'),
+         ('AB-','AB-'),
+         ('A+', 'A+'),
+         ('A-', 'A-'),
+         ('B+', 'B+'),
+         ('B-', 'B-'),
+         ('O+', 'O+'),
+         ('O-', 'O-'),
+         ('inconnu', 'Inconnu')), string='Blood type')
     tetanus = fields.Boolean(string='Tetanus', default=False)
     first_date_tetanus = fields.Date(string='First date tetanus')
     last_date_tetanus = fields.Date(string='Last date tetanus')
@@ -86,6 +87,8 @@ class extraschool_health_sheet(models.Model):
         (('non_renseigne', 'Non renseigné'),
          ('non', 'Non'),
          ('oui', 'Oui')), default='non_renseigne', string='Arnica')
+    diabetique = fields.Boolean(string='Diabétique', default=False)
+    interdiction_contact_ids = fields.One2many('extraschool.interdiction_other_contact', 'health_id', string='Interdiction contact', )
 
     @api.model
     def create(self, vals):
@@ -111,6 +114,15 @@ class extraschool_doctor(models.Model):
 class extraschool_other_contact(models.Model):
     _name = 'extraschool.other_contact'
     _description = 'Other contact'
+
+    health_id = fields.Many2one('extraschool.health_sheet', string='Health sheet')
+    contact_name = fields.Char(string='Contact name')
+    contact_relation = fields.Char(string='Contact relation')
+    contact_tel = fields.Char(string='Tél. contact', size=20)
+
+class extraschool_interdiction_other_contact(models.Model):
+    _name = 'extraschool.interdiction_other_contact'
+    _description = 'Interdiction contact'
 
     health_id = fields.Many2one('extraschool.health_sheet', string='Health sheet')
     contact_name = fields.Char(string='Contact name')
