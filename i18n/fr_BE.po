@@ -1328,7 +1328,7 @@ msgstr "Annual report id"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
 msgid "Do you really want to cancel payment on this invoice ?"
-msgstr "Voulez-vous annuler cette facture ?"
+msgstr "Voulez-vous annuler le paiement de cette facture ?"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
