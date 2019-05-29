@@ -153,7 +153,7 @@
 					       					<td></td>
 				        					<td><span t-field="invoice_line.description" /></td>
 					       					<td><span t-field="summary_invoice.payment_term" /></td>
-											<td><t t-esc="parent_id.get_prepaid_comstruct(categ_id)" /></td>
+											<td><span t-field="summary_invoice.structcom"/></td>
 					       					<td class="amount"><span t-esc="TODO" /></td>
 											<!--<td class="amount"><span t-esc="'%.2f €' %  (invoice_line.balance)" /></td>-->
 				       					</tr>
