@@ -137,6 +137,11 @@ class extraschool_payment(models.Model):
         self.refund = 0.0
         self.comment += self.env['extraschool.helper'].add_date_user("Annulation remboursement")
 
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'reload',
+        }
+
 
 class extraschool_refund_wizard(models.Model):
     _name = 'extraschool.refund_wizard'
@@ -157,7 +162,11 @@ class extraschool_refund_wizard(models.Model):
                 self.env['extraschool.payment'].search([('id', '=', self._context.get('payment_id'))]).comment += self.env['extraschool.helper'].add_date_user(self.comment)
             else:
                 self.env['extraschool.payment'].search([('id', '=', self._context.get('payment_id'))]).comment = self.env['extraschool.helper'].add_date_user(self.comment)
-
+        
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'reload',
+            }
 
 class extraschool_payment_reconciliation(models.Model):
     _name = 'extraschool.payment_reconciliation'

@@ -219,6 +219,11 @@ class extraschool_invoice(models.Model):
 
             invoice._compute_balance()
 
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'reload',
+        }
+
     @api.multi
     def cancel_and_invoice_after(self):
         for invoice in self:
