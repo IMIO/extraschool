@@ -43,7 +43,9 @@ class extraschool_manuel_invoice_wizard(models.TransientModel):
                                   ('P','Primaire')),
                                  'Level type')
     amount = fields.Float('Amount', required=True)
-    activity_category_id = fields.Many2one("extraschool.activitycategory", required=True)
+    activity_category_id = fields.Many2many(comodel_name='extraschool.activitycategory',
+                                            relation='extraschool_manual_invoice_activity_category_rel',
+                                            require=True)
     state = fields.Selection([('init', 'Init'),
                              ('redirect', 'Redirect'),],
                             'State', required=True, default='init'
@@ -78,13 +80,13 @@ class extraschool_manuel_invoice_wizard(models.TransientModel):
             if self.invoice_child:
                 for child in parent.child_ids:
                     if child.levelid.leveltype in self.leveltype and child.isdisabled == False and (self.invoice_all_children == True or (child.create_date >= self.validity_from and child.create_date <= self.validity_to)):
-                        next_invoice_num = self.activity_category_id.get_next_comstruct('invoice',biller.get_from_year())
+                        next_invoice_num = self.activity_category_id[0].get_next_comstruct('invoice',biller.get_from_year())
                         invoice = inv_obj.create({'name' : _('invoice_%s') % (next_invoice_num['num'],),
                                     'number' : next_invoice_num['num'],
                                     'parentid' : parent.id,
                                     'biller_id' : biller.id,
                                     'payment_term': biller.payment_term,
-                                    'activitycategoryid': self.activity_category_id.id,
+                                    'activitycategoryid': [(6, 0, [id.id for id in self.activity_category_id])],
                                     'schoolimplantationid': child.schoolimplantation.id,
                                     'structcom': next_invoice_num['com_struct']})
                         inv_line_obj.create({'invoiceid' : invoice.id,
@@ -99,13 +101,13 @@ class extraschool_manuel_invoice_wizard(models.TransientModel):
                         invoice_ids.append(invoice.id)
 
             else:
-                next_invoice_num = self.activity_category_id.get_next_comstruct('invoice',biller.get_from_year())
+                next_invoice_num = self.activity_category_id[0].get_next_comstruct('invoice',biller.get_from_year())
                 invoice = inv_obj.create({'name' : _('invoice_%s') % (next_invoice_num['num'],),
                                 'number' : next_invoice_num['num'],
                                 'parentid' : parent.id,
                                 'biller_id' : biller.id,
                                 'payment_term': biller.payment_term,
-                                'activitycategoryid': self.activity_category_id.id,
+                                'activitycategoryid': [(6, 0, [id.id for id in self.activity_category_id])],
                                 'structcom': next_invoice_num['com_struct']})
                 inv_line_obj.create({'invoiceid' : invoice.id,
                     'description' : self.description,
