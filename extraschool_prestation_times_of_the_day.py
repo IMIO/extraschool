@@ -123,46 +123,44 @@ class extraschool_prestation_times_of_the_day(models.Model):
             dup_pod_ids.unlink()
             pod.reset()
 
-
-
-
     @api.multi
     def reset(self):
-        self.place_check = True
-        total = len(self)
-        time_list = []
-        for presta in self:
-            start_time = time.time()
+        for rec in self:
+            rec.place_check = True
+            total = len(rec)
+            time_list = []
+            for presta in rec:
+                start_time = time.time()
 
-            if len(time_list) == 50:
-                avg_time = float(sum(time_list) / len(time_list)) * total
-                avg_time = time.strftime('%M:%S', time.gmtime(avg_time))
-                print "Temps estimé restant: ", avg_time
-                time_list = []
-            total -= 1
-            #Check if presta is not invoiced
-            if len(presta.prestationtime_ids.filtered(lambda r: r.invoiced_prestation_id.id is not False).ids) == 0:
-                presta.prestationtime_ids.unlink()
-                for pda_presta in presta.pda_prestationtime_ids.filtered(lambda r: r.active):
-                    presta.prestationtime_ids.create({'placeid': pda_presta.placeid.id,
-                                                      'childid': pda_presta.childid.id,
-                                                      'prestation_date': pda_presta.prestation_date,
-                                                      'prestation_time': pda_presta.prestation_time,
-                                                      'es': pda_presta.es,
-                                                      'activity_category_id': pda_presta.activitycategoryid.id,
-                                                      })
+                if len(time_list) == 50:
+                    avg_time = float(sum(time_list) / len(time_list)) * total
+                    avg_time = time.strftime('%M:%S', time.gmtime(avg_time))
+                    print "Temps estimé restant: ", avg_time
+                    time_list = []
+                total -= 1
+                #Check if presta is not invoiced
+                if len(presta.prestationtime_ids.filtered(lambda r: r.invoiced_prestation_id.id is not False).ids) == 0:
+                    presta.prestationtime_ids.unlink()
+                    for pda_presta in presta.pda_prestationtime_ids.filtered(lambda r: r.active):
+                        presta.prestationtime_ids.create({'placeid': pda_presta.placeid.id,
+                                                          'childid': pda_presta.childid.id,
+                                                          'prestation_date': pda_presta.prestation_date,
+                                                          'prestation_time': pda_presta.prestation_time,
+                                                          'es': pda_presta.es,
+                                                          'activity_category_id': pda_presta.activitycategoryid.id,
+                                                          })
 
-                reg_ids = self.env['extraschool.activity_occurrence_child_registration'].search([('child_id', '=',presta.child_id.id),
-                                                                                                 ('activity_occurrence_id.occurrence_date', '=', presta.date_of_the_day),
-                                                                                                 ('activity_occurrence_id.activity_category_id', '=', presta.activity_category_id.id),
-                                                                                                 ])
-                for reg in reg_ids:
-                    if reg.activity_occurrence_id.activityid.autoaddchilds:
-                        reg.activity_occurrence_id.add_presta(reg.activity_occurrence_id, reg.child_id.id, None,False)
-                presta.verified = False
-                presta.checked = False
+                    reg_ids = rec.env['extraschool.activity_occurrence_child_registration'].search([('child_id', '=',presta.child_id.id),
+                                                                                                     ('activity_occurrence_id.occurrence_date', '=', presta.date_of_the_day),
+                                                                                                     ('activity_occurrence_id.activity_category_id', '=', presta.activity_category_id.id),
+                                                                                                     ])
+                    for reg in reg_ids:
+                        if reg.activity_occurrence_id.activityid.autoaddchilds:
+                            reg.activity_occurrence_id.add_presta(reg.activity_occurrence_id, reg.child_id.id, None,False)
+                    presta.verified = False
+                    presta.checked = False
 
-            time_list.append(time.time() - start_time)
+                time_list.append(time.time() - start_time)
 
     @api.onchange('prestationtime_ids', 'pda_prestationtime_ids')
     def on_change_prestationtime_ids(self):
