@@ -102,7 +102,7 @@ class extraschool_activity(models.Model):
         for rec in self:
             date_to_check = fields.Date.from_string(rec.validity_to) - datetime.now().date()
             if date_to_check.total_seconds() < 2592000:
-                rec.expire_soon = True;
+                rec.expire_soon = True
 
     @api.onchange('parent_id')
     @api.depends('parent_id')
@@ -202,22 +202,11 @@ class extraschool_activity(models.Model):
                     for occu in self.env['extraschool.activityoccurrence'].search([('id', 'in', occurrence_ids)]):
                         occu.auto_add_registered_childs()
 
-    def check_if_modifiable(self, vals):
+    def check_if_modifiable(self, vals, date_last_invoice, activity_occurrence_ids):
         print "# Start of the modification process........"
         start_time = time.time()
-        invoiced_obj = self.env['extraschool.invoicedprestations']
-        # There goes the rabbit hole
-        # # If there is an invoiced prestation for the activity.
-        if (invoiced_obj.search(
-                [('activity_occurrence_id.activityid', '=', self.id)])):
-            date_last_invoice = vals['validity_from'] if 'validity_from' in vals else self.validity_from
-            activity_occurrence_ids = self.env['extraschool.activityoccurrence'].search([('activityid', '=', self.id),
-                ('occurrence_date', '>=', date_last_invoice),
-            ])
-        else:
-            activity_occurrence_ids = self.env['extraschool.activityoccurrence'].search([('activityid', '=', self.id)])
-            date_last_invoice = self.validity_from
 
+        # There goes the rabbit hole
         child_registration_id__list = []
         # For each Activity Occurence get the list of the activity_occurrence_child_registration IDs.
         child_registration_ids = self.env['extraschool.activity_occurrence_child_registration'] \
@@ -313,14 +302,14 @@ class extraschool_activity(models.Model):
             raise Warning(_("Validity to must be greater than validity from (hours)"))
 
         # Check Planned Dates
-        '''for planneddates_id in planneddates_ids:
+        for planneddates_id in planneddates_ids:
             if planneddates_id.activitydate < validity_from or planneddates_id.activitydate > validity_to:
-                raise Warning(_("Planned Dates must be in the range of Validity_to and Validity_from (Planned)"))'''
+                raise Warning(_("Planned Dates must be in the range of Validity_to and Validity_from (Planned)"))
 
         # Check Exclusion Dates
-        '''for exclusiondates_id in exclusiondates_ids:
+        for exclusiondates_id in exclusiondates_ids:
             if exclusiondates_id.date_from < validity_from or exclusiondates_id.date_to > validity_to:
-                raise Warning(_("Date_from must be in range of Validity_from and Validity_to (Exclusion)"))'''
+                raise Warning(_("Date_from must be in range of Validity_from and Validity_to (Exclusion)"))
 
     @api.onchange('validity_from','validity_to','planneddates_ids','exclusiondates_ids','parent_id','placeids','leveltype','prest_from','prest_to','days')
     @api.multi
@@ -352,14 +341,27 @@ class extraschool_activity(models.Model):
     def write(self, vals):
         for activity in self:
             print "# Modification of an activity -------------------"
+
             # Check Validity Date & Hour.
             self.check_validity_date(vals)
 
+            # Did this for Coralie because Seraing took too much time to change this.
+            if 'exclusiondates_ids' in vals:
+                activity_occurrence_ids = self.env['extraschool.activityoccurrence']
+                for exclusion_date in self.env['extraschool.activityexclusiondates'].browse(vals['exclusiondates_ids'][0][2]):
+                    activity_occurrence_ids = activity_occurrence_ids + self.env['extraschool.activityoccurrence'].search(
+                        [('activityid', '=', self.id),
+                         ('occurrence_date', '>=', exclusion_date.date_from),
+                         ('occurrence_date', '<=', exclusion_date.date_to),
+                         ])
+                date_last_invoice = self.validity_from
+
+                self.check_if_modifiable(vals, date_last_invoice, activity_occurrence_ids)
+
             # This will go through a specific process if there is one change in these fields.
-            if 'validity_from' in vals \
+            elif 'validity_from' in vals \
                     or 'validity_to' in vals \
                     or 'planneddates_ids' in vals \
-                    or 'exclusiondates_ids' in vals \
                     or 'parent_id' in vals \
                     or 'placeids' in vals \
                     or 'leveltype' in vals \
@@ -367,7 +369,21 @@ class extraschool_activity(models.Model):
                     or 'prest_to' in vals \
                     or 'days' in vals:
                 # Follow the white rabbit.
-                self.check_if_modifiable(vals)
+                # # If there is an invoiced prestation for the activity.
+                invoiced_obj = self.env['extraschool.invoicedprestations']
+                if (invoiced_obj.search(
+                    [('activity_occurrence_id.activityid', '=', self.id)])):
+                    date_last_invoice = vals['validity_from'] if 'validity_from' in vals else self.validity_from
+                    activity_occurrence_ids = self.env['extraschool.activityoccurrence'].search(
+                        [('activityid', '=', self.id),
+                         ('occurrence_date', '>=', date_last_invoice),
+                         ])
+                else:
+                    activity_occurrence_ids = self.env['extraschool.activityoccurrence'].search(
+                        [('activityid', '=', self.id)])
+                    date_last_invoice = self.validity_from
+
+                self.check_if_modifiable(vals, date_last_invoice, activity_occurrence_ids)
 
             else:
                 super(extraschool_activity, self).write(vals)
