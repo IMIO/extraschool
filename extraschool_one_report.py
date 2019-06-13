@@ -83,7 +83,6 @@ class extraschool_one_report(models.Model):
             return `quarter` + "eme"
 
     placeid = fields.Many2one('extraschool.place')
-    activitycategory = fields.Many2one('extraschool.activitycategory', required=True)
     year = fields.Integer(required=True, default=datetime.now().year)
     quarter = fields.Selection(((1,'1er'), (2,'2eme'), (3,'3eme'), (4,'4eme')), required=True, default=((datetime.now().month-1)//3 + 1))
     show_quarter = fields.Char(default=_get_quarter, readonly=True)
@@ -130,36 +129,36 @@ class extraschool_one_report(models.Model):
         XLSheet.write(row, col, value)
         self._getXLCell(XLSheet,row,col).xf_idx = previousCell.xf_idx
 
-    def search_childs(self,placeid,activitycategory,currentdate,level,subvention_type):
+    def search_childs(self,placeid,currentdate,level,subvention_type):
         self.env.cr.execute('''
                                 select distinct(childid) from extraschool_invoicedprestations left join extraschool_child on childid=extraschool_child.id where 
                                 placeid=%s 
                                 and prestation_date=%s 
-                                and activity_occurrence_id in (select id from extraschool_activityoccurrence where activityid in (select id from extraschool_activity where category=%s and subsidizedbyone=true)) 
+                                and activity_occurrence_id in (select id from extraschool_activityoccurrence where activityid in (select id from extraschool_activity where subsidizedbyone=true)) 
                                 and levelid in (select id from extraschool_level where leveltype=%s) 
                                 and extraschool_child.parentid in (select id from extraschool_parent where one_subvention_type=%s)
-                                ''', (placeid,currentdate,activitycategory,level,subvention_type))
+                                ''', (placeid,currentdate,level,subvention_type))
         extraschool_one_report_childs = self.env.cr.dictfetchall()
 
         return [extraschool_one_report_child['childid'] for extraschool_one_report_child in extraschool_one_report_childs]
 
-    def count_childs_quarter(self,placeid,activitycategory,date_from,date_to,level):
+    def count_childs_quarter(self,placeid,date_from,date_to,level):
         self.env.cr.execute('''
                                 select count(distinct(childid)) as count_child from extraschool_invoicedprestations left join extraschool_child on childid=extraschool_child.id where 
                                 placeid=%s 
                                 and prestation_date>=%s and prestation_date<=%s  
-                                and activity_occurrence_id in (select id from extraschool_activityoccurrence where activityid in (select id from extraschool_activity where category=%s and subsidizedbyone=true)) 
+                                and activity_occurrence_id in (select id from extraschool_activityoccurrence where activityid in (select id from extraschool_activity where subsidizedbyone=true)) 
                                 and levelid in (select id from extraschool_level where leveltype=%s)                                 
-                                ''', (placeid,date_from,date_to,activitycategory,level))
+                                ''', (placeid,date_from,date_to,level))
 
         extraschool_one_report_childs = self.env.cr.dictfetchall()
         print '''
                                 select count(distinct(childid)) as count_child from extraschool_invoicedprestations left join extraschool_child on childid=extraschool_child.id where 
                                 placeid=%s 
                                 and prestation_date>=%s and prestation_date<=%s  
-                                and activity_occurrence_id in (select id from extraschool_activityoccurrence where activityid in (select id from extraschool_activity where category=%s and subsidizedbyone=true)) 
+                                and activity_occurrence_id in (select id from extraschool_activityoccurrence where activityid in (select id from extraschool_activity where and subsidizedbyone=true)) 
                                 and levelid in (select id from extraschool_level where leveltype=%s)                                 
-                                ''' % (placeid,date_from,date_to,activitycategory,level)
+                                ''' % (placeid,date_from,date_to,level)
         print "count_child : %s" % (extraschool_one_report_childs[0]['count_child'])
         return extraschool_one_report_childs[0]['count_child']
 
@@ -247,17 +246,17 @@ class extraschool_one_report(models.Model):
                             day_nb_p = 0
                             if vals['synthesis'] == True:
                                 for place in place_obj.search([]).mapped('id'):
-                                    childidsm = self.search_childs(place, vals['activitycategory'], currentdate,
+                                    childidsm = self.search_childs(place, currentdate,
                                                                    'M', subvention_type)
                                     day_nb_m += len(childidsm)
-                                    childidsp = self.search_childs(place, vals['activitycategory'], currentdate,
+                                    childidsp = self.search_childs(place, currentdate,
                                                                    'P', subvention_type)
                                     day_nb_p += len(childidsp)
                             else:
-                                childidsm = self.search_childs(vals['placeid'], vals['activitycategory'], currentdate,
+                                childidsm = self.search_childs(vals['placeid'], currentdate,
                                                                'M', subvention_type)
                                 day_nb_m = day_nb_m + len(childidsm)
-                                childidsp = self.search_childs(vals['placeid'], vals['activitycategory'], currentdate,
+                                childidsp = self.search_childs(vals['placeid'], currentdate,
                                                                'P', subvention_type)
                                 day_nb_p = day_nb_p + len(childidsp)
 
@@ -293,12 +292,12 @@ class extraschool_one_report(models.Model):
         if vals['synthesis'] == True:
             # Compute from all School Implantation.
             for place in place_obj.search([]).mapped('id'):
-                tot_nb_m += self.count_childs_quarter(place, vals['activitycategory'], period_from, period_to, 'M')
-                tot_nb_p += self.count_childs_quarter(place, vals['activitycategory'], period_from, period_to, 'P')
+                tot_nb_m += self.count_childs_quarter(place, period_from, period_to, 'M')
+                tot_nb_p += self.count_childs_quarter(place, period_from, period_to, 'P')
         else:
             # Compute from the selected School Implantation.
-            tot_nb_m = self.count_childs_quarter(place.id, vals['activitycategory'],period_from, period_to,'M')
-            tot_nb_p = self.count_childs_quarter(place.id, vals['activitycategory'],period_from, period_to,'P')
+            tot_nb_m = self.count_childs_quarter(place.id,period_from, period_to,'M')
+            tot_nb_p = self.count_childs_quarter(place.id,period_from, period_to,'P')
 
         #Formules
         self.setXLCell(XLSheet,8,19,tot_nb_m)
