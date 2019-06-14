@@ -114,6 +114,7 @@ class extraschool_invoice_wizard(models.TransientModel):
     check_manual = fields.Boolean(default=True)
     check_registration = fields.Boolean(default=True)
     check_prestation = fields.Boolean(default=True)
+    check_child_isdisabled = fields.Boolean(default=True)
     check_invoice = fields.Boolean(default=True)
     generate_pdf = fields.Boolean(default=True)
 
@@ -141,6 +142,7 @@ class extraschool_invoice_wizard(models.TransientModel):
         if self.activitycategory:
             self.check_prestation = self._check_prestation()
             self.check_invoice = self._check_invoice()
+            self.check_child_isdisabled = self._check_child_isdisabled()
 
     @api.multi
     def _check_invoice(self):
@@ -182,6 +184,30 @@ class extraschool_invoice_wizard(models.TransientModel):
                                 ;"""
 
         self.env.cr.execute(sql_check_verified, (self.period_from, self.period_to, self.activitycategory.id, tuple(self.schoolimplantationid.ids),))
+        verified_count = self.env.cr.dictfetchall()
+
+        if verified_count[0]['verified_count']:
+            return False
+        else:
+            return True
+
+    @api.multi
+    def _check_child_isdisabled(self):
+        """
+        Check if all prestation have been verified
+        :return: False if prestation to be verified. True if not.
+        """
+        sql_check_verified = """select count(*) as verified_count
+                                        from extraschool_prestationtimes ept
+                                        left join extraschool_child c on ept.childid = c.id
+                                        where ept.prestation_date between %s and %s
+                                            and c.isdisabled = True
+                                            and activity_category_id = %s
+                                            and c.schoolimplantation in %s 
+                                    ;"""
+
+        self.env.cr.execute(sql_check_verified, (
+        self.period_from, self.period_to, self.activitycategory.id, tuple(self.schoolimplantationid.ids),))
         verified_count = self.env.cr.dictfetchall()
 
         if verified_count[0]['verified_count']:

@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <openerp>
-	<data> 
+	<data>
         <record model="ir.ui.view" id="extraschool_prestationtimes_tree">
 			<field name="name">prestationtimes.tree</field>
 			<field name="model">extraschool.prestationtimes</field>
@@ -15,7 +15,7 @@
 				</tree>
 			</field>
 		</record>
-        
+
 		<record model="ir.ui.view" id="extraschool_prestationtimes_form">
 			<field name="name">prestationtimes.form</field>
 			<field name="model">extraschool.prestationtimes</field>
@@ -27,7 +27,7 @@
 	                    <field name="prestation_times_of_the_day_id"/>
 						<field name="childid" required="1"/>
 	                    <field name="placeid" required="1"/>
-           				<field name="activity_name" required="1"/>	                    	                    
+           				<field name="activity_name" required="1"/>
 						<field name="prestation_date" required="1"/>
 	                    <field name="prestation_time"  required="1" widget="float_time"/>
 	                    <field name="es" required="1"/>
@@ -35,7 +35,7 @@
 				</form>
 			</field>
 		</record>
-      
+
 
         <record id="prestationtimes_search_view" model="ir.ui.view">
             <field name="name">prestationtimes.search</field>
@@ -51,28 +51,28 @@
                     <filter string="Verified" icon="terp-accessories-archiver" domain="[('verified','=',True)]"/>
                    <group  expand='0' string='Group by...'>
                        <filter string='Enfant' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'childid'}"/>
-                       <filter string="Lieux d&apos;accueil" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'placeid'}"/>                       	                       
+                       <filter string="Lieux d&apos;accueil" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'placeid'}"/>
                        <filter string='Activité' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'activity_occurrence_id.activityid'}"/>
-                   </group>                    
+                   </group>
                 </search>
             </field>
-        </record>			
-		
+        </record>
+
 		<record model="ir.ui.view" id="extraschool_prestationtimes_tree">
 			<field name="name">prestations.tree.list</field>
 			<field name="model">extraschool.prestationtimes</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
-				<tree string="Prestations">			
-              		<field name="activity_occurrence_id" />	
-					<field name="placeid"/>		
+				<tree string="Prestations">
+              		<field name="activity_occurrence_id" />
+					<field name="placeid"/>
 					<field name="childid"/>
-        			<field name="activity_name" required="1"/>	                    	                    
+        			<field name="activity_name" required="1"/>
 					<field name="prestation_date"/>
                     <field name="prestation_time" widget="float_time"/>
                     <field name="error_msg"/>
-                    <field name="es"/>  
-                    <field name="verified"/>         
+                    <field name="es"/>
+                    <field name="verified"/>
 				</tree>
 			</field>
 		</record>
@@ -85,21 +85,21 @@
                  </graph>
              </field>
         </record>
-        
+
         <record model="ir.actions.act_window" id="action_extraschool_prest">
 			<field name="name">Prestations</field>
 			<field name="res_model">extraschool.prestationtimes</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">form</field>
 		</record>
-		
+
         <record model="ir.actions.act_window" id="action_extraschool_prest_tree">
 			<field name="name">Prestations.tree</field>
 			<field name="res_model">extraschool.prestationtimes</field>
 			<field name="view_type">form</field>
-            <field name="view_mode">tree,graph</field>
+            <field name="view_mode">tree,graph,pivot</field>
 			<field name="view_id" ref="extraschool_prestationtimes_tree"/>
             <field name="search_view_id" ref="prestationtimes_search_view"/>
-		</record>		
+		</record>
 	</data>
 </openerp>
