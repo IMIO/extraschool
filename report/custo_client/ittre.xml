@@ -34,7 +34,7 @@
 					  <div id="invoice_summary" >
 						 <p>
 							 Objet: Factures AES pour la période du <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/><br/> <b><span style=" margin-left:40px;">MISE EN DEMEURE AVANT CONTRAINTE NON FISCALE– art. L1124-40§1, 1° CDLD</span></b><br/>
-					   Nos réf. : AES / <t t-esc="reminder.reminders_journal_id.name"/> / <t t-esc="parent_id.name" /><br/><br/><br/>
+					   Nos réf. : AES / Mise en demeure avant contrainte/ <t t-esc="parent_id.name" /><br/><br/><br/>
 						Cher Parent, <br/><br/>
 
 					   Le service Comptabilité de la Ville d'Ittre a constaté que, pour les frais scolaires de votre (vos) enfant(s) pour la période du <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/> il restait un montant impayé de
