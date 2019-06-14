@@ -24,9 +24,6 @@
                     <div class="alert alert-danger" attrs="{'invisible':[('check_prestation', '=', True)]}">
                         Il y a au moins une <b>présence</b> non vérifiée pour cette période
                     </div>
-                    <div class="alert alert-danger" attrs="{'invisible':[('check_child_isdisabled', '=', True)]}">
-                        Il y a au moins une <b>présence</b> d'un enfant <b>désactivé</b>
-                    </div>
                     <div class="alert alert-warning" attrs="{'invisible':[('check_invoice', '=', True)]}">
                         Il n'y a pas de présences à facturer pour cette période
                     </div>
@@ -35,7 +32,6 @@
                         <field name="isready" invisible="1" />
                         <field name="check_manual" invisible="1" />
                         <field name="check_registration" invisible="1" />
-                        <field name="check_child_isdisabled" invisible="1" />
                         <field name="check_prestation" invisible="1" />
                         <field name="check_invoice" invisible="1" />
                         <group states="init">
