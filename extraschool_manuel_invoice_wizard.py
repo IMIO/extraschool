@@ -68,6 +68,7 @@ class extraschool_manuel_invoice_wizard(models.TransientModel):
                                                             'period_to' : self.invoice_date,
                                                             'payment_term': self.payment_term,
                                                             'invoices_date': self.invoice_date,
+                                                            'activitycategoryid': [(6, 0, self.activity_category_id.ids)],
                                                             })
         else:
             return True
@@ -86,7 +87,7 @@ class extraschool_manuel_invoice_wizard(models.TransientModel):
                                     'parentid' : parent.id,
                                     'biller_id' : biller.id,
                                     'payment_term': biller.payment_term,
-                                    'activitycategoryid': [(6, 0, [id.id for id in self.activity_category_id])],
+                                    'activitycategoryid': [(6, 0, self.activity_category_id.ids)],
                                     'schoolimplantationid': child.schoolimplantation.id,
                                     'structcom': next_invoice_num['com_struct']})
                         inv_line_obj.create({'invoiceid' : invoice.id,
@@ -107,7 +108,7 @@ class extraschool_manuel_invoice_wizard(models.TransientModel):
                                 'parentid' : parent.id,
                                 'biller_id' : biller.id,
                                 'payment_term': biller.payment_term,
-                                'activitycategoryid': [(6, 0, [id.id for id in self.activity_category_id])],
+                                'activitycategoryid': [(6, 0, self.activity_category_id.ids)],
                                 'structcom': next_invoice_num['com_struct']})
                 inv_line_obj.create({'invoiceid' : invoice.id,
                     'description' : self.description,
@@ -120,8 +121,12 @@ class extraschool_manuel_invoice_wizard(models.TransientModel):
 
         inv_obj.browse(invoice_ids).reconcil()
 
+        invoice_ids = inv_obj.browse(invoice_ids)
+
+        for invoice_id in invoice_ids:
+            self.env['report'].get_pdf(invoice_id, 'extraschool.manual_invoice_report_layout')
+
+        biller.pdf_ready = True
+        biller.in_creation = False
+
         return True
-
-
-
-
