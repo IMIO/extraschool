@@ -1159,6 +1159,7 @@ msgstr "Activité"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_prestation_times_of_the_day_activity_category_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_prestationtimes_activity_category_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_reminder_activity_category_id
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_activity_category_ids
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_remindersjournal_activity_category_id
 msgid "Activity Category"
 msgstr "Catégorie d'activité"
@@ -1187,6 +1188,7 @@ msgid "Activity category"
 msgstr "Catégorie d'activité"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_accrued_activity_category_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_sequence_activity_category_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_manuel_invoice_wizard_activity_category_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_negatif_payment_correction_wizard_activity_category_id
@@ -1472,6 +1474,8 @@ msgid "Allergy"
 msgstr "L'enfant possède-t-il des allergies ?"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_accrued_amount
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_annual_report_item_amount
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_amount_total
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_mainsettings_amount
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_manuel_invoice_wizard_amount
@@ -1702,6 +1706,7 @@ msgstr "Facturier du %s au %s"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_biller_report_id
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_biller_report_id
 msgid "Biller report"
 msgstr "Rapport du facturier"
 
@@ -3465,21 +3470,25 @@ msgstr "Familles de 3 enfants et +"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_po_resp_fct
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_po_resp_fct
 msgid "Fct of resp"
 msgstr "Fct du responsable"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_po_rappel_fct
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_po_rappel_fct
 msgid "Fct of resp reminder"
 msgstr "Fct du responsable"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_po_attestation_fct
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_po_attestation_fct
 msgid "Fct of resp tax certificate"
 msgstr "Fct du responsable"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_po_resp2_fct
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_po_resp2_fct
 msgid "Fct of resp2"
 msgstr "Fct du responsable 2"
 
@@ -3585,6 +3594,25 @@ msgid "Followers"
 msgstr "Abonnés"
 
 #. module: extraschool
+#: model:ir.actions.act_window,name:extraschool.action_extraschool_organising_power
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_organising_power_id
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_child_organising_power_id
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_organising_power
+msgid "Organising Power"
+msgstr "Pouvoir organisateur"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_town
+msgid "Name of the town"
+msgstr "Commune"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_po_name
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_po_name
+msgid "Name of PO"
+msgstr "Nom du PO"
+
+#. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_message_channel_ids
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_biller_message_channel_ids
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_message_channel_ids
@@ -3601,6 +3629,11 @@ msgstr "Abonnés"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificate_message_channel_ids
 msgid "Followers (Channels)"
 msgstr "Abonnés (Canaux)"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_biller_form
+msgid "Accrued"
+msgstr "Droit(s) constaté(s)"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_message_partner_ids
@@ -5143,8 +5176,19 @@ msgstr "Prix maximum"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_max_school_implantation
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_max_school_implantation
 msgid "Max school implantation"
 msgstr "Nombre max. d'implantation scolaire"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_dominant_activity_category_id
+msgid "Dominant activity category id"
+msgstr "Activité catégorie dominante"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_dominant_payment_activity_category_id
+msgid "Dominant payment activity category id"
+msgstr "Activité catégorie dominate pour le paiement"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_config_smartphone_maxtimedelta
@@ -5304,21 +5348,25 @@ msgstr "Nom du PO"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_po_resp_name
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_po_resp_name
 msgid "Name of resp"
 msgstr "Nom du responsable "
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_po_rappel_name
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_po_rappel_name
 msgid "Name of resp reminder"
 msgstr "Nom du responsable"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_po_attestation_name
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_po_attestation_name
 msgid "Name of resp tax certificate"
 msgstr "Nom du responsable"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_po_resp2_name
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_po_resp2_name
 msgid "Name of resp2"
 msgstr "Nom du responsable 2"
 
@@ -6558,6 +6606,7 @@ msgstr "QRCode"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_qrcode_report_id
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_qrcode_report_id
 msgid "QRCode report"
 msgstr "Rapport pour le QR Code"
 
@@ -7240,26 +7289,31 @@ msgstr "Signalétiques"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_po_sign
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_po_sign
 msgid "Signature"
 msgstr "Signature"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_po_sign_img
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_po_sign_img
 msgid "Signature image"
 msgstr "Signature du responsable"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_po_rappel_sign
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_po_rappel_sign
 msgid "Signature of resp reminder"
 msgstr "Signature du responsable"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_po_attestation_sign
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_po_attestation_sign
 msgid "Signature of resp tax certificate"
 msgstr "Signature du responsable"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_po_resp2_sign
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_po_resp2_sign
 msgid "Signature of resp2"
 msgstr "Signature du responsable 2"
 
@@ -7376,6 +7430,7 @@ msgstr "État"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_doctor_street
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_street
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_place_street
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_po_street
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_school_street
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_schoolimplantation_street
 msgid "Street"
@@ -7505,8 +7560,9 @@ msgstr "Tax Certificate Detail"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_taxcertificatetemplate
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_taxcertificatetemplate
 msgid "Tax Certificate Template"
-msgstr "Modèle d'attestation fiscale"
+msgstr "Modèle d'attestation fiscale (N°)"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
@@ -8262,6 +8318,7 @@ msgstr "Vous n'êtes pas autorisé de supprimer une inscription validée !!"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_doctor_zipcode
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_zipcode
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_place_zipcode
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_po_zipcode
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_school_zipcode
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_schoolimplantation_zipcode
 msgid "ZipCode"
@@ -9114,6 +9171,7 @@ msgstr "Solde"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_po_stamp
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_po_stamp
 msgid "stamp"
 msgstr "Le cachet / tampon"
 
@@ -9141,6 +9199,7 @@ msgstr "tax_certificate_detail_ids"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_po_tel
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_po_tel
 msgid "tel"
 msgstr "Téléphone"
 
