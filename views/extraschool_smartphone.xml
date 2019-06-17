@@ -24,83 +24,101 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
             <form string="Smartphone">
-                <notebook>
-	                <page string="Configuration">
-	                    <group col="4">
-			                <field name="id"/>
-			                <field name="softwareversion"/>
-			                <field name="name" />
-			                <newline/>
-			                <field name="placeid" />
-			                <newline/>
-			                <field name="activitycategories_ids" />
-			                <newline/>
-			                <field name="lasttransmissiondate"/>
-			                <newline/>
-			                <field name="maxtimedelta"/>
-			                <newline/>
-			                <field name="oldversion"/>
-			                <newline/>
-			                <field name="transmissiontime"/>
-			                <newline/>
-			                <field name="serveraddress"/>
-			                <newline/>
-			                <field name="databasename"/>
-			                <newline/>
-			                <field name="username"/>
-			                <newline/>
-			                <field name="userpassword"/>
-			                <newline/>
-			                <field name="scanmethod"/>
-			                <newline/>
-			                <field name="transfertmethod"/>
-			                <newline/>
-			                <field name="cfgpassword"/>
-			                <newline/>
-			                <field name="manualok"/>
-			                <newline/>
-			                <field name="qrdownload" img_width="400" img_height="400" width="400" height="400" widget="image"/>
-			                <newline/>
-			                <field name="softwareurl_v9"/>
-			                <newline/>
-			                <field name="qrconfig" img_width="400" img_height="400" width="400" height="400" widget="image"/>
-			            </group>
-			    	</page>
-			    	<page  string="Transmission">
-			    		<group col="4">
-                    		<field name="pda_transmission_ids" nolabel="1" readonly="True">
-                    			<tree>
-			                		<field name="transmission_date_from"/>
-			                		<field name="transmission_date_from"/>
-			                		<field name="state"/>
-			                	</tree>
-			                	<form>
-			                		<group col="4">
-				                		<field name="transmission_date_from"/>
-				                		<field name="transmission_date_to"/>
-				                		<field name="state"/>
-										<newline/>
-					                	<separator string="Prestation times" colspan="4"/>
-					                	<field name="pda_prestation_times_ids" nolabel="1"  colspan="4"/>
-				                	</group>
+                <sheet>
+                    <notebook>
+                        <page string="Configuration">
+                            <group col="4">
+                                <field name="id"/>
+                                <field name="softwareversion"/>
+                                <field name="name" />
+                                <newline/>
+                                <field name="placeid" />
+                                <newline/>
+                                <field name="lasttransmissiondate"/>
+                                <newline/>
+                                <!--<field name="maxtimedelta"/>
+                                <newline/>
+                                <field name="oldversion"/>
+                                <newline/>
+                                <field name="transmissiontime"/>-->
+                                <newline/>
+                                <field name="serveraddress"/>
+                                <newline/>
+                                <field name="databasename"/>
+                                <newline/>
+                                <field name="username"/>
+                                <newline/>
+                                <field name="userpassword"/>
+                                <newline/>
+                                <field name="scanmethod"/>
+                                <newline/>
+                                <field name="transfertmethod"/>
+                                <newline/>
+                                <field name="cfgpassword"/>
+                                <newline/>
+                                <field name="manualok"/>
+                                <!--<newline/>
+                                <field name="activitycategories_ids" />-->
 
-			                	</form>
-                    		</field>
-                    	</group>
-			    	</page>
-                    <page  string="Transmission Log">
-			    		<group col="4">
-                    		<field name="smartphone_log_ids" nolabel="1" readonly="True">
-                    			<tree>
-			                		<field name="title"/>
-			                		<field name="date_of_transmission"/>
-			                		<field name="time_of_transmission"/>
-			                		<field name="smartphone_id" invisible="1"/>
-			                	</tree>
-                    		</field>
-                    	</group>
-			    	</page>
-		    	</notebook>
+                            </group>
+                        </page>
+                        <page  string="Transmission">
+                            <group col="4">
+                                <field name="pda_transmission_ids" nolabel="1" readonly="True">
+                                    <tree>
+                                        <field name="transmission_date_from"/>
+                                        <field name="transmission_date_from"/>
+                                        <field name="state"/>
+                                    </tree>
+                                    <form>
+                                        <group col="4">
+                                            <field name="transmission_date_from"/>
+                                            <field name="transmission_date_to"/>
+                                            <field name="state"/>
+                                            <newline/>
+                                            <separator string="Prestation times" colspan="4"/>
+                                            <field name="pda_prestation_times_ids" nolabel="1"  colspan="4"/>
+                                        </group>
+
+                                    </form>
+                                </field>
+                            </group>
+                        </page>
+                        <page  string="Transmission Log">
+                            <group col="4">
+                                <field name="smartphone_log_ids" nolabel="1" readonly="True">
+                                    <tree>
+                                        <field name="title"/>
+                                        <field name="date_of_transmission"/>
+                                        <field name="time_of_transmission"/>
+                                        <field name="smartphone_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                        <page string="AES Mobile">
+                            <group>
+                                Voici les Qr Codes que vous avez besoin pour télécharger l'application AES Mobile
+                                <group col="6">
+                                    <label string="F-Droid"/>
+                                    <img src='/extraschool/static/src/img/qrcode_fdroid.png' img_width="150" img_height="150" width="150" height="150" widget="image"/>
+                                    <newline/>
+                                </group>
+                                <group col="6">
+                                    <label string="Imio AES-Mobile"/>
+                                    <img src='/extraschool/static/src/img/qrcode_imio.png' img_width="150" img_height="150" width="150" height="150" widget="image"/>
+                                    <newline/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Configuration par Qr Code">
+                            <group>
+                                <newline/>
+                                <field name="qrconfig" img_width="150" img_height="150" width="150" height="150" widget="image"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
             </form>
             </field>
         </record>

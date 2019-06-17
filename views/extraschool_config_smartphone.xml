@@ -14,10 +14,10 @@
                     <group col="2">
                         <field name="activitycategory_id" />
                         <newline/>
-                        <field name="maxtimedelta"/>
+                        <!--<field name="maxtimedelta"/>
                         <newline/>
                         <field name="oldversion"/>
-                        <newline/>
+                        <newline/>-->
                         <field name="start_transmissiontime"/>
                         <newline/>
                         <field name="serveraddress"/>
@@ -38,7 +38,7 @@
                     </group>
                 </sheet>
             </form>
-            </field> 
+            </field>
         </record>
         <record model="ir.actions.act_window" id="action_extraschool_config_smartphone">
 			<field name="name">Configuration Smartphone</field>

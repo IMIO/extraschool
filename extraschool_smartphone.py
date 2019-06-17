@@ -120,7 +120,6 @@ class extraschool_smartphone(models.Model):
 
     @api.one
     def update_qr_code(self,vals):
-        print "smartphone.update_qr_code"
         value='cfg;' + str(self.id) + ';' + self.transmissiontime + ';' + self.serveraddress + ';' + self.databasename + ';' + self.username + ';' + self.userpassword + ';' + self.scanmethod + ';' + self.transfertmethod+ ';' + self.cfgpassword+ ';'
         if self.manualok:
             value=value+'1'
@@ -133,16 +132,8 @@ class extraschool_smartphone(models.Model):
             )
         vals['qrconfig'] = base64.b64encode(barcode)
 
-        value = self.softwareurl_v9
-        barcode = createBarcodeImageInMemory(
-                'QR', value=value, format='png', width=400, height=400,
-                humanReadable = 0
-            )
-        vals['qrdownload'] = base64.b64encode(barcode)
-
     @api.one
     def get_currenttime(self):
-        print str(datetime.today())
         return datetime.today()
 
     @api.multi
@@ -175,9 +166,7 @@ class extraschool_smartphone(models.Model):
 
             return super(extraschool_smartphone, self).write(vals)
 
-        print "smartphone.write"
         super(extraschool_smartphone, self).write(vals)
-        print "call self.update_qr_code"
         self.update_qr_code(vals)
         return super(extraschool_smartphone, self).write(vals)
 

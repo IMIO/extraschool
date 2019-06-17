@@ -35,9 +35,8 @@ class extraschool_config_smartphone(models.Model):
     _name = 'extraschool.config_smartphone'
     _description = 'Configuration of Smartphone'
 
-    activitycategory_id = fields.Many2one('extraschool.activitycategory', 'Activity category', required=True,
-                                       default=1)
-    start_transmissiontime = fields.Char('Transmission time', size=5, default='22:00', required=True)
+    activitycategory_id = fields.Many2one('extraschool.activitycategory', 'Activity category',default=1)
+    start_transmissiontime = fields.Char('Transmission time', size=5, default='22:00')
     serveraddress = fields.Char('Server address', size=50, default='https://', required=True)
     databasename = fields.Char('Database name', size=30, required=True)
     username = fields.Char('User name', required=True)
@@ -47,7 +46,7 @@ class extraschool_config_smartphone(models.Model):
     manualok = fields.Boolean('Authorize manual encoding')
     cfgpassword = fields.Char('Config password',default='1234', required=True)
     maxtimedelta = fields.Integer('Max time delta')
-    transfertmethod = fields.Selection((('WIFI', 'WIFI'), ('3G', '3G')), 'Transfert method')
+    transfertmethod = fields.Selection((('WIFI', 'WIFI'), ('3G', '3G')), 'Transfert method', required=True)
 
     @api.one
     def generate(self):
