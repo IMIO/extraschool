@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<odoo>
+	<data>
+        <record id="rapport_reconciliation_payment" model="ir.ui.view">
+            <field name="name">extraschool.rapport.reconciliation.payment</field>
+            <field name="model">extraschool.rapport_reconciliation_payment</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Reconciliation Payment per Activity Category">
+                    <sheet>
+                        <group col="4">
+                             <field name="start_date" />
+                             <field name="end_date" />
+                        </group>
+                        <group col="2">
+                            <field name="total_amount" />
+                            <field name="total_recieved" />
+                        </group>
+                        <group>
+                            <field name="activity_category_reconciliation_ids" nolabel="1" create="false" delete="false"/>
+                        </group>
+                        <group>
+                            <field name="biller_ids" create="false" delete="false"/>
+                        </group>
+                    </sheet>
+                 </form>
+             </field>
+        </record>
+
+        <record id="extraschool_annual_report_item_tree" model="ir.ui.view">
+            <field name="name">extraschool.rapport.reconciliation.payment</field>
+            <field name="model">extraschool.rapport_reconciliation_payment</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Reconciliation" create="false" delete="false" >
+                     <field name="start_date" />
+                     <field name="end_date" />
+                </tree>
+             </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_extraschool_rapport_reconciliation_payment">
+            <field name="name">Reconciliation Report</field>
+            <field name="res_model">extraschool.rapport_reconciliation_payment</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+        </record>
+
+	</data>
+</odoo>

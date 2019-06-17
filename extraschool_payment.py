@@ -189,6 +189,40 @@ class extraschool_payment_reconciliation(models.Model):
         return res
 
 
+class extraschool_rapport_reconciliation_payment(models.Model):
+    _name = 'extraschool.rapport_reconciliation_payment'
+    _description = 'Rapport Payment reconciliation'
+
+    start_date = fields.Date(string='Start date')
+    end_date = fields.Date(string='End date')
+    total_amount = fields.Float()
+    total_recieved = fields.Float()
+    activity_category_reconciliation_ids = fields.One2many(
+        'extraschool.category_activity_reconciliation_payment',
+        'activity_category_id',
+    )
+    biller_ids = fields.Many2many('extraschool.biller', 'extraschool_biller_recon_payment_rel')
+
+    @api.onchange('start_date', 'end_date')
+    @api.multi
+    def compute_rapport_reconciliation(self):
+        for rec in self:
+            reconciliation_ids = rec.env['extraschool.payment_reconciliation'].search([
+                ('paymentdate', '>=', rec.start_date if rec.start_date else '2000-01-01'),
+                ('paymentdate', '<=', rec.end_date if rec.end_date else '2000-12-31'),
+            ])
+
+            rec.total_recieved = reconciliation_ids
+
+
+class extraschool_activity_category_reconciliation_payment(models.Model):
+    _name = 'extraschool.category_activity_reconciliation_payment'
+
+    activity_category_id = fields.Many2one('extraschool.activitycategory')
+    amount = fields.Float()
+
+
+
 class extraschool_payment_status_report(models.Model):
     _name = 'extraschool.payment_status_report'
     _description = 'Payment status report'

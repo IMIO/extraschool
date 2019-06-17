@@ -67,6 +67,7 @@
    		<menuitem name="Pre-Payments Report" parent="extraschool_menu_payments" id="extraschool_menu_payment_report" action="action_payment_status_report"/>
    		<menuitem name="Aged balance Report" parent="extraschool_menu_payments" id="extraschool_menu_aged_balance_report" action="action_extraschool_aged_balance_report"/>
    		<menuitem name="Annual Report" parent="extraschool_menu_payments" id="extraschool_menu_annual_report_report" action="action_extraschool_annual_report_report"/>
+   		<menuitem name="Reconciliation Report" parent="extraschool_menu_payments" id="extraschool_menu_rapport_reconciliation_payment" action="action_extraschool_rapport_reconciliation_payment"/>
 		<menuitem name="Configuration" id="extraschool_menu_configuration" parent="menu_extraschool"  sequence="999"/>
         <menuitem name="Main Settings" parent="extraschool_menu_configuration" id="extraschool_menu_mainsettings" action="action_extraschool_mainsettings" groups="extraschool.extraschool_gods"/>
         <menuitem name="Organising Power" parent="extraschool_menu_configuration" id="extraschool_menu_organising_power" action="action_extraschool_organising_power"/>

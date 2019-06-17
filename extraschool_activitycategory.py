@@ -75,6 +75,7 @@ class extraschool_activitycategory(models.Model):
                                                    ),'Child position determination', required = True)
 
     activities = fields.One2many('extraschool.activity', 'category_id','Activities')
+    category_activity_reconciliation_payment_ids = fields.One2many('extraschool.category_activity_reconciliation_payment', 'activity_category_id')
     placeids = fields.Many2many('extraschool.place','extraschool_activitycategory_place_rel', 'activitycategory_id', 'place_id','Schoolcare place')
 
     priorityorder = fields.Integer('Priority order')
