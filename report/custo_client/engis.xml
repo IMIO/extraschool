@@ -238,7 +238,7 @@ envers la               Commune des sommes ci-après.
 					 	<span> A payer avant le <t t-esc="payment_term" /></span> <br/><br/>
                         <div style="border-top: black 1px solid;">
                             <br/>Chers parents,
-                        Pour que votre paiement
+                        pour que votre paiement
                         soit traité correctement par notre
                         programme informatique, veillez à utiliser
                         absolument la communication structurée
