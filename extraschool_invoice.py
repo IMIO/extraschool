@@ -99,35 +99,35 @@ class extraschool_invoice(models.Model):
                 'town': "Replace this",
             })
 
-        for child_id in child_ids:
-            try:
-                child_id.organising_power_id = organising_power_id
-            except:
-                pass
+            for child_id in child_ids:
+                try:
+                    child_id.organising_power_id = organising_power_id
+                except:
+                    pass
 
-        for invoice in invoice_ids:
-            try:
-                invoice.activitycategoryid = base_activity_category
-            except:
-                pass
+            for invoice in invoice_ids:
+                try:
+                    invoice.activitycategoryid = base_activity_category
+                except:
+                    pass
 
-        for biller in biller_ids:
-            try:
-                biller.activitycategoryid = base_activity_category
-            except:
-                pass
+            for biller in biller_ids:
+                try:
+                    biller.activitycategoryid = base_activity_category
+                except:
+                    pass
 
-        for activity_id in activity_ids:
-            try:
-                activity_id.category_id = base_activity_category
-            except:
-                pass
+            for activity_id in activity_ids:
+                try:
+                    activity_id.category_id = base_activity_category
+                except:
+                    pass
 
-        for payment_id in payment_ids:
-            try:
-                payment_id.activity_category_id = base_activity_category
-            except:
-                pass
+            for payment_id in payment_ids:
+                try:
+                    payment_id.activity_category_id = base_activity_category
+                except:
+                    pass
 
     def _compute_balance(self):
         for invoice in self:
@@ -167,8 +167,11 @@ class extraschool_invoice(models.Model):
 
     @api.multi
     def get_balance(self, activity_category_id):
-        return sum(invoiced_line.total_price for invoiced_line in self.invoice_line_ids.filtered(
-            lambda r: r.activity_occurrence_id.activity_category_id.id == activity_category_id))
+        if not self.invoice_line_ids.filtered(lambda r: r.activity_occurrence_id.activity_category_id.id):
+            return self.balance
+        else:
+            return sum(invoiced_line.total_price for invoiced_line in self.invoice_line_ids.filtered(
+                lambda r: r.activity_occurrence_id.activity_category_id.id == activity_category_id))
 
     @api.multi
     def reconcil(self):
