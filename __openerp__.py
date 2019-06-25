@@ -119,7 +119,6 @@
         'report/layout/extraschool_layout.xml',
         'report/layout/biller_report_layout.xml',
         'report/layout/invoice_report_layout.xml',
-        'report/layout/manual_invoice_report_layout.xml',
         'report/layout/payment_invitation_report_layout.xml',
         'report/layout/reminder_report_layout.xml',
         'report/layout/qrcode_report_layout.xml',

@@ -122,7 +122,7 @@ class extraschool_manuel_invoice_wizard(models.TransientModel):
         inv_obj.browse(invoice_ids).reconcil()
 
         for invoice_id in inv_obj.browse(invoice_ids):
-            self.env['report'].get_pdf(invoice_id, 'extraschool.manual_invoice_report_layout')
+            self.env['report'].get_pdf(invoice_id, 'extraschool.invoice_report_layout')
 
         biller.pdf_ready = True
         biller.in_creation = False
