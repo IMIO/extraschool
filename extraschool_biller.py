@@ -367,32 +367,21 @@ class extraschool_biller(models.Model):
 
     @api.multi
     def send_mail_error(self, message):
-        user_id = self.env['res.users'].search([('id', '=', self._uid)]).partner_id.id
-        email_to = self.env['res.partner'].search([('id', '=', user_id)]).email.encode('utf-8')
-        email_from = "noreply@imio.be"
-
-        msg = MIMEMultipart()
-        msg['From'] = email_from
-        msg['To'] = email_to
-        msg['Subject'] = "Support Imio - Accueil Extrascolaire"
-
         message = """
         Cet Email automatique vous a été envoyé car il y a eu un erreur lors de la facturation (voir ci-dessous):\n
         Raison: {}\n
         """.format(message.encode('utf-8'))
 
-        msg.attach(MIMEText(message))
-
-        server = smtplib.SMTP(self.env['ir.mail_server'].search([])[0].smtp_host.encode('utf-8'),
-                              self.env['ir.mail_server'].search([])[0].smtp_port)
-        server.ehlo()
-        server.starttls()
-        server.ehlo()
-        server.sendmail(email_from, email_to, msg.as_string())
-        server.quit()
+        self.send_email(message)
 
     @api.multi
     def send_mail_completed(self):
+        message = "Cet Email automatique vous a été envoyé pour vous informez que votre facturier a bien été créé."
+
+        self.send_email(message)
+
+    @api.multi
+    def send_email(self, message):
         user_id = self.env['res.users'].search([('id', '=', self._uid)]).partner_id.id
         email_to = self.env['res.partner'].search([('id', '=', user_id)]).email.encode('utf-8')
         email_from = "noreply@imio.be"
@@ -402,8 +391,6 @@ class extraschool_biller(models.Model):
         msg['To'] = email_to
         msg['Subject'] = "Support Imio - Accueil Extrascolaire"
 
-        message = "Cet Email automatique vous a été envoyé pour vous informez que votre facturier a bien été créé."
-
         msg.attach(MIMEText(message))
 
         server = smtplib.SMTP(self.env['ir.mail_server'].search([])[0].smtp_host.encode('utf-8'),
@@ -413,23 +400,6 @@ class extraschool_biller(models.Model):
         server.ehlo()
         server.sendmail(email_from, email_to, msg.as_string())
         server.quit()
-#         lock = threading.Lock()
-#         chunk_size = int(self.env['ir.config_parameter'].get_param('extraschool.report.thread.chunk',200))
-# #         print "-------------------------------"
-# #         print "chunk_size:%s" % (chunk_size)
-# #         print "-------------------------------"
-#
-#         nrb_thread = len(self.invoice_ids)/chunk_size+(len(self.invoice_ids)%chunk_size > 0)
-#         thread_lock = [len(self.invoice_ids)/chunk_size+(len(self.invoice_ids)%chunk_size > 0),
-#                         threading.Lock(),
-#                         self.id]
-#         for zz in range(0, nrb_thread):
-#             sub_invoices = [i.id for i in self.invoice_ids[zz*chunk_size:(zz+1)*chunk_size]]
-#             print "start thread for ids : %s" % (sub_invoices)
-#             if len(sub_invoices):
-#                 thread = threading.Thread(target=self.generate_pdf_thread, args=(cr, uid, thread_lock, sub_invoices,self.env.context))
-#                 threaded_report.append(thread)
-#                 thread.start()
 
     @api.one
     def export_onyx(self):
