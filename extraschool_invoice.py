@@ -129,6 +129,11 @@ class extraschool_invoice(models.Model):
                 except:
                     pass
 
+            try:
+                self.env['res.lang'].search([('iso_code', '=', 'fr_BE')]).thousands_sep = ''
+            except:
+                pass
+
     def _compute_balance(self):
         for invoice in self:
 

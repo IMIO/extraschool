@@ -95,6 +95,11 @@ class extraschool_parent(models.Model):
             cr.execute('select sum(balance) from extraschool_invoice where parentid=%s and huissier = True',(record.id,))
             record.totalhuissier = cr.fetchall()[0][0]
 
+    @api.multi
+    def _get_total_invoice(self):
+        import wdb;wdb.set_trace()
+        return len(self.env['extraschool.invoice'].search([('parentid', '=', self.id)]))
+
     # def _compute_total_reminder_fees (self):
     #     cr = self.env.cr
     #     for record in self:
@@ -144,6 +149,8 @@ class extraschool_parent(models.Model):
     country_id = fields.Many2one('res.country', string='Country', default=21, required=True)
     check_name = fields.Boolean(default=True)
     check_rn = fields.Boolean(default=True)
+
+    total_invoice = fields.Integer(compute='_get_total_invoice)
 
     @api.onchange('firstname', 'lastname')
     @api.multi
