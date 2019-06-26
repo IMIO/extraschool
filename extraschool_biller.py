@@ -25,6 +25,10 @@ from openerp import models, api, fields, _, SUPERUSER_ID
 from openerp.api import Environment
 import lbutils
 import re
+import smtplib
+from email.MIMEMultipart import MIMEMultipart
+from email.MIMEText import MIMEText
+
 from datetime import date, datetime, timedelta as td
 from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
@@ -359,23 +363,55 @@ class extraschool_biller(models.Model):
         self.pdf_ready = True
         self.in_creation = False
 
-        self.send_mail()
+        self.send_mail_completed()
 
     @api.multi
-    def send_mail(self):
-        import smtplib
-
-        server = smtplib.SMTP('mailrelay.imio.be', 25)
-        server.starttls()
-
-        message = "La création du facturier et la génération des PDF des factures correspondantes sont terminées"
-
+    def send_mail_error(self, message):
         user_id = self.env['res.users'].search([('id', '=', self._uid)]).partner_id.id
+        email_to = self.env['res.partner'].search([('id', '=', user_id)]).email.encode('utf-8')
+        email_from = "noreply@imio.be"
 
-        email = self.env['res.partner'].search([('id', '=', user_id)]).email
+        msg = MIMEMultipart()
+        msg['From'] = email_from
+        msg['To'] = email_to
+        msg['Subject'] = "Support Imio - Accueil Extrascolaire"
 
-        server.sendmail("support-aes@imio.be", email.encode('utf-8'), message)
+        message = """
+        Cet Email automatique vous a été envoyé car il y a eu un erreur lors de la facturation (voir ci-dessous):\n
+        Raison: {}\n
+        """.format(message.encode('utf-8'))
 
+        msg.attach(MIMEText(message))
+
+        server = smtplib.SMTP(self.env['ir.mail_server'].search([])[0].smtp_host.encode('utf-8'),
+                              self.env['ir.mail_server'].search([])[0].smtp_port)
+        server.ehlo()
+        server.starttls()
+        server.ehlo()
+        server.sendmail(email_from, email_to, msg.as_string())
+        server.quit()
+
+    @api.multi
+    def send_mail_completed(self):
+        user_id = self.env['res.users'].search([('id', '=', self._uid)]).partner_id.id
+        email_to = self.env['res.partner'].search([('id', '=', user_id)]).email.encode('utf-8')
+        email_from = "noreply@imio.be"
+
+        msg = MIMEMultipart()
+        msg['From'] = email_from
+        msg['To'] = email_to
+        msg['Subject'] = "Support Imio - Accueil Extrascolaire"
+
+        message = "Cet Email automatique vous a été envoyé pour vous informez que votre facturier a bien été créé."
+
+        msg.attach(MIMEText(message))
+
+        server = smtplib.SMTP(self.env['ir.mail_server'].search([])[0].smtp_host.encode('utf-8'),
+                              self.env['ir.mail_server'].search([])[0].smtp_port)
+        server.ehlo()
+        server.starttls()
+        server.ehlo()
+        server.sendmail(email_from, email_to, msg.as_string())
         server.quit()
 #         lock = threading.Lock()
 #         chunk_size = int(self.env['ir.config_parameter'].get_param('extraschool.report.thread.chunk',200))

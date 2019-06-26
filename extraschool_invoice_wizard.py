@@ -509,11 +509,15 @@ class extraschool_invoice_wizard(models.TransientModel):
 
         # Check if all manuel encodage are validated.
         if (not self._check_manual_encodage()):
-            raise Warning(_("Il y a au moins un encodage manuel non vérifié pour cette période"))
+            message = "Il y a au moins un encodage manuel non vérifié pour cette période"
+            biller.send_mail_error(_(message))
+            raise Warning(_(message))
 
         # Check if all child registration are validated.
         if (not self._check_registration()):
-            raise Warning(_("Il y a au moins une fiche d'inscription non validée pour cette période"))
+            message = "Il y a au moins une fiche d'inscription non validée pour cette période"
+            biller.send_mail_error(_(message))
+            raise Warning(_(message))
 
 
         #check if all presta are verified
@@ -540,7 +544,9 @@ class extraschool_invoice_wizard(models.TransientModel):
         verified_count = self.env.cr.dictfetchall()
         print "verified_count:" + str(verified_count[0]['verified_count'])
         if verified_count[0]['verified_count']:
-            raise Warning(_("At least one prestations is not verified !!!"))
+            message = "At least one prestations is not verified !!!"
+            biller.send_mail_error(_(message))
+            raise Warning(_(message))
 
         #check if there are presta to invoice
         sql_check_presta_to_invoice = """select count(*) as to_invoice_count
@@ -562,7 +568,9 @@ class extraschool_invoice_wizard(models.TransientModel):
         to_invoice_count = self.env.cr.dictfetchall()
         print "to_invoice_count:" + str(to_invoice_count[0]['to_invoice_count'])
         if not to_invoice_count[0]['to_invoice_count']:
-            raise Warning(_("There is no presta to invoice !!!"))
+            message = "There is no presta to invoice !!!"
+            biller.send_mail_error(_(message))
+            raise Warning(_(message))
 
 
         #search parent to be invoiced
@@ -693,7 +701,9 @@ class extraschool_invoice_wizard(models.TransientModel):
         _logger.info("End creation of Invoices")
 
         if len(args) - len(invoice_ids):
-            raise Warning(_("Error : number of invoice created differ from original"))
+            message = "Error : number of invoice created differ from original"
+            biller.send_mail_error(_(message))
+            raise Warning(_(message))
 
         lines_args_str = ""
         i=0
@@ -882,8 +892,15 @@ class extraschool_invoice_wizard(models.TransientModel):
             missing_pls = self.env.cr.dictfetchall()
             message = _("At least one price list is missing !!!\n ")
             for missing_pl in missing_pls:
-                message += "%s - %s - %s - %s -> %s\n" % (missing_pl['child_name'], missing_pl['child_type'], missing_pl['child_position_id'], missing_pl['name'], missing_pl['prestation_date'])
-            raise Warning(message)
+                message += "%s - %s - %s - %s -> %s\n" % (
+                missing_pl['child_name'],
+                missing_pl['child_type'],
+                missing_pl['child_position_id'],
+                missing_pl['name'],
+                missing_pl['prestation_date']
+                )
+            biller.send_mail_error(_(message))
+            raise Warning(_(message))
 
         # Mise à jour des prix et unité de tps.
         invoice_line_ids_sql = (tuple(invoice_line_ids),)
@@ -901,7 +918,9 @@ class extraschool_invoice_wizard(models.TransientModel):
         try:
             self.env.cr.execute(sql_update_price)
         except:
-            raise Warning(_("There is a problem with the price list."))
+            message = "There is a problem with the price list."
+            biller.send_mail_error(_(message))
+            raise Warning(_(message))
 
         # Mise à jour du quantity et total price.
         sql_update_total_price = """UPDATE extraschool_invoicedprestations ip
@@ -970,11 +989,12 @@ class extraschool_invoice_wizard(models.TransientModel):
             else:
                 biller.pdf_ready = True
                 biller.in_creation = False
+                biller.send_mail_completed()
             _logger.info("ALL PDF GENERATED")
         else:
             biller.pdf_ready = True
             biller.in_creation = False
-            biller.send_mail()
+            biller.send_mail_completed()
         view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','extraschool.biller'),
                                                              ('name','=','Biller.form')])
 
