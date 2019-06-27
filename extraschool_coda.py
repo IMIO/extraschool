@@ -64,8 +64,6 @@ class extraschool_coda(models.Model):
 
     @api.one
     def validate(self):
-        print "validate"
-
         if self.state == 'todo':
             self.state = 'handled'
 

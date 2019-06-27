@@ -152,14 +152,7 @@ class extraschool_one_report(models.Model):
                                 ''', (placeid,date_from,date_to,level))
 
         extraschool_one_report_childs = self.env.cr.dictfetchall()
-        print '''
-                                select count(distinct(childid)) as count_child from extraschool_invoicedprestations left join extraschool_child on childid=extraschool_child.id where 
-                                placeid=%s 
-                                and prestation_date>=%s and prestation_date<=%s  
-                                and activity_occurrence_id in (select id from extraschool_activityoccurrence where activityid in (select id from extraschool_activity where and subsidizedbyone=true)) 
-                                and levelid in (select id from extraschool_level where leveltype=%s)                                 
-                                ''' % (placeid,date_from,date_to,level)
-        print "count_child : %s" % (extraschool_one_report_childs[0]['count_child'])
+
         return extraschool_one_report_childs[0]['count_child']
 
     @api.model
@@ -185,9 +178,6 @@ class extraschool_one_report(models.Model):
         if not one_report_settings:
             raise Warning(_("There is no ONE report configuration"))
 
-        print "----------"
-        print one_report_settings
-        print "----------"
         report_template_filename = '/tmp/one_report_template'+str(datetime.now())+'.xls'
         report_logoone_filename = '/tmp/one'+str(datetime.now())+'.bmp'
         report_filename = '/tmp/one_report'+str(datetime.now())+'.xls'

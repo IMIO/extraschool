@@ -33,6 +33,8 @@ import threading
 from openerp.api import Environment
 from openerp import tools
 from openerp.exceptions import except_orm, Warning, RedirectWarning
+import logging
+_logger = logging.getLogger(__name__)
 
 
 class reminder_report_pdf_thread (threading.Thread):
@@ -119,7 +121,7 @@ class extraschool_remindersjournal(models.Model):
 
             report = self.pool.get('report')
             for reminder in reminders:
-                print "generate pdf %s" % (reminder.id)
+                logging.info("generate pdf {}".format(reminder.id))
                 env['report'].get_pdf(reminder ,'extraschool.reminder_report_layout')
 
             new_cr.commit()
@@ -139,7 +141,6 @@ class extraschool_remindersjournal(models.Model):
         chunk_size = 50
         for zz in range(0,len(self.reminder_ids)/chunk_size+1):
             sub_reminders = self.reminder_ids[zz*chunk_size:(zz+1)*chunk_size]
-            print "start thread for ids : %s" % (sub_reminders.ids)
             if len(sub_reminders):
                 thread = threading.Thread(target=self.generate_pdf_thread, args=(cr, uid, sub_reminders,self.env.context))
                 threaded_report.append(thread)
@@ -153,7 +154,7 @@ class extraschool_remindersjournal(models.Model):
     # Called from remindersjournal.validate()
     @api.multi
     def next_reminder(self):
-        print "Initiating Next Reminder method"
+        logging.info("Initiating Next Reminder method")
         biller_is_made = False
         invoice_obj = self.env['extraschool.invoice']
         # Get the information of the reminder this one is based on.
@@ -189,13 +190,13 @@ class extraschool_remindersjournal(models.Model):
         cr.execute(get_invoice_sql, (new_remindersjournal.id, reminder_type.minimum_balance))
         invoice_ids = cr.fetchall()
 
-        print "#%s invoices to process" % (len(invoice_ids))
+        logging.info("# {} invoices to process".format(len(invoice_ids)))
 
         # Build dictionnary of invoices sorted by parents.
         invoice_dict = {}
         amount_dict = {}
 
-        print "##Building dictionnary of invoices sorted by parents..."
+        logging.info("##Building dictionnary of invoices sorted by parents...")
 
         for invoice in invoice_ids:
             invoice_dict.setdefault(invoice[2], []).append(invoice[0])
@@ -231,7 +232,7 @@ class extraschool_remindersjournal(models.Model):
         count = 1
         # For each parent create a reminder and add fees if needed.
         for key in invoice_dict:
-            print "### [%s/%s] reminder created..." % (count,len(invoice_dict))
+            logging.info("### [{}/{}] reminder created...".format(count, len(invoice_dict)))
             count += 1
 
             reminder = self.env['extraschool.reminder'].create({'reminders_journal_item_id': reminders_journal_item_id.id,
@@ -282,7 +283,7 @@ class extraschool_remindersjournal(models.Model):
                                      'total_price': reminder_type.fees_amount,
                                      })
 
-            print "####Computing balance..."
+            logging.info("####Computing balance...")
             if biller_is_made:
                 self.biller_id.invoice_ids._compute_balance()
 
@@ -296,7 +297,7 @@ class extraschool_remindersjournal(models.Model):
         if self.based_reminder_id:
             self.next_reminder()
         else:
-            print "Initiating Validate method"
+            logging.info("Initiating Validate method")
             if len(self.activity_category_id.reminer_type_ids.ids) == 0 :
                 return False
 
@@ -317,7 +318,7 @@ class extraschool_remindersjournal(models.Model):
             biller_id = -1
             #browse activivity categ reminder type
             for reminder_type in self.activity_category_id.reminer_type_ids.sorted(key=lambda r: r.sequence, reverse=True):
-                print "##Check Reminder Type"
+                logging.info("##Check Reminder Type")
                 #select invoices
                 invoice_search_domain = [('activitycategoryid.id', '=',self.activity_category_id.id),
                                          ('balance', '>',0), # todo: See if this is needed.
@@ -342,7 +343,6 @@ class extraschool_remindersjournal(models.Model):
                     invoice_search_domain+= [('last_reminder_id.reminders_journal_item_id.reminder_type_id','=', reminder_type.selected_type_id.id),
                                              ('last_reminder_id.reminders_journal_item_id.payment_term', '<=',to_date)]
 
-                print invoice_search_domain
                 invoice_ids = self.env['extraschool.invoice'].search(invoice_search_domain).sorted(key=lambda r: r.parentid.id)
                 parent_id = invoice_ids.mapped('parentid')
                 remove_parent = []
@@ -353,7 +353,7 @@ class extraschool_remindersjournal(models.Model):
                         remove_parent.append(parent.id)
 
                 invoice_search_domain += [('parentid', 'not in', tuple(remove_parent))]
-                print invoice_search_domain
+
                 # New invoices
                 invoice_ids = self.env['extraschool.invoice'].search(invoice_search_domain).sorted(key=lambda r: r.parentid.id)
 
@@ -369,7 +369,7 @@ class extraschool_remindersjournal(models.Model):
                 concerned_invoice_ids = []
                 count = 1
                 for invoice in invoice_ids:
-                    print "##[%s/%s] invoices processed..." % (count,len(invoice_ids))
+                    logging.info("##[{}/{}] invoices processed...".format(count,len(invoice_ids)))
                     count += 1
                     if invoice.parentid.id != parent_id:
                         if parent_id > 0:
@@ -428,7 +428,7 @@ class extraschool_remindersjournal(models.Model):
 
                 if len(concerned_invoice_ids) > 0:
                     if amount > reminder_type.minimum_balance:
-                        print "###Creating Reminders..."
+                        logging.info("###Creating Reminders...")
                         total_amount += amount
                         if reminder_type.out_of_accounting:
                             amount = 0
@@ -439,7 +439,7 @@ class extraschool_remindersjournal(models.Model):
                     else:
                         reminder.unlink()
                 else:
-                    print "###Nothing has been done..."
+                    logging.info("###Nothing has been done...")
                 if total_amount > 0:
                     reminders_journal_item_id.amount = total_amount
                 else:
@@ -458,10 +458,10 @@ class extraschool_remindersjournal(models.Model):
                                     """
             self.env.cr.execute(get_invoice_exit_sql, (self.id,))
             invoice_ids = self.env.cr.dictfetchall()
-            print "####Creating refund line"
+            logging.info("####Creating refund line")
             count = 1
             for invoice in invoice_ids:
-                print "##[%s/%s] refunds processed..." % (count, len(invoice_ids))
+                logging.info("##[{}/{}] refunds processed...".format(count, len(invoice_ids)))
                 count += 1
                 self.env['extraschool.refound_line'].create({'invoiceid': invoice['invoice_id'],
                                                              'date': datetime.date.today(),
@@ -489,14 +489,8 @@ class extraschool_remindersjournal(models.Model):
                                                                               'reminder_amount': biller_summary['reminder_amount'],
                                                                               'exit_accounting_amount': biller_summary['refound_amount']})
 
-
-
-               # !!!!! COMIT !!!!
-
-
             self.env.cr.commit()
             self.generate_pdf()
-            #    threading.Thread(target=self.go, args=(id, uid, self.reminder_ids.ids)).start()
             self.state = "validated"
             return True
 

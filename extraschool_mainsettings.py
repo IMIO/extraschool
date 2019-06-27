@@ -78,10 +78,6 @@ class extraschool_mainsettings(models.Model):
                 reminder.structcom = reminder.structcom.replace(old_prefix, new_prefix, 1)
 
     @api.multi
-    def send_presta(self):
-        print "Hello World !"
-
-    @api.multi
     def re_check_pod(self):
         cr = self.env.cr
 
@@ -94,7 +90,7 @@ class extraschool_mainsettings(models.Model):
 
         prestations = self.env['extraschool.prestation_times_of_the_day'].browse([prestation_id[0] for prestation_id in prestation_ids])
 
-        print "#Check POD without occurrence starting %s ...." % (len(prestations))
+        logging.info("#Check POD without occurrence starting {} ....".format(len(prestations)))
         for presta in prestations:
             presta.reset()
             presta.check()
@@ -110,18 +106,18 @@ class extraschool_mainsettings(models.Model):
         cr.execute(sql_query, (self.date_from, self.date_to))
         prestation_ids = cr.fetchall()
         count = 0
-        print "#Reset and check starting...."
+        logging.info("#Reset and check starting....")
         for prestation_id in prestation_ids:
             test = self.env['extraschool.prestation_times_of_the_day'].search([('prestationtime_ids', 'in', prestation_id)])
             if test:
                 count += 1
                 test.reset()
                 test.check()
-                print "## [%s/%s] done" % (count,len(prestation_ids))
+                logging.info("## [{}/{}] done".format(count, len(prestation_ids)))
 
     @api.multi
     def generate_coda(self):
-        print "#Generation of CODA file"
+        logging.info("#Generation of CODA file")
 
 
 
@@ -180,7 +176,7 @@ class extraschool_mainsettings(models.Model):
         obj_child = self.pool.get('extraschool.child')
         levelbeforedisable = obj_level.read(cr, uid, [self.levelbeforedisable.id], ['ordernumber'])[0]['ordernumber']
         cr.execute('select * from extraschool_child where create_date < %s', (str(datetime.now().year)+'-08-20',))
-        print 'select * from extraschool_child where create_date < %s' % (str(datetime.now().year)+'-08-20')
+
         childs = cr.dictfetchall()
         cr.execute('select * from extraschool_level')
         levels = cr.dictfetchall()
@@ -209,13 +205,10 @@ class extraschool_mainsettings(models.Model):
                         newclassid = childClasses[currentClassPosition-1]['id']
                     else:
                         newclassid = childClasses[0]['id']
-                    print "update child %s  oldclass: %s - old level : %s - class : %s - level : %s" % (child['id'],child['classid'],child['levelid'],newclassid,newlevelid)
                     obj_child.write(cr, uid, [child['id']], {'classid': newclassid,'levelid':newlevelid})
                 else:
-                    print "update child %s - old level : %s - level : %s" % (child['id'],child['levelid'],newlevelid)
                     obj_child.write(cr, uid, [child['id']], {'levelid':newlevelid})
             else:
-                print "disable child %s" % (child['id'])
                 obj_child.write(cr, uid, [child['id']], {'isdisabled': True})
 
         self.last_child_upgrade_levels = datetime.now()

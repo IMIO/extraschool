@@ -50,8 +50,6 @@ class extraschool_reject(models.Model):
         context.update({'default_reject_id': self.id,
                         'default_amount': self.amount})
 
-        print context
-
         return {
                 'type': 'ir.actions.act_window',
                 'res_model': 'extraschool.payment_wizard',
@@ -64,5 +62,4 @@ class extraschool_reject(models.Model):
                 'context': {'default_reject_id': self.id,
                             'default_amount': self.amount,
                             'default_payment_date': self.coda.codadate}
-            }  
-    
+            }

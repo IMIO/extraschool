@@ -154,12 +154,10 @@ class extraschool_invoice(models.Model):
 
     @api.multi
     def get_today(self):
-        print datetime.datetime.now().strftime("%y-%m-%d")
         return datetime.datetime.now().strftime("%y-%m-%d")
 
     @api.multi
     def get_payment_term_str(self):
-        print self.payment_term.strftime("%y-%m-%d")
         return self.payment_term.strftime("%y-%m-%d")
 
     @api.multi
@@ -305,7 +303,6 @@ class extraschool_invoice(models.Model):
                     d={'day_id': d,
                        'quantity': [],
                        }
-#                    print "%s" % (self.period_from)
                     for activity in month['activity']:
                         d['quantity'].append(sum(self.invoice_line_ids.filtered(lambda r: r.childid.id == child_id
                                                                                 and r.prestation_date == '%s-%02d-%02d' % (month['year'],month['month'],d['day_id'])
@@ -567,10 +564,7 @@ class extraschool_invoice(models.Model):
                                         )
             total+=saved_child['amount']
             res.append(str_line)
-#         print {'lines': res,
-#                 'exported_amount': total,
-#                 'nbr_line' : len(res),
-#                  }
+
         return {'lines': res,
                 'exported_amount': total,
                  }

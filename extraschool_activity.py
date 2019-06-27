@@ -35,6 +35,9 @@ import time
 import pdb
 from openerp.exceptions import except_orm, Warning, RedirectWarning
 
+import logging
+_logger = logging.getLogger(__name__)
+
 import extraschool_activityplanneddate
 
 
@@ -142,16 +145,13 @@ class extraschool_activity(models.Model):
                     d1 = date_from
 
                 d2 = date_to if date_to else activity.validity_to
-                print "populate_occurrence date_to : %s" % (d2)
                 d1 = datetime.strptime(d1, DEFAULT_SERVER_DATE_FORMAT)
                 d2 = datetime.strptime(d2, DEFAULT_SERVER_DATE_FORMAT)
 
                 delta = d2 - d1
                 # insert_data = ''
-                print str(datetime.now())+" START"
                 args = []
                 for day in range(delta.days + 1):
-                    print "day %s" % day
                     current_day_date = d1 + td(days=day)
                     if str(current_day_date.weekday()) in activity.days:
                         cr.execute('select count(*) from extraschool_activity_activityexclusiondates_rel as ear inner join extraschool_activityexclusiondates as ea on ear.activityexclusiondates_id = ea.id where activity_id = %s and date_from <= %s and date_to >= %s', (activity.id, current_day_date, current_day_date))
@@ -184,12 +184,9 @@ class extraschool_activity(models.Model):
 
                                 # insert_data = insert_data.join('('+str(place.id)+','+str(current_day_date)+','+str(activity.id)+','+str(activity.prest_from)+','+str(activity.prest_to)+')')
                 if len(args):
-                    print str(datetime.now())+" Build query2"
                     args_str = ','.join(cr.mogrify("(%s,%s,%s,current_timestamp,%s,%s,current_timestamp,%s,%s,%s,%s,%s,%s)", x) for x in args)
-                    print str(datetime.now())+" START QUERY"
-                    # print insert_data
                     cr.execute("insert into extraschool_activityoccurrence (create_uid,date_stop,date_start,create_date,name,write_uid,write_date,place_id,occurrence_date,activityid,prest_from,prest_to,activity_category_id) VALUES "+args_str)
-                    print str(datetime.now())+" END"
+
                     # get ids of created occu
                     cr.execute("""select id 
                                 from extraschool_activityoccurrence 
@@ -197,12 +194,12 @@ class extraschool_activity(models.Model):
                                 and activityid = %s
                                 """, (uid, activity.id))
                     occurrence_ids = [id['id'] for id in cr.dictfetchall()]
-                    print "ids created : %s" % (occurrence_ids)
+
                     for occu in self.env['extraschool.activityoccurrence'].search([('id', 'in', occurrence_ids)]):
                         occu.auto_add_registered_childs()
 
     def check_if_modifiable(self, vals):
-        print "# Start of the modification process........"
+        logging.info("# Start of the modification process........")
         start_time = time.time()
         invoiced_obj = self.env['extraschool.invoicedprestations']
         # There goes the rabbit hole
@@ -222,7 +219,7 @@ class extraschool_activity(models.Model):
         child_registration_ids = self.env['extraschool.activity_occurrence_child_registration'] \
             .search([('activity_occurrence_id', 'in', activity_occurrence_ids.ids)])
 
-        print "# Building children's list"
+        logging.info("# Building children's list")
         for child_registration_id in child_registration_ids:
             # For each Child Registration Line get Child Registration ID.
             child_registration = child_registration_id.child_registration_line_id.child_registration_id.id
@@ -230,13 +227,13 @@ class extraschool_activity(models.Model):
             if child_registration not in child_registration_id__list:
                 child_registration_id__list.append(child_registration)
 
-        print "# Getting registration of children"
+        logging.info("# Getting registration of children")
         # Set the child registration to draft.
         child_registration_compute = self.env['extraschool.child_registration'].search([
             ('id', 'in', child_registration_id__list)
         ])
 
-        print "# Putting children to: set to draft"
+        logging.info("# Putting children to: set to draft")
         child_registration_compute.set_to_draft()
 
         prestation_time_id_list = []
@@ -244,7 +241,7 @@ class extraschool_activity(models.Model):
             ('activity_occurrence_id', 'in', activity_occurrence_ids.ids)
         ])
 
-        print "# Building Prestation Time of the Day list"
+        logging.info("# Building Prestation Time of the Day list")
         for prestation_time_id in prestation_time_ids:
             prestation_time_of_the_day = prestation_time_id.prestation_times_of_the_day_id.id
 
@@ -252,35 +249,34 @@ class extraschool_activity(models.Model):
                 # Add DISTINCT ID to the Prestation Time Of The Day ID
                 prestation_time_id_list.append(prestation_time_of_the_day)
 
-        print "# Getting POD that we need"
+        logging.info("# Getting POD that we need")
         # Reset Prestation Times of the Day
         prestation_time_compute = self.env['extraschool.prestation_times_of_the_day'].search([
             ('id', 'in', prestation_time_id_list)
         ])
 
-        print "# Number of reset required: ", len(prestation_time_compute)
+        logging.info("# Number of reset required: {}".format(len(prestation_time_compute)))
         prestation_time_compute.reset()
 
-        print "# Unlink occurrences"
+        logging.info("# Unlink occurrences")
         activity_occurrence_ids.unlink()
 
         super(extraschool_activity, self).write(vals)
 
-        print "# Populate occurrences"
+        logging.info("# Populate occurrences")
         self.populate_occurrence(date_last_invoice)
 
-        print "# Validate children's registration"
+        logging.info("# Validate children's registration")
         child_registration_compute.validate_multi()
 
         if 'multi_write' not in vals:
-            print "# Check Prestations"
+            logging.info("# Check Prestations")
             total = len(prestation_time_compute)
             for presta in prestation_time_compute:
-                print total
                 total -= 1
                 # presta.check()
 
-        print "Final time: ", time.strftime('%M:%S', time.gmtime((time.time() - start_time)))
+        logging.info("Final time: {}".format(time.strftime('%M:%S', time.gmtime((time.time() - start_time)))))
         self.warning_visibility = False
 
     @api.multi
@@ -328,7 +324,7 @@ class extraschool_activity(models.Model):
             origin_id = self._origin.id
         else:
             origin_id = self.id
-        print "# Check if there is an invoice prestation at the current date"
+        logging.info("# Check if there is an invoice prestation at the current date")
         cr = self.env.cr
         invoiced_obj = self.env['extraschool.invoicedprestations']
         # If there is an invoiced prestation for the activity.
@@ -350,7 +346,7 @@ class extraschool_activity(models.Model):
     @api.multi
     def write(self, vals):
         for activity in self:
-            print "# Modification of an activity -------------------"
+            logging.info("# Modification of an activity -------------------")
             # Check Validity Date & Hour.
             activity.check_validity_date(vals)
 

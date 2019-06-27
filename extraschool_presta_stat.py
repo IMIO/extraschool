@@ -25,6 +25,8 @@ from openerp import models, api, fields
 from openerp.api import Environment
 from math import ceil
 from openerp import tools
+import logging
+_logger = logging.getLogger(__name__)
 
 available_levels = (('M','Maternelle'),('P','Primaire'),('A','Autre'))
 
@@ -87,8 +89,8 @@ class extraschool_presta_stat(models.Model):
     def compute(self):
         period_range = 0.25
         # delete all records
-        print "Running: Prestation Statistics"
-        print"#Unlink Prestation Statistics"
+        logging.info("Running: Prestation Statistics")
+        logging.info("#Unlink Prestation Statistics")
         self.search([]).unlink()
 
         self.stocked_procedure()
@@ -109,11 +111,11 @@ class extraschool_presta_stat(models.Model):
 
                 start_date, end_date = '2018-01-01', '2019-06-30'
 
-                print "##Computing Statistics for range: ", period_str, " activity: ", activity.name.encode("utf-8")
+                logging.info("##Computing Statistics for range: ", period_str, " activity: ", activity.name.encode("utf-8"))
 
                 self.env.cr.execute(insert_querry,
                                     (activity.id, period_str, prest_to, last_period, start_date, end_date))
 
                 last_period = prest_to
                 self.env.invalidate_all()
-        print "### END: Prestation Statistics ###"
+        logging.info("### END: Prestation Statistics ###")

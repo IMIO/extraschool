@@ -23,6 +23,8 @@
 
 from openerp import models, api, fields
 from openerp.api import Environment
+import logging
+_logger = logging.getLogger(__name__)
 
 class extraschool_discount(models.Model):
     _name = 'extraschool.discount'
@@ -79,14 +81,12 @@ class extraschool_discount_version(models.Model):
                          ])
     @api.multi
     def compute(self,biller_id):
-        print "# Compute Discount"
+        logging.info("# Compute Discount")
         cr,uid = self.env.cr, self.env.user.id
         if (self.discount_template == 'hannut'):
-            print "## Compute Discount with: template Hannut"
+            logging.info("## Compute Discount with: template Hannut")
             for discount_version_id in self:
-                print "get concerned lines ids"
-                #get concerned lines filtered on price_list
-
+                # Get concerned lines filtered on price_list.
                 sql = """select ip.invoiceid as invoiceid, ip.childid as childid,
                          sum(duration) as sum_duration, sum(quantity) as sum_quantity, count(*) as count
                          from extraschool_invoicedprestations ip
@@ -115,7 +115,6 @@ class extraschool_discount_version(models.Model):
                 if len(args):
                     lines_args_str += ','.join(cr.mogrify("""(%s, current_timestamp, %s, current_timestamp,
                                                             %s,%s,%s,%s,%s,%s)""", x) for x in args)
-                    print "exec sql create discount lines"
 
                     invoice_line_ids = cr.execute("""insert into extraschool_invoicedprestations
                                                 (create_uid, create_date, write_uid, write_date,
@@ -123,7 +122,7 @@ class extraschool_discount_version(models.Model):
                                                 VALUES """ + lines_args_str + ";")
 
         elif (self.discount_template == 'tournai'):
-            print "## Compute Discount with: template Tournai"
+            logging.info("## Compute Discount with: template Tournai")
             #get all invoice lines
             invoice_line_ids = self.env['extraschool.invoicedprestations'].search([('invoiceid', 'in', biller_id.invoice_ids.ids)])
             #filter on price list if needed
@@ -133,7 +132,6 @@ class extraschool_discount_version(models.Model):
             saved_week = ''
             saved_child = ''
             saved_activity = ''
-            print invoice_line_ids
             #loop on lines sorted by date,child
             invoice_to_compute = []
             for line_id in invoice_line_ids.sorted(key=lambda r: "%s%s%s" %  (fields.Date.from_string(r.prestation_date).strftime("%V"), r.childid.id,r.activity_occurrence_id.activityid.id )):
@@ -142,7 +140,6 @@ class extraschool_discount_version(models.Model):
                     saved_child = line_id.childid.id
                     saved_activity = line_id.activity_occurrence_id.activityid.id
                 else:
-                    # print "discount %s %s %s %s" % (line_id.total_price, line_id.invoiceid.number, line_id.childid.lastname, line_id.activity_occurrence_id.name)
                     line_id.write({'discount_value': line_id.unit_price * line_id.quantity,
                                    'total_price': 0.0})
                     if line_id.invoiceid.id not in invoice_to_compute:

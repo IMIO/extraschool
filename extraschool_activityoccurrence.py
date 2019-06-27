@@ -27,7 +27,8 @@ from datetime import date, datetime, timedelta as td
 from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
 import math
-
+import logging
+_logger = logging.getLogger(__name__)
 
 class extraschool_activityoccurrence(models.Model):
     _name = 'extraschool.activityoccurrence'
@@ -131,8 +132,7 @@ class extraschool_activityoccurrence(models.Model):
             prestation_time['es'] = 'S'
             prestation_time['prestation_time'] = exit_time
             new_presta = prestation_times_obj.create(prestation_time)
-#             print "-----------------"
-#             print new_presta
+
             if new_presta:
                 if new_presta.prestation_times_of_the_day_id.id not in pod_modified:
                     pod_modified.append(new_presta.prestation_times_of_the_day_id.id)
@@ -163,29 +163,9 @@ class extraschool_activityoccurrence(models.Model):
         for child_registration in activity.childregistration_ids:
             if child_registration.registration_from <= occurrence_date_str and child_registration.registration_to >= occurrence_date_str and child_registration.place_id.id == vals['place_id']:
                 child_ids.append(child_registration.child_id.id)
-
-#                if activity.autoaddchilds:
-#                    self.add_presta(occurrence, child_registration.child_id.id, None,False)
-#                     self.env['extraschool.prestationtimes'].create({'placeid' : self.place_id.id,
-#                                        'childid' : child_registration.child_id.id,
-#                                        'prestation_date' : self.occurrence_date,
-#                                        'manualy_encoded' : False,
-#                                        'verified' : False,
-#                                        'activityid' : self.activityid.id,
-#                                        'activity_occurrence_id' : self.id,
-#                                        'exit_all': False,
-#                                        'es': 'S',
-#                                        'prestation_time': self.activityid.prest_to
-#
-#                                        })
-        #use syntax to replace existing records by new records
-
-#        occurrence.child_registration_ids = [(6, False, child_ids)]
-
         return occurrence
 
     def auto_add_registered_childs(self):
-        print "auto_add_registered_childs ids=%s" % (self.ids)
         for occu in self:
             child_ids = []
 #            occurrence_date_str = vals['occurrence_date'].strftime(DEFAULT_SERVER_DATE_FORMAT)
@@ -197,24 +177,6 @@ class extraschool_activityoccurrence(models.Model):
                     self.child_registration_ids = [(0, 0, {'child_id': child_registration.child_id.id})]
                     if self.activityid.autoaddchilds:
                         self.add_presta(self, child_registration.child_id.id, None,False)
-
-#                         self.env['extraschool.prestationtimes'].create({'placeid' : self.place_id.id,
-#                                            'childid' : child_registration.child_id.id,
-#                                            'prestation_date' : self.occurrence_date,
-#                                            'manualy_encoded' : False,
-#                                            'verified' : False,
-#                                            'activityid' : self.activityid.id,
-#                                            'activity_occurrence_id' : self.id,
-#                                            'exit_all': False,
-#                                            'es': 'S',
-#                                            'prestation_time': self.activityid.prest_to
-#
-#                                            })
-
-            #use syntax to replace existing records by new records
-
-
-
 
     def check_if_child_take_part_to(self,child):
         #check if activity is open or on registration

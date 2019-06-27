@@ -27,6 +27,8 @@ import cStringIO
 import base64
 import os
 from openerp.exceptions import except_orm, Warning, RedirectWarning
+import logging
+_logger = logging.getLogger(__name__)
 
 
 class extraschool_child_registration_validation_wizard(models.TransientModel):
@@ -35,16 +37,16 @@ class extraschool_child_registration_validation_wizard(models.TransientModel):
     @api.multi
     def validate(self):
         registration_obj = self.env['extraschool.child_registration'].browse(self._context.get('active_ids'))
-        print "#Start Validation Registration."
+        logging.info("#Start Validation Registration.")
         count = 1
         for reg in registration_obj:
-            print "## Thread number: [", count, "/", len(registration_obj), "]"
+            logging.info("## Thread number: [{}/{}]".format(count, len(registration_obj)))
             if reg.activity_id:
                 reg.validate()
             else:
                 reg.validate_multi()
             count += 1
-        print "### End Validation Registration."
+        logging.info("### End Validation Registration.")
         return True
     
     @api.multi
@@ -80,7 +82,3 @@ class extraschool_child_registration_validation_wizard(models.TransientModel):
                 ) > 0
                 """
         cr.execute(update_extraschool_child_registration_line)
-        
-
-
-    

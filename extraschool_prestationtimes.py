@@ -89,22 +89,19 @@ class extraschool_prestationtimes(models.Model):
                 if vals['exit_all'] == False:
                     if prestaion_times_ids.exit_all:
                         vals['exit_all'] = True
-            #print "return write"
             prestaion_times_ids.write(vals)
             return prestaion_times_ids
         else:
-#            print "super_create"
             return super(extraschool_prestationtimes, self).create(vals)
 
     @api.multi
     def write(self, vals):
-#            vals['verified'] = False
         return super(extraschool_prestationtimes, self).write(vals)
 
     @api.multi
     def unlink(self, backdoor=False):
         if backdoor:
-            print("Unlink in progress...")
+            logging.info("Unlink in progress...")
             super(extraschool_prestationtimes, self).unlink()
         else:
             if len(self.filtered(lambda r: r.invoiced_prestation_id.id is not False).ids):

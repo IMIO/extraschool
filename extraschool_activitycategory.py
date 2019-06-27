@@ -159,7 +159,6 @@ class extraschool_activitycategory(models.Model):
 
     @api.multi
     def write(self, vals):
-        print "vals = %s" % (vals)
         for activity_categ in self:
             if 'invoicecomstructprefix' in vals:
                 res = activity_categ.check_invoice_prefix(vals['invoicecomstructprefix'])

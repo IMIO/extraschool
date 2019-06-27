@@ -31,8 +31,6 @@ class extraschool_activityexclusiondates(models.Model):
     def name_get(self):
         res = []
 
-        print self.date_to
-
         for exc_date in self:
             res.append((exc_date.id, exc_date.date_from + ' - ' + exc_date.date_to))
 

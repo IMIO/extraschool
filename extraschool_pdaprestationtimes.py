@@ -70,8 +70,6 @@ class extraschool_pdaprestationtimes(models.Model):
     @api.model
     def create(self,vals):
         if len(self.env['extraschool.child'].search([('id', '=',vals['childid']),])) == 0:
-            #child deleted ...
-            print "warning pda_presta of child deleted !!"
             return self
 
         if 'type' not in vals:
@@ -102,7 +100,6 @@ class extraschool_pdaprestationtimes(models.Model):
                                                                                   ])
 
         if not prestation_times_of_the_day_ids:
-            print "pod doesn't exist"
             vals['prestation_times_of_the_day_id'] = prestation_times_of_the_day_obj.create({
                 # 'activity_category_id' : vals['activitycategoryid'],
                                                                                              'child_id' : vals['childid'],
@@ -205,7 +202,6 @@ class extraschool_pdaprestationtimes(models.Model):
                                                            })
 
         except:
-
             self.env['extraschool.smartphone_log'].create({'title': 'WARNING ! Error while receiving children prestation data',
                                                            'time_of_transmission': time.time() - start_time,
                                                            'smartphone_id': smartphone_id,

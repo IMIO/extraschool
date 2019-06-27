@@ -24,6 +24,8 @@
 from openerp import models, api
 from datetime import date, datetime, timedelta as td
 import time
+import logging
+_logger = logging.getLogger(__name__)
 
 
 class extraschool_helper(models.Model):
@@ -41,8 +43,8 @@ def timeit(method):
         result = method(*args, **kw)
         te = time.time()
 
-        print '%r (%r, %r) %2.2f sec' % \
-              (method.__name__, args, kw, te - ts)
+        logging.info('%r (%r, %r) %2.2f sec' % \
+              (method.__name__, args, kw, te - ts))
         return result
 
     return timed

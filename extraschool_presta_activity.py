@@ -24,6 +24,8 @@
 from openerp import models, api, fields
 from openerp.api import Environment
 from math import ceil
+import logging
+_logger = logging.getLogger(__name__)
 
 available_levels = (('M', 'Maternelle'), ('P', 'Primaire'), ('A', 'Autre'))
 
@@ -47,8 +49,8 @@ class extraschool_stat_activity(models.Model):
     def compute(self):
         period_range = 0.25
         # delete all records
-        print "Running: activity Statistics"
-        print"#Unlink activity Statistics"
+        logging.info("Running: activity Statistics")
+        logging.info("#Unlink activity Statistics")
         self.search([]).unlink()
 
         for activity in self.env['extraschool.activity'].search([('autoaddchilds', '=', False)]):
@@ -73,11 +75,10 @@ class extraschool_stat_activity(models.Model):
             self.env.cr.execute(insert_querry, (
             activity.id, activity.id))
             self.env.invalidate_all()
-        print "### END: Prestation Statistics ###"
+        logging.info("### END: Prestation Statistics ###")
 
     @api.multi
     def get_presta_add(self):
-        print self.date
         return {'name': 'Ajouter',
                 'type': 'ir.actions.act_window',
                 'res_model': 'extraschool.prestation_times_encodage_manuel',

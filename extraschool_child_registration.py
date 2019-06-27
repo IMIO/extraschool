@@ -29,6 +29,8 @@ from datetime import date, datetime, timedelta as td
 
 from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
+import logging
+_logger = logging.getLogger(__name__)
 
 
 class extraschool_child_registration(models.Model):
@@ -123,7 +125,7 @@ class extraschool_child_registration(models.Model):
                     for child in self.child_registration_line_ids:
                         child.sunday = True
                 list.append(day)
-                print list
+
                 if 1 not in list :
                     for child in self.child_registration_line_ids:
                         child.monday = False
@@ -157,7 +159,6 @@ class extraschool_child_registration(models.Model):
 
     @api.onchange('week')
     def onchange_week(self):
-        print "onchange_week"
         if self.week > 53:
             self.week = 53
         if self.week < 1:
@@ -165,16 +166,11 @@ class extraschool_child_registration(models.Model):
 
 
         monday,sunday = self.get_week_days(datetime.now().year, self.week)
-        print "week days : %s - %s" % (monday,sunday)
-        print "monday : %s" % (monday)
-        print "sunday : %s" % (sunday)
         self.date_from = monday
         self.date_to = sunday
 
     @api.one
     def update_child_list(self):
-        print "update_child_list"
-
         search_domain = [('schoolimplantation.id', '=', self.school_implantation_id.id),
                          ('isdisabled', '=', False),
                          ]
@@ -201,21 +197,12 @@ class extraschool_child_registration(models.Model):
         #clear child list
         self.child_registration_line_ids = [(5, 0, 0)]
         child_reg = []
-        print "clear child list done"
+
         for child in childs:
-            print "add child : %s" % (child)
             child_reg.append((0,0,{'child_id': child,
                                    }))
         self.child_registration_line_ids = child_reg
         self.compute_number_childs()
-
-    # def reset_option_select(self):
-    #     self.class_id = ''
-    #     self.levelid = ''
-    #     self.select_per_level = ''
-    #     self.class_id_button = False
-    #     self.levelid_button = False
-    #     self.select_per_level_button = False
 
     @api.multi
     def check_validity_date(self, vals):
@@ -252,11 +239,9 @@ class extraschool_child_registration(models.Model):
 
 
     def check_doublons(self):
-        print "in check doublons"
         child_ids = [line.child_id for line in self.child_registration_line_ids]
         if len(set(child_ids)) != len(self.child_registration_line_ids):
             self.error_duplicate_reg_line = True
-            print "!!! dup !!!"
             for line in self.child_registration_line_ids:
                 dup_line_ids = self.child_registration_line_ids.filtered(lambda r: r.id != line.id and r.child_id == line.child_id)
                 if len(dup_line_ids):
@@ -290,7 +275,6 @@ class extraschool_child_registration(models.Model):
         pod_to_reset = []
 
         if self.state == 'to_validate' or wizard:
-            print "validate - registration"
             line_days = [self.child_registration_line_ids.filtered(lambda r: r.monday),
                          self.child_registration_line_ids.filtered(lambda r: r.tuesday),
                          self.child_registration_line_ids.filtered(lambda r: r.wednesday),
@@ -392,7 +376,6 @@ class extraschool_child_registration(models.Model):
 
     @api.one
     def validate_multi(self):
-        #print "validate multi"
         if self.env.context == None:
             self.env.context = {}
 
@@ -401,10 +384,7 @@ class extraschool_child_registration(models.Model):
             wizard = self.env.context["wizard"]
 
         if not wizard:
-            #print "check_dup"
             self.check_doublons_warning()
-
-        #print "validate MULTI wizard-mode : %s" % (self.env.context)
 
         if self.state == 'to_validate' or wizard:
             line_days = [self.child_registration_line_ids.filtered(lambda r: r.monday_activity_id),
@@ -426,9 +406,7 @@ class extraschool_child_registration(models.Model):
             occu_reg = self.env['extraschool.activity_occurrence_child_registration']
             for day in range(delta.days + 1):
                 current_day_date = d1 + td(days=day)
-                print "day: %s" % (current_day_date)
                 for line in line_days[current_day_date.weekday()]:
-                    #print "line id: %s" % (line.id)
                     activity_days = [line.monday_activity_id,
                                      line.tuesday_activity_id,
                                      line.wednesday_activity_id,
@@ -438,16 +416,13 @@ class extraschool_child_registration(models.Model):
                                      line.sunday_activity_id,
                                      ]
                     activity_id=activity_days[current_day_date.weekday()]
-                    #print "cd:%s in line.days:%s" % (str(current_day_date.weekday()), str(activity_id.days))
+
                     if str(current_day_date.weekday()) in activity_id.days:
-                        #print "line in activity"
                         occu = occu.search([('activityid','=', activity_id.id),
                                            ('place_id','=', self.place_id.id),
                                            ('occurrence_date','=', current_day_date)])
 
                         if len(occu) == 1:
-                            #print "il y a une occu"
-                            #print "create reg for child : %s" % (line.child_id)
                             occu_reg_ids = occu_reg.search([('activity_occurrence_id.id', '=', occu.id),
                                                             ('child_id.id' ,'=', line.child_id.id),
                                                             ('child_registration_line_id.id', '=', line.id)])
@@ -465,7 +440,6 @@ class extraschool_child_registration(models.Model):
                                              'child_registration_line_id': line.id
                                              })
                             if activity_id.autoaddchilds:
-                                #print "auto add child    "
                                 pod_to_reset = list(set(pod_to_reset + occu.add_presta(occu, line.child_id.id, None,False)))
             for pod in self.env['extraschool.prestation_times_of_the_day'].browse(pod_to_reset):
                 pod.reset()
@@ -490,7 +464,7 @@ class extraschool_child_registration(models.Model):
         occu_reg_obj = self.env['extraschool.activity_occurrence_child_registration']
         prestation_times_obj = self.env['extraschool.prestationtimes']
         occu_reg_ids = occu_reg_obj.search([('child_registration_line_id.child_registration_id', '=', self.id)])
-        #print "occu_reg_ids : %s" % (occu_reg_ids)
+
         for occu_reg in occu_reg_ids:
             if occu_reg.activity_occurrence_id.activityid.autoaddchilds:
                 presta_ids = prestation_times_obj.search([('childid', '=', occu_reg.child_id.id),
@@ -510,7 +484,6 @@ class extraschool_child_registration(models.Model):
             self.force_set_to_draft()
 
     def get_summary(self):
-        print "get_summary"
         result = {}
         for line in self.child_registration_line_ids:
             zz = 0

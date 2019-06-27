@@ -36,7 +36,6 @@ class extraschool_child_fusion_wizard(models.TransientModel):
 
     @api.multi
     def fusion(self):
-        print "# Let the fusion begins........"
         for child in self.child_ids:
             self.env['extraschool.pdaprestationtimes'].search([('childid', '=', child.id)]).write(
                 {'childid': self.child_id.id})
@@ -63,7 +62,6 @@ class extraschool_child_fusion_wizard(models.TransientModel):
 
         # Delete childs
         if len(child_to_delete_ids):
-            print "## Deleting childs."
             sql_delete_child = """delete from extraschool_child
                                   where id in (""" + ','.join(map(str, child_to_delete_ids.ids)) + """)                             
                                 """

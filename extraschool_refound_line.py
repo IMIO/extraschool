@@ -35,18 +35,14 @@ class extraschool_refound_line(models.Model):
     amount = fields.Float('Amount', required=False)    
     prestation_ids = fields.One2many('extraschool.prestationtimes','invoiced_prestation_id',ondelete='restrict')   
     reminder_id = fields.Many2one('extraschool.reminder', 'Reminder',ondelete='restrict')     
-    
-    
+
     def confirm(self):
-        print "refound confirm"
         payment_reconcil_obj = self.env['extraschool.payment_reconciliation']
         
         for refound in self:
             amount_to_refound = refound.amount - refound.invoiceid.balance
-            print "amount to refound : %s" % (amount_to_refound)
             zz = len(refound.invoiceid.payment_ids) - 1
             while amount_to_refound > 0 and zz >= 0:
-                print "loop : zz %s amount to refound %s" % (zz, amount_to_refound)                
                 if refound.invoiceid.payment_ids[zz].amount <= amount_to_refound:
                     amount = refound.invoiceid.payment_ids[zz].amount
                 else:

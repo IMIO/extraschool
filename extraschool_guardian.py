@@ -29,6 +29,8 @@ from openerp.exceptions import except_orm, Warning, RedirectWarning
 import os
 from datetime import date, datetime
 import time
+import logging
+_logger = logging.getLogger(__name__)
 
 
 class extraschool_guardian(models.Model):
@@ -142,7 +144,7 @@ class extraschool_guardian(models.Model):
                                                             'smartphone_id': smartphone_id,
                                                             })
         except:
-            print "Error Guardian"
+            logging.info("Error Sync on Guardian")
             return "Error Sync on Guardians"
 
         return guardian_info

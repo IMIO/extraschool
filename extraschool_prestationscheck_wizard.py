@@ -118,15 +118,12 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
             return_val['error_msg'] = "No matching occurrence found"
             return return_val
 
-
         occu_reg = occurrence_rs.filtered(lambda r: prestation.childid.id in [reg.child_id.id for reg in r.child_registration_ids])
-#        print "occu reg = %s" % (occu_reg)
 
         if occu_reg:
             return_val['return_code'] = 1
             return_val['occurrence_id'] = occu_reg[0].id
             return return_val
-
 
         #filter occurence to remove occurence with registration if "only registered"
         occurrence_no_register_rs = occurrence_rs.filtered(lambda r: not r.activityid.onlyregisteredchilds)
@@ -161,7 +158,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
     def _prestation_activity_occurrence_completion(self,prestation):
         #Look for activityoccurrence maching the prestation
         res = self.get_prestation_activityid(prestation)
-#        print "+++++" + str(res) + "----"
+
         if not res['return_code']:
             prestation.error_msg = res['error_msg']
         else:
@@ -191,7 +188,6 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
 
         #add activity occurrence when missing
         for prestation in obj_prestation_rs.filtered(lambda r: not r.activity_occurrence_id):
-#            print "add activity occurrence id "
             self._prestation_activity_occurrence_completion(prestation)
 
         #get distinc presta of the day

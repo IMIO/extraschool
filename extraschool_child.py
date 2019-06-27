@@ -27,6 +27,8 @@ from datetime import date, datetime
 from openerp.exceptions import except_orm, Warning, RedirectWarning
 import time
 import timeit
+import logging
+_logger = logging.getLogger(__name__)
 
 
 class extraschool_child(models.Model):
@@ -205,7 +207,7 @@ class extraschool_child(models.Model):
                                                             'smartphone_id': smartphone_id,
                                                             })
         except:
-            print "Error Children"
+            logging.info("Error Sync on Children")
             return "Error Sync on Children"
 
         return children_info

@@ -246,7 +246,6 @@ class extraschool_parent(models.Model):
             emails = vals['email'].split(',')
             for email in emails :
                 if (not self.email_validation(email)):
-                    print "vals['email']" , vals['email']
                     raise Warning("E-mail format invalid.")
 
         # Compute and store parent's commstruct for further use (search).

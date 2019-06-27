@@ -498,7 +498,7 @@ class extraschool_invoice_wizard(models.TransientModel):
 
         obj_biller = self.env['extraschool.biller']
         obj_accrued = self.env['extraschool.accrued']
-        print(self._context)
+
         #create a bille to store invoice
         biller = obj_biller.create({'period_from' : self.period_from,
                                     'period_to' : self.period_to,
@@ -519,12 +519,7 @@ class extraschool_invoice_wizard(models.TransientModel):
             biller.send_mail_error(_(message))
             raise Warning(_(message))
 
-
         #check if all presta are verified
-
-        print "----------------"
-        print str(self.schoolimplantationid.ids)
-
         sql_check_verified = """select count(*) as verified_count
                                     from extraschool_prestationtimes ept
                                     left join extraschool_child c on ept.childid = c.id
@@ -542,7 +537,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                             )
 
         verified_count = self.env.cr.dictfetchall()
-        print "verified_count:" + str(verified_count[0]['verified_count'])
+
         if verified_count[0]['verified_count']:
             message = "At least one prestations is not verified !!!"
             biller.send_mail_error(_(message))
@@ -566,7 +561,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                                           )
                             )
         to_invoice_count = self.env.cr.dictfetchall()
-        print "to_invoice_count:" + str(to_invoice_count[0]['to_invoice_count'])
+
         if not to_invoice_count[0]['to_invoice_count']:
             message = "There is no presta to invoice !!!"
             biller.send_mail_error(_(message))
@@ -589,10 +584,6 @@ class extraschool_invoice_wizard(models.TransientModel):
                                         and c.schoolimplantation IN %s 
                                 group by ept.parent_id,c.schoolimplantation,childid, p.streetcode,case when tarif_group_name = '' or tarif_group_name is NULL then a.name else tarif_group_name  end, ept.prestation_date, ept.activity_category_id
                                 order by parent_id, c.schoolimplantation, min(activity_occurrence_id);"""
-
-        #         print "---------------"
-        #         print (sql_mega_invoicing) % (self.period_from, self.period_to, self.activitycategory.id)
-        #         print "---------------"
 
         self.env.cr.execute(sql_mega_invoicing, (self.period_from,
                                                  self.period_to,
@@ -685,7 +676,6 @@ class extraschool_invoice_wizard(models.TransientModel):
                                             %s,%s,%s,%s,%s,
                                             %s,%s,%s)""", x["values"]) for x in args)
 
-        #print insert_data
         invoice_ids = cr.execute("""insert into extraschool_invoice
                                     (create_uid, create_date, write_uid, write_date,
                                     name, number, parentid, biller_id, activitycategoryid,
@@ -820,7 +810,6 @@ class extraschool_invoice_wizard(models.TransientModel):
                                             ip.id IN %s; 
                                     """
 
-#        print sql_update_child_position
         self.env.cr.execute(sql_update_child_position, (tuple(invoice_line_ids),))
 
         _logger.info("End update child postition")
@@ -836,7 +825,6 @@ class extraschool_invoice_wizard(models.TransientModel):
                                             ip.id IN %s; 
                                     """
 
-#        print sql_update_description
         self.env.cr.execute(sql_update_description, (tuple(invoice_line_ids),))
 
 
@@ -961,7 +949,7 @@ class extraschool_invoice_wizard(models.TransientModel):
         for invoice in invoice_ids_rs:
             invoice.activitycategoryid = [(6, False, self.activitycategory.ids)]
 
-        print "Discount ..............."
+        logging.info("Computing Discount")
         self.env['extraschool.discount'].compute(biller)
 
         invoice_ids_rs.reconcil()

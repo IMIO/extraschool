@@ -41,8 +41,6 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
         for presta in self.browse(cr, uid, ids,context=context):
             res.append((presta.id, presta.place_id.name + ' - ' + datetime.datetime.strptime(presta.date_of_the_day, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y")  ))
 
-        print str(res)
-
         return res
 
     date_of_the_day = fields.Date(required=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
@@ -86,20 +84,16 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
 
     @api.one
     def update_child_list(self):
-        print "update_child_list"
-
         if self.levelid:
             list_level = []
             for level in self.levelid:
-                print level
                 list_level.append(level.id)
-                print list_level
+
             childs = self.env['extraschool.child'].search(
                 [('schoolimplantation.id', '=', self.place_id.id),
                  ('levelid.id', 'in', list_level),
                  ('isdisabled', '=', False),
                  ])
-            print childs
         else:
             childs = self.env['extraschool.child'].search(
                 [('schoolimplantation.id', '=', self.place_id.id),
@@ -109,31 +103,23 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
         # clear child list
         self.prestationtime_ids = [(5, 0, 0)]
         child_reg = []
-        print "clear child list done"
+
         for child in childs:
-            print "add child : %s" % (child)
             child_reg.append((0, 0, {'child_id': child,
                                      }))
         self.prestationtime_ids = child_reg
 
     @api.one
     def validate(self):
-        print "validate"
-
         if self.env.context == None:
             self.env.context = {}
-
-#         if "wizard" not in self.env.context:
-#             self.env.context["wizard"]= False
 
         presta_obj = self.env['extraschool.pdaprestationtimes']
 
         if self.state == 'draft' or self.env.user.id == 1:
-            print "validate !!"
             pod_allready_reseted_ids = []
             for presta in self.prestationtime_ids:
                 if presta.prestation_time_entry > 0:
-                    print "presta in %s" % (presta)
                     new_presate = presta_obj.create({'activitycategoryid': self.activity_category_id.id,
                                        'placeid': self.place_id.id,
                                        'childid': presta.child_id.id,
@@ -149,7 +135,6 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
                         new_presate.prestation_times_of_the_day_id.check()
 
                 if presta.prestation_time_exit > 0:
-                    print "presta out %s" % (presta)
                     new_presate = presta_obj.create({'activitycategoryid': self.activity_category_id.id,
                                        'placeid': self.place_id.id,
                                        'childid': presta.child_id.id,

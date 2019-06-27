@@ -4,6 +4,8 @@ from openerp.exceptions import except_orm, Warning, RedirectWarning
 from openerp import tools
 import threading
 import time
+import logging
+_logger = logging.getLogger(__name__)
 
 class extraschool_taxcertificate(models.Model):
     _name = 'extraschool.taxcertificate'
@@ -111,7 +113,7 @@ class extraschool_taxcertificate(models.Model):
                                     order by si.name,sc.name,i.parentid;                                
                                 """
 
-        print "sql_concerned_attest : %s" % sql_concerned_attest
+        logging.info("Creation of tax certificates")
 
         cr.execute(sql_concerned_attest,(sql_concerned_invoice,sql_concerned_invoice))
 
@@ -220,7 +222,6 @@ class extraschool_taxcertificate(models.Model):
                         self.id]
         for zz in range(0, nrb_thread):
             sub_taxes = [i.id for i in self.taxcertificate_item_ids[zz*chunk_size:(zz+1)*chunk_size]]
-            print "start thread for ids : %s" % (sub_taxes)
             if len(sub_taxes):
                 thread = threading.Thread(target=self.generate_pdf_thread, args=(cr, uid, thread_lock, sub_taxes,self.env.context))
                 threaded_report.append(thread)

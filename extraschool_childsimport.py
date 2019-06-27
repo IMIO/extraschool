@@ -269,7 +269,6 @@ class extraschool_childsimport(models.Model):
                         if importfilter['parentrncolumn'] <> 0:
                             parentids = obj_parent.search(cr, uid, [('rn', '=', parentrn),])
                         # if no rn or child not found on RN try to find on firstname,lastname,birthday
-                        print "parent : %s-%s rn : %s" % (parentlastname,parentfirstname,parentrn)
                         if not parentids or importfilter['parentrncolumn'] == 0 or parentrn == '':
                             parentids = obj_parent.search(cr, uid, [('lastname', 'ilike', parentlastname),('firstname', 'ilike', parentfirstname),('streetcode', 'ilike', lbutils.genstreetcode(parentstreet+parentcity))])
                         if not parentids:
@@ -349,9 +348,7 @@ class extraschool_childsimport(models.Model):
                             # parent['lastname'] = parent['lastname'].encode('UTF-8') if isinstance(parent['lastname'], unicode) else parent['lastname']
 
                             if  parent['firstname'].lower() == parentfirstname.lower().decode('utf-8') and parent['lastname'].lower() == parentlastname.lower().decode('utf-8'):
-                                #print "check rn %s vs %s" % (parent['rn'],parentrn)
                                 if (parent['rn'] == False or parent['rn'] == '') and (parentrn != False and parentrn != ''):
-                                    #print "upate rn"
                                     obj_parent.write(cr,uid,[parentid],{'rn':parentrn})
                                 if parent['modified_since_last_import'] == False:
                                     if importfilter['majparentlastname']:
@@ -380,11 +377,9 @@ class extraschool_childsimport(models.Model):
                                 if importfilter['parentrncolumn'] <> 0:
                                     parentids = obj_parent.search(cr, uid, [('rn', '=', parentrn),])
                                 # if no rn or child not found on RN try to find on firstname,lastname,birthday
-                                #print "parent : %s-%s rn : %s" % (parentlastname,parentfirstname,parentrn)
                                 if not parentids or importfilter['parentrncolumn'] == 0 or parentrn == '':
                                     parentids = obj_parent.search(cr, uid, [('lastname', 'ilike', parentlastname),('firstname', 'ilike', parentfirstname),('streetcode', 'ilike', lbutils.genstreetcode(parentstreet+parentcity))])
                                 if not parentids:
-                                    #print "create parent %s %s" % (parentlastname,parentfirstname)
                                     parentid = obj_parent.create(cr, uid, {'name':parentlastname+' '+parentfirstname,
                                                                            'rn':parentrn,
                                                                            'lastname':parentlastname,
@@ -402,7 +397,6 @@ class extraschool_childsimport(models.Model):
                                                                            })
                                 else:
                                     parentid=parentids[0]
-                                print "parent_id : %s" % (parentid)
                                 obj_child.write(cr,uid,[child_id],{'parentid':parentid})
 
         return super(extraschool_childsimport, self).create(vals)
