@@ -27,7 +27,8 @@ from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
 from datetime import date
 import datetime
 import time
-
+import logging
+_logger = logging.getLogger(__name__)
 
 
 class extraschool_prestation_times_of_the_day(models.Model):
@@ -46,8 +47,6 @@ class extraschool_prestation_times_of_the_day(models.Model):
         res=[]
         for presta in self.browse(cr, uid, ids,context=context):
             res.append((presta.id, presta.child_id.name + ' - ' + datetime.datetime.strptime(presta.date_of_the_day, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y")  ))
-
-#        print str(res)
 
         return res
 
@@ -125,41 +124,42 @@ class extraschool_prestation_times_of_the_day(models.Model):
 
     @api.multi
     def reset(self):
-        self.place_check = True
-        total = len(self)
-        time_list = []
-        for presta in self:
-            start_time = time.time()
+        for rec in self:
+            rec.place_check = True
+            total = len(rec)
+            time_list = []
+            for presta in rec:
+                start_time = time.time()
 
-            if len(time_list) == 50:
-                avg_time = float(sum(time_list) / len(time_list)) * total
-                avg_time = time.strftime('%M:%S', time.gmtime(avg_time))
-                print "Temps estimé restant: ", avg_time
-                time_list = []
-            total -= 1
-            #Check if presta is not invoiced
-            if len(presta.prestationtime_ids.filtered(lambda r: r.invoiced_prestation_id.id is not False).ids) == 0:
-                presta.prestationtime_ids.unlink()
-                for pda_presta in presta.pda_prestationtime_ids.filtered(lambda r: r.active):
-                    presta.prestationtime_ids.create({'placeid': pda_presta.placeid.id,
-                                                      'childid': pda_presta.childid.id,
-                                                      'prestation_date': pda_presta.prestation_date,
-                                                      'prestation_time': pda_presta.prestation_time,
-                                                      'es': pda_presta.es,
-                                                      'activity_category_id': pda_presta.activitycategoryid.id,
-                                                      })
+                if len(time_list) == 50:
+                    avg_time = float(sum(time_list) / len(time_list)) * total
+                    avg_time = time.strftime('%M:%S', time.gmtime(avg_time))
+                    logging.info("Temps estimé restant: {}".format(avg_time))
+                    time_list = []
+                total -= 1
+                #Check if presta is not invoiced
+                if len(presta.prestationtime_ids.filtered(lambda r: r.invoiced_prestation_id.id is not False).ids) == 0:
+                    presta.prestationtime_ids.unlink()
+                    for pda_presta in presta.pda_prestationtime_ids.filtered(lambda r: r.active):
+                        presta.prestationtime_ids.create({'placeid': pda_presta.placeid.id,
+                                                          'childid': pda_presta.childid.id,
+                                                          'prestation_date': pda_presta.prestation_date,
+                                                          'prestation_time': pda_presta.prestation_time,
+                                                          'es': pda_presta.es,
+                                                          'activity_category_id': pda_presta.activitycategoryid.id,
+                                                          })
 
-                reg_ids = self.env['extraschool.activity_occurrence_child_registration'].search([('child_id', '=',presta.child_id.id),
-                                                                                                 ('activity_occurrence_id.occurrence_date', '=', presta.date_of_the_day),
-                                                                                                 # ('activity_occurrence_id.activity_category_id', '=', presta.activity_category_id.id),
-                                                                                                 ])
-                for reg in reg_ids:
-                    if reg.activity_occurrence_id.activityid.autoaddchilds:
-                        reg.activity_occurrence_id.add_presta(reg.activity_occurrence_id, reg.child_id.id, None,False)
-                presta.verified = False
-                presta.checked = False
+                    reg_ids = self.env['extraschool.activity_occurrence_child_registration'].search([('child_id', '=',presta.child_id.id),
+                                                                                                     ('activity_occurrence_id.occurrence_date', '=', presta.date_of_the_day),
+                                                                                                     # ('activity_occurrence_id.activity_category_id', '=', presta.activity_category_id.id),
+                                                                                                     ])
+                    for reg in reg_ids:
+                        if reg.activity_occurrence_id.activityid.autoaddchilds:
+                            reg.activity_occurrence_id.add_presta(reg.activity_occurrence_id, reg.child_id.id, None,False)
+                    presta.verified = False
+                    presta.checked = False
 
-            time_list.append(time.time() - start_time)
+                time_list.append(time.time() - start_time)
 
     @api.onchange('prestationtime_ids', 'pda_prestationtime_ids')
     def on_change_prestationtime_ids(self):
@@ -232,7 +232,6 @@ class extraschool_prestation_times_of_the_day(models.Model):
                 self.prestationtime_ids.filtered(lambda r: r.activity_occurrence_id.activityid.id == self.activity_to_delete).unlink()
 
         for presta in self.prestationtime_ids.sorted(key=lambda r: ("%s%s" % (('%.2f' % (r.prestation_time)).zfill(5), 1 if r.es == 'E' else 0))):
-            # print "presta : %s %s %s" % (presta.activity_occurrence_id.id, presta.activity_occurrence_id.name, ('%.2f' % (presta.prestation_time)).zfill(5))
             i = zz % 2
             #check alternate E / S
 
@@ -268,8 +267,6 @@ class extraschool_prestation_times_of_the_day(models.Model):
             return self
 
     def _completion_entry(self,root_activity):
-#        print "_completion_entry : %s" % (root_activity)
-
         activity_occurrence_obj = self.env['extraschool.activityoccurrence']
 
         #get presta matching the root_activity
@@ -315,7 +312,6 @@ class extraschool_prestation_times_of_the_day(models.Model):
                 return False
 
     def _completion_exit(self,root_activity):
-#        print "_completion_exit : %s" % (root_activity)
         activity_occurrence_obj = self.env['extraschool.activityoccurrence']
 
         #get presta matching the root_activity
@@ -328,8 +324,6 @@ class extraschool_prestation_times_of_the_day(models.Model):
             #correction if default_from_to
             if last_prestation_time.activity_occurrence_id.activityid.default_from_to == 'from_to':
                 last_prestation_time.prestation_time = last_prestation_time.activity_occurrence_id.prest_to
-
-#            print "exit : %s" % (last_prestation_time.prestation_time)
             return last_prestation_time
         else:
             #get the default stop
@@ -352,9 +346,6 @@ class extraschool_prestation_times_of_the_day(models.Model):
 
 
     def _occu_start_stop_completion(self,start_time,stop_time,occurrence,down,from_occurrence):
-#         print "->_occu_start_stop_completion"
-#         print "%s" % (occurrence.activityname)
-
         occurrence_obj = self.env['extraschool.activityoccurrence']
         cr,uid = self.env.cr, self.env.user.id
 
@@ -411,16 +402,11 @@ class extraschool_prestation_times_of_the_day(models.Model):
                 if not looked_activity:
                     looked_activity = stop_time.activity_occurrence_id.activityid.parent_id
                     while looked_activity.parent_id.id != looked_activity.root_id.id:
-                        # print looked_activity.parent_id.id , looked_activity.root_id.id
                         looked_activity = looked_activity.parent_id
                 if occurrence.id !=looked_activity.id:
                     occurrence_obj.add_presta(from_occurrence,self.child_id.id,None, True, False, True if prest_to > 0 else False, True if prest_from > 0 else False,prest_to,prest_from) #from & to are inverted it's normal it's for parent
 
-#        print "<-_occu_start_stop_completion"
-
-
     def _occu_completion(self,start_time,stop_time,occurrence,down,from_occurrence):
-#        print "_occu_completion : %s" % ("start" if not occurrence else occurrence.name)
         if not occurrence:
             #first call of the fct .... Here we are .... let's go
             down = True
@@ -471,8 +457,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
                                                                                 ('prest_from', '>=', prest_from),
                                                                                 ('prest_to', '<=', prest_to),
                                                                                 ])
-#         print "prest from : %s prest to : %s" % (prest_from,prest_to)
-#         print "occu child_ids of occurrence %s : %s" % (occurrence.name,child_occurrences.ids)
+
         for child_occurrence in child_occurrences:
             if child_occurrence.check_if_child_take_part_to(self.child_id):
                 self._occu_completion(start_time,stop_time,child_occurrence,True,occurrence)
@@ -499,7 +484,6 @@ class extraschool_prestation_times_of_the_day(models.Model):
 
     @api.multi
     def check(self):
-        print "Checking......."
         #Check if presta is not invoiced
         if len(self.prestationtime_ids.filtered(lambda r: r.invoiced_prestation_id.id is not False).ids) == 0:
             #if no presta than warning and exit
@@ -511,9 +495,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
             #
             str_prestation_ids = str(self.prestationtime_ids.ids).replace('[','(').replace(']',')')
             for prestation in self.prestationtime_ids.filtered(lambda r: not r.activity_occurrence_id):
-#                print "add activity occurrence id "
                 self.env['extraschool.prestationscheck_wizard']._prestation_activity_occurrence_completion(prestation)
-#            print "str_prestation_ids %s" % str_prestation_ids
             # Get list of distinct root_id of prestation time for those occurrence activities.
             self.env.cr.execute(
                 "select distinct(root_id) from extraschool_prestationtimes ep left join extraschool_activityoccurrence o on ep.activity_occurrence_id = o.id left join extraschool_activity a on o.activityid = a.id where a.root_id > 0 and ep.id in " + str_prestation_ids)
@@ -521,9 +503,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
             prestationtimes = self.env.cr.dictfetchall()
             root_ids = [r['root_id'] for r in prestationtimes]
 
-#            print "root_ids : %s" % (root_ids)
             for root_activity in self.env['extraschool.activity'].browse(root_ids):
-                #print "checking root : %s" % (root_activity.name)
                 start_time = self._completion_entry(root_activity)
                 stop_time = self._completion_exit(root_activity)
 
@@ -534,8 +514,6 @@ class extraschool_prestation_times_of_the_day(models.Model):
                 else:
                     #an error has been found and added to comment field
                     self.verified = False
-
-        # print self.verified
 
         self.last_check_entry_exit()
 
@@ -588,10 +566,6 @@ class extraschool_prestation_times_of_the_day(models.Model):
 
     @api.model
     def check_all(self):
-#         print "--------------"
-#         print "check all"
-#         print "--------------"
-
         #first set correction for old bug
         #some presta are not verified but invoiced
         #the concerning pod must not be reseted
