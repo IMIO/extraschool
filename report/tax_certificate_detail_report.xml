@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<openerp>
+<odoo>
 	<data>
 		<template id="tpl_tax_certificate_detail_report">
             <style type="text/css">
@@ -76,4 +76,4 @@
 		/>
 
 	</data>
-</openerp>
+</odoo>

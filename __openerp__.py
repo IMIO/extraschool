@@ -1,4 +1,3 @@
-# __openerp__.py
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
@@ -21,10 +20,9 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 {
     'name' : 'Extraschool',
-    'version' : '9.1.0.0',
+    'version' : '9.1.0.1',
     'author' : 'Town of La Bruyère and Imio',
     'depends' : ['base',
                  'report',
@@ -32,7 +30,7 @@
                  'decimal_precision',
                  'web',
                  ],
-    'init_xml' : ['init.xml',],
+
     'css': [
         'static/src/css/test.css',
         'static/src/css/tpl_qrcodes_wizard_report.css',
@@ -44,6 +42,11 @@
         'scripts/init_multiple_category_activity.sql',
         'scripts/migration_organisingpower.xml',
 
+        'data/data_days.xml',
+        'data/data_health_sheet.xml',
+        'data/data_init.xml',
+        'data/data_level.xml',
+        'data/data_tags_invoice.xml',
         'views/extraschool_activitycategory.xml',
         'views/extraschool_organising_power.xml',
         'views/extraschool_activity.xml',
@@ -105,7 +108,7 @@
         'views/extraschool_query_sql.xml',
         # 'views/extraschool_qrconfig.xml',
         'views/extraschool_prestation_times_history.xml',
-        'extraschool_report.xml',
+        'views/extraschool_view.xml',
         'security/extraschool_security.xml',
         'security/ir.model.access.csv',
         'report/biller/biller_summary_no_style.xml',
@@ -164,8 +167,6 @@
         'report/custo_client/ittre.xml',
         'report/custo_client/fosses_la_ville.xml',
         'report/reminder/reminder_text.xml',
-        'extraschool_view.xml',
-
     ],
     'installable' : True,
     'application': True,

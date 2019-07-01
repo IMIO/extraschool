@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
 	<data>
         <template id="tpl_guardian_horaire_wizard_report">
             <t t-call="report.html_container">
@@ -47,4 +47,4 @@
 		/>
 
 	</data>
-</openerp>
+</odoo>

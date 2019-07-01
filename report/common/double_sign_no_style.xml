@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<openerp>
+<odoo>
 	<data>
 		<template id="report_double_sign_no_style">
 			<style>
@@ -130,5 +130,5 @@
 		</template>
 
 	</data>
-</openerp>
+</odoo>
 

@@ -31,7 +31,7 @@ import cStringIO
 import base64
 import os
 import math
-import lbutils
+from openerp.addons.extraschool.helper import lbutils
 import re
 from pyPdf import PdfFileWriter, PdfFileReader
 from pytz import timezone

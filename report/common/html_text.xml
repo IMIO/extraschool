@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<openerp>
+<odoo>
 	<data>
 		<template id="report_html_text_no_style">
 	    	<div style="display: block;clear: both;width: 100%;margin: 1cm 0cm 1cm 0cm;">
@@ -7,5 +7,5 @@
 			</div>
 		</template>
 	</data>
-</openerp>
+</odoo>
 

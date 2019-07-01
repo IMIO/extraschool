@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<openerp>
+<odoo>
 	<data>
 		<template id="report_payment_info_no_style">
             <xpath expr="//head" position="inside">
@@ -33,5 +33,5 @@
 		</template>
 
 	</data>
-</openerp>
+</odoo>
 

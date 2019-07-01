@@ -24,7 +24,7 @@ import re
 
 from openerp import models, api, fields, _
 from openerp.api import Environment
-import lbutils
+from openerp.addons.extraschool.helper import lbutils
 from datetime import datetime
 from openerp.exceptions import except_orm, Warning, RedirectWarning
 import requests
@@ -52,9 +52,9 @@ class extraschool_parent(models.Model):
         v={}
         if street:
             if city:
-                v['streetcode']=lbutils.genstreetcode(street+city)
+                v['streetcode']= lbutils.genstreetcode(street + city)
             else:
-                v['streetcode']=lbutils.genstreetcode(street)
+                v['streetcode']= lbutils.genstreetcode(street)
         return {'value':v}
 
     def return_action_to_open(self, cr, uid, ids, context=None):

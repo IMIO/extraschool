@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<openerp>
+<odoo>
 	<data>
 		<template id="tpl_qrcodes_wizard_report">
             <t t-foreach="docs" t-as="qr_report">
@@ -222,5 +222,5 @@
     		<field name="paperformat_id" ref="paperformat_aes_qr_code"/>
 		</record>
 	</data>
-</openerp>
+</odoo>
 

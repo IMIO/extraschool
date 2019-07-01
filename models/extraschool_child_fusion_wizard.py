@@ -23,8 +23,7 @@
 
 from openerp import models, api, fields
 from openerp.api import Environment
-import lbutils
-from openerp.exceptions import except_orm, Warning, RedirectWarning
+
 
 class extraschool_child_fusion_wizard(models.TransientModel):
     _name = 'extraschool.child_fusion_wizard'

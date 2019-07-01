@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<openerp>
+<odoo>
 	<data>
         <record model="ir.ui.view" id="extraschool_report_form">
             <field name="name">extraschool.report.form</field>
@@ -52,4 +52,4 @@
 			<field name="view_type">form</field>
 		</record>
 	</data>
-</openerp>
+</odoo>

@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<openerp>
+<odoo>
 	<data>
         <record model="ir.ui.view" id="extraschool_guardian_tree">
 			<field name="name">extraschool.guardian.tree</field>
@@ -130,4 +130,4 @@
 
 
 	</data>
-</openerp>
+</odoo>

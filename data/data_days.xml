@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record model="extraschool.day" id="extraschool_day_1">
+            <field name="name">Lundi</field>
+        </record>
+
+        <record model="extraschool.day" id="extraschool_day_2">
+            <field name="name">Mardi</field>
+        </record>
+
+        <record model="extraschool.day" id="extraschool_day_3">
+            <field name="name">Mercredi</field>
+        </record>
+
+        <record model="extraschool.day" id="extraschool_day_4">
+            <field name="name">Jeudi</field>
+        </record>
+
+        <record model="extraschool.day" id="extraschool_day_5">
+            <field name="name">Vendredi</field>
+        </record>
+
+        <record model="extraschool.day" id="extraschool_day_6">
+            <field name="name">Samedi</field>
+        </record>
+
+        <record model="extraschool.day" id="extraschool_day_7">
+            <field name="name">Dimanche</field>
+        </record>
+    </data>
+</odoo>

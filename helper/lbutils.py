@@ -21,6 +21,7 @@
 #
 ##############################################################################
 
+
 def strcell(t,s):
     if t==1:
         return s.encode('utf-8')
@@ -38,7 +39,7 @@ def strdate(s):
     return res
 
 def genstreetcode(street):
-    terms1 = (" DE LA "," DU "," DES "," D'"," DE L'"," DE "," ")    
+    terms1 = (" DE LA "," DU "," DES "," D'"," DE L'"," DE "," ")
     terms2 = ('RUE','BOULEVARD','BD','AVENUE','AV','CHAUSSEE','PLACE','CHEMIN','RUELLE','IMPASSE','ROUTE')
     try:
         streetcode = street.replace(u'é',u'e')
@@ -50,7 +51,7 @@ def genstreetcode(street):
         streetcode = streetcode.replace(u'ï',u'i')
         streetcode = streetcode.replace(u'ô',u'o')
         streetcode = streetcode.replace(u'ç',u'c')
-        streetcode = streetcode.upper()    
+        streetcode = streetcode.upper()
     except:
         streetcode = street.replace('é','e')
         streetcode = streetcode.replace('è','e')
@@ -61,7 +62,7 @@ def genstreetcode(street):
         streetcode = streetcode.replace('ï','i')
         streetcode = streetcode.replace('ô','o')
         streetcode = streetcode.replace('ç','c')
-        streetcode = streetcode.upper()    
+        streetcode = streetcode.upper()
     for term2 in terms2:
         for term1 in terms1:
             streetcode = streetcode.replace(term2+term1,'')

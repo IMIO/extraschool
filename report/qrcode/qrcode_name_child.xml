@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<openerp>
+<odoo>
 	<data>
 		<template id="qrcode_name_child_classic_25mm">
             <style type="text/css">
@@ -232,4 +232,4 @@
 
 		</template>
 	</data>
-</openerp>
+</odoo>

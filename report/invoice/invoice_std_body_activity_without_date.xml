@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<openerp>
+<odoo>
 	<data> 
 		<template id="report_invoice_std_body_without_date">
 		    <style type="text/css">
@@ -55,6 +55,5 @@
 		</template>
 
 	</data>
-</openerp>	
-	
+</odoo>
 	

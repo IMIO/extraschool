@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<openerp>
+<odoo>
 	<data>
 	    <template id="report_spacer_5_mm">
 			<div style="display: block;width: 100%;height: 0.5cm;clear: both;">
@@ -16,5 +16,5 @@
 			</div>
 		</template>
 	</data>
-</openerp>
+</odoo>
 

@@ -22,11 +22,6 @@
 ##############################################################################
 
 from openerp import models, api, fields
-from openerp.api import Environment
-import cStringIO
-import base64
-import os
-import lbutils
 #import appy.pod.renderer
 from datetime import datetime
 

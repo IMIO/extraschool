@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <function model="extraschool.initupdate_wizard" name="initdefaultvalues"/>
+        <record model="extraschool.level" id="extraschool_level_m0">
+            <field name="name">accueil</field>
+            <field name="ordernumber">0</field>
+            <field name="leveltype">M</field>
+        </record>
+        <record model="extraschool.level" id="extraschool_level_m1">
+            <field name="name">1ere maternelle</field>
+            <field name="ordernumber">1</field>
+            <field name="leveltype">M</field>
+        </record>
+        <record model="extraschool.level" id="extraschool_level_m2">
+            <field name="name">2eme maternelle</field>
+            <field name="ordernumber">2</field>
+            <field name="leveltype">M</field>
+        </record>
+        <record model="extraschool.level" id="extraschool_level_m3">
+            <field name="name">3eme maternelle</field>
+            <field name="ordernumber">3</field>
+            <field name="leveltype">M</field>
+        </record>
+        <record model="extraschool.level" id="extraschool_level_p1">
+            <field name="name">1ere primaire</field>
+            <field name="ordernumber">4</field>
+            <field name="leveltype">P</field>
+        </record>
+        <record model="extraschool.level" id="extraschool_level_p2">
+            <field name="name">2eme primaire</field>
+            <field name="ordernumber">5</field>
+            <field name="leveltype">P</field>
+        </record>
+        <record model="extraschool.level" id="extraschool_level_p3">
+            <field name="name">3eme primaire</field>
+            <field name="ordernumber">6</field>
+            <field name="leveltype">P</field>
+        </record>
+        <record model="extraschool.level" id="extraschool_level_p4">
+            <field name="name">4eme primaire</field>
+            <field name="ordernumber">7</field>
+            <field name="leveltype">P</field>
+        </record>
+        <record model="extraschool.level" id="extraschool_level_p5">
+            <field name="name">5eme primaire</field>
+            <field name="ordernumber">8</field>
+            <field name="leveltype">P</field>
+        </record>
+        <record model="extraschool.level" id="extraschool_level_p6">
+            <field name="name">6eme primaire</field>
+            <field name="ordernumber">9</field>
+            <field name="leveltype">P</field>
+        </record>
+        <record model="extraschool.childtype" id="extraschool_childtype_aucun">
+            <field name="name">aucun</field>
+        </record>
+        <record model="extraschool.childposition" id="extraschool_childposition_1">
+            <field name="name">1er enfant</field>
+            <field name="position">1</field>
+        </record>
+        <record model="extraschool.childposition" id="extraschool_childposition_2">
+            <field name="name">2e enfant</field>
+            <field name="position">2</field>
+        </record>
+        <record model="extraschool.childposition" id="extraschool_childposition_3">
+            <field name="name">3e enfant</field>
+            <field name="position">3</field>
+        </record>
+        <record model="extraschool.childposition" id="extraschool_childposition_4">
+            <field name="name">4e enfant</field>
+            <field name="position">4</field>
+        </record>
+        <record model="extraschool.childposition" id="extraschool_childposition_5">
+            <field name="name">5e enfant</field>
+            <field name="position">5</field>
+        </record>
+        <record model="extraschool.childposition" id="extraschool_childposition_6">
+            <field name="name">6e enfant</field>
+            <field name="position">6</field>
+        </record>
+        <record model="extraschool.childposition" id="extraschool_childposition_7">
+            <field name="name">7e enfant</field>
+            <field name="position">7</field>
+        </record>
+        <record model="extraschool.childposition" id="extraschool_childposition_8">
+            <field name="name">8e enfant</field>
+            <field name="position">8</field>
+        </record>
+        <record model="extraschool.childposition" id="extraschool_childposition_9">
+            <field name="name">9e enfant</field>
+            <field name="position">9</field>
+        </record>
+        <record model="extraschool.childposition" id="extraschool_childposition_10">
+            <field name="name">10e enfant</field>
+            <field name="position">10</field>
+        </record>
+    </data>
+</odoo>

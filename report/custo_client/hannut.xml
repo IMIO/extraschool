@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<openerp>
+<odoo>
 	<data>
 
 		<template id="report_hannut_body_style">
@@ -265,4 +265,4 @@ L’Eveil avant la date d'échéance. Toute facture non contestée est considér
 			</div>
 		</template>
 	</data>
-</openerp>
+</odoo>

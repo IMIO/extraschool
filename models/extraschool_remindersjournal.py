@@ -26,7 +26,7 @@ from openerp.api import Environment
 import cStringIO
 import base64
 import os
-import lbutils
+from openerp.addons.extraschool.helper import lbutils
 from pyPdf import PdfFileWriter, PdfFileReader
 import datetime
 import threading

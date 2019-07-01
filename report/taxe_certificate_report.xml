@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<openerp>
+<odoo>
 	<data>
 		<template id="tpl_taxe_certificate_wizard_report" inherit_id="report.layout" primary="True">
 
@@ -396,5 +396,5 @@ ne doit cependant être mentionné que s'il est supérieur au montant maximum de
 		</record>
 
   </data>
-</openerp>
+</odoo>
 
