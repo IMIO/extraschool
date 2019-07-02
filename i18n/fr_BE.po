@@ -1501,7 +1501,7 @@ msgstr ""
 "#-#-#-#-#  0catalog.po (Odoo Server 9.0c)  #-#-#-#-#\n"
 "Logo du rappel\n"
 "#-#-#-#-#  0catalog.po (Odoo Server 9.0c)  #-#-#-#-#\n"
-"Logo du rappe"
+"Logo du rappel"
 
 #. module: extraschool
 #: code:addons/extraschool/extraschool_coda.py:151
