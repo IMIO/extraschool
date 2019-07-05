@@ -20,10 +20,10 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import models, api, fields, _
-from openerp.exceptions import Warning
-from openerp.api import Environment
-from openerp.exceptions import Warning
+from odoo import models, api, fields, _
+from odoo.exceptions import Warning
+from odoo.api import Environment
+from odoo.exceptions import Warning
 import datetime
 import time
 import logging

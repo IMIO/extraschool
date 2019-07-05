@@ -21,15 +21,15 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
-from openerp.api import Environment
-import openerp.addons.decimal_precision as dp
+from odoo import models, api, fields, _
+from odoo.api import Environment
+import odoo.addons.decimal_precision as dp
 import datetime
 import time
 from datetime import date, datetime, timedelta as td
 import calendar
 import re
-from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
+from odoo.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
 
 

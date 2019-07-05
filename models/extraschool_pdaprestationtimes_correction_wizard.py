@@ -21,12 +21,12 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
-from openerp.api import Environment
+from odoo import models, api, fields, _
+from odoo.api import Environment
 import cStringIO
 import base64
 import os
-from openerp.exceptions import except_orm, Warning, RedirectWarning
+from odoo.exceptions import except_orm, Warning, RedirectWarning
 
 
 class extraschool_pdaprestationtimes_correction_wizard(models.TransientModel):

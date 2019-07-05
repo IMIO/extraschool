@@ -22,11 +22,11 @@
 ##############################################################################
 import re
 
-from openerp import models, api, fields, _
-from openerp.api import Environment
-from openerp.addons.extraschool.helper import lbutils
+from odoo import models, api, fields, _
+from odoo.api import Environment
+from odoo.addons.extraschool.helper import lbutils
 from datetime import datetime
-from openerp.exceptions import except_orm, Warning, RedirectWarning
+from odoo.exceptions import except_orm, Warning, RedirectWarning
 import requests
 import base64, hmac, hashlib
 from hashlib import sha256

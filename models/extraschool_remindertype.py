@@ -21,8 +21,8 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
-from openerp.api import Environment
+from odoo import models, api, fields
+from odoo.api import Environment
 
 class extraschool_remindertype(models.Model):
     _name = 'extraschool.remindertype'

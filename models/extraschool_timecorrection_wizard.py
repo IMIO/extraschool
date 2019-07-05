@@ -21,8 +21,8 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
-from openerp.api import Environment
+from odoo import models, api, fields
+from odoo.api import Environment
 
 class extraschool_timecorrection_wizard(models.TransientModel):
     _name = 'extraschool.timecorrection_wizard'

@@ -21,8 +21,8 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
-from openerp.api import Environment
+from odoo import models, api, fields
+from odoo.api import Environment
 import os
 
 class extraschool_initupdate_wizard(models.TransientModel):

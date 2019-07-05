@@ -21,8 +21,8 @@
 #
 ##############################################################################
 
-from openerp.tests import common
-from openerp import models, api, fields, _
+from odoo.tests import common
+from odoo import models, api, fields, _
 
 import logging
 _logger = logging.getLogger(__name__)

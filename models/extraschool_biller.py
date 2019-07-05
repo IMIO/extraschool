@@ -21,17 +21,17 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _, SUPERUSER_ID
-from openerp.api import Environment
+from odoo import models, api, fields, _, SUPERUSER_ID
+from odoo.api import Environment
 import re
 import smtplib
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
 
 from datetime import date, datetime, timedelta as td
-from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
+from odoo.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
-from openerp.exceptions import except_orm, Warning, RedirectWarning
+from odoo.exceptions import except_orm, Warning, RedirectWarning
 import threading
 
 import base64

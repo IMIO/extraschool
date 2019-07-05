@@ -21,12 +21,12 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
-from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
+from odoo import models, api, fields, _
+from odoo.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
 from datetime import date
 import datetime
-from openerp.exceptions import Warning
+from odoo.exceptions import Warning
 
 
 class extraschool_prestation_times_encodage_manuel(models.Model):

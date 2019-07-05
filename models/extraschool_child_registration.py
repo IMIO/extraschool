@@ -21,13 +21,13 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
-from openerp.api import Environment
-from openerp.exceptions import except_orm, Warning, RedirectWarning
+from odoo import models, api, fields, _
+from odoo.api import Environment
+from odoo.exceptions import except_orm, Warning, RedirectWarning
 
 from datetime import date, datetime, timedelta as td
 
-from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
+from odoo.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
 import logging
 _logger = logging.getLogger(__name__)

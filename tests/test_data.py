@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp.tests.common import HttpCase, TransactionCase
+from odoo.tests.common import HttpCase, TransactionCase
 
 class TestData(TransactionCase):
 

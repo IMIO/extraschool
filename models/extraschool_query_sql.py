@@ -21,8 +21,8 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
-from openerp.api import Environment
+from odoo import models, api, fields, _
+from odoo.api import Environment
 from datetime import datetime, date, time, timedelta
 
 class extraschool_query_sql(models.Model):

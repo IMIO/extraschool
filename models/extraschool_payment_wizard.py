@@ -21,14 +21,14 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
-from openerp.api import Environment
+from odoo import models, api, fields, _
+from odoo.api import Environment
 import cStringIO
 import base64
 import os
-from openerp.exceptions import except_orm, Warning, RedirectWarning
-import openerp.addons.decimal_precision as dp
-from openerp.tools import float_compare, float_round
+from odoo.exceptions import except_orm, Warning, RedirectWarning
+import odoo.addons.decimal_precision as dp
+from odoo.tools import float_compare, float_round
 from datetime import datetime
 
 

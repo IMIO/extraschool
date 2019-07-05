@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp.addons.extraschool.tests.test_data import TestData
+from odoo.addons.extraschool.tests.test_data import TestData
 import logging
 _logger = logging.getLogger(__name__)
 

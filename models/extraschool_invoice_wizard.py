@@ -21,14 +21,14 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
-from openerp.api import Environment
+from odoo import models, api, fields, _
+from odoo.api import Environment
 from datetime import date, datetime, timedelta as td
 from dateutil.relativedelta import relativedelta
 import datetime
 from math import *
 from pyPdf import PdfFileWriter, PdfFileReader
-from openerp.exceptions import except_orm, Warning, RedirectWarning
+from odoo.exceptions import except_orm, Warning, RedirectWarning
 import threading
 import logging
 _logger = logging.getLogger(__name__)

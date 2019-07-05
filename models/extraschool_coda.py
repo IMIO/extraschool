@@ -21,11 +21,11 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
-from openerp.api import Environment
+from odoo import models, api, fields, _
+from odoo.api import Environment
 import cStringIO
 import base64
-from openerp.exceptions import except_orm, Warning, RedirectWarning
+from odoo.exceptions import except_orm, Warning, RedirectWarning
 
 class extraschool_coda(models.Model):
     _name = 'extraschool.coda'

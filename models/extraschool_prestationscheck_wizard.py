@@ -22,8 +22,8 @@
 ##############################################################################
 
 
-from openerp import models, api, fields
-from openerp.api import Environment
+from odoo import models, api, fields
+from odoo.api import Environment
 from datetime import date
 import datetime
 import calendar
@@ -31,13 +31,13 @@ import cStringIO
 import base64
 import os
 import math
-from openerp.addons.extraschool.helper import lbutils
+from odoo.addons.extraschool.helper import lbutils
 import re
 from pyPdf import PdfFileWriter, PdfFileReader
 from pytz import timezone
 import pytz
 from dateutil.relativedelta import *
-from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
+from odoo.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
 import logging
 _logger = logging.getLogger(__name__)

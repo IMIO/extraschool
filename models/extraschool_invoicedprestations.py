@@ -21,9 +21,9 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
-from openerp.api import Environment
-import openerp.addons.decimal_precision as dp
+from odoo import models, api, fields
+from odoo.api import Environment
+import odoo.addons.decimal_precision as dp
 import pdb
 
 import math

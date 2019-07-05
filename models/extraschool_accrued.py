@@ -21,17 +21,17 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
-from openerp.api import Environment
-from openerp.exceptions import except_orm, Warning
-from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
+from odoo import models, api, fields, _
+from odoo.api import Environment
+from odoo.exceptions import except_orm, Warning
+from odoo.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
 
-from openerp.tools.misc import profile
+from odoo.tools.misc import profile
 from datetime import date, datetime, timedelta as td
 import time
 import pdb
-from openerp.exceptions import except_orm, Warning, RedirectWarning
+from odoo.exceptions import except_orm, Warning, RedirectWarning
 
 
 class extraschoolAccrued(models.Model):

@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp import models, api
+from odoo import models, api
 from datetime import date, datetime, timedelta as td
 import time
 import logging

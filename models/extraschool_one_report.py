@@ -22,8 +22,8 @@
 ##############################################################################
 from docutils.utils.math.math2html import Formula
 
-from openerp import models, api, fields,_
-from openerp.api import Environment
+from odoo import models, api, fields,_
+from odoo.api import Environment
 import cStringIO
 import base64
 import os
@@ -35,8 +35,8 @@ from xlutils.styles import Styles
 import xlwt
 from xlwt import *
 from datetime import date, datetime, timedelta as td
-from openerp.exceptions import Warning
-from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
+from odoo.exceptions import Warning
+from odoo.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
 
 class extraschool_one_report_day(models.Model):

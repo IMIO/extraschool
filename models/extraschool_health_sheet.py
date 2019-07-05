@@ -21,12 +21,12 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
-from openerp.api import Environment
+from odoo import models, api, fields
+from odoo.api import Environment
 from datetime import date, datetime
 import time
 import timeit
-from openerp.exceptions import except_orm, Warning, RedirectWarning
+from odoo.exceptions import except_orm, Warning, RedirectWarning
 
 
 class extraschool_health_sheet(models.Model):

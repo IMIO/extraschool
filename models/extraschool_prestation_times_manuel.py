@@ -21,8 +21,8 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
-from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
+from odoo import models, api, fields
+from odoo.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
 from datetime import date
 import datetime

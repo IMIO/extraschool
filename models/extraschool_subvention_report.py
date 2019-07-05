@@ -22,7 +22,7 @@
 ##############################################################################
 from docutils.utils.math.math2html import Formula
 
-from openerp import models, api, fields,_
+from odoo import models, api, fields,_
 import base64
 import os
 import datetime

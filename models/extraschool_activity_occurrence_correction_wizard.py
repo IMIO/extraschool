@@ -21,15 +21,15 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
-from openerp.api import Environment
+from odoo import models, api, fields, _
+from odoo.api import Environment
 import cStringIO
 import base64
 import os
-from openerp.exceptions import except_orm, Warning, RedirectWarning
+from odoo.exceptions import except_orm, Warning, RedirectWarning
 from datetime import date, datetime, timedelta as td
 import time
-from openerp.exceptions import except_orm, Warning
+from odoo.exceptions import except_orm, Warning
 
 
 class extraschool_activity_occurrence_correction_wizard(models.TransientModel):

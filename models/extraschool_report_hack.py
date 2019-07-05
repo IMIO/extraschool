@@ -21,7 +21,7 @@
 #
 ##############################################################################
 import pdb
-from openerp.osv import osv
+from odoo.osv import osv
 from pyPdf import PdfFileWriter, PdfFileReader
 import tempfile
 from contextlib import closing

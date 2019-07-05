@@ -21,9 +21,9 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
-from openerp.api import Environment
-from openerp import tools
+from odoo import models, api, fields
+from odoo.api import Environment
+from odoo import tools
 from datetime import datetime
 
 class extraschool_guardianprestationtimes(models.Model):

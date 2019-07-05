@@ -21,8 +21,8 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
-from openerp.api import Environment
+from odoo import models, api, fields
+from odoo.api import Environment
 from math import ceil
 import logging
 _logger = logging.getLogger(__name__)

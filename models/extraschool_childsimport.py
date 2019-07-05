@@ -21,11 +21,11 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from odoo import models, api, fields
 import xlrd
-from openerp.addons.extraschool.helper import lbutils
+from odoo.addons.extraschool.helper import lbutils
 import base64
-from openerp.exceptions import Warning
+from odoo.exceptions import Warning
 
 
 class extraschool_childsimport(models.Model):
