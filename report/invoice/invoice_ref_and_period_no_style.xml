@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<openerp>
+<odoo>
 	<data>
 		<template id="report_invoice_your_ref_and_period">
         	<div styme="width: 100%;display: block;margin: 0cm 0cm 0cm 0cm;">
@@ -32,5 +32,5 @@
        		</div>
 		</template>
 	</data>
-</openerp>
+</odoo>
 

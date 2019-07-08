@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record model="extraschool.invoice_tag" id="extraschool_tag_huissier">
+            <field name="name">Huissier</field>
+        </record>
+
+        <record model="extraschool.invoice_tag" id="extraschool_tag_plan_de_paiement">
+            <field name="name">Plan de paiement</field>
+        </record>
+
+        <record model="extraschool.invoice_tag" id="extraschool_tag_bloque">
+            <field name="name">Bloquer</field>
+        </record>
+    </data>
+</odoo>

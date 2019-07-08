@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<openerp>
+<odoo>
 	<data>
         <record model="ir.ui.view" id="extraschool_invoice_wizard_form">
             <field name="name">extraschool.invoice.wizard.form</field>
@@ -14,20 +14,20 @@
                     <img style="width:100px;" src="https://orig00.deviantart.net/affd/f/2013/229/b/0/image_by_xxspiritwolf2000xx-d6ikyan.jpg"/>
                 </div>
                 <form string="invoice Wizard" attrs="{'invisible':[('isready', '!=', False)]}">
-                    <field name="warning_smartphone" nolabel="1" class="alert alert-info" attrs="{'invisible':[('warning_visibility', '!=', True)]}"/>
-                    <div class="alert alert-danger" attrs="{'invisible':[('check_manual', '=', True)]}">
-                        Il y a au moins un <b>encodage manuel</b> non vérifié pour cette période
-                    </div>
-                    <div class="alert alert-danger" attrs="{'invisible':[('check_registration', '=', True)]}">
-                        Il y a au moins une <b>fiche d'inscription</b> non validée pour cette période
-                    </div>
-                    <div class="alert alert-danger" attrs="{'invisible':[('check_prestation', '=', True)]}">
-                        Il y a au moins une <b>présence</b> non vérifiée pour cette période
-                    </div>
-                    <div class="alert alert-warning" attrs="{'invisible':[('check_invoice', '=', True)]}">
-                        Il n'y a pas de présences à facturer pour cette période
-                    </div>
                     <sheet>
+                        <field name="warning_smartphone" nolabel="1" class="alert alert-info" attrs="{'invisible':[('warning_visibility', '!=', True)]}"/>
+                        <div class="alert alert-danger" attrs="{'invisible':[('check_manual', '=', True)]}">
+                            Il y a au moins un <b>encodage manuel</b> non vérifié pour cette période
+                        </div>
+                        <div class="alert alert-danger" attrs="{'invisible':[('check_registration', '=', True)]}">
+                            Il y a au moins une <b>fiche d'inscription</b> non validée pour cette période
+                        </div>
+                        <div class="alert alert-danger" attrs="{'invisible':[('check_prestation', '=', True)]}">
+                            Il y a au moins une <b>présence</b> non vérifiée pour cette période
+                        </div>
+                        <div class="alert alert-warning" attrs="{'invisible':[('check_invoice', '=', True)]}">
+                            Il n'y a pas de présences à facturer pour cette période
+                        </div>
                         <field name="state" invisible="1" />
                         <field name="isready" invisible="1" />
                         <field name="check_manual" invisible="1" />
@@ -73,4 +73,4 @@
             <field name="target">inline</field>
         </record>
 	</data>
-</openerp>
+</odoo>

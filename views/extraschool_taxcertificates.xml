@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<openerp>
+<odoo>
 	<data>
        <record model="ir.ui.view" id="extraschool_taxcertificate_tree">
             <field name="name">extraschool.taxcertificate.tree</field>
@@ -245,4 +245,4 @@
         </record>
 
 	</data>
-</openerp>
+</odoo>

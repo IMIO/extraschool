@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<openerp>
+<odoo>
 	<data>
 		<template id="report_invoice_summary">
 			<t t-set="zz" t-value="0" />
@@ -235,5 +235,5 @@ L’Eveil avant la date d'échéance. Toute facture non contestée est considér
 
 
 	</data>
-</openerp>
+</odoo>
 

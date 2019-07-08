@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<openerp>
+<odoo>
 	<data>
         <record model="ir.ui.view" id="extraschool_activitycategory_sequence_form">
             <field name="name">extraschool.activitycategory.sequence.form</field>
@@ -138,4 +138,4 @@
 			<field name="view_type">form</field>
 		</record>
 	</data>
-</openerp>
+</odoo>

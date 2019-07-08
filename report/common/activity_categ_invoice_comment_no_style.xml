@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<openerp>
+<odoo>
 	<data>
 		<template id="report_activity_categ_invoice_comment_no_style">
 			<div style="page-break-inside: avoid;display: block;width: 100%;padding: 0 0 0 0px;margin 0 0 0 0;">
@@ -18,5 +18,5 @@
 		</template>
 
 	</data>
-</openerp>
+</odoo>
 

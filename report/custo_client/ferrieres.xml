@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<openerp>
+<odoo>
     <data>
 		<template id="report_adresse_no_style_ferrieres" inherit_id="extraschool.report_adresse_no_style" primary="True">
 			<xpath expr="//div[@id='aes_po_adresse']" position="replace">
@@ -130,4 +130,4 @@
 
 		</template>
     </data>
-</openerp>
+</odoo>

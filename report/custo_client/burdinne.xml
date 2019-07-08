@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<openerp>
+<odoo>
 	<data>
 
     <template id="report_std_header_burdinne">
@@ -131,4 +131,4 @@
 		</template>
 
     </data>
-</openerp>
+</odoo>

@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<openerp>
+<odoo>
 	<data>
 
         <template id="report_invoice_summary_flv">
@@ -79,4 +79,4 @@
 		</template>
 
     </data>
-</openerp>
+</odoo>

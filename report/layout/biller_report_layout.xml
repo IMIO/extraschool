@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<openerp>
+<odoo>
 	<data> 
 		<template id="biller_report_layout" inherit_id="report.layout"  primary="True">
 
@@ -121,6 +121,5 @@
 	
 
 
-</openerp>	
-	
+</odoo>
 	

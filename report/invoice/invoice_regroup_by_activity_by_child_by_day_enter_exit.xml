@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<openerp>
+<odoo>
 	<data>
 		<template id="report_invoice_regroup_by_activity_by_child_by_day_enter_exit">
 		    <style type="text/css">
@@ -118,5 +118,5 @@
 		</template>
 
 	</data>
-</openerp>
+</odoo>
 

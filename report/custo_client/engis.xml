@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<openerp>
+<odoo>
     <data>
         <template id="report_invoice_summary_engis">
 			<t t-set="zz" t-value="0" />
@@ -210,4 +210,4 @@ envers la               Commune des sommes ci-après.
             </div>
 		</template>
     </data>
-</openerp>
+</odoo>

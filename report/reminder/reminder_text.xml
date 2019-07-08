@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<openerp>
+<odoo>
 	<data> 
 		<template id="report_reminder_text">
 		    <style type="text/css">
@@ -63,6 +63,5 @@
 		</template>
 
 	</data>
-</openerp>	
-	
+</odoo>
 	

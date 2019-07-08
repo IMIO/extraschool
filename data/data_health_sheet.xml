@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record model="extraschool.disease_type" id="extraschool_disease_type_diabete">
+            <field name="name">Diabète</field>
+        </record>
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_maladie_cardiaque">
+            <field name="name">Maladie cardiaque</field>
+        </record>
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_epilespie">
+            <field name="name">Epilepsie</field>
+        </record>
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_asthme">
+            <field name="name">Asthme</field>
+        </record>
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_insomnie">
+            <field name="name">Insomnie</field>
+        </record>
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_peau">
+            <field name="name">Affection de la peau</field>
+        </record>
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_sinusite">
+            <field name="name">Sinusite</field>
+        </record>
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_bronchite">
+            <field name="name">Bronchite</field>
+        </record>
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_saignement_de_nez">
+            <field name="name">Saignement de nez</field>
+        </record>
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_maux_de_tete">
+            <field name="name">Maux de tête</field>
+        </record>
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_coup_de_soleil">
+            <field name="name">Coup de soleil</field>
+        </record>
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_constipation">
+            <field name="name">Constipation</field>
+        </record>
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_diarrhee">
+            <field name="name">Diarrhée</field>
+        </record>
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_vomissements">
+            <field name="name">Vomissements</field>
+        </record>
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_incontinence">
+            <field name="name">Incontinence</field>
+        </record>
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_maladie_contagieuse">
+            <field name="name">Maladie contagieuse</field>
+        </record>
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_maux_de_ventre">
+            <field name="name">Maux de ventre</field>
+        </record>
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_mal_de_route">
+            <field name="name">Mal de route</field>
+        </record>
+
+        <record model="extraschool.disease_type" id="extraschool_disease_type_appareil_auditif">
+            <field name="name">Appareil auditif</field>
+        </record>
+    </data>
+</odoo>

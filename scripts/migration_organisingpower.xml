@@ -1,5 +1,5 @@
-<openerp>
+<odoo>
     <data>
     	<function name="update_activity_category" model="extraschool.invoice" />
 	</data>
-</openerp>
+</odoo>

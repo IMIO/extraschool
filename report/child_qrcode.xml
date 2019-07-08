@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<openerp>
+<odoo>
 	<data>
 		<template id="report_child">
 
@@ -74,5 +74,5 @@
 		    attachment_use="False"
 		/>
 	</data>
-</openerp>
+</odoo>
 

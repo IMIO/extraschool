@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<openerp>
+<odoo>
 	<data>
 		<template id="report_std_header">
             <xpath expr="//head" position="inside">
@@ -126,5 +126,5 @@
 
 
 	</data>
-</openerp>
+</odoo>
 

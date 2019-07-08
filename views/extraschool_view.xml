@@ -1,0 +1,142 @@
+<?xml version="1.0" ?>
+<odoo>
+	<data>
+
+		<record model="ir.actions.act_window" id="action_extraschool_child">
+			<field name="name">Child</field>
+			<field name="res_model">extraschool.child</field>
+			<field name="view_type">form</field>
+			<field name="context">{"search_default_actif":1}</field>
+		</record>
+
+        <record model="ir.actions.act_window" id="action_extraschool_school">
+			<field name="name">School</field>
+			<field name="res_model">extraschool.school</field>
+			<field name="view_type">form</field>
+		</record>
+
+		<record id="aes_doc" model="ir.actions.act_url">
+                <field name="name">Documentation AES</field>
+                <field name="type">ir.actions.act_url</field>
+                <field name="url">http://docs.imio.be/aes/</field>
+        </record>
+
+        <menuitem action="aes_doc" name="Documentation AES" id="menu_aes_doc" sequence="1"/>
+        <menuitem name="Extraschool" id="menu_extraschool" sequence="0"/>
+		<menuitem name="Signaletics" id="extraschool_menu_signaletics" parent="menu_extraschool" sequence="10"/>
+		<menuitem name="Childs" parent="extraschool_menu_signaletics" id="extraschool_menu_child" action="action_extraschool_child"/>
+		<menuitem name="Parents" parent="extraschool_menu_signaletics" id="extraschool_menu_parent" action="action_extraschool_parent"/>
+        <menuitem name="Schools" parent="extraschool_menu_signaletics" id="extraschool_menu_school" action="action_extraschool_school"/>
+        <menuitem name="places" parent="extraschool_menu_signaletics" id="extraschool_menu_place" action="action_extraschool_place"/>
+        <menuitem name="Activities" parent="extraschool_menu_signaletics" id="extraschool_menu_activity" action="action_extraschool_activity"/>
+        <menuitem name="Activities calendar " parent="extraschool_menu_signaletics" id="extraschool_menu_activityoccurrence" action="action_extraschool_activityoccurrence" groups="extraschool.extraschool_gods"/>
+        <menuitem name="Price list" parent="extraschool_menu_signaletics" id="extraschool_menu_price_list" action="action_extraschool_price_list"/>
+        <menuitem name="Discounts" parent="extraschool_menu_signaletics" id="extraschool_menu_discount" action="action_extraschool_discount"/>
+       	<menuitem name="Guardians" parent="extraschool_menu_signaletics" id="extraschool_menu_guardian" action="action_extraschool_guardian"/>
+
+       	<menuitem name="Registrations" id="extraschool_menu_registrations" parent="menu_extraschool"  sequence="20"/>
+       	<menuitem name="Childs registration" parent="extraschool_menu_registrations" id="extraschool_menu_child_registration" action="action_extraschool_child_registration"/>
+       	<menuitem name="Childs registration Multi" parent="extraschool_menu_registrations" id="extraschool_menu_child_registration_multi" action="action_extraschool_child_registration_multi"/>
+
+        <menuitem name="Prestations" id="extraschool_menu_prestations" parent="menu_extraschool"  sequence="30"/>
+        <menuitem action="action_lbsc_prestationscheck_wizard" id="extraschool_menu_prestationscheck_wizard" parent="extraschool_menu_prestations"/>
+        <menuitem name="Prestations" parent="extraschool_menu_prestations" id="extraschool_menu_prest_tree" action="action_extraschool_prest_tree" />
+        <menuitem name="Encodage manuel" parent="extraschool_menu_prestations" id="extraschool_menu_prestation_times_encodage_manuel_tree" action="action_extraschool_prestation_times_encodage_manuel_tree" />
+        <menuitem name="Prestations of the day" parent="extraschool_menu_prestations" id="extraschool_menu_prestation_times_of_the_day_tree" action="action_extraschool_prestation_times_of_the_day_tree" />
+        <menuitem name="Prestations stat" parent="extraschool_menu_prestations" id="extraschool_menu_presta_stat_tree" action="action_extraschool_presta_stat_tree" />
+		<menuitem name="Activity stat" parent="extraschool_menu_prestations" id="extraschool_menu_stat_activity_tree" action="action_extraschool_stat_activity_tree" />
+        <menuitem name="Documents" id="extraschool_menu_documents" parent="menu_extraschool" sequence="40"/>
+        <menuitem action="action_lbsc_invoice_wizard" id="extraschool_menu_invoice_wizard" parent="extraschool_menu_documents"/>
+        <menuitem action="action_extraschool_invoices" id="extraschool_menu_invoice" parent="extraschool_menu_documents"/>
+        <menuitem action="action_extraschool_invoices_stat" id="extraschool_menu_invoice_stat" parent="extraschool_menu_documents"/>
+		<menuitem action="action_extraschool_reminder" id="extraschool_menu_reminder" parent="extraschool_menu_documents"/>
+        <menuitem action="action_lbsc_reminders_journal" id="extraschool_menu_reminders_journal" parent="extraschool_menu_documents"/>
+        <menuitem action="action_extraschool_taxcertificate" id="extraschool_menu_taxcertificate" parent="extraschool_menu_documents"/>
+        <menuitem action="action_extraschool_one_report" id="extraschool_menu_one_report" parent="extraschool_menu_documents"/>
+        <menuitem action="action_extraschool_subvention_report" id="extraschool_menu_subvention_report" parent="extraschool_menu_documents"/>
+        <menuitem action="action_lbsc_qrcodes_wizard" id="extraschool_menu_qrcodes_wizard" parent="extraschool_menu_documents"/>
+        <menuitem action="action_lbsc_childsworkbook_wizard" id="extraschool_menu_childsworkbook_wizard" parent="extraschool_menu_documents"/>
+        <menuitem action="action_extraschool_prestationtimes" id="extraschool_menu_guardianprestationtimes" parent="extraschool_menu_documents"/>
+        <menuitem action="action_guardianprestationtimes_report" id="extraschool_menu_guardianprestationtimes_report" parent="extraschool_menu_documents"/>
+        <menuitem name="Payments" id="extraschool_menu_payments" parent="menu_extraschool"  sequence="50"/>
+        <menuitem name="Biller" parent="extraschool_menu_payments" id="extraschool_menu_biller" action="action_extraschool_biller"/>
+        <menuitem name="CODA import" parent="extraschool_menu_payments" id="extraschool_menu_codaimport" action="action_extraschool_coda"/>
+   		<menuitem name="Payments list" parent="extraschool_menu_payments" id="extraschool_menu_payment" action="action_extraschool_payment_report"/>
+   		<menuitem name="Payments correction" parent="extraschool_menu_payments" id="extraschool_menu_payment_correction" action="action_extraschool_payment"/>
+   		<menuitem name="Payments reconciliation" parent="extraschool_menu_payments" id="extraschool_menu_payment_reconciliation" action="action_extraschool_payment_reconciliation"/>
+   		<menuitem name="Pre-Payments Report" parent="extraschool_menu_payments" id="extraschool_menu_payment_report" action="action_payment_status_report"/>
+   		<menuitem name="Aged balance Report" parent="extraschool_menu_payments" id="extraschool_menu_aged_balance_report" action="action_extraschool_aged_balance_report"/>
+   		<menuitem name="Annual Report" parent="extraschool_menu_payments" id="extraschool_menu_annual_report_report" action="action_extraschool_annual_report_report"/>
+		<menuitem name="Configuration" id="extraschool_menu_configuration" parent="menu_extraschool"  sequence="999"/>
+        <menuitem name="Main Settings" parent="extraschool_menu_configuration" id="extraschool_menu_mainsettings" action="action_extraschool_mainsettings" groups="extraschool.extraschool_gods"/>
+        <menuitem name="Organising Power" parent="extraschool_menu_configuration" id="extraschool_menu_organising_power" action="action_extraschool_organising_power"/>
+        <menuitem name="Activity categories" parent="extraschool_menu_configuration" id="extraschool_menu_activitycategory" action="action_extraschool_activitycategory"/>
+        <menuitem name="Child Type" parent="extraschool_menu_configuration" id="extraschool_menu_childtype" action="action_extraschool_childtype"/>
+		<menuitem name="Smartphones" parent="extraschool_menu_configuration" id="extraschool_menu_smartphone" action="action_extraschool_smartphone"/>
+		<menuitem name="Pre-configuration Smartphones" parent="extraschool_menu_configuration" id="extraschool_menu_config_smartphone" action="action_extraschool_config_smartphone" groups="extraschool.extraschool_gods"/>
+		<!--<menuitem name="PDA presta" parent="extraschool_menu_configuration" id="extraschool_menu_pda_presta" action="action_pda_extraschool_prest"/>-->
+		<!--<menuitem name="Init or update" parent="extraschool_menu_configuration" id="extraschool_menu_initupdate_wizard" action="action_lbsc_initupdate_wizard"/>-->
+        <menuitem name="Import childs" parent="extraschool_menu_configuration" id="extraschool_menu_childsimport" action="action_extraschool_childsimport"/>
+        <menuitem name="Childs import filter" parent="extraschool_menu_configuration" id="extraschool_menu_childsimportfilter" action="action_extraschool_childsimportfilter"/>
+        <!--<menuitem action="action_lbsc_timecorrection_wizard" id="extraschool_menu_timecorrection_wizard" parent="extraschool_menu_configuration"/>-->
+        <menuitem name="Reports" parent="extraschool_menu_configuration" id="extraschool_menu_report" action="action_extraschool_report"/>
+		<!--<menuitem name="QR config" parent="extraschool_menu_configuration" id="extraschool_menu_qrconfig" action="action_qrconfig" groups="extraschool.extraschool_gods"/>-->
+		<menuitem name="Presta History" parent="extraschool_menu_configuration" id="extraschool_prestation_times_history" action="action_extraschool_prest_history_tree" groups="extraschool.extraschool_gods"/>
+
+    </data>
+
+
+    <data>
+        <record id="menu_extraschool" model="ir.ui.menu">
+    		<field name="groups_id" eval="[(4,ref('extraschool_admin')),
+    										(4,ref('extraschool_user')),
+    										(4,ref('extraschool_school')),
+    										(4,ref('extraschool_direction')),]"/>
+		</record>
+		<record id="extraschool_menu_signaletics" model="ir.ui.menu">
+    		<field name="groups_id" eval="[(4,ref('extraschool_admin')),
+    										(4,ref('extraschool_user')),
+    										(4,ref('extraschool_direction')),]"/>
+		</record>
+		<record id="extraschool_menu_prestations" model="ir.ui.menu">
+    		<field name="groups_id" eval="[(4,ref('extraschool_admin')),
+    										(4,ref('extraschool_user'))],
+											(4,ref('extraschool_direction')),"/>
+		</record>
+		<record id="extraschool_menu_payments" model="ir.ui.menu">
+    		<field name="groups_id" eval="[(4,ref('extraschool_admin')),
+    										(4,ref('extraschool_user'))]"/>
+		</record>
+		<record id="extraschool_menu_payment_correction" model="ir.ui.menu">
+    		<field name="groups_id" eval="[(4,ref('extraschool_payment_correction')),
+    										]"/>
+		</record>
+		<record id="extraschool_menu_payment_reconciliation" model="ir.ui.menu">
+    		<field name="groups_id" eval="[(4,ref('extraschool_accounting')),
+    										(4,ref('extraschool_payment_correction')),
+    										]"/>
+		</record>
+
+        <record id="extraschool_menu_documents" model="ir.ui.menu">
+    		<field name="groups_id" eval="[(4,ref('extraschool_admin'))]"/>
+		</record>
+        <record id="extraschool_menu_configuration" model="ir.ui.menu">
+    		<field name="groups_id" eval="[(4,ref('extraschool_admin'))]"/>
+		</record>
+        <record id="extraschool_menu_registrations" model="ir.ui.menu">
+    		<field name="groups_id" eval="[(4,ref('extraschool_admin')),
+    										(4,ref('extraschool_user')),
+    										(4,ref('extraschool_school')),]"/>
+		</record>
+		<record id="extraschool_menu_reminders_journal" model="ir.ui.menu">
+    		<field name="groups_id" eval="[(4,ref('extraschool_admin')),
+    										]"/>
+		</record>
+
+
+   	</data>
+
+
+
+</odoo>
+

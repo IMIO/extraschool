@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<openerp>
+<odoo>
 	<data> 
 
 	    <record model="ir.ui.view" id="extraschool_one_report_tree">
@@ -27,7 +27,7 @@
                         <group>
                             <field name="placeid" options="{'no_create':True}" attrs="{'invisible':[('synthesis', '=', True)], 'required':[('synthesis','=', False)]}"/>
                             <field name="synthesis"/>
-                            <field name="year" />
+                            <field name="year"/>
                             <field name="quarter" attrs="{'invisible':[('is_created', '=', True)]}"/>
                             <field name="is_created" invisible="1"/>
                             <field name="show_quarter" attrs="{'invisible':[('is_created', '=', False)]}"/>
@@ -65,4 +65,4 @@
        
         
 	</data>
-</openerp>
+</odoo>
