@@ -1,0 +1,119 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+
+	    <record model="ir.ui.view" id="extraschool_plaine_report_tree">
+			<field name="name">extraschool.plaine.report.tree</field>
+			<field name="model">extraschool.plaine_report</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Plaine Report">
+                    <field name="name"/>
+				</tree>
+			</field>
+		</record>
+
+        <record model="ir.ui.view" id="extraschool_plaine_report_form">
+            <field name="name">extraschool.plaine.report.form</field>
+            <field name="model">extraschool.plaine_report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Plaine Report">
+                    <sheet>
+                        <group colspan="2">
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="placeid"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="validity_from"/>
+                            </group>
+                            <group>
+                                <field name="validity_to"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="activity_ids" widget="many2many_tags"/>
+                                <field name="guardian_ids" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_extraschool_plaine_report">
+            <field name="name">Plaine Report</field>
+            <field name="res_model">extraschool.plaine_report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree, form</field>
+            <field name="view_id" ref="extraschool_plaine_report_tree"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_extraschool_plaine_report_form">
+			<field name="name">Plaine Report</field>
+            <field eval="2" name="sequence"/>
+			<field name="res_model">extraschool.plaine_report</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="extraschool_plaine_report_form" />
+            <field name="act_window_id" ref="action_extraschool_plaine_report" />
+            <field name="target">inline</field>
+		</record>
+
+        <record model="ir.actions.act_window.view" id="action_extraschool_plaine_report_tree">
+			<field name="name">Plaine Report</field>
+            <field eval="1" name="sequence"/>
+			<field name="res_model">extraschool.plaine_report</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="extraschool_plaine_report_tree" />
+            <field name="act_window_id" ref="action_extraschool_plaine_report" />
+        </record>
+
+        <!--<data>
+            <template id="tpl_plaine_report_wizard_report">
+
+                <div class="page">
+                    Hello
+                </div>
+
+            </template>
+        </data>
+
+        <data noupdate="1">
+            <record id="paperformat_aes_invoice" model="report.paperformat">
+                <field name="name">Invoice</field>
+                <field name="default" eval="True"/>
+                <field name="format">A4</field>
+                <field name="orientation">Portrait</field>
+                <field name="margin_top">40</field>
+                <field name="margin_bottom">78</field>
+                <field name="margin_left">15</field>
+                <field name="margin_right">15</field>
+                <field name="header_line" eval="False"/>
+                <field name="header_spacing">35</field>
+                <field name="dpi">90</field>
+            </record>
+        </data>
+
+        <data>
+            <report
+                id="plaine_report_wizard_report"
+                model="extraschool.plaine_report"
+                string="Plaine report"
+                report_type="qweb-pdf"
+                name="extraschool.tpl_plaine_report_wizard_report"
+                attachment_use="False"
+            />
+
+            <record id="extraschool_invoice_std" model="ir.actions.report.xml">
+                <field name="paperformat_id" ref="paperformat_aes_invoice"/>
+            </record>
+        </data>-->
+
+	</data>
+</openerp>

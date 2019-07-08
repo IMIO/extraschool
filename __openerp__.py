@@ -108,6 +108,7 @@
         'views/extraschool_query_sql.xml',
         # 'views/extraschool_qrconfig.xml',
         'views/extraschool_prestation_times_history.xml',
+        'views/extraschool_plaine_report.xml',
         'views/extraschool_view.xml',
         'security/extraschool_security.xml',
         'security/ir.model.access.csv',
