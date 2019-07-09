@@ -24,6 +24,7 @@
 from openerp import models, api, fields, _
 from openerp.api import Environment
 from openerp.exceptions import except_orm, Warning, RedirectWarning
+from openerp.addons.extraschool.helper import extraschool_helper as helper
 from openerp import tools
 from datetime import datetime
 
@@ -312,6 +313,23 @@ class extraschool_aged_balance(models.TransientModel):
         """
         tmp_item_ids = []
         self.env.cr.execute(sql_aged_balance, (self.aged_date,self.aged_date))
+
+        invoiced_line_ids = self.env['extraschool.invoicedprestations'].search([])
+
+        lower_year = self.env['extraschool.invoicedprestations'].search([],
+                                                                        limit=1,
+                                                                        order='prestation_date ASC'
+                                                                        ).prestation_date
+
+        highest_year = self.env['extraschool.invoicedprestations'].search([],
+                                                                        limit=1,
+                                                                        order='prestation_date DESC'
+                                                                        ).prestation_date
+
+
+        for invoice_line in helper.complete_year(lower_year, highest_year):
+            pass
+
         for item in self.env.cr.dictfetchall():
             item['total_fact'] = item['total_fact'] if item['total_fact'] else 0
             item['aged_no_value'] = item['aged_no_value'] if item['aged_no_value'] else 0

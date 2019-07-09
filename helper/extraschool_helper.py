@@ -36,6 +36,16 @@ class extraschool_helper(models.Model):
         return "\n" + "[" + datetime.now().strftime('%d-%m-%Y') + "][" + self.env['res.users'].browse(
             self._context.get('uid')).name + "] " + data
 
+    @staticmethod
+    def complete_year(start, end):
+        """
+        :param start: lowest year.
+        :param end: highest year.
+        :return: List with all years from start to end.
+        """
+        import wdb;wdb.set_trace()
+        return []
+
 
 def timeit(method):
     def timed(*args, **kw):
