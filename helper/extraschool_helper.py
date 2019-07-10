@@ -37,14 +37,30 @@ class extraschool_helper(models.Model):
             self._context.get('uid')).name + "] " + data
 
     @staticmethod
+    def str_to_date(date):
+        return datetime.strptime(date, "%Y-%m-%d")
+
+    @staticmethod
     def complete_year(start, end):
         """
         :param start: lowest year.
         :param end: highest year.
         :return: List with all years from start to end.
         """
-        import wdb;wdb.set_trace()
-        return []
+        start= extraschool_helper.str_to_date(start).year
+        end = extraschool_helper.str_to_date(end).year
+        diff_year = end - start
+
+        if diff_year == 1:
+            return [start.year]
+        else:
+            year_list = []
+            year_list.append(start)
+            for i in range(diff_year):
+                start += 1
+                year_list.append(start)
+
+        return year_list
 
 
 def timeit(method):

@@ -24,7 +24,7 @@
 from openerp import models, api, fields, _
 from openerp.api import Environment
 from openerp.exceptions import except_orm, Warning, RedirectWarning
-from openerp.addons.extraschool.helper import extraschool_helper as helper
+from openerp.addons.extraschool.helper.extraschool_helper import extraschool_helper as helper
 from openerp import tools
 from datetime import datetime
 
@@ -312,34 +312,37 @@ class extraschool_aged_balance(models.TransientModel):
             order by b_year
         """
         tmp_item_ids = []
-        self.env.cr.execute(sql_aged_balance, (self.aged_date,self.aged_date))
+        # self.env.cr.execute(sql_aged_balance, (self.aged_date,self.aged_date))
 
         invoiced_line_ids = self.env['extraschool.invoicedprestations'].search([])
 
-        lower_year = self.env['extraschool.invoicedprestations'].search([],
+        lower_year = self.env['extraschool.invoicedprestations'].search([('prestation_date', '!=', None)],
                                                                         limit=1,
                                                                         order='prestation_date ASC'
                                                                         ).prestation_date
 
-        highest_year = self.env['extraschool.invoicedprestations'].search([],
+        highest_year = self.env['extraschool.invoicedprestations'].search([('prestation_date', '!=', None)],
                                                                         limit=1,
                                                                         order='prestation_date DESC'
                                                                         ).prestation_date
 
-        import wdb;wdb.set_trace()
         for invoice_line in helper.complete_year(lower_year, highest_year):
-            pass
+            tmp_item_ids.append((0, 0, {
+                'year': invoice_line,
+                'total_fact': sum(x.total_price for x in invoiced_line_ids.filtered(lambda r:
+                                                                                    r.prestation_date > invoice_line))
+            }))
 
-        for item in self.env.cr.dictfetchall():
-            item['total_fact'] = item['total_fact'] if item['total_fact'] else 0
-            item['aged_no_value'] = item['aged_no_value'] if item['aged_no_value'] else 0
-            item['received'] = item['received'] if item['received'] else 0
-            tmp_item_ids.append((0,0,{'year' : item['b_year'],
-                                      'total_fact' : item['total_fact'],
-                                      'total_no_value' : item['aged_no_value'],
-                                      'total_received' : item['received'],
-                                      'total_balance' : item['total_fact'] - item['aged_no_value'] - item['received'],
-                                      }))
+        # for item in self.env.cr.dictfetchall():
+        #     item['total_fact'] = item['total_fact'] if item['total_fact'] else 0
+        #     item['aged_no_value'] = item['aged_no_value'] if item['aged_no_value'] else 0
+        #     item['received'] = item['received'] if item['received'] else 0
+        #     tmp_item_ids.append((0,0,{'year' : item['b_year'],
+        #                               'total_fact' : item['total_fact'],
+        #                               'total_no_value' : item['aged_no_value'],
+        #                               'total_received' : item['received'],
+        #                               'total_balance' : item['total_fact'] - item['aged_no_value'] - item['received'],
+        #                               }))
 
         self.aged_balance_item_ids = tmp_item_ids
 
