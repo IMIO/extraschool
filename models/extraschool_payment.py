@@ -326,7 +326,7 @@ class extraschool_aged_balance(models.TransientModel):
                                                                         order='prestation_date DESC'
                                                                         ).prestation_date
 
-
+        import wdb;wdb.set_trace()
         for invoice_line in helper.complete_year(lower_year, highest_year):
             pass
 
