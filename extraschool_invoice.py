@@ -31,6 +31,7 @@ import calendar
 import re
 from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
+from openerp.exceptions import except_orm, Warning, RedirectWarning
 
 
 class extraschool_invoice(models.Model):
@@ -247,7 +248,10 @@ class extraschool_invoice(models.Model):
         saved_child['invoice_num'] = invoicedline.invoiceid.number
         saved_child['inv_date'] = invoicedline.prestation_date
         saved_child['inv_date_str'] = time.strftime('%d/%m/%Y',time.strptime(invoicedline.prestation_date,'%Y-%m-%d'))
-        saved_child['splited_place_street'] = p.findall(invoicedline.placeid.street)
+        try:
+            saved_child['splited_place_street'] = p.findall(invoicedline.placeid.street)
+        except TypeError:
+            raise Warning(_("There is no street on the place."))
         saved_child['place'] = invoicedline.placeid
         saved_child['quantity'] = invoicedline.quantity
 
