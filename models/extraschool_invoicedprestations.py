@@ -39,7 +39,8 @@ class extraschool_invoicedprestations(models.Model):
     prestation_date = fields.Date(related='activity_occurrence_id.occurrence_date', store=True, select=True)
     activity_occurrence_id = fields.Many2one('extraschool.activityoccurrence', 'Activity occurrence', required=False, select=True,ondelete='restrict')
     activity_activity_id = fields.Many2one(related="activity_occurrence_id.activityid", store=True, index=True)
-    description = fields.Char('Description')        
+    on_tax_certificate = fields.Boolean()
+    description = fields.Char('Description')
     duration = fields.Integer('Duration')
     quantity = fields.Integer('Quantity')
     period_duration = fields.Integer('Period Duration')  
@@ -49,7 +50,8 @@ class extraschool_invoicedprestations(models.Model):
     discount = fields.Boolean('Discount') 
     discount_value = fields.Float('Discount value',digits_compute=dp.get_precision('extraschool_invoice_line'), default= 0)
     price_list_version_id = fields.Many2one('extraschool.price_list_version',ondelete='restrict')   
-    prestation_ids = fields.One2many('extraschool.prestationtimes','invoiced_prestation_id',ondelete='restrict')                  
+    prestation_ids = fields.One2many('extraschool.prestationtimes','invoiced_prestation_id',ondelete='restrict')
+    no_value_id = fields.Many2one('extraschool.refound_line', 'No Value')
 
     def float_time_to_str(self,float_val):
         factor = float_val < 0 and -1 or 1

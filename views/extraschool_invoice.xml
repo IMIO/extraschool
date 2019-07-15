@@ -65,10 +65,10 @@
 			<field name="arch" type="xml">
 				<form string="invoice" create="false">
 					<header>
-						<button name="export_onyx_but" string="Export Onyx" type="object" class="oe_highlight" groups="base.group_erp_manager"/>
 						<button name="cancel_and_invoice_after" string="Cancel Invoice and invoice after" type="object" class="oe_highlight" groups="base.group_erp_manager" confirm="Ce bouton permet d'annuler la facture de ce facturier et de libérer les présences liées à celle-ci, vous pourrez refacturer par la suite
 						les présences de cette facture. Est-ce cela que vous désirez ? Si vous désirez complètement annuler cette facture, choisissez plutôt le bouton 'Annuler définitivement la facture'. Confirmation de la manipulation ?" />
                     	<button name="cancel" string="Cancel Invoice" type="object" class="oe_highlight" groups="base.group_erp_manager" confirm="Voulez-vous vraiment supprimer définitivement cette facture ? Les présences liées à celle-ci ne seront plus facturables. Confirmation de la manipulation ?"/>
+                    	<button name="add_no_value" string="Add No Value" type="object" class="btn btn-warning" groups="extraschool.extraschool_accounting" attrs="{'invisible':[('amount_total', '=', 0.00)]}"/>
 					</header>
 					<sheet>
                         <div style="Margin:10px;text-align:center;width:auto;background: url(/web/static/src/img/form_sheetbg.png);" name="buttons">

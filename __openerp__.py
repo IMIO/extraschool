@@ -110,6 +110,10 @@
         # 'views/extraschool_qrconfig.xml',
         'views/extraschool_prestation_times_history.xml',
         'views/extraschool_view.xml',
+
+        'wizard/views/extraschool_no_value_wizard.xml',
+
+        'security/extraschool_security.xml',
         'security/ir.model.access.csv',
         'report/biller/biller_summary_no_style.xml',
         'report/biller/biller_detail_no_style.xml',
