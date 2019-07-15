@@ -594,6 +594,20 @@ class extraschool_invoice(models.Model):
             'tag': 'reload',
         }
 
+    @api.multi
+    def add_no_value(self):
+        return {
+            'name': "No value wizard",
+            'view_mode': 'form',
+            'view_type': 'form',
+            'res_model': 'extraschool.no_value_wizard',
+            'src_model': 'extraschool.invoice',
+            'type': 'ir.actions.act_window',
+            'target': 'new',
+            'domain': '[]',
+            'context': {}
+        }
+
 
 class extraschool_invoice_tag(models.Model):
     _name = 'extraschool.invoice_tag'

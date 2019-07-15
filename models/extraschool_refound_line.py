@@ -34,7 +34,9 @@ class extraschool_refound_line(models.Model):
     description = fields.Char('Description', required=False)        
     amount = fields.Float('Amount', required=False)    
     prestation_ids = fields.One2many('extraschool.prestationtimes','invoiced_prestation_id',ondelete='restrict')   
-    reminder_id = fields.Many2one('extraschool.reminder', 'Reminder',ondelete='restrict')     
+    reminder_id = fields.Many2one('extraschool.reminder', 'Reminder',ondelete='restrict')
+    invoiced_prestation_ids = fields.One2many('extraschool.invoicedprestations', 'no_value_id')
+
 
     def confirm(self):
         payment_reconcil_obj = self.env['extraschool.payment_reconciliation']
