@@ -11,7 +11,6 @@ build:
     - git clone -b scaffolding http://gitlab.imio.be/odoo/docker-odoo-base.git
     - cd docker-odoo-base
     - docker-compose -f prod.yaml build --no-cache
-    - docker tag dockerodoobase_odoo docker-staging.imio.be/extraschool-v9
 
 #test:
 #  stage: test
@@ -24,6 +23,7 @@ build:
 staging:
   stage: staging
   script:
+    - docker tag docker-odoo-base_odoo docker-staging.imio.be/extraschool-v9
     - docker push docker-staging.imio.be/extraschool-v9:latest
     - mco shell run 'docker pull docker-staging.imio.be/extraschool-v9:latest' -C /role::docker::extraschool::instances$/ -I /staging/
     - mco shell run 'service stagingv9_extraschool stop' -C /role::docker::extraschool::instances$/ -I /staging/
