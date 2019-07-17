@@ -78,6 +78,8 @@ class extraschool_invoice(models.Model):
     fees_huissier = fields.Float('Fees Huissier', default=0.0, track_visibility='onchange')
     tag = fields.Many2one('extraschool.invoice_tag', 'Tag', readonly=True, track_visibility='onchange')
 
+    no_value_amount = fields.Float()
+
     _sql_constraints = [
         ('structcom_uniq', 'unique(structcom)',
             "The structured communication is already distributed. Please contact support-aes@imio.be"),

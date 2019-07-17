@@ -31,6 +31,7 @@ class extraschoolNoValueWizard(models.TransientModel):
         invoiced_prestation_ids =  self.env['extraschool.invoicedprestations'].search([
             ('invoiceid', 'in', self.env.context.get('active_ids'))
         ])
+        invoiced_prestation_ids = invoiced_prestation_ids.filtered(lambda r: r.total_price > 0.00)
 
         for invoiced_prestation in invoiced_prestation_ids:
             invoiced_prestation.on_tax_certificate = invoiced_prestation.activity_activity_id.on_tax_certificate
@@ -38,7 +39,8 @@ class extraschoolNoValueWizard(models.TransientModel):
         return invoiced_prestation_ids
 
     description = fields.Text(
-        string='Description'
+        string='Description',
+        # required=True,
     )
     invoice_prestation_ids = fields.Many2many(
         'extraschool.invoicedprestations',
@@ -46,13 +48,34 @@ class extraschoolNoValueWizard(models.TransientModel):
         default=_get_invoiced_prestation,
     )
     date_no_value = fields.Date(
-        string='Date of no value'
+        string='Date of no value',
+        # required=True,
     )
-    amount = fields.Float(
-        string='Amount of no value'
+    amount_total = fields.Float(
+        string='Amount of no value',
+        readonly=True,
     )
 
-    @api.onchange('amount')
-    def _on_change_no_value(self):
-        if self.amount > sum(x.total_price for x in self.invoice_prestation_ids):
-            raise Warning(_("The amount of no value must at least equal or less than the total amount"))
+    @api.onchange('invoice_prestation_ids')
+    def _on_change_invoice_prestation(self):
+        if not self._is_no_value_amount_correct():
+            raise Warning(_("The amount of no value is superior of the total amount"))
+        else:
+            self.amount_total = sum(x.no_value_amount for x in self.invoice_prestation_ids)
+
+    @api.multi
+    def validate(self):
+        if not self._is_no_value_amount_correct():
+            raise Warning(_("The amount of no value is superior of the total amount"))
+        else:
+            self.env['extraschool.invoice'].browse(
+                self.env.context.get('active_ids')
+            ).no_value_amount = sum(x.no_value_amount for x in self.invoice_prestation_ids)
+            return True
+
+    @api.multi
+    def _is_no_value_amount_correct(self):
+        total_no_value = sum(x.no_value_amount for x in self.invoice_prestation_ids)
+        if total_no_value > sum(x.total_price for x in self.invoice_prestation_ids):
+            return False
+        return True
