@@ -117,6 +117,7 @@
 							<field name="amount_received"/>
 							<field name="balance"/>
 							<field name="no_value"/>
+							<field name="no_value_amount"/>
 							<group>
 								<field name="tag"/>
 								<!--<field name="huissier" />-->

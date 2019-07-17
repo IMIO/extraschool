@@ -12,8 +12,7 @@
                     </div>
                     <group col="2">
                         <field name="date_no_value"/>
-                        <field name="amount"/>
-                        <field name="description"/>
+                        <field name="description" context="context.get('no_value_description')"/>
                     </group>
                     <notebook>
                         <page string="Invoiced Prestation Lines">
@@ -21,18 +20,21 @@
                                 <tree string="Invoiced prestations"
                                       create="false"
                                       delete="false"
+                                      editable="bottom"
                                       >
                                     <button name="tax_button"
                                             type="object"
-                                            icon="gtk-yes"
-                                            attrs="{'invisible':[('on_tax_certificate' '=' True)]}"
+                                            icon="stock_log"
+                                            attrs="{'invisible':[('on_tax_certificate', '!=', True)]}"
+                                            readonly="True"
                                     />
                                     <field name="on_tax_certificate" invisible="True"/>
-                                    <field name="childid"/>
-                                    <field name="activity_activity_id"/>
-                                    <field name="prestation_date"/>
-                                    <field name="placeid"/>
-                                    <field name="total_price" sum="True"/>
+                                    <field name="childid" readonly="True"/>
+                                    <field name="activity_activity_id" readonly="True"/>
+                                    <field name="prestation_date" readonly="True"/>
+                                    <field name="placeid" readonly="True"/>
+                                    <field name="total_price" sum="True" readonly="True"/>
+                                    <field name="no_value_amount" sum="True"/>
                                 </tree>
                             </field>
                         </page>
@@ -46,7 +48,8 @@
                         <button
                             string="Cancel"
                             class="oe_right"
-                            special="cancel"/>
+                            special="cancel"
+                        />
                     </footer>
                 </form>
             </field>
