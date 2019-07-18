@@ -22,6 +22,7 @@
 ##############################################################################
 
 from openerp import models, api, fields, _
+from openerp.exceptions import except_orm, Warning, RedirectWarning
 from openerp.api import Environment
 import openerp.addons.decimal_precision as dp
 import datetime
@@ -238,24 +239,41 @@ class extraschool_invoice(models.Model):
         }
 
     @api.multi
+    def full_no_value(self):
+        # Put the totality of the invoice in no value.
+        try:
+            self.ensure_one()
+            for line in self.invoice_line_ids:
+                line.write({
+                    'no_value_amount': line.total_price,
+                })
+            # This needs to be last. Otherwise an error appear on the total amount.
+            self.write({
+                'no_value_amount': self.amount_total
+            })
+            self._compute_balance()
+        except:
+            raise Warning(_("An error occured, please contact an adminsitrator"))
+
+    @api.multi
     def cancel_and_invoice_after(self):
-        for invoice in self:
-            if invoice.balance == invoice.amount_total:
-                invoice.refound_line_ids.create({'invoiceid': self.id,
-                                                 'date': fields.Date.today(),
-                                                 'description': _('Invoice cancelled'),
-                                                 'amount': invoice.balance,})
-                for line in invoice.invoice_line_ids:
-                    line.prestation_ids.write({'invoiced_prestation_id': None})
+        self.ensure_one()
+        if self.balance == self.amount_total:
+            self.full_no_value()
+            for line in self.invoice_line_ids:
+                line.prestation_ids.write({
+                    'invoiced_prestation_id': None,
+                })
+        else:
+            raise Warning(_("You cannot cancel an invoice that recieved payments"))
 
     @api.multi
     def cancel(self):
-        for invoice in self:
-            if invoice.balance == invoice.amount_total:
-                invoice.refound_line_ids.create({'invoiceid': self.id,
-                                                 'date': fields.Date.today(),
-                                                 'description': _('Invoice cancelled'),
-                                                 'amount': invoice.balance, })
+        self.ensure_one()
+        if self.balance == self.amount_total:
+            self.full_no_value()
+        else:
+            raise Warning(_("You cannot cancel an invoice that recieved payments"))
 
     def get_concerned_short_name(self):
         res = []
