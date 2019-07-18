@@ -78,7 +78,11 @@ class extraschool_invoice(models.Model):
     fees_huissier = fields.Float('Fees Huissier', default=0.0, track_visibility='onchange')
     tag = fields.Many2one('extraschool.invoice_tag', 'Tag', readonly=True, track_visibility='onchange')
 
-    no_value_amount = fields.Float()
+    no_value_amount = fields.Float(
+        string='No value amount',
+        default=0.00,
+        readonly=True,
+    )
 
     _sql_constraints = [
         ('structcom_uniq', 'unique(structcom)',
@@ -139,6 +143,7 @@ class extraschool_invoice(models.Model):
             except:
                 pass
 
+    @api.multi
     def _compute_balance(self):
         for invoice in self:
 
@@ -146,14 +151,11 @@ class extraschool_invoice(models.Model):
             total = 0 if total < 0.0001 else total
             reconcil = 0 if len(invoice.payment_ids) == 0 else sum(reconcil_line.amount for reconcil_line in invoice.payment_ids)
             reconcil = 0 if reconcil < 0.0001 else reconcil
-            refound = 0 if len(invoice.refound_line_ids) == 0 else sum(refound_line.amount for refound_line in invoice.refound_line_ids)
-            refound = 0 if refound < 0.0001 else refound
-            balance = total - reconcil - refound
+            balance = total - reconcil - self.no_value_amount
             balance = 0 if balance < 0.0001 else balance
             balance = round(balance,5) # MiCo used this to resolve a balance problem (hannut 21/08/2017)
             invoice.write({'amount_total' : total,
                            'amount_received' : reconcil,
-                           'no_value' : refound,
                            'balance' : balance
                            })
 
@@ -593,7 +595,7 @@ class extraschool_invoice(models.Model):
             payment.unlink()
 
         self._compute_balance()
-        
+
         return {
             'type': 'ir.actions.client',
             'tag': 'reload',

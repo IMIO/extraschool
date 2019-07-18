@@ -121,4 +121,8 @@ class extraschool_invoicedprestations(models.Model):
     def write(self, vals):
         if 'no_value_amount' in vals and vals.get('no_value_amount') > self.total_price:
             vals['no_value_amount'] = 0.00
+        elif 'no_value_amount' in vals and self.invoiceid.amount_total - self.invoiceid.amount_received - self.invoiceid.no_value_amount - vals.get(
+                'no_value_amount') < 0.00:
+            vals['no_value_amount'] = 0.00
+
         return super(extraschool_invoicedprestations, self).write(vals)
