@@ -68,14 +68,22 @@ class extraschoolNoValueWizard(models.TransientModel):
         if not self._is_no_value_amount_correct():
             raise Warning(_("The amount of no value is superior of the total amount"))
         else:
-            self.env['extraschool.invoice'].browse(
-                self.env.context.get('active_ids')
-            ).no_value_amount = sum(x.no_value_amount for x in self.invoice_prestation_ids)
+            invoice_id = self.env['extraschool.invoice'].browse(self.env.context.get('active_ids'))
+
+            invoice_id.write({
+                'no_value_amount': sum(x.no_value_amount for x in self.invoice_prestation_ids),
+            })
+            invoice_id._compute_balance()
+
             return True
 
     @api.multi
     def _is_no_value_amount_correct(self):
+        invoice_id = self.env['extraschool.invoice'].browse(self.env.context.get('active_ids'))
         total_no_value = sum(x.no_value_amount for x in self.invoice_prestation_ids)
+
         if total_no_value > sum(x.total_price for x in self.invoice_prestation_ids):
+            return False
+        if invoice_id.amount_total - invoice_id.amount_received - total_no_value < 0.00:
             return False
         return True
