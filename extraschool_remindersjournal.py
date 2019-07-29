@@ -83,6 +83,7 @@ class extraschool_remindersjournal(models.Model):
             self.biller_ids = self.env['extraschool.biller'].search(
                 [('payment_term', '<=', self.date_to),
                  ('payment_term', '>=', self.date_from),
+                 ('balance', '>', 0.00),
                  ]).ids
 
     @api.one
