@@ -21,5 +21,5 @@
 #
 ##############################################################################
 
-import helper
-import models
+from . import helper
+from . import models

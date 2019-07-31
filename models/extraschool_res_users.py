@@ -21,5 +21,14 @@
 #
 ##############################################################################
 
-import extraschool_helper
-import lbutils
+from openerp import models, api, fields
+from openerp.api import Environment
+
+
+class extraschool_res_user(models.Model):
+    _inherit = 'res.users'
+
+    school_ids = fields.Many2many(
+        'extraschool.school',
+        string='Schools'
+    )
