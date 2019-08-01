@@ -85,14 +85,17 @@ class extraschool_invoice(models.Model):
 
     @api.model
     def update_activity_category(self):
-        base_activity_category = self.env['extraschool.activitycategory'].search([])[0]
-        biller_ids = self.env['extraschool.biller'].search([('activitycategoryid', '=', False)])
-        invoice_ids = self.search([('activitycategoryid', '=', False)])
-        activity_ids = self.env['extraschool.activity'].search([('category_id', '=', False)])
-        payment_ids = self.env['extraschool.payment'].search([])
-        child_ids = self.env['extraschool.child'].search([])
+        try:
+            base_activity_category = self.env['extraschool.activitycategory'].search([])[0]
+            biller_ids = self.env['extraschool.biller'].search([('activitycategoryid', '=', False)])
+            invoice_ids = self.search([('activitycategoryid', '=', False)])
+            activity_ids = self.env['extraschool.activity'].search([('category_id', '=', False)])
+            payment_ids = self.env['extraschool.payment'].search([])
+            child_ids = self.env['extraschool.child'].search([])
 
-        organising_power_id = self.env['extraschool.organising_power'].search([])
+            organising_power_id = self.env['extraschool.organising_power'].search([])
+        except:
+            return True
 
         if not organising_power_id:
             organising_power_id = self.env['extraschool.organising_power'].create({

@@ -8,7 +8,7 @@ stages:
 build:
   stage: build
   script:
-    - git clone -b scaffolding91 http://gitlab.imio.be:10080/odoo/docker-odoo-base.git
+    - git clone -b scaffolding91 http://gitlab.imio.be/odoo/docker-odoo-base.git
     - cd docker-odoo-base
     - docker-compose -f prod.yaml build --no-cache
 
@@ -23,12 +23,12 @@ build:
 staging:
   stage: staging
   script:
-    - docker tag dockerodoobase_odoo docker-staging.imio.be/extraschool-v9:9.1
+    - docker tag docker-odoo-base_odoo docker-staging.imio.be/extraschool-v9:9.1
     - docker push docker-staging.imio.be/extraschool-v9:9.1
     - mco shell run 'docker pull docker-staging.imio.be/extraschool-v9:9.1' -C /role::docker::extraschool::instances$/ -I /staging/
     - mco shell run 'service stagingv9_extraschool stop' -C /role::docker::extraschool::instances$/ -I /staging/
     - mco shell run 'service stagingv9_extraschool start' -C /role::docker::extraschool::instances$/ -I /staging/
-    - docker rmi docker-staging.imio.be/extraschool-v9:9.1 dockerodoobase_odoo
+    - docker rmi docker-staging.imio.be/extraschool-v9:9.1 docker-odoo-base_odoo
   when: on_success
 
 promote-to-prod:
