@@ -61,6 +61,10 @@ class extraschool_organising_power(models.Model):
     po_rappel_fct = fields.Char('Fct of resp reminder')
     po_rappel_sign = fields.Binary('Signature of resp reminder')
 
+    po_rappel_name2 = fields.Char('Name of resp reminder 2')
+    po_rappel_fct2 = fields.Char('Fct of resp reminder 2')
+    po_rappel_sign2 = fields.Binary('Signature of resp reminder 2')
+
     logo = fields.Binary()
     slogan = fields.Char('Slogan', size=50)
 

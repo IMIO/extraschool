@@ -1,7 +1,39 @@
 <?xml version="1.0" ?>
-<odoo>
+<openerp>
 	<data>
 		<template id="report_double_sign_no_style">
+			<xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_reminder_sign.css"/>
+            </xpath>
+			<div id="doc_resp_sign">
+				<div id="sign_resp1">
+					<div>
+						<span class="sign_elem" t-esc="resp_fct" />
+						<span class="sign_elem" t-esc="resp_name" />
+						<t t-if="resp_sign">
+							<img class="sign_img" t-attf-src="data:image/jpeg;base64,{{resp_sign}}"/>
+						</t>
+					</div>
+				</div>
+				<t t-if="not po_stamp">
+					<div>
+						<span class="sign_elem">Par le Collège :</span>
+					</div>
+				</t>
+
+				<div id="sign_resp2">
+					<div>
+						<span class="sign_elem" t-esc="resp2_fct" />
+						<span class="sign_elem" t-esc="resp2_name" />
+						<t t-if="resp2_sign">
+							<img class="sign_img" t-attf-src="data:image/jpeg;base64,{{resp2_sign}}"/>
+						</t>
+					</div>
+				</div>
+			</div>
+		</template>
+
+		<template id="report_double_sign_no_style_sans_texte">
 			<style>
 				#doc_resp_sign{
 					display: block;
@@ -46,38 +78,6 @@
 
 			</style>
 			<div id="doc_resp_sign">
-				<div id="sign_resp1">
-					<div>
-						<span class="sign_elem" t-esc="resp_fct" />
-						<span class="sign_elem" t-esc="resp_name" />
-						<t t-if="resp_sign_img">
-							<img class="sign_img" t-attf-src="data:image/jpeg;base64,{{resp_sign_img}}"/>
-						</t>
-					</div>
-				</div>
-				<t t-if="not po_stamp">
-					<div>
-						<span class="sign_elem">Par le Collège :</span>
-					</div>
-				</t>
-
-				<div id="sign_resp2">
-					<div>
-						<span class="sign_elem" t-esc="resp2_fct" />
-						<span class="sign_elem" t-esc="resp2_name" />
-						<t t-if="resp2_sign">
-							<img class="sign_img" t-attf-src="data:image/jpeg;base64,{{resp2_sign}}"/>
-						</t>
-					</div>
-				</div>
-			</div>
-		</template>
-
-		<template id="report_double_sign_no_style_sans_texte">
-			<xpath expr="//head" position="inside">
-                <link rel="stylesheet" href="/extraschool/static/src/css/report_double_sign_no_style_sans_texte.css"/>
-            </xpath>
-			<div id="doc_resp_sign">
 				<div id="sign_resp2" style="margin-left:30px">
 					<div>
 						<span class="sign_elem" t-esc="resp2_fct" />
@@ -91,38 +91,34 @@
 					<div>
 						<span class="sign_elem" t-esc="resp_fct" />
 						<span class="sign_elem" t-esc="resp_name" />
-						<t t-if="resp_sign_img">
-							<img class="sign_img" t-attf-src="data:image/jpeg;base64,{{resp_sign_img}}"/>
+						<t t-if="resp_sign">
+							<img class="sign_img" t-attf-src="data:image/jpeg;base64,{{resp_sign}}"/>
 						</t>
 					</div>
 				</div>
 			</div>
 		</template>
 
-        <template id="report_double_sign_stamp_no_style">
+        <template id="report_double_sign_reminder_sans_texte">
 			<xpath expr="//head" position="inside">
-                <link rel="stylesheet" href="/extraschool/static/src/css/report_double_sign_stamp_no_style.css"/>
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_reminder_sign.css"/>
             </xpath>
 			<div id="doc_resp_sign">
-				<div class="col-xs-4" id="sign_resp1">
-					<div>
-						<span class="sign_elem" t-esc="resp2_fct" />
-						<span class="sign_elem" t-esc="resp2_name" />
-						<t t-if="resp2_sign">
-							<img class="sign_img" t-attf-src="data:image/jpeg;base64,{{resp2_sign}}"/>
-						</t>
-					</div>
-				</div>
-                <div class="col-xs-4">
-                    <span class="sign_elem">Par le Collège :</span>
-                    <img class="stamp" t-attf-src="data:image/jpeg;base64,{{po_stamp}}"/>
-                </div>
-				<div class="col-xs-4" id="sign_resp2">
+				<div id="sign_resp2" style="margin-left:30px">
 					<div>
 						<span class="sign_elem" t-esc="resp_fct" />
 						<span class="sign_elem" t-esc="resp_name" />
-						<t t-if="resp_sign_img">
-							<img class="sign_img" t-attf-src="data:image/jpeg;base64,{{resp_sign_img}}"/>
+						<t t-if="resp2_sign">
+							<img class="sign_img" t-attf-src="data:image/jpeg;base64,{{resp_sign}}"/>
+						</t>
+					</div>
+				</div>
+				<div id="sign_resp1">
+					<div>
+						<span class="sign_elem" t-esc="resp_reminder_fct2" />
+						<span class="sign_elem" t-esc="resp_reminder_name2" />
+						<t t-if="resp_sign">
+							<img class="sign_img" t-attf-src="data:image/jpeg;base64,{{resp_reminder_sign2}}"/>
 						</t>
 					</div>
 				</div>
@@ -130,5 +126,5 @@
 		</template>
 
 	</data>
-</odoo>
+</openerp>
 

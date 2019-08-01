@@ -1,0 +1,40 @@
+#doc_resp_sign{
+    display: block;
+    width: 100%;
+}
+
+#doc_resp_sign>div{
+    float: right;
+    width : 33%;
+}
+
+#doc_resp_sign>div>div{
+    display: block;
+    margin-top: 8mm;
+}
+
+.sign_elem {
+    display:block;
+    width: 100%;
+    text-align: center;
+    font-size: 4mm;
+}
+
+.sign_img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    vertical-align: bottom;
+}
+
+.stamp{
+    display: block;
+    margin: auto;
+}
+
+#stamp {
+    height: 4.5cm;
+    background-repeat: no-repeat;
+    background-position: center;
+
+}

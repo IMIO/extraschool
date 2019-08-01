@@ -41,7 +41,11 @@
                                 <field name="po_rappel_name" />
                                 <field name="po_rappel_fct" />
                                 <field name="po_rappel_sign" widget="image" class="oe_avatar oe_left"/>
-                                <separator string="Informations sur les attestations fiscale" colspan="4"/>
+                                <newline/>
+                                <field name="po_rappel_name2" />
+                                <field name="po_rappel_fct2" />
+                                <field name="po_rappel_sign2" widget="image" class="oe_avatar oe_left"/>
+                                <separator string="Informations sur les attestations fiscales" colspan="4"/>
                                 <field name="po_attestation_name" />
                                 <field name="po_attestation_fct" />
                                 <field name="po_attestation_sign" widget="image" class="oe_avatar oe_left"/>

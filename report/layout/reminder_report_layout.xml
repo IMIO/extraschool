@@ -49,8 +49,9 @@
             <xpath expr="//body" position="inside">
 				<div id="reminder">
 					<t t-foreach="docs" t-as="reminder">
-						<t t-set="logo" t-value="reminder.reminders_journal_id.activity_category_id.logo"/>
-						<t t-set="slogan" t-value="reminder.reminders_journal_id.activity_category_id.slogan"/>
+                        <t t-set="organising_power" t-value="docs[0].activitycategoryid[0].organising_power_id"/>
+						<t t-set="logo" t-value="rorganising_power.logo"/>
+						<t t-set="slogan" t-value="organising_power.slogan"/>
 						<t t-set="amount_int" t-value="int(reminder.amount)"/>
 						<t t-set="amount" t-value="reminder.amount"/>
                         <t t-set="logo_reminder" t-value="reminder.activity_category_id.logo_reminder"/>
@@ -73,20 +74,31 @@
 						<t t-set="doc_date" t-value="'%s, le %s' % (reminder.reminders_journal_id.activity_category_id.po_city,time.strftime('%d-%m-%Y',time.strptime(reminder.reminders_journal_id.transmission_date,'%Y-%m-%d')))"/>
 
 						<t t-set="addresse" t-value="reminder.parentid"/>
-						<t t-set="po_addresse" t-value="reminder.reminders_journal_id.activity_category_id"/>
+						<t t-set="po_addresse" t-value="organising_power.po_street"/>
 
 						<t t-set="parent_id" t-value="reminder.parentid"/>
 						<t t-set="categ_id" t-value="reminder.reminders_journal_id.activity_category_id"/>
 
-						<t t-set="resp_fct" t-value="reminder.reminders_journal_id.activity_category_id.po_rappel_name"/>
-						<t t-set="resp_name" t-value="reminder.reminders_journal_id.activity_category_id.po_rappel_fct"/>
-						<t t-set="resp_sign" t-value="reminder.reminders_journal_id.activity_category_id.po_rappel_sign"/>
-						<t t-set="po_stamp" t-value="reminder.reminders_journal_id.activity_category_id.po_stamp"/>
-						<t t-set="resp_sign_img" t-value="reminder.reminders_journal_id.activity_category_id.po_sign_img"/>
+                        <!-- Reminder Resp 1-->
+						<t t-set="resp_fct" t-value="organising_power.po_rappel_name"/>
+						<t t-set="resp_name" t-value="organising_power.po_rappel_fct"/>
+						<t t-set="resp_sign" t-value="organising_power.po_rappel_sign"/>
 
-						<t t-set="resp2_fct" t-value="reminder.reminders_journal_id.activity_category_id.po_resp2_name"/>
-						<t t-set="resp2_name" t-value="reminder.reminders_journal_id.activity_category_id.po_resp2_fct"/>
-						<t t-set="resp2_sign" t-value="reminder.reminders_journal_id.activity_category_id.po_resp2_sign"/>
+                        <!-- Reminder Resp 2 -->
+                        <t t-set="resp_reminder_fct2" t-value="organising_power.po_rappel_name2"/>
+						<t t-set="resp_reminder_name2" t-value="organising_power.po_rappel_fct2"/>
+						<t t-set="resp_reminder_sign2" t-value="organising_power.po_rappel_sign2"/>
+
+                        <!-- Stamp -->
+						<t t-set="po_stamp" t-value="organising_power.po_stamp"/>
+
+                        <!-- Image Sign Resp 1 -->
+						<t t-set="resp_sign_img" t-value="organising_power.po_sign_img"/>
+
+                        <!-- Invoice Resp 2 -->
+						<t t-set="resp2_fct" t-value="organising_power.po_resp2_name"/>
+						<t t-set="resp2_name" t-value="organising_power.po_resp2_fct"/>
+						<t t-set="resp2_sign" t-value="organising_power.po_resp2_sign"/>
 
 						<t t-set="html_text" t-value="reminder.reminders_journal_item_id.reminder_type_id.text"/>
 						<t t-set="reminder_com_struct" t-value="reminder.structcom"/>

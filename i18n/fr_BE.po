@@ -1514,6 +1514,24 @@ msgid "Amount greather than invoice balance"
 msgstr "Montant supérieur à la balance de la facture"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_po_rappel_name2
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_po_rappel_name2
+msgid "Name of resp reminder 2"
+msgstr "Nom du responsable 2"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_po_rappel_sign2
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_po_rappel_sign2
+msgid "Signature of resp reminde 2r"
+msgstr "Signature du responsable 2"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_po_rappel_fct2
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_po_rappel_fct2
+msgid "Fct of resp reminder 2"
+msgstr "Fct du responsable 2"
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_reminders_journal_form
 msgid "Concerned Biller"
 msgstr "Facturier(s) impacté(s)"
@@ -1745,7 +1763,7 @@ msgstr "Par heure dans une journée"
 #: selection:extraschool.parent,invoicesendmethod:0
 #: selection:extraschool.parent,remindersendmethod:0
 msgid "By mail and email"
-msgstr "Par courrier et par email"
+msgstr "Par courrier et par E-mail"
 
 #. module: extraschool
 #: selection:extraschool.discount.version,discount_template:0
@@ -3204,7 +3222,7 @@ msgstr "Factures par E-mail"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_mainsettings_emailfornotifications
 msgid "Email for notifications"
-msgstr "Email de notifications"
+msgstr "E-mail de notifications"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_remindertype_mail_template_id
@@ -4266,17 +4284,17 @@ msgstr "Rapport de facture détaillé"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_invoiceemailaddress
 msgid "Invoice email address"
-msgstr "Adresse email factures"
+msgstr "Adresse e-mail factures"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_invoiceemailsubject
 msgid "Invoice email subject"
-msgstr "Sujet email factures"
+msgstr "Sujet e-mail factures"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_invoiceemailtext
 msgid "Invoice email text"
-msgstr "Texte email factures"
+msgstr "Texte E-mail factures"
 
 #. module: extraschool
 #: code:addons/extraschool/extraschool_invoice.py:45
@@ -5693,7 +5711,7 @@ msgstr "Type de subvention ONE"
 #: selection:extraschool.parent,invoicesendmethod:0
 #: selection:extraschool.parent,remindersendmethod:0
 msgid "Only by email"
-msgstr "Uniquement par email"
+msgstr "Uniquement par E-mail"
 
 #. module: extraschool
 #: selection:extraschool.parent,invoicesendmethod:0
@@ -5844,12 +5862,12 @@ msgstr "Nom colonne localité parent"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_childsimportfilter_parentemailcolumn
 msgid "Parent email column"
-msgstr "Colonne email du parent"
+msgstr "Colonne E-mail du parent"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_childsimportfilter_parentemailcolumnname
 msgid "Parent email column name"
-msgstr "Nom colonne email parent"
+msgstr "Nom colonne E-mail parent"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_childsimportfilter_parentfirstnamecolumn
@@ -6057,12 +6075,12 @@ msgstr "Préfix de la communication structurée"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_payment_invitation_email_subject
 msgid "Payment invitation Email subject"
-msgstr "Sujet de l'email"
+msgstr "Sujet de l'E-mail"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_payment_invitation_courrier_text
 msgid "Payment invitation courrier text"
-msgstr "Texte de l'email"
+msgstr "Texte de l'E-mail"
 
 #. module: extraschool
 #: model:ir.actions.act_window,name:extraschool.payment_invitation_mass_mail
@@ -6897,12 +6915,12 @@ msgstr "Mails pour les rappels"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_reminderemailsubject
 msgid "Reminder email subject"
-msgstr "Sujet de l'email du rappel"
+msgstr "Sujet de l'E-mail du rappel"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_reminderemailtext
 msgid "Reminder email text"
-msgstr "Texte pour l'email du rappel"
+msgstr "Texte pour l'E-mail du rappel"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_reminders_journal_form
@@ -7650,7 +7668,7 @@ msgstr "Texte"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activitycategory_form
 msgid "Text de l email"
-msgstr "Text de l email"
+msgstr "Text de l E-mail"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_detail_log_text
