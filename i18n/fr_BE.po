@@ -1514,6 +1514,11 @@ msgid "Amount greather than invoice balance"
 msgstr "Montant supérieur à la balance de la facture"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_reminders_journal_form
+msgid "Concerned Biller"
+msgstr "Facturier(s) impacté(s)"
+
+#. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_payment_wizard_reconciliation_amount
 msgid "Amount reconcilied"
 msgstr "Montant réconcilié"
