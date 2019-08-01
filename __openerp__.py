@@ -103,6 +103,7 @@
         'views/extraschool_settings.xml',
         'views/extraschool_annual_report.xml',
         'views/extraschool_refund_wizard.xml',
+        'views/extraschool_res_users.xml',
         #'views/widgets.xml',
         'views/extraschool_config_smartphone.xml',
         'views/extraschool_query_sql.xml',

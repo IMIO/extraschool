@@ -20,8 +20,8 @@
         <record id="child_request_rule" model="ir.rule">
             <field name="name">Child Request Rule</field>
             <field ref="extraschool.model_extraschool_child" name="model_id"/>
-            <field name="domain_force">[('schoolimplantation.schoolid.id', '=', '2')]</field>
-            <field name="groups" eval="[(4, ref('extraschool.extraschool_user'))]"/>
+            <field name="domain_force">[('schoolimplantation.schoolid.id', '=', 'user.group_ids.ids')]</field>
+            <field name="groups" eval="[(4, ref('extraschool.extraschool_direction'))]"/>
         </record>
 
 		<record model="ir.ui.view" id="extraschool_child_form">
