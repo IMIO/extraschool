@@ -28,6 +28,7 @@
 
 					<t t-foreach="docs" t-as="invoice">
 						<t t-set="logo" t-value="organising_power.logo"/>
+                        <t t-set="logo2" t-value="organising_power.logo2"/>
 						<t t-set="slogan" t-value="organising_power.slogan"/>
 						<t t-set="amount_int" t-value="int(invoice.amount_total)"/>
 						<t t-set="amount_dec" t-value="int(round((invoice.amount_total-int(invoice.amount_total))*100))"/>

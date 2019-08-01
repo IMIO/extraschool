@@ -50,7 +50,7 @@
 				<div id="reminder">
 					<t t-foreach="docs" t-as="reminder">
                         <t t-set="organising_power" t-value="docs[0].activitycategoryid[0].organising_power_id"/>
-						<t t-set="logo" t-value="rorganising_power.logo"/>
+						<t t-set="logo" t-value="organising_power.logo"/>
 						<t t-set="slogan" t-value="organising_power.slogan"/>
 						<t t-set="amount_int" t-value="int(reminder.amount)"/>
 						<t t-set="amount" t-value="reminder.amount"/>

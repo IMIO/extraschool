@@ -66,6 +66,7 @@ class extraschool_organising_power(models.Model):
     po_rappel_sign2 = fields.Binary('Signature of resp reminder 2')
 
     logo = fields.Binary()
+    logo2 = fields.Binary()
     slogan = fields.Char('Slogan', size=50)
 
     biller_report_id = fields.Many2one('extraschool.report', 'Biller report')
