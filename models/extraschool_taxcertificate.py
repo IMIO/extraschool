@@ -7,6 +7,7 @@ import time
 import logging
 _logger = logging.getLogger(__name__)
 
+
 class extraschool_taxcertificate(models.Model):
     _name = 'extraschool.taxcertificate'
     _description = 'Taxcertificate'
@@ -236,6 +237,7 @@ class extraschool_taxcertificate(models.Model):
                 threaded_report.append(thread)
                 thread.start()
 
+
 class extraschool_taxcertificate_item(models.Model):
     _name = 'extraschool.taxcertificate_item'
     _description = 'Taxcertificate item'
@@ -253,6 +255,7 @@ class extraschool_taxcertificate_item(models.Model):
     tax_certificate_detail_ids = fields.One2many('extraschool.tax_certificate_detail', 'tax_certificate_item_id')
     tax_certificate_send_method = fields.Char()
     annee = fields.Integer(String='Annee' , related="taxcertificate_id.name", index=True)
+
 
 class extraschool_tax_certificate_detail(models.Model):
     _name = 'extraschool.tax_certificate_detail'
@@ -310,7 +313,7 @@ class extraschool_tax_certificate_detail(models.Model):
                                     ON inv.id = pay_rec.invoice_id
                                     LEFT JOIN extraschool_payment AS pay 
                                     ON pay.id = pay_rec.payment_id
-                                    WHERE pay_rec.paymentdate BETWEEN '2018-01-01' AND '2018-12-31'
+                                    WHERE pay_rec.paymentdate BETWEEN '2019-01-01' AND '2019-12-31'
                                     AND inv.balance = 0 AND (inv.reminder_fees IS NULL OR inv.reminder_fees = false)) 
                                     AND act.on_tax_certificate = TRUE
                                     AND prest.prestation_date <= c.birthdate + interval '12 year'
