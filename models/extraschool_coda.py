@@ -251,13 +251,17 @@ class extraschool_coda(models.Model):
 
                                         # todo: paramètrage des paiements des rappels. Apure fees en premier, toutes les factures avant fees
                                         for invoice in reminder.concerned_invoice_ids:
+                                            activity_category = activitycategory_obj.search(
+                                                [('remindercomstructprefix', '=', _prefix)])
                                             payment_id = payment_obj.create({'parent_id': invoice.parentid.id,
+                                                                             'activity_category_id': [
+                                                                                 (6, 0, [activity_category.id])],
                                                                              'paymentdate': transfertdate,
                                                                              'structcom_prefix': _prefix,
-                                                                             'structcom':communication,
-                                                                             'paymenttype':'1',
-                                                                             'account':parentaccount,
-                                                                             'name':name,
+                                                                             'structcom': communication,
+                                                                             'paymenttype': '1',
+                                                                             'account': parentaccount,
+                                                                             'name': name,
                                                                              'amount': invoice.balance})
 
                                             payment_reconciliation_obj.create({'payment_id' : payment_id.id,
@@ -287,7 +291,7 @@ class extraschool_coda(models.Model):
                                         rejectcause=_('Parent not found')
                                     else:
                                         activity_category = activitycategory_obj.search(
-                                            [('remindercomstructprefix', '=', _prefix)])
+                                            [('payment_invitation_com_struct_prefix', '=', _prefix)])
                                         payment_id = payment_obj.create({
                                             'parent_id': parentid,
                                             'paymentdate': transfertdate,
