@@ -81,8 +81,9 @@ class extraschool_remindersjournal(models.Model):
         if self.date_from and self.date_to:
 
             self.biller_ids = self.env['extraschool.biller'].search(
-                [('payment_term', '<=', self.date_to),
-                 ('payment_term', '>=', self.date_from),
+                [('invoices_date', '<=', self.date_to),
+                 ('invoices_date', '>=', self.date_from),
+                 ('balance', '>', 0.00),
                  ]).ids
 
     @api.one

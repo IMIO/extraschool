@@ -161,8 +161,8 @@ class extraschool_biller(models.Model):
         if len(self) > 1:
             raise Warning(_("You can delete only one biller at a time !!!"))
 
-        # if self.search([]).sorted(key=lambda r: r.id)[-1].id != self.id:
-        #     raise Warning(_("You can only delete the last biller !!!"))
+        if self.search([]).sorted(key=lambda r: r.id)[-1].id != self.id:
+            raise Warning(_("You can only delete the last biller !!!"))
 
         _logger.info("%s invoices to delete" % len(self.invoice_ids))
         count = 1
@@ -172,10 +172,10 @@ class extraschool_biller(models.Model):
             invoice.payment_ids.unlink()
             count +=1
 
-        invoicelastcomstruct = str(self.invoice_ids.sorted(key=lambda r: r.id)[0].number)[-5:]
-
-        self.activitycategoryid.sequence_ids.search([('type', '=', 'invoice'),
-                                                     ('year', '=', self.get_from_year()),]).sequence.number_next = invoicelastcomstruct
+        # invoicelastcomstruct = str(self.invoice_ids.sorted(key=lambda r: r.id)[0].number)[-5:]
+        #
+        # self.activitycategoryid.sequence_ids.search([('type', '=', 'invoice'),
+        #                                              ('year', '=', self.get_from_year()),]).sequence.number_next = invoicelastcomstruct
 
         count = 1
         for invoice in self.invoice_ids:

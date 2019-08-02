@@ -273,7 +273,11 @@ class extraschool_smartphone_detail_log(models.Model):
     @api.multi
     def print_log(self, message, smartphone_id):
         for line in message['logs']:
-            date = datetime.strptime(str(line['datetime']), '%Y%m%dT%H%M%S')
+            try:
+                date = datetime.strptime(str(line['datetime']), '%Y%m%dT%H%M%S')
+            except:
+                date = 'Could not format date: {}'.format(line['timestamp'])
+
             error_message = "Error message for Smartphone logs"
             message_decode = line['message']
             imei = line['phone_imei']
