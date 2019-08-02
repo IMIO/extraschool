@@ -86,4 +86,7 @@ class extraschoolNoValueWizard(models.TransientModel):
             return False
         if invoice_id.amount_total - invoice_id.amount_received - total_no_value < 0.00:
             return False
+        for invoiced_prestation in self.invoice_prestation_ids:
+            if invoiced_prestation.no_value_amount > invoiced_prestation.total_price:
+                return False
         return True
