@@ -25,16 +25,32 @@ from openerp import models, api, fields
 from openerp.api import Environment
 import openerp.addons.decimal_precision as dp
 
+
 class extraschool_refound_line(models.Model):
     _name = 'extraschool.refound_line'
     _description = 'Non valeurs'
 
-    invoiceid = fields.Many2one('extraschool.invoice', 'invoice',ondelete='cascade')
-    date = fields.Date(string="Date", required=False)
-    description = fields.Char('Description', required=False)        
-    amount = fields.Float('Amount', required=False)    
-    prestation_ids = fields.One2many('extraschool.prestationtimes','invoiced_prestation_id',ondelete='restrict')   
-    reminder_id = fields.Many2one('extraschool.reminder', 'Reminder',ondelete='restrict')     
+    invoiceid = fields.Many2one(
+        'extraschool.invoice',
+        'invoice',
+        ondelete='cascade')
+    date = fields.Date(
+        string="Date",
+        required=False)
+    description = fields.Char(
+        'Description',
+        required=False)
+    amount = fields.Float(
+        string='Amount',
+        required=False)
+    prestation_ids = fields.One2many(
+        'extraschool.prestationtimes',
+        'invoiced_prestation_id',
+        ondelete='restrict')
+    reminder_id = fields.Many2one(
+        'extraschool.reminder',
+        'Reminder',
+        ondelete='restrict')
 
     def confirm(self):
         payment_reconcil_obj = self.env['extraschool.payment_reconciliation']
@@ -47,18 +63,18 @@ class extraschool_refound_line(models.Model):
                     amount = refound.invoiceid.payment_ids[zz].amount
                 else:
                     amount = amount_to_refound
-                
+
                 payment_reconcil_obj.create({'payment_id': refound.invoiceid.payment_ids[zz].payment_id.id,
-                                         'invoice_id': refound.invoiceid.id,
-                                         'date': self.date,
-                                         'amount': amount*(-1),
-                                         })
+                                             'invoice_id': refound.invoiceid.id,
+                                             'date': self.date,
+                                             'amount': amount * (-1),
+                                             })
                 amount_to_refound -= amount
                 zz -= 1
             refound.invoiceid._compute_balance()
 
     @api.model
-    def create(self,vals):
+    def create(self, vals):
         new_obj = super(extraschool_refound_line, self).create(vals)
         
         new_obj.confirm()

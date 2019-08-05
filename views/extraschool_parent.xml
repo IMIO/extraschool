@@ -175,11 +175,27 @@
 	                        <field name="payment_term"/>
 	                        <field name="amount_total" sum="True"/>
 	                        <field name="amount_received" sum="True"/>
-	                        <field name="balance"  sum="True"/>
-	                        <field name="no_value"/>
+                            <field name="no_value_amount" sum="True"/>
+                            <field name="balance"  sum="True"/>
 	                        <field name="tag"/>
-	                        <button name="reconcil" type="object" string="Reconcil" icon="terp-dolar" confirm="Do you really want to reconciliate this invoice ?" groups="extraschool.extraschool_accounting"/>
-	                        <button name="cancel_payment" type="object" string="Cancel Payment" icon="terp-gtk-stop" confirm="Do you really want to cancel payment on this invoice ?" groups="extraschool.extraschool_accounting" />
+	                        <button
+                                name="reconcil"
+                                type="object"
+                                string="Reconcil"
+                                icon="terp-dolar"
+                                confirm="Do you really want to reconciliate this invoice ?"
+                                groups="extraschool.extraschool_accounting"
+                                attrs="{'invisible':[('balance', '=', 0.00)]}"
+                            />
+                            <button
+                                name="cancel_payment"
+                                type="object"
+                                string="Cancel Payment"
+                                icon="terp-gtk-stop"
+                                confirm="Do you really want to cancel payment on this invoice ?"
+                                groups="extraschool.extraschool_accounting"
+                                attrs="{'invisible':[('amount_received', '=', 0.00)]}"
+                            />
 	                    </tree>
                     </field>
                     </group>

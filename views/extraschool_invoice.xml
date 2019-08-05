@@ -65,10 +65,17 @@
 			<field name="arch" type="xml">
 				<form string="invoice" create="false">
 					<header>
-						<button name="export_onyx_but" string="Export Onyx" type="object" class="oe_highlight" groups="base.group_erp_manager"/>
 						<button name="cancel_and_invoice_after" string="Cancel Invoice and invoice after" type="object" class="oe_highlight" groups="base.group_erp_manager" confirm="Ce bouton permet d'annuler la facture de ce facturier et de libérer les présences liées à celle-ci, vous pourrez refacturer par la suite
 						les présences de cette facture. Est-ce cela que vous désirez ? Si vous désirez complètement annuler cette facture, choisissez plutôt le bouton 'Annuler définitivement la facture'. Confirmation de la manipulation ?" />
                     	<button name="cancel" string="Cancel Invoice" type="object" class="oe_highlight" groups="base.group_erp_manager" confirm="Voulez-vous vraiment supprimer définitivement cette facture ? Les présences liées à celle-ci ne seront plus facturables. Confirmation de la manipulation ?"/>
+                    	<button
+                            name="add_no_value"
+                            string="No Value"
+                            type="object"
+                            class="btn btn-warning"
+                            groups="extraschool.extraschool_accounting"
+                            attrs="{'invisible':[('balance', '=', 0.00), ('no_value_amount', '=', 0.00)]}"
+                        />
 					</header>
 					<sheet>
                         <div style="Margin:10px;text-align:center;width:auto;background: url(/web/static/src/img/form_sheetbg.png);" name="buttons">
@@ -100,34 +107,33 @@
                             />
                         </div>
 						<group col="4">
-							<field name="activitycategoryid" readonly="True" widget="many2many_tags"/>
-							<newline/>
-							<field name="biller_id"/>
-							<field name="number"/>
-							<newline/>
-							<field name="parentid" readonly="True"/>
-							<field name="last_reminder_id"/>
-							<newline/>
-							<field name="schoolimplantationid"/>
-							<field name="classid" readonly="True"/>
-							<newline/>
-							<field name="payment_term" readonly="True"/>
-							<field name="structcom"/>
-							<field name="amount_total"/>
-							<field name="amount_received"/>
-							<field name="balance"/>
-							<field name="no_value"/>
-							<group>
-								<field name="tag"/>
-								<!--<field name="huissier" />-->
-								<field name="fees_huissier"/>
-							</group>
+                            <group>
+                                <field name="activitycategoryid" readonly="True" widget="many2many_tags"/>
+                                <newline/>
+                                <field name="biller_id"/>
+                                <field name="number"/>
+                                <newline/>
+                                <field name="parentid" readonly="True"/>
+                                <field name="last_reminder_id"/>
+                                <newline/>
+                                <field name="schoolimplantationid"/>
+                                <field name="classid" readonly="True"/>
+                                <newline/>
+                                <field name="payment_term" readonly="True"/>
+                                <field name="structcom"/>
+                                <field name="no_value" style="color:red;"/>
+                                <group>
+                                    <field name="tag"/>
+                                </group>
+                            </group>
+                            <group class="oe_subtotal_footer">
+                                <field name="amount_total"/>
+                                <field name="amount_received"/>
+                                <field name="no_value_amount"/>
+                                <field name="fees_huissier" attrs="{'invisible':[('fees_huissier', '=', 0.00)]}"/>
+                                <field name="balance" class="oe_subtotal_footer_separator"/>
+                            </group>
 						</group>
-						<notebook>
-							<page string="Comment">
-								<field name="comment" />
-							</page>
-						</notebook>
 					</sheet>
                     <group col="4">
 	                	<notebook>
@@ -147,6 +153,7 @@
 	   		                    		<field name="quantity"/>
 	   		                    		<field name="unit_price" widget="monetary"/>
 	   		                    		<field name="discount_value" widget="monetary"/>
+	   		                    		<field name="no_value_amount"/>
 	   		                    		<field name="total_price"  widget="monetary" sum="True"/>
 	   		                    	</tree>
 	   		                    	<form>
@@ -193,7 +200,9 @@
 			                        </form>
 			                    </field>
 			                </page>
-
+							<page string="Comment">
+								<field name="comment" />
+							</page>
 			       		</notebook>
 					</group>
 					<div class="oe_chatter" groups="extraschool.extraschool_gods">

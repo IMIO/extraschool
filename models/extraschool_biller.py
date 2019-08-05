@@ -127,10 +127,10 @@ class extraschool_biller(models.Model):
         for record in self:
             record.balance = sum(invoice.balance for invoice in record.invoice_ids)
 
-    @api.depends('invoice_ids.no_value')
+    @api.depends('invoice_ids.no_value_amount')
     def _compute_novalue(self):
         for record in self:
-            record.novalue = sum(invoice.no_value for invoice in record.invoice_ids)
+            record.novalue = sum(invoice.no_value_amount for invoice in record.invoice_ids)
 
     @api.depends('invoice_ids')
     def _compute_nbinvoices(self):

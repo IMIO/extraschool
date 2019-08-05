@@ -1,0 +1,66 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="extraschool_no_value_wizard_form">
+            <field name="name">extraschool.no_value_wizard.form</field>
+            <field name="model">extraschool.no_value_wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="No Value Wizard">
+                    <div class="label label-warning">
+                        Lines with this color means that it is computed in the tax return.
+                    </div>
+                    <group col="2">
+                        <field name="date_no_value"/>
+                        <field name="description" context="context.get('no_value_description')"/>
+                    </group>
+                    <notebook>
+                        <page string="Invoiced Prestation Lines">
+                            <field name="invoice_prestation_ids" nolabel="1">
+                                <tree string="Invoiced prestations"
+                                      create="false"
+                                      delete="false"
+                                      editable="bottom"
+                                      >
+                                    <button name="tax_button"
+                                            type="object"
+                                            icon="stock_log"
+                                            attrs="{'invisible':[('on_tax_certificate', '!=', True)]}"
+                                            readonly="True"
+                                    />
+                                    <field name="on_tax_certificate" invisible="True"/>
+                                    <field name="childid" readonly="True"/>
+                                    <field name="activity_activity_id" readonly="True"/>
+                                    <field name="prestation_date" readonly="True"/>
+                                    <field name="placeid" readonly="True"/>
+                                    <field name="total_price" sum="True" readonly="True"/>
+                                    <field name="no_value_amount" sum="True"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <footer>
+                        <button
+                            name="validate"
+                            string="Add no value"
+                            class="oe_right oe_highlight"
+                            type="object"/>
+                        <button
+                            string="Cancel"
+                            class="oe_right"
+                            special="cancel"
+                        />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window id="no_value_wizard_launch"
+                    name="Add no value"
+                    src_model="extraschool.invoice"
+                    res_model="extraschool.no_value_wizard"
+                    view_mode="form"
+                    target="new"
+                    key2="client_action_multi"/>
+	</data>
+</odoo>

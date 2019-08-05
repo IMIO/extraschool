@@ -7,6 +7,7 @@ import time
 import logging
 _logger = logging.getLogger(__name__)
 
+
 class extraschool_taxcertificate(models.Model):
     _name = 'extraschool.taxcertificate'
     _description = 'Taxcertificate'
@@ -14,7 +15,6 @@ class extraschool_taxcertificate(models.Model):
 
     title = fields.Char('Title', required=True)
     name = fields.Integer('Fiscal Year', required=True, select = True, track_visibility='onchange')
-    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity category', required=True, track_visibility='onchange')
     doc_date = fields.Date('Document date', required=True, track_visibility='onchange')
 
     taxcertificate_item_ids = fields.One2many('extraschool.taxcertificate_item', 'taxcertificate_id','Details')
@@ -55,9 +55,7 @@ class extraschool_taxcertificate(models.Model):
     @api.model
     def create(self, vals):
         #check if already exist
-        tc = self.search([('name', '=', vals['name']),
-                          ('activity_category_id.id', '=', vals['activity_category_id']),
-                          ])
+        tc = self.search([('name', '=', vals['name'])])
         if len(tc):
             raise Warning(_('Taxe certificate already exist'))
 
@@ -65,7 +63,6 @@ class extraschool_taxcertificate(models.Model):
 
         obj_config = self.env['extraschool.mainsettings']
         config=obj_config.browse([1])
-        activitycat= vals['activity_category_id']
 
         #UPDATE RECONCIL DATE IF NEEDED
         sql_update_reconcil_date = """
@@ -87,7 +84,20 @@ class extraschool_taxcertificate(models.Model):
 
 
         sql_concerned_attest = """
-                                    select i.parentid as parentid,par.firstname as parent_firstname,par.lastname as parent_lastname,par.street as parent_street,par.zipcode as parent_zipcode,par.city as parent_city,ip.childid as childid,c.firstname as child_firstname,c.lastname as child_lastname,c.birthdate as child_birthdate,si.name as implantation,sc.name as classe, sum(total_price) as amount,min(ao.occurrence_date) as period_from,max(ao.occurrence_date) as period_to,
+                                    select i.parentid as parentid,par.firstname as parent_firstname,
+                                    par.lastname as parent_lastname,
+                                    par.street as parent_street,
+                                    par.zipcode as parent_zipcode,
+                                    par.city as parent_city,
+                                    ip.childid as childid,
+                                    c.firstname as child_firstname,
+                                    c.lastname as child_lastname,
+                                    c.birthdate as child_birthdate,
+                                    si.name as implantation,
+                                    sc.name as classe, 
+                                    sum(total_price - ip.no_value_amount) as amount,
+                                    min(ao.occurrence_date) as period_from,
+                                    max(ao.occurrence_date) as period_to,
                                     (select count(distinct(aao.occurrence_date)) as nbdays
                                     from extraschool_invoicedprestations iip
                                     left join extraschool_activityoccurrence aao on aao.id = iip.activity_occurrence_id
@@ -109,7 +119,7 @@ class extraschool_taxcertificate(models.Model):
                                            and a.on_tax_certificate = true
                                            and prestation_date <= c.birthdate + interval '12 year'
                                     group by i.parentid,par.firstname,par.lastname,par.street,par.zipcode,par.city,ip.childid,c.firstname,c.lastname,c.birthdate,si.name,sc.name
-                                    having sum(total_price) > 0
+                                    having sum(total_price - ip.no_value_amount) > 0
                                     order by si.name,sc.name,i.parentid;                                
                                 """
 
@@ -227,6 +237,7 @@ class extraschool_taxcertificate(models.Model):
                 threaded_report.append(thread)
                 thread.start()
 
+
 class extraschool_taxcertificate_item(models.Model):
     _name = 'extraschool.taxcertificate_item'
     _description = 'Taxcertificate item'
@@ -244,6 +255,7 @@ class extraschool_taxcertificate_item(models.Model):
     tax_certificate_detail_ids = fields.One2many('extraschool.tax_certificate_detail', 'tax_certificate_item_id')
     tax_certificate_send_method = fields.Char()
     annee = fields.Integer(String='Annee' , related="taxcertificate_id.name", index=True)
+
 
 class extraschool_tax_certificate_detail(models.Model):
     _name = 'extraschool.tax_certificate_detail'
@@ -301,7 +313,7 @@ class extraschool_tax_certificate_detail(models.Model):
                                     ON inv.id = pay_rec.invoice_id
                                     LEFT JOIN extraschool_payment AS pay 
                                     ON pay.id = pay_rec.payment_id
-                                    WHERE pay_rec.paymentdate BETWEEN '2018-01-01' AND '2018-12-31'
+                                    WHERE pay_rec.paymentdate BETWEEN '2019-01-01' AND '2019-12-31'
                                     AND inv.balance = 0 AND (inv.reminder_fees IS NULL OR inv.reminder_fees = false)) 
                                     AND act.on_tax_certificate = TRUE
                                     AND prest.prestation_date <= c.birthdate + interval '12 year'

@@ -167,6 +167,8 @@ class extraschool_coda(models.Model):
                                     reject=True
                                     rejectcause=_('This invoice has a reminder and cannot be paid with the invoice communication')
                                 else:
+                                    activity_category = activitycategory_obj.search(
+                                        [('invoicecomstructprefix', '=', _prefix)])
                                     payment_id = payment_obj.create({
                                         'parent_id': invoice.parentid.id,
                                         'paymentdate': transfertdate,
@@ -178,6 +180,7 @@ class extraschool_coda(models.Model):
                                         'adr1':adr1,
                                         'adr2':adr2,
                                         'amount': amount,
+                                        'activity_category_id': [(6, 0, [activity_category.id])],
                                     })
 
                                     payment_reconciliation_obj.create({'payment_id' : payment_id.id,
@@ -248,13 +251,17 @@ class extraschool_coda(models.Model):
 
                                         # todo: paramètrage des paiements des rappels. Apure fees en premier, toutes les factures avant fees
                                         for invoice in reminder.concerned_invoice_ids:
+                                            activity_category = activitycategory_obj.search(
+                                                [('remindercomstructprefix', '=', _prefix)])
                                             payment_id = payment_obj.create({'parent_id': invoice.parentid.id,
+                                                                             'activity_category_id': [
+                                                                                 (6, 0, [activity_category.id])],
                                                                              'paymentdate': transfertdate,
                                                                              'structcom_prefix': _prefix,
-                                                                             'structcom':communication,
-                                                                             'paymenttype':'1',
-                                                                             'account':parentaccount,
-                                                                             'name':name,
+                                                                             'structcom': communication,
+                                                                             'paymenttype': '1',
+                                                                             'account': parentaccount,
+                                                                             'name': name,
                                                                              'amount': invoice.balance})
 
                                             payment_reconciliation_obj.create({'payment_id' : payment_id.id,
@@ -280,7 +287,7 @@ class extraschool_coda(models.Model):
                                 if prefixfound:
                                     parentid = int(communication[7:11]+communication[12:15])
                                     if len(self.env['extraschool.parent'].search([('id', '=',parentid)])) == 0 or self.env['extraschool.parent'].search([('id', '=',parentid)]).isdisabled == True:
-                                        reject=True;
+                                        reject=True
                                         rejectcause=_('Parent not found')
                                     else:
                                         activity_category = activitycategory_obj.search(

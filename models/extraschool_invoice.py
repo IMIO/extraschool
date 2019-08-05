@@ -22,6 +22,7 @@
 ##############################################################################
 
 from openerp import models, api, fields, _
+from openerp.exceptions import except_orm, Warning, RedirectWarning
 from openerp.api import Environment
 import openerp.addons.decimal_precision as dp
 import datetime
@@ -77,6 +78,12 @@ class extraschool_invoice(models.Model):
     huissier = fields.Boolean('Huissier', default=False, track_visibility='onchange')
     fees_huissier = fields.Float('Fees Huissier', default=0.0, track_visibility='onchange')
     tag = fields.Many2one('extraschool.invoice_tag', 'Tag', readonly=True, track_visibility='onchange')
+
+    no_value_amount = fields.Float(
+        string='No value amount',
+        default=0.00,
+        readonly=True,
+    )
 
     _sql_constraints = [
         ('structcom_uniq', 'unique(structcom)',
@@ -137,6 +144,7 @@ class extraschool_invoice(models.Model):
             except:
                 pass
 
+    @api.multi
     def _compute_balance(self):
         for invoice in self:
 
@@ -144,14 +152,11 @@ class extraschool_invoice(models.Model):
             total = 0 if total < 0.0001 else total
             reconcil = 0 if len(invoice.payment_ids) == 0 else sum(reconcil_line.amount for reconcil_line in invoice.payment_ids)
             reconcil = 0 if reconcil < 0.0001 else reconcil
-            refound = 0 if len(invoice.refound_line_ids) == 0 else sum(refound_line.amount for refound_line in invoice.refound_line_ids)
-            refound = 0 if refound < 0.0001 else refound
-            balance = total - reconcil - refound
+            balance = total - reconcil - self.no_value_amount
             balance = 0 if balance < 0.0001 else balance
             balance = round(balance,5) # MiCo used this to resolve a balance problem (hannut 21/08/2017)
             invoice.write({'amount_total' : total,
                            'amount_received' : reconcil,
-                           'no_value' : refound,
                            'balance' : balance
                            })
 
@@ -176,7 +181,7 @@ class extraschool_invoice(models.Model):
         if not self.invoice_line_ids.filtered(lambda r: r.activity_occurrence_id.activity_category_id.id):
             return self.balance
         else:
-            return sum(invoiced_line.total_price for invoiced_line in self.invoice_line_ids.filtered(
+            return sum(invoiced_line.total_price - invoiced_line.no_value_amount for invoiced_line in self.invoice_line_ids.filtered(
                 lambda r: r.activity_occurrence_id.activity_category_id.id == activity_category_id))
 
     @api.multi
@@ -184,49 +189,50 @@ class extraschool_invoice(models.Model):
         payment_obj = self.env['extraschool.payment']
         payment_reconcil_obj = self.env['extraschool.payment_reconciliation']
         organizing_power = self.env['extraschool.organising_power'].search([])[0]
-        self._compute_balance()
         for invoice in self:
-            # todo: Check if the biller (invoices_date) <= today(). Do a cron to launch this method everyday.
-            # If there is a dominant payment
-            if (organizing_power.dominant_payment_activity_category_id):
-                payment_ids = payment_obj.search([('parent_id','=',invoice.parentid.id),
-                                    ('solde','>',0),
-                                    ]).sorted(key=lambda r: r.paymentdate)
-
-                count = 0
-                solde = invoice.balance
-
-                while count < len(payment_ids) and solde > 0:
-                    amount = solde if payment_ids[count].solde >= solde else payment_ids[count].solde
-                    payment_reconcil_obj.create({'payment_id': payment_ids[count].id,
-                                                 'invoice_id': invoice.id,
-                                                 'amount': amount,
-                                                 'date': fields.Date.today(),
-                                                 })
-                    solde -= amount
-                    count += 1
-            else:
-                for invoice_category in invoice.activitycategoryid:
-                    payments = payment_obj.search([('parent_id','=',invoice.parentid.id),
-                                            ('activity_category_id', '=', invoice_category.id),
-                                            ('solde','>',0),
-                                            ]).sorted(key=lambda r: r.paymentdate)
-
-                    zz = 0
-
-                    solde = invoice.get_balance(invoice_category.id)
-
-                    while zz < len(payments) and solde > 0:
-                        amount = solde if payments[zz].solde >= solde else payments[zz].solde
-                        payment_reconcil_obj.create({'payment_id': payments[zz].id,
-                                                 'invoice_id': invoice.id,
-                                                 'amount': amount,
-                                                 'date': fields.Date.today(),
-                                                 })
-                        solde -= amount
-                        zz += 1
-
             invoice._compute_balance()
+            if invoice.balance != 0.00:
+                # todo: Check if the biller (invoices_date) <= today(). Do a cron to launch this method everyday.
+                # If there is a dominant payment
+                if (organizing_power.dominant_payment_activity_category_id):
+                    payment_ids = payment_obj.search([('parent_id','=',invoice.parentid.id),
+                                                      ('solde','>',0),
+                                                      ]).sorted(key=lambda r: r.paymentdate)
+
+                    count = 0
+                    solde = invoice.balance - invoice.no_value_amount
+
+                    while count < len(payment_ids) and solde > 0:
+                        amount = solde if payment_ids[count].solde >= solde else payment_ids[count].solde
+                        payment_reconcil_obj.create({'payment_id': payment_ids[count].id,
+                                                     'invoice_id': invoice.id,
+                                                     'amount': amount,
+                                                     'date': fields.Date.today(),
+                                                     })
+                        solde -= amount
+                        count += 1
+                else:
+                    for invoice_category in invoice.activitycategoryid:
+                        payments = payment_obj.search([('parent_id','=',invoice.parentid.id),
+                                                       ('activity_category_id', '=', invoice_category.id),
+                                                       ('solde','>',0),
+                                                       ]).sorted(key=lambda r: r.paymentdate)
+
+                        zz = 0
+
+                        solde = invoice.get_balance(invoice_category.id)
+
+                        while zz < len(payments) and solde > 0:
+                            amount = solde if payments[zz].solde >= solde else payments[zz].solde
+                            payment_reconcil_obj.create({'payment_id': payments[zz].id,
+                                                         'invoice_id': invoice.id,
+                                                         'amount': amount,
+                                                         'date': fields.Date.today(),
+                                                         })
+                            solde -= amount
+                            zz += 1
+
+                invoice._compute_balance()
 
         return {
             'type': 'ir.actions.client',
@@ -234,24 +240,41 @@ class extraschool_invoice(models.Model):
         }
 
     @api.multi
+    def full_no_value(self):
+        # Put the totality of the invoice in no value.
+        try:
+            self.ensure_one()
+            for line in self.invoice_line_ids:
+                line.write({
+                    'no_value_amount': line.total_price,
+                })
+            # This needs to be last. Otherwise an error appear on the total amount.
+            self.write({
+                'no_value_amount': self.amount_total
+            })
+            self._compute_balance()
+        except:
+            raise Warning(_("An error occured, please contact an adminsitrator"))
+
+    @api.multi
     def cancel_and_invoice_after(self):
-        for invoice in self:
-            if invoice.balance == invoice.amount_total:
-                invoice.refound_line_ids.create({'invoiceid': self.id,
-                                                 'date': fields.Date.today(),
-                                                 'description': _('Invoice cancelled'),
-                                                 'amount': invoice.balance,})
-                for line in invoice.invoice_line_ids:
-                    line.prestation_ids.write({'invoiced_prestation_id': None})
+        self.ensure_one()
+        if self.balance == self.amount_total:
+            self.full_no_value()
+            for line in self.invoice_line_ids:
+                line.prestation_ids.write({
+                    'invoiced_prestation_id': None,
+                })
+        else:
+            raise Warning(_("You cannot cancel an invoice that recieved payments"))
 
     @api.multi
     def cancel(self):
-        for invoice in self:
-            if invoice.balance == invoice.amount_total:
-                invoice.refound_line_ids.create({'invoiceid': self.id,
-                                                 'date': fields.Date.today(),
-                                                 'description': _('Invoice cancelled'),
-                                                 'amount': invoice.balance, })
+        self.ensure_one()
+        if self.balance == self.amount_total:
+            self.full_no_value()
+        else:
+            raise Warning(_("You cannot cancel an invoice that recieved payments"))
 
     def get_concerned_short_name(self):
         res = []
@@ -591,10 +614,24 @@ class extraschool_invoice(models.Model):
             payment.unlink()
 
         self._compute_balance()
-        
+
         return {
             'type': 'ir.actions.client',
             'tag': 'reload',
+        }
+
+    @api.multi
+    def add_no_value(self):
+        return {
+            'name': "No value wizard",
+            'view_mode': 'form',
+            'view_type': 'form',
+            'res_model': 'extraschool.no_value_wizard',
+            'src_model': 'extraschool.invoice',
+            'type': 'ir.actions.act_window',
+            'target': 'new',
+            'domain': '[]',
+            'context': {}
         }
 
 
