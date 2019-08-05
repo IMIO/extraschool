@@ -1198,6 +1198,17 @@ msgid "Activity category id"
 msgstr "Catégorie d'activité"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_accrued_biller_id
+msgid "Biller id"
+msgstr "Facturier"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_accrued_ids
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_biller_accrued_ids
+msgid "Accrued ids"
+msgstr "Droit(s) constaté(s)"
+
+#. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_activity_child_ids
 msgid "Activity child"
 msgstr "Activités liées"
@@ -4290,6 +4301,11 @@ msgstr "Adresse e-mail factures"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_invoiceemailsubject
 msgid "Invoice email subject"
 msgstr "Sujet e-mail factures"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_accrued_form
+msgid "accrued"
+msgstr "Droit(s) constaté(s)"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_invoiceemailtext

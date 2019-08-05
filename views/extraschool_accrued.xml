@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<odoo>
+	<data>
+        <record model="ir.ui.view" id="extraschool_accrued_form">
+            <field name="name">extraschool.accrued.form</field>
+            <field name="model">extraschool.accrued</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            <form string="accrued">
+                <group col="4">
+                    <field name="activity_category_id"/>
+                    <newline/>
+                    <field name="amount"/>
+                    <newline/>
+                    <field name="ref"/>
+                </group>
+            </form>
+            </field>
+        </record>
+	</data>
+</odoo>
