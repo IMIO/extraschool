@@ -338,8 +338,8 @@ class extraschool_activity(models.Model):
             date_last_invoice = cr.fetchone()
             date_last_invoice = fields.Date.from_string(date_last_invoice[0]) + td(days=1)
             self.warning_visibility = True
-            if fields.Date.from_string(self.validity_from) < date_last_invoice:
-                self.validity_from = date_last_invoice
+            #if fields.Date.from_string(self.validity_from) < date_last_invoice:
+                #self.validity_from = date_last_invoice
 
         return self.validity_from
 
