@@ -307,9 +307,9 @@ class extraschool_activity(models.Model):
                 raise Warning(_("Planned Dates must be in the range of Validity_to and Validity_from (Planned)"))
 
         # Check Exclusion Dates
-        for exclusiondates_id in exclusiondates_ids:
-            if exclusiondates_id.date_from < validity_from or exclusiondates_id.date_to > validity_to:
-                raise Warning(_("Date_from must be in range of Validity_from and Validity_to (Exclusion)"))
+        #for exclusiondates_id in exclusiondates_ids:
+            #if exclusiondates_id.date_from < validity_from or exclusiondates_id.date_to > validity_to:
+                #raise Warning(_("Date_from must be in range of Validity_from and Validity_to (Exclusion)"))
 
     @api.onchange('validity_from','validity_to','planneddates_ids','exclusiondates_ids','parent_id','placeids','leveltype','prest_from','prest_to','days')
     @api.multi
@@ -332,8 +332,8 @@ class extraschool_activity(models.Model):
             date_last_invoice = cr.fetchone()
             date_last_invoice = fields.Date.from_string(date_last_invoice[0]) + td(days=1)
             self.warning_visibility = True
-            if fields.Date.from_string(self.validity_from) < date_last_invoice:
-                self.validity_from = date_last_invoice
+            #if fields.Date.from_string(self.validity_from) < date_last_invoice:
+                #self.validity_from = date_last_invoice
 
         return self.validity_from
 
