@@ -1,0 +1,192 @@
+<?xml version="1.0" ?>
+<odoo>
+	<data>
+
+        <template id="report_healthy_body_style">
+			<style type="text/css">
+			body {
+			  font-family:Calibri !important;
+			  src: url('/extraschool/static/font/calibri.ttf')  format('truetype');
+			  text-align: justify;
+			  text-justify: inter-word;
+              font-size:18px;
+              line-height: 2.5;
+              page-break-inside: avoid;
+			}
+			</style>
+		</template>
+
+        <template id="report_title_healthy_no_style">
+	    	<div style="text-align: center;">
+                <h2><b><u>Fiche santé de <span t-field="child.name"/></u></b></h2>
+			</div>
+		</template>
+
+		<template id="report_doctor_no_style">
+	    	<div>
+                <h3><u><b>Docteur</b></u></h3>
+				Nom : <span t-esc="doctor_name"/><br/>
+                Adresse : <t t-if="doctor_street"><span t-esc="doctor_street"/></t><br/>
+                          <t t-if="doctor_zipcode"><span style="margin-left:80px;" t-esc="doctor_zipcode"/></t> <t t-if="doctor_city"><span t-esc="doctor_city"/></t><br/>
+                <t t-if="doctor_contact">Téléphone : <span t-esc="doctor_contact"/></t><br/>
+                <t t-if="doctor_gsm">GSM : <span t-esc="doctor_gsm"/></t><br/>
+                <t t-if="doctor_comment">Commentaire : <span t-esc="doctor_comment"/></t>
+			</div>
+		</template>
+
+        <template id="report_tetanus_no_style">
+            <h3><u><b>Tétanos</b></u></h3>
+            Tétanos : <t t-if="tetanus == True">Oui <br/>
+                        <t t-if="first_date_tetanus">Première date : <span t-esc="first_date_tetanus"/></t><br/>
+                        <t t-if="last_date_tetanus">Dernière date : <span t-esc="last_date_tetanus"/></t><br/>
+                </t>
+            <t t-if="tetanus == False">Non</t>
+        </template>
+
+        <template id="report_allergy_no_style">
+            <h3><u><b>Allergies</b></u></h3>
+            Allergie : <t t-if="allergy == True">Oui <br/>
+            <b>Liste des allergies :</b>
+                <t t-foreach="list_allergy" t-as="allergy_listing">
+                    <tr>
+                        <td><span t-field="allergy_listing.name" /></td>,
+                    </tr>
+                </t>
+                </t>
+            <t t-if="allergy == False">Non</t>
+        </template>
+
+        <template id="report_handicap_no_style">
+            <h3><u><b>Handicap</b></u></h3>
+            L'enfant a t-il un handicap ? : <t t-if="handicap == True">Oui<br/>
+            <b>Explication :</b>
+               <span t-field="type_handicap" />
+        </t>
+            <t t-if="handicap == False">Non</t>
+        </template>
+
+        <template id="report_regime_no_style">
+            <h3><u><b>Régime alimentaire</b></u></h3>
+            L'enfant a t-il un régime alimentaire spécifique ? : <t t-if="specific_regime == True">Oui<br/>
+            <b>Explication :</b>
+               <span t-esc="specific_regime_texte" />
+        </t>
+            <t t-if="specific_regime == False">Non</t>
+        </template>
+
+        <template id="report_contact_no_style">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_health.css"/>
+            </xpath>
+            <div id="contact" >
+                <h3><u><b>Personne(s) de contact</b></u></h3>
+                <t t-if="contact">
+                <table>
+                    <tr>
+                        <th>Nom et prénom</th>
+                        <th>Lien de parenté</th>
+                        <th>Téléphone</th>
+                    </tr>
+                    <t t-foreach="contact" t-as="contact_personne">
+                        <tr>
+                            <tr>
+                                <td><span t-esc="contact_personne.contact_name"/></td>
+                                <td><span t-esc="contact_personne.contact_relation"/></td>
+                                <td><span t-esc="contact_personne.contact_tel"/></td>
+                            </tr>
+                        </tr>
+                    </t>
+
+                </table>
+                </t>
+            </div>
+        </template>
+
+        <template id="report_contact_interdiction_no_style">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_health.css"/>
+            </xpath>
+            <div id="contact" >
+                <h3><u><b>Personne(s) de contact interdite(s)</b></u></h3>
+                <t t-if="interdiction_contact">
+                <table>
+                    <tr>
+                        <th>Nom et prénom</th>
+                        <th>Lien de parenté</th>
+                        <th>Téléphone</th>
+                    </tr>
+                    <t t-foreach="interdiction_contact" t-as="contact_personne">
+                        <tr>
+                            <tr>
+                                <td><span t-esc="contact_personne.contact_name"/></td>
+                                <td><span t-esc="contact_personne.contact_relation"/></td>
+                                <td><span t-esc="contact_personne.contact_tel"/></td>
+                            </tr>
+                        </tr>
+                    </t>
+
+                </table>
+                </t>
+            </div>
+        </template>
+
+        <template id="report_activity_no_available_no_style">
+            <h3><u><b>Activité(s) non praticable(s)</b></u></h3>
+            L'enfant a t-il une ou des activité(s) non praticable(s) ? : <t t-if="activity_no_available == True">Oui<br/>
+            <b>Explication :</b>
+               <span t-field="activity_no_available_text" />
+        </t>
+            <t t-if="activity_no_available == False">Non</t>
+        </template>
+
+        <template id="report_swim_no_style">
+            <h3><u><b>Natation</b></u></h3>
+            L'enfant sait-il nager ? : <span t-field="swim" /><br/>
+            <t t-if="swim != 'non_renseigne'">
+                <span t-field="swim_level" />
+            </t>
+        </template>
+
+        <template id="report_disease_no_style">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_health.css"/>
+            </xpath>
+            <div id="disease" >
+                <h3><u><b>Maladie</b></u></h3>
+                <t t-if="diseases">
+                <table>
+                    <tr>
+                        <th>Maladie</th>
+                        <th>Traitement</th>
+                    </tr>
+                    <t t-foreach="diseases" t-as="diseases_id">
+                        <tr>
+                            <tr>
+                                <td><span t-esc="diseases_id.disease.name"/></td>
+                                <td><span t-esc="diseases_id.disease_text"/></td>
+                            </tr>
+                        </tr>
+                    </t>
+
+                </table>
+                </t>
+            </div>
+        </template>
+
+        <template id="report_intervention_no_style">
+            <h3><u><b>Intervention ou maladie grave</b></u></h3>
+            L'enfant a t-il subi une intervention ou une maladie grave ? : <t t-if="intervention == True">Oui<br/>
+            <b>Explication :</b>
+               <span t-field="intervention_text" />
+        </t>
+            <t t-if="intervention == False">Non</t>
+        </template>
+
+        <template id="report_diabete_no_style">
+            <h3><u><b>Diabète</b></u></h3>
+            L'enfant a t-il du diabète ? : <t t-if="diabetique == True">Oui</t>
+                                           <t t-if="diabetique == False">Non</t>
+        </template>
+
+	</data>
+</odoo>
