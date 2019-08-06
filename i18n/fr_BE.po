@@ -7759,6 +7759,11 @@ msgstr "il y a %d jours"
 msgid "%d hours ago"
 msgstr "il y a %d heures"
 
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_healthy_report_id
+msgid "Healthy report"
+msgstr "Rapport fiche santé"
+
 #. module: web
 #. openerp-web
 #: code:addons/web/static/src/js/framework/core.js:130

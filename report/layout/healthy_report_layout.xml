@@ -1,0 +1,117 @@
+<?xml version="1.0" ?>
+<odoo>
+	<data>
+		<template id="healthy_report_layout" inherit_id="report.layout" primary="True">
+            <xpath expr="//head" position="inside">
+	            <xpath expr="//head" position="inside">
+                    <link rel="stylesheet" href="/extraschool/static/src/css/report_healthy_report_layout.css"/>
+                </xpath>
+
+	            <link href="/web/static/lib/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+		        <link href="/website/static/src/css/website.css" rel="stylesheet"/>
+		        <link href="/web/static/lib/fontawesome/css/font-awesome.css" rel="stylesheet"/>
+            </xpath>
+        	<xpath expr="//head" position="inside">
+              <script src="/extraschool/static/src/js/pagination_hide.js"></script>
+            </xpath>
+            <xpath expr="//body" position="attributes">
+                <attribute t-translation="off" name="onload">subst(); pagination_hide();</attribute>
+            </xpath>
+
+            <xpath expr="//body" position="attributes">
+				<attribute name="t-att-class">container</attribute>
+		    </xpath>
+
+            <xpath expr="//html" position="attributes">
+		    	<attribute name="t-att-data-report-margin-top">docs[0].organising_power_id.healthy_report_id.paper_format_id.margin_top</attribute>
+		        <attribute name="t-att-data-report-margin-bottom">docs[0].organising_power_id.healthy_report_id.paper_format_id.margin_bottom</attribute>
+		        <attribute name="t-att-data-report-margin-right">docs[0].organising_power_id.healthy_report_id.paper_format_id.margin_right</attribute>
+		        <attribute name="t-att-data-report-margin-left">docs[0].organising_power_id.healthy_report_id.paper_format_id.margin_left</attribute>
+		    </xpath>
+
+            <xpath expr="//body" position="inside">
+                <!--This comes from the original qrcode generator. It will determine the number of pages
+                    needed to display all the QRCode and from there build a page with max 15 QRcode
+                    todo: make this number configurable-->
+
+                <!--For each page we need.-->
+                <t t-foreach="range(0,nbr_page)" t-as="zz">
+                    <!--We need the div here because what follow is 15 QRcode.-->
+                    <div class="page">
+                        <t t-foreach="range(15*zz,15*(zz+1))" t-as="i">
+                            <div class="qrcode">
+                                <t t-if="i &lt; len(docs)">
+                                    <!--Initialize variables here.-->
+                                    <t t-set="name" t-value="docs[i].name"/>
+                                    <t t-set="firstname" t-value="docs[i].firstname"/>
+                                    <t t-set="lastname" t-value="docs[i].lastname"/>
+                                    <t t-set="school" t-value="docs[i].schoolimplantation.name"/>
+                                    <t t-set="tagid" t-value="docs[i].action_gentagid()[0]"/>
+
+                                    <t t-foreach="docs[0].organising_power_id.qrcode_report_id.inline_report_ids.filtered(lambda r: r.verso == False)" t-as="tmpl">
+                                        <div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">
+                                            <t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
+                                        </div>
+                                        <t t-if="tmpl.visibility == False">
+                                            <t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
+                                        </t>
+                                    </t>
+                                </t>
+                            </div>
+                        </t>
+                    </div>
+                    <div class="page_logo page">
+                        <t t-foreach="range(15*zz,15*(zz+1))" t-as="i">
+                            <div class="qrcode_logo">
+                                <t t-if="i &lt; len(docs)">
+                                    <!--Initialize variables here.-->
+                                    <t t-set="img" t-value="docs[0].schoolimplantation.schoolid.logo"/>
+
+                                    <t t-foreach="docs[0].organising_power_id.qrcode_report_id.inline_report_ids.filtered(lambda r: r.verso == True)" t-as="tmpl">
+                                        <div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">
+                                            <t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
+                                        </div>
+                                        <t t-if="tmpl.visibility == False">
+                                            <t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
+                                        </t>
+                                    </t>
+                                </t>
+                            </div>
+                        </t>
+                    </div>
+                </t>
+			</xpath>
+		</template>
+	</data>
+	<data noupdate="1">
+		<record id="paperformat_aes_healthy" model="report.paperformat">
+    		<field name="name">fiche sante</field>
+    		<field name="default" eval="True"/>
+   			<field name="format">A4</field>
+    		<field name="orientation">Portrait</field>
+    		<field name="margin_top">40</field>
+    		<field name="margin_bottom">78</field>
+    		<field name="margin_left">15</field>
+    		<field name="margin_right">15</field>
+    		<field name="header_line" eval="False"/>
+    		<field name="header_spacing">35</field>
+    		<field name="dpi">90</field>
+		</record>
+	</data>
+	<data>
+		<report
+		    id="extraschool_healthy_std"
+		    model="extraschool.child"
+		    string="Fiche Sante"
+		    report_type="qweb-pdf"
+		    name="extraschool.healthy_report_layout"
+		    attachment_use="False"
+		/>
+
+		<record id="extraschool_healthy_std" model="ir.actions.report.xml">
+    		<field name="paperformat_id" ref="paperformat_aes_healthy"/>
+		</record>
+
+	</data>
+
+</odoo>
