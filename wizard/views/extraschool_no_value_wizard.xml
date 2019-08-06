@@ -7,12 +7,9 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="No Value Wizard">
-                    <div class="label label-warning">
-                        Lines with this color means that it is computed in the tax return.
-                    </div>
                     <group col="2">
-                        <field name="date_no_value"/>
-                        <field name="description" context="context.get('no_value_description')"/>
+                        <field name="date_no_value" invisible="True"/>
+                        <field name="description" context="context.get('no_value_description')" invisible="True"/>
                     </group>
                     <notebook>
                         <page string="Invoiced Prestation Lines">
