@@ -14,7 +14,6 @@
 					<span t-field="po_addresse.po_tel" />
 					<span t-raw="po_addresse.po_addresse_free_text" />
 				</div>
-
 				<div class="aes_adresse_block customer">
 					<span t-field="addresse.name" />
 					<span t-field="addresse.street" />
@@ -24,40 +23,9 @@
 		</template>
 
 		<template id="report_adresse_no_style_comment_plus_petit">
-		    <style type="text/css">
-		        .aes_adresse{
-		    		width: 100%;
-		    		display: block;
-					font-size:10px;
-		    	}
-
-		    	.aes_adresse::after {
-   				   clear: both;
-				    content: "";
-				    display: block;
-				}
-
-		    	.customer{
-		    		float: left;
-		    		width: 45%;
-		    	}
-
-		    	.po{
-		    		float: left;
-		    		width: 40%;
-		    	}
-
-		    	.customer{
-		    		float: right;
-		    		font-size:10px;
-		    	}
-
-				.aes_adresse_block > span{
-		    		display: block;
-		    		clear: both;
-		    	}
-
-			</style>
+		    <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_adresse_no_style_comment_plus_petit.css"/>
+            </xpath>
 	    	<div class="aes_adresse">
 				<div class="aes_adresse_block po" id="aes_po_adresse">
 					<span t-raw="po_addresse.po_addresse_free_text" />
@@ -97,39 +65,9 @@
 
 
 		<template id="report_adresse_no_style2">
-		    <style type="text/css">
-		        .aes_adresse{
-		    		width: 100%;
-		    		display: block;
-		    	}
-
-		    	.aes_adresse::after {
-   				   clear: both;
-				    content: "";
-				    display: block;
-				}
-
-		    	.customer{
-		    		float: left;
-		    		width: 45%;
-		    	}
-
-		    	.po{
-		    		float: left;
-		    		width: 40%;
-		    	}
-
-		    	.customer{
-		    		float: right;
-		    		font-size:12px;
-		    	}
-
-				.aes_adresse_block > span{
-		    		display: block;
-		    		clear: both;
-		    	}
-
-			</style>
+		    <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_adresse_no_style2.css"/>
+            </xpath>
 	    	<div class="aes_adresse">
 				<div id="aes_po_adresse" class="aes_adresse_block po">
 					<span t-field="po_addresse.po_name" />
@@ -139,62 +77,7 @@
 					<span t-field="po_addresse.po_tel" />
 					<span t-raw="po_addresse.po_addresse_free_text2" />
 				</div>
-
 				<div class="aes_adresse_block customer">
-					<span t-field="addresse.name" />
-					<span t-field="addresse.street" />
-					<span><t t-esc="addresse.zipcode" /> <t t-esc="addresse.city" /></span>
-				</div>
-			</div>
-		</template>
-
-		<template id="report_adresse_no_style_clavier">
-		    <style type="text/css">
-		        .aes_adresse{
-		    		width: 100%;
-		    		display: block;
-		    	}
-
-		    	.aes_adresse::after {
-   				   clear: both;
-				    content: "";
-				    display: block;
-				}
-
-		    	.customer{
-		    		float: left;
-		    		width: 45%;
-		    	}
-
-		    	.po{
-		    		float: left;
-		    		width: 40%;
-		    	}
-
-		    	.customer{
-		    		float: right;
-		    		font-size:12px;
-		    	}
-
-				.aes_adresse_block_1 > span{
-		    		display: block;
-		    		clear: both;
-					font-size:10px;
-		    	}
-
-				.aes_adresse_block_2 > span{
-		    		display: block;
-		    		clear: both;
-					font-size:14px;
-		    	}
-
-			</style>
-	    	<div class="aes_adresse">
-				<div class="aes_adresse_block_1 po" id="aes_po_adresse">
-					<span t-raw="po_addresse.po_addresse_free_text" />
-				</div>
-
-				<div class="aes_adresse_block_2 customer">
 					<span t-field="addresse.name" />
 					<span t-field="addresse.street" />
 					<span><t t-esc="addresse.zipcode" /> <t t-esc="addresse.city" /></span>

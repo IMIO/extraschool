@@ -1,40 +1,24 @@
 <?xml version="1.0" ?>
 <odoo>
-	<data> 
+	<data>
 		<template id="report_parent_credit">
-		    <style type="text/css">
-		    	.aes_html_parent_credit{
-		    		display: block;
-		    		clear: both;
-		    		padding: 0 0 0 0px;
-		    		margin 0 0 0 0;
-		    		font-size:12px;
-		    	}
-		    	
-		    	div.aes_html_parent_credit h4{
-		    		font-size:12px;
-		    	}
-		    	
-		    	.aes_credit_solde{
-		    		white-space:nowrap;
-		    		font-weight: bold;
-		    	}
-		    	
-			</style>			
+		    <xpath expr="//head" position="inside">
+                    <link rel="stylesheet" href="/extraschool/static/src/css/report_parent_credit.css"/>
+                </xpath>
 	    	<div id="aes_html_parent_credit" class="aes_html_parent_credit">
 				<h4>Pour rappel,</h4>
-	    		<p>Après comptabilisation de cette facture, votre compte famille présente   
+	    		<p>Après comptabilisation de cette facture, votre compte famille présente
 	    			<t t-if="parent_id.totalbalance > 0.001">
-	    				<span class="aes_credit_solde">un solde de -<t t-esc="'%.2f' %  (parent_id.totalbalance)" />€</span>	    				
-	    			</t> 
+	    				<span class="aes_credit_solde">un solde de -<t t-esc="'%.2f' %  (parent_id.totalbalance)" />€</span>
+	    			</t>
 	    			<t t-if="parent_id.totalbalance &lt; 0.001">
-	    				<span class="aes_credit_solde">un solde de <t t-esc="'%.2f' %  (parent_id.payment_status_ids[0].solde)" />€</span>	    				
-	    			</t> 	    				    				    			
-	    		</p> 							
-	    					
+	    				<span class="aes_credit_solde">un solde de <t t-esc="'%.2f' %  (parent_id.payment_status_ids[0].solde)" />€</span>
+	    			</t>
+	    		</p>
+
 			</div>
 		</template>
 
 	</data>
 </odoo>
-	
+

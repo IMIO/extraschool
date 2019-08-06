@@ -32,6 +32,7 @@
 				</div>
 			</div>
 		</template>
+
 		<template id="report_amount_no_style_sans_payment_term">
             <xpath expr="//head" position="inside">
                 <link rel="stylesheet" href="/extraschool/static/src/css/report_amount_no_style_sans_payment_term.css"/>
@@ -59,24 +60,6 @@
 				</div>
 			</div>
 		</template>
-        <template id="report_amount_no_style_lierneux">
-            <xpath expr="//head" position="inside">
-                <link rel="stylesheet" href="/extraschool/static/src/css/report_amount_no_style_lierneux.css"/>
-            </xpath>
-			<div id="total_row">
-				<div id="total">
-					<div class="amount">
-					  	<span class="zz_label">Total</span><span class="amount"><t t-esc="'%.2f' % (sum([invoice.balance for invoice in summary_invoice_ids]) + (total))" /> €</span>
-					</div>
-					<div class="amount">
-					   	<span class="zz_label">Reçu</span><span class="amount"><t t-esc="'%.2f' %  (received)" /> €</span>
-					</div>
-					<div class="amount to_pay">
-					 	<span> A payer avant le <t t-esc="payment_term" /></span>
-					</div>
 
-				</div>
-			</div>
-		</template>
 	</data>
 </odoo>

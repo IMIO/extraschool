@@ -69,5 +69,21 @@
             </div>
 		</template>
 
+        <template id="report_adresse_no_style_clavier">
+		    <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_adresse_no_style_clavier.css"/>
+            </xpath>
+	    	<div class="aes_adresse">
+				<div class="aes_adresse_block_1 po" id="aes_po_adresse">
+					<span t-raw="po_addresse.po_addresse_free_text" />
+				</div>
+				<div class="aes_adresse_block_2 customer">
+					<span t-field="addresse.name" />
+					<span t-field="addresse.street" />
+					<span><t t-esc="addresse.zipcode" /> <t t-esc="addresse.city" /></span>
+				</div>
+			</div>
+		</template>
+
     </data>
 </odoo>
