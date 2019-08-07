@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from openerp import models, api, fields, _
 from openerp.api import Environment
 from openerp.exceptions import Warning
 from openerp.exceptions import except_orm, Warning, RedirectWarning
@@ -34,6 +34,14 @@ class extraschool_mainsettings(models.Model):
     _name = 'extraschool.mainsettings'
     _description = 'Main Settings'
 
+    def _get_level_ready_status(self):
+        biller_id = self.env['extraschool.biller'].search([], order='id DESC', limit=1)
+        current_year = datetime.now().year
+        if biller_id.period_from == "{}-05-01".format(current_year) and biller_id.period__to == "{}-05-30".format(
+            current_year):
+            return True
+        return False
+
     lastqrcodenbr = fields.Integer('lastqrcodenbr')
     qrencode = fields.Char('qrencode', size=80)
     tempfolder = fields.Char('tempfolder', size=80)
@@ -44,6 +52,7 @@ class extraschool_mainsettings(models.Model):
     logo = fields.Binary()
     levelbeforedisable = fields.Many2one('extraschool.level', 'Level')
     last_child_upgrade_levels = fields.Date('Last child upgrade level', readonly=True)
+    date_child_upgrade = fields.Date()
     query_sql = fields.Text('Query Sql')
     sql_query_ids = fields.Many2one('extraschool.query_sql', 'Query SQL')
     parent_id = fields.Many2one('extraschool.parent', 'Parent')
@@ -68,6 +77,8 @@ class extraschool_mainsettings(models.Model):
     reminder_journal_id = fields.Many2one(
         'extraschool.remindersjournal'
     )
+    date_revert_upgrade = fields.Date('Revert Upgrade Children Date', readonly=True)
+    upgrade_level_ready = fields.Boolean(default=_get_level_ready_status)
 
     @api.multi
     def update_comm_struct(self):
@@ -166,52 +177,160 @@ class extraschool_mainsettings(models.Model):
     def _get_query_sql(self):
         self.query_sql = self.env['extraschool.query_sql'].browse(self.sql_query_ids.id).query
 
-    @api.one
+
+    # region Children Upgrade Level
+    @api.multi
     def childupgradelevels(self):
-        cr, uid = self.env.cr, self.env.user.id
-        obj_child = self.pool.get('extraschool.child')
-        obj_class = self.pool.get('extraschool.class')
+        """
+        This upgrade children to the next level.
+        - If we set a date, we only change levels for children created before the date.
+        - It's not possible to do this if there are no biller in June.
+        - We also need to clean the old_level_id from last year.
+        - First we make sure the table level has the correct ordernumber (0,1,2...)
+        that correspond to the right level (1ere maternelle, 2eme maternelle, ...).
+        - Then we save the current level of each child in case we need a revert.
+        - Finally we change the level of each children. If the child is in the last level, we disable it
+        :return: True if ok False if not (or a raise)
+        """
+        # Check the level correctness.
+        if self._is_level_table_correct():
+            # Clean old_level_id
+            self.clean_old_level_id()
 
-        obj_level = self.pool.get('extraschool.level')
-        obj_child = self.pool.get('extraschool.child')
-        levelbeforedisable = obj_level.read(cr, uid, [self.levelbeforedisable.id], ['ordernumber'])[0]['ordernumber']
-        cr.execute('select * from extraschool_child where create_date < %s', (str(datetime.now().year)+'-08-20',))
+            domain = [('isdisabled', '=', False)]
+            last_level = self.env['extraschool.level'].search([],order='ordernumber DESC', limit=1)
+            # Change domain if there is a date.
+            if self.date_child_upgrade:
+                domain.append(('create_date', '<=', self.date_child_upgrade))
 
-        childs = cr.dictfetchall()
-        cr.execute('select * from extraschool_level')
-        levels = cr.dictfetchall()
-        for child in childs:
-            # if child['id'] == 403:
-            #     import pdb;pdb.set_trace()
-            cr.execute('select * from extraschool_class where id in (select class_id from extraschool_class_level_rel where level_id=%s) order by name',(str(child['levelid']),))
-            childClasses = cr.dictfetchall()
-            currentClassPosition = 0
-            i=1
-            for childClass in childClasses:
-                if child['classid'] == childClass['id']:
-                    currentClassPosition=i
-                i=i+1
-            childlevel = obj_level.read(cr, uid, [child['levelid']], ['ordernumber'])[0]
-            newlevelid=0
-            if childlevel['ordernumber'] < levelbeforedisable:
-                for level in levels:
-                    if newlevelid==0 and level['ordernumber'] > childlevel['ordernumber']:
-                        newlevelid=level['id']
-                cr.execute('select * from extraschool_class where id in (select class_id from extraschool_class_level_rel where level_id=%s) order by name',(str(newlevelid),))
-                childClasses = cr.dictfetchall()
-                newclassid=0
-                if currentClassPosition > 0 and len(childClasses) != 0:
-                    if len(childClasses) >= currentClassPosition:
-                        newclassid = childClasses[currentClassPosition-1]['id']
-                    else:
-                        newclassid = childClasses[0]['id']
-                    obj_child.write(cr, uid, [child['id']], {'classid': newclassid,'levelid':newlevelid})
+            child_ids = self.env['extraschool.child'].search(domain)
+
+            # Save current status for revert
+            _logger.info("Re-creating old level id")
+            for child_id in child_ids:
+                child_id.write({
+                    'old_level_id': child_id.levelid.id,
+                })
+
+            # Upgrade child level.
+            # If last level put in disable
+            # Else upgrade level
+            _logger.info("Updating children level")
+            for child_id in child_ids:
+                if child_id.levelid.id == last_level.id:
+                    child_id.write({
+                        'isdisabled': True,
+                    })
                 else:
-                    obj_child.write(cr, uid, [child['id']], {'levelid':newlevelid})
-            else:
-                obj_child.write(cr, uid, [child['id']], {'isdisabled': True})
+                    child_id.write({
+                        'levelid': child_id.levelid.id + 1,
+                        'classid': self.env['extraschool.class'].search(
+                            [('schoolimplantation', '=', child_id.classid.id),
+                             ('levelids', '=', child_id.levelid.id + 1)]).id,
+                    })
 
-        self.last_child_upgrade_levels = datetime.now()
+            _logger.info("Checking if upgrade was successfull")
+            if not self._check_upgrade():
+                _logger.error("The upgrade is not correct.")
+                raise Warning(_("We checked the upgrade and it is not correct."))
+
+            self.last_child_upgrade_levels = datetime.now()
+        else:
+            _logger.error("The table of levels is not correctly formated")
+            raise Warning(_("The table of levels is not correctly formated. You need to correct that"))
+
+    @api.multi
+    def clean_old_level_id(self):
+        """
+        Select all children with an old level id and remove it.
+        :return:
+        """
+        _logger.info("Cleaning old level id")
+        try:
+            for child in self.env['extraschool.child'].search([('old_level_id', '!=', None)]):
+                child.write({
+                    'old_level_id': None,
+                })
+        except:
+            _logger.error("There has been an error on the cleaning of old level id")
+            raise Warning(_("There has been an error on the cleaning of old level id"))
+
+    @api.multi
+    def _check_upgrade(self):
+        """
+        First check all upgraded children not disabled that they have been put on a +1 level
+        Second check for all disabled children with an old level that they have an old_level_id
+        :return: True when everything is ok, else False
+        """
+        child_ids = self.env['extraschool.child'].search([('old_level_id', '!=', None)])
+
+        for child_id in child_ids.filtered(lambda r: r.isdisabled is False):
+            if child_id.levelid.id - child_id.old_level_id.id != 1:
+                return False
+        last_level = last_level = self.env['extraschool.level'].search([],order='ordernumber DESC', limit=1)
+        for child_id in child_ids.filtered(lambda r: r.old_level_id.id == last_level.id):
+            if not child_id.isdisabled:
+                return False
+
+        return True
+
+    @api.multi
+    def _is_level_table_correct(self):
+        """
+        Check if the level table will correspond with our upgrade code.
+        :return: True when it's ok, else False
+        """
+        level_obj = self.env['extraschool.level']
+        mapped_level = self._get_mapped_level()
+
+        for order in range(10):
+            if level_obj.search([('ordernumber', '=', order)]).name != mapped_level[order]:
+                return False
+
+        return True
+
+    @api.multi
+    def _get_mapped_level(self):
+        return [
+            u'accueil',
+            u'1ere maternelle',
+            u'2eme maternelle',
+            u'3eme maternelle',
+            u'1ere primaire',
+            u'2eme primaire',
+            u'3eme primaire',
+            u'4eme primaire',
+            u'5eme primaire',
+            u'6eme primaire',
+        ]
+
+    @api.multi
+    def revert_upgrade(self):
+        _logger.info("Reverting Upgrade Children")
+        child_ids = self.env['extraschool.child'].search([('old_level_id', '!=', None)])
+
+        if not child_ids:
+            _logger.error("There are no children to revert")
+            raise Warning(_("There are no children to revert"))
+        else:
+            last_level = self.env['extraschool.level'].search([], order='ordernumber DESC', limit=1)
+            for child_id in child_ids:
+                if child_id.old_level_id.id == last_level.id:
+                    child_id.write({
+                        'isdisabled': False,
+                    })
+                else:
+                    child_id.write({
+                        'levelid': child_id.old_level_id.id,
+                        'classid': self.env['extraschool.class'].search(
+                            [('schoolimplantation', '=', child_id.classid.id),
+                             ('levelids', '=', child_id.levelid.id - 1)]).id,
+                    })
+
+            self.clean_old_level_id()
+
+            self.date_revert_upgrade = datetime.now()
+    # endregion
 
     @api.one
     def update_presta_stat(self):

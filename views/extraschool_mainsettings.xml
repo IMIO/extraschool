@@ -10,18 +10,6 @@
 				<form string="Main Settings">
                     <sheet>
                         <notebook>
-                                    <!--<field name="lastqrcodenbr"/>-->
-                                    <!--<newline/>-->
-                                    <!--<field name="qrencode"/>-->
-                                    <!--<newline/>-->
-                                    <!--<field name="tempfolder"/>-->
-                                    <!--<newline/>-->
-                                    <!--<field name="templatesfolder"/>-->
-                                    <!--<newline/>-->
-                                    <!--<field name="emailfornotifications"/>-->
-                                    <!--<newline/>-->
-                                    <!--<field name="logo" widget="image" class="oe_avatar oe_left" />-->
-                                    <!--<newline/>-->
                                 <page string="Update Prestation Statistic">
                                     <button name="update_presta_stat" string="Update presta stat" icon="gtk-apply" type="object"/>
                                 </page>
@@ -37,11 +25,25 @@
                                     <button name="reset_check" string="Reset AND Check" icon="gtk-apply" type="object"/>
                                 </page>
                                 <page string="Upgrade Child Levels">
-                                    <group col="2">
-                                        <field name="levelbeforedisable" style="width:50%"/>
-                                        <button name="childupgradelevels" string="Update level" icon="gtk-apply" type="object"/>
-                                        <newline/>
-                                        <field name="last_child_upgrade_levels"/>
+                                    <group col="4">
+                                        <group string="Upgrade Children" col="2">
+                                            <field name="upgrade_level_ready" invisible="True"/>
+                                            <field name="levelbeforedisable"/>
+                                            <field name="date_child_upgrade"/>
+                                            <field name="last_child_upgrade_levels"/>
+                                            <newline/>
+                                            <button
+                                                name="childupgradelevels"
+                                                string="Update level"
+                                                icon="gtk-apply"
+                                                type="object"
+                                                attrs="{'invisible':[('upgrade_level_ready', '=', False)]}"
+                                            />
+                                        </group>
+                                        <group string="Revert Upgrade" col="2">
+                                            <field name="date_revert_upgrade"/>
+                                            <button name="revert_upgrade" string="Revert Update level" icon="gtk-apply" type="object"/>
+                                        </group>
                                     </group>
                                 </page>
                                 <page string="from presta of the day">
@@ -52,11 +54,6 @@
                                     <button name="del_pod_doublon" string="del pod doublon" icon="gtk-apply" type="object" />
                                     <button name="reset_verified_pod_with_non_verified_presta" string="bug pod verified" icon="gtk-apply" type="object" />
                                 </page>
-                                <!--<page string="Requete SQL">
-                                    <field name="sql_query_ids"/>
-                                    <field name="query_sql"/>
-                                    <button name="execute_sql" string="Execute sql" icon="gtk-apply" type="object"/>
-                                </page>-->
                                 <page string="Generate CODA file">
                                     <group col="2">
                                         <field name="parent_id"/>
