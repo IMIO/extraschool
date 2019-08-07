@@ -37,7 +37,7 @@ class extraschool_mainsettings(models.Model):
     def _get_level_ready_status(self):
         biller_id = self.env['extraschool.biller'].search([], order='id DESC', limit=1)
         current_year = datetime.now().year
-        if biller_id.period_from == "{}-05-01".format(current_year) and biller_id.period__to == "{}-05-30".format(
+        if biller_id.period_from == "{}-06-01".format(current_year) and biller_id.period__to == "{}-06-30".format(
             current_year):
             return True
         return False
