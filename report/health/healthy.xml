@@ -18,14 +18,14 @@
 
         <template id="report_title_healthy_no_style">
 	    	<div style="text-align: center;">
-                <h2><b><u>Fiche santé de <span t-field="child.name"/></u></b></h2>
+                <h2><b><u>Fiche santé de <span t-esc="child.name"/></u></b></h2>
 			</div>
 		</template>
 
 		<template id="report_doctor_no_style">
 	    	<div>
                 <h3><u><b>Docteur</b></u></h3>
-				Nom : <span t-esc="doctor_name"/><br/>
+                Nom : <t t-if="doctor_name"><span t-esc="doctor_name"/></t><br/>
                 Adresse : <t t-if="doctor_street"><span t-esc="doctor_street"/></t><br/>
                           <t t-if="doctor_zipcode"><span style="margin-left:80px;" t-esc="doctor_zipcode"/></t> <t t-if="doctor_city"><span t-esc="doctor_city"/></t><br/>
                 <t t-if="doctor_contact">Téléphone : <span t-esc="doctor_contact"/></t><br/>
@@ -49,7 +49,7 @@
             <b>Liste des allergies :</b>
                 <t t-foreach="list_allergy" t-as="allergy_listing">
                     <tr>
-                        <td><span t-field="allergy_listing.name" /></td>,
+                        <td><span t-esc="allergy_listing.name" /></td>,
                     </tr>
                 </t>
                 </t>
@@ -60,7 +60,7 @@
             <h3><u><b>Handicap</b></u></h3>
             L'enfant a t-il un handicap ? : <t t-if="handicap == True">Oui<br/>
             <b>Explication :</b>
-               <span t-field="type_handicap" />
+               <span t-esc="type_handicap" />
         </t>
             <t t-if="handicap == False">Non</t>
         </template>
@@ -134,16 +134,25 @@
             <h3><u><b>Activité(s) non praticable(s)</b></u></h3>
             L'enfant a t-il une ou des activité(s) non praticable(s) ? : <t t-if="activity_no_available == True">Oui<br/>
             <b>Explication :</b>
-               <span t-field="activity_no_available_text" />
+               <span t-esc="activity_no_available_text" />
         </t>
             <t t-if="activity_no_available == False">Non</t>
         </template>
 
         <template id="report_swim_no_style">
             <h3><u><b>Natation</b></u></h3>
-            L'enfant sait-il nager ? : <span t-field="swim" /><br/>
+            L'enfant sait-il nager ? :
+            <t t-if="swim == 'oui'">Oui</t>
+            <t t-if="swim == 'non'">Non</t>
+            <t t-if="swim == 'non_renseigne'">Non renseigné</t><br/>
             <t t-if="swim != 'non_renseigne'">
-                <span t-field="swim_level" />
+                Niveau :
+                <t t-if="swim_level == 'tres_bien'">Très bien</t>
+                <t t-if="swim_level == 'bien'">Bien</t>
+                <t t-if="swim_level == 'moyen'">Moyen</t>
+                <t t-if="swim_level == 'difficilement'">Difficilement</t>
+                <t t-if="swim_level == 'pas_du_tout'">Pas du tout</t>
+                <t t-if="swim_level == 'non_renseigne'">Non renseigné</t>
             </t>
         </template>
 
@@ -177,7 +186,7 @@
             <h3><u><b>Intervention ou maladie grave</b></u></h3>
             L'enfant a t-il subi une intervention ou une maladie grave ? : <t t-if="intervention == True">Oui<br/>
             <b>Explication :</b>
-               <span t-field="intervention_text" />
+               <span t-esc="intervention_text" />
         </t>
             <t t-if="intervention == False">Non</t>
         </template>

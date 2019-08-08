@@ -21,6 +21,27 @@
     width: 20%;
 }
 
+#disease table {
+    width: 100%;
+    font-size:11px;
+    border-width: 1px;
+    border-collapse: collapse;
+}
+#disease table th {
+    border-width: 1px;
+    padding: 4px;
+    border-style: solid;
+    background-color: #dedede;
+}
+#disease table td {
+    border-width: 1px;
+    padding: 4px;
+    border-style: solid;
+}
 
+#disease table td.amount {
+    text-align: right;
+    width: 20%;
+}
 
 
