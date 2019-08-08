@@ -65,11 +65,11 @@
 		    	<div class="aes_html_parent_credit">
 					<h4>Pour rappel,</h4>
 		    		<p>Votre compte famille présente
-		    			<t t-if="parent_id.totalbalance > 0.001">
-		    				<span class="aes_credit_solde">un solde à payer de <t t-esc="'%.2f' %  (parent_id.totalbalance)" />€</span>
-                            <t t-esc="'%.2f' % (sum([invoice.balance if categoryids]) + (total))" />
+		    			<t t-if="total_balance_per_activity_category > 0.001">
+		    				<span class="aes_credit_solde">un solde à payer de <t t-esc="'%.2f' %  (total_balance_per_activity_category)" />€</span>
+                            <t t-esc="'%.2f' % ()" />
 		    			</t>
-		    			<t t-if="parent_id.totalbalance &lt; 0.001">
+		    			<t t-if="total_balance_per_activity_category &lt; 0.001">
 		    				<span class="aes_credit_solde">une avance de <t t-esc="'%.2f' %  (parent_id.payment_status_ids[0].solde)" />€</span>
 		    			</t>
 		    		</p>
