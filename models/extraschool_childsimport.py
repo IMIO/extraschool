@@ -132,8 +132,8 @@ class extraschool_childsimport(models.Model):
 
             error=False
             if importfilter['childrncolumn'] <> 0:
-                if genstreetcode(worksheet.cell_value(startrow, importfilter['childrncolumn'] - 1)) == genstreetcode(importfilter['childrncolumnname']):
-                    childrn= strcell(worksheet.cell_type(curr_row, importfilter['childrncolumn'] - 1), worksheet.cell_value(curr_row, importfilter['childrncolumn'] - 1))
+                if lbutils.genstreetcode(worksheet.cell_value(startrow, importfilter['childrncolumn'] - 1)) == genstreetcode(importfilter['childrncolumnname']):
+                    childrn= lbutils.strcell(worksheet.cell_type(curr_row, importfilter['childrncolumn'] - 1), worksheet.cell_value(curr_row, importfilter['childrncolumn'] - 1))
                 else:
                     raise Warning('Error columns does not match childRN')
             if importfilter['childlastnamecolumn'] <> 0:

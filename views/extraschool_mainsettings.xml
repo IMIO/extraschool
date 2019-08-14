@@ -9,6 +9,9 @@
 			<field name="arch" type="xml">
 				<form string="Main Settings">
                     <sheet>
+                        <div class="alert alert-warning" attrs="{'invisible':[('upgrade_level_ready', '=', False)]}">
+                            Il n'y a pas de facturier en Juin :(
+                        </div>
                         <notebook>
                                 <page string="Update Prestation Statistic">
                                     <button name="update_presta_stat" string="Update presta stat" icon="gtk-apply" type="object"/>
@@ -37,7 +40,6 @@
                                                 string="Update level"
                                                 icon="gtk-apply"
                                                 type="object"
-                                                attrs="{'invisible':[('upgrade_level_ready', '=', False)]}"
                                             />
                                         </group>
                                         <group string="Revert Upgrade" col="2">

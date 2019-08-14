@@ -21,8 +21,16 @@
 #
 ##############################################################################
 
+from openerp.addons.extraschool.tests.test_data import TestData
+import logging
+_logger = logging.getLogger(__name__)
 
-from . import test_data
-from . import test_prestation_check
-from . import test_upgrade_children
-# from . import test_qinvoice
+class UpgradeChildrenCheckTest(TestData):
+
+    def test_upgrade(self):
+
+        child_1 = self.env['extraschool.child'].search([('lastname', '=', 'Jackson'), ('firstname', '=', 'Michael')])
+        child_2 = self.env['extraschool.child'].search([('lastname', '=', 'Mercury'), ('firstname', '=', 'Freddy')])
+
+        self.assertEqual(child_1.levelid.id, 2)
+        self.assertEqual(child_2.levelid.id, 4)

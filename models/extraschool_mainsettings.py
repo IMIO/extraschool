@@ -225,7 +225,7 @@ class extraschool_mainsettings(models.Model):
                     child_id.write({
                         'levelid': child_id.levelid.id + 1,
                         'classid': self.env['extraschool.class'].search(
-                            [('schoolimplantation', '=', child_id.classid.id),
+                            [('schoolimplantation', '=', child_id.schoolimplantation.id),
                              ('levelids', '=', child_id.levelid.id + 1)]).id,
                     })
 
