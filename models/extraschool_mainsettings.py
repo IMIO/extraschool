@@ -192,52 +192,53 @@ class extraschool_mainsettings(models.Model):
         - Finally we change the level of each children. If the child is in the last level, we disable it
         :return: True if ok False if not (or a raise)
         """
-        # Check the level correctness.
-        if self._is_level_table_correct():
-            # Clean old_level_id
-            self.clean_old_level_id()
+        for rec in self:
+            # Check the level correctness.
+            if rec._is_level_table_correct():
+                # Clean old_level_id
+                rec.clean_old_level_id()
 
-            domain = [('isdisabled', '=', False)]
-            last_level = self.env['extraschool.level'].search([],order='ordernumber DESC', limit=1)
-            # Change domain if there is a date.
-            if self.date_child_upgrade:
-                domain.append(('create_date', '<=', self.date_child_upgrade))
+                domain = [('isdisabled', '=', False)]
+                last_level = rec.env['extraschool.level'].search([],order='ordernumber DESC', limit=1)
+                # Change domain if there is a date.
+                if rec.date_child_upgrade:
+                    domain.append(('create_date', '<=', rec.date_child_upgrade))
 
-            child_ids = self.env['extraschool.child'].search(domain)
+                child_ids = rec.env['extraschool.child'].search(domain)
 
-            # Save current status for revert
-            _logger.info("Re-creating old level id")
-            for child_id in child_ids:
-                child_id.write({
-                    'old_level_id': child_id.levelid.id,
-                })
-
-            # Upgrade child level.
-            # If last level put in disable
-            # Else upgrade level
-            _logger.info("Updating children level")
-            for child_id in child_ids:
-                if child_id.levelid.id == last_level.id:
+                # Save current status for revert
+                _logger.info("Re-creating old level id")
+                for child_id in child_ids:
                     child_id.write({
-                        'isdisabled': True,
-                    })
-                else:
-                    child_id.write({
-                        'levelid': child_id.levelid.id + 1,
-                        'classid': self.env['extraschool.class'].search(
-                            [('schoolimplantation', '=', child_id.schoolimplantation.id),
-                             ('levelids', '=', child_id.levelid.id + 1)]).id,
+                        'old_level_id': child_id.levelid.id,
                     })
 
-            _logger.info("Checking if upgrade was successfull")
-            if not self._check_upgrade():
-                _logger.error("The upgrade is not correct.")
-                raise Warning(_("We checked the upgrade and it is not correct."))
+                # Upgrade child level.
+                # If last level put in disable
+                # Else upgrade level
+                _logger.info("Updating children level")
+                for child_id in child_ids:
+                    if child_id.levelid.id == last_level.id:
+                        child_id.write({
+                            'isdisabled': True,
+                        })
+                    else:
+                        child_id.write({
+                            'levelid': child_id.levelid.id + 1,
+                            'classid': rec.env['extraschool.class'].search(
+                                [('schoolimplantation', '=', child_id.schoolimplantation.id),
+                                 ('levelids', '=', child_id.levelid.id + 1)]).id,
+                        })
 
-            self.last_child_upgrade_levels = datetime.now()
-        else:
-            _logger.error("The table of levels is not correctly formated")
-            raise Warning(_("The table of levels is not correctly formated. You need to correct that"))
+                _logger.info("Checking if upgrade was successfull")
+                if not rec._check_upgrade():
+                    _logger.error("The upgrade is not correct.")
+                    raise Warning(_("We checked the upgrade and it is not correct."))
+
+                rec.last_child_upgrade_levels = datetime.now()
+            else:
+                _logger.error("The table of levels is not correctly formated")
+                raise Warning(_("The table of levels is not correctly formated. You need to correct that"))
 
     @api.multi
     def clean_old_level_id(self):
