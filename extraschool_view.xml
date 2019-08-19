@@ -72,7 +72,8 @@
         <menuitem name="Activity categories" parent="extraschool_menu_configuration" id="extraschool_menu_activitycategory" action="action_extraschool_activitycategory"/>
         <menuitem name="Child Type" parent="extraschool_menu_configuration" id="extraschool_menu_childtype" action="action_extraschool_childtype"/>
 		<menuitem name="Smartphones" parent="extraschool_menu_configuration" id="extraschool_menu_smartphone" action="action_extraschool_smartphone"/>
-		<menuitem name="Pre-configuration Smartphones" parent="extraschool_menu_configuration" id="extraschool_menu_config_smartphone" action="action_extraschool_config_smartphone" groups="extraschool.extraschool_gods"/>
+		<menuitem name="Class" parent="extraschool_menu_configuration" id="extraschool_menu_class" action="action_extraschool_class" groups="extraschool.extraschool_gods"/>
+        <menuitem name="Pre-configuration Smartphones" parent="extraschool_menu_configuration" id="extraschool_menu_config_smartphone" action="action_extraschool_config_smartphone" groups="extraschool.extraschool_gods"/>
 		<!--<menuitem name="PDA presta" parent="extraschool_menu_configuration" id="extraschool_menu_pda_presta" action="action_pda_extraschool_prest"/>-->
 		<!--<menuitem name="Init or update" parent="extraschool_menu_configuration" id="extraschool_menu_initupdate_wizard" action="action_lbsc_initupdate_wizard"/>-->
         <menuitem name="Import childs" parent="extraschool_menu_configuration" id="extraschool_menu_childsimport" action="action_extraschool_childsimport"/>
