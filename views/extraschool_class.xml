@@ -29,6 +29,13 @@
             </group>
             </form>
             </field> 
-        </record>        
+        </record>
+
+        <record model="ir.actions.act_window" id="action_extraschool_class">
+			<field name="name">Class</field>
+			<field name="res_model">extraschool.class</field>
+			<field name="view_type">form</field>
+			<field name="auto_refresh">10</field>
+		</record>
 	</data>
 </openerp>
