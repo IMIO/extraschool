@@ -115,6 +115,16 @@ class TestData(TransactionCase):
             'levelids': [5],
             'schoolimplantation': school_implantation_1.id,
         })
+        class_3_school_1 = self.class_model.create({
+            'name': 'M2',
+            'levelids': [3],
+            'schoolimplantation': school_implantation_1.id,
+        })
+        class_6_school_1 = self.class_model.create({
+            'name': 'P2',
+            'levelids': [6],
+            'schoolimplantation': school_implantation_1.id,
+        })
 
         # Creation of parents.
         parent_1 = self.parent_model.create({

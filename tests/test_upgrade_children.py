@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp.addons.extraschool.tests.test_data import TestData
+from openerp.addons.extraschool.tests.test_prestation_check import TestData
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -29,8 +29,43 @@ class UpgradeChildrenCheckTest(TestData):
 
     def test_upgrade(self):
 
-        child_1 = self.env['extraschool.child'].search([('lastname', '=', 'Jackson'), ('firstname', '=', 'Michael')])
-        child_2 = self.env['extraschool.child'].search([('lastname', '=', 'Mercury'), ('firstname', '=', 'Freddy')])
+        child_1 = self.env['extraschool.child'].search([
+            ('lastname', '=', 'Jackson'),
+            ('firstname', '=', 'Michael')]
+        )[0]
+        child_2 = self.env['extraschool.child'].search([
+            ('lastname', '=', 'Mercury'),
+            ('firstname', '=', 'Freddy')]
+        )[0]
+
+        class_id_m1 = self.env['extraschool.class'].search([
+            ('name', '=', 'M1'),
+            ('schoolimplantation', '=', child_1.schoolimplantation.id),
+        ])
+
+        class_id_p1 = self.env['extraschool.class'].search([
+            ('name', '=', 'P1'),
+            ('schoolimplantation', '=', child_1.schoolimplantation.id),
+        ])
+
+        class_id_m2 = self.env['extraschool.class'].search([
+            ('name', '=', 'M2'),
+            ('schoolimplantation', '=', child_1.schoolimplantation.id),
+        ])
+
+        class_id_p2 = self.env['extraschool.class'].search([
+            ('name', '=', 'P2'),
+            ('schoolimplantation', '=', child_1.schoolimplantation.id),
+        ])
+
+        self.assertEqual(child_1.levelid.id, 2)
+        self.assertEqual(child_2.levelid.id, 5)
+        self.assertEqual(child_1.classid.id, class_id_m1.id)
+        self.assertEqual(child_2.classid.id, class_id_p1.id)
+
+        self.env['extraschool.mainsettings'].childupgradelevels()
 
         self.assertEqual(child_1.levelid.id, 2)
         self.assertEqual(child_2.levelid.id, 4)
+        self.assertEqual(child_1.classid.id, class_id_m1.id)
+        self.assertEqual(child_2.classid.id, class_id_p1.id)
