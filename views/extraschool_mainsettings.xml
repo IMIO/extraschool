@@ -37,11 +37,24 @@
                                     <button name="reset_check" string="Reset AND Check" icon="gtk-apply" type="object"/>
                                 </page>
                                 <page string="Upgrade Child Levels">
-                                    <group col="2">
-                                        <field name="levelbeforedisable" style="width:50%"/>
-                                        <button name="childupgradelevels" string="Update level" icon="gtk-apply" type="object"/>
-                                        <newline/>
-                                        <field name="last_child_upgrade_levels"/>
+                                    <group col="4">
+                                        <group string="Upgrade Children" col="2">
+                                            <field name="upgrade_level_ready" invisible="True"/>
+                                            <field name="levelbeforedisable"/>
+                                            <field name="date_child_upgrade"/>
+                                            <field name="last_child_upgrade_levels"/>
+                                            <newline/>
+                                            <button
+                                                name="childupgradelevels"
+                                                string="Update level"
+                                                icon="gtk-apply"
+                                                type="object"
+                                            />
+                                        </group>
+                                        <group string="Revert Upgrade" col="2">
+                                            <field name="date_revert_upgrade"/>
+                                            <button name="revert_upgrade" string="Revert Update level" icon="gtk-apply" type="object"/>
+                                        </group>
                                     </group>
                                 </page>
                                 <page string="from presta of the day">
