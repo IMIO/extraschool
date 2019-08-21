@@ -21,9 +21,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
-from openerp.api import Environment
-from openerp.exceptions import Warning
+from openerp import models, api, fields, _
 from openerp.exceptions import except_orm, Warning, RedirectWarning
 from datetime import *
 import logging
@@ -68,6 +66,9 @@ class extraschool_mainsettings(models.Model):
     reminder_journal_id = fields.Many2one(
         'extraschool.remindersjournal'
     )
+    date_child_upgrade = fields.Date()
+    date_revert_upgrade = fields.Date()
+    upgrade_level_ready = fields.Boolean()
 
     @api.multi
     def update_comm_struct(self):
@@ -203,6 +204,7 @@ class extraschool_mainsettings(models.Model):
                 for child_id in child_ids:
                     child_id.write({
                         'old_level_id': child_id.levelid.id,
+                        'old_class_id': child_id.classid.id
                     })
 
                 # Upgrade child level.
@@ -215,11 +217,12 @@ class extraschool_mainsettings(models.Model):
                             'isdisabled': True,
                         })
                     else:
+                        class_id = rec.env['extraschool.class'].search(
+                                [('schoolimplantation', '=', child_id.schoolimplantation.id),
+                                 ('levelids', '=', child_id.levelid.id + 1)])
                         child_id.write({
                             'levelid': child_id.levelid.id + 1,
-                            'classid': rec.env['extraschool.class'].search(
-                                [('schoolimplantation', '=', child_id.schoolimplantation.id),
-                                 ('levelids', '=', child_id.levelid.id + 1)]).id,
+                            'classid': class_id.id if len(class_id) == 0 else None,
                         })
 
                 _logger.info("Checking if upgrade was successfull")
@@ -235,7 +238,7 @@ class extraschool_mainsettings(models.Model):
     @api.multi
     def clean_old_level_id(self):
         """
-        Select all children with an old level id and remove it.
+        Select all children with an old level id and class id and remove it.
         :return:
         """
         _logger.info("Cleaning old level id")
@@ -243,6 +246,7 @@ class extraschool_mainsettings(models.Model):
             for child in self.env['extraschool.child'].search([('old_level_id', '!=', None)]):
                 child.write({
                     'old_level_id': None,
+                    'old_class_id': None,
                 })
         except:
             _logger.error("There has been an error on the cleaning of old level id")
@@ -315,9 +319,7 @@ class extraschool_mainsettings(models.Model):
                 else:
                     child_id.write({
                         'levelid': child_id.old_level_id.id,
-                        'classid': self.env['extraschool.class'].search(
-                            [('schoolimplantation', '=', child_id.classid.id),
-                             ('levelids', '=', child_id.levelid.id - 1)]).id,
+                        'classid': child_id.old_class_id.id,
                     })
 
             self.clean_old_level_id()

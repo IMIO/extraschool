@@ -58,6 +58,8 @@ class extraschool_child(models.Model):
     check_name = fields.Boolean(default=True)
     check_rn = fields.Boolean(default=True)
     health_sheet_ids = fields.One2many('extraschool.health_sheet', 'child_id')
+    old_level_id = fields.Many2one('extraschool.level', 'Old Level')
+    old_class_id = fields.Many2one('extraschool.class', 'Old Class')
 
     def get_age(self):
         date_of_birth = datetime.strptime(self.birthdate,'%Y-%m-%d')
