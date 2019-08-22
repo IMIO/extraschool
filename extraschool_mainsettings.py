@@ -220,9 +220,10 @@ class extraschool_mainsettings(models.Model):
                         class_id = rec.env['extraschool.class'].search(
                                 [('schoolimplantation', '=', child_id.schoolimplantation.id),
                                  ('levelids', '=', child_id.levelid.id + 1)])
+
                         child_id.write({
                             'levelid': child_id.levelid.id + 1,
-                            'classid': class_id.id if len(class_id) == 0 else None,
+                            'classid': class_id.id if len(class_id) == 1 else None,
                         })
 
                 _logger.info("Checking if upgrade was successfull")
