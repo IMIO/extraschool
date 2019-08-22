@@ -47,5 +47,17 @@
 			</div>
 		</template>
 
+        <template id="report_invitation_payment_yvoir">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_payment_info_amount_one_row.css"/>
+            </xpath>
+			<div id="total_row">
+                <h3><b><u>ACCEUIL EXTRA SCOLAIRE - SOMMATION AVANT COMMANDEMENT À HUISSIER</u></b></h3><br/><br/>
+                <p>Madame, Monsieur, <br/><br/>
+                Vous restez devable pour l'accueil de votre ou vos enfants à l'extra-scolaire, de la somme de 
+                </p>
+			</div>
+		</template>
+
     </data>
 </openerp>
