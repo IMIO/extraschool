@@ -1,0 +1,16 @@
+body {
+  font-family: arial !important;
+}
+
+body.container {
+  margin: 0px 15mm 0px Opx;
+  padding: 0px;
+}
+
+.header{
+    padding-right: 15mm;
+}
+
+.page{
+    padding-right: 15mm;
+}
