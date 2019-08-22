@@ -20,19 +20,13 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 import re
 
 from openerp import models, api, fields, _
-from openerp.api import Environment
 from openerp.addons.extraschool.helper import lbutils
-from datetime import datetime
 from openerp.exceptions import except_orm, Warning, RedirectWarning
-import requests
-import base64, hmac, hashlib
-from hashlib import sha256
-import random
-import urllib
-import urlparse
+
 
 class extraschool_parent(models.Model):
     _name = 'extraschool.parent'

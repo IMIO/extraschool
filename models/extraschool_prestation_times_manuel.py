@@ -22,10 +22,6 @@
 ##############################################################################
 
 from openerp import models, api, fields
-from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
-                           DEFAULT_SERVER_DATETIME_FORMAT)
-from datetime import date
-import datetime
 
 
 class extraschool_prestation_times_manuel(models.Model):

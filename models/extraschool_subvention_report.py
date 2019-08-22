@@ -20,7 +20,6 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from docutils.utils.math.math2html import Formula
 
 from openerp import models, api, fields,_
 import base64
@@ -28,7 +27,6 @@ import os
 import datetime
 import xlsxwriter
 from datetime import date, datetime, timedelta as td
-
 
 
 class extraschool_subvention_report(models.Model):

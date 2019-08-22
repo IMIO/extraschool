@@ -22,8 +22,8 @@
 ##############################################################################
 
 from openerp import models, api, fields, _
-from openerp.api import Environment
 from openerp.exceptions import except_orm, Warning, RedirectWarning
+
 
 class extraschool_school(models.Model):
     _name = 'extraschool.school'

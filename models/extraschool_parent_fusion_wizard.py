@@ -22,9 +22,7 @@
 ##############################################################################
 
 from openerp import models, api, fields
-from openerp.api import Environment
-from openerp.addons.extraschool.helper import lbutils
-from openerp.exceptions import except_orm, Warning, RedirectWarning
+
 
 class extraschool_parent_fusion_wizard(models.TransientModel):
     _name = 'extraschool.parent_fusion_wizard'

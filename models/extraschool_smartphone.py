@@ -22,13 +22,9 @@
 ##############################################################################
 
 from openerp import models, api, fields, _
-from openerp.api import Environment
 from reportlab.graphics.barcode import createBarcodeImageInMemory
-import cStringIO
 import base64
-import os
 from datetime import datetime, date, time, timedelta
-import pdb
 from openerp.exceptions import except_orm, Warning, RedirectWarning
 import logging
 

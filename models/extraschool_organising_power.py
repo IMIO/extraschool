@@ -23,6 +23,7 @@
 
 from openerp import models, api, fields, _
 
+
 class extraschool_organising_power(models.Model):
     _name = 'extraschool.organising_power'
     _description = 'Organising Power that contains all activities'

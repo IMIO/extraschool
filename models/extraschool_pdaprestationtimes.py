@@ -20,15 +20,15 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 from openerp import models, api, fields, _
-from openerp.exceptions import Warning
-from openerp.api import Environment
 from openerp.exceptions import Warning
 import datetime
 import time
 import logging
 
 _logger = logging.getLogger(__name__)
+
 
 class extraschool_pdaprestationtimes(models.Model):
     _name = 'extraschool.pdaprestationtimes'

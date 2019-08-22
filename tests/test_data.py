@@ -23,6 +23,7 @@
 
 from openerp.tests.common import HttpCase, TransactionCase
 
+
 class TestData(TransactionCase):
 
     def setUp(self):
@@ -46,12 +47,15 @@ class TestData(TransactionCase):
         self.price_list_version_model = self.env['extraschool.price_list_version']
         self.class_model = self.env['extraschool.class']
 
-        # Creation of Organising Power.
+
+        # region Organising Power
         organising_power = self.organising_power_model.create({
             'town': 'Dreamland',
+            'max_school_implantation': 100,
         })
+        # endregion
 
-        # Creation of activity category.
+        # region Activity Category
         activity_category_1 = self.activity_category_model.create({
             'name': 'Accueil',
             'childpositiondetermination': 'byparent',
@@ -61,7 +65,6 @@ class TestData(TransactionCase):
             'organising_power_id': organising_power.id,
         })
 
-        # Creation of activity category.
         activity_category_2 = self.activity_category_model.create({
             'name': 'Repas',
             'childpositiondetermination': 'byparent',
@@ -70,21 +73,18 @@ class TestData(TransactionCase):
             'payment_invitation_com_struct_prefix': 303,
             'organising_power_id': organising_power.id,
         })
+        # endregion
 
-        organising_power.write({
-            # 'activity_category_ids': [(6, 0, [activity_category_1.id, activity_category_2.id])],
-            'max_school_implantation': 100,
-        })
-
-        # Creation of school
+        # region School
         school_1 = self.school_model.create({
             'name': 'Los Angeles'
         })
         school_2 = self.school_model.create({
             'name': 'Courrières'
         })
+        # endregion
 
-        # Creation of school implantation
+        # region School Implantation
         school_implantation_1 = self.school_implantation_model.create({
             'schoolid': school_1.id,
             'name': 'Hollywood',
@@ -93,8 +93,9 @@ class TestData(TransactionCase):
             'schoolid': school_2.id,
             'name': 'Gembloux',
         })
+        # endregion
 
-        # Creation of place
+        # region Place
         place_1 = self.place_model.create({
             'name': 'California',
             'schoolimplantation_ids': [school_implantation_1.id],
@@ -103,8 +104,9 @@ class TestData(TransactionCase):
             'name': 'Namur',
             'schoolimplantation_ids': [school_implantation_2.id],
         })
+        # endregion
 
-        # Creation of classes.
+        # region Class
         class_2_school_1 = self.class_model.create({
             'name': 'M1',
             'levelids': [2],
@@ -125,8 +127,9 @@ class TestData(TransactionCase):
             'levelids': [6],
             'schoolimplantation': school_implantation_1.id,
         })
+        # endregion
 
-        # Creation of parents.
+        # region Parent
         parent_1 = self.parent_model.create({
             'lastname': 'Jackson',
             'firstname': 'Joseph',
@@ -138,8 +141,9 @@ class TestData(TransactionCase):
             'remindersendmethod': 'onlyemail',
             'email': 'jm@star.be',
         })
+        # endregion
 
-        # Creation of children.
+        # region Child
         child_1 = self.child_model.create({
             'lastname': 'Jackson',
             'firstname': 'Michael',
@@ -161,15 +165,17 @@ class TestData(TransactionCase):
             'parentid': parent_1.id,
             'birthdate': '2003-06-12',
         })
+        # endregion
 
-        # Creation of exclusion date.
+        # region Exclusion Date
         exclusion_1 = self.exclusion_date_model.create({
             'date_from': '2018-07-16',
             'date_to': '2018-07-16',
             'name': 'Exclude 16-07-2018',
         })
+        # endregion
 
-        # Creation of activities.
+        # region Activity
         activity_1 = self.activity_model.create({
             'name': 'les bronzés font du ski',
             'category_id': activity_category_1.id,
@@ -362,7 +368,9 @@ class TestData(TransactionCase):
             'autoaddchilds': False,
             'onlyregisteredchilds': True,
         })
+        # endregion
 
+        # region Price List Version
         price_list_version_1 = self.price_list_version_model.create({
             'name': 'matin payant',
             'validity_from': '2018-01-01',
@@ -375,8 +383,11 @@ class TestData(TransactionCase):
             'period_tolerance': 0,
             'max_price': 0.000,
         })
+        # endregion
 
+        # region Price List
         price_list_1 = self.price_list_model.create({
             'name': 'matin payant',
             'price_list_version_ids': [(4, price_list_version_1.id)]
         })
+        # endregion

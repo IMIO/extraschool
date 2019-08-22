@@ -22,11 +22,7 @@
 ##############################################################################
 
 from openerp import models, api, fields
-from openerp.api import Environment
-import cStringIO
-import base64
-import os
-from pyPdf import PdfFileWriter, PdfFileReader
+
 
 class extraschool_childsworkbook_wizard(models.TransientModel):
     _name = 'extraschool.childsworkbook_wizard'

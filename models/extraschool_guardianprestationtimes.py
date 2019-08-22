@@ -22,7 +22,6 @@
 ##############################################################################
 
 from openerp import models, api, fields
-from openerp.api import Environment
 from openerp import tools
 from datetime import datetime
 

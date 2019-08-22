@@ -20,24 +20,21 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 from docutils.utils.math.math2html import Formula
 
 from openerp import models, api, fields,_
-from openerp.api import Environment
-import cStringIO
 import base64
 import os
-from pyPdf import PdfFileWriter, PdfFileReader
 import datetime
 from xlrd import open_workbook
 from xlutils.copy import copy
-from xlutils.styles import Styles
-import xlwt
 from xlwt import *
 from datetime import date, datetime, timedelta as td
 from openerp.exceptions import Warning
 from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
+
 
 class extraschool_one_report_day(models.Model):
     _name = 'extraschool.one_report_day'

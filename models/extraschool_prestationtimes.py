@@ -22,7 +22,6 @@
 ##############################################################################
 
 from openerp import models, api, fields, _
-from openerp.api import Environment
 from openerp.exceptions import except_orm, Warning, RedirectWarning
 import logging
 
@@ -33,7 +32,6 @@ class extraschool_prestationtimes(models.Model):
     _name = 'extraschool.prestationtimes'
     _description = 'Prestation Times'
     _order = 'prestation_date,prestation_time,activity_occurrence_id,es'
-    _order = 'prestation_date desc'
 
     placeid = fields.Many2one('extraschool.place', 'Schoolcare Place', required=False, Index=True)
     childid = fields.Many2one('extraschool.child', 'Child', domain="[('isdisabled','=',False)]", required=False, select=True, ondelete='restrict')

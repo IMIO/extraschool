@@ -20,16 +20,14 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import pdb
+
 from openerp.osv import osv
-from pyPdf import PdfFileWriter, PdfFileReader
-import tempfile
-from contextlib import closing
-import os
+
 try:
     import cStringIO as StringIO
 except ImportError:
     import StringIO
+
 
 class extraschool_report_hack(osv.Model):
     _inherit = 'report'

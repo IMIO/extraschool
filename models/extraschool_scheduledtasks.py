@@ -22,10 +22,9 @@
 ##############################################################################
 
 from openerp import models, api, fields
-from openerp.api import Environment
-from datetime import datetime
 from datetime import date
 import re
+
 
 class extraschool_scheduledtasks(models.Model):
     _name = 'extraschool.scheduledtasks'

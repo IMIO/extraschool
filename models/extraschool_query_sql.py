@@ -22,8 +22,7 @@
 ##############################################################################
 
 from openerp import models, api, fields, _
-from openerp.api import Environment
-from datetime import datetime, date, time, timedelta
+
 
 class extraschool_query_sql(models.Model):
     _name = 'extraschool.query_sql'

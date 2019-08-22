@@ -22,12 +22,7 @@
 ##############################################################################
 
 from openerp import models, api, fields, _
-from openerp.api import Environment
-import cStringIO
-import base64
 from openerp.exceptions import except_orm, Warning, RedirectWarning
-import os
-from datetime import date, datetime
 import time
 import logging
 _logger = logging.getLogger(__name__)

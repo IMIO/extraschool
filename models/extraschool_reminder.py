@@ -20,12 +20,11 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 from openerp import models, api, fields,_
-from openerp.api import Environment
 import openerp.addons.decimal_precision as dp
 from datetime import date, datetime, timedelta as td
-from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
-                           DEFAULT_SERVER_DATETIME_FORMAT)
+
 
 class extraschool_reminder(models.Model):
     _name = 'extraschool.reminder'

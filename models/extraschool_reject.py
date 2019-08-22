@@ -22,7 +22,7 @@
 ##############################################################################
 
 from openerp import models, api, fields, _
-from openerp.api import Environment
+
 
 class extraschool_reject(models.Model):
     _name = 'extraschool.reject'

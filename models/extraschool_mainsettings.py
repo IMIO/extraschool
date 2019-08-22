@@ -22,8 +22,6 @@
 ##############################################################################
 
 from openerp import models, api, fields, _
-from openerp.api import Environment
-from openerp.exceptions import Warning
 from openerp.exceptions import except_orm, Warning, RedirectWarning
 from datetime import *
 import logging

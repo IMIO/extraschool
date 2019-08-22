@@ -22,16 +22,9 @@
 ##############################################################################
 
 from openerp import models, api, fields, _
-from openerp.api import Environment
-import cStringIO
-import base64
-import os
-from openerp.addons.extraschool.helper import lbutils
-from pyPdf import PdfFileWriter, PdfFileReader
 import datetime
 import threading
 from openerp.api import Environment
-from openerp import tools
 from openerp.exceptions import except_orm, Warning, RedirectWarning
 import logging
 _logger = logging.getLogger(__name__)

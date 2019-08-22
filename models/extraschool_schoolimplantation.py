@@ -22,7 +22,7 @@
 ##############################################################################
 
 from openerp import models, api, fields
-from openerp.api import Environment
+
 
 class extraschool_schoolimplantation(models.Model):
     _name = 'extraschool.schoolimplantation'

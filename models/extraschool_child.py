@@ -22,11 +22,8 @@
 ##############################################################################
 
 from openerp import models, api, fields, _
-from openerp.api import Environment
 from datetime import date, datetime
-from openerp.exceptions import except_orm, Warning, RedirectWarning
 import time
-import timeit
 import logging
 _logger = logging.getLogger(__name__)
 
