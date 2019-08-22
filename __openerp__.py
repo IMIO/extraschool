@@ -130,6 +130,8 @@
         'report/layout/payment_invitation_report_layout.xml',
         'report/layout/reminder_report_layout.xml',
         'report/layout/qrcode_report_layout.xml',
+        'report/layout/healthy_report_layout.xml',
+        'report/health/healthy.xml',
         'report/invoice/invoice_std_body.xml',
         'report/invoice/invoice_std_body_activity_without_date.xml',
         'report/invoice/invoice_regroup_by_activity.xml',
