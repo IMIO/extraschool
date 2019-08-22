@@ -44,6 +44,7 @@ class TestData(TransactionCase):
         self.child_registration_model = self.env['extraschool.child_registration']
         self.price_list_model = self.env['extraschool.price_list']
         self.price_list_version_model = self.env['extraschool.price_list_version']
+        self.class_model = self.env['extraschool.class']
 
         # Creation of Organising Power.
         organising_power = self.organising_power_model.create({
@@ -103,6 +104,28 @@ class TestData(TransactionCase):
             'schoolimplantation_ids': [school_implantation_2.id],
         })
 
+        # Creation of classes.
+        class_2_school_1 = self.class_model.create({
+            'name': 'M1',
+            'levelids': [2],
+            'schoolimplantation': school_implantation_1.id,
+        })
+        class_5_school_1 = self.class_model.create({
+            'name': 'P1',
+            'levelids': [5],
+            'schoolimplantation': school_implantation_1.id,
+        })
+        class_3_school_1 = self.class_model.create({
+            'name': 'M2',
+            'levelids': [3],
+            'schoolimplantation': school_implantation_1.id,
+        })
+        class_6_school_1 = self.class_model.create({
+            'name': 'P2',
+            'levelids': [6],
+            'schoolimplantation': school_implantation_1.id,
+        })
+
         # Creation of parents.
         parent_1 = self.parent_model.create({
             'lastname': 'Jackson',
@@ -123,6 +146,7 @@ class TestData(TransactionCase):
             'schoolimplantation': school_implantation_1.id,
             'childtypeid': 1,
             'levelid': 2,
+            'classid': class_2_school_1.id,
             'parentid': parent_1.id,
             'birthdate': '2005-05-29',
         })
@@ -133,6 +157,7 @@ class TestData(TransactionCase):
             'schoolimplantation': school_implantation_1.id,
             'childtypeid': 1,
             'levelid': 5,
+            'classid': class_5_school_1.id,
             'parentid': parent_1.id,
             'birthdate': '2003-06-12',
         })

@@ -11,6 +11,9 @@ build:
     - git clone -b scaffolding91 http://gitlab.imio.be/odoo/docker-odoo-base.git
     - cd docker-odoo-base
     - docker-compose -f prod.yaml build --no-cache
+  only:
+    - 9.0@odoo/extraschool
+    - 9.1@odoo/extraschool
 
 #test:
 #  stage: test
@@ -30,6 +33,9 @@ staging:
     - mco shell run 'service stagingv9_extraschool start' -C /role::docker::extraschool::instances$/ -I /staging/
     - docker rmi docker-staging.imio.be/extraschool-v9:9.1 docker-odoo-base_odoo
   when: on_success
+  only:
+    - 9.0@odoo/extraschool
+    - 9.1@odoo/extraschool
 
 promote-to-prod:
   stage: promote
@@ -41,6 +47,9 @@ promote-to-prod:
     - mco shell run 'docker pull docker-prod.imio.be/extraschool-v9:9.1' -C /role::docker::extraschool::instances$/ -I /prod/
     - mco shell run 'at -f /srv/docker_scripts/extraschool-update-all-images.sh -t `date -d "tomorrow" +%Y%m%d`0500' -C /role::docker::extraschool::instances$/ -I /prod/
   when: manual
+  only:
+    - 9.0@odoo/extraschool
+    - 9.1@odoo/extraschool
 
 restart-Ans:
   stage: restart
