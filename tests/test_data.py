@@ -46,6 +46,10 @@ class TestData(TransactionCase):
         self.price_list_model = self.env['extraschool.price_list']
         self.price_list_version_model = self.env['extraschool.price_list_version']
         self.class_model = self.env['extraschool.class']
+        self.biller_model = self.env['extraschool.biller']
+        self.invoice_model = self.env['extraschool.invoice']
+        self.invoiced_prestations_model = self.env['extraschool.invoicedprestations']
+        self.sequence_model = self.env['extraschool.activitycategory.sequence']
 
 
         # region Organising Power
@@ -390,4 +394,46 @@ class TestData(TransactionCase):
             'name': 'matin payant',
             'price_list_version_ids': [(4, price_list_version_1.id)]
         })
+        # endregion
+
+        # region Biller
+        biller_1 = self.biller_model.create({
+            'period_from': '2019-08-01',
+            'period_to': '2019-08-31',
+            'payment_term': '2019-09-15',
+            'invoices_date': '2019-08-22',
+            'activitycategoryid': [(4, activity_category_1.id)]
+        })
+        # endregion
+
+        # region Invoice
+        self.sequence_model.create({
+            'year': 2019,
+            'type': 'invoice',
+            'name': 'sequence',
+            'activity_category_id': activity_category_1.id,
+            'sequence': 1,
+        })
+        next_invoice_num = activity_category_1.get_next_comstruct('invoice', biller_1.get_from_year())
+        invoice_1 = self.invoice_model.create({
+            'name': ('invoice_%s') % (next_invoice_num['num'],),
+            'number': next_invoice_num['num'],
+            'parentid': parent_1.id,
+            'biller_id': biller_1.id,
+            'payment_term': biller_1.payment_term,
+            'activitycategoryid': [(4, activity_category_1.id)],
+            'structcom': next_invoice_num['com_struct'],
+        })
+
+        invoiced_presta_1 = self.invoiced_prestations_model.create({
+            'invoiceid': invoice_1.id,
+            'description': 'Test01',
+            'unitprice': 20,
+            'quantity': 1,
+            'total_price': 20,
+        })
+
+        invoice_1.reconcil()
+        biller_1.pdf_ready = True
+        biller_1.in_creation = False
         # endregion
