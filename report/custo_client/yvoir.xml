@@ -51,12 +51,21 @@
             <xpath expr="//head" position="inside">
                 <link rel="stylesheet" href="/extraschool/static/src/css/report_payment_info_amount_one_row.css"/>
             </xpath>
-			<div id="total_row">
-                <h3><b><u>ACCEUIL EXTRA SCOLAIRE - SOMMATION AVANT COMMANDEMENT À HUISSIER</u></b></h3><br/><br/>
+			<div>
+                <h5><b><u>ACCEUIL EXTRA SCOLAIRE - SOMMATION AVANT COMMANDEMENT À HUISSIER</u></b></h5><br/><br/>
                 <p>Madame, Monsieur, <br/><br/>
-                Vous restez devable pour l'accueil de votre ou vos enfants à l'extra-scolaire, de la somme de 
-                </p>
+                Vous restez devable pour l'accueil de votre ou vos enfants à l' accueil extra-scolaire, de la somme de <t t-esc="totalbalance"/>€.<br/><br/>
+                    Je vous prie de régulariser votre situation DANS LES QUINZES JOURS DE LA PRESENTE par virement au compte <br/>BE77 0910 1305 7542
+                    en rappelant la communication <b><t t-esc="com_struct"/></b>.<br/><br/>
+                    <b>À défaut, votre dossier sera remis à un huissier de justice avec les frais importants que cela implique à votre charge.</b><br/><br/>
+                    La loi me dispense de vous transmettre cette sommation par envoi recommandé.<br/><br/>
+                    Veuillez agréer, Madame, Monsieur, l'assurance de ma considération distinguée.
+                </p><br/><br/><br/>
 			</div>
+            <div class="sign">
+                Danièle Mathieu, Receveur régional<br/>
+                Directrice financière
+            </div>
 		</template>
 
     </data>
