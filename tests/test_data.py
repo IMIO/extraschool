@@ -416,7 +416,7 @@ class TestData(TransactionCase):
         })
         next_invoice_num = activity_category_1.get_next_comstruct('invoice', biller_1.get_from_year())
         invoice_1 = self.invoice_model.create({
-            'name': ('invoice_%s') % (next_invoice_num['num'],),
+            'name': '1',
             'number': next_invoice_num['num'],
             'parentid': parent_1.id,
             'biller_id': biller_1.id,
@@ -434,6 +434,28 @@ class TestData(TransactionCase):
         })
 
         invoice_1.reconcil()
+
+        next_invoice_num = activity_category_1.get_next_comstruct('invoice', biller_1.get_from_year())
+        invoice_2 = self.invoice_model.create({
+            'name': '2',
+            'number': next_invoice_num['num'],
+            'parentid': parent_1.id,
+            'biller_id': biller_1.id,
+            'payment_term': biller_1.payment_term,
+            'activitycategoryid': [(4, activity_category_1.id)],
+            'structcom': next_invoice_num['com_struct'],
+        })
+
+        invoiced_presta_2 = self.invoiced_prestations_model.create({
+            'invoiceid': invoice_2.id,
+            'description': 'Test02',
+            'unitprice': 30,
+            'quantity': 1,
+            'total_price': 30,
+        })
+
+        invoice_2.reconcil()
+
         biller_1.pdf_ready = True
         biller_1.in_creation = False
         # endregion
