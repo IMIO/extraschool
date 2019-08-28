@@ -57,6 +57,7 @@ class PrestationCheckTest(TestData):
         activity_1 = self.env['extraschool.activity'].search([('name', '=', 'stage 1')])
         activity_2 = self.env['extraschool.activity'].search([('name', '=', 'Cirque')])
         parent_1 = self.env['extraschool.parent'].search([('lastname', '=', 'Jackson'), ('firstname', '=', 'Joseph')])
+        parent_2 = self.env['extraschool.parent'].search([('lastname', '=', 'Watney'), ('firstname', '=', 'Marc')])
 
         # Then we simulate a scan from a smartphone.
         pda_prestation_1 = self.env['extraschool.pdaprestationtimes'].create({
@@ -577,9 +578,9 @@ class PrestationCheckTest(TestData):
         self.assertEqual(prestation_times_ids_15[1].activity_name, 'Cirque')
         # endregion
 
-
         # region Invoices
 ##############################################################################
+#   First Test
 #   Scenario: 1 invoice of 20€. 2 payments of 10€. Pay with com struct of invoice
 #   Expect: Accept both payment on the invoice
 ##############################################################################
@@ -590,6 +591,7 @@ class PrestationCheckTest(TestData):
         comm_struct = comm_struct.join(re.findall(r'\d+', invoice_1.structcom))
         payment_date_1 = datetime.now()
 
+        # Create a CODA for the payent
         mainsettings = self.env['extraschool.mainsettings'].create({
             'coda_date': payment_date_1,
             'parent_id': parent_1.id,
@@ -631,10 +633,14 @@ class PrestationCheckTest(TestData):
         self.assertEqual(invoice_1.balance, 0)
         self.assertEqual(len(coda_1.rejectids), 0)
         payment_2 = self.env['extraschool.payment'].search([('paymentdate', '=', payment_date_2)])
-        self.assertEqual(payment_1.amount, 10)
+        self.assertEqual(payment_2.amount, 10)
         self.assertEqual(parent_1.payment_status_ids[0].solde, 0)
 
-#########################################################################################
+##############################################################################
+#   Second Test
+#   Scenario: 1 invoice of 30€. 1 payments of 40€. Pay with com struct of invoice
+#   Expect: Reject payment, 40€ on reject in CODA, no prepaid
+##############################################################################
 
         invoice_2 = self.env['extraschool.invoice'].search([('name', '=', '2')])
         self.assertEqual(invoice_2.balance, 30)
@@ -663,7 +669,11 @@ class PrestationCheckTest(TestData):
         self.assertEqual(coda_2.rejectids[0].amount, 40)
         self.assertEqual(parent_1.payment_status_ids[0].solde, 0)
 
-#############################################################################################
+##############################################################################
+#   Third Test
+#   Scenario: 1 invoice of 30€. 1 payments of 40€. Pay with com struct of parent
+#   Expect: Accept payment, pay 30€ on invoice and put 10€ on pre-paid for the parent
+##############################################################################
 
         invoice_2 = self.env['extraschool.invoice'].search([('name', '=', '2')])
         self.assertEqual(invoice_2.balance, 30)
@@ -689,7 +699,77 @@ class PrestationCheckTest(TestData):
 
         self.assertEqual(invoice_2.balance, 0)
         self.assertEqual(len(coda_3.rejectids), 0)
-        payment_3 = self.env['extraschool.payment'].search([('paymentdate', '=', payment_date_3)])
+        payment_3 = self.env['extraschool.payment'].search([('paymentdate', '=', payment_date_3),
+                                                            ('parent_id', '=', parent_1.id)
+                                                            ])
         self.assertEqual(payment_3.amount, 40)
         self.assertEqual(parent_1.payment_status_ids[0].solde, 10)
+
+        self.assertNotEqual(invoice_1.number, invoice_2.number)
+
+##############################################################################
+#   Fourth Test
+#   Scenario: 1 invoice of 30€ and 1 invoice of 10€. 1 payments of 60€. Pay with com struct of parent
+#   Expect: Accept payment, pay all invoice and put 20€ on pre-paid for the parent
+##############################################################################
+
+        invoice_3 = self.env['extraschool.invoice'].search([('name', '=', '3')])
+        invoice_4 = self.env['extraschool.invoice'].search([('name', '=', '4')])
+
+        self.assertEqual(invoice_3.balance, 10)
+        self.assertEqual(invoice_4.balance, 30)
+
+        comm_struct = ''
+        comm_struct = comm_struct.join(re.findall(r'\d+', parent_2.comstruct))
+        payment_date_4 = datetime.now() + timedelta(days=4)
+
+        mainsettings = self.env['extraschool.mainsettings'].create({
+            'coda_date': payment_date_4,
+            'parent_id': parent_2.id,
+            'amount': '60.00',
+            'communication': comm_struct
+        })
+        mainsettings.generate_coda()
+
+        coda = open("/opt/coda/coda", "r")
+        coda_file = coda.read()
+
+        vals = {
+            u'codafile': base64.b64encode(coda_file),
+            u'state': u'todo'}
+        coda_4 = self.env['extraschool.coda'].create(vals)
+
+        self.assertEqual(invoice_3.balance, 0)
+        self.assertEqual(invoice_4.balance, 0)
+        self.assertEqual(len(coda_4.rejectids), 0)
+        payment_4 = self.env['extraschool.payment'].search([('paymentdate', '=', payment_date_4),
+                                                            ('parent_id', '=', parent_2.id)
+                                                            ])
+        self.assertEqual(payment_4.amount, 60)
+        self.assertEqual(parent_2.payment_status_ids[0].solde, 20)
+
+##############################################################################
+#   Fifth Test
+#   Scenario:
+#   Expect:
+##############################################################################
+
+        # invoice_wizard = self.env['extraschool.invoice_wizard'].create({
+        #     'schoolimplantationid': [(4, school_implantation_1.id)],
+        #     'activitycategory': [(4, activity_category_1.id)],
+        #     'period_from': '2018-07-01',
+        #     'period_to': '2018-07-31',
+        #     'invoice_date': '2019-08-27',
+        #     'invoice_term': '2019-09-27',
+        #     'generate_pdf': False,
+        # })
+
+        # invoice_wizard._new_compute_invoices()
+
+        self.assertNotEqual(invoice_1.number, invoice_2.number)
+        self.assertNotEqual(invoice_1.number, invoice_3.number)
+        self.assertNotEqual(invoice_1.number, invoice_4.number)
+        self.assertNotEqual(invoice_2.number, invoice_4.number)
+        self.assertNotEqual(invoice_2.number, invoice_3.number)
+        self.assertNotEqual(invoice_3.number, invoice_4.number)
 # endregion

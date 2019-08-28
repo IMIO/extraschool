@@ -50,6 +50,7 @@ class TestData(TransactionCase):
         self.invoice_model = self.env['extraschool.invoice']
         self.invoiced_prestations_model = self.env['extraschool.invoicedprestations']
         self.sequence_model = self.env['extraschool.activitycategory.sequence']
+        self.payment_model = self.env['extraschool.payment']
 
 
         # region Organising Power
@@ -145,6 +146,30 @@ class TestData(TransactionCase):
             'remindersendmethod': 'onlyemail',
             'email': 'jm@star.be',
         })
+
+        parent_2 = self.parent_model.create({
+            'lastname': 'Watney',
+            'firstname': 'Marc',
+            'street': 'Tranquility',
+            'zipcode': '12554',
+            'city': 'Mars',
+            'one_subvention_type': 'sf',
+            'invoicesendmethod': 'onlyemail',
+            'remindersendmethod': 'onlyemail',
+            'email': 'watney@artemis.space',
+        })
+
+        parent_3 = self.parent_model.create({
+            'lastname': 'Damon',
+            'firstname': 'Matt',
+            'street': 'Beverly Hills Blvd',
+            'zipcode': '54321',
+            'city': 'Los Angeles',
+            'one_subvention_type': 'sf',
+            'invoicesendmethod': 'onlyemail',
+            'remindersendmethod': 'onlyemail',
+            'email': 'fcking@matt.damon',
+        })
         # endregion
 
         # region Child
@@ -168,6 +193,17 @@ class TestData(TransactionCase):
             'classid': class_5_school_1.id,
             'parentid': parent_1.id,
             'birthdate': '2003-06-12',
+        })
+
+        child_3 = self.child_model.create({
+            'lastname': 'Mars',
+            'firstname': 'Rover',
+            'schoolimplantation': school_implantation_1.id,
+            'childtypeid': 1,
+            'levelid': 2,
+            'classid': class_2_school_1.id,
+            'parentid': parent_2.id,
+            'birthdate': '2005-06-05',
         })
         # endregion
 
@@ -396,6 +432,16 @@ class TestData(TransactionCase):
         })
         # endregion
 
+        # region Payment
+        # payment_1 = self.payment_model.create({
+        #     'parent_id': parent_3.id,
+        #     'paymendate': '2019-09-01',
+        #     'paymenttype': '3',
+        #     'amount': 40,
+        #     'activity_category_id': [(4, activity_category_1.id)],
+        # })
+        # endregion
+
         # region Biller
         biller_1 = self.biller_model.create({
             'period_from': '2019-08-01',
@@ -455,6 +501,69 @@ class TestData(TransactionCase):
         })
 
         invoice_2.reconcil()
+
+        next_invoice_num = activity_category_1.get_next_comstruct('invoice', biller_1.get_from_year())
+        invoice_3 = self.invoice_model.create({
+            'name': '3',
+            'number': next_invoice_num['num'],
+            'parentid': parent_2.id,
+            'biller_id': biller_1.id,
+            'payment_term': biller_1.payment_term,
+            'activitycategoryid': [(4, activity_category_1.id)],
+            'structcom': next_invoice_num['com_struct'],
+        })
+
+        invoiced_presta_3 = self.invoiced_prestations_model.create({
+            'invoiceid': invoice_3.id,
+            'description': 'Test03',
+            'unitprice': 10,
+            'quantity': 1,
+            'total_price': 10,
+        })
+
+        invoice_3.reconcil()
+
+        next_invoice_num = activity_category_1.get_next_comstruct('invoice', biller_1.get_from_year())
+        invoice_4 = self.invoice_model.create({
+            'name': '4',
+            'number': next_invoice_num['num'],
+            'parentid': parent_2.id,
+            'biller_id': biller_1.id,
+            'payment_term': biller_1.payment_term,
+            'activitycategoryid': [(4, activity_category_1.id)],
+            'structcom': next_invoice_num['com_struct'],
+        })
+
+        invoiced_presta_4 = self.invoiced_prestations_model.create({
+            'invoiceid': invoice_4.id,
+            'description': 'Test04',
+            'unitprice': 30,
+            'quantity': 1,
+            'total_price': 30,
+        })
+
+        invoice_4.reconcil()
+
+        next_invoice_num = activity_category_1.get_next_comstruct('invoice', biller_1.get_from_year())
+        invoice_5 = self.invoice_model.create({
+            'name': '5',
+            'number': next_invoice_num['num'],
+            'parentid': parent_3.id,
+            'biller_id': biller_1.id,
+            'payment_term': biller_1.payment_term,
+            'activitycategoryid': [(4, activity_category_1.id)],
+            'structcom': next_invoice_num['com_struct'],
+        })
+
+        invoiced_presta_5 = self.invoiced_prestations_model.create({
+            'invoiceid': invoice_5.id,
+            'description': 'Test05',
+            'unitprice': 20,
+            'quantity': 1,
+            'total_price': 20,
+        })
+
+        invoice_5.reconcil()
 
         biller_1.pdf_ready = True
         biller_1.in_creation = False
