@@ -193,6 +193,7 @@ class extraschool_mainsettings(models.Model):
                 rec.clean_old_level_id()
 
                 domain = [('isdisabled', '=', False)]
+                last_level = False
 
                 # Change domain if there is a date.
                 if rec.date_child_upgrade:
