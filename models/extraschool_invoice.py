@@ -32,7 +32,8 @@ import calendar
 import re
 from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
-
+import logging
+_logger = logging.getLogger(__name__)
 
 class extraschool_invoice(models.Model):
     _name = 'extraschool.invoice'
@@ -108,34 +109,41 @@ class extraschool_invoice(models.Model):
             organising_power_id = self.env['extraschool.organising_power'].create({
                 'town': "Replace this",
             })
-
+            print("Migration in Childs")
             for child_id in child_ids:
                 try:
                     child_id.organising_power_id = organising_power_id
                 except:
                     pass
-
+            print("Migration in Invoices [{}]".format(len(invoice_ids)))
+            count = 0
             for invoice in invoice_ids:
                 try:
                     invoice.activitycategoryid = base_activity_category
+                    count += 1
+                    print("[{}/{}]".format(count, len(invoice_ids)))
                 except:
                     pass
 
+            print("Migration in Biller")
             for biller in biller_ids:
                 try:
                     biller.activitycategoryid = base_activity_category
                 except:
                     pass
-
+            print("Migration in Activities")
             for activity_id in activity_ids:
                 try:
                     activity_id.category_id = base_activity_category
                 except:
                     pass
-
+            print("Migration in Payments[{}]".format(len(payment_ids)))
+            count = 0
             for payment_id in payment_ids:
                 try:
                     payment_id.activity_category_id = base_activity_category
+                    count += 1
+                    print("[{}/{}]".format(count, len(payment_ids)))
                 except:
                     pass
 
