@@ -48,7 +48,8 @@ class extraschool_mainsettings(models.Model):
     processedcodasfolder = fields.Char('processedcodasfolder', size=80)
     emailfornotifications = fields.Char('Email for notifications', size=80)
     logo = fields.Binary()
-    levelbeforedisable = fields.Many2one('extraschool.level', 'Level')
+    levelbeforedisable = fields.Many2one('extraschool.level', string='Level to not upgrade')
+    last_level_id = fields.Many2one('extraschool.level', string='Last level before disabling')
     last_child_upgrade_levels = fields.Date('Last child upgrade level', readonly=True)
     date_child_upgrade = fields.Date()
     query_sql = fields.Text('Query Sql')
@@ -174,7 +175,6 @@ class extraschool_mainsettings(models.Model):
     @api.onchange('sql_query_ids')
     def _get_query_sql(self):
         self.query_sql = self.env['extraschool.query_sql'].browse(self.sql_query_ids.id).query
-
 
     # region Children Upgrade Level
     @api.multi

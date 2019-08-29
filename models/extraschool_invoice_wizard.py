@@ -188,6 +188,7 @@ class extraschool_invoice_wizard(models.TransientModel):
         else:
             return True
 
+
     @api.multi
     def _check_manual_encodage(self):
         """

@@ -118,9 +118,6 @@ class extraschool_prestation_times_of_the_day(models.Model):
             dup_pod_ids.unlink()
             pod.reset()
 
-
-
-
     @api.multi
     def reset(self):
         for rec in self:

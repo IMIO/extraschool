@@ -59,6 +59,9 @@
 			            <div class="row" style="font-size:30px;">
 				            <span class="mylabel" style="font-weight: bold;width: 7cm;">Email : </span><span t-field="child.parentid.email" />
 			            </div>
+                        <div class="row" style="font-size:30px;">
+				            <span class="mylabel" style="font-weight: bold;width: 7cm;">Commentaire : </span><span t-field="child.comment" />
+			            </div>
 
 		    	    </div>
 		    	</t>

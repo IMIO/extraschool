@@ -31,11 +31,13 @@ class extraschool_payment(models.Model):
     _description = 'Payment'
     _order = 'paymentdate desc'
 
-    paymenttype = fields.Selection((('1','CODA File'),
+    paymenttype = fields.Selection((('1', 'CODA File'),
                                     ('2', 'Mandat classe 4'),
-                                    ('3','Cash'),
-                                    ('4','Non value'),
-                                    ('5','Reject')),'Payment type')
+                                    ('3', 'Cash'),
+                                    ('4', 'Non value'),
+                                    ('5', 'Reject'),
+                                    ('6', 'Online'),
+                                    ),'Payment type')
     parent_id = fields.Many2one("extraschool.parent",domain="[('isdisabled','=',False)]")
     paymentdate = fields.Date(string='Date', required=True)
     structcom = fields.Char(string='Structured Communication', size=50)

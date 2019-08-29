@@ -11,6 +11,7 @@
                     <field name="firstname"/>
                     <field name="zipcode"/>
                     <field name="email"/>
+                    <field name="rn"/>
    				</tree>
 			</field>
 		</record>

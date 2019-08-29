@@ -32,6 +32,7 @@ staging:
     - mco shell run 'service stagingv9_extraschool stop' -C /role::docker::extraschool::instances$/ -I /staging/
     - mco shell run 'service stagingv9_extraschool start' -C /role::docker::extraschool::instances$/ -I /staging/
     - docker rmi docker-staging.imio.be/extraschool-v9:9.1 docker-odoo-base_odoo
+
   when: on_success
   only:
     - 9.0@odoo/extraschool

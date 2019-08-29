@@ -10825,6 +10825,7 @@ msgstr "Activité"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_prestation_times_history_activity_category_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_prestationtimes_activity_category_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_reminder_activity_category_id
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_activity_category_ids
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_remindersjournal_activity_category_id
 msgid "Activity Category"
 msgstr "Catégorie d'activité"
@@ -11782,6 +11783,29 @@ msgstr "Amount greather than invoice balance"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_no_value_wizard_amount_total
 msgid "Amount of no value"
 msgstr "Montant de la non valeur"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_po_rappel_name2
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_po_rappel_name2
+msgid "Name of resp reminder 2"
+msgstr "Nom du responsable 2"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_po_rappel_sign2
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_po_rappel_sign2
+msgid "Signature of resp reminde 2r"
+msgstr "Signature du responsable 2"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_po_rappel_fct2
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_po_rappel_fct2
+msgid "Fct of resp reminder 2"
+msgstr "Fct du responsable 2"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_reminders_journal_form
+msgid "Concerned Biller"
+msgstr "Facturier(s) impacté(s)"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_payment_wizard_reconciliation_amount
@@ -26010,6 +26034,16 @@ msgid "Max school implantation"
 msgstr "Nombre max. d'implantation scolaire"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_dominant_activity_category_id
+msgid "Dominant activity category id"
+msgstr "Activité catégorie dominante"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_dominant_payment_activity_category_id
+msgid "Dominant payment activity category id"
+msgstr "Activité catégorie dominate pour le paiement"
+
+#. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_config_smartphone_maxtimedelta
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_maxtimedelta
 msgid "Max time delta"
@@ -34591,6 +34625,7 @@ msgstr "Nom du fichier enregistré"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_po_street
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_street
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_place_street
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_po_street
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_school_street
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_schoolimplantation_street
 #: model:ir.model.fields,field_description:mail.field_res_users_street
@@ -39766,6 +39801,7 @@ msgstr "Code Postal"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_po_zipcode
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_zipcode
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_place_zipcode
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_po_zipcode
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_school_zipcode
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_schoolimplantation_zipcode
 msgid "ZipCode"

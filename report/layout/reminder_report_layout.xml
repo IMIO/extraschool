@@ -100,6 +100,10 @@
 						<t t-set="resp2_name" t-value="organising_power.po_resp2_fct"/>
 						<t t-set="resp2_sign" t-value="organising_power.po_resp2_sign"/>
 
+                        <t t-set="resp3_fct" t-value="reminder.reminders_journal_id.activity_category_id.po_resp_name"/>
+						<t t-set="resp3_name" t-value="reminder.reminders_journal_id.activity_category_id.po_resp_fct"/>
+						<t t-set="resp3_sign_img" t-value="reminder.reminders_journal_id.activity_category_id.po_sign_img"/>
+
 						<t t-set="html_text" t-value="reminder.reminders_journal_item_id.reminder_type_id.text"/>
 						<t t-set="reminder_com_struct" t-value="reminder.structcom"/>
 						<t t-set="summary_invoice_ids" t-value="reminder.concerned_invoice_ids"/>
