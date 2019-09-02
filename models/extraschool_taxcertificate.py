@@ -36,16 +36,12 @@ class extraschool_taxcertificate(models.Model):
     _description = 'Taxcertificate'
     _inherit = 'mail.thread'
 
-    def _get_default_organiing_power(self):
-        return self.env['extraschool.organising_power'].search([])[0]
-
     title = fields.Char('Title', required=True)
     name = fields.Integer('Fiscal Year', required=True, select = True, track_visibility='onchange')
     doc_date = fields.Date('Document date', required=True, track_visibility='onchange')
     organising_power_id = fields.Many2one(
         'extraschool.organising_power',
         'Organising Power',
-        default=_get_default_organiing_power,
     )
 
     taxcertificate_item_ids = fields.One2many('extraschool.taxcertificate_item', 'taxcertificate_id','Details')
@@ -87,6 +83,7 @@ class extraschool_taxcertificate(models.Model):
     def create(self, vals):
         #check if already exist
         tc = self.search([('name', '=', vals['name'])])
+        vals[u'organising_power_id'] = self.env['extraschool.organising_power'].search([]).mapped('id')[0]
         if len(tc):
             raise Warning(_('Taxe certificate already exist'))
 
