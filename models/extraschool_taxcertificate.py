@@ -270,9 +270,6 @@ class extraschool_taxcertificate_item(models.Model):
     _name = 'extraschool.taxcertificate_item'
     _description = 'Taxcertificate item'
 
-    def _get_default_organiing_power(self):
-        return self.env['extraschool.organising_power'].search([])[0]
-
     name = fields.Char('Name')
     taxcertificate_id = fields.Many2one('extraschool.taxcertificate', string ='Taxe certif',ondelete='cascade', index=True)
     parent_id = fields.Many2one('extraschool.parent',  string ='Parent', required=True, select = True)
@@ -289,7 +286,6 @@ class extraschool_taxcertificate_item(models.Model):
     organising_power_id = fields.Many2one(
         'extraschool.organising_power',
         'Organising Power',
-        default=_get_default_organiing_power,
     )
 
 
