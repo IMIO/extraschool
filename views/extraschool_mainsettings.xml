@@ -32,6 +32,7 @@
                                         <group string="Upgrade Children" col="2">
                                             <field name="upgrade_level_ready" invisible="True"/>
                                             <field name="levelbeforedisable"/>
+                                            <field name="last_level_id"/>
                                             <field name="date_child_upgrade"/>
                                             <field name="last_child_upgrade_levels"/>
                                             <newline/>

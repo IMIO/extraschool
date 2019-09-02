@@ -51,7 +51,6 @@ class extraschool_mainsettings(models.Model):
     levelbeforedisable = fields.Many2one('extraschool.level', string='Level to not upgrade')
     last_level_id = fields.Many2one('extraschool.level', string='Last level before disabling')
     last_child_upgrade_levels = fields.Date('Last child upgrade level', readonly=True)
-    date_child_upgrade = fields.Date()
     query_sql = fields.Text('Query Sql')
     sql_query_ids = fields.Many2one('extraschool.query_sql', 'Query SQL')
     parent_id = fields.Many2one('extraschool.parent', 'Parent')
@@ -76,8 +75,10 @@ class extraschool_mainsettings(models.Model):
     reminder_journal_id = fields.Many2one(
         'extraschool.remindersjournal'
     )
-    date_revert_upgrade = fields.Date('Revert Upgrade Children Date', readonly=True)
-    upgrade_level_ready = fields.Boolean(default=_get_level_ready_status)
+    date_child_upgrade = fields.Date()
+    date_revert_upgrade = fields.Date()
+    upgrade_level_ready = fields.Boolean()
+
 
     @api.multi
     def update_comm_struct(self):
@@ -197,10 +198,15 @@ class extraschool_mainsettings(models.Model):
                 rec.clean_old_level_id()
 
                 domain = [('isdisabled', '=', False)]
-                last_level = rec.env['extraschool.level'].search([],order='ordernumber DESC', limit=1)
+                last_level = False
+
                 # Change domain if there is a date.
                 if rec.date_child_upgrade:
                     domain.append(('create_date', '<=', rec.date_child_upgrade))
+                if rec.levelbeforedisable:
+                    domain.append(('levelid', '!=', rec.levelbeforedisable.id))
+                if rec.last_level_id:
+                    last_level = rec.last_level_id
 
                 child_ids = rec.env['extraschool.child'].search(domain)
 
@@ -209,7 +215,7 @@ class extraschool_mainsettings(models.Model):
                 for child_id in child_ids:
                     child_id.write({
                         'old_level_id': child_id.levelid.id,
-                        'old_class_id': child_id.classid.id,
+                        'old_class_id': child_id.classid.id
                     })
 
                 # Upgrade child level.
@@ -217,14 +223,14 @@ class extraschool_mainsettings(models.Model):
                 # Else upgrade level
                 _logger.info("Updating children level")
                 for child_id in child_ids:
-                    if child_id.levelid.id == last_level.id:
+                    if last_level and child_id.levelid.id == last_level.id:
                         child_id.write({
                             'isdisabled': True,
                         })
                     else:
                         class_id = rec.env['extraschool.class'].search(
-                                [('schoolimplantation', '=', child_id.schoolimplantation.id),
-                                 ('levelids', '=', child_id.levelid.id + 1)])
+                            [('schoolimplantation', '=', child_id.schoolimplantation.id),
+                             ('levelids', '=', child_id.levelid.id + 1)])
 
                         child_id.write({
                             'levelid': child_id.levelid.id + 1,
@@ -244,7 +250,7 @@ class extraschool_mainsettings(models.Model):
     @api.multi
     def clean_old_level_id(self):
         """
-        Select all children with an old level id and remove it.
+        Select all children with an old level id and class id and remove it.
         :return:
         """
         _logger.info("Cleaning old level id")
@@ -270,7 +276,7 @@ class extraschool_mainsettings(models.Model):
         for child_id in child_ids.filtered(lambda r: r.isdisabled is False):
             if child_id.levelid.id - child_id.old_level_id.id != 1:
                 return False
-        last_level = last_level = self.env['extraschool.level'].search([],order='ordernumber DESC', limit=1)
+        last_level = last_level = self.env['extraschool.level'].search([], order='ordernumber DESC', limit=1)
         for child_id in child_ids.filtered(lambda r: r.old_level_id.id == last_level.id):
             if not child_id.isdisabled:
                 return False
@@ -288,6 +294,7 @@ class extraschool_mainsettings(models.Model):
 
         for order in range(10):
             if level_obj.search([('ordernumber', '=', order)]).name != mapped_level[order]:
+                print("{} {}".format(level_obj.search([('ordernumber', '=', order)]).name, mapped_level[order]))
                 return False
 
         return True
@@ -316,7 +323,8 @@ class extraschool_mainsettings(models.Model):
             _logger.error("There are no children to revert")
             raise Warning(_("There are no children to revert"))
         else:
-            last_level = self.env['extraschool.level'].search([], order='ordernumber DESC', limit=1)
+            if self.last_level_id:
+                last_level = self.last_level_id
             for child_id in child_ids:
                 if child_id.old_level_id.id == last_level.id:
                     child_id.write({
