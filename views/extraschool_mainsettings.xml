@@ -49,6 +49,16 @@
                                         </group>
                                     </group>
                                 </page>
+                                <page string="Bouton pour Coralie &lt;3">
+                                    <group string="Mettet" col="2">
+                                        <button
+                                            name="mettet_grandprimaire"
+                                            string="Grand primaire / Petit primaire"
+                                            icon="gtk-apply"
+                                            type="object"
+                                        />
+                                    </group>
+                                </page>
                                 <page string="from presta of the day">
                                     <button name="reset" string="Reset" icon="gtk-apply" type="object"/>
                                     <button name="check" string="Check" icon="gtk-apply" type="object"/>

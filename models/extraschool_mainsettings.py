@@ -484,3 +484,22 @@ class extraschool_mainsettings(models.Model):
             'town': activity_category.po_city,
             'qrcode_report_id': activity_category.qrcode_report_id.id,
         })
+
+    @api.multi
+    def mettet_grandprimaire(self):
+        maternelle = ["1ere maternelle", "2eme maternelle", "3eme maternelle"]
+        petit_primaire = ["1ere primaire", "2eme primaire", "3eme primaire"]
+        grand_primaire = ["4eme primaire", "5eme primaire", "6eme primaire"]
+        child_ids = self.env['extraschool.child'].search([('isdisabled', '=', False)])
+
+        for child_id in child_ids:
+            if child_id.levelid.name in maternelle:
+                class_id = 136
+            elif child_id.levelid.name in petit_primaire:
+                class_id = 137
+            elif child_id.levelid.name in grand_primaire:
+                class_id = 138
+
+            child_id.write({
+                'classid': class_id
+            })
