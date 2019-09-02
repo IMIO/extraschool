@@ -36,9 +36,17 @@ class extraschool_taxcertificate(models.Model):
     _description = 'Taxcertificate'
     _inherit = 'mail.thread'
 
+    def _get_default_organiing_power(self):
+        return self.env['extraschool.organising_power'].search([])[0]
+
     title = fields.Char('Title', required=True)
     name = fields.Integer('Fiscal Year', required=True, select = True, track_visibility='onchange')
     doc_date = fields.Date('Document date', required=True, track_visibility='onchange')
+    organising_power_id = fields.Many2one(
+        'extraschool.organising_power',
+        'Organising Power',
+        default=_get_default_organiing_power,
+    )
 
     taxcertificate_item_ids = fields.One2many('extraschool.taxcertificate_item', 'taxcertificate_id','Details')
     pdf_ready = fields.Boolean(string="Pdf ready", default=False)
@@ -265,6 +273,9 @@ class extraschool_taxcertificate_item(models.Model):
     _name = 'extraschool.taxcertificate_item'
     _description = 'Taxcertificate item'
 
+    def _get_default_organiing_power(self):
+        return self.env['extraschool.organising_power'].search([])[0]
+
     name = fields.Char('Name')
     taxcertificate_id = fields.Many2one('extraschool.taxcertificate', string ='Taxe certif',ondelete='cascade', index=True)
     parent_id = fields.Many2one('extraschool.parent',  string ='Parent', required=True, select = True)
@@ -278,6 +289,11 @@ class extraschool_taxcertificate_item(models.Model):
     tax_certificate_detail_ids = fields.One2many('extraschool.tax_certificate_detail', 'tax_certificate_item_id')
     tax_certificate_send_method = fields.Char()
     annee = fields.Integer(String='Annee' , related="taxcertificate_id.name", index=True)
+    organising_power_id = fields.Many2one(
+        'extraschool.organising_power',
+        'Organising Power',
+        default=_get_default_organiing_power,
+    )
 
 
 class extraschool_tax_certificate_detail(models.Model):

@@ -39,6 +39,7 @@
                         <field name="title" />
                         <field name="name" />
                         <field name="doc_date" />
+                        <field name="organising_power_id" invisible="True"/>
                         <newline/>
                         <separator string="Taxe certificate" colspan="4"/>
                         <field name="taxcertificate_item_ids" colspan="4" nolabel="1" readonly="True"/>
@@ -68,6 +69,7 @@
                                 <field name="child_id" />
                                 <field name="niveau" />
                                 <field name="amount" />
+                                <field name="organising_power_id" invisible="True"/>
                             </group>
                         </group>
                     </sheet>
