@@ -17,6 +17,7 @@
                     <field name="amount_received"/>
                     <field name="balance"/>
                     <field name="discount"/>
+                    <field name="no_value_amount"/>
                     <field name="no_value"/>
                     <!--<field name="huissier"/>                    	                    -->
                     <field name="tag"/>

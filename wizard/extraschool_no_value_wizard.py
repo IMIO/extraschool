@@ -40,6 +40,7 @@ class extraschoolNoValueWizard(models.TransientModel):
 
     description = fields.Text(
         string='Description',
+        track_visibility='onchange',
         # required=True,
     )
     invoice_prestation_ids = fields.Many2many(
@@ -49,6 +50,7 @@ class extraschoolNoValueWizard(models.TransientModel):
     )
     date_no_value = fields.Date(
         string='Date of no value',
+        track_visibility='onchange',
         # required=True,
     )
     amount_total = fields.Float(

@@ -8,8 +8,8 @@
             <field name="arch" type="xml">
                 <form string="No Value Wizard">
                     <group col="2">
-                        <field name="date_no_value" invisible="True"/>
-                        <field name="description" context="context.get('no_value_description')" invisible="True"/>
+                        <field name="date_no_value"/>
+                        <field name="description" context="context.get('no_value_description')"/>
                     </group>
                     <notebook>
                         <page string="Invoiced Prestation Lines">

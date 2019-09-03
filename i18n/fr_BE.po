@@ -23440,7 +23440,7 @@ msgstr "Invoice's number"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_no_value_wizard_form
 msgid "Invoiced Prestation Lines"
-msgstr "Invoiced Prestation Lines"
+msgstr "Lignes de la facture"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activityoccurrence_invoicedprestations_ids
@@ -27628,13 +27628,13 @@ msgstr "No valid structured Communication"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_no_value
 msgid "No value"
-msgstr "Non valeur"
+msgstr "Non valeur (ancienne méthode)"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_no_value_amount
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoicedprestations_no_value_amount
 msgid "No value amount"
-msgstr "Montant de la non valeur"
+msgstr "Non-valeur"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoicedprestations_no_value_date
