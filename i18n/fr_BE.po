@@ -32884,6 +32884,7 @@ msgstr "Implantation scolaire"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_class_schoolimplantation
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_guardian_schoolimplantation
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_schoolimplantationid
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_prestation_times_encodage_manuel_schoolimplantation
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_reminder_school_implantation_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificate_item_implantation
 #: model:ir.ui.view,arch_db:extraschool.extraschool_invoice_search_view

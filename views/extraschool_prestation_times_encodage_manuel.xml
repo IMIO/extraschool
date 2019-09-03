@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <odoo>
-	<data> 
+	<data>
         <record model="ir.ui.view" id="extraschool_prestation_times_encodage_manuel_tree">
 			<field name="name">prestation_times_encodage_manuel.tree</field>
 			<field name="model">extraschool.prestation_times_encodage_manuel</field>
@@ -10,11 +10,11 @@
 					<field name="activity_category_id" />
 					<field name="date_of_the_day" />
 					<field name="place_id"/>
-					<field name="state" />				
+					<field name="state" />
 				</tree>
 			</field>
 		</record>
-        
+
 		<record model="ir.ui.view" id="extraschool_prestation_times_encodage_manuel_form">
 			<field name="name">prestation_times_encodage_manuel.form</field>
 			<field name="model">extraschool.prestation_times_encodage_manuel</field>
@@ -25,8 +25,8 @@
 						<button name="validate" String="Validate" type="object" class="oe_highlight" groups="extraschool.extraschool_user"  context="{'wizard': False}"/><!-- attrs="{'invisible':['|',('warning_visibility', '=', True),('state', '=', 'validated')]}"/>-->
 						<button name="validate" String="Force Validate" type="object" class="oe_highlight" groups="base.group_erp_manager"  context="{'wizard': False}" attrs="{'invisible':[('warning_visibility', '=', True)]}"/>
 						<button name="set_to_draft" string="Set to draft" icon="gtk-apply" type="object"  context="{'wizard': False}"  groups="base.group_erp_manager" />
-							
-						<field name="state" widget="statusbar" statusbar_visible="draft,validated"/>													
+
+						<field name="state" widget="statusbar" statusbar_visible="draft,validated"/>
 					</header>
 					<sheet>
 						<group col="4">
@@ -37,6 +37,7 @@
 							<field name="place_id" options="{'no_create':True}"/>
 							<newline />
 							<separator string="Ajout automatique dans le tableau (facultatif)"  colspan="4"/>
+                            <field name="schoolimplantation" />
 							<field name="levelid" widget="many2many_tags" options="{'no_create':True}"/>
 							<button name="update_child_list" string="Ajout des enfants" states="draft" type="object" confirm="Ëtes-vous sûr de vouloir attribuer tous les enfants à cette activité ?"/>
 							<newline />
@@ -60,7 +61,7 @@
 				</form>
 			</field>
 		</record>
-        
+
         <record id="prestation_times_encodage_manuel_search_view" model="ir.ui.view">
             <field name="name">prestation_times_encodage_manuel.search</field>
             <field name="model">extraschool.prestation_times_encodage_manuel</field>
@@ -71,23 +72,23 @@
 					<filter string="Not validated" name="not_validated" icon="terp-accessories-archiver" domain="[('state','!=','validated')]"/>
                 </search>
             </field>
-        </record>				
-        
+        </record>
+
         <record model="ir.actions.act_window" id="action_extraschool_prestation_times_encodage_manuel">
 			<field name="name">Prestations_of_the_day</field>
 			<field name="res_model">extraschool.prestation_times_encodage_manuel</field>
 			<field name="view_type">form</field>
 		</record>
-		
+
         <record model="ir.actions.act_window" id="action_extraschool_prestation_times_encodage_manuel_tree">
 			<field name="name">Prestations_of_the_day.tree</field>
 			<field name="res_model">extraschool.prestation_times_encodage_manuel</field>
 			<field name="view_type">form</field>
 			<field name="view_id" ref="extraschool_prestation_times_encodage_manuel_tree"/>
-            <field name="search_view_id" ref="prestation_times_encodage_manuel_search_view"/>			
-		</record>		
+            <field name="search_view_id" ref="prestation_times_encodage_manuel_search_view"/>
+		</record>
 
-	
-		
+
+
 	</data>
 </odoo>

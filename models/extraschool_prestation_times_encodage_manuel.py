@@ -50,6 +50,8 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
     comment = fields.Text(track_visibility='onchange')
     prestation_time_all_entry = fields.Float('Entry Time for all')
     prestation_time_all_exit = fields.Float('Exit Time for all')
+    schoolimplantation = fields.Many2one('extraschool.schoolimplantation', 'School implantation',
+                                         track_visibility='onchange')
     state = fields.Selection([('draft', 'Draft'),
                               ('validated', 'Validated')],
                               'State', required=True, default='draft', track_visibility='onchange'
@@ -89,15 +91,18 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
                 list_level.append(level.id)
 
             childs = self.env['extraschool.child'].search(
-                [('schoolimplantation.id', '=', self.place_id.id),
+                [('schoolimplantation.id', '=', self.schoolimplantation.id),
                  ('levelid.id', 'in', list_level),
                  ('isdisabled', '=', False),
                  ])
         else:
-            childs = self.env['extraschool.child'].search(
-                [('schoolimplantation.id', '=', self.place_id.id),
-                 ('isdisabled', '=', False),
-                 ])
+            if self.schoolimplantation :
+                childs = self.env['extraschool.child'].search(
+                    [('schoolimplantation.id', '=', self.schoolimplantation.id),
+                     ('isdisabled', '=', False),
+                     ])
+            else :
+                raise Warning('Il faut choisir au moins une implantation scolaire')
         self.prestationtime_ids.unlink()
         # clear child list
         self.prestationtime_ids = [(5, 0, 0)]
