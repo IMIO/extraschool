@@ -74,7 +74,7 @@
 						<t t-set="doc_date" t-value="'%s, le %s' % (reminder.reminders_journal_id.activity_category_id.po_city,time.strftime('%d-%m-%Y',time.strptime(reminder.reminders_journal_id.transmission_date,'%Y-%m-%d')))"/>
 
 						<t t-set="addresse" t-value="reminder.parentid"/>
-						<t t-set="po_addresse" t-value="organising_power.po_street"/>
+						<t t-set="po_addresse" t-value="organising_power"/>
 
 						<t t-set="parent_id" t-value="reminder.parentid"/>
 						<t t-set="categ_id" t-value="reminder.reminders_journal_id.activity_category_id"/>
