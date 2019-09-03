@@ -222,7 +222,10 @@ class extraschool_mainsettings(models.Model):
                 # If last level put in disable
                 # Else upgrade level
                 _logger.info("Updating children level")
+                level_ids = self.env['extraschool.level'].search([])
                 for child_id in child_ids:
+                    order_number = level_ids.filtered(lambda r: r.id == child_id.levelid.id).ordernumber
+                    next_level_id = level_ids.filtered(lambda r: r.ordernumber == order_number + 1).id
                     if last_level and child_id.levelid.id == last_level.id:
                         child_id.write({
                             'isdisabled': True,
@@ -230,10 +233,10 @@ class extraschool_mainsettings(models.Model):
                     else:
                         class_id = rec.env['extraschool.class'].search(
                             [('schoolimplantation', '=', child_id.schoolimplantation.id),
-                             ('levelids', '=', child_id.levelid.id + 1)])
+                             ('levelids', '=', next_level_id)])
 
                         child_id.write({
-                            'levelid': child_id.levelid.id + 1,
+                            'levelid': next_level_id,
                             'classid': class_id.id if len(class_id) == 1 else None,
                         })
 
@@ -272,14 +275,19 @@ class extraschool_mainsettings(models.Model):
         :return: True when everything is ok, else False
         """
         child_ids = self.env['extraschool.child'].search([('old_level_id', '!=', None)])
+        level_ids = self.env['extraschool.level'].search([])
 
         for child_id in child_ids.filtered(lambda r: r.isdisabled is False):
-            if child_id.levelid.id - child_id.old_level_id.id != 1:
+            current_level_id = level_ids.filtered(lambda r: r.id == child_id.levelid.id).ordernumber
+            old_level_id = level_ids.filtered(lambda r: r.id == child_id.old_level_id.id).ordernumber
+
+            if current_level_id - old_level_id != 1:
                 return False
-        last_level = last_level = self.env['extraschool.level'].search([], order='ordernumber DESC', limit=1)
-        for child_id in child_ids.filtered(lambda r: r.old_level_id.id == last_level.id):
-            if not child_id.isdisabled:
-                return False
+        # last_level = self.env['extraschool.level'].search([], order='ordernumber DESC', limit=1)
+
+        # for child_id in child_ids.filtered(lambda r: r.old_level_id.id == last_level.id):
+        #     if not child_id.isdisabled:
+        #         return False
 
         return True
 
