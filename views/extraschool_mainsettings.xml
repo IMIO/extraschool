@@ -51,14 +51,27 @@
                                 </page>
                                 <page string="Bouton pour Coralie &lt;3">
                                     <group string="Toutes les communes" col="2">
-                                        <field name="limit_date_delete_presta"/>
-                                        <button
-                                            name="delete_presta_test"
-                                            string="Supprimer les données des présences"
-                                            icon="gtk-apply"
-                                            type="object"
-                                            confirm="Es-tu sûre Coralie ? Cette action est irréversible !"
-                                        />
+                                        <group>
+                                            <field name="limit_date_delete_presta"/>
+                                            <button
+                                                name="delete_presta_test"
+                                                string="Supprimer les données des présences"
+                                                icon="gtk-apply"
+                                                type="object"
+                                                confirm="Es-tu sûre Coralie ? Cette action est irréversible !"
+                                            />
+                                        </group>
+                                        <group>
+                                            <field name="pdf_true_biller"/>
+                                            <field name="pdf_true_tax"/>
+                                            <button
+                                                name="pdf_to_true"
+                                                string="Mettre PDF à True"
+                                                icon="gtk-apply"
+                                                type="object"
+                                                confirm="Es-tu sûre Coralie ? Cette action est irréversible !"
+                                            />
+                                        </group>
                                     </group>
                                     <group string="Mettet" col="2">
                                         <button

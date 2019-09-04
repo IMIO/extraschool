@@ -80,6 +80,9 @@ class extraschool_mainsettings(models.Model):
     upgrade_level_ready = fields.Boolean()
     limit_date_delete_presta = fields.Date(string="On supprimer les presta AVANT cette date (non incluse)")
 
+    pdf_true_biller = fields.Boolean(string="Les facturiers")
+    pdf_true_tax = fields.Boolean(string="Les attestations fiscales")
+
 
     @api.multi
     def update_comm_struct(self):
@@ -544,4 +547,22 @@ class extraschool_mainsettings(models.Model):
                 'street': parent_id.street.upper(),
                 'city': parent_id.city.upper(),
             })
+
+    @api.multi
+    def pdf_to_true(self):
+        if self.pdf_true_biller:
+            biller_ids = self.env['extraschool.biller'].search([('pdf_ready', '=', False)])
+            for biller_id in biller_ids:
+                biller_id.write({
+                    'pdf_ready': True,
+                    'in_creation': False,
+                })
+        if self.pdf_true_tax:
+            tax_ids = self.env['extraschool.taxcertificate'].search([('pdf_ready', '=', False)])
+            for tax_id in tax_ids:
+                tax_id.write({
+                    'pdf_ready': True,
+                })
+        else:
+            raise Warning("Il faut sélectionner un truc !!!")
     # endregion
