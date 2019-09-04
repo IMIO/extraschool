@@ -47,10 +47,14 @@ class extraschool_invoicedprestations(models.Model):
         index=True)
     on_tax_certificate = fields.Boolean()
     description = fields.Char('Description')
+    date_no_value = fields.Date(
+        string='Date of no value',
+        track_visibility='onchange',
+    )
     duration = fields.Integer('Duration')
     quantity = fields.Integer('Quantity')
-    period_duration = fields.Integer('Period Duration')  
-    period_tolerance = fields.Integer('Period Tolerance')  
+    period_duration = fields.Integer('Period Duration')
+    period_tolerance = fields.Integer('Period Tolerance')
     unit_price = fields.Float(
         'Price',
         digits_compute=dp.get_precision('extraschool_invoice_line')
@@ -59,7 +63,7 @@ class extraschool_invoicedprestations(models.Model):
         'Price',
         digits_compute=dp.get_precision('extraschool_invoice_line')
     )
-    discount = fields.Boolean('Discount') 
+    discount = fields.Boolean('Discount')
     discount_value = fields.Float(
         'Discount value',
         digits_compute=dp.get_precision('extraschool_invoice_line'),
@@ -83,11 +87,11 @@ class extraschool_invoicedprestations(models.Model):
         factor = float_val < 0 and -1 or 1
         val = abs(float_val)
         return "%02d:%02d" % (factor * int(math.floor(val)), int(round((val % 1) * 60)))
-    
+
     def get_child_entry(self):
-        
+
         presta_obj = self.env['extraschool.prestationtimes']
-        #get child presta 
+        #get child presta
         presta_ids = presta_obj.search([("childid", "=", self.childid.id),
                                         ("activity_occurrence_id.activityid.short_name", "=", self.activity_occurrence_id.activityid.short_name),
                                         ("prestation_date", "=", self.prestation_date),
@@ -101,7 +105,7 @@ class extraschool_invoicedprestations(models.Model):
             return False
 
     def get_child_exit(self):
-        #get child presta 
+        #get child presta
         presta_obj = self.env['extraschool.prestationtimes']
         presta_ids = presta_obj.search([("childid", "=", self.childid.id),
                                         ("activity_occurrence_id.activityid.short_name", "=", self.activity_occurrence_id.activityid.short_name),
