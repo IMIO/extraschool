@@ -499,22 +499,22 @@ class extraschool_invoice(models.Model):
                                         self.parentid.lastname,
                                         self.parentid.firstname,
                                         '', # code rue
-                                        splited_street[0][0], # libellé rue
+                                        splited_street[0][0].upper(), # libellé rue
                                         splited_street[0][1], # num
-                                        splited_street[0][2], # boite
-                                        splited_street[0][3], # index
+                                        splited_street[0][2].upper(), # boite
+                                        splited_street[0][3].upper(), # index
                                         int(self.parentid.zipcode), #code post
-                                        self.parentid.city,
+                                        self.parentid.city.upper(),
                                         '', # pays
                                         'F', # Langue
                                         '', # civilité
                                         saved_child['street_code'], #code rue place
-                                        saved_child['splited_place_street'][0][0], # libellé rue
+                                        saved_child['splited_place_street'][0][0].upper(), # libellé rue
                                         saved_child['splited_place_street'][0][1], # num
-                                        saved_child['splited_place_street'][0][2], # boite
-                                        saved_child['splited_place_street'][0][3], # index
+                                        saved_child['splited_place_street'][0][2].upper(), # boite
+                                        saved_child['splited_place_street'][0][3].upper(), # index
                                         int(saved_child['place'].zipcode),
-                                        saved_child['place'].city,
+                                        saved_child['place'].city.upper(),
                                         time.strftime('%d/%m/%Y',time.strptime(self.biller_id.period_from,'%Y-%m-%d')),
                                         time.strftime('%d/%m/%Y',time.strptime(self.biller_id.period_to,'%Y-%m-%d')),
                                         '',

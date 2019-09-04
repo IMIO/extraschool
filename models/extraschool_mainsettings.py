@@ -78,6 +78,7 @@ class extraschool_mainsettings(models.Model):
     date_child_upgrade = fields.Date()
     date_revert_upgrade = fields.Date()
     upgrade_level_ready = fields.Boolean()
+    limit_date_delete_presta = fields.Date(string="On supprimer les presta AVANT cette date (non incluse)")
 
 
     @api.multi
@@ -511,3 +512,25 @@ class extraschool_mainsettings(models.Model):
             child_id.write({
                 'classid': class_id
             })
+
+    @api.multi
+    def delete_presta_test(self):
+        try:
+            pda_prestation_time_ids = self.env['extraschool.pdaprestationtimes'].search(
+                [('prestation_date', '<', self.limit_date_delete_presta)])
+            for pda_prestation in pda_prestation_time_ids:
+                pda_prestation.unlink()
+
+            prestation_times_ids = self.env['extraschool.prestationtimes'].search(
+                [('prestation_date', '<', self.limit_date_delete_presta)]
+            )
+            for prestation_times_id in prestation_times_ids:
+                prestation_times_id.unlink()
+
+            potd_ids = self.env['extraschool.prestation_times_of_the_day'].search([
+                ('date_of_the_day', '<', self.limit_date_delete_presta)
+            ])
+            for potd in potd_ids:
+                potd.unlink()
+        except:
+            raise Warning("Il y a probablement une inscription ou un encodage manuel non supprimé à cette date.")
