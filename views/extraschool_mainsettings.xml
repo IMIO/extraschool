@@ -68,6 +68,14 @@
                                             type="object"
                                         />
                                     </group>
+                                    <group string="Bouillon" col="2">
+                                        <button
+                                            name="put_upper_address"
+                                            string="Mettre adresses en majuscule"
+                                            icon="gtk-apply"
+                                            type="object"
+                                        />
+                                    </group>
                                 </page>
                                 <page string="from presta of the day">
                                     <button name="reset" string="Reset" icon="gtk-apply" type="object"/>

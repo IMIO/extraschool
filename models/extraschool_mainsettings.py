@@ -494,6 +494,7 @@ class extraschool_mainsettings(models.Model):
             'qrcode_report_id': activity_category.qrcode_report_id.id,
         })
 
+    # region Bouton pour Coralie
     @api.multi
     def mettet_grandprimaire(self):
         maternelle = ["1ere maternelle", "2eme maternelle", "3eme maternelle"]
@@ -534,3 +535,13 @@ class extraschool_mainsettings(models.Model):
                 potd.unlink()
         except:
             raise Warning("Il y a probablement une inscription ou un encodage manuel non supprimé à cette date.")
+
+    @api.multi
+    def put_upper_address(self):
+        parent_ids = self.env['extraschool.parent'].search([])
+        for parent_id in parent_ids:
+            parent_id.write({
+                'street': parent_id.street.upper(),
+                'city': parent_id.city.upper(),
+            })
+    # endregion
