@@ -162,9 +162,6 @@ class extraschool_coda(models.Model):
                                 if invoice.balance < amount:
                                     reject=True
                                     rejectcause=_('Amount greather than invoice balance')
-                                elif invoice.last_reminder_id:
-                                    reject=True
-                                    rejectcause=_('This invoice has a reminder and cannot be paid with the invoice communication')
                                 else:
                                     activity_category = activitycategory_obj.search(
                                         [('invoicecomstructprefix', '=', _prefix)])

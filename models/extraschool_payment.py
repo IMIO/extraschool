@@ -93,7 +93,7 @@ class extraschool_payment(models.Model):
                          ]
         # On CODA payment, do not pay tagged or reminder/reminder fees invoice.
         if from_coda:
-            search_domain += [('tag', '=', None), ('last_reminder_id', '=', None)]
+            search_domain += [('tag', '=', None)]
         elif payment_type == 1:  # Prepaid.
             activity_category_ids = self.env['extraschool.activitycategory'].search([('payment_invitation_com_struct_prefix', '=', com_struct_prefix)]).ids
 
@@ -163,7 +163,7 @@ class extraschool_refund_wizard(models.Model):
                 self.env['extraschool.payment'].search([('id', '=', self._context.get('payment_id'))]).comment += self.env['extraschool.helper'].add_date_user(self.comment)
             else:
                 self.env['extraschool.payment'].search([('id', '=', self._context.get('payment_id'))]).comment = self.env['extraschool.helper'].add_date_user(self.comment)
-        
+
             return {
                 'type': 'ir.actions.client',
                 'tag': 'reload',
