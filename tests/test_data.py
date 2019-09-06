@@ -636,4 +636,9 @@ class TestData(TransactionCase):
             'transmission_date': datetime.now(),
             'structcom': next_reminder_num['com_struct']
         })
+
+        invoice_6.write({
+            'last_reminder_id': reminder_1.id
+        })
+
         # endregion
