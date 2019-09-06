@@ -22,6 +22,7 @@
 ##############################################################################
 
 from openerp.tests.common import HttpCase, TransactionCase
+from datetime import datetime
 
 
 class TestData(TransactionCase):
@@ -51,6 +52,8 @@ class TestData(TransactionCase):
         self.invoiced_prestations_model = self.env['extraschool.invoicedprestations']
         self.sequence_model = self.env['extraschool.activitycategory.sequence']
         self.payment_model = self.env['extraschool.payment']
+        self.reminder_journal_model = self.env['extraschool.remindersjournal']
+        self.reminder_model = self.env['extraschool.reminder']
 
 
         # region Organising Power
@@ -170,6 +173,18 @@ class TestData(TransactionCase):
             'remindersendmethod': 'onlyemail',
             'email': 'fcking@matt.damon',
         })
+
+        parent_4 = self.parent_model.create({
+            'lastname': 'Wayne',
+            'firstname': 'Bruce',
+            'street': 'Manoir Street',
+            'zipcode': '89542',
+            'city': 'Gotham city',
+            'one_subvention_type': 'sf',
+            'invoicesendmethod': 'onlyemail',
+            'remindersendmethod': 'onlyemail',
+            'email': 'thebest@hero.dcandmcu',
+        })
         # endregion
 
         # region Child
@@ -204,6 +219,17 @@ class TestData(TransactionCase):
             'classid': class_2_school_1.id,
             'parentid': parent_2.id,
             'birthdate': '2005-06-05',
+        })
+
+        child_4 = self.child_model.create({
+            'lastname': 'Colicchia',
+            'firstname': 'Michael',
+            'schoolimplantation': school_implantation_1.id,
+            'childtypeid': 1,
+            'levelid': 4,
+            'classid': class_2_school_1.id,
+            'parentid': parent_4.id,
+            'birthdate': '1982-04-29',
         })
         # endregion
 
@@ -460,6 +486,15 @@ class TestData(TransactionCase):
             'activity_category_id': activity_category_1.id,
             'sequence': 1,
         })
+
+        self.sequence_model.create({
+            'year': 2019,
+            'type': 'reminder',
+            'name': 'sequence',
+            'activity_category_id': activity_category_1.id,
+            'sequence': 1,
+        })
+
         next_invoice_num = activity_category_1.get_next_comstruct('invoice', biller_1.get_from_year())
         invoice_1 = self.invoice_model.create({
             'name': '1',
@@ -565,6 +600,40 @@ class TestData(TransactionCase):
 
         invoice_5.reconcil()
 
+        next_invoice_num = activity_category_1.get_next_comstruct('invoice', biller_1.get_from_year())
+        invoice_6 = self.invoice_model.create({
+            'name': '6',
+            'number': next_invoice_num['num'],
+            'parentid': parent_4.id,
+            'biller_id': biller_1.id,
+            'payment_term': biller_1.payment_term,
+            'activitycategoryid': [(4, activity_category_1.id)],
+            'structcom': next_invoice_num['com_struct'],
+        })
+
+        invoiced_presta_6 = self.invoiced_prestations_model.create({
+            'invoiceid': invoice_6.id,
+            'description': 'Test05',
+            'unitprice': 20,
+            'quantity': 1,
+            'total_price': 20,
+        })
+
+        invoice_6.reconcil()
+
         biller_1.pdf_ready = True
         biller_1.in_creation = False
+        # endregion
+
+        # region Reminder
+        next_reminder_num = activity_category_1.get_next_comstruct('reminder', biller_1.get_from_year())
+        reminder_1 = self.reminder_model.create({
+            'parentid': parent_4.id,
+            'amount': 20,
+            'concerned_invoice_ids': [(4, invoice_6.id)],
+            'activity_category_id': activity_category_1.id,
+            'payment_term': datetime.now(),
+            'transmission_date': datetime.now(),
+            'structcom': next_reminder_num['com_struct']
+        })
         # endregion
