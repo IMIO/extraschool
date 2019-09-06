@@ -757,7 +757,8 @@ class PrestationCheckTest(TestData):
         self.assertNotEqual(invoice_3.number, invoice_4.number)
         # endregion
 
-        # region Reminders
+
+        # region Reminder
 ##############################################################################
 #   First Test
 #   Scenario: Simple payment of a reminder with the correct comm struct and amount
@@ -938,6 +939,5 @@ class PrestationCheckTest(TestData):
 
         # solde is 20 more because of test 1 and 3.
         self.assertEqual(parent_3.payment_status_ids[0].solde, 60)
-
-# endregion
+        # endregion
 
