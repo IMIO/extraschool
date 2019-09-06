@@ -308,7 +308,7 @@ class extraschool_one_report(models.Model):
                                'datas_fname': 'rapport_one_' + vals['transmissiondate'] + '.xls',
                                'name': 'rapport_one_' + vals['transmissiondate'] + '.xls',
                                'datas': base64.b64encode(outfile), })
-        new_obj.write({'nb_m_childs':tot_nb_m,'nb_p_childs':tot_nb_p})
+        new_objnew_obj.write({'nb_m_childs':tot_nb_m,'nb_p_childs':tot_nb_p})
         os.remove(report_template_filename)
         os.remove(report_logoone_filename)
         os.remove(report_filename)
