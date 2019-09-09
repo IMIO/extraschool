@@ -6,8 +6,8 @@
         <field name="inherit_id" ref="base.view_users_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='groups_id']" position="after">
-                <group string="Schools right">
-                <field name="school_ids" widget="many2many_tags"/>
+                <group string="Schools right" attrs="{'invisible': [('in_group_32', '=', False)]}">
+                <field name="school_id"/>
                 </group>
             </xpath>
         </field>

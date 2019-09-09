@@ -40,5 +40,8 @@
           <record id="extraschool_fiche_sante" model="res.groups">
             <field name="name">AES Fiche Santé</field>
          </record>
+          <record id="extraschool_direction_rgpd" model="res.groups">
+            <field name="name">AES Direction RGPD</field>
+         </record>
    	  </data>
    </odoo>

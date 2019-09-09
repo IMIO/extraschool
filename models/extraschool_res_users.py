@@ -25,10 +25,10 @@ from openerp import models, api, fields
 from openerp.api import Environment
 
 
-class extraschool_res_user(models.Model):
+class extraschool_res_users(models.Model):
     _inherit = 'res.users'
 
-    school_ids = fields.Many2many(
+    school_id = fields.Many2one(
         'extraschool.school',
         string='Schools'
     )
