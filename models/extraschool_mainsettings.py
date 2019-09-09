@@ -525,12 +525,12 @@ class extraschool_mainsettings(models.Model):
         child_ids = self.env['extraschool.child'].search([('isdisabled', '=', False)])
 
         for child_id in child_ids:
-            if child_id.levelid.name == level:
+            if child_id.levelid.name == level.name:
                 child_id.childtypeid = type
 
-            child_id.write({
-                'childtypeid': type
-            })
+                child_id.write({
+                    'childtypeid': type.id
+                })
 
     @api.multi
     def delete_presta_test(self):
