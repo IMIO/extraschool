@@ -525,7 +525,7 @@ class extraschool_mainsettings(models.Model):
         child_ids = self.env['extraschool.child'].search([('isdisabled', '=', False)])
 
         for child_id in child_ids:
-            if child_id.levelid.name == level.name:
+            if child_id.levelid.name == level.name :
                 child_id.childtypeid = type
 
                 child_id.write({

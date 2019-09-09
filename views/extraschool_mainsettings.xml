@@ -18,6 +18,14 @@
                                 </page>
                                 <page string="Fiche parent">
                                     <button name="update_commstruct" string="Update comm struct" icon="gtk-apply" type="object"/>
+                                    <group string="Mettre en majuscule l'adresse du parent" col="2">
+                                        <button
+                                            name="put_upper_address"
+                                            string="Mettre adresses en majuscule"
+                                            icon="gtk-apply"
+                                            type="object"
+                                        />
+                                    </group>
                                 </page>
                                 <page string="Re check POD - Error when building biller">
                                     <group col="2">
@@ -50,7 +58,7 @@
                                     </group>
                                 </page>
                                 <page string="Bouton pour Coralie &lt;3">
-                                    <group string="Toutes les communes" col="2">
+                                    <group string="Supprimer présences" col="2">
                                         <group>
                                             <field name="limit_date_delete_presta"/>
                                             <button
@@ -87,14 +95,6 @@
                                         <button
                                             name="type_grandprimaire"
                                             string="Grand primaire / Petit primaire"
-                                            icon="gtk-apply"
-                                            type="object"
-                                        />
-                                    </group>
-                                    <group string="Mettre en majuscule l'adresse du parent" col="2">
-                                        <button
-                                            name="put_upper_address"
-                                            string="Mettre adresses en majuscule"
                                             icon="gtk-apply"
                                             type="object"
                                         />

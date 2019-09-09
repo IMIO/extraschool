@@ -316,7 +316,7 @@ class extraschool_parent(models.Model):
         self.isdisabled = True
 
     def get_prepaid_comstruct(self, categ):
-        com_struct_prefix_str = categ[0].payment_invitation_com_struct_prefix
+        com_struct_prefix_str = categ.payment_invitation_com_struct_prefix
         com_struct_id_str = str(self.id).zfill(7)
         com_struct_check_str = str(long(com_struct_prefix_str + com_struct_id_str) % 97).zfill(2)
         com_struct_check_str = com_struct_check_str if com_struct_check_str != '00' else '97'
