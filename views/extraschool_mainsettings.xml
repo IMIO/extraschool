@@ -73,7 +73,7 @@
                                             />
                                         </group>
                                     </group>
-                                    <group string="Mettet" col="2">
+                                    <group string="Affecter classe" col="2">
                                         <button
                                             name="mettet_grandprimaire"
                                             string="Grand primaire / Petit primaire"
@@ -81,7 +81,17 @@
                                             type="object"
                                         />
                                     </group>
-                                    <group string="Bouillon" col="2">
+                                    <group string="Affecter catégorie tarifaire" col="2">
+                                        <field name="level"/>
+                                        <field name="type_child"/>
+                                        <button
+                                            name="type_grandprimaire"
+                                            string="Grand primaire / Petit primaire"
+                                            icon="gtk-apply"
+                                            type="object"
+                                        />
+                                    </group>
+                                    <group string="Mettre en majuscule l'adresse du parent" col="2">
                                         <button
                                             name="put_upper_address"
                                             string="Mettre adresses en majuscule"

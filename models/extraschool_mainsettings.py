@@ -82,7 +82,8 @@ class extraschool_mainsettings(models.Model):
 
     pdf_true_biller = fields.Boolean(string="Les facturiers")
     pdf_true_tax = fields.Boolean(string="Les attestations fiscales")
-
+    level = fields.Many2one('extraschool.level', string='Level')
+    type_child = fields.Many2one('extraschool.childtype', string='Type')
 
     @api.multi
     def update_comm_struct(self):
@@ -515,6 +516,20 @@ class extraschool_mainsettings(models.Model):
 
             child_id.write({
                 'classid': class_id
+            })
+
+    @api.multi
+    def type_grandprimaire(self):
+        type = self.type_child
+        level = self.level
+        child_ids = self.env['extraschool.child'].search([('isdisabled', '=', False)])
+
+        for child_id in child_ids:
+            if child_id.levelid.name == level:
+                child_id.childtypeid = type
+
+            child_id.write({
+                'childtypeid': type
             })
 
     @api.multi
