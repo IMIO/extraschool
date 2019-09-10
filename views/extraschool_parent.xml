@@ -16,6 +16,13 @@
 			</field>
 		</record>
 
+        <record id="parent_request_rule" model="ir.rule">
+            <field name="name">parent Request Rule</field>
+            <field ref="extraschool.model_extraschool_parent" name="model_id"/>
+            <field name="domain_force">[('child_ids.schoolimplantation.schoolid.id', 'in', [user.school_id.id])]</field>
+            <field name="groups" eval="[(4, ref('extraschool.extraschool_direction_rgpd'))]"/>
+        </record>
+
         <record model="ir.ui.view" id="extraschool_parent_form">
             <field name="name">extraschool.parent.form</field>
             <field name="model">extraschool.parent</field>

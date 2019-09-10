@@ -58,7 +58,10 @@
                     <group col="4">
                         <field name="warning_visibility" invisible="True"/>
                         <newline/>
-	                    <field name="school_implantation_id" class="oe_no_button" options="{'no_create':True}" />
+	                    <field name="school_implantation_id"
+                               class="oe_no_button"
+                               options="{'no_create':True}"
+                        />
 	                    <field name="class_id" class="oe_no_button" options="{'no_create':True}" />
 						<field name="place_id" options="{'no_create':True}"/>
                         <field name="levelid" widget="many2many_tags" options="{'no_create':True}" />
@@ -135,7 +138,10 @@
                     <field name="warning_biller" class="alert alert-info" attrs="{'invisible':[('warning_visibility', '!=', True)]}"/>
                     <field name="warning_visibility" invisible="True"/>
                     <group col="4">
-	                    <field name="school_implantation_id" class="oe_no_button" options="{'no_create':True}" />
+	                    <field name="school_implantation_id"
+                               class="oe_no_button"
+                               options="{'no_create':True}"
+                        />
 	                    <field name="class_id" class="oe_no_button" options="{'no_create':True}"/>
 						<field name="place_id" options="{'no_create':True}"/>
                         <field name="levelid" widget="many2many_tags" options="{'no_create':True}"/>

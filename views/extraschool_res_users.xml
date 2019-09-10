@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <record model="ir.ui.view" id="view_res_users_form_inherit">
+        <field name="name">extraschool.res_users.form.inherit</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='groups_id']" position="after">
+                <group string="Schools right">
+                <field name="school_id" widget="many2many_tags"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</openerp>
