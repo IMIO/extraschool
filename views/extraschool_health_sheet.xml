@@ -123,6 +123,10 @@
                                 <newline/>
                                 <field name="photo" widget='radio' options="{'horizontal': true}"/>
                                 <newline/>
+                                <separator string="Prise de photos en général" colspan="2"/>
+                                <newline/>
+                                <field name="photo_general" widget='radio' options="{'horizontal': true}"/>
+                                <newline/>
                                 <separator string="Arnica"/>
                                 <newline/>
                                 <field name="arnica" widget='radio' options="{'horizontal': true}"/>

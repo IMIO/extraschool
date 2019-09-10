@@ -32903,6 +32903,12 @@ msgid "School implantations"
 msgstr "Implantations scolaires"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_photo_general
+msgid "Photo general"
+msgstr "L'enfant peut-il être pris en photo de manière générale ? "
+
+
+#. module: extraschool
 #: model:ir.model,name:extraschool.model_extraschool_place
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_childsworkbook_wizard_placeid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_mainsettings_placeid

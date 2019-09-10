@@ -85,6 +85,10 @@ class extraschool_health_sheet(models.Model):
          ('oui', 'Oui')), default='non_renseigne', string='Arnica')
     diabetique = fields.Boolean(string='Diabétique', default=False)
     interdiction_contact_ids = fields.One2many('extraschool.interdiction_other_contact', 'health_id', string='Interdiction contact', )
+    photo_general = fields.Selection(
+        (('non_renseigne', 'Non renseigné'),
+         ('non', 'Non'),
+         ('oui', 'Oui')), default='non_renseigne', string='Photo general')
 
     @api.model
     def create(self, vals):
