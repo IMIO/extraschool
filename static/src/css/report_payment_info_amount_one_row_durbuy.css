@@ -1,0 +1,14 @@
+#total_row{
+    border-width: 1px;
+    border-style: solid;
+    width: 100%;
+    page-break-inside: avoid;
+    font-size: 12px;
+}
+
+#payment_info{
+    margin-left: 5mm;
+    display: block;
+    padding: 8px;
+    page-break-inside: avoid;
+}

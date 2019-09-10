@@ -22,14 +22,11 @@
 ##############################################################################
 
 from openerp import models, api, fields, _
-from openerp.api import Environment
 from datetime import date, datetime, timedelta as td
 from dateutil.relativedelta import relativedelta
 import datetime
 from math import *
-from pyPdf import PdfFileWriter, PdfFileReader
 from openerp.exceptions import except_orm, Warning, RedirectWarning
-import threading
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -190,6 +187,7 @@ class extraschool_invoice_wizard(models.TransientModel):
             return False
         else:
             return True
+
 
     @api.multi
     def _check_manual_encodage(self):

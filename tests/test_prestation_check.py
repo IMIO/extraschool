@@ -22,7 +22,10 @@
 ##############################################################################
 
 from openerp.addons.extraschool.tests.test_data import TestData
+from datetime import datetime, timedelta
+import base64
 import logging
+import re
 _logger = logging.getLogger(__name__)
 
 class PrestationCheckTest(TestData):
@@ -33,6 +36,7 @@ class PrestationCheckTest(TestData):
         :return: None
         """
 
+        # region Prestations
 ##############################################################################
 #   Simple case of a single entry.
 #   I'll detail everything the first test but the rest will fillow the same
@@ -52,6 +56,8 @@ class PrestationCheckTest(TestData):
         school_implantation_1 = self.env['extraschool.schoolimplantation'].search([('name', '=', 'Hollywood')])
         activity_1 = self.env['extraschool.activity'].search([('name', '=', 'stage 1')])
         activity_2 = self.env['extraschool.activity'].search([('name', '=', 'Cirque')])
+        parent_1 = self.env['extraschool.parent'].search([('lastname', '=', 'Jackson'), ('firstname', '=', 'Joseph')])
+        parent_2 = self.env['extraschool.parent'].search([('lastname', '=', 'Watney'), ('firstname', '=', 'Marc')])
 
         # Then we simulate a scan from a smartphone.
         pda_prestation_1 = self.env['extraschool.pdaprestationtimes'].create({
@@ -570,3 +576,368 @@ class PrestationCheckTest(TestData):
         self.assertEqual(prestation_times_ids_15[1].prestation_time, 9)
         self.assertEqual(prestation_times_ids_15[1].activity_category_id.id, activity_category_1.id)
         self.assertEqual(prestation_times_ids_15[1].activity_name, 'Cirque')
+        # endregion
+
+
+        # region Invoices
+##############################################################################
+#   First Test
+#   Scenario: 1 invoice of 20€. 2 payments of 10€. Pay with com struct of invoice
+#   Expect: Accept both payment on the invoice
+##############################################################################
+
+        invoice_1 = self.env['extraschool.invoice'].search([('name', '=', '1')])
+        self.assertEqual(invoice_1.balance, 20)
+        comm_struct = ''
+        comm_struct = comm_struct.join(re.findall(r'\d+', invoice_1.structcom))
+        payment_date_1 = datetime.now()
+
+        # Create a CODA for the payent
+        mainsettings = self.env['extraschool.mainsettings'].create({
+            'coda_date': payment_date_1,
+            'parent_id': parent_1.id,
+            'amount': '10.00',
+            'communication': comm_struct
+        })
+        mainsettings.generate_coda()
+
+        coda = open("/opt/coda/coda", "r")
+        coda_file = coda.read()
+
+        vals = {
+            u'codafile': base64.b64encode(coda_file),
+            u'state': u'todo'}
+        self.env['extraschool.coda'].create(vals)
+
+        self.assertEqual(invoice_1.balance, 10)
+        payment_1 = self.env['extraschool.payment'].search([('paymentdate', '=', payment_date_1)])
+        self.assertEqual(payment_1.amount, 10)
+        self.assertEqual(parent_1.payment_status_ids[0].solde, 0)
+
+        payment_date_2 = datetime.now() + timedelta(days=1)
+        mainsettings = self.env['extraschool.mainsettings'].create({
+            'coda_date': payment_date_2,
+            'parent_id': parent_1.id,
+            'amount': '10.00',
+            'communication': comm_struct
+        })
+        mainsettings.generate_coda()
+
+        coda = open("/opt/coda/coda", "r")
+        coda_file = coda.read()
+
+        vals = {
+            u'codafile': base64.b64encode(coda_file),
+            u'state': u'todo'}
+        coda_1 = self.env['extraschool.coda'].create(vals)
+
+        self.assertEqual(invoice_1.balance, 0)
+        self.assertEqual(len(coda_1.rejectids), 0)
+        payment_2 = self.env['extraschool.payment'].search([('paymentdate', '=', payment_date_2)])
+        self.assertEqual(payment_2.amount, 10)
+        self.assertEqual(parent_1.payment_status_ids[0].solde, 0)
+
+##############################################################################
+#   Second Test
+#   Scenario: 1 invoice of 30€. 1 payments of 40€. Pay with com struct of invoice
+#   Expect: Reject payment, 40€ on reject in CODA, no prepaid
+##############################################################################
+
+        invoice_2 = self.env['extraschool.invoice'].search([('name', '=', '2')])
+        self.assertEqual(invoice_2.balance, 30)
+        comm_struct = ''
+        comm_struct = comm_struct.join(re.findall(r'\d+', invoice_2.structcom))
+        payment_date_2 = datetime.now() + timedelta(days=2)
+
+        mainsettings = self.env['extraschool.mainsettings'].create({
+            'coda_date': payment_date_2,
+            'parent_id': parent_1.id,
+            'amount': '40.00',
+            'communication': comm_struct
+        })
+        mainsettings.generate_coda()
+
+        coda = open("/opt/coda/coda", "r")
+        coda_file = coda.read()
+
+        vals = {
+            u'codafile': base64.b64encode(coda_file),
+            u'state': u'todo'}
+        coda_2 = self.env['extraschool.coda'].create(vals)
+
+        self.assertEqual(invoice_2.balance, 30)
+        self.assertEqual(len(coda_2.rejectids), 1)
+        self.assertEqual(coda_2.rejectids[0].amount, 40)
+        self.assertEqual(parent_1.payment_status_ids[0].solde, 0)
+
+##############################################################################
+#   Third Test
+#   Scenario: 1 invoice of 30€. 1 payments of 40€. Pay with com struct of parent
+#   Expect: Accept payment, pay 30€ on invoice and put 10€ on pre-paid for the parent
+##############################################################################
+
+        invoice_2 = self.env['extraschool.invoice'].search([('name', '=', '2')])
+        self.assertEqual(invoice_2.balance, 30)
+        comm_struct = ''
+        comm_struct = comm_struct.join(re.findall(r'\d+', parent_1.comstruct))
+        payment_date_3 = datetime.now() + timedelta(days=3)
+
+        mainsettings = self.env['extraschool.mainsettings'].create({
+            'coda_date': payment_date_3,
+            'parent_id': parent_1.id,
+            'amount': '40.00',
+            'communication': comm_struct
+        })
+        mainsettings.generate_coda()
+
+        coda = open("/opt/coda/coda", "r")
+        coda_file = coda.read()
+
+        vals = {
+            u'codafile': base64.b64encode(coda_file),
+            u'state': u'todo'}
+        coda_3 = self.env['extraschool.coda'].create(vals)
+
+        self.assertEqual(invoice_2.balance, 0)
+        self.assertEqual(len(coda_3.rejectids), 0)
+        payment_3 = self.env['extraschool.payment'].search([('paymentdate', '=', payment_date_3),
+                                                            ('parent_id', '=', parent_1.id)
+                                                            ])
+        self.assertEqual(payment_3.amount, 40)
+        self.assertEqual(parent_1.payment_status_ids[0].solde, 10)
+
+        self.assertNotEqual(invoice_1.number, invoice_2.number)
+
+##############################################################################
+#   Fourth Test
+#   Scenario: 1 invoice of 30€ and 1 invoice of 10€. 1 payments of 60€. Pay with com struct of parent
+#   Expect: Accept payment, pay all invoice and put 20€ on pre-paid for the parent
+##############################################################################
+
+        invoice_3 = self.env['extraschool.invoice'].search([('name', '=', '3')])
+        invoice_4 = self.env['extraschool.invoice'].search([('name', '=', '4')])
+
+        self.assertEqual(invoice_3.balance, 10)
+        self.assertEqual(invoice_4.balance, 30)
+
+        comm_struct = ''
+        comm_struct = comm_struct.join(re.findall(r'\d+', parent_2.comstruct))
+        payment_date_4 = datetime.now() + timedelta(days=4)
+
+        mainsettings = self.env['extraschool.mainsettings'].create({
+            'coda_date': payment_date_4,
+            'parent_id': parent_2.id,
+            'amount': '60.00',
+            'communication': comm_struct
+        })
+        mainsettings.generate_coda()
+
+        coda = open("/opt/coda/coda", "r")
+        coda_file = coda.read()
+
+        vals = {
+            u'codafile': base64.b64encode(coda_file),
+            u'state': u'todo'}
+        coda_4 = self.env['extraschool.coda'].create(vals)
+
+        self.assertEqual(invoice_3.balance, 0)
+        self.assertEqual(invoice_4.balance, 0)
+        self.assertEqual(len(coda_4.rejectids), 0)
+        payment_4 = self.env['extraschool.payment'].search([('paymentdate', '=', payment_date_4),
+                                                            ('parent_id', '=', parent_2.id)
+                                                            ])
+        self.assertEqual(payment_4.amount, 60)
+        self.assertEqual(parent_2.payment_status_ids[0].solde, 20)
+
+        self.assertNotEqual(invoice_1.number, invoice_2.number)
+        self.assertNotEqual(invoice_1.number, invoice_3.number)
+        self.assertNotEqual(invoice_1.number, invoice_4.number)
+        self.assertNotEqual(invoice_2.number, invoice_4.number)
+        self.assertNotEqual(invoice_2.number, invoice_3.number)
+        self.assertNotEqual(invoice_3.number, invoice_4.number)
+        # endregion
+
+
+        # region Reminder
+##############################################################################
+#   First Test
+#   Scenario: Simple payment of a reminder with the correct comm struct and amount
+#   Expect: Everything is accepted
+##############################################################################
+
+        invoice_6 = self.env['extraschool.invoice'].search([('name', '=', '6')])
+        invoice_6.cancel_payment()
+        parent_3 = self.env['extraschool.parent'].search([('lastname', '=', 'Wayne'), ('firstname', '=', 'Bruce')])
+        reminder_1 = self.env['extraschool.reminder'].search([('parentid', '=', parent_3.id)])
+
+        self.assertEqual(invoice_6.balance, 20)
+
+        comm_struct = ''
+        comm_struct = comm_struct.join(re.findall(r'\d+', reminder_1.structcom))
+
+        payment_date_5 = datetime.now() + timedelta(days=5)
+
+        mainsettings = self.env['extraschool.mainsettings'].create({
+            'coda_date': payment_date_5,
+            'parent_id': parent_3.id,
+            'amount': '20.00',
+            'communication': comm_struct
+        })
+        mainsettings.generate_coda()
+
+        coda = open("/opt/coda/coda", "r")
+        coda_file = coda.read()
+
+        vals = {
+            u'codafile': base64.b64encode(coda_file),
+            u'state': u'todo'}
+        coda_5 = self.env['extraschool.coda'].create(vals)
+
+        self.assertEqual(len(coda_5.rejectids), 0)
+        payment_5 = self.env['extraschool.payment'].search([('paymentdate', '=', payment_date_5),
+                                                            ('parent_id', '=', parent_3.id)
+                                                            ])
+        self.assertEqual(payment_5.amount, 20)
+        self.assertEqual(invoice_6.balance, 0)
+        self.assertEqual(parent_3.payment_status_ids[0].solde, 0)
+
+        invoice_6.cancel_payment()
+        self.assertEqual(invoice_6.balance, 20)
+
+##############################################################################
+#   Second Test
+#   Scenario: Payment of a reminder with the correct comm struct but higher amount
+#   Expect: Payment is rejected
+##############################################################################
+
+        invoice_6 = self.env['extraschool.invoice'].search([('name', '=', '6')])
+        parent_3 = self.env['extraschool.parent'].search([('lastname', '=', 'Wayne'), ('firstname', '=', 'Bruce')])
+        reminder_1 = self.env['extraschool.reminder'].search([('parentid', '=', parent_3.id)])
+
+        self.assertEqual(invoice_6.balance, 20)
+
+        comm_struct = ''
+        comm_struct = comm_struct.join(re.findall(r'\d+', reminder_1.structcom))
+
+        payment_date_6 = datetime.now() + timedelta(days=6)
+
+        mainsettings = self.env['extraschool.mainsettings'].create({
+            'coda_date': payment_date_6,
+            'parent_id': parent_3.id,
+            'amount': '30.00',
+            'communication': comm_struct
+        })
+        mainsettings.generate_coda()
+
+        coda = open("/opt/coda/coda", "r")
+        coda_file = coda.read()
+
+        vals = {
+            u'codafile': base64.b64encode(coda_file),
+            u'state': u'todo'}
+        coda_6 = self.env['extraschool.coda'].create(vals)
+
+        self.assertEqual(len(coda_6.rejectids), 1)
+        payment_6 = self.env['extraschool.payment'].search([('paymentdate', '=', payment_date_6),
+                                                            ('parent_id', '=', parent_3.id)
+                                                            ])
+        self.assertEqual(payment_6.id, False)
+        self.assertEqual(invoice_6.balance, 20)
+
+        # solde is 20 because of test 1 of reminder.
+        self.assertEqual(parent_3.payment_status_ids[0].solde, 20)
+
+        reject_1 = self.env['extraschool.reject'].search([
+            ('coda', '=', coda_6.id)
+        ])
+
+        self.assertEqual(reject_1.rejectcause, 'A reminder has been found but the amount is not corresponding to balances of invoices')
+
+##############################################################################
+#   Third Test
+#   Scenario: Payment of a reminder with the comm struct of the invoice and correct amount
+#   Expect: Everything is accepted
+##############################################################################
+
+        invoice_6 = self.env['extraschool.invoice'].search([('name', '=', '6')])
+        parent_3 = self.env['extraschool.parent'].search([('lastname', '=', 'Wayne'), ('firstname', '=', 'Bruce')])
+        reminder_1 = self.env['extraschool.reminder'].search([('parentid', '=', parent_3.id)])
+
+        self.assertEqual(invoice_6.balance, 20)
+
+        comm_struct = ''
+        comm_struct = comm_struct.join(re.findall(r'\d+', invoice_6.structcom))
+
+        payment_date_7 = datetime.now() + timedelta(days=7)
+
+        mainsettings = self.env['extraschool.mainsettings'].create({
+            'coda_date': payment_date_7,
+            'parent_id': parent_3.id,
+            'amount': '20.00',
+            'communication': comm_struct
+        })
+        mainsettings.generate_coda()
+
+        coda = open("/opt/coda/coda", "r")
+        coda_file = coda.read()
+
+        vals = {
+            u'codafile': base64.b64encode(coda_file),
+            u'state': u'todo'}
+        coda_7 = self.env['extraschool.coda'].create(vals)
+
+        self.assertEqual(len(coda_7.rejectids), 0)
+        payment_7 = self.env['extraschool.payment'].search([('paymentdate', '=', payment_date_7),
+                                                            ('parent_id', '=', parent_3.id)
+                                                            ])
+        self.assertEqual(payment_7.amount, 20)
+        self.assertEqual(invoice_6.balance, 0)
+
+        # solde is 20 because of test 1 of reminder.
+        self.assertEqual(parent_3.payment_status_ids[0].solde, 20)
+        invoice_6.cancel_payment()
+
+##############################################################################
+#   Fourth Test
+#   Scenario: Payment of a reminder with the comm struct of the parent and correct amount
+#   Expect: Everything is accepted
+##############################################################################
+
+        invoice_6 = self.env['extraschool.invoice'].search([('name', '=', '6')])
+        parent_3 = self.env['extraschool.parent'].search([('lastname', '=', 'Wayne'), ('firstname', '=', 'Bruce')])
+        reminder_1 = self.env['extraschool.reminder'].search([('parentid', '=', parent_3.id)])
+
+        self.assertEqual(invoice_6.balance, 20)
+
+        comm_struct = ''
+        comm_struct = comm_struct.join(re.findall(r'\d+', parent_3.comstruct))
+
+        payment_date_8 = datetime.now() + timedelta(days=8)
+
+        mainsettings = self.env['extraschool.mainsettings'].create({
+            'coda_date': payment_date_8,
+            'parent_id': parent_3.id,
+            'amount': '40.00',
+            'communication': comm_struct
+        })
+        mainsettings.generate_coda()
+
+        coda = open("/opt/coda/coda", "r")
+        coda_file = coda.read()
+
+        vals = {
+            u'codafile': base64.b64encode(coda_file),
+            u'state': u'todo'}
+        coda_8 = self.env['extraschool.coda'].create(vals)
+
+        self.assertEqual(len(coda_8.rejectids), 0)
+        payment_8 = self.env['extraschool.payment'].search([('paymentdate', '=', payment_date_8),
+                                                            ('parent_id', '=', parent_3.id)
+                                                            ])
+        self.assertEqual(payment_8.amount, 40)
+        self.assertEqual(invoice_6.balance, 0)
+
+        # solde is 20 more because of test 1 and 3.
+        self.assertEqual(parent_3.payment_status_ids[0].solde, 60)
+        # endregion
+

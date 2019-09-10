@@ -22,16 +22,6 @@
 ##############################################################################
 
 from openerp import models, api, fields, _
-from openerp.api import Environment
-from openerp.exceptions import except_orm, Warning
-from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
-                           DEFAULT_SERVER_DATETIME_FORMAT)
-
-from openerp.tools.misc import profile
-from datetime import date, datetime, timedelta as td
-import time
-import pdb
-from openerp.exceptions import except_orm, Warning, RedirectWarning
 
 
 class extraschoolAccrued(models.Model):

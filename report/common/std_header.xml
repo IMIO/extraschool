@@ -98,6 +98,44 @@
 			</xpath>
 		</template>
 
+        <template id="report_std_header_ref_school_logo_big">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_std_header_bigger.css"/>
+            </xpath>
+            <div id="aes_header">
+		    	<div class="row">
+		    		<div id="b_logo">
+						<img class="logo" t-attf-src="data:image/jpeg;base64,{{logo}}"/>
+		    		</div>
+		    		<div id="b_date">
+                        <span class="implantation"><t t-esc="schoolimplantationid.id" /></span><br/><br/>
+						<span class="doc_date" style="font-size: 12px;"><t t-esc="doc_date" /></span>
+		    		</div>
+		    	</div>
+			</div>
+		</template>
+
+        <template id="report_2_logo_std_header">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_std_header.css"/>
+            </xpath>
+		    <div id="aes_header">
+		    	<div class="row">
+		    		<div id="b_logo">
+						<img class="logo" t-attf-src="data:image/jpeg;base64,{{logo}}"/>
+                        <img class="logo" t-attf-src="data:image/jpeg;base64,{{logo2}}"/>
+		    		</div>
+		    		<div id="b_date">
+                        <t t-esc="schoolimplantationid.id"/>
+						<span class="doc_date" style="font-size: 12px;"><t t-esc="doc_date" /></span>
+		    		</div>
+		    	</div>
+		    	<div class="row" >
+			    	<span class="slogan"><t t-esc="slogan" /></span>
+				</div>
+			</div>
+		</template>
+
 
         <template id="report_std_header_name_right_tournai">
 		    <xpath expr="//head" position="inside">

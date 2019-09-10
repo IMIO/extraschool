@@ -37,6 +37,7 @@
                                     <t t-set="firstname" t-value="docs[i].firstname"/>
                                     <t t-set="lastname" t-value="docs[i].lastname"/>
                                     <t t-set="school" t-value="docs[i].schoolimplantation.name"/>
+                                    <t t-set="level" t-value="docs[i].levelid.name"/>
                                     <t t-set="tagid" t-value="docs[i].action_gentagid()[0]"/>
 
                                     <t t-foreach="docs[0].organising_power_id.qrcode_report_id.inline_report_ids.filtered(lambda r: r.verso == False)" t-as="tmpl">

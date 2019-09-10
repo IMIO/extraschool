@@ -209,5 +209,48 @@ envers la               Commune des sommes ci-après.
                 </div>
             </div>
 		</template>
+
+        <template id="report_amount_engis_no_style">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_amount_no_style.css"/>
+            </xpath>
+			<div id="total_row">
+				<div id="total">
+					<div class="amount">
+					  	<span class="zz_label">Total</span><span class="amount"><t t-esc="'%.2f' %  (total)" /> €</span>
+					</div>
+					<div class="amount">
+					   	<span class="zz_label">Reçu</span><span class="amount"><t t-esc="'%.2f' %  (received)" /> €</span>
+					</div>
+                    <div class="amount" t-if="reminder_type == 'fix'">
+                        <span class="zz_label">Frais de rappel</span><span class="amount"><t t-esc="'%.2f' %  (fees)" /> €</span>
+                    </div>
+                    <div class="amount to_pay" t-if="reminder_type == 'fix'">
+                        <span class="zz_label">Solde</span><span class="amount"><t t-esc="'%.2f' %  (balance + fees)" /> €</span>
+                    </div>
+					<div class="amount to_pay" t-if="reminder_type == 'free'">
+						<span class="zz_label">Solde</span><span class="amount"><t t-esc="'%.2f' %  (balance)" /> €</span>
+					</div>
+					<div class="amount to_pay" t-if="not reminder_type">
+						<span class="zz_label">Solde</span><span class="amount"><t t-esc="'%.2f' %  (balance)" /> €</span>
+					</div>
+					<div class="amount to_pay">
+					 	<span> A payer avant le <t t-esc="payment_term" /></span> <br/><br/>
+                        <div style="border-top: black 1px solid;">
+                            <br/>Chers parents,
+                        pour que votre paiement
+                        soit traité correctement par notre
+                        programme informatique, veillez à utiliser
+                        absolument la communication structurée
+                        mentionnée sur votre rappel.
+                        Merci pour
+                        votre collaboration.
+                        </div>
+					</div>
+
+				</div>
+			</div>
+		</template>
+
     </data>
 </odoo>

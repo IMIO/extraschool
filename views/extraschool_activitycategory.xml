@@ -56,6 +56,7 @@
                     <notebook>
                         <page string="Configuration">
                             <group col="2">
+                                <field name="logo" widget="image" class="oe_avatar oe_left"/>
                                 <field name="name"/>
                                 <field name="organising_power_id" />
                                 <field name="childpositiondetermination" />

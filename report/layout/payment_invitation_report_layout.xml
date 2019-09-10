@@ -1,13 +1,13 @@
 <?xml version="1.0" ?>
 <odoo>
-	<data> 
+	<data>
 		<template id="report_payment_invitation_report_layout" inherit_id="report.layout"  primary="True">
             <xpath expr="//head" position="inside">
 	            <style type="text/css">
 	            	body {
-					  font-family: arial !important;	            	 	  
+					  font-family: arial !important;
 					}
-	            	
+
 					body.container {
 					  padding: 0px;
 					  margin: 0px;
@@ -17,84 +17,86 @@
 		        <link href="/website/static/src/css/website.css" rel="stylesheet"/>
 		        <link href="/web/static/lib/fontawesome/css/font-awesome.css" rel="stylesheet"/>
             </xpath>
-		    
-            <xpath expr="//html" position="attributes">	
+
+            <xpath expr="//html" position="attributes">
 		    	<attribute name="t-att-data-report-margin-top">docs[0].activity_category_id.payment_invitation_report_id.paper_format_id.margin_top</attribute>
 		        <attribute name="t-att-data-report-margin-bottom">docs[0].activity_category_id.payment_invitation_report_id.paper_format_id.margin_bottom</attribute>
 		        <attribute name="t-att-data-report-margin-right">docs[0].activity_category_id.payment_invitation_report_id.paper_format_id.margin_right</attribute>
-		        <attribute name="t-att-data-report-margin-left">docs[0].activity_category_id.payment_invitation_report_id.paper_format_id.margin_left</attribute>		        		  		        		        		        		                		  		        		        
-		    </xpath>            
-		    
-            <xpath expr="//body" position="attributes">
-				<attribute name="t-att-class">container</attribute>	      
+		        <attribute name="t-att-data-report-margin-left">docs[0].activity_category_id.payment_invitation_report_id.paper_format_id.margin_left</attribute>
 		    </xpath>
-		    
+
+            <xpath expr="//body" position="attributes">
+				<attribute name="t-att-class">container</attribute>
+		    </xpath>
+
             <xpath expr="//body" position="inside">
 				<div id="payment_status">
-					<t t-foreach="docs" t-as="payment_status">													
+					<t t-foreach="docs" t-as="payment_status">
 						<t t-set="logo" t-value="payment_status.activity_category_id.logo"/>
-						<t t-set="slogan" t-value="payment_status.activity_category_id.slogan"/>	
-						
+						<t t-set="slogan" t-value="payment_status.activity_category_id.slogan"/>
+
 						<t t-set="amount_int" t-value="''"/>
-						<t t-set="amount_dec" t-value="''"/>			
+						<t t-set="amount_dec" t-value="''"/>
 						<t t-set="execution_date_day" t-value="''"/>
 						<t t-set="execution_date_month" t-value="''"/>
 						<t t-set="execution_date_year" t-value="''"/>
-						<t t-set="bankaccount" t-value="payment_status.activity_category_id.bankaccount"/>			
-						<t t-set="bank_bic" t-value="payment_status.activity_category_id.bank_bic"/>			
-						<t t-set="bank_address" t-value="payment_status.activity_category_id.bank_address"/>			
-						<t t-set="bank_zip" t-value="payment_status.activity_category_id.bank_zip"/>			
-						<t t-set="bank_city" t-value="payment_status.activity_category_id.bank_city"/>	
-						<t t-set="com_struct" t-value="payment_status.com_struct"/>	
+						<t t-set="bankaccount" t-value="payment_status.activity_category_id.bankaccount"/>
+						<t t-set="bank_bic" t-value="payment_status.activity_category_id.bank_bic"/>
+						<t t-set="bank_address" t-value="payment_status.activity_category_id.bank_address"/>
+						<t t-set="bank_zip" t-value="payment_status.activity_category_id.bank_zip"/>
+						<t t-set="bank_city" t-value="payment_status.activity_category_id.bank_city"/>
+						<t t-set="com_struct" t-value="payment_status.com_struct"/>
+                        <t t-set="totalbalance" t-value="payment_status.totalbalance"/>
+                        <t t-set="com_struct" t-value="payment_status.com_struct"/>
 
-						<t t-set="addresse" t-value="payment_status.parent_id"/>								
+						<t t-set="addresse" t-value="payment_status.parent_id"/>
 						<t t-set="po_addresse" t-value="payment_status.activity_category_id"/>
-						
+
 						<t t-set="parent_id" t-value="payment_status.parent_id"/>
 						<t t-set="categ_id" t-value="payment_status.activity_category_id"/>
-						<t t-set="doc_date" t-value="'%s, le %s' % (payment_status.activity_category_id.po_city,payment_status.get_date_now())"/>	
-																							
+						<t t-set="doc_date" t-value="'%s, le %s' % (payment_status.activity_category_id.po_city,payment_status.get_date_now())"/>
+
 						<t t-set="resp_fct" t-value="payment_status.activity_category_id.po_resp_name"/>
 						<t t-set="resp_name" t-value="payment_status.activity_category_id.po_resp_fct"/>
-																												
-						<t t-set="html_text" t-value="payment_status.activity_category_id.payment_invitation_courrier_text"/>			
-																																																		
+
+						<t t-set="html_text" t-value="payment_status.activity_category_id.payment_invitation_courrier_text"/>
+
 			        	<div class="header">
 		        			<t t-foreach="payment_status.activity_category_id.payment_invitation_report_id.inline_report_ids.filtered(lambda r: r.section == 'a_header')" t-as="tmpl">
-				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">	         	    
+				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">
 			        				<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
 								</div>
 								<t t-if="tmpl.visibility == False">
 									<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
 								</t>
-							</t> 	
-			       		</div>				
+							</t>
+			       		</div>
 			        	<div class="page">
 			        		<t t-foreach="payment_status.activity_category_id.payment_invitation_report_id.inline_report_ids.filtered(lambda r: r.section == 'b_body')" t-as="tmpl">
-				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">	         	    
+				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">
 			        				<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
 								</div>
 								<t t-if="tmpl.visibility == False">
 									<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
 								</t>
-							</t> 	    
+							</t>
 			       		</div>
 			        	<div class="footer">
 			        		<t t-foreach="payment_status.activity_category_id.payment_invitation_report_id.inline_report_ids.filtered(lambda r: r.section == 'c_footer')" t-as="tmpl">
-				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">	         	    
+				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">
 			        				<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
 								</div>
 								<t t-if="tmpl.visibility == False">
 									<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
 								</t>
-							</t> 	    
+							</t>
 			       		</div>
 				    </t>
-				</div>				
-			</xpath>	
+				</div>
+			</xpath>
 		</template>
 	</data>
-	
+
 	<data noupdate="1">
 		<record id="paperformat_aes_payment_invitation" model="report.paperformat">
     		<field name="name">Payment invitation</field>
@@ -109,7 +111,7 @@
     		<field name="header_spacing">35</field>
     		<field name="dpi">90</field>
 		</record>
-						
+
 		<report
 		    id="extraschool_payment_invitation_report"
 		    model="extraschool.payment_status_report"
@@ -121,8 +123,7 @@
 
 		<record id="extraschool_payment_invitation_report" model="ir.actions.report.xml">
     		<field name="paperformat_id" ref="paperformat_aes_payment_invitation"/>
-		</record>		
-								
+		</record>
+
 	</data>
 </odoo>
-	

@@ -15,6 +15,8 @@
                         <page string="Signalétique">
                             <group col="2">
                                 <field name="logo" widget="image" class="oe_avatar oe_left"/>
+                                <field name="logo2" widget="image" class="oe_avatar oe_left"/>
+                                <newline/>
                                 <field name="slogan"/>
                                 <field name="po_name" />
                                 <field name="po_street" />
@@ -28,20 +30,35 @@
                                 <field name="po_addresse_free_text"  widget="html" />
                                 <newline/>
                                 <field name="po_addresse_free_text2"  widget="html" />
-                                <newline/>
+                            </group>
+                        </page>
+                        <page string="Factures">
+                            <group col="2">
                                 <separator string="Informations sur les factures" colspan="4"/>
                                 <field name="po_resp_name" />
                                 <field name="po_resp_fct" />
                                 <field name="po_sign_img" widget="image" class="oe_avatar oe_left"/>
-                                <newline />
+                                <newline/>
                                 <field name="po_resp2_name" />
                                 <field name="po_resp2_fct" />
                                 <field name="po_resp2_sign" widget="image" class="oe_avatar oe_left"/>
+                            </group>
+                        </page>
+                        <page string="Rappels">
+                            <group col="2">
                                 <separator string="Informations sur les rappels" colspan="4"/>
                                 <field name="po_rappel_name" />
                                 <field name="po_rappel_fct" />
                                 <field name="po_rappel_sign" widget="image" class="oe_avatar oe_left"/>
-                                <separator string="Informations sur les attestations fiscale" colspan="4"/>
+                                <newline/>
+                                <field name="po_rappel_name2" />
+                                <field name="po_rappel_fct2" />
+                                <field name="po_rappel_sign2" widget="image" class="oe_avatar oe_left"/>
+                            </group>
+                        </page>
+                        <page string="Attestations fiscales">
+                            <group col="4">
+                                <separator string="Informations sur les attestations fiscales" colspan="4"/>
                                 <field name="po_attestation_name" />
                                 <field name="po_attestation_fct" />
                                 <field name="po_attestation_sign" widget="image" class="oe_avatar oe_left"/>
@@ -49,12 +66,17 @@
                         </page>
                         <page string="Configuration">
                             <group col="2">
+                                <separator string="Informations sur les catégories d'activités" colspan="4"/>
                                 <field name="activity_category_ids" widget="many2many_tags"/>
-                                <field name="max_school_implantation"/>
                                 <field name="dominant_activity_category_id"/>
                                 <field name="dominant_payment_activity_category_id"/>
+                                <separator string="Information pour les écoles" colspan="4"/>
+                                <field name="max_school_implantation"/>
+                                <separator string="Rapports" colspan="4"/>
                                 <field name="biller_report_id" />
                                 <field name="qrcode_report_id" />
+                                <field name="healthy_report_id" />
+                                <separator string="Information sur l'attestation fiscale" colspan="4"/>
                                 <field name="taxcertificatetemplate" />
                             </group>
                         </page>

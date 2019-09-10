@@ -106,7 +106,7 @@
 			<field name="name">Prestations.tree</field>
 			<field name="res_model">extraschool.prestationtimes</field>
 			<field name="view_type">form</field>
-            <field name="view_mode">tree,graph</field>
+            <field name="view_mode">tree,graph,pivot</field>
 			<field name="view_id" ref="extraschool_prestationtimes_tree"/>
             <field name="search_view_id" ref="prestationtimes_search_view"/>
 		</record>

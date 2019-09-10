@@ -1,0 +1,16 @@
+.aes_html_parent_credit{
+    display: block;
+    clear: both;
+    padding: 0 0 0 0px;
+    margin 0 0 0 0;
+    font-size:12px;
+}
+
+div.aes_html_parent_credit h4{
+    font-size:12px;
+}
+
+.aes_credit_solde{
+    white-space:nowrap;
+    font-weight: bold;
+}

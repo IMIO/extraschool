@@ -22,6 +22,8 @@
 ##############################################################################
 
 from openerp.tests.common import HttpCase, TransactionCase
+from datetime import datetime
+
 
 class TestData(TransactionCase):
 
@@ -44,13 +46,24 @@ class TestData(TransactionCase):
         self.child_registration_model = self.env['extraschool.child_registration']
         self.price_list_model = self.env['extraschool.price_list']
         self.price_list_version_model = self.env['extraschool.price_list_version']
+        self.class_model = self.env['extraschool.class']
+        self.biller_model = self.env['extraschool.biller']
+        self.invoice_model = self.env['extraschool.invoice']
+        self.invoiced_prestations_model = self.env['extraschool.invoicedprestations']
+        self.sequence_model = self.env['extraschool.activitycategory.sequence']
+        self.payment_model = self.env['extraschool.payment']
+        self.reminder_journal_model = self.env['extraschool.remindersjournal']
+        self.reminder_model = self.env['extraschool.reminder']
 
-        # Creation of Organising Power.
+
+        # region Organising Power
         organising_power = self.organising_power_model.create({
             'town': 'Dreamland',
+            'max_school_implantation': 100,
         })
+        # endregion
 
-        # Creation of activity category.
+        # region Activity Category
         activity_category_1 = self.activity_category_model.create({
             'name': 'Accueil',
             'childpositiondetermination': 'byparent',
@@ -60,7 +73,6 @@ class TestData(TransactionCase):
             'organising_power_id': organising_power.id,
         })
 
-        # Creation of activity category.
         activity_category_2 = self.activity_category_model.create({
             'name': 'Repas',
             'childpositiondetermination': 'byparent',
@@ -69,21 +81,18 @@ class TestData(TransactionCase):
             'payment_invitation_com_struct_prefix': 303,
             'organising_power_id': organising_power.id,
         })
+        # endregion
 
-        organising_power.write({
-            # 'activity_category_ids': [(6, 0, [activity_category_1.id, activity_category_2.id])],
-            'max_school_implantation': 100,
-        })
-
-        # Creation of school
+        # region School
         school_1 = self.school_model.create({
             'name': 'Los Angeles'
         })
         school_2 = self.school_model.create({
             'name': 'Courrières'
         })
+        # endregion
 
-        # Creation of school implantation
+        # region School Implantation
         school_implantation_1 = self.school_implantation_model.create({
             'schoolid': school_1.id,
             'name': 'Hollywood',
@@ -92,8 +101,9 @@ class TestData(TransactionCase):
             'schoolid': school_2.id,
             'name': 'Gembloux',
         })
+        # endregion
 
-        # Creation of place
+        # region Place
         place_1 = self.place_model.create({
             'name': 'California',
             'schoolimplantation_ids': [school_implantation_1.id],
@@ -102,8 +112,32 @@ class TestData(TransactionCase):
             'name': 'Namur',
             'schoolimplantation_ids': [school_implantation_2.id],
         })
+        # endregion
 
-        # Creation of parents.
+        # region Class
+        class_2_school_1 = self.class_model.create({
+            'name': 'M1',
+            'levelids': [2],
+            'schoolimplantation': school_implantation_1.id,
+        })
+        class_5_school_1 = self.class_model.create({
+            'name': 'P1',
+            'levelids': [5],
+            'schoolimplantation': school_implantation_1.id,
+        })
+        class_3_school_1 = self.class_model.create({
+            'name': 'M2',
+            'levelids': [3],
+            'schoolimplantation': school_implantation_1.id,
+        })
+        class_6_school_1 = self.class_model.create({
+            'name': 'P2',
+            'levelids': [6],
+            'schoolimplantation': school_implantation_1.id,
+        })
+        # endregion
+
+        # region Parent
         parent_1 = self.parent_model.create({
             'lastname': 'Jackson',
             'firstname': 'Joseph',
@@ -116,13 +150,51 @@ class TestData(TransactionCase):
             'email': 'jm@star.be',
         })
 
-        # Creation of children.
+        parent_2 = self.parent_model.create({
+            'lastname': 'Watney',
+            'firstname': 'Marc',
+            'street': 'Tranquility',
+            'zipcode': '12554',
+            'city': 'Mars',
+            'one_subvention_type': 'sf',
+            'invoicesendmethod': 'onlyemail',
+            'remindersendmethod': 'onlyemail',
+            'email': 'watney@artemis.space',
+        })
+
+        parent_3 = self.parent_model.create({
+            'lastname': 'Damon',
+            'firstname': 'Matt',
+            'street': 'Beverly Hills Blvd',
+            'zipcode': '54321',
+            'city': 'Los Angeles',
+            'one_subvention_type': 'sf',
+            'invoicesendmethod': 'onlyemail',
+            'remindersendmethod': 'onlyemail',
+            'email': 'fcking@matt.damon',
+        })
+
+        parent_4 = self.parent_model.create({
+            'lastname': 'Wayne',
+            'firstname': 'Bruce',
+            'street': 'Manoir Street',
+            'zipcode': '89542',
+            'city': 'Gotham city',
+            'one_subvention_type': 'sf',
+            'invoicesendmethod': 'onlyemail',
+            'remindersendmethod': 'onlyemail',
+            'email': 'thebest@hero.dcandmcu',
+        })
+        # endregion
+
+        # region Child
         child_1 = self.child_model.create({
             'lastname': 'Jackson',
             'firstname': 'Michael',
             'schoolimplantation': school_implantation_1.id,
             'childtypeid': 1,
             'levelid': 2,
+            'classid': class_2_school_1.id,
             'parentid': parent_1.id,
             'birthdate': '2005-05-29',
         })
@@ -133,18 +205,43 @@ class TestData(TransactionCase):
             'schoolimplantation': school_implantation_1.id,
             'childtypeid': 1,
             'levelid': 5,
+            'classid': class_5_school_1.id,
             'parentid': parent_1.id,
             'birthdate': '2003-06-12',
         })
 
-        # Creation of exclusion date.
+        child_3 = self.child_model.create({
+            'lastname': 'Mars',
+            'firstname': 'Rover',
+            'schoolimplantation': school_implantation_1.id,
+            'childtypeid': 1,
+            'levelid': 2,
+            'classid': class_2_school_1.id,
+            'parentid': parent_2.id,
+            'birthdate': '2005-06-05',
+        })
+
+        child_4 = self.child_model.create({
+            'lastname': 'Colicchia',
+            'firstname': 'Michael',
+            'schoolimplantation': school_implantation_1.id,
+            'childtypeid': 1,
+            'levelid': 4,
+            'classid': class_2_school_1.id,
+            'parentid': parent_4.id,
+            'birthdate': '1982-04-29',
+        })
+        # endregion
+
+        # region Exclusion Date
         exclusion_1 = self.exclusion_date_model.create({
             'date_from': '2018-07-16',
             'date_to': '2018-07-16',
             'name': 'Exclude 16-07-2018',
         })
+        # endregion
 
-        # Creation of activities.
+        # region Activity
         activity_1 = self.activity_model.create({
             'name': 'les bronzés font du ski',
             'category_id': activity_category_1.id,
@@ -337,7 +434,9 @@ class TestData(TransactionCase):
             'autoaddchilds': False,
             'onlyregisteredchilds': True,
         })
+        # endregion
 
+        # region Price List Version
         price_list_version_1 = self.price_list_version_model.create({
             'name': 'matin payant',
             'validity_from': '2018-01-01',
@@ -350,8 +449,196 @@ class TestData(TransactionCase):
             'period_tolerance': 0,
             'max_price': 0.000,
         })
+        # endregion
 
+        # region Price List
         price_list_1 = self.price_list_model.create({
             'name': 'matin payant',
             'price_list_version_ids': [(4, price_list_version_1.id)]
         })
+        # endregion
+
+        # region Payment
+        # payment_1 = self.payment_model.create({
+        #     'parent_id': parent_3.id,
+        #     'paymendate': '2019-09-01',
+        #     'paymenttype': '3',
+        #     'amount': 40,
+        #     'activity_category_id': [(4, activity_category_1.id)],
+        # })
+        # endregion
+
+        # region Biller
+        biller_1 = self.biller_model.create({
+            'period_from': '2019-08-01',
+            'period_to': '2019-08-31',
+            'payment_term': '2019-09-15',
+            'invoices_date': '2019-08-22',
+            'activitycategoryid': [(4, activity_category_1.id)]
+        })
+        # endregion
+
+        # region Invoice
+        self.sequence_model.create({
+            'year': 2019,
+            'type': 'invoice',
+            'name': 'sequence',
+            'activity_category_id': activity_category_1.id,
+            'sequence': 1,
+        })
+
+        self.sequence_model.create({
+            'year': 2019,
+            'type': 'reminder',
+            'name': 'sequence',
+            'activity_category_id': activity_category_1.id,
+            'sequence': 1,
+        })
+
+        next_invoice_num = activity_category_1.get_next_comstruct('invoice', biller_1.get_from_year())
+        invoice_1 = self.invoice_model.create({
+            'name': '1',
+            'number': next_invoice_num['num'],
+            'parentid': parent_1.id,
+            'biller_id': biller_1.id,
+            'payment_term': biller_1.payment_term,
+            'activitycategoryid': [(4, activity_category_1.id)],
+            'structcom': next_invoice_num['com_struct'],
+        })
+
+        invoiced_presta_1 = self.invoiced_prestations_model.create({
+            'invoiceid': invoice_1.id,
+            'description': 'Test01',
+            'unitprice': 20,
+            'quantity': 1,
+            'total_price': 20,
+        })
+
+        invoice_1.reconcil()
+
+        next_invoice_num = activity_category_1.get_next_comstruct('invoice', biller_1.get_from_year())
+        invoice_2 = self.invoice_model.create({
+            'name': '2',
+            'number': next_invoice_num['num'],
+            'parentid': parent_1.id,
+            'biller_id': biller_1.id,
+            'payment_term': biller_1.payment_term,
+            'activitycategoryid': [(4, activity_category_1.id)],
+            'structcom': next_invoice_num['com_struct'],
+        })
+
+        invoiced_presta_2 = self.invoiced_prestations_model.create({
+            'invoiceid': invoice_2.id,
+            'description': 'Test02',
+            'unitprice': 30,
+            'quantity': 1,
+            'total_price': 30,
+        })
+
+        invoice_2.reconcil()
+
+        next_invoice_num = activity_category_1.get_next_comstruct('invoice', biller_1.get_from_year())
+        invoice_3 = self.invoice_model.create({
+            'name': '3',
+            'number': next_invoice_num['num'],
+            'parentid': parent_2.id,
+            'biller_id': biller_1.id,
+            'payment_term': biller_1.payment_term,
+            'activitycategoryid': [(4, activity_category_1.id)],
+            'structcom': next_invoice_num['com_struct'],
+        })
+
+        invoiced_presta_3 = self.invoiced_prestations_model.create({
+            'invoiceid': invoice_3.id,
+            'description': 'Test03',
+            'unitprice': 10,
+            'quantity': 1,
+            'total_price': 10,
+        })
+
+        invoice_3.reconcil()
+
+        next_invoice_num = activity_category_1.get_next_comstruct('invoice', biller_1.get_from_year())
+        invoice_4 = self.invoice_model.create({
+            'name': '4',
+            'number': next_invoice_num['num'],
+            'parentid': parent_2.id,
+            'biller_id': biller_1.id,
+            'payment_term': biller_1.payment_term,
+            'activitycategoryid': [(4, activity_category_1.id)],
+            'structcom': next_invoice_num['com_struct'],
+        })
+
+        invoiced_presta_4 = self.invoiced_prestations_model.create({
+            'invoiceid': invoice_4.id,
+            'description': 'Test04',
+            'unitprice': 30,
+            'quantity': 1,
+            'total_price': 30,
+        })
+
+        invoice_4.reconcil()
+
+        next_invoice_num = activity_category_1.get_next_comstruct('invoice', biller_1.get_from_year())
+        invoice_5 = self.invoice_model.create({
+            'name': '5',
+            'number': next_invoice_num['num'],
+            'parentid': parent_3.id,
+            'biller_id': biller_1.id,
+            'payment_term': biller_1.payment_term,
+            'activitycategoryid': [(4, activity_category_1.id)],
+            'structcom': next_invoice_num['com_struct'],
+        })
+
+        invoiced_presta_5 = self.invoiced_prestations_model.create({
+            'invoiceid': invoice_5.id,
+            'description': 'Test05',
+            'unitprice': 20,
+            'quantity': 1,
+            'total_price': 20,
+        })
+
+        invoice_5.reconcil()
+
+        next_invoice_num = activity_category_1.get_next_comstruct('invoice', biller_1.get_from_year())
+        invoice_6 = self.invoice_model.create({
+            'name': '6',
+            'number': next_invoice_num['num'],
+            'parentid': parent_4.id,
+            'biller_id': biller_1.id,
+            'payment_term': biller_1.payment_term,
+            'activitycategoryid': [(4, activity_category_1.id)],
+            'structcom': next_invoice_num['com_struct'],
+        })
+
+        invoiced_presta_6 = self.invoiced_prestations_model.create({
+            'invoiceid': invoice_6.id,
+            'description': 'Test05',
+            'unitprice': 20,
+            'quantity': 1,
+            'total_price': 20,
+        })
+
+        invoice_6.reconcil()
+
+        biller_1.pdf_ready = True
+        biller_1.in_creation = False
+        # endregion
+
+        # region Reminder
+        next_reminder_num = activity_category_1.get_next_comstruct('reminder', biller_1.get_from_year())
+        reminder_1 = self.reminder_model.create({
+            'parentid': parent_4.id,
+            'amount': 20,
+            'concerned_invoice_ids': [(4, invoice_6.id)],
+            'activity_category_id': activity_category_1.id,
+            'payment_term': datetime.now(),
+            'transmission_date': datetime.now(),
+            'structcom': next_reminder_num['com_struct']
+        })
+
+        invoice_6.write({
+            'last_reminder_id': reminder_1.id
+        })
+
+        # endregion

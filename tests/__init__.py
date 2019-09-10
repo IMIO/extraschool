@@ -24,4 +24,5 @@
 
 from . import test_data
 from . import test_prestation_check
+# from . import test_upgrade_children
 # from . import test_qinvoice

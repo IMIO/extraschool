@@ -24,7 +24,6 @@
 from openerp import models, api, fields, _
 from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
-from datetime import date
 import datetime
 import time
 import logging
@@ -118,9 +117,6 @@ class extraschool_prestation_times_of_the_day(models.Model):
 
             dup_pod_ids.unlink()
             pod.reset()
-
-
-
 
     @api.multi
     def reset(self):

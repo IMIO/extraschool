@@ -22,7 +22,6 @@
 ##############################################################################
 
 from openerp import models, api, fields, _
-from openerp.api import Environment
 from openerp.exceptions import except_orm, Warning, RedirectWarning
 from openerp import tools
 from datetime import datetime
@@ -32,11 +31,13 @@ class extraschool_payment(models.Model):
     _description = 'Payment'
     _order = 'paymentdate desc'
 
-    paymenttype = fields.Selection((('1','CODA File'),
+    paymenttype = fields.Selection((('1', 'CODA File'),
                                     ('2', 'Mandat classe 4'),
-                                    ('3','Cash'),
-                                    ('4','Non value'),
-                                    ('5','Reject')),'Payment type')
+                                    ('3', 'Cash'),
+                                    ('4', 'Non value'),
+                                    ('5', 'Reject'),
+                                    ('6', 'Online'),
+                                    ),'Payment type')
     parent_id = fields.Many2one("extraschool.parent",domain="[('isdisabled','=',False)]")
     paymentdate = fields.Date(string='Date', required=True)
     structcom = fields.Char(string='Structured Communication', size=50)
@@ -92,7 +93,7 @@ class extraschool_payment(models.Model):
                          ]
         # On CODA payment, do not pay tagged or reminder/reminder fees invoice.
         if from_coda:
-            search_domain += [('tag', '=', None), ('last_reminder_id', '=', None)]
+            search_domain += [('tag', '=', None)]
         elif payment_type == 1:  # Prepaid.
             activity_category_ids = self.env['extraschool.activitycategory'].search([('payment_invitation_com_struct_prefix', '=', com_struct_prefix)]).ids
 
@@ -162,7 +163,7 @@ class extraschool_refund_wizard(models.Model):
                 self.env['extraschool.payment'].search([('id', '=', self._context.get('payment_id'))]).comment += self.env['extraschool.helper'].add_date_user(self.comment)
             else:
                 self.env['extraschool.payment'].search([('id', '=', self._context.get('payment_id'))]).comment = self.env['extraschool.helper'].add_date_user(self.comment)
-        
+
             return {
                 'type': 'ir.actions.client',
                 'tag': 'reload',

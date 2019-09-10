@@ -20,24 +20,21 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 from docutils.utils.math.math2html import Formula
 
 from openerp import models, api, fields,_
-from openerp.api import Environment
-import cStringIO
 import base64
 import os
-from pyPdf import PdfFileWriter, PdfFileReader
 import datetime
 from xlrd import open_workbook
 from xlutils.copy import copy
-from xlutils.styles import Styles
-import xlwt
 from xlwt import *
 from datetime import date, datetime, timedelta as td
 from openerp.exceptions import Warning
 from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
+
 
 class extraschool_one_report_day(models.Model):
     _name = 'extraschool.one_report_day'
@@ -311,7 +308,7 @@ class extraschool_one_report(models.Model):
                                'datas_fname': 'rapport_one_' + vals['transmissiondate'] + '.xls',
                                'name': 'rapport_one_' + vals['transmissiondate'] + '.xls',
                                'datas': base64.b64encode(outfile), })
-        new_obj.write({'nb_m_childs':tot_nb_m,'nb_p_childs':tot_nb_p})
+        new_objnew_obj.write({'nb_m_childs':tot_nb_m,'nb_p_childs':tot_nb_p})
         os.remove(report_template_filename)
         os.remove(report_logoone_filename)
         os.remove(report_filename)

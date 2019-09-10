@@ -23,6 +23,7 @@
 
 from openerp import models, api, fields, _
 
+
 class extraschool_organising_power(models.Model):
     _name = 'extraschool.organising_power'
     _description = 'Organising Power that contains all activities'
@@ -61,10 +62,16 @@ class extraschool_organising_power(models.Model):
     po_rappel_fct = fields.Char('Fct of resp reminder')
     po_rappel_sign = fields.Binary('Signature of resp reminder')
 
+    po_rappel_name2 = fields.Char('Name of resp reminder 2')
+    po_rappel_fct2 = fields.Char('Fct of resp reminder 2')
+    po_rappel_sign2 = fields.Binary('Signature of resp reminder 2')
+
     logo = fields.Binary()
+    logo2 = fields.Binary()
     slogan = fields.Char('Slogan', size=50)
 
     biller_report_id = fields.Many2one('extraschool.report', 'Biller report')
     qrcode_report_id = fields.Many2one('extraschool.report', string ='QRCode report')
+    healthy_report_id = fields.Many2one('extraschool.report', string='Healthy report')
     taxcertificatetemplate = fields.Char('Tax Certificate Template', size=50)
     tax_certificate_code = fields.Char()

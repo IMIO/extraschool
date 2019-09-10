@@ -22,7 +22,6 @@
 ##############################################################################
 
 from openerp import models, api, fields, _
-from openerp.api import Environment
 from openerp.exceptions import except_orm, Warning, RedirectWarning
 
 from datetime import date, datetime, timedelta as td

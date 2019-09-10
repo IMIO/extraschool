@@ -22,9 +22,7 @@
 ##############################################################################
 
 from openerp import models, api, fields
-from openerp.api import Environment
 from math import ceil
-from openerp import tools
 import logging
 _logger = logging.getLogger(__name__)
 

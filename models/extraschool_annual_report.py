@@ -22,10 +22,8 @@
 ##############################################################################
 
 from openerp import models, api, fields, _
-from openerp.api import Environment
-from openerp.exceptions import except_orm, Warning, RedirectWarning
-from openerp import tools
 from datetime import datetime
+
 
 class extraschool_annual_report(models.Model):
     _name = 'extraschool.annual_report'

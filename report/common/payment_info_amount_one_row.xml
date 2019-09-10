@@ -114,50 +114,6 @@
 			</xpath>
 		</template>
 
-
-		<template id="report_payment_info_amount_one_row_durbuy">
-			<style>
-				#total_row{
-					border-width: 1px;
-					border-style: solid;
-					width: 100%;
-					page-break-inside: avoid;
-					font-size: 12px;
-				}
-
-				#payment_info{
-				    margin-left: 5mm;
-					display: block;
-					padding: 8px;
-					page-break-inside: avoid;
-				}
-			</style>
-			<div id="total_row">
-				<div id="payment_info">
-					<div>
-					  <span>Total des frais de cette période d'accueil: </span><span class="amount"><t t-esc="'%.2f' %  (total)" /> €</span>
-					</div>
-					<div>
-					  <span>Solde des périodes antérieures: </span><span class="amount"><t t-esc="'%.2f' %  (received)" /> €</span>
-					</div>
-					<div>
-					  <span>Solde à payer: </span><span class="amount"><t t-esc="'%.2f' %  (balance)" /> €</span>
-					</div><br/>
-					<div>
-						<span>Au numéro de compte: <b><t t-esc="categ_id.bankaccount" /></b></span>
-					<!--<span style="margin-left:100px">BIC: <t t-esc="categ_id.bank_bic" /></span>-->
-					</div>
-					<div>
-				    	Avec la communication structurée <b>obligatoire</b> : <t t-esc="parent_id.get_prepaid_comstruct(categ_id)" />
-					</div>
-					<div>
-						<b><span> A payer avant le <t t-esc="payment_term" /></span></b>
-					</div>
-				</div>
-			</div>
-
-		</template>
-
 	</data>
 </odoo>
 

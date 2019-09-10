@@ -55,7 +55,7 @@
         <menuitem action="action_extraschool_one_report" id="extraschool_menu_one_report" parent="extraschool_menu_documents"/>
         <menuitem action="action_extraschool_subvention_report" id="extraschool_menu_subvention_report" parent="extraschool_menu_documents"/>
         <menuitem action="action_lbsc_qrcodes_wizard" id="extraschool_menu_qrcodes_wizard" parent="extraschool_menu_documents"/>
-        <menuitem action="action_lbsc_childsworkbook_wizard" id="extraschool_menu_childsworkbook_wizard" parent="extraschool_menu_documents"/>
+        <!--<menuitem action="action_lbsc_childsworkbook_wizard" id="extraschool_menu_childsworkbook_wizard" parent="extraschool_menu_documents"/>-->
         <menuitem action="action_extraschool_prestationtimes" id="extraschool_menu_guardianprestationtimes" parent="extraschool_menu_documents"/>
         <menuitem action="action_guardianprestationtimes_report" id="extraschool_menu_guardianprestationtimes_report" parent="extraschool_menu_documents"/>
         <menuitem name="Payments" id="extraschool_menu_payments" parent="menu_extraschool"  sequence="50"/>
@@ -73,6 +73,7 @@
         <menuitem name="Activity categories" parent="extraschool_menu_configuration" id="extraschool_menu_activitycategory" action="action_extraschool_activitycategory"/>
         <menuitem name="Child Type" parent="extraschool_menu_configuration" id="extraschool_menu_childtype" action="action_extraschool_childtype"/>
 		<menuitem name="Smartphones" parent="extraschool_menu_configuration" id="extraschool_menu_smartphone" action="action_extraschool_smartphone"/>
+		<menuitem name="Class" parent="extraschool_menu_configuration" id="extraschool_menu_class" action="action_extraschool_class" groups="extraschool.extraschool_gods"/>
 		<menuitem name="Pre-configuration Smartphones" parent="extraschool_menu_configuration" id="extraschool_menu_config_smartphone" action="action_extraschool_config_smartphone" groups="extraschool.extraschool_gods"/>
 		<!--<menuitem name="PDA presta" parent="extraschool_menu_configuration" id="extraschool_menu_pda_presta" action="action_pda_extraschool_prest"/>-->
 		<!--<menuitem name="Init or update" parent="extraschool_menu_configuration" id="extraschool_menu_initupdate_wizard" action="action_lbsc_initupdate_wizard"/>-->

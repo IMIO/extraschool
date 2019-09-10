@@ -102,7 +102,7 @@ class extraschool_activity(models.Model):
         for rec in self:
             date_to_check = fields.Date.from_string(rec.validity_to) - datetime.now().date()
             if date_to_check.total_seconds() < 2592000:
-                rec.expire_soon = True;
+                rec.expire_soon = True
 
     @api.onchange('parent_id')
     @api.depends('parent_id')
@@ -214,6 +214,7 @@ class extraschool_activity(models.Model):
             activity_occurrence_ids = self.env['extraschool.activityoccurrence'].search([('activityid', '=', self.id)])
             date_last_invoice = self.validity_from
 
+        # There goes the rabbit hole
         child_registration_id__list = []
         # For each Activity Occurence get the list of the activity_occurrence_child_registration IDs.
         child_registration_ids = self.env['extraschool.activity_occurrence_child_registration'] \
@@ -307,15 +308,15 @@ class extraschool_activity(models.Model):
         if prest_from > prest_to:
             raise Warning(_("Validity to must be greater than validity from (hours)"))
 
-        # Check Planned Dates
-        '''for planneddates_id in planneddates_ids:
-            if planneddates_id.activitydate < validity_from or planneddates_id.activitydate > validity_to:
-                raise Warning(_("Planned Dates must be in the range of Validity_to and Validity_from (Planned)"))'''
+        #Check Planned Dates
+        for planneddates_id in planneddates_ids:
+             if planneddates_id.activitydate < validity_from or planneddates_id.activitydate > validity_to:
+                 raise Warning(_("Planned Dates must be in the range of Validity_to and Validity_from (Planned)"))
 
-        # Check Exclusion Dates
-        '''for exclusiondates_id in exclusiondates_ids:
+        #Check Exclusion Dates
+        for exclusiondates_id in exclusiondates_ids:
             if exclusiondates_id.date_from < validity_from or exclusiondates_id.date_to > validity_to:
-                raise Warning(_("Date_from must be in range of Validity_from and Validity_to (Exclusion)"))'''
+                raise Warning(_("Date_from must be in range of Validity_from and Validity_to (Exclusion)"))
 
     @api.onchange('validity_from','validity_to','planneddates_ids','exclusiondates_ids','parent_id','placeids','leveltype','prest_from','prest_to','days')
     @api.multi
@@ -354,7 +355,6 @@ class extraschool_activity(models.Model):
             if 'validity_from' in vals \
                     or 'validity_to' in vals \
                     or 'planneddates_ids' in vals \
-                    or 'exclusiondates_ids' in vals \
                     or 'parent_id' in vals \
                     or 'placeids' in vals \
                     or 'leveltype' in vals \

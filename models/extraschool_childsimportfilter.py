@@ -22,7 +22,7 @@
 ##############################################################################
 
 from openerp import models, api, fields
-from openerp.api import Environment
+
 
 class extraschool_childsimportfilter(models.Model):
     _name = 'extraschool.childsimportfilter'

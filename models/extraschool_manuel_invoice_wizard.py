@@ -22,12 +22,6 @@
 ##############################################################################
 
 from openerp import models, api, fields, _
-from openerp.api import Environment
-import cStringIO
-import base64
-import os
-from openerp.exceptions import except_orm, Warning, RedirectWarning
-from datetime import date, datetime, timedelta as td
 
 
 class extraschool_manuel_invoice_wizard(models.TransientModel):

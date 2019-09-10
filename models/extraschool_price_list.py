@@ -23,7 +23,7 @@
 
 from openerp import models, api, fields, _
 from openerp.exceptions import except_orm, Warning, RedirectWarning
-from openerp.api import Environment
+
 
 class extraschool_price_list(models.Model):
     _name = 'extraschool.price_list'

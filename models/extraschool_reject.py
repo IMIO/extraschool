@@ -22,7 +22,8 @@
 ##############################################################################
 
 from openerp import models, api, fields, _
-from openerp.api import Environment
+from openerp.exceptions import except_orm, Warning, RedirectWarning
+
 
 class extraschool_reject(models.Model):
     _name = 'extraschool.reject'
@@ -39,7 +40,7 @@ class extraschool_reject(models.Model):
     rejectcause = fields.Char('Reject cause')
     coda = fields.Many2one('extraschool.coda', 'Coda')
     corrected_payment_id  = fields.Many2one('extraschool.payment', string='Payment corrigé')
-    
+
     @api.multi
     def correct_reject(self):
         cr,uid = self.env.cr, self.env.user.id
@@ -49,17 +50,19 @@ class extraschool_reject(models.Model):
         context = self._context.copy()
         context.update({'default_reject_id': self.id,
                         'default_amount': self.amount})
-
-        return {
-                'type': 'ir.actions.act_window',
-                'res_model': 'extraschool.payment_wizard',
-                'name': _("Correction du paiement"),
-#                'res_id': biller.id,
-                'view_type': 'form',
-                'view_mode': 'form',
-                'view_id': view_id,
-                'target': 'new',                   
-                'context': {'default_reject_id': self.id,
-                            'default_amount': self.amount,
-                            'default_payment_date': self.coda.codadate}
-            }
+        if not self.corrected_payment_id :
+            return {
+                    'type': 'ir.actions.act_window',
+                    'res_model': 'extraschool.payment_wizard',
+                    'name': _("Correction du paiement"),
+    #                'res_id': biller.id,
+                    'view_type': 'form',
+                    'view_mode': 'form',
+                    'view_id': view_id,
+                    'target': 'new',
+                    'context': {'default_reject_id': self.id,
+                                'default_amount': self.amount,
+                                'default_payment_date': self.coda.codadate}
+                }
+        else :
+            raise Warning(_("Il y a déjà une correction effectuée pour ce paiement rejeté"))

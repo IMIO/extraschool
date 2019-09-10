@@ -22,15 +22,10 @@
 ##############################################################################
 
 from openerp import models, api, fields, _
-from openerp.api import Environment
-import cStringIO
-import base64
-import os
 from openerp.exceptions import except_orm, Warning, RedirectWarning
 import openerp.addons.decimal_precision as dp
 from openerp.tools import float_compare, float_round
 from datetime import datetime
-
 
 
 class extraschool_payment_wizard(models.TransientModel):
@@ -41,7 +36,8 @@ class extraschool_payment_wizard(models.TransientModel):
     reconciliation_amount_balance = fields.Float(compute="_compute_reconciliation_amount_balance", string='Amount to reconcil')
     reconciliation_amount = fields.Float(compute="_compute_reconciliation_amount", string='Amount reconcilied')
     parent_id = fields.Many2one("extraschool.parent")
-    activity_category_id = fields.Many2many('extraschool.activitycategory', 'extraschool_payment_wizard_activity_category_rel', required=True)
+    activity_category_id = fields.Many2one('extraschool.activitycategory', required=True)
+    # activity_category_id = fields.Many2many('extraschool.activitycategory', 'extraschool_payment_wizard_activity_category_rel', required=True)
     payment_reconciliation_ids = fields.One2many('extraschool.payment_wizard_reconcil','payment_wizard_id')
     reject_id = fields.Many2one('extraschool.reject', string='Reject')
     comment = fields.Char('Comment')

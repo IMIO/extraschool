@@ -22,7 +22,6 @@
 ##############################################################################
 
 from openerp import models, api, fields
-from openerp.api import Environment
 
 
 class extraschool_child_fusion_wizard(models.TransientModel):

@@ -129,10 +129,10 @@
 						<t t-set="nbr_page" t-value="nbr_page + 1" />
 					</t>
 					<t t-foreach="range(0,nbr_page)" t-as="zz">
-                        <xpath expr="//head" position="inside">
-                            <link rel="stylesheet" href="/extraschool/static/src/css/tpl_qrcodes_precut_wizard_report.css"/>
-                        </xpath>
 						<div class="page">
+                            <xpath expr="//head" position="inside">
+                                <link rel="stylesheet" href="/extraschool/static/src/css/tpl_qrcodes_precut_wizard_report.css"/>
+                            </xpath>
 					   		<t t-foreach="range(qr_report.last_id+9*zz,qr_report.last_id+9*(zz+1))" t-as="i">
 					           	<div class="qrcode">
 					           		<t t-if="i &lt;= qr_report.last_id + qr_report.quantity - 1">

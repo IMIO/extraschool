@@ -1,9 +1,9 @@
 <?xml version="1.0" ?>
 <odoo>
-	<data> 
+	<data>
          <record model="ir.ui.view" id="extraschool_guardian_prestationtimes_form">
             <field name="name">extraschool.guardian_prestationtimes.form</field>
-            <field name="model">extraschool.guardianprestationtimes</field>    
+            <field name="model">extraschool.guardianprestationtimes</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
 	            <form string="Guardian">
@@ -16,56 +16,56 @@
                         </group>
                     </sheet>
 		       </form>
-            </field> 
+            </field>
         </record>
-                        
+
          <record model="ir.ui.view" id="extraschool_guardian_prestationtimes_tree">
             <field name="name">extraschool.guardian_prestationtimes.tree</field>
-            <field name="model">extraschool.guardianprestationtimes</field>    
+            <field name="model">extraschool.guardianprestationtimes</field>
             <field name="type">tree</field>
             <field name="arch" type="xml">
 	            <tree string="Guardian">
 		            	<field name="guardianid"/>
 		                <field name="prestation_date_str"/>
 		                <field name="prestation_time"  widget="float_time"/>
-		                <field name="es"/>                		                	
+		                <field name="es"/>
 	            </tree>
-            </field> 
-        </record>        
+            </field>
+        </record>
 
         <record id="extraschool_guardian_prestationtime_search_view" model="ir.ui.view">
             <field name="name">extraschool.guardian_prestationtimes.search</field>
             <field name="model">extraschool.guardianprestationtimes</field>
             <field name="arch" type="xml">
                 <search string="Guardian prestationtimes Search">
-                   <field name="guardianid"/>            
+                   <field name="guardianid"/>
                    <field name="prestation_date_str"/>
                    <group  expand='0' string='Group by...'>
                        <filter string='Guardian' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'guardianid'}"/>
                        <filter string='Date' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'prestation_date_str'}"/>
-                  </group>                    
+                  </group>
                 </search>
             </field>
         </record>
-        
+
 		<record model="ir.actions.act_window" id="action_extraschool_prestationtimes">
 			<field name="name">Guardian prestationtimes</field>
 			<field name="res_model">extraschool.guardianprestationtimes</field>
 			<field name="view_type">form</field>
-      	</record> 
+      	</record>
 
 		<record model="ir.actions.act_window" id="action_extraschool_guardian_prestationtimes_filtered">
 			<field name="name">Guardian prestationtimes</field>
 			<field name="res_model">extraschool.guardianprestationtimes</field>
 			<field name="view_type">form</field>
-      	</record> 
- 
+      	</record>
+
 <!--			<field name="context">{'search_default_guardianid': active_id.guardian_id}</field>
 -->
-      	      	     	      			                
+
          <record model="ir.ui.view" id="extraschool_guardian_prestationtimes_report_form">
             <field name="name">extraschool.guardian_prestationtimes_report.form</field>
-            <field name="model">extraschool.guardian_prestation_times_report</field>    
+            <field name="model">extraschool.guardian_prestation_times_report</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
 	            <form string="Guardian">
@@ -76,24 +76,24 @@
 		                <field name="day_duration" widget="float_time"/>
 					</group>
 		       </form>
-            </field> 
+            </field>
         </record>
-                                
+
          <record model="ir.ui.view" id="extraschool_guardian_prestationtimes_report_tree">
             <field name="name">extraschool.guardian_prestationtimes_report.tree</field>
-            <field name="model">extraschool.guardian_prestation_times_report</field>    
+            <field name="model">extraschool.guardian_prestation_times_report</field>
             <field name="type">tree</field>
             <field name="arch" type="xml">
 	            <tree string="Guardian"  colors="red:day_duration &lt; 0;red:day_duration &gt; 12" create="false">
 	                <field name="guardian_id"/>
-                    <field name="prestation_date_str" />	                
+                    <field name="prestation_date_str" />
 	                <field name="week"/>
 	                <field name="day_duration" widget="float_time"/>
-	                <button name="extraschool.action_extraschool_guardian_prestationtimes_filtered" 
-	                		type="action" string="Voir les présences liées" 
-	                		context="{'search_default_guardianid': guardian_id, 'search_default_prestation_date_str': prestation_date_str}" />                		                	
+	                <button name="extraschool.action_extraschool_guardian_prestationtimes_filtered"
+	                		type="action" string="Voir les présences liées"
+	                		context="{'search_default_guardianid': guardian_id, 'search_default_prestation_date_str': prestation_date_str}" />
 	            </tree>
-            </field> 
+            </field>
         </record>
 
        <record id="extraschool_guardian_prestationtime_report_graph" model="ir.ui.view">
@@ -106,24 +106,25 @@
                  </graph>
              </field>
         </record>
-        
+
          <record id="extraschool_guardian_prestationtime_report_search_view" model="ir.ui.view">
             <field name="name">extraschool.guardian_prestationtimes_report.search</field>
             <field name="model">extraschool.guardian_prestation_times_report</field>
             <field name="arch" type="xml">
                 <search name="guardian_prestationtimes_search" string="Guardian prestationtimes Search">
-                   <field name="guardian_id"/>            
+                   <field name="guardian_id"/>
                    <field name="week"/>
-                   <field name="prestation_date"/>                   	
+                   <field name="prestation_date"/>
                    <filter string="Liste des Erreurs" name="error" icon="terp-accessories-archiver" domain="['|',('day_duration','&lt;',0),('day_duration','&gt;',16)]"/>
                    <group  expand='0' string='Group by...'>
                        <filter string='Guardian' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'guardian_id'}"/>
                        <filter string='Week' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'week'}"/>
-                   </group>                    
+                       <filter string='Month' icon="terp-go-month" domain="[]" context="{'group_by':'prestation_date:month'}"/>
+                   </group>
                 </search>
             </field>
         </record>
-                       
+
         <record model="ir.actions.act_window" id="action_guardianprestationtimes_report">
 			<field name="name">Guardian Report</field>
 			<field name="res_model">extraschool.guardian_prestation_times_report</field>
@@ -131,6 +132,6 @@
 			<field name="view_mode">tree</field>
             <field name="view_id" ref="extraschool_guardian_prestationtimes_report_tree"/>
 		</record>
-				       
+
 	</data>
 </odoo>
