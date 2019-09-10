@@ -47,6 +47,8 @@
         'data/data_init.xml',
         'data/data_level.xml',
         'data/data_tags_invoice.xml',
+        'security/extraschool_security.xml',
+        'security/ir.model.access.csv',
         'views/extraschool_activitycategory.xml',
         'views/extraschool_organising_power.xml',
         'views/extraschool_activity.xml',
@@ -110,8 +112,7 @@
         # 'views/extraschool_qrconfig.xml',
         'views/extraschool_prestation_times_history.xml',
         'views/extraschool_view.xml',
-        'security/extraschool_security.xml',
-        'security/ir.model.access.csv',
+
         'report/biller/biller_summary_no_style.xml',
         'report/biller/biller_detail_no_style.xml',
         'report/child_registration.xml',

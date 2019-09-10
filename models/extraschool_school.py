@@ -36,7 +36,6 @@ class extraschool_school(models.Model):
     zipcode = fields.Char('ZipCode', size=6, track_visibility='onchange')
     city = fields.Char('City', size=50, track_visibility='onchange')
     schoolimplantations = fields.One2many('extraschool.schoolimplantation', 'schoolid','schoolimplantations', required=True, track_visibility=True)
-    group_ids = fields.One2many('res.users', 'school_id','schoolimplantations', required=False, track_visibility=True)
     oldid = fields.Integer('oldid')
 
     @api.model

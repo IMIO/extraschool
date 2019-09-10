@@ -28,7 +28,7 @@ from openerp.api import Environment
 class extraschool_res_users(models.Model):
     _inherit = 'res.users'
 
-    school_id = fields.Many2one(
+    school_id = fields.Many2many(
         'extraschool.school',
         string='Schools'
     )

@@ -47,9 +47,17 @@ class extraschool_child_registration(models.Model):
             datetime.strptime(child_registration.date_to, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y"))))
         return res
 
-    current_date = str(datetime.now().date())
+    def _get_uid(self):
+        uid = self._context.get('uid')
+        if uid:
+            uid_school_id = self.env['res.users'].browse(uid).school_id.id
+            if uid_school_id:
+                return "[('schoolid', '=', {})]".format(uid_school_id)
 
-    school_implantation_id = fields.Many2one('extraschool.schoolimplantation', required=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
+        return "()"
+
+    current_date = str(datetime.now().date())
+    school_implantation_id = fields.Many2one('extraschool.schoolimplantation', domain=_get_uid ,required=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
     class_id = fields.Many2one('extraschool.class', readonly=True, states={'draft': [('readonly', False)]}, domain="[('schoolimplantation','=',school_implantation_id)]", track_visibility='onchange')
     place_id = fields.Many2one('extraschool.place', required=True, readonly=True, states={'draft': [('readonly', False)]}, domain="[('schoolimplantation_ids','in',school_implantation_id)]", track_visibility='onchange')
     activity_id = fields.Many2one('extraschool.activity', readonly=True, states={'draft': [('readonly', False)]}, domain="['&','&',('placeids','in',place_id),('selectable_on_registration','=',True),('validity_to', '>=', current_date)]", track_visibility='onchange')
