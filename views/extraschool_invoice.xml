@@ -275,18 +275,18 @@
             <field name="email_from">${(object.activitycategoryid.invoiceemailaddress or 'noreply@localhost')|safe}</field>
             <field name="reply_to">${(object.activitycategoryid.invoiceemailaddress or 'noreply@localhost')|safe}</field>
             <field name="mail_server_id" ref="base.ir_mail_server_localhost0"/>
-<field name="body_html"><![CDATA[
-<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+            <field name="body_html"><![CDATA[
+            <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
 
-    <p>Bonjour ${object.parentid.name},</p>
+                <p>Bonjour ${object.parentid.name},</p>
 
-    <p>Vous trouverez en pièce jointe la facture correspondant aux activités de vos enfants</p>
-    <h2>Informations de paiement</h2>
-    <p>
-    	Num de compte : ${object.activitycategoryid.bankaccount}
-    	Com structurée : ${object.structcom}
-    </p>
-</div>
+                <p>Vous trouverez en pièce jointe la facture correspondant aux activités de vos enfants</p>
+                <h2>Informations de paiement</h2>
+                <p>
+                    Num de compte : ${object.activitycategoryid.bankaccount}
+                    Com structurée : ${object.structcom}
+                </p>
+            </div>
             ]]></field>
 
         </record>
@@ -359,7 +359,54 @@
         </record>
 
 	</data>
+    <data>
+<!--         <record model="ir.ui.view" id="extraschool_invoice_reprise_form">-->
+<!--            <field name="name">extraschool.invoice_reprise.form</field>-->
+<!--            <field name="model">extraschool.invoice_reprise</field>-->
+<!--            <field name="type">form</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--	            <form string="Payment Status">-->
+<!--					<group col="4">-->
+<!--		            	<field name="activity_category_id"/>-->
+<!--		                <field name="parent_id"/>-->
+<!--		                <field name="solde"/>-->
+<!--					</group>-->
+<!--		       </form>-->
+<!--            </field>-->
+<!--        </record>-->
 
+         <record model="ir.ui.view" id="extraschool_invoice_reprise_no_value_form">
+            <field name="name">extraschool.invoice_reprise_no_value.form</field>
+            <field name="model">extraschool.invoice_reprise_no_value</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="invoice">
+                    <field name="invoice_ids"/>
+                </form>
+            </field>
+        </record>
 
+         <record model="ir.ui.view" id="extraschool_invoice_reprise_no_value_tree">
+            <field name="name">extraschool.invoice_reprise_no_value.tree</field>
+            <field name="model">extraschool.invoice_reprise_no_value</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="invoice" create="false">
+                    <field name="invoice_ids"/>
+                    <field name="parent_id"/>
+                    <field name="amount"/>
+                    <field name="amount_received"/>
+                    <field name="balance"/>
+                    <field name="no_value"/>
+                </tree>
+            </field>
+        </record>
 
+        <record model="ir.actions.act_window" id="action_invoice_reprise">
+			<field name="name">Invoice Reprise No Value</field>
+			<field name="res_model">extraschool.invoice_reprise_no_value</field>
+			<field name="view_type">form</field>
+<!--            <field name="view_id" ref="extraschool_invoice_reprise_no_value_tree"/>-->
+		</record>
+    </data>
 </odoo>

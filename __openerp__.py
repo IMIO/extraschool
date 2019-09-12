@@ -39,8 +39,6 @@
     'test' : [],
     'data' : [
         'scripts/update_seq.xml',
-        'scripts/init_multiple_category_activity.sql',
-        'scripts/migration_organisingpower.xml',
 
         'data/data_days.xml',
         'data/data_health_sheet.xml',
