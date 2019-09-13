@@ -38,7 +38,7 @@
 							<newline />
 							<separator string="Ajout automatique dans le tableau (facultatif)"  colspan="4"/>
                             <field name="schoolimplantation" />
-							<field name="levelid" widget="many2many_tags" options="{'no_create':True}"/>
+							<field name="levelid" options="{'no_create':True}"/>
 							<button name="update_child_list" string="Ajout des enfants" states="draft" type="object" confirm="Ëtes-vous sûr de vouloir attribuer tous les enfants à cette activité ?"/>
 							<newline />
 							<field name="prestation_time_all_entry" widget="float_time"/>
