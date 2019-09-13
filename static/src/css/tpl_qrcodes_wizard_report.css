@@ -9,7 +9,7 @@
 
 .qrcode {
     width: 33%;
-    height: 57mm;
+    height: 67mm;
     display: inline-block;
     border: 1px hidden;
     float: left;
@@ -18,12 +18,11 @@
 
 .qrcode_logo {
     width: 33%;
-    height: 57mm;
+    height: 67mm;
     display: inline-block;
     border: 1px hidden;
     float: right;
     position: relative;
-    border: solid 1px red;
 }
 
 .qrcode_img {
@@ -33,6 +32,14 @@
     width: 25mm;
     height: 25mm;
     }
+
+.qrcode_img_logo {
+    position: absolute;
+    top: 18mm;
+    right: 21mm;
+    width: 25mm;
+    height: 25mm;
+}
 
 h2 {
     color: blue;
