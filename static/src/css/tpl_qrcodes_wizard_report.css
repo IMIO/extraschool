@@ -33,6 +33,14 @@
     height: 25mm;
     }
 
+.qrcode_img_logo {
+    position: absolute;
+    top: 18mm;
+    right: 21mm;
+    width: 25mm;
+    height: 25mm;
+}
+
 h2 {
     color: blue;
     background-color: red;

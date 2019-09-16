@@ -25,6 +25,7 @@ from openerp import models, api, fields, _
 from openerp.exceptions import except_orm, Warning, RedirectWarning
 from openerp.api import Environment
 import openerp.addons.decimal_precision as dp
+from openerp import tools
 import datetime
 import time
 from datetime import date, datetime, timedelta as td
@@ -91,67 +92,6 @@ class extraschool_invoice(models.Model):
         ('structcom_uniq', 'unique(structcom)',
             "The structured communication is already distributed. Please contact support-aes@imio.be"),
     ]
-
-    @api.model
-    def update_activity_category(self):
-        try:
-            base_activity_category = self.env['extraschool.activitycategory'].search([])[0]
-            biller_ids = self.env['extraschool.biller'].search([('activitycategoryid', '=', False)])
-            invoice_ids = self.search([('activitycategoryid', '=', False)])
-            activity_ids = self.env['extraschool.activity'].search([('category_id', '=', False)])
-            payment_ids = self.env['extraschool.payment'].search([])
-            child_ids = self.env['extraschool.child'].search([])
-
-            organising_power_id = self.env['extraschool.organising_power'].search([])
-        except:
-            return True
-
-        if not organising_power_id:
-            organising_power_id = self.env['extraschool.organising_power'].create({
-                'town': "Replace this",
-            })
-            print("Migration in Childs")
-            for child_id in child_ids:
-                try:
-                    child_id.organising_power_id = organising_power_id
-                except:
-                    pass
-            print("Migration in Invoices [{}]".format(len(invoice_ids)))
-            count = 0
-            for invoice in invoice_ids:
-                try:
-                    invoice.activitycategoryid = base_activity_category
-                    count += 1
-                    print("[{}/{}]".format(count, len(invoice_ids)))
-                except:
-                    pass
-
-            print("Migration in Biller")
-            for biller in biller_ids:
-                try:
-                    biller.activitycategoryid = base_activity_category
-                except:
-                    pass
-            print("Migration in Activities")
-            for activity_id in activity_ids:
-                try:
-                    activity_id.category_id = base_activity_category
-                except:
-                    pass
-            print("Migration in Payments[{}]".format(len(payment_ids)))
-            count = 0
-            for payment_id in payment_ids:
-                try:
-                    payment_id.activity_category_id = base_activity_category
-                    count += 1
-                    print("[{}/{}]".format(count, len(payment_ids)))
-                except:
-                    pass
-
-            try:
-                self.env['res.lang'].search([('iso_code', '=', 'fr_BE')]).thousands_sep = ''
-            except:
-                pass
 
     @api.multi
     def _compute_balance(self):
@@ -653,3 +593,31 @@ class extraschool_invoice_tag(models.Model):
 
     name = fields.Char('Name of the tag')
     invoice_ids = fields.One2many('extraschool.invoice', 'tag', 'invoice_id')
+
+
+class extraschool_invoice_reprise(models.Model):
+    _name = 'extraschool.invoice_reprise_no_value'
+    _description = 'Reprise pour aider sur les non valeurs'
+    _auto = False
+
+    invoice_ids = fields.Many2one('extraschool.invoice', select=True)
+    parent_id = fields.Many2one('extraschool.parent', select=True)
+    amount = fields.Float(related='invoice_ids.amount_total')
+    amount_received = fields.Float(related='invoice_ids.amount_received')
+    balance = fields.Float(related='invoice_ids.balance')
+    no_value = fields.Float(related='invoice_ids.no_value')
+
+    def init(self, cr):
+        tools.sql.drop_view_if_exists(cr, 'extraschool_invoice_reprise_no_value')
+        cr.execute("""
+            CREATE view extraschool_invoice_reprise_no_value as
+                SELECT i.id as invoice_ids, 
+                    row_number() over() AS id,
+                    i.parentid as parent_id
+                FROM extraschool_invoice AS i
+                INNER JOIN extraschool_payment_reconciliation AS pr
+                ON i.id = pr.invoice_id
+                WHERE (i.balance != 0.0 OR (pr.paymentdate >= '2019-01-01' AND i.balance = 0.0))
+                AND i.no_value != 0.0
+                GROUP BY i.id, i.parentid;
+        """)

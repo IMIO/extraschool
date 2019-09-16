@@ -25,7 +25,7 @@
                         </t>
                     </div>
                     <t t-if="qr_report.print_type == 'logo'">
-                        <div class="page_logo page">
+                        <div class="page page_logo">
                             <xpath expr="//head" position="inside">
                                 <link rel="stylesheet" href="/extraschool/static/src/css/tpl_qrcodes_wizard_report.css"/>
                             </xpath>
@@ -33,7 +33,7 @@
                                 <div class="qrcode_logo">
                                     <t t-if="i &lt;= qr_report.last_id + qr_report.quantity -1">
                                         <t t-if="qr_report.print_type == 'logo'">
-                                            <img class="qrcode_img" t-att-src="'data:image/jpeg;base64,%s' % qr_report.logo" />
+                                            <img class="qrcode_img_logo" t-att-src="'data:image/jpeg;base64,%s' % qr_report.logo" />
                                         </t>
                                     </t>
                                 </div>

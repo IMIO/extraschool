@@ -295,6 +295,7 @@ class extraschool_smartphone_detail_log(models.Model):
             else:
                 try:
                     _logger.error(message_log)
+                    _logger.error(message)
                 except:
                     _logger.error(error_message)
 
