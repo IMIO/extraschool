@@ -148,10 +148,10 @@
 						<t t-if="qr_report.print_type == 'logo'">
 							<div class="page_logo page">
 						   		<t t-foreach="range(qr_report.last_id+9*zz,qr_report.last_id+9*(zz+1))" t-as="i">
-						           	<div class="qrcode_logo">
+						           	<div style="width: 33%; height: 85mm; display: inline-block; border: 1px hidden; float: right; position: relative;">
 						           		<t t-if="i &lt;= qr_report.last_id + qr_report.quantity - 1">
 							           		<t t-if="qr_report.print_type == 'logo'">
-							           			<img class="logo_img" t-att-src="'data:image/jpeg;base64,%s' % qr_report.logo" />
+							           			<img style="position: absolute; top: 2mm; left: 20mm; width: 45mm; float: left; height: 45mm;" t-att-src="'data:image/jpeg;base64,%s' % qr_report.logo" />
 							           		</t>
 										</t>
 						           	</div>

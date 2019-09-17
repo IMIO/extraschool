@@ -29,14 +29,23 @@
     position: absolute;
     top: 48mm;
     left: 15mm;
-    width: 25mm;
-    height: 25mm;
+    width: 30mm;
+    height: 30mm;
     }
 .logo_img {
+    position: absolute;
+    top: 3mm;
+    left: 10.5mm;
+    width: 45mm;
+    height: 45mm;
+    }
+
+.logo_img2 {
     position: absolute;
     top: 10mm;
     left: 10.5mm;
     width: 35mm;
+    float: left;
     height: 35mm;
     }
 
