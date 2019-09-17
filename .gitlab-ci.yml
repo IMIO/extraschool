@@ -64,6 +64,12 @@ restart-Assesse:
     - mco shell run '/srv/docker_scripts/assesse_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
   when: manual
 
+restart-Bouillon:
+  stage: restart
+  script:
+    - mco shell run '/srv/docker_scripts/bouillon_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
+  when: manual
+
 restart-Braine-l-Alleud:
   stage: restart
   script:
