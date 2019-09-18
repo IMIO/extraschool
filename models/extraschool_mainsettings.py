@@ -564,6 +564,50 @@ class extraschool_mainsettings(models.Model):
             })
 
     @api.multi
+    def virgule_address(self):
+        parent_ids = self.env['extraschool.parent'].search([])
+        for parent_id in parent_ids:
+            parent_id.write({
+                'street': parent_id.street.replace(',', ''),
+            })
+
+    @api.multi
+    def put_rn_onyx(self):
+        parent_ids = self.env['extraschool.parent'].search([])
+        for parent_id in parent_ids:
+            print parent_id.rn
+            new_rn = parent_id.rn
+            if parent_id.rn :
+                if ' ' in parent_id.rn:
+                    new_rn = parent_id.rn.replace(' ', '')
+                if '-' in parent_id.rn :
+                    new_rn = parent_id.rn.replace('-','')
+                if '.' in parent_id.rn:
+                    new_rn = parent_id.rn.replace('.', '')
+                print "neeeeeeeeex", new_rn
+            parent_id.write({
+                    'rn': new_rn,
+                })
+
+    @api.multi
+    def put_rn_onyx_child(self):
+        child_ids = self.env['extraschool.child'].search([])
+        for child_id in child_ids:
+            print child_id.rn
+            new_rn = child_id.rn
+            if child_id.rn:
+                if ' ' in child_id.rn:
+                    new_rn = child_id.rn.replace(' ', '')
+                if '-' in child_id.rn:
+                    new_rn = child_id.rn.replace('-', '')
+                if '.' in child_id.rn:
+                    new_rn = child_id.rn.replace('.', '')
+                print new_rn
+            child_id.write({
+                    'rn': new_rn,
+                })
+
+    @api.multi
     def pdf_to_true(self):
         if self.pdf_true_biller:
             biller_ids = self.env['extraschool.biller'].search([('pdf_ready', '=', False)])

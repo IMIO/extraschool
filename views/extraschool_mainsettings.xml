@@ -26,6 +26,32 @@
                                             type="object"
                                         />
                                     </group>
+                                    <group string="Enlever les virgules dans les adresses" col="2">
+                                        <button
+                                            name="virgule_address"
+                                            string="Enlever les virgules dans les adresses"
+                                            icon="gtk-apply"
+                                            type="object"
+                                        />
+                                    </group>
+                                    <group string="RN pour l'import ONYX" col="2">
+                                        <button
+                                            name="put_rn_onyx"
+                                            string="Mettre le RN pour l'import ONYX"
+                                            icon="gtk-apply"
+                                            type="object"
+                                        />
+                                    </group>
+                                </page>
+                                <page string="Fiche Enfant">
+                                    <group string="RN pour l'import ONYX" col="2">
+                                        <button
+                                            name="put_rn_onyx_child"
+                                            string="Mettre le RN pour l'import ONYX"
+                                            icon="gtk-apply"
+                                            type="object"
+                                        />
+                                    </group>
                                 </page>
                                 <page string="Re check POD - Error when building biller">
                                     <group col="2">
