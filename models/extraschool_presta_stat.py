@@ -109,7 +109,7 @@ class extraschool_presta_stat(models.Model):
 
                 start_date, end_date = '2018-01-01', '2019-09-23'
 
-                logging.info("##Computing Statistics for range: ", period_str, " activity: ", activity.name.encode("utf-8"))
+                #logging.info("##Computing Statistics for range: ", period_str, " activity: ", activity.name.encode("utf-8"))
 
                 self.env.cr.execute(insert_querry,
                                     (activity.id, period_str, prest_to, last_period, start_date, end_date))

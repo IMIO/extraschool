@@ -24,7 +24,7 @@
 					<header>
 						<button name="validate" String="Validate" type="object" class="oe_highlight" groups="extraschool.extraschool_user"  context="{'wizard': False}"/><!-- attrs="{'invisible':['|',('warning_visibility', '=', True),('state', '=', 'validated')]}"/>-->
 						<button name="validate" String="Force Validate" type="object" class="oe_highlight" groups="base.group_erp_manager"  context="{'wizard': False}" attrs="{'invisible':[('warning_visibility', '=', True)]}"/>
-						<button name="set_to_draft" string="Set to draft" icon="gtk-apply" type="object"  context="{'wizard': False}"  groups="base.group_erp_manager" />
+						<button name="set_to_draft" string="Set to draft" icon="gtk-apply" type="object"  context="{'wizard': False}"  groups="extraschool.extraschool_direction" />
 
 						<field name="state" widget="statusbar" statusbar_visible="draft,validated"/>
 					</header>
