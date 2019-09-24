@@ -1,0 +1,86 @@
+<?xml version="1.0" ?>
+<odoo>
+	<data>
+
+		<template id="report_parent_credit_dinant">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_parent_credit.css"/>
+            </xpath>
+            <div class="aes_html_parent_credit">
+                <p>Cette facture vous est adressée pour la présence de votre (vos) enfant(s) en accueil extrascolaire.</p>
+                <p>Pour mémoire, votre compte famille présente
+                    <t t-if="parent_id.totalbalance > 0.001">
+                        <span class="aes_credit_solde">un solde à payer de <t t-esc="'%.2f' %  (parent_id.totalbalance)" />€. </span>
+                    </t>
+                    <t t-if="parent_id.totalbalance &lt; 0.001">
+                        <span class="aes_credit_solde">une avance de <t t-esc="'%.2f' %  (parent_id.payment_status_ids[0].solde)" />€. </span>
+                    </t>
+                    Le cas échéant, n’oubliez pas de l’approvisionner à l’aide de la communication structurée susmentionnée.<br/>
+                    <p>
+                    Nous rappelons utilement que, conformément au règlement en vigueur, les périodes sont facturées comme suit : 0,5€ la demi-heure entamée pour le 1<sup>ier</sup> enfant (valable 45 minutes pour l’accueil du matin) et 0,25€ pour le second. Les prestations sont gratuites à partir du 3e enfant.
+                    En cas de dépassement de l’horaire préétabli (7h30 – 17h30), vous serez redevables de la somme de 5€ par demi-heure entamée (et ce peu importe le nombre d’enfants de votre famille).<br/><br/>
+
+                    En cas de non-paiement dans le délai, un rappel simple vous sera adressé. A défaut de réaction à l’issue du nouveau délai, le recouvrement de la redevance sera poursuivi par la procédure prévue à l’article L1124-40 §1 1°
+                    du CDLD (mise en demeure avec frais administratifs de 7,5€ et, en extrême recours, contrainte signifiée par voie de huissier). »</p>
+                </p>
+            </div>
+		</template>
+
+        <template id="report_all_invoice_summary_dinant" inherit_id="extraschool.report_all_invoice_summary" primary="True">
+            <xpath expr="//div[@id='invoice_summary']" position="replace">
+            <t t-set="zz" t-value="0" />
+			<t t-foreach="all_invoice_ids" t-as="summary_invoice">
+				<t t-if="summary_invoice.id != invoice_id">
+					<t t-set="zz" t-value="zz+1" />
+				</t>
+			</t>
+			<t t-if="zz" >
+                <xpath expr="//head" position="inside">
+                    <link rel="stylesheet" href="/extraschool/static/src/css/report_all_invoice_summary.css"/>
+                </xpath>
+	        	<div id="invoice_summary" >
+	        		<h2><span t-esc="summary_invoice_title" /></h2>
+                    <p> Les éventuels recouvrements qui seraient à charge d’un huissier ne sont
+pas pris en compte sur le présent document. Toute réclamation relative à la facture doit être transmise à la commune avant la date d'échéance.
+                    Toute facture non contestée est considérée comme acceptée.</p>
+	        		<table>
+	        			<tr>
+		        			<th>Période</th>
+		        			<th>Facture</th>
+		        			<th>Echéance</th>
+		        			<th>Montant</th>
+						</tr>
+		       			<t t-foreach="all_invoice_ids.sorted(key=lambda r: r.number)" t-as="summary_invoice">
+	        				<tr>
+	        					<t t-if="summary_invoice.id != invoice_id">
+	        					<t t-if="summary_invoice.reminder_fees == False">
+	        						<tr>
+				       					<td><span t-esc="'%s' % (time.strftime('%d/%m/%Y',time.strptime(summary_invoice.biller_id.period_from,'%Y-%m-%d')))" /> - <span t-esc="'%s' % (time.strftime('%d/%m/%Y',time.strptime(summary_invoice.biller_id.period_to,'%Y-%m-%d')))" /></td>
+			        					<td><span t-field="summary_invoice.number" /></td>
+				       					<td><span t-field="summary_invoice.payment_term" /></td>
+				       					<td class="amount"><span t-esc="'%.2f€' %  (summary_invoice.balance)" /></td>
+
+	        						</tr>
+								</t>
+	        					<t t-if="summary_invoice.reminder_fees == True">
+	        						<t t-foreach="summary_invoice.invoice_line_ids" t-as="invoice_line">
+	        							<tr>
+					       					<td></td>
+				        					<td><span t-field="invoice_line.description" /></td>
+					       					<td><span t-field="summary_invoice.payment_term" /></td>
+					       					<td class="amount"><span t-esc="'%.2f€' %  (invoice_line.balance)" /></td>
+				       					</tr>
+	        						</t>
+								</t>
+								</t>
+		       				</tr>
+		        		</t>
+
+	        		</table>
+	       		</div>
+			</t>
+            </xpath>
+        </template>
+
+	</data>
+</odoo>

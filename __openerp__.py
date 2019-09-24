@@ -166,6 +166,7 @@
         'report/custo_client/clavier.xml',
         'report/custo_client/engis.xml',
         'report/custo_client/ohey.xml',
+        'report/custo_client/dinant.xml',
         'report/custo_client/ferrieres.xml',
         'report/custo_client/tournai.xml',
         'report/custo_client/burdinne.xml',
