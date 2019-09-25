@@ -1,25 +1,29 @@
 <?xml version="1.0" ?>
 <odoo>
-	<data> 		
+	<data>
 		<template id="report_sign_img_no_style">
-			<style>
-				#doc_resp_sign{
-					display: block;
-					width: 100%;
-					page-break-inside: avoid;
-				}
-				
-				#doc_resp_sign>img{				
-					display: block;
-					width: 100%;							
-				}		
-				
-			</style>
+			<xpath expr="//head" position="inside">
+                    <link rel="stylesheet" href="/extraschool/static/src/css/report_sign_img_no_style.css"/>
+                </xpath>
 			<div id="doc_resp_sign">
-				<img class="sign_img" t-attf-src="data:image/jpeg;base64,{{resp_sign_img}}"/>														
+				<img class="sign_img" t-attf-src="data:image/jpeg;base64,{{resp_sign_img}}"/>
 			</div>
+		</template>
+
+        <template id="report_sign_img_name_fct_no_style">
+			<xpath expr="//head" position="inside">
+                    <link rel="stylesheet" href="/extraschool/static/src/css/report_sign_img_no_style.css"/>
+                </xpath>
+            <div id="resp_sign">
+					<div>
+						<span class="sign_elem" t-esc="resp_fct" />
+						<span class="sign_elem" t-esc="resp_name" />
+						<t t-if="resp_sign">
+							<img class="sign_img" t-attf-src="data:image/jpeg;base64,{{resp_sign_img}}"/>
+						</t>
+					</div>
+				</div>
 		</template>
 
 	</data>
 </odoo>
-	

@@ -1,0 +1,39 @@
+#doc_resp_sign{
+    display: block;
+    width: 100%;
+    page-break-inside: avoid;
+}
+
+#doc_resp_sign>img{
+    display: block;
+    width: 100%;
+}
+
+#resp_sign>img{
+    display: block;
+    float : right;
+    vertical-align: bottom;
+}
+
+.sign_elem {
+    display:block;
+    width: 100%;
+    text-align: right;
+    font-size: 4mm;
+}
+
+.sign_img {
+    display: block;
+    margin-left: auto;
+    width : 100px;
+    float : right;
+    text-align: right;
+    vertical-align: bottom;
+}
+
+#resp_sign>div>div{
+    display: block;
+    float : right;
+    text-align: right;
+    margin-top: 8mm;
+}
