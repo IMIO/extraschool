@@ -82,5 +82,71 @@ pas pris en compte sur le présent document. Toute réclamation relative à la f
             </xpath>
         </template>
 
+        <template id="report_redevance_dinant">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_redevance_dinant.css"/>
+            </xpath>
+            <div style="page-break-before: always;">
+
+              </div>
+            <div class="redevance">
+                <p style="margin-left: 3cm; margin-right:3cm; font-size: 11px">
+                <u>Article 1er</u>: <br/>
+                Il est établi, pour l'exercice 2019, une redevancecommunale pour les garderies extra-scolaires communales.
+                    <br/><br/>
+                    On entend par garderie extra-scolaire, l'accueil de enfants avant et après les horaires scolaires au sein même des
+                    implantations scolaires communales.<br/><br/>
+                    Les services d'accueil extra-scolaire des écoles communales de la Ville de Dinant ont pour mission d'assurer la surveillance
+                    des enfants accueillis avant et après les horaires scolaires.<br/><br/>
+                    Suivant les implantations, un accueil simple ou une aide aux devoirs sont proposés. Seuls les enfants inscrits dans nos implantations
+                    scolaires communales peuvent bénéficier de ce service.<br/><br/>
+
+                    <span style="margin-left:2cm;">-Implantations d'Anseremme/Bouvignes/Dréhance/Falmignoul:</span><br/>
+                    <span style="margin-left:2cm;">    de 7h30 à 8h30 et de 15h30 à 17h30</span><br/><br/>
+
+                    Les garderies seront payantes dans toutes les implantations scolaires entre 7h30 et 8h15 et entre 16h00 et 17h30.<br/><br/>
+
+                    Durant les périodes de vacances scolaires, aucune garderie n'est assurée.<br/><br/>
+
+                    En cas d'imprévu, les parents sont tenus d'avertir au plus tôt l'instituteur ou l'accueillant responsable de leur enfant.<br/><br/>
+
+                    <u>Article 2</u>: <br/>
+                    Le taux de la redevance est fixé comme suit: <br/>
+                    <span style="margin-left:2cm;">- 0.50€ la demi-heure entamée par enfant pour le premier enfant</span><br/>
+                    <span style="margin-left:2cm;">- et à 0.25€ la demi-heure entamée par enfant pour le deuxième enfant d'une même famille (sur base de la composition
+                        de ménage de l'année en cours)</span><br/>
+                    <span style="margin-left:2cm;">- Les prestations sont gratuites ) partir du 3ème enfant d'une même famille (sur base de la composition de ménage de
+                        l'année en cours)</span><br/>
+                    <span style="margin-left:2cm;">- Un forfait pour l'accueil du matin est comptabilisé en globalité, soit 45 minutes, au tarif appliqué pour la demi-heure entamée</span><br/><br/>
+
+                    <u>Sanctions</u>:<br/>
+                    En cas de dépassements de l'horaire préétabli, les parents sont redevables de la somme de 5€ par demi-heure entamée de dépassement.<br/><br/>
+
+                    <u>Article 3</u>:<br/>
+                    les garderies auxquelles participe l'enfant sont prépayées par les parents par un système "d'approvisionnements"
+                    par virement sur le compte bancaire de l'Administration communale N° BE43 0960 2169 6901.<br/>
+                    Ce compte devra régulièrement être approvisionné afin de permettre un système de décompte automatique de la redevance pour chaque garderie <br/><br/>
+
+                    <u>Article 4</u>:<br/>
+                    En cas de non-paiement, un rppel par voie postale sera systématique.<br/><br/>
+
+                    <u>Article 5</u>: <br/>
+                    A défaut de paiement préalable, le recouvrement de la redevance sera poursuivi soit par application de la procédure
+                    prévue à l'article L1124-40§1,1) du Code de la Démocratie Locale et de la Décentralisation, soit devant les juridictions civiles compétentes.<br/><br/>
+
+                    <u>Article 6</u>: <br/>
+                    Conformément l'article L1133-2 du Code de la Démocratie locale et de la Décentralisation, les
+                    règlements et ordonnances visés à l'article L1133-1 de ce code deviennent obligatoires le cinquième jour qui suit
+                    de leur publication par la voie de l'affichage, auf s'ils en disposent autrement.<br/><br/>
+
+                    <u>Article 7</u>: La présente délibération sera transmise dans les quinze jours de son adoption au Gouvernement wallon pour exercice
+                    de la tutelle spéciale d'approbation conformément à l'article L3132-1 du Code de la Démocratie Locale et de la Décentralisation. <br/><br/>
+
+                    <u>Article 8</u>: Le présent règlement entrera en vigueur après accomplissement des formalités de la transmission obligatoire
+                    au Gouvernement wallon et de la publication faite confromément aux articles L1133-1 à 3 du Code de la Démocratie Locale et de la Décentralisation.
+                    </p>
+            </div>
+		</template>
+
 	</data>
 </odoo>

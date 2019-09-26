@@ -1,0 +1,20 @@
+#redevance{
+    width: 100%;
+    display: block;
+    margin: 5cm 5cm 0cm 5cm;
+    page-break-inside: avoid;
+    text-align: justify;
+    text-justify: inter-word;
+    font-size: 14px;
+}
+
+#redevance div.your_ref{
+    width: 100%;
+    padding: 5mm 0mm 5mm 0mm;
+    display: block;
+}
+
+div#redevance h2{
+    font-size: 12px;
+    font-weight: bold;
+}
