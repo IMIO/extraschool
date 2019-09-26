@@ -8,7 +8,7 @@
             </xpath>
             <div class="aes_html_parent_credit">
                 <p>Cette facture vous est adressée pour la présence de votre (vos) enfant(s) en accueil extrascolaire.</p>
-                <p>Pour mémoire, votre compte famille présente
+                <p>Pour mémoire, votre compte famille présente désormais
                     <t t-if="parent_id.totalbalance > 0.001">
                         <span class="aes_credit_solde">un solde à payer de <t t-esc="'%.2f' %  (parent_id.totalbalance)" />€. </span>
                     </t>
@@ -21,7 +21,7 @@
                     En cas de dépassement de l’horaire préétabli (7h30 – 17h30), vous serez redevables de la somme de 5€ par demi-heure entamée (et ce peu importe le nombre d’enfants de votre famille).<br/><br/>
 
                     En cas de non-paiement dans le délai, un rappel simple vous sera adressé. A défaut de réaction à l’issue du nouveau délai, le recouvrement de la redevance sera poursuivi par la procédure prévue à l’article L1124-40 §1 1°
-                    du CDLD (mise en demeure avec frais administratifs de 7,5€ et, en extrême recours, contrainte signifiée par voie de huissier). »</p>
+                    du CDLD (mise en demeure avec frais administratifs de 7,5€ et, en extrême recours, contrainte signifiée par voie de huissier).</p>
                 </p>
             </div>
 		</template>
@@ -128,7 +128,7 @@ pas pris en compte sur le présent document. Toute réclamation relative à la f
                     Ce compte devra régulièrement être approvisionné afin de permettre un système de décompte automatique de la redevance pour chaque garderie <br/><br/>
 
                     <u>Article 4</u>:<br/>
-                    En cas de non-paiement, un rppel par voie postale sera systématique.<br/><br/>
+                    En cas de non-paiement, un rappel par voie postale sera systématique.<br/><br/>
 
                     <u>Article 5</u>: <br/>
                     A défaut de paiement préalable, le recouvrement de la redevance sera poursuivi soit par application de la procédure
