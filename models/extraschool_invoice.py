@@ -595,29 +595,29 @@ class extraschool_invoice_tag(models.Model):
     invoice_ids = fields.One2many('extraschool.invoice', 'tag', 'invoice_id')
 
 
-class extraschool_invoice_reprise(models.Model):
-    _name = 'extraschool.invoice_reprise_no_value'
-    _description = 'Reprise pour aider sur les non valeurs'
-    _auto = False
-
-    invoice_ids = fields.Many2one('extraschool.invoice', select=True)
-    parent_id = fields.Many2one('extraschool.parent', select=True)
-    amount = fields.Float(related='invoice_ids.amount_total')
-    amount_received = fields.Float(related='invoice_ids.amount_received')
-    balance = fields.Float(related='invoice_ids.balance')
-    no_value = fields.Float(related='invoice_ids.no_value')
-
-    def init(self, cr):
-        tools.sql.drop_view_if_exists(cr, 'extraschool_invoice_reprise_no_value')
-        cr.execute("""
-            CREATE view extraschool_invoice_reprise_no_value as
-                SELECT i.id as invoice_ids, 
-                    row_number() over() AS id,
-                    i.parentid as parent_id
-                FROM extraschool_invoice AS i
-                INNER JOIN extraschool_payment_reconciliation AS pr
-                ON i.id = pr.invoice_id
-                WHERE (i.balance != 0.0 OR (pr.paymentdate >= '2019-01-01' AND i.balance = 0.0))
-                AND i.no_value != 0.0
-                GROUP BY i.id, i.parentid;
-        """)
+# class extraschool_invoice_reprise(models.Model):
+#     _name = 'extraschool.invoice_reprise_no_value'
+#     _description = 'Reprise pour aider sur les non valeurs'
+#     _auto = False
+#
+#     invoice_ids = fields.Many2one('extraschool.invoice', select=True)
+#     parent_id = fields.Many2one('extraschool.parent', select=True)
+#     amount = fields.Float(related='invoice_ids.amount_total')
+#     amount_received = fields.Float(related='invoice_ids.amount_received')
+#     balance = fields.Float(related='invoice_ids.balance')
+#     no_value = fields.Float(related='invoice_ids.no_value')
+#
+#     def init(self, cr):
+#         tools.sql.drop_view_if_exists(cr, 'extraschool_invoice_reprise_no_value')
+#         cr.execute("""
+#             CREATE view extraschool_invoice_reprise_no_value as
+#                 SELECT i.id as invoice_ids,
+#                     row_number() over() AS id,
+#                     i.parentid as parent_id
+#                 FROM extraschool_invoice AS i
+#                 INNER JOIN extraschool_payment_reconciliation AS pr
+#                 ON i.id = pr.invoice_id
+#                 WHERE (i.balance != 0.0 OR (pr.paymentdate >= '2019-01-01' AND i.balance = 0.0))
+#                 AND i.no_value != 0.0
+#                 GROUP BY i.id, i.parentid;
+#         """)

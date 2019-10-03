@@ -375,38 +375,38 @@
 <!--            </field>-->
 <!--        </record>-->
 
-         <record model="ir.ui.view" id="extraschool_invoice_reprise_no_value_form">
-            <field name="name">extraschool.invoice_reprise_no_value.form</field>
-            <field name="model">extraschool.invoice_reprise_no_value</field>
-            <field name="type">form</field>
-            <field name="arch" type="xml">
-                <form string="invoice">
-                    <field name="invoice_ids"/>
-                </form>
-            </field>
-        </record>
+<!--         <record model="ir.ui.view" id="extraschool_invoice_reprise_no_value_form">-->
+<!--            <field name="name">extraschool.invoice_reprise_no_value.form</field>-->
+<!--            <field name="model">extraschool.invoice_reprise_no_value</field>-->
+<!--            <field name="type">form</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <form string="invoice">-->
+<!--                    <field name="invoice_ids"/>-->
+<!--                </form>-->
+<!--            </field>-->
+<!--        </record>-->
 
-         <record model="ir.ui.view" id="extraschool_invoice_reprise_no_value_tree">
-            <field name="name">extraschool.invoice_reprise_no_value.tree</field>
-            <field name="model">extraschool.invoice_reprise_no_value</field>
-            <field name="type">tree</field>
-            <field name="arch" type="xml">
-                <tree string="invoice" create="false">
-                    <field name="invoice_ids"/>
-                    <field name="parent_id"/>
-                    <field name="amount"/>
-                    <field name="amount_received"/>
-                    <field name="balance"/>
-                    <field name="no_value"/>
-                </tree>
-            </field>
-        </record>
+<!--         <record model="ir.ui.view" id="extraschool_invoice_reprise_no_value_tree">-->
+<!--            <field name="name">extraschool.invoice_reprise_no_value.tree</field>-->
+<!--            <field name="model">extraschool.invoice_reprise_no_value</field>-->
+<!--            <field name="type">tree</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <tree string="invoice" create="false">-->
+<!--                    <field name="invoice_ids"/>-->
+<!--                    <field name="parent_id"/>-->
+<!--                    <field name="amount"/>-->
+<!--                    <field name="amount_received"/>-->
+<!--                    <field name="balance"/>-->
+<!--                    <field name="no_value"/>-->
+<!--                </tree>-->
+<!--            </field>-->
+<!--        </record>-->
 
-        <record model="ir.actions.act_window" id="action_invoice_reprise">
-			<field name="name">Invoice Reprise No Value</field>
-			<field name="res_model">extraschool.invoice_reprise_no_value</field>
-			<field name="view_type">form</field>
-<!--            <field name="view_id" ref="extraschool_invoice_reprise_no_value_tree"/>-->
-		</record>
+<!--        <record model="ir.actions.act_window" id="action_invoice_reprise">-->
+<!--			<field name="name">Invoice Reprise No Value</field>-->
+<!--			<field name="res_model">extraschool.invoice_reprise_no_value</field>-->
+<!--			<field name="view_type">form</field>-->
+<!--&lt;!&ndash;            <field name="view_id" ref="extraschool_invoice_reprise_no_value_tree"/>&ndash;&gt;-->
+<!--		</record>-->
     </data>
 </odoo>
