@@ -134,7 +134,7 @@
                                 <link rel="stylesheet" href="/extraschool/static/src/css/tpl_qrcodes_precut_wizard_report.css"/>
                             </xpath>
 					   		<t t-foreach="range(qr_report.last_id+9*zz,qr_report.last_id+9*(zz+1))" t-as="i">
-					           	<div class="qrcode">
+					           	<div class="qrcode" style="margin: 10mm;">
 					           		<t t-if="i &lt;= qr_report.last_id + qr_report.quantity - 1">
 						           		<img class="logo_img" t-att-src="'data:image/jpeg;base64,%s' % qr_report.logo" />
 							           	<img class="qrcode_img" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', i, 300, 300)" />
@@ -148,7 +148,7 @@
 						<t t-if="qr_report.print_type == 'logo'">
 							<div class="page_logo page">
 						   		<t t-foreach="range(qr_report.last_id+9*zz,qr_report.last_id+9*(zz+1))" t-as="i">
-						           	<div style="width: 33%; height: 85mm; display: inline-block; border: 1px hidden; float: right; position: relative;">
+						           	<div style="width: 33%; height: 85mm; display: inline-block; border: 1px hidden; float: right; position: relative; padding: 10mm;">
 						           		<t t-if="i &lt;= qr_report.last_id + qr_report.quantity - 1">
 							           		<t t-if="qr_report.print_type == 'logo'">
 							           			<img style="position: absolute; top: 2mm; left: 20mm; width: 45mm; float: left; height: 45mm;" t-att-src="'data:image/jpeg;base64,%s' % qr_report.logo" />
