@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<odoo>
+	<data>
+
+        <template id="report_sign_img_plus_petit">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_sign_img_plus_petit.css"/>
+            </xpath>
+            <div id="doc_resp_sign">
+                <img class="sign_img" t-attf-src="data:image/jpeg;base64,{{resp_sign_img}}"/>
+            </div>
+        </template>
+
+    </data>
+
+</odoo>
