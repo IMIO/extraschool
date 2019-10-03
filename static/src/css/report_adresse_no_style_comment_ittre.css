@@ -29,3 +29,9 @@
     display: block;
     clear: both;
 }
+
+.customers{
+    float: right;
+    font-size:14px;
+    margin-right: 200px;
+}
