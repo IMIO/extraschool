@@ -31,6 +31,10 @@
 						<t t-set="logo" t-value="organising_power.logo"/>
                         <t t-set="logo2" t-value="organising_power.logo2"/>
 						<t t-set="slogan" t-value="organising_power.slogan"/>
+                        <t t-set="street" t-value="organising_power.po_street"/>
+                        <t t-set="zipcode" t-value="organising_power.po_zipcode"/>
+                        <t t-set="city" t-value="organising_power.po_city"/>
+
 						<t t-set="amount_int" t-value="int(invoice.amount_total)"/>
 						<t t-set="amount_dec" t-value="int(round((invoice.amount_total-int(invoice.amount_total))*100))"/>
 			        	<t t-set="bankaccount" t-value="activity_category.bankaccount"/>

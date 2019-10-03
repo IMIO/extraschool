@@ -1,0 +1,47 @@
+#aes_header{
+    width: 100%;
+    display: block;
+    clear: both;
+    position: relative;
+
+}
+#aes_header>div.row{
+    width: 100%;
+}
+
+#b_logo{
+    width: 30%;
+}
+#b_slogan{
+    float: left;
+    margin-top: 30px;
+    width: 15%;
+    margin-left: 5px;
+    font-size: 6px;
+
+}
+
+#b_date{
+    text-align: right;
+    margin-top: 10px;
+    min-width: 9cm;
+    position: absolute;
+    right: 2em;
+    top: 5%;
+    font-size: 12px;
+
+}
+
+.logo {
+    width: 25mm;
+    display: inline-block;
+    float: left;
+}
+
+.doc_date{
+    font-size: 12px;
+}
+
+.implantation{
+    font-size: 7px;
+}

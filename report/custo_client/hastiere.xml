@@ -11,6 +11,29 @@
             </div>
         </template>
 
+        <template id="report_std_header_adresse">
+		    <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_std_header_adresse.css"/>
+            </xpath>
+		    <div id="aes_header">
+		    	<div class="row">
+                    <div>
+                        <div id="b_logo">
+                            <img class="logo" t-attf-src="data:image/jpeg;base64,{{logo}}"/>
+                        </div>
+                        <div id="b_slogan">
+                            <span class="slogan"><t t-esc="slogan" /></span><br/>
+                            <span class="slogan"><t t-esc="street" /></span><br/>
+                            <span class="slogan"><t t-esc="zipcode" /></span> <span class="slogan"><t t-esc="city" /></span>
+                        </div>
+                    </div>
+					<div id="b_date">
+						<span class="doc_date"><t t-esc="doc_date" /></span>
+					</div>
+		    	</div>
+			</div>
+		</template>
+
     </data>
 
 </odoo>
