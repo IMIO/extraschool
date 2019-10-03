@@ -48,7 +48,7 @@
         <menuitem name="Documents" id="extraschool_menu_documents" parent="menu_extraschool" sequence="40"/>
         <menuitem action="action_lbsc_invoice_wizard" id="extraschool_menu_invoice_wizard" parent="extraschool_menu_documents"/>
         <menuitem action="action_extraschool_invoices" id="extraschool_menu_invoice" parent="extraschool_menu_documents"/>
-<!--        <menuitem action="action_invoice_reprise" id="extraschool_menu_invoice_reprise" parent="extraschool_menu_documents"/>-->
+        <menuitem action="action_invoice_reprise" id="extraschool_menu_invoice_reprise" parent="extraschool_menu_documents"/>
         <menuitem action="action_extraschool_invoices_stat" id="extraschool_menu_invoice_stat" parent="extraschool_menu_documents"/>
 		<menuitem action="action_extraschool_reminder" id="extraschool_menu_reminder" parent="extraschool_menu_documents"/>
         <menuitem action="action_lbsc_reminders_journal" id="extraschool_menu_reminders_journal" parent="extraschool_menu_documents"/>
