@@ -39,9 +39,6 @@
                 <link rel="stylesheet" href="/extraschool/static/src/css/report_adresse_no_style_comment_ittre.css"/>
             </xpath>
 	    	<div class="aes_adresse">
-				<div class="aes_adresse_block po" id="aes_po_adresse">
-					<span t-raw="po_addresse.po_addresse_free_text" />
-				</div>
 				<div class="aes_adresse_block customers">
 					<span t-field="addresse.name" />
 					<span t-field="addresse.street" />
