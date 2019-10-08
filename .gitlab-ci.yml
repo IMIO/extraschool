@@ -3,7 +3,6 @@ stages:
 #  - test
   - staging
   - promote
-  - restart
 
 build:
   stage: build
@@ -12,7 +11,6 @@ build:
     - cd docker-odoo-base
     - docker-compose -f prod.yaml build --no-cache
   only:
-    - 9.0@odoo/extraschool
     - 9.1@odoo/extraschool
 
 #test:
@@ -28,14 +26,10 @@ staging:
   script:
     - docker tag docker-odoo-base_odoo docker-staging.imio.be/extraschool-v9:9.1
     - docker push docker-staging.imio.be/extraschool-v9:9.1
-      #    - mco shell run 'docker pull docker-staging.imio.be/extraschool-v9:9.1' -C /role::docker::extraschool::instances$/ -I /staging/
-      #    - mco shell run 'service stagingv9_extraschool stop' -C /role::docker::extraschool::instances$/ -I /staging/
-      #    - mco shell run 'service stagingv9_extraschool start' -C /role::docker::extraschool::instances$/ -I /staging/
     - docker rmi docker-staging.imio.be/extraschool-v9:9.1 docker-odoo-base_odoo
 
   when: on_success
   only:
-    - 9.0@odoo/extraschool
     - 9.1@odoo/extraschool
 
 promote-to-prod:
@@ -45,160 +39,7 @@ promote-to-prod:
     - docker tag docker-staging.imio.be/extraschool-v9:9.1 docker-prod.imio.be/extraschool-v9:9.1
     - docker push docker-prod.imio.be/extraschool-v9:9.1
     - docker rmi docker-staging.imio.be/extraschool-v9:9.1 docker-prod.imio.be/extraschool-v9:9.1
-      #    - mco shell run 'docker pull docker-prod.imio.be/extraschool-v9:9.1' -C /role::docker::extraschool::instances$/ -I /prod/
-      #    - mco shell run 'at -f /srv/docker_scripts/extraschool-update-all-images.sh -t `date -d "tomorrow" +%Y%m%d`0500' -C /role::docker::extraschool::instances$/ -I /prod/
   when: manual
   only:
-    - 9.0@odoo/extraschool
     - 9.1@odoo/extraschool
 
-restart-Ans:
-  stage: restart
-  script:
-    - mco shell run '/srv/docker_scripts/ans_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
-  when: manual
-
-restart-Assesse:
-  stage: restart
-  script:
-    - mco shell run '/srv/docker_scripts/assesse_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
-  when: manual
-
-restart-Bouillon:
-  stage: restart
-  script:
-    - mco shell run '/srv/docker_scripts/bouillon_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
-  when: manual
-
-restart-Braine-l-Alleud:
-  stage: restart
-  script:
-    - mco shell run '/srv/docker_scripts/brainelalleud_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
-  when: manual
-
-restart-Burdinne:
-  stage: restart
-  script:
-    - mco shell run '/srv/docker_scripts/burdinne_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
-  when: manual
-
-restart-Clavier:
-  stage: restart
-  script:
-    - mco shell run '/srv/docker_scripts/clavier_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
-  when: manual
-
-restart-Dinant:
-  stage: restart
-  script:
-    - mco shell run '/srv/docker_scripts/dinant_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
-  when: manual
-
-restart-Dour:
-  stage: restart
-  script:
-    - mco shell run '/srv/docker_scripts/dour_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
-  when: manual
-
-restart-Durbuy:
-  stage: restart
-  script:
-    - mco shell run '/srv/docker_scripts/durbuy_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
-  when: manual
-
-restart-Engis:
-  stage: restart
-  script:
-    - mco shell run '/srv/docker_scripts/engis_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
-  when: manual
-
-restart-Ferrieres:
-  stage: restart
-  script:
-    - mco shell run '/srv/docker_scripts/ferrieres_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
-  when: manual
-
-restart-Fleron:
-  stage: restart
-  script:
-    - mco shell run '/srv/docker_scripts/fleron_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
-  when: manual
-
-restart-Fosses-la-ville:
-  stage: restart
-  script:
-    - mco shell run '/srv/docker_scripts/fosseslaville_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
-  when: manual
-
-restart-Hannut:
-  stage: restart
-  script:
-    - mco shell run '/srv/docker_scripts/hannut_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
-  when: manual
-
-restart-Ittre:
-  stage: restart
-  script:
-    - mco shell run '/srv/docker_scripts/ittre_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
-  when: manual
-
-restart-Lierneux:
-  stage: restart
-  script:
-    - mco shell run '/srv/docker_scripts/lierneux_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
-  when: manual
-
-restart-Mettet:
-  stage: restart
-  script:
-    - mco shell run '/srv/docker_scripts/mettet_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
-  when: manual
-
-restart-Neufchateau:
-  stage: restart
-  script:
-    - mco shell run '/srv/docker_scripts/neufchateau_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
-  when: manual
-
-restart-Ohey:
-  stage: restart
-  script:
-    - mco shell run '/srv/docker_scripts/ohey_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
-  when: manual
-
-restart-Rebecq:
-  stage: restart
-  script:
-    - mco shell run '/srv/docker_scripts/rebecq_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
-  when: manual
-
-restart-Seraing:
-  stage: restart
-  script:
-    - mco shell run '/srv/docker_scripts/seraing_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
-  when: manual
-
-restart-Tournai:
-  stage: restart
-  script:
-    - mco shell run '/srv/docker_scripts/tournai_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
-  when: manual
-
-restart-Villers-le-Bouillet:
-  stage: restart
-  script:
-    - mco shell run '/srv/docker_scripts/villerslebouillet_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
-  when: manual
-
-restart-Yvoir:
-  stage: restart
-  script:
-    - mco shell run '/srv/docker_scripts/yvoir_extraschool/restart.sh' -C /role::docker::extraschool::instances$/ -I /prod/
-  when: manual
-
-restart-Staging:
-  stage: restart
-  script:
-    - mco shell run 'service stagingv9_extraschool stop' -C /role::docker::extraschool::instances$/ -I /staging/
-    - mco shell run 'service stagingv9_extraschool start' -C /role::docker::extraschool::instances$/ -I /staging/
-  when: manual
