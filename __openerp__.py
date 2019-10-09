@@ -174,6 +174,7 @@
         'report/custo_client/ittre.xml',
         'report/custo_client/fosses_la_ville.xml',
         'report/reminder/reminder_text.xml',
+        'report/parent_invoices_summary.xml'
     ],
     'installable' : True,
     'application': True,

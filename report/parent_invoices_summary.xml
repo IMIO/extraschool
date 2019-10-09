@@ -1,0 +1,128 @@
+<?xml version="1.0" ?>
+<odoo>
+	<data>
+		<template id="tpl_parent_invoice_sumary_report" inherit_id="report.layout" primary="True">
+
+        	<xpath expr="//head" position="inside">
+              <script src="/extraschool/static/src/js/pagination_hide.js"></script>
+            </xpath>
+
+            <xpath expr="//body" position="attributes">
+                <attribute t-translation="off" name="onload">subst(); pagination_hide();</attribute>
+            </xpath>
+
+            <xpath expr="//body" position="attributes">
+				<attribute name="t-att-class">container</attribute>
+		    </xpath>
+            <xpath expr="//head" position="inside">
+                <link href="/web/static/lib/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+                <link href="/website/static/src/css/website.css" rel="stylesheet"/>
+                <link href="/web/static/lib/fontawesome/css/font-awesome.css" rel="stylesheet"/>
+            </xpath>
+
+            <xpath expr="//head" position="inside">
+                <script src="/extraschool/static/src/js/pagination_hide.js"></script>
+            </xpath>
+
+            <xpath expr="//body" position="attributes">
+                <attribute t-translation="off" name="onload">subst(); pagination_hide();</attribute>
+            </xpath>
+
+            <xpath expr="//body" position="attributes">
+                <attribute name="t-att-class">container</attribute>
+            </xpath>
+            <xpath expr="//body" position="inside">
+                <t t-foreach="docs" t-as="parent">
+                    <div class="page">
+                        <div class="container">
+                           <!-- Logo -->
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <h2>Résumé de factures pour: <t t-esc="parent.name"/><br/></h2>
+                                </div>
+                                <div class="col-xs-6"></div>
+                            </div>
+
+                                <t t-foreach="parent.invoice_ids.filtered(lambda r: r.payment_term)" t-as="invoice">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <h4>Factures n°: <t t-esc="invoice.number"/></h4>
+                                            Date d'échéance: <t t-esc="invoice.payment_term"/><br/>
+                                            Période: du <t t-esc="invoice.period_from"/> au <t t-esc="invoice.period_to"/><br/>
+                                            Montant: <t t-esc="invoice.amount_total"/> €<br/>
+                                            Montant perçu: <t t-esc="invoice.amount_received"/> €<br/>
+
+                                            <t t-if="invoice.no_value_amount">
+                                                Non valeur: <t t-esc="invoice.no_value_amount"/> €<br/>
+                                            </t>
+
+                                            Balance: <b><t t-esc="invoice.balance"/> €</b><br/>
+                                        </div>
+
+                                        <div class="col-xs-12">
+                                            <t t-if="invoice.payment_ids">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Date du paiement</th>
+                                                            <th>Montant du paiement</th>
+                                                            <th>Réconcilié sur la facture</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <t t-foreach="invoice.payment_ids" t-as="reconcil">
+                                                            <tr>
+                                                                <td><t t-esc="reconcil.payment_id.paymentdate"/></td>
+                                                                <td><t t-esc="reconcil.payment_id.amount"/> €</td>
+                                                                <td><t t-esc="reconcil.amount"/> €</td>
+                                                            </tr>
+                                                        </t>
+                                                    </tbody>
+                                                </table>
+                                            </t>
+                                            <t t-if="len(invoice.payment_ids) == 0">
+                                                <p>Il n'y a pas de paiement pour cette facture</p>
+                                            </t>
+                                        </div>
+                                    </div>
+                                </t>
+                        </div><!-- Fin container -->
+                    </div><!-- Fin Page -->
+                </t>
+            </xpath>
+
+
+		</template>
+    </data>
+    <data noupdate="1">
+		<record id="paperformat_aes_parent_invoice_summary" model="report.paperformat">
+    		<field name="name">Invoice Summary</field>
+    		<field name="default" eval="True"/>
+   			<field name="format">A4</field>
+    		<field name="orientation">Portrait</field>
+    		<field name="margin_top">10</field>
+    		<field name="margin_bottom">20</field>
+    		<field name="margin_left">10</field>
+    		<field name="margin_right">10</field>
+    		<field name="header_line" eval="False"/>
+    		<field name="header_spacing">3</field>
+    		<field name="dpi">80</field>
+		</record>
+    </data>
+    <data>
+		<report
+		    id="parent_invoice_summary"
+		    model="extraschool.parent"
+		    string="Résumé des factures"
+		    report_type="qweb-pdf"
+		    name="extraschool.tpl_parent_invoice_sumary_report"
+		    attachment_use="False"
+		/>
+
+		<record id="parent_invoice_summary" model="ir.actions.report.xml">
+    		<field name="paperformat_id" ref="paperformat_aes_parent_invoice_summary"/>
+		</record>
+
+  </data>
+</odoo>
+
