@@ -71,11 +71,13 @@
                                                     </thead>
                                                     <tbody>
                                                         <t t-foreach="invoice.payment_ids" t-as="reconcil">
-                                                            <tr>
-                                                                <td><t t-esc="reconcil.payment_id.paymentdate"/></td>
-                                                                <td><t t-esc="reconcil.payment_id.amount"/> €</td>
-                                                                <td><t t-esc="reconcil.amount"/> €</td>
-                                                            </tr>
+                                                            <t t-if="reconcil.amount > 0.00000000000001">
+                                                                <tr>
+                                                                    <td><t t-esc="reconcil.payment_id.paymentdate"/></td>
+                                                                    <td><t t-esc="reconcil.payment_id.amount"/> €</td>
+                                                                    <td><t t-esc="reconcil.amount"/> €</td>
+                                                                </tr>
+                                                            </t>
                                                         </t>
                                                     </tbody>
                                                 </table>
