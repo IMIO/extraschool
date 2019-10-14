@@ -51,7 +51,8 @@
 						<t t-set="schoolimplantationid" t-value="invoice.schoolimplantationid"/>
 
 						<t t-set="comment" t-value="'%s%s' % (invoice.biller_id.comment if invoice.biller_id.comment != False else '',invoice.comment if invoice.comment != False else '')"/>
-						<t t-set="doc_date" t-value="'%s, le %s' % (organising_power.town,time.strftime('%d-%m-%Y',time.strptime(invoice.biller_id.invoices_date,'%Y-%m-%d')))"/>
+						<t t-set="comment_activity" t-value="activity_category.invoice_comment"/>
+                        <t t-set="doc_date" t-value="'%s, le %s' % (organising_power.town,time.strftime('%d-%m-%Y',time.strptime(invoice.biller_id.invoices_date,'%Y-%m-%d')))"/>
 
 						<t t-set="addresse" t-value="invoice.parentid"/>
 						<t t-set="po_addresse" t-value="organising_power"/>
