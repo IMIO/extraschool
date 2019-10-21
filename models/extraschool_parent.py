@@ -212,7 +212,7 @@ class extraschool_parent(models.Model):
                 }
 
     def email_validation(self, email):
-        if re.match("^[a-zA-Z0-9.+_%-]+@[a-zA-Z0-9._%-]+.[a-zA-Z]{2,6}$", email) != None:
+        if re.match("^[a-zA-Z0-9.+_%-]+@[a-zA-Z0-9._%-]+.[a-zA-Z]{2,6}$", email) is not None:
             return True
         else:
             return False
@@ -220,7 +220,7 @@ class extraschool_parent(models.Model):
     @api.depends('child_ids')
     def _compute_nbr_actif_child(self):
         for record in self:
-            record.nbr_actif_child = len(record.child_ids.filtered(lambda r: r.isdisabled == False))
+            record.nbr_actif_child = len(record.child_ids.filtered(lambda r: r.isdisabled is False))
 
     @api.multi
     def wizard_action(self):
@@ -303,7 +303,7 @@ class extraschool_parent(models.Model):
         if fields_to_find.intersection(set([k for k, v in vals.iteritems()])):
             vals['modified_since_last_import'] = True
 
-        if 'email' in vals and vals['email'] != False:
+        if 'email' in vals and vals['email'] is not False:
             emails = vals['email'].split(',')
             for email in emails:
                 if (not self.email_validation(email)):
