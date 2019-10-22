@@ -110,6 +110,7 @@
 			<field name="res_model">extraschool.biller</field>
 			<field name="view_type">form</field>
 			<field name="auto_refresh">10</field>
+            <field name="limit">10</field>
 		</record>
 
 	</data>
