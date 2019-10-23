@@ -1,12 +1,9 @@
 #doc_resp_sign{
-    display: block;
-    width: 5%;
     page-break-inside: avoid;
     float: right;
-    margin-right: 200px;
 }
 
-#doc_resp_sign&gt;img{
-    display: block;
-    width: 5%;
+.sign_img{
+    height: 150px;
+    widht: 150px;
 }
