@@ -201,7 +201,7 @@ class extraschool_remindersjournal(models.Model):
         for parent in invoice_dict:
             sum_parent_balance = sum(
                 self.env['extraschool.invoice'].search([('id', 'in', invoice_dict[parent])]).mapped('balance'))
-            
+
             if sum_parent_balance <= reminder_type.minimum_general_balance:
                 parent_to_del.append(parent)
 
@@ -250,7 +250,7 @@ class extraschool_remindersjournal(models.Model):
                 if not biller_is_made:
                     self.biller_id = self.env['extraschool.biller'].create({'period_from': self.transmission_date,
                                                                             'period_to': self.transmission_date,
-                                                                            'activitycategoryid': self.activity_category_id.id,
+                                                                            'activitycategoryid': [(6, False, self.activity_category_id.ids)],
                                                                             'invoices_date': self.transmission_date,
                                                                             })
                     biller_is_made = True
@@ -262,7 +262,7 @@ class extraschool_remindersjournal(models.Model):
                      'number': next_invoice_num['num'],
                      'parentid': key,
                      'biller_id': self.biller_id.id,
-                     'activitycategoryid': self.activity_category_id.id,
+                     'activitycategoryid': [(6, False, self.activity_category_id.ids)],
                      'structcom': next_invoice_num['com_struct'],
                      'last_reminder_id': reminder.id,
                      'reminder_fees': True,
@@ -278,7 +278,8 @@ class extraschool_remindersjournal(models.Model):
 
             logging.info("####Computing balance...")
             if biller_is_made:
-                self.biller_id.invoice_ids._compute_balance()
+                for invoice in self.biller_id.invoice_ids:
+                    invoice._compute_balance()
 
         self.state = "validated"
         return True

@@ -412,9 +412,7 @@ class extraschool_biller(models.Model):
 
     @api.multi
     def pay_all(self):
-        count = 0
         for invoice_id in self.invoice_ids:
-            count += 1
             payment_id = self.env['extraschool.payment'].create({'parent_id': invoice_id.parentid.id,
                             'paymentdate': self.period_to,# This is Coda date.
                             'structcom_prefix': self.activitycategoryid.payment_invitation_com_struct_prefix,
