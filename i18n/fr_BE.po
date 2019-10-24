@@ -26626,7 +26626,7 @@ msgstr "Fin du tutoriel"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_subvention_report_end_date
 msgid "End date"
-msgstr "End date"
+msgstr "Date de fin"
 
 #. module: web_tip
 #: model:ir.model.fields,field_description:web_tip.field_web_tip_end_event
@@ -43356,7 +43356,7 @@ msgstr "Démarrer la configuration"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_subvention_report_start_date
 msgid "Start date"
-msgstr "Start date"
+msgstr "Date de début"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_importlevelrule_startpos1
@@ -43688,7 +43688,7 @@ msgstr "Sous-types"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_subvention_report_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_subvention_report_tree
 msgid "Subvention Report"
-msgstr "Subvention Report"
+msgstr "Rapport de subvention ONE - Plaine"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_one_report_day_subvention_type
@@ -49031,7 +49031,7 @@ msgstr "Activité"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_wizard_activitycategory
 msgid "activity category"
-msgstr "activity category"
+msgstr "Catégorie d'activité"
 
 #. module: extraschool
 #: model:ir.model,name:extraschool.model_extraschool_activitychildregistration
