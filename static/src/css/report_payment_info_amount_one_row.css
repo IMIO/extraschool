@@ -27,20 +27,27 @@
 #total>div{
     display: block;
     padding: 0px 8px 0px 8px;
-    width: 100%;
+    width: 130%;
     float: right;
 
 }
 
 #total>div>span.amount {
     float : right;
-    width: 40%;
+    width: 35%;
+    text-align: right;
+}
+
+total>div>span.to pay {
+    float : right;
+    width: 35%;
     text-align: right;
 }
 
 #total>div>span.zz_label {
     float : left;
-    width: 50%;
+    width: 90%;
+    height : 50%;
 }
 
 #total>div.to_pay {
