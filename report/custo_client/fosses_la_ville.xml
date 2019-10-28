@@ -77,5 +77,34 @@
 			</xpath>
 		</template>
 
+        <template id="report_invoice_summary_flv_text_rappel">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_invoice_summary_tournai_reminder.css"/>
+            </xpath>
+              <div id="invoice_summary">
+                 <p>
+                     Objet: Factures AES pour la période du <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/>
+                         - <b>RAPPEL</b><br/>
+                       Nos réf. : AES / <t t-esc="reminder.reminders_journal_id.name"/> / <t t-esc="parent_id.name" /><br/><br/><br/>
+                        Cher Parent, <br/><br/>
+                       Nous vous avons adressé les factures relatives aux frais extrascolaires de votre (vos) enfant(s) pour la période du <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/>.
+                       Nous constatons que vous êtes encore redevable d'un solde dû de <t t-esc="'%.2f €' % (amount)"/> envers l'Administration
+                       Communale de <t t-esc="categ_id.po_city" />, somme dont vous trouverez le détail ci-annexé.<br/><br/>
+
+                       <b>Nous vous invitons à régler ce montant, pour le <t t-esc="payment_term" /> au plus tard, au bénéfice du compte (IBAN)
+                           n° <t t-esc="categ_id.bankaccount" /> (code BIC : GKCCBEBB), avec la communication structurée suivante : <t t-esc="com_struct" />.</b><br/><br/>
+
+                       Si vous souhaitez solliciter un plan de paiement, nous vous invitons à prendre contact avec notre service. <br/><br/>
+
+                       Au terme de celui-ci, un second rappel sera envoyé par recommandé sur lequel seront appliqués des frais de 10,00€.<br/>
+                        A défaut de paiement dans les délais prescrits, le directeur financier envoie une contrainte visée et rendue exécutoire par le collège communal.
+                     Une telle contrainte est signifiée par exploit d'huissier. Cet exploit interrompt la prescription. Un recours contre cet exploit peut être introduit dans le mois de la signification par requête ou par citation.<br/>
+
+                       Vous souhaitant bonne réception de la présente, nous vous prions de croire, Cher Parent, à l'assurance de
+                       notre considération distinguée.
+                </p>
+             </div>
+		</template>
+
     </data>
 </odoo>
