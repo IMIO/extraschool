@@ -32,3 +32,7 @@ class extraschool_res_users(models.Model):
         'extraschool.school',
         string='Schools'
     )
+    activity_category_id = fields.Many2many(
+        'extraschool.activitycategory',
+        string='Activity Category'
+    )

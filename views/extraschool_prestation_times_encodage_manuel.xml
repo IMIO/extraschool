@@ -1,6 +1,12 @@
 <?xml version="1.0" ?>
 <odoo>
 	<data>
+        <record id="presta_time_manual_request_rule" model="ir.rule">
+            <field name="name">Prestation Time Manuel Request Rule</field>
+            <field ref="extraschool.model_extraschool_prestation_times_encodage_manuel" name="model_id"/>
+            <field name="domain_force">[('activity_category_id.id', 'in', [user.activity_category_id.id])]</field>
+            <field name="groups" eval="[(4, ref('extraschool.extraschool_direction_rgpd_school'))]"/>
+        </record>
         <record model="ir.ui.view" id="extraschool_prestation_times_encodage_manuel_tree">
 			<field name="name">prestation_times_encodage_manuel.tree</field>
 			<field name="model">extraschool.prestation_times_encodage_manuel</field>

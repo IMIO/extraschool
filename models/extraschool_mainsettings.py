@@ -616,7 +616,7 @@ class extraschool_mainsettings(models.Model):
                     'pdf_ready': True,
                     'in_creation': False,
                 })
-        if self.pdf_true_tax:
+        elif self.pdf_true_tax:
             tax_ids = self.env['extraschool.taxcertificate'].search([('pdf_ready', '=', False)])
             for tax_id in tax_ids:
                 tax_id.write({

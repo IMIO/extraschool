@@ -7,7 +7,8 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='groups_id']" position="after">
                 <group string="Schools right">
-                <field name="school_id" widget="many2many_tags"/>
+                    <field name="school_id" widget="many2many_tags"/>
+                    <field name="activity_category_id" widget="many2many_tags"/>
                 </group>
             </xpath>
         </field>

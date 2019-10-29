@@ -88,13 +88,28 @@ class extraschool_invoice_wizard(models.TransientModel):
     def _get_status(self):
         return True if self.env['extraschool.biller'].search([('in_creation', '=', True)]) else False
 
+    def _get_uid(self):
+        uid = self._context.get('uid')
+        if uid:
+            uid_activity_categor_id = self.env['res.users'].browse(uid).activity_category_id.id
+            if uid_activity_categor_id:
+                return "[('id', '=', {})]".format(uid_activity_categor_id)
+
+        return "()"
+
     schoolimplantationid = fields.Many2many(comodel_name='extraschool.schoolimplantation',
                                relation='extraschool_invoice_wizard_schoolimplantation_rel',
                                column1='invoice_wizard_id',
                                column2='schoolimplantation_id', default=_get_all_schoolimplantation, readonly=True)
-    activitycategory = fields.Many2many(comodel_name='extraschool.activitycategory',
-                                        relation='extraschool_invoice_wizard_activity_category_rel', column1='invoice_wizard_id',
-                                        column2='activity_category_id', string='activity category')
+    activitycategory = fields.Many2many(
+        comodel_name='extraschool.activitycategory',
+        relation='extraschool_invoice_wizard_activity_category_rel',
+        column1='invoice_wizard_id',
+        column2='activity_category_id',
+        string='activity category',
+        required=True,
+        domain=_get_uid,
+    )
     period_from = fields.Date('Period from', required=True, default=_get_defaultfrom, help='Date où l\'on va commencer la facturation')
     period_to = fields.Date('Period to', required=True, default=_get_defaultto, help='Date où l\'on va terminer la facturation')
     invoice_date = fields.Date('invoice date', required=True, default=_get_defaultto)

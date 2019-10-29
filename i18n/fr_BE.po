@@ -16082,7 +16082,7 @@ msgid "AES Direction +"
 msgstr "AES Direction +"
 
 #. module: extraschool
-#: model:res.groups,name:extraschool.extraschool_direction_rgpd
+#: model:res.groups,name:extraschool.extraschool_direction_rgpd_school
 msgid "AES Direction RGPD"
 msgstr "AES Direction RGPD"
 
