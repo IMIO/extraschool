@@ -510,6 +510,29 @@ class extraschool_prestation_times_of_the_day(models.Model):
                 else:
                     #an error has been found and added to comment field
                     self.verified = False
+        else:
+            str_prestation_ids = str(self.prestationtime_ids.ids).replace('[', '(').replace(']', ')')
+            for prestation in self.prestationtime_ids.filtered(lambda r: not r.activity_occurrence_id):
+                self.env['extraschool.prestationscheck_wizard']._prestation_activity_occurrence_completion(prestation)
+
+            # Get list of distinct root_id of prestation time for those occurrence activities.
+            self.env.cr.execute(
+                "select distinct(root_id) from extraschool_prestationtimes ep left join extraschool_activityoccurrence o on ep.activity_occurrence_id = o.id left join extraschool_activity a on o.activityid = a.id where a.root_id > 0 and ep.id in " + str_prestation_ids)
+
+            prestationtimes = self.env.cr.dictfetchall()
+            root_ids = [r['root_id'] for r in prestationtimes]
+
+            for root_activity in self.env['extraschool.activity'].browse(root_ids):
+                start_time = self._completion_entry(root_activity)
+                stop_time = self._completion_exit(root_activity)
+
+                if start_time and stop_time:
+                    start_time.verified = True
+                    stop_time.verified = True
+                    self._occu_completion(start_time,stop_time,None,True,None)
+                else:
+                    #an error has been found and added to comment field
+                    self.verified = False
 
         self.last_check_entry_exit()
 
