@@ -94,6 +94,8 @@
                        <b>Nous vous invitons à régler ce montant, pour le <t t-esc="payment_term" /> au plus tard, au bénéfice du compte (IBAN)
                            n° <t t-esc="categ_id.bankaccount" /> (code BIC : GKCCBEBB), avec la communication structurée suivante : <t t-esc="com_struct" />.</b><br/><br/>
 
+                       Si le paiement a été effectué entre-temps, nous vous remercions de ne pas tenir compte du présent courrier.<br/>
+
                        Si vous souhaitez solliciter un plan de paiement, nous vous invitons à prendre contact avec notre service. <br/><br/>
 
                        Au terme de celui-ci, un second rappel sera envoyé par recommandé sur lequel seront appliqués des frais de 10,00€.<br/>
