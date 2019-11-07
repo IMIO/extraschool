@@ -16087,19 +16087,14 @@ msgid "AES Direction RGPD"
 msgstr "AES Direction RGPD"
 
 #. module: extraschool
-#: model:res.groups,name:extraschool.extraschool_fiche_sante
-msgid "AES Fiche Santé"
-msgstr "AES Fiche Santé"
-
-#. module: extraschool
 #: model:res.groups,name:extraschool.extraschool_gods
 msgid "AES Gods"
-msgstr "AES Gods"
+msgstr "AES Equipe Imio"
 
 #. module: extraschool
-#: model:res.groups,name:extraschool.extraschool_ittre
-msgid "AES Ittre"
-msgstr "AES Ittre"
+#: model:res.groups,name:extraschool.extraschool_different_place
+msgid "AES Different Place in presence by day"
+msgstr "AES Différents lieux d'accueils dans présences par jour"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_smartphone_form
@@ -16140,8 +16135,8 @@ msgstr "AES configuration"
 
 #. module: extraschool
 #: model:res.groups,name:extraschool.extraschool_school
-msgid "AES school"
-msgstr "AES school"
+msgid "AES Direction"
+msgstr "AES Direction"
 
 #. module: extraschool
 #: model:res.groups,name:extraschool.extraschool_timeclock

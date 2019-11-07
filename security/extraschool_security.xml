@@ -5,43 +5,66 @@
             <field name="name">AES admin</field>
          </record>
          <record id="extraschool_user" model="res.groups">
-            <field name="name">AES user</field>
+            <field name="name">AES droit smartphone + user principal</field>
          </record>
          <record id="extraschool_school" model="res.groups">
-            <field name="name">AES school</field>
+            <field name="name">AES Direction</field>
+         </record>
+         <record id="extraschool_direction" model="res.groups">
+            <field name="name">AES Direction +</field>
+         </record>
+         <record id="extraschool_fusion" model="res.groups">
+            <field name="name">AES fusion</field>
+         </record>
+         <record id="extraschool_qrcode" model="res.groups">
+            <field name="name">AES Qr Core</field>
+         </record>
+
+         <record id="extraschool_activity" model="res.groups">
+            <field name="name">AES Activity</field>
+         </record>
+         <record id="extraschool_different_place" model="res.groups">
+            <field name="name">AES Different Place in presence by day</field>
+         </record>
+
+         <record id="extraschool_invoice" model="res.groups">
+            <field name="name">AES Invoice</field>
          </record>
          <record id="extraschool_accounting" model="res.groups">
-            <field name="name">AES accounting</field>
+            <field name="name">AES Paiement</field>
          </record>
+         <record id="extraschool_reminder" model="res.groups">
+            <field name="name">AES Rappel</field>
+         </record>
+
          <record id="extraschool_payment_correction" model="res.groups">
             <field name="name">AES Payment Correction</field>
          </record>
          <record id="extraschool_timeclock" model="res.groups">
             <field name="name">AES timeclock</field>
          </record>
-         <record id="extraschool_fusion" model="res.groups">
-            <field name="name">AES fusion</field>
+
+         <record id="extraschool_one" model="res.groups">
+            <field name="name">AES Rapport ONE</field>
+         </record>
+         <record id="extraschool_plaine" model="res.groups">
+            <field name="name">AES Plaine</field>
+         </record>
+
+         <record id="extraschool_smartphone" model="res.groups">
+            <field name="name">AES Menu Smartphone Full</field>
+         </record>
+          <record id="extraschool_smartphone_read_only" model="res.groups">
+            <field name="name">AES Menu Smartphone Lecture</field>
          </record>
          <record id="extraschool_gods" model="res.groups">
             <field name="name">AES Gods</field>
          </record>
-         <record id="extraschool_direction" model="res.groups">
-            <field name="name">AES Direction +</field>
-         </record>
-         <record id="extraschool_qrcode" model="res.groups">
-            <field name="name">AES Qr Core</field>
-         </record>
-         <record id="extraschool_ittre" model="res.groups">
-            <field name="name">AES Ittre</field>
-         </record>
-          <record id="extraschool_activity" model="res.groups">
-            <field name="name">AES Activity</field>
-         </record>
-          <record id="extraschool_fiche_sante" model="res.groups">
-            <field name="name">AES Fiche Santé</field>
-         </record>
-          <record id="extraschool_direction_rgpd" model="res.groups">
+         <record id="extraschool_direction_rgpd" model="res.groups">
             <field name="name">AES Direction RGPD</field>
+         </record>
+         <record id="extraschool_config" model="res.groups">
+            <field name="name">AES Configuration</field>
          </record>
    	  </data>
    </odoo>

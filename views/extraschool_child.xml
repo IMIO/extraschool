@@ -54,7 +54,7 @@
 								/>
                         <button name="get_sante"
 							string="Fiche Santé"
-                            groups="extraschool.extraschool_fiche_sante"
+                            groups="extraschool.extraschool_school"
 							type="object"
 							class="oe_inline oe_stat_button"
 							icon="fa-heart"

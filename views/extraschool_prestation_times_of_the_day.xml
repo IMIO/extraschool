@@ -33,7 +33,7 @@
 						<button name="reset" group="admin" string="Reset" icon="gtk-apply" type="object" />
 						<button name="check" group="admin" string="Check" icon="gtk-apply" type="object" />
 						<button name="delete_pod" groups="extraschool.extraschool_gods" string="Delete" class="oe_highlight" type="object" />
-						<button name="uniform_school" groups="extraschool.extraschool_ittre" string="Uniformiser Ecole" class="oe_highlight" type="object" />
+						<button name="uniform_school" groups="extraschool.extraschool_different_place" string="Uniformiser Ecole" class="oe_highlight" type="object" />
 					</header>
 					<sheet>
                         <div class="alert alert-danger" attrs="{'invisible':[('verified', '=', True)]}">
