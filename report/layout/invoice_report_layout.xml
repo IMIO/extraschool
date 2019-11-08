@@ -44,7 +44,7 @@
 						<t t-set="bank_city" t-value="activity_category.bank_city"/>
 						<t t-set="com_struct" t-value="invoice.structcom"/>
 						<t t-set="total" t-value="invoice.amount_total"/>
-						<t t-set="no_value" t-value="invoice.no_value"/>
+						<t t-set="no_value" t-value="invoice.no_value_amount"/>
 						<t t-set="received" t-value="invoice.amount_received"/>
 						<t t-set="balance" t-value="invoice.balance"/>
 						<t t-set="payment_term" t-value="'%s' % (time.strftime('%d-%m-%Y',time.strptime(invoice.biller_id.payment_term,'%Y-%m-%d')))"/>
