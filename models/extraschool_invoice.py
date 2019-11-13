@@ -611,7 +611,7 @@ class extraschool_invoice_reprise(models.Model):
         tools.sql.drop_view_if_exists(cr, 'extraschool_invoice_reprise_no_value')
         cr.execute("""
             CREATE view extraschool_invoice_reprise_no_value as
-                SELECT i.id as invoice_ids, 
+                SELECT i.id as invoice_ids,
                     row_number() over() AS id,
                     i.parentid as parent_id
                 FROM extraschool_invoice AS i
