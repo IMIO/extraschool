@@ -48735,7 +48735,7 @@ msgstr "Vous avez été invité à:"
 #: code:addons/extraschool/models/extraschool_school.py:50
 #, python-format
 msgid "You have reached the maximum school"
-msgstr "You have reached the maximum school"
+msgstr "Vous avez le nombre maximum d'école"
 
 #. module: mail
 #: model:ir.model.fields,help:mail.field_email_template_attachment_ids

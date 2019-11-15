@@ -498,7 +498,7 @@ class extraschool_invoice_wizard(models.TransientModel):
         obj_biller = self.env['extraschool.biller']
         obj_accrued = self.env['extraschool.accrued']
 
-        #create a bille to store invoice
+        #create a biller to store invoice
         biller = obj_biller.create({'period_from' : self.period_from,
                                     'period_to' : self.period_to,
                                     'payment_term': self.invoice_term,
