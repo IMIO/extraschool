@@ -79,6 +79,10 @@
 	                    <newline/>
 	                    <field name="otherref"/>
 						<field name="rn"/>
+                        <newline/>
+                        <field name="n_child" groups="extraschool.extraschool_plaine"/>
+                        <newline/>
+                        <field name="n_family" groups="extraschool.extraschool_plaine"/>
 	                    <newline/>
 	                    <field name="parentid"/>
 	                    <newline/>
@@ -88,6 +92,9 @@
 					<notebook>
 						<page string="Comment">
 							<field name="comment" />
+						</page>
+						<page string="Comment plaine" groups="extraschool.extraschool_plaine">
+							<field name="comment_plaine" />
 						</page>
                  	</notebook>
                     </sheet>

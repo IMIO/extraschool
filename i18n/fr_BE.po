@@ -49357,6 +49357,26 @@ msgid "child_name"
 msgstr "Nom de l'enfant"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_child_form
+msgid "Comment plaine"
+msgstr "Commentaire plaine"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_child_comment_plaine
+msgid "Comment Plaine"
+msgstr "Commentaire Plaine"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_child_n_child
+msgid "N° of child"
+msgstr "N° de l'enfant"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_child_n_family
+msgid "N° of family"
+msgstr "N° de famille"
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_child_registration_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_child_registration_form_multi
 msgid "child_registration"
