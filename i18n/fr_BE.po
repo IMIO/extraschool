@@ -29,8 +29,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-19 12:25+0000\n"
-"PO-Revision-Date: 2019-11-19 13:27+0100\n"
+"POT-Creation-Date: 2019-11-19 13:36+0000\n"
+"PO-Revision-Date: 2019-11-19 14:40+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -8456,8 +8456,9 @@ msgid ""
 "                              Participation financière : <br/>\n"
 "                          </span>\n"
 "                          <span style=\"font-size: 9px; align-content: center;\">\n"
-"                              <span style=\"margin-left:30px\">- L’intervention financière des parents est fixée comme suit : 1.5 €/heure pour le 1<sup>ier</sup> enfant, 1€/heure pour le 2<sup>ième</sup> enfant et gratuit pour le 3<sup>ième</sup>.</span> <br/>\n"
+"                              <span style=\"margin-left:30px\">- L’intervention financière des parents est fixée comme suit : 1.5 €/heure pour le 1<sup>er</sup> enfant, 1€/heure pour le 2<sup>ème</sup> enfant et gratuit pour le 3<sup>ème</sup>.</span> <br/>\n"
 "                              <span style=\"margin-left:30px\">- La garderie est payante de 7h à 8h30 et de 16h à 18h30 dans les deux implantations.</span> <br/>\n"
+"                              <span style=\"margin-left:30px\">- Le mercredi, la garderie est gratuite de 12h00 à 13h00.</span> <br/>\n"
 "                              <span style=\"margin-left:30px\">- L’intervention est comptabilisée par demi-heure au minimum ; toute demi-heure entamée est une demi-heure facturée (0,75 €).</span> <br/><br/>\n"
 "                          </span>\n"
 "                          <span style=\"font-weight: bold; font-size: 9px;\">\n"
@@ -8485,8 +8486,11 @@ msgid ""
 "                          </span>\n"
 "                          <span style=\"font-size: 9px; align-content: center;\">\n"
 "                              <span style=\"margin-left:30px\">- La participation aux activités est de 5€ pour le premier enfant et de 2,50€ pour les suivants. </span> <br/>\n"
+"                              <span style=\"margin-left:30px\">- La participation aux activités exceptionnelles en dehors de l'école est de 7.50€ pour le premier enfant et de 5€ pour les suivants. </span> <br/>\n"
 "                              <span style=\"margin-left:30px\">- Un remboursement se fera uniquement sur présentation d’un certificat médical.</span> <br/>\n"
-"                              <span style=\"margin-left:30px\">- Pour les enfants qui retournent avant le début de l’activité, le tarif suivant sera appliqué : 1 €/heure pour le 1<sup>ier</sup> enfant,  0,50 €/heure pour le 2<sup>ième</sup> enfant et gratuit pour le 3<sup>ième</sup> </span> <br/>\n"
+"                              <span style=\"margin-left:30px\">- Le mercredi, la garderie est gratuite de 12h00 à 13h00.</span> <br/>\n"
+"                              <span style=\"margin-left:30px\">- Pour les enfants qui retournent avant le début de l’activité ou qui restent après la fin de l’activité, le tarif suivant sera\n"
+"                                  appliqué : 1,5 €/heure pour le 1<sup>er</sup> enfant, 1 €/heure pour le 2<sup>ème</sup> enfant et gratuit pour le 3<sup>ème</sup>  </span> <br/>\n"
 "                              <span style=\"margin-left:30px\">- Des changements concernant l’activité peuvent survenir suite à des problèmes indépendants de la volonté  de la commune tels que conditions météorologiques défavorables, annulation d’un spectacle...</span> <br/><br/>\n"
 "                          </span>"
 msgstr ""
@@ -8509,8 +8513,9 @@ msgstr ""
 "                              Participation financière : <br/>\n"
 "                          </span>\n"
 "                          <span style=\"font-size: 9px; align-content: center;\">\n"
-"                              <span style=\"margin-left:30px\">- L’intervention financière des parents est fixée comme suit : 1.5 €/heure pour le 1<sup>ier</sup> enfant, 1€/heure pour le 2<sup>ième</sup> enfant et gratuit pour le 3<sup>ième</sup>.</span> <br/>\n"
+"                              <span style=\"margin-left:30px\">- L’intervention financière des parents est fixée comme suit : 1.5 €/heure pour le 1<sup>er</sup> enfant, 1€/heure pour le 2<sup>ème</sup> enfant et gratuit pour le 3<sup>ème</sup>.</span> <br/>\n"
 "                              <span style=\"margin-left:30px\">- La garderie est payante de 7h à 8h30 et de 16h à 18h30 dans les deux implantations.</span> <br/>\n"
+"                              <span style=\"margin-left:30px\">- Le mercredi, la garderie est gratuite de 12h00 à 13h00.</span> <br/>\n"
 "                              <span style=\"margin-left:30px\">- L’intervention est comptabilisée par demi-heure au minimum ; toute demi-heure entamée est une demi-heure facturée (0,75 €).</span> <br/><br/>\n"
 "                          </span>\n"
 "                          <span style=\"font-weight: bold; font-size: 9px;\">\n"
@@ -8538,8 +8543,11 @@ msgstr ""
 "                          </span>\n"
 "                          <span style=\"font-size: 9px; align-content: center;\">\n"
 "                              <span style=\"margin-left:30px\">- La participation aux activités est de 5€ pour le premier enfant et de 2,50€ pour les suivants. </span> <br/>\n"
+"                              <span style=\"margin-left:30px\">- La participation aux activités exceptionnelles en dehors de l'école est de 7.50€ pour le premier enfant et de 5€ pour les suivants. </span> <br/>\n"
 "                              <span style=\"margin-left:30px\">- Un remboursement se fera uniquement sur présentation d’un certificat médical.</span> <br/>\n"
-"                              <span style=\"margin-left:30px\">- Pour les enfants qui retournent avant le début de l’activité, le tarif suivant sera appliqué : 1 €/heure pour le 1<sup>ier</sup> enfant,  0,50 €/heure pour le 2<sup>ième</sup> enfant et gratuit pour le 3<sup>ième</sup> </span> <br/>\n"
+"                              <span style=\"margin-left:30px\">- Le mercredi, la garderie est gratuite de 12h00 à 13h00.</span> <br/>\n"
+"                              <span style=\"margin-left:30px\">- Pour les enfants qui retournent avant le début de l’activité ou qui restent après la fin de l’activité, le tarif suivant sera\n"
+"                                  appliqué : 1,5 €/heure pour le 1<sup>er</sup> enfant, 1 €/heure pour le 2<sup>ème</sup> enfant et gratuit pour le 3<sup>ème</sup>  </span> <br/>\n"
 "                              <span style=\"margin-left:30px\">- Des changements concernant l’activité peuvent survenir suite à des problèmes indépendants de la volonté  de la commune tels que conditions météorologiques défavorables, annulation d’un spectacle...</span> <br/><br/>\n"
 "                          </span>"
 
@@ -8561,10 +8569,10 @@ msgid ""
 "                            Une facture trimestrielle reprenant les présences du ou des enfant(s) sera distribuée dans les mallettes : <br/><br/>\n"
 "                        </span>\n"
 "                        <span style=\"font-size: 9px; align-content: center;\">\n"
-"                            <span>- Avril, Mai pour la période du 1<sup>ier</sup> trimestre (janvier-février-mars) </span> <br/>\n"
-"                            <span>- Juillet, Aout pour la période du 2<sup>ème</sup> trimestre (avril-mai-juin)</span> <br/>\n"
-"                            <span>- Octobre, Novembre pour la période du 3<sup>ème</sup> trimestre (septembre) </span> <br/>\n"
-"                            <span>- Janvier, Février pour la période du 4<sup>ème</sup> trimestre (octobre-novembre-décembre)</span> <br/><br/>\n"
+"                            <span>- Avril pour la période du 1<sup>er</sup> trimestre (janvier-février-mars) </span> <br/>\n"
+"                            <span>- Juillet pour la période du 2<sup>ème</sup> trimestre (avril-mai-juin)</span> <br/>\n"
+"                            <span>- Octobre pour la période du 3<sup>ème</sup> trimestre (septembre) </span> <br/>\n"
+"                            <span>- Janvier pour la période du 4<sup>ème</sup> trimestre (octobre-novembre-décembre)</span> <br/><br/>\n"
 "                            <span>Toute facture est payable, au plus tard, endéans le mois de sa réception.</span><br/><br/>\n"
 "                        </span>\n"
 "                        <span style=\"font-size: 9px; align-content: center; font-weight: bold; text-decoration: underline;\">\n"
@@ -8598,10 +8606,10 @@ msgstr ""
 "                            Une facture trimestrielle reprenant les présences du ou des enfant(s) sera distribuée dans les mallettes : <br/><br/>\n"
 "                        </span>\n"
 "                        <span style=\"font-size: 9px; align-content: center;\">\n"
-"                            <span>- Avril, Mai pour la période du 1<sup>ier</sup> trimestre (janvier-février-mars) </span> <br/>\n"
-"                            <span>- Juillet, Aout pour la période du 2<sup>ème</sup> trimestre (avril-mai-juin)</span> <br/>\n"
-"                            <span>- Octobre, Novembre pour la période du 3<sup>ème</sup> trimestre (septembre) </span> <br/>\n"
-"                            <span>- Janvier, Février pour la période du 4<sup>ème</sup> trimestre (octobre-novembre-décembre)</span> <br/><br/>\n"
+"                            <span>- Avril pour la période du 1<sup>er</sup> trimestre (janvier-février-mars) </span> <br/>\n"
+"                            <span>- Juillet pour la période du 2<sup>ème</sup> trimestre (avril-mai-juin)</span> <br/>\n"
+"                            <span>- Octobre pour la période du 3<sup>ème</sup> trimestre (septembre) </span> <br/>\n"
+"                            <span>- Janvier pour la période du 4<sup>ème</sup> trimestre (octobre-novembre-décembre)</span> <br/><br/>\n"
 "                            <span>Toute facture est payable, au plus tard, endéans le mois de sa réception.</span><br/><br/>\n"
 "                        </span>\n"
 "                        <span style=\"font-size: 9px; align-content: center; font-weight: bold; text-decoration: underline;\">\n"
@@ -9178,7 +9186,7 @@ msgid "A payer avant le"
 msgstr "A payer avant le"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_coda.py:215
+#: code:addons/extraschool/models/extraschool_coda.py:222
 #, python-format
 msgid "A reminder has been found but the amount is not corresponding to balances of invoices"
 msgstr "A reminder has been found but the amount is not corresponding to balances of invoices"
@@ -10798,7 +10806,7 @@ msgid "Amount accepted"
 msgstr "Montant accepté"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_coda.py:164
+#: code:addons/extraschool/models/extraschool_coda.py:171
 #, python-format
 msgid "Amount greather than invoice balance"
 msgstr "Amount greather than invoice balance"
@@ -11257,7 +11265,7 @@ msgid "Associations: Members"
 msgstr "Associations: membres"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_invoice_wizard.py:879
+#: code:addons/extraschool/models/extraschool_invoice_wizard.py:880
 #, python-format
 msgid ""
 "At least one price list is missing !!!\n"
@@ -11758,6 +11766,11 @@ msgstr "Nom de la banque"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_bankaccount
 msgid "Bank account"
 msgstr "Compte bancaire"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_coda_bank_account_number
+msgid "Bank account number"
+msgstr "Numéro de compte bancaire"
 
 #. module: base
 #: model:ir.model.fields,help:base.field_res_partner_bank_acc_type
@@ -12330,10 +12343,10 @@ msgid "CODA File"
 msgstr "Fichier CODA"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_coda.py:96
+#: code:addons/extraschool/models/extraschool_coda.py:103
 #, python-format
 msgid "CODA already imported !!!"
-msgstr "CODA already imported !!!"
+msgstr "Ce fichier CODA a déjà été importé"
 
 #. module: extraschool
 #: model:ir.ui.menu,name:extraschool.extraschool_menu_codaimport
@@ -17160,16 +17173,16 @@ msgid "E-mail Error"
 msgstr "Erreur de courriel"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_coda.py:107
+#: code:addons/extraschool/models/extraschool_coda.py:114
 #, python-format
 msgid "ERROR: The account number in this CODA file is not used in this application !!!"
-msgstr "ERROR: The account number in this CODA file is not used in this application !!!"
+msgstr "Le numéro de compte dans ce fichier CODA n'est pas utilisé par cette application"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_coda.py:105
+#: code:addons/extraschool/models/extraschool_coda.py:112
 #, python-format
 msgid "ERROR: Wrong CODA version !!!"
-msgstr "ERROR: Wrong CODA version !!!"
+msgstr "Mauvaise version CODA"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_guardianprestationtimes_es
@@ -26436,10 +26449,10 @@ msgid "No app installed"
 msgstr "Pas d'applications installées"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_coda.py:89
+#: code:addons/extraschool/models/extraschool_coda.py:93
 #, python-format
 msgid "No coda file!"
-msgstr "No coda file!"
+msgstr "Il n'y a pas de fichier CODA"
 
 #. module: web
 #. openerp-web
@@ -26553,7 +26566,7 @@ msgid "No starred message"
 msgstr "Pas de messages mis en favoris"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_coda.py:134
+#: code:addons/extraschool/models/extraschool_coda.py:141
 #, python-format
 msgid "No structured Communication"
 msgstr "No structured Communication"
@@ -26566,9 +26579,9 @@ msgid "No threading for answers"
 msgstr "Pas de suivi dans le fil pour les réponses"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_coda.py:190
-#: code:addons/extraschool/models/extraschool_coda.py:271
-#: code:addons/extraschool/models/extraschool_coda.py:315
+#: code:addons/extraschool/models/extraschool_coda.py:197
+#: code:addons/extraschool/models/extraschool_coda.py:278
+#: code:addons/extraschool/models/extraschool_coda.py:322
 #, python-format
 msgid "No valid structured Communication"
 msgstr "No valid structured Communication"
@@ -28375,7 +28388,7 @@ msgid "Parent name"
 msgstr "Nom du parent"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_coda.py:287
+#: code:addons/extraschool/models/extraschool_coda.py:294
 #, python-format
 msgid "Parent not found"
 msgstr "Parent not found"
@@ -34500,7 +34513,7 @@ msgid "The code of the language must be unique !"
 msgstr "Le code de la langue doit être unique"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_coda.py:220
+#: code:addons/extraschool/models/extraschool_coda.py:227
 #, python-format
 msgid "The communication is outdated. Another reminder has been created."
 msgstr "The communication is outdated. Another reminder has been created."
