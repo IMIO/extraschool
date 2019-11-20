@@ -413,15 +413,18 @@ class extraschool_biller(models.Model):
     @api.multi
     def pay_all(self):
         for invoice_id in self.invoice_ids:
-            payment_id = self.env['extraschool.payment'].create({'parent_id': invoice_id.parentid.id,
-                            'paymentdate': self.period_to,# This is Coda date.
-                            'structcom_prefix': self.activitycategoryid.payment_invitation_com_struct_prefix,
-                            'amount': invoice_id.amount_total,
-                            'reject_id': False,
-                            'comment': 'Paiement automatique'})
+            payment_id = self.env['extraschool.payment'].create({
+                'parent_id': invoice_id.parentid.id,
+                'paymentdate': self.period_to,  # This is Coda date.
+                'structcom_prefix': self.activitycategoryid.payment_invitation_com_struct_prefix,
+                'amount': invoice_id.balance,
+                'reject_id': False,
+                'comment': 'Paiement automatique',
+                'activity_category_id': [(6, 0, [invoice_id.activitycategoryid.id])],
+            })
 
             reconciliation = self.env['extraschool.payment_reconciliation'].create({ 'payment_id' : payment_id.id,
                                                                     'invoice_id' : invoice_id.id,
-                                                                    'amount' : invoice_id.amount_total,
+                                                                    'amount' : invoice_id.balance,
                                                                     'date' : self.period_to})
             reconciliation.invoice_id._compute_balance()
