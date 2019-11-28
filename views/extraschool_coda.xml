@@ -1,20 +1,21 @@
 <?xml version="1.0" ?>
 <odoo>
-	<data> 
+	<data>
          <record model="ir.ui.view" id="extraschool_coda_tree">
 			<field name="name">Coda</field>
 			<field name="model">extraschool.coda</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="Coda">
-                    <field name="codadate"/>					
-                    <field name="amount_accepted"/>					
+                    <field name="codadate"/>
+                    <field name="bank_account_number"/>
+                    <field name="amount_accepted"/>
                     <field name="amount_rejected"/>
-                    <field name="state"/>					                    	                    					
+                    <field name="state"/>
                 </tree>
 			</field>
 		</record>
-        
+
         <record model="ir.ui.view" id="extraschool_coda_form">
             <field name="name">Coda</field>
             <field name="model">extraschool.coda</field>
@@ -22,14 +23,16 @@
             <field name="arch" type="xml">
                 <form string="Coda">
 					<header>
-						<button name="validate" string="Traiter" type="object" states='todo' class="oe_highlight" />	
-						<field name="state" widget="statusbar" statusbar_visible="todo,handled"/>												
+						<button name="validate" string="Traiter" type="object" states='todo' class="oe_highlight" />
+						<field name="state" widget="statusbar" statusbar_visible="todo,handled"/>
 					</header>
                 	<sheet>
                         <group cols="4">
                             <field name="codadate"/>
                             <newline/>
                             <field name="codafile"/>
+                            <newline/>
+                            <field name="bank_account_number"/>
                         </group>
                         <separator string="Accepted payments" colspan="4"/>
                         <field name="paymentids" nolabel="1" colspan="4"  context="{'group_by': 'structcom_prefix'}">
@@ -67,23 +70,23 @@
             <field name="view_mode">tree, form</field>
             <field name="view_id" ref="extraschool_coda_tree"/>
         </record>
-        
+
         <record model="ir.actions.act_window.view" id="action_extraschool_coda_form">
 			<field name="name">Coda</field>
             <field eval="2" name="sequence"/>
 			<field name="res_model">extraschool.coda</field>
             <field name="view_mode">form</field>
-            <field name="view_id" ref="extraschool_coda_form" />   
-            <field name="act_window_id" ref="action_extraschool_coda" /> 
+            <field name="view_id" ref="extraschool_coda_form" />
+            <field name="act_window_id" ref="action_extraschool_coda" />
             <field name="target">inline</field>
-		</record> 
-        
+		</record>
+
         <record model="ir.actions.act_window.view" id="action_extraschool_coda_tree">
 			<field name="name">Coda</field>
             <field eval="1" name="sequence"/>
 			<field name="res_model">extraschool.coda</field>
             <field name="view_mode">tree</field>
-            <field name="view_id" ref="extraschool_coda_tree" />  
+            <field name="view_id" ref="extraschool_coda_tree" />
             <field name="act_window_id" ref="action_extraschool_coda" />
         </record>
 	</data>

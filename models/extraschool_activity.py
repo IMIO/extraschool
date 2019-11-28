@@ -61,7 +61,20 @@ class extraschool_activity(models.Model):
     onlyregisteredchilds = fields.Boolean('Only registered childs', index=True, track_visibility='onchange')
     planneddates_ids = fields.Many2many('extraschool.activityplanneddate', 'extraschool_activity_activityplanneddate_rel', 'activity_id', 'activityplanneddate_id', 'Planned dates', track_visibility='onchange')
     exclusiondates_ids = fields.Many2many('extraschool.activityexclusiondates', 'extraschool_activity_activityexclusiondates_rel', 'activity_id', 'activityexclusiondates_id', 'Exclusion dates', track_visibility='onchange')
-    days = fields.Selection((('0,1,2,3,4', 'All Monday to Friday'), ('0', 'All Mondays'), ('1', 'All Tuesdays'), ('2', 'All Wednesdays'), ('3', 'All Thursdays'), ('4', 'All Fridays'), ('0,1,3,4', 'All Mondays, Tuesdays, Thursday and Friday')), 'Days', required=True, track_visibility='onchange')
+    days = fields.Selection(
+        (
+            ('0,1,2,3,4', 'All Monday to Friday'),
+            ('0', 'All Mondays'),
+            ('1', 'All Tuesdays'),
+            ('2', 'All Wednesdays'),
+            ('3', 'All Thursdays'),
+            ('4', 'All Fridays'),
+            ('0,1,3,4', 'All Mondays, Tuesdays, Thursday and Friday'),
+            ('5', 'All Saturday'),
+         ),
+        'Days', required=True,
+        track_visibility='onchange'
+    )
     leveltype = fields.Selection((('M,P', 'Maternelle et Primaire'), ('M', 'Maternelle'), ('P', 'Primaire')), 'Level type', required=True, track_visibility='onchange')
     prest_from = fields.Float('From', index=True, required=True, track_visibility='onchange')
     prest_to = fields.Float('To', index=True, required=True, track_visibility='onchange')

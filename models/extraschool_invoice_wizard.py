@@ -968,23 +968,23 @@ class extraschool_invoice_wizard(models.TransientModel):
                 'amount': amount,
             })
 
+        biller.in_creation = False
+
         _logger.info("End invoicing")
         if self.generate_pdf:
             _logger.info("Start generation of PDF")
             if self.env['ir.config_parameter'].get_param('extraschool.invoice.generate_pdf',1) == 1:
                 biller.generate_pdf()
             else:
-                biller.pdf_ready = True
-                biller.in_creation = False
                 biller.send_mail_completed()
             _logger.info("ALL PDF GENERATED")
         else:
-            biller.pdf_ready = True
-            biller.in_creation = False
             biller.send_mail_completed()
         view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','extraschool.biller'),
                                                              ('name','=','Biller.form')])
 
+        biller.pdf_ready = True
+        
         return {
             'type': 'ir.actions.act_window',
             'res_model': 'extraschool.biller',
