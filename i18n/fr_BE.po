@@ -18272,7 +18272,7 @@ msgstr "An email notification with instructions has been sent to the following p
 #: code:addons/extraschool/models/extraschool_invoice.py:206
 #, python-format
 msgid "An error occured, please contact an adminsitrator"
-msgstr "An error occured, please contact an adminsitrator"
+msgstr "Une erreur est survenue .. Merci de contacter l'administrateur"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_analytic
