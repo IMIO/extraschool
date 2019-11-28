@@ -11142,7 +11142,7 @@ msgstr "Voulez-vous réellement supprimer cet enregistrement?"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_biller_form
 msgid "Are you sure you want to pay all invoices in this biller ? This is not reversible !!"
-msgstr "Are you sure you want to pay all invoices in this biller ? This is not reversible !!"
+msgstr "Êtes-vous sûr de vouloir payer toutes les factures de ce facturier ? Vous ne pourrez pas revenir en arrière !!"
 
 #. module: base
 #: model:res.country,name:base.ar
