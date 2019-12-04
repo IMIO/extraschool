@@ -11147,7 +11147,7 @@ msgstr "Êtes-vous sûr de vouloir payer toutes les factures de ce facturier ? V
 #. module: base
 #: model:res.country,name:base.ar
 msgid "Argentina"
-msgstr "Argentine"
+msgstr "Argentine"f
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_ar
@@ -35113,7 +35113,7 @@ msgstr "Il y a déjà un filtre par défaut partagé pour %(model)s. Supprimez o
 #: code:addons/extraschool/models/extraschool_one_report.py:176
 #, python-format
 msgid "There is no ONE report configuration"
-msgstr "There is no ONE report configuration"
+msgstr "Il n'y a pas de configuration ou plus de date de validité correcte"
 
 #. module: extraschool
 #: code:addons/extraschool/models/extraschool_remindersjournal.py:161
