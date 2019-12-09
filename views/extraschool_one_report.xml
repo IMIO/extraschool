@@ -1,22 +1,22 @@
 <?xml version="1.0" ?>
 <odoo>
-	<data> 
+	<data>
 
 	    <record model="ir.ui.view" id="extraschool_one_report_tree">
 			<field name="name">extraschool.one.report.tree</field>
 			<field name="model">extraschool.one_report</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
-				<tree string="ONE Report">					
+				<tree string="ONE Report">
                     <field name="placeid" />
                     <field name="year" />
                     <field name="show_quarter"/>
-                    <field name="transmissiondate" />  
-					<field name="report" />         
+                    <field name="transmissiondate" />
+					<field name="report" />
 				</tree>
 			</field>
 		</record>
-		
+
         <record model="ir.ui.view" id="extraschool_one_report_form">
             <field name="name">extraschool.one.report.form</field>
             <field name="model">extraschool.one_report</field>
@@ -24,7 +24,11 @@
             <field name="arch" type="xml">
                 <form string="ONE Report">
                     <sheet>
+                        <div class="alert alert-danger" attrs="{'invisible':[('not_created', '=', True)]}">
+                             Attention il existe déjà un rapport ONE concernant ce lieu d'accueil et ce trimestre
+                        </div>
                         <group>
+                            <field name="not_created" invisible="1"/>
                             <field name="placeid" options="{'no_create':True}" attrs="{'invisible':[('synthesis', '=', True)], 'required':[('synthesis','=', False)]}"/>
                             <field name="synthesis"/>
                             <field name="year"/>
@@ -49,20 +53,20 @@
             <field eval="2" name="sequence"/>
 			<field name="res_model">extraschool.one_report</field>
             <field name="view_mode">form</field>
-            <field name="view_id" ref="extraschool_one_report_form" />   
-            <field name="act_window_id" ref="action_extraschool_one_report" /> 
+            <field name="view_id" ref="extraschool_one_report_form" />
+            <field name="act_window_id" ref="action_extraschool_one_report" />
             <field name="target">inline</field>
-		</record> 
-        
+		</record>
+
         <record model="ir.actions.act_window.view" id="action_extraschool_one_report_tree">
 			<field name="name">ONE Report</field>
             <field eval="1" name="sequence"/>
 			<field name="res_model">extraschool.one_report</field>
             <field name="view_mode">tree</field>
-            <field name="view_id" ref="extraschool_one_report_tree" />  
+            <field name="view_id" ref="extraschool_one_report_tree" />
             <field name="act_window_id" ref="action_extraschool_one_report" />
         </record>
-       
-        
+
+
 	</data>
 </odoo>

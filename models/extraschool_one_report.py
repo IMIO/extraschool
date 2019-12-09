@@ -23,7 +23,7 @@
 
 from docutils.utils.math.math2html import Formula
 
-from openerp import models, api, fields,_
+from openerp import models, api, fields, _
 import base64
 import os
 import datetime
@@ -55,7 +55,6 @@ class extraschool_one_report_day(models.Model):
         for rec in self:
             self.nb_childs = self.nb_m_childs + self.nb_p_childs
 
-extraschool_one_report_day()
 
 class extraschool_one_report(models.Model):
     _name = 'extraschool.one_report'
@@ -90,6 +89,23 @@ class extraschool_one_report(models.Model):
     report = fields.Binary()
     is_created = fields.Boolean(default=False, invisible=True)
     synthesis = fields.Boolean()
+    not_created = fields.Boolean(default=True)
+
+    @api.onchange('placeid', 'year', 'quarter')
+    def _is_created(self):
+        """
+        Method that verify if ONE Report has already been created
+        """
+
+        one_report_ids = self.env['extraschool.one_report'].search([
+            ('placeid', '=', self.placeid.id),
+            ('year', '=', self.year),
+            ('quarter', '=', self.quarter)
+        ])
+
+        if one_report_ids:
+            self.not_created = False
+
 
     @api.onchange('quarter')
     def _get_new_quarter(self):
@@ -128,11 +144,11 @@ class extraschool_one_report(models.Model):
 
     def search_childs(self,placeid,currentdate,level,subvention_type):
         self.env.cr.execute('''
-                                select distinct(childid) from extraschool_invoicedprestations left join extraschool_child on childid=extraschool_child.id where 
-                                placeid=%s 
-                                and prestation_date=%s 
-                                and activity_occurrence_id in (select id from extraschool_activityoccurrence where activityid in (select id from extraschool_activity where subsidizedbyone=true)) 
-                                and levelid in (select id from extraschool_level where leveltype=%s) 
+                                select distinct(childid) from extraschool_invoicedprestations left join extraschool_child on childid=extraschool_child.id where
+                                placeid=%s
+                                and prestation_date=%s
+                                and activity_occurrence_id in (select id from extraschool_activityoccurrence where activityid in (select id from extraschool_activity where subsidizedbyone=true))
+                                and levelid in (select id from extraschool_level where leveltype=%s)
                                 and extraschool_child.parentid in (select id from extraschool_parent where one_subvention_type=%s)
                                 ''', (placeid,currentdate,level,subvention_type))
         extraschool_one_report_childs = self.env.cr.dictfetchall()
@@ -141,11 +157,11 @@ class extraschool_one_report(models.Model):
 
     def count_childs_quarter(self,placeid,date_from,date_to,level):
         self.env.cr.execute('''
-                                select count(distinct(childid)) as count_child from extraschool_invoicedprestations left join extraschool_child on childid=extraschool_child.id where 
-                                placeid=%s 
-                                and prestation_date>=%s and prestation_date<=%s  
-                                and activity_occurrence_id in (select id from extraschool_activityoccurrence where activityid in (select id from extraschool_activity where subsidizedbyone=true)) 
-                                and levelid in (select id from extraschool_level where leveltype=%s)                                 
+                                select count(distinct(childid)) as count_child from extraschool_invoicedprestations left join extraschool_child on childid=extraschool_child.id where
+                                placeid=%s
+                                and prestation_date>=%s and prestation_date<=%s
+                                and activity_occurrence_id in (select id from extraschool_activityoccurrence where activityid in (select id from extraschool_activity where subsidizedbyone=true))
+                                and levelid in (select id from extraschool_level where leveltype=%s)
                                 ''', (placeid,date_from,date_to,level))
 
         extraschool_one_report_childs = self.env.cr.dictfetchall()
@@ -154,6 +170,9 @@ class extraschool_one_report(models.Model):
 
     @api.model
     def create(self,vals):
+        if not self.not_created:
+            raise Warning(_("There is already an ONE report !"))
+
         vals['is_created'] = True
         # I don't understand why the value from the form doesn't get in this method. So I have to re-assign the correct value.
         quarter = vals['quarter']
