@@ -44,7 +44,9 @@
                     <newline/>
                     <field name="otherref" />
                     <newline/>
-                    <field name="brevete" attrs="{'invisible':[('type', '=', 'accueillante')]}"/>
+                    <field name="brevete" attrs="{'invisible':[('type', '!=', 'animateur')]}"/>
+                      <newline/>
+                    <field name="responsable_function" attrs="{'invisible':[('type', '!=', 'responsable')]}"/>
                    </group>
                 <notebook>
                     <page string="Comment">
