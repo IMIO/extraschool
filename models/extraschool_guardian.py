@@ -44,7 +44,9 @@ class extraschool_guardian(models.Model):
     schoolimplantation = fields.Many2one('extraschool.schoolimplantation', 'School implantation', required=True, default=_get_schoolimplantation_id)
     type = fields.Selection(
         (('accueillante', 'Accueillante'),
-         ('animateur', 'Animateur'),), default='accueillante', string='Type')
+         ('animateur', 'Animateur'),
+         ('responsable', "Responsable")),
+        default='accueillante', string='Type')
     name = fields.Char(compute='_name_compute',string='FullName', size=100, store=True)
     firstname = fields.Char('FirstName', size=50)
     lastname = fields.Char('LastName', size=50 , required=True)
@@ -64,6 +66,11 @@ class extraschool_guardian(models.Model):
     prestation_ids = fields.One2many('extraschool.guardianprestationtimes', 'guardianid')
     comment = fields.Text('Comment', track_visibility='onchange')
     isdisabled = fields.Boolean('Disabled', default=False, track_visibility='onchange')
+    responsable_function = fields.Char(
+        string='Function',
+        track_visibility='onchange',
+        size=50
+    )
 
     @api.depends('firstname','lastname')
     def _name_compute(self):
