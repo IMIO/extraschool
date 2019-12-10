@@ -4,7 +4,7 @@
 #    Extraschool
 #    Copyright (C) 2008-2019
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchia- Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia & Jenny Pans - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -20,11 +20,13 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+import re
 
 from openerp import models, api
 from datetime import date, datetime, timedelta as td
 import time
 import logging
+
 _logger = logging.getLogger(__name__)
 
 
@@ -44,7 +46,13 @@ def timeit(method):
         te = time.time()
 
         logging.info('%r (%r, %r) %2.2f sec' % \
-              (method.__name__, args, kw, te - ts))
+                     (method.__name__, args, kw, te - ts))
         return result
 
     return timed
+
+def email_validation(email):
+    if re.match('^[a-zA-Z0-9.+_%-]+@[a-zA-Z0-9._%-]+\\.[a-zA-Z]{2,6}$', email) is not None:
+        return True
+    else:
+        return False
