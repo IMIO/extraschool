@@ -31,8 +31,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-09 14:39+0000\n"
-"PO-Revision-Date: 2019-12-09 15:42+0100\n"
+"POT-Creation-Date: 2019-12-10 09:27+0000\n"
+"PO-Revision-Date: 2019-12-10 10:29+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17238,6 +17238,11 @@ msgstr "Date/Heure"
 #, python-format
 msgid "Date_from must be in range of Validity_from and Validity_to (Exclusion)"
 msgstr "Date_from must be in range of Validity_from and Validity_to (Exclusion)"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_subvention_report_dates_ok
+msgid "Dates ok"
+msgstr "Dates ok"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_sale_order_dates
@@ -39214,6 +39219,11 @@ msgid "Voir les présences liées"
 msgstr "Voir les présences liées"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_subvention_report_form
+msgid "Vos dates ne sont pas valides."
+msgstr "Vos dates ne sont pas valides."
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_dour_report_parent_credit
 #: model:ir.ui.view,arch_db:extraschool.report_flv_report_parent_credit
 #: model:ir.ui.view,arch_db:extraschool.report_hannut_report_parent_credit
@@ -40385,10 +40395,10 @@ msgid "Your are not allowed to delete a validated registration !!"
 msgstr "Your are not allowed to delete a validated registration !!"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_subvention_report.py:66
-#, python-format
-msgid "Your dates are not valids. Please check your dates."
-msgstr "La date de fin est inférieure à la date de début."
+#: code:addons/extraschool/models/extraschool_subvention_report.py:143
+#, fuzzy, python-format
+msgid "Your dates are not ok. Please Check your dates."
+msgstr "Vos dates ne sont pas valides ! S'il vous plait, vérifiez vos dates."
 
 #. module: report
 #. openerp-web
