@@ -31,8 +31,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-09 12:59+0000\n"
-"PO-Revision-Date: 2019-12-09 14:02+0100\n"
+"POT-Creation-Date: 2019-12-10 09:27+0000\n"
+"PO-Revision-Date: 2019-12-10 10:29+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -12836,6 +12836,7 @@ msgstr "Lecture automatique"
 #: selection:extraschool.level,leveltype:0
 #: selection:extraschool.presta_stat,level:0
 #: selection:extraschool.stat_activity,level:0
+#: selection:extraschool.subvention_report,title:0
 msgid "Autre"
 msgstr "Autre"
 
@@ -13348,7 +13349,7 @@ msgstr "Fichier binaire"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_guardian_birthdate
 #: model:ir.model.fields,field_description:mail.field_res_users_birthdate
 msgid "Birthdate"
-msgstr "Date de Naissance"
+msgstr "Date de naissance"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_hw_blackbox_be
@@ -13747,6 +13748,11 @@ msgstr "Royaume du Cambodge"
 #: model:res.country,name:base.cm
 msgid "Cameroon"
 msgstr "Cameroun"
+
+#. module: extraschool
+#: selection:extraschool.subvention_report,camps_radio:0
+msgid "Camp de vacances"
+msgstr "Camp de vacances"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_crm_mass_mailing
@@ -17232,6 +17238,11 @@ msgstr "Date/Heure"
 #, python-format
 msgid "Date_from must be in range of Validity_from and Validity_to (Exclusion)"
 msgstr "Date_from must be in range of Validity_from and Validity_to (Exclusion)"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_subvention_report_dates_ok
+msgid "Dates ok"
+msgstr "Dates ok"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_sale_order_dates
@@ -29313,6 +29324,11 @@ msgid "Ordered list"
 msgstr "Liste ordonnée"
 
 #. module: extraschool
+#: selection:extraschool.subvention_report,title:0
+msgid "Organisation de jeunesse reconnue"
+msgstr "Organisation de jeunesse reconnue"
+
+#. module: extraschool
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_organising_power
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_organising_power_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_organising_power_id
@@ -30614,6 +30630,11 @@ msgid "Places"
 msgstr "Lieux d'accueil"
 
 #. module: extraschool
+#: selection:extraschool.subvention_report,camps_radio:0
+msgid "Plaine de vacances"
+msgstr "Plaine de vacances"
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activity_form
 msgid "Planification"
 msgstr "Planification"
@@ -31004,6 +31025,11 @@ msgstr ""
 #: model:ir.ui.view,arch_db:extraschool.extraschool_horaire_guardian_wizard_form
 msgid "Pouvez-vous préciser la date de début et de fin des horaires à imprimer ?"
 msgstr "Pouvez-vous préciser la date de début et de fin des horaires à imprimer ?"
+
+#. module: extraschool
+#: selection:extraschool.subvention_report,title:0
+msgid "Pouvoir public"
+msgstr "Pouvoir public"
 
 #. module: web
 #: model:ir.ui.view,arch_db:web.menu_secondary
@@ -34854,6 +34880,11 @@ msgstr "Activité source. Lorsque cette activité est terminée, la condition es
 msgid "Source term"
 msgstr "Source term"
 
+#. module: extraschool
+#: selection:extraschool.subvention_report,camps_radio:0
+msgid "Sous tente"
+msgstr "Sous tente"
+
 #. module: base
 #: model:res.country,name:base.za
 msgid "South Africa"
@@ -35122,6 +35153,11 @@ msgstr "États"
 #: model:ir.ui.view,arch_db:mail.view_mail_search
 msgid "Status"
 msgstr "État"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_subvention_report_camps_radio
+msgid "Stays and camps"
+msgstr "Stays and camps"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_sequence_number_increment
@@ -35619,6 +35655,11 @@ msgstr "Mise à jour du système"
 #: selection:mail.message,message_type:0
 msgid "System notification"
 msgstr "Notification Système"
+
+#. module: extraschool
+#: selection:extraschool.subvention_report,camps_radio:0
+msgid "Séjour de vacances"
+msgstr "Séjour de vacances"
 
 #. module: base
 #: selection:base.language.export,format:0
@@ -36738,7 +36779,7 @@ msgstr "Il y a déjà un filtre par défaut partagé pour %(model)s. Supprimez o
 
 #. module: extraschool
 #: code:addons/extraschool/models/extraschool_one_report.py:174
-#, fuzzy, python-format
+#, python-format
 msgid "There is already an ONE report !"
 msgstr "Il existe déjà un rapport ONE pour ce trimestre et ce lieu d'accueil et cette année !"
 
@@ -37107,6 +37148,7 @@ msgstr "Conseils"
 #. modules: mail, base, extraschool
 #: model:ir.model.fields,field_description:base.field_res_partner_title
 #: model:ir.model.fields,field_description:base.field_res_partner_title_name
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_subvention_report_title
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificate_title
 #: model:ir.model.fields,field_description:mail.field_res_users_title
 msgid "Title"
@@ -39177,6 +39219,11 @@ msgid "Voir les présences liées"
 msgstr "Voir les présences liées"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_subvention_report_form
+msgid "Vos dates ne sont pas valides."
+msgstr "Vos dates ne sont pas valides."
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_dour_report_parent_credit
 #: model:ir.ui.view,arch_db:extraschool.report_flv_report_parent_credit
 #: model:ir.ui.view,arch_db:extraschool.report_hannut_report_parent_credit
@@ -40346,6 +40393,12 @@ msgstr "Votre serveur OpenERP ne supporte pas SMTP-sur-SSL. Vous pouvez utiliser
 #, python-format
 msgid "Your are not allowed to delete a validated registration !!"
 msgstr "Your are not allowed to delete a validated registration !!"
+
+#. module: extraschool
+#: code:addons/extraschool/models/extraschool_subvention_report.py:143
+#, fuzzy, python-format
+msgid "Your dates are not ok. Please Check your dates."
+msgstr "Vos dates ne sont pas valides ! S'il vous plait, vérifiez vos dates."
 
 #. module: report
 #. openerp-web
@@ -42583,6 +42636,11 @@ msgstr "vrai"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_child_search_view
 msgid "type"
 msgstr "Catégorie tarifaire"
+
+#. module: extraschool
+#: selection:extraschool.subvention_report,camps_radio:0
+msgid "uInfrastructures Résidentielles"
+msgstr "uInfrastructures Résidentielles"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_server_action_form
