@@ -60,6 +60,7 @@ class extraschool_subvention_report(models.Model):
 
     # todo Vérifier si les deux dates sont entrées (pour le feeling utilisateur)
     @api.onchange('start_date', 'end_date')
+    @api.multi
     def _check_validity_date(self):
         for record in self:
             if record.end_date < record.start_date:
