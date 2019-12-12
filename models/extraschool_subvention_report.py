@@ -54,7 +54,7 @@ class extraschool_subvention_report(models.Model):
         (('holiday_plain', 'Plaine de vacances'),
          ('stays', u'Séjour de vacances'),
          ('holiday_camp', 'Camp de vacances'),
-         ('residential_infra', 'uInfrastructures Résidentielles'),
+         ('residential_infra', 'Infrastructures Résidentielles'),
          ('tent', 'Sous tente')),
         default='holiday_plain', string='Stays and camps')
 
