@@ -31,8 +31,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-10 09:27+0000\n"
-"PO-Revision-Date: 2019-12-10 10:29+0100\n"
+"POT-Creation-Date: 2019-12-11 14:57+0000\n"
+"PO-Revision-Date: 2019-12-11 15:59+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -8709,6 +8709,16 @@ msgid "1. Global rules are combined together with a logical AND operator, and wi
 msgstr "1. Les règles globales sont évaluées avec un ET logique entre elles, et avec le résultat des étapes suivantes"
 
 #. module: extraschool
+#: selection:extraschool.child_registration,age_group:0
+msgid "10 à 12 ans"
+msgstr "10 à 12 ans"
+
+#. module: extraschool
+#: selection:extraschool.child_registration,age_group:0
+msgid "13 à 18 ans"
+msgstr "13 à 18 ans"
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_ohey_tableau_tarif
 msgid "15h10 à 16h45"
 msgstr "15h10 à 16h45"
@@ -8784,6 +8794,11 @@ msgstr "3G"
 msgid "3eme"
 msgstr "3eme"
 
+#. module: extraschool
+#: selection:extraschool.child_registration,age_group:0
+msgid "4 à 5 ans"
+msgstr "4 à 5 ans"
+
 #. module: base
 #: model:ir.ui.view,arch_db:base.res_lang_form
 msgid "4.  %d, %m         ==> 05, 12"
@@ -8798,6 +8813,11 @@ msgstr "4eme"
 #: model:ir.ui.view,arch_db:base.res_lang_form
 msgid "5.  %H:%M:%S      ==> 18:25:20"
 msgstr "5. %H:%M:%S ==> 18:25:20"
+
+#. module: extraschool
+#: selection:extraschool.child_registration,age_group:0
+msgid "6 à 7 ans"
+msgstr "6 à 7 ans"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.res_lang_form
@@ -8828,6 +8848,11 @@ msgstr "7h15 à 8h20"
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_ohey_tableau_tarif
 msgid "7h30 à 8h40"
 msgstr "7h30 à 8h40"
+
+#. module: extraschool
+#: selection:extraschool.child_registration,age_group:0
+msgid "8 à 9 ans"
+msgstr "8 à 9 ans"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.res_lang_form
@@ -11680,6 +11705,11 @@ msgid "After Sale Services"
 msgstr "Service après-vente"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_age_group
+msgid "Age group"
+msgstr "Groupe d'âge"
+
+#. module: extraschool
 #: model:ir.model,name:extraschool.model_extraschool_aged_balance_item
 #: model:ir.ui.view,arch_db:extraschool.extraschool_aged_balance_wizard
 msgid "Aged balance"
@@ -12537,7 +12567,7 @@ msgid "At least one reconciliation line is not correct : amount greater than bal
 msgstr "At least one reconciliation line is not correct : amount greater than balance"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_child_registration.py:480
+#: code:addons/extraschool/models/extraschool_child_registration.py:518
 #: code:addons/extraschool/models/extraschool_pdaprestationtimes.py:66
 #, python-format
 msgid "At least one registration line is already invoiced !"
@@ -18495,7 +18525,7 @@ msgid "Duplicate Container"
 msgstr "Cloner le conteneur"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_child_registration.py:437
+#: code:addons/extraschool/models/extraschool_child_registration.py:474
 #, python-format
 msgid "Duplicated registration\n"
 msgstr "Duplicated registration\n"
@@ -19841,11 +19871,12 @@ msgstr "Préférer par"
 msgid "Favorites"
 msgstr "Favoris"
 
-#. modules: mail, base
+#. modules: mail, base, extraschool
 #: code:addons/base/res/res_company.py:117
 #: model:ir.model.fields,field_description:base.field_res_bank_fax
 #: model:ir.model.fields,field_description:base.field_res_company_fax
 #: model:ir.model.fields,field_description:base.field_res_partner_fax
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_po_fax
 #: model:ir.model.fields,field_description:mail.field_res_users_fax
 #, python-format
 msgid "Fax"
@@ -35156,8 +35187,9 @@ msgstr "État"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_subvention_report_camps_radio
+#, fuzzy
 msgid "Stays and camps"
-msgstr "Stays and camps"
+msgstr "Séjours et camps"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_sequence_number_increment
@@ -35377,7 +35409,7 @@ msgid "Subscript"
 msgstr "Indice"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_child_registration.py:44
+#: code:addons/extraschool/models/extraschool_child_registration.py:46
 #, python-format
 msgid "Subscription from %s to %s"
 msgstr "Subscription from %s to %s"
@@ -36160,7 +36192,7 @@ msgid "The amount of no value is superior of the total amount"
 msgstr "Le montant de la non valeur est supérieur au montant total"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_child_registration.py:359
+#: code:addons/extraschool/models/extraschool_child_registration.py:397
 #, python-format
 msgid "The child %s already has a registration on the activity %s from date %s to date %s. You can find the duplicate at ID: %s"
 msgstr "The child %s already has a registration on the activity %s from date %s to date %s. You can find the duplicate at ID: %s"
@@ -36217,7 +36249,7 @@ msgid "The database object this attachment will be attached to"
 msgstr "L'objet de la base de données auquel cette pièce jointe sera attachée"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_child_registration.py:221
+#: code:addons/extraschool/models/extraschool_child_registration.py:257
 #, python-format
 msgid "The date from must be lower than the date to"
 msgstr "The date from must be lower than the date to"
@@ -36821,7 +36853,7 @@ msgid "There was a problem while uploading your file"
 msgstr "Il y a eu un problème lors de l'envoi du fichier"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_child_registration.py:265
+#: code:addons/extraschool/models/extraschool_child_registration.py:302
 #, python-format
 msgid "These childs are duplicated !!\n"
 msgstr "These childs are duplicated !!\n"
@@ -40389,14 +40421,14 @@ msgid "Your OpenERP Server does not support SMTP-over-SSL. You could use STARTTL
 msgstr "Votre serveur OpenERP ne supporte pas SMTP-sur-SSL. Vous pouvez utiliser STARTTLS à la place. Si SSL est nécessaire, une mise à jour de Python 2.6 côté serveur devrait fonctionner."
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_child_registration.py:511
+#: code:addons/extraschool/models/extraschool_child_registration.py:550
 #, python-format
 msgid "Your are not allowed to delete a validated registration !!"
 msgstr "Your are not allowed to delete a validated registration !!"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_subvention_report.py:143
-#, fuzzy, python-format
+#: code:addons/extraschool/models/extraschool_subvention_report.py:144
+#, python-format
 msgid "Your dates are not ok. Please Check your dates."
 msgstr "Vos dates ne sont pas valides ! S'il vous plait, vérifiez vos dates."
 
