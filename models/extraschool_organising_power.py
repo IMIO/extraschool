@@ -22,7 +22,7 @@
 ##############################################################################
 
 from openerp import models, api, fields, _
-from openerp.addons.extraschool.helper import extraschool_helper
+#from openerp.addons.extraschool.helper import extraschool_helper
 
 
 class extraschool_organising_power(models.Model):
