@@ -1,0 +1,59 @@
+<?xml version="1.0" ?>
+<odoo>
+	<data>
+
+	    <record model="ir.ui.view" id="extraschool_plain_report_tree">
+			<field name="name">extraschool.plain.report.tree</field>
+			<field name="model">extraschool.plain_report</field>
+            <field name="inherit_id" ref="extraschool_subvention_report_tree"/>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+                <xpath expr="//field[@name='end_date']" position="after">
+                </xpath>
+			</field>
+		</record>
+
+        <record model="ir.ui.view" id="extraschool_plain_report_form">
+            <field name="name">extraschool.plain.report.form</field>
+            <field name="model">extraschool.plain_report</field>
+            <field name="inherit_id" ref="extraschool_subvention_report_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='activity']" position="replace">
+                    <field name="activity_plain" widget="many2many_tags"/>
+                </xpath>
+                    <xpath expr="//field[@name='dates_ok']" position="after">
+                        <field name="title" widget='radio' options="{'horizontal': true}"/>
+                        <field name="camps_radio" widget='radio' options="{'horizontal': true}"/>
+                    </xpath>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_extraschool_plain_report">
+            <field name="name">plain Report</field>
+            <field name="res_model">extraschool.plain_report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree, form</field>
+            <field name="view_id" ref="extraschool_plain_report_tree"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_extraschool_plain_report_form">
+			<field name="name">plain Report</field>
+            <field eval="2" name="sequence"/>
+			<field name="res_model">extraschool.plain_report</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="extraschool_plain_report_form" />
+            <field name="act_window_id" ref="action_extraschool_plain_report" />
+            <field name="target">inline</field>
+		</record>
+
+        <record model="ir.actions.act_window.view" id="action_extraschool_plain_report_tree">
+			<field name="name">plain Report</field>
+            <field eval="1" name="sequence"/>
+			<field name="res_model">extraschool.plain_report</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="extraschool_plain_report_tree" />
+            <field name="act_window_id" ref="action_extraschool_plain_report" />
+        </record>
+
+
+	</data>
+</odoo>

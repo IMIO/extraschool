@@ -37,6 +37,7 @@ class extraschool_subvention_report(models.Model):
     start_date = fields.Date('Start date', required=True)
     end_date = fields.Date('End date', required=True)
     dates_ok = fields.Boolean(default=True)
+    dates_warning = fields.Boolean(default=False)
     activity = fields.Many2many(
         'extraschool.activity',
         'extraschool_activity_activity_subvention_rel',
@@ -45,28 +46,19 @@ class extraschool_subvention_report(models.Model):
         string='Activity',
         required=True
     )
-    title = fields.Selection(
-        (('public_power', 'Pouvoir public'),
-         ('organisation', 'Organisation de jeunesse reconnue'),
-         ('other', 'Autre')),
-        default='public_power', string='Title')
-    camps_radio = fields.Selection(
-        (('holiday_plain', 'Plaine de vacances'),
-         ('stays', u'Séjour de vacances'),
-         ('holiday_camp', 'Camp de vacances'),
-         ('residential_infra', 'Infrastructures Résidentielles'),
-         ('tent', 'Sous tente')),
-        default='holiday_plain', string='Stays and camps')
 
     # todo Vérifier si les deux dates sont entrées (pour le feeling utilisateur)
     @api.onchange('start_date', 'end_date')
     @api.multi
     def _check_validity_date(self):
         for record in self:
-            if record.end_date < record.start_date:
-                record.dates_ok = False
-            else:
-                record.dates_ok = True
+            if record.start_date and record.end_date:
+                if record.end_date < record.start_date:
+                    record.dates_ok = False
+                    record.dates_warning = True
+                else:
+                    record.dates_ok = True
+                    record.dates_warning = False
 
     @api.multi
     def generate_report(self, under_6, over_6, id):
