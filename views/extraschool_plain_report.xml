@@ -5,38 +5,49 @@
 	    <record model="ir.ui.view" id="extraschool_plain_report_tree">
 			<field name="name">extraschool.plain.report.tree</field>
 			<field name="model">extraschool.plain_report</field>
-            <field name="inherit_id" ref="extraschool_subvention_report_tree"/>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
-                <xpath expr="//field[@name='end_date']" position="after">
-                </xpath>
+				<tree string="Plain Report">
+                    <field name="name"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+				</tree>
 			</field>
 		</record>
 
         <record model="ir.ui.view" id="extraschool_plain_report_form">
             <field name="name">extraschool.plain.report.form</field>
             <field name="model">extraschool.plain_report</field>
-            <field name="inherit_id" ref="extraschool_subvention_report_form"/>
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='activity']" position="replace">
-                    <field name="activity_plain" widget="many2many_tags"/>
-                </xpath>
-                    <xpath expr="//field[@name='dates_ok']" position="after">
-                        <field name="title" widget='radio' options="{'horizontal': true}"/>
-                        <field name="camps_radio" widget='radio' options="{'horizontal': true}"/>
-                    </xpath>
+                <form string="Plain Report">
+                    <sheet>
+                        <div class="alert alert-danger" attrs="{'invisible':[('dates_warning', '=', False)]}">
+                             Vos dates ne sont pas valides.
+                        </div>
+                        <group>
+                            <field name="name"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="activity_ids" widget="many2many_tags"/>
+                            <field name="dates_ok" invisible="1"/>
+                            <field name="dates_warning" invisible="1"/>
+                            <field name="title" widget='radio' options="{'horizontal': true}"/>
+                            <field name="camps_radio" widget='radio' options="{'horizontal': true}"/>
+                       </group>
+                    </sheet>
+                </form>
             </field>
         </record>
         <record model="ir.actions.act_window" id="action_extraschool_plain_report">
-            <field name="name">plain Report</field>
+            <field name="name">Plain Report</field>
             <field name="res_model">extraschool.plain_report</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree, form</field>
             <field name="view_id" ref="extraschool_plain_report_tree"/>
         </record>
-        <record model="ir.actions.act_window.view" id="action_extraschool_plain_report_form">
-			<field name="name">plain Report</field>
+                <record model="ir.actions.act_window.view" id="action_extraschool_plain_report_form">
+			<field name="name">Plain Report</field>
             <field eval="2" name="sequence"/>
 			<field name="res_model">extraschool.plain_report</field>
             <field name="view_mode">form</field>
@@ -46,14 +57,12 @@
 		</record>
 
         <record model="ir.actions.act_window.view" id="action_extraschool_plain_report_tree">
-			<field name="name">plain Report</field>
+			<field name="name">Plain Report</field>
             <field eval="1" name="sequence"/>
 			<field name="res_model">extraschool.plain_report</field>
             <field name="view_mode">tree</field>
             <field name="view_id" ref="extraschool_plain_report_tree" />
             <field name="act_window_id" ref="action_extraschool_plain_report" />
         </record>
-
-
 	</data>
 </odoo>

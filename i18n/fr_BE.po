@@ -31,8 +31,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-11 14:57+0000\n"
-"PO-Revision-Date: 2019-12-11 15:59+0100\n"
+"POT-Creation-Date: 2019-12-16 11:33+0000\n"
+"PO-Revision-Date: 2019-12-16 12:35+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -11095,6 +11095,8 @@ msgstr "Version de liste de prix"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitychildregistration_activity_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activityoccurrence_activityid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoicedprestations_activity_activity_id
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_plain_report_activity
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_plain_report_activity_plain
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_presta_stat_activity_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_price_list_version_activity_ids
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_stat_activity_activity_id
@@ -12567,7 +12569,7 @@ msgid "At least one reconciliation line is not correct : amount greater than bal
 msgstr "At least one reconciliation line is not correct : amount greater than balance"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_child_registration.py:518
+#: code:addons/extraschool/models/extraschool_child_registration.py:516
 #: code:addons/extraschool/models/extraschool_pdaprestationtimes.py:66
 #, python-format
 msgid "At least one registration line is already invoiced !"
@@ -12864,9 +12866,9 @@ msgstr "Lecture automatique"
 #. modules: base, extraschool
 #: model:ir.ui.view,arch_db:base.user_groups_view
 #: selection:extraschool.level,leveltype:0
+#: selection:extraschool.plain_report,title:0
 #: selection:extraschool.presta_stat,level:0
 #: selection:extraschool.stat_activity,level:0
-#: selection:extraschool.subvention_report,title:0
 msgid "Autre"
 msgstr "Autre"
 
@@ -13780,7 +13782,7 @@ msgid "Cameroon"
 msgstr "Cameroun"
 
 #. module: extraschool
-#: selection:extraschool.subvention_report,camps_radio:0
+#: selection:extraschool.plain_report,camps_radio:0
 msgid "Camp de vacances"
 msgstr "Camp de vacances"
 
@@ -16398,6 +16400,7 @@ msgstr "Vues créées"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_pdaprestationtimes_correction_wizard_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_pdaprestationtimes_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_place_create_uid
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_plain_report_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_presta_stat_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_prestation_times_encodage_manuel_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_prestation_times_history_create_uid
@@ -16620,6 +16623,7 @@ msgstr "Créé par :"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_pdaprestationtimes_correction_wizard_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_pdaprestationtimes_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_place_create_date
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_plain_report_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_presta_stat_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_prestation_times_encodage_manuel_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_prestation_times_history_create_date
@@ -17270,6 +17274,7 @@ msgid "Date_from must be in range of Validity_from and Validity_to (Exclusion)"
 msgstr "Date_from must be in range of Validity_from and Validity_to (Exclusion)"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_plain_report_dates_ok
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_subvention_report_dates_ok
 msgid "Dates ok"
 msgstr "Dates ok"
@@ -17278,6 +17283,12 @@ msgstr "Dates ok"
 #: model:ir.module.module,shortdesc:base.module_sale_order_dates
 msgid "Dates on Sales Order"
 msgstr "Dates sur les bons de commande de vente"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_plain_report_dates_warning
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_subvention_report_dates_warning
+msgid "Dates warning"
+msgstr "Dates warning"
 
 #. modules: web, base, extraschool, web_calendar
 #. openerp-web
@@ -18096,6 +18107,7 @@ msgstr "Afficher"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_pdaprestationtimes_correction_wizard_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_pdaprestationtimes_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_place_display_name
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_plain_report_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_presta_stat_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_prestation_times_encodage_manuel_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_prestation_times_history_display_name
@@ -18525,7 +18537,7 @@ msgid "Duplicate Container"
 msgstr "Cloner le conteneur"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_child_registration.py:474
+#: code:addons/extraschool/models/extraschool_child_registration.py:472
 #, python-format
 msgid "Duplicated registration\n"
 msgstr "Duplicated registration\n"
@@ -19027,6 +19039,7 @@ msgid "End This Tutorial"
 msgstr "Fin du tutoriel"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_plain_report_end_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_subvention_report_end_date
 msgid "End date"
 msgstr "Date de fin"
@@ -22274,6 +22287,7 @@ msgstr "Comptes bancaires IBAN"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_pdaprestationtimes_correction_wizard_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_pdaprestationtimes_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_place_id
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_plain_report_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_presta_stat_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_prestation_times_encodage_manuel_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_prestation_times_history_id
@@ -23198,6 +23212,11 @@ msgstr "Informations sur les rappels"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_stat_activity_form
 msgid "Infos"
 msgstr "Infos"
+
+#. module: extraschool
+#: selection:extraschool.plain_report,camps_radio:0
+msgid "Infrastructures Résidentielles"
+msgstr "Infrastructures Résidentielles"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_view_search
@@ -24631,6 +24650,7 @@ msgstr "Date de dernière modification"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_pdaprestationtimes___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_pdaprestationtimes_correction_wizard___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_place___last_update
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_plain_report___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_presta_stat___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_prestation_times_encodage_manuel___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_prestation_times_history___last_update
@@ -24893,6 +24913,7 @@ msgstr "Dernière date de transmission"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_pdaprestationtimes_correction_wizard_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_pdaprestationtimes_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_place_write_uid
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_plain_report_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_presta_stat_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_prestation_times_encodage_manuel_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_prestation_times_history_write_uid
@@ -25111,6 +25132,7 @@ msgstr "Derniere fois mis à jour par"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_pdaprestationtimes_correction_wizard_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_pdaprestationtimes_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_place_write_date
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_plain_report_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_presta_stat_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_prestation_times_encodage_manuel_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_prestation_times_history_write_date
@@ -28174,6 +28196,7 @@ msgid "Node [%s] is not a JSONified XML node"
 msgstr "Le nœud [%s] n'est pas un nœud XML JSONifié"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_plain_report_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_subvention_report_name
 #: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
 #: model:ir.ui.view,arch_db:extraschool.report_child_registration
@@ -29355,7 +29378,7 @@ msgid "Ordered list"
 msgstr "Liste ordonnée"
 
 #. module: extraschool
-#: selection:extraschool.subvention_report,title:0
+#: selection:extraschool.plain_report,title:0
 msgid "Organisation de jeunesse reconnue"
 msgstr "Organisation de jeunesse reconnue"
 
@@ -30661,7 +30684,12 @@ msgid "Places"
 msgstr "Lieux d'accueil"
 
 #. module: extraschool
-#: selection:extraschool.subvention_report,camps_radio:0
+#: model:ir.model,name:extraschool.model_extraschool_plain_report
+msgid "Plain report"
+msgstr "Rapport des plaines"
+
+#. module: extraschool
+#: selection:extraschool.plain_report,camps_radio:0
 msgid "Plaine de vacances"
 msgstr "Plaine de vacances"
 
@@ -31058,7 +31086,7 @@ msgid "Pouvez-vous préciser la date de début et de fin des horaires à imprime
 msgstr "Pouvez-vous préciser la date de début et de fin des horaires à imprimer ?"
 
 #. module: extraschool
-#: selection:extraschool.subvention_report,title:0
+#: selection:extraschool.plain_report,title:0
 msgid "Pouvoir public"
 msgstr "Pouvoir public"
 
@@ -34912,7 +34940,7 @@ msgid "Source term"
 msgstr "Source term"
 
 #. module: extraschool
-#: selection:extraschool.subvention_report,camps_radio:0
+#: selection:extraschool.plain_report,camps_radio:0
 msgid "Sous tente"
 msgstr "Sous tente"
 
@@ -35110,6 +35138,7 @@ msgid "Start configuration"
 msgstr "Démarrer la configuration"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_plain_report_start_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_subvention_report_start_date
 msgid "Start date"
 msgstr "Date de début"
@@ -35186,8 +35215,7 @@ msgid "Status"
 msgstr "État"
 
 #. module: extraschool
-#: model:ir.model.fields,field_description:extraschool.field_extraschool_subvention_report_camps_radio
-#, fuzzy
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_plain_report_camps_radio
 msgid "Stays and camps"
 msgstr "Séjours et camps"
 
@@ -35409,7 +35437,7 @@ msgid "Subscript"
 msgstr "Indice"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_child_registration.py:46
+#: code:addons/extraschool/models/extraschool_child_registration.py:44
 #, python-format
 msgid "Subscription from %s to %s"
 msgstr "Subscription from %s to %s"
@@ -35689,7 +35717,7 @@ msgid "System notification"
 msgstr "Notification Système"
 
 #. module: extraschool
-#: selection:extraschool.subvention_report,camps_radio:0
+#: selection:extraschool.plain_report,camps_radio:0
 msgid "Séjour de vacances"
 msgstr "Séjour de vacances"
 
@@ -36192,7 +36220,7 @@ msgid "The amount of no value is superior of the total amount"
 msgstr "Le montant de la non valeur est supérieur au montant total"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_child_registration.py:397
+#: code:addons/extraschool/models/extraschool_child_registration.py:395
 #, python-format
 msgid "The child %s already has a registration on the activity %s from date %s to date %s. You can find the duplicate at ID: %s"
 msgstr "The child %s already has a registration on the activity %s from date %s to date %s. You can find the duplicate at ID: %s"
@@ -36249,7 +36277,7 @@ msgid "The database object this attachment will be attached to"
 msgstr "L'objet de la base de données auquel cette pièce jointe sera attachée"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_child_registration.py:257
+#: code:addons/extraschool/models/extraschool_child_registration.py:255
 #, python-format
 msgid "The date from must be lower than the date to"
 msgstr "The date from must be lower than the date to"
@@ -36853,7 +36881,7 @@ msgid "There was a problem while uploading your file"
 msgstr "Il y a eu un problème lors de l'envoi du fichier"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_child_registration.py:302
+#: code:addons/extraschool/models/extraschool_child_registration.py:300
 #, python-format
 msgid "These childs are duplicated !!\n"
 msgstr "These childs are duplicated !!\n"
@@ -37180,7 +37208,7 @@ msgstr "Conseils"
 #. modules: mail, base, extraschool
 #: model:ir.model.fields,field_description:base.field_res_partner_title
 #: model:ir.model.fields,field_description:base.field_res_partner_title_name
-#: model:ir.model.fields,field_description:extraschool.field_extraschool_subvention_report_title
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_plain_report_title
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificate_title
 #: model:ir.model.fields,field_description:mail.field_res_users_title
 msgid "Title"
@@ -40421,13 +40449,13 @@ msgid "Your OpenERP Server does not support SMTP-over-SSL. You could use STARTTL
 msgstr "Votre serveur OpenERP ne supporte pas SMTP-sur-SSL. Vous pouvez utiliser STARTTLS à la place. Si SSL est nécessaire, une mise à jour de Python 2.6 côté serveur devrait fonctionner."
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_child_registration.py:550
+#: code:addons/extraschool/models/extraschool_child_registration.py:548
 #, python-format
 msgid "Your are not allowed to delete a validated registration !!"
 msgstr "Your are not allowed to delete a validated registration !!"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_subvention_report.py:144
+#: code:addons/extraschool/models/extraschool_subvention_report.py:136
 #, python-format
 msgid "Your dates are not ok. Please Check your dates."
 msgstr "Vos dates ne sont pas valides ! S'il vous plait, vérifiez vos dates."
@@ -42292,6 +42320,12 @@ msgstr "Lieu d'accueil"
 msgid "places"
 msgstr "Lieux d'accueil"
 
+#. module: extraschool
+#: model:ir.actions.act_window,name:extraschool.action_extraschool_plain_report
+#: model:ir.ui.menu,name:extraschool.extraschool_menu_plain_report
+msgid "plain Report"
+msgstr "Rapport des plaines"
+
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_server_action_form
 msgid "pool: ORM model pool (i.e. self.pool)"
@@ -42668,11 +42702,6 @@ msgstr "vrai"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_child_search_view
 msgid "type"
 msgstr "Catégorie tarifaire"
-
-#. module: extraschool
-#: selection:extraschool.subvention_report,camps_radio:0
-msgid "uInfrastructures Résidentielles"
-msgstr "uInfrastructures Résidentielles"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_server_action_form
