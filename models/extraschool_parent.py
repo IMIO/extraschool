@@ -294,11 +294,12 @@ class extraschool_parent(models.Model):
         if fields_to_find.intersection(set([k for k, v in vals.iteritems()])):
             vals['modified_since_last_import'] = True
 
-        if vals['email'] is not False and vals['email'] != '' and vals['email'] != ' ':
-            emails = vals['email'].split(',')
-            for email in emails:
-                if not extraschool_helper.email_validation(email):
-                    raise Warning("E-mail format invalid: {}.".format(email))
+        if 'email' in vals:
+            if vals['email'] is not False and vals['email'] != '' and vals['email'] != ' ':
+                emails = vals['email'].split(',')
+                for email in emails:
+                    if not extraschool_helper.email_validation(email):
+                        raise Warning("E-mail format invalid: {}.".format(email))
 
         return super(extraschool_parent, self).write(vals)
 
