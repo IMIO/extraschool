@@ -170,7 +170,7 @@ class extraschool_one_report(models.Model):
 
     @api.model
     def create(self,vals):
-        if not self.not_created:
+        if not vals['not_created']:
             raise Warning(_("There is already an ONE report !"))
 
         vals['is_created'] = True
@@ -189,7 +189,10 @@ class extraschool_one_report(models.Model):
         one_report_settings_obj = self.env['extraschool.onereport_settings']
 
         one_report_settings = one_report_settings_obj.search(
-            [('validity_from', '<=', vals['transmissiondate']), ('validity_to', '>=', vals['transmissiondate']), ])
+            [('validity_from', '<=', vals['transmissiondate']),
+             ('validity_to', '>=', vals['transmissiondate']),
+             ('name', '=', 'One report template')
+             ])
 
         if not one_report_settings:
             raise Warning(_("There is no ONE report configuration"))

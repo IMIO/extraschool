@@ -22,7 +22,7 @@
 ##############################################################################
 
 
-from openerp import models, api, fields
+from openerp import models, api, fields, _
 import datetime
 import pytz
 from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
@@ -103,7 +103,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
 
 
         if not occurrence_rs:  #Error No matching occurrence found
-            return_val['error_msg'] = "No matching occurrence found"
+            return_val['error_msg'] = _("No matching occurrence found")
             return return_val
 
         occu_reg = occurrence_rs.filtered(lambda r: prestation.childid.id in [reg.child_id.id for reg in r.child_registration_ids])

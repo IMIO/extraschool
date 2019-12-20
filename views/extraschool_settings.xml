@@ -1,14 +1,15 @@
 <?xml version="1.0" ?>
 <odoo>
-	<data>    
+	<data>
 		<record id="onereport_settings_tree" model="ir.ui.view">
     		<field name="name">ONE report configuration</field>
     		<field name="model">extraschool.onereport_settings</field>
     		<field name="arch" type="xml">
         		<tree string="ONE report configuration">
+                    <field name="name"/>
             		<field name="validity_from"/>
             		<field name="validity_to"/>
-            		<field name="report_template"/>                   
+            		<field name="report_template"/>
             		<field name="one_logo"/>
         		</tree>
     		</field>
@@ -19,19 +20,21 @@
     		<field name="model">extraschool.onereport_settings</field>
     		<field name="arch" type="xml">
         		<form string="ONE report configuration">
-        		    <group col="4">
+        		    <group col="5">
+                        <field name="name"/>
+                        <newline/>
             			<field name="validity_from"/>
             			<newline/>
             			<field name="validity_to"/>
             			<newline/>
             			<field name="report_template"/>
-            			<newline/>                   
+            			<newline/>
             			<field name="one_logo" widget="image"/>
             		</group>
         		</form>
     		</field>
 		</record>
-		
+
 		<record id="onereport_settings_action" model="ir.actions.act_window">
     		<field name="name">ONE report configuration</field>
     		<field name="type">ir.actions.act_window</field>
@@ -45,7 +48,7 @@
     		parent="base.menu_administration"/>
 		<menuitem id="onereport_settings_menu" name="ONE report configuration"
     		parent="extraschool_settings_menu" action="onereport_settings_action"/>
-    					
+
 		<record id="main_settings_form" model="ir.ui.view">
     		<field name="name">AES main configuration</field>
     		<field name="model">extraschool.main_settings</field>
@@ -66,9 +69,9 @@
             <field name="view_mode">tree,form</field>
             <field name="target">current</field>
 		</record>
-				
+
 		<menuitem id="extraschool_main_settings_menu" name="AES main configuration"
     		parent="extraschool_settings_menu" action="extraschool_main_settings_action"/>
-						
+
   	</data>
 </odoo>
