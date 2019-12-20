@@ -211,7 +211,8 @@ class extraschool_invoice_wizard(models.TransientModel):
         :return: False if so. True if not.
         """
         child_reg_ids = self.env['extraschool.child_registration'].search([('state', '!=', 'validated'),
-                                                                           ('activity_id.category_id.id', '=', self.activitycategory.id),
+                                                                           ('activity_id.category_id.id', 'in',
+                                                                            self.activitycategory.ids),
                                                                             '|',
                                                                             '&',('date_from', '>=', self.period_from),
                                                                                 ('date_from', '<=', self.period_to),
