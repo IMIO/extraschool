@@ -39,7 +39,7 @@ promote-to-prod:
     - docker tag docker-staging.imio.be/extraschool-v9:9.1 docker-prod.imio.be/extraschool-v9:9.1
     - docker push docker-prod.imio.be/extraschool-v9:9.1
     - docker rmi docker-staging.imio.be/extraschool-v9:9.1 docker-prod.imio.be/extraschool-v9:9.1
+#    - curl --fail -XPOST --header "Content-Type: application/json" --header "X-Rundeck-Auth-Token: $RUNDECK_TOKEN" https://run.imio.be/api/12/job/8ea4b91e-2be1-4ea2-ae73-dbd53f3930ef/run
   when: manual
   only:
     - 9.1@odoo/extraschool
-
