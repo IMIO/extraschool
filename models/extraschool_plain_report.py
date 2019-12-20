@@ -20,12 +20,12 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from openerp import models, api, fields, _
+from openerp.exceptions import Warning, RedirectWarning
 import base64
 import os
 from datetime import datetime
-from docx import Document
-
-from openerp import models, api, fields
+from docxtpl import DocxTemplate
 
 
 class extraschool_plain_report(models.Model):
@@ -70,70 +70,110 @@ class extraschool_plain_report(models.Model):
                     record.dates_warning = False
 
     @api.multi
-    def _generate_subvention_request(self, document):
+    def _generate_subvention_request(self, tags, vals):
+
+        organising_power = self.env['extraschool.organising_power'].search([])
+        tags['id_sub'] = ''
+        tags['po_denomination'] = organising_power['po_name']
+
+        tags[vals.get('title')] = ' '
+        tags[vals.get('camps_radio')] = ' '
+
+        tags['po_adress'] = organising_power['po_street']
+        tags['po_postal_code'] = organising_power['po_zipcode']
+        tags['po_city'] = organising_power['po_city']
+        tags['po_tel'] = organising_power['po_tel']
+        tags['po_fax'] = organising_power['po_fax']
+        tags['po_mail'] = organising_power['po_email']
+
+        tags['center_name'] = ''
+        tags['co_firstname'] = ''
+        tags['co_lastname'] = ''
+        tags['co_function'] = ''
+        tags['cf_nb'] = ''
+        tags['cf_holder'] = ''
+        tags['cf_adress'] = ''
+        tags['cf_postal_code'] = ''
+        tags['cf_city'] = ''
+
+        return tags
+
+    @api.multi
+    def _generate_summary(self, tags, vals):
+        return tags
+
+    @api.multi
+    def _generate_childs_list(self, tags, vals):
+        under_6 = {}
+        over_6 = {}
+
+        return tags
+
+    @api.multi
+    def _generate_supervisors(self, tags, vals):
+        return tags
+
+    @api.multi
+    def _generate_prestation_times(self, tags, vals):
+        return tags
+
+    @api.multi
+    def _generate_context(self, vals):
         """
-        Generate a subvention request.
+        Récupérer l'ensemble des prestations pour les dates indiquées par le plain report
+        ainsi que pour les activités indiquées
+        vérifier si pour les dates indiquées il y a bien des prestations
         """
-        sections = [
-            ['POUVOIR ORGANISATEUR\n', 'Dénomination : ', 'Adresse : ', 'C.P : ', 'Ville/Commune : ', 'Tel :', 'Fax :', 'Courriel :'],
-            ['CENTRE DE VACANCES\n', 'Nom du centre (le cas échéant) : ', 'Adresse : ', 'C.P : ', 'Ville/Commune : ', 'Tel :', 'Fax :', 'Courriel :'],
-            ['CORRESPONDANT\n', 'NOM : ', 'PRENOM : ', 'Fonction : ', 'Adresse : ', 'C.P : ', 'Ville/Commune : ', 'Tel :', 'Fax :', 'Courriel :'],
-            ['COMPTE FINANCIER\n', 'N° de compte : ', 'Titulaire : ', 'Adresse : ', 'C.P : ', 'Ville/Commune : ']
-        ]
-        document.add_heading('Centre de Vacances', 0)
-        document.add_heading('Formulaire de demande de subventionnement', 1)
-        for section in sections:
-            document.add_heading(section[0], 2)
-            paragraph = document.add_paragraph()
-            for i in range(1, len(section)):
-                paragraph.add_run(section[i].decode('utf-8')).bold = True
 
-        document.add_heading(u'REMARQUE IMPORTANTE')
-        document.add_paragraph(u'Pour être recevable, la présente demande doit impérativement comprendre :')
-        document.add_paragraph(u'la liste des enfants accueillis ; ').style = 'List Bullet'
-        document.add_paragraph(u'la liste du personnel d’encadrement (animateurs, coordinateur(s), responsable qualifié, animateurs ou coordinateur(s) en 2ème stage de formation), accompagnée des demandes d’assimilation s’il s’agit de la première prestation de l’animateur ou du coordinateur concerné ; ').style = 'List Bullet'
-        document.add_paragraph(u'le tableau de présences journalières (enfants et animateurs) ; ').style = 'List Bullet'
-        document.add_paragraph(u'e cas échéant, le justificatif de versement des indemnités aux animateurs et coordinateurs, sous la forme d’une déclaration sur l’honneur. ').style = 'List Bullet'
-        document.add_paragraph().add_run(u'Sans ces annexes complètes, il ne peut être procédé à l’examen du droit à la subvention ni au calcul de celle-ci ! ').bold = True
-        paragraph = document.add_paragraph()
-        paragraph.add_run(u'Ce formulaire est à transmettre à l’O.N.E. au plus tard le 30 septembre pour les vacances d’été ou 30 jours après la fin des activités pour les vacances de Noël ou de Pâques. Ce formulaire est indispensable au calcul des subventions méritées par chaque centre de vacances!').bold = True
+        prestation_ids = self.env['extraschool.prestationtimes'].search([
+            ('prestation_date', '>=', vals.get('start_date')),
+            ('prestation_date', '<=', vals.get('end_date')),
 
-    @api.multi
-    def _generate_summary(self, document):
-        pass
+            # todo verifiy if we have to check all activities
+            ('activity_occurrence_id.activityid.id', '=', vals.get('activity_ids')[0][2][0])
+        ])
 
-    @api.multi
-    def _generate_childs_list(self, document):
-        pass
+        if not prestation_ids:
+            raise Warning(_("There is no prestationstimes for this dates."))
 
-    @api.multi
-    def _generate_supervisors(self, document):
-        pass
+        tags = {}
+        tags = self._generate_subvention_request(tags, vals)
+        tags = self._generate_summary(tags, vals)
+        tags = self._generate_childs_list(tags, vals)
+        tags = self._generate_supervisors(tags, vals)
+        tags = self._generate_prestation_times(tags, vals)
+        return tags
 
-    @api.multi
-    def _generate_prestation_times(self, document):
-        pass
+    @api.model
+    def create(self, vals):
 
-    @api.multi
-    def generate_report(self, id):
-        report = '/tmp/plain_report' + str(datetime.now()) + '.docx'
-        document = Document()
-        self._generate_subvention_request(document)
-        self._generate_summary(document)
-        self._generate_childs_list(document)
-        self._generate_supervisors(document)
-        self._generate_prestation_times(document)
-        document.save(report)
-        outfile = open(report, "r").read()
+        if not vals['dates_ok']:
+            raise Warning(_("Your dates are not ok. Please Check your dates."))
+
+        id = super(extraschool_plain_report, self).create(vals)
+        one_report_settings_obj = self.env['extraschool.onereport_settings']
+        one_report_settings = one_report_settings_obj.search(
+            [('validity_to', '=', '2100-12-18')])
+
+        if not one_report_settings:
+            raise Warning(_("There is no ONE report configuration"))
+
+        report_template_filename = '/tmp/plain_report' + str(datetime.now()) + '.docx'
+        report_template_file = open(report_template_filename, 'w')
+        report_template_file.write(one_report_settings.report_template.decode('base64'))
+        report_template_file.close()
+
+        document = DocxTemplate(report_template_filename)
+        tags = self._generate_context(vals)
+        document.render(tags)
+        document.save(report_template_filename)
+
+        outfile = open(report_template_filename, "r").read()
         attachment_obj = self.env['ir.attachment']
         attachment_obj.create({'res_model': 'extraschool.plain_report', 'res_id': id.id,
                                'datas_fname': 'rapport_subvention_' + '.docx',
                                'name': 'plain_report_' + '.docx',
                                'datas': base64.b64encode(outfile), })
-        os.remove(report)
+        os.remove(report_template_filename)
 
-    @api.model
-    def create(self, vals):
-        id = super(extraschool_plain_report, self).create(vals)
-        self.generate_report(id)
         return id

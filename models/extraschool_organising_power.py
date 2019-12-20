@@ -22,7 +22,10 @@
 ##############################################################################
 
 from openerp import models, api, fields, _
-#from openerp.addons.extraschool.helper import extraschool_helper
+from openerp.exceptions import Warning, RedirectWarning
+
+
+# from openerp.addons.extraschool.helper import extraschool_helper
 
 
 class extraschool_organising_power(models.Model):
@@ -89,3 +92,10 @@ class extraschool_organising_power(models.Model):
     #                 raise Warning("E-mail format invalid: {}.".format(email))
     #
     #     return super(extraschool_organising_power, self).create(vals)
+
+    @api.model
+    def create(self, vals):
+        if len(self.env['extraschool.organising_power'].search([])) > 0:
+            raise Warning(_("An organising power already exist"))
+
+        return super(extraschool_organising_power, self).create(vals)
