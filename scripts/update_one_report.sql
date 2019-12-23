@@ -1,6 +1,5 @@
 UPDATE extraschool_onereport_settings
-SET name = 'One report template'
-WHERE validity_to = '2020-08-31'
+SET name = 'One report template';
 
 --UPDATE extraschool_onereport_settings
 --SET name = 'Plain report template'
