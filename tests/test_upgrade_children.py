@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp.addons.extraschool.tests.test_prestation_check import TestData
+from odoo.addons.extraschool.tests.test_prestation_check import TestData
 import logging
 _logger = logging.getLogger(__name__)
 

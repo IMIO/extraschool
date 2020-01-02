@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from odoo import models, api, fields
 from datetime import date
 import re
 
@@ -29,13 +29,13 @@ import re
 class extraschool_scheduledtasks(models.Model):
     _name = 'extraschool.scheduledtasks'
     _description = 'Scheduled tasks'
-    
+
 
     def transmissionreport(self, cr, uid, context=None):
         mail_mail = self.pool.get('mail.mail')
         obj_config = self.pool.get('extraschool.mainsettings')
-        config=obj_config.read(cr, uid, [1],['emailfornotifications'])[0]   
-        cr.execute("select * from extraschool_smartphone where to_char(current_date,'YYYY-MM-DD') <> to_char(lasttransmissiondate,'YYYY-MM-DD')")
+        config=obj_config.read(cr, uid, [1],['emailfornotifications'])[0]
+        cr.execute("select * from extraschool_smartphone where to_char(current_date,'YYYY-MM-DD') != to_char(lasttransmissiondate,'YYYY-MM-DD')")
         notransmissions=cr.dictfetchall()
         transmissionerror = False
         emailtxt = ''
@@ -63,14 +63,14 @@ class extraschool_scheduledtasks(models.Model):
         else:
             emailsubject = 'Rapport de transmission du '+date.today().strftime('%d/%m/%Y')
         emailtxt = emailtxt + '\n\nTransmissions de ce jour ('+date.today().strftime('%d/%m/%Y')+'):\n--------------------------------------\n\n'
-        cr.execute('select count(*) as number,extraschool_place.name as placename from extraschool_pdaprestationtimes left join extraschool_place on placeid = extraschool_place.id where prestation_date = %s group by extraschool_place.name',(date.today().strftime('%Y-%m-%d'),)) 
+        cr.execute('select count(*) as number,extraschool_place.name as placename from extraschool_pdaprestationtimes left join extraschool_place on placeid = extraschool_place.id where prestation_date = %s group by extraschool_place.name',(date.today().strftime('%Y-%m-%d'),))
         prestations = cr.dictfetchall()
         for prestation in prestations:
             emailtxt = emailtxt + prestation['placename']+': '+str(prestation['number'])+' pointage(s)\n'
         emails = str(config['emailfornotifications']).split(';')
         for email in emails:
             email = email.strip()
-            if re.match("^.+\\@(\\[?)[a-zA-Z0-9\\-\\.]+\\.([a-zA-Z]{2,3}|[0-9]{1,3})(\\]?)$", email) != None:                    
+            if re.match("^.+\\@(\\[?)[a-zA-Z0-9\\-\\.]+\\.([a-zA-Z]{2,3}|[0-9]{1,3})(\\]?)$", email) != None:
                 mail_id = mail_mail.create(cr, uid, {
                     'email_from': email,
                     'email_to': email,

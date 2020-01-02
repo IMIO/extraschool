@@ -21,12 +21,12 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
+from odoo import models, api, fields, _
 from datetime import date, datetime, timedelta as td
 from dateutil.relativedelta import relativedelta
 import datetime
 from math import *
-from openerp.exceptions import except_orm, Warning, RedirectWarning
+from odoo.exceptions import except_orm, Warning, RedirectWarning
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -237,9 +237,9 @@ class extraschool_invoice_wizard(models.TransientModel):
                                 where position = (select count(*) + 1
                                  from extraschool_child ec
                                  where  i.parentid = ec.parentid
-                                    and ec.id <> ip.childid
+                                    and ec.id != ip.childid
                                     and ec.birthdate <= (select birthdate from extraschool_child where id = ip.childid)
-                                    and ec.rn <> (select rn from extraschool_child where id = ip.childid)
+                                    and ec.rn != (select rn from extraschool_child where id = ip.childid)
                                     and ec.isdisabled = False
                                     ))
                             """,
@@ -263,7 +263,7 @@ class extraschool_invoice_wizard(models.TransientModel):
 
                                         )
                                     and invoiced_prestation_id is not NULL
-                                    and ep.childid <> ip.childid
+                                    and ep.childid != ip.childid
                                     and ec.birthdate <= (select birthdate from extraschool_child where id = ip.childid)
                                     and ec.isdisabled = False
                                     )
@@ -330,7 +330,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                      from extraschool_child ec
                                      left join extraschool_parent pp on pp.id = ec.parentid
                                      where  pp.streetcode = p.streetcode
-                                        and ec.id <> ip.childid
+                                        and ec.id != ip.childid
                                         and ec.birthdate <= (select birthdate from extraschool_child where id = ip.childid)
                                         and ec.isdisabled = False
                                         ))
@@ -356,7 +356,7 @@ class extraschool_invoice_wizard(models.TransientModel):
 
                                         )
                                     and invoiced_prestation_id is not NULL
-                                    and ep.childid <> ip.childid
+                                    and ep.childid != ip.childid
                                     and ec.birthdate <= (select birthdate from extraschool_child where id = ip.childid)
                                     and ec.isdisabled = False
                                     )
@@ -410,7 +410,7 @@ class extraschool_invoice_wizard(models.TransientModel):
 
                                  )
                              and invoiced_prestation_id is not NULL
-                             and ep.childid <> ip.childid
+                             and ep.childid != ip.childid
                              and ec.birthdate <= (select birthdate from extraschool_child where id = ip.childid)
                              and ec.isdisabled = False
                              AND ip.prestation_date = ep.prestation_date
@@ -822,7 +822,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                         from extraschool_activityoccurrence ao, extraschool_activity a
                                         where ao.id = ip.activity_occurrence_id and
                                         a.id = ao.activityid and
-                                        a.tarif_group_name is not Null and a.tarif_group_name <> '' and
+                                        a.tarif_group_name is not Null and a.tarif_group_name != '' and
                                             ip.id IN %s;
                                     """
 

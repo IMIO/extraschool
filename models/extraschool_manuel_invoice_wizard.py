@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
+from odoo import models, api, fields, _
 
 
 class extraschool_manuel_invoice_wizard(models.TransientModel):

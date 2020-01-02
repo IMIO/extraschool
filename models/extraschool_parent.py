@@ -21,9 +21,9 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
-from openerp.addons.extraschool.helper import lbutils, extraschool_helper
-from openerp.exceptions import Warning
+from odoo import models, api, fields
+from odoo.addons.extraschool.helper import lbutils, extraschool_helper
+from odoo.exceptions import Warning
 
 
 class extraschool_parent(models.Model):

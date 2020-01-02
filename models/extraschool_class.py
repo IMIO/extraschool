@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from odoo import models, api, fields
 
 
 class extraschool_class(models.Model):
@@ -31,6 +31,6 @@ class extraschool_class(models.Model):
 
     name = fields.Char('Name', size=50, required=True)
     levelids = fields.Many2many('extraschool.level','extraschool_class_level_rel', 'class_id', 'level_id','Levels',required=True)
-    schoolimplantation = fields.Many2one('extraschool.schoolimplantation', 'School implantation', required=False)      
+    schoolimplantation = fields.Many2one('extraschool.schoolimplantation', 'School implantation', required=False)
 
 extraschool_class()

@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from odoo import models, api, fields
 
 
 class extraschool_childposition(models.Model):

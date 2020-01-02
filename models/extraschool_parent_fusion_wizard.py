@@ -21,13 +21,13 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from odoo import models, api, fields
 
 
 class extraschool_parent_fusion_wizard(models.TransientModel):
     _name = 'extraschool.parent_fusion_wizard'
     _description = 'Parent fusion wizard'
-    
+
     parent_id = fields.Many2one('extraschool.parent', 'Parent')
     parent_ids = fields.Many2many('extraschool.parent','extraschool_parent_fusion_rel', 'parent_fusion_id', 'parent_id','Parent_fusion')
     fusion_child_ids = fields.One2many('extraschool.parent_fusion_child', 'parent_fusion_wizard_id','childs')
@@ -49,7 +49,7 @@ class extraschool_parent_fusion_wizard(models.TransientModel):
                 self.show_comment = True
             else:
                 self.show_comment = False
-        
+
         self.fusion_child_ids = tmp_childs
 
     @api.multi
@@ -77,7 +77,7 @@ class extraschool_parent_fusion_wizard(models.TransientModel):
 
                 self.env['extraschool.child_fusion_wizard'].delete_potd(child.dest_child_id.id)
 
-        #delete child 
+        #delete child
         child_to_delete_ids = self.env['extraschool.child'].search([('id', 'in', [r.child_id.id for r in self.fusion_child_ids.filtered(lambda r: r.dest_child_id)])]).ids
         if len(child_to_delete_ids):
             sql_delete_child = """delete from extraschool_child
@@ -106,10 +106,10 @@ class extraschool_parent_fusion_wizard(models.TransientModel):
 class extraschool_parent_fusion_child(models.TransientModel):
     _name = 'extraschool.parent_fusion_child'
     _description = 'Parent fusion child'
-    
+
     parent_fusion_wizard_id = fields.Many2one('extraschool.parent_fusion_wizard', 'Parent fusion wizard')
-    fusion_wizard_parent_id = fields.Many2one('extraschool.parent')                  
+    fusion_wizard_parent_id = fields.Many2one('extraschool.parent')
     child_id = fields.Many2one('extraschool.child', 'Child')
-    
+
     dest_child_id = fields.Many2one('extraschool.child', 'Destination child', domain="[('parentid','=',fusion_wizard_parent_id)]")
-    
+

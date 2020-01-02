@@ -21,10 +21,10 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
-from openerp.api import Environment
+from odoo import models, api, fields
+from odoo.api import Environment
 from datetime import date, datetime, timedelta as td
-from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
+from odoo.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
 import math
 import logging

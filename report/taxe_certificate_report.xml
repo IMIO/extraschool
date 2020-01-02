@@ -392,7 +392,7 @@ ne doit cependant être mentionné que s'il est supérieur au montant maximum de
 		    attachment_use="False"
 		/>
 
-		<record id="taxe_certificate_wizard_report" model="ir.actions.report.xml">
+		<record id="taxe_certificate_wizard_report" model="ir.actions.report">
     		<field name="paperformat_id" ref="paperformat_aes_taxe_certificate"/>
 		</record>
 

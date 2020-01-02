@@ -21,8 +21,8 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
-from openerp.api import Environment
+from odoo import models, api, fields
+from odoo.api import Environment
 import cStringIO
 import base64
 import os
@@ -65,7 +65,7 @@ class extraschool_qrcodes_wizard(models.TransientModel):
         }
 
         return {
-               'type': 'ir.actions.report.xml',
+               'type': 'ir.actions.report',
                'report_name': self.format,
                'datas': datas,
                'report_type': 'qweb-pdf',

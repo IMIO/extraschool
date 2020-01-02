@@ -21,8 +21,8 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields,_
-import openerp.addons.decimal_precision as dp
+from odoo import models, api, fields,_
+import odoo.addons.decimal_precision as dp
 from datetime import date, datetime, timedelta as td
 
 
@@ -42,7 +42,7 @@ class extraschool_reminder(models.Model):
     reminders_journal_id = fields.Many2one('extraschool.remindersjournal', 'Reminders journal', ondelete='cascade', required=False)
     parentid = fields.Many2one('extraschool.parent', 'Parent', required=False)
     remindersendmethod = fields.Selection(related="parentid.remindersendmethod", store=True)
-    amount = fields.Float('Amount',digits_compute=dp.get_precision('extraschool_reminder'),readonly=True, store=True)
+    amount = fields.Float('Amount',digits=dp.get_precision('extraschool_reminder'),readonly=True, store=True)
     structcom = fields.Char('Structured Communication', size=50)
     school_implantation_id = fields.Many2one('extraschool.schoolimplantation', 'School implantation', required=False)
     concerned_invoice_ids = fields.Many2many('extraschool.invoice','extraschool_reminder_invoice_rel', 'reminder_id', 'invoice_id','Concerned invoices')

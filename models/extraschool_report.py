@@ -21,16 +21,16 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from odoo import models, api, fields
 
-    
+
 class extraschool_report(models.Model):
     _name = 'extraschool.report'
     _description = 'Report'
     _order = 'name'
 
     name = fields.Char('Name', size=50, required=True)
-    report_type_id = fields.Many2one('ir.actions.report.xml', 'Report type', required=True)
+    report_type_id = fields.Many2one('ir.actions.report', 'Report type', required=True)
     inline_report_ids = fields.One2many('extraschool.inline_report','report_id', ondelete='cascade')
     paper_format_id = fields.Many2one('report.paperformat', 'Paper format', required=True)
 

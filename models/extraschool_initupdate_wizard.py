@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from odoo import models, api, fields
 import os
 
 class extraschool_initupdate_wizard(models.TransientModel):
@@ -33,12 +33,12 @@ class extraschool_initupdate_wizard(models.TransientModel):
 
     _defaults = {
     }
-    
+
     @api.model
     def initdefaultvalues(self):
         obj_config = self.env['extraschool.mainsettings']
 
-        config=obj_config.search([('id','=','1')])        
+        config=obj_config.search([('id','=','1')])
         if not config:
             obj_config.create({'id':1,
                                'lastqrcodenbr':0,
@@ -49,5 +49,5 @@ class extraschool_initupdate_wizard(models.TransientModel):
     @api.model
     def updateapplication(self):
         os.system('/opt/garderies/extraschool/update.sh')
-    
+
 extraschool_initupdate_wizard()

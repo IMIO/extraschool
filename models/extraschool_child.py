@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
+from odoo import models, api, fields, _
 from datetime import date, datetime
 import time
 import logging

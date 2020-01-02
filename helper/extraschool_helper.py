@@ -23,7 +23,7 @@
 import re
 
 from dateutil.relativedelta import relativedelta
-from openerp import models, api
+from odoo import models, api
 
 from datetime import datetime, date
 

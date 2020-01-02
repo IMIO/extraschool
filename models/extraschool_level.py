@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from odoo import models, api, fields
 
 
 class extraschool_level(models.Model):
@@ -32,6 +32,6 @@ class extraschool_level(models.Model):
     name = fields.Char('Name', size=50)
     ordernumber = fields.Integer('ordernumber',required=True)
     leveltype = fields.Selection((('M','Maternelle'),('P','Primaire'),('A','Autre')),'Level type',required=True)
-    oldid = fields.Integer('oldid')       
+    oldid = fields.Integer('oldid')
 
 extraschool_level()

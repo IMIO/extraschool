@@ -21,8 +21,8 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
-import openerp.addons.decimal_precision as dp
+from odoo import models, api, fields
+import odoo.addons.decimal_precision as dp
 import math
 
 
@@ -57,16 +57,16 @@ class extraschool_invoicedprestations(models.Model):
     period_tolerance = fields.Integer('Period Tolerance')
     unit_price = fields.Float(
         'Price',
-        digits_compute=dp.get_precision('extraschool_invoice_line')
+        digits=dp.get_precision('extraschool_invoice_line')
     )
     total_price = fields.Float(
         'Price',
-        digits_compute=dp.get_precision('extraschool_invoice_line')
+        digits=dp.get_precision('extraschool_invoice_line')
     )
     discount = fields.Boolean('Discount')
     discount_value = fields.Float(
         'Discount value',
-        digits_compute=dp.get_precision('extraschool_invoice_line'),
+        digits=dp.get_precision('extraschool_invoice_line'),
         default= 0
     )
     price_list_version_id = fields.Many2one(

@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from odoo import models, api, fields
 
 
 class extraschool_childtype(models.Model):
@@ -29,6 +29,6 @@ class extraschool_childtype(models.Model):
     _description = 'ChildType'
 
     name = fields.Char('Name', size=50, required=True, select=True)
-    oldid = fields.Integer('oldid')        
+    oldid = fields.Integer('oldid')
 
 extraschool_childtype()

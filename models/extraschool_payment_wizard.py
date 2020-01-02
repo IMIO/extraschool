@@ -21,10 +21,10 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
-from openerp.exceptions import except_orm, Warning, RedirectWarning
-import openerp.addons.decimal_precision as dp
-from openerp.tools import float_compare, float_round
+from odoo import models, api, fields, _
+from odoo.exceptions import except_orm, Warning, RedirectWarning
+import odoo.addons.decimal_precision as dp
+from odoo.tools import float_compare, float_round
 from datetime import datetime
 
 
@@ -32,7 +32,7 @@ class extraschool_payment_wizard(models.TransientModel):
     _name = 'extraschool.payment_wizard'
 
     payment_date = fields.Date('Date', default=datetime.now(), required=True)
-    amount = fields.Float('Amount', digits_compute=dp.get_precision('extraschool_invoice'), required=True)
+    amount = fields.Float('Amount', digits=dp.get_precision('extraschool_invoice'), required=True)
     reconciliation_amount_balance = fields.Float(compute="_compute_reconciliation_amount_balance", string='Amount to reconcil')
     reconciliation_amount = fields.Float(compute="_compute_reconciliation_amount", string='Amount reconcilied')
     parent_id = fields.Many2one("extraschool.parent")
@@ -138,6 +138,6 @@ class extraschool_payment_wizard_reconcil(models.TransientModel):
     payment_wizard_id = fields.Many2one("extraschool.payment_wizard")
     invoice_id = fields.Many2one("extraschool.invoice")
     invoice_balance = fields.Float(related="invoice_id.balance", string = "Balance")
-    amount = fields.Float('Amount', digits_compute=dp.get_precision('extraschool_invoice'), required=True)
+    amount = fields.Float('Amount', digits=dp.get_precision('extraschool_invoice'), required=True)
     tag = fields.Many2one(related='invoice_id.tag', store=True)
 

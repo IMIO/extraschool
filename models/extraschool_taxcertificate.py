@@ -21,10 +21,10 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
-from openerp.api import Environment
-from openerp.exceptions import except_orm, Warning, RedirectWarning
-from openerp import tools
+from odoo import models, api, fields, _
+from odoo.api import Environment
+from odoo.exceptions import except_orm, Warning, RedirectWarning
+from odoo import tools
 import threading
 import time
 import logging

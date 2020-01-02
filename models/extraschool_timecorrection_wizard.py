@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from odoo import models, api, fields
 
 
 class extraschool_timecorrection_wizard(models.TransientModel):
@@ -34,7 +34,7 @@ class extraschool_timecorrection_wizard(models.TransientModel):
     datefrom = fields.Date('Date from', required=True)
     dateto = fields.Date('Date to', required=True)
     correctiontype = fields.Selection((('add','Add'), ('remove','Remove')),'Correction type', required=True )
-    correctiontime = fields.Float('Time', required=True)        
+    correctiontime = fields.Float('Time', required=True)
     state = fields.Selection([('init', 'Init'),
                               ('compute_correction', 'Compute correction')],
                               'State', required=True,default='init'
@@ -47,7 +47,7 @@ class extraschool_timecorrection_wizard(models.TransientModel):
             prestationspda = pdaprestation_obj.search([('placeid', '=', placeid.id),
                                       ('prestation_date', '>=', self.datefrom),
                                       ('prestation_date', '<=', self.dateto)])
-            for prestationpda in prestationspda:                
+            for prestationpda in prestationspda:
                 if self.correctiontype == 'add':
                     prestationpda.prestation_time = prestationpda.prestation_time + self.correctiontime
                 elif self.correctiontype == 'remove':
@@ -60,5 +60,5 @@ class extraschool_timecorrection_wizard(models.TransientModel):
 #                         prestation_obj.write(cr,uid,[prestation['id']],{'prestation_time':prestation['prestation_time']+form['correctiontime']})
 #                     elif form['correctiontype'] == 'remove':
 #                         prestation_obj.write(cr,uid,[prestation['id']],{'prestation_time':prestation['prestation_time']-form['correctiontime']})
-            
+
 

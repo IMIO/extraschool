@@ -148,7 +148,7 @@
 		    attachment_use="False"
 		/>
 
-		<record id="extraschool_invoice_std" model="ir.actions.report.xml">
+		<record id="extraschool_invoice_std" model="ir.actions.report">
     		<field name="paperformat_id" ref="paperformat_aes_invoice"/>
 		</record>
 
@@ -283,7 +283,7 @@
 		    attachment_use="False"
 		/>
 
-		<record id="extraschool_invoice_detail" model="ir.actions.report.xml">
+		<record id="extraschool_invoice_detail" model="ir.actions.report">
     		<field name="paperformat_id" ref="paperformat_aes_invoice_detail"/>
 		</record>
 

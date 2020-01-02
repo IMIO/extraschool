@@ -21,11 +21,11 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
+from odoo import models, api, fields, _
 from reportlab.graphics.barcode import createBarcodeImageInMemory
 import base64
 from datetime import datetime, date, time, timedelta
-from openerp.exceptions import except_orm, Warning, RedirectWarning
+from odoo.exceptions import except_orm, Warning, RedirectWarning
 import logging
 
 _logger = logging.getLogger(__name__)

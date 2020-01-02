@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp.addons.extraschool.tests.test_data import TestData
+from odoo.addons.extraschool.tests.test_data import TestData
 from datetime import datetime, timedelta
 import base64
 import logging

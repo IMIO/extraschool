@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from odoo import models, api, fields
 
 
 class extraschool_childsworkbook_wizard(models.TransientModel):
@@ -36,7 +36,7 @@ class extraschool_childsworkbook_wizard(models.TransientModel):
                               'State', required=True, default='init'
                               )
 
-    @api.multi  
+    @api.multi
     def action_print_childsworkbook(self, ids):
         #to do refactoring avec browse
         cr, uid = self.env.cr, self.env.user.id

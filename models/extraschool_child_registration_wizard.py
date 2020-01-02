@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
+from odoo import models, api, fields, _
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -43,19 +43,19 @@ class extraschool_child_registration_validation_wizard(models.TransientModel):
             count += 1
         logging.info("### End Validation Registration.")
         return True
-    
+
     @api.multi
     def force_set_to_draft(self):
 
         for reg in self.env['extraschool.child_registration'].browse(self._context.get('active_ids')):
             reg.force_set_to_draft()
-                
+
         return True
-    
+
     @api.multi
     def check_doublons(self):
         cr,uid = self.env.cr, self.env.user.id
-                
+
         update_extraschool_child_registration = """
                     update extraschool_child_registration cr
                     set error_duplicate_reg_line = True
@@ -67,13 +67,13 @@ class extraschool_child_registration_validation_wizard(models.TransientModel):
                                     ) zz ) > 0;
                         """
         cr.execute(update_extraschool_child_registration)
-        
+
         update_extraschool_child_registration_line = """
             update extraschool_child_registration_line crl
             set error_duplicate_reg_line = True        
             where (select count(*)
                 from extraschool_child_registration_line ccrl
-                where ccrl.id <> crl.id and ccrl.child_registration_id = crl.child_registration_id and ccrl.child_id = crl.child_id
+                where ccrl.id != crl.id and ccrl.child_registration_id = crl.child_registration_id and ccrl.child_id = crl.child_id
                 ) > 0
                 """
         cr.execute(update_extraschool_child_registration_line)

@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from odoo import models, api, fields
 
 
 class extraschool_schoolimplantation(models.Model):
@@ -32,9 +32,9 @@ class extraschool_schoolimplantation(models.Model):
     schoolid = fields.Many2one('extraschool.school', 'School', required=False)
     street = fields.Char('Street')
     zipcode = fields.Char('ZipCode')
-    city = fields.Char('City')    
-    
-    oldid = fields.Integer('oldid')        
+    city = fields.Char('City')
+
+    oldid = fields.Integer('oldid')
 
 
 

@@ -21,8 +21,8 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
-#from openerp.addons.extraschool.helper import extraschool_helper
+from odoo import models, api, fields, _
+#from odoo.addons.extraschool.helper import extraschool_helper
 
 
 class extraschool_organising_power(models.Model):

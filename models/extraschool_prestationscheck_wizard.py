@@ -22,10 +22,10 @@
 ##############################################################################
 
 
-from openerp import models, api, fields, _
+from odoo import models, api, fields, _
 import datetime
 import pytz
-from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
+from odoo.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
 import logging
 _logger = logging.getLogger(__name__)

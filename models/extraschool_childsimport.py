@@ -21,11 +21,11 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from odoo import models, api, fields
 import xlrd
-from openerp.addons.extraschool.helper import lbutils
+from odoo.addons.extraschool.helper import lbutils
 import base64
-from openerp.exceptions import Warning
+from odoo.exceptions import Warning
 
 
 class extraschool_childsimport(models.Model):
@@ -131,22 +131,22 @@ class extraschool_childsimport(models.Model):
             parentemail=False
 
             error=False
-            if importfilter['childrncolumn'] <> 0:
+            if importfilter['childrncolumn'] != 0:
                 if lbutils.genstreetcode(worksheet.cell_value(startrow, importfilter['childrncolumn'] - 1)) == lbutils.genstreetcode(importfilter['childrncolumnname']):
                     childrn= lbutils.strcell(worksheet.cell_type(curr_row, importfilter['childrncolumn'] - 1), worksheet.cell_value(curr_row, importfilter['childrncolumn'] - 1))
                 else:
                     raise Warning('Error columns does not match childRN')
-            if importfilter['childlastnamecolumn'] <> 0:
+            if importfilter['childlastnamecolumn'] != 0:
                 if lbutils.genstreetcode(worksheet.cell_value(startrow, importfilter['childlastnamecolumn'] - 1)) == lbutils.genstreetcode(importfilter['childlastnamecolumnname']):
                     childlastname= lbutils.strcell(worksheet.cell_type(curr_row, importfilter['childlastnamecolumn'] - 1), worksheet.cell_value(curr_row, importfilter['childlastnamecolumn'] - 1))
                 else:
                     raise Warning('Error columns does not match childlastname')
-            if importfilter['childfirstnamecolumn'] <> 0:
+            if importfilter['childfirstnamecolumn'] != 0:
                 if lbutils.genstreetcode(worksheet.cell_value(startrow, importfilter['childfirstnamecolumn'] - 1)) == lbutils.genstreetcode(importfilter['childfirstnamecolumnname']):
                     childfirstname= lbutils.strcell(worksheet.cell_type(curr_row, importfilter['childfirstnamecolumn'] - 1), worksheet.cell_value(curr_row, importfilter['childfirstnamecolumn'] - 1))
                 else:
                     raise Warning('Error columns does not match childfirstname')
-            if importfilter['childbirthdatecolumn'] <> 0:
+            if importfilter['childbirthdatecolumn'] != 0:
                 if lbutils.genstreetcode(worksheet.cell_value(startrow, importfilter['childbirthdatecolumn'] - 1)) == lbutils.genstreetcode(importfilter['childbirthdatecolumnname']):
                     cell_type = worksheet.cell_type(curr_row, importfilter['childbirthdatecolumn']-1)
                     if cell_type==3:
@@ -158,7 +158,7 @@ class extraschool_childsimport(models.Model):
                             childbirthdate = str(year)+'-'+str(month)+'-'+str(day)
                 else:
                     raise Warning('Error columns does not match childbirthdate')
-            if importfilter['childclassnamecolumns'] <> '0':
+            if importfilter['childclassnamecolumns'] != '0':
                 columns = importfilter['childclassnamecolumns'].split(',')
                 columnsnames = importfilter['childclassnamecolumnsname'].split(',')
                 i=0
@@ -168,7 +168,7 @@ class extraschool_childsimport(models.Model):
                     else:
                         raise Warning('Error columns does not match childclassname')
                     i=i+1
-            if importfilter['childlevelcolumns'] <> '0':
+            if importfilter['childlevelcolumns'] != '0':
                 columns = importfilter['childlevelcolumns'].split(',')
                 columnsnames = importfilter['childlevelcolumnsname'].split(',')
                 i=0
@@ -183,27 +183,27 @@ class extraschool_childsimport(models.Model):
                 if len(childlevel) >= levelrule['endpos1']:
                     if childlevel[levelrule['startpos1']-1:levelrule['endpos1']]==levelrule['equalto1']:
                         childlevelid=levelrule['levelid'][0]
-            if importfilter['childotherrefcolumn'] <> 0:
+            if importfilter['childotherrefcolumn'] != 0:
                 if lbutils.genstreetcode(worksheet.cell_value(startrow, importfilter['childotherrefcolumn'] - 1)) == lbutils.genstreetcode(importfilter['childotherrefcolumnname']):
                     childotherref= lbutils.strcell(worksheet.cell_type(curr_row, importfilter['childotherrefcolumn'] - 1), worksheet.cell_value(curr_row, importfilter['childotherrefcolumn'] - 1))
                 else:
                     raise Warning('Error columns does not match childotherref')
-            if importfilter['parentrncolumn'] <> 0:
+            if importfilter['parentrncolumn'] != 0:
                 if lbutils.genstreetcode(worksheet.cell_value(startrow, importfilter['parentrncolumn'] - 1)) == lbutils.genstreetcode(importfilter['parentrncolumnname']):
                     parentrn= lbutils.strcell(worksheet.cell_type(curr_row, importfilter['parentrncolumn'] - 1), worksheet.cell_value(curr_row, importfilter['parentrncolumn'] - 1))
                 else:
                     raise Warning('Error columns does not match parentrn')
-            if importfilter['parentlastnamecolumn'] <> 0:
+            if importfilter['parentlastnamecolumn'] != 0:
                 if lbutils.genstreetcode(worksheet.cell_value(startrow, importfilter['parentlastnamecolumn'] - 1)) == lbutils.genstreetcode(importfilter['parentlastnamecolumnname']):
                     parentlastname= lbutils.strcell(worksheet.cell_type(curr_row, importfilter['parentlastnamecolumn'] - 1), worksheet.cell_value(curr_row, importfilter['parentlastnamecolumn'] - 1))
                 else:
                     raise Warning('Error columns does not match parentlastname')
-            if importfilter['parentfirstnamecolumn'] <> 0:
+            if importfilter['parentfirstnamecolumn'] != 0:
                 if lbutils.genstreetcode(worksheet.cell_value(startrow, importfilter['parentfirstnamecolumn'] - 1)) == lbutils.genstreetcode(importfilter['parentfirstnamecolumnname']):
                     parentfirstname= lbutils.strcell(worksheet.cell_type(curr_row, importfilter['parentfirstnamecolumn'] - 1), worksheet.cell_value(curr_row, importfilter['parentfirstnamecolumn'] - 1))
                 else:
                     raise Warning('Error columns does not match parentfirstname')
-            if importfilter['parentstreetcolumns'] <> '0':
+            if importfilter['parentstreetcolumns'] != '0':
                 columns = importfilter['parentstreetcolumns'].split(',')
                 columnsnames = importfilter['parentstreetcolumnsname'].split(',')
                 i=0
@@ -215,37 +215,37 @@ class extraschool_childsimport(models.Model):
                     else:
                         raise Warning('Error columns does not match parentstreet')
                     i=i+1
-            if importfilter['parentzipcodecolumn'] <> 0:
+            if importfilter['parentzipcodecolumn'] != 0:
                 if lbutils.genstreetcode(
                     lbutils.strcell(worksheet.cell_type(startrow, importfilter['parentzipcodecolumn'] - 1), worksheet.cell_value(startrow, importfilter['parentzipcodecolumn'] - 1))) == lbutils.genstreetcode(importfilter['parentzipcodecolumnname']):
                     parentzipcode = lbutils.strcell(worksheet.cell_type(curr_row, importfilter['parentzipcodecolumn'] - 1), worksheet.cell_value(curr_row, importfilter['parentzipcodecolumn'] - 1))
                 else:
                     raise Warning('Error columns does not match parentzipcode')
-            if importfilter['parentcitycolumn'] <> 0:
+            if importfilter['parentcitycolumn'] != 0:
                 if lbutils.genstreetcode(
                     lbutils.strcell(worksheet.cell_type(startrow, importfilter['parentcitycolumn'] - 1), worksheet.cell_value(startrow, importfilter['parentcitycolumn'] - 1))) == lbutils.genstreetcode(importfilter['parentcitycolumnname']):
                     parentcity= lbutils.strcell(worksheet.cell_type(curr_row, importfilter['parentcitycolumn'] - 1), worksheet.cell_value(curr_row, importfilter['parentcitycolumn'] - 1))
                 else:
                     raise Warning('Error columns does not match parentcity')
-            if importfilter['parenthousephonecolumn'] <> 0:
+            if importfilter['parenthousephonecolumn'] != 0:
                 if lbutils.genstreetcode(
                     lbutils.strcell(worksheet.cell_type(startrow, importfilter['parenthousephonecolumn'] - 1), worksheet.cell_value(startrow, importfilter['parenthousephonecolumn'] - 1))) == lbutils.genstreetcode(importfilter['parenthousephonecolumnname']):
                     parenthousephone= lbutils.strcell(worksheet.cell_type(curr_row, importfilter['parenthousephonecolumn'] - 1), worksheet.cell_value(curr_row, importfilter['parenthousephonecolumn'] - 1))
                 else:
                     raise Warning('Error columns does not match parenthousephone')
-            if importfilter['parentworkphonecolumn'] <> 0:
+            if importfilter['parentworkphonecolumn'] != 0:
                 if lbutils.genstreetcode(
                     lbutils.strcell(worksheet.cell_type(startrow, importfilter['parentworkphonecolumn'] - 1), worksheet.cell_value(startrow, importfilter['parentworkphonecolumn'] - 1))) == lbutils.genstreetcode(importfilter['parentworkphonecolumnname']):
                     parentworkphone= lbutils.strcell(worksheet.cell_type(curr_row, importfilter['parentworkphonecolumn'] - 1), worksheet.cell_value(curr_row, importfilter['parentworkphonecolumn'] - 1))
                 else:
                     raise Warning('Error columns does not match parentworkphone')
-            if importfilter['parentgsmcolumn'] <> 0:
+            if importfilter['parentgsmcolumn'] != 0:
                 if lbutils.genstreetcode(
                     lbutils.strcell(worksheet.cell_type(startrow, importfilter['parentgsmcolumn'] - 1), worksheet.cell_value(startrow, importfilter['parentgsmcolumn'] - 1))) == lbutils.genstreetcode(importfilter['parentgsmcolumnname']):
                     parentgsm= lbutils.strcell(worksheet.cell_type(curr_row, importfilter['parentgsmcolumn'] - 1), worksheet.cell_value(curr_row, importfilter['parentgsmcolumn'] - 1))
                 else:
                     raise Warning('Error columns does not match parentgsm')
-            if importfilter['parentemailcolumn'] <> 0:
+            if importfilter['parentemailcolumn'] != 0:
                 if lbutils.genstreetcode(
                     lbutils.strcell(worksheet.cell_type(startrow, importfilter['parentemailcolumn'] - 1), worksheet.cell_value(startrow, importfilter['parentemailcolumn'] - 1))) == lbutils.genstreetcode(importfilter['parentemailcolumnname']):
                     parentemail= lbutils.strcell(worksheet.cell_type(curr_row, importfilter['parentemailcolumn'] - 1), worksheet.cell_value(curr_row, importfilter['parentemailcolumn'] - 1))
@@ -263,7 +263,7 @@ class extraschool_childsimport(models.Model):
                                      parentlastname:%s                                     
                                     """ % (curr_row+1,childlastname,childfirstname,childbirthdate,childlevelid,parentlastname))
                 else:
-                    if importfilter['childrncolumn'] <> 0 and childrn:
+                    if importfilter['childrncolumn'] != 0 and childrn:
                         childid = obj_child.search(cr, uid, [('rn', '=', childrn.strip())
                                                              ])
                     # if no rn or child not found on RN try to find on firstname,lastname,birthday
@@ -271,7 +271,7 @@ class extraschool_childsimport(models.Model):
                         childid = obj_child.search(cr, uid, [('lastname', 'ilike', childlastname.strip()),('firstname', 'ilike', childfirstname.strip()),('birthdate', '=', childbirthdate)])
 
                     if not childid:
-                        if importfilter['parentrncolumn'] <> 0:
+                        if importfilter['parentrncolumn'] != 0:
                             parentids = obj_parent.search(cr, uid, [('rn', '=', parentrn),])
                         # if no rn or child not found on RN try to find on firstname,lastname,birthday
                         if not parentids or importfilter['parentrncolumn'] == 0 or parentrn == '':
@@ -379,7 +379,7 @@ class extraschool_childsimport(models.Model):
                                     obj_parent.write(cr,uid,[parentid],{'modified_since_last_import':False,
                                                                         'last_import_date':fields.datetime.now()})
                             else:
-                                if importfilter['parentrncolumn'] <> 0:
+                                if importfilter['parentrncolumn'] != 0:
                                     parentids = obj_parent.search(cr, uid, [('rn', '=', parentrn),])
                                 # if no rn or child not found on RN try to find on firstname,lastname,birthday
                                 if not parentids or importfilter['parentrncolumn'] == 0 or parentrn == '':

@@ -121,7 +121,7 @@
 		    attachment_use="False"
 		/>
 
-		<record id="parent_invoice_summary" model="ir.actions.report.xml">
+		<record id="parent_invoice_summary" model="ir.actions.report">
     		<field name="paperformat_id" ref="paperformat_aes_parent_invoice_summary"/>
 		</record>
 

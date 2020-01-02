@@ -21,8 +21,8 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
-from openerp.exceptions import except_orm, Warning, RedirectWarning
+from odoo import models, api, fields, _
+from odoo.exceptions import except_orm, Warning, RedirectWarning
 import time
 import logging
 _logger = logging.getLogger(__name__)
@@ -189,7 +189,7 @@ class extraschool_horaire_guardian_wizard_form(models.TransientModel):
         }
 
         return {
-            'type': 'ir.actions.report.xml',
+            'type': 'ir.actions.report',
             'report_name': 'extraschool.tpl_guardian_horaire_wizard_report',
             'datas': datas,
             'report_type': 'qweb-pdf',

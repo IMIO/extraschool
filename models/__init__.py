@@ -21,76 +21,76 @@
 #
 ##############################################################################
 
-import extraschool_activity
-import extraschool_activitycategory
-import extraschool_activitychildregistration
-import extraschool_activityexclusiondates
-import extraschool_activityoccurrence
-import extraschool_activity_occurrence_correction_wizard
-import extraschool_activityplanneddate
-import extraschool_biller
-import extraschool_childposition
-import extraschool_childsimport
-import extraschool_childsimportfilter
-import extraschool_childsworkbook_wizard
-import extraschool_coda
-import extraschool_discount
-import extraschool_guardian
-import extraschool_guardianprestationtimes
-import extraschool_importlevelrule
-import extraschool_importreject
-import extraschool_initupdate_wizard
-import extraschool_invoice
-import extraschool_invoicedprestations
-import extraschool_invoice_wizard
-import extraschool_mainsettings
-import extraschool_manuel_invoice_wizard
-import extraschool_negatif_payment_correction_wizard
-import extraschool_pdaprestationtimes
-import extraschool_pdaprestationtimes_correction_wizard
-import extraschool_place
-import extraschool_prestationscheck_wizard
-import extraschool_prestationtimes
-import extraschool_prestation_times_of_the_day
-import extraschool_prestation_times_manuel
-import extraschool_prestation_times_encodage_manuel
-import extraschool_prestation_times_encodage_manuel_wizard
-import extraschool_presta_stat
-import extraschool_presta_activity
-import extraschool_subvention_report
-import extraschool_price_list
-import extraschool_qrcodes_wizard
-import extraschool_refound_line
-import extraschool_report
-import extraschool_report_hack
-import extraschool_reject
-import extraschool_reminder
-import extraschool_remindersjournal
-import extraschool_remindertype
-import extraschool_smartphone
-import extraschool_taxcertificate
-import extraschool_taxcertificates_wizard
-import extraschool_timecorrection_wizard
-import extraschool_scheduledtasks
-import extraschool_parent
-import extraschool_parent_fusion_wizard
-import extraschool_school
-import extraschool_schoolimplantation
-import extraschool_class
-import extraschool_level
-import extraschool_childtype
-import extraschool_child
-import extraschool_child_registration
-import extraschool_child_registration_wizard
-import extraschool_one_report
-import extraschool_settings
-import extraschool_payment
-import extraschool_payment_wizard
-import extraschool_config_smartphone
-import extraschool_query_sql
-import extraschool_child_fusion_wizard
-import extraschool_organising_power
-import extraschool_accrued
-import extraschool_health_sheet
-import extraschool_annual_report
-import extraschool_res_users
+from . import extraschool_activity
+from . import extraschool_activitycategory
+from . import extraschool_activitychildregistration
+from . import extraschool_activityexclusiondates
+from . import extraschool_activityoccurrence
+from . import extraschool_activity_occurrence_correction_wizard
+from . import extraschool_activityplanneddate
+from . import extraschool_biller
+from . import extraschool_childposition
+from . import extraschool_childsimport
+from . import extraschool_childsimportfilter
+from . import extraschool_childsworkbook_wizard
+from . import extraschool_coda
+from . import extraschool_discount
+from . import extraschool_guardian
+from . import extraschool_guardianprestationtimes
+from . import extraschool_importlevelrule
+from . import extraschool_importreject
+from . import extraschool_initupdate_wizard
+from . import extraschool_invoice
+from . import extraschool_invoicedprestations
+from . import extraschool_invoice_wizard
+from . import extraschool_mainsettings
+from . import extraschool_manuel_invoice_wizard
+from . import extraschool_negatif_payment_correction_wizard
+from . import extraschool_pdaprestationtimes
+from . import extraschool_pdaprestationtimes_correction_wizard
+from . import extraschool_place
+from . import extraschool_prestationscheck_wizard
+from . import extraschool_prestationtimes
+from . import extraschool_prestation_times_of_the_day
+from . import extraschool_prestation_times_manuel
+from . import extraschool_prestation_times_encodage_manuel
+from . import extraschool_prestation_times_encodage_manuel_wizard
+from . import extraschool_presta_stat
+from . import extraschool_presta_activity
+from . import extraschool_subvention_report
+from . import extraschool_price_list
+from . import extraschool_qrcodes_wizard
+from . import extraschool_refound_line
+from . import extraschool_report
+from . import extraschool_report_hack
+from . import extraschool_reject
+from . import extraschool_reminder
+from . import extraschool_remindersjournal
+from . import extraschool_remindertype
+from . import extraschool_smartphone
+from . import extraschool_taxcertificate
+from . import extraschool_taxcertificates_wizard
+from . import extraschool_timecorrection_wizard
+from . import extraschool_scheduledtasks
+from . import extraschool_parent
+from . import extraschool_parent_fusion_wizard
+from . import extraschool_school
+from . import extraschool_schoolimplantation
+from . import extraschool_class
+from . import extraschool_level
+from . import extraschool_childtype
+from . import extraschool_child
+from . import extraschool_child_registration
+from . import extraschool_child_registration_wizard
+from . import extraschool_one_report
+from . import extraschool_settings
+from . import extraschool_payment
+from . import extraschool_payment_wizard
+from . import extraschool_config_smartphone
+from . import extraschool_query_sql
+from . import extraschool_child_fusion_wizard
+from . import extraschool_organising_power
+from . import extraschool_accrued
+from . import extraschool_health_sheet
+from . import extraschool_annual_report
+from . import extraschool_res_users

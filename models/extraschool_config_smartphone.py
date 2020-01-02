@@ -21,9 +21,9 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
+from odoo import models, api, fields, _
 from datetime import datetime, timedelta
-from openerp.exceptions import except_orm, Warning, RedirectWarning
+from odoo.exceptions import except_orm, Warning, RedirectWarning
 
 
 class extraschool_config_smartphone(models.Model):

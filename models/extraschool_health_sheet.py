@@ -21,8 +21,8 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
-from openerp.exceptions import except_orm, Warning, RedirectWarning
+from odoo import models, api, fields
+from odoo.exceptions import except_orm, Warning, RedirectWarning
 
 
 class extraschool_health_sheet(models.Model):

@@ -20,8 +20,8 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
-from openerp.exceptions import except_orm, Warning, RedirectWarning
+from odoo import models, api, fields, _
+from odoo.exceptions import except_orm, Warning, RedirectWarning
 
 
 class extraschoolNoValueWizard(models.TransientModel):

@@ -21,6 +21,6 @@
 #
 ##############################################################################
 
-import helper
-import models
-import wizard
+from . import helper
+from . import models
+from . import wizard

@@ -21,11 +21,11 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
+from odoo import models, api, fields, _
 import datetime
 import threading
-from openerp.api import Environment
-from openerp.exceptions import except_orm, Warning, RedirectWarning
+from odoo.api import Environment
+from odoo.exceptions import except_orm, Warning, RedirectWarning
 import logging
 _logger = logging.getLogger(__name__)
 

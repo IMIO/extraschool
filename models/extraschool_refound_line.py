@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from odoo import models, api, fields
 
 
 class extraschool_refound_line(models.Model):
@@ -52,7 +52,7 @@ class extraschool_refound_line(models.Model):
 
     def confirm(self):
         payment_reconcil_obj = self.env['extraschool.payment_reconciliation']
-        
+
         for refound in self:
             amount_to_refound = refound.amount - refound.invoiceid.balance
             zz = len(refound.invoiceid.payment_ids) - 1
@@ -74,20 +74,20 @@ class extraschool_refound_line(models.Model):
     @api.model
     def create(self, vals):
         new_obj = super(extraschool_refound_line, self).create(vals)
-        
+
         new_obj.confirm()
-        
+
         return new_obj
 
     @api.multi
-    def unlink(self): 
+    def unlink(self):
         invoice_ids = []
         for refound in self:
             if refound.invoiceid.id not in invoice_ids:
                 invoice_ids.append(refound.invoiceid.id)
 
         res = super(extraschool_refound_line, self).unlink()
-              
+
         self.env['extraschool.invoice'].browse(invoice_ids)._compute_balance()
-        
+
         return res

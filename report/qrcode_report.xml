@@ -67,7 +67,7 @@
 		    attachment_use="False"
 		/>
 
-		<record id="qrcodes_wizard_report" model="ir.actions.report.xml">
+		<record id="qrcodes_wizard_report" model="ir.actions.report">
     		<field name="paperformat_id" ref="paperformat_aes_qr_code"/>
 		</record>
 
@@ -117,7 +117,7 @@
 		    <!--attachment_use="False"-->
 		<!--/>-->
 
-		<!--<record id="child_qrcodes_wizard_report" model="ir.actions.report.xml">-->
+		<!--<record id="child_qrcodes_wizard_report" model="ir.actions.report">-->
     		<!--<field name="paperformat_id" ref="paperformat_aes_qr_code"/>-->
 		<!--</record>-->
 
@@ -218,7 +218,7 @@
 		    attachment_use="False"
 		/>
 
-		<record id="guardian_qrcodes_wizard_report" model="ir.actions.report.xml">
+		<record id="guardian_qrcodes_wizard_report" model="ir.actions.report">
     		<field name="paperformat_id" ref="paperformat_aes_qr_code"/>
 		</record>
 	</data>

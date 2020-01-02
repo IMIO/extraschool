@@ -21,35 +21,35 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
+from odoo import models, api, fields, _
 
 
 class extraschool_encodage_manuel_validation_wizard(models.TransientModel):
     _name = 'extraschool.encodage_manuel_validation_wizard'
 
-    place_id = fields.Many2one('extraschool.place')                    
+    place_id = fields.Many2one('extraschool.place')
 
     @api.multi
-    def validate(self):        
+    def validate(self):
         for reg in self.env['extraschool.prestation_times_encodage_manuel'].browse(self._context.get('active_ids')):
             reg.validate()
-        
+
         return True
 
     @api.multi
-    def set_to_draft(self):        
+    def set_to_draft(self):
         for reg in self.env['extraschool.prestation_times_encodage_manuel'].browse(self._context.get('active_ids')):
             reg.set_to_draft()
-        
+
         return True
 
     @api.multi
-    def change_place_id(self):        
+    def change_place_id(self):
         for reg in self.env['extraschool.prestation_times_encodage_manuel'].browse(self._context.get('active_ids')):
             reg.set_to_draft()
             reg.write({'place_id': self.place_id.id})
             reg.validate()
-            
+
         return True
 
-    
+

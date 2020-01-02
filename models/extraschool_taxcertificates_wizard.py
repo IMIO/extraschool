@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from odoo import models, api, fields
 from datetime import datetime
 
 
@@ -111,7 +111,7 @@ class extraschool_taxcertificates_wizard(models.TransientModel):
         }
 
         return {
-               'type': 'ir.actions.report.xml',
+               'type': 'ir.actions.report',
                'report_name': 'extraschool.tpl_taxe_certificate_wizard_report',
                'datas': datas,
                'report_type': 'qweb-pdf',

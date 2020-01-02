@@ -21,9 +21,9 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
+from odoo import models, api, fields, _
 from datetime import date, datetime, timedelta as td
-from openerp.exceptions import except_orm, Warning
+from odoo.exceptions import except_orm, Warning
 
 
 class extraschool_activity_occurrence_correction_wizard(models.TransientModel):

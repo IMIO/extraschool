@@ -23,7 +23,7 @@
 
 from docutils.utils.math.math2html import Formula
 
-from openerp import models, api, fields, _
+from odoo import models, api, fields, _
 import base64
 import os
 import datetime
@@ -31,8 +31,8 @@ from xlrd import open_workbook
 from xlutils.copy import copy
 from xlwt import *
 from datetime import date, datetime, timedelta as td
-from openerp.exceptions import Warning
-from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
+from odoo.exceptions import Warning
+from odoo.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
 
 

@@ -21,17 +21,17 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
-from openerp.exceptions import except_orm, Warning, RedirectWarning
-from openerp.api import Environment
-import openerp.addons.decimal_precision as dp
-from openerp import tools
+from odoo import models, api, fields, _
+from odoo.exceptions import except_orm, Warning, RedirectWarning
+from odoo.api import Environment
+import odoo.addons.decimal_precision as dp
+from odoo import tools
 import datetime
 import time
 from datetime import date, datetime, timedelta as td
 import calendar
 import re
-from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
+from odoo.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
 
 import logging
@@ -58,9 +58,9 @@ class extraschool_invoice(models.Model):
     invoicesendmethod = fields.Selection(related="parentid.invoicesendmethod", store=True, track_visibility='onchange')
     number = fields.Integer('Number',readonly=True, track_visibility='onchange')
     structcom = fields.Char('Structured Communication', size=50, readonly=True, required=True, track_visibility='onchange')
-    amount_total = fields.Float(string='Amount', digits_compute=dp.get_precision('extraschool_invoice'), readonly=True, store=True, track_visibility='onchange')
-    amount_received = fields.Float( string='Received', digits_compute=dp.get_precision('extraschool_invoice'), readonly=True,store=True, track_visibility='onchange')
-    balance = fields.Float(digits_compute=dp.get_precision('extraschool_invoice'), string='Balance',readonly=True, store=True, track_visibility='onchange')
+    amount_total = fields.Float(string='Amount', digits=dp.get_precision('extraschool_invoice'), readonly=True, store=True, track_visibility='onchange')
+    amount_received = fields.Float( string='Received', digits=dp.get_precision('extraschool_invoice'), readonly=True,store=True, track_visibility='onchange')
+    balance = fields.Float(digits=dp.get_precision('extraschool_invoice'), string='Balance',readonly=True, store=True, track_visibility='onchange')
     no_value = fields.Float('No value',default=0.0,readonly=True, track_visibility='onchange')
     discount = fields.Float('Discount',readonly=True, track_visibility='onchange')
     biller_id = fields.Many2one('extraschool.biller', 'Biller', required=False,ondelete='cascade',readonly=True, index=True, track_visibility='onchange')

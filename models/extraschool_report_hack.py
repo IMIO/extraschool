@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp.osv import osv
+from odoo.osv import osv
 
 try:
     import cStringIO as StringIO
@@ -34,7 +34,7 @@ class extraschool_report_hack(osv.Model):
 
 #     def _merge_pdf(self, documents):
 #         """Merge PDF files into one.
-# 
+#
 #         :param documents: list of path of pdf files
 #         :returns: path of the merged pdf
 #         """
@@ -67,27 +67,27 @@ class extraschool_report_hack(osv.Model):
 #             reader = PdfFileReader(pdfreport)
 #             for page in range(0, reader.getNumPages()):
 #                 writer.addPage(reader.getPage(page))
-#             if reader.getNumPages() % 2: 
+#             if reader.getNumPages() % 2:
 #                 writer.addPage(blank_page)
-# 
+#
 #         merged_file_fd, merged_file_path = tempfile.mkstemp(suffix='.html', prefix='report.merged.tmp.')
 #         with closing(os.fdopen(merged_file_fd, 'w')) as merged_file:
 #             writer.write(merged_file)
-# 
+#
 #         for stream in streams:
 #             stream.close()
-# 
+#
 #         return merged_file_path
 
 
     # def _build_wkhtmltopdf_args(self, paperformat, specific_paperformat_args=None):
-        
+
     #     res = super(extraschool_report_hack,self)._build_wkhtmltopdf_args(paperformat, specific_paperformat_args)
     #     if '--dpi' in res:
     #         i = res.index('--dpi')
     #         del res[i] #delete --dpi key
     #         del res[i] #delete --dpi value
-        
+
     #     if specific_paperformat_args and specific_paperformat_args.get('data-report-margin-bottom'):
     #         if "--margin-bottom" in res:
     #             res[res.index('--margin-bottom') + 1] =  str(specific_paperformat_args.get('data-report-margin-bottom')) + 'mm'
@@ -99,17 +99,17 @@ class extraschool_report_hack(osv.Model):
     #             res[res.index('--margin-top') + 1] =  str(specific_paperformat_args.get('data-report-margin-top')) + 'mm'
     #         else:
     #             res.extend(['--margin-top', str(specific_paperformat_args.get('data-report-margin-top')) + 'mm'])
-        
+
     #     if specific_paperformat_args and specific_paperformat_args.get('data-report-margin-right'):
     #         if "--margin-right" in res:
     #             res[res.index('--margin-right') + 1] = str(specific_paperformat_args.get('data-report-margin-right')) + 'mm'
     #         else:
     #             res.extend(['--margin-right', str(specific_paperformat_args.get('data-report-margin-right')) + 'mm'])
-        
+
     #     if specific_paperformat_args and specific_paperformat_args.get('data-report-margin-left'):
     #         if "--margin-left" in res:
     #             res[res.index('--margin-left') + 1] = str(specific_paperformat_args.get('data-report-margin-left')) + 'mm'
     #         else:
     #             res.extend(['--margin-left', str(specific_paperformat_args.get('data-report-margin-left')) + 'mm'])
- 
+
     #     return res

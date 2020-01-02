@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from odoo import models, api, fields
 
 
 class extraschool_place(models.Model):
@@ -37,6 +37,6 @@ class extraschool_place(models.Model):
     schoolimplantation_ids = fields.Many2many('extraschool.schoolimplantation','extraschool_place_schoolimplantation_rel', 'place_id', 'schoolimplantation_id','School implantations')
     schedule = fields.Text('Schedule')
     street_code = fields.Char('Street Code') # onyx
-    oldid = fields.Integer('oldid')                
+    oldid = fields.Integer('oldid')
 
 extraschool_place()

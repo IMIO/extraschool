@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from odoo import models, api, fields
 
 
 class extraschool_childsimportfilter(models.Model):
@@ -44,7 +44,7 @@ class extraschool_childsimportfilter(models.Model):
     majchildlevel = fields.Boolean('MAJ')
     childlevelcolumns = fields.Char('Child level column', size=10, default=0)
     childlevelcolumnsname = fields.Char('Child level columns name', size=60)
-    importlevelrule_ids = fields.Many2many('extraschool.importlevelrule','extraschool_childsimportfilter_importlevelrule_rel', 'childsimportfilter_id', 'importlevelrule_id','Import level rules')        
+    importlevelrule_ids = fields.Many2many('extraschool.importlevelrule','extraschool_childsimportfilter_importlevelrule_rel', 'childsimportfilter_id', 'importlevelrule_id','Import level rules')
     majchildotherref = fields.Boolean('MAJ')
     childotherrefcolumn = fields.Integer('Child other ref column')
     childotherrefcolumnname = fields.Char('Child other ref column name', size=30)

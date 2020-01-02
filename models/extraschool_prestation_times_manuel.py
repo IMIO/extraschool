@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from odoo import models, api, fields
 
 
 class extraschool_prestation_times_manuel(models.Model):
@@ -30,7 +30,7 @@ class extraschool_prestation_times_manuel(models.Model):
     child_id = fields.Many2one('extraschool.child', domain="[('isdisabled', '=', False)]", required=True)
     prestation_times_encodage_manuel_id = fields.Many2one('extraschool.prestation_times_encodage_manuel', 'encodage manuel')
     prestation_time_entry = fields.Float('Entry Time')
-    prestation_time_exit = fields.Float('Exit Time')                
+    prestation_time_exit = fields.Float('Exit Time')
     comment = fields.Text()
 
     @api.model

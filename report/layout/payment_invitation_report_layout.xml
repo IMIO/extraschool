@@ -121,7 +121,7 @@
 		    attachment_use="False"
 		/>
 
-		<record id="extraschool_payment_invitation_report" model="ir.actions.report.xml">
+		<record id="extraschool_payment_invitation_report" model="ir.actions.report">
     		<field name="paperformat_id" ref="paperformat_aes_payment_invitation"/>
 		</record>
 

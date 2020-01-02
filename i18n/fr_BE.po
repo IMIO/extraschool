@@ -14538,7 +14538,7 @@ msgid "Child birthdate column name"
 msgstr "Nom colonne date de naissance"
 
 #. module: extraschool
-#: model:ir.actions.report.xml,name:extraschool.extraschool_child
+#: model:ir.actions.report,name:extraschool.extraschool_child
 msgid "Child book"
 msgstr "Classeur des fiches d'enfant"
 
@@ -15037,7 +15037,7 @@ msgstr "Îles Cocos (Keeling)"
 
 #. module: extraschool
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_coda
-#: model:ir.actions.report.xml,name:extraschool.extraschool_coda_import_report
+#: model:ir.actions.report,name:extraschool.extraschool_coda_import_report
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_payment_coda
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_reject_coda
 #: model:ir.ui.view,arch_db:extraschool.extraschool_coda_form
@@ -15850,7 +15850,7 @@ msgid "Contributors"
 msgstr "Contributeurs"
 
 #. module: base
-#: selection:ir.actions.report.xml,report_type:0
+#: selection:ir.actions.report,report_type:0
 msgid "Controller"
 msgstr "Contrôleur"
 
@@ -20065,7 +20065,7 @@ msgid "Fiche Enfant"
 msgstr "Fiche Enfant"
 
 #. module: extraschool
-#: model:ir.actions.report.xml,name:extraschool.extraschool_healthy_std
+#: model:ir.actions.report,name:extraschool.extraschool_healthy_std
 msgid "Fiche Sante"
 msgstr "Fiche Sante"
 
@@ -21578,7 +21578,7 @@ msgid "Guardian Prestation Times Report"
 msgstr "Rapport des présences des accueillantes"
 
 #. module: extraschool
-#: model:ir.actions.report.xml,name:extraschool.guardian_qrcodes_wizard_report
+#: model:ir.actions.report,name:extraschool.guardian_qrcodes_wizard_report
 msgid "Guardian QrCode"
 msgstr "QR-Code"
 
@@ -21658,7 +21658,7 @@ msgid "HR Gamification"
 msgstr "HR Gamification"
 
 #. module: base
-#: selection:ir.actions.report.xml,report_type:0
+#: selection:ir.actions.report,report_type:0
 msgid "HTML"
 msgstr "HTML"
 
@@ -22023,7 +22023,7 @@ msgstr "Hong-Kong"
 
 #. module: extraschool
 #: model:ir.actions.act_window,name:extraschool.parent_horaire_guardian_wizard_action
-#: model:ir.actions.report.xml,name:extraschool.horaire_guardian_wizard_report
+#: model:ir.actions.report,name:extraschool.horaire_guardian_wizard_report
 msgid "Horaire Guardian"
 msgstr "Horaire(s) accueillante(s)"
 
@@ -23429,12 +23429,12 @@ msgid "Inscription Primaire"
 msgstr "Inscription Primaire"
 
 #. module: extraschool
-#: model:ir.actions.report.xml,name:extraschool.extraschool_child_registration_report
+#: model:ir.actions.report,name:extraschool.extraschool_child_registration_report
 msgid "Inscriptions"
 msgstr "Inscriptions"
 
 #. module: extraschool
-#: model:ir.actions.report.xml,name:extraschool.extraschool_child_registration_report_without_child_information
+#: model:ir.actions.report,name:extraschool.extraschool_child_registration_report_without_child_information
 msgid "Inscriptions sans informations enfant"
 msgstr "Inscriptions sans informations enfant"
 
@@ -23868,7 +23868,7 @@ msgstr "Seulement les personnes invitées"
 #. module: extraschool
 #: selection:extraschool.activitycategory.sequence,type:0
 #: selection:extraschool.discount.version,apply_on:0
-#: model:ir.actions.report.xml,name:extraschool.extraschool_invoice_std
+#: model:ir.actions.report,name:extraschool.extraschool_invoice_std
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activitycategory_form
 msgid "Invoice"
 msgstr "Facture"
@@ -23914,7 +23914,7 @@ msgid "Invoice comment 2"
 msgstr "Invoice comment 2"
 
 #. module: extraschool
-#: model:ir.actions.report.xml,name:extraschool.extraschool_invoice_detail
+#: model:ir.actions.report,name:extraschool.extraschool_invoice_detail
 msgid "Invoice detail"
 msgstr "Rapport de facture détaillé"
 
@@ -25793,12 +25793,12 @@ msgid "List of partners that will be added as follower of the current document."
 msgstr "Liste des partenaires qui seront ajoutés en tant que followers du document actuel."
 
 #. module: extraschool
-#: model:ir.actions.report.xml,name:extraschool.extraschool_reminder_huissier
+#: model:ir.actions.report,name:extraschool.extraschool_reminder_huissier
 msgid "Liste Huissier"
 msgstr "Liste Huissier"
 
 #. module: extraschool
-#: model:ir.actions.report.xml,name:extraschool.extraschool_reminder_parent
+#: model:ir.actions.report,name:extraschool.extraschool_reminder_parent
 msgid "Liste Parents"
 msgstr "Liste Parents"
 
@@ -27172,7 +27172,7 @@ msgid "Model Name"
 msgstr "Nom du modèle"
 
 #. module: base
-#: model:ir.actions.report.xml,name:base.report_ir_model_overview
+#: model:ir.actions.report,name:base.report_ir_model_overview
 msgid "Model Overview"
 msgstr "Vue d'ensemble du modèle"
 
@@ -29746,7 +29746,7 @@ msgid "PDA prestations"
 msgstr "Présences du smartphone ou manuelles"
 
 #. module: base
-#: selection:ir.actions.report.xml,report_type:0
+#: selection:ir.actions.report,report_type:0
 msgid "PDF"
 msgstr "PDF"
 
@@ -29946,7 +29946,7 @@ msgstr "Paramètres techniques"
 
 #. modules: mail, extraschool
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_parent
-#: model:ir.actions.report.xml,name:extraschool.extraschool_parent
+#: model:ir.actions.report,name:extraschool.extraschool_parent
 #: model:ir.model,name:extraschool.model_extraschool_parent
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_parent_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_parentid
@@ -30418,7 +30418,7 @@ msgid "Payment ids"
 msgstr "Liste des paiements"
 
 #. module: extraschool
-#: model:ir.actions.report.xml,name:extraschool.extraschool_payment_invitation_report
+#: model:ir.actions.report,name:extraschool.extraschool_payment_invitation_report
 msgid "Payment invitation"
 msgstr "Invitation à payer"
 
@@ -31385,19 +31385,19 @@ msgid "Preview"
 msgstr "Prévisualiser"
 
 #. module: report
-#: model:ir.actions.report.xml,name:report.action_report_externalpreview
+#: model:ir.actions.report,name:report.action_report_externalpreview
 #: model:ir.ui.view,arch_db:report.reporting_settings_form_inherited
 msgid "Preview External Report"
 msgstr "Aperçu de rapport externe"
 
 #. module: report
-#: model:ir.actions.report.xml,name:report.action_report_internalpreview
+#: model:ir.actions.report,name:report.action_report_internalpreview
 #: model:ir.ui.view,arch_db:report.reporting_settings_form_inherited
 msgid "Preview Internal Report"
 msgstr "Aperçu de rapport interne"
 
 #. module: base
-#: model:ir.actions.report.xml,name:base.preview_rml_report
+#: model:ir.actions.report,name:base.preview_rml_report
 #: model:ir.ui.view,arch_db:base.view_company_form
 msgid "Preview RML Report"
 msgstr "Aperçu du rapport RML"
@@ -31866,7 +31866,7 @@ msgid "QR Download"
 msgstr "Téléchargement par QR  Code"
 
 #. module: extraschool
-#: model:ir.actions.report.xml,name:extraschool.extraschool_qrcode_std
+#: model:ir.actions.report,name:extraschool.extraschool_qrcode_std
 msgid "QRCODE"
 msgstr "QRCODE"
 
@@ -31899,12 +31899,12 @@ msgid "Qr Code"
 msgstr "QR Code"
 
 #. module: extraschool
-#: model:ir.actions.report.xml,name:extraschool.qrcodes_wizard_report
+#: model:ir.actions.report,name:extraschool.qrcodes_wizard_report
 msgid "QrCode"
 msgstr "QrCode"
 
 #. module: extraschool
-#: model:ir.actions.report.xml,name:extraschool.qrcodes_wizard_precut_report
+#: model:ir.actions.report,name:extraschool.qrcodes_wizard_precut_report
 msgid "QrCode test"
 msgstr "QrCode test"
 
@@ -32055,12 +32055,12 @@ msgid "RML Report"
 msgstr "Rapport RML"
 
 #. module: base
-#: selection:ir.actions.report.xml,report_type:0
+#: selection:ir.actions.report,report_type:0
 msgid "RML pdf (deprecated)"
 msgstr "RML pdf (obsolète)"
 
 #. module: base
-#: selection:ir.actions.report.xml,report_type:0
+#: selection:ir.actions.report,report_type:0
 msgid "RML sxw (deprecated)"
 msgstr "RML sxw (obsolète)"
 
@@ -33287,7 +33287,7 @@ msgid "Réseaux sociaux"
 msgstr "Réseaux sociaux"
 
 #. module: extraschool
-#: model:ir.actions.report.xml,name:extraschool.extraschool_child_registration_summary_report
+#: model:ir.actions.report,name:extraschool.extraschool_child_registration_summary_report
 msgid "Résumé"
 msgstr "Résumé"
 
@@ -33297,7 +33297,7 @@ msgid "Résumé de factures pour:"
 msgstr "Résumé de factures pour:"
 
 #. module: extraschool
-#: model:ir.actions.report.xml,name:extraschool.parent_invoice_summary
+#: model:ir.actions.report,name:extraschool.parent_invoice_summary
 msgid "Résumé des factures"
 msgstr "Résumé des factures"
 
@@ -36032,7 +36032,7 @@ msgid "Tax Certificates Wizard"
 msgstr "Attestations fiscales"
 
 #. module: extraschool
-#: model:ir.actions.report.xml,name:extraschool.tax_certificate_detail_report
+#: model:ir.actions.report,name:extraschool.tax_certificate_detail_report
 msgid "Tax Detail"
 msgstr "Détail attestation fiscale"
 
@@ -36053,7 +36053,7 @@ msgid "Tax Identification Number. Fill it if the company is subjected to taxes. 
 msgstr "Numéro fiscal. Remplissez cette case si ce contact est soumis au paiement de taxe. Utilisé dans certaines déclarations légales."
 
 #. module: extraschool
-#: model:ir.actions.report.xml,name:extraschool.taxe_certificate_wizard_report
+#: model:ir.actions.report,name:extraschool.taxe_certificate_wizard_report
 msgid "Tax certificate"
 msgstr "Attestations fiscales"
 
@@ -36150,7 +36150,7 @@ msgid "Technical field, used only to display a boolean using a radio button. As 
 msgstr "Technical field, used only to display a boolean using a radio button. As for Odoo v9 RadioButton cannot be used on boolean fields, this one serves as interface. Due to the old API limitations with interface function field, we implement it by hand instead of a true function field. When migrating to the new API the code should be simplified. Changing thecompany_type of a company contact into a company will not displaythis contact as a company contact but as a standalone company."
 
 #. module: base
-#: model:ir.actions.report.xml,name:base.ir_module_reference_print
+#: model:ir.actions.report,name:base.ir_module_reference_print
 msgid "Technical guide"
 msgstr "Guide technique"
 
@@ -39601,7 +39601,7 @@ msgid "Web-only translations"
 msgstr "Traductions pour le Web seulement"
 
 #. module: base
-#: selection:ir.actions.report.xml,report_type:0
+#: selection:ir.actions.report,report_type:0
 msgid "Webkit (deprecated)"
 msgstr "Webkit (obsolète)"
 
@@ -40970,7 +40970,7 @@ msgid "between rows %d and %d"
 msgstr "between rows %d and %d"
 
 #. module: extraschool
-#: model:ir.actions.report.xml,name:extraschool.extraschool_biller_std
+#: model:ir.actions.report,name:extraschool.extraschool_biller_std
 msgid "biller"
 msgstr "Facturier"
 
@@ -41870,7 +41870,7 @@ msgstr "ir.actions.client"
 #: selection:ir.ui.menu,action:0
 #: model:ir.model,name:document.model_ir_actions_report_xml
 #: model:ir.model,name:report.model_ir_actions_report_xml
-msgid "ir.actions.report.xml"
+msgid "ir.actions.report"
 msgstr "ir.actions.wizard"
 
 #. modules: mail, base
@@ -42603,7 +42603,7 @@ msgid "remaining)"
 msgstr "restant)"
 
 #. module: extraschool
-#: model:ir.actions.report.xml,name:extraschool.extraschool_reminder_std
+#: model:ir.actions.report,name:extraschool.extraschool_reminder_std
 msgid "reminder"
 msgstr "Rappel"
 

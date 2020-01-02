@@ -21,11 +21,11 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
-from openerp.exceptions import except_orm, Warning, RedirectWarning
-from openerp.addons.extraschool.helper import extraschool_helper
+from odoo import models, api, fields, _
+from odoo.exceptions import except_orm, Warning, RedirectWarning
+from odoo.addons.extraschool.helper import extraschool_helper
 from datetime import date, datetime, timedelta as td
-from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
+from odoo.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
 import logging
 

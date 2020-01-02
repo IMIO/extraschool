@@ -21,26 +21,26 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
+from odoo import models, api, fields, _
 
 
 class extraschool_pdaprestationtimes_correction_wizard(models.TransientModel):
     _name = 'extraschool.pdaprestationtimes_correction_wizard'
 
-    es = fields.Selection((('E','In'), ('S','Out')),'es' , select=True)  
-    prestation_time = fields.Float('Time', select=True, Index=True, required=True)    
+    es = fields.Selection((('E','In'), ('S','Out')),'es' , select=True)
+    prestation_time = fields.Float('Time', select=True, Index=True, required=True)
 
     @api.multi
     def correction(self):
-        if len(self._context.get('active_ids')):                    
+        if len(self._context.get('active_ids')):
             self.env['extraschool.pdaprestationtimes'].search([('id', 'in',self._context.get('active_ids'))]).write({'es': self.es,
                                                               'prestation_time': self.prestation_time})
             for presta in self.env['extraschool.pdaprestationtimes'].search([('id', 'in',self._context.get('active_ids'))]):
                 presta.prestation_times_of_the_day_id.reset()
                 presta.prestation_times_of_the_day_id.check()
-            
+
         return True
 
 
 
-    
+
