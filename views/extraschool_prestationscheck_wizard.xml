@@ -1,6 +1,6 @@
 <?xml version="1.0"  encoding="utf-8"?>
 <odoo>
-	<data> 
+	<data>
         <record model="ir.ui.view" id="extraschool_prestationscheck_wizard_form">
             <field name="name">extraschool.prestationscheck.wizard.form</field>
             <field name="model">extraschool.prestationscheck_wizard</field>
@@ -21,12 +21,13 @@
                         <group colspan="4" col="3">
                             <button name="action_prestationscheck" string="Check prestations" icon="gtk-apply" type="object" />
                             <button name="action_verified_without_occurrence" string="Check empty occurrences" icon="gtk-apply" type="object" groups="extraschool.extraschool_gods"/>
+                            <button name="action_verified_without_occurrence_check" string="Check empty occurrences and Check them" icon="gtk-apply" type="object" groups="extraschool.extraschool_gods"/>
                         </group>
                     </sheet>
                 </form>
             </field>
-        </record>       
-        
+        </record>
+
         <record model="ir.actions.act_window" id="action_lbsc_prestationscheck_wizard">
             <field name="name">Prestations check Wizard</field>
             <field name="type">ir.actions.act_window</field>
