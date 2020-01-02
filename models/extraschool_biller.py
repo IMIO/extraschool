@@ -32,13 +32,6 @@ from datetime import date, datetime, timedelta as td
 from odoo.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
 from odoo.exceptions import except_orm, Warning, RedirectWarning
-import threading
-
-import base64
-try:
-    import cStringIO as StringIO
-except ImportError:
-    import StringIO
 
 import time
 import logging

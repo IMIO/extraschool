@@ -22,23 +22,15 @@
 ##############################################################################
 
 from odoo import models, api, fields, _
-    #    registration_only = fields.Boolean('Registration only')
-
-from odoo.api import Environment
-from odoo.exceptions import except_orm, Warning
 from odoo.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
 
-from odoo.tools.misc import profile
-from datetime import date, datetime, timedelta as td
+from datetime import datetime, timedelta as td
 import time
-import pdb
 from odoo.exceptions import except_orm, Warning, RedirectWarning
 
 import logging
 _logger = logging.getLogger(__name__)
-
-import extraschool_activityplanneddate
 
 
 class extraschool_activity(models.Model):

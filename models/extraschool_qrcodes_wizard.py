@@ -22,10 +22,7 @@
 ##############################################################################
 
 from odoo import models, api, fields
-from odoo.api import Environment
-import cStringIO
-import base64
-import os
+
 
 class extraschool_qrcodes_wizard(models.TransientModel):
     _name = 'extraschool.qrcodes_wizard'

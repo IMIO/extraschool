@@ -76,7 +76,7 @@ class extraschool_one_report(models.Model):
         if quarter == 1:
             return "1er"
         else:
-            return `quarter` + "eme"
+            return repr(quarter) + "eme"
 
     placeid = fields.Many2one('extraschool.place')
     year = fields.Integer(required=True, default=datetime.now().year)
@@ -113,7 +113,7 @@ class extraschool_one_report(models.Model):
         if quarter == 1:
             self.show_quarter = "1er"
         else:
-            self.show_quarter = `quarter` + "eme"
+            self.show_quarter = repr(quarter) + "eme"
 
     def compute_tablesf(self):
         return [{'href':'http://www.labruyere.be','value':'1'},{'href':'http://www.labruyere.be','value':'2'},{'href':'http://www.labruyere.be','value':'3'}]
@@ -128,7 +128,7 @@ class extraschool_one_report(models.Model):
         if m == 13:
             m = 1
             y += 1
-        next_month = datetime(y, m, 1)
+        next_month = datetime(y, m)
 
         return (next_month + td(-1)).day
 
@@ -179,7 +179,7 @@ class extraschool_one_report(models.Model):
         if quarter == 1:
             vals['show_quarter'] = "1er"
         else:
-            vals['show_quarter'] = `quarter` + "eme"
+            vals['show_quarter'] = repr(quarter) + "eme"
         month_names = (
         '', 'Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre',
         'Decembre')
@@ -238,10 +238,10 @@ class extraschool_one_report(models.Model):
             currentmonth=period_from.month+imonth
             self.setXLCell(XLSheet,14+imonth*2,0,month_names[currentmonth])
             iweek=0
-            currentdate = datetime(vals['year'],currentmonth,01)
+            currentdate = datetime(vals['year'],currentmonth)
             while (iweek < 5):
 
-                if datetime(currentdate.year,currentdate.month,01).weekday() > 4 and iweek==0:
+                if datetime(currentdate.year,currentdate.month).weekday() > 4 and iweek==0:
                     while currentdate.weekday() != 0:
                         currentdate = currentdate + td(1)
 

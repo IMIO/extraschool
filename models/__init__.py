@@ -62,7 +62,6 @@ from . import extraschool_price_list
 from . import extraschool_qrcodes_wizard
 from . import extraschool_refound_line
 from . import extraschool_report
-from . import extraschool_report_hack
 from . import extraschool_reject
 from . import extraschool_reminder
 from . import extraschool_remindersjournal

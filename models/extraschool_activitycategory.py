@@ -25,7 +25,6 @@ from odoo import models, api, fields, _
 from odoo.api import Environment
 from datetime import datetime
 from odoo.exceptions import except_orm, Warning, RedirectWarning
-from _abcoll import Sequence
 
 
 class extraschool_activitycategory(models.Model):

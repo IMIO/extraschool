@@ -22,10 +22,9 @@
 ##############################################################################
 {
     'name' : 'Extraschool',
-    'version' : '9.1.0.10',
+    'version' : '12.0.0',
     'author' : 'Town of La Bruyère and Imio',
     'depends' : ['base',
-                 'report',
                  'mail',
                  'decimal_precision',
                  'web',
@@ -35,11 +34,9 @@
         'static/src/css/test.css',
         'static/src/css/tpl_qrcodes_wizard_report.css',
     ],
-    'demo' : [],
-    'test' : [],
     'data' : [
         'scripts/update_seq.xml',
-        'scripts/update_one_report.sql',
+
         'data/data_days.xml',
         'data/data_health_sheet.xml',
         'data/data_init.xml',
@@ -176,7 +173,7 @@
         'report/reminder/reminder_text.xml',
         'report/parent_invoices_summary.xml'
     ],
-    'installable' : True,
-    'application': True,
-    'description' : "This module is to manage billing attendance for extra school activities",
+    # 'installable' : True,
+    # 'application': True,
+    # 'description' : "This module is to manage billing attendance for extra school activities",
 }

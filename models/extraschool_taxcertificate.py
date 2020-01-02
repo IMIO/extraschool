@@ -305,7 +305,8 @@ class extraschool_tax_certificate_detail(models.Model):
     entry_exit = fields.Char('entry_exit')
 
     # This is the view we use.
-    def init(self, cr):
+    def init(self):
+        cr = self.env.cr
         # Drop before a new view.
         tools.sql.drop_view_if_exists(cr, 'extraschool_tax_certificate_detail')
 
