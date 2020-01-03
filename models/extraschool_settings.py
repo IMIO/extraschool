@@ -4,7 +4,7 @@
 #    Extraschool
 #    Copyright (C) 2008-2019
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia & Jenny Pans - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -27,16 +27,20 @@ from openerp import models, api, fields
 class extraschool_main_settings(models.Model):
     _inherit = 'res.config.settings'
     _name = 'extraschool.main_settings'
-    
+
     lastqrcodenbr = fields.Integer('lastqrcodenbr')
 
 
 class extraschool_one_settings(models.Model):
     _inherit = 'res.config.settings'
     _name = 'extraschool.onereport_settings'
-    
+
+    name = fields.Selection(
+        (('one_report', 'Rapport pour l\'ONE'),
+         ('plain_report', 'Rapport des plaines'))
+    )
     validity_from = fields.Date("Validity from")
     validity_to = fields.Date("Validity to")
     report_template = fields.Binary("Report template")
     one_logo = fields.Binary("ONE logo")
-    
+

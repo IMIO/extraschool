@@ -4,7 +4,7 @@
 #    Extraschool
 #    Copyright (C) 2008-2019
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchial - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchial & Jenny Pans - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -104,7 +104,7 @@ class extraschool_one_report(models.Model):
         ])
 
         if one_report_ids:
-            self.not_created = False
+            vals['not_created'] = False
 
 
     @api.onchange('quarter')
@@ -170,7 +170,7 @@ class extraschool_one_report(models.Model):
 
     @api.model
     def create(self,vals):
-        if not self.not_created:
+        if not vals['not_created']:
             raise Warning(_("There is already an ONE report !"))
 
         vals['is_created'] = True
@@ -188,8 +188,9 @@ class extraschool_one_report(models.Model):
         place_obj = self.env['extraschool.place']
         one_report_settings_obj = self.env['extraschool.onereport_settings']
 
-        one_report_settings = one_report_settings_obj.search(
-            [('validity_from', '<=', vals['transmissiondate']), ('validity_to', '>=', vals['transmissiondate']), ])
+        one_report_settings = one_report_settings_obj.search([
+            ('name', '=', 'one_report')
+        ])
 
         if not one_report_settings:
             raise Warning(_("There is no ONE report configuration"))

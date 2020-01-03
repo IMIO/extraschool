@@ -32,6 +32,10 @@ class extraschool_plain_report(models.Model):
     _name = 'extraschool.plain_report'
     _description = 'Plain report'
 
+    # todo filtrer les activités en fonction des centres
+    # def _get__id(self):
+    #     return self.env['extraschool.schoolimplantation'].search([])[0].filtered('id')
+
     name = fields.Char('Nom', required=True)
     start_date = fields.Date('Start date', required=True)
     end_date = fields.Date('End date', required=True)
@@ -56,6 +60,7 @@ class extraschool_plain_report(models.Model):
          ('residential_infra', 'Infrastructures Résidentielles'),
          ('tent', 'Sous tente')),
         default='holiday_plain', string='Stays and camps')
+    center = fields.Many2one('extraschool.place', 'Implantation scolaire', required=True, domain="[('active', '=', 'True')]")
 
     @api.onchange('start_date', 'end_date')
     @api.multi
@@ -103,35 +108,56 @@ class extraschool_plain_report(models.Model):
         return tags
 
     @api.multi
-    def _generate_childs_list(self, tags, vals):
+    def _generate_childs_list(self, tags, prestation_ids, vals):
         under_6 = {}
         over_6 = {}
+        tags['under_6'] = []
+        tags['over_6'] = []
+
+        for prestation in prestation_ids:
+            age = prestation.childid.get_age()
+            if age >= 6:
+                if prestation.childid.id in over_6:
+                    over_6[prestation.childid.id]['prestation'] += 1
+                    over_6[prestation.childid.id]['price'] += prestation.invoiced_prestation_id.total_price
+                else:
+                    over_6[prestation.childid.id] = {'lastname': prestation.childid.lastname.upper(),
+                                                     'firstname': prestation.childid.firstname, 'age': age,
+                                                     'prestation': 1,
+                                                     'price': prestation.invoiced_prestation_id.total_price}
+                    tags['over_6'].append(over_6[prestation.childid.id])
+            else:
+                if prestation.childid.id in under_6:
+                    under_6[prestation.childid.id]['prestation'] += 1
+                    under_6[prestation.childid.id]['price'] += prestation.invoiced_prestation_id.total_price
+                else:
+                    under_6[prestation.childid.id] = {'lastname': prestation.childid.lastname.upper(),
+                                                      'firstname': prestation.childid.firstname, 'age': age,
+                                                      'prestation': 1,
+                                                      'price': prestation.invoiced_prestation_id.total_price}
+                    tags['under_6'].append(under_6[prestation.childid.id])
 
         return tags
+
 
     @api.multi
     def _generate_supervisors(self, tags, vals):
         return tags
 
+
     @api.multi
     def _generate_prestation_times(self, tags, vals):
         return tags
 
+
     @api.multi
     def _generate_context(self, vals):
-        """
-        Récupérer l'ensemble des prestations pour les dates indiquées par le plain report
-        ainsi que pour les activités indiquées
-        vérifier si pour les dates indiquées il y a bien des prestations
-        """
-
         prestation_ids = self.env['extraschool.prestationtimes'].search([
             ('prestation_date', '>=', vals.get('start_date')),
             ('prestation_date', '<=', vals.get('end_date')),
-
-            # todo verifiy if we have to check all activities
-            ('activity_occurrence_id.activityid.id', '=', vals.get('activity_ids')[0][2][0])
-        ])
+            ('activity_occurrence_id.activityid', 'in', tuple(vals.get('activity_ids')[0][2])),
+            ('es', '=', 'E'),
+        ]).sorted(key=lambda r: (r.childid.lastname))
 
         if not prestation_ids:
             raise Warning(_("There is no prestationstimes for this dates."))
@@ -139,21 +165,21 @@ class extraschool_plain_report(models.Model):
         tags = {}
         tags = self._generate_subvention_request(tags, vals)
         tags = self._generate_summary(tags, vals)
-        tags = self._generate_childs_list(tags, vals)
+        tags = self._generate_childs_list(tags, prestation_ids, vals)
         tags = self._generate_supervisors(tags, vals)
         tags = self._generate_prestation_times(tags, vals)
         return tags
 
+
     @api.model
     def create(self, vals):
-
         if not vals['dates_ok']:
             raise Warning(_("Your dates are not ok. Please Check your dates."))
 
         id = super(extraschool_plain_report, self).create(vals)
         one_report_settings_obj = self.env['extraschool.onereport_settings']
         one_report_settings = one_report_settings_obj.search(
-            [('validity_to', '=', '2100-12-18')])
+            [('name', '=', 'plain_report')])
 
         if not one_report_settings:
             raise Warning(_("There is no ONE report configuration"))
