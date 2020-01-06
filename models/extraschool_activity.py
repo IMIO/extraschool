@@ -79,7 +79,7 @@ class extraschool_activity(models.Model):
     prest_from = fields.Float('From', index=True, required=True, track_visibility='onchange')
     prest_to = fields.Float('To', index=True, required=True, track_visibility='onchange')
     price = fields.Float('Price', digits=(7, 3), track_visibility='onchange')
-    price_list_id = fields.Many2one('extraschool.price_list', 'Price List', track_visibility='onchange')
+    price_list_version_id = fields.Many2many('extraschool.price_list_version', 'extraschool_pricelist_rel', string="Price List Version")
     period_duration = fields.Integer('Period Duration', track_visibility='onchange')
     default_from_to = fields.Selection((('from', 'default_from_to From'), ('to', 'default_from_to To'), ('from_to', 'default_from_to From and To')), 'default_from_to Default From To', required=True, track_visibility='onchange')
     default_from = fields.Float('Default from', track_visibility='onchange')
@@ -201,8 +201,8 @@ class extraschool_activity(models.Model):
                     cr.execute("insert into extraschool_activityoccurrence (create_uid,date_stop,date_start,create_date,name,write_uid,write_date,place_id,occurrence_date,activityid,prest_from,prest_to,activity_category_id) VALUES "+args_str)
 
                     # get ids of created occu
-                    cr.execute("""select id 
-                                from extraschool_activityoccurrence 
+                    cr.execute("""select id
+                                from extraschool_activityoccurrence
                                 where create_uid = %s
                                 and activityid = %s
                                 """, (uid, activity.id))
