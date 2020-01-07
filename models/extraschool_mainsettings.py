@@ -4,7 +4,7 @@
 #    Extraschool
 #    Copyright (C) 2008-2019
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia & Jenny Pans - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -390,14 +390,14 @@ class extraschool_mainsettings(models.Model):
         pda_doublon = """
                         select id, activity_category_id, date_of_the_day, child_id
                         from extraschool_prestation_times_of_the_day
-                        where ('' || CASE WHEN activity_category_id is NULL 
+                        where ('' || CASE WHEN activity_category_id is NULL
                                 THEN ''
-                                ELSE activity_category_id::text END || to_char(date_of_the_day,'YYYY-MM-DD') || child_id) in ( 
-                        select ('' || CASE WHEN activity_category_id is NULL 
+                                ELSE activity_category_id::text END || to_char(date_of_the_day,'YYYY-MM-DD') || child_id) in (
+                        select ('' || CASE WHEN activity_category_id is NULL
                                 THEN ''
                                 ELSE activity_category_id::text END || to_char(date_of_the_day,'YYYY-MM-DD') || child_id) as zz
                         from extraschool_prestation_times_of_the_day
-                        where date_of_the_day > '2016-02-01' 
+                        where date_of_the_day > '2016-02-01'
                         group by zz
                         having count(*) > 1);
                     """
@@ -616,7 +616,7 @@ class extraschool_mainsettings(models.Model):
                     'pdf_ready': True,
                     'in_creation': False,
                 })
-        if self.pdf_true_tax:
+        elif self.pdf_true_tax:
             tax_ids = self.env['extraschool.taxcertificate'].search([('pdf_ready', '=', False)])
             for tax_id in tax_ids:
                 tax_id.write({
