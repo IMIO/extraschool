@@ -4,7 +4,7 @@
 #    Extraschool
 #    Copyright (C) 2008-2019
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia & Jenny Pans - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -37,6 +37,9 @@ class extraschool_place(models.Model):
     schoolimplantation_ids = fields.Many2many('extraschool.schoolimplantation','extraschool_place_schoolimplantation_rel', 'place_id', 'schoolimplantation_id','School implantations')
     schedule = fields.Text('Schedule')
     street_code = fields.Char('Street Code') # onyx
-    oldid = fields.Integer('oldid')                
+    oldid = fields.Integer('oldid')
+    tel = fields.Char(String="Telephone", size=20)
+    fax = fields.Char(String="Fax")
+    email = fields.Char('Email', size=100, track_visibility='onchange')
 
 extraschool_place()

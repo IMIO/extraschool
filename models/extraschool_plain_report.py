@@ -62,6 +62,7 @@ class extraschool_plain_report(models.Model):
         default='holiday_plain', string='Stays and camps')
     center = fields.Many2one('extraschool.place', 'Implantation scolaire', required=True, domain="[('active', '=', 'True')]")
 
+
     @api.onchange('start_date', 'end_date')
     @api.multi
     def _check_validity_date(self):
@@ -78,20 +79,29 @@ class extraschool_plain_report(models.Model):
     def _generate_subvention_request(self, tags, vals):
 
         organising_power = self.env['extraschool.organising_power'].search([])
-        tags['id_sub'] = ''
-        tags['po_denomination'] = organising_power['po_name']
 
-        tags[vals.get('title')] = ' '
+        tags['id_sub'] = ''
+        tags['po_denomination'] = organising_power['po_name'] or ''
+
+        tags[vals.get('title')] = ' ' or ''
         tags[vals.get('camps_radio')] = ' '
 
-        tags['po_adress'] = organising_power['po_street']
-        tags['po_postal_code'] = organising_power['po_zipcode']
-        tags['po_city'] = organising_power['po_city']
-        tags['po_tel'] = organising_power['po_tel']
-        tags['po_fax'] = organising_power['po_fax']
-        tags['po_mail'] = organising_power['po_email']
+        tags['po_adress'] = organising_power['po_street'] or ''
+        tags['po_postal_code'] = organising_power['po_zipcode'] or ''
+        tags['po_city'] = organising_power['po_city'] or ''
+        tags['po_tel'] = organising_power['po_tel'] or ''
+        tags['po_fax'] = organising_power['po_fax'] or ''
+        tags['po_mail'] = organising_power['po_email'] or ''
 
-        tags['center_name'] = ''
+        tags['center_name'] = self.center.name
+        import wdb; wdb.set_trace()
+        tags['center_adress'] = self.center.street_code + ' ' + self.center.street
+        tags['center_postalcode'] = self.center.zipcode
+        tags['center_city'] = self.center.city
+        tags['center_tel'] = self.center.tel
+        tags['center_fax'] = self.center.fax
+        tags['center_mail'] = self.center.email
+
         tags['co_firstname'] = ''
         tags['co_lastname'] = ''
         tags['co_function'] = ''
@@ -113,7 +123,10 @@ class extraschool_plain_report(models.Model):
         over_6 = {}
         tags['under_6'] = []
         tags['over_6'] = []
+        nb_under_6 = 0
+        nb_over_6 = 0
 
+        # todo simplifier l'algorithme et également dans le rapport ONE
         for prestation in prestation_ids:
             age = prestation.childid.get_age()
             if age >= 6:
@@ -121,22 +134,46 @@ class extraschool_plain_report(models.Model):
                     over_6[prestation.childid.id]['prestation'] += 1
                     over_6[prestation.childid.id]['price'] += prestation.invoiced_prestation_id.total_price
                 else:
+                    nb_over_6 += 1
                     over_6[prestation.childid.id] = {'lastname': prestation.childid.lastname.upper(),
                                                      'firstname': prestation.childid.firstname, 'age': age,
                                                      'prestation': 1,
-                                                     'price': prestation.invoiced_prestation_id.total_price}
+                                                     'price': prestation.invoiced_prestation_id.total_price,
+                                                     'nb' : nb_over_6}
+
+                    if prestation.childid.health_sheet_ids:
+                        health_sheet = prestation.childid.health_sheet_ids[0]
+                        if health_sheet.handicap:
+                            if health_sheet.level_handicap == 'mild':
+                                over_6[prestation.childid.id]['mild'] = 'X'
+                            else:
+                                over_6[prestation.childid.id]['heavy'] = 'X'
+
                     tags['over_6'].append(over_6[prestation.childid.id])
             else:
                 if prestation.childid.id in under_6:
                     under_6[prestation.childid.id]['prestation'] += 1
                     under_6[prestation.childid.id]['price'] += prestation.invoiced_prestation_id.total_price
                 else:
+                    nb_under_6 += 1
                     under_6[prestation.childid.id] = {'lastname': prestation.childid.lastname.upper(),
                                                       'firstname': prestation.childid.firstname, 'age': age,
                                                       'prestation': 1,
-                                                      'price': prestation.invoiced_prestation_id.total_price}
+                                                      'price': prestation.invoiced_prestation_id.total_price,
+                                                      'nb' : nb_under_6}
+
+                    if prestation.childid.health_sheet_ids:
+                        health_sheet = prestation.childid.health_sheet_ids[0]
+                        if health_sheet.handicap:
+                            if health_sheet.level_handicap == 'mild':
+                                under_6[prestation.childid.id]['mild'] = 'X'
+                            else:
+                                under_6[prestation.childid.id]['heavy'] = 'X'
+
                     tags['under_6'].append(under_6[prestation.childid.id])
 
+        tags['under_total'] = nb_under_6
+        tags['over_total'] = nb_over_6
         return tags
 
 

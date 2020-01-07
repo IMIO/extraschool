@@ -42,6 +42,7 @@
                                 <separator string="Handicap" colspan="4"/>
                                     <field name="handicap"/>
                                     <field name="type_handicap" attrs="{'invisible':[('handicap', '!=', True)], 'required':[('handicap', '=', True)]}"/>
+                                    <field name="level_handicap" attrs="{'invisible':[('handicap', '!=', True)], 'required':[('handicap', '=', True)]}"/>
                                 <separator string="Régime alimentaire spécial" colspan="4"/>
                                     <field name="specific_regime"/>
                                     <field name="specific_regime_text" attrs="{'invisible':[('specific_regime', '!=', True)], 'required':[('specific_regime', '=', True)]}"/>

@@ -53,6 +53,9 @@ class extraschool_health_sheet(models.Model):
     allergy_ids = fields.Many2many('extraschool.allergy', 'extraschool_child_allergy_rel', 'child_id', 'allergy_id', 'Allergy list')
     handicap = fields.Boolean(string='Handicap', default=False)
     type_handicap = fields.Char(string='Type of handicap')
+    level_handicap = fields.Selection(
+        (('mild', 'Léger'),
+         ('heavy', 'Lourd')), string='Level of handicap')
     specific_regime = fields.Boolean(string='Specific Regime', default=False)
     specific_regime_text = fields.Char(string='Type specific regime')
     activity_no_available = fields.Boolean(string='Activity no available', default=False)
