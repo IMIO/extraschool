@@ -616,12 +616,12 @@ class extraschool_mainsettings(models.Model):
                     'pdf_ready': True,
                     'in_creation': False,
                 })
-        elif self.pdf_true_tax:
+        if self.pdf_true_tax:
             tax_ids = self.env['extraschool.taxcertificate'].search([('pdf_ready', '=', False)])
             for tax_id in tax_ids:
                 tax_id.write({
                     'pdf_ready': True,
                 })
-        else:
+        if not self.pdf_true_biller and not self.pdf_true_tax:
             raise Warning("Il faut sélectionner un truc !!!")
     # endregion
