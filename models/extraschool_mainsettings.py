@@ -609,6 +609,9 @@ class extraschool_mainsettings(models.Model):
 
     @api.multi
     def pdf_to_true(self):
+        if not self.pdf_true_biller and not self.pdf_true_tax:
+            raise Warning("Il faut sélectionner un truc !!!")
+
         if self.pdf_true_biller:
             biller_ids = self.env['extraschool.biller'].search([('pdf_ready', '=', False)])
             for biller_id in biller_ids:
@@ -616,12 +619,11 @@ class extraschool_mainsettings(models.Model):
                     'pdf_ready': True,
                     'in_creation': False,
                 })
+
         if self.pdf_true_tax:
             tax_ids = self.env['extraschool.taxcertificate'].search([('pdf_ready', '=', False)])
             for tax_id in tax_ids:
                 tax_id.write({
                     'pdf_ready': True,
                 })
-        if not self.pdf_true_biller and not self.pdf_true_tax:
-            raise Warning("Il faut sélectionner un truc !!!")
     # endregion
