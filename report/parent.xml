@@ -53,6 +53,34 @@
 			</t>
 		</template>
 
+<!--        ancienne version pour la liste pour le huissier-->
+<!--        <template id="reminder_huissier_list">-->
+<!--			<t t-foreach="docs" t-as="reminder">-->
+<!--                <div class="page">-->
+<!--                    <h2>Liste pour huissier</h2>-->
+<!--                    <table class="table table-bordered">-->
+<!--                        <thead>-->
+<!--                            <tr>-->
+<!--                                <th>Nom du parent</th>-->
+<!--                                <th>Adresse du parent</th>-->
+<!--                                <th>Montant</th>-->
+<!--                            </tr>-->
+<!--                        </thead>-->
+<!--                        <tbody>-->
+<!--                            <t t-foreach="reminder.reminder_ids.sorted(lambda r: r.parentid.name)" t-as="parent_reminder">-->
+<!--                                <tr>-->
+<!--                                    <td><span t-field="parent_reminder.parentid"/></td>-->
+<!--                                    <td><span t-field="parent_reminder.parentid.street"/> <span t-field="parent_reminder.parentid.zipcode"/> <span t-field="parent_reminder.parentid.city"/></td>-->
+<!--                                    <td><span class="amount"><t t-esc="'%.2f' %  (parent_reminder.amount)" /> €</span></td>-->
+<!--                                </tr>-->
+<!--                            </t>-->
+<!--                        </tbody>-->
+<!--                    </table>-->
+<!--		        </div>-->
+<!--			</t>-->
+<!--		</template>-->
+
+
         <template id="reminder_huissier_list">
             <xpath expr="//head" position="inside">
                 <link href="/web/static/lib/bootstrap/css/bootstrap.css" rel="stylesheet"/>
