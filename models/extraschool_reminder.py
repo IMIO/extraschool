@@ -4,7 +4,7 @@
 #    Extraschool
 #    Copyright (C) 2008-2019
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia & Jenny Pans - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -42,6 +42,7 @@ class extraschool_reminder(models.Model):
     reminders_journal_id = fields.Many2one('extraschool.remindersjournal', 'Reminders journal', ondelete='cascade', required=False)
     parentid = fields.Many2one('extraschool.parent', 'Parent', required=False)
     remindersendmethod = fields.Selection(related="parentid.remindersendmethod", store=True)
+    #todo mettre à jour
     amount = fields.Float('Amount',digits_compute=dp.get_precision('extraschool_reminder'),readonly=True, store=True)
     structcom = fields.Char('Structured Communication', size=50)
     school_implantation_id = fields.Many2one('extraschool.schoolimplantation', 'School implantation', required=False)
@@ -50,6 +51,7 @@ class extraschool_reminder(models.Model):
     payment_term = fields.Date('reminders_journal_item_id.payment_term')
     transmission_date = fields.Date('reminders_journal_id.transmission_date')
     fees_amount = fields.Integer(default=0.0)
+    balance = fields.Float()
 
     @api.multi
     def get_date(self, invoice_ids):
