@@ -1,4 +1,4 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
 	<data>
 		<template id="qrcode_name_child_classic_25mm">
@@ -203,7 +203,7 @@
 		        <link href="/website/static/src/css/website.css" rel="stylesheet"/>
 		        <link href="/web/static/lib/fontawesome/css/font-awesome.css" rel="stylesheet"/>
 		        <style type="text/css">
-		            <t t-call="report.layout"/>
+		            <t t-call="web.report_layout"/>
 		        </style>
             </xpath>
 

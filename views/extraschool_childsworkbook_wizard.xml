@@ -1,42 +1,40 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<data> 
-        <record model="ir.ui.view" id="extraschool_childsworkbook_wizard_form">
-            <field name="name">extraschool.childsworkbook.wizard.form</field>
-            <field name="model">extraschool.childsworkbook_wizard</field>
-            <field name="type">form</field>
-            <field name="arch" type="xml">
-                <form string="Childs Workbook Wizard">
-                    <sheet>
-                        <field name="state" invisible="1" />
-                        <group states="init">
-                            <field name="placeid" />
-                            <field name="child_id" />
-                        </group>
-                        <group states="print_childsworkbook">
-                            <field name="name" invisible="1" colspan="4"/>
-                            <field name="childsworkbook" nolabel="1" readonly="1" filename="name" colspan="4"/>
-                            <label string="Ok" />
-                        </group>
-                        <separator string="" colspan="4"/>
-                        <group colspan="4" col="3">
-                            <button name="action_print_childsworkbook" string="generate workbook" icon="gtk-apply" type="object"
-                                states="init" />
-                        </group>
-                        <label string="" colspan="4" />
-                        <label string="" colspan="4" />
-                        <label string="" colspan="4" />
-                    </sheet>
-                </form>
-            </field>
-        </record>
-        <record model="ir.actions.act_window" id="action_lbsc_childsworkbook_wizard">
-            <field name="name">Childs Workbook Wizard</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">extraschool.childsworkbook_wizard</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form</field>
-            <field name="target">inline</field>
-        </record>
-	</data>
+    <record model="ir.ui.view" id="extraschool_childsworkbook_wizard_form">
+        <field name="name">extraschool.childsworkbook.wizard.form</field>
+        <field name="model">extraschool.childsworkbook_wizard</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Childs Workbook Wizard">
+                <sheet>
+                    <field name="state" invisible="1" />
+                    <group states="init">
+                        <field name="placeid" />
+                        <field name="child_id" />
+                    </group>
+                    <group states="print_childsworkbook">
+                        <field name="name" invisible="1" colspan="4"/>
+                        <field name="childsworkbook" nolabel="1" readonly="1" filename="name" colspan="4"/>
+<!--                        <label string="Ok" />-->
+                    </group>
+                    <separator string="" colspan="4"/>
+                    <group colspan="4" col="3">
+                        <button name="action_print_childsworkbook" string="generate workbook" icon="gtk-apply" type="object"
+                            states="init" />
+                    </group>
+<!--                    <label string="" colspan="4" />-->
+<!--                    <label string="" colspan="4" />-->
+<!--                    <label string="" colspan="4" />-->
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_lbsc_childsworkbook_wizard">
+        <field name="name">Childs Workbook Wizard</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">extraschool.childsworkbook_wizard</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
 </odoo>

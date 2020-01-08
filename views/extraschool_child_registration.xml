@@ -1,4 +1,4 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
 	<data>
 		<record model="ir.ui.view" id="extraschool_child_registration_tree">
@@ -188,25 +188,25 @@
 		</record>
 
 
-        <record id="extraschool_child_registration_search_view" model="ir.ui.view">
-            <field name="name">extraschool_child_registration.search</field>
-            <field name="model">extraschool.child_registration</field>
-            <field name="arch" type="xml">
-                <search string="child_registration Search">
-                   <field name="activity_id"/>
-                   <field name="place_id"/>
-                   <field name="date_from"/>
-                   <field name="date_to"/>
-                   <field name="week"/>
-				   <filter string="Not validated" name="not_validated" icon="terp-accessories-archiver" domain="[('state','!=','validated')]"/>
-                   <group  expand='0' string='Group by...'>
-                       <filter string='place_id' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'place_id'}"/>
-                       <filter string='activity_id' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'activity_id'}"/>
-                       <filter string='week' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'week'}"/>
-                   </group>
-                </search>
-            </field>
-        </record>
+<!--        <record id="extraschool_child_registration_search_view" model="ir.ui.view">-->
+<!--            <field name="name">extraschool_child_registration.search</field>-->
+<!--            <field name="model">extraschool.child_registration</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <search string="child_registration Search">-->
+<!--                   <field name="activity_id"/>-->
+<!--                   <field name="place_id"/>-->
+<!--                   <field name="date_from"/>-->
+<!--                   <field name="date_to"/>-->
+<!--                   <field name="week"/>-->
+<!--				   <filter string="Not validated" name="not_validated" icon="terp-accessories-archiver" domain="[('state','!=','validated')]"/>-->
+<!--                   <group  expand='0' string='Group by...'>-->
+<!--                       <filter string='place_id' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'place_id'}"/>-->
+<!--                       <filter string='activity_id' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'activity_id'}"/>-->
+<!--                       <filter string='week' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'week'}"/>-->
+<!--                   </group>-->
+<!--                </search>-->
+<!--            </field>-->
+<!--        </record>-->
 
         <!--
 			Register MONO Action

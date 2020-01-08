@@ -1,7 +1,7 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
 	<data>
-		<template id="invoice_report_layout" inherit_id="report.layout"  primary="True">
+		<template id="invoice_report_layout" inherit_id="web.report_layout"  primary="True">
             <xpath expr="//body" position="attributes">
                 <attribute t-translation="off" name="onload">subst(); pagination_hide();</attribute>
             </xpath>
@@ -156,7 +156,7 @@
 
 
 	<data>
-		<template id="invoice_detail_report_layout" inherit_id="report.layout"  primary="True">
+		<template id="invoice_detail_report_layout" inherit_id="web.report_layout"  primary="True">
             <xpath expr="//head" position="inside">
                 <link rel="stylesheet" href="/extraschool/static/src/css/invoice_detail_report_layout.css"/>
             </xpath>

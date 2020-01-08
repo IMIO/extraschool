@@ -1,6 +1,6 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<data> 
+	<data>
         <record model="ir.ui.view" id="extraschool_discount_form">
             <field name="name">discount_form</field>
             <field name="model">extraschool.discount</field>
@@ -18,14 +18,14 @@
                 </form>
             </field>
         </record>
- 
+
         <record model="ir.ui.view" id="extraschool_discount_tree">
             <field name="name">discount_tree</field>
             <field name="model">extraschool.discount</field>
             <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree string="discount">
-                	<field name="name"/>	
+                	<field name="name"/>
 				</tree>
             </field>
         </record>
@@ -36,18 +36,18 @@
             <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree string="discount_version_tree">
-                	<field name="name"/>	
-                	<field name="validity_from"/>	
-                	<field name="validity_to"/>	
-                	<field name="period"/>	
-                	<field name="type"/>	
+                	<field name="name"/>
+                	<field name="validity_from"/>
+                	<field name="validity_to"/>
+                	<field name="period"/>
+                	<field name="type"/>
 	                <field name="apply_on" />
-                	<field name="quantity_from"/>	
+                	<field name="quantity_from"/>
                     <field name="discount_template" string="Template"/>
                 </tree>
             </field>
-        </record>         
- 
+        </record>
+
         <record model="ir.ui.view" id="extraschool_discount_version_form">
             <field name="name">discount_version_form</field>
             <field name="model">extraschool.discount.version</field>
@@ -68,16 +68,16 @@
 	                	<newline/>
 	                	<field name="quantity_from" attrs="{'invisible': [('discount_template', '!=', 'hannut')]}"/>
 	                	<field name="quantity_to" invisible="True"/>
-	                	<separator string="Price list" colspan="4"/> 
-		                <field name="price_list_ids" nolabel="1" colspan="4" />  
+	                	<separator string="Price list" colspan="4"/>
+		                <field name="price_list_ids" nolabel="1" colspan="4" />
 	                	<separator string="Price Category" colspan="4"/>
-		                <field name="child_type_ids" nolabel="1" colspan="4" />  		                			                			                	                    		                		
+		                <field name="child_type_ids" nolabel="1" colspan="4" />
                 	</group>
-                	
+
 				</form>
             </field>
-        </record>  
-                                             
+        </record>
+
         <record model="ir.actions.act_window" id="action_extraschool_discount">
 			<field name="name">Discount</field>
 			<field name="res_model">extraschool.discount</field>

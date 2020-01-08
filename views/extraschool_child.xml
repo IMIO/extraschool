@@ -1,4 +1,4 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
 	<data>
 		<record model="ir.ui.view" id="extraschool_child_tree">
@@ -99,27 +99,27 @@
 			</field>
 		</record>
 
-        <record id="extraschool_child_search_view" model="ir.ui.view">
-            <field name="name">extraschool_child.search</field>
-            <field name="model">extraschool.child</field>
-            <field name="arch" type="xml">
-                <search string="Child Search">
-                   <field name="name"/>
-                   <field name="parentid"/>
-                   <field name="otherref"/>
-				   <field name="rn"/>
-				   <field name="tagid"/>
-                   <filter string="Actif" name="actif" icon="terp-accessories-archiver" domain="[('isdisabled','=',False)]"/>
-                   <group  expand='0' string='Group by...'>
-                       <filter string='parentid' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'parentid'}"/>
-                       <filter string='classid' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'classid'}"/>
-                       <filter string='levelid' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'levelid'}"/>
-                       <filter string='type' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'childtypeid'}"/>
-                       <filter string='Implantation' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'schoolimplantation'}"/>
-                	</group>
-                </search>
-            </field>
-        </record>
+<!--        <record id="extraschool_child_search_view" model="ir.ui.view">-->
+<!--            <field name="name">extraschool_child.search</field>-->
+<!--            <field name="model">extraschool.child</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <search string="Child Search">-->
+<!--                   <field name="name"/>-->
+<!--                   <field name="parentid"/>-->
+<!--                   <field name="otherref"/>-->
+<!--				   <field name="rn"/>-->
+<!--				   <field name="tagid"/>-->
+<!--                   <filter string="Actif" name="actif" icon="terp-accessories-archiver" domain="[('isdisabled','=',False)]"/>-->
+<!--                   <group  expand='0' string='Group by...'>-->
+<!--                       <filter string='parentid' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'parentid'}"/>-->
+<!--                       <filter string='classid' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'classid'}"/>-->
+<!--                       <filter string='levelid' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'levelid'}"/>-->
+<!--                       <filter string='type' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'childtypeid'}"/>-->
+<!--                       <filter string='Implantation' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'schoolimplantation'}"/>-->
+<!--                	</group>-->
+<!--                </search>-->
+<!--            </field>-->
+<!--        </record>-->
 
 		<record model="ir.ui.view" id="extraschool_childtype_tree">
 			<field name="name">childtype</field>

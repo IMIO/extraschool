@@ -60,7 +60,6 @@
         'views/extraschool_discount.xml',
         'views/extraschool_guardianprestationtimes.xml',
         'views/extraschool_guardian.xml',
-        'views/extraschool_initupdate_wizard.xml',
         'views/extraschool_invoice_wizard.xml',
         'views/extraschool_invoice.xml',
         'views/extraschool_mainsettings.xml',

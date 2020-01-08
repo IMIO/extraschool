@@ -36,23 +36,23 @@ _logger = logging.getLogger(__name__)
 class extraschool_activity(models.Model):
     _name = 'extraschool.activity'
     _description = 'activity'
-    _inherit = 'mail.thread'
+    _inherit = ['mail.thread']
 
     name = fields.Char('Name', required=True)
 
-    category_id = fields.Many2one('extraschool.activitycategory', 'Category', required=True, track_visibility='onchange')
-    parent_id = fields.Many2one('extraschool.activity', 'Parent', index=True, track_visibility='onchange')
-    root_id = fields.Many2one('extraschool.activity', 'Root', compute='_compute_root_activity', store=True, index=True, track_visibility='onchange')
-    activity_child_ids = fields.One2many('extraschool.activity', 'parent_id', 'Activity child', track_visibility='onchange')
-    placeids = fields.Many2many('extraschool.place', 'extraschool_activity_place_rel', 'activity_id', 'place_id', 'Schoolcare place', required=True, track_visibility='onchange')
-    schoolimplantationids = fields.Many2many('extraschool.schoolimplantation', 'extraschool_activity_schoolimplantation_rel', 'activity_id', 'schoolimplantation_id', 'Schoolcare schoolimplantation', track_visibility='onchange')
+    category_id = fields.Many2one('extraschool.activitycategory', 'Category', required=True, track_visibility=True)
+    parent_id = fields.Many2one('extraschool.activity', 'Parent', index=True, track_visibility=True)
+    root_id = fields.Many2one('extraschool.activity', 'Root', compute='_compute_root_activity', store=True, index=True, track_visibility=True)
+    activity_child_ids = fields.One2many('extraschool.activity', 'parent_id', 'Activity child', track_visibility=True)
+    placeids = fields.Many2many('extraschool.place', 'extraschool_activity_place_rel', 'activity_id', 'place_id', 'Schoolcare place', required=True, track_visibility=True)
+    schoolimplantationids = fields.Many2many('extraschool.schoolimplantation', 'extraschool_activity_schoolimplantation_rel', 'activity_id', 'schoolimplantation_id', 'Schoolcare schoolimplantation', track_visibility=True)
     short_name = fields.Char('Short name', index=True, required=True)
-    childtype_ids = fields.Many2many('extraschool.childtype', 'extraschool_activity_childtype_rel', 'activity_id', 'childtype_id', 'Child type', track_visibility='onchange')
-    childregistration_ids = fields.One2many('extraschool.activitychildregistration', 'activity_id', 'Child registrations', track_visibility='onchange')
-    autoaddchilds = fields.Boolean('Auto add registered', track_visibility='onchange')
-    onlyregisteredchilds = fields.Boolean('Only registered childs', index=True, track_visibility='onchange')
-    planneddates_ids = fields.Many2many('extraschool.activityplanneddate', 'extraschool_activity_activityplanneddate_rel', 'activity_id', 'activityplanneddate_id', 'Planned dates', track_visibility='onchange')
-    exclusiondates_ids = fields.Many2many('extraschool.activityexclusiondates', 'extraschool_activity_activityexclusiondates_rel', 'activity_id', 'activityexclusiondates_id', 'Exclusion dates', track_visibility='onchange')
+    childtype_ids = fields.Many2many('extraschool.childtype', 'extraschool_activity_childtype_rel', 'activity_id', 'childtype_id', 'Child type', track_visibility=True)
+    childregistration_ids = fields.One2many('extraschool.activitychildregistration', 'activity_id', 'Child registrations', track_visibility=True)
+    autoaddchilds = fields.Boolean('Auto add registered', track_visibility=True)
+    onlyregisteredchilds = fields.Boolean('Only registered childs', index=True, track_visibility=True)
+    planneddates_ids = fields.Many2many('extraschool.activityplanneddate', 'extraschool_activity_activityplanneddate_rel', 'activity_id', 'activityplanneddate_id', 'Planned dates', track_visibility=True)
+    exclusiondates_ids = fields.Many2many('extraschool.activityexclusiondates', 'extraschool_activity_activityexclusiondates_rel', 'activity_id', 'activityexclusiondates_id', 'Exclusion dates', track_visibility=True)
     days = fields.Selection(
         (
             ('0,1,2,3,4', 'All Monday to Friday'),
@@ -65,27 +65,27 @@ class extraschool_activity(models.Model):
             ('5', 'All Saturday'),
          ),
         'Days', required=True,
-        track_visibility='onchange'
+        track_visibility=True
     )
-    leveltype = fields.Selection((('M,P', 'Maternelle et Primaire'), ('M', 'Maternelle'), ('P', 'Primaire')), 'Level type', required=True, track_visibility='onchange')
-    prest_from = fields.Float('From', index=True, required=True, track_visibility='onchange')
-    prest_to = fields.Float('To', index=True, required=True, track_visibility='onchange')
-    price = fields.Float('Price', digits=(7, 3), track_visibility='onchange')
-    price_list_id = fields.Many2one('extraschool.price_list', 'Price List', track_visibility='onchange')
-    period_duration = fields.Integer('Period Duration', track_visibility='onchange')
-    default_from_to = fields.Selection((('from', 'default_from_to From'), ('to', 'default_from_to To'), ('from_to', 'default_from_to From and To')), 'default_from_to Default From To', required=True, track_visibility='onchange')
-    default_from = fields.Float('Default from', track_visibility='onchange')
-    default_to = fields.Float('Default to', track_visibility='onchange')
+    leveltype = fields.Selection((('M,P', 'Maternelle et Primaire'), ('M', 'Maternelle'), ('P', 'Primaire')), 'Level type', required=True, track_visibility=True)
+    prest_from = fields.Float('From', index=True, required=True, track_visibility=True)
+    prest_to = fields.Float('To', index=True, required=True, track_visibility=True)
+    price = fields.Float('Price', digits=(7, 3), track_visibility=True)
+    price_list_id = fields.Many2one('extraschool.price_list', 'Price List', track_visibility=True)
+    period_duration = fields.Integer('Period Duration', track_visibility=True)
+    default_from_to = fields.Selection((('from', 'default_from_to From'), ('to', 'default_from_to To'), ('from_to', 'default_from_to From and To')), 'default_from_to Default From To', required=True, track_visibility=True)
+    default_from = fields.Float('Default from', track_visibility=True)
+    default_to = fields.Float('Default to', track_visibility=True)
     fixedperiod = fields.Boolean('Fixed period', default=False)
     subsidizedbyone = fields.Boolean('Subsidized by one')
-    on_tax_certificate = fields.Boolean('On tax certificate', select=True, track_visibility='onchange')
-    tarif_group_name = fields.Char('Tarif group name', index=True, track_visibility='onchange')
-    validity_from = fields.Date('Validity from', index=True, required=True, track_visibility='onchange')
-    validity_to = fields.Date('Validity to', index=True, required=True, track_visibility='onchange')
+    on_tax_certificate = fields.Boolean('On tax certificate', select=True, track_visibility=True)
+    tarif_group_name = fields.Char('Tarif group name', index=True, track_visibility=True)
+    validity_from = fields.Date('Validity from', index=True, required=True, track_visibility=True)
+    validity_to = fields.Date('Validity to', index=True, required=True, track_visibility=True)
     selectable_on_registration = fields.Boolean('Selectable on registration form')
     selectable_on_registration_multi = fields.Boolean('Selectable on registration multi form')
     warning_date = fields.Char('WARNING', default="ATTENTION, Modifier une activité peut impacter les présences déjà vérifiées ! Pour tous changements, Il est préférable de contacter directement Imio.", readonly=True)
-    warning_visibility = fields.Boolean(track_visibility='onchange')
+    warning_visibility = fields.Boolean(track_visibility=True)
     expire_soon = fields.Boolean(compute='_get_expired_date')
 
     @api.multi

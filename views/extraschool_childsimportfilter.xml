@@ -1,6 +1,6 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<data> 
+	<data>
         <record model="ir.ui.view" id="extraschool_childsimportfilter_form">
             <field name="name">childsimportfilter</field>
             <field name="model">extraschool.childsimportfilter</field>

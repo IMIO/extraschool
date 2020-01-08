@@ -1,24 +1,24 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<data> 
+	<data>
         <record model="ir.ui.view" id="extraschool_place_tree">
 			<field name="name">extraschool.place.tree</field>
 			<field name="model">extraschool.place</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="Place" delete="false">
-                    <field name="name"/> 
-                    <field name="street"/> 
-                    <field name="zipcode"/> 
-                    <field name="city"/> 
-                    <field name="street_code"/> 
+                    <field name="name"/>
+                    <field name="street"/>
+                    <field name="zipcode"/>
+                    <field name="city"/>
+                    <field name="street_code"/>
                 </tree>
 			</field>
 		</record>
-        
+
         <record model="ir.ui.view" id="extraschool_place_form">
             <field name="name">extraschool.place.form</field>
-            <field name="model">extraschool.place</field>    
+            <field name="model">extraschool.place</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
             <form string="Place" delete="false">
@@ -47,7 +47,7 @@
 					<field name="message_ids" widget="mail_thread"/>
 				</div>
             </form>
-            </field> 
+            </field>
         </record>
         <record model="ir.actions.act_window" id="action_extraschool_place">
 			<field name="name">Place</field>

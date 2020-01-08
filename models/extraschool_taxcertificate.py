@@ -34,11 +34,11 @@ _logger = logging.getLogger(__name__)
 class extraschool_taxcertificate(models.Model):
     _name = 'extraschool.taxcertificate'
     _description = 'Taxcertificate'
-    _inherit = 'mail.thread'
+    _inherit = ['mail.thread']
 
     title = fields.Char('Title', required=True)
-    name = fields.Integer('Fiscal Year', required=True, select = True, track_visibility='onchange')
-    doc_date = fields.Date('Document date', required=True, track_visibility='onchange')
+    name = fields.Integer('Fiscal Year', required=True, select = True, track_visibility=True)
+    doc_date = fields.Date('Document date', required=True, track_visibility=True)
     organising_power_id = fields.Many2one(
         'extraschool.organising_power',
         'Organising Power',
@@ -305,6 +305,7 @@ class extraschool_tax_certificate_detail(models.Model):
     entry_exit = fields.Char('entry_exit')
 
     # This is the view we use.
+    @api.model
     def init(self):
         cr = self.env.cr
         # Drop before a new view.

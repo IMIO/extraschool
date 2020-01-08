@@ -1,4 +1,4 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
 	<data>
        <record model="ir.ui.view" id="extraschool_taxcertificate_tree">
@@ -130,19 +130,19 @@
         </record>
 
 
-        <record id="extraschool_taxcertificate_item_search" model="ir.ui.view">
-            <field name="name">extraschool.taxcertificate_item.search</field>
-            <field name="model">extraschool.taxcertificate_item</field>
-            <field name="arch" type="xml">
-                <search>
-                   	<group  expand='0' string='Group by...'>
-                       <filter string='Implantation Scolaire' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'implantation'}"/>
-                       <filter string='Niveau' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'niveau'}"/>
-                       <filter string='Parent' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'parent_id'}"/>
-                   </group>
-                </search>
-            </field>
-        </record>
+<!--        <record id="extraschool_taxcertificate_item_search" model="ir.ui.view">-->
+<!--            <field name="name">extraschool.taxcertificate_item.search</field>-->
+<!--            <field name="model">extraschool.taxcertificate_item</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <search>-->
+<!--                   	<group  expand='0' string='Group by...'>-->
+<!--                       <filter string='Implantation Scolaire' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'implantation'}"/>-->
+<!--                       <filter string='Niveau' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'niveau'}"/>-->
+<!--                       <filter string='Parent' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'parent_id'}"/>-->
+<!--                   </group>-->
+<!--                </search>-->
+<!--            </field>-->
+<!--        </record>-->
 
 
         <record model="ir.actions.act_window" id="action_extraschool_taxcertificate">
@@ -176,16 +176,16 @@
                     <group states="compute_taxcertificates">
                         <field name="name" invisible="1" colspan="4"/>
                         <field name="taxcertificates" nolabel="1" readonly="1" filename="name" colspan="4"/>
-                        <label string="Ok" />
+<!--                        <label string="Ok" />-->
                     </group>
                     <separator string="" colspan="4"/>
                     <group colspan="4" col="3">
                         <button name="action_compute_taxcertificates" string="Compute taxcertificates" icon="gtk-apply" type="object"
                             states="init" />
                     </group>
-                    <label string="" colspan="4" />
-                    <label string="" colspan="4" />
-                    <label string="" colspan="4" />
+<!--                    <label string="" colspan="4" />-->
+<!--                    <label string="" colspan="4" />-->
+<!--                    <label string="" colspan="4" />-->
                 </form>
             </field>
         </record>

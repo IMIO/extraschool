@@ -1,6 +1,6 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<data> 
+	<data>
         <record model="ir.ui.view" id="extraschool_activity_occurrence_correction_wizard_form">
             <field name="name">extraschool.activity.occurrence.wizard.form</field>
             <field name="model">extraschool.activity_occurrence_correction_wizard</field>

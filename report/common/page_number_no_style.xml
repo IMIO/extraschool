@@ -1,20 +1,20 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<data> 		
+	<data>
 		<template id="report_page_number_no_style">
 			<style>
 				.page_number_container{
 					float: left;
 				}
 			</style>
-			
+
 			<div class="page_number">
 				<div class="page_number_container">
-					* <span class="page" /> / <span class="topage" /> *										
+					* <span class="page" /> / <span class="topage" /> *
 				</div>
 			</div>
 		</template>
 
 	</data>
 </odoo>
-	
+

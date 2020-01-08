@@ -31,7 +31,7 @@ _logger = logging.getLogger(__name__)
 class extraschool_guardian(models.Model):
     _name = 'extraschool.guardian'
     _description = 'Guardian'
-    _inherit = 'mail.thread'
+    _inherit = ['mail.thread']
 
     def _get_activity_category_id(self):
         return self.env['extraschool.activitycategory'].search([])[0].filtered('id')
@@ -40,7 +40,7 @@ class extraschool_guardian(models.Model):
         return self.env['extraschool.schoolimplantation'].search([])[0].filtered('id')
 
     activitycategoryid = fields.Many2one('extraschool.activitycategory', 'Activity Category',
-                                         track_visibility='onchange', default=_get_activity_category_id)
+                                         track_visibility=True, default=_get_activity_category_id)
     schoolimplantation = fields.Many2one('extraschool.schoolimplantation', 'School implantation', required=True, default=_get_schoolimplantation_id)
     type = fields.Selection(
         (('accueillante', 'Accueillante'),
@@ -50,25 +50,25 @@ class extraschool_guardian(models.Model):
     name = fields.Char(compute='_name_compute',string='FullName', size=100, store=True)
     firstname = fields.Char('FirstName', size=50)
     lastname = fields.Char('LastName', size=50 , required=True)
-    birthdate = fields.Date('Birthdate', track_visibility='onchange')
-    tagid = fields.Char('Tag ID', size=50, track_visibility='onchange')
+    birthdate = fields.Date('Birthdate', track_visibility=True)
+    tagid = fields.Char('Tag ID', size=50, track_visibility=True)
     otherref = fields.Char('Other ref')
     weekly_schedule = fields.Float('Horaire hebdomadaire')
-    street = fields.Char('Street', size=50, track_visibility='onchange')
-    zipcode = fields.Char('ZipCode', size=6, track_visibility='onchange')
-    city = fields.Char('City', size=50, track_visibility='onchange')
+    street = fields.Char('Street', size=50, track_visibility=True)
+    zipcode = fields.Char('ZipCode', size=6, track_visibility=True)
+    city = fields.Char('City', size=50, track_visibility=True)
     country_id = fields.Many2one('res.country', string='Country', default=21)
-    housephone = fields.Char('House Phone', size=20, track_visibility='onchange')
-    gsm = fields.Char('GSM', size=20, track_visibility='onchange')
-    email = fields.Char('Email', size=100, track_visibility='onchange')
+    housephone = fields.Char('House Phone', size=20, track_visibility=True)
+    gsm = fields.Char('GSM', size=20, track_visibility=True)
+    email = fields.Char('Email', size=100, track_visibility=True)
     oldid = fields.Integer('oldid')
-    brevete = fields.Boolean('Breveté', track_visibility='onchange')
+    brevete = fields.Boolean('Breveté', track_visibility=True)
     prestation_ids = fields.One2many('extraschool.guardianprestationtimes', 'guardianid')
-    comment = fields.Text('Comment', track_visibility='onchange')
-    isdisabled = fields.Boolean('Disabled', default=False, track_visibility='onchange')
+    comment = fields.Text('Comment', track_visibility=True)
+    isdisabled = fields.Boolean('Disabled', default=False, track_visibility=True)
     responsable_function = fields.Char(
         string='Function',
-        track_visibility='onchange',
+        track_visibility=True,
         size=50
     )
 

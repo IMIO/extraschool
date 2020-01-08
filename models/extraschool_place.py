@@ -27,13 +27,13 @@ from odoo import models, api, fields
 class extraschool_place(models.Model):
     _name = 'extraschool.place'
     _description = 'Schoolcare Place'
-    _inherit = 'mail.thread'
+    _inherit = ['mail.thread']
 
-    active = fields.Boolean('Active', default=True, track_visibility='onchange')
-    name = fields.Char('Name', size=50, track_visibility='onchange')
-    street = fields.Char('Street', size=50, track_visibility='onchange')
-    zipcode = fields.Char('ZipCode', size=6, track_visibility='onchange')
-    city = fields.Char('City', size=50, track_visibility='onchange')
+    active = fields.Boolean('Active', default=True, track_visibility=True)
+    name = fields.Char('Name', size=50, track_visibility=True)
+    street = fields.Char('Street', size=50, track_visibility=True)
+    zipcode = fields.Char('ZipCode', size=6, track_visibility=True)
+    city = fields.Char('City', size=50, track_visibility=True)
     schoolimplantation_ids = fields.Many2many('extraschool.schoolimplantation','extraschool_place_schoolimplantation_rel', 'place_id', 'schoolimplantation_id','School implantations')
     schedule = fields.Text('Schedule')
     street_code = fields.Char('Street Code') # onyx

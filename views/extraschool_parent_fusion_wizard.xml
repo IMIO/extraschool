@@ -1,6 +1,6 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<data> 
+	<data>
         <record model="ir.ui.view" id="extraschool_parent_fusion_wizard_form">
             <field name="name">extraschool.parent2.wizard.form</field>
             <field name="model">extraschool.parent_fusion_wizard</field>
@@ -10,25 +10,25 @@
                     <group col="4" groups="base.group_erp_manager">
                         <field name="show_comment" invisible="1"/>
                         <field name="comment" style="color:Red" nolabel="1" attrs="{'invisible':[('show_comment', '!=', True)]}"/>
-                    	<field name="parent_id"  invisible="1"/> 
-                    	<separator string="Parent à fusionner" colspan="4"/> 
-                    	<field name="parent_ids"  colspan="4" nolabel="1"/>                        
-                    	<separator string="Enfants à fusionner" colspan="4"/> 
-                    	<field name="fusion_child_ids"  colspan="4" nolabel="1">                                            		                    	                   		                    	
+                    	<field name="parent_id"  invisible="1"/>
+                    	<separator string="Parent à fusionner" colspan="4"/>
+                    	<field name="parent_ids"  colspan="4" nolabel="1"/>
+                    	<separator string="Enfants à fusionner" colspan="4"/>
+                    	<field name="fusion_child_ids"  colspan="4" nolabel="1">
                     		<tree editable="top" create="false" delete="false">
                     			<field name="child_id" readonly="True"/>
                     			<field name="dest_child_id" />
-								<field name="fusion_wizard_parent_id" invisible="True"/>                    			
+								<field name="fusion_wizard_parent_id" invisible="True"/>
                     		</tree>
                     	</field>
                     	<button name="fusion" string="Execute SQL" icon="gtk-apply" type="object"/>
                     </group>
                 </form>
             </field>
-        </record>        
+        </record>
 
 
-	</data>   
+	</data>
 
 
 </odoo>

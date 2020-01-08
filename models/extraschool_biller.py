@@ -41,21 +41,21 @@ _logger = logging.getLogger(__name__)
 class extraschool_biller(models.Model):
     _name = 'extraschool.biller'
     _description = 'Biller'
-    _inherit = 'mail.thread'
+    _inherit = ['mail.thread']
 
     _order = "id desc"
 
-    activitycategoryid = fields.Many2many('extraschool.activitycategory', 'extraschool_biller_activity_category_rel', string='Activity Category', track_visibility='onchange')
+    activitycategoryid = fields.Many2many('extraschool.activitycategory', 'extraschool_biller_activity_category_rel', string='Activity Category', track_visibility=True)
     accrued_ids = fields.One2many('extraschool.accrued', 'biller_id')
     period_from = fields.Date('Period from')
     period_to = fields.Date('Period to')
     payment_term = fields.Date('Payment term')
     invoices_date = fields.Date('Invoices date')
     invoice_ids = fields.One2many('extraschool.invoice', 'biller_id','invoices')
-    total = fields.Float(compute='_compute_total', string="Total", track_visibility='onchange')
-    received = fields.Float(compute='_compute_received', string="Received", track_visibility='onchange')
-    novalue = fields.Float(compute='_compute_novalue', string="No Value", track_visibility='onchange')
-    balance = fields.Float(compute='_compute_balance', string="Balance", track_visibility='onchange')
+    total = fields.Float(compute='_compute_total', string="Total", track_visibility=True)
+    received = fields.Float(compute='_compute_received', string="Received", track_visibility=True)
+    novalue = fields.Float(compute='_compute_novalue', string="No Value", track_visibility=True)
+    balance = fields.Float(compute='_compute_balance', string="Balance", track_visibility=True)
     nbinvoices = fields.Integer(compute='_compute_nbinvoices', string="Nb of invoices",)
     other_ref = fields.Char("Ref")
     comment = fields.Text("Comment",default="")

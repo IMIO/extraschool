@@ -30,7 +30,7 @@ from odoo.exceptions import Warning
 
 class extraschool_prestation_times_encodage_manuel(models.Model):
     _name = 'extraschool.prestation_times_encodage_manuel'
-    _inherit = 'mail.thread'
+    _inherit = ['mail.thread']
 
     def name_get(self, cr, uid, ids, context={}):
         if not len(ids):
@@ -42,22 +42,22 @@ class extraschool_prestation_times_encodage_manuel(models.Model):
 
         return res
 
-    date_of_the_day = fields.Date(required=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
-    place_id = fields.Many2one('extraschool.place', required=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
-    levelid = fields.Many2one('extraschool.level', 'Level', track_visibility='onchange', readonly=True, states={'draft': [('readonly', False)]},)
-    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False, track_visibility='onchange')
-    prestationtime_ids = fields.One2many('extraschool.prestation_times_manuel','prestation_times_encodage_manuel_id',copy=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
-    comment = fields.Text(track_visibility='onchange')
+    date_of_the_day = fields.Date(required=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility=True)
+    place_id = fields.Many2one('extraschool.place', required=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility=True)
+    levelid = fields.Many2one('extraschool.level', 'Level', track_visibility=True, readonly=True, states={'draft': [('readonly', False)]},)
+    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False, track_visibility=True)
+    prestationtime_ids = fields.One2many('extraschool.prestation_times_manuel','prestation_times_encodage_manuel_id',copy=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility=True)
+    comment = fields.Text(track_visibility=True)
     prestation_time_all_entry = fields.Float('Entry Time for all')
     prestation_time_all_exit = fields.Float('Exit Time for all')
     schoolimplantation = fields.Many2one('extraschool.schoolimplantation', 'School implantation',
-                                         track_visibility='onchange')
+                                         track_visibility=True)
     state = fields.Selection([('draft', 'Draft'),
                               ('validated', 'Validated')],
-                              'State', required=True, default='draft', track_visibility='onchange'
+                              'State', required=True, default='draft', track_visibility=True
                               )
     warning_biller = fields.Char('WARNING', default="WARNING, Il y a un facturier à cette date. ", readonly=True)
-    warning_visibility = fields.Boolean(track_visibility='onchange')
+    warning_visibility = fields.Boolean(track_visibility=True)
 
     @api.multi
     def unlink(self):

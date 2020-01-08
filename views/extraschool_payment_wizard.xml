@@ -1,6 +1,6 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<data> 
+	<data>
         <record model="ir.ui.view" id="extraschool_payment_wizard_form">
             <field name="name">extraschool.payment.wizard.form</field>
             <field name="model">extraschool.payment_wizard</field>
@@ -12,15 +12,15 @@
                         <field name="parent_id" />
                         <field name="activity_category_id"/>
                         <field name="payment_date" />
-                        <field name="comment" />                        	
+                        <field name="comment" />
                         <field name="amount" />
                     </group>
                 	<group col="4"  states="init">
-                		<field name="reconciliation_amount" readonly="True" />                		                    		
-                		<field name="reconciliation_amount_balance" readonly="True" />                		                    		
-                  		<separator string="Reconciliation" colspan="4"/>	
+                		<field name="reconciliation_amount" readonly="True" />
+                		<field name="reconciliation_amount_balance" readonly="True" />
+                  		<separator string="Reconciliation" colspan="4"/>
                   	</group>
-                    <field name="payment_reconciliation_ids" states="init">	                	
+                    <field name="payment_reconciliation_ids" states="init">
                     	<tree editable="bottom" create="false" delete="false" colors="red:tag IS NOT NULL">
                             <field name="tag"></field>
 	                        <field name="invoice_id" readonly="True" />
@@ -35,7 +35,7 @@
                 </form>
             </field>
         </record>
-        
+
         <record model="ir.actions.act_window" id="action_lbsc_payment_wizard">
             <field name="name">payment Wizard</field>
             <field name="type">ir.actions.act_window</field>
@@ -44,6 +44,6 @@
             <field name="view_mode">form</field>
             <field name="target">new</field>
         </record>
-        
+
 	</data>
 </odoo>

@@ -63,6 +63,7 @@ class extraschool_guardian_prestation_times_report(models.Model):
     day_duration = fields.Float('day duration')
     week = fields.Char('Week',select=True)
 
+    @api.model
     def init(self):
         cr = self.env.cr
         tools.sql.drop_view_if_exists(cr, 'extraschool_guardian_prestation_times_report')

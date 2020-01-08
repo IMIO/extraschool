@@ -1,4 +1,4 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
 	<data>
         <record model="ir.ui.view" id="extraschool_presta_stat_tree">
@@ -35,20 +35,20 @@
 		</record>
 
 
-        <record id="presta_stat_search_view" model="ir.ui.view">
-            <field name="name">presta_stat.search</field>
-            <field name="model">extraschool.presta_stat</field>
-            <field name="arch" type="xml">
-                <search string="Prestations">
-                  	<field name="activity_id" string="Activity"/>
-                   	<field name="place_id" string="Place"/>
-					<field name="date" String="Date"/>
-                   	<group  expand='0' string='Group by...'>
-                       <filter string='Activité' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'activity_id'}"/>
-                   </group>
-                </search>
-            </field>
-        </record>
+<!--        <record id="presta_stat_search_view" model="ir.ui.view">-->
+<!--            <field name="name">presta_stat.search</field>-->
+<!--            <field name="model">extraschool.presta_stat</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <search string="Prestations">-->
+<!--                  	<field name="activity_id" string="Activity"/>-->
+<!--                   	<field name="place_id" string="Place"/>-->
+<!--					<field name="date" String="Date"/>-->
+<!--                   	<group  expand='0' string='Group by...'>-->
+<!--                       <filter string='Activité' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'activity_id'}"/>-->
+<!--                   </group>-->
+<!--                </search>-->
+<!--            </field>-->
+<!--        </record>-->
 
         <record id="extraschool_presta_stat_pivot" model="ir.ui.view">
             <field name="name">presta_stat.pivot</field>

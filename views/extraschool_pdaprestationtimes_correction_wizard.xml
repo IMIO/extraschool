@@ -1,6 +1,6 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<data> 
+	<data>
         <record model="ir.ui.view" id="extraschool_pdaprestationtimes_correction_wizard_form">
             <field name="name">extraschool.pdaprestationtimes.correction.wizard.form</field>
             <field name="model">extraschool.pdaprestationtimes_correction_wizard</field>
@@ -9,12 +9,12 @@
                 <form string="Manuel encodage validation wizard">
                     <group col="4"  groups="base.group_erp_manager">
                     	<field name="es" />
-						<field name="prestation_time"  widget="float_time"/>                    	
+						<field name="prestation_time"  widget="float_time"/>
                         <button name="correction" string="Correction" icon="gtk-apply" type="object" />
-					</group>                                        
+					</group>
                 </form>
             </field>
-        </record>        
+        </record>
 
         <act_window id="pdaprestationtimes_correction_wizard_action"
             name="Correction wizard"
@@ -23,6 +23,6 @@
             view_type="form" view_mode="form"
             key2="client_action_multi" target="new"
             />
-                        
+
 	</data>
 </odoo>

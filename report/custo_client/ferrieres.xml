@@ -1,4 +1,4 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
 		<template id="report_adresse_no_style_ferrieres" inherit_id="extraschool.report_adresse_no_style" primary="True">

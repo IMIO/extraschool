@@ -46,26 +46,26 @@ class reminder_report_pdf_thread (threading.Thread):
 class extraschool_remindersjournal(models.Model):
     _name = 'extraschool.remindersjournal'
     _description = 'Reminders journal'
-    _inherit = 'mail.thread'
+    _inherit = ['mail.thread']
 
-    name = fields.Char('Name', required=True, track_visibility='onchange')
+    name = fields.Char('Name', required=True, track_visibility=True)
     activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=True, readonly=True, states={'draft': [('readonly', False)]})
-    transmission_date = fields.Date('Transmission date', default=datetime.date.today(), required=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
+    transmission_date = fields.Date('Transmission date', default=datetime.date.today(), required=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility=True)
     reminders_journal_item_ids = fields.One2many('extraschool.reminders_journal_item', 'reminders_journal_id','Reminder journal item')
-    reminder_ids = fields.One2many('extraschool.reminder', 'reminders_journal_id','Reminders', track_visibility='onchange')
+    reminder_ids = fields.One2many('extraschool.reminder', 'reminders_journal_id','Reminders', track_visibility=True)
     biller_id = fields.Many2one('extraschool.biller', 'Biller', readonly=True, states={'draft': [('readonly', False)]})
     biller_ids = fields.One2many('extraschool.biller', 'reminder_journal_id')
     remindersjournal_biller_item_ids = fields.One2many('extraschool.reminders_journal_biller_item', 'reminders_journal_id','Reminders biller item')
     ready_to_print = fields.Boolean(String = 'Ready to print', default = False)
-    date_from = fields.Date(string='Date from', readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
-    date_to = fields.Date(string='Date to', readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
+    date_from = fields.Date(string='Date from', readonly=True, states={'draft': [('readonly', False)]}, track_visibility=True)
+    date_to = fields.Date(string='Date to', readonly=True, states={'draft': [('readonly', False)]}, track_visibility=True)
     state = fields.Selection([('draft', 'Draft'),
                               ('validated', 'Validated')],
-                             'validated', required=True, default='draft', track_visibility='onchange'
+                             'validated', required=True, default='draft', track_visibility=True
                              )
-    based_reminder_id = fields.Many2one('extraschool.remindersjournal', 'Choose the reminder to be based on', track_visibility='onchange')
-    show_based_reminder = fields.Boolean('Clic here if it\'s not the first reminder', default=False, track_visibility='onchange')
-    unsolved_reminder_ids = fields.One2many('extraschool.reminder', 'reminders_journal_id', 'Unsolved Reminders', compute="_get_unsolved_reminder_method", track_visibility='onchange')
+    based_reminder_id = fields.Many2one('extraschool.remindersjournal', 'Choose the reminder to be based on', track_visibility=True)
+    show_based_reminder = fields.Boolean('Clic here if it\'s not the first reminder', default=False, track_visibility=True)
+    unsolved_reminder_ids = fields.One2many('extraschool.reminder', 'reminders_journal_id', 'Unsolved Reminders', compute="_get_unsolved_reminder_method", track_visibility=True)
 
     @api.onchange('date_from', 'date_to')
     @api.multi

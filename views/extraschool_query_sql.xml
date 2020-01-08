@@ -1,6 +1,6 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<data> 
+	<data>
         <record model="ir.ui.view" id="extraschool_query_sql_form">
 			<field name="name">query_sql.form</field>
 			<field name="model">extraschool.query_sql</field>

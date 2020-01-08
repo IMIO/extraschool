@@ -110,7 +110,7 @@ class extraschool_invoice_wizard(models.TransientModel):
     warning_smartphone = fields.Char('WARNING',
                                  default="Attention, il y a un ou plusieurs smartphone(s) qui n'a / n'ont pas transmis. Vérifier avant de générer votre facturier ! ",
                                  readonly=True)
-    warning_visibility = fields.Boolean(track_visibility='onchange')
+    warning_visibility = fields.Boolean(track_visibility=True)
     check_manual = fields.Boolean(default=True)
     check_registration = fields.Boolean(default=True)
     check_prestation = fields.Boolean(default=True)

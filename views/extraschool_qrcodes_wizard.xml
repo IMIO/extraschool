@@ -1,6 +1,6 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<data> 
+	<data>
         <record model="ir.ui.view" id="extraschool_qrcodes_wizard_form">
             <field name="name">extraschool.qrcodes.wizard.form</field>
             <field name="model">extraschool.qrcodes_wizard</field>
@@ -33,6 +33,6 @@
             <field name="view_mode">form</field>
             <field name="target">inline</field>
         </record>
-        
+
 	</data>
 </odoo>

@@ -1,6 +1,6 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<data> 		
+	<data>
 		<template id="report_comment_no_style">
 			<style>
 				#invoice_comment{
@@ -21,4 +21,4 @@
 
 	</data>
 </odoo>
-	
+

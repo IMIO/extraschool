@@ -1,7 +1,7 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
 	<data>
-		<template id="reminder_report_layout" inherit_id="report.layout"  primary="True">
+		<template id="reminder_report_layout" inherit_id="web.report_layout"  primary="True">
 
             <xpath expr="//head" position="inside">
 	            <style type="text/css">

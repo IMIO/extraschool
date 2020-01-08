@@ -31,29 +31,29 @@ _logger = logging.getLogger(__name__)
 class extraschool_child(models.Model):
     _name = 'extraschool.child'
     _description = 'Child'
-    _inherit = 'mail.thread'
+    _inherit = ['mail.thread']
 
     organising_power_id = fields.Many2one(
         'extraschool.organising_power',
         'Organising Power',
-        track_visibility='onchange',
+        track_visibility=True,
                                           )
     name = fields.Char(compute='_name_compute',string='FullName', search='_search_fullname', size=100)
     childtypeid = fields.Many2one('extraschool.childtype', 'Type',required=True, ondelete='restrict', help='Ce champs permet de définir si l\'enfant a le droit à un tarif préférentiel (ex: enfants du CPAS, enfants de la croix rouge, enfants des accueillantes,...)')
     rn = fields.Char('RN')
-    firstname = fields.Char('FirstName', size=50, required=True, track_visibility='onchange')
-    lastname = fields.Char('LastName', size=50 , required=True, track_visibility='onchange')
-    schoolimplantation = fields.Many2one('extraschool.schoolimplantation', 'School implantation',required=True, track_visibility='onchange')
-    levelid = fields.Many2one('extraschool.level', 'Level', required=True, track_visibility='onchange')
-    classid = fields.Many2one('extraschool.class', 'Class', required=False, domain="[('schoolimplantation','=',schoolimplantation)]", track_visibility='onchange')
-    parentid = fields.Many2one('extraschool.parent', 'Parent', required=True, ondelete='RESTRICT', select=True, track_visibility='onchange', domain="[('isdisabled', '=', False)]")
-    birthdate = fields.Date('Birthdate', required=True, track_visibility='onchange')
+    firstname = fields.Char('FirstName', size=50, required=True, track_visibility=True)
+    lastname = fields.Char('LastName', size=50 , required=True, track_visibility=True)
+    schoolimplantation = fields.Many2one('extraschool.schoolimplantation', 'School implantation',required=True, track_visibility=True)
+    levelid = fields.Many2one('extraschool.level', 'Level', required=True, track_visibility=True)
+    classid = fields.Many2one('extraschool.class', 'Class', required=False, domain="[('schoolimplantation','=',schoolimplantation)]", track_visibility=True)
+    parentid = fields.Many2one('extraschool.parent', 'Parent', required=True, ondelete='RESTRICT', select=True, track_visibility=True, domain="[('isdisabled', '=', False)]")
+    birthdate = fields.Date('Birthdate', required=True, track_visibility=True)
     last_import_date = fields.Datetime('Import date', readonly=True)
     modified_since_last_import = fields.Boolean('Modified since last import')
-    tagid = fields.Char('Tag ID', help='Numéro contenu dans le QR Code', track_visibility='onchange')
-    otherref = fields.Char('Other ref', size=50, track_visibility='onchange')
-    isdisabled = fields.Boolean('Disabled', track_visibility='onchange')
-    comment = fields.Text('Comment', track_visibility='onchange')
+    tagid = fields.Char('Tag ID', help='Numéro contenu dans le QR Code', track_visibility=True)
+    otherref = fields.Char('Other ref', size=50, track_visibility=True)
+    isdisabled = fields.Boolean('Disabled', track_visibility=True)
+    comment = fields.Text('Comment', track_visibility=True)
     check_name = fields.Boolean(default=True)
     check_rn = fields.Boolean(default=True)
     health_sheet_ids = fields.One2many('extraschool.health_sheet', 'child_id')

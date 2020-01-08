@@ -1,13 +1,13 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<data> 
+	<data>
 		<template id="report_invoice_std_body_without_date">
 		    <style type="text/css">
 		        .invoice_body{
 		    		width: 100%;
 		    		display: block;
 		    	}
-		    			    	
+
 				.invoice_body table {
 		    		width: 100%;
 					font-size:11px;
@@ -27,7 +27,7 @@
 				}
 
 			</style>
-						
+
         	<div class="invoice_body">
         		<table>
         			<tr>
@@ -41,19 +41,19 @@
 					</tr>
 	       			<t t-foreach="invoice.invoice_line_ids" t-as="invoice_line">
         				<tr>
-	       					<td><span t-field="invoice_line.activity_occurrence_id.activityid.short_name" /> - <t t-esc="time.strftime('%d-%m-%Y',time.strptime(invoice_line.prestation_date,'%Y-%m-%d'))" /></td> 
-	       					<td><span t-field="invoice_line.childid" /></td> 
-	       					<td><span t-field="invoice_line.duration" /></td> 
-	       					<td><span t-field="invoice_line.period_duration" /></td> 
-	       					<td><span t-field="invoice_line.quantity" /></td> 
-	       					<td><span t-field="invoice_line.unit_price" /></td> 
-	       					<td><span t-field="invoice_line.total_price" /></td> 
+	       					<td><span t-field="invoice_line.activity_occurrence_id.activityid.short_name" /> - <t t-esc="time.strftime('%d-%m-%Y',time.strptime(invoice_line.prestation_date,'%Y-%m-%d'))" /></td>
+	       					<td><span t-field="invoice_line.childid" /></td>
+	       					<td><span t-field="invoice_line.duration" /></td>
+	       					<td><span t-field="invoice_line.period_duration" /></td>
+	       					<td><span t-field="invoice_line.quantity" /></td>
+	       					<td><span t-field="invoice_line.unit_price" /></td>
+	       					<td><span t-field="invoice_line.total_price" /></td>
 	       				</tr>
-	        		</t> 	            			        			
+	        		</t>
         		</table>
        		</div>
 		</template>
 
 	</data>
 </odoo>
-	
+

@@ -1,4 +1,4 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
 	<data>
         <record model="ir.ui.view" id="extraschool_prestation_times_of_the_day_tree">
@@ -113,10 +113,10 @@
                 <search string="prestation_times_of_the_day search">
                    <field name="child_id" string="child"/>
                    <field name="date_of_the_day" string="Date du jour"/>
-                   <filter string="not verified" name="not_verified" icon="terp-accessories-archiver" domain="[('verified','=',False)]"/>
+<!--                   <filter string="not verified" name="not_verified" icon="terp-accessories-archiver" domain="[('verified','=',False)]"/>-->
                    <group  expand='0' string='Group by...'>
-                       <filter string='Child' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'child_id'}"/>
-                       <filter string='School Implantation' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'schoolimplantation'}"/>
+<!--                       <filter string='Child' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'child_id'}"/>-->
+<!--                       <filter string='School Implantation' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'schoolimplantation'}"/>-->
                    </group>
                 </search>
             </field>

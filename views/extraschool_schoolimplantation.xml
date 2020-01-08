@@ -1,35 +1,35 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<data>        
+	<data>
         <record model="ir.ui.view" id="extraschool_schoolimplantation_tree">
 			<field name="name">extraschool.schoolimplantation.tree</field>
 			<field name="model">extraschool.schoolimplantation</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="School Implantation">
-                    <field name="name"/> 
+                    <field name="name"/>
 				</tree>
 			</field>
 		</record>
         <record model="ir.ui.view" id="extraschool_schoolimplantation_form">
             <field name="name">extraschool.schoolimplantation.form</field>
-            <field name="model">extraschool.schoolimplantation</field>    
+            <field name="model">extraschool.schoolimplantation</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-            <form string="School Implantation"> 
+            <form string="School Implantation">
             <group col="4">
                 <field name="schoolid"/>
                 <newline/>
                 <field name="name"/>
                 <newline/>
-                <field name="street"/> 
+                <field name="street"/>
                 <newline/>
-                <field name="zipcode"/>        
+                <field name="zipcode"/>
                 <newline/>
                 <field name="city"/>
             </group>
             </form>
-            </field> 
-        </record>        
+            </field>
+        </record>
 	</data>
 </odoo>

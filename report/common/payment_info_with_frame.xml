@@ -1,10 +1,10 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<data> 		
+	<data>
 		<template id="report_payment_info_with_frame" inherit_id="extraschool.report_payment_info_no_style" primary="True">
 
 			<xpath expr="//div[@id='payment_info']" position="before">
-				<style>			
+				<style>
 					#payment_info{
 						page-break-inside: avoid;
 						display: block;
@@ -12,12 +12,12 @@
 						padding: 8px;
 						border-width: 1px;
 						border-style: solid;
-						clear: both;			
+						clear: both;
 					}
 				</style>
-			</xpath>		
+			</xpath>
 		</template>
 
 	</data>
 </odoo>
-	
+

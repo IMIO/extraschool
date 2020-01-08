@@ -1,6 +1,6 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<data> 
+	<data>
 		<template id="report_reminder_text">
 		    <style type="text/css">
 		        .reminder_body{
@@ -64,4 +64,4 @@
 
 	</data>
 </odoo>
-	
+

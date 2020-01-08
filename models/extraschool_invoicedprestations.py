@@ -49,7 +49,7 @@ class extraschool_invoicedprestations(models.Model):
     description = fields.Char('Description')
     date_no_value = fields.Date(
         string='Date of no value',
-        track_visibility='onchange',
+        track_visibility=True,
     )
     duration = fields.Integer('Duration')
     quantity = fields.Integer('Quantity')

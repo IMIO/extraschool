@@ -1,6 +1,6 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<data> 
+	<data>
         <record model="ir.ui.view" id="extraschool_child_registration_validation_wizard_form">
             <field name="name">extraschool.child.registration.validation.wizard.form</field>
             <field name="model">extraschool.child_registration_validation_wizard</field>
@@ -14,7 +14,7 @@
                     </group>
                 </form>
             </field>
-        </record>        
+        </record>
 
         <act_window id="child_registration_validation_wizard_action"
             name="Child registration validation wizard"
@@ -23,6 +23,6 @@
             view_type="form" view_mode="form"
             key2="client_action_multi" target="new"
             />
-                        
+
 	</data>
 </odoo>

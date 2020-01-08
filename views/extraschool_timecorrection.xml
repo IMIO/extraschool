@@ -1,6 +1,6 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<data> 
+	<data>
         <record model="ir.ui.view" id="extraschool_timecorrection_wizard_form">
             <field name="name">extraschool.timecorrection.wizard.form</field>
             <field name="model">extraschool.timecorrection_wizard</field>
@@ -9,9 +9,9 @@
                 <form string="Time correction Wizard">
                     <field name="state" invisible="1" />
                     <group states="init">
-                        <label string="ATTENTION!!! Cet assistant modifie définitivement toutes les heures encodées" colspan="4" />
+<!--                        <label string="ATTENTION!!! Cet assistant modifie définitivement toutes les heures encodées" colspan="4" />-->
                         <newline/>
-                        <label string="d'après les paramètres ci-dessous -> PRUDENCE" colspan="4" />
+<!--                        <label string="d'après les paramètres ci-dessous -> PRUDENCE" colspan="4" />-->
                         <field name="placeid" />
                         <newline />
                         <field name="datefrom" />
@@ -21,17 +21,17 @@
                         <newline />
                         <field name="correctiontime" widget="float_time"/>
                     </group>
-                    <group states="compute_correction">                        
-                        <label string="Ok" />
+                    <group states="compute_correction">
+<!--                        <label string="Ok" />-->
                     </group>
                     <separator string="" colspan="4"/>
                     <group colspan="4" col="3">
                         <button name="action_compute_correction" string="Compute correction" icon="gtk-apply" type="object"
                             states="init" />
                     </group>
-                    <label string="" colspan="4" />
-                    <label string="" colspan="4" />
-                    <label string="" colspan="4" />
+<!--                    <label string="" colspan="4" />-->
+<!--                    <label string="" colspan="4" />-->
+<!--                    <label string="" colspan="4" />-->
                 </form>
             </field>
         </record>

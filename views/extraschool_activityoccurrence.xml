@@ -1,4 +1,4 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
 	<data>
         <record model="ir.ui.view" id="extraschool_activityoccurrence_tree">
@@ -66,9 +66,9 @@
                    <field name="place_id" string="Place"/>
                    <field name="occurrence_date" string="Date"/>
                    <group  expand='0' string='Group by...'>
-                       <filter string='Activity name' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'activityid'}"/>
-                       <filter string='Place' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'place_id'}"/>
-                       <filter string='Date' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'occurrence_date'}"/>
+<!--                       <filter string='Activity name' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'activityid'}"/>-->
+<!--                       <filter string='Place' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'place_id'}"/>-->
+<!--                       <filter string='Date' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'occurrence_date'}"/>-->
                    </group>
                 </search>
             </field>

@@ -1,18 +1,18 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<data>
+    <data>
+        <template id="report_session_view" inherit_id="web.minimal_layout">
+<!--            <t t-call="web.report_layout">-->
+                <xpath expr=".">
+                    <script src="/extraschool/static/src/js/pagination_hide.js"></script>
+                </xpath>
 
-
-        <template id="report_minimal_layout_hack" inherit_id="report.minimal_layout">
-        	<xpath expr="//head" position="inside">
-                <script src="/extraschool/static/src/js/pagination_hide.js"></script>
-            </xpath>
-
-            <xpath expr="//body" position="attributes">
-                <attribute t-translation="off" name="onload">subst(); pagination_hide();</attribute>
-            </xpath>
+                <xpath expr="//body" position="attributes">
+                    <attribute t-translation="off" name="onload">subst(); pagination_hide();</attribute>
+                </xpath>
+<!--            </t>-->
         </template>
-
-	</data>
+    </data>
 </odoo>
+
 

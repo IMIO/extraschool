@@ -1,4 +1,4 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
 	<data>
         <record model="ir.ui.view" id="extraschool_stat_activity_tree">
@@ -54,20 +54,20 @@
 		</record>
 
 
-        <record id="stat_activity_search_view" model="ir.ui.view">
-            <field name="name">stat_activity.search</field>
-            <field name="model">extraschool.stat_activity</field>
-            <field name="arch" type="xml">
-                <search string="Prestations">
-                  	<field name="activity_id" string="Activity"/>
-                   	<field name="place_id" string="Place"/>
-					<field name="date" String="Date"/>
-                   	<group  expand='0' string='Group by...'>
-                       <filter string='Activité' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'activity_id'}"/>
-                   </group>
-                </search>
-            </field>
-        </record>
+<!--        <record id="stat_activity_search_view" model="ir.ui.view">-->
+<!--            <field name="name">stat_activity.search</field>-->
+<!--            <field name="model">extraschool.stat_activity</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <search string="Prestations">-->
+<!--                  	<field name="activity_id" string="Activity"/>-->
+<!--                   	<field name="place_id" string="Place"/>-->
+<!--					<field name="date" String="Date"/>-->
+<!--                   	<group  expand='0' string='Group by...'>-->
+<!--                       <filter name="activity" string='Activité' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'activity_id'}"/>-->
+<!--                   </group>-->
+<!--                </search>-->
+<!--            </field>-->
+<!--        </record>-->
 
         <record id="extraschool_stat_activity_graph" model="ir.ui.view">
             <field name="name">stat_activity.graph</field>

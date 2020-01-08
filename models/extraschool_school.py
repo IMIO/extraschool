@@ -28,13 +28,13 @@ from odoo.exceptions import except_orm, Warning, RedirectWarning
 class extraschool_school(models.Model):
     _name = 'extraschool.school'
     _description = 'School'
-    _inherit = 'mail.thread'
+    _inherit = ['mail.thread']
 
-    name = fields.Char('Name', size=50, required=True, track_visibility='onchange')
+    name = fields.Char('Name', size=50, required=True, track_visibility=True)
     logo = fields.Binary()
-    street = fields.Char('Street', size=50,track_visibility='onchange')
-    zipcode = fields.Char('ZipCode', size=6, track_visibility='onchange')
-    city = fields.Char('City', size=50, track_visibility='onchange')
+    street = fields.Char('Street', size=50,track_visibility=True)
+    zipcode = fields.Char('ZipCode', size=6, track_visibility=True)
+    city = fields.Char('City', size=50, track_visibility=True)
     schoolimplantations = fields.One2many('extraschool.schoolimplantation', 'schoolid','schoolimplantations', required=True, track_visibility=True)
     oldid = fields.Integer('oldid')
 

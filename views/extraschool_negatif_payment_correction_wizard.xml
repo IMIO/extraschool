@@ -1,6 +1,6 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<data> 
+	<data>
         <record model="ir.ui.view" id="extraschool_negatif_payment_correction_wizard_form">
             <field name="name">extraschool.manuel.invoice.wizard.form</field>
             <field name="model">extraschool.negatif_payment_correction_wizard</field>
@@ -11,15 +11,15 @@
                     <group states="init">
                         <field name="activity_category_id" />
                         <field name="invoice_date" />
-						<field name="payment_term" />                        
-                        <field name="description" />                        	
+						<field name="payment_term" />
+                        <field name="description" />
                     </group>
                     <group colspan="4" col="3">
                         <button name="generate_invoice" string="Facturation" icon="gtk-apply" type="object" />
                     </group>
                 </form>
             </field>
-        </record>        
+        </record>
 
         <act_window id="parent_negatif_payment_correction_wizard_action"
             name="Manuel invoice"
@@ -28,6 +28,6 @@
             view_type="form" view_mode="form"
             key2="client_action_multi" target="new"
             />
-                        
+
 	</data>
 </odoo>

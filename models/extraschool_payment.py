@@ -206,6 +206,7 @@ class extraschool_payment_status_report(models.Model):
     # payment_date = fields.Date('Payment Date', select=True)
 
     # This is the view we use.
+    @api.model
     def init(self):
         cr = self.env.cr
         # Drop before a new view.
@@ -259,8 +260,7 @@ class extraschool_payment_report(models.Model):
     payment_date = fields.Date('Payment Date')
     comment = fields.Char('Comment')
 
-
-
+    @api.model
     def init(self):
         cr = self.env.cr
         tools.sql.drop_view_if_exists(cr, 'extraschool_payment_report')

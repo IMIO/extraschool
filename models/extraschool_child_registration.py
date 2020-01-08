@@ -35,7 +35,7 @@ _logger = logging.getLogger(__name__)
 class extraschool_child_registration(models.Model):
     _name = 'extraschool.child_registration'
     _description = 'Child registration'
-    _inherit = 'mail.thread'
+    _inherit = ['mail.thread']
 
     @api.multi
     def name_get(self):
@@ -58,44 +58,44 @@ class extraschool_child_registration(models.Model):
     current_date = str(datetime.now().date())
     school_implantation_id = fields.Many2one('extraschool.schoolimplantation', domain=_get_uid, required=True,
                                              readonly=True, states={'draft': [('readonly', False)]},
-                                             track_visibility='onchange')
+                                             track_visibility=True)
     class_id = fields.Many2one('extraschool.class', readonly=True, states={'draft': [('readonly', False)]},
                                domain="[('schoolimplantation','=',school_implantation_id)]",
-                               track_visibility='onchange')
+                               track_visibility=True)
     place_id = fields.Many2one('extraschool.place', required=True, readonly=True,
                                states={'draft': [('readonly', False)]},
                                domain="[('schoolimplantation_ids','in',school_implantation_id)]",
-                               track_visibility='onchange')
+                               track_visibility=True)
     activity_id = fields.Many2one('extraschool.activity', readonly=True, states={'draft': [('readonly', False)]},
                                   domain="['&','&',('placeids','in',place_id),('selectable_on_registration','=',True),('validity_to', '>=', current_date)]",
-                                  track_visibility='onchange')
+                                  track_visibility=True)
     week = fields.Integer('Week', required=True, readonly=True, states={'draft': [('readonly', False)]},
                           help='Afin de trouver le bon numéro de semaine, Veuillez vous aider du champs situé juste en dessous afin de trouver le numéro de semaine. Une fois le numéro mis, l\'application recherchera et encodera toute seule les bonnes dates du numéro de semaine (Du lundi au vendredi)',
-                          track_visibility='onchange')
+                          track_visibility=True)
     date_from = fields.Date('Date from', required=True, readonly=True, states={'draft': [('readonly', False)]},
-                            track_visibility='onchange')
+                            track_visibility=True)
     date_to = fields.Date('Date to', required=True, readonly=True, states={'draft': [('readonly', False)]},
-                          track_visibility='onchange')
+                          track_visibility=True)
     child_registration_line_ids = fields.One2many('extraschool.child_registration_line', 'child_registration_id',
                                                   copy=True, readonly=True, states={'draft': [('readonly', False)]},
-                                                  track_visibility='onchange')
-    comment = fields.Char('Comment', track_visibility='onchange')
+                                                  track_visibility=True)
+    comment = fields.Char('Comment', track_visibility=True)
     day_ids = fields.Many2many('extraschool.day', 'extraschool_day_registration_rel', string='Days',
                                help='Ceci permet de précocher pour tous les enfants, les jours que l\'on souhaite',
-                               track_visibility='onchange')
-    error_duplicate_reg_line = fields.Boolean(string="Error", default=False, track_visibility='onchange')
+                               track_visibility=True)
+    error_duplicate_reg_line = fields.Boolean(string="Error", default=False, track_visibility=True)
     state = fields.Selection([('draft', 'Draft'),
                               ('to_validate', 'Ready'),
                               ('validated', 'Validated')],
-                             'validated', required=True, default='draft', track_visibility='onchange'
+                             'validated', required=True, default='draft', track_visibility=True
                              )
-    number_childs = fields.Char('Number of childs', readonly=True, default=0, track_visibility='onchange')
+    number_childs = fields.Char('Number of childs', readonly=True, default=0, track_visibility=True)
     levelid = fields.Many2many('extraschool.level', 'extraschool_registration_level_rel', string='Level',
-                               track_visibility='onchange')
+                               track_visibility=True)
     warning_biller = fields.Char('WARNING',
                                  default="WARNING, Il y a un facturier à cette date, si la personne responsable des factures n'est pas au courant de cet ajout, cela ne sera pas pris en compte ! ",
                                  readonly=True)
-    warning_visibility = fields.Boolean(track_visibility='onchange')
+    warning_visibility = fields.Boolean(track_visibility=True)
     select_per_level = fields.Selection([
         ('primaire', 'Primaire'),
         ('maternelle', 'Maternelle'),
@@ -107,7 +107,7 @@ class extraschool_child_registration(models.Model):
         ('10-12', "10 à 12 ans"),
         ('13-18', "13 à 18 ans")
     ], string="Age group", default=None)
-    comment = fields.Text('Comment', track_visibility='onchange')
+    comment = fields.Text('Comment', track_visibility=True)
 
     @api.onchange('date_to', 'date_from')
     @api.multi

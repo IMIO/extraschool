@@ -1,6 +1,6 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<data> 		
+	<data>
 		<template id="report_invoice_std_footer">
 			<div>
 				<span>std footer</span>
@@ -9,4 +9,4 @@
 
 	</data>
 </odoo>
-	
+

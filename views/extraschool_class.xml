@@ -1,34 +1,34 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<data>      
+	<data>
         <record model="ir.ui.view" id="extraschool_class_tree">
             <field name="name">extraschool.class.tree</field>
-            <field name="model">extraschool.class</field>    
+            <field name="model">extraschool.class</field>
             <field name="type">tree</field>
             <field name="arch" type="xml">
-            <tree string="Class"> 
+            <tree string="Class">
                 <field name="name"/>
-                <field name="levelids"/> 
+                <field name="levelids"/>
                 <field name="schoolimplantation"/>
             </tree>
-            </field> 
-        </record>   
-        		  
+            </field>
+        </record>
+
         <record model="ir.ui.view" id="extraschool_class_form">
             <field name="name">extraschool.class.form</field>
-            <field name="model">extraschool.class</field>    
+            <field name="model">extraschool.class</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-            <form string="Class"> 
-            <group col="4">       
+            <form string="Class">
+            <group col="4">
                 <field name="name"/>
                 <newline/>
-                <field name="levelids"/> 
+                <field name="levelids"/>
                 <newline/>
                 <field name="schoolimplantation"/>
             </group>
             </form>
-            </field> 
+            </field>
         </record>
 
         <record model="ir.actions.act_window" id="action_extraschool_class">
