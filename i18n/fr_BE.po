@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* share
+# 	* fetchmail
 # 	* web
 # 	* base_setup
 # 	* knowledge
@@ -9,12 +9,11 @@
 # 	* web_editor
 # 	* web_settings_dashboard
 # 	* board
-# 	* bus
 # 	* mail
 # 	* document
 # 	* extraschool
 # 	* odoo-report_pdf_both_sides
-# 	* fetchmail
+# 	* bus
 # 	* base_import
 # 	* web_view_editor
 # 	* web_calendar
@@ -33,8 +32,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-06 11:08+0000\n"
-"PO-Revision-Date: 2020-01-06 16:00+0100\n"
+"POT-Creation-Date: 2020-01-08 14:45+0000\n"
+"PO-Revision-Date: 2020-01-08 15:54+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -999,13 +998,13 @@ msgstr ""
 "\n"
 "<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
 "\n"
-"    <p>Bonjour ${object.parentid.name},</p>\n"
+"    <p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">Bonjour ${object.parentid.name},</p>\n"
 "\n"
-"    <p>Vous trouverez en pièce jointe la facture correspondant aux activités de vos enfants</p>\n"
-"    <h2>Informations de paiement</h2>\n"
-"    <p>\n"
-"    \tNum de compte : ${object.activitycategoryid.bankaccount}\n"
-"    \tCom structurée : ${object.structcom}\n"
+"    <p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">Vous trouverez en pièce jointe la facture correspondant aux activités de vos enfants</p>\n"
+"    <h2 style=\"margin:0px 0px 4px 0px;font-size:1.5em;color:inherit;line-height:1.1;font-weight:bold;font-family:inherit;\">Informations de paiement</h2>\n"
+"    <p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">\n"
+"    tNum de compte : ${object.activitycategoryid.bankaccount}\n"
+"    tCom structurée : ${object.structcom}\n"
 "    </p>    \n"
 "</div>\n"
 "            "
@@ -1046,15 +1045,12 @@ msgid ""
 "</div>\n"
 "            "
 msgstr ""
+"<p class=\"MsoNormal\" style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\"><span style=\"font-family: DejaVuSans;\">Madame, Monsieur,</span></p>\n"
+"<p class=\"MsoNormal\" style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\"><span style=\"font-family: DejaVuSans;\">Après vérification, il semblerait que vous restiez redevable pour l’accueil</span><span style=\"font-family: DejaVuSans;\"> extra-scolaire de vos enfants pour les factures suivantes.</span></p>\n"
 "\n"
-"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"<p class=\"MsoNormal\" style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\"><span style=\"font-family: DejaVuSans;\">Je vous prie de bien vouloir procéder à leur(s) règlement(s) dans les</span><span style=\"font-family: DejaVuSans;\"> meilleurs délais.</span></p>\n"
 "\n"
-"    <p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Bonjour ${object.parentid.name},</p>\n"
-"\n"
-"    <p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Vous trouverez en pièce jointe le détail du rapple de paiement</p>\n"
-"   \n"
-"</div>\n"
-"            "
+"<p class=\"MsoNormal\" style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\"><span style=\"font-family: DejaVuSans;\">Si cette somme a été versée en son temps, je vous prie de me communiquer</span><span style=\"font-family: DejaVuSans;\"> une preuve de ce paiement et vous présente mes excuses pour le désagrément occasionné par ce courrier. <br></span></p><span style=\"font-family: DejaVuSans;\"></span>"
 
 #. module: auth_signup
 #: model:mail.template,body_html:auth_signup.reset_password_email
@@ -2906,26 +2902,6 @@ msgstr ""
 "Rend disponible la configuration de l’application des connaissances depuis l'endroit où vous\n"
 "pouvez installer les modules de gestion documentaire ou de wiki caché.\n"
 "    "
-
-#. module: base
-#: model:ir.module.module,description:base.module_im_chat
-msgid ""
-"\n"
-"Instant Messaging\n"
-"=================\n"
-"\n"
-"Allows users to chat with each other in real time. Find other users easily and\n"
-"chat in real time. It support several chats in parallel.\n"
-"        "
-msgstr ""
-"\n"
-"Messagerie instantanée\n"
-"=================\n"
-"\n"
-"Permet aux utilisateurs de discuter les uns avec les autres en temps réel. \n"
-"Trouvez d'autres utilisateurs facilement et dialoguez en temps réel. \n"
-"Supporte plusieurs conversations en parallèle.\n"
-"        "
 
 #. module: base
 #: model:ir.module.module,description:base.module_google_drive
@@ -5113,61 +5089,6 @@ msgstr ""
 "\n"
 "The module adds the possibility to synchronize Google Calendar with OpenERP\n"
 "===========================================================================\n"
-
-#. module: base
-#: model:ir.module.module,description:base.module_sale_journal
-msgid ""
-"\n"
-"The sales journal modules allows you to categorise your sales and deliveries (picking lists) between different journals.\n"
-"========================================================================================================================\n"
-"\n"
-"This module is very helpful for bigger companies that works by departments.\n"
-"\n"
-"You can use journal for different purposes, some examples:\n"
-"----------------------------------------------------------\n"
-"    * isolate sales of different departments\n"
-"    * journals for deliveries by truck or by UPS\n"
-"\n"
-"Journals have a responsible and evolves between different status:\n"
-"-----------------------------------------------------------------\n"
-"    * draft, open, cancel, done.\n"
-"\n"
-"Batch operations can be processed on the different journals to confirm all sales\n"
-"at once, to validate or invoice packing.\n"
-"\n"
-"It also supports batch invoicing methods that can be configured by partners and sales orders, examples:\n"
-"-------------------------------------------------------------------------------------------------------\n"
-"    * daily invoicing\n"
-"    * monthly invoicing\n"
-"\n"
-"Some statistics by journals are provided.\n"
-"    "
-msgstr ""
-"\n"
-"The sales journal modules allows you to categorise your sales and deliveries (picking lists) between different journals.\n"
-"========================================================================================================================\n"
-"\n"
-"This module is very helpful for bigger companies that works by departments.\n"
-"\n"
-"You can use journal for different purposes, some examples:\n"
-"----------------------------------------------------------\n"
-"    * isolate sales of different departments\n"
-"    * journals for deliveries by truck or by UPS\n"
-"\n"
-"Journals have a responsible and evolves between different status:\n"
-"-----------------------------------------------------------------\n"
-"    * draft, open, cancel, done.\n"
-"\n"
-"Batch operations can be processed on the different journals to confirm all sales\n"
-"at once, to validate or invoice packing.\n"
-"\n"
-"It also supports batch invoicing methods that can be configured by partners and sales orders, examples:\n"
-"-------------------------------------------------------------------------------------------------------\n"
-"    * daily invoicing\n"
-"    * monthly invoicing\n"
-"\n"
-"Some statistics by journals are provided.\n"
-"    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_fr_pos_cert
@@ -7575,7 +7496,7 @@ msgstr "${(object.activity_category_id.payment_invitation_email_subject or 'Paym
 #. module: extraschool
 #: model:mail.template,subject:extraschool.email_template_invoice
 msgid "${(object.activitycategoryid.invoiceemailsubject or 'Invoice')|safe}"
-msgstr "AES - Détail facture"
+msgstr "${(object.activitycategoryid.invoiceemailsubject or 'Invoice')|safe}"
 
 #. module: auth_signup
 #: model:mail.template,subject:auth_signup.set_password_email
@@ -9370,6 +9291,11 @@ msgid "<div class=\"o_mail_notification\">left <a href=\"#\" class=\"o_channel_r
 msgstr "<div class=\"o_mail_notification\">a quitté <a href=\"#\" class=\"o_channel_redirect\" data-oe-id=\"%s\">#%s</a></div>"
 
 #. module: mail
+#: model:mail.template,body_html:mail.email_template_partner
+msgid "<p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\"><br></p>"
+msgstr "<p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\"><br></p>"
+
+#. module: mail
 #: model:ir.ui.view,arch_db:mail.email_compose_message_wizard_form
 msgid ""
 "<span attrs=\"{'invisible': [('composition_mode', '!=', 'mass_mail')]}\">\n"
@@ -10674,16 +10600,6 @@ msgstr "Droits d'accès"
 #: model:ir.ui.view,arch_db:base.view_model_form
 msgid "Access Rules"
 msgstr "Règles d'accès"
-
-#. module: share
-#: model:ir.ui.view,arch_db:share.share_step2_form
-msgid "Access granted!"
-msgstr "Access granted!"
-
-#. module: share
-#: model:ir.ui.view,arch_db:share.share_step2_form
-msgid "Access info"
-msgstr "Access info"
 
 #. module: base
 #: model:res.groups,name:base.group_private_addresses
@@ -12136,11 +12052,6 @@ msgstr "Un module d'auto-installable est installé automatiquement par le systè
 msgid "An email has been sent with credentials to reset your password"
 msgstr "Un courriel a été envoyé avec les informations pour recréez votre mot de passe"
 
-#. module: share
-#: model:ir.ui.view,arch_db:share.share_step2_form
-msgid "An email notification with instructions has been sent to the following people:"
-msgstr "An email notification with instructions has been sent to the following people:"
-
 #. module: extraschool
 #: code:addons/extraschool/models/extraschool_invoice.py:206
 #, python-format
@@ -12264,11 +12175,6 @@ msgstr "Magasin d'applications"
 #: model:ir.model.fields,help:base.field_res_company_rml_header1
 msgid "Appears by default on the top right corner of your printed documents (report header)."
 msgstr "Apparaît par défaut dans le coin en haut à droite de vos documents imprimés (en-tête de rapport)."
-
-#. module: base
-#: model:ir.module.module,shortdesc:base.module_hr_applicant_document
-msgid "Applicant Resumes and Letters"
-msgstr "Applicant Resumes and Letters"
 
 #. module: base
 #: code:addons/base/res/res_users.py:813
@@ -13892,7 +13798,7 @@ msgstr "Canada"
 msgid "Canada - Accounting"
 msgstr "Canada - Comptabilité"
 
-#. modules: web, base_setup, knowledge, web_planner, base_import, share, web_view_editor, web_kanban, web_calendar, web_editor, base, portal, board, mail, extraschool
+#. modules: web, base_setup, knowledge, web_planner, base_import, web_view_editor, web_kanban, web_calendar, web_editor, base, portal, board, mail, extraschool
 #. openerp-web
 #: model:ir.ui.view,arch_db:base.change_password_wizard_view
 #: model:ir.ui.view,arch_db:base.res_config_view_base
@@ -13917,7 +13823,6 @@ msgstr "Canada - Comptabilité"
 #: model:ir.ui.view,arch_db:mail.mail_wizard_invite_form
 #: model:ir.ui.view,arch_db:mail.view_mail_form
 #: model:ir.ui.view,arch_db:portal.wizard_view
-#: model:ir.ui.view,arch_db:share.share_step1_form
 #: code:addons/web/static/src/js/framework/crash_manager.js:182
 #: code:addons/web/static/src/js/framework/dialog.js:176
 #: code:addons/web/static/src/js/views/form_common.js:1031
@@ -15014,13 +14919,12 @@ msgstr "Erreur (côté interface)"
 msgid "Client action tag"
 msgstr "Étiquette de l'action client"
 
-#. modules: web, share, web_view_editor, web_calendar, web_editor, base
+#. modules: web_editor, web, base, web_view_editor, web_calendar
 #. openerp-web
 #: model:ir.ui.view,arch_db:base.view_base_language_install
 #: model:ir.ui.view,arch_db:base.view_base_module_configuration_form
 #: model:ir.ui.view,arch_db:base.view_base_module_update
 #: model:ir.ui.view,arch_db:base.wizard_lang_export
-#: model:ir.ui.view,arch_db:share.share_step2_form
 #: code:addons/web/static/src/js/views/form_common.js:860
 #: code:addons/web/static/src/js/views/form_view.js:1163
 #: code:addons/web/static/src/js/widgets/data_export.js:41
@@ -15526,7 +15430,7 @@ msgstr "Étapes de l'assistant de configuration"
 msgid "Config password"
 msgstr "Mot de passe de la Config"
 
-#. modules: share, base, fetchmail, extraschool, knowledge
+#. modules: base, fetchmail, extraschool, knowledge
 #: model:ir.ui.menu,name:base.menu_reporting_config
 #: model:ir.ui.menu,name:base.menu_sale_config
 #: model:ir.ui.view,arch_db:base.res_config_view_base
@@ -15540,7 +15444,6 @@ msgstr "Mot de passe de la Config"
 #: model:ir.model.fields,field_description:fetchmail.field_fetchmail_server_configuration
 #: model:ir.ui.view,arch_db:fetchmail.view_email_server_form
 #: model:ir.ui.menu,name:knowledge.menu_document_configuration
-#: model:ir.ui.view,arch_db:share.share_step1_form
 msgid "Configuration"
 msgstr "Paramètres"
 
@@ -17922,6 +17825,11 @@ msgstr ""
 "Désactiver cette option désinstallera également les modules suivants\n"
 "%s"
 
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_child_disadvantaged
+msgid "Disadvantaged"
+msgstr "Milieu défavorisé"
+
 #. modules: web_editor, web, web_kanban
 #. openerp-web
 #: code:addons/web/static/src/js/views/form_common.js:860
@@ -18032,7 +17940,7 @@ msgstr "Afficher"
 #: model:ir.model.fields,field_description:base.field_ir_act_window_display_name
 #: model:ir.model.fields,field_description:base.field_ir_act_window_view_display_name
 #: model:ir.model.fields,field_description:base.field_ir_actions_display_name
-#: model:ir.model.fields,field_description:base.field_ir_actions_display_name_3526
+#: model:ir.model.fields,field_description:base.field_ir_actions_display_name_3528
 #: model:ir.model.fields,field_description:base.field_ir_actions_todo_display_name
 #: model:ir.model.fields,field_description:base.field_ir_autovacuum_display_name
 #: model:ir.model.fields,field_description:base.field_ir_config_parameter_display_name
@@ -18990,9 +18898,8 @@ msgstr "Aperçu du modèle de courriel"
 msgid "Email Templates"
 msgstr "Modèles de courriels"
 
-#. modules: mail, portal
+#. module: mail
 #: model:ir.model,name:mail.model_mail_thread
-#: model:ir.model,name:portal.model_mail_thread
 msgid "Email Thread"
 msgstr "Discussion par courriel"
 
@@ -19015,7 +18922,7 @@ msgstr "Adresse mél où rediriger les réponses..."
 
 #. module: mail
 #: model:ir.model,name:mail.model_mail_compose_message
-#: model:ir.model,name:mail.model_mail_compose_message_openupgrade_3396
+#: model:ir.model,name:mail.model_mail_compose_message_openupgrade_3550
 msgid "Email composition wizard"
 msgstr "Assistant de composition de courriel"
 
@@ -19058,11 +18965,6 @@ msgstr "Courriels"
 #, python-format
 msgid "Embed Video (HTML)"
 msgstr "Vidéo intégrée (HTML)"
-
-#. module: share
-#: model:ir.ui.view,arch_db:share.share_step2_form
-msgid "Embedded code options"
-msgstr "Embedded code options"
 
 #. modules: mail, base
 #: model:ir.model.fields,field_description:base.field_res_partner_employee
@@ -19726,7 +19628,7 @@ msgstr "Vue étendue"
 #: model:ir.model.fields,field_description:base.field_ir_act_url_xml_id
 #: model:ir.model.fields,field_description:base.field_ir_act_window_xml_id
 #: model:ir.model.fields,field_description:base.field_ir_actions_xml_id
-#: model:ir.model.fields,field_description:base.field_ir_actions_xml_id_3525
+#: model:ir.model.fields,field_description:base.field_ir_actions_xml_id_3527
 #: model:ir.model.fields,field_description:base.field_ir_module_category_xml_id
 #: model:ir.model.fields,field_description:base.field_ir_ui_view_xml_id
 #: model:ir.ui.view,arch_db:base.view_window_action_form
@@ -19890,11 +19792,6 @@ msgstr "Facture(s) impayée(s)"
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_durbuy
 msgid "Facture(s) échue(s) ou en attente de paiement"
 msgstr "Facture(s) échue(s) ou en attente de paiement"
-
-#. module: extraschool
-#: model:mail.template,report_name:extraschool.email_template_invoice
-msgid "Facture.pdf"
-msgstr "Facture.pdf"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_organising_power_form
@@ -23192,11 +23089,6 @@ msgstr "Serveur de courriels entrants"
 msgid "Inbox"
 msgstr "Boîte de réception"
 
-#. module: share
-#: model:ir.ui.view,arch_db:share.share_step1_form
-msgid "Include an Optional Personal Message"
-msgstr "Include an Optional Personal Message"
-
 #. module: fetchmail
 #: model:ir.ui.view,arch_db:fetchmail.view_email_server_form
 #: model:ir.ui.view,arch_db:fetchmail.view_email_server_search
@@ -23565,11 +23457,6 @@ msgstr "Instance"
 #: model:ir.ui.menu,name:base.menu_workflow_instance
 msgid "Instances"
 msgstr "Instances"
-
-#. module: base
-#: model:ir.module.module,shortdesc:base.module_im_chat
-msgid "Instant Messaging"
-msgstr "Instant Messaging"
 
 #. module: base
 #: model:ir.module.module,description:base.module_bus
@@ -24049,11 +23936,6 @@ msgstr "Invoicing"
 #: model:ir.module.category,name:base.module_category_account_voucher
 msgid "Invoicing & Payments"
 msgstr "Facturation et règlements"
-
-#. module: base
-#: model:ir.module.module,shortdesc:base.module_sale_journal
-msgid "Invoicing Journals"
-msgstr "Journaux de facturation"
 
 #. module: base
 #: model:res.country,name:base.ir
@@ -24608,7 +24490,7 @@ msgstr "Date de dernière modification"
 #: model:ir.model.fields,field_description:base.field_ir_act_window___last_update
 #: model:ir.model.fields,field_description:base.field_ir_act_window_view___last_update
 #: model:ir.model.fields,field_description:base.field_ir_actions___last_update
-#: model:ir.model.fields,field_description:base.field_ir_actions___last_update_3527
+#: model:ir.model.fields,field_description:base.field_ir_actions___last_update_3529
 #: model:ir.model.fields,field_description:base.field_ir_actions_todo___last_update
 #: model:ir.model.fields,field_description:base.field_ir_autovacuum___last_update
 #: model:ir.model.fields,field_description:base.field_ir_config_parameter___last_update
@@ -25101,7 +24983,7 @@ msgstr "Dernière date de transmission"
 #: model:ir.model.fields,field_description:web_planner.field_web_planner_write_uid
 #: model:ir.model.fields,field_description:web_tip.field_web_tip_write_uid
 msgid "Last Updated by"
-msgstr "Derniere fois mis à jour par"
+msgstr "Dernière modification par"
 
 #. modules: base_setup, web_planner, bus, base_import, web_tip, fetchmail, extraschool, web_editor, web_environment_ribbon, base, portal, board, report, mail, decimal_precision
 #: model:ir.model.fields,field_description:base.field_base_language_export_write_date
@@ -25321,7 +25203,7 @@ msgstr "Derniere fois mis à jour par"
 #: model:ir.model.fields,field_description:web_planner.field_web_planner_write_date
 #: model:ir.model.fields,field_description:web_tip.field_web_tip_write_date
 msgid "Last Updated on"
-msgstr "Dernière mise à jour le"
+msgstr "Dernière mis à jour le"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_mainsettings_last_child_upgrade_levels
@@ -26824,14 +26706,13 @@ msgstr "Mercredi"
 msgid "Mercury Payment Services"
 msgstr "Services de Paiement Mercury"
 
-#. modules: bus, base, portal, mail
+#. modules: bus, base, mail
 #: model:ir.model.fields,field_description:base.field_ir_logging_message
 #: model:ir.model.fields,field_description:bus.field_bus_bus_message
 #: model:ir.model,name:mail.model_mail_message
 #: model:ir.model.fields,field_description:mail.field_mail_mail_mail_message_id
 #: model:ir.model.fields,field_description:mail.field_mail_wizard_invite_message
 #: model:ir.ui.view,arch_db:mail.view_message_form
-#: model:ir.model,name:portal.model_mail_message
 msgid "Message"
 msgstr "Message"
 
@@ -29400,11 +29281,6 @@ msgid "Open: "
 msgstr "Ouvrir : "
 
 #. module: base
-#: model:ir.module.module,summary:base.module_im_chat
-msgid "OpenERP Chat"
-msgstr "OpenERP Chat"
-
-#. module: base
 #: model:ir.module.module,shortdesc:base.module_web_api
 msgid "OpenERP Web API"
 msgstr "API Web OpenERP"
@@ -29516,11 +29392,6 @@ msgstr "Valeur facultative à utiliser si le champ cible est vide"
 #: selection:workflow.activity,split_mode:0
 msgid "Or"
 msgstr "Ou"
-
-#. module: share
-#: model:ir.ui.view,arch_db:share.share_step2_form
-msgid "Or insert the following code where you want to embed your documents"
-msgstr "Or insert the following code where you want to embed your documents"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_remindertype_sequence
@@ -29714,10 +29585,9 @@ msgstr "Serveur de courriel sortant"
 msgid "Outgoing Mail Servers"
 msgstr "Serveurs de courriels sortants"
 
-#. modules: mail, fetchmail, portal
+#. modules: mail, fetchmail
 #: model:ir.model,name:fetchmail.model_mail_mail
 #: model:ir.model,name:mail.model_mail_mail
-#: model:ir.model,name:portal.model_mail_mail
 msgid "Outgoing Mails"
 msgstr "Courriels à envoyer"
 
@@ -30251,7 +30121,7 @@ msgstr "Classe d'Analyseur"
 #: selection:base.setup.terminology,partner:0
 #: model:ir.model,name:bus.model_res_partner
 #: model:ir.model,name:mail.model_res_partner
-#: model:ir.model,name:mail.model_res_partner_openupgrade_3398
+#: model:ir.model,name:mail.model_res_partner_openupgrade_3552
 msgid "Partner"
 msgstr "Partenaire"
 
@@ -32144,11 +32014,6 @@ msgid "Rappel"
 msgstr "Rappel"
 
 #. module: extraschool
-#: model:mail.template,report_name:extraschool.email_template_reminder
-msgid "Rappel.pdf"
-msgstr "Rappel.pdf"
-
-#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_organising_power_form
 msgid "Rappels"
 msgstr "Rappels"
@@ -33881,11 +33746,6 @@ msgid "Search associated QWeb views"
 msgstr "Rechercher les vues QWeb associées"
 
 #. module: base
-#: model:ir.module.module,summary:base.module_hr_applicant_document
-msgid "Search job applications by Index content."
-msgstr "Search job applications by Index content."
-
-#. module: base
 #: model:ir.ui.view,arch_db:base.view_module_filter
 msgid "Search modules"
 msgstr "Rechercher des modules"
@@ -34487,11 +34347,6 @@ msgstr "Seychelles"
 msgid "Shadow"
 msgstr "Ombre"
 
-#. module: share
-#: model:ir.ui.view,arch_db:share.share_step1_form
-msgid "Share"
-msgstr "Share"
-
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_groups_share
 msgid "Share Group"
@@ -34501,11 +34356,6 @@ msgstr "Groupe de partage"
 #: model:ir.model.fields,field_description:base.field_res_users_share
 msgid "Share User"
 msgstr "Utilisateur du partage"
-
-#. module: portal
-#: model:ir.model,name:portal.model_share_wizard
-msgid "Share Wizard"
-msgstr "Assistant de partage"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_website_slides
@@ -34534,11 +34384,6 @@ msgstr "Suivre les partenaires de toutes les compagnies"
 msgid "Share with all users"
 msgstr "Partager avec tous les utilisateurs"
 
-#. module: share
-#: model:ir.ui.view,arch_db:share.share_step1_form
-msgid "Share with these People (one email per line)"
-msgstr "Share with these People (one email per line)"
-
 #. module: base_setup
 #: model:ir.model.fields,help:base_setup.field_base_config_settings_company_share_partner
 msgid ""
@@ -34559,11 +34404,6 @@ msgstr "Partagé"
 #: model:ir.ui.view,arch_db:base_setup.view_general_configuration
 msgid "Shared resources"
 msgstr "Ressources partagées"
-
-#. module: share
-#: model:ir.ui.view,arch_db:share.share_step1_form
-msgid "Sharing Options"
-msgstr "Sharing Options"
 
 #. module: base
 #: selection:res.partner,type:0
@@ -35653,7 +35493,7 @@ msgstr "Substitution"
 #: model:ir.model.fields,field_description:mail.field_mail_compose_message_subtype_id
 #: model:ir.model.fields,field_description:mail.field_mail_followers_subtype_ids
 #: model:ir.model.fields,field_description:mail.field_mail_mail_subtype_id
-#: model:ir.model.fields,field_description:mail.field_mail_message_subtype_id_1300
+#: model:ir.model.fields,field_description:mail.field_mail_message_subtype_id_1287
 #: model:ir.ui.view,arch_db:mail.view_message_subtype_tree
 msgid "Subtype"
 msgstr "Sous-type"
@@ -35704,9 +35544,8 @@ msgstr "Suffixe"
 msgid "Suffix value of the record for the sequence"
 msgstr "Valeur du suffixe de l'enregistrement pour la séquence"
 
-#. modules: base, share
+#. module: base
 #: model:ir.model.fields,field_description:base.field_ir_module_module_summary
-#: model:ir.ui.view,arch_db:share.share_step2_form
 msgid "Summary"
 msgstr "Résumé"
 
@@ -37043,7 +36882,7 @@ msgstr "Il existe déjà un rapport ONE pour ce trimestre et ce lieu d'accueil e
 
 #. module: extraschool
 #: code:addons/extraschool/models/extraschool_one_report.py:196
-#: code:addons/extraschool/models/extraschool_plain_report.py:202
+#: code:addons/extraschool/models/extraschool_plain_report.py:228
 #, python-format
 msgid "There is no ONE report configuration"
 msgstr "Il n'y a pas de configuration ou plus de date de validité correcte"
@@ -37055,10 +36894,10 @@ msgid "There is no next reminder."
 msgstr "There is no next reminder."
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_plain_report.py:180
+#: code:addons/extraschool/models/extraschool_plain_report.py:206
 #, python-format
 msgid "There is no prestationstimes for this dates."
-msgstr "There is no prestationstimes for this dates."
+msgstr "Il n'existe pas de présences pour ces dates."
 
 #. module: base
 #: code:addons/models.py:2664
@@ -37286,15 +37125,6 @@ msgid ""
 msgstr ""
 "Cet assistant permet d'exporter dans un fichier CSV toutes les données qui correspondent aux critères de recherche actuels.\n"
 "            Vous pouvez choisir d'exporter toutes les données ou uniquement les champs pouvant être réimportés après modification."
-
-#. module: base
-#: model:ir.module.module,description:base.module_hr_applicant_document
-msgid ""
-"This module allows you to search job applications by content\n"
-"    of resumes and letters."
-msgstr ""
-"This module allows you to search job applications by content\n"
-"    of resumes and letters."
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_lang_thousands_sep
@@ -37774,7 +37604,7 @@ msgstr "Transitoire"
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_model_transient
 msgid "Transient Model"
-msgstr "Modèle transitoire"
+msgstr "Transient Model"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.report_irmodeloverview
@@ -38980,11 +38810,6 @@ msgstr "Utilisez le modèle de base de l'action"
 #, python-format
 msgid "Use the format '%s'"
 msgstr "Utilisez le format '%s'"
-
-#. module: share
-#: model:ir.ui.view,arch_db:share.share_step2_form
-msgid "Use this link"
-msgstr "Use this link"
 
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_model_fields_relation_table
@@ -40666,7 +40491,7 @@ msgid "Your are not allowed to delete a validated registration !!"
 msgstr "Your are not allowed to delete a validated registration !!"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_plain_report.py:194
+#: code:addons/extraschool/models/extraschool_plain_report.py:220
 #: code:addons/extraschool/models/extraschool_subvention_report.py:135
 #, python-format
 msgid "Your dates are not ok. Please Check your dates."
@@ -42452,10 +42277,9 @@ msgstr "le"
 msgid "operating grants"
 msgstr "operating grants"
 
-#. modules: web_editor, web, share, knowledge
+#. modules: web_editor, web, knowledge
 #. openerp-web
 #: model:ir.ui.view,arch_db:knowledge.view_knowledge_configuration
-#: model:ir.ui.view,arch_db:share.share_step1_form
 #: code:addons/web/static/src/xml/base.xml:1257
 #: code:addons/web/static/src/xml/website.tour.xml:14
 #: code:addons/web_editor/static/src/xml/editor.xml:7
@@ -42985,7 +42809,7 @@ msgstr "une avance de"
 #: model:ir.model.fields,field_description:decimal_precision.field_decimal_precision_test_float_4
 #: model:ir.model.fields,field_description:web_editor.field_web_editor_converter_test_sub_name
 msgid "unknown"
-msgstr "unknown"
+msgstr "inconnu"
 
 #. module: web_editor
 #. openerp-web

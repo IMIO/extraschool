@@ -61,7 +61,7 @@ class extraschool_plain_report(models.Model):
          ('tent', 'Sous tente')),
         default='holiday_plain', string='Stays and camps')
     center = fields.Many2one('extraschool.place', 'Implantation scolaire', required=True, domain="[('active', '=', 'True')]")
-
+    guardian = fields.Many2one('extraschool.guardian', 'Accueillante', required=True, domain="[('isdisabled', '=', 'False')]")
 
     @api.onchange('start_date', 'end_date')
     @api.multi
@@ -78,9 +78,8 @@ class extraschool_plain_report(models.Model):
     @api.multi
     def _generate_subvention_request(self, tags, vals):
 
-        organising_power = self.env['extraschool.organising_power'].search([])
-
         tags['id_sub'] = ''
+        organising_power = self.env['extraschool.organising_power'].search([])
         tags['po_denomination'] = organising_power['po_name'] or ''
 
         tags[vals.get('title')] = ' ' or ''
@@ -93,14 +92,14 @@ class extraschool_plain_report(models.Model):
         tags['po_fax'] = organising_power['po_fax'] or ''
         tags['po_mail'] = organising_power['po_email'] or ''
 
-        tags['center_name'] = self.center.name
-        import wdb; wdb.set_trace()
-        tags['center_adress'] = self.center.street_code + ' ' + self.center.street
-        tags['center_postalcode'] = self.center.zipcode
-        tags['center_city'] = self.center.city
-        tags['center_tel'] = self.center.tel
-        tags['center_fax'] = self.center.fax
-        tags['center_mail'] = self.center.email
+        place = self.env['extraschool.place'].browse(vals['center'])
+        tags['center_name'] = place.name or ''
+        tags['center_adress'] = place.street_code + ' ' + place.street or ''
+        tags['center_postalcode'] = place.zipcode or ''
+        tags['center_city'] = place.city or ''
+        tags['center_tel'] = place.tel or ''
+        tags['center_fax'] = place.fax or ''
+        tags['center_mail'] = place.email or ''
 
         tags['co_firstname'] = ''
         tags['co_lastname'] = ''
@@ -149,6 +148,9 @@ class extraschool_plain_report(models.Model):
                             else:
                                 over_6[prestation.childid.id]['heavy'] = 'X'
 
+                    if prestation.childid.disadvantaged:
+                        over_6[prestation.childid.id]['disadvantaged'] = 'X'
+
                     tags['over_6'].append(over_6[prestation.childid.id])
             else:
                 if prestation.childid.id in under_6:
@@ -169,6 +171,9 @@ class extraschool_plain_report(models.Model):
                                 under_6[prestation.childid.id]['mild'] = 'X'
                             else:
                                 under_6[prestation.childid.id]['heavy'] = 'X'
+
+                    if prestation.childid.disadvantaged:
+                        under_6[prestation.childid.id]['disadvantaged'] = 'X'
 
                     tags['under_6'].append(under_6[prestation.childid.id])
 
