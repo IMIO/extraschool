@@ -61,7 +61,7 @@ class extraschool_plain_report(models.Model):
          ('tent', 'Sous tente')),
         default='holiday_plain', string='Stays and camps')
     center = fields.Many2one('extraschool.place', 'Implantation scolaire', required=True, domain="[('active', '=', 'True')]")
-    guardian = fields.Many2one('extraschool.guardian', 'Accueillante', required=True, domain="[('isdisabled', '=', 'False')]")
+    guardian = fields.Many2one('extraschool.guardian', 'Correspondant', required=True, domain="[('isdisabled', '=', 'False')]")
 
     @api.onchange('start_date', 'end_date')
     @api.multi
