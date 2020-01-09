@@ -163,18 +163,18 @@ class extraschool_remindersjournal(models.Model):
         # Return id[0], balance[1] and parentid[2] of all the invoices that were not paid for the last reminder.
         cr = self.env.cr
         get_invoice_sql = ("""  SELECT i.id, i.balance, p.id, i.schoolimplantationid
-                                FROM extraschool_invoice AS i 
-                                INNER JOIN extraschool_parent AS p ON i.parentid = p .id 
-                                WHERE i.id IN (		
-                                                SELECT i.id		
-                                                FROM extraschool_reminder AS r		
-                                                INNER JOIN extraschool_reminder_invoice_rel AS ri		
-                                                ON r.id = ri.reminder_id		
-                                                INNER JOIN extraschool_invoice AS i		
-                                                ON ri.invoice_id = i.id		
-                                                INNER JOIN extraschool_parent AS p		
-                                                ON r.parentid = p.id		
-                                                WHERE r.reminders_journal_id = %s 
+                                FROM extraschool_invoice AS i
+                                INNER JOIN extraschool_parent AS p ON i.parentid = p .id
+                                WHERE i.id IN (
+                                                SELECT i.id
+                                                FROM extraschool_reminder AS r
+                                                INNER JOIN extraschool_reminder_invoice_rel AS ri
+                                                ON r.id = ri.reminder_id
+                                                INNER JOIN extraschool_invoice AS i
+                                                ON ri.invoice_id = i.id
+                                                INNER JOIN extraschool_parent AS p
+                                                ON r.parentid = p.id
+                                                WHERE r.reminders_journal_id = %s
                                                 AND i.balance >= %s
                                                 AND i.tag IS NULL
                                                 )
@@ -448,7 +448,7 @@ class extraschool_remindersjournal(models.Model):
                                         left join extraschool_invoice i on i.last_reminder_id = r.id
                                         left join extraschool_reminders_journal_item ji on ji.id = r.reminders_journal_item_id
                                         left join extraschool_remindertype rt on rt.id = ji.reminder_type_id
-                                        where r.reminders_journal_id = %s and rt.out_of_accounting = True                                    
+                                        where r.reminders_journal_id = %s and rt.out_of_accounting = True
                                     """
             self.env.cr.execute(get_invoice_exit_sql, (self.id,))
             invoice_ids = self.env.cr.dictfetchall()
