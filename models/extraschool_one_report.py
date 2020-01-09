@@ -105,6 +105,8 @@ class extraschool_one_report(models.Model):
 
         if one_report_ids:
             self.not_created = False
+        else:
+            self.not_created = True
 
 
     @api.onchange('quarter')
