@@ -4,7 +4,7 @@
 #    Extraschool
 #    Copyright (C) 2008-2019
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia & Jenny Pans - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -61,6 +61,7 @@ class extraschool_guardian(models.Model):
     housephone = fields.Char('House Phone', size=20, track_visibility='onchange')
     gsm = fields.Char('GSM', size=20, track_visibility='onchange')
     email = fields.Char('Email', size=100, track_visibility='onchange')
+    fax = fields.Char('Fax')
     oldid = fields.Integer('oldid')
     brevete = fields.Boolean('Breveté', track_visibility='onchange')
     prestation_ids = fields.One2many('extraschool.guardianprestationtimes', 'guardianid')
