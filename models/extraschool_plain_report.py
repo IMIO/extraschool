@@ -60,8 +60,8 @@ class extraschool_plain_report(models.Model):
          ('residential_infra', 'Infrastructures Résidentielles'),
          ('tent', 'Sous tente')),
         default='holiday_plain', string='Stays and camps')
-    center = fields.Many2one('extraschool.place', 'Implantation scolaire', required=True, domain="[('active', '=', 'True')]")
-    guardian = fields.Many2one('extraschool.guardian', 'Correspondant', required=True, domain="[('isdisabled', '=', 'False')]")
+    center = fields.Many2one('extraschool.place', 'Implantation scolaire', required=True, domain="[('active', '=', True)]")
+    guardian = fields.Many2one('extraschool.guardian', 'Correspondant', required=True, domain="[('isdisabled', '=', False)]")
 
     @api.onchange('start_date', 'end_date')
     @api.multi
@@ -101,9 +101,16 @@ class extraschool_plain_report(models.Model):
         tags['center_fax'] = place.fax or ''
         tags['center_mail'] = place.email or ''
 
-        tags['co_firstname'] = ''
-        tags['co_lastname'] = ''
-        tags['co_function'] = ''
+        guardian = self.env['extraschool.guardian'].browse(vals['guardian'])
+        tags['co_firstname'] = guardian.firstname or ''
+        tags['co_lastname'] = guardian.lastname or ''
+        tags['co_function'] = guardian.responsable_function or ''
+        tags['co_adress'] = guardian.street or ''
+        tags['co_postal_code'] = guardian.zipcode or ''
+        tags['co_city'] = guardian.city or ''
+        tags['co_tel'] = guardian.gsm or ''
+        tags['co_mail'] = guardian.email or ''
+
         tags['cf_nb'] = ''
         tags['cf_holder'] = ''
         tags['cf_adress'] = ''
@@ -144,12 +151,12 @@ class extraschool_plain_report(models.Model):
                         health_sheet = prestation.childid.health_sheet_ids[0]
                         if health_sheet.handicap:
                             if health_sheet.level_handicap == 'mild':
-                                over_6[prestation.childid.id]['mild'] = 'X'
+                                over_6[prestation.childid.id]['mild'] = ' '
                             else:
-                                over_6[prestation.childid.id]['heavy'] = 'X'
+                                over_6[prestation.childid.id]['heavy'] = ' '
 
                     if prestation.childid.disadvantaged:
-                        over_6[prestation.childid.id]['disadvantaged'] = 'X'
+                        over_6[prestation.childid.id]['disadvantaged'] = ' '
 
                     tags['over_6'].append(over_6[prestation.childid.id])
             else:
@@ -168,12 +175,12 @@ class extraschool_plain_report(models.Model):
                         health_sheet = prestation.childid.health_sheet_ids[0]
                         if health_sheet.handicap:
                             if health_sheet.level_handicap == 'mild':
-                                under_6[prestation.childid.id]['mild'] = 'X'
+                                under_6[prestation.childid.id]['mild'] = ' '
                             else:
-                                under_6[prestation.childid.id]['heavy'] = 'X'
+                                under_6[prestation.childid.id]['heavy'] = ' '
 
                     if prestation.childid.disadvantaged:
-                        under_6[prestation.childid.id]['disadvantaged'] = 'X'
+                        under_6[prestation.childid.id]['disadvantaged'] = ' '
 
                     tags['under_6'].append(under_6[prestation.childid.id])
 
