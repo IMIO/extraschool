@@ -4,7 +4,7 @@
 #    Extraschool
 #    Copyright (C) 2008-2019
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia & Jenny Pans - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -85,8 +85,10 @@ class extraschool_remindersjournal(models.Model):
 
         for reminder in get_reminder_ids:
             invoice_ids = self.env['extraschool.reminder'].browse(reminder.id).concerned_invoice_ids
-            if sum([self.env['extraschool.invoice'].browse(invoice.id).balance for invoice in invoice_ids]) > 0:
+            balance = sum([self.env['extraschool.invoice'].browse(invoice.id).balance for invoice in invoice_ids])
+            if balance > 0:
                 unsolved_reminder_ids.append(reminder.id)
+                reminder.write({'balance': balance})
 
         self.unsolved_reminder_ids = unsolved_reminder_ids
 
@@ -163,18 +165,18 @@ class extraschool_remindersjournal(models.Model):
         # Return id[0], balance[1] and parentid[2] of all the invoices that were not paid for the last reminder.
         cr = self.env.cr
         get_invoice_sql = ("""  SELECT i.id, i.balance, p.id, i.schoolimplantationid
-                                FROM extraschool_invoice AS i 
-                                INNER JOIN extraschool_parent AS p ON i.parentid = p .id 
-                                WHERE i.id IN (		
-                                                SELECT i.id		
-                                                FROM extraschool_reminder AS r		
-                                                INNER JOIN extraschool_reminder_invoice_rel AS ri		
-                                                ON r.id = ri.reminder_id		
-                                                INNER JOIN extraschool_invoice AS i		
-                                                ON ri.invoice_id = i.id		
-                                                INNER JOIN extraschool_parent AS p		
-                                                ON r.parentid = p.id		
-                                                WHERE r.reminders_journal_id = %s 
+                                FROM extraschool_invoice AS i
+                                INNER JOIN extraschool_parent AS p ON i.parentid = p .id
+                                WHERE i.id IN (
+                                                SELECT i.id
+                                                FROM extraschool_reminder AS r
+                                                INNER JOIN extraschool_reminder_invoice_rel AS ri
+                                                ON r.id = ri.reminder_id
+                                                INNER JOIN extraschool_invoice AS i
+                                                ON ri.invoice_id = i.id
+                                                INNER JOIN extraschool_parent AS p
+                                                ON r.parentid = p.id
+                                                WHERE r.reminders_journal_id = %s
                                                 AND i.balance >= %s
                                                 AND i.tag IS NULL
                                                 )
@@ -448,7 +450,7 @@ class extraschool_remindersjournal(models.Model):
                                         left join extraschool_invoice i on i.last_reminder_id = r.id
                                         left join extraschool_reminders_journal_item ji on ji.id = r.reminders_journal_item_id
                                         left join extraschool_remindertype rt on rt.id = ji.reminder_type_id
-                                        where r.reminders_journal_id = %s and rt.out_of_accounting = True                                    
+                                        where r.reminders_journal_id = %s and rt.out_of_accounting = True
                                     """
             self.env.cr.execute(get_invoice_exit_sql, (self.id,))
             invoice_ids = self.env.cr.dictfetchall()
