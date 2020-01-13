@@ -133,6 +133,9 @@ class extraschool_plain_report(models.Model):
         tags['over_6'] = []
         nb_under_6 = 0
         nb_over_6 = 0
+        tags['nb_child_mild'] = 0
+        tags['nb_child_heavy'] = 0
+        tags['nb_child_disadvantaged'] = 0
 
         # todo simplifier l'algorithme et également dans le rapport ONE
         for prestation in prestation_ids:
@@ -154,13 +157,17 @@ class extraschool_plain_report(models.Model):
                         if health_sheet.handicap:
                             if health_sheet.level_handicap == 'mild':
                                 over_6[prestation.childid.id]['mild'] = ' '
+                                tags['nb_child_mild'] += 1
                             else:
                                 over_6[prestation.childid.id]['heavy'] = ' '
+                                tags['nb_child_heavy'] += 1
 
                     if prestation.childid.disadvantaged:
                         over_6[prestation.childid.id]['disadvantaged'] = ' '
+                        tags['nb_child_disadvantaged'] += 1
 
                     tags['over_6'].append(over_6[prestation.childid.id])
+
             else:
                 if prestation.childid.id in under_6:
                     under_6[prestation.childid.id]['prestation'] += 1
@@ -178,16 +185,20 @@ class extraschool_plain_report(models.Model):
                         if health_sheet.handicap:
                             if health_sheet.level_handicap == 'mild':
                                 under_6[prestation.childid.id]['mild'] = ' '
+                                tags['nb_child_mild'] += 1
                             else:
                                 under_6[prestation.childid.id]['heavy'] = ' '
+                                tags['nb_child_heavy'] += 1
 
                     if prestation.childid.disadvantaged:
                         under_6[prestation.childid.id]['disadvantaged'] = ' '
+                        tags['nb_child_disadvantaged'] += 1
 
                     tags['under_6'].append(under_6[prestation.childid.id])
 
         tags['under_total'] = nb_under_6
         tags['over_total'] = nb_over_6
+        tags['nb_child_valid'] = nb_under_6 + nb_over_6
         return tags
 
 
