@@ -21,6 +21,39 @@
         </div>
     </template>
 
+    <template id="report_reminder_burdinne">
+           <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_invoice_summary_tournai_reminder.css"/>
+            </xpath>
+              <div id="invoice_summary">
+                 <p>
+                    Concerne : Rappel de votre facture impayée pour la période de <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/><br/>
+                    Dossier traité par Delphine Hamende  085/51.97.19<br/><br/>
+
+                    Nous constatons qu’à ce jour vous êtes redevables envers la
+                    commune de Burdinne de la somme de <t t-esc="'%.2f €' % (amount)"/> correspondant à la facture de l’accueil
+                    extrascolaire de votre (vos) enfant(s).<br/><br/>
+
+                    Afin d’éviter des frais supplémentaires, nous vous saurions gré de
+
+                    vous acquitter de ce montant dans les 10 jours à dater de la présente.
+
+                    Si vous avez effectué le paiement, pourriez-vous m’en envoyer la
+                    preuve par mail (atl@burdinne.be) ou par voie postale afin que je puisse vérifier.
+                    Dans le cas contraire, nous vous demandons de verser la somme
+                    due sur le compte suivant <b><t t-esc="categ_id.bankaccount" /></b> avec en communication strucutrurée <t t-esc="com_struct" />.<br/><br/>
+
+                    Pour tout renseignement complémentaire, vous pouvez contacter
+
+                    Madame Delphine Hamende, coordinatrice ATL au 085/51.97.19.<br/><br/>
+
+                    Nous vous prions d’agréer, Madame VANDENBROOKE ,<br/><br/>
+
+                    l’assurance de notre considération distinguée.
+                 </p>
+              </div>
+    </template>
+
     <template id="report_invoice_texte_roi_burdinne">
         <xpath expr="//head" position="inside">
             <link rel="stylesheet" href="/extraschool/static/src/css/report_invoice_summary_tournai_med.css"/>

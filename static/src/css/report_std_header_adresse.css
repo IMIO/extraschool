@@ -10,14 +10,14 @@
 }
 
 #b_logo{
-    width: 30%;
+    width: 40%;
 }
 #b_slogan{
     float: left;
     margin-top: 30px;
-    width: 15%;
+    width: 100%;
     margin-left: 5px;
-    font-size: 8px;
+    font-size: 10px;
 
 }
 
