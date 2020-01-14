@@ -22862,7 +22862,7 @@ msgstr "Il n'y a pas de présences à facturer pour cette période"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_invoice_wizard_form
 msgid "Il y a au moins un <b>encodage manuel</b> non vérifié pour cette période"
-msgstr "Il y a au moins un <b>encodage manuel</b> non vérifié pour cette période"
+msgstr "Il y a au moins un <b>encodage manuel</b> non validé pour cette période"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_invoice_wizard_form
