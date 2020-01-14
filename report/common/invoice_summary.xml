@@ -66,7 +66,7 @@
                 <xpath expr="//head" position="inside">
                     <link rel="stylesheet" href="/extraschool/static/src/css/report_invoice_summary.css"/>
                 </xpath>
-	        	<div id="invoice_summary" >
+	        	<div id="invoice_summary_gras" >
 	        		<h2><span t-esc="summary_invoice_title" /></h2>
 	        		<p>Les factures suivantes sont toujours en attente de paiement. Nous vous prions de bien vouloir procéder à leur(s) règlement(s) dans les meilleurs délais. Tout montant payé apure automatiquement la facture la plus ancienne </p>
 	        		<table>

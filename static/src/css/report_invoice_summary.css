@@ -6,6 +6,16 @@
     text-align: justify;
     text-justify: inter-word;
     font-size: x-small;
+}
+
+#invoice_summary_gras{
+    width: 100%;
+    display: block;
+    margin: 0cm 0cm 0cm 0cm;
+    page-break-inside: avoid;
+    text-align: justify;
+    text-justify: inter-word;
+    font-size: x-small;
     border-style: solid;
     border-width: 2px;
     padding : 5px;
