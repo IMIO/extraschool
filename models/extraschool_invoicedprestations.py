@@ -4,7 +4,7 @@
 #    Extraschool
 #    Copyright (C) 2008-2019
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia & Jenny Pans - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -123,7 +123,9 @@ class extraschool_invoicedprestations(models.Model):
     def write(self, vals):
         if 'no_value_amount' in vals and vals.get('no_value_amount') > self.total_price:
             vals['no_value_amount'] = 0.00
-        elif 'no_value_amount' in vals and round(self.invoiceid.amount_total - self.invoiceid.amount_received, 2) - self.invoiceid.no_value_amount - vals.get(
+            #problème avec la soustraction de float
+
+        elif 'no_value_amount' in vals and round(self.invoiceid.amount_total - self.invoiceid.amount_received - self.invoiceid.no_value_amount, 2) - vals.get(
                 'no_value_amount') < 0.00:
             vals['no_value_amount'] = 0.00
 
