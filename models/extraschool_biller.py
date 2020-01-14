@@ -4,7 +4,7 @@
 #    Extraschool
 #    Copyright (C) 2008-2019
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia & Jenny Pans - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -35,6 +35,7 @@ from openerp.exceptions import except_orm, Warning, RedirectWarning
 import threading
 
 import base64
+
 try:
     import cStringIO as StringIO
 except ImportError:
@@ -42,6 +43,7 @@ except ImportError:
 
 import time
 import logging
+
 _logger = logging.getLogger(__name__)
 
 
@@ -52,21 +54,22 @@ class extraschool_biller(models.Model):
 
     _order = "id desc"
 
-    activitycategoryid = fields.Many2many('extraschool.activitycategory', 'extraschool_biller_activity_category_rel', string='Activity Category', track_visibility='onchange')
+    activitycategoryid = fields.Many2many('extraschool.activitycategory', 'extraschool_biller_activity_category_rel',
+                                          string='Activity Category', track_visibility='onchange')
     accrued_ids = fields.One2many('extraschool.accrued', 'biller_id')
     period_from = fields.Date('Period from')
     period_to = fields.Date('Period to')
     payment_term = fields.Date('Payment term')
     invoices_date = fields.Date('Invoices date')
-    invoice_ids = fields.One2many('extraschool.invoice', 'biller_id','invoices')
+    invoice_ids = fields.One2many('extraschool.invoice', 'biller_id', 'invoices')
     total = fields.Float(compute='_compute_total', string="Total", track_visibility='onchange')
     received = fields.Float(compute='_compute_received', string="Received", track_visibility='onchange')
     novalue = fields.Float(compute='_compute_novalue', string="No Value", track_visibility='onchange')
     balance = fields.Float(compute='_compute_balance', string="Balance", track_visibility='onchange')
-    nbinvoices = fields.Integer(compute='_compute_nbinvoices', string="Nb of invoices",)
+    nbinvoices = fields.Integer(compute='_compute_nbinvoices', string="Nb of invoices", )
     other_ref = fields.Char("Ref")
-    comment = fields.Text("Comment",default="")
-    filename = fields.Char('filename', size=20,readonly=True)
+    comment = fields.Text("Comment", default="")
+    filename = fields.Char('filename', size=20, readonly=True)
     biller_file = fields.Binary('File', readonly=True)
     pdf_ready = fields.Boolean(string="Pdf ready", default=False)
     oldid = fields.Integer('oldid')
@@ -91,14 +94,14 @@ class extraschool_biller(models.Model):
 
         for prestation_time_delete in pod:
             prestation_time_check = self.env['extraschool.prestationtimes'].search([
-                                                                  ('prestation_times_of_the_day_id', 'in', prestation_time_delete),
-                                                                  ('invoiced_prestation_id', '!=', 'Null')
-                                                                  ])
+                ('prestation_times_of_the_day_id', 'in', prestation_time_delete),
+                ('invoiced_prestation_id', '!=', 'Null')
+            ])
             if prestation_time_check:
                 to_delete = self.env['extraschool.prestationtimes'].search([
-                                                                  ('prestation_times_of_the_day_id', 'in', prestation_time_delete),
-                                                                  ('invoiced_prestation_id', '=', 'Null')
-                                                                  ])
+                    ('prestation_times_of_the_day_id', 'in', prestation_time_delete),
+                    ('invoiced_prestation_id', '=', 'Null')
+                ])
 
                 arg.append(to_delete.ids)
 
@@ -106,9 +109,11 @@ class extraschool_biller(models.Model):
 
     @api.multi
     def name_get(self):
-        res=[]
+        res = []
         for biller in self:
-            res.append((biller.id, _("Biller from %s to %s") % (datetime.strptime(biller.period_from, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y"), datetime.strptime(biller.period_to, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y"))))
+            res.append((biller.id, _("Biller from %s to %s") % (
+            datetime.strptime(biller.period_from, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y"),
+            datetime.strptime(biller.period_to, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y"))))
 
         return res
 
@@ -152,7 +157,7 @@ class extraschool_biller(models.Model):
         for invoice in self.invoice_ids:
             _logger.info("[%s/%s] payment reconcil" % (count, total_invoice))
             invoice.payment_ids.unlink()
-            count +=1
+            count += 1
 
         # invoicelastcomstruct = str(self.invoice_ids.sorted(key=lambda r: r.id)[0].number)[-5:]
         #
@@ -170,22 +175,23 @@ class extraschool_biller(models.Model):
 
     @api.one
     def sendmails(self):
-        #to do refactoring et netoyage suite au passage api V8
+        # to do refactoring et netoyage suite au passage api V8
         cr, uid = self.env.cr, self.env.user.id
         ids = [self.id]
 
         mail_mail = self.env['mail.mail']
         ir_attachment = self.env['ir.attachment']
         invoice_obj = self.env['extraschool.invoice']
-        parent_obj  = self.env['extraschool.parent']
-        biller_obj  = self.env['extraschool.biller']
-        activitycategory_obj  = self.env['extraschool.activitycategory']
+        parent_obj = self.env['extraschool.parent']
+        biller_obj = self.env['extraschool.biller']
+        activitycategory_obj = self.env['extraschool.activitycategory']
         invoice_ids = self.invoice_ids.ids
-        biller=biller_obj.read(cr, uid, ids,['activitycategoryid'])[0]
-        activitycat=activitycategory_obj.read(cr, uid, [biller['activitycategoryid'][0]],['invoiceemailtext','invoiceemailsubject','invoiceemailaddress'])[0]
+        biller = biller_obj.read(cr, uid, ids, ['activitycategoryid'])[0]
+        activitycat = activitycategory_obj.read(cr, uid, [biller['activitycategoryid'][0]],
+                                                ['invoiceemailtext', 'invoiceemailsubject', 'invoiceemailaddress'])[0]
         for invoice_id in invoice_ids:
-            invoice = invoice_obj.read(cr, uid, [invoice_id],['parentid','filename','invoice_file'])[0]
-            parent = parent_obj.read(cr,uid,[invoice['parentid'][0]],['email','invoicesendmethod'])[0]
+            invoice = invoice_obj.read(cr, uid, [invoice_id], ['parentid', 'filename', 'invoice_file'])[0]
+            parent = parent_obj.read(cr, uid, [invoice['parentid'][0]], ['email', 'invoicesendmethod'])[0]
             if parent['invoicesendmethod'] != 'onlybymail':
                 emails = str(parent['email']).split(';')
                 for email in emails:
@@ -202,7 +208,7 @@ class extraschool_biller(models.Model):
                             'datas': invoice['invoice_file'],
                             'res_model': mail_mail._name,
                             'res_id': mail_id,
-                            }
+                        }
                         attachment_id = ir_attachment.create(cr, uid, attachment_data)
                         mail_mail.write(cr, uid, mail_id, {'attachment_ids': [(6, 0, [attachment_id])]})
                         mail_mail.send(cr, uid, [mail_id])
@@ -221,10 +227,10 @@ class extraschool_biller(models.Model):
                 'nodestroy': False,
                 'target': 'current',
                 'limit': 50000,
-                'domain': [('biller_id.id', '=',self.id),
+                'domain': [('biller_id.id', '=', self.id),
                            ('balance', '>', 0),
-                           '|',('invoicesendmethod','=','onlybymail'),('invoicesendmethod','=','emailandmail')]
-            }
+                           '|', ('invoicesendmethod', '=', 'onlybymail'), ('invoicesendmethod', '=', 'emailandmail')]
+                }
 
     @api.multi
     def email_invoices(self):
@@ -237,11 +243,11 @@ class extraschool_biller(models.Model):
                 'nodestroy': False,
                 'target': 'current',
                 'limit': 50000,
-                'domain': [('biller_id.id', '=',self.id),
-                           '|',('invoicesendmethod','=','onlyemail'),('invoicesendmethod','=','emailandmail')],
-                'context': {"search_default_actif":1},
+                'domain': [('biller_id.id', '=', self.id),
+                           '|', ('invoicesendmethod', '=', 'onlyemail'), ('invoicesendmethod', '=', 'emailandmail')],
+                'context': {"search_default_actif": 1},
 
-            }
+                }
 
     @api.multi
     def all_invoices(self):
@@ -254,9 +260,9 @@ class extraschool_biller(models.Model):
                 'nodestroy': False,
                 'target': 'current',
                 'limit': 50000,
-                'domain': [('biller_id.id', '=',self.id)],
-                'context': {"search_default_actif":1},
-            }
+                'domain': [('biller_id.id', '=', self.id)],
+                'context': {"search_default_actif": 1},
+                }
 
     @api.multi
     def all_pdf(self):
@@ -269,18 +275,20 @@ class extraschool_biller(models.Model):
                 'nodestroy': False,
                 'target': 'current',
                 'limit': 50000,
-                'domain': [('res_id', 'in',[i.id for i in self.invoice_ids]),
-                            ('res_model', '=', 'extraschool.invoice')],
-                'context': {"search_default_actif":1},
+                'domain': [('res_id', 'in', [i.id for i in self.invoice_ids]),
+                           ('res_model', '=', 'extraschool.invoice')],
+                'context': {"search_default_actif": 1},
 
-            }
+                }
 
     def get_concerned_months(self):
         start_month = fields.Date.from_string(self.period_from).month
-        end_months=(fields.Date.from_string(self.period_to).year-fields.Date.from_string(self.period_from).year)*12 + fields.Date.from_string(self.period_to).month+1
-        months=[{'year':yr, 'month':mn} for (yr, mn) in (
-            ((m - 1) / 12 + fields.Date.from_string(self.period_from).year, (m - 1) % 12 + 1) for m in range(start_month, end_months)
-            )]
+        end_months = (fields.Date.from_string(self.period_to).year - fields.Date.from_string(
+            self.period_from).year) * 12 + fields.Date.from_string(self.period_to).month + 1
+        months = [{'year': yr, 'month': mn} for (yr, mn) in (
+            ((m - 1) / 12 + fields.Date.from_string(self.period_from).year, (m - 1) % 12 + 1) for m in
+        range(start_month, end_months)
+        )]
 
         return months
 
@@ -299,16 +307,15 @@ class extraschool_biller(models.Model):
         """
         time.sleep(5)
         with Environment.manage():
-            #As this function is in a new thread, i need to open a new cursor, because the old one may be closed
+            # As this function is in a new thread, i need to open a new cursor, because the old one may be closed
             new_cr = self.pool.cursor()
-            new_env = Environment(new_cr, uid,context)
+            new_env = Environment(new_cr, uid, context)
             count = 0
             report = new_env['report']
             for invoice in new_env['extraschool.invoice'].browse(invoices_ids):
                 count = count + 1
                 _logger.info("generate pdf %s count: %s" % (invoice.id, count))
-                report.get_pdf(invoice ,'extraschool.invoice_report_layout')
-
+                report.get_pdf(invoice, 'extraschool.invoice_report_layout')
 
             thread_lock[1].acquire()
             thread_lock[0] -= 1
@@ -320,20 +327,32 @@ class extraschool_biller(models.Model):
             new_cr.close()
             return {}
 
+    @api.multi
+    def _split_list(self, alist, wanted_parts=1):
+        """
+        :param alist: A list of ids
+        :param wanted_parts: A number of parts for threading
+        :return: A list of list of ids
+        """
+        length = len(alist)
+        return [alist[i * length // wanted_parts: (i + 1) * length // wanted_parts] for i in range(wanted_parts)]
+
     @api.one
     def generate_pdf(self):
-        cr,uid = self.env.cr, self.env.user.id
+        cr, uid = self.env.cr, self.env.user.id
         threaded_report = []
 
-        self.env['ir.attachment'].search([('res_id', 'in',[i.id for i in self.invoice_ids]),
-                                           ('res_model', '=', 'extraschool.invoice')]).unlink()
+        self.env['ir.attachment'].search([('res_id', 'in', [i.id for i in self.invoice_ids]),
+                                          ('res_model', '=', 'extraschool.invoice')]).unlink()
 
         self.pdf_ready = False
         self.env.invalidate_all()
 
         count = 0
 
-        for invoice in self.env['extraschool.invoice'].browse(self.invoice_ids.ids):
+        list = self.env['extraschool.invoice'].browse(self.invoice_ids.ids)
+        splitted_ids = _split_list(list, 50)
+        for
             count = count + 1
             _logger.info("generate pdf %s count: %s" % (invoice.id, count))
             self.env['report'].get_pdf(invoice, 'extraschool.invoice_report_layout')
@@ -342,6 +361,29 @@ class extraschool_biller(models.Model):
         self.in_creation = False
 
         self.send_mail_completed()
+
+    # @api.one
+    # def generate_pdf(self):
+    #     cr, uid = self.env.cr, self.env.user.id
+    #     threaded_report = []
+    #
+    #     self.env['ir.attachment'].search([('res_id', 'in', [i.id for i in self.invoice_ids]),
+    #                                       ('res_model', '=', 'extraschool.invoice')]).unlink()
+    #
+    #     self.pdf_ready = False
+    #     self.env.invalidate_all()
+    #
+    #     count = 0
+    #
+    #     for invoice in self.env['extraschool.invoice'].browse(self.invoice_ids.ids):
+    #         count = count + 1
+    #         _logger.info("generate pdf %s count: %s" % (invoice.id, count))
+    #         self.env['report'].get_pdf(invoice, 'extraschool.invoice_report_layout')
+    #
+    #     self.pdf_ready = True
+    #     self.in_creation = False
+    #
+    #     self.send_mail_completed()
 
     @api.multi
     def send_mail_error(self, message):
@@ -395,15 +437,16 @@ class extraschool_biller(models.Model):
             for r in export['lines']:
                 output += "%s\n" % (r)
 
-
         attachment_obj = self.env['ir.attachment']
-        filename = "Facturier_du_%s_au_%s__%s_aes_onyx.txt" % (time.strftime('%d/%m/%Y',time.strptime(self.period_from,'%Y-%m-%d')),time.strftime('%d/%m/%Y',time.strptime(self.period_to,'%Y-%m-%d')),total)
-        attachment_obj.create({'res_model':'extraschool.biller',
-                               'res_id':self.id,
-                               'datas' : output.encode('utf-8').encode('base64'),
+        filename = "Facturier_du_%s_au_%s__%s_aes_onyx.txt" % (
+        time.strftime('%d/%m/%Y', time.strptime(self.period_from, '%Y-%m-%d')),
+        time.strftime('%d/%m/%Y', time.strptime(self.period_to, '%Y-%m-%d')), total)
+        attachment_obj.create({'res_model': 'extraschool.biller',
+                               'res_id': self.id,
+                               'datas': output.encode('utf-8').encode('base64'),
                                'datas_fname': filename,
                                'name': filename,
-                                })
+                               })
 
     @api.one
     def compute_discount(self):
@@ -423,8 +466,8 @@ class extraschool_biller(models.Model):
                 'activity_category_id': [(6, 0, [invoice_id.activitycategoryid.id])],
             })
 
-            reconciliation = self.env['extraschool.payment_reconciliation'].create({ 'payment_id' : payment_id.id,
-                                                                    'invoice_id' : invoice_id.id,
-                                                                    'amount' : invoice_id.balance,
-                                                                    'date' : self.period_to})
+            reconciliation = self.env['extraschool.payment_reconciliation'].create({'payment_id': payment_id.id,
+                                                                                    'invoice_id': invoice_id.id,
+                                                                                    'amount': invoice_id.balance,
+                                                                                    'date': self.period_to})
             reconciliation.invoice_id._compute_balance()
