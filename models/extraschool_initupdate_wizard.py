@@ -26,7 +26,7 @@ import os
 
 class extraschool_initupdate_wizard(models.TransientModel):
     _name = 'extraschool.initupdate_wizard'
-
+    _description = 'init update'
     _columns = {
 
     }
@@ -49,5 +49,3 @@ class extraschool_initupdate_wizard(models.TransientModel):
     @api.model
     def updateapplication(self):
         os.system('/opt/garderies/extraschool/update.sh')
-
-extraschool_initupdate_wizard()

@@ -101,12 +101,12 @@
                                 Voici les Qr Codes que vous avez besoin pour télécharger l'application AES Mobile
                                 <group col="6">
 <!--                                    <label string="F-Droid"/>-->
-                                    <img src='/extraschool/static/src/img/qrcode_fdroid.png' img_width="150" img_height="150" width="150" height="150" widget="image"/>
+                                    <img alt="fdroid" src='/extraschool/static/src/img/qrcode_fdroid.png' img_width="150" img_height="150" width="150" height="150" widget="image"/>
                                     <newline/>
                                 </group>
                                 <group col="6">
 <!--                                    <label string="Imio AES-Mobile"/>-->
-                                    <img src='/extraschool/static/src/img/qrcode_imio.png' img_width="150" img_height="150" width="150" height="150" widget="image"/>
+                                    <img alt="qrcode imio" src='/extraschool/static/src/img/qrcode_imio.png' img_width="150" img_height="150" width="150" height="150" widget="image"/>
                                     <newline/>
                                 </group>
                             </group>

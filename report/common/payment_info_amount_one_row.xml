@@ -75,7 +75,7 @@
 		</template>
 
 		<template id="report_payment_info_amount_one_row_prepaid" inherit_id="extraschool.report_payment_info_amount_one_row" primary="True">
-			<xpath expr="//div[@class='com_struct']" position="replace">
+			<xpath expr="//div[@hasclass('com_struct')]" position="replace">
 				<div class="com_struct">
 					<span>Communication structurée obligatoire :<br/>
 					 <b><t t-esc="parent_id.get_prepaid_comstruct(categ_id)" /></b></span>

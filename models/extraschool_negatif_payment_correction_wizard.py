@@ -26,6 +26,7 @@ from odoo import models, api, fields, _
 
 class extraschool_negatif_payment_correction_wizard(models.TransientModel):
     _name = 'extraschool.negatif_payment_correction_wizard'
+    _description = 'negatif payment correction'
 
     parent_id = fields.Many2one("extraschool.parent")
     invoice_date = fields.Date('Date', required=True)

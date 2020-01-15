@@ -38,6 +38,7 @@ from odoo.tools import (DEFAULT_SERVER_DATE_FORMAT,
 
 class extraschool_one_report_day(models.Model):
     _name = 'extraschool.one_report_day'
+    _description = 'one report'
 
     one_report_id = fields.Many2one('extraschool.one_report',ondelete='cascade')
     day_date = fields.Date()

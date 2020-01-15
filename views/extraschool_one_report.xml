@@ -24,7 +24,7 @@
             <field name="arch" type="xml">
                 <form string="ONE Report">
                     <sheet>
-                        <div class="alert alert-danger" attrs="{'invisible':[('not_created', '=', True)]}">
+                        <div class="alert alert-danger" role="alert" attrs="{'invisible':[('not_created', '=', True)]}">
                              Attention il existe déjà un rapport ONE concernant ce lieu d'accueil et ce trimestre
                         </div>
                         <group>

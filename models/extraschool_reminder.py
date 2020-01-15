@@ -30,11 +30,12 @@ class extraschool_reminder(models.Model):
     _name = 'extraschool.reminder'
     _description = 'Reminder'
 
-    def name_get(self, cr, uid, ids, context={}):
+    @api.multi
+    def name_get(self, ids):
         if not len(ids):
             return []
         res = []
-        for reminder in self.browse(cr, uid, ids, context=context):
+        for reminder in self.browse(ids):
             res.append((reminder.id, reminder.parentid.name))
         return res
 

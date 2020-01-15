@@ -26,6 +26,7 @@ from odoo import models, api, fields, _
 
 class extraschool_encodage_manuel_validation_wizard(models.TransientModel):
     _name = 'extraschool.encodage_manuel_validation_wizard'
+    _description = 'manual encodage'
 
     place_id = fields.Many2one('extraschool.place')
 

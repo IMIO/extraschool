@@ -26,9 +26,10 @@ from odoo import models, api, fields, _
 
 class extraschool_pdaprestationtimes_correction_wizard(models.TransientModel):
     _name = 'extraschool.pdaprestationtimes_correction_wizard'
+    _description = 'pda prestation wizard'
 
-    es = fields.Selection((('E','In'), ('S','Out')),'es' , select=True)
-    prestation_time = fields.Float('Time', select=True, Index=True, required=True)
+    es = fields.Selection((('E','In'), ('S','Out')),'es' , index=True)
+    prestation_time = fields.Float('Time', index=True, required=True)
 
     @api.multi
     def correction(self):

@@ -26,7 +26,7 @@ from odoo import models, api, fields
 
 class extraschool_qrcodes_wizard(models.TransientModel):
     _name = 'extraschool.qrcodes_wizard'
-
+    _description = 'qr code wizard'
 
     quantity = fields.Integer('Quantity to print')
     print_type = fields.Selection((('qrcode','Qr Code'),('logo','Logo'),),'Print Type', required=True)

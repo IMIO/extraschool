@@ -28,7 +28,7 @@ from odoo.exceptions import except_orm, Warning, RedirectWarning
 
 class extraschool_coda(models.Model):
     _name = 'extraschool.coda'
-
+    _description = 'coda'
     _order = 'codadate desc'
 
     name = fields.Char('Name', size=20)

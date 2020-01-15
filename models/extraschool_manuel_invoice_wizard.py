@@ -26,6 +26,7 @@ from odoo import models, api, fields, _
 
 class extraschool_manuel_invoice_wizard(models.TransientModel):
     _name = 'extraschool.manuel_invoice_wizard'
+    _description = 'manual invoice wizard'
 
     parent_id = fields.Many2one("extraschool.parent")
     invoice_date = fields.Date('Date', required=True)

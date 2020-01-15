@@ -6,26 +6,26 @@
             <field name="model">extraschool.invoice_wizard</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <div class="alert alert-info" attrs="{'invisible':[('isready', '!=', True)]}">
+                <div class="alert alert-info" role="alert" attrs="{'invisible':[('isready', '!=', True)]}">
                     A biller is curently in creation. You will recieve an Email when the biller is completed.
                     In the meantime, here is a picture of a cat slightly annoyed:
                 </div>
                 <div attrs="{'invisible':[('isready', '!=', True)]}">
-                    <img style="width:100px;" src="https://orig00.deviantart.net/affd/f/2013/229/b/0/image_by_xxspiritwolf2000xx-d6ikyan.jpg"/>
+                    <img alt="grumpy cat" style="width:100px;" src="https://orig00.deviantart.net/affd/f/2013/229/b/0/image_by_xxspiritwolf2000xx-d6ikyan.jpg"/>
                 </div>
                 <form string="invoice Wizard" attrs="{'invisible':[('isready', '!=', False)]}">
                     <sheet>
-                        <field name="warning_smartphone" nolabel="1" class="alert alert-info" attrs="{'invisible':[('warning_visibility', '!=', True)]}"/>
-                        <div class="alert alert-danger" attrs="{'invisible':[('check_manual', '=', True)]}">
+                        <field name="warning_smartphone" nolabel="1" class="alert alert-info" role="alert" attrs="{'invisible':[('warning_visibility', '!=', True)]}"/>
+                        <div class="alert alert-danger" role="alert" attrs="{'invisible':[('check_manual', '=', True)]}">
                             Il y a au moins un <b>encodage manuel</b> non vérifié pour cette période
                         </div>
-                        <div class="alert alert-danger" attrs="{'invisible':[('check_registration', '=', True)]}">
+                        <div class="alert alert-danger" role="alert" attrs="{'invisible':[('check_registration', '=', True)]}">
                             Il y a au moins une <b>fiche d'inscription</b> non validée pour cette période
                         </div>
-                        <div class="alert alert-danger" attrs="{'invisible':[('check_prestation', '=', True)]}">
+                        <div class="alert alert-danger" role="alert" attrs="{'invisible':[('check_prestation', '=', True)]}">
                             Il y a au moins une <b>présence</b> non vérifiée pour cette période
                         </div>
-                        <div class="alert alert-warning" attrs="{'invisible':[('check_invoice', '=', True)]}">
+                        <div class="alert alert-warning" role="alert" attrs="{'invisible':[('check_invoice', '=', True)]}">
                             Il n'y a pas de présences à facturer pour cette période
                         </div>
                         <field name="state" invisible="1" />

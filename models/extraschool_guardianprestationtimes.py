@@ -29,7 +29,8 @@ class extraschool_guardianprestationtimes(models.Model):
     _name = 'extraschool.guardianprestationtimes'
     _description = 'Guardian Prestation Times'
 
-    def name_get(self, cr, uid, ids, context={}):
+    @api.multi
+    def name_get(self, ids):
         if not len(ids):
             return []
         res = []
@@ -38,7 +39,7 @@ class extraschool_guardianprestationtimes(models.Model):
         return res
 
     guardianid = fields.Many2one('extraschool.guardian', 'Guardian', required=False)
-    prestation_date = fields.Date('Date', select=True, index=True)
+    prestation_date = fields.Date('Date', index=True)
     prestation_date_str = fields.Char(compute="_compute_prestation_date_str",string='Date str', store=True)
     prestation_time = fields.Float('Time')
     es = fields.Selection((('E', 'In'), ('S', 'Out')), 'ES', index=True)
@@ -57,11 +58,11 @@ class extraschool_guardian_prestation_times_report(models.Model):
     _description = 'Guardian Prestation Times Report'
     _auto = False
 
-    guardian_id = fields.Many2one('extraschool.guardian', 'Guardian', required=False,select=True)
-    prestation_date = fields.Date('Date',select=True)
+    guardian_id = fields.Many2one('extraschool.guardian', 'Guardian', required=False)
+    prestation_date = fields.Date('Date', index=True)
     prestation_date_str = fields.Char('Date str')
     day_duration = fields.Float('day duration')
-    week = fields.Char('Week',select=True)
+    week = fields.Char('Week', index=True)
 
     @api.model
     def init(self):
@@ -69,17 +70,17 @@ class extraschool_guardian_prestation_times_report(models.Model):
         tools.sql.drop_view_if_exists(cr, 'extraschool_guardian_prestation_times_report')
         cr.execute("""
             CREATE view extraschool_guardian_prestation_times_report as
-                select 
+                select
                     MIN(egt.id) as id,
-                    egt.guardianid as guardian_id, 
+                    egt.guardianid as guardian_id,
                     egt.prestation_date as prestation_date,
-                    to_char(egt.prestation_date,'DD/MM/YYYY') as prestation_date_str, 
+                    to_char(egt.prestation_date,'DD/MM/YYYY') as prestation_date_str,
                     EXTRACT(WEEK FROM egt.prestation_date) || '/' || eg.weekly_schedule as week,
                     eg.weekly_schedule as weekly_schedule,
                     (sum(case when egt.es = 'S' then egt.prestation_time else 0 end) - sum(case when egt.es = 'E' then egt.prestation_time else 0 end)) as day_duration
                 from extraschool_guardianprestationtimes egt
                 left join extraschool_guardian eg on eg.id = egt.guardianid
-                group by 
+                group by
                     guardian_id,
                     egt.prestation_date,
                     weekly_schedule

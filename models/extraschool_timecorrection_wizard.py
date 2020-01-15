@@ -26,6 +26,7 @@ from odoo import models, api, fields
 
 class extraschool_timecorrection_wizard(models.TransientModel):
     _name = 'extraschool.timecorrection_wizard'
+    _description = 'time correction wizard'
 
     placeid = fields.Many2many(comodel_name='extraschool.place',
                                relation='extraschool_timecorrection_wizard_place_rel',

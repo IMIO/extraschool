@@ -30,6 +30,7 @@ from odoo.exceptions import Warning
 
 class extraschool_childsimport(models.Model):
     _name = 'extraschool.childsimport'
+    _description = 'child import'
 
     schoolimplantation = fields.Many2one('extraschool.schoolimplantation',  string ='School implantation',required=True)
     childsimportfilter = fields.Many2one('extraschool.childsimportfilter', string ='Childs import filter',required=True)
@@ -260,7 +261,7 @@ class extraschool_childsimport(models.Model):
                                      childfirstname:%s
                                      childbirthdate:%s
                                      childlevelid:%s
-                                     parentlastname:%s                                     
+                                     parentlastname:%s
                                     """ % (curr_row+1,childlastname,childfirstname,childbirthdate,childlevelid,parentlastname))
                 else:
                     if importfilter['childrncolumn'] != 0 and childrn:

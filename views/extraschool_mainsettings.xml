@@ -9,7 +9,7 @@
 			<field name="arch" type="xml">
 				<form string="Main Settings">
                     <sheet>
-                        <div class="alert alert-warning" attrs="{'invisible':[('upgrade_level_ready', '=', False)]}">
+                        <div class="alert alert-warning" role="alert" attrs="{'invisible':[('upgrade_level_ready', '=', False)]}">
                             Il n'y a pas de facturier en Juin :(
                         </div>
                         <notebook>

@@ -28,6 +28,7 @@ from odoo.exceptions import except_orm, Warning
 
 class extraschool_activity_occurrence_correction_wizard(models.TransientModel):
     _name = 'extraschool.activity_occurrence_correction_wizard'
+    _description = 'occurrence correction'
 
     date_to = fields.Date('Date to')
     place_ids = fields.Many2many('extraschool.place','extraschool_place_activity_wizard_rel', 'place_id', 'wizard_id','School implantations')

@@ -26,6 +26,7 @@ from odoo import models, api, fields
 
 class extraschool_prestation_times_manuel(models.Model):
     _name = 'extraschool.prestation_times_manuel'
+    _description = 'prestation times manuel'
 
     child_id = fields.Many2one('extraschool.child', domain="[('isdisabled', '=', False)]", required=True)
     prestation_times_encodage_manuel_id = fields.Many2one('extraschool.prestation_times_encodage_manuel', 'encodage manuel')

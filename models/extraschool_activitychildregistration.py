@@ -34,6 +34,7 @@ class extraschool_activitychildregistration(models.Model):
     registration_from = fields.Date('Registration from', required=True)
     registration_to = fields.Date('Registration to', required=True)
 
+    @api.multi
     def name_get(self):
         res=[]
         for reg in self:

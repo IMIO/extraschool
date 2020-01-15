@@ -28,6 +28,7 @@ class extraschool_activityexclusiondates(models.Model):
     _name = 'extraschool.activityexclusiondates'
     _description = 'Activity exclusion dates'
 
+    @api.multi
     def name_get(self):
         res = []
 

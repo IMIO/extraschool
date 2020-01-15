@@ -32,34 +32,34 @@ _logger = logging.getLogger(__name__)
 
 class extraschool_prestation_times_of_the_day(models.Model):
     _name = 'extraschool.prestation_times_of_the_day'
-
+    _description = 'ptotd'
     _order = 'date_of_the_day desc, child_lastname, child_firstname'
 
 #         _sql_constraints = [
 #             ('pod_uniq', 'unique(activity_category_id,date_of_the_day,child_id)', 'Presta of the day must be uniq'),
 #             ]
-
-    def name_get(self, cr, uid, ids, context={}):
+    @api.multi
+    def name_get(self, ids):
         if not len(ids):
             return []
 
         res=[]
-        for presta in self.browse(cr, uid, ids,context=context):
+        for presta in self.browse(ids):
             res.append((presta.id, presta.child_id.name + ' - ' + datetime.datetime.strptime(presta.date_of_the_day, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y")  ))
 
         return res
 
     # activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=False)
-    date_of_the_day = fields.Date(required=True, select=True)
-    child_id = fields.Many2one('extraschool.child', required=True, select=True)
-    child_firstname = fields.Char(related="child_id.firstname", store=True)
-    child_lastname = fields.Char(related="child_id.lastname", store=True)
+    date_of_the_day = fields.Date(required=True, index=True)
+    child_id = fields.Many2one('extraschool.child', required=True, index=True)
+    child_firstname = fields.Char(related="child_id.firstname", index=True)
+    child_lastname = fields.Char(related="child_id.lastname", index=True)
     child_level= fields.Many2one('extraschool.level', related="child_id.levelid", index=True)
-    parent_id = fields.Many2one(related='child_id.parentid', store=True, select=True)
+    parent_id = fields.Many2one(related='child_id.parentid', store=True, index=True)
     # place_id = fields.Many2one(related='child_id.schoolimplantation', store=True, select=True)
     prestationtime_ids = fields.One2many('extraschool.prestationtimes','prestation_times_of_the_day_id')
     pda_prestationtime_ids = fields.One2many('extraschool.pdaprestationtimes','prestation_times_of_the_day_id',domain=['|',('active','=',False),('active','=',True)])
-    verified = fields.Boolean(select=True)
+    verified = fields.Boolean(index=True)
     place_check = fields.Boolean(default=True)
     comment = fields.Text()
     checked = fields.Boolean(default=False)

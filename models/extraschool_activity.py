@@ -78,7 +78,7 @@ class extraschool_activity(models.Model):
     default_to = fields.Float('Default to', track_visibility=True)
     fixedperiod = fields.Boolean('Fixed period', default=False)
     subsidizedbyone = fields.Boolean('Subsidized by one')
-    on_tax_certificate = fields.Boolean('On tax certificate', select=True, track_visibility=True)
+    on_tax_certificate = fields.Boolean('On tax certificate', track_visibility=True)
     tarif_group_name = fields.Char('Tarif group name', index=True, track_visibility=True)
     validity_from = fields.Date('Validity from', index=True, required=True, track_visibility=True)
     validity_to = fields.Date('Validity to', index=True, required=True, track_visibility=True)
@@ -193,8 +193,8 @@ class extraschool_activity(models.Model):
                     cr.execute("insert into extraschool_activityoccurrence (create_uid,date_stop,date_start,create_date,name,write_uid,write_date,place_id,occurrence_date,activityid,prest_from,prest_to,activity_category_id) VALUES "+args_str)
 
                     # get ids of created occu
-                    cr.execute("""select id 
-                                from extraschool_activityoccurrence 
+                    cr.execute("""select id
+                                from extraschool_activityoccurrence
                                 where create_uid = %s
                                 and activityid = %s
                                 """, (uid, activity.id))

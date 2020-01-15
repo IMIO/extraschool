@@ -86,13 +86,13 @@
 
 		<template id="report_std_header_no_date" inherit_id="extraschool.report_std_header" primary="True">
 
-			<xpath expr="//span[@class='doc_date']" position="replace">
+			<xpath expr="//span[@hasclass('doc_date')]" position="replace">
 			</xpath>
 		</template>
 
 		<template id="report_std_header_ref_school" inherit_id="extraschool.report_std_header" primary="True">
 
-			<xpath expr="//span[@class='doc_date']" position="before">
+			<xpath expr="//span[@hasclass('doc_date')]" position="before">
 				<span class="implantation"><t t-esc="schoolimplantationid.id	" /></span><br/><br/>
 
 			</xpath>

@@ -36,13 +36,13 @@
 						<button name="uniform_school" groups="extraschool.extraschool_ittre" string="Uniformiser Ecole" class="oe_highlight" type="object" />
 					</header>
 					<sheet>
-                        <div class="alert alert-danger" attrs="{'invisible':[('verified', '=', True)]}">
+                        <div class="alert alert-danger" role="alert" attrs="{'invisible':[('verified', '=', True)]}">
                             Cette présence n'est pas vérifiée.
                         </div>
-                        <div class="alert alert-success" attrs="{'invisible':[('verified', '=', False)]}">
+                        <div class="alert alert-success" role="alert" attrs="{'invisible':[('verified', '=', False)]}">
                             Cette présence est correctement vérifiée.
                         </div>
-                        <div class="alert alert-warning" attrs="{'invisible':[('place_check', '=', True)]}">
+                        <div class="alert alert-warning" role="alert" attrs="{'invisible':[('place_check', '=', True)]}">
                             Veuillez vérifier que les lieux d'accueil soient corrects.
                         </div>
                         <field name="place_check" invisible="True"/>
@@ -58,7 +58,7 @@
 						<!--<field name="schoolimplantation" invisible="True"/>-->
 		                <separator string="Computed prestations" colspan="4"/>
 	                    <field name="prestationtime_ids" nolabel="1" colspan="4">
-	                    	<tree string="prestation_times" colors="red:verified==False" editable="bottom">
+	                    	<tree string="prestation_times" decoration-warning="not verified" editable="bottom">
                                 <field name="activity_category_id" />
                                 <field name="placeid" />
 		                   		<field name="activity_occurrence_id" />
@@ -70,7 +70,7 @@
 	                    		<field name="invoiced_prestation_id" readonly="True"/>
 	                    		<field name="error_msg"  readonly="True"/>
 	                    	</tree>
-	                    	<form string="prestation_times" colors="red:verified==False">
+	                    	<form string="prestation_times" decoration-warning="not verified">
 	                    		<group>
 		                    		<field name="childid" />
 		                    		<field name="placeid" />
@@ -87,7 +87,7 @@
 		            </group>
 	                <group expand="1" col="4">
 	                    <field name="pda_prestationtime_ids" nolabel="1" colspan="4" options='{"reload_on_button": True}'>
-	                    	<tree string="prestation_times" colors="red:active == False" editable="bottom">
+	                    	<tree string="prestation_times" editable="bottom">
 								<field name="active" invisible="1"/>
                                 <!--<field name="activitycategoryid"/>-->
 								<field name="type" readonly="1"/>

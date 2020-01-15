@@ -30,14 +30,16 @@ from odoo.exceptions import Warning
 
 class extraschool_prestation_times_encodage_manuel(models.Model):
     _name = 'extraschool.prestation_times_encodage_manuel'
+    _description = 'prestation times'
     _inherit = ['mail.thread']
 
-    def name_get(self, cr, uid, ids, context={}):
+    @api.multi
+    def name_get(self, ids):
         if not len(ids):
             return []
 
         res=[]
-        for presta in self.browse(cr, uid, ids,context=context):
+        for presta in self.browse(ids):
             res.append((presta.id, presta.place_id.name + ' - ' + datetime.datetime.strptime(presta.date_of_the_day, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y")  ))
 
         return res

@@ -32,10 +32,10 @@
 				<header>
 					<button name="wizard_action" string="Fusion" icon="gtk-apply" type="object" context="{'default_parent_id': id}" groups="extraschool.extraschool_fusion"/>
             	</header>
-                <div class="alert alert-warning" attrs="{'invisible':[('check_name', '=', True)]}">
+                <div class="alert alert-warning" role="alert" attrs="{'invisible':[('check_name', '=', True)]}">
                     Le nom et prénom de ce parent existe déjà. S'agit-il du même parent ?
                 </div>
-                <div class="alert alert-danger" attrs="{'invisible':[('check_rn', '=', True)]}">
+                <div class="alert alert-danger" role="alert" attrs="{'invisible':[('check_rn', '=', True)]}">
                     Un parent possède déjà ce registre national.
                 </div>
                 <field name="check_name" invisible="1" />
@@ -174,7 +174,7 @@
                         <separator string="Factures de:"  colspan="4"/>
                         <field name="name" nolabel="1" style="font-size:16px" attrs="{'invisible':[('lastname','=',False),('firstname', '=', False)]}"/>
                         <field name="invoice_ids" nolabel="1" colspan="4">
-	                    <tree string="Invoices"  create="false" delete="false" colors="red:tag IS NOT NULL;orange:last_reminder_id IS NOT NULL ">
+	                    <tree string="Invoices"  create="false" delete="false" decoration-danger="tag" decoration-warning="last_reminder_id">
 	                        <field name="activitycategoryid"/>
 	                        <field name="last_reminder_id" invisible="True"/>
 							<field name="structcom"/>
@@ -254,7 +254,7 @@
                  </page>
                 <page string="Payment status">
                     <field name="payment_status_ids" readonly="True">
-                        <tree colors="red:solde &lt; 0;">
+                        <tree decoration-danger="solde &lt; 0">
                 			<field name="activity_category_id" />
 							<field name="solde" sum="True"/>
                 		</tree>

@@ -33,6 +33,7 @@ _logger = logging.getLogger(__name__)
 
 class extraschool_prestationscheck_wizard(models.TransientModel):
     _name = 'extraschool.prestationscheck_wizard'
+    _description = 'prestation check wizard'
 
     def _get_defaultfrom(self):
         #look for first oldest prest NOT verified

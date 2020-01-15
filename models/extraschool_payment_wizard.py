@@ -30,6 +30,7 @@ from datetime import datetime
 
 class extraschool_payment_wizard(models.TransientModel):
     _name = 'extraschool.payment_wizard'
+    _description = 'payment wizard'
 
     payment_date = fields.Date('Date', default=datetime.now(), required=True)
     amount = fields.Float('Amount', digits=dp.get_precision('extraschool_invoice'), required=True)

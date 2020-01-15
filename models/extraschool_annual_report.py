@@ -27,6 +27,7 @@ from datetime import datetime
 
 class extraschool_annual_report(models.Model):
     _name = 'extraschool.annual_report'
+    _description = 'annual report'
 
     annual_report_item_ids = fields.One2many('extraschool.annual_report_item', 'annual_report_id', 'Items')
     year = fields.Char(default=datetime.now().year - 1, string='Inscrivez l\'année souhaitée')

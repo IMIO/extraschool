@@ -46,7 +46,7 @@ class extraschool_child(models.Model):
     schoolimplantation = fields.Many2one('extraschool.schoolimplantation', 'School implantation',required=True, track_visibility=True)
     levelid = fields.Many2one('extraschool.level', 'Level', required=True, track_visibility=True)
     classid = fields.Many2one('extraschool.class', 'Class', required=False, domain="[('schoolimplantation','=',schoolimplantation)]", track_visibility=True)
-    parentid = fields.Many2one('extraschool.parent', 'Parent', required=True, ondelete='RESTRICT', select=True, track_visibility=True, domain="[('isdisabled', '=', False)]")
+    parentid = fields.Many2one('extraschool.parent', 'Parent', required=True, ondelete='RESTRICT', track_visibility=True, domain="[('isdisabled', '=', False)]")
     birthdate = fields.Date('Birthdate', required=True, track_visibility=True)
     last_import_date = fields.Datetime('Import date', readonly=True)
     modified_since_last_import = fields.Boolean('Modified since last import')

@@ -14,7 +14,7 @@
 		</template>
 
 		<template id="report_invoice_your_ref_and_period_num_fact" inherit_id="extraschool.report_invoice_your_ref_and_period" primary="True">
-			<xpath expr="//div[@class='your_ref']" position="replace">
+			<xpath expr="//div[@hasclass('your_ref')]" position="replace">
 	    		<div class="your_ref">
 	    			<b>Facture numéro : </b><span t-field="invoice.number" />
 	    		</div>

@@ -32,6 +32,7 @@ from datetime import date, datetime, timedelta as td
 
 class extraschool_subvention_report(models.Model):
     _name = 'extraschool.subvention_report'
+    _description = 'subvention report'
 
     name = fields.Char('Nom', required=True)
     start_date = fields.Date('Start date', required=True)

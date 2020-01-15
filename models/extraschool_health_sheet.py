@@ -34,7 +34,7 @@ class extraschool_health_sheet(models.Model):
 
     child_id = fields.Many2one('extraschool.child', string='Name', default=_get_child, required=True)
     comment = fields.Text(string='Comment')
-    doctor_id = fields.Many2one('extraschool.doctor', string='Doctor', select=True)
+    doctor_id = fields.Many2one('extraschool.doctor', string='Doctor', index=True)
     blood_type = fields.Selection(
         (('AB+','AB+'),
          ('AB-','AB-'),

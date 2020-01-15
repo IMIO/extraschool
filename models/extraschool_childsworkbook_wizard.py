@@ -26,6 +26,7 @@ from odoo import models, api, fields
 
 class extraschool_childsworkbook_wizard(models.TransientModel):
     _name = 'extraschool.childsworkbook_wizard'
+    _description = 'childs workbook'
 
     placeid = fields.Many2one('extraschool.place', 'Schoolcare Place')
     child_id = fields.Many2one('extraschool.child', 'Child')

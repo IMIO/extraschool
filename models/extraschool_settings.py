@@ -27,6 +27,7 @@ from odoo import models, api, fields
 class extraschool_main_settings(models.Model):
     _inherit = ['res.config.settings']
     _name = 'extraschool.main_settings'
+    _description = 'main settings'
 
     lastqrcodenbr = fields.Integer('lastqrcodenbr')
 
@@ -34,6 +35,7 @@ class extraschool_main_settings(models.Model):
 class extraschool_one_settings(models.Model):
     _inherit = ['res.config.settings']
     _name = 'extraschool.onereport_settings'
+    _description = 'one report settings'
 
     name = fields.Char("Name" , required=True, default="One report template")
     validity_from = fields.Date("Validity from")

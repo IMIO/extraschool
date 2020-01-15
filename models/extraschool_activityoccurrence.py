@@ -35,14 +35,14 @@ class extraschool_activityoccurrence(models.Model):
     _description = 'activity occurrence'
 
     name = fields.Char('Name')
-    occurrence_date = fields.Date('Date', select=True)
-    activityid = fields.Many2one('extraschool.activity', 'Activity', select=True, required=True)
+    occurrence_date = fields.Date('Date', index=True)
+    activityid = fields.Many2one('extraschool.activity', 'Activity', index=True, required=True)
     activityname = fields.Char(related='activityid.name')
-    activity_category_id = fields.Many2one(related='activityid.category_id', store=True, select=True)
+    activity_category_id = fields.Many2one(related='activityid.category_id', store=True, index=True)
 
-    prest_from = fields.Float('prest_from', select=True)
-    prest_to = fields.Float('prest_to', select=True)
-    date_start = fields.Datetime('Date start', compute='_compute_date_start', store=True, select=True)
+    prest_from = fields.Float('prest_from', index=True)
+    prest_to = fields.Float('prest_to', index=True)
+    date_start = fields.Datetime('Date start', compute='_compute_date_start', store=True, index=True)
     date_stop = fields.Datetime('Date stop', compute='_compute_date_stop', store=True)
 #    child_registration_ids = fields.Many2many('extraschool.child','extraschool_activityoccurrence_cild_rel', 'activityoccurrence_id', 'child_id','Child registration')
     child_registration_ids = fields.One2many('extraschool.activity_occurrence_child_registration', 'activity_occurrence_id', 'Child registration')
@@ -223,9 +223,9 @@ class extraschool_activity_occurrence_child_registration(models.Model):
     _name = 'extraschool.activity_occurrence_child_registration'
     _description = 'activity occurrence child registration'
 
-    activity_occurrence_id = fields.Many2one('extraschool.activityoccurrence', 'Activity occurrence', select=True, ondelete='cascade')
-    child_id = fields.Many2one('extraschool.child', 'child', select=True)
-    child_registration_line_id = fields.Many2one('extraschool.child_registration_line', 'Child registration line', select=True, ondelete="cascade")
+    activity_occurrence_id = fields.Many2one('extraschool.activityoccurrence', 'Activity occurrence', index=True, ondelete='cascade')
+    child_id = fields.Many2one('extraschool.child', 'child', index=True)
+    child_registration_line_id = fields.Many2one('extraschool.child_registration_line', 'Child registration line', index=True, ondelete="cascade")
 
     _sql_constraints = [
         ('occu_child_uniq', 'unique(activity_occurrence_id,child_id)',

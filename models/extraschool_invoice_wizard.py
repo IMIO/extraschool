@@ -33,6 +33,7 @@ _logger = logging.getLogger(__name__)
 
 class extraschool_invoice_wizard(models.TransientModel):
     _name = 'extraschool.invoice_wizard'
+    _description = 'invoice wizard'
     _schoolimplantationids = []
 
     def _get_defaultfrom(self):
