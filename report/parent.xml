@@ -54,71 +54,77 @@
 		</template>
 
 <!--        ancienne version pour la liste pour le huissier-->
-<!--        <template id="reminder_huissier_list">-->
-<!--			<t t-foreach="docs" t-as="reminder">-->
-<!--                <div class="page">-->
-<!--                    <h2>Liste pour huissier</h2>-->
-<!--                    <table class="table table-bordered">-->
-<!--                        <thead>-->
-<!--                            <tr>-->
-<!--                                <th>Nom du parent</th>-->
-<!--                                <th>Adresse du parent</th>-->
-<!--                                <th>Montant</th>-->
-<!--                            </tr>-->
-<!--                        </thead>-->
-<!--                        <tbody>-->
-<!--                            <t t-foreach="reminder.reminder_ids.sorted(lambda r: r.parentid.name)" t-as="parent_reminder">-->
-<!--                                <tr>-->
-<!--                                    <td><span t-field="parent_reminder.parentid"/></td>-->
-<!--                                    <td><span t-field="parent_reminder.parentid.street"/> <span t-field="parent_reminder.parentid.zipcode"/> <span t-field="parent_reminder.parentid.city"/></td>-->
-<!--                                    <td><span class="amount"><t t-esc="'%.2f' %  (parent_reminder.amount)" /> €</span></td>-->
-<!--                                </tr>-->
-<!--                            </t>-->
-<!--                        </tbody>-->
-<!--                    </table>-->
-<!--		        </div>-->
-<!--			</t>-->
-<!--		</template>-->
-
-
         <template id="reminder_huissier_list">
-            <xpath expr="//head" position="inside">
-                <link href="/web/static/lib/bootstrap/css/bootstrap.css" rel="stylesheet"/>
-            </xpath>
 			<t t-foreach="docs" t-as="reminder">
                 <div class="page">
-                    <div class="jumbotron">
-                        <h1>Liste pour huissier</h1>
-                    </div>
-                    <div class="container">
-                        <t t-foreach="reminder.unsolved_reminder_ids.sorted(lambda r: r.parentid.name)" t-as="parent_reminder">
-                            <div class="well">
-                                <h2><span t-field="parent_reminder.parentid"/></h2>
-                                <h2>Adresse : <span t-field="parent_reminder.parentid.street"/><span t-field="parent_reminder.parentid.zipcode"/></h2>
-                                <h2>Montant : <span class="amount"><t t-esc="'%.2f' %  (parent_reminder.balance)" /> €</span></h2>
-                                <h2>Factures</h2>
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Du</th>
-                                            <th>Au</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                    <h2>Liste pour huissier</h2>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Nom du parent</th>
+                                <th>Adresse du parent</th>
+                                <th>Montant</th>
+                                <th>Périodes des factures</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="reminder.reminder_ids.sorted(lambda r: r.parentid.name)" t-as="parent_reminder">
+                                <tr>
+                                    <td><span t-field="parent_reminder.parentid"/></td>
+                                    <td><span t-field="parent_reminder.parentid.street"/> <span t-field="parent_reminder.parentid.zipcode"/> <span t-field="parent_reminder.parentid.city"/></td>
+                                    <td><span class="amount"><t t-esc="'%.2f' %  (parent_reminder.amount)" /> €</span></td>
+                                    <td>
                                         <t t-foreach="parent_reminder.concerned_invoice_ids" t-as="invoice">
-                                            <tr>
-                                                <td><span t-field="invoice.period_from"/></td>
-                                                <td><span t-field="invoice.period_to"/></td>
-                                            </tr>
+                                            <p> Du : <span t-field="invoice.period_from"/> Au : <span t-field="invoice.period_from"/></p>
                                         </t>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </t>
-                    </div>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
 		        </div>
 			</t>
 		</template>
+
+
+<!--        <template id="reminder_huissier_list">-->
+<!--            <xpath expr="//head" position="inside">-->
+<!--                <link href="/web/static/lib/bootstrap/css/bootstrap.css" rel="stylesheet"/>-->
+<!--            </xpath>-->
+<!--			<t t-foreach="docs" t-as="reminder">-->
+<!--                <div class="page">-->
+<!--                    <div class="jumbotron">-->
+<!--                        <h1>Liste pour huissier</h1>-->
+<!--                    </div>-->
+<!--                    <div class="container">-->
+<!--                        <t t-foreach="reminder.unsolved_reminder_ids.sorted(lambda r: r.parentid.name)" t-as="parent_reminder">-->
+<!--                            <div class="well">-->
+<!--                                <h2><span t-field="parent_reminder.parentid"/></h2>-->
+<!--                                <h2>Adresse : <span t-field="parent_reminder.parentid.street"/><span t-field="parent_reminder.parentid.zipcode"/></h2>-->
+<!--                                <h2>Montant : <span class="amount"><t t-esc="'%.2f' %  (parent_reminder.balance)" /> €</span></h2>-->
+<!--                                <h2>Factures</h2>-->
+<!--                                <table class="table">-->
+<!--                                    <thead>-->
+<!--                                        <tr>-->
+<!--                                            <th>Du</th>-->
+<!--                                            <th>Au</th>-->
+<!--                                        </tr>-->
+<!--                                    </thead>-->
+<!--                                    <tbody>-->
+<!--                                        <t t-foreach="parent_reminder.concerned_invoice_ids" t-as="invoice">-->
+<!--                                            <tr>-->
+<!--                                                <td><span t-field="invoice.period_from"/></td>-->
+<!--                                                <td><span t-field="invoice.period_to"/></td>-->
+<!--                                            </tr>-->
+<!--                                        </t>-->
+<!--                                    </tbody>-->
+<!--                                </table>-->
+<!--                            </div>-->
+<!--                        </t>-->
+<!--                    </div>-->
+<!--		        </div>-->
+<!--			</t>-->
+<!--		</template>-->
 
 		<report
 		    id="extraschool_parent"
