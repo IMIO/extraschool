@@ -21,6 +21,39 @@
         </div>
     </template>
 
+    <template id="report_reminder_burdinne">
+           <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_invoice_summary_tournai_reminder.css"/>
+            </xpath>
+              <div id="invoice_summary">
+                 <p>
+                    Concerne : Rappel de votre facture impayée pour la période de <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/><br/>
+                    Dossier traité par Delphine Hamende  085/51.97.19<br/><br/>
+
+                    Nous constatons qu’à ce jour vous êtes redevables envers la
+                    commune de Burdinne de la somme de <t t-esc="'%.2f €' % (amount)"/> correspondant à la facture de l’accueil
+                    extrascolaire de votre (vos) enfant(s).<br/><br/>
+
+                    Afin d’éviter des frais supplémentaires, nous vous saurions gré de
+
+                    vous acquitter de ce montant dans les 10 jours à dater de la présente.
+
+                    Si vous avez effectué le paiement, pourriez-vous m’en envoyer la
+                    preuve par mail (atl@burdinne.be) ou par voie postale afin que je puisse vérifier.
+                    Dans le cas contraire, nous vous demandons de verser la somme
+                    due sur le compte suivant <b><t t-esc="categ_id.bankaccount" /></b> avec en communication strucutrurée <t t-esc="com_struct" />.<br/><br/>
+
+                    Pour tout renseignement complémentaire, vous pouvez contacter
+
+                    Madame Delphine Hamende, coordinatrice ATL au 085/51.97.19.<br/><br/>
+
+                    Nous vous prions d’agréer, Madame VANDENBROOKE ,<br/><br/>
+
+                    l’assurance de notre considération distinguée.
+                 </p>
+              </div>
+    </template>
+
     <template id="report_invoice_texte_roi_burdinne">
         <xpath expr="//head" position="inside">
             <link rel="stylesheet" href="/extraschool/static/src/css/report_invoice_summary_tournai_med.css"/>
@@ -55,6 +88,7 @@
                           <span style="font-size: 9px; align-content: center;">
                               <span style="margin-left:30px">- L’intervention financière des parents est fixée comme suit : 1.5 €/heure pour le 1<sup>er</sup> enfant, 1€/heure pour le 2<sup>ème</sup> enfant et gratuit pour le 3<sup>ème</sup>.</span> <br/>
                               <span style="margin-left:30px">- La garderie est payante de 7h à 8h30 et de 16h à 18h30 dans les deux implantations.</span> <br/>
+                              <span style="margin-left:30px">- La garderie est gratuite de 15h30 à 16h00 dans les deux implantations.</span> <br/>
                               <span style="margin-left:30px">- Le mercredi, la garderie est gratuite de 12h00 à 13h00.</span> <br/>
                               <span style="margin-left:30px">- L’intervention est comptabilisée par demi-heure au minimum ; toute demi-heure entamée est une demi-heure facturée (0,75 €).</span> <br/><br/>
                           </span>
@@ -110,10 +144,10 @@
                             Une facture trimestrielle reprenant les présences du ou des enfant(s) sera distribuée dans les mallettes : <br/><br/>
                         </span>
                         <span style="font-size: 9px; align-content: center;">
-                            <span>- Avril pour la période du 1<sup>er</sup> trimestre (janvier-février-mars) </span> <br/>
-                            <span>- Juillet pour la période du 2<sup>ème</sup> trimestre (avril-mai-juin)</span> <br/>
+                            <span>- Avril pour la période du 1<sup>er</sup> trimestre (janvier) </span> <br/>
+                            <span>- Juillet pour la période du 2<sup>ème</sup> trimestre (avril)</span> <br/>
                             <span>- Octobre pour la période du 3<sup>ème</sup> trimestre (septembre) </span> <br/>
-                            <span>- Janvier pour la période du 4<sup>ème</sup> trimestre (octobre-novembre-décembre)</span> <br/><br/>
+                            <span>- Janvier pour la période du 4<sup>ème</sup> trimestre (octobre)</span> <br/><br/>
                             <span>Toute facture est payable, au plus tard, endéans le mois de sa réception.</span><br/><br/>
                         </span>
                         <span style="font-size: 9px; align-content: center; font-weight: bold; text-decoration: underline;">
