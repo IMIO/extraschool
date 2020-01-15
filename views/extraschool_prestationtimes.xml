@@ -54,13 +54,13 @@
                    <field name="activity_occurrence_id" string="Activity"/>
                    <field name="placeid" string="Place"/>
                    <field name="prestation_date" string="Date"/>
-<!--                    <filter string="Entry" icon="terp-accessories-archiver" domain="[('es','=','E')]"/>-->
-<!--                    <filter string="Exit" icon="terp-accessories-archiver" domain="[('es','=','S')]"/>-->
-<!--                    <filter string="Verified" icon="terp-accessories-archiver" domain="[('verified','=',True)]"/>-->
+                    <filter string="Entry" name="entry" icon="terp-accessories-archiver" domain="[('es','=','E')]"/>
+                    <filter string="Exit" name="exit" icon="terp-accessories-archiver" domain="[('es','=','S')]"/>
+                    <filter string="Verified" name="verified" icon="terp-accessories-archiver" domain="[('verified','=',True)]"/>
                    <group  expand='0' string='Group by...'>
-<!--                       <filter string='Enfant' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'childid'}"/>-->
-<!--                       <filter string="Lieux d&apos;accueil" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'placeid'}"/>-->
-<!--                       <filter string='Activité' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'activity_occurrence_id.activityid'}"/>-->
+                       <filter string='Enfant' name="enfant" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'childid'}"/>
+                       <filter string="Lieux d&apos;accueil" name="lieux accueil" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'placeid'}"/>
+                       <filter string='Activité' name="activite" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'activity_occurrence_id.activityid'}"/>
                    </group>
                 </search>
             </field>

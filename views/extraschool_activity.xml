@@ -158,7 +158,7 @@
                 <field name="name"/>
                 <filter string="Actif" name="actif" icon="terp-accessories-archiver" domain="[('validity_from','&lt;=',datetime.datetime.now().strftime('%Y-%m-%d')),('validity_to','&gt;=',datetime.datetime.now().strftime('%Y-%m-%d'))]"/>
                 <group string='Group by...'>
-<!--                   <filter string='Root activity' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'root_id'}"/>-->
+                   <filter string='Root activity' name="root_activity" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'root_id'}"/>
                </group>
             </search>
         </field>

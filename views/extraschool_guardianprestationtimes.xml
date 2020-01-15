@@ -41,8 +41,8 @@
                    <field name="guardianid"/>
                    <field name="prestation_date_str"/>
                    <group  expand='0' string='Group by...'>
-<!--                       <filter string='Guardian' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'guardianid'}"/>-->
-<!--                       <filter string='Date' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'prestation_date_str'}"/>-->
+                       <filter string='Guardian' name="guardian" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'guardianid'}"/>
+                       <filter string='Date' name="date" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'prestation_date_str'}"/>
                   </group>
                 </search>
             </field>
@@ -107,23 +107,23 @@
              </field>
         </record>
 
-<!--         <record id="extraschool_guardian_prestationtime_report_search_view" model="ir.ui.view">-->
-<!--            <field name="name">extraschool.guardian_prestationtimes_report.search</field>-->
-<!--            <field name="model">extraschool.guardian_prestation_times_report</field>-->
-<!--            <field name="arch" type="xml">-->
-<!--                <search name="guardian_prestationtimes_search" string="Guardian prestationtimes Search">-->
-<!--                   <field name="guardian_id"/>-->
-<!--                   <field name="week"/>-->
-<!--                   <field name="prestation_date"/>-->
-<!--                   <filter string="Liste des Erreurs" name="error" icon="terp-accessories-archiver" domain="['|',('day_duration','&lt;',0),('day_duration','&gt;',16)]"/>-->
-<!--                   <group  expand='0' string='Group by...'>-->
-<!--                       <filter string='Guardian' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'guardian_id'}"/>-->
-<!--                       <filter string='Week' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'week'}"/>-->
-<!--                       <filter string='Month' icon="terp-go-month" domain="[]" context="{'group_by':'prestation_date:month'}"/>-->
-<!--                   </group>-->
-<!--                </search>-->
-<!--            </field>-->
-<!--        </record>-->
+         <record id="extraschool_guardian_prestationtime_report_search_view" model="ir.ui.view">
+            <field name="name">extraschool.guardian_prestationtimes_report.search</field>
+            <field name="model">extraschool.guardian_prestation_times_report</field>
+            <field name="arch" type="xml">
+                <search string="Guardian prestationtimes Search">
+                   <field name="guardian_id"/>
+                   <field name="week"/>
+                   <field name="prestation_date"/>
+                   <filter string="Liste des Erreurs" name="error" icon="terp-accessories-archiver" domain="['|',('day_duration','&lt;',0),('day_duration','&gt;',16)]"/>
+                    <group  expand='0' string='Group by...'>
+                       <filter string='Guardian' name="guardian" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'guardian_id'}"/>
+                       <filter string='Week' name="week" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'week'}"/>
+                       <filter string='Month' name="month" icon="terp-go-month" domain="[]" context="{'group_by':'prestation_date:month'}"/>
+                   </group>
+                </search>
+            </field>
+        </record>
 
         <record model="ir.actions.act_window" id="action_guardianprestationtimes_report">
 			<field name="name">Guardian Report</field>

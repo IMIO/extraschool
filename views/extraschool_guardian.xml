@@ -89,9 +89,9 @@
             <field name="arch" type="xml">
                 <search string="Guardian Search">
                    <filter string="Actif" name="actif" icon="terp-accessories-archiver" domain="[('isdisabled','=',False)]"/>
-<!--                    <group  expand='0' string='Group by...'>-->
-<!--                       <filter string='Type' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'type'}"/>-->
-<!--                    </group>-->
+                    <group  expand='0' string='Group by...'>
+<!--                       <filter string='Type' name="type_guardian" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'type'}"/>-->
+                    </group>
                 </search>
             </field>
         </record>

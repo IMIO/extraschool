@@ -276,19 +276,19 @@
             </field>
         </record>
 
-<!--        <record id="extraschool_parent_search_view" model="ir.ui.view">-->
-<!--            <field name="name">extraschool_parent.search</field>-->
-<!--            <field name="model">extraschool.parent</field>-->
-<!--            <field name="rn" />-->
-<!--            <field name="arch" type="xml">-->
-<!--                <search string="Parent Search">-->
-<!--                    <field name="name"/>-->
-<!--                    <field name="comstruct"/>-->
-<!--                    <field name="email"/>-->
-<!--                    <filter string="Actif" name="actif" icon="terp-accessories-archiver" domain="[('isdisabled','=',False)]"/>-->
-<!--                </search>-->
-<!--            </field>-->
-<!--        </record>-->
+        <record id="extraschool_parent_search_view" model="ir.ui.view">
+            <field name="name">extraschool_parent.search</field>
+            <field name="model">extraschool.parent</field>
+            <field name="rn" />
+            <field name="arch" type="xml">
+                <search string="Parent Search">
+                    <field name="name"/>
+                    <field name="comstruct"/>
+                    <field name="email"/>
+                    <filter string="Actif" name="actif" icon="terp-accessories-archiver" domain="[('isdisabled','=',False)]"/>
+                </search>
+            </field>
+        </record>
 
 
         <record model="ir.actions.act_window" id="action_lbsc_parent_invoices">

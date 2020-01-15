@@ -130,19 +130,19 @@
         </record>
 
 
-<!--        <record id="extraschool_taxcertificate_item_search" model="ir.ui.view">-->
-<!--            <field name="name">extraschool.taxcertificate_item.search</field>-->
-<!--            <field name="model">extraschool.taxcertificate_item</field>-->
-<!--            <field name="arch" type="xml">-->
-<!--                <search>-->
-<!--                   	<group  expand='0' string='Group by...'>-->
-<!--                       <filter string='Implantation Scolaire' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'implantation'}"/>-->
-<!--                       <filter string='Niveau' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'niveau'}"/>-->
-<!--                       <filter string='Parent' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'parent_id'}"/>-->
-<!--                   </group>-->
-<!--                </search>-->
-<!--            </field>-->
-<!--        </record>-->
+        <record id="extraschool_taxcertificate_item_search" model="ir.ui.view">
+            <field name="name">extraschool.taxcertificate_item.search</field>
+            <field name="model">extraschool.taxcertificate_item</field>
+            <field name="arch" type="xml">
+                <search>
+                   	<group  expand='0' string='Group by...'>
+                       <filter string='Implantation Scolaire' name="implantation_scolaire" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'implantation'}"/>
+                       <filter string='Niveau' name="niveau" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'niveau'}"/>
+                       <filter string='Parent' name="parent" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'parent_id'}"/>
+                   </group>
+                </search>
+            </field>
+        </record>
 
 
         <record model="ir.actions.act_window" id="action_extraschool_taxcertificate">
