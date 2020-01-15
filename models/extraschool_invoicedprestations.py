@@ -121,6 +121,7 @@ class extraschool_invoicedprestations(models.Model):
 
     @api.multi
     def write(self, vals):
+
         if 'no_value_amount' in vals and vals.get('no_value_amount') > self.total_price:
             vals['no_value_amount'] = 0.00
             #problème avec la soustraction de float
