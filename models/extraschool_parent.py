@@ -229,6 +229,7 @@ class extraschool_parent(models.Model):
     @api.model
     def create(self, vals):
         # todo replace check par une contraite
+        import wdb; wdb.set_trace()
         parent_obj = self.env['extraschool.parent']
         parents = parent_obj.search([('firstname', 'ilike', vals['firstname'].strip()),
                                      ('lastname', 'ilike', vals['lastname'].strip()),
