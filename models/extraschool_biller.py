@@ -337,31 +337,6 @@ class extraschool_biller(models.Model):
         length = len(alist)
         return [alist[i * length // wanted_parts: (i + 1) * length // wanted_parts] for i in range(wanted_parts)]
 
-    @api.one
-    def generate_pdf(self):
-        cr, uid = self.env.cr, self.env.user.id
-        threaded_report = []
-
-        self.env['ir.attachment'].search([('res_id', 'in', [i.id for i in self.invoice_ids]),
-                                          ('res_model', '=', 'extraschool.invoice')]).unlink()
-
-        self.pdf_ready = False
-        self.env.invalidate_all()
-
-        count = 0
-
-        list = self.env['extraschool.invoice'].browse(self.invoice_ids.ids)
-        splitted_ids = _split_list(list, 50)
-        for
-            count = count + 1
-            _logger.info("generate pdf %s count: %s" % (invoice.id, count))
-            self.env['report'].get_pdf(invoice, 'extraschool.invoice_report_layout')
-
-        self.pdf_ready = True
-        self.in_creation = False
-
-        self.send_mail_completed()
-
     # @api.one
     # def generate_pdf(self):
     #     cr, uid = self.env.cr, self.env.user.id
@@ -375,7 +350,9 @@ class extraschool_biller(models.Model):
     #
     #     count = 0
     #
-    #     for invoice in self.env['extraschool.invoice'].browse(self.invoice_ids.ids):
+    #     list = self.env['extraschool.invoice'].browse(self.invoice_ids.ids)
+    #     splitted_ids = _split_list(list, 50)
+    #     for
     #         count = count + 1
     #         _logger.info("generate pdf %s count: %s" % (invoice.id, count))
     #         self.env['report'].get_pdf(invoice, 'extraschool.invoice_report_layout')
@@ -384,6 +361,29 @@ class extraschool_biller(models.Model):
     #     self.in_creation = False
     #
     #     self.send_mail_completed()
+
+    @api.one
+    def generate_pdf(self):
+        cr, uid = self.env.cr, self.env.user.id
+        threaded_report = []
+
+        self.env['ir.attachment'].search([('res_id', 'in', [i.id for i in self.invoice_ids]),
+                                          ('res_model', '=', 'extraschool.invoice')]).unlink()
+
+        self.pdf_ready = False
+        self.env.invalidate_all()
+
+        count = 0
+
+        for invoice in self.env['extraschool.invoice'].browse(self.invoice_ids.ids):
+            count = count + 1
+            _logger.info("generate pdf %s count: %s" % (invoice.id, count))
+            self.env['report'].get_pdf(invoice, 'extraschool.invoice_report_layout')
+
+        self.pdf_ready = True
+        self.in_creation = False
+
+        self.send_mail_completed()
 
     @api.multi
     def send_mail_error(self, message):
