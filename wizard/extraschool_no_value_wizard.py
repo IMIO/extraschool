@@ -64,7 +64,7 @@ class extraschoolNoValueWizard(models.TransientModel):
         if not self._is_no_value_amount_correct():
             raise Warning(_("The amount of no value is superior of the total amount"))
         else:
-            self.amount_total = round(fsum(x.no_value_amount for x in self.invoice_prestation_ids), 2)
+            self.amount_total = round(fsum(x.no_value_amount for x in self.invoice_prestation_ids), 3)
 
         #invoice_id = self.env['extraschool.invoice_prestation_ids'].browse(self.env.context.get('active_ids'))
 
@@ -80,7 +80,7 @@ class extraschoolNoValueWizard(models.TransientModel):
             invoice_id = self.env['extraschool.invoice'].browse(self.env.context.get('active_ids'))
 
             invoice_id.write({
-                'no_value_amount': round(fsum(x.no_value_amount for x in self.invoice_prestation_ids), 2),
+                'no_value_amount': round(fsum(x.no_value_amount for x in self.invoice_prestation_ids), 3),
             })
             invoice_id._compute_balance()
 
@@ -89,11 +89,11 @@ class extraschoolNoValueWizard(models.TransientModel):
     @api.multi
     def _is_no_value_amount_correct(self):
         invoice_id = self.env['extraschool.invoice'].browse(self.env.context.get('active_ids'))
-        total_no_value = round(fsum(x.no_value_amount for x in self.invoice_prestation_ids), 2)
+        total_no_value = round(fsum(x.no_value_amount for x in self.invoice_prestation_ids), 3)
 
-        if total_no_value > round(fsum(x.total_price for x in self.invoice_prestation_ids), 2):
+        if total_no_value > round(fsum(x.total_price for x in self.invoice_prestation_ids), 3):
             return False
-        if round(invoice_id.amount_total - invoice_id.amount_received, 2) - total_no_value < 0.00:
+        if round(invoice_id.amount_total - invoice_id.amount_received, 3) - total_no_value < 0.00:
             return False
         for invoiced_prestation in self.invoice_prestation_ids:
             if invoiced_prestation.no_value_amount > invoiced_prestation.total_price:
