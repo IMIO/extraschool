@@ -75,7 +75,6 @@
                             type="object"
                             class="btn btn-warning"
                             groups="extraschool.extraschool_accounting"
-                            attrs="{'invisible':[('balance', '=', 0.00), ('no_value_amount', '=', 0.00)]}"
                         />
 					</header>
 					<sheet>
