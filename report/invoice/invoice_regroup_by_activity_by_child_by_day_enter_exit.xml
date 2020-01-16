@@ -63,7 +63,7 @@
 					<t t-set="activity_entry" t-value="'00:00'"/>
 					<t t-set="activity_exit" t-value="'00:00'"/>
 					<tbody>
-	       			<t t-foreach="invoice.invoice_line_ids.sorted(key=lambda r: (('%s%s%s') % (r.childid,r.activity_occurrence_id.activityid.short_name,r.prestation_date)))" t-as="invoice_line">
+	       			<t t-foreach="invoice.get_infos_childs()" t-as="invoice_line">
 	       				<t t-if="saved_child_id != invoice_line.childid or saved_activity != invoice_line.activity_occurrence_id.activityid.short_name or saved_activity_date != invoice_line.prestation_date">
 	       					<t t-if="activity_count != 0">
 		        				<tr>
@@ -91,7 +91,7 @@
 							<t t-set="activity_amount" t-value="activity_amount + invoice_line.total_price"/>
 							<t t-set="activity_time" t-value="activity_time + invoice_line.duration"/>
 						</t>
-	        		</t>
+                    </t>
    					<t t-if="activity_count != 0">
    						<t t-set="saved_activity_date_str" t-value="'%s' % (saved_activity_date)"/>
    						<!--<t t-set="saved_activity_date_str" t-value="'%s' % (time.strftime('%d-%m-%Y',time.strptime(saved_activity_date,'%Y-%m-%d')))"/>-->
