@@ -172,6 +172,7 @@
         'report/custo_client/tournai.xml',
         'report/custo_client/burdinne.xml',
         'report/custo_client/ittre.xml',
+        'report/custo_client/mettet.xml',
         'report/custo_client/fosses_la_ville.xml',
         'report/reminder/reminder_text.xml',
         'report/parent_invoices_summary.xml'

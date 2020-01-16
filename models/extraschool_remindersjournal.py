@@ -445,7 +445,7 @@ class extraschool_remindersjournal(models.Model):
                     self.biller_id.invoice_ids._compute_balance()
 
             #update invoice to exit from accounting
-            get_invoice_exit_sql = """select r.id as reminder_id, i.id as invoice_id,balance
+            get_invoice_exit_sql = """select r.id as reminder_id, i.id as invoice_id,i.balance
                                         from extraschool_reminder r
                                         left join extraschool_invoice i on i.last_reminder_id = r.id
                                         left join extraschool_reminders_journal_item ji on ji.id = r.reminders_journal_item_id
@@ -467,7 +467,7 @@ class extraschool_remindersjournal(models.Model):
                                                              })
 
             #update biller summary
-            get_biller_summary_sql = """select distinct(i.biller_id) as biller_id,sum(balance) as reminder_amount,
+            get_biller_summary_sql = """select distinct(i.biller_id) as biller_id,sum(i.balance) as reminder_amount,
                                             case when sum(rl.amount) is null then 0 else sum(rl.amount) end as refound_amount
                                         from extraschool_reminder r
                                         left join extraschool_invoice i on i.last_reminder_id = r.id
