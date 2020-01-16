@@ -30,11 +30,13 @@ class extraschool_scheduledtasks(models.Model):
     _name = 'extraschool.scheduledtasks'
     _description = 'Scheduled tasks'
 
-
-    def transmissionreport(self, cr, uid, context=None):
+    @api.multi
+    def transmissionreport(self):
+        cr = self.env.cr
+        uid = self.env.uid
         mail_mail = self.pool.get('mail.mail')
         obj_config = self.pool.get('extraschool.mainsettings')
-        config=obj_config.read(cr, uid, [1],['emailfornotifications'])[0]
+        config=obj_config.search(cr, uid, [1],['emailfornotifications'])[0]
         cr.execute("select * from extraschool_smartphone where to_char(current_date,'YYYY-MM-DD') != to_char(lasttransmissiondate,'YYYY-MM-DD')")
         notransmissions=cr.dictfetchall()
         transmissionerror = False

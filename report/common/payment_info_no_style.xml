@@ -17,7 +17,7 @@
 		</template>
 
 		<template id="report_payment_info_invoice_no_style" inherit_id="extraschool.report_payment_info_no_style" primary="True">
-			<xpath expr="//div[@hasclass('com_struct')]" position="replace">
+			<xpath expr="//div[hasclass('com_struct')]" position="replace">
 				<div class="com_struct">
 					<span >Communication structurée : </span><t t-esc="com_struct" />
 				</div>
@@ -25,7 +25,7 @@
 		</template>
 
 		<template id="report_payment_info_reminder_no_style" inherit_id="extraschool.report_payment_info_no_style" primary="True">
-			<xpath expr="//div[@hasclass('com_struct')]" position="replace">
+			<xpath expr="//div[hasclass('com_struct')]" position="replace">
 				<div class="com_struct">
 					<span >Communication structurée : </span><t t-esc="reminder_com_struct" />
 				</div>

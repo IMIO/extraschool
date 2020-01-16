@@ -7,7 +7,7 @@
 					<span t-raw="po_addresse.po_addresse_free_text" />
 				</div>
 			</xpath>
-			<xpath expr="//div[@hasclass('aes_adresse_block customer')]" position="replace">
+			<xpath expr="//div[hasclass('aes_adresse_block')]" position="replace">
 				<div class="aes_adresse_block customer">
                     <span t-field="addresse.name"/>
                     <span>(Famille: <t t-raw="child_id.childid.lastname"/>)</span>

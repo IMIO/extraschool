@@ -56,7 +56,7 @@
 
 		<template id="report_adresse_custom_only" inherit_id="extraschool.report_adresse_no_style" primary="True">
 
-			<xpath expr="//div[@hasclass('aes_adresse_block po')]" position="replace">
+			<xpath expr="//div[hasclass('aes_adresse_block')]" position="replace">
 				<div class="aes_adresse_block po">
 					<span t-raw="po_addresse.po_addresse_free_text" />
 				</div>

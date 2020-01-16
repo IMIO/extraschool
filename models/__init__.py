@@ -70,7 +70,7 @@ from . import extraschool_smartphone
 from . import extraschool_taxcertificate
 from . import extraschool_taxcertificates_wizard
 from . import extraschool_timecorrection_wizard
-from . import extraschool_scheduledtasks
+# from . import extraschool_scheduledtasks
 from . import extraschool_parent
 from . import extraschool_parent_fusion_wizard
 from . import extraschool_school
