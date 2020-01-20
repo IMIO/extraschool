@@ -4,7 +4,7 @@
 #    Extraschool
 #    Copyright (C) 2008-2019
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia & Jenny Pans - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -619,7 +619,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                 saved_schoolimplantation_id = invoice_line['schoolimplantation']
                 next_invoice_num = self.env['extraschool.activitycategory'].search(
                     [('id', '=', invoice_line['activity_category_id'])]).get_next_comstruct('invoice', year,
-                                                                                            sequence_id, )
+                                                                                            sequence_id)
                 #                 invoice = inv_obj.with_context(ctx).create({'name' : _('invoice_%s') % (next_invoice_num['num'],),
                 #                                             'number' : next_invoice_num['num'],
                 #                                             'parentid' : saved_parent_id,
