@@ -4,7 +4,7 @@
 #    Extraschool
 #    Copyright (C) 2008-2019
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia & Jenny Pans - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -37,9 +37,7 @@ class extraschool_manuel_invoice_wizard(models.TransientModel):
                                   ('P','Primaire')),
                                  'Level type')
     amount = fields.Float('Amount', required=True)
-    activity_category_id = fields.Many2many(comodel_name='extraschool.activitycategory',
-                                            relation='extraschool_manual_invoice_activity_category_rel',
-                                            require=True)
+    activity_category_id = fields.Many2one(comodel_name='extraschool.activitycategory', require=True)
     state = fields.Selection([('init', 'Init'),
                              ('redirect', 'Redirect'),],
                             'State', required=True, default='init'
@@ -75,7 +73,8 @@ class extraschool_manuel_invoice_wizard(models.TransientModel):
             if self.invoice_child:
                 for child in parent.child_ids:
                     if child.levelid.leveltype in self.leveltype and child.isdisabled == False and (self.invoice_all_children == True or (child.create_date >= self.validity_from and child.create_date <= self.validity_to)):
-                        next_invoice_num = self.activity_category_id[0].get_next_comstruct('invoice',biller.get_from_year())
+                        next_invoice_num = self.activity_category_id[0].get_next_comstruct('invoice', biller.get_from_year(), False, True)
+
                         invoice = inv_obj.create({'name' : _('invoice_%s') % (next_invoice_num['num'],),
                                     'number' : next_invoice_num['num'],
                                     'parentid' : parent.id,
@@ -96,7 +95,7 @@ class extraschool_manuel_invoice_wizard(models.TransientModel):
                         invoice_ids.append(invoice.id)
 
             else:
-                next_invoice_num = self.activity_category_id[0].get_next_comstruct('invoice',biller.get_from_year())
+                next_invoice_num = self.activity_category_id[0].get_next_comstruct('invoice', biller.get_from_year(), False, True)
                 invoice = inv_obj.create({'name' : _('invoice_%s') % (next_invoice_num['num'],),
                                 'number' : next_invoice_num['num'],
                                 'parentid' : parent.id,
