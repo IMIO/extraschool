@@ -91,13 +91,14 @@ class extraschool_payment(models.Model):
         search_domain = [('parentid', '=', parent_id),
                          ('balance', '>', 0),
                          ]
+
         # On CODA payment, do not pay tagged or reminder/reminder fees invoice.
         if from_coda:
             search_domain += [('tag', '=', None)]
-        elif payment_type == 1:  # Prepaid.
-            activity_category_ids = self.env['extraschool.activitycategory'].search([('payment_invitation_com_struct_prefix', '=', com_struct_prefix)]).ids
+            if payment_type == 1:  # Prepaid.
+                activity_category_ids = self.env['extraschool.activitycategory'].search([('payment_invitation_com_struct_prefix', '=', com_struct_prefix)]).ids
 
-            search_domain += [('activitycategoryid', 'in',activity_category_ids),]
+                search_domain += [('activitycategoryid', 'in',activity_category_ids),]
 
         invoices = self.env['extraschool.invoice'].search(search_domain)
 
@@ -213,31 +214,31 @@ class extraschool_payment_status_report(models.Model):
             CREATE view extraschool_payment_status_report as
                 select min((zz.ac_id*10000000000+zz.p_id)) as id, zz.ac_id as activity_category_id,
                        zz.p_id as parent_id,
-                       CASE 
+                       CASE
                         WHEN sum(pay.solde) is NULL
                             THEN 0
                         WHEN round( CAST(sum(pay.solde) as numeric), 2) = 0.00
                             THEN 0
                         ELSE sum(pay.solde)
                         END as solde,
-                    '+++' || LPAD(case when zz.ac_com_struct_prefix is NULL then '0' else zz.ac_com_struct_prefix end, 3, '0') 
+                    '+++' || LPAD(case when zz.ac_com_struct_prefix is NULL then '0' else zz.ac_com_struct_prefix end, 3, '0')
                     || '/' || substring(LPAD(zz.p_id::TEXT,7,'0') from 1 for 4) || '/' || substring(LPAD(zz.p_id::TEXT,7,'0') from 5 for 3)
-                    || case when LPAD(((LPAD(case when zz.ac_com_struct_prefix is NULL then '0' else zz.ac_com_struct_prefix end, 3, '0') || LPAD(zz.p_id::TEXT,7,'0'))::bigint % 97)::TEXT,2,'0') = '00' then '97' 
+                    || case when LPAD(((LPAD(case when zz.ac_com_struct_prefix is NULL then '0' else zz.ac_com_struct_prefix end, 3, '0') || LPAD(zz.p_id::TEXT,7,'0'))::bigint % 97)::TEXT,2,'0') = '00' then '97'
                     else LPAD(((LPAD(case when zz.ac_com_struct_prefix is NULL then '0' else zz.ac_com_struct_prefix end, 3, '0') || LPAD(zz.p_id::TEXT,7,'0'))::bigint % 97)::TEXT,2,'0') end
                     || '+++' as com_struct,
                     COALESCE((select sum(i.balance) from extraschool_invoice i where i.parentid = zz.p_id),0.0) as totalbalance,
-                    (select count(*) from extraschool_child c where c.parentid = zz.p_id and c.isdisabled = False) as nbr_actif_child, 
+                    (select count(*) from extraschool_child c where c.parentid = zz.p_id and c.isdisabled = False) as nbr_actif_child,
                     (select count(*)
-                    
+
                     from extraschool_invoice
                     where parentid = zz.p_id and last_reminder_id is not NULL and balance > 0) AS reminder_to_pay
-                    
-                from (select ac.id as ac_id, p.id as p_id, ac.payment_invitation_com_struct_prefix as ac_com_struct_prefix, 
+
+                from (select ac.id as ac_id, p.id as p_id, ac.payment_invitation_com_struct_prefix as ac_com_struct_prefix,
           ac.invoicecomstructprefix as ac_invoicecomstructprefix, ac.remindercomstructprefix as ac_remindercomstructprefix from extraschool_activitycategory ac, extraschool_parent p) zz
-                left join extraschool_payment pay on zz.p_id = pay.parent_id 
-                        and (zz.ac_com_struct_prefix = pay.structcom_prefix or 
+                left join extraschool_payment pay on zz.p_id = pay.parent_id
+                        and (zz.ac_com_struct_prefix = pay.structcom_prefix or
                              zz.ac_invoicecomstructprefix = pay.structcom_prefix or
-                             zz.ac_remindercomstructprefix = pay.structcom_prefix)                                
+                             zz.ac_remindercomstructprefix = pay.structcom_prefix)
                 group by zz.p_id, zz.ac_com_struct_prefix,zz.ac_id
                 ;
         """)
@@ -265,7 +266,7 @@ class extraschool_payment_report(models.Model):
         cr.execute("""
             CREATE view extraschool_payment_report as
                 select id, amount, solde, parent_id, comment,paymentdate as payment_date, structcom, structcom_prefix
-                from extraschool_payment; 
+                from extraschool_payment;
         """)
 
 class extraschool_aged_balance(models.TransientModel):
@@ -294,13 +295,13 @@ class extraschool_aged_balance(models.TransientModel):
                 from extraschool_invoice i
                 left join extraschool_biller b on i.biller_id = b.id
                 where extract(YEAR from period_to) = b_year
-                ) as no_value,    
+                ) as no_value,
                 (select sum(amount)::numeric(10,2)
                 from extraschool_refound_line rl
                 left join extraschool_invoice i on rl.invoiceid = i.id
                 left join extraschool_biller b on i.biller_id = b.id
                 where extract(YEAR from period_to) = b_year and rl.date <= %s
-                ) as aged_no_value,    
+                ) as aged_no_value,
                 (select sum(amount)::numeric(10,2)
                 from extraschool_payment_reconciliation pr
                 left join extraschool_biller b on pr.biller_id = b.id
