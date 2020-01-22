@@ -27,7 +27,7 @@
             </xpath>
               <div id="invoice_summary">
                  <p>
-                    Concerne : Rappel de votre facture impayée pour la période de <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/><br/>
+                    <b><u>Concerne :</u> Rappel de votre facture impayée pour la période de <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/></b><br/>
                     Dossier traité par Delphine Hamende  085/51.97.19<br/><br/>
 
                     Nous constatons qu’à ce jour vous êtes redevables envers la
