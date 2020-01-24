@@ -139,6 +139,9 @@
                             <field name="on_tax_certificate" />
                             <field name="tarif_group_name" />
                         </group>
+                        <group>
+                            <field name="price_list_version_ids"/>
+                        </group>
                     </page>
                 </notebook>
                     </sheet>

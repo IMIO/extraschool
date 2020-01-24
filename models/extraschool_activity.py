@@ -95,6 +95,16 @@ class extraschool_activity(models.Model):
     warning_date = fields.Char('WARNING', default="ATTENTION, Modifier une activité peut impacter les présences déjà vérifiées ! Pour tous changements, Il est préférable de contacter directement Imio.", readonly=True)
     warning_visibility = fields.Boolean(track_visibility='onchange')
     expire_soon = fields.Boolean(compute='_get_expired_date')
+    price_list_version_ids = fields.Many2many(
+        'extraschool.price_list_version',
+        string="Versions on price list",
+        compute='_get_price_list_version'
+    )
+
+    @api.multi
+    def _get_price_list_version(self):
+        for rec in self:
+            rec.price_list_version_ids = rec.env['extraschool.price_list_version'].search([('activity_ids', 'in', rec.id)])
 
     @api.multi
     def get_occurrence(self):
@@ -201,8 +211,8 @@ class extraschool_activity(models.Model):
                     cr.execute("insert into extraschool_activityoccurrence (create_uid,date_stop,date_start,create_date,name,write_uid,write_date,place_id,occurrence_date,activityid,prest_from,prest_to,activity_category_id) VALUES "+args_str)
 
                     # get ids of created occu
-                    cr.execute("""select id 
-                                from extraschool_activityoccurrence 
+                    cr.execute("""select id
+                                from extraschool_activityoccurrence
                                 where create_uid = %s
                                 and activityid = %s
                                 """, (uid, activity.id))
