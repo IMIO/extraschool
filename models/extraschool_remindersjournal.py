@@ -235,7 +235,7 @@ class extraschool_remindersjournal(models.Model):
                                                                 'parentid': key,
                                                                 'school_implantation_id': invoice_obj.browse(invoice_dict[key][0]).schoolimplantationid.id,
                                                                 'structcom': invoice_obj.browse(invoice_dict[key][0]).activitycategoryid.get_next_comstruct(
-                                                                    'reminder', invoice_obj.browse(invoice_dict[key][0]).biller_id.get_from_year())[
+                                                                    'reminder', invoice_obj.browse(invoice_dict[key][0]).biller_id.get_from_year(), False, True)[
                                                                     'com_struct'],
                                                                 'amount': sum([invoice_obj.browse(invoice).balance for invoice in invoice_dict[key]]),
                                                                 'concerned_invoice_ids': [(6, 0, invoice_dict[key])],
@@ -258,7 +258,7 @@ class extraschool_remindersjournal(models.Model):
                     biller_is_made = True
 
                 next_invoice_num = self.activity_category_id.get_next_comstruct('invoice',
-                                                                                self.biller_id.get_from_year())
+                                                                                self.biller_id.get_from_year(), False, True)
                 fees_invoice = invoice_obj.create(
                     {'name': _('invoice_%s') % (next_invoice_num['num'],),
                      'number': next_invoice_num['num'],
@@ -384,11 +384,13 @@ class extraschool_remindersjournal(models.Model):
                         parent_id = invoice.parentid.id
                         concerned_invoice_ids = []
 
+                        # import wdb; wdb.set_trace()
+                        # todo enlever le true pour manual et refaire la fonction
                         reminder = self.env['extraschool.reminder'].create({'reminders_journal_item_id': reminders_journal_item_id.id,
                                                                             'reminders_journal_id': self.id,
                                                                             'parentid': parent_id,
                                                                             'school_implantation_id': invoice.schoolimplantationid.id,
-                                                                            'structcom': invoice.activitycategoryid.get_next_comstruct('reminder',fields.Date.from_string(self.transmission_date).year)['com_struct']
+                                                                            'structcom': invoice.activitycategoryid.get_next_comstruct('reminder',fields.Date.from_string(self.transmission_date).year, False, True)['com_struct']
                                                                             })
                         if reminder_type.fees_type == 'fix':
                             if biller_id == -1:
@@ -399,7 +401,7 @@ class extraschool_remindersjournal(models.Model):
                                                                                         })
                                 biller_id = self.biller_id.id
 
-                            next_invoice_num = self.activity_category_id.get_next_comstruct('invoice',self.biller_id.get_from_year())
+                            next_invoice_num = self.activity_category_id.get_next_comstruct('invoice',self.biller_id.get_from_year(), False, True)
                             fees_invoice = inv_obj.create({'name' : _('invoice_%s') % (next_invoice_num['num'],),
                                                            'number' : next_invoice_num['num'],
                                                            'parentid' : parent_id,
