@@ -1,0 +1,153 @@
+<?xml version="1.0" ?>
+<odoo>
+	<data>
+		<template id="healthy_report_inscription_layout" inherit_id="report.layout" primary="True">
+            <xpath expr="//head" position="inside">
+	            <xpath expr="//head" position="inside">
+                    <link rel="stylesheet" href="/extraschool/static/src/css/report_healthy_report_layout.css"/>
+                </xpath>
+
+	            <link href="/web/static/lib/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+		        <link href="/website/static/src/css/website.css" rel="stylesheet"/>
+		        <link href="/web/static/lib/fontawesome/css/font-awesome.css" rel="stylesheet"/>
+            </xpath>
+        	<xpath expr="//head" position="inside">
+              <script src="/extraschool/static/src/js/pagination_hide.js"></script>
+            </xpath>
+            <xpath expr="//body" position="attributes">
+                <attribute t-translation="off" name="onload">subst(); pagination_hide();</attribute>
+            </xpath>
+
+            <xpath expr="//body" position="attributes">
+				<attribute name="t-att-class">container</attribute>
+		    </xpath>
+
+            <xpath expr="//html" position="attributes">
+		    	<attribute name="t-att-data-report-margin-top">docs[0].organising_power_id.healthy_inscription_report_id.paper_format_id.margin_top</attribute>
+		        <attribute name="t-att-data-report-margin-bottom">docs[0].organising_power_id.healthy_inscription_report_id.paper_format_id.margin_bottom</attribute>
+		        <attribute name="t-att-data-report-margin-right">docs[0].organising_power_id.healthy_inscription_report_id.paper_format_id.margin_right</attribute>
+		        <attribute name="t-att-data-report-margin-left">docs[0].organising_power_id.healthy_inscription_report_id.paper_format_id.margin_left</attribute>
+		    </xpath>
+
+            <xpath expr="//body" position="inside">
+                <div id="child">
+                    <t t-set="organising_power" t-value="docs[0].organising_power_id"/>
+
+					<t t-foreach="docs" t-as="child">
+                        <t t-set="logo" t-value="organising_power.logo"/>
+                        <t t-set="logo2" t-value="organising_power.logo2"/>
+                        <t t-foreach="child.child_registration_line_ids" t-as="child">
+                            <t t-set="child_name" t-value="child.child_id.name"/>
+                            <t t-set="doctor_name" t-value="child.child_id.health_sheet_ids[0].doctor_id.name"/>
+                            <t t-set="doctor_street" t-value="child.child_id.health_sheet_ids[0].doctor_id.street"/>
+                            <t t-set="doctor_zipcode" t-value="child.child_id.health_sheet_ids[0].doctor_id.zipcode"/>
+                            <t t-set="doctor_city" t-value="child.child_id.health_sheet_ids[0].doctor_id.city"/>
+                            <t t-set="doctor_country" t-value="child.child_id.health_sheet_ids[0].doctor_id.country_id.name"/>
+
+                            <t t-set="doctor_contact" t-value="child.child_id.health_sheet_ids[0].doctor_id.doctor_contact"/>
+                            <t t-set="doctor_gsm" t-value="child.child_id.health_sheet_ids[0].doctor_id.doctor_gsm"/>
+                            <t t-set="doctor_comment" t-value="child.child_id.health_sheet_ids[0].doctor_id.comment"/>
+
+                            <t t-set="tetanus" t-value="child.child_id.health_sheet_ids[0].tetanus"/>
+                            <t t-set="first_date_tetanus" t-value="child.child_id.health_sheet_ids[0].first_date_tetanus"/>
+                            <t t-set="last_date_tetanus" t-value="child.child_id.health_sheet_ids[0].last_date_tetanus"/>
+
+                            <t t-set="allergy" t-value="child.child_id.health_sheet_ids[0].allergy"/>
+                            <t t-set="list_allergy" t-value="child.child_id.health_sheet_ids[0].allergy_ids"/>
+
+                            <t t-set="handicap" t-value="child.child_id.health_sheet_ids[0].handicap"/>
+                            <t t-set="type_handicap" t-value="child.child_id.health_sheet_ids[0].type_handicap"/>
+
+                            <t t-set="specific_regime" t-value="child.child_id.health_sheet_ids[0].specific_regime"/>
+                            <t t-set="specific_regime_texte" t-value="child.child_id.health_sheet_ids[0].specific_regime_text"/>
+
+                            <t t-set="contact" t-value="child.child_id.health_sheet_ids[0].contact_ids"/>
+                            <t t-set="interdiction_contact" t-value="child.child_id.health_sheet_ids[0].interdiction_contact_ids"/>
+
+                            <t t-set="activity_no_available" t-value="child.child_id.health_sheet_ids[0].activity_no_available"/>
+                            <t t-set="activity_no_available_text" t-value="child.child_id.health_sheet_ids[0].activity_no_available_text"/>
+
+                            <t t-set="swim" t-value="child.child_id.health_sheet_ids[0].swim"/>
+                            <t t-set="swim_level" t-value="child.child_id.health_sheet_ids[0].swim_level"/>
+
+                            <t t-set="diseases" t-value="child.child_id.health_sheet_ids[0].disease_ids"/>
+
+                            <t t-set="intervention" t-value="child.child_id.health_sheet_ids[0].intervention"/>
+                            <t t-set="intervention_text" t-value="child.child_id.health_sheet_ids[0].intervention_text"/>
+                            <t t-set="diabetique" t-value="child.child_id.health_sheet_ids[0].diabetique"/>
+
+                            <t t-set="facebook" t-value="child.child_id.health_sheet_ids[0].facebook"/>
+                            <t t-set="photo" t-value="child.child_id.health_sheet_ids[0].photo"/>
+                            <t t-set="arnica" t-value="child.child_id.health_sheet_ids[0].arnica"/>
+                        </t>
+
+						<div class="header">
+                            <t t-foreach="organising_power.healthy_inscription_report_id.inline_report_ids.filtered(lambda r: r.section == 'a_header')" t-as="tmpl">
+				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">
+			        				<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
+								</div>
+								<t t-if="tmpl.visibility == False">
+									<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
+								</t>
+							</t>
+			       		</div>
+
+			        	<div class="page">
+                            <t t-foreach="organising_power.healthy_inscription_report_id.inline_report_ids.filtered(lambda r: r.section == 'b_body')" t-as="tmpl">
+				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">
+			        				<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
+								</div>
+								<t t-if="tmpl.visibility == False">
+									<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
+								</t>
+							</t>
+			       		</div>
+
+			        	<div class="footer">
+                            <t t-foreach="organising_power.healthy_inscription_report_id.inline_report_ids.filtered(lambda r: r.section == 'c_footer')" t-as="tmpl">
+				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">
+			        				<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
+								</div>
+								<t t-if="tmpl.visibility == False">
+									<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
+								</t>
+							</t>
+			       		</div>
+				    </t>
+				</div>
+			</xpath>
+		</template>
+	</data>
+	<data noupdate="1">
+		<record id="paperformat_aes_healthy_inscription" model="report.paperformat">
+    		<field name="name">fiche sante Inscriptions</field>
+    		<field name="default" eval="True"/>
+   			<field name="format">A4</field>
+    		<field name="orientation">Portrait</field>
+    		<field name="margin_top">40</field>
+    		<field name="margin_bottom">20</field>
+    		<field name="margin_left">15</field>
+    		<field name="margin_right">15</field>
+    		<field name="header_line" eval="False"/>
+    		<field name="header_spacing">35</field>
+    		<field name="dpi">90</field>
+		</record>
+	</data>
+	<data>
+
+        <report
+		    id="extraschool_healthy"
+		    model="extraschool.child_registration"
+		    string="Fiche Santé"
+		    report_type="qweb-pdf"
+		    name="extraschool.healthy_report_inscription_layout"
+		    attachment_use="False"
+		/>
+
+		<record id="extraschool_healthy" model="ir.actions.report.xml">
+    		<field name="paperformat_id" ref="paperformat_aes_healthy_inscription"/>
+		</record>
+
+	</data>
+
+</odoo>

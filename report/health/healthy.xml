@@ -197,5 +197,15 @@
                                            <t t-if="diabetique == False">Non</t>
         </template>
 
+        <template id="report_healthy_mt_st_guibert">
+            <div style="text-align: center;">
+                <h3><b>Fiche santé de <span t-esc="child_name"/></b></h3>
+            </div>
+            <div>
+                <p>A compléter par les parents ou tuteurs légaux.</p>
+            </div>
+
+		</template>
+
 	</data>
 </odoo>

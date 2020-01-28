@@ -55,6 +55,11 @@ class extraschool_child_registration(models.Model):
 
         return "()"
 
+    organising_power_id = fields.Many2one(
+        'extraschool.organising_power',
+        'Organising Power',
+        track_visibility='onchange',
+    )
     current_date = str(datetime.now().date())
     school_implantation_id = fields.Many2one('extraschool.schoolimplantation', domain=_get_uid, required=True,
                                              readonly=True, states={'draft': [('readonly', False)]},
@@ -117,6 +122,12 @@ class extraschool_child_registration(models.Model):
             self.warning_visibility = True
         else:
             self.warning_visibility = False
+
+    @api.model
+    def create(self, vals):
+        vals[u'organising_power_id'] = self.env['extraschool.organising_power'].search([]).mapped('id')[0]
+
+        return super(extraschool_child_registration, self).create(vals)
 
     @api.onchange('child_registration_line_ids')
     def compute_number_childs(self):
