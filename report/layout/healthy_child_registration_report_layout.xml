@@ -3,9 +3,9 @@
 	<data>
 		<template id="healthy_report_inscription_layout" inherit_id="report.layout" primary="True">
             <xpath expr="//head" position="inside">
-	            <xpath expr="//head" position="inside">
+	            <!--<xpath expr="//head" position="inside">
                     <link rel="stylesheet" href="/extraschool/static/src/css/report_healthy_report_layout.css"/>
-                </xpath>
+                </xpath>-->
 
 	            <link href="/web/static/lib/bootstrap/css/bootstrap.css" rel="stylesheet"/>
 		        <link href="/website/static/src/css/website.css" rel="stylesheet"/>
@@ -37,48 +37,107 @@
                         <t t-set="logo" t-value="organising_power.logo"/>
                         <t t-set="logo2" t-value="organising_power.logo2"/>
                         <t t-foreach="child.child_registration_line_ids" t-as="child">
-                            <t t-set="child_name" t-value="child.child_id.name"/>
-                            <t t-set="doctor_name" t-value="child.child_id.health_sheet_ids[0].doctor_id.name"/>
-                            <t t-set="doctor_street" t-value="child.child_id.health_sheet_ids[0].doctor_id.street"/>
-                            <t t-set="doctor_zipcode" t-value="child.child_id.health_sheet_ids[0].doctor_id.zipcode"/>
-                            <t t-set="doctor_city" t-value="child.child_id.health_sheet_ids[0].doctor_id.city"/>
-                            <t t-set="doctor_country" t-value="child.child_id.health_sheet_ids[0].doctor_id.country_id.name"/>
+                            <t t-set="child_lastname" t-value="child.child_id.lastname"/>
+                            <t t-set="child_firstname" t-value="child.child_id.firstname"/>
+                            <t t-set="parent" t-value="child.child_id.parentid"/>
+                            <t t-if="doctor_name">
+                                <t t-set="doctor_name" t-value="child.child_id.health_sheet_ids[0].doctor_id.name"/>
+                            </t>
+                            <t t-if="doctor_street">
+                                <t t-set="doctor_street" t-value="child.child_id.health_sheet_ids[0].doctor_id.street"/>
+                            </t>
+                            <t t-if="doctor_zipcode">
+                                <t t-set="doctor_zipcode" t-value="child.child_id.health_sheet_ids[0].doctor_id.zipcode"/>
+                            </t>
+                            <t t-if="doctor_city">
+                                <t t-set="doctor_city" t-value="child.child_id.health_sheet_ids[0].doctor_id.city"/>
+                            </t>
+                            <t t-if="doctor_country">
+                                <t t-set="doctor_country" t-value="child.child_id.health_sheet_ids[0].doctor_id.country_id.name"/>
+                            </t>
+                            <t t-if="doctor_contact">
+                                <t t-set="doctor_contact" t-value="child.child_id.health_sheet_ids[0].doctor_id.doctor_contact"/>
+                            </t>
+                            <t t-if="doctor_gsm">
+                                <t t-set="doctor_gsm" t-value="child.child_id.health_sheet_ids[0].doctor_id.doctor_gsm"/>
+                            </t>
+                            <t t-if="doctor_comment">
+                                <t t-set="doctor_comment" t-value="child.child_id.health_sheet_ids[0].doctor_id.comment"/>
+                            </t>
 
-                            <t t-set="doctor_contact" t-value="child.child_id.health_sheet_ids[0].doctor_id.doctor_contact"/>
-                            <t t-set="doctor_gsm" t-value="child.child_id.health_sheet_ids[0].doctor_id.doctor_gsm"/>
-                            <t t-set="doctor_comment" t-value="child.child_id.health_sheet_ids[0].doctor_id.comment"/>
+                            <t t-if="tetanus">
+                                <t t-set="tetanus" t-value="child.child_id.health_sheet_ids[0].tetanus"/>
+                            </t>
+                            <t t-if="first_date_tetanus">
+                                <t t-set="first_date_tetanus" t-value="child.child_id.health_sheet_ids[0].first_date_tetanus"/>
+                            </t>
+                            <t t-if="last_date_tetanus">
+                                <t t-set="last_date_tetanus" t-value="child.child_id.health_sheet_ids[0].last_date_tetanus"/>
+                            </t>
+                            <t t-if="allergy">
+                                <t t-set="allergy" t-value="child.child_id.health_sheet_ids[0].allergy"/>
+                            </t>
+                            <t t-if="list_allergy">
+                                <t t-set="list_allergy" t-value="child.child_id.health_sheet_ids[0].allergy_ids"/>
+                            </t>
+                            <t t-if="handicap">
+                                <t t-set="handicap" t-value="child.child_id.health_sheet_ids[0].handicap"/>
+                            </t>
 
-                            <t t-set="tetanus" t-value="child.child_id.health_sheet_ids[0].tetanus"/>
-                            <t t-set="first_date_tetanus" t-value="child.child_id.health_sheet_ids[0].first_date_tetanus"/>
-                            <t t-set="last_date_tetanus" t-value="child.child_id.health_sheet_ids[0].last_date_tetanus"/>
+                            <t t-if="type_handicap">
+                                <t t-set="type_handicap" t-value="child.child_id.health_sheet_ids[0].type_handicap"/>
+                            </t>
+                            <t t-if="specific_regime">
+                                <t t-set="specific_regime" t-value="child.child_id.health_sheet_ids[0].specific_regime"/>
+                            </t>
+                            <t t-if="specific_regime_texte">
+                                <t t-set="specific_regime_texte" t-value="child.child_id.health_sheet_ids[0].specific_regime_text"/>
+                            </t>
 
-                            <t t-set="allergy" t-value="child.child_id.health_sheet_ids[0].allergy"/>
-                            <t t-set="list_allergy" t-value="child.child_id.health_sheet_ids[0].allergy_ids"/>
+                            <t t-if="contact">
+                                <t t-set="contact" t-value="child.child_id.health_sheet_ids[0].contact_ids"/>
+                            </t>
+                            <t t-if="interdiction_contact">
+                                <t t-set="interdiction_contact" t-value="child.child_id.health_sheet_ids[0].interdiction_contact_ids"/>
+                            </t>
 
-                            <t t-set="handicap" t-value="child.child_id.health_sheet_ids[0].handicap"/>
-                            <t t-set="type_handicap" t-value="child.child_id.health_sheet_ids[0].type_handicap"/>
+                            <t t-if="activity_no_available">
+                                <t t-set="activity_no_available" t-value="child.child_id.health_sheet_ids[0].activity_no_available"/>
+                            </t>
+                            <t t-if="activity_no_available_text">
+                                <t t-set="activity_no_available_text" t-value="child.child_id.health_sheet_ids[0].activity_no_available_text"/>
+                            </t>
 
-                            <t t-set="specific_regime" t-value="child.child_id.health_sheet_ids[0].specific_regime"/>
-                            <t t-set="specific_regime_texte" t-value="child.child_id.health_sheet_ids[0].specific_regime_text"/>
+                            <t t-if="swim">
+                                <t t-set="swim" t-value="child.child_id.health_sheet_ids[0].swim"/>
+                            </t>
+                            <t t-if="swim_level">
+                                <t t-set="swim_level" t-value="child.child_id.health_sheet_ids[0].swim_level"/>
+                            </t>
 
-                            <t t-set="contact" t-value="child.child_id.health_sheet_ids[0].contact_ids"/>
-                            <t t-set="interdiction_contact" t-value="child.child_id.health_sheet_ids[0].interdiction_contact_ids"/>
+                            <t t-if="diseases">
+                                <t t-set="diseases" t-value="child.child_id.health_sheet_ids[0].disease_ids"/>
+                            </t>
 
-                            <t t-set="activity_no_available" t-value="child.child_id.health_sheet_ids[0].activity_no_available"/>
-                            <t t-set="activity_no_available_text" t-value="child.child_id.health_sheet_ids[0].activity_no_available_text"/>
+                            <t t-if="intervention">
+                                <t t-set="intervention" t-value="child.child_id.health_sheet_ids[0].intervention"/>
+                            </t>
+                            <t t-if="intervention_text">
+                                <t t-set="intervention_text" t-value="child.child_id.health_sheet_ids[0].intervention_text"/>
+                            </t>
+                            <t t-if="diabetique">
+                                <t t-set="diabetique" t-value="child.child_id.health_sheet_ids[0].diabetique"/>
+                            </t>
 
-                            <t t-set="swim" t-value="child.child_id.health_sheet_ids[0].swim"/>
-                            <t t-set="swim_level" t-value="child.child_id.health_sheet_ids[0].swim_level"/>
-
-                            <t t-set="diseases" t-value="child.child_id.health_sheet_ids[0].disease_ids"/>
-
-                            <t t-set="intervention" t-value="child.child_id.health_sheet_ids[0].intervention"/>
-                            <t t-set="intervention_text" t-value="child.child_id.health_sheet_ids[0].intervention_text"/>
-                            <t t-set="diabetique" t-value="child.child_id.health_sheet_ids[0].diabetique"/>
-
-                            <t t-set="facebook" t-value="child.child_id.health_sheet_ids[0].facebook"/>
-                            <t t-set="photo" t-value="child.child_id.health_sheet_ids[0].photo"/>
-                            <t t-set="arnica" t-value="child.child_id.health_sheet_ids[0].arnica"/>
+                            <t t-if="facebook">
+                                <t t-set="facebook" t-value="child.child_id.health_sheet_ids[0].facebook"/>
+                            </t>
+                            <t t-if="photo">
+                                <t t-set="photo" t-value="child.child_id.health_sheet_ids[0].photo"/>
+                            </t>
+                            <t t-if="arnica">
+                                <t t-set="arnica" t-value="child.child_id.health_sheet_ids[0].arnica"/>
+                            </t>
                         </t>
 
 						<div class="header">
@@ -124,8 +183,8 @@
     		<field name="default" eval="True"/>
    			<field name="format">A4</field>
     		<field name="orientation">Portrait</field>
-    		<field name="margin_top">40</field>
-    		<field name="margin_bottom">20</field>
+    		<field name="margin_top">10</field>
+    		<field name="margin_bottom">10</field>
     		<field name="margin_left">15</field>
     		<field name="margin_right">15</field>
     		<field name="header_line" eval="False"/>

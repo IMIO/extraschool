@@ -123,12 +123,6 @@ class extraschool_child_registration(models.Model):
         else:
             self.warning_visibility = False
 
-    @api.model
-    def create(self, vals):
-        vals[u'organising_power_id'] = self.env['extraschool.organising_power'].search([]).mapped('id')[0]
-
-        return super(extraschool_child_registration, self).create(vals)
-
     @api.onchange('child_registration_line_ids')
     def compute_number_childs(self):
         self.number_childs = len(self.child_registration_line_ids)
@@ -282,6 +276,7 @@ class extraschool_child_registration(models.Model):
     def create(self, vals):
         # if 'child_registration_line_ids' in vals:
         #     vals['number_childs'] = len(vals['child_registration_line_ids'])
+        vals[u'organising_power_id'] = self.env['extraschool.organising_power'].search([]).mapped('id')[0]
         self.check_validity_date(vals)
         if 'child_registration_line_ids' in vals:
             vals['number_childs'] = len(vals['child_registration_line_ids'])

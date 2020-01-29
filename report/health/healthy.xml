@@ -199,10 +199,19 @@
 
         <template id="report_healthy_mt_st_guibert">
             <div style="text-align: center;">
-                <h3><b>Fiche santé de <span t-esc="child_name"/></b></h3>
+                <h4><b>Fiche santé de <span t-esc="child_lastname"/>  <span t-esc="child_firstname"/></b></h4>
             </div>
             <div>
-                <p>A compléter par les parents ou tuteurs légaux.</p>
+                <p>A compléter par les parents ou tuteurs légaux.</p><br/><br/>
+                <p><b>Cette fiche sera un appui pour les responsables ou le personnel soignant en cas de besoin. Il est essentiel que les renseignements que vous fournissez soient
+                complets, corrects et à jour au moment des activités concernées. N'hésitez pas à ajouter des informations écrites ou orales auprès des coordinateurs si cela vous semble utile.
+                </b></p><br/><br/>
+                <p><b>Identité du participant</b></p><br/>
+                Nom/Prénom : <span t-esc="child_lastname"/>  <span t-esc="child_firstname"/><br/>
+                Adresse : <span t-esc="parent.street"/><br/>
+                Code postal : <span t-esc="parent.zipcode"/><br/>
+                E-mail : <t t-if="parent.email"></t>
+
             </div>
 
 		</template>
