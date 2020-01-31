@@ -198,22 +198,86 @@
         </template>
 
         <template id="report_healthy_mt_st_guibert">
-            <div style="text-align: center;">
-                <h4><b>Fiche santé de <span t-esc="child_lastname"/>  <span t-esc="child_firstname"/></b></h4>
-            </div>
-            <div>
-                <p>A compléter par les parents ou tuteurs légaux.</p><br/><br/>
+            <div style="font-size:12px;">
+                <div style="text-align: center;">
+                    <h4><b>Fiche santé de <span t-esc="child_lastname"/>  <span t-esc="child_firstname"/></b></h4>
+                </div>
+                <p>A compléter par les parents ou tuteurs légaux.</p><br/>
                 <p><b>Cette fiche sera un appui pour les responsables ou le personnel soignant en cas de besoin. Il est essentiel que les renseignements que vous fournissez soient
                 complets, corrects et à jour au moment des activités concernées. N'hésitez pas à ajouter des informations écrites ou orales auprès des coordinateurs si cela vous semble utile.
-                </b></p><br/><br/>
-                <p><b>Identité du participant</b></p><br/>
-                Nom/Prénom : <span t-esc="child_lastname"/>  <span t-esc="child_firstname"/><br/>
-                Adresse : <span t-esc="parent.street"/><br/>
-                Code postal : <span t-esc="parent.zipcode"/><br/>
-                E-mail : <t t-if="parent.email"></t>
+                </b></p><br/>
+                <p><b>Identité du participant</b></p>
 
+                <div style="width: 100%; display: block;">
+                    <div style="width:30%; display: block; float: left;">
+                        Nom/Prénom : <span t-esc="child_lastname"/>  <span t-esc="child_firstname"/><br/>
+                        Adresse : <br/>
+                        Code postal : <br/>
+                        E-mail :
+                    </div>
+                    <div style="width:30%; float:right">
+                        Né(e) le : <span t-esc="child_lastname"/>  <span t-esc="child_firstname"/><br/>
+                         <br/>
+                        Localité : <br/>
+                        Tél / GSM :
+                    </div><br/>
+                </div><br/>
+
+
+
+                <div>
+                    <p><b>Personnes à contacter en cas d'urgence</b></p>
+                </div>
+                <div>
+                    <div style="width:40%">
+                        1. Nom/ Adresse : <br/>
+                        Lien parenté <br/><br/>
+                        2.Nom/ Adresse : <br/>
+                        lien de parenté :
+                    </div>
+                    <div style="width:40%; float:right">
+                         <br/>
+                        Tél. / GSM : <br/><br/>
+                         <br/>
+                        Tél. / GSM : <br/>
+                    </div><br/>
+                </div>
+                    <p><b>Médecin traitant</b> (selon la situation, une autre personne pourrait être sollicitée pour prendre en charge votre enfant)</p><br/><br/>
+                <div>
+                    <div style="width:40%">
+                        1. Nom - Adresse : <br/>
+                        GSM: <br/><br/>
+                    </div>
+                    <div style="width:40%; float:right">
+                         <br/>
+                         <br/>
+                    </div>
+                </div>
+                    <div >
+                        <p><b>Informations confidentielles concernant la santé du participant</b></p>
+                        <p> Le participant peut-il prendre part aux activités proposées ? (Sport, Excursions, Jeux,...)    OUI / NON</p><br/>
+                        <p>Raisons d'une éventuelle non-participation </p><br/><br/>
+                        <p>Y a-t-il des <b>données médicales spécifiques importantes</b> à connaître (ex. : problèmes cardiaques, epilepsie, asthme,
+                        diabète, mal des transports, affections cutanées, handicap,...) Indiquez la fréquence, la gravité et les actions à mettre en oeuvre pour
+                        les éviter et/ou y réagir. </p><br/><br/>
+                        <p>Le participant est-il en ordre de vaccination contre le <b>tétanos ?</b>   OUI / NON</p><br/>
+                        <p>Si oui, à quoi ? </p><br/>
+                        <p>Quelles en sont les conséquences ?</p><br/>
+                        <p>A-t-il un <b>régime alimentaire</b> particulier ? OUI / NON    Si oui, Lequel ? </p><br/>
+                        <p><b>Autres renseignements</b> concernant le participant que vous jugez importants</p><br/>
+                    </div>
+                    <div>
+                        <p>Le participant doit-il prendre des <b>médicaments</b> ?  OUI / NON</p><br/>
+
+
+
+                    </div>
+                    <div>
+                        <p>Est-il autonome dans la prise de ces médicaments ?  OUI / NON</p><br/>
+                        <p><i></i></p>
+
+                    </div>
             </div>
-
 		</template>
 
 	</data>
