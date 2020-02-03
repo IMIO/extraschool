@@ -590,6 +590,29 @@ class extraschool_invoice(models.Model):
             'context': {}
         }
 
+    @api.multi
+    def correction_payment_reconciliation(self, overfull):
+        """
+        Corrects payments according to no_value (AES-214)
+        :param overfull: amount to place in prepayment
+        :return: None
+        """
+
+        # correct overfull, otherwise amount_received may be incorrect
+        if overfull + self.amount_received > self.amount_total:
+            overfull -= (self.amount_total - self.amount_received)
+
+        payments = self.payment_ids.sorted(key=lambda r: (r.date, r.amount))
+        for payment in payments:
+            if overfull >= payment.amount:
+                overfull -= payment.amount
+                payment.unlink()
+            else:
+                payment.amount -= overfull
+                payment.payment_id.compute_solde()
+                break
+        self._compute_balance()
+
 
 class extraschool_invoice_tag(models.Model):
     _name = 'extraschool.invoice_tag'

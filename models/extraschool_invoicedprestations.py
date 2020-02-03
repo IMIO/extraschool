@@ -124,10 +124,5 @@ class extraschool_invoicedprestations(models.Model):
 
         if 'no_value_amount' in vals and vals.get('no_value_amount') > self.total_price:
             vals['no_value_amount'] = 0.00
-            #problème avec la soustraction de float
-
-        elif 'no_value_amount' in vals and round(self.invoiceid.amount_total - self.invoiceid.amount_received - self.invoiceid.no_value_amount, 3) - vals.get(
-                'no_value_amount') < 0.00:
-            vals['no_value_amount'] = 0.00
 
         return super(extraschool_invoicedprestations, self).write(vals)
