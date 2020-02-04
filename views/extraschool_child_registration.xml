@@ -15,9 +15,8 @@
 					<field name="week"/>
                     <field name="date_from"/>
 					<field name="date_to"/>
-					<field name="comment"/>
+					<field name="age_group"/>
 					<field name="state" />
-					<field name="error_duplicate_reg_line" />
 				</tree>
 			</field>
 		</record>
@@ -89,6 +88,7 @@
 							<field name="friday_activity_id" options="{'no_create':True}"/>
 		                    <field name="saturday_activity_id" options="{'no_create':True}"/>
 							<field name="sunday_activity_id" options="{'no_create':True}"/>
+                            <field name="comment"/>
 							<field name="error_duplicate_reg_line" />
 						</tree>
 					</field>

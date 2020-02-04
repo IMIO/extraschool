@@ -21,6 +21,24 @@
         </div>
     </template>
 
+    <template id="report_std_header_invoice_detail_burdinne">
+        <xpath expr="//head" position="inside">
+            <link rel="stylesheet" href="/extraschool/static/src/css/report_std_header_burdinne.css"/>
+        </xpath>
+        <div id="aes_header">
+            <div class="row">
+                <div id="b_logo2">
+                        <img class="logo2" t-attf-src="data:image/jpeg;base64,{{logo}}"/>
+                       <B>COMMUNE DE BURDINNE</B><br/>
+                        Province de LIEGE - Arrondissement de HUY
+                </div>
+                <div id="b_date">
+                    <span class="doc_date"><t t-esc="doc_date" /></span>
+                </div>
+            </div>
+        </div>
+    </template>
+
     <template id="report_reminder_burdinne">
            <xpath expr="//head" position="inside">
                 <link rel="stylesheet" href="/extraschool/static/src/css/report_invoice_summary_tournai_reminder.css"/>

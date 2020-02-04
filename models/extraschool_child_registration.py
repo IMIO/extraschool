@@ -590,6 +590,7 @@ class extraschool_child_registration_line(models.Model):
     sunday = fields.Boolean('Sunday')
     sunday_activity_id = fields.Many2one('extraschool.activity', string="Sunday",
                                          domain="[('selectable_on_registration_multi','=',True)]")
+    comment = fields.Char('Comment', track_visibility='onchange')
     error_duplicate_reg_line = fields.Boolean(string="Error", default=False)
 
     @api.model
