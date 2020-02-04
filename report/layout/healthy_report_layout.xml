@@ -35,48 +35,110 @@
 
 					<t t-foreach="docs" t-as="child">
                         <t t-set="logo" t-value="organising_power.logo"/>
-                        <t t-set="logo2" t-value="organising_power.logo2"/>
-						<t t-set="doctor_name" t-value="child.health_sheet_ids[0].doctor_id.name"/>
-                        <t t-set="doctor_street" t-value="child.health_sheet_ids[0].doctor_id.street"/>
-						<t t-set="doctor_zipcode" t-value="child.health_sheet_ids[0].doctor_id.zipcode"/>
-						<t t-set="doctor_city" t-value="child.health_sheet_ids[0].doctor_id.city"/>
-						<t t-set="doctor_country" t-value="child.health_sheet_ids[0].doctor_id.country_id.name"/>
+                        <t t-if="logo2">
+                            <t t-set="logo2" t-value="organising_power.logo2"/>
+                        </t>
+                        <t t-if="doctor_name">
+						    <t t-set="doctor_name" t-value="child.health_sheet_ids[0].doctor_id.name"/>
+                        </t>
+                        <t t-if="doctor_street">
+                            <t t-set="doctor_street" t-value="child.health_sheet_ids[0].doctor_id.street"/>
+                        </t>
+                        <t t-if="doctor_zipcode">
+						    <t t-set="doctor_zipcode" t-value="child.health_sheet_ids[0].doctor_id.zipcode"/>
+                        </t>
+                        <t t-if="doctor_city">
+						    <t t-set="doctor_city" t-value="child.health_sheet_ids[0].doctor_id.city"/>
+                        </t>
+                        <t t-if="doctor_country">
+						    <t t-set="doctor_country" t-value="child.health_sheet_ids[0].doctor_id.country_id.name"/>
+                        </t>
 
-			        	<t t-set="doctor_contact" t-value="child.health_sheet_ids[0].doctor_id.doctor_contact"/>
-						<t t-set="doctor_gsm" t-value="child.health_sheet_ids[0].doctor_id.doctor_gsm"/>
-						<t t-set="doctor_comment" t-value="child.health_sheet_ids[0].doctor_id.comment"/>
+                        <t t-if="doctor_contact">
+			        	    <t t-set="doctor_contact" t-value="child.health_sheet_ids[0].doctor_id.doctor_contact"/>
+                        </t>
+                        <t t-if="doctor_gsm">
+						    <t t-set="doctor_gsm" t-value="child.health_sheet_ids[0].doctor_id.doctor_gsm"/>
+                        </t>
+                        <t t-if="doctor_comment">
+						    <t t-set="doctor_comment" t-value="child.health_sheet_ids[0].doctor_id.comment"/>
+                        </t>
 
-						<t t-set="tetanus" t-value="child.health_sheet_ids[0].tetanus"/>
-						<t t-set="first_date_tetanus" t-value="child.health_sheet_ids[0].first_date_tetanus"/>
-						<t t-set="last_date_tetanus" t-value="child.health_sheet_ids[0].last_date_tetanus"/>
+                        <t t-if="tetanus">
+						    <t t-set="tetanus" t-value="child.health_sheet_ids[0].tetanus"/>
+                        </t>
+                        <t t-if="first_date_tetanus">
+						    <t t-set="first_date_tetanus" t-value="child.health_sheet_ids[0].first_date_tetanus"/>
+                        </t>
+                        <t t-if="last_date_tetanus">
+						    <t t-set="last_date_tetanus" t-value="child.health_sheet_ids[0].last_date_tetanus"/>
+                        </t>
 
-						<t t-set="allergy" t-value="child.health_sheet_ids[0].allergy"/>
-						<t t-set="list_allergy" t-value="child.health_sheet_ids[0].allergy_ids"/>
+                        <t t-if="allergy">
+						    <t t-set="allergy" t-value="child.health_sheet_ids[0].allergy"/>
+                        </t>
+                        <t t-if="list_allergy">
+						    <t t-set="list_allergy" t-value="child.health_sheet_ids[0].allergy_ids"/>
+                        </t>
 
-						<t t-set="handicap" t-value="child.health_sheet_ids[0].handicap"/>
-						<t t-set="type_handicap" t-value="child.health_sheet_ids[0].type_handicap"/>
+                        <t t-if="handicap">
+						    <t t-set="handicap" t-value="child.health_sheet_ids[0].handicap"/>
+                        </t>
+                        <t t-if="type_handicap">
+						    <t t-set="type_handicap" t-value="child.health_sheet_ids[0].type_handicap"/>
+                        </t>
 
-						<t t-set="specific_regime" t-value="child.health_sheet_ids[0].specific_regime"/>
-						<t t-set="specific_regime_texte" t-value="child.health_sheet_ids[0].specific_regime_text"/>
+                        <t t-if="specific_regime">
+						    <t t-set="specific_regime" t-value="child.health_sheet_ids[0].specific_regime"/>
+                        </t>
+                        <t t-if="specific_regime_texte">
+						    <t t-set="specific_regime_texte" t-value="child.health_sheet_ids[0].specific_regime_text"/>
+                        </t>
 
-						<t t-set="contact" t-value="child.health_sheet_ids[0].contact_ids"/>
-						<t t-set="interdiction_contact" t-value="child.health_sheet_ids[0].interdiction_contact_ids"/>
+                        <t t-if="contact">
+						    <t t-set="contact" t-value="child.health_sheet_ids[0].contact_ids"/>
+                        </t>
+                        <t t-if="interdiction_contact">
+						    <t t-set="interdiction_contact" t-value="child.health_sheet_ids[0].interdiction_contact_ids"/>
+                        </t>
 
-						<t t-set="activity_no_available" t-value="child.health_sheet_ids[0].activity_no_available"/>
-                        <t t-set="activity_no_available_text" t-value="child.health_sheet_ids[0].activity_no_available_text"/>
+                        <t t-if="activity_no_available">
+						    <t t-set="activity_no_available" t-value="child.health_sheet_ids[0].activity_no_available"/>
+                        </t>
+                        <t t-if="activity_no_available_text">
+                            <t t-set="activity_no_available_text" t-value="child.health_sheet_ids[0].activity_no_available_text"/>
+                        </t>
 
-						<t t-set="swim" t-value="child.health_sheet_ids[0].swim"/>
-						<t t-set="swim_level" t-value="child.health_sheet_ids[0].swim_level"/>
+                        <t t-if="swim">
+						    <t t-set="swim" t-value="child.health_sheet_ids[0].swim"/>
+                        </t>
+                        <t t-if="swim_level">
+						    <t t-set="swim_level" t-value="child.health_sheet_ids[0].swim_level"/>
+                        </t>
 
-						<t t-set="diseases" t-value="child.health_sheet_ids[0].disease_ids"/>
+                        <t t-if="diseases">
+						    <t t-set="diseases" t-value="child.health_sheet_ids[0].disease_ids"/>
+                        </t>
 
-						<t t-set="intervention" t-value="child.health_sheet_ids[0].intervention"/>
-						<t t-set="intervention_text" t-value="child.health_sheet_ids[0].intervention_text"/>
-						<t t-set="diabetique" t-value="child.health_sheet_ids[0].diabetique"/>
+                        <t t-if="intervention">
+						    <t t-set="intervention" t-value="child.health_sheet_ids[0].intervention"/>
+                        </t>
+                        <t t-if="intervention_text">
+						    <t t-set="intervention_text" t-value="child.health_sheet_ids[0].intervention_text"/>
+                        </t>
+                        <t t-if="diabetique">
+						    <t t-set="diabetique" t-value="child.health_sheet_ids[0].diabetique"/>
+                        </t>
 
-						<t t-set="facebook" t-value="child.health_sheet_ids[0].facebook"/>
-						<t t-set="photo" t-value="child.health_sheet_ids[0].photo"/>
-                        <t t-set="arnica" t-value="child.health_sheet_ids[0].arnica"/>
+                        <t t-if="facebook">
+						    <t t-set="facebook" t-value="child.health_sheet_ids[0].facebook"/>
+                        </t>
+                        <t t-if="photo">
+						    <t t-set="photo" t-value="child.health_sheet_ids[0].photo"/>
+                        </t>
+                        <t t-if="arnica">
+                            <t t-set="arnica" t-value="child.health_sheet_ids[0].arnica"/>
+                        </t>
 
 						<div class="header">
                             <t t-foreach="organising_power.healthy_report_id.inline_report_ids.filtered(lambda r: r.section == 'a_header')" t-as="tmpl">
