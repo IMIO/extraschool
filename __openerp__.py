@@ -91,7 +91,7 @@
         'views/extraschool_reminder.xml',
         'views/extraschool_remindersjournal.xml',
         'views/extraschool_smartphone.xml',
-        'views/extraschool_taxcertificates.xml',
+        # 'views/extraschool_taxcertificates.xml',
         'views/extraschool_timecorrection.xml',
         'views/extraschool_school.xml',
         'views/extraschool_schoolimplantation.xml',
