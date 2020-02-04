@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <odoo>
-	<data> 
+	<data>
         <record model="ir.ui.view" id="extraschool_child_registration_validation_wizard_form">
             <field name="name">extraschool.child.registration.validation.wizard.form</field>
             <field name="model">extraschool.child_registration_validation_wizard</field>
@@ -8,13 +8,13 @@
             <field name="arch" type="xml">
                 <form string="Child registration validation wizard">
                     <group colspan="4" col="3">
-                        <button name="validate" group="admin" string="Validation" icon="gtk-apply" type="object"  context="{'wizard': True}" groups="extraschool.extraschool_gods"/>
-                        <button name="force_set_to_draft" group="admin" string="Set to draft" icon="gtk-apply" type="object"  context="{'wizard': True}" groups="extraschool.extraschool_gods"/>
-                        <button name="check_doublons" group="admin" string="Check Doublons" icon="gtk-apply" type="object"  context="{'wizard': True}" groups="extraschool.extraschool_gods"/>
+                        <button name="validate" group="admin" string="Validation" icon="gtk-apply" type="object"  context="{'wizard': True}" groups="extraschool.extraschool_direction"/>
+                        <button name="force_set_to_draft" group="admin" string="Set to draft" icon="gtk-apply" type="object"  context="{'wizard': True}" groups="extraschool.extraschool_direction"/>
+                        <button name="check_doublons" group="admin" string="Check Doublons" icon="gtk-apply" type="object"  context="{'wizard': True}" groups="extraschool.extraschool_direction"/>
                     </group>
                 </form>
             </field>
-        </record>        
+        </record>
 
         <act_window id="child_registration_validation_wizard_action"
             name="Child registration validation wizard"
@@ -23,6 +23,6 @@
             view_type="form" view_mode="form"
             key2="client_action_multi" target="new"
             />
-                        
+
 	</data>
 </odoo>
