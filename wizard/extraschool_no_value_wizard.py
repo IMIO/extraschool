@@ -29,7 +29,7 @@ class extraschoolNoValueWizard(models.TransientModel):
     _name = 'extraschool.no_value_wizard'
 
     def _get_invoiced_prestation(self):
-        invoiced_prestation_ids =  self.env['extraschool.invoicedprestations'].search([
+        invoiced_prestation_ids = self.env['extraschool.invoicedprestations'].search([
             ('invoiceid', 'in', self.env.context.get('active_ids'))
         ])
         invoiced_prestation_ids = invoiced_prestation_ids.filtered(lambda r: r.total_price > 0.00)
@@ -62,40 +62,41 @@ class extraschoolNoValueWizard(models.TransientModel):
     @api.onchange('invoice_prestation_ids')
     def _on_change_invoice_prestation(self):
         if not self._is_no_value_amount_correct():
-            raise Warning(_("The amount of no value is superior of the total amount"))
+            raise Warning(_("The amount of no value is superior of the total amount or is negative."))
         else:
             self.amount_total = round(fsum(x.no_value_amount for x in self.invoice_prestation_ids), 3)
 
-        #invoice_id = self.env['extraschool.invoice_prestation_ids'].browse(self.env.context.get('active_ids'))
+        # invoice_id = self.env['extraschool.invoice_prestation_ids'].browse(self.env.context.get('active_ids'))
 
     @api.multi
     def validate(self):
         for i in self.invoice_prestation_ids:
-            if i.no_value_amount > 0 :
+            if i.no_value_amount > 0:
                 i.description = self.description
                 i.date_no_value = self.date_no_value
         if not self._is_no_value_amount_correct():
-            raise Warning(_("The amount of no value is superior of the total amount"))
+            raise Warning(_("The amount of no value is superior of the total amount or is negative"))
         else:
             invoice_id = self.env['extraschool.invoice'].browse(self.env.context.get('active_ids'))
-
+            overfull = round(fsum(x.no_value_amount for x in self.invoice_prestation_ids),
+                             3) - invoice_id.no_value_amount
             invoice_id.write({
-                'no_value_amount': round(fsum(x.no_value_amount for x in self.invoice_prestation_ids), 3),
+                'no_value_amount': overfull + invoice_id.no_value_amount,
             })
+
+            if invoice_id.no_value_amount > invoice_id.balance:
+                invoice_id.correction_payment_reconciliation(overfull)
+
             invoice_id._compute_balance()
 
             return True
 
     @api.multi
     def _is_no_value_amount_correct(self):
-        invoice_id = self.env['extraschool.invoice'].browse(self.env.context.get('active_ids'))
         total_no_value = round(fsum(x.no_value_amount for x in self.invoice_prestation_ids), 3)
-
         if total_no_value > round(fsum(x.total_price for x in self.invoice_prestation_ids), 3):
             return False
-        if round(invoice_id.amount_total - invoice_id.amount_received, 3) - total_no_value < 0.00:
-            return False
         for invoiced_prestation in self.invoice_prestation_ids:
-            if invoiced_prestation.no_value_amount > invoiced_prestation.total_price:
+            if invoiced_prestation.no_value_amount > invoiced_prestation.total_price or invoiced_prestation.no_value_amount < 0.0:
                 return False
         return True
