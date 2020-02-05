@@ -309,7 +309,7 @@ class extraschool_coda(models.Model):
                                             'amount': amount,
                                         })
 
-                                        for reconciliation in payment_id._get_reconciliation_list(parentid,prefix['payment_invitation_com_struct_prefix'],1,amount,True):
+                                        for reconciliation in payment_id._get_reconciliation_list(parentid, _prefix,1,amount,True):
                                             payment_reconciliation_obj.create({'payment_id' : payment_id.id,
                                                                            'invoice_id' : reconciliation['invoice_id'],
                                                                            'date': transfertdate,# todo: si date facture <= coda: date coda sinon date facture

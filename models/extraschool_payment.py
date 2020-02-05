@@ -94,7 +94,7 @@ class extraschool_payment(models.Model):
 
         # On CODA payment, do not pay tagged or reminder/reminder fees invoice.
         if from_coda:
-            search_domain += [('tag', '=', None)]
+            search_domain += [('tag', '=', None),]
             if payment_type == 1:  # Prepaid.
                 activity_category_ids = self.env['extraschool.activitycategory'].search([('payment_invitation_com_struct_prefix', '=', com_struct_prefix)]).ids
 
