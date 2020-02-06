@@ -184,7 +184,8 @@ class extraschool_activitycategory(models.Model):
 
         return True
 
-    def get_sequence(self, type, year, manual=False):
+    @api.multi
+    def get_sequence(self, type, year, manual=False, dominant=False):
         """
         :param type: type of activity
         :param year: year of activity
@@ -197,9 +198,15 @@ class extraschool_activitycategory(models.Model):
                                                     ('year', '=', year),
                                                     ('activity_category_id', '=', self.id),
                                                     ])
+        elif dominant:
+            sequence_id = self.sequence_ids.search([('type', '=', type),
+                                                    ('year', '=', year),
+                                                    ('activity_category_id', '=', self.env['extraschool.organising_power'].dominant_activity_category_id),
+                                                    ])
         else:
             sequence_id = self.sequence_ids.search([('type', '=', type),
                                                     ('year', '=', year),
+                                                    ('activity_category_id', '=', self.id),
                                                     ])
 
         if len(sequence_id) == 0:
