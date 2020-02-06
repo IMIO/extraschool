@@ -17,6 +17,7 @@
 					<field name="date_to"/>
 					<field name="age_group"/>
 					<field name="state" />
+                    <field name="error_duplicate_reg_line"/>
 				</tree>
 			</field>
 		</record>
