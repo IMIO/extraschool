@@ -609,7 +609,7 @@ class extraschool_invoice_wizard(models.TransientModel):
 
         if len(self.activitycategory) > 1:
             if self.env['extraschool.organising_power'].dominant_activity_category_id:
-                sequence_id = self.env['extraschool.activitycategory'].get_sequence('invoice', year, False, True)
+                sequence_id = self.activitycategory[0].get_sequence('invoice', year, False, True)
             else:
                 raise Warning(_('There is no dominant activity category'))
         else:
