@@ -613,7 +613,6 @@ class extraschool_invoice_wizard(models.TransientModel):
             else:
                 raise Warning(_('There is no dominant activity category'))
         else:
-            import wdb; wdb.set_trace()
             sequence_id = self.activitycategory[0].get_sequence('invoice', year)
 
         args=[]
