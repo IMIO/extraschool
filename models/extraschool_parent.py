@@ -142,6 +142,19 @@ class extraschool_parent(models.Model):
     country_id = fields.Many2one('res.country', string='Country', default=21, required=True)
     check_name = fields.Boolean(default=True)
     check_rn = fields.Boolean(default=True)
+    tax_certificate_send_method = fields.Selection((('emailandmail', 'By mail and email'),
+                                          ('onlyemail', 'Only by email'),
+                                          ('onlybymail', 'Only by mail')),
+                                         'Tax certificate send method', required=True, default='onlybymail',
+                                         track_visibility='onchange')
+
+    @api.model
+    def update_tax_and_send_method(self):
+        parent_ids = self.env['extraschool.parent'].search([])
+        for parent in parent_ids:
+            if not self.tax_certificate_send_method:
+                parent.write({'tax_certificate_send_method': parent.invoicesendmethod})
+
 
     @api.onchange('firstname', 'lastname')
     @api.multi
