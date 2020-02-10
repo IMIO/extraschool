@@ -40,6 +40,7 @@
     'data' : [
         'scripts/update_seq.xml',
         'scripts/update_one_report.sql',
+        'scripts/update_tax_send_method.xml',
         # 'scripts/create_activitycategoryid_column.sql',
         'data/data_days.xml',
         'data/data_health_sheet.xml',
