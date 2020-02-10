@@ -134,6 +134,7 @@ class extraschool_taxcertificate(models.Model):
                                     where invoiceid in (""" + sql_concerned_invoice + """)
                                            and aa.on_tax_certificate = true
                                            and iip.childid = ip.childid
+                                           AND (iip.total_price - iip.no_value_amount > 0)
                                     ) as nbdays
                                     from extraschool_invoicedprestations ip
                                     left join extraschool_activityoccurrence ao on ao.id = ip.activity_occurrence_id
@@ -346,9 +347,11 @@ class extraschool_tax_certificate_detail(models.Model):
                                     LEFT JOIN extraschool_payment AS pay
                                     ON pay.id = pay_rec.payment_id
                                     WHERE pay_rec.paymentdate BETWEEN '2019-01-01' AND '2019-12-31'
-                                    AND inv.balance = 0 AND (inv.reminder_fees IS NULL OR inv.reminder_fees = false))
+                                    AND inv.balance = 0 AND (inv.reminder_fees IS NULL OR inv.reminder_fees = false)
+                                    )
                                     AND act.on_tax_certificate = TRUE
                                     AND prest.prestation_date <= c.birthdate + interval '12 year'
+                                    AND inv_prest.total_price - inv_prest.no_value_amount > 0
                     ORDER BY inv.number, prest.prestation_date, act.short_name, prest.prestation_time
 
             """)
