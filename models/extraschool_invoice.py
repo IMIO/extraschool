@@ -153,7 +153,7 @@ class extraschool_invoice(models.Model):
                                                       ]).sorted(key=lambda r: r.paymentdate)
 
                     count = 0
-                    solde = invoice.balance - invoice.no_value_amount
+                    solde = invoice.balance
 
                     while count < len(payment_ids) and solde > 0:
                         amount = solde if payment_ids[count].solde >= solde else payment_ids[count].solde
