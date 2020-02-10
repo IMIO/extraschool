@@ -130,6 +130,7 @@
 	        			<tr>
 		        			<th>Période</th>
 		        			<th>Facture</th>
+		        			<th>Catégorie</th>
 		        			<th>Echéance</th>
 		        			<th>Montant</th>
 						</tr>
@@ -140,6 +141,11 @@
 	        						<tr>
 				       					<td><span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_from,'%Y-%m-%d')))" /> - <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_to,'%Y-%m-%d')))" /></td>
 			        					<td><span t-field="summary_invoice.number" /></td>
+			        					<td>
+                                            <t t-foreach="summary_invoice.activitycategoryid" t-as="category_activity">
+                                                <span t-field="category_activity.name" />
+                                            </t>
+                                        </td>
 				       					<td><span t-field="summary_invoice.payment_term" /></td>
 				       					<td class="amount"><span t-esc="'%.2f €' %  (summary_invoice.balance)" /></td>
 
@@ -149,6 +155,11 @@
 	        						<t t-foreach="summary_invoice.invoice_line_ids" t-as="invoice_line">
 	        							<tr>
 					       					<td></td>
+					       				    <td>
+                                                <t t-foreach="summary_invoice.activitycategoryid" t-as="category_activity">
+                                                    <span t-field="category_activity.name" />
+                                                </t>
+                                            </td>
 				        					<td><span t-field="invoice_line.description" /></td>
 					       					<td><span t-field="summary_invoice.payment_term" /></td>
 					       					<td class="amount"><span t-esc="TODO" /></td>
