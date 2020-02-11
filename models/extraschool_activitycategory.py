@@ -199,9 +199,10 @@ class extraschool_activitycategory(models.Model):
                                                     ('activity_category_id', '=', self.id),
                                                     ])
         elif dominant:
+            import wdb; wdb.set_trace()
             sequence_id = self.sequence_ids.search([('type', '=', type),
                                                     ('year', '=', year),
-                                                    ('activity_category_id', '=', self.env['extraschool.organising_power'].dominant_activity_category_id),
+                                                    (self.env['extraschool.organising_power'].search([])[0].dominant_activity_category_id.id, '=', self.id),
                                                     ])
         else:
             sequence_id = self.sequence_ids.search([('type', '=', type),
