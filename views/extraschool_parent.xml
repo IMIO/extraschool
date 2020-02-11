@@ -120,6 +120,8 @@
                         <field name="invoicesendmethod"/>
                         <newline/>
                         <field name="remindersendmethod"/>
+                        <newline/>
+                        <field name="tax_certificate_send_method"/>
                     </group>
                 </page>
                 <page string="Childs">
