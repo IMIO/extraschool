@@ -384,7 +384,6 @@ class extraschool_remindersjournal(models.Model):
                         parent_id = invoice.parentid.id
                         concerned_invoice_ids = []
 
-                        # import wdb; wdb.set_trace()
                         # todo enlever le true pour manual et refaire la fonction
                         reminder = self.env['extraschool.reminder'].create({'reminders_journal_item_id': reminders_journal_item_id.id,
                                                                             'reminders_journal_id': self.id,
