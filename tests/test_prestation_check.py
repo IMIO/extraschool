@@ -4,7 +4,7 @@
 #    Extraschool
 #    Copyright (C) 2008-2019
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchia- Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia & Jenny Pans - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -22,7 +22,7 @@
 ##############################################################################
 
 from openerp.addons.extraschool.tests.test_data import TestData
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 import base64
 import logging
 import re
@@ -578,6 +578,20 @@ class PrestationCheckTest(TestData):
         self.assertEqual(prestation_times_ids_15[1].activity_name, 'Cirque')
         # endregion
 
+        # region InvoiceWizard
+
+        # simule a facturation
+        invoice_wizard = self.env['extraschool.invoice_wizard'].create({
+            'activitycategory': activity_category_1.id,
+            'generate_pdf': False,
+            'period_from': '2018-07-01',
+            'period_to': '2018-07-31',
+            'invoice_date': date.today().strftime("%Y-%m-%d"),
+            # expire le mois prochain
+            'invoice_term': date.today().strftime("%Y-%m-%d") + timedelta(days=29)
+        })
+
+        # endregion
 
         # region Invoices
 ##############################################################################
