@@ -100,6 +100,14 @@ class extraschool_activity(models.Model):
         string="Versions on price list",
         compute='_get_price_list_version'
     )
+    age_group = fields.Selection([
+        ('nothing', 'Aucun'),
+        ('4-5', '4 à 5 ans'),
+        ('6-7', '6 à 7 ans'),
+        ('8-9', "8 à 9 ans"),
+        ('10-12', "10 à 12 ans"),
+        ('13-18', "13 à 18 ans")
+    ], string="Age group", default=None)
 
     @api.multi
     def _get_price_list_version(self):

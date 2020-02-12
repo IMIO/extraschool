@@ -71,6 +71,7 @@
                     <field name="validity_from"/>
                     <field name="validity_to"/>
                     <field name="leveltype"/>
+                    <field name="age_group"/>
                     <field name="warning_visibility" invisible="True"/>
                 </group>
                 <notebook>
