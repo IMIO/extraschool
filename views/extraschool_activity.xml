@@ -144,6 +144,11 @@
                             <field name="price_list_version_ids"/>
                         </group>
                     </page>
+                    <page string="Activités">
+                        <group col="4">
+                            <field name="linked_activity_ids"/>
+                        </group>
+                    </page>
                 </notebook>
                     </sheet>
                     <div class="oe_chatter" groups="extraschool.extraschool_gods">

@@ -107,7 +107,8 @@ class extraschool_activity(models.Model):
         ('8-9', "8 à 9 ans"),
         ('10-12', "10 à 12 ans"),
         ('13-18', "13 à 18 ans")
-    ], string="Age group", default=None)
+    ], string="Age group", default='nothing')
+    linked_activity_ids = fields.Many2many('extraschool.activity', 'extraschool_linked_activity_rel', 'activity_id', 'linked_activity_id')
 
     @api.multi
     def _get_price_list_version(self):
@@ -426,3 +427,11 @@ class extraschool_activity(models.Model):
 
 extraschool_activity()
 
+class extraschool_excursion_activity(models.Model):
+    _name = 'extraschool.other_contact'
+    _description = 'Other contact'
+
+    health_id = fields.Many2one('extraschool.health_sheet', string='Health sheet')
+    contact_name = fields.Char(string='Contact name')
+    contact_relation = fields.Char(string='Contact relation')
+    contact_tel = fields.Char(string='Tél. contact', size=20)
