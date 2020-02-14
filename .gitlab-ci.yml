@@ -27,6 +27,7 @@ staging:
     - docker tag docker-odoo-base_odoo docker-staging.imio.be/extraschool-v9:9.1
     - docker push docker-staging.imio.be/extraschool-v9:9.1
     - docker rmi docker-staging.imio.be/extraschool-v9:9.1 docker-odoo-base_odoo
+    - echo "$(RUNDECK_TOKEN)"
     - curl -v --header "Content-Type:application/json" --header "X-Rundeck-Auth-Token:$(RUNDECK_TOKEN)" https://run.imio.be/api/12/job/6763e023-2dcd-4bca-9510-db8c8d780517/run
 
   when: on_success
