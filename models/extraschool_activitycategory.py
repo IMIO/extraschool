@@ -201,7 +201,7 @@ class extraschool_activitycategory(models.Model):
         elif dominant:
             sequence_id = self.sequence_ids.search([('type', '=', type),
                                                     ('year', '=', year),
-                                                    (self.env['extraschool.organising_power'].search([])[0].dominant_activity_category_id.id, '=', self.id),
+                                                    ('activity_category_id', '=', self.env['extraschool.organising_power'].search([])[0].dominant_activity_category_id.id),
                                                     ])
         else:
             sequence_id = self.sequence_ids.search([('type', '=', type),
@@ -220,11 +220,11 @@ class extraschool_activitycategory(models.Model):
                                                               'prefix': "%s" % (("%s" % (year))[-2:]),
                                                               'padding': 5})
 
-                categ_sequence_id = self.sequence_ids.create({'name': "%s - %s - %s" % (self.name, type, year),
-                                                              'activity_category_id': self.id,
-                                                              'year': "%s" % (year),
-                                                              'type': type,
-                                                              'sequence': sequence_id.id})
+                # categ_sequence_id = self.sequence_ids.create({'name': "%s - %s - %s" % (self.name, type, year),
+                #                                               'activity_category_id': self.id,
+                #                                               'year': "%s" % (year),
+                #                                               'type': type,
+                #                                               'sequence': sequence_id.id})
             else:
                 raise Warning(_("Sequence not defined"))
         else:
