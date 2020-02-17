@@ -528,16 +528,27 @@ class extraschool_child_registration(models.Model):
 
     def get_summary(self):
         result = {}
-        for line in self.child_registration_line_ids:
-            zz = 0
-            for day in [line.monday_activity_id, line.tuesday_activity_id, line.wednesday_activity_id,
-                        line.thursday_activity_id, line.friday_activity_id]:
-                if day.id:
-                    if day.name not in result:
-                        result[day.name] = [0, 0, 0, 0, 0]
+        if self.activity_id:
+            for line in self.child_registration_line_ids:
+                zz = 0
+                for day in [line.monday, line.tuesday, line.wednesday,
+                            line.thursday, line.friday]:
+                    if self.activity_id.name not in result:
+                        result[self.activity_id.name] = [0, 0, 0, 0, 0]
+                    if day:
+                        result[self.activity_id.name][zz] += 1
+                    zz += 1
+        else:
+            for line in self.child_registration_line_ids:
+                zz = 0
+                for day in [line.monday_activity_id, line.tuesday_activity_id, line.wednesday_activity_id,
+                            line.thursday_activity_id, line.friday_activity_id]:
+                    if day.id:
+                        if day.name not in result:
+                            result[day.name] = [0, 0, 0, 0, 0]
 
-                    result[day.name][zz] += 1
-                zz += 1
+                        result[day.name][zz] += 1
+                    zz += 1
 
         return result
 
