@@ -562,10 +562,11 @@ class extraschool_remindersjournal(models.Model):
 
     @api.multi
     def unlink(self):
-        if self.reminders_journal_item_ids.reminder_type_id.bailiff:
-            reminder_ids = self.env['extraschool.reminder'].search([('reminders_journal_id', '=', self.id)])
-            for reminder in reminder_ids:
-                self.env['extraschool.invoice'].search([('last_reminder_id', '=', reminder.id)]).write({'tag': None})
+        for reminder_journal_item in self.reminders_journal_item_ids:
+            if reminder_journal_item.reminder_type_id.bailiff:
+                reminder_ids = self.env['extraschool.reminder'].search([('reminders_journal_id', '=', self.id)])
+                for reminder in reminder_ids:
+                    self.env['extraschool.invoice'].search([('last_reminder_id', '=', reminder.id)]).write({'tag': None})
 
         return super(extraschool_remindersjournal, self).unlink()
 
