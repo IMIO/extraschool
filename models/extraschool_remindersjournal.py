@@ -50,6 +50,7 @@ class extraschool_remindersjournal(models.Model):
 
     name = fields.Char('Name', required=True, track_visibility='onchange')
     activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=True, readonly=True, states={'draft': [('readonly', False)]})
+    activity_category_ids = fields.Many2many('extraschool.activitycategory')
     transmission_date = fields.Date('Transmission date', default=datetime.date.today(), required=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
     reminders_journal_item_ids = fields.One2many('extraschool.reminders_journal_item', 'reminders_journal_id','Reminder journal item')
     reminder_ids = fields.One2many('extraschool.reminder', 'reminders_journal_id','Reminders', track_visibility='onchange')
@@ -66,6 +67,14 @@ class extraschool_remindersjournal(models.Model):
     based_reminder_id = fields.Many2one('extraschool.remindersjournal', 'Choose the reminder to be based on', track_visibility='onchange')
     show_based_reminder = fields.Boolean('Clic here if it\'s not the first reminder', default=False, track_visibility='onchange')
     unsolved_reminder_ids = fields.One2many('extraschool.reminder', 'reminders_journal_id', 'Unsolved Reminders', compute="_get_unsolved_reminder_method", track_visibility='onchange')
+
+    @api.model
+    def update_activity_category(self):
+        reminders_journals = self.env['extraschool.remindersjournal'].search([])
+        for reminder_journal in reminders_journals:
+            reminder_journal.write({
+                'activity_category_ids': [(6, 0, [reminder_journal.activity_category_id.id])]
+            })
 
     @api.onchange('date_from', 'date_to')
     @api.multi
@@ -94,10 +103,11 @@ class extraschool_remindersjournal(models.Model):
 
     @api.multi
     def write(self,vals):
-        if self.state == 'validated':
-            raise Warning(_("You can't modify an existing reminder."))
-        else:
-            return super(extraschool_remindersjournal, self).write(vals)
+        # if self.state == 'validated':
+        #     raise Warning(_("You can't modify an existing reminder."))
+        # else:
+        #     return super(extraschool_remindersjournal, self).write(vals)
+        return super(extraschool_remindersjournal, self).write(vals)
 
     @api.model
     def generate_pdf_thread(self, cr, uid, reminders, context=None):
@@ -257,7 +267,8 @@ class extraschool_remindersjournal(models.Model):
                                                                             })
                     biller_is_made = True
 
-                next_invoice_num = self.activity_category_id.get_next_comstruct('invoice',
+                import wdb; wdb.set_trace()
+                next_invoice_num = self.activity_category_ids.get_next_comstruct('invoice',
                                                                                 self.biller_id.get_from_year(), False, True)
                 fees_invoice = invoice_obj.create(
                     {'name': _('invoice_%s') % (next_invoice_num['num'],),
