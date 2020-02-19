@@ -67,7 +67,7 @@
                         <field name="levelid" widget="many2many_tags" options="{'no_create':True}" />
 						<newline/>
                         <field name="week"/>
-                        <field name="age_group" />
+                        <field name="age_group" options="{'no_create':True}"/>
                         <newline />
                         <field name="select_per_level" />
                         <newline/>

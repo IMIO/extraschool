@@ -100,7 +100,6 @@ class extraschool_child_registration(models.Model):
         ('primaire', 'Primaire'),
         ('maternelle', 'Maternelle'),
     ])
-    age_group = fields.Many2one('extraschool.age_group')
     comment = fields.Text('Comment', track_visibility='onchange')
 
     @api.onchange('date_to', 'date_from')

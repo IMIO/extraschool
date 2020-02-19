@@ -132,7 +132,7 @@
                             <field name="activity_child_ids" nolabel="1" colspan="4" readonly="True"/>
                         </group>
                     </page>
-                    <page string="Finance">
+                    <page string="Finance" name="finance">
                         <group col="4">
                             <field name="short_name" />
                             <field name="subsidizedbyone"/>
