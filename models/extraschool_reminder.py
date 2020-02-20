@@ -48,6 +48,7 @@ class extraschool_reminder(models.Model):
     school_implantation_id = fields.Many2one('extraschool.schoolimplantation', 'School implantation', required=False)
     concerned_invoice_ids = fields.Many2many('extraschool.invoice','extraschool_reminder_invoice_rel', 'reminder_id', 'invoice_id','Concerned invoices')
     activity_category_id = fields.Many2one(related='reminders_journal_id.activity_category_id', string='Activity Category')
+    activity_category_ids = fields.Many2many(related='reminders_journal_id.activity_category_ids', string='Activities Category')
     payment_term = fields.Date('reminders_journal_item_id.payment_term')
     transmission_date = fields.Date('reminders_journal_id.transmission_date')
     fees_amount = fields.Integer(default=0.0)
