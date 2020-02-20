@@ -162,6 +162,11 @@ class extraschool_child(models.Model):
         return super(extraschool_child, self).create(vals)
 
 
+class AgedGroup(models.Model):
+    _name="extraschool.age_group"
+
+    name = fields.Char()
+
 ##############################################################################
 #
 #    AESMobile
