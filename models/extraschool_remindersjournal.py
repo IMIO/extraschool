@@ -417,7 +417,7 @@ class extraschool_remindersjournal(models.Model):
                                 if biller_id == -1:
                                     self.biller_id = self.env['extraschool.biller'].create({'period_from' : self.transmission_date,
                                                                                             'period_to' : self.transmission_date,
-                                                                                            'activitycategoryids': self.activity_category_ids.ids,
+                                                                                            'activitycategoryid': self.activity_category_ids.ids,
                                                                                             'invoices_date': self.transmission_date,
                                                                                             })
                                     biller_id = self.biller_id.id
