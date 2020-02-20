@@ -78,7 +78,7 @@ class extraschool_remindersjournal(models.Model):
                 })
 
 
-    @api.onchange('date_from', 'date_to')
+    @api.onchange('date_from', 'date_to', 'activity_category_ids')
     @api.multi
     def get_concerned_biller(self):
         if self.date_from and self.date_to:
@@ -86,6 +86,7 @@ class extraschool_remindersjournal(models.Model):
             self.biller_ids = self.env['extraschool.biller'].search(
                 [('invoices_date', '<=', self.date_to),
                  ('invoices_date', '>=', self.date_from),
+                 ('activitycategoryid', '=', self.activity_category_ids.ids),
                  ]).ids
 
     @api.one
@@ -338,7 +339,7 @@ class extraschool_remindersjournal(models.Model):
                                                                                        reverse=True):
                     logging.info("##Check Reminder Type")
                     # select invoices
-                    invoice_search_domain = [('activitycategoryid.id', '=', self.activity_category_ids.ids),
+                    invoice_search_domain = [('activitycategoryid.id', '=', activity_category.id),
                                              ('balance', '>', 0),  # todo: See if this is needed.
                                              ('balance', '>=', reminder_type.minimum_balance),
                                              ('tag', '=', None),
