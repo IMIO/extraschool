@@ -305,17 +305,19 @@ class extraschool_remindersjournal(models.Model):
         self.state = "validated"
         return True
 
-
     @api.multi
     def validate(self):
         self.ensure_one()
         if self.based_reminder_id:
             self.next_reminder()
         else:
+            errors = ''
             for activity_category in self.activity_category_ids:
                 logging.info("Initiating Validate method")
                 if len(activity_category.reminer_type_ids.ids) == 0:
-                    return False
+                    errors += activity_category.name + '\n'
+            if len(errors) > 0:
+                raise Warning(_('These activities do not have any type of reminders : \n') + errors)
 
             invoice_search_domain_date_range = []
             #selection on date range
