@@ -162,11 +162,6 @@ class extraschool_child(models.Model):
         return super(extraschool_child, self).create(vals)
 
 
-class AgedGroup(models.Model):
-    _name="extraschool.age_group"
-
-    name = fields.Char()
-
 ##############################################################################
 #
 #    AESMobile
@@ -227,3 +222,8 @@ class AgedGroup(models.Model):
         env = api.Environment(cr, uid, context={})
 
         return extraschool_child.get_child_for_smartphone(env['extraschool.child'], smartphone_id)
+        
+class AgedGroup(models.Model):
+    _name="extraschool.age_group"
+
+    name = fields.Char()
