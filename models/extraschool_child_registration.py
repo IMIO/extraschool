@@ -208,6 +208,7 @@ class extraschool_child_registration(models.Model):
         search_domain = [('schoolimplantation.id', '=', self.school_implantation_id.id),
                          ('isdisabled', '=', False),
                          ]
+
         if self.class_id:
             search_domain += [('classid.id', '=', self.class_id.id)]
 
@@ -224,13 +225,6 @@ class extraschool_child_registration(models.Model):
                 level_ids = self.env['extraschool.level'].search([('leveltype', '=', 'M')])
 
             search_domain += [('levelid.id', 'in', level_ids.ids)]
-
-        elif self.age_group:
-            dates = extraschool_helper.calculate_birthdate_from_age(self.age_group)
-            search_domain += [
-                ('birthdate', '>=', dates[0].strftime("%Y-%m-%d")),
-                ('birthdate', '<=', dates[1].strftime("%Y-%m-%d")),
-            ]
 
         childs = self.env['extraschool.child'].search(search_domain)
 
