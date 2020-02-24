@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record model="extraschool.age_group" id="extraschool_age_group_4_5">
+            <field name="name">4 à 5 ans</field>
+        </record>
+
+        <record model="extraschool.age_group" id="extraschool_age_group_6_7">
+            <field name="name">6 à 7 ans</field>
+        </record>
+
+        <record model="extraschool.age_group" id="extraschool_age_group_8_9">
+            <field name="name">8 à 9 ans</field>
+        </record>
+
+        <record model="extraschool.age_group" id="extraschool_age_group_10_12">
+            <field name="name">10 à 12 ans</field>
+        </record>
+
+        <record model="extraschool.age_group" id="extraschool_age_group_13_18">
+            <field name="name">13 à 18 ans</field>
+        </record>
+    </data>
+</odoo>

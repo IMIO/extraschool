@@ -100,13 +100,6 @@ class extraschool_child_registration(models.Model):
         ('primaire', 'Primaire'),
         ('maternelle', 'Maternelle'),
     ])
-    age_group = fields.Selection([
-        ('4-5', '4 à 5 ans'),
-        ('6-7', '6 à 7 ans'),
-        ('8-9', "8 à 9 ans"),
-        ('10-12', "10 à 12 ans"),
-        ('13-18', "13 à 18 ans")
-    ], string="Age group", default=None)
     comment = fields.Text('Comment', track_visibility='onchange')
 
     @api.onchange('date_to', 'date_from')

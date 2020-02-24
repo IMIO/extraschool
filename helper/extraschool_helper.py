@@ -72,11 +72,11 @@ def calculate_age(date_of_birth):
 
 def calculate_birthdate_from_age(age_group):
     """
-    Take an age_group (for exemple, 10-12), split it and calculate birthdate for 10,12
+    Take an age_group (for exemple, 10 à 12 ans), split it and calculate birthdate for 10,12
     and return a list [date_from, date_to]
     """
-    splitted_age_group = age_group.split('-')
+    splitted_age_group = age_group.split(' ')
     today_date = datetime.now()
-    date_from = today_date - relativedelta(years=int(splitted_age_group[1]))
+    date_from = today_date - relativedelta(years=int(splitted_age_group[2]))
     date_to = today_date - relativedelta(years=int(splitted_age_group[0]))
     return [date_from, date_to]

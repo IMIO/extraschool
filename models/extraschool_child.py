@@ -224,9 +224,8 @@ class extraschool_child(models.Model):
         env = api.Environment(cr, uid, context={})
 
         return extraschool_child.get_child_for_smartphone(env['extraschool.child'], smartphone_id)
-
-
+        
 class AgedGroup(models.Model):
-    _name = "extraschool.age_group"
+    _name="extraschool.age_group"
 
     name = fields.Char()
