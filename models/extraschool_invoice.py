@@ -96,12 +96,11 @@ class extraschool_invoice(models.Model):
     @api.multi
     def _compute_balance(self):
         for invoice in self:
-
             total = 0 if len(invoice.invoice_line_ids) == 0 else sum(line.total_price for line in invoice.invoice_line_ids)
             total = 0 if total < 0.0001 else total
             reconcil = 0 if len(invoice.payment_ids) == 0 else sum(reconcil_line.amount for reconcil_line in invoice.payment_ids)
             reconcil = 0 if reconcil < 0.0001 else reconcil
-            balance = total - reconcil - self.no_value_amount
+            balance = total - reconcil - invoice.no_value_amount
             balance = 0 if balance < 0.0001 else balance
             balance = round(balance,5) # MiCo used this to resolve a balance problem (hannut 21/08/2017)
             invoice.write({'amount_total' : total,
