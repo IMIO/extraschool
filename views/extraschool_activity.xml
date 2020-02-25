@@ -139,9 +139,10 @@
                             <field name="on_tax_certificate" />
                             <field name="tarif_group_name" />
                         </group>
-                        <group>
-                            <field name="price_list_version_ids"/>
-                        </group>
+                    </page>
+                    <page string="Prix">
+                        <separator string="Liste de prix" colspan="4"/>
+                        <field name="price_list_version_ids"/>
                     </page>
                 </notebook>
                     </sheet>

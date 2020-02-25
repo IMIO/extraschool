@@ -36170,7 +36170,7 @@ msgstr "Tax certificate detail ids"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_tax_certificate_send_method
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificate_item_tax_certificate_send_method
 msgid "Tax certificate send method"
-msgstr "Méthode d'envoi des attestations fiscales"
+msgstr "Mode d'envoi des attestations fiscales"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_account_tax_exigible
