@@ -115,12 +115,13 @@
 		       			<t t-foreach="summary_invoice_ids.sorted(key=lambda r: r.number)" t-as="summary_invoice">
 	        				<tr>
 	        					<t t-if="summary_invoice.id != invoice_id">
+                                <t t-if="summary_invoice.activitycategoryid == activity_category">
 	        					<t t-if="summary_invoice.reminder_fees == False">
 	        						<tr>
 				       					<td><span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_from,'%Y-%m-%d')))" /> - <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_to,'%Y-%m-%d')))" /></td>
 			        					<td><span t-field="summary_invoice.number" /></td>
 				       					<td><span t-field="summary_invoice.payment_term" /></td>
-										<td><t t-esc="parent_id.get_prepaid_comstruct(categ_id)" /></td>
+										<td><t t-esc="com_struct" /></td>
 				       					<td class="amount"><span t-esc="'%.2f €' %  (summary_invoice.balance)" /></td>
 
 	        						</tr>
@@ -131,12 +132,13 @@
 					       					<td></td>
 				        					<td><span t-field="invoice_line.description" /></td>
 					       					<td><span t-field="summary_invoice.payment_term" /></td>
-											<td><t t-esc="parent_id.get_prepaid_comstruct(categ_id)" /></td>
+											<td><t t-esc="com_struct" /></td>
 					       					<td class="amount"><span t-esc="TODO" /></td>
 											<!--<td class="amount"><span t-esc="'%.2f €' %  (invoice_line.balance)" /></td>-->
 				       					</tr>
 	        						</t>
 								</t>
+                                </t>
 								</t>
 		       				</tr>
 		        		</t>
