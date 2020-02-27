@@ -67,7 +67,7 @@
                     <link rel="stylesheet" href="/extraschool/static/src/css/report_invoice_summary.css"/>
                 </xpath>
 	        	<div id="invoice_summary_gras" >
-	        		<h2><span t-esc="summary_invoice_title" /></h2>
+	        		<h2>FACTURE(S) ÉCHUE(S)</h2>
 	        		<p>Les factures suivantes sont toujours en attente de paiement. Nous vous prions de bien vouloir procéder à leur(s) règlement(s) dans les meilleurs délais. Tout montant payé apure automatiquement la facture la plus ancienne </p>
 	        		<table>
 	        			<tr>
@@ -103,7 +103,7 @@
 		       				</tr>
 		        		</t>
                         <tr>
-                            <th colspan="4" style="text-align:right;"><span t-esc="'%.2f €' % (sum([summary_invoice.balance for summary_invoice in summary_invoice_ids]))"/></th>
+                            <th colspan="4" style="text-align:right; font-size:16px;"><span t-esc="'%.2f €' % (sum([summary_invoice.balance for summary_invoice in summary_invoice_ids]))"/></th>
                         </tr>
 
 	        		</table>
