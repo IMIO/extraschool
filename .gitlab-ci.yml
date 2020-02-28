@@ -44,3 +44,14 @@ promote-to-prod:
   when: manual
   only:
     - 9.1@odoo/extraschool
+
+push-image-to-prod:
+  stage: promote
+  script:
+    - docker pull docker-staging.imio.be/extraschool-v9:9.1
+    - docker tag docker-staging.imio.be/extraschool-v9:9.1 docker-prod.imio.be/extraschool-v9:9.1
+    - docker push docker-prod.imio.be/extraschool-v9:9.1
+    - docker rmi docker-staging.imio.be/extraschool-v9:9.1 docker-prod.imio.be/extraschool-v9:9.1
+  when: manual
+  only:
+    - 9.1@odoo/extraschool
