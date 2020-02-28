@@ -38,10 +38,10 @@
             </xpath>
 
             <xpath expr="//html" position="attributes">
-		    	<attribute name="t-att-data-report-margin-top">docs[0].activitycategoryid.organising_power_id.biller_report_id.paper_format_id.margin_top</attribute>
-		        <attribute name="t-att-data-report-margin-bottom">docs[0].activitycategoryid.organising_power_id.biller_report_id.paper_format_id.margin_bottom</attribute>
-		        <attribute name="t-att-data-report-margin-right">docs[0].activitycategoryid.organising_power_id.biller_report_id.paper_format_id.margin_right</attribute>
-		        <attribute name="t-att-data-report-margin-left">docs[0].activitycategoryid.organising_power_id.biller_report_id.paper_format_id.margin_left</attribute>
+		    	<attribute name="t-att-data-report-margin-top">docs[0].activitycategoryid[0].organising_power_id.biller_report_id.paper_format_id.margin_top</attribute>
+		        <attribute name="t-att-data-report-margin-bottom">docs[0].activitycategoryid[0].organising_power_id.biller_report_id.paper_format_id.margin_bottom</attribute>
+		        <attribute name="t-att-data-report-margin-right">docs[0].activitycategoryid[0].organising_power_id.biller_report_id.paper_format_id.margin_right</attribute>
+		        <attribute name="t-att-data-report-margin-left">docs[0].activitycategoryid[0].organising_power_id.biller_report_id.paper_format_id.margin_left</attribute>
 		    </xpath>
 
             <xpath expr="//body" position="attributes">
@@ -51,12 +51,12 @@
             <xpath expr="//body" position="inside">
 				<div id="biller">
 					<t t-foreach="docs" t-as="biller">
-						<t t-set="logo" t-value="biller.activitycategoryid.organising_power_id.logo"/>
-						<t t-set="slogan" t-value="docs[0].activitycategoryid.slogan"/>
-						<t t-set="doc_date" t-value="'%s, le %s' % (biller.activitycategoryid.po_city,time.strftime('%d-%m-%Y',time.strptime(biller.invoices_date,'%Y-%m-%d')))"/>
+						<t t-set="logo" t-value="biller.activitycategoryid[0].organising_power_id.logo"/>
+						<t t-set="slogan" t-value="docs[0].activitycategoryid[0].organising_power_id.dominant_activity_category_id.slogan"/>
+						<t t-set="doc_date" t-value="'%s, le %s' % (biller.activitycategoryid[0].organising_power_id.dominant_activity_category_id.po_city,time.strftime('%d-%m-%Y',time.strptime(biller.invoices_date,'%Y-%m-%d')))"/>
 
 						<div class="header">
-		        			<t t-foreach="biller.activitycategoryid.organising_power_id.biller_report_id.inline_report_ids.filtered(lambda r: r.section == 'a_header')" t-as="tmpl">
+		        			<t t-foreach="biller.activitycategoryid[0].organising_power_id.biller_report_id.inline_report_ids.filtered(lambda r: r.section == 'a_header')" t-as="tmpl">
 				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">
 			        				<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
 								</div>
@@ -66,7 +66,7 @@
 							</t>
 			       		</div>
 			        	<div class="page">
-			        		<t t-foreach="biller.activitycategoryid.organising_power_id.biller_report_id.inline_report_ids.filtered(lambda r: r.section == 'b_body')" t-as="tmpl">
+			        		<t t-foreach="biller.activitycategoryid[0].organising_power_id.biller_report_id.inline_report_ids.filtered(lambda r: r.section == 'b_body')" t-as="tmpl">
 				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">
 			        				<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
 								</div>
@@ -76,7 +76,7 @@
 							</t>
 			       		</div>
 			        	<div class="footer">
-			        		<t t-foreach="biller.activitycategoryid.organising_power_id.biller_report_id.inline_report_ids.filtered(lambda r: r.section == 'c_footer')" t-as="tmpl">
+			        		<t t-foreach="biller.activitycategoryid[0].organising_power_id.biller_report_id.inline_report_ids.filtered(lambda r: r.section == 'c_footer')" t-as="tmpl">
 				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">
 			        				<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
 								</div>
