@@ -148,6 +148,7 @@ class extraschool_parent(models.Model):
                                          'Tax certificate send method', required=True, default='onlybymail',
                                          track_visibility='onchange')
 
+
     @api.model
     def update_tax_and_send_method(self):
         parent_ids = self.env['extraschool.parent'].search([])
