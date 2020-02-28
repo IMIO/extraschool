@@ -53,7 +53,7 @@
 					<t t-foreach="docs" t-as="biller">
 						<t t-set="logo" t-value="biller.activitycategoryid[0].organising_power_id.logo"/>
 						<t t-set="slogan" t-value="docs[0].activitycategoryid[0].slogan"/>
-						<t t-set="doc_date" t-value="'%s, le %s' % (biller.activitycategoryid[0].po_city,time.strftime('%d-%m-%Y',time.strptime(biller.invoices_date,'%Y-%m-%d')))"/>
+						<t t-set="doc_date" t-value="'%s, le %s' % (biller.activitycategoryid[0].organising_power_id.po_city,time.strftime('%d-%m-%Y',time.strptime(biller.invoices_date,'%Y-%m-%d')))"/>
 
 						<div class="header">
 		        			<t t-foreach="biller.activitycategoryid[0].organising_power_id.biller_report_id.inline_report_ids.filtered(lambda r: r.section == 'a_header')" t-as="tmpl">
