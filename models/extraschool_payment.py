@@ -206,6 +206,19 @@ class extraschool_payment_status_report(models.Model):
     reminder_to_pay = fields.Boolean('Reminder to pay')
     # payment_date = fields.Date('Payment Date', select=True)
 
+    @api.multi
+    def move_prepaiement(self):
+        return {
+            'name': 'Mouvement de prépaiement',
+            'domain': [],
+            'res_model': 'extraschool.move_prepaiement',
+            'type': 'ir.actions.act_window',
+            'view_mode': 'form',
+            'view_type': 'form',
+            'context': {},
+            'target': 'new',
+        }
+
     # This is the view we use.
     def init(self, cr):
         # Drop before a new view.
