@@ -9,13 +9,11 @@
         		<table>
         			<tr>
 	        			<th>Parent</th>
-	        			<th>Catégorie d'activité</th>
 	        			<th>Total</th>
 					</tr>
 	       			<t t-foreach="biller.invoice_ids" t-as="biller_line">
         				<tr>
 	       					<td><span t-field="biller_line.parentid.name" /></td>
-	       					<td><span t-field="biller_line.activitycategoryid.name" /></td>
 	       					<td class="amount"><span t-esc="'%.2f €' %  (biller_line.amount_total)" /></td>
 	       				</tr>
 	        		</t>

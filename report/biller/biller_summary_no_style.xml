@@ -21,6 +21,12 @@
 				<div id="total">
 					<span class="zz_label">Total : </span><span t-esc="'%.2f €' %  (biller.total)" />
 				</div>
+                <div>
+                    <span>Catégorie(s) d'activité(s) : </span>
+                    <t t-foreach="biller.activitycategoryid" t-as="activitycategory">
+                        <span t-esc="activitycategory.name "/>
+                    </t>
+                </div>
 			</div>
 		</template>
 
@@ -53,6 +59,9 @@
 				<div id="total">
 					<span class="zz_label">Total : </span><span t-esc="'%.2f €' %  (biller.total)" />
 				</div>
+                <div>
+                    <span>Catégorie(s) d'activité(s) : </span><span t-field="biller.activitycategoryid.name"/>
+                </div>
 			</div>
 		</template>
 
