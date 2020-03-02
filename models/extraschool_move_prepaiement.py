@@ -2,9 +2,8 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2019
-#    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
+#    Copyright (C) 2008-2020
+#    Coralie Cardon & Jenny Pans - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -34,20 +33,22 @@ class extraschool_move_prepaiement(models.TransientModel):
 
     @api.multi
     def move(self):
-
-        activity = self._context.get('default_activity_category_id')
-        if self.amount > self._context.get('default_solde'):
+        if self._context.get('default_solde') == 0.0:
+            raise Warning('Il n\'a pas d\'argent à transférer')
+        elif self.amount == 0:
+            raise Warning('Il y doit y avoir un montant à transférer')
+        elif self.amount > self._context.get('default_solde'):
             raise Warning('Le montant indiqué est plus grand que le montant du prépaiement')
         else:
-
-            self.categ_id.solde =  self.amount
-            self.amount = self.amount - self._context.get('default_solde')
-            parent = self.env['extraschool.parent'].browse(self._context.get('default_parent_id'))
-            print parent.name
-            #self.env['extraschool.parent'].search([('id', '=', self._context.get('default_parent_id')),
-                        #                              ('payment_status_ids.activity_category_id', '=', activity)]).write(
-                # {'payment_status_ids.solde': self.amount})
-            #self.env['extraschool.parent'].search([('id', '=', self._context.get('default_parent_id')),
-                                                 #     ('payment_status_ids.activity_category_id', '=', self.categ_id)]).write(
-               # {'payment_status_ids.solde': self.categ_id.solde})
-
+            payment_status_report = self.env['extraschool.payment_status_report'].browse(self._context.get('active_id'))
+            parent = payment_status_report.parent_id
+            activity_category = parent.payment_status_ids.search([('parent_id', '=', parent.id),
+                                                                  ('activity_category_id', '=', self.categ_id.id)])
+            # créer un paiement
+            # modifier la valeur du paiement
+            # activity_category.write({
+            #     'solde': activity_category.solde + self.amount
+            # })
+            # payment_status_report.write({
+            #     'solde': payment_status_report.solde - self.amount
+            # })

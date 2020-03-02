@@ -259,12 +259,11 @@
                         <tree colors="red:solde &lt; 0;">
                 			<field name="activity_category_id" />
 							<field name="solde" sum="True"/>
-                            <button name="move_prepaiement"
-                                    string="Move prepaiement"
-                                    icon="gtk-refresh"
-                                    type="object"
-                                    context="{'default_activity_category_id': activity_category_id, 'default_solde': solde, 'default_parent_id' : id}"
-                                    groups="extraschool.extraschool_accounting"/>
+<!--                            <button name="move_prepaiement"-->
+<!--                                    string="Move prepaiement"-->
+<!--                                    icon="gtk-refresh"-->
+<!--                                    type="object"-->
+<!--                                    groups="extraschool.extraschool_accounting"/>-->
                 		</tree>
                     </field>
                  </page>
