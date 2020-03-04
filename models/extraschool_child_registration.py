@@ -291,14 +291,42 @@ class extraschool_child_registration(models.Model):
 
     def _verify_activity_dates(self):
         """
-        Verifiy if activity can be used
+        Verify if activity can be used
         :return: None
         """
         if not self.activity_id.is_activity_valid(self.date_from, self.date_to):
             date_from = datetime.strptime(self.activity_id.validity_from, '%Y-%m-%d').strftime('%d-%m-%Y')
             date_to = datetime.strptime(self.activity_id.validity_to, '%Y-%m-%d').strftime('%d-%m-%Y')
-            raise Warning("Activity {} is no longer valid.\n"
-                          "(valid from {} to {}).\n".format(self.activity_id.name, date_from, date_to))
+            raise Warning(_("Activity {} is no longer valid.\n"
+                            "(valid from {} to {}).\n".format(self.activity_id.name, date_from, date_to)))
+
+    def _verify_activity_dates_multi(self):
+        """
+        Verify if activities can be used
+        :return: None
+        """
+        # get activities not valid
+        activities = []
+        for child_registration_line in self.child_registration_line_ids:
+            for activity in [child_registration_line.monday_activity_id,
+                             child_registration_line.tuesday_activity_id,
+                             child_registration_line.wednesday_activity_id,
+                             child_registration_line.thursday_activity_id,
+                             child_registration_line.friday_activity_id,
+                             child_registration_line.saturday_activity_id,
+                             child_registration_line.sunday_activity_id]:
+                if activity and activity not in activities and not activity.is_activity_valid(self.date_from, self.date_to):
+                    activities.append(activity)
+
+        if len(activities) > 0:
+            warning = 'Theses activities are no longer valid :\n\n'
+            date_warning = 'from {} to {}'
+            for activity in activities:
+                date_from = datetime.strptime(activity.validity_from, '%Y-%m-%d').strftime('%d-%m-%Y')
+                date_to = datetime.strptime(activity.validity_to, '%Y-%m-%d').strftime('%d-%m-%Y')
+                warning += activity.name + '\n' + date_warning.format(date_from, date_to) + '\n\n'
+            raise Warning(warning)
+
 
     @api.one
     def validate(self):
@@ -418,7 +446,7 @@ class extraschool_child_registration(models.Model):
 
     @api.one
     def validate_multi(self):
-        self._verify_activity_dates()
+        self._verify_activity_dates_multi()
 
         if self.env.context == None:
             self.env.context = {}
