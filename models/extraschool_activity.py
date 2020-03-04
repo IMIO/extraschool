@@ -102,6 +102,16 @@ class extraschool_activity(models.Model):
     )
 
     @api.multi
+    def is_activity_valid(self, date_from, date_to):
+        """
+        Check if activity is valid compared to dates
+        :param date_from: comparison start date
+        :param date_to: comparison end date
+        :return: validity of activity
+        """
+        return self.validity_from > date_from or self.validity_to < date_to
+
+    @api.multi
     def _get_price_list_version(self):
         for rec in self:
             rec.price_list_version_ids = rec.env['extraschool.price_list_version'].search([('activity_ids', 'in', rec.id)])
