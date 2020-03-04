@@ -319,8 +319,8 @@ class extraschool_child_registration(models.Model):
                     activities.append(activity)
 
         if len(activities) > 0:
-            warning = 'Theses activities are no longer valid :\n\n'
-            date_warning = 'from {} to {}'
+            warning = _('Theses activities are no longer valid :\n\n')
+            date_warning = _('from {} to {}')
             for activity in activities:
                 date_from = datetime.strptime(activity.validity_from, '%Y-%m-%d').strftime('%d-%m-%Y')
                 date_to = datetime.strptime(activity.validity_to, '%Y-%m-%d').strftime('%d-%m-%Y')
