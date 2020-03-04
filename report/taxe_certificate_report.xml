@@ -32,7 +32,7 @@
                 <attribute name="t-att-class">container</attribute>
             </xpath>
             <xpath expr="//body" position="inside">
-                <t t-set="organising_power" t-value="docs[0].organising_power_id"/>
+                <t t-set="organising_power" t-value="docs[0].taxcertificate_id.organising_power_id"/>
                 <t t-foreach="docs" t-as="attest">
                     <div class="page">
                         <style type="text/css">

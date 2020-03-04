@@ -168,6 +168,7 @@ class extraschool_taxcertificate(models.Model):
                                                            'nbr_day': attest['nbdays'],
                                                            'amount': attest['amount'],
                                                            'tax_certificate_send_method': send_method,
+                                                           'organising_power_id': vals[u'organising_power_id']
                                                            }).id)
             zz += 1
 
