@@ -83,6 +83,7 @@ class extraschool_taxcertificate(models.Model):
     def create(self, vals):
         #check if already exist
         tc = self.search([('name', '=', vals['name'])])
+        import wdb; wdb.set_trace()
         vals[u'organising_power_id'] = self.env['extraschool.organising_power'].search([]).mapped('id')[0]
         if len(tc):
             raise Warning(_('Taxe certificate already exist'))
@@ -168,6 +169,7 @@ class extraschool_taxcertificate(models.Model):
                                                            'nbr_day': attest['nbdays'],
                                                            'amount': attest['amount'],
                                                            'tax_certificate_send_method': send_method,
+                                                           'organising_power_id': vals[u'organising_power_id']
                                                            }).id)
             zz += 1
 
