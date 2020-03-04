@@ -109,7 +109,7 @@ class extraschool_activity(models.Model):
         :param date_to: comparison end date
         :return: validity of activity
         """
-        return self.validity_from > date_from or self.validity_to < date_to
+        return self.validity_from <= date_from and self.validity_to >= date_to
 
     @api.multi
     def _get_price_list_version(self):

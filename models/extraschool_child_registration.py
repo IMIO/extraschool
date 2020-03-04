@@ -294,7 +294,7 @@ class extraschool_child_registration(models.Model):
         Verifiy if activity can be used
         :return: None
         """
-        if self.activity_id.is_activity_valid(self.date_from, self.date_to):
+        if not self.activity_id.is_activity_valid(self.date_from, self.date_to):
             date_from = datetime.strptime(self.activity_id.validity_from, '%Y-%m-%d').strftime('%d-%m-%Y')
             date_to = datetime.strptime(self.activity_id.validity_to, '%Y-%m-%d').strftime('%d-%m-%Y')
             raise Warning("Activity {} is no longer valid.\n"
