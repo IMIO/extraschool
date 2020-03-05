@@ -10,7 +10,7 @@
 # 	* web_settings_dashboard
 # 	* board
 # 	* bus
-# 	* mail
+# 	* m
 # 	* document
 # 	* extraschool
 # 	* odoo-report_pdf_both_sides
