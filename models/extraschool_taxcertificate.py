@@ -2,9 +2,9 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2019
+#    Copyright (C) 2008-2020
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchial - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchial & Jenny Pans - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -28,6 +28,7 @@ from openerp import tools
 import threading
 import time
 import logging
+
 _logger = logging.getLogger(__name__)
 
 
@@ -37,14 +38,14 @@ class extraschool_taxcertificate(models.Model):
     _inherit = 'mail.thread'
 
     title = fields.Char('Title', required=True)
-    name = fields.Integer('Fiscal Year', required=True, select = True, track_visibility='onchange')
+    name = fields.Integer('Fiscal Year', required=True, select=True, track_visibility='onchange')
     doc_date = fields.Date('Document date', required=True, track_visibility='onchange')
     organising_power_id = fields.Many2one(
         'extraschool.organising_power',
         'Organising Power',
     )
 
-    taxcertificate_item_ids = fields.One2many('extraschool.taxcertificate_item', 'taxcertificate_id','Details')
+    taxcertificate_item_ids = fields.One2many('extraschool.taxcertificate_item', 'taxcertificate_id', 'Details')
     pdf_ready = fields.Boolean(string="Pdf ready", default=False)
 
     @api.multi
@@ -58,9 +59,10 @@ class extraschool_taxcertificate(models.Model):
                 'nodestroy': False,
                 'target': 'current',
                 'limit': 50000,
-                'domain': [('taxcertificate_id.id', '=',self.id),
-                           '|',('tax_certificate_send_method','=','onlybymail'),('tax_certificate_send_method','=','emailandmail')]
-            }
+                'domain': [('taxcertificate_id.id', '=', self.id),
+                           '|', ('tax_certificate_send_method', '=', 'onlybymail'),
+                           ('tax_certificate_send_method', '=', 'emailandmail')]
+                }
 
     @api.multi
     def email_invoices(self):
@@ -73,26 +75,27 @@ class extraschool_taxcertificate(models.Model):
                 'nodestroy': False,
                 'target': 'current',
                 'limit': 50000,
-                'domain': [('taxcertificate_id.id', '=',self.id),
-                           '|',('tax_certificate_send_method','=','onlyemail'),('tax_certificate_send_method','=','emailandmail')],
-                'context': {"search_default_actif":1},
+                'domain': [('taxcertificate_id.id', '=', self.id),
+                           '|', ('tax_certificate_send_method', '=', 'onlyemail'),
+                           ('tax_certificate_send_method', '=', 'emailandmail')],
+                'context': {"search_default_actif": 1},
 
-            }
+                }
 
     @api.model
     def create(self, vals):
-        #check if already exist
+        # check if already exist
         tc = self.search([('name', '=', vals['name'])])
         vals[u'organising_power_id'] = self.env['extraschool.organising_power'].search([]).mapped('id')[0]
         if len(tc):
             raise Warning(_('Taxe certificate already exist'))
 
-        cr,uid = self.env.cr, self.env.user.id
+        cr, uid = self.env.cr, self.env.user.id
 
         obj_config = self.env['extraschool.mainsettings']
-        config=obj_config.browse([1])
+        config = obj_config.browse([1])
 
-        #UPDATE RECONCIL DATE IF NEEDED
+        # UPDATE RECONCIL DATE IF NEEDED
         sql_update_reconcil_date = """
                                     update extraschool_payment_reconciliation
                                     set date = create_date
@@ -109,7 +112,6 @@ class extraschool_taxcertificate(models.Model):
                                             where ppr.paymentdate BETWEEN '%s-01-01' and '%s-12-31'
                                                 AND iii.balance = 0 AND (iii.reminder_fees IS NULL OR iii.reminder_fees = false)
                                 """ % (vals['name'], vals['name'])
-
 
         sql_concerned_attest = """
                                     select i.parentid as parentid,par.firstname as parent_firstname,
@@ -153,15 +155,17 @@ class extraschool_taxcertificate(models.Model):
 
         logging.info("Creation of tax certificates")
 
-        cr.execute(sql_concerned_attest,(sql_concerned_invoice,sql_concerned_invoice))
+        cr.execute(sql_concerned_attest, (sql_concerned_invoice, sql_concerned_invoice))
 
         childattestations = cr.dictfetchall()
 
         attest_item_ids = []
         attest_item_obj = self.env['extraschool.taxcertificate_item']
-        zz=1
+        zz = 1
         for attest in childattestations:
-            send_method = self.env['extraschool.parent'].search([('id', '=', attest['parentid'])]).mapped('invoicesendmethod')[0].encode("UTF-8")
+            send_method = \
+            self.env['extraschool.parent'].search([('id', '=', attest['parentid'])]).mapped('invoicesendmethod')[
+                0].encode("UTF-8")
             attest_item_ids.append(attest_item_obj.create({'name': zz,
                                                            'parent_id': attest['parentid'],
                                                            'child_id': attest['childid'],
@@ -172,7 +176,7 @@ class extraschool_taxcertificate(models.Model):
                                                            }).id)
             zz += 1
 
-        vals['taxcertificate_item_ids'] = [(6,0,attest_item_ids)]
+        vals['taxcertificate_item_ids'] = [(6, 0, attest_item_ids)]
 
         taxe_certif = super(extraschool_taxcertificate, self).create(vals)
         taxe_certif.generate_pdf()
@@ -190,9 +194,10 @@ class extraschool_taxcertificate(models.Model):
                 'nodestroy': False,
                 'target': 'current',
                 'limit': 50000,
-                'domain': [('taxcertificate_id.id', '=',self.id)],
+                'domain': [('taxcertificate_id.id', '=', self.id)],
                 'context': {},
-            }
+                'search_view_id': 'extraschool_taxcertificate_item_search'
+                }
 
     @api.multi
     def all_pdf(self):
@@ -205,11 +210,11 @@ class extraschool_taxcertificate(models.Model):
                 'nodestroy': False,
                 'target': 'current',
                 'limit': 50000,
-                'domain': [('res_id', 'in',[i.id for i in self.taxcertificate_item_ids]),
-                            ('res_model', '=', 'extraschool.taxcertificate_item')],
-                'context': {"search_default_actif":1},
+                'domain': [('res_id', 'in', [i.id for i in self.taxcertificate_item_ids]),
+                           ('res_model', '=', 'extraschool.taxcertificate_item')],
+                'context': {"search_default_actif": 1},
 
-            }
+                }
 
     @api.model
     def generate_pdf_thread(self, cr, uid, thread_lock, taxe_ids, context=None):
@@ -222,14 +227,13 @@ class extraschool_taxcertificate(models.Model):
         """
         time.sleep(5)
         with Environment.manage():
-            #As this function is in a new thread, i need to open a new cursor, because the old one may be closed
+            # As this function is in a new thread, i need to open a new cursor, because the old one may be closed
             new_cr = self.pool.cursor()
-            new_env = Environment(new_cr, uid,context)
+            new_env = Environment(new_cr, uid, context)
 
             report = new_env['report']
             for taxe in new_env['extraschool.taxcertificate_item'].browse(taxe_ids):
-                report.get_pdf(taxe ,'extraschool.tpl_taxe_certificate_wizard_report')
-
+                report.get_pdf(taxe, 'extraschool.tpl_taxe_certificate_wizard_report')
 
             thread_lock[1].acquire()
             thread_lock[0] -= 1
@@ -244,25 +248,28 @@ class extraschool_taxcertificate(models.Model):
     @api.one
     def generate_pdf(self):
 
-        cr,uid = self.env.cr, self.env.user.id
+        cr, uid = self.env.cr, self.env.user.id
         threaded_report = []
 
-        self.env['ir.attachment'].search([('res_id', 'in',[i.id for i in self.taxcertificate_item_ids]),
-                                           ('res_model', '=', 'extraschool.taxcertificate_item')]).unlink()
+        self.env['ir.attachment'].search([('res_id', 'in', [i.id for i in self.taxcertificate_item_ids]),
+                                          ('res_model', '=', 'extraschool.taxcertificate_item')]).unlink()
         self.pdf_ready = False
         self.env.invalidate_all()
 
         lock = threading.Lock()
-        chunk_size = int(self.env['ir.config_parameter'].get_param('extraschool.report.thread.chunk',200))
+        chunk_size = int(self.env['ir.config_parameter'].get_param('extraschool.report.thread.chunk', 200))
 
-        nrb_thread = len(self.taxcertificate_item_ids)/chunk_size+(len(self.taxcertificate_item_ids)%chunk_size > 0)
-        thread_lock = [len(self.taxcertificate_item_ids)/chunk_size+(len(self.taxcertificate_item_ids)%chunk_size > 0),
-                        threading.Lock(),
-                        self.id]
+        nrb_thread = len(self.taxcertificate_item_ids) / chunk_size + (
+                len(self.taxcertificate_item_ids) % chunk_size > 0)
+        thread_lock = [
+            len(self.taxcertificate_item_ids) / chunk_size + (len(self.taxcertificate_item_ids) % chunk_size > 0),
+            threading.Lock(),
+            self.id]
         for zz in range(0, nrb_thread):
-            sub_taxes = [i.id for i in self.taxcertificate_item_ids[zz*chunk_size:(zz+1)*chunk_size]]
+            sub_taxes = [i.id for i in self.taxcertificate_item_ids[zz * chunk_size:(zz + 1) * chunk_size]]
             if len(sub_taxes):
-                thread = threading.Thread(target=self.generate_pdf_thread, args=(cr, uid, thread_lock, sub_taxes,self.env.context))
+                thread = threading.Thread(target=self.generate_pdf_thread,
+                                          args=(cr, uid, thread_lock, sub_taxes, self.env.context))
                 threaded_report.append(thread)
                 thread.start()
 
@@ -272,18 +279,19 @@ class extraschool_taxcertificate_item(models.Model):
     _description = 'Taxcertificate item'
 
     name = fields.Char('Name')
-    taxcertificate_id = fields.Many2one('extraschool.taxcertificate', string ='Taxe certif',ondelete='cascade', index=True)
-    parent_id = fields.Many2one('extraschool.parent',  string ='Parent', required=True, select = True)
-    child_id = fields.Many2one('extraschool.child',  string ='Child', required=True, select=True)
+    taxcertificate_id = fields.Many2one('extraschool.taxcertificate', string='Taxe certif', ondelete='cascade',
+                                        index=True)
+    parent_id = fields.Many2one('extraschool.parent', string='Parent', required=True, select=True)
+    child_id = fields.Many2one('extraschool.child', string='Child', required=True, select=True)
     implantation = fields.Many2one(related='child_id.schoolimplantation', invisible=True, store=True)
     niveau = fields.Many2one(related='child_id.levelid', invisible=True, store=True)
-    nbr_day = fields.Integer( string ='Nbr day')
+    nbr_day = fields.Integer(string='Nbr day')
     prest_from = fields.Float('From')
     prest_to = fields.Float('To')
     amount = fields.Float('Amount')
     tax_certificate_detail_ids = fields.One2many('extraschool.tax_certificate_detail', 'tax_certificate_item_id')
     tax_certificate_send_method = fields.Char()
-    annee = fields.Integer(String='Annee' , related="taxcertificate_id.name", index=True)
+    annee = fields.Integer(String='Annee', related="taxcertificate_id.name", index=True)
     organising_power_id = fields.Many2one(
         'extraschool.organising_power',
         'Organising Power',
@@ -296,7 +304,8 @@ class extraschool_tax_certificate_detail(models.Model):
     _auto = False  # Disable creation of table.
     _order = ''
 
-    tax_certificate_item_id = fields.Many2one('extraschool.taxcertificate_item', 'tax_certificate_detail_ids', select=True)
+    tax_certificate_item_id = fields.Many2one('extraschool.taxcertificate_item', 'tax_certificate_detail_ids',
+                                              select=True)
     amount = fields.Float('Amount')
     time_scan = fields.Char('time_scan')
     activity_name = fields.Char('activity_name')
