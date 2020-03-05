@@ -135,6 +135,7 @@
             <field name="model">extraschool.taxcertificate_item</field>
             <field name="arch" type="xml">
                 <search>
+                    <field name="parent_id"/>
                    	<group  expand='0' string='Group by...'>
                        <filter string='Implantation Scolaire' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'implantation'}"/>
                        <filter string='Niveau' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'niveau'}"/>
@@ -149,7 +150,6 @@
             <field name="name">Tax Certificate</field>
             <field name="res_model">extraschool.taxcertificate</field>
             <field name="view_type">form</field>
-            <field name="search_view_id" ref="extraschool_taxcertificate_item_search"/>
         </record>
 
         <record model="ir.actions.act_window.view" id="action_extraschool_taxcertificate_item">
@@ -158,7 +158,6 @@
 			<field name="res_model">extraschool.taxcertificate_item</field>
             <field name="view_mode">form</field>
             <field name="view_id" ref="extraschool_taxcertificate_item_form" />
-            <field name="search_view_id" ref="extraschool_taxcertificate_item_search"/>
 		</record>
 
        <record model="ir.ui.view" id="extraschool_taxcertificates_wizard_form">
