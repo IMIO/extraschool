@@ -94,7 +94,7 @@ class extraschool_child(models.Model):
     @api.onchange('firstname', 'lastname')
     @api.multi
     def _check_name(self):
-        if self.search([('lastname', 'ilike', self.lastname), ('firstname', 'ilike', self.firstname)]):
+        if self.search([('lastname', '=ilike', self.lastname), ('firstname', '=ilike', self.firstname)]):
             self.check_name = False
         else:
             self.check_name = True
@@ -224,7 +224,7 @@ class extraschool_child(models.Model):
         env = api.Environment(cr, uid, context={})
 
         return extraschool_child.get_child_for_smartphone(env['extraschool.child'], smartphone_id)
-        
+
 class AgedGroup(models.Model):
     _name="extraschool.age_group"
 
