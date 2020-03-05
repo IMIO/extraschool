@@ -49,7 +49,7 @@ class extraschool_remindersjournal(models.Model):
     _inherit = 'mail.thread'
 
     name = fields.Char('Name', required=True, track_visibility='onchange')
-    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', readonly=True, states={'draft': [('readonly', False)]})
+    # activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', readonly=True, states={'draft': [('readonly', False)]})
     activity_category_ids = fields.Many2many('extraschool.activitycategory', required=True, readonly=True, states={'draft': [('readonly', False)]})
     transmission_date = fields.Date('Transmission date', default=datetime.date.today(), required=True, readonly=True, states={'draft': [('readonly', False)]}, track_visibility='onchange')
     reminders_journal_item_ids = fields.One2many('extraschool.reminders_journal_item', 'reminders_journal_id','Reminder journal item')
@@ -68,14 +68,14 @@ class extraschool_remindersjournal(models.Model):
     show_based_reminder = fields.Boolean('Clic here if it\'s not the first reminder', default=False, track_visibility='onchange')
     unsolved_reminder_ids = fields.One2many('extraschool.reminder', 'reminders_journal_id', 'Unsolved Reminders', compute="_get_unsolved_reminder_method", track_visibility='onchange')
 
-    @api.model
-    def update_activity_category(self):
-        reminders_journals = self.env['extraschool.remindersjournal'].search([])
-        for reminder_journal in reminders_journals:
-            if not reminder_journal.activity_category_ids:
-                reminder_journal.write({
-                    'activity_category_ids': [(6, 0, [reminder_journal.activity_category_id.id])]
-                })
+    # @api.model
+    # def update_activity_category(self):
+    #     reminders_journals = self.env['extraschool.remindersjournal'].search([])
+    #     for reminder_journal in reminders_journals:
+    #         if not reminder_journal.activity_category_ids:
+    #             reminder_journal.write({
+    #                 'activity_category_ids': [(6, 0, [reminder_journal.activity_category_id.id])]
+    #             })
 
 
     @api.onchange('date_from', 'date_to', 'activity_category_ids')
