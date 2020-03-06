@@ -196,7 +196,6 @@ class extraschool_taxcertificate(models.Model):
                 'limit': 50000,
                 'domain': [('taxcertificate_id.id', '=', self.id)],
                 'context': {},
-                'search_view_id': 'extraschool_taxcertificate_item_search'
                 }
 
     @api.multi
