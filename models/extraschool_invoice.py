@@ -174,6 +174,7 @@ class extraschool_invoice(models.Model):
 
                         solde = invoice.get_balance(invoice_category.id)
 
+                        # bug : si paiement déjà reçu, tout le prépaiement est pris
                         while zz < len(payments) and solde > 0:
                             amount = solde if payments[zz].solde >= solde else payments[zz].solde
                             payment_reconcil_obj.create({'payment_id': payments[zz].id,
