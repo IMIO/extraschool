@@ -45,7 +45,7 @@ import extraschool_invoicedprestations
 import extraschool_invoice_wizard
 import extraschool_mainsettings
 import extraschool_manuel_invoice_wizard
-import extraschool_move_prepaiement
+# import extraschool_move_prepaiement
 import extraschool_negatif_payment_correction_wizard
 import extraschool_pdaprestationtimes
 import extraschool_pdaprestationtimes_correction_wizard
