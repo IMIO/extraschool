@@ -134,6 +134,7 @@ class extraschool_taxcertificate(models.Model):
                                       left join extraschool_activity aa on aa.id = aao.activityid
                                     left join extraschool_invoice ii on ii.id = iip.invoiceid
                                     where invoiceid in (""" + sql_concerned_invoice + """)
+                                    and prestation_date <= c.birthdate + interval '12 year'
                                            and aa.on_tax_certificate = true
                                            and iip.childid = ip.childid
                                     ) as nbdays
