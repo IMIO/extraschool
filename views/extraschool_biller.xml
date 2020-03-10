@@ -91,6 +91,7 @@
                                     <tree editable="bottom" create="false" delete="false">
                                         <field name="activity_category_id" readonly="True"/>
                                         <field name="amount" sum="true" readonly="True"/>
+                                        <field name="received_amount"/>
                                         <field name="ref"/>
                                     </tree>
                                 </field>

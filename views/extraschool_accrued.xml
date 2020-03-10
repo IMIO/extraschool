@@ -12,6 +12,8 @@
                     <newline/>
                     <field name="amount"/>
                     <newline/>
+                    <field name="received_amount"/>
+                    <newline/>
                     <field name="ref"/>
                 </group>
             </form>

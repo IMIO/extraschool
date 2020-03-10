@@ -2,9 +2,9 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2019
+#    Copyright (C) 2008-2020
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchia- Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia & Jenny Pans - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -32,3 +32,17 @@ class extraschoolAccrued(models.Model):
     activity_category_id = fields.Many2one('extraschool.activitycategory')
     amount = fields.Float()
     ref = fields.Char()
+    received_amount = fields.Float(compute="_compute_received_amount")
+
+    def _compute_received_amount(self):
+        import wdb; wdb.set_trace()
+        for rec in self:
+            rec.received_amount = 0
+            invoices = self.env['extraschool.invoice'].search([('biller_id', '=', rec.biller_id.id),
+                                                               ('balance', '=', 0.0)])
+            for invoice in invoices:
+                rec.received_amount += invoice.amount_received
+            # obtenir toutes les factures dont le solde est == 0
+            # obtenir toutes les factures de la catégorie d'activité de accrued
+            # faire la somme du montant perçu
+
