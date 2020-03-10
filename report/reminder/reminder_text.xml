@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <odoo>
-	<data> 
+	<data>
 		<template id="report_reminder_text">
 		    <style type="text/css">
 		        .reminder_body{
@@ -33,7 +33,7 @@
 
 			</style>
 			<div id="doc_resp_sign">
-				<img class="sign_img" t-attf-src="data:image/jpeg;base64,{{reminder.reminders_journal_id.activity_category_id.po_rappel_sign}}"/>
+				<img class="sign_img" t-attf-src="data:image/jpeg;base64,{{reminder.reminders_journal_id.activity_category_ids[0].po_rappel_sign}}"/>
 			</div>
 		</template>
 
@@ -64,4 +64,4 @@
 
 	</data>
 </odoo>
-	
+
