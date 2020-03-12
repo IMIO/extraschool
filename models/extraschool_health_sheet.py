@@ -89,6 +89,7 @@ class extraschool_health_sheet(models.Model):
         (('non_renseigne', 'Non renseigné'),
          ('non', 'Non'),
          ('oui', 'Oui')), default='non_renseigne', string='Photo general')
+    self_medication = fields.Boolean(string='Self medication')
 
     @api.model
     def create(self, vals):
@@ -119,6 +120,8 @@ class extraschool_other_contact(models.Model):
     contact_name = fields.Char(string='Contact name')
     contact_relation = fields.Char(string='Contact relation')
     contact_tel = fields.Char(string='Tél. contact', size=20)
+    address_id = fields.Many2one('extraschool.address', string='Address')
+
 
 class extraschool_interdiction_other_contact(models.Model):
     _name = 'extraschool.interdiction_other_contact'
@@ -128,12 +131,15 @@ class extraschool_interdiction_other_contact(models.Model):
     contact_name = fields.Char(string='Contact name')
     contact_relation = fields.Char(string='Contact relation')
     contact_tel = fields.Char(string='Tél. contact', size=20)
+    address_id = fields.Many2one('extraschool.address')
 
 class extraschool_allergy(models.Model):
     _name = 'extraschool.allergy'
     _description = 'Allergy'
 
     name = fields.Char(string='Allergie')
+    consequence = fields.Char(string='Consequence')
+
 
 class extraschool_disease(models.Model):
     _name = 'extraschool.disease'
@@ -142,6 +148,7 @@ class extraschool_disease(models.Model):
     health_id = fields.Many2one('extraschool.health_sheet', string='Health sheet')
     disease = fields.Many2one('extraschool.disease_type', string='Disease')
     disease_text = fields.Char(string='Treatment')
+    gravity = fields.Char('Gravity')
 
 class extraschool_disease_type(models.Model):
     _name = 'extraschool.disease_type'

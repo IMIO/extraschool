@@ -95,3 +95,4 @@ import extraschool_accrued
 import extraschool_health_sheet
 import extraschool_annual_report
 import extraschool_res_users
+import extraschool_address
