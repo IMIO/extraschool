@@ -31,7 +31,7 @@ class extraschool_address(models.Model):
     street = fields.Char(string='Street')
     zip_code = fields.Char(string='Zip code')
     city = fields.Char(string='City')
-    country_id = fields.Many2one('res.country', string='Country', default=21
+    country_id = fields.Many2one('res.country', string='Country', default=21)
     full = fields.Char(compute='_compute_address', string='Full address')
 
     @api.multi
