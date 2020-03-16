@@ -37,6 +37,5 @@ class extraschool_address(models.Model):
     @api.multi
     def _compute_address(self):
         for address in self:
-            address.full = ''.join(
-                (address.number, ' ', address.street, ' ', address.zip_code, ' ', address.city, ' ',
-                 address.country_id.name))
+            address.full = ' '.join(
+                filter(None, (address.number, address.street, address.zip_code, address.city, address.country_id.name)))
