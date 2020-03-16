@@ -168,6 +168,7 @@
         'report/custo_client/yvoir.xml',
         'report/custo_client/durbuy.xml',
         'report/custo_client/clavier.xml',
+        'report/custo_client/jurbise.xml',
         'report/custo_client/engis.xml',
         'report/custo_client/ohey.xml',
         'report/custo_client/hastiere.xml',
