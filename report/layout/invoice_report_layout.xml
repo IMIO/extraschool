@@ -67,6 +67,11 @@
 						<t t-set="resp_fct" t-value="organising_power.po_resp_name"/>
 						<t t-set="resp_name" t-value="organising_power.po_resp_fct"/>
 						<t t-set="resp_sign" t-value="organising_power.po_sign_img"/>
+
+                        <t t-set="resp_fct_rappel" t-value="organising_power.po_rappel_name"/>
+						<t t-set="resp_name_rappel" t-value="organising_power.po_rappel_fct"/>
+						<t t-set="resp_sign_rappel" t-value="organising_power.po_rappel_sign"/>
+
 						<t t-set="resp_sign_img" t-value="organising_power.po_sign_img"/>
 						<t t-set="po_stamp" t-value="organising_power.po_stamp"/>
 

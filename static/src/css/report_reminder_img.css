@@ -1,0 +1,11 @@
+#doc_resp_sign{
+    display: block;
+    width: 100%;
+    page-break-inside: avoid;
+}
+
+#doc_resp_sign&gt;img{
+    display: block;
+    width: 20 mm;
+    float : right;
+}
