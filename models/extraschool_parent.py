@@ -31,6 +31,9 @@ class extraschool_parent(models.Model):
     _description = 'Parent'
     _inherit = 'mail.thread'
     _order = 'lastname'
+    _sql_constraints = [
+        ('mail_rn_uniq', 'unique(mail, rn)', 'Mail and rn must be unique'),
+        ]
 
     @api.depends('firstname', 'lastname')
     def _name_compute(self):
