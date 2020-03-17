@@ -125,7 +125,7 @@ class extraschool_taxcertificate(models.Model):
                                     c.birthdate as child_birthdate,
                                     si.name as implantation,
                                     sc.name as classe,
-                                    sum(total_price - ip.no_value_amount) as amount,
+                                    sum(total_price - case when ip.no_value_amount is not null then ip.no_value_amount else 0 end) as amount,
                                     min(ao.occurrence_date) as period_from,
                                     max(ao.occurrence_date) as period_to,
                                     (select count(distinct(aao.occurrence_date)) as nbdays
@@ -150,7 +150,7 @@ class extraschool_taxcertificate(models.Model):
                                            and a.on_tax_certificate = true
                                            and prestation_date <= c.birthdate + interval '12 year'
                                     group by i.parentid,par.firstname,par.lastname,par.street,par.zipcode,par.city,ip.childid,c.firstname,c.lastname,c.birthdate,si.name,sc.name
-                                    having sum(total_price - ip.no_value_amount) > 0
+                                    having sum(total_price - case when ip.no_value_amount is not null then ip.no_value_amount else 0 end) > 0
                                     order by si.name,sc.name,i.parentid;
                                 """
 
