@@ -37130,7 +37130,7 @@ msgstr "Ces activités n'ont pas de type de rappels : \n"
 #: code:addons/extraschool/models/extraschool_child_registration.py:287
 #, python-format
 msgid "These childs are duplicated !!\n"
-msgstr "These childs are duplicated !!\n"
+msgstr "Ces enfants sont en double dans la liste :\n"
 
 #. module: base
 #: model:ir.model.fields,help:base.field_res_lang_iso_code
