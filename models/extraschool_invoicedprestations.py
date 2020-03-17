@@ -79,7 +79,8 @@ class extraschool_invoicedprestations(models.Model):
         ondelete='restrict'
     )
 
-    no_value_amount = fields.Float()
+    # bug with the big sql request (no no value)
+    no_value_amount = fields.Float(default=0.0)
     no_value_date = fields.Date()
     no_value_description = fields.Text()
 
