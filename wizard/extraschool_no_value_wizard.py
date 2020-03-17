@@ -23,7 +23,16 @@ from math import fsum
 
 from openerp import models, api, fields, _
 from openerp.exceptions import except_orm, Warning, RedirectWarning
-
+from openerp import models, api, fields, _
+import base64
+import os
+import datetime
+from xlrd import open_workbook
+from xlutils.copy import copy
+from xlwt import *
+from datetime import date, datetime, timedelta as td
+from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
+                           DEFAULT_SERVER_DATETIME_FORMAT)
 
 class extraschoolNoValueWizard(models.TransientModel):
     _name = 'extraschool.no_value_wizard'
@@ -52,6 +61,7 @@ class extraschoolNoValueWizard(models.TransientModel):
     date_no_value = fields.Date(
         string='Date of no value',
         track_visibility='onchange',
+        default=datetime.now()
         # required=True,
     )
     amount_total = fields.Float(
