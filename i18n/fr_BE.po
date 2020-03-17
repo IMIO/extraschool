@@ -32333,10 +32333,10 @@ msgstr "A valider"
 msgid "Ready to print"
 msgstr "Ready to print"
 
-#. modules: mail, extraschool
+#. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_biller_received
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_amount_received
-#: model:ir.ui.view,arch_db:mail.view_mail_search selection:mail.mail,state:0
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_reminder_amount_received
 msgid "Received"
 msgstr "Reçu"
 

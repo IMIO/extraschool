@@ -52,7 +52,14 @@ class extraschool_reminder(models.Model):
     payment_term = fields.Date('reminders_journal_item_id.payment_term')
     transmission_date = fields.Date('reminders_journal_id.transmission_date')
     fees_amount = fields.Integer(default=0.0)
-    balance = fields.Float()
+    balance = fields.Float('Solde',digits_compute=dp.get_precision('extraschool_reminder'),readonly=True, store=True)
+    amount_received = fields.Float(string='Received', compute='_get_amount_received',
+                                   readonly=True)
+
+    @api.multi
+    def _get_amount_received(self):
+        for reminder in self :
+            reminder.amount_received = reminder.amount - reminder.balance
 
     @api.multi
     def get_date(self, invoice_ids):
