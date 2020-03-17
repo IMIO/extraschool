@@ -28790,7 +28790,10 @@ msgstr ""
 "                        <u><b>dans un délai de 15 jours à dater du présent rappel.</b></u>"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_address_number
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_number
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_payment_reconciliation_number_id
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_payment_wizard_reconcil_number_id
 msgid "Number"
 msgstr "Numéro"
 
