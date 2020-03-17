@@ -40691,7 +40691,7 @@ msgstr "Votre serveur OpenERP ne supporte pas SMTP-sur-SSL. Vous pouvez utiliser
 #: code:addons/extraschool/models/extraschool_child_registration.py:546
 #, python-format
 msgid "Your are not allowed to delete a validated registration !!"
-msgstr "Your are not allowed to delete a validated registration !!"
+msgstr "Vérifiez que la fiche est en mode brouillon et que celle-ci n'est pas facturé"
 
 #. module: extraschool
 #: code:addons/extraschool/models/extraschool_subvention_report.py:144
