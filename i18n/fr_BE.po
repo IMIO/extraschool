@@ -10,7 +10,7 @@
 # 	* web_settings_dashboard
 # 	* board
 # 	* bus
-# 	* mail
+# 	* m
 # 	* document
 # 	* extraschool
 # 	* odoo-report_pdf_both_sides
@@ -33,8 +33,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-24 10:43+0000\n"
-"PO-Revision-Date: 2020-02-24 11:53+0100\n"
+"POT-Creation-Date: 2020-03-04 15:46+0000\n"
+"PO-Revision-Date: 2020-03-04 16:48+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -968,11 +968,11 @@ msgstr ""
 "\n"
 "<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
 "\n"
-"    <p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">Bonjour ${object.parent_id.name},</p>\n"
+"    <p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Bonjour ${object.parent_id.name},</p>\n"
 "\n"
-"    <p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">Nous vous invitons à pré-payer l'activité ${object.activity_category_id.name} de vos enfants</p>\n"
+"    <p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Nous vous invitons à pré-payer l'activité ${object.activity_category_id.name} de vos enfants</p>\n"
 "    <h2 style=\"margin:0px 0px 4px 0px;font-size:1.5em;color:inherit;line-height:1.1;font-weight:bold;font-family:inherit;\">Informations de paiement</h2>\n"
-"    <p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">\n"
+"    <p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">\n"
 "    tNum de compte : ${object.activity_category_id.bankaccount}\n"
 "    tCom structurée : ${object.com_struct}\n"
 "    </p>    \n"
@@ -997,16 +997,12 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"<div style=\"color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; background-color: rgb(255, 255, 255);\">\n"
 "\n"
-"    <p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Bonjour ${object.parentid.name},</p>\n"
+"    <p>Bonjour,</p>\n"
 "\n"
-"    <p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Vous trouverez en pièce jointe la facture correspondant aux activités de vos enfants</p>\n"
-"    <h2 style=\"margin:0px 0px 4px 0px;font-size:1.5em;color:inherit;line-height:1.1;font-weight:bold;font-family:inherit;\">Informations de paiement</h2>\n"
-"    <p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">\n"
-"    tNum de compte : ${object.activitycategoryid.bankaccount}\n"
-"    tCom structurée : ${object.structcom}\n"
-"    </p>    \n"
+"    <p>Vous trouverez en pièce jointe la facture correspondant aux activités de votre/vos enfant(s).</p><p>Pour toutes informations complémentaires merci de transmettre un courriel à l'adresse atl@lierneux.be</p><p>Bien à Vous.</p><p><br></p><p><br></p><p>Directeur des finances</p><p><br></p>\n"
+"    <h2>&nbsp;&nbsp;&nbsp; </h2>    \n"
 "</div>\n"
 "            "
 
@@ -1026,9 +1022,9 @@ msgstr ""
 "\n"
 "<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
 "\n"
-"    <p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">Bonjour ${object.parentid.name},</p>\n"
+"    <p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Bonjour ${object.parentid.name},</p>\n"
 "\n"
-"    <p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">Vous trouverez en pièce jointe le détail du rappel de paiement</p>\n"
+"    <p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Vous trouverez en pièce jointe le détail du rappel de paiement</p>\n"
 "\n"
 "</div>\n"
 "            "
@@ -1049,9 +1045,9 @@ msgstr ""
 "\n"
 "<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
 "\n"
-"    <p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Bonjour ${object.parentid.name},</p>\n"
+"    <p>Bonjour ${object.parentid.name},</p>\n"
 "\n"
-"    <p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Vous trouverez en pièce jointe le détail du rapple de paiement</p>\n"
+"    <p>Vous trouverez en pièce jointe le détail du rapple de paiement</p>\n"
 "   \n"
 "</div>\n"
 "            "
@@ -7575,7 +7571,7 @@ msgstr "${(object.activity_category_id.payment_invitation_email_subject or 'Paym
 #. module: extraschool
 #: model:mail.template,subject:extraschool.email_template_invoice
 msgid "${(object.activitycategoryid.invoiceemailsubject or 'Invoice')|safe}"
-msgstr "AES - Détail facture"
+msgstr "${(object.activitycategoryid.invoiceemailsubject or 'Invoice')|safe}"
 
 #. module: auth_signup
 #: model:mail.template,subject:auth_signup.set_password_email
@@ -9384,6 +9380,11 @@ msgid "<div class=\"o_mail_notification\">left <a href=\"#\" class=\"o_channel_r
 msgstr "<div class=\"o_mail_notification\">a quitté <a href=\"#\" class=\"o_channel_redirect\" data-oe-id=\"%s\">#%s</a></div>"
 
 #. module: mail
+#: model:mail.template,body_html:mail.email_template_partner
+msgid "<p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\"><br></p>"
+msgstr "<p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\"><br></p>"
+
+#. module: mail
 #: model:ir.ui.view,arch_db:mail.email_compose_message_wizard_form
 msgid ""
 "<span attrs=\"{'invisible': [('composition_mode', '!=', 'mass_mail')]}\">\n"
@@ -9905,6 +9906,12 @@ msgid "<span>Cadre II</span> (A remplir par l'institution, le milieu d'accueil, 
 msgstr "<span>Cadre II</span> (A remplir par l'institution, le milieu d'accueil, la crèche, la famille d'accueil, l'école maternelle ou primaire, le pouvoir organisateur de l'école maternelle ou primaire, le pouvoir public local, communautaire ou régional)"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_biller_summary_lierneux_no_style
+#: model:ir.ui.view,arch_db:extraschool.report_biller_summary_no_style
+msgid "<span>Catégorie(s) d'activité(s) : </span>"
+msgstr "<span>Catégorie(s) d'activité(s) : </span>"
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_invoice_no_style
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_no_style
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_reminder_no_style
@@ -10345,6 +10352,15 @@ msgstr "A la suite de l'examen de nos comptes, et malgré l'envoi de notre 1er r
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_ittre
 msgid "A la suite de l'examen de nos comptes, nous constatons que vous nous restez redevables pour les factures de frais de garderie extra-scolaire suivantes :"
 msgstr "A la suite de l'examen de nos comptes, nous constatons que vous nous restez redevables pour les factures de frais de garderie extra-scolaire suivantes :"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_rappel2_clavier
+msgid ""
+"A la suite de l’examen de nos comptes et malgré l’envoi de notre 1 er rappel, nous constatons que vous\n"
+"                        nous restez redevables pour les factures de frais de garderie extrascolaire et/ou repas suivantes :"
+msgstr ""
+"A la suite de l’examen de nos comptes et malgré l’envoi de notre 1 er rappel, nous constatons que vous\n"
+"                        nous restez redevables pour les factures de frais de garderie extrascolaire et/ou repas suivantes :"
 
 #. module: base
 #: model:ir.module.module,description:base.module_test_exceptions
@@ -11244,6 +11260,16 @@ msgstr "Calendrier des activités"
 #: model:ir.ui.menu,name:extraschool.extraschool_menu_stat_activity_tree
 msgid "Activity stat"
 msgstr "Statistique d'activité"
+
+#. module: extraschool
+#: code:addons/extraschool/models/extraschool_child_registration.py:301
+#, python-format
+msgid ""
+"Activity {} is no longer valid.\n"
+"(valid from {} to {}).\n"
+msgstr ""
+"L'activité {} n'est plus valide.\n"
+"(valide du {} au {}).\n"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_prestationscheck_wizard_activitycategory
@@ -12622,7 +12648,7 @@ msgid "At least one reconciliation line is not correct : amount greater than bal
 msgstr "At least one reconciliation line is not correct : amount greater than balance"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_child_registration.py:503
+#: code:addons/extraschool/models/extraschool_child_registration.py:546
 #: code:addons/extraschool/models/extraschool_pdaprestationtimes.py:66
 #, python-format
 msgid "At least one registration line is already invoiced !"
@@ -14082,6 +14108,7 @@ msgstr "Catalan / Català"
 #: model:ir.ui.view,arch_db:base.view_module_filter
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_category_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activityoccurrence_activity_category_id
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_move_prepaiement_categ_id
 #: model:ir.ui.view,arch_db:extraschool.pda_prestation_times_search_view
 msgid "Category"
 msgstr "Catégorie"
@@ -14099,7 +14126,6 @@ msgstr "Catégorie"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_biller_detail_lierneux_no_style
-#: model:ir.ui.view,arch_db:extraschool.report_biller_detail_no_style
 msgid "Catégorie d'activité"
 msgstr "Catégorie d'activité"
 
@@ -16518,6 +16544,7 @@ msgstr "Vues créées"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_main_settings_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_mainsettings_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_manuel_invoice_wizard_create_uid
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_move_prepaiement_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_negatif_payment_correction_wizard_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_no_value_wizard_create_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_one_report_create_uid
@@ -16742,6 +16769,7 @@ msgstr "Créé par :"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_main_settings_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_mainsettings_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_manuel_invoice_wizard_create_date
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_move_prepaiement_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_negatif_payment_correction_wizard_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_no_value_wizard_create_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_one_report_create_date
@@ -17405,7 +17433,7 @@ msgid "DateTime"
 msgstr "Date/Heure"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_activity.py:342
+#: code:addons/extraschool/models/extraschool_activity.py:352
 #, python-format
 msgid "Date_from must be in range of Validity_from and Validity_to (Exclusion)"
 msgstr "La date du doit être comprise dans la plage de validité du et de la validité au"
@@ -17470,7 +17498,7 @@ msgid "Debugging"
 msgstr "Débogage"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_activity.py:324
+#: code:addons/extraschool/models/extraschool_activity.py:334
 #, python-format
 msgid "Debut hour is equal to final hour"
 msgstr "Debut hour is equal to final hour"
@@ -18071,7 +18099,7 @@ msgstr "Afficher"
 #: model:ir.model.fields,field_description:base.field_ir_act_window_display_name
 #: model:ir.model.fields,field_description:base.field_ir_act_window_view_display_name
 #: model:ir.model.fields,field_description:base.field_ir_actions_display_name
-#: model:ir.model.fields,field_description:base.field_ir_actions_display_name_3526
+#: model:ir.model.fields,field_description:base.field_ir_actions_display_name_3528
 #: model:ir.model.fields,field_description:base.field_ir_actions_todo_display_name
 #: model:ir.model.fields,field_description:base.field_ir_autovacuum_display_name
 #: model:ir.model.fields,field_description:base.field_ir_config_parameter_display_name
@@ -18225,6 +18253,7 @@ msgstr "Afficher"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_main_settings_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_mainsettings_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_manuel_invoice_wizard_display_name
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_move_prepaiement_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_negatif_payment_correction_wizard_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_no_value_wizard_display_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_one_report_day_display_name
@@ -18311,7 +18340,7 @@ msgstr "Afficher"
 #: model:ir.model.fields,field_description:web_planner.field_web_planner_display_name
 #: model:ir.model.fields,field_description:web_tip.field_web_tip_display_name
 msgid "Display Name"
-msgstr "Display Name"
+msgstr "Nom affiché"
 
 #. module: report
 #: model:ir.model.fields,field_description:report.field_report_paperformat_header_line
@@ -18679,7 +18708,7 @@ msgid "Duplicate Container"
 msgstr "Cloner le conteneur"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_child_registration.py:459
+#: code:addons/extraschool/models/extraschool_child_registration.py:502
 #, python-format
 msgid "Duplicated registration\n"
 msgstr "Duplicated registration\n"
@@ -18824,6 +18853,7 @@ msgstr "Timor Oriental"
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_mettet
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_neufchateau
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_yvoir
+#: model:ir.ui.view,arch_db:extraschool.report_rappel2_clavier
 msgid "Echéance"
 msgstr "Echéance"
 
@@ -19063,7 +19093,7 @@ msgstr "Adresse mél où rediriger les réponses..."
 
 #. module: mail
 #: model:ir.model,name:mail.model_mail_compose_message
-#: model:ir.model,name:mail.model_mail_compose_message_openupgrade_3396
+#: model:ir.model,name:mail.model_mail_compose_message_openupgrade_3365
 msgid "Email composition wizard"
 msgstr "Assistant de composition de courriel"
 
@@ -19773,7 +19803,7 @@ msgstr "Vue étendue"
 #: model:ir.model.fields,field_description:base.field_ir_act_url_xml_id
 #: model:ir.model.fields,field_description:base.field_ir_act_window_xml_id
 #: model:ir.model.fields,field_description:base.field_ir_actions_xml_id
-#: model:ir.model.fields,field_description:base.field_ir_actions_xml_id_3525
+#: model:ir.model.fields,field_description:base.field_ir_actions_xml_id_3527
 #: model:ir.model.fields,field_description:base.field_ir_module_category_xml_id
 #: model:ir.model.fields,field_description:base.field_ir_ui_view_xml_id
 #: model:ir.ui.view,arch_db:base.view_window_action_form
@@ -19880,6 +19910,11 @@ msgid "F-Droid"
 msgstr "F-Droid"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_gras
+msgid "FACTURE(S) ÉCHUE(S)"
+msgstr "FACTURE(S) ÉCHUE(S)"
+
+#. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_facebook
 msgid "Facebook"
 msgstr "Les photos de l'enfant peuvent-elles être publiées sur les réseaux sociaux ? (site de l'école, Facebook,..) ?"
@@ -19917,6 +19952,7 @@ msgstr "Facturation"
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_mettet
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_neufchateau
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_yvoir
+#: model:ir.ui.view,arch_db:extraschool.report_rappel2_clavier
 msgid "Facture"
 msgstr "Facture"
 
@@ -19942,11 +19978,6 @@ msgstr "Facture(s) impayée(s)"
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_durbuy
 msgid "Facture(s) échue(s) ou en attente de paiement"
 msgstr "Facture(s) échue(s) ou en attente de paiement"
-
-#. module: extraschool
-#: model:mail.template,report_name:extraschool.email_template_invoice
-msgid "Facture.pdf"
-msgstr "Facture.pdf"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_organising_power_form
@@ -22135,7 +22166,7 @@ msgid "Hour 00->24: %(h24)s"
 msgstr "Heure 00->24: %(h24)s"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_activity.py:321
+#: code:addons/extraschool/models/extraschool_activity.py:331
 #, python-format
 msgid "Hour must be greater than 0"
 msgstr "Hour must be greater than 0"
@@ -22438,6 +22469,7 @@ msgstr "Comptes bancaires IBAN"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_main_settings_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_mainsettings_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_manuel_invoice_wizard_id
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_move_prepaiement_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_negatif_payment_correction_wizard_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_no_value_wizard_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_one_report_day_id
@@ -24654,7 +24686,7 @@ msgstr "Date de dernière modification"
 #: model:ir.model.fields,field_description:base.field_ir_act_window___last_update
 #: model:ir.model.fields,field_description:base.field_ir_act_window_view___last_update
 #: model:ir.model.fields,field_description:base.field_ir_actions___last_update
-#: model:ir.model.fields,field_description:base.field_ir_actions___last_update_3527
+#: model:ir.model.fields,field_description:base.field_ir_actions___last_update_3529
 #: model:ir.model.fields,field_description:base.field_ir_actions_todo___last_update
 #: model:ir.model.fields,field_description:base.field_ir_autovacuum___last_update
 #: model:ir.model.fields,field_description:base.field_ir_config_parameter___last_update
@@ -24808,6 +24840,7 @@ msgstr "Date de dernière modification"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_main_settings___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_mainsettings___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_manuel_invoice_wizard___last_update
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_move_prepaiement___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_negatif_payment_correction_wizard___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_no_value_wizard___last_update
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_one_report___last_update
@@ -24895,7 +24928,7 @@ msgstr "Date de dernière modification"
 #: model:ir.model.fields,field_description:web_planner.field_web_planner___last_update
 #: model:ir.model.fields,field_description:web_tip.field_web_tip___last_update
 msgid "Last Modified on"
-msgstr "Last Modified on"
+msgstr "Dernière modification le"
 
 #. module: bus
 #: model:ir.model.fields,field_description:bus.field_bus_presence_last_poll
@@ -25074,6 +25107,7 @@ msgstr "Dernière date de transmission"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_main_settings_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_mainsettings_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_manuel_invoice_wizard_write_uid
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_move_prepaiement_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_negatif_payment_correction_wizard_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_no_value_wizard_write_uid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_one_report_day_write_uid
@@ -25294,6 +25328,7 @@ msgstr "Derniere fois mis à jour par"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_main_settings_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_mainsettings_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_manuel_invoice_wizard_write_date
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_move_prepaiement_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_negatif_payment_correction_wizard_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_no_value_wizard_write_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_one_report_day_write_date
@@ -25886,6 +25921,11 @@ msgid "Liste Parents"
 msgstr "Liste Parents"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_activity_form
+msgid "Liste de prix"
+msgstr "Liste de prix"
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_guardian_prestationtime_report_search_view
 msgid "Liste des Erreurs"
 msgstr "Liste des Erreurs"
@@ -26267,6 +26307,7 @@ msgstr ""
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_clavier
+#: model:ir.ui.view,arch_db:extraschool.report_rappel2_clavier
 msgid "Madame, Monsieur, chers parents,"
 msgstr "Madame, Monsieur, chers parents,"
 
@@ -27470,6 +27511,7 @@ msgstr "Mongolie / монгол"
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_neufchateau
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_tableau_rappel
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_yvoir
+#: model:ir.ui.view,arch_db:extraschool.report_rappel2_clavier
 msgid "Montant"
 msgstr "Montant"
 
@@ -27578,6 +27620,11 @@ msgstr "Élément du menu 'Plus'."
 msgid "Morocco"
 msgstr "Maroc"
 
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_move_prepaiement_form
+msgid "Move"
+msgstr "Move"
+
 #. module: web
 #. openerp-web
 #: code:addons/web/static/src/xml/base.xml:1346
@@ -27591,6 +27638,16 @@ msgstr "Déplacer vers le bas"
 #, python-format
 msgid "Move Up"
 msgstr "Déplacer vers le haut"
+
+#. module: extraschool
+#: model:ir.model,name:extraschool.model_extraschool_move_prepaiement
+msgid "Move prepaiement"
+msgstr "Move prepaiement"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_move_prepaiement_form
+msgid "Move prepaiment"
+msgstr "Move prepaiment"
 
 #. module: web
 #. openerp-web
@@ -30301,7 +30358,7 @@ msgstr "Classe d'Analyseur"
 #: selection:base.setup.terminology,partner:0
 #: model:ir.model,name:bus.model_res_partner
 #: model:ir.model,name:mail.model_res_partner
-#: model:ir.model,name:mail.model_res_partner_openupgrade_3398
+#: model:ir.model,name:mail.model_res_partner_openupgrade_3367
 msgid "Partner"
 msgstr "Partenaire"
 
@@ -30903,7 +30960,7 @@ msgid "Planification"
 msgstr "Planification"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_activity.py:337
+#: code:addons/extraschool/models/extraschool_activity.py:347
 #, python-format
 msgid "Planned Dates must be in the range of Validity_to and Validity_from (Planned)"
 msgstr "Les dates planifiées doivent être comprises dans les dates de l'activité."
@@ -31260,6 +31317,7 @@ msgstr "Pour mémoire, votre compte famille présente désormais"
 #: model:ir.ui.view,arch_db:extraschool.report_flv_report_parent_credit
 #: model:ir.ui.view,arch_db:extraschool.report_hannut_report_parent_credit
 #: model:ir.ui.view,arch_db:extraschool.report_parent_credit
+#: model:ir.ui.view,arch_db:extraschool.report_report_parent_credit_plusieurs_categ
 msgid "Pour rappel,"
 msgstr "Pour rappel,"
 
@@ -31500,6 +31558,7 @@ msgstr "Aperçu de"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_price
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoicedprestations_total_price
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoicedprestations_unit_price
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_move_prepaiement_amount
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_price_list_version_price
 #: model:ir.ui.view,arch_db:extraschool.extraschool_price_list_version_form
 msgid "Price"
@@ -31660,6 +31719,11 @@ msgid "Private methods (such as %s) cannot be called remotely."
 msgstr "Les méthodes privées (comme %s) ne peuvent pas être appelées à distance."
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_activity_form
+msgid "Prix"
+msgstr "Prix"
+
+#. module: extraschool
 #: model:ir.model.fields,help:extraschool.field_extraschool_price_list_version_price
 msgid "Prix par durée définie ci-dessus"
 msgstr "Prix par durée définie ci-dessus"
@@ -31669,6 +31733,11 @@ msgstr "Prix par durée définie ci-dessus"
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_std_body_without_date
 msgid "Prix unit."
 msgstr "Prix unit."
+
+#. module: extraschool
+#: model:ir.model.fields,help:extraschool.field_extraschool_move_prepaiement_amount
+msgid "Prix à mouvementer"
+msgstr "Prix à mouvementer"
 
 #. module: fetchmail
 #: model:ir.model.fields,help:fetchmail.field_fetchmail_server_object_id
@@ -31924,6 +31993,7 @@ msgstr "expression Python"
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_mettet
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_neufchateau
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_yvoir
+#: model:ir.ui.view,arch_db:extraschool.report_rappel2_clavier
 msgid "Période"
 msgstr "Période"
 
@@ -32113,6 +32183,7 @@ msgstr "RAPPEL 1"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_ittre2
+#: model:ir.ui.view,arch_db:extraschool.report_rappel2_clavier
 msgid "RAPPEL 2"
 msgstr "RAPPEL 2"
 
@@ -32188,11 +32259,6 @@ msgstr "Range"
 #: model:mail.template,subject:extraschool.email_template_tax_certificate
 msgid "Rappel"
 msgstr "Rappel"
-
-#. module: extraschool
-#: model:mail.template,report_name:extraschool.email_template_reminder
-msgid "Rappel.pdf"
-msgstr "Rappel.pdf"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_organising_power_form
@@ -35439,7 +35505,7 @@ msgstr "États"
 #: model:ir.ui.view,arch_db:mail.view_mail_form
 #: model:ir.ui.view,arch_db:mail.view_mail_search
 msgid "Status"
-msgstr "État"
+msgstr "Statut"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_subvention_report_camps_radio
@@ -35688,7 +35754,7 @@ msgstr "Substitution"
 #: model:ir.model.fields,field_description:mail.field_mail_compose_message_subtype_id
 #: model:ir.model.fields,field_description:mail.field_mail_followers_subtype_ids
 #: model:ir.model.fields,field_description:mail.field_mail_mail_subtype_id
-#: model:ir.model.fields,field_description:mail.field_mail_message_subtype_id_1300
+#: model:ir.model.fields,field_description:mail.field_mail_message_subtype_id_1279
 #: model:ir.ui.view,arch_db:mail.view_message_subtype_tree
 msgid "Subtype"
 msgstr "Sous-type"
@@ -36454,7 +36520,7 @@ msgid "The amount of no value is superior of the total amount or is negative."
 msgstr "Le montant de la non valeur est supérieur au montant total, ou est négatif."
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_child_registration.py:382
+#: code:addons/extraschool/models/extraschool_child_registration.py:423
 #, python-format
 msgid "The child %s already has a registration on the activity %s from date %s to date %s. You can find the duplicate at ID: %s"
 msgstr "The child %s already has a registration on the activity %s from date %s to date %s. You can find the duplicate at ID: %s"
@@ -37131,6 +37197,16 @@ msgstr "Ces activités n'ont pas de type de rappels : \n"
 #, python-format
 msgid "These childs are duplicated !!\n"
 msgstr "Ces enfants sont en double dans la liste :\n"
+
+#. module: extraschool
+#: code:addons/extraschool/models/extraschool_child_registration.py:322
+#, python-format
+msgid ""
+"Theses activities are no longer valid :\n"
+"\n"
+msgstr ""
+"Ces activités ne sont pas valides :\n"
+"\n"
 
 #. module: base
 #: model:ir.model.fields,help:base.field_res_lang_iso_code
@@ -37816,7 +37892,7 @@ msgstr "Transitoire"
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_model_transient
 msgid "Transient Model"
-msgstr "Modèle transitoire"
+msgstr "Transient Model"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.report_irmodeloverview
@@ -39220,13 +39296,13 @@ msgid "Validity to"
 msgstr "Valide jusqu'au"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_activity.py:328
+#: code:addons/extraschool/models/extraschool_activity.py:338
 #, python-format
 msgid "Validity to must be greater than validity from (date)"
 msgstr "La date de début doit être supérieure à la date de fin."
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_activity.py:332
+#: code:addons/extraschool/models/extraschool_activity.py:342
 #, python-format
 msgid "Validity to must be greater than validity from (hours)"
 msgstr "Validity to must be greater than validity from (hours)"
@@ -39544,6 +39620,7 @@ msgstr "Vos dates ne sont pas valides."
 #: model:ir.ui.view,arch_db:extraschool.report_dour_report_parent_credit
 #: model:ir.ui.view,arch_db:extraschool.report_flv_report_parent_credit
 #: model:ir.ui.view,arch_db:extraschool.report_hannut_report_parent_credit
+#: model:ir.ui.view,arch_db:extraschool.report_report_parent_credit_plusieurs_categ
 msgid "Votre compte famille présente"
 msgstr "Votre compte famille présente"
 
@@ -40688,7 +40765,7 @@ msgid "Your OpenERP Server does not support SMTP-over-SSL. You could use STARTTL
 msgstr "Votre serveur OpenERP ne supporte pas SMTP-sur-SSL. Vous pouvez utiliser STARTTLS à la place. Si SSL est nécessaire, une mise à jour de Python 2.6 côté serveur devrait fonctionner."
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_child_registration.py:546
+#: code:addons/extraschool/models/extraschool_child_registration.py:589
 #, python-format
 msgid "Your are not allowed to delete a validated registration !!"
 msgstr "Vérifiez que la fiche est en mode brouillon et que celle-ci n'est pas facturé"
@@ -41839,6 +41916,12 @@ msgstr ""
 #: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
 msgid "from presta of the day"
 msgstr "Concernant les présences par jour"
+
+#. module: extraschool
+#: code:addons/extraschool/models/extraschool_child_registration.py:323
+#, python-format
+msgid "from {} to {}"
+msgstr "du {} au {}"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_payment_wizard_form
@@ -43010,6 +43093,7 @@ msgstr "un solde de -"
 #: model:ir.ui.view,arch_db:extraschool.report_flv_report_parent_credit
 #: model:ir.ui.view,arch_db:extraschool.report_hannut_report_parent_credit
 #: model:ir.ui.view,arch_db:extraschool.report_parent_credit_dinant
+#: model:ir.ui.view,arch_db:extraschool.report_report_parent_credit_plusieurs_categ
 msgid "un solde à payer de"
 msgstr "un solde à payer de"
 
@@ -43024,6 +43108,7 @@ msgstr "Méthode 'get' non définie !"
 #: model:ir.ui.view,arch_db:extraschool.report_flv_report_parent_credit
 #: model:ir.ui.view,arch_db:extraschool.report_hannut_report_parent_credit
 #: model:ir.ui.view,arch_db:extraschool.report_parent_credit_dinant
+#: model:ir.ui.view,arch_db:extraschool.report_report_parent_credit_plusieurs_categ
 msgid "une avance de"
 msgstr "une avance de"
 
@@ -43049,7 +43134,7 @@ msgstr "une avance de"
 #: model:ir.model.fields,field_description:decimal_precision.field_decimal_precision_test_float_4
 #: model:ir.model.fields,field_description:web_editor.field_web_editor_converter_test_sub_name
 msgid "unknown"
-msgstr "unknown"
+msgstr "inconnu"
 
 #. module: web_editor
 #. openerp-web

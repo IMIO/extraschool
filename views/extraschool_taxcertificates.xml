@@ -129,27 +129,25 @@
             </field>
         </record>
 
-
-        <record id="extraschool_taxcertificate_item_search" model="ir.ui.view">
+        <record id="extraschool_taxcertificate_item_view_search" model="ir.ui.view">
             <field name="name">extraschool.taxcertificate_item.search</field>
             <field name="model">extraschool.taxcertificate_item</field>
             <field name="arch" type="xml">
                 <search>
-                   	<group  expand='0' string='Group by...'>
-                       <filter string='Implantation Scolaire' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'implantation'}"/>
+                    <field name="parent_id"/>
+                    <group expand="0" string="Group by...">
+                        <filter string='Implantation Scolaire' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'implantation'}"/>
                        <filter string='Niveau' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'niveau'}"/>
                        <filter string='Parent' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'parent_id'}"/>
-                   </group>
+                    </group>
                 </search>
             </field>
         </record>
-
 
         <record model="ir.actions.act_window" id="action_extraschool_taxcertificate">
             <field name="name">Tax Certificate</field>
             <field name="res_model">extraschool.taxcertificate</field>
             <field name="view_type">form</field>
-            <field name="search_view_id" ref="extraschool_taxcertificate_item_search"/>
         </record>
 
         <record model="ir.actions.act_window.view" id="action_extraschool_taxcertificate_item">
@@ -158,7 +156,6 @@
 			<field name="res_model">extraschool.taxcertificate_item</field>
             <field name="view_mode">form</field>
             <field name="view_id" ref="extraschool_taxcertificate_item_form" />
-            <field name="search_view_id" ref="extraschool_taxcertificate_item_search"/>
 		</record>
 
        <record model="ir.ui.view" id="extraschool_taxcertificates_wizard_form">

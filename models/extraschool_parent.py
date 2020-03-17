@@ -31,6 +31,9 @@ class extraschool_parent(models.Model):
     _description = 'Parent'
     _inherit = 'mail.thread'
     _order = 'lastname'
+    # _sql_constraints = [
+    #     ('mail_rn_uniq', 'unique(mail, rn)', 'Mail and rn must be unique'),
+    #     ]
 
     @api.depends('firstname', 'lastname')
     def _name_compute(self):
@@ -148,30 +151,13 @@ class extraschool_parent(models.Model):
                                          'Tax certificate send method', required=True, default='onlybymail',
                                          track_visibility='onchange')
 
-
-    @api.model
-    def update_tax_and_send_method(self):
-        parent_ids = self.env['extraschool.parent'].search([])
-        for parent in parent_ids:
-            if not self.tax_certificate_send_method:
-                parent.write({'tax_certificate_send_method': parent.invoicesendmethod})
-
-
     @api.onchange('firstname', 'lastname')
     @api.multi
     def _check_name(self):
-        if self.search([('lastname', 'ilike', self.lastname), ('firstname', 'ilike', self.firstname)]):
+        if self.search([('lastname', '=ilike', self.lastname), ('firstname', '=ilike', self.firstname)]):
             self.check_name = False
         else:
             self.check_name = True
-
-        v = {}
-        if self.lastname:
-            if self.firstname:
-                v['name'] = '%s %s' % (self.lastname, self.firstname)
-            else:
-                v['name'] = self.lastname
-        return {'value': v}
 
     @api.onchange('rn')
     @api.multi

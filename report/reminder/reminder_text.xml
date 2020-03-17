@@ -22,7 +22,7 @@
                 <link rel="stylesheet" href="/extraschool/static/src/css/report_reminder_sign.css"/>
             </xpath>
 			<div id="doc_resp_sign">
-				<img class="sign_img" t-attf-src="data:image/jpeg;base64,{{reminder.reminders_journal_id.activity_category_id.po_rappel_sign}}"/>
+				<img class="sign_img" t-attf-src="data:image/jpeg;base64,{{reminder.reminders_journal_id.activity_category_ids[0].po_rappel_sign}}"/>
 			</div>
 		</template>
 

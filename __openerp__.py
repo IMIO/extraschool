@@ -40,7 +40,7 @@
     'data' : [
         'scripts/update_seq.xml',
         'scripts/update_one_report.sql',
-        'scripts/update_activity_category.xml',
+        # 'scripts/update_activity_category.xml',
         'data/data_days.xml',
         'data/data_age_group.xml',
         'data/data_health_sheet.xml',
@@ -71,7 +71,7 @@
         'views/extraschool_mainsettings.xml',
         'views/extraschool_manuel_invoice_wizard.xml',
         'views/extraschool_negatif_payment_correction_wizard.xml',
-        'views/extraschool_move_prepaiement.xml',
+        # 'views/extraschool_move_prepaiement.xml',
         'views/extraschool_parent.xml',
         'views/extraschool_parent_fusion_wizard.xml',
         'views/extraschool_payment.xml',

@@ -174,6 +174,7 @@ class extraschool_invoice(models.Model):
 
                         solde = invoice.get_balance(invoice_category.id)
 
+                        # bug : si paiement déjà reçu, tout le prépaiement est pris
                         while zz < len(payments) and solde > 0:
                             amount = solde if payments[zz].solde >= solde else payments[zz].solde
                             payment_reconcil_obj.create({'payment_id': payments[zz].id,
@@ -211,22 +212,18 @@ class extraschool_invoice(models.Model):
     @api.multi
     def cancel_and_invoice_after(self):
         self.ensure_one()
-        if self.balance == self.amount_total:
-            self.full_no_value()
-            for line in self.invoice_line_ids:
-                line.prestation_ids.write({
-                    'invoiced_prestation_id': None,
-                })
-        else:
-            raise Warning(_("You cannot cancel an invoice that recieved payments"))
+        self.full_no_value()
+        for line in self.invoice_line_ids:
+            line.prestation_ids.write({
+                'invoiced_prestation_id': None,
+            })
+        self.cancel_payment()
 
     @api.multi
     def cancel(self):
         self.ensure_one()
-        if self.balance == self.amount_total:
-            self.full_no_value()
-        else:
-            raise Warning(_("You cannot cancel an invoice that recieved payments"))
+        self.full_no_value()
+        self.cancel_payment()
 
     def get_concerned_short_name(self):
         res = []
