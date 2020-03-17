@@ -163,6 +163,7 @@
         'report/common/payment_info_amount_one_row.xml',
         'report/custo_client/assesse.xml',
         'report/custo_client/hannut.xml',
+        'report/custo_client/theux.xml',
         'report/custo_client/lierneux.xml',
         'report/custo_client/neufchateau.xml',
         'report/custo_client/yvoir.xml',

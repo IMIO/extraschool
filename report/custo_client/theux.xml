@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+		<template id="report_mail_parent">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_parent_credit.css"/>
+            </xpath>
+				<div>
+                    <p>
+                    <t t-if="parent_id.email">
+                        Votre adresse mail actuellement renseignée : <span t-field="parent_id.email" /><br/>
+                        si cette adresse mail est erronée, merci de communiquer le mail correcte à l’agent traitant.
+                    </t>
+                    </p>
+				</div>
+		</template>
+
+    </data>
+</odoo>
