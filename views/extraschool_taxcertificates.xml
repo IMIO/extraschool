@@ -200,20 +200,22 @@
         <!--Definition of an email template with an empty body that will be used in payment mailing. Used to give a
             basis for email recipients, name and to ease the definition of a further elaborated template. -->
         <record id="email_template_tax_certificate" model="mail.template">
-            <field name="name">Tax Certificate Email</field>
+            <field name="name">E-mail d'attestation fiscale</field>
             <field name="model_id" ref="model_extraschool_taxcertificate_item"/>
             <field name="auto_delete" eval="True"/>
-            <field name="subject">Rappel</field>
-            <field name="email_to">${(object.parent_id.email or 'support-aes@imio.be')|safe}</field>
-            <field name="email_from">${(object.taxcertificate_id.activity_category_id.invoiceemailaddress or 'noreply@localhost')|safe}</field>
-            <field name="reply_to">${(object.taxcertificate_id.activity_category_id.invoiceemailaddress or 'noreply@localhost')|safe}</field>
+            <field name="subject">Attestation fiscale</field>
+            <field name="email_to">${(object.parent_id.email or '')|safe}</field>
+            <field name="email_from">${(object.taxcertificate_id.activity_category_id.invoiceemailaddress or '')|safe}</field>
+            <field name="reply_to">${(object.taxcertificate_id.activity_category_id.invoiceemailaddress or '')|safe}</field>
             <field name="mail_server_id" ref="base.ir_mail_server_localhost0"/>
 <field name="body_html"><![CDATA[
 <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
 
+    <p>Attention : Veuillez d'abord configurer avec IMIO votre modèle de mail avant d'envoyer les mails !! </p>
+
     <p>Bonjour ${object.parent_id.name},</p>
 
-    <p>Vous trouverez en pièce jointe le détail du rappel de paiement</p>
+    <p>Vous trouverez en pièce jointe l'attestation fiscale</p>
 
 </div>
             ]]></field>
