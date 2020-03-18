@@ -244,8 +244,8 @@
 
                 <div style="width: 100%; display: block;">
                     <div style="width:50%; display: block; float: left;">
-                        1. Nom - Adresse : <t t-if="doctor_name"><span t-field="doctor_name"/></t><br/>
-                        GSM: <t t-if="doctor_gsm"><span t-field="doctor_gsm"/></t><br/><br/>
+                        1. Nom - Adresse : <t t-if="doctor_name"><t t-esc="doctor_name"/></t><br/>
+                        GSM: <t t-if="doctor_gsm"><span t-esc="doctor_gsm"/></t><br/><br/>
                     </div>
                     <div style="width:50%; float:right;">
                          <t t-if="doctor_street"><span t-field="doctor_street"/> </t> <t t-if="doctor_zipcode"><span t-field="doctor_zipcode"/> </t> <t t-if="doctor_city"><span t-field="doctor_city"/> </t><br/>
