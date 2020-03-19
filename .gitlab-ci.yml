@@ -38,6 +38,9 @@ restart:
   stage: restart
   script:
     - curl -v --header "Content-Type:application/json" --header "X-Rundeck-Auth-Token:$RUNDECK_TOKEN" https://run.imio.be/api/12/job/f0616879-71a2-4319-8b0f-4d0abdbf2ade/run
+  when: manual
+  only:
+    - 9.1@odoo/extraschool
 
 promote-to-prod:
   stage: promote
