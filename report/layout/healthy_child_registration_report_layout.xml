@@ -40,28 +40,28 @@
                             <t t-set="child_lastname" t-value="child.child_id.lastname"/>
                             <t t-set="child_firstname" t-value="child.child_id.firstname"/>
                             <t t-set="parent" t-value="child.child_id.parentid"/>
-                            <t t-if="doctor_name">
+                            <t t-if="child.child_id.health_sheet_ids[0].doctor_id.name">
                                 <t t-set="doctor_name" t-value="child.child_id.health_sheet_ids[0].doctor_id.name"/>
                             </t>
-                            <t t-if="doctor_street">
+                            <t t-if="child.child_id.health_sheet_ids[0].doctor_id.street">
                                 <t t-set="doctor_street" t-value="child.child_id.health_sheet_ids[0].doctor_id.street"/>
                             </t>
-                            <t t-if="doctor_zipcode">
+                            <t t-if="child.child_id.health_sheet_ids[0].doctor_id.zipcode">
                                 <t t-set="doctor_zipcode" t-value="child.child_id.health_sheet_ids[0].doctor_id.zipcode"/>
                             </t>
-                            <t t-if="doctor_city">
+                            <t t-if="child.child_id.health_sheet_ids[0].doctor_id.city">
                                 <t t-set="doctor_city" t-value="child.child_id.health_sheet_ids[0].doctor_id.city"/>
                             </t>
-                            <t t-if="doctor_country">
+                            <t t-if="child.child_id.health_sheet_ids[0].doctor_id.country_id.name">
                                 <t t-set="doctor_country" t-value="child.child_id.health_sheet_ids[0].doctor_id.country_id.name"/>
                             </t>
-                            <t t-if="doctor_contact">
+                            <t t-if="child.child_id.health_sheet_ids[0].doctor_id.doctor_contact">
                                 <t t-set="doctor_contact" t-value="child.child_id.health_sheet_ids[0].doctor_id.doctor_contact"/>
                             </t>
-                            <t t-if="doctor_gsm">
+                            <t t-if="child.child_id.health_sheet_ids[0].doctor_id.doctor_gsm">
                                 <t t-set="doctor_gsm" t-value="child.child_id.health_sheet_ids[0].doctor_id.doctor_gsm"/>
                             </t>
-                            <t t-if="doctor_comment">
+                            <t t-if="child.child_id.health_sheet_ids[0].doctor_id.comment">
                                 <t t-set="doctor_comment" t-value="child.child_id.health_sheet_ids[0].doctor_id.comment"/>
                             </t>
 
