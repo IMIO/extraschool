@@ -28,6 +28,7 @@ class extraschool_address(models.Model):
     _rec_name = 'full'
 
     number = fields.Char(string='Number')
+    box = fields.Char('Box number')
     street = fields.Char(string='Street')
     zip_code = fields.Char(string='Zip code')
     city = fields.Char(string='City')
@@ -38,4 +39,5 @@ class extraschool_address(models.Model):
     def _compute_address(self):
         for address in self:
             address.full = ' '.join(
-                filter(None, (address.number, address.street, address.zip_code, address.city, address.country_id.name)))
+                filter(None, (address.number, address.street, address.box_number, address.zip_code, address.city,
+                              address.country_id.name)))
