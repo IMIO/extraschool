@@ -28,7 +28,7 @@ class extraschool_address(models.Model):
     _rec_name = 'full'
 
     number = fields.Char(string='Number')
-    box = fields.Char('Box number')
+    box_number = fields.Char('Box number')
     street = fields.Char(string='Street')
     zip_code = fields.Char(string='Zip code')
     city = fields.Char(string='City')
