@@ -55,6 +55,11 @@ class extraschool_child_registration(models.Model):
 
         return "()"
 
+    organising_power_id = fields.Many2one(
+        'extraschool.organising_power',
+        'Organising Power',
+        track_visibility='onchange',
+    )
     current_date = str(datetime.now().date())
     school_implantation_id = fields.Many2one('extraschool.schoolimplantation', domain=_get_uid, required=True,
                                              readonly=True, states={'draft': [('readonly', False)]},
@@ -258,6 +263,7 @@ class extraschool_child_registration(models.Model):
     def create(self, vals):
         # if 'child_registration_line_ids' in vals:
         #     vals['number_childs'] = len(vals['child_registration_line_ids'])
+        vals[u'organising_power_id'] = self.env['extraschool.organising_power'].search([]).mapped('id')[0]
         self.check_validity_date(vals)
         if 'child_registration_line_ids' in vals:
             vals['number_childs'] = len(vals['child_registration_line_ids'])
@@ -625,6 +631,7 @@ class extraschool_child_registration_line(models.Model):
     sunday = fields.Boolean('Sunday')
     sunday_activity_id = fields.Many2one('extraschool.activity', string="Sunday",
                                          domain="[('selectable_on_registration_multi','=',True)]")
+    comment = fields.Char('Comment', track_visibility='onchange')
     error_duplicate_reg_line = fields.Boolean(string="Error", default=False)
 
     @api.model

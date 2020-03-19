@@ -197,5 +197,97 @@
                                            <t t-if="diabetique == False">Non</t>
         </template>
 
+
+
+
+
+        <template id="report_healthy_mt_st_guibert">
+            <div style="font-size:12px;">
+                <div style="text-align: center;">
+                    <h4><b>Fiche santé de <span t-field="child.child_id.name"/></b></h4>
+                </div>
+                <p>A compléter par les parents ou tuteurs légaux.</p><br/>
+                <p><b>Cette fiche sera un appui pour les responsables ou le personnel soignant en cas de besoin. Il est essentiel que les renseignements que vous fournissez soient
+                complets, corrects et à jour au moment des activités concernées. N'hésitez pas à ajouter des informations écrites ou orales auprès des coordinateurs si cela vous semble utile.
+                </b></p>
+
+                <p><b>Identité du participant</b></p>
+                <div style="width: 100%; display: block;">
+                    <div style="width:50%; display: block; float: left; padding: 0px">
+                        Nom/Prénom : <span t-field="child.child_id.name"/><br/>
+                        Adresse : <span t-field="child.child_id.parentid.street"/><br/>
+                        Code postal : <span t-field="child.child_id.parentid.zipcode"/> <br/>
+                        E-mail : <t t-if="child.child_id.parentid.email"><span t-field="child.child_id.parentid.email"/></t>
+                    </div>
+                    <div style="width:50%; float:right; padding: 0px">
+                        Né(e) le : <span t-field="child.child_id.birthdate"/><br/>
+                         <br/>
+                        Localité : <span t-field="child.child_id.parentid.city"/><br/>
+                        Tél / GSM : <t t-if="child.child_id.parentid.housephone"><span t-field="child.child_id.parentid.housephone"/></t>
+                    </div>
+                </div><br/><br/>
+
+                <p style="margin-top:50px; margin-bottom: 10px;"><b>Personnes à contacter en cas d'urgence</b></p>
+
+                <div style="width: 100%; display: block;">
+                    <div style="width:50%; display: block; float: left;">
+                        1. Nom/ Adresse : <br/>
+                        Lien parenté <br/><br/>
+                        2.Nom/ Adresse : <br/>
+                        lien de parenté :
+                    </div>
+                    <div style="width:50%; float:right; padding: 0px">
+                         <br/>
+                        Tél. / GSM : <br/><br/>
+                         <br/>
+                        Tél. / GSM : <br/>
+                    </div><br/>
+                </div><br/><br/>
+
+                <p style="margin-top:50px; margin-bottom: 10px;"><b>Médecin traitant</b> (selon la situation, une autre personne pourrait être sollicitée pour prendre en charge votre enfant)</p>
+
+                <div style="width: 100%; display: block;">
+                    <div style="width:50%; display: block; float: left;">
+                        1. Nom - Adresse : <span t-field="child.child_id.health_sheet_ids[0].doctor_id.name"/><br/>
+                        GSM: <span t-field="child.child_id.health_sheet_ids[0].doctor_id.gsm"/><br/><br/>
+                    </div>
+                    <div style="width:50%; float:right;">
+                         <span t-field="child.child_id.health_sheet_ids[0].doctor_id.street"/> <t t-if="doctor_zipcode"><span t-field="doctor_zipcode"/> </t> <t t-if="doctor_city"><span t-field="doctor_city"/> </t><br/>
+                         <br/>
+                    </div>
+                </div><br/>
+
+                <div style="width: 100%; display: block;" >
+                    <p style="margin-top:40px; margin-bottom: 10px;"><b>Informations confidentielles concernant la santé du participant</b></p><br/>
+                    <p> Le participant peut-il prendre part aux activités proposées ? (Sport, Excursions, Jeux,...)    OUI / NON</p><br/>
+                    <p>Raisons d'une éventuelle non-participation </p><br/><br/>
+                    <p>Y a-t-il des <b>données médicales spécifiques importantes</b> à connaître (ex. : problèmes cardiaques, epilepsie, asthme,
+                    diabète, mal des transports, affections cutanées, handicap,...) Indiquez la fréquence, la gravité et les actions à mettre en oeuvre pour
+                    les éviter et/ou y réagir. </p><br/><br/>
+                    <p>Le participant est-il en ordre de vaccination contre le <b>tétanos ?</b> <t t-if="tetanus == False">OUI / <b>NON</b></t>
+                                                                                                <t t-if="tetanus == True"><b>OUI </b>/ NON</t>
+                                                                                                <t t-if=" not tetanus"> OUI / NON</t></p>
+                    <p>Si oui, à quoi ? </p><br/>
+                    <p>Quelles en sont les conséquences ?</p><br/>
+                    <p>A-t-il un <b>régime alimentaire</b> particulier ? OUI / NON    Si oui, Lequel ? </p><br/>
+                    <p><b>Autres renseignements</b> concernant le participant que vous jugez importants</p><br/>
+                </div>
+                <div>
+                    <p>Le participant doit-il prendre des <b>médicaments</b> ?  OUI / NON</p><br/>
+
+
+
+                </div>
+                <div>
+                    <p>Est-il autonome dans la prise de ces médicaments ?  OUI / NON</p><br/>
+                    <p><i>« J'autorise le médecin à prendre les décisions qu'il juge urgentes et indispensables pour assurer l'état de santé de
+                    l'enfant, même s'il s'agit d'une intervention chirurgicale à défaut de pouvoir être contacté personnellement. »</i></p>
+                </div><br/>
+                <div>
+                    <b>Date et signature</b>
+                </div>
+            </div>
+		</template>
+
 	</data>
 </odoo>
