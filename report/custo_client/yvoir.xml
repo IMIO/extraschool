@@ -46,6 +46,50 @@
 			</div>
 		</template>
 
+        <template id="report_payment_info_amount_one_row_yvoir">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_payment_info_amount_one_row.css"/>
+            </xpath>
+			<div id="total_row">
+			<div id="payment_info">
+				<span>Compte: <b><t t-esc="categ_id.bankaccount" /></b></span>
+				<br />
+				<span>BIC: <t t-esc="categ_id.bank_bic" /></span>
+				<br />
+				<div class="com_struct">
+					<span>Communication structurée <b>obligatoire</b>:<br/>
+					 <b><t t-esc="com_struct" /></b></span>
+				</div>
+			</div>
+				<div id="total">
+					<div class="amount">
+					  <span class="zz_label">Total</span><span class="amount"><t t-esc="'%.2f' %  (total)" /> €</span>
+					</div>
+					<div class="amount">
+					  <span class="zz_label">Reçu</span><span class="amount"><t t-esc="'%.2f' %  (received)" /> €</span>
+					</div>
+                    <div class="amount" t-if="reminder_type == 'fix'">
+                        <span class="zz_label">Frais de rappel</span><span class="amount"><t t-esc="'%.2f' %  (fees)" /> €</span>
+                    </div>
+                    <div class="amount" t-if="no_value">
+						<span class="zz_label">Non valeur</span><span class="amount"><t t-esc="'%.2f' %  (no_value)" /> €</span>
+					</div>
+                    <div class="amount to_pay" t-if="reminder_type == 'fix'">
+                        <span class="zz_label">Solde</span><span class="amount"><t t-esc="'%.2f' %  (balance + fees)" /> €</span>
+                    </div>
+					<div class="amount to_pay" t-if="reminder_type == 'free'">
+						<span class="zz_label">Solde</span><span class="amount"><t t-esc="'%.2f' %  (balance)" /> €</span>
+					</div>
+					<div class="amount to_pay" t-if="not reminder_type">
+						<span class="zz_label">Solde</span><span class="amount"><t t-esc="'%.2f' %  (balance)" /> €</span>
+					</div>
+					<div class="amount to_pay">
+					  <b><span> A payer avant le <t t-esc="payment_term" /></span></b>
+					</div>
+				</div>
+			</div>
+		</template>
+
         <template id="report_invoice_summary_yvoir">
             <xpath expr="//head" position="inside">
                 <link rel="stylesheet" href="/extraschool/static/src/css/report_invoice_summary_yvoir.css"/>
@@ -71,12 +115,13 @@
 		       			<t t-foreach="summary_invoice_ids.sorted(key=lambda r: r.number)" t-as="summary_invoice">
 	        				<tr>
 	        					<t t-if="summary_invoice.id != invoice_id">
+                                <t t-if="summary_invoice.activitycategoryid == activity_category">
 	        					<t t-if="summary_invoice.reminder_fees == False">
 	        						<tr>
 				       					<td><span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_from,'%Y-%m-%d')))" /> - <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_to,'%Y-%m-%d')))" /></td>
 			        					<td><span t-field="summary_invoice.number" /></td>
 				       					<td><span t-field="summary_invoice.payment_term" /></td>
-										<td><t t-esc="parent_id.get_prepaid_comstruct(categ_id)" /></td>
+										<td><t t-esc="summary_invoice.structcom" /></td>
 				       					<td class="amount"><span t-esc="'%.2f €' %  (summary_invoice.balance)" /></td>
 
 	        						</tr>
@@ -87,12 +132,13 @@
 					       					<td></td>
 				        					<td><span t-field="invoice_line.description" /></td>
 					       					<td><span t-field="summary_invoice.payment_term" /></td>
-											<td><t t-esc="parent_id.get_prepaid_comstruct(categ_id)" /></td>
+											<td><t t-esc="summary_invoice.structcom" /></td>
 					       					<td class="amount"><span t-esc="TODO" /></td>
 											<!--<td class="amount"><span t-esc="'%.2f €' %  (invoice_line.balance)" /></td>-->
 				       					</tr>
 	        						</t>
 								</t>
+                                </t>
 								</t>
 		       				</tr>
 		        		</t>

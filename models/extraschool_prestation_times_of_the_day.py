@@ -63,7 +63,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
     place_check = fields.Boolean(default=True)
     comment = fields.Text()
     checked = fields.Boolean(default=False)
-    # schoolimplantation = fields.Many2one(related="child_id.schoolimplantation", store=True)
+    schoolimplantation = fields.Many2one(related="child_id.schoolimplantation", store=True)
 
     @api.multi
     def uniform_school(self):

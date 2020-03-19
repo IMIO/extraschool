@@ -94,7 +94,7 @@ class extraschool_payment(models.Model):
 
         # On CODA payment, do not pay tagged or reminder/reminder fees invoice.
         if from_coda:
-            search_domain += [('tag', '=', None)]
+            search_domain += [('tag', '=', None),]
             if payment_type == 1:  # Prepaid.
                 activity_category_ids = self.env['extraschool.activitycategory'].search([('payment_invitation_com_struct_prefix', '=', com_struct_prefix)]).ids
 
@@ -176,6 +176,7 @@ class extraschool_payment_reconciliation(models.Model):
 
     payment_id = fields.Many2one("extraschool.payment", required=True,ondelete='cascade')
     invoice_id = fields.Many2one("extraschool.invoice", required=True, index=True)
+    number_id = fields.Integer('Number',readonly=True)
     biller_id = fields.Many2one(related='invoice_id.biller_id', store=True, index=True)
     biller_other_ref = fields.Char(related='invoice_id.biller_id.other_ref', store=True)
     amount = fields.Float('Amount')
@@ -205,6 +206,19 @@ class extraschool_payment_status_report(models.Model):
     nbr_actif_child = fields.Integer('Nbr actif child')
     reminder_to_pay = fields.Boolean('Reminder to pay')
     # payment_date = fields.Date('Payment Date', select=True)
+
+    # @api.multi
+    # def move_prepaiement(self):
+    #     return {
+    #         'name': 'Mouvement de prépaiement',
+    #         'domain': [],
+    #         'res_model': 'extraschool.move_prepaiement',
+    #         'type': 'ir.actions.act_window',
+    #         'view_mode': 'form',
+    #         'view_type': 'form',
+    #         'context': {},
+    #         'target': 'new',
+    #     }
 
     # This is the view we use.
     def init(self, cr):

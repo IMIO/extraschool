@@ -31,6 +31,9 @@ class extraschool_parent(models.Model):
     _description = 'Parent'
     _inherit = 'mail.thread'
     _order = 'lastname'
+    # _sql_constraints = [
+    #     ('mail_rn_uniq', 'unique(mail, rn)', 'Mail and rn must be unique'),
+    #     ]
 
     @api.depends('firstname', 'lastname')
     def _name_compute(self):
@@ -142,22 +145,19 @@ class extraschool_parent(models.Model):
     country_id = fields.Many2one('res.country', string='Country', default=21, required=True)
     check_name = fields.Boolean(default=True)
     check_rn = fields.Boolean(default=True)
+    tax_certificate_send_method = fields.Selection((('emailandmail', 'By mail and email'),
+                                          ('onlyemail', 'Only by email'),
+                                          ('onlybymail', 'Only by mail')),
+                                         'Tax certificate send method', required=True, default='onlybymail',
+                                         track_visibility='onchange')
 
     @api.onchange('firstname', 'lastname')
     @api.multi
     def _check_name(self):
-        if self.search([('lastname', 'ilike', self.lastname), ('firstname', 'ilike', self.firstname)]):
+        if self.search([('lastname', '=ilike', self.lastname), ('firstname', '=ilike', self.firstname)]):
             self.check_name = False
         else:
             self.check_name = True
-
-        v = {}
-        if self.lastname:
-            if self.firstname:
-                v['name'] = '%s %s' % (self.lastname, self.firstname)
-            else:
-                v['name'] = self.lastname
-        return {'value': v}
 
     @api.onchange('rn')
     @api.multi

@@ -1,0 +1,13 @@
+.reminder_body{
+    width: 100%;
+    font-size: 14px;
+    text-align: justify;
+}
+
+#doc_resp_sign>div{
+    float: right;
+}
+
+#doc_resp_sign>div>span{
+    display:block;
+}

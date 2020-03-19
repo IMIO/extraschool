@@ -1,0 +1,5 @@
+<odoo>
+    <data>
+    	<function name="update_activity_category" model="extraschool.remindersjournal" />
+	</data>
+</odoo>

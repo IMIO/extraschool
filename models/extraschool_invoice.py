@@ -96,12 +96,11 @@ class extraschool_invoice(models.Model):
     @api.multi
     def _compute_balance(self):
         for invoice in self:
-
             total = 0 if len(invoice.invoice_line_ids) == 0 else sum(line.total_price for line in invoice.invoice_line_ids)
             total = 0 if total < 0.0001 else total
             reconcil = 0 if len(invoice.payment_ids) == 0 else sum(reconcil_line.amount for reconcil_line in invoice.payment_ids)
             reconcil = 0 if reconcil < 0.0001 else reconcil
-            balance = total - reconcil - self.no_value_amount
+            balance = total - reconcil - invoice.no_value_amount
             balance = 0 if balance < 0.0001 else balance
             balance = round(balance,5) # MiCo used this to resolve a balance problem (hannut 21/08/2017)
             invoice.write({'amount_total' : total,
@@ -153,7 +152,7 @@ class extraschool_invoice(models.Model):
                                                       ]).sorted(key=lambda r: r.paymentdate)
 
                     count = 0
-                    solde = invoice.balance - invoice.no_value_amount
+                    solde = invoice.balance
 
                     while count < len(payment_ids) and solde > 0:
                         amount = solde if payment_ids[count].solde >= solde else payment_ids[count].solde
@@ -175,6 +174,7 @@ class extraschool_invoice(models.Model):
 
                         solde = invoice.get_balance(invoice_category.id)
 
+                        # bug : si paiement déjà reçu, tout le prépaiement est pris
                         while zz < len(payments) and solde > 0:
                             amount = solde if payments[zz].solde >= solde else payments[zz].solde
                             payment_reconcil_obj.create({'payment_id': payments[zz].id,
@@ -212,22 +212,18 @@ class extraschool_invoice(models.Model):
     @api.multi
     def cancel_and_invoice_after(self):
         self.ensure_one()
-        if self.balance == self.amount_total:
-            self.full_no_value()
-            for line in self.invoice_line_ids:
-                line.prestation_ids.write({
-                    'invoiced_prestation_id': None,
-                })
-        else:
-            raise Warning(_("You cannot cancel an invoice that recieved payments"))
+        self.full_no_value()
+        for line in self.invoice_line_ids:
+            line.prestation_ids.write({
+                'invoiced_prestation_id': None,
+            })
+        self.cancel_payment()
 
     @api.multi
     def cancel(self):
         self.ensure_one()
-        if self.balance == self.amount_total:
-            self.full_no_value()
-        else:
-            raise Warning(_("You cannot cancel an invoice that recieved payments"))
+        self.full_no_value()
+        self.cancel_payment()
 
     def get_concerned_short_name(self):
         res = []
@@ -589,6 +585,29 @@ class extraschool_invoice(models.Model):
             'domain': '[]',
             'context': {}
         }
+
+    @api.multi
+    def correction_payment_reconciliation(self, overfull):
+        """
+        Corrects payments according to no_value (AES-214)
+        :param overfull: amount to place in prepayment
+        :return: None
+        """
+
+        # correct overfull, otherwise amount_received may be incorrect
+        if overfull + self.amount_received > self.amount_total:
+            overfull -= (self.amount_total - self.amount_received)
+
+        payments = self.payment_ids.sorted(key=lambda r: (r.date, r.amount))
+        for payment in payments:
+            if overfull >= payment.amount:
+                overfull -= payment.amount
+                payment.unlink()
+            else:
+                payment.amount -= overfull
+                payment.payment_id.compute_solde()
+                break
+        self._compute_balance()
 
 
 class extraschool_invoice_tag(models.Model):

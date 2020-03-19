@@ -6,28 +6,28 @@
             <xpath expr="//head" position="inside">
 	            <style type="text/css">
 					body {
-					  font-family: arial !important;	            	 	  
+					  font-family: arial !important;
 					}
-	            		            	
+
 					body.container {
 	            	  margin: 0px 15mm 0px Opx;
-	            	  padding: 0px;	            	  
+	            	  padding: 0px;
 					}
-	            	
+
 	            	.header{
 	            		padding-right: 15mm;
 	            	}
-	            	
+
 	            	.page{
 	            		padding-right: 15mm;
 	            	}
 	            </style>
-				
+
 	            <link href="/web/static/lib/bootstrap/css/bootstrap.css" rel="stylesheet"/>
 		        <link href="/website/static/src/css/website.css" rel="stylesheet"/>
 		        <link href="/web/static/lib/fontawesome/css/font-awesome.css" rel="stylesheet"/>
             </xpath>
-            
+
         	<xpath expr="//head" position="inside">
               <script src="/extraschool/static/src/js/pagination_hide.js"></script>
             </xpath>
@@ -38,10 +38,10 @@
             </xpath>
 
             <xpath expr="//html" position="attributes">
-		    	<attribute name="t-att-data-report-margin-top">docs[0].activitycategoryid.biller_report_id.paper_format_id.margin_top</attribute>
-		        <attribute name="t-att-data-report-margin-bottom">docs[0].activitycategoryid.biller_report_id.paper_format_id.margin_bottom</attribute>
-		        <attribute name="t-att-data-report-margin-right">docs[0].activitycategoryid.biller_report_id.paper_format_id.margin_right</attribute>
-		        <attribute name="t-att-data-report-margin-left">docs[0].activitycategoryid.biller_report_id.paper_format_id.margin_left</attribute>
+		    	<attribute name="t-att-data-report-margin-top">docs[0].activitycategoryid[0].organising_power_id.biller_report_id.paper_format_id.margin_top</attribute>
+		        <attribute name="t-att-data-report-margin-bottom">docs[0].activitycategoryid[0].organising_power_id.biller_report_id.paper_format_id.margin_bottom</attribute>
+		        <attribute name="t-att-data-report-margin-right">docs[0].activitycategoryid[0].organising_power_id.biller_report_id.paper_format_id.margin_right</attribute>
+		        <attribute name="t-att-data-report-margin-left">docs[0].activitycategoryid[0].organising_power_id.biller_report_id.paper_format_id.margin_left</attribute>
 		    </xpath>
 
             <xpath expr="//body" position="attributes">
@@ -51,12 +51,12 @@
             <xpath expr="//body" position="inside">
 				<div id="biller">
 					<t t-foreach="docs" t-as="biller">
-						<t t-set="logo" t-value="biller.activitycategoryid.logo"/>
-						<t t-set="slogan" t-value="docs[0].activitycategoryid.slogan"/>
-						<t t-set="doc_date" t-value="'%s, le %s' % (biller.activitycategoryid.po_city,time.strftime('%d-%m-%Y',time.strptime(biller.invoices_date,'%Y-%m-%d')))"/>
+						<t t-set="logo" t-value="biller.activitycategoryid[0].organising_power_id.logo"/>
+						<t t-set="slogan" t-value="docs[0].activitycategoryid[0].slogan"/>
+						<t t-set="doc_date" t-value="'%s, le %s' % (biller.activitycategoryid[0].organising_power_id.po_city,time.strftime('%d-%m-%Y',time.strptime(biller.invoices_date,'%Y-%m-%d')))"/>
 
 						<div class="header">
-		        			<t t-foreach="biller.activitycategoryid.biller_report_id.inline_report_ids.filtered(lambda r: r.section == 'a_header')" t-as="tmpl">
+		        			<t t-foreach="biller.activitycategoryid[0].organising_power_id.biller_report_id.inline_report_ids.filtered(lambda r: r.section == 'a_header')" t-as="tmpl">
 				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">
 			        				<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
 								</div>
@@ -66,7 +66,7 @@
 							</t>
 			       		</div>
 			        	<div class="page">
-			        		<t t-foreach="biller.activitycategoryid.biller_report_id.inline_report_ids.filtered(lambda r: r.section == 'b_body')" t-as="tmpl">
+			        		<t t-foreach="biller.activitycategoryid[0].organising_power_id.biller_report_id.inline_report_ids.filtered(lambda r: r.section == 'b_body')" t-as="tmpl">
 				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">
 			        				<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
 								</div>
@@ -76,7 +76,7 @@
 							</t>
 			       		</div>
 			        	<div class="footer">
-			        		<t t-foreach="biller.activitycategoryid.biller_report_id.inline_report_ids.filtered(lambda r: r.section == 'c_footer')" t-as="tmpl">
+			        		<t t-foreach="biller.activitycategoryid[0].organising_power_id.biller_report_id.inline_report_ids.filtered(lambda r: r.section == 'c_footer')" t-as="tmpl">
 				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">
 			        				<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
 								</div>

@@ -79,7 +79,8 @@ class extraschool_invoicedprestations(models.Model):
         ondelete='restrict'
     )
 
-    no_value_amount = fields.Float()
+    # bug with the big sql request (no no value)
+    no_value_amount = fields.Float(default=0.0)
     no_value_date = fields.Date()
     no_value_description = fields.Text()
 
@@ -123,11 +124,6 @@ class extraschool_invoicedprestations(models.Model):
     def write(self, vals):
 
         if 'no_value_amount' in vals and vals.get('no_value_amount') > self.total_price:
-            vals['no_value_amount'] = 0.00
-            #problème avec la soustraction de float
-
-        elif 'no_value_amount' in vals and round(self.invoiceid.amount_total - self.invoiceid.amount_received - self.invoiceid.no_value_amount, 3) - vals.get(
-                'no_value_amount') < 0.00:
             vals['no_value_amount'] = 0.00
 
         return super(extraschool_invoicedprestations, self).write(vals)

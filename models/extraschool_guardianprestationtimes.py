@@ -28,6 +28,7 @@ from datetime import datetime
 class extraschool_guardianprestationtimes(models.Model):
     _name = 'extraschool.guardianprestationtimes'
     _description = 'Guardian Prestation Times'
+    _order = 'prestation_date DESC'
 
     def name_get(self, cr, uid, ids, context={}):
         if not len(ids):
