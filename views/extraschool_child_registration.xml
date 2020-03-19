@@ -15,7 +15,7 @@
 					<field name="week"/>
                     <field name="date_from"/>
 					<field name="date_to"/>
-					<field name="age_group"/>
+					<!--<field name="age_group"/>-->
 					<field name="state" />
                     <field name="error_duplicate_reg_line"/>
 				</tree>
