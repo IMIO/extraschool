@@ -77,7 +77,7 @@ class extraschool_remindersjournal(models.Model):
     show_based_reminder = fields.Boolean('Clic here if it\'s not the first reminder', default=False,
                                          track_visibility='onchange')
     unsolved_reminder_ids = fields.One2many('extraschool.reminder', 'reminders_journal_id', 'Unsolved Reminders',
-                                            compute="_get_unsolved_reminder_method", track_visibility='onchange')
+                                            compute="_compute_unsolved_reminder_method", track_visibility='onchange')
 
     @api.onchange('date_from', 'date_to', 'activity_category_ids')
     @api.multi
@@ -93,15 +93,16 @@ class extraschool_remindersjournal(models.Model):
                  ('activitycategoryid', '=', self.activity_category_ids.ids),
                  ]).ids
 
-    @api.one
-    def _get_unsolved_reminder_method(self):
+    @api.multi
+    def _compute_unsolved_reminder_method(self):
+        import wdb; wdb.set_trace()
         unsolved_reminder_ids = []
-
-        get_reminder_ids = self.env['extraschool.reminder'].search([('reminders_journal_id', '=', self.id)])
-
-        for reminder in get_reminder_ids:
-            invoice_ids = self.env['extraschool.reminder'].browse(reminder.id).concerned_invoice_ids
-            balance = sum([self.env['extraschool.invoice'].browse(invoice.id).balance for invoice in invoice_ids])
+        reminder_ids = self.env['extraschool.reminder'].search([('reminders_journal_id', '=', self.id)])
+        # on parcours chaque rappels du journal des rappels dans le but
+        # de parcourir chaque facture pour faire la somme
+        # on peut simplement récupérer toutes les factures
+        for reminder in reminder_ids:
+            balance = sum(invoice.balance for invoice in reminder.concerned_invoice_ids)
             if balance > 0:
                 unsolved_reminder_ids.append(reminder.id)
                 reminder.write({'balance': balance})
