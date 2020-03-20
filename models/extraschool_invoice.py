@@ -71,7 +71,6 @@ class extraschool_invoice(models.Model):
     refound_line_ids = fields.One2many('extraschool.refound_line', 'invoiceid','Refound', track_visibility='onchange')
     oldid = fields.Char('oldid', size=20, track_visibility='onchange')
     activitycategoryid = fields.Many2many('extraschool.activitycategory', 'extraschool_invoice_activity_category_rel', store=True, auto_join=True, track_visibility='onchange')
-    # activitycategoryid = fields.Many2one(related='biller_id.activitycategoryid', store=True, auto_join=True, track_visibility='onchange')
     period_from = fields.Date(related='biller_id.period_from', index=True, track_visibility='onchange')
     period_to = fields.Date(related='biller_id.period_to', index=True, track_visibility='onchange')
     payment_term = fields.Date('Payment term', track_visibility='onchange')
