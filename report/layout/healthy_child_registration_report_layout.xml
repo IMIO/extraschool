@@ -197,7 +197,7 @@
         <report
 		    id="extraschool_healthy"
 		    model="extraschool.child_registration"
-		    string="Fiche Santé"
+		    string="Fiche Santé Inscription"
 		    report_type="qweb-pdf"
 		    name="extraschool.healthy_report_inscription_layout"
 		    attachment_use="False"
