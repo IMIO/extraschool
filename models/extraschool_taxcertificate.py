@@ -82,18 +82,33 @@ class extraschool_taxcertificate(models.Model):
 
                 }
 
-    @api.model
-    def create(self, vals):
-        # check if already exist
-        tc = self.search([('name', '=', vals['name'])])
-        vals[u'organising_power_id'] = self.env['extraschool.organising_power'].search([]).mapped('id')[0]
-        if len(tc):
+    def _ensure_does_not_exists(self, vals):
+        """
+        Check if tax certificate already exists
+        :param vals: values of record we are going to create
+        :return: None
+        """
+        tax_certificate = self.search([('name', '=', vals['name'])])
+        if tax_certificate:
             raise Warning(_('Taxe certificate already exist'))
 
-        cr, uid = self.env.cr, self.env.user.id
+    def _ensure_payment_reconciliation_exists(self, vals):
+        """
+        Check if there are payments reconciliation
+        :return: None
+        """
+        payments_reconciliation = self.env['extraschool.payment_reconciliation'].search(
+            [('date', '>=', '{}-01-01'.format(vals['name'])), ('date', '<=', '{}-12-31'.format(vals['name']))])
 
-        obj_config = self.env['extraschool.mainsettings']
-        config = obj_config.browse([1])
+        if not payments_reconciliation:
+            raise Warning(_('There are not payment reconciliation'))
+
+    @api.model
+    def create(self, vals):
+        self._ensure_does_not_exists(vals)
+        self._ensure_payment_reconciliation_exists(vals)
+        vals[u'organising_power_id'] = self.env['extraschool.organising_power'].search([])[0].id
+        cr, uid = self.env.cr, self.env.user.id
 
         # UPDATE RECONCIL DATE IF NEEDED
         sql_update_reconcil_date = """
@@ -165,8 +180,8 @@ class extraschool_taxcertificate(models.Model):
         zz = 1
         for attest in childattestations:
             send_method = \
-            self.env['extraschool.parent'].search([('id', '=', attest['parentid'])]).mapped('invoicesendmethod')[
-                0].encode("UTF-8")
+                self.env['extraschool.parent'].search([('id', '=', attest['parentid'])]).mapped('invoicesendmethod')[
+                    0].encode("UTF-8")
             attest_item_ids.append(attest_item_obj.create({'name': zz,
                                                            'parent_id': attest['parentid'],
                                                            'child_id': attest['childid'],
@@ -260,7 +275,7 @@ class extraschool_taxcertificate(models.Model):
         chunk_size = int(self.env['ir.config_parameter'].get_param('extraschool.report.thread.chunk', 200))
 
         nrb_thread = len(self.taxcertificate_item_ids) / chunk_size + (
-                len(self.taxcertificate_item_ids) % chunk_size > 0)
+            len(self.taxcertificate_item_ids) % chunk_size > 0)
         thread_lock = [
             len(self.taxcertificate_item_ids) / chunk_size + (len(self.taxcertificate_item_ids) % chunk_size > 0),
             threading.Lock(),
