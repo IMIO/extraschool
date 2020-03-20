@@ -11235,8 +11235,20 @@ msgstr "Activité"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_activity_no_available
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_activity_no_available_selection
 msgid "Activity no available"
 msgstr "L'enfant a-t-il des interdictions pour certaines activités ?"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_disease_gravity
+msgid "Gravity"
+msgstr "Gravité"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_disease_self_medication_selection
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_self_medication
+msgid "Self medication"
+msgstr "Auto-médication"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activityoccurrence_cal
@@ -11506,8 +11518,14 @@ msgstr "Adr2"
 #: model:ir.ui.view,arch_db:base.view_res_bank_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_doctor_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_guardian_form
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_other_contact_address_id
 #: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
 msgid "Address"
+msgstr "Adresse"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_interdiction_other_contact_address_id
+msgid "Address id"
 msgstr "Adresse"
 
 #. module: base
@@ -12007,6 +12025,7 @@ msgstr "Allergie :"
 #. module: extraschool
 #: model:ir.model,name:extraschool.model_extraschool_allergy
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_allergy
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_allergy_selection
 msgid "Allergy"
 msgstr "L'enfant possède-t-il des allergies ?"
 
@@ -17885,6 +17904,7 @@ msgstr "Diabète"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_diabetique
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_diabetique_selection
 msgid "Diabétique"
 msgstr "Diabétique"
 
@@ -21783,6 +21803,7 @@ msgstr "Haïti"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_handicap
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_handicap_selection
 #: model:ir.ui.view,arch_db:extraschool.extraschool_health_sheet_form
 msgid "Handicap"
 msgstr "L'enfant possède-t-il un handicap ? "
@@ -23740,6 +23761,7 @@ msgstr "Unité de l'intervalle"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_intervention
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_intervention_selection
 msgid "Intervention"
 msgstr "L'enfant a-t-il subi une intervention ou une maladie grave ?"
 
@@ -35367,6 +35389,7 @@ msgstr "Applications spécifiques à l'industrie"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_specific_regime
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_specific_regime_selection
 msgid "Specific Regime"
 msgstr "L'enfant a-t-il un régime alimentaire spécial ?"
 
@@ -36399,6 +36422,7 @@ msgstr "Tests of field conversions"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_tetanus
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_tetanus_selection
 msgid "Tetanus"
 msgstr "L'enfant a-il été vacciné contre le tétanos ?"
 
