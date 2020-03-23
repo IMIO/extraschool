@@ -77,6 +77,7 @@ class extraschool_health_sheet(models.Model):
          ('non', 'Non'),
          ('oui', 'Oui')), default='non_renseigne', string='Activity no available')
     activity_no_available_text = fields.Char(string='Type of activity no available')
+    activity_no_available_reason = fields.Char(string='Reason of activity no available')
     disease_ids = fields.One2many('extraschool.disease','health_id', 'disease_id')
     facebook = fields.Selection(
         (('non_renseigne', 'Non renseigné'),
@@ -118,7 +119,10 @@ class extraschool_health_sheet(models.Model):
         (('non_renseigne', 'Non renseigné'),
          ('non', 'Non'),
          ('oui', 'Oui')), default='non_renseigne', string='Photo general')
-    self_medication = fields.Boolean(string='Self medication')
+    self_medication = fields.Selection(
+        (('non_renseigne', 'Non renseigné'),
+         ('non', 'Non'),
+         ('oui', 'Oui')), default='non_renseigne', string='Self medication general')
 
     @api.model
     def create(self, vals):
