@@ -230,19 +230,22 @@
                 <p style="margin-top:50px; margin-bottom: 10px;"><b>Personnes à contacter en cas d'urgence</b></p>
 
                 <div style="width: 100%; display: block;">
-                    <div style="width:50%; display: block; float: left;">
-                        1. Nom/ Adresse : <t t-if="child.child_id.health_sheet_ids[0].contact_ids[0]"><span t-field="child.child_id.health_sheet_ids[0].contact_ids[0].contact_name"/></t> <t t-if="child.child_id.health_sheet_ids[0].contact_ids[0].address_id"><span t-field="child.child_id.health_sheet_ids[0].contact_ids[0].address_id"/></t> <br/>
-                        Lien parenté : <t t-if="child.child_id.health_sheet_ids[0].contact_ids[0]"><span t-field="child.child_id.health_sheet_ids[0].contact_ids[0].contact_relation"/></t><br/><br/>
+                    <t t-set="health_sheet" t-value="child.child_id.health_sheet_ids[0]"/>
+                    <t t-if="health_sheet.contact_ids">
+                        <div style="width:50%; display: block; float: left;">
+                            1. Nom/ Adresse : <t t-if="child.child_id.health_sheet_ids[0].contact_ids[0]"><span t-field="child.child_id.health_sheet_ids[0].contact_ids[0].contact_name"/></t> <t t-if="child.child_id.health_sheet_ids[0].contact_ids[0].address_id"><span t-field="child.child_id.health_sheet_ids[0].contact_ids[0].address_id"/></t> <br/>
+                            Lien parenté : <t t-if="child.child_id.health_sheet_ids[0].contact_ids[0]"><span t-field="child.child_id.health_sheet_ids[0].contact_ids[0].contact_relation"/></t><br/><br/>
 
-                        2.Nom/ Adresse : <br/>
-                        lien de parenté :
-                    </div>
-                    <div style="width:50%; float:right; padding: 0px">
-                         <br/>
-                        Tél. / GSM : <t t-if="child.child_id.health_sheet_ids[0].contact_ids[0].contact_tel"><span t-field="child.child_id.health_sheet_ids[0].contact_ids[0].contact_tel"/></t> <br/><br/>
-                         <br/>
-                        Tél. / GSM : <br/>
-                    </div><br/>
+                            2.Nom/ Adresse : <br/>
+                            lien de parenté :
+                        </div>
+                        <div style="width:50%; float:right; padding: 0px">
+                             <br/>
+                            Tél. / GSM : <t t-if="child.child_id.health_sheet_ids[0].contact_ids[0].contact_tel"><span t-field="child.child_id.health_sheet_ids[0].contact_ids[0].contact_tel"/></t> <br/><br/>
+                             <br/>
+                            Tél. / GSM : <br/>
+                        </div><br/>
+                    </t>
                 </div><br/><br/>
 
                 <p style="margin-top:50px; margin-bottom: 10px;"><b>Médecin traitant</b> (selon la situation, une autre personne pourrait être sollicitée pour prendre en charge votre enfant)</p>
@@ -275,7 +278,7 @@
                     <t t-if="child.child_id.health_sheet_ids[0].handicap_selection == 'oui'">
                         <span t-field="child.child_id.health_sheet_ids[0].type_handicap"/> <br/>
                     </t>
-                    <t t-if="child.child_id.health_sheet_ids[0].disease_ids[0]">
+                    <t t-if="child.child_id.health_sheet_ids[0].disease_ids">
                         <span t-field="child.child_id.health_sheet_ids[0].disease_ids[0].disease"/> <span t-field="child.child_id.health_sheet_ids[0].disease_ids[0].gravity"/> <span t-field="child.child_id.health_sheet_ids[0].disease_ids[0].disease_text"/><br/>
                     </t>
 
@@ -297,7 +300,7 @@
                     <br/>
                     <p>Quelles en sont les conséquences ?</p>
                     <t t-if="child.child_id.health_sheet_ids[0].allergy_selection == 'oui'">
-                        <span t-field="child.child_id.health_sheet_ids[0].allergy_consequence"/>
+<!--                        <span t-field="child.child_id.health_sheet_ids[0].allergy_consequence"/>-->
                     </t>
                     <br/>
                     <p>A-t-il un <b>régime alimentaire</b> particulier ? <t t-if="child.child_id.health_sheet_ids[0].specific_regime_selection == 'non'">OUI / <b>NON</b></t>
