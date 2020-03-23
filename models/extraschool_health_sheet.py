@@ -124,6 +124,7 @@ class extraschool_health_sheet(models.Model):
         (('non_renseigne', 'Non renseigné'),
          ('non', 'Non'),
          ('oui', 'Oui')), default='non_renseigne', string='Self medication general')
+    medication_ids = fields.One2many('extraschool.medication', 'health_id')
 
     @api.model
     def create(self, vals):
@@ -183,6 +184,16 @@ class extraschool_disease(models.Model):
     disease = fields.Many2one('extraschool.disease_type', string='Disease')
     disease_text = fields.Char(string='Treatment')
     gravity = fields.Char('Gravity')
+
+
+class extraschool_medication(models.Model):
+    _name = 'extraschool.medication'
+    _description = 'Medication'
+
+    health_id = fields.Many2one('extraschool.health_sheet', string='Health sheet')
+    name = fields.Char(string='Name of the medication')
+    quantity = fields.Char(string='Quantity')
+    period = fields.Char(string='Quand')
     self_medication_selection = fields.Selection(
         (('non_renseigne', 'Non renseigné'),
          ('non', 'Non'),

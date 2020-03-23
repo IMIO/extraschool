@@ -231,17 +231,17 @@
 
                 <div style="width: 100%; display: block;">
                     <div style="width:50%; display: block; float: left;">
-                        1. Nom/ Adresse : <t t-if="child.child_id.health_sheet_ids[0].contact_ids[0]"><span t-field="child.child_id.health_sheet_ids[0].contact_ids[0].contact_name"/></t> <t t-if="child.child_id.health_sheet_ids[0].contact_ids[0].address_id"><span t-field="child.child_id.health_sheet_ids[0].contact_ids[0].address_id"/></t> <br/>
-                        Lien parenté : <t t-if="child.child_id.health_sheet_ids[0].contact_ids[0]"><span t-field="child.child_id.health_sheet_ids[0].contact_ids[0].contact_relation"/></t><br/><br/>
+                        1. Nom/ Adresse : <t t-if="child.child_id.health_sheet_ids[0].contact_ids"><span t-field="child.child_id.health_sheet_ids[0].contact_ids[0].contact_name"/>      <t t-if="child.child_id.health_sheet_ids[0].contact_ids[0].address_id"><span t-field="child.child_id.health_sheet_ids[0].contact_ids[0].address_id"/></t></t> <br/>
+                        Lien parenté : <t t-if="child.child_id.health_sheet_ids[0].contact_ids"><span t-field="child.child_id.health_sheet_ids[0].contact_ids[0].contact_relation"/></t><br/><br/>
 
-                        2.Nom/ Adresse : <br/>
-                        lien de parenté :
+                        2.Nom/ Adresse : <t t-if="len(child.child_id.health_sheet_ids[0].contact_ids)>1"><span t-field="child.child_id.health_sheet_ids[0].contact_ids[1].contact_name"/>       <t t-if="child.child_id.health_sheet_ids[0].contact_ids[1].address_id"><span t-field="child.child_id.health_sheet_ids[0].contact_ids[1].address_id"/></t></t><br/>
+                        lien de parenté :<t t-if="len(child.child_id.health_sheet_ids[0].contact_ids)>1"><span t-field="child.child_id.health_sheet_ids[0].contact_ids[1].contact_relation"/></t>
                     </div>
                     <div style="width:50%; float:right; padding: 0px">
                          <br/>
                         Tél. / GSM : <t t-if="child.child_id.health_sheet_ids[0].contact_ids[0].contact_tel"><span t-field="child.child_id.health_sheet_ids[0].contact_ids[0].contact_tel"/></t> <br/><br/>
                          <br/>
-                        Tél. / GSM : <br/>
+                        Tél. / GSM : <t t-if="len(child.child_id.health_sheet_ids[0].contact_ids)>1"><span t-field="child.child_id.health_sheet_ids[0].contact_ids[0].contact_tel"/></t><br/>
                     </div><br/>
                 </div><br/><br/>
 
@@ -292,7 +292,9 @@
                     <br/>
                     <p>Si oui, à quoi ? </p>
                     <t t-if="child.child_id.health_sheet_ids[0].allergy_selection == 'oui'">
-                        <span t-field="child.child_id.health_sheet_ids[0].allergy_ids"/>
+                        <t t-foreach="child.child_id.health_sheet_ids[0].allergy_ids" t-as="allergy">
+                            <span t-field="allergy.name"/><br/>
+                        </t>
                     </t>
                     <br/>
                     <p>Quelles en sont les conséquences ?</p>
@@ -309,11 +311,44 @@
                     <span t-field="child.child_id.health_sheet_ids[0].comment"/><br/><br/>
                 </div>
                 <div>
-                    <p>Le participant doit-il prendre des <b>médicaments</b> ? </p>
-                    <br/>
-
-
-
+                    <p>Le participant doit-il prendre des <b>médicaments</b> ?
+                    <t t-if="child.child_id.health_sheet_ids[0].medication_ids">
+                        <table>
+                            <tr>
+                                <th>Nom du médicament</th>
+                                <th>En quelle quantité ?</th>
+                                <th>Quand ?</th>
+                            </tr>
+                            <t t-foreach="child.child_id.health_sheet_ids[0].medication_ids" t-as="medication">
+                                <tr>
+                                    <tr>
+                                        <td><span t-field="medication.name" /></td>
+                                        <td><span t-field="medication.quantity" /></td>
+                                        <td><span t-field="medication.period" /></td>
+                                    </tr>
+                                </tr>
+                            </t>
+                        </table>
+                    </t>
+                    <t t-if="not child.child_id.health_sheet_ids[0].medication_ids">
+                        <table>
+                            <tr>
+                                <th>Nom du médicament</th>
+                                <th>En quelle quantité ?</th>
+                                <th>Quand ?</th>
+                            </tr>
+                            <t t-foreach="child.child_id.health_sheet_ids[0].medication_ids" t-as="medication">
+                                <tr>
+                                    <tr>
+                                        <td>  </td>
+                                        <td>  </td>
+                                        <td>  </td>
+                                    </tr>
+                                </tr>
+                            </t>
+                        </table>
+                    </t>
+                    </p>
                 </div>
                 <div>
                     <p>Est-il autonome dans la prise de ces médicaments ?   <t t-if="child.child_id.health_sheet_ids[0].self_medication == 'non'">OUI / <b>NON</b></t>
