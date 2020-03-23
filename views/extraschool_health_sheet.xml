@@ -40,12 +40,8 @@
                                 <separator string="Allergie" colspan="4"/>
                                     <field name="allergy" invisible="1"/>
                                     <field name="allergy_selection" widget='radio' options="{'horizontal': true}"/>
-                                    <field name="allergy_ids" attrs="{'invisible':[('allergy_selection', '!=', 'oui')], 'required':[('allergy_selection', '=', 'oui')]}">
-                                        <tree>
-                                            <field name="name"/>
-                                            <field nmae="consequence"/>
-                                        </tree>
-                                    </field>
+                                    <field name="allergy_ids" attrs="{'invisible':[('allergy_selection', '!=', 'oui')], 'required':[('allergy_selection', '=', 'oui')]}" widget="many2many_tags"/>
+                                    <field name="allergy_consequence" attrs="{'invisible':[('allergy_selection', '!=', 'oui')]}"/>
                                 <separator string="Handicap" colspan="4"/>
                                     <field name="handicap" invisible="1"/>
                                     <field name="handicap_selection" widget='radio' options="{'horizontal': true}"/>
@@ -88,7 +84,7 @@
                                     <field name="activity_no_available" invisible="1"/>
                                     <field name="activity_no_available_selection" widget='radio' options="{'horizontal': true}"/>
                                     <field name="activity_no_available_text" attrs="{'invisible':[('activity_no_available_selection', '!=', 'oui')], 'required':[('activity_no_available_selection', '=', 'oui')]}"/>
-                                    <field name="activity_no_available_reason" attrs="{'invisible':[('activity_no_available_selection', '!=', 'oui')], 'required':[('activity_no_available_selection', '=', 'oui')]}"/>
+                                    <field name="activity_no_available_reason" attrs="{'invisible':[('activity_no_available_selection', '!=', 'oui')]}"/>
                                 </group>
                             </div>
                             <div>

@@ -59,6 +59,7 @@ class extraschool_health_sheet(models.Model):
          ('non', 'Non'),
          ('oui', 'Oui')), default='non_renseigne', string='Allergy')
     allergy_ids = fields.Many2many('extraschool.allergy', 'extraschool_child_allergy_rel', 'child_id', 'allergy_id', 'Allergy list')
+    allergy_consequence = fields.Char(string='Allergy consequence')
     handicap = fields.Boolean(string='Handicap', default=False)
     handicap_selection = fields.Selection(
         (('non_renseigne', 'Non renseigné'),
@@ -171,7 +172,7 @@ class extraschool_allergy(models.Model):
     _description = 'Allergy'
 
     name = fields.Char(string='Allergie')
-    consequence = fields.Char(string='Consequence')
+    #consequence = fields.Char(string='Consequence')
 
 
 class extraschool_disease(models.Model):

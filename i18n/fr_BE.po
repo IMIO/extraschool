@@ -17917,6 +17917,16 @@ msgid "Diagram"
 msgstr "Diagramme"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_activity_no_available_reason
+msgid "Reason of activity no available"
+msgstr "Raisons des activités non praticables"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_allergy_consequence
+msgid "Allergy consequence"
+msgstr "Conséquences des allergies"
+
+#. module: extraschool
 #: model:ir.model,name:extraschool.model_extraschool_invoice_tag
 msgid "Different tag can be used but they all block the process of this invoice. No reminder and so on."
 msgstr "Different tag can be used but they all block the process of this invoice. No reminder and so on."
