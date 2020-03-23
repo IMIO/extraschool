@@ -106,11 +106,22 @@
                                         <tree editable="bottom" string="Diseases">
                                             <field name="disease" required="1"/>
                                             <field name="gravity" required="1"/>
-                                            <field name="self_medication_selection"/>
                                             <field name="disease_text" required="1"/>
                                         </tree>
                                     </field>
                                 </group>
+                            </div>
+                            <div>
+                                <separator string="Medication"/>
+                                <newline/>
+                                <field name="medication_ids">
+                                    <tree editable="bottom" string="Medication">
+                                        <field name="name" required="1"/>
+                                        <field name="quantity"/>
+                                        <field name="period"/>
+                                        <field name="self_medication_selection"/>
+                                    </tree>
+                                </field>
                             </div>
                             <div>
                                 <group>

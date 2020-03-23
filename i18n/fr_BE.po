@@ -11251,6 +11251,30 @@ msgid "Self medication"
 msgstr "Auto-médication"
 
 #. module: extraschool
+#: model:ir.model,name:extraschool.model_extraschool_medication
+#: model:ir.model,name:extraschool.model_extraschool_mediction
+#: model:ir.ui.view,arch_db:extraschool.extraschool_health_sheet_form
+msgid "Medication"
+msgstr "Médicaments"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_medication_name
+msgid "Name of the medication"
+msgstr "Nom du médicament"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_medication_period
+msgid "Quand"
+msgstr "Quand ?"
+
+#. module: extraschool
+#: selection:extraschool.discount.version,quantity_type:0
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_invoicedprestations_quantity
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_medication_quantity
+msgid "Quantity"
+msgstr "Quantité"
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activityoccurrence_cal
 msgid "Activity occurences"
 msgstr "Activity occurences"
