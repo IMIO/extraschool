@@ -11258,6 +11258,11 @@ msgid "Medication"
 msgstr "Médicaments"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_healthy_inscription_report_id
+msgid "Healthy Inscription report"
+msgstr "Rapport Fiche santé Inscription"
+
+#. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_medication_name
 msgid "Name of the medication"
 msgstr "Nom du médicament"
@@ -13484,7 +13489,7 @@ msgstr "Biller ids"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_biller_report_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_biller_report_id
 msgid "Biller report"
-msgstr "Rapport du facturier"
+msgstr "Rapport Facturier"
 
 #. module: portal
 #: model:ir.ui.menu,name:portal.portal_orders
@@ -21962,7 +21967,7 @@ msgstr "Health sheet ids"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_healthy_report_id
 msgid "Healthy report"
-msgstr "Rapport fiche santé"
+msgstr "Rapport Fiche santé Enfant"
 
 #. module: base
 #: model:res.country,name:base.hm
@@ -32101,7 +32106,7 @@ msgstr "QRCODE"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_qrcode_report_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_qrcode_report_id
 msgid "QRCode report"
-msgstr "Rapport pour le QR Code"
+msgstr "Rapport QR Code"
 
 #. module: extraschool
 #: model:ir.actions.act_window,name:extraschool.action_lbsc_qrcodes_wizard
