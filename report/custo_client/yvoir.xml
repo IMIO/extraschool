@@ -148,5 +148,12 @@
 			</t>
 		</template>
 
+        <template id="report_period_rappel">
+              <div style="display: block;clear: both;width: 100%;margin: 1cm 0cm 1cm 0cm;">
+                     <b>RAPPEL : FACTURES « ACCUEIL EXTRA SCOLAIRE »</b><br/><br/>
+                  <b>Période : <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/></b>
+              </div>
+        </template>
+
     </data>
 </odoo>
