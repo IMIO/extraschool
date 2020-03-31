@@ -39,7 +39,7 @@
 					<field name="activity_category_ids" widget="many2many_tags"/>
                     <field name="school_implantation_id"/>
                     <field name="amount" sum="True"/>
-                    <field name="amount_received"/>
+                    <field name="amount_received" sum="True"/>
                     <field name="balance" sum="True"/>
                     <field name="structcom"/>
                 </tree>

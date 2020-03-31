@@ -381,7 +381,8 @@ class extraschool_remindersjournal(models.Model):
     @api.multi
     def _get_invoice_ids(self, reminder_type):
         return self.env['extraschool.invoice'].search(self._get_invoice_search_domain(reminder_type)).sorted(
-            lambda r: r.parentid.id)
+            lambda r: r.parentid.id).filtered(
+            lambda r: r.activitycategoryid == self.activity_category_ids)
 
     @api.multi
     def validate(self):
@@ -446,10 +447,10 @@ class extraschool_remindersjournal(models.Model):
                              'reminders_journal_id': self.id,
                              'parentid': parent_id,
                              'school_implantation_id': invoice.schoolimplantationid.id,
-                             'structcom': invoice.activitycategoryid.get_next_comstruct('reminder',
-                                                                                        fields.Date.from_string(
-                                                                                            self.transmission_date).year,
-                                                                                        False, True)['com_struct']
+                             'structcom': activity_category.get_next_comstruct('reminder',
+                                                                               fields.Date.from_string(
+                                                                                   self.transmission_date).year,
+                                                                               False, True)['com_struct']
                              })
                         if reminder_type.fees_type == 'fix':
                             if biller_id == -1:
@@ -464,6 +465,7 @@ class extraschool_remindersjournal(models.Model):
                             next_invoice_num = activity_category.get_next_comstruct('invoice',
                                                                                     self.biller_id.get_from_year(),
                                                                                     False, True)
+                            # create fees invoice
                             fees_invoice = inv_obj.create({'name': _('invoice_%s') % (next_invoice_num['num'],),
                                                            'number': next_invoice_num['num'],
                                                            'parentid': parent_id,
@@ -594,7 +596,7 @@ class extraschool_remindersjournal(models.Model):
                 'nodestroy': False,
                 'target': 'current',
                 'limit': 50000,
-                'domain': [('reminders_journal_id.id', '=', self.id)]
+                'domain': [('reminders_journal_id.id', '=', self.id), ('balance', '>', 0.0)]
                 }
 
     @api.multi
