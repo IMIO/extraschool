@@ -50,8 +50,8 @@
 				<form string="child_registration">
 					<header>
 						<button name="validate_multi" string="Prêt à être validé" type="object" states='draft' class="oe_highlight" groups="extraschool.extraschool_school"  context="{'wizard': False}"/>
-						<button name="set_to_draft" string="Set to draft" type="object" states='to_validate,validated' class="oe_highlight" groups="extraschool.extraschool_admin, extraschool.extraschool_accounting, extraschool.extraschool_direction" context="{'wizard': False}"/>
-						<button name="validate_multi" string="Valider" type="object" states='to_validate' class="oe_highlight" groups="extraschool.extraschool_admin, extraschool.extraschool_accounting"/>
+						<button name="set_to_draft" string="Set to draft" type="object" states='to_validate,validated' class="oe_highlight" groups="extraschool.extraschool_accounting, extraschool.extraschool_direction" context="{'wizard': False}"/>
+						<button name="validate_multi" string="Valider" type="object" states='to_validate' class="oe_highlight" groups="extraschool.extraschool_direction, extraschool.extraschool_accounting"/>
 						<field name="state" widget="statusbar" statusbar_visible="draft,to_validate,validated"/>
 					</header>
                     <field name="warning_biller" nolabel="1" class="alert alert-info" attrs="{'invisible':[('warning_visibility', '!=', True)]}"/>
@@ -133,8 +133,8 @@
 				<form string="child_registration">
 					<header>
 						<button name="validate" string="Set to validate" type="object" states='draft' class="oe_highlight" groups="extraschool.extraschool_school" context="{'wizard': False}"/>
-						<button name="set_to_draft" string="Set to draft" type="object" states='to_validate,validated' class="oe_highlight" groups="extraschool.extraschool_admin, extraschool.extraschool_accounting,extraschool.extraschool_direction"/>
-						<button name="validate" string="Validate" type="object" states='to_validate' class="oe_highlight" groups="extraschool.extraschool_admin, extraschool.extraschool_accounting" context="{'wizard': False}"/>
+						<button name="set_to_draft" string="Set to draft" type="object" states='to_validate,validated' class="oe_highlight" groups="extraschool.extraschool_accounting,extraschool.extraschool_direction"/>
+						<button name="validate" string="Validate" type="object" states='to_validate' class="oe_highlight" groups="extraschool.extraschool_direction, extraschool.extraschool_accounting" context="{'wizard': False}"/>
 						<field name="state" widget="statusbar" statusbar_visible="draft,to_validate,validated"/>
 					</header>
                     <field name="warning_biller" class="alert alert-info" attrs="{'invisible':[('warning_visibility', '!=', True)]}"/>
