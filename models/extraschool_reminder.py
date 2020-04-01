@@ -55,7 +55,8 @@ class extraschool_reminder(models.Model):
     payment_term = fields.Date('reminders_journal_item_id.payment_term')
     transmission_date = fields.Date('reminders_journal_id.transmission_date')
     fees_amount = fields.Integer(default=0.0)
-    balance = fields.Float(string='Solde', compute='_compute_balance', readonly=True)
+    balance_computed = fields.Float(string='Solde', compute='_compute_balance', readonly=True)
+    balance = fields.Float(default=0.0)
     amount_received = fields.Float(string='Received', compute='_compute_amount_received',
                                    readonly=True)
 
@@ -77,7 +78,8 @@ class extraschool_reminder(models.Model):
         """
         for reminder in self:
             for invoice in reminder.concerned_invoice_ids:
-                reminder.balance += invoice.balance
+                reminder.balance_computed += invoice.balance
+                reminder.write({'balance': reminder.balance_computed})
 
     @api.multi
     def _compute_amount(self):
