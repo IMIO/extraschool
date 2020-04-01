@@ -191,11 +191,11 @@
             <t t-if="intervention == False">Non</t>
         </template>
 
-        <template id="report_diabete_no_style">
+        <!--<template id="report_diabete_no_style">
             <h3><u><b>Diabète</b></u></h3>
             L'enfant a t-il du diabète ? : <t t-if="diabetique == True">Oui</t>
                                            <t t-if="diabetique == False">Non</t>
-        </template>
+        </template>-->
 
 
 
@@ -280,9 +280,6 @@
                         les éviter et/ou y réagir. </p>
                         <t t-if="health_sheet.handicap_selection == 'oui'">
                             <span t-field="health_sheet.type_handicap"/> <br/>
-                        </t>
-                        <t t-if="health_sheet.diabetique_selection == 'oui'">
-                            Possède du diabète<br/>
                         </t>
                         <t t-if="health_sheet.disease_ids">
                             <span t-field="health_sheet.disease_ids[0].disease"/> <span t-field="health_sheet.disease_ids[0].gravity"/> <span t-field="health_sheet.disease_ids[0].disease_text"/><br/>
