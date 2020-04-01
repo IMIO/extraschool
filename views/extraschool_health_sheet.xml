@@ -137,9 +137,9 @@
                                     <field name="intervention_text" attrs="{'invisible':[('intervention_selection', '!=', 'oui')], 'required':[('intervention_selection', '=', 'oui')]}"/>
                                 </group>
                                 <group>
-                                <separator string="Diabète" colspan="2"/>
+                                <!--<separator string="Diabète" colspan="2"/>
                                     <field name="diabetique" invisible="1"/>
-                                    <field name="diabetique_selection" widget='radio' options="{'horizontal': true}"/>
+                                    <field name="diabetique_selection" widget='radio' options="{'horizontal': true}"/>-->
                                 </group>
                             </div>
 						</page>
