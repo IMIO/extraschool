@@ -100,7 +100,7 @@ class extraschool_remindersjournal(models.Model):
     @api.multi
     def _compute_unsolved_reminder_method(self):
         for rec in self:
-            rec.unsolved_reminder_ids = [reminder for reminder in self.env['extraschool.reminder'].search(
+            rec.unsolved_reminder_ids = [reminder.id for reminder in self.env['extraschool.reminder'].search(
                 [('reminders_journal_id', '=', rec.id)]) if reminder.balance > 0]
 
     @api.multi
