@@ -99,15 +99,9 @@ class extraschool_remindersjournal(models.Model):
 
     @api.multi
     def _compute_unsolved_reminder_method(self):
-        unsolved_reminder_ids = []
         for rec in self:
-            reminder_ids = self.env['extraschool.reminder'].search([('reminders_journal_id', '=', rec.id)])
-            for reminder in reminder_ids:
-                balance = sum(invoice.balance for invoice in reminder.concerned_invoice_ids)
-                if balance > 0:
-                    unsolved_reminder_ids.append(reminder.id)
-                    reminder.write({'balance': balance})
-        rec.unsolved_reminder_ids = unsolved_reminder_ids
+            rec.unsolved_reminder_ids = [reminder for reminder in self.env['extraschool.reminder'].search(
+                [('reminders_journal_id', '=', rec.id)]) if reminder.balance > 0]
 
     @api.multi
     def write(self, vals):
@@ -596,7 +590,7 @@ class extraschool_remindersjournal(models.Model):
                 'nodestroy': False,
                 'target': 'current',
                 'limit': 50000,
-                'domain': [('reminders_journal_id.id', '=', self.id), ('balance', '>', 0.0)]
+                'domain': [('reminders_journal_id.id', '=', self.id)]
                 }
 
     @api.multi
