@@ -18,7 +18,8 @@
                         <field name="fees_amount"
                                attrs="{'invisible':[('fees_type', '=', 'free')], 'required':[('fees_type', '!=', 'free')]}"/>
                         <field name="fees_description"
-                               attrs="{'invisible':[('fees_type', '=', 'free')], 'required':[('fees_type', '!=', 'free')]}"/></group>
+                               attrs="{'invisible':[('fees_type', '=', 'free')], 'required':[('fees_type', '!=', 'free')]}"/>
+                    </group>
                     <group col="4">
                         <field name="mail_template_id"/>
                         <field name="report_id"/>
@@ -104,6 +105,7 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Reminders Journal">
+
                     <header>
                         <button name="validate" string="Valider" type="object" states='draft' class="oe_highlight"
                                 context="{'wizard': False}"/>
@@ -114,74 +116,80 @@
                         <field name="state" widget="statusbar" statusbar_visible="draft, validated"
                                states="draft, validated"/>
                     </header>
-                    <div class="oe_right oe_button_box" name="buttons">
-                        <button name="mail_reminders"
-                                string="Reminder courrier"
-                                type="object"
-                                class="oe_inline oe_stat_button"
-                                icon="fa-print"
-                        />
-                        <button name="email_reminders"
-                                string="Reminder factures"
-                                type="object"
-                                class="oe_inline oe_stat_button"
-                                icon="fa-envelope-o"
-                        />
-                        <button name="all_reminders"
-                                string="Toutes les reminder"
-                                type="object"
-                                class="oe_inline oe_stat_button"
-                                icon="fa-files-o"
-                        />
-                        <button name="all_pdf"
-                                string="Docs"
-                                type="object"
-                                class="oe_inline oe_stat_button"
-                                icon="fa-files-o"
-                                groups="base.group_erp_manager"
-                        />
-
-                    </div>
-                    <group col="4">
-                        <field name="name"/>
-                        <field name="activity_category_ids" options="{'no_create':True}" widget="many2many_tags"/>
-                        <field name="date_from" attrs="{'invisible':[('show_based_reminder', '=', True)]}"/>
-                        <field name="date_to" attrs="{'invisible':[('show_based_reminder', '=', True)]}"/>
-                        <field name="transmission_date"/>
-                        <field name="show_based_reminder"/>
-                        <field name="based_reminder_id" options="{'no_create':True}"
-                               attrs="{'invisible':[('show_based_reminder', '=', False)], 'required':[('show_based_reminder', '=', True)]}"/>
-                        <field name="biller_id" readonly="True"/>
-                    </group>
-                    <notebook>
-                        <page string="Concerned Biller">
-                            <group col="4">
-                                <field name="biller_ids" nolabel="1" readonly="True" delete="False"/>
-                            </group>
-                        </page>
-                        <page string="Reminders type">
-                            <group col="4">
-                                <field name="reminders_journal_item_ids" nolabel="1">
-                                    <tree create="false" delete="false">
-                                        <field name="name"/>
-                                        <field name="reminder_type_id"/>
-                                        <field name="payment_term"/>
-                                        <field name="amount"/>
-                                    </tree>
-                                </field>
-                            </group>
-                        </page>
-                        <page string="Reminders">
-                            <group col="4">
-                                <field name="reminder_ids" nolabel="1" readonly="True"/>
-                            </group>
-                        </page>
-                        <page string="Unpaid Reminders">
-                            <group col="4">
-                                <field name="unsolved_reminder_ids" nolabel="1" readonly="True"/>
-                            </group>
-                        </page>
-                    </notebook>
+                    <sheet>
+                        <div class="alert alert-info text-center col-2"
+                             attrs="{'invisible':[('state', '=', 'validated')]}">
+                            Attention, veuillez vérifier que les paiements soient à jour
+                        </div>
+                        <div class="oe_right oe_button_box" name="buttons">
+                            <button name="mail_reminders"
+                                    string="Reminder courrier"
+                                    type="object"
+                                    class="oe_inline oe_stat_button"
+                                    icon="fa-print"
+                            />
+                            <button name="email_reminders"
+                                    string="Reminder factures"
+                                    type="object"
+                                    class="oe_inline oe_stat_button"
+                                    icon="fa-envelope-o"
+                            />
+                            <button name="all_reminders"
+                                    string="Toutes les reminder"
+                                    type="object"
+                                    class="oe_inline oe_stat_button"
+                                    icon="fa-files-o"
+                            />
+                            <button name="all_pdf"
+                                    string="Docs"
+                                    type="object"
+                                    class="oe_inline oe_stat_button"
+                                    icon="fa-files-o"
+                                    groups="base.group_erp_manager"
+                            />
+                        </div>
+                        <group col="4">
+                            <field name="name"/>
+                            <field name="activity_category_ids" options="{'no_create':True}"
+                                   widget="many2many_tags"/>
+                            <field name="date_from" attrs="{'invisible':[('show_based_reminder', '=', True)]}"/>
+                            <field name="date_to" attrs="{'invisible':[('show_based_reminder', '=', True)]}"/>
+                            <field name="transmission_date"/>
+                            <field name="show_based_reminder"/>
+                            <field name="based_reminder_id" options="{'no_create':True}"
+                                   attrs="{'invisible':[('show_based_reminder', '=', False)], 'required':[('show_based_reminder', '=', True)]}"/>
+                            <field name="biller_id" readonly="True"/>
+                        </group>
+                        <notebook>
+                            <page string="Concerned Biller">
+                                <group col="4">
+                                    <field name="biller_ids" nolabel="1" readonly="True" delete="False"/>
+                                </group>
+                            </page>
+                            <page string="Reminders type">
+                                <group col="4">
+                                    <field name="reminders_journal_item_ids" nolabel="1">
+                                        <tree create="false" delete="false">
+                                            <field name="name"/>
+                                            <field name="reminder_type_id"/>
+                                            <field name="payment_term"/>
+                                            <field name="amount"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="Reminders">
+                                <group col="4">
+                                    <field name="reminder_ids" nolabel="1" readonly="True"/>
+                                </group>
+                            </page>
+                            <page string="Unpaid Reminders">
+                                <group col="4">
+                                    <field name="unsolved_reminder_ids" nolabel="1" readonly="True"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
                     <div class="oe_chatter" groups="extraschool.extraschool_gods">
                         <field name="message_follower_ids" widget="mail_followers"/>
                         <field name="message_ids" widget="mail_thread"/>
@@ -210,9 +218,11 @@
             <field name="subject">Rappel</field>
             <field name="email_to">${(object.parentid.email or 'michotm@gmail.com')|safe}</field>
             <field name="email_from">
-                ${(object.activity_category_id.reminderemailaddress or 'noreply@localhost')|safe}</field>
+                ${(object.activity_category_id.reminderemailaddress or 'noreply@localhost')|safe}
+            </field>
             <field name="reply_to">
-                ${(object.activity_category_id.reminderemailaddress or 'noreply@localhost')|safe}</field>
+                ${(object.activity_category_id.reminderemailaddress or 'noreply@localhost')|safe}
+            </field>
             <field name="mail_server_id" ref="base.ir_mail_server_localhost0"/>
             <field name="body_html"><![CDATA[
 <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
