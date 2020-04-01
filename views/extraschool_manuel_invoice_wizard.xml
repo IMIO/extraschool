@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <odoo>
-	<data> 
+	<data>
         <record model="ir.ui.view" id="extraschool_manuel_invoice_wizard_form">
             <field name="name">extraschool.manuel.invoice.wizard.form</field>
             <field name="model">extraschool.manuel_invoice_wizard</field>
@@ -9,23 +9,23 @@
                 <form string="Manuel invoice wizard">
                     <field name="state" invisible="1" />
                     <group states="init">
-                        <field name="activity_category_id" widget="many2many_tags"/>
+                        <field name="activity_category_id" required="True"/>
                         <field name="invoice_date" />
-						<field name="payment_term" />                        
-                        <field name="description" />                        	
+						<field name="payment_term" />
+                        <field name="description" />
                         <field name="invoice_child" />
-                        <field name="leveltype"  attrs="{'invisible':[('invoice_child', '!=', True)], 'required':[('invoice_child', '==', True)]}"/>                       	
-                        <field name="amount" />
-                        <field name="invoice_all_children"/>
+                        <field name="invoice_all_children" attrs="{'invisible':[('invoice_child', '!=', True)], 'required':[('invoice_child', '==', True)]}"/>
                         <field name="validity_from" attrs="{'invisible':[('invoice_all_children', '=', True)], 'required':[('invoice_all_children', '==', False)]}"/>
                         <field name="validity_to" attrs="{'invisible':[('invoice_all_children', '=', True)], 'required':[('invoice_all_children', '==', False)]}"/>
+                        <field name="leveltype"  attrs="{'invisible':[('invoice_child', '!=', True)], 'required':[('invoice_child', '==', True)]}"/>
+                        <field name="amount" />
                     </group>
                     <group colspan="4" col="3">
                         <button name="generate_invoice" string="Facturation" icon="gtk-apply" type="object" />
                     </group>
                 </form>
             </field>
-        </record>        
+        </record>
 
         <act_window id="parent_manuel_invoice_wizard_action"
             name="Manuel invoice"
@@ -34,6 +34,6 @@
             view_type="form" view_mode="form"
             key2="client_action_multi" target="new"
             />
-                        
+
 	</data>
 </odoo>

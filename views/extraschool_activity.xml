@@ -132,13 +132,17 @@
                             <field name="activity_child_ids" nolabel="1" colspan="4" readonly="True"/>
                         </group>
                     </page>
-                    <page string="Finance">
+                    <page string="Finance" name="finance">
                         <group col="4">
                             <field name="short_name" />
                             <field name="subsidizedbyone"/>
                             <field name="on_tax_certificate" />
                             <field name="tarif_group_name" />
                         </group>
+                    </page>
+                    <page string="Prix">
+                        <separator string="Liste de prix" colspan="4"/>
+                        <field name="price_list_version_ids"/>
                     </page>
                 </notebook>
                     </sheet>

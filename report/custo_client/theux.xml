@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+		<template id="report_mail_parent">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_parent_credit.css"/>
+            </xpath>
+				<div>
+                    <p>
+                    <t t-if="parent_id.email">
+                        A partir du mois de mai 2020 et sans réaction de votre part, votre facture vous sera envoyée uniquement sur votre adresse e-mail suivante : <span t-field="parent_id.email" /><br/>
+                        A défaut, soit vous communiquez une adresse e-mail à l’agent traitant (<u>laure.defosse@theux.be</u>) pour recevoir les prochaines factures, soit vous recevrez votre facture par le biais du journal de classe ou par pli postal.
+                    </t>
+                    </p>
+				</div>
+		</template>
+
+    </data>
+</odoo>

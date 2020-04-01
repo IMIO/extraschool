@@ -4,7 +4,7 @@
 #    Extraschool
 #    Copyright (C) 2008-2019
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
+#    Michael Michot - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -25,6 +25,7 @@ from openerp import models, api, fields, _
 from datetime import date, datetime
 import time
 import logging
+
 _logger = logging.getLogger(__name__)
 
 
@@ -37,16 +38,20 @@ class extraschool_child(models.Model):
         'extraschool.organising_power',
         'Organising Power',
         track_visibility='onchange',
-                                          )
-    name = fields.Char(compute='_name_compute',string='FullName', search='_search_fullname', size=100)
-    childtypeid = fields.Many2one('extraschool.childtype', 'Type',required=True, ondelete='restrict', help='Ce champs permet de définir si l\'enfant a le droit à un tarif préférentiel (ex: enfants du CPAS, enfants de la croix rouge, enfants des accueillantes,...)')
+    )
+    name = fields.Char(compute='_name_compute', string='FullName', search='_search_fullname', size=100)
+    childtypeid = fields.Many2one('extraschool.childtype', 'Type', required=True, ondelete='restrict',
+                                  help='Ce champs permet de définir si l\'enfant a le droit à un tarif préférentiel (ex: enfants du CPAS, enfants de la croix rouge, enfants des accueillantes,...)')
     rn = fields.Char('RN')
     firstname = fields.Char('FirstName', size=50, required=True, track_visibility='onchange')
-    lastname = fields.Char('LastName', size=50 , required=True, track_visibility='onchange')
-    schoolimplantation = fields.Many2one('extraschool.schoolimplantation', 'School implantation',required=True, track_visibility='onchange')
+    lastname = fields.Char('LastName', size=50, required=True, track_visibility='onchange')
+    schoolimplantation = fields.Many2one('extraschool.schoolimplantation', 'School implantation', required=True,
+                                         track_visibility='onchange')
     levelid = fields.Many2one('extraschool.level', 'Level', required=True, track_visibility='onchange')
-    classid = fields.Many2one('extraschool.class', 'Class', required=False, domain="[('schoolimplantation','=',schoolimplantation)]", track_visibility='onchange')
-    parentid = fields.Many2one('extraschool.parent', 'Parent', required=True, ondelete='RESTRICT', select=True, track_visibility='onchange', domain="[('isdisabled', '=', False)]")
+    classid = fields.Many2one('extraschool.class', 'Class', required=False,
+                              domain="[('schoolimplantation','=',schoolimplantation)]", track_visibility='onchange')
+    parentid = fields.Many2one('extraschool.parent', 'Parent', required=True, ondelete='RESTRICT', select=True,
+                               track_visibility='onchange', domain="[('isdisabled', '=', False)]")
     birthdate = fields.Date('Birthdate', required=True, track_visibility='onchange')
     last_import_date = fields.Datetime('Import date', readonly=True)
     modified_since_last_import = fields.Boolean('Modified since last import')
@@ -64,9 +69,9 @@ class extraschool_child(models.Model):
     old_class_id = fields.Many2one('extraschool.class', 'Old Class')
 
     def get_age(self):
-        date_of_birth = datetime.strptime(self.birthdate,'%Y-%m-%d')
+        date_of_birth = datetime.strptime(self.birthdate, '%Y-%m-%d')
         return datetime.today().year - date_of_birth.year - (
-        (datetime.today().month, datetime.today().day) < (date_of_birth.month, date_of_birth.day))
+            (datetime.today().month, datetime.today().day) < (date_of_birth.month, date_of_birth.day))
 
     @api.multi
     def wizard_action(self):
@@ -82,18 +87,17 @@ class extraschool_child(models.Model):
         }
 
     def _search_fullname(self, operator, value):
-        return ['|',('firstname', operator, value),('lastname', operator, value)]
+        return ['|', ('firstname', operator, value), ('lastname', operator, value)]
 
-
-    @api.depends('firstname','lastname')
+    @api.depends('firstname', 'lastname')
     def _name_compute(self):
         for record in self:
-            record.name = '%s %s'  % (record.lastname, record.firstname)
+            record.name = '%s %s' % (record.lastname, record.firstname)
 
     @api.onchange('firstname', 'lastname')
     @api.multi
     def _check_name(self):
-        if self.search([('lastname', 'ilike', self.lastname), ('firstname', 'ilike', self.firstname)]):
+        if self.search([('lastname', '=ilike', self.lastname), ('firstname', '=ilike', self.firstname)]):
             self.check_name = False
         else:
             self.check_name = True
@@ -108,7 +112,7 @@ class extraschool_child(models.Model):
 
     @api.one
     def action_gentagid(self):
-        if not self.tagid :
+        if not self.tagid:
             config = self.env['extraschool.mainsettings'].browse([1])
             self.tagid = config.lastqrcodenbr = config.lastqrcodenbr + 1
 
@@ -120,10 +124,10 @@ class extraschool_child(models.Model):
         fields_to_find = set(['firstname',
                               'lastname'])
 
-        if fields_to_find.intersection(set([k for k,v in vals.iteritems()])):
+        if fields_to_find.intersection(set([k for k, v in vals.iteritems()])):
             vals['modified_since_last_import'] = True
 
-        return super(extraschool_child,self).write(vals)
+        return super(extraschool_child, self).write(vals)
 
     @api.multi
     def get_presta(self):
@@ -136,8 +140,8 @@ class extraschool_child(models.Model):
                 'nodestroy': False,
                 'target': 'current',
                 'limit': 50000,
-                'domain': [('child_id', '=',self.id),]
-            }
+                'domain': [('child_id', '=', self.id), ]
+                }
 
     @api.multi
     def get_sante(self):
@@ -151,7 +155,7 @@ class extraschool_child(models.Model):
                 'target': 'current',
                 'limit': 50000,
                 'domain': [('child_id', '=', self.id), ],
-                'context' : {'child_id': self.id},
+                'context': {'child_id': self.id},
                 }
 
     @api.one
@@ -164,14 +168,13 @@ class extraschool_child(models.Model):
 
         return super(extraschool_child, self).create(vals)
 
-
-##############################################################################
-#
-#    AESMobile
-#    Copyright (C) 2018
-#    Colicchia Michaël & Delaere Olivier - Imio (<http://www.imio.be>).
-#
-##############################################################################
+    ##############################################################################
+    #
+    #    AESMobile
+    #    Copyright (C) 2018
+    #    Colicchia Michaël & Delaere Olivier - Imio (<http://www.imio.be>).
+    #
+    ##############################################################################
     @api.multi
     def get_child_for_smartphone(self, smartphone_id):
         # Todo: Get newtag list.
@@ -182,7 +185,6 @@ class extraschool_child(models.Model):
         """
         start_time = time.time()
         cr = self.env.cr
-
 
         # Get all the child corresponding to the smartphone's place_id
         sql_query = """
@@ -204,10 +206,10 @@ class extraschool_child(models.Model):
                 child['tagid'] = ''
 
         try:
-            self.env['extraschool.smartphone_log'].create({ 'title': 'Fetching children',
-                                                            'time_of_transmission': time.time() - start_time,
-                                                            'smartphone_id': smartphone_id,
-                                                            })
+            self.env['extraschool.smartphone_log'].create({'title': 'Fetching children',
+                                                           'time_of_transmission': time.time() - start_time,
+                                                           'smartphone_id': smartphone_id,
+                                                           })
         except:
             logging.info("Error Sync on Children")
             return "Error Sync on Children"
@@ -225,3 +227,8 @@ class extraschool_child(models.Model):
         env = api.Environment(cr, uid, context={})
 
         return extraschool_child.get_child_for_smartphone(env['extraschool.child'], smartphone_id)
+
+class AgedGroup(models.Model):
+    _name="extraschool.age_group"
+
+    name = fields.Char()

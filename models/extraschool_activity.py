@@ -61,7 +61,20 @@ class extraschool_activity(models.Model):
     onlyregisteredchilds = fields.Boolean('Only registered childs', index=True, track_visibility='onchange')
     planneddates_ids = fields.Many2many('extraschool.activityplanneddate', 'extraschool_activity_activityplanneddate_rel', 'activity_id', 'activityplanneddate_id', 'Planned dates', track_visibility='onchange')
     exclusiondates_ids = fields.Many2many('extraschool.activityexclusiondates', 'extraschool_activity_activityexclusiondates_rel', 'activity_id', 'activityexclusiondates_id', 'Exclusion dates', track_visibility='onchange')
-    days = fields.Selection((('0,1,2,3,4', 'All Monday to Friday'), ('0', 'All Mondays'), ('1', 'All Tuesdays'), ('2', 'All Wednesdays'), ('3', 'All Thursdays'), ('4', 'All Fridays'), ('0,1,3,4', 'All Mondays, Tuesdays, Thursday and Friday')), 'Days', required=True, track_visibility='onchange')
+    days = fields.Selection(
+        (
+            ('0,1,2,3,4', 'All Monday to Friday'),
+            ('0', 'All Mondays'),
+            ('1', 'All Tuesdays'),
+            ('2', 'All Wednesdays'),
+            ('3', 'All Thursdays'),
+            ('4', 'All Fridays'),
+            ('0,1,3,4', 'All Mondays, Tuesdays, Thursday and Friday'),
+            ('5', 'All Saturday'),
+         ),
+        'Days', required=True,
+        track_visibility='onchange'
+    )
     leveltype = fields.Selection((('M,P', 'Maternelle et Primaire'), ('M', 'Maternelle'), ('P', 'Primaire')), 'Level type', required=True, track_visibility='onchange')
     prest_from = fields.Float('From', index=True, required=True, track_visibility='onchange')
     prest_to = fields.Float('To', index=True, required=True, track_visibility='onchange')
@@ -82,6 +95,26 @@ class extraschool_activity(models.Model):
     warning_date = fields.Char('WARNING', default="ATTENTION, Modifier une activité peut impacter les présences déjà vérifiées ! Pour tous changements, Il est préférable de contacter directement Imio.", readonly=True)
     warning_visibility = fields.Boolean(track_visibility='onchange')
     expire_soon = fields.Boolean(compute='_get_expired_date')
+    price_list_version_ids = fields.Many2many(
+        'extraschool.price_list_version',
+        string="Versions on price list",
+        compute='_get_price_list_version'
+    )
+
+    @api.multi
+    def is_activity_valid(self, date_from, date_to):
+        """
+        Check if activity is valid compared to dates
+        :param date_from: comparison start date
+        :param date_to: comparison end date
+        :return: validity of activity
+        """
+        return self.validity_from <= date_from and self.validity_to >= date_to
+
+    @api.multi
+    def _get_price_list_version(self):
+        for rec in self:
+            rec.price_list_version_ids = rec.env['extraschool.price_list_version'].search([('activity_ids', 'in', rec.id)])
 
     @api.multi
     def get_occurrence(self):
@@ -188,8 +221,8 @@ class extraschool_activity(models.Model):
                     cr.execute("insert into extraschool_activityoccurrence (create_uid,date_stop,date_start,create_date,name,write_uid,write_date,place_id,occurrence_date,activityid,prest_from,prest_to,activity_category_id) VALUES "+args_str)
 
                     # get ids of created occu
-                    cr.execute("""select id 
-                                from extraschool_activityoccurrence 
+                    cr.execute("""select id
+                                from extraschool_activityoccurrence
                                 where create_uid = %s
                                 and activityid = %s
                                 """, (uid, activity.id))

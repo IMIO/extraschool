@@ -20,13 +20,14 @@
                                 <field name="slogan"/>
                                 <field name="po_name" />
                                 <field name="po_street" />
-                                <field name="po_email" />
                                 <field name="po_zipcode" />
                                 <field name="po_city" />
                                 <field name="po_sign" widget="image" class="oe_avatar oe_left"/>
                                 <field name="po_stamp" widget="image" class="oe_avatar oe_left"/>
                                 <newline/>
+                                <field name="po_email" />
                                 <field name="po_tel" />
+                                <field name="po_fax" />
                                 <field name="po_addresse_free_text"  widget="html" />
                                 <newline/>
                                 <field name="po_addresse_free_text2"  widget="html" />
@@ -76,6 +77,7 @@
                                 <field name="biller_report_id" />
                                 <field name="qrcode_report_id" />
                                 <field name="healthy_report_id" />
+                                <field name="healthy_inscription_report_id"/>
                                 <separator string="Information sur l'attestation fiscale" colspan="4"/>
                                 <field name="taxcertificatetemplate" />
                             </group>

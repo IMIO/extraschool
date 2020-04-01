@@ -12,7 +12,7 @@
 	    				<span class="aes_credit_solde">un solde de -<t t-esc="'%.2f' %  (parent_id.totalbalance)" />€</span>
 	    			</t>
 	    			<t t-if="parent_id.totalbalance &lt; 0.001">
-	    				<span class="aes_credit_solde">un solde de <t t-esc="'%.2f' %  (parent_id.payment_status_ids[0].solde)" />€</span>
+	    				<span class="aes_credit_solde">un solde de <t t-esc="'%.2f' % (sum([total.solde for total in parent_id.payment_status_ids]))" />€</span>
 	    			</t>
 	    		</p>
 

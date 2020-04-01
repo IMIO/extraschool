@@ -1,0 +1,36 @@
+#invoice_body{
+    width: 100%;
+    display: block;
+}
+
+#invoice_body div.your_ref{
+    width: 100%;
+    padding: 5mm 0mm 5mm 0mm;
+    display: block;
+}
+
+#invoice_body table {
+    width: 100%;
+    font-size:11px;
+    border-width: 1px;
+    border-collapse: collapse;
+}
+#invoice_body table th {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    background-color: #dedede;
+}
+#invoice_body table td {
+    border-width: 1px;
+    padding: 5px;
+    border-style: solid;
+}
+
+#invoice_body table td.amount {
+    text-align: right;
+    width: 20%;
+}
+thead {
+    display: table-row-group
+}

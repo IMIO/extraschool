@@ -41,7 +41,7 @@ class extraschool_remindertype(models.Model):
     selected_type_id = fields.Many2one('extraschool.remindertype', 'Reminder type to select')
     delay = fields.Integer('Delay')
     payment_term_in_day = fields.Integer('payment_term_in_day')
-    minimum_balance = fields.Float('Minimum balance', default=0.01 , help="Ceci est le montant minimum des factures à sortir en rappel (concerne donc facture par facture)")
+    minimum_balance = fields.Float('Minimum balance', default=0.01, help="Ceci est le montant minimum des factures à sortir en rappel (concerne donc facture par facture)")
     out_of_accounting = fields.Boolean(string="Out of accounting")
     bailiff = fields.Boolean(string='Put to bailiff', default=False, help="Ceci permet d'affecter un tag \"huissier\" sur toutes les factures de ce niveau")
     minimum_general_balance = fields.Float('Minimum general balance', default=0.0, help="Ceci est le montant minimum TOTAL des factures à sortir en rappel")

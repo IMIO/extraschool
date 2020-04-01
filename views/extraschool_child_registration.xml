@@ -15,9 +15,9 @@
 					<field name="week"/>
                     <field name="date_from"/>
 					<field name="date_to"/>
-					<field name="comment"/>
+					<!--<field name="age_group"/>-->
 					<field name="state" />
-					<field name="error_duplicate_reg_line" />
+                    <field name="error_duplicate_reg_line"/>
 				</tree>
 			</field>
 		</record>
@@ -67,6 +67,7 @@
                         <field name="levelid" widget="many2many_tags" options="{'no_create':True}" />
 						<newline/>
                         <field name="week"/>
+                        <newline />
                         <field name="select_per_level" />
                         <newline/>
 						<field name="date_from"/>
@@ -87,6 +88,7 @@
 							<field name="friday_activity_id" options="{'no_create':True}"/>
 		                    <field name="saturday_activity_id" options="{'no_create':True}"/>
 							<field name="sunday_activity_id" options="{'no_create':True}"/>
+                            <field name="comment"/>
 							<field name="error_duplicate_reg_line" />
 						</tree>
 					</field>
@@ -148,6 +150,8 @@
 	                    <field name="activity_id" required="True" options="{'no_create':True}"/>
         	            <newline/>
 						<field name="week"/>
+                        <newline />
+<!--                        todo cacher le champs sélection par niveau si age group possède une valeur-->
 						<field name="select_per_level"/>
 						<newline/>
 						<field name="date_from"/>

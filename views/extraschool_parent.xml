@@ -120,6 +120,8 @@
                         <field name="invoicesendmethod"/>
                         <newline/>
                         <field name="remindersendmethod"/>
+                        <newline/>
+                        <field name="tax_certificate_send_method"/>
                     </group>
                 </page>
                 <page string="Childs">
@@ -257,6 +259,11 @@
                         <tree colors="red:solde &lt; 0;">
                 			<field name="activity_category_id" />
 							<field name="solde" sum="True"/>
+<!--                            <button name="move_prepaiement"-->
+<!--                                    string="Move prepaiement"-->
+<!--                                    icon="gtk-refresh"-->
+<!--                                    type="object"-->
+<!--                                    groups="extraschool.extraschool_accounting"/>-->
                 		</tree>
                     </field>
                  </page>

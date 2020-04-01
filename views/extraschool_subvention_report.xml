@@ -22,11 +22,17 @@
             <field name="arch" type="xml">
                 <form string="Subvention Report">
                     <sheet>
+                        <div class="alert alert-danger" attrs="{'invisible':[('dates_ok', '=', True)]}">
+                             Vos dates ne sont pas valides.
+                        </div>
                         <group>
                             <field name="name"/>
                             <field name="start_date"/>
                             <field name="end_date"/>
                             <field name="activity" widget="many2many_tags"/>
+                            <field name="title" widget='radio' options="{'horizontal': true}"/>
+                            <field name="camps_radio" widget='radio' options="{'horizontal': true}"/>
+                            <field name="dates_ok" invisible="1"/>
                        </group>
                     </sheet>
                 </form>

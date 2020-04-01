@@ -96,18 +96,21 @@ class extraschool_invoice(models.Model):
     @api.multi
     def _compute_balance(self):
         for invoice in self:
-
             total = 0 if len(invoice.invoice_line_ids) == 0 else sum(line.total_price for line in invoice.invoice_line_ids)
             total = 0 if total < 0.0001 else total
             reconcil = 0 if len(invoice.payment_ids) == 0 else sum(reconcil_line.amount for reconcil_line in invoice.payment_ids)
             reconcil = 0 if reconcil < 0.0001 else reconcil
-            balance = total - reconcil - self.no_value_amount
+            balance = total - reconcil - invoice.no_value_amount
             balance = 0 if balance < 0.0001 else balance
             balance = round(balance,5) # MiCo used this to resolve a balance problem (hannut 21/08/2017)
             invoice.write({'amount_total' : total,
                            'amount_received' : reconcil,
                            'balance' : balance
                            })
+
+    @api.multi
+    def get_infos_childs(self):
+        return self.invoice_line_ids.sorted(key=lambda r: (r.childid,r.activity_occurrence_id.activityid.short_name,r.prestation_date))
 
     @api.multi
     def get_today(self):
@@ -149,7 +152,7 @@ class extraschool_invoice(models.Model):
                                                       ]).sorted(key=lambda r: r.paymentdate)
 
                     count = 0
-                    solde = invoice.balance - invoice.no_value_amount
+                    solde = invoice.balance
 
                     while count < len(payment_ids) and solde > 0:
                         amount = solde if payment_ids[count].solde >= solde else payment_ids[count].solde
@@ -171,6 +174,7 @@ class extraschool_invoice(models.Model):
 
                         solde = invoice.get_balance(invoice_category.id)
 
+                        # bug : si paiement déjà reçu, tout le prépaiement est pris
                         while zz < len(payments) and solde > 0:
                             amount = solde if payments[zz].solde >= solde else payments[zz].solde
                             payment_reconcil_obj.create({'payment_id': payments[zz].id,
@@ -208,22 +212,18 @@ class extraschool_invoice(models.Model):
     @api.multi
     def cancel_and_invoice_after(self):
         self.ensure_one()
-        if self.balance == self.amount_total:
-            self.full_no_value()
-            for line in self.invoice_line_ids:
-                line.prestation_ids.write({
-                    'invoiced_prestation_id': None,
-                })
-        else:
-            raise Warning(_("You cannot cancel an invoice that recieved payments"))
+        self.full_no_value()
+        for line in self.invoice_line_ids:
+            line.prestation_ids.write({
+                'invoiced_prestation_id': None,
+            })
+        self.cancel_payment()
 
     @api.multi
     def cancel(self):
         self.ensure_one()
-        if self.balance == self.amount_total:
-            self.full_no_value()
-        else:
-            raise Warning(_("You cannot cancel an invoice that recieved payments"))
+        self.full_no_value()
+        self.cancel_payment()
 
     def get_concerned_short_name(self):
         res = []
@@ -422,7 +422,7 @@ class extraschool_invoice(models.Model):
 
 
         total = 0
-        lines_ids = self.invoice_line_ids.filtered(lambda r: r.total_price > 0.0001).sorted(key=lambda r: "%s%s%s%s%s" % (r.childid.rn, r.childid.name, r.prestation_date, r.placeid.street_code,r.activity_activity_id.short_name))
+        lines_ids = self.invoice_line_ids.filtered(lambda r: r.total_price > 0.0001).sorted(key=lambda r: "%s%s%s%s%s" % (r.childid.rn, r.childid.name, r.placeid.street_code, r.prestation_date, r.activity_activity_id.short_name))
 
         if len(lines_ids) == 0:
             return {'lines': res,
@@ -586,6 +586,29 @@ class extraschool_invoice(models.Model):
             'context': {}
         }
 
+    @api.multi
+    def correction_payment_reconciliation(self, overfull):
+        """
+        Corrects payments according to no_value (AES-214)
+        :param overfull: amount to place in prepayment
+        :return: None
+        """
+
+        # correct overfull, otherwise amount_received may be incorrect
+        if overfull + self.amount_received > self.amount_total:
+            overfull -= (self.amount_total - self.amount_received)
+
+        payments = self.payment_ids.sorted(key=lambda r: (r.date, r.amount))
+        for payment in payments:
+            if overfull >= payment.amount:
+                overfull -= payment.amount
+                payment.unlink()
+            else:
+                payment.amount -= overfull
+                payment.payment_id.compute_solde()
+                break
+        self._compute_balance()
+
 
 class extraschool_invoice_tag(models.Model):
     _name = 'extraschool.invoice_tag'
@@ -593,31 +616,3 @@ class extraschool_invoice_tag(models.Model):
 
     name = fields.Char('Name of the tag')
     invoice_ids = fields.One2many('extraschool.invoice', 'tag', 'invoice_id')
-
-
-class extraschool_invoice_reprise(models.Model):
-    _name = 'extraschool.invoice_reprise_no_value'
-    _description = 'Reprise pour aider sur les non valeurs'
-    _auto = False
-
-    invoice_ids = fields.Many2one('extraschool.invoice', select=True)
-    parent_id = fields.Many2one('extraschool.parent', select=True)
-    amount = fields.Float(related='invoice_ids.amount_total')
-    amount_received = fields.Float(related='invoice_ids.amount_received')
-    balance = fields.Float(related='invoice_ids.balance')
-    no_value = fields.Float(related='invoice_ids.no_value')
-
-    def init(self, cr):
-        tools.sql.drop_view_if_exists(cr, 'extraschool_invoice_reprise_no_value')
-        cr.execute("""
-            CREATE view extraschool_invoice_reprise_no_value as
-                SELECT i.id as invoice_ids, 
-                    row_number() over() AS id,
-                    i.parentid as parent_id
-                FROM extraschool_invoice AS i
-                INNER JOIN extraschool_payment_reconciliation AS pr
-                ON i.id = pr.invoice_id
-                WHERE (i.balance != 0.0 OR (pr.paymentdate >= '2019-01-01' AND i.balance = 0.0))
-                AND i.no_value != 0.0
-                GROUP BY i.id, i.parentid;
-        """)

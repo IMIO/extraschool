@@ -4,7 +4,7 @@
 #    Extraschool
 #    Copyright (C) 2008-2019
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia & Jenny Pans - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -42,14 +42,24 @@ class extraschool_reminder(models.Model):
     reminders_journal_id = fields.Many2one('extraschool.remindersjournal', 'Reminders journal', ondelete='cascade', required=False)
     parentid = fields.Many2one('extraschool.parent', 'Parent', required=False)
     remindersendmethod = fields.Selection(related="parentid.remindersendmethod", store=True)
+    #todo mettre à jour
     amount = fields.Float('Amount',digits_compute=dp.get_precision('extraschool_reminder'),readonly=True, store=True)
     structcom = fields.Char('Structured Communication', size=50)
     school_implantation_id = fields.Many2one('extraschool.schoolimplantation', 'School implantation', required=False)
     concerned_invoice_ids = fields.Many2many('extraschool.invoice','extraschool_reminder_invoice_rel', 'reminder_id', 'invoice_id','Concerned invoices')
-    activity_category_id = fields.Many2one(related='reminders_journal_id.activity_category_id', string='Activity Category')
+    # activity_category_id = fields.Many2one(related='reminders_journal_id.activity_category_id', string='Activity Category')
+    activity_category_ids = fields.Many2many(related='reminders_journal_id.activity_category_ids', string='Activities Category')
     payment_term = fields.Date('reminders_journal_item_id.payment_term')
     transmission_date = fields.Date('reminders_journal_id.transmission_date')
     fees_amount = fields.Integer(default=0.0)
+    balance = fields.Float('Solde',digits_compute=dp.get_precision('extraschool_reminder'),readonly=True, store=True)
+    amount_received = fields.Float(string='Received', compute='_get_amount_received',
+                                   readonly=True)
+
+    @api.multi
+    def _get_amount_received(self):
+        for reminder in self :
+            reminder.amount_received = reminder.amount - reminder.balance
 
     @api.multi
     def get_date(self, invoice_ids):

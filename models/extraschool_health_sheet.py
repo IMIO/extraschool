@@ -46,17 +46,39 @@ class extraschool_health_sheet(models.Model):
          ('O-', 'O-'),
          ('inconnu', 'Inconnu')), string='Blood type')
     tetanus = fields.Boolean(string='Tetanus', default=False)
+    tetanus_selection = fields.Selection(
+        (('non_renseigne', 'Non renseigné'),
+         ('non', 'Non'),
+         ('oui', 'Oui')), default='non_renseigne', string='Tetanus')
     first_date_tetanus = fields.Date(string='First date tetanus')
     last_date_tetanus = fields.Date(string='Last date tetanus')
     contact_ids = fields.One2many('extraschool.other_contact', 'health_id', string='contact', )
     allergy = fields.Boolean(string='Allergy', default=False)
+    allergy_selection = fields.Selection(
+        (('non_renseigne', 'Non renseigné'),
+         ('non', 'Non'),
+         ('oui', 'Oui')), default='non_renseigne', string='Allergy')
     allergy_ids = fields.Many2many('extraschool.allergy', 'extraschool_child_allergy_rel', 'child_id', 'allergy_id', 'Allergy list')
+    allergy_consequence = fields.Char(string='Allergy consequence')
     handicap = fields.Boolean(string='Handicap', default=False)
+    handicap_selection = fields.Selection(
+        (('non_renseigne', 'Non renseigné'),
+         ('non', 'Non'),
+         ('oui', 'Oui')), default='non_renseigne', string='Handicap')
     type_handicap = fields.Char(string='Type of handicap')
     specific_regime = fields.Boolean(string='Specific Regime', default=False)
+    specific_regime_selection = fields.Selection(
+        (('non_renseigne', 'Non renseigné'),
+         ('non', 'Non'),
+         ('oui', 'Oui')), default='non_renseigne', string='Specific Regime')
     specific_regime_text = fields.Char(string='Type specific regime')
     activity_no_available = fields.Boolean(string='Activity no available', default=False)
+    activity_no_available_selection = fields.Selection(
+        (('non_renseigne', 'Non renseigné'),
+         ('non', 'Non'),
+         ('oui', 'Oui')), default='non_renseigne', string='Activity no available')
     activity_no_available_text = fields.Char(string='Type of activity no available')
+    activity_no_available_reason = fields.Char(string='Reason of activity no available')
     disease_ids = fields.One2many('extraschool.disease','health_id', 'disease_id')
     facebook = fields.Selection(
         (('non_renseigne', 'Non renseigné'),
@@ -79,16 +101,30 @@ class extraschool_health_sheet(models.Model):
          ('non_renseigne', 'Non renseigné')), default='non_renseigne', string='Swim level')
     intervention = fields.Boolean(string='Intervention', default=False)
     intervention_text = fields.Char(string='Type of intervention')
+    intervention_selection = fields.Selection(
+        (('non_renseigne', 'Non renseigné'),
+         ('non', 'Non'),
+         ('oui', 'Oui')), default='non_renseigne', string='Intervention')
     arnica = fields.Selection(
         (('non_renseigne', 'Non renseigné'),
          ('non', 'Non'),
          ('oui', 'Oui')), default='non_renseigne', string='Arnica')
     diabetique = fields.Boolean(string='Diabétique', default=False)
-    interdiction_contact_ids = fields.One2many('extraschool.interdiction_other_contact', 'health_id', string='Interdiction contact', )
+    diabetique_selection = fields.Selection(
+        (('non_renseigne', 'Non renseigné'),
+         ('non', 'Non'),
+         ('oui', 'Oui')), default='non_renseigne', string='Diabétique')
+    interdiction_contact_ids = fields.One2many('extraschool.interdiction_other_contact', 'health_id',
+                                               string='Interdiction contact', )
     photo_general = fields.Selection(
         (('non_renseigne', 'Non renseigné'),
          ('non', 'Non'),
          ('oui', 'Oui')), default='non_renseigne', string='Photo general')
+    self_medication = fields.Selection(
+        (('non_renseigne', 'Non renseigné'),
+         ('non', 'Non'),
+         ('oui', 'Oui')), default='non_renseigne', string='Self medication general')
+    medication_ids = fields.One2many('extraschool.medication', 'health_id')
 
     @api.model
     def create(self, vals):
@@ -119,6 +155,8 @@ class extraschool_other_contact(models.Model):
     contact_name = fields.Char(string='Contact name')
     contact_relation = fields.Char(string='Contact relation')
     contact_tel = fields.Char(string='Tél. contact', size=20)
+    address_id = fields.Many2one('extraschool.address', string='Address')
+
 
 class extraschool_interdiction_other_contact(models.Model):
     _name = 'extraschool.interdiction_other_contact'
@@ -128,12 +166,15 @@ class extraschool_interdiction_other_contact(models.Model):
     contact_name = fields.Char(string='Contact name')
     contact_relation = fields.Char(string='Contact relation')
     contact_tel = fields.Char(string='Tél. contact', size=20)
+    address_id = fields.Many2one('extraschool.address')
 
 class extraschool_allergy(models.Model):
     _name = 'extraschool.allergy'
     _description = 'Allergy'
 
     name = fields.Char(string='Allergie')
+    #consequence = fields.Char(string='Consequence')
+
 
 class extraschool_disease(models.Model):
     _name = 'extraschool.disease'
@@ -142,6 +183,21 @@ class extraschool_disease(models.Model):
     health_id = fields.Many2one('extraschool.health_sheet', string='Health sheet')
     disease = fields.Many2one('extraschool.disease_type', string='Disease')
     disease_text = fields.Char(string='Treatment')
+    gravity = fields.Char('Gravity')
+
+
+class extraschool_medication(models.Model):
+    _name = 'extraschool.medication'
+    _description = 'Medication'
+
+    health_id = fields.Many2one('extraschool.health_sheet', string='Health sheet')
+    name = fields.Char(string='Name of the medication')
+    quantity = fields.Char(string='Quantity')
+    period = fields.Char(string='Quand')
+    self_medication_selection = fields.Selection(
+        (('non_renseigne', 'Non renseigné'),
+         ('non', 'Non'),
+         ('oui', 'Oui')), default='non_renseigne', string='Self medication')
 
 class extraschool_disease_type(models.Model):
     _name = 'extraschool.disease_type'

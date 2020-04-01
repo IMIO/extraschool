@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <odoo>
-	<data> 
+	<data>
 		<template id="report_reminder_text">
 		    <style type="text/css">
 		        .reminder_body{
@@ -18,50 +18,26 @@
 
 
 		<template id="report_reminder_img">
-		    <style>
-				#doc_resp_sign{
-					display: block;
-					width: 100%;
-					page-break-inside: avoid;
-				}
-
-				#doc_resp_sign&gt;img{
-					display: block;
-					width: 20 mm;
-					float : right;
-				}
-
-			</style>
+		    <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_reminder_sign.css"/>
+            </xpath>
 			<div id="doc_resp_sign">
-				<img class="sign_img" t-attf-src="data:image/jpeg;base64,{{reminder.reminders_journal_id.activity_category_id.po_rappel_sign}}"/>
+				<img class="sign_img" t-attf-src="data:image/jpeg;base64,{{reminder.reminders_journal_id.activity_category_ids[0].po_rappel_sign}}"/>
 			</div>
 		</template>
 
 		<template id="report_reminder_sign">
-		    <style type="text/css">
-		        .reminder_body{
-		    		width: 100%;
-					font-size: 14px;
-                    text-align: justify;
-		    	}
-
-				#doc_resp_sign>div{
-					float: right;
-				}
-
-				#doc_resp_sign>div>span{
-					display:block;
-				}
-
-			</style>
+		    <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_sign_reminder.css"/>
+            </xpath>
 			<div id="doc_resp_sign">
 				<div>
-					<span t-esc="resp_fct" />
-					<span t-esc="resp_name" />
+					<span t-esc="resp_fct_rappel" />
+					<span t-esc="resp_name_rappel" />
 				</div>
 			</div>
 		</template>
 
 	</data>
 </odoo>
-	
+

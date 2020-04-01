@@ -4,7 +4,7 @@
 #    Extraschool
 #    Copyright (C) 2008-2019
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
+#    Michael Michot - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -21,12 +21,9 @@
 #
 ##############################################################################
 
-import re
-
-from openerp import models, api, fields, _
-from openerp.addons.extraschool.helper import lbutils
-from openerp.exceptions import except_orm, Warning, RedirectWarning
-
+from openerp import models, api, fields
+from openerp.addons.extraschool.helper import lbutils, extraschool_helper
+from openerp.exceptions import Warning
 
 
 class extraschool_parent(models.Model):
@@ -34,6 +31,9 @@ class extraschool_parent(models.Model):
     _description = 'Parent'
     _inherit = 'mail.thread'
     _order = 'lastname'
+    # _sql_constraints = [
+    #     ('mail_rn_uniq', 'unique(mail, rn)', 'Mail and rn must be unique'),
+    #     ]
 
     @api.depends('firstname', 'lastname')
     def _name_compute(self):
@@ -145,22 +145,19 @@ class extraschool_parent(models.Model):
     country_id = fields.Many2one('res.country', string='Country', default=21, required=True)
     check_name = fields.Boolean(default=True)
     check_rn = fields.Boolean(default=True)
+    tax_certificate_send_method = fields.Selection((('emailandmail', 'By mail and email'),
+                                          ('onlyemail', 'Only by email'),
+                                          ('onlybymail', 'Only by mail')),
+                                         'Tax certificate send method', required=True, default='onlybymail',
+                                         track_visibility='onchange')
 
     @api.onchange('firstname', 'lastname')
     @api.multi
     def _check_name(self):
-        if self.search([('lastname', 'ilike', self.lastname), ('firstname', 'ilike', self.firstname)]):
+        if self.search([('lastname', '=ilike', self.lastname), ('firstname', '=ilike', self.firstname)]):
             self.check_name = False
         else:
             self.check_name = True
-
-        v = {}
-        if self.lastname:
-            if self.firstname:
-                v['name'] = '%s %s' % (self.lastname, self.firstname)
-            else:
-                v['name'] = self.lastname
-        return {'value': v}
 
     @api.onchange('rn')
     @api.multi
@@ -211,12 +208,6 @@ class extraschool_parent(models.Model):
                 'domain': [('payment_id.parent_id', '=', self.id), ('amount', '>', 0.0001)]
                 }
 
-    def email_validation(self, email):
-        if re.match("^[a-zA-Z0-9.+_%-]+@[a-zA-Z0-9._%-]+.[a-zA-Z]{2,6}$", email) is not None:
-            return True
-        else:
-            return False
-
     @api.depends('child_ids')
     def _compute_nbr_actif_child(self):
         for record in self:
@@ -243,10 +234,10 @@ class extraschool_parent(models.Model):
                                      ('lastname', 'ilike', vals['lastname'].strip()),
                                      ])
 
-        if vals['email'] != False and vals['email'] != '' and vals['email'] != ' ':
+        if vals['email'] is not False and vals['email'] != '' and vals['email'] != ' ':
             emails = vals['email'].split(',')
             for email in emails:
-                if (not self.email_validation(email)):
+                if not extraschool_helper.email_validation(email):
                     raise Warning("E-mail format invalid: {}.".format(email))
 
         # Compute and store parent's commstruct for further use (search).
@@ -303,11 +294,12 @@ class extraschool_parent(models.Model):
         if fields_to_find.intersection(set([k for k, v in vals.iteritems()])):
             vals['modified_since_last_import'] = True
 
-        if 'email' in vals and vals['email'] is not False:
-            emails = vals['email'].split(',')
-            for email in emails:
-                if (not self.email_validation(email)):
-                    raise Warning("E-mail format invalid: {}.".format(email))
+        if 'email' in vals:
+            if vals['email'] is not False and vals['email'] != '' and vals['email'] != ' ':
+                emails = vals['email'].split(',')
+                for email in emails:
+                    if not extraschool_helper.email_validation(email):
+                        raise Warning("E-mail format invalid: {}.".format(email))
 
         return super(extraschool_parent, self).write(vals)
 
@@ -332,5 +324,6 @@ class extraschool_parent(models.Model):
     @api.multi
     def get_sum_invoice_by_activity_category(self, invoice_id):
         activity_category_id = self.env['extraschool.invoice'].browse(invoice_id).activitycategoryid
-        sum_invoice = sum(x.balance for x in self.invoice_ids.filtered(lambda r: r.activitycategoryid == activity_category_id))
+        sum_invoice = sum(
+            x.balance for x in self.invoice_ids.filtered(lambda r: r.activitycategoryid == activity_category_id))
         return sum_invoice

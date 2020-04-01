@@ -4,7 +4,7 @@
 #    Extraschool
 #    Copyright (C) 2008-2019
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchia- Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia & Jenny Pans - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -20,11 +20,16 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+import re
 
+from dateutil.relativedelta import relativedelta
 from openerp import models, api
-from datetime import date, datetime, timedelta as td
+
+from datetime import datetime, date
+
 import time
 import logging
+
 _logger = logging.getLogger(__name__)
 
 
@@ -44,7 +49,34 @@ def timeit(method):
         te = time.time()
 
         logging.info('%r (%r, %r) %2.2f sec' % \
-              (method.__name__, args, kw, te - ts))
+                     (method.__name__, args, kw, te - ts))
         return result
 
     return timed
+
+
+def email_validation(email):
+    """
+    Verify that an email is in the correct format with a regex.
+    """
+    if re.match('^[a-zA-Z0-9.+_%-]+@[a-zA-Z0-9._%-]+\\.[a-zA-Z]{2,6}$', email) is not None:
+        return True
+    else:
+        return False
+
+
+def calculate_age(date_of_birth):
+    today = date.today()
+    return today.year - date_of_birth.year - ((today.month, today.day) < (date_of_birth.month, date_of_birth.day))
+
+
+def calculate_birthdate_from_age(age_group):
+    """
+    Take an age_group (for exemple, 10 à 12 ans), split it and calculate birthdate for 10,12
+    and return a list [date_from, date_to]
+    """
+    splitted_age_group = age_group.split(' ')
+    today_date = datetime.now()
+    date_from = today_date - relativedelta(years=int(splitted_age_group[2]))
+    date_to = today_date - relativedelta(years=int(splitted_age_group[0]))
+    return [date_from, date_to]

@@ -45,6 +45,10 @@ class extraschool_coda(models.Model):
                               ('handled', 'Handled')],
                               'validated', required=True, default='todo'
                               )
+    bank_account_number = fields.Char(
+        string='Bank account number',
+        readonly=True,
+    )
 
     @api.multi
     def unlink(self):
@@ -91,7 +95,10 @@ class extraschool_coda(models.Model):
         bankaccount = lines[1][5:21]
         codadate = '20'+lines[0][9:11]+'-'+lines[0][7:9]+'-'+lines[0][5:7]
         coda_obj = self.env['extraschool.coda']
-        coda_ids = coda_obj.search([('codadate','=',codadate)]).ids
+        coda_ids = coda_obj.search([
+            ('codadate', '=', codadate),
+            ('bank_account_number', '=', bankaccount)
+        ]).ids
         if coda_ids:
             raise Warning(_('CODA already imported !!!'))
         activitycategory_obj = self.env['extraschool.activitycategory']
@@ -302,7 +309,7 @@ class extraschool_coda(models.Model):
                                             'amount': amount,
                                         })
 
-                                        for reconciliation in payment_id._get_reconciliation_list(parentid,prefix['payment_invitation_com_struct_prefix'],1,amount,True):
+                                        for reconciliation in payment_id._get_reconciliation_list(parentid, _prefix,1,amount,True):
                                             payment_reconciliation_obj.create({'payment_id' : payment_id.id,
                                                                            'invoice_id' : reconciliation['invoice_id'],
                                                                            'date': transfertdate,# todo: si date facture <= coda: date coda sinon date facture
@@ -346,7 +353,14 @@ class extraschool_coda(models.Model):
                     adr2=''
                     withaddress=False
 
-        return super(extraschool_coda, self).create({'name':'CODA '+codadate,'codadate':codadate,'codafile':vals['codafile'],'paymentids':[(6,0,paymentids)],'rejectids':[(6,0,rejectids)]})
+        return super(extraschool_coda, self).create({
+            'name':'CODA '+codadate,
+            'codadate':codadate,
+            'codafile':vals['codafile'],
+            'paymentids':[(6,0,paymentids)],
+            'rejectids':[(6,0,rejectids)],
+            'bank_account_number': bankaccount,
+        })
 
     def com_struct_builder(self,prefix, val):
         #padding

@@ -17,20 +17,18 @@
             </xpath>
 		    <div id="aes_header">
 		    	<div class="row">
-                    <div>
                         <div id="b_logo">
-                            <img class="logo" t-attf-src="data:image/jpeg;base64,{{logo}}"/>
+                            <img class="logo" t-attf-src="data:image/jpeg;base64,{{logo}}"/><br/>
                         </div>
                         <div id="b_slogan">
                             <span class="slogan"><t t-esc="slogan" /></span><br/>
                             <span class="slogan"><t t-esc="street" /></span><br/>
                             <span class="slogan"><t t-esc="zipcode" /></span> <span class="slogan"><t t-esc="city" /></span>
                         </div>
-                    </div>
-					<div id="b_date">
-						<span class="doc_date"><t t-esc="doc_date" /></span>
-					</div>
 		    	</div>
+                <div id="b_date">
+                    <span class="doc_date"><t t-esc="doc_date" /></span>
+                </div>
 			</div>
 		</template>
 
@@ -46,6 +44,102 @@
 				</div>
 			</div>
 		</template>
+
+        <template id="report_invoice_summary_hastiere_text_rappel">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_invoice_summary_tournai_reminder.css"/>
+            </xpath>
+              <div id="invoice_summary">
+                 <p>
+                     Objet: Factures AES pour la période du <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/>
+                         - <b>RAPPEL</b><br/>
+                       Nos réf. : AES / <t t-esc="reminder.reminders_journal_id.name"/> / <t t-esc="parent_id.name" /><br/><br/><br/>
+                        Cher Parent, <br/><br/>
+                       Nous vous avons adressé les factures relatives aux frais scolaires de votre (vos) enfant(s) pour la période du <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/>.
+                       Nous constatons que vous êtes encore redevable d'un solde dû de <t t-esc="'%.2f €' % (amount)"/> envers l'Administration
+                       Communale de <t t-esc="categ_id.po_city" />, somme dont vous trouverez le détail ci-annexé.<br/><br/>
+
+                       <b>Nous vous invitons à régler ce montant, pour le <t t-esc="payment_term" /> au plus tard, au bénéfice du compte (IBAN)
+                           n° <t t-esc="categ_id.bankaccount" /> (code BIC : GKCCBEBB), avec la communication structurée suivante : <t t-esc="com_struct" />.</b><br/><br/>
+
+                       À défaut de paiement, le recouvrement de la créance sera poursuivi suivant l'article L1124-40 §1er,1° du
+                       Code de la Démocratie locale et de la Décentralisation.<br/><br/>
+
+                       Si entretemps, la somme a été réglée, veuillez considérer ce rappel comme nul et non avenu.<br/><br/>
+
+                       Vous souhaitant bonne réception de la présente, nous vous prions de croire, Cher Parent, à l'assurance de
+                       notre considération distinguée.
+                </p>
+             </div>
+		</template>
+
+        <template id="report_invoice_summary_hastiere_text_med">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_invoice_summary_tournai_med.css"/>
+            </xpath>
+					  <div id="invoice_summary" >
+						 <p>
+							 Objet: Factures AES pour la période du <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/><br/> <b><span style=" margin-left:40px;">MISE EN DEMEURE AVANT CONTRAINTE NON FISCALE– art. L1124-40§1, 1° CDLD</span></b><br/>
+					   Nos réf. : AES / <t t-esc="reminder.reminders_journal_id.name"/> / <t t-esc="parent_id.name" /><br/><br/><br/>
+						Cher Parent, <br/><br/>
+
+					   Le service Comptabilité de la commune d'Hastière a constaté que, pour les frais scolaires de votre (vos) enfant(s) pour la période du <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/> il restait un montant impayé de
+					   <t t-esc="'%.2f €' % (amount)"/>, et ce, malgré le courrier de rappel du <t t-esc="datetime.datetime.strptime(reminder.reminders_journal_id.based_reminder_id.transmission_date, '%Y-%m-%d').strftime('%d-%m-%Y')"/>, qui vous a déjà été adressé. Veuillez trouver en annexe le détail de ce montant.<br/><br/>
+
+						<b>Par la présente, nous vous mettons en demeure de payer ce montant de <t t-esc="'%.2f €' % (amount)"/> pour le <t t-esc="payment_term" />
+						au plus tard, au bénéfice du compte (IBAN) n° BE25 0960 2105 5182 (code BIC : GKCCBEBB),
+						avec la communication structurée suivante : <t t-esc="com_struct" />.</b><br/><br/>
+
+						Si entretemps, la somme a été réglée, veuillez considérer cette mise en demeure comme nulle et non avenue.<br/><br/>
+
+					   Si vous estimez toutefois ne pas être redevable du montant qui vous est réclamé, nous vous prions de formuler <span class="ecrit">par écrit</span> les motifs de votre contestation,
+						dès réception de la présente en veillant à bien indiquer la référence du présent courrier. <br/><br/>
+
+					   Par ailleurs, nous vous informons qu’à défaut de recevoir soit un paiement endéans le délai
+                        imparti, soit le courrier de contestation dûment motivé dont question ci-dessus, nous nous
+                        réservons la possibilité d’appliquer à votre encontre la procédure de contrainte prévue par
+                        l’article L1124-40§1, 1° du Code de la Démocratie Locale et de la Décentralisation et de
+                        recouvrer la créance de la Ville selon les modalités qui y sont prévues. Nous espérons
+                        néanmoins ne pas devoir en arriver à de telles alternatives et comptons sur votre diligence.<br/><br/>
+
+					   Nous vous signalons enfin, à titre infiniment subsidiaire, que si nous devions avoir recours à la contrainte pour récupérer la somme due, les frais de l’intervention de l’huissier
+						seront mis à votre charge ainsi que les frais administratifs du présent courrier recommandé.<br/><br/>
+
+					   Nous tenions à vous en informer et vous prions de croire, Cher Parent, à l’assurance de notre considération distinguée.
+
+						 </p>
+					 </div>
+		</template>
+
+
+        <template id="report_invoice_summary_hastiere_text_rappel">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_invoice_summary_tournai_reminder.css"/>
+            </xpath>
+              <div id="invoice_summary">
+                 <p>
+                     Objet: Factures AES pour la période du <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/>
+                         - <b>RAPPEL</b><br/>
+                       Nos réf. : AES / <t t-esc="reminder.reminders_journal_id.name"/> / <t t-esc="parent_id.name" /><br/><br/><br/>
+                        Cher Parent, <br/><br/>
+                       Nous vous avons adressé les factures relatives aux frais scolaires de votre (vos) enfant(s) pour la période du <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/>.
+                       Nous constatons que vous êtes encore redevable d'un solde dû de <t t-esc="'%.2f €' % (amount)"/> envers l'Administration
+                       Communale de <t t-esc="categ_id.po_city" />, somme dont vous trouverez le détail ci-annexé.<br/><br/>
+
+                       <b>Nous vous invitons à régler ce montant, pour le <t t-esc="payment_term" /> au plus tard, au bénéfice du compte (IBAN)
+                           n° <t t-esc="categ_id.bankaccount" /> (code BIC : GKCCBEBB), avec la communication structurée suivante : <t t-esc="com_struct" />.</b><br/><br/>
+
+                       À défaut de paiement, le recouvrement de la créance sera poursuivi suivant l'article L1124-40 §1er,1° du
+                       Code de la Démocratie locale et de la Décentralisation.<br/><br/>
+
+                       Si entretemps, la somme a été réglée, veuillez considérer ce rappel comme nul et non avenu.<br/><br/>
+
+                       Vous souhaitant bonne réception de la présente, nous vous prions de croire, Cher Parent, à l'assurance de
+                       notre considération distinguée.
+                </p>
+             </div>
+		</template>
+
 
     </data>
 

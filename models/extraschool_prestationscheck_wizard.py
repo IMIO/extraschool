@@ -22,7 +22,7 @@
 ##############################################################################
 
 
-from openerp import models, api, fields
+from openerp import models, api, fields, _
 import datetime
 import pytz
 from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
@@ -103,7 +103,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
 
 
         if not occurrence_rs:  #Error No matching occurrence found
-            return_val['error_msg'] = "No matching occurrence found"
+            return_val['error_msg'] = _("No matching occurrence found")
             return return_val
 
         occu_reg = occurrence_rs.filtered(lambda r: prestation.childid.id in [reg.child_id.id for reg in r.child_registration_ids])
@@ -232,7 +232,7 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
         return self._check(self.force)
 
     @api.multi
-    def action_verified_without_occurrence(self):
+    def action_verified_without_occurrence(self, check=False):
         prestation_ids = self.env['extraschool.prestation_times_of_the_day'].search(
             [('date_of_the_day', '>=', self.period_from), ('date_of_the_day', '<=', self.period_to), ('verified', '=', True)])
 
@@ -243,6 +243,10 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
                 if not prestation_times.activity_occurrence_id:
                     list_prestation_times.add(prestation.id)
 
+        if check:
+            for prestation in list_prestation_times:
+                self.env['extraschool.prestation_times_of_the_day'].browse(prestation).check()
+
         return {
             'type': 'ir.actions.act_window',
             'res_model': 'extraschool.prestation_times_of_the_day',
@@ -251,6 +255,10 @@ class extraschool_prestationscheck_wizard(models.TransientModel):
             'domain': [('id', 'in', list(list_prestation_times))],
             'nodestroy': 'current',
         }
+
+    @api.multi
+    def action_verified_without_occurrence_check(self):
+        self.action_verified_without_occurrence(True)
 
     @api.model
     def refactor(self):

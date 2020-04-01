@@ -56,29 +56,34 @@
         <template id="reminder_huissier_list">
 			<t t-foreach="docs" t-as="reminder">
                 <div class="page">
-                        <h2>Liste pour huissier</h2>
-                        <table class="table table-bordered">
-                            <thead>
+                    <h2>Liste pour huissier</h2>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Nom du parent</th>
+                                <th>Adresse du parent</th>
+                                <th>Montant</th>
+                                <th>Périodes des factures</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="reminder.reminder_ids.sorted(lambda r: r.parentid.name)" t-as="parent_reminder">
                                 <tr>
-                                    <th>Nom du parent</th>
-                                    <th>Adresse du parent</th>
-                                    <th>Montant</th>
+                                    <td><span t-field="parent_reminder.parentid"/></td>
+                                    <td><span t-field="parent_reminder.parentid.street"/> <span t-field="parent_reminder.parentid.zipcode"/> <span t-field="parent_reminder.parentid.city"/></td>
+                                    <td><span class="amount"><t t-esc="'%.2f' %  (parent_reminder.amount)" /> €</span></td>
+                                    <td>
+                                        <t t-foreach="parent_reminder.concerned_invoice_ids" t-as="invoice">
+                                            <p> Du : <span t-field="invoice.period_from"/> Au : <span t-field="invoice.period_from"/></p>
+                                        </t>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                <t t-foreach="reminder.reminder_ids.sorted(lambda r: r.parentid.name)" t-as="parent_reminder">
-                                    <tr>
-                                        <td><span t-field="parent_reminder.parentid"/></td>
-                                        <td><span t-field="parent_reminder.parentid.street"/> <span t-field="parent_reminder.parentid.zipcode"/> <span t-field="parent_reminder.parentid.city"/></td>
-                                        <td><span class="amount"><t t-esc="'%.2f' %  (parent_reminder.amount)" /> €</span></td>
-                                    </tr>
-                                </t>
-                            </tbody>
-                        </table>
+                            </t>
+                        </tbody>
+                    </table>
 		        </div>
 			</t>
 		</template>
-
 
 		<report
 		    id="extraschool_parent"

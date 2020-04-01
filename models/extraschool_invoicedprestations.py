@@ -4,7 +4,7 @@
 #    Extraschool
 #    Copyright (C) 2008-2019
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia & Jenny Pans - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -79,7 +79,8 @@ class extraschool_invoicedprestations(models.Model):
         ondelete='restrict'
     )
 
-    no_value_amount = fields.Float()
+    # bug with the big sql request (no no value)
+    no_value_amount = fields.Float(default=0.0)
     no_value_date = fields.Date()
     no_value_description = fields.Text()
 
@@ -121,10 +122,8 @@ class extraschool_invoicedprestations(models.Model):
 
     @api.multi
     def write(self, vals):
+
         if 'no_value_amount' in vals and vals.get('no_value_amount') > self.total_price:
-            vals['no_value_amount'] = 0.00
-        elif 'no_value_amount' in vals and round(self.invoiceid.amount_total - self.invoiceid.amount_received, 2) - self.invoiceid.no_value_amount - vals.get(
-                'no_value_amount') < 0.00:
             vals['no_value_amount'] = 0.00
 
         return super(extraschool_invoicedprestations, self).write(vals)

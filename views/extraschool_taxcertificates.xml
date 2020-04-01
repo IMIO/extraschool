@@ -129,27 +129,25 @@
             </field>
         </record>
 
-
-        <record id="extraschool_taxcertificate_item_search" model="ir.ui.view">
+        <record id="extraschool_taxcertificate_item_view_search" model="ir.ui.view">
             <field name="name">extraschool.taxcertificate_item.search</field>
             <field name="model">extraschool.taxcertificate_item</field>
             <field name="arch" type="xml">
                 <search>
-                   	<group  expand='0' string='Group by...'>
-                       <filter string='Implantation Scolaire' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'implantation'}"/>
+                    <field name="parent_id"/>
+                    <group expand="0" string="Group by...">
+                        <filter string='Implantation Scolaire' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'implantation'}"/>
                        <filter string='Niveau' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'niveau'}"/>
                        <filter string='Parent' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'parent_id'}"/>
-                   </group>
+                    </group>
                 </search>
             </field>
         </record>
-
 
         <record model="ir.actions.act_window" id="action_extraschool_taxcertificate">
             <field name="name">Tax Certificate</field>
             <field name="res_model">extraschool.taxcertificate</field>
             <field name="view_type">form</field>
-            <field name="search_view_id" ref="extraschool_taxcertificate_item_search"/>
         </record>
 
         <record model="ir.actions.act_window.view" id="action_extraschool_taxcertificate_item">
@@ -158,7 +156,6 @@
 			<field name="res_model">extraschool.taxcertificate_item</field>
             <field name="view_mode">form</field>
             <field name="view_id" ref="extraschool_taxcertificate_item_form" />
-            <field name="search_view_id" ref="extraschool_taxcertificate_item_search"/>
 		</record>
 
        <record model="ir.ui.view" id="extraschool_taxcertificates_wizard_form">
@@ -203,20 +200,22 @@
         <!--Definition of an email template with an empty body that will be used in payment mailing. Used to give a
             basis for email recipients, name and to ease the definition of a further elaborated template. -->
         <record id="email_template_tax_certificate" model="mail.template">
-            <field name="name">Tax Certificate Email</field>
+            <field name="name">E-mail d'attestation fiscale</field>
             <field name="model_id" ref="model_extraschool_taxcertificate_item"/>
             <field name="auto_delete" eval="True"/>
-            <field name="subject">Rappel</field>
-            <field name="email_to">${(object.parent_id.email or 'support-aes@imio.be')|safe}</field>
-            <field name="email_from">${(object.taxcertificate_id.activity_category_id.invoiceemailaddress or 'noreply@localhost')|safe}</field>
-            <field name="reply_to">${(object.taxcertificate_id.activity_category_id.invoiceemailaddress or 'noreply@localhost')|safe}</field>
+            <field name="subject">Attestation fiscale</field>
+            <field name="email_to">${(object.parent_id.email or '')|safe}</field>
+            <field name="email_from">${(object.taxcertificate_id.activity_category_id.invoiceemailaddress or '')|safe}</field>
+            <field name="reply_to">${(object.taxcertificate_id.activity_category_id.invoiceemailaddress or '')|safe}</field>
             <field name="mail_server_id" ref="base.ir_mail_server_localhost0"/>
 <field name="body_html"><![CDATA[
 <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
 
+    <p>Attention : Veuillez d'abord configurer avec IMIO votre modèle de mail avant d'envoyer les mails !! </p>
+
     <p>Bonjour ${object.parent_id.name},</p>
 
-    <p>Vous trouverez en pièce jointe le détail du rappel de paiement</p>
+    <p>Vous trouverez en pièce jointe l'attestation fiscale</p>
 
 </div>
             ]]></field>

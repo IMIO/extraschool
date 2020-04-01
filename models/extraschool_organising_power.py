@@ -4,7 +4,7 @@
 #    Extraschool
 #    Copyright (C) 2008-2019
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia & Jenny Pans - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -22,6 +22,7 @@
 ##############################################################################
 
 from openerp import models, api, fields, _
+#from openerp.addons.extraschool.helper import extraschool_helper
 
 
 class extraschool_organising_power(models.Model):
@@ -46,6 +47,7 @@ class extraschool_organising_power(models.Model):
 
     po_email = fields.Char('email')
     po_tel = fields.Char('tel')
+    po_fax = fields.Char('Fax')
     po_addresse_free_text = fields.Char('Adresse texte libre')
     po_addresse_free_text2 = fields.Char('Adresse texte libre 2')
 
@@ -71,7 +73,20 @@ class extraschool_organising_power(models.Model):
     slogan = fields.Char('Slogan', size=50)
 
     biller_report_id = fields.Many2one('extraschool.report', 'Biller report')
-    qrcode_report_id = fields.Many2one('extraschool.report', string ='QRCode report')
+    qrcode_report_id = fields.Many2one('extraschool.report', string='QRCode report')
     healthy_report_id = fields.Many2one('extraschool.report', string='Healthy report')
+    healthy_inscription_report_id = fields.Many2one('extraschool.report', string='Healthy Inscription report')
     taxcertificatetemplate = fields.Char('Tax Certificate Template', size=50)
     tax_certificate_code = fields.Char()
+
+    # todo verify fax and mail
+    # @api.model
+    # def create(self, vals):
+    #
+    #     if vals['po_email'] is not False and vals['po_email'] != '' and vals['po_email'] != ' ':
+    #         emails = vals['po_email'].split(',')
+    #         for email in emails:
+    #             if not extraschool_helper.email_validation(email):
+    #                 raise Warning("E-mail format invalid: {}.".format(email))
+    #
+    #     return super(extraschool_organising_power, self).create(vals)
