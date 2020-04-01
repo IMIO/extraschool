@@ -101,7 +101,7 @@ class extraschool_remindersjournal(models.Model):
     def _compute_unsolved_reminder_method(self):
         for rec in self:
             rec.unsolved_reminder_ids = [reminder.id for reminder in self.env['extraschool.reminder'].search(
-                [('reminders_journal_id', '=', rec.id)]) if reminder.balance > 0]
+                [('reminders_journal_id', '=', rec.id)]) if reminder.balance_computed > 0]
 
     @api.multi
     def write(self, vals):
@@ -563,7 +563,8 @@ class extraschool_remindersjournal(models.Model):
                 'target': 'current',
                 'limit': 50000,
                 'domain': [('reminders_journal_id.id', '=', self.id),
-                           '|', ('remindersendmethod', '=', 'onlybymail'), ('remindersendmethod', '=', 'emailandmail')]
+                           '|', ('remindersendmethod', '=', 'onlybymail'), ('remindersendmethod', '=', 'emailandmail')],
+                'context': {"search_default_unsolve_reminders": 1}
                 }
 
     @api.multi
@@ -577,7 +578,8 @@ class extraschool_remindersjournal(models.Model):
                 'target': 'current',
                 'limit': 50000,
                 'domain': [('reminders_journal_id.id', '=', self.id),
-                           '|', ('remindersendmethod', '=', 'onlyemail'), ('remindersendmethod', '=', 'emailandmail')]
+                           '|', ('remindersendmethod', '=', 'onlyemail'), ('remindersendmethod', '=', 'emailandmail')],
+                'context': {"search_default_unsolve_reminders": 1}
                 }
 
     @api.multi
@@ -590,7 +592,8 @@ class extraschool_remindersjournal(models.Model):
                 'nodestroy': False,
                 'target': 'current',
                 'limit': 50000,
-                'domain': [('reminders_journal_id.id', '=', self.id)]
+                'domain': [('reminders_journal_id.id', '=', self.id)],
+                'context': {"search_default_unsolve_reminders": 1}
                 }
 
     @api.multi
