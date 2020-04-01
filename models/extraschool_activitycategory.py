@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2019
+#    Copyright (C) 2008-2020
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot & Michael Colicchia & Jenny Pans - Imio (<http://www.imio.be>).
 #
@@ -52,7 +52,7 @@ class extraschool_activitycategory(models.Model):
     po_rappel_fct = fields.Char('Fct of resp reminder')
     po_rappel_sign = fields.Binary('Signature of resp reminder')
 
-    po_stamp = fields.Binary('stamp')
+    po_stamp = fields.Binary('sta   mp')
     po_sign_img = fields.Binary('Signature image')
 
     po_email = fields.Char('email')
