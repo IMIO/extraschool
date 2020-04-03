@@ -30,7 +30,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-01 14:07+0000\n"
-"PO-Revision-Date: 2020-04-01 16:12+0200\n"
+"PO-Revision-Date: 2020-04-03 13:49+0200\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -12580,7 +12580,7 @@ msgstr "Île Bouvet"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_address_box_number
 msgid "Box number"
-msgstr "Box number"
+msgstr "Numéro de boite"
 
 #. module: base
 #: model:res.country,name:base.br
@@ -17413,12 +17413,12 @@ msgstr "Domaine :"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_dominant_activity_category_id
 msgid "Dominant activity category id"
-msgstr "Activité catégorie dominante"
+msgstr "Catégorie d'activité dominante"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_dominant_payment_activity_category_id
 msgid "Dominant payment activity category id"
-msgstr "Activité catégorie dominate pour le paiement"
+msgstr "Catégorie d'activité dominante pour le paiement"
 
 #. module: base
 #: model:res.country,name:base.dm
@@ -19992,7 +19992,7 @@ msgstr "Plein écran"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_address_full
 msgid "Full address"
-msgstr "Full address"
+msgstr "Adresse complète"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_name
@@ -33003,7 +33003,7 @@ msgstr "Auto-médication"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_health_sheet_self_medication
 msgid "Self medication general"
-msgstr "Self medication general"
+msgstr "Auto médication générale"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_website_event_sale
@@ -39607,7 +39607,7 @@ msgstr "Code Postal"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_address_zip_code
 msgid "Zip code"
-msgstr "Zip code"
+msgstr "Code postal"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_po_zipcode
