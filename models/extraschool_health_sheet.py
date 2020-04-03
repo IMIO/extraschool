@@ -109,11 +109,6 @@ class extraschool_health_sheet(models.Model):
         (('non_renseigne', 'Non renseigné'),
          ('non', 'Non'),
          ('oui', 'Oui')), default='non_renseigne', string='Arnica')
-    diabetique = fields.Boolean(string='Diabétique', default=False)
-    diabetique_selection = fields.Selection(
-        (('non_renseigne', 'Non renseigné'),
-         ('non', 'Non'),
-         ('oui', 'Oui')), default='non_renseigne', string='Diabétique')
     interdiction_contact_ids = fields.One2many('extraschool.interdiction_other_contact', 'health_id',
                                                string='Interdiction contact', )
     photo_general = fields.Selection(
@@ -125,6 +120,19 @@ class extraschool_health_sheet(models.Model):
          ('non', 'Non'),
          ('oui', 'Oui')), default='non_renseigne', string='Self medication general')
     medication_ids = fields.One2many('extraschool.medication', 'health_id')
+
+    @api.model
+    def update_health_sheet(self):
+        health_sheets = self.search([])
+        for health_sheet in health_sheets:
+            health_sheet.write({
+                'tetanus_selection': 'oui' if health_sheet.tetanus else health_sheet.tetanus_selection,
+                'allergy_selection':  'oui' if health_sheet.allergy else health_sheet.allergy_selection,
+                'handicap_selection': 'oui' if health_sheet.handicap else health_sheet.handicap_selection,
+                'specific_regime_selection': 'oui' if health_sheet.specific_regime else health_sheet.specific_regime_selection,
+                'activity_no_available_selection': 'oui' if health_sheet.activity_no_available else health_sheet.activity_no_available_selection,
+                'intervention_selection': 'oui' if health_sheet.intervention else health_sheet.intervention_selection
+            })
 
     @api.model
     def create(self, vals):
@@ -173,7 +181,6 @@ class extraschool_allergy(models.Model):
     _description = 'Allergy'
 
     name = fields.Char(string='Allergie')
-    #consequence = fields.Char(string='Consequence')
 
 
 class extraschool_disease(models.Model):

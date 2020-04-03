@@ -1,0 +1,5 @@
+<odoo>
+    <data>
+    	<function name="update_health_sheet" model="extraschool.health_sheet" />
+	</data>
+</odoo>

@@ -40,6 +40,7 @@
     'data' : [
         'scripts/update_seq.xml',
         'scripts/update_one_report.sql',
+        'scripts/update_health_sheet.xml',
         # 'scripts/update_activity_category.xml',
         'data/data_days.xml',
         'data/data_age_group.xml',
