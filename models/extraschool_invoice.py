@@ -35,7 +35,9 @@ from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
 
 import logging
+
 _logger = logging.getLogger(__name__)
+
 
 class extraschool_invoice(models.Model):
     _name = 'extraschool.invoice'
@@ -51,31 +53,43 @@ class extraschool_invoice(models.Model):
                 datetime.strptime(invoice.period_to, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y"))))
         return res
 
-    name = fields.Char('Name', size=20,readonly=True, default='Facture', track_visibility='onchange')
-    schoolimplantationid = fields.Many2one('extraschool.schoolimplantation', 'School implantation', required=False,readonly=True, index=True, track_visibility='onchange')
-    classid = fields.Many2one('extraschool.class', 'Class', required=False, domain="[('schoolimplantation','=',schoolimplantationid)]", index=True, track_visibility='onchange')
-    parentid = fields.Many2one('extraschool.parent', 'Parent', required=False, index = True, track_visibility='onchange')
+    name = fields.Char('Name', size=20, readonly=True, default='Facture', track_visibility='onchange')
+    schoolimplantationid = fields.Many2one('extraschool.schoolimplantation', 'School implantation', required=False,
+                                           readonly=True, index=True, track_visibility='onchange')
+    classid = fields.Many2one('extraschool.class', 'Class', required=False,
+                              domain="[('schoolimplantation','=',schoolimplantationid)]", index=True,
+                              track_visibility='onchange')
+    parentid = fields.Many2one('extraschool.parent', 'Parent', required=False, index=True, track_visibility='onchange')
     invoicesendmethod = fields.Selection(related="parentid.invoicesendmethod", store=True, track_visibility='onchange')
-    number = fields.Integer('Number',readonly=True, track_visibility='onchange')
-    structcom = fields.Char('Structured Communication', size=50, readonly=True, required=True, track_visibility='onchange')
-    amount_total = fields.Float(string='Amount', digits_compute=dp.get_precision('extraschool_invoice'), readonly=True, store=True, track_visibility='onchange')
-    amount_received = fields.Float( string='Received', digits_compute=dp.get_precision('extraschool_invoice'), readonly=True,store=True, track_visibility='onchange')
-    balance = fields.Float(digits_compute=dp.get_precision('extraschool_invoice'), string='Balance',readonly=True, store=True, track_visibility='onchange')
-    no_value = fields.Float('No value',default=0.0,readonly=True, track_visibility='onchange')
-    discount = fields.Float('Discount',readonly=True, track_visibility='onchange')
-    biller_id = fields.Many2one('extraschool.biller', 'Biller', required=False,ondelete='cascade',readonly=True, index=True, track_visibility='onchange')
-    filename = fields.Char('filename', size=20,readonly=True,  invisible= True, track_visibility='onchange')
-    invoice_file = fields.Binary('File', readonly=True, invisible= True, track_visibility='onchange')
-    payment_ids = fields.One2many('extraschool.payment_reconciliation', 'invoice_id','Payments', track_visibility='onchange')
-    invoice_line_ids = fields.One2many('extraschool.invoicedprestations', 'invoiceid','Details', track_visibility='onchange')
-    refound_line_ids = fields.One2many('extraschool.refound_line', 'invoiceid','Refound', track_visibility='onchange')
+    number = fields.Integer('Number', readonly=True, track_visibility='onchange')
+    structcom = fields.Char('Structured Communication', size=50, readonly=True, required=True,
+                            track_visibility='onchange')
+    amount_total = fields.Float(string='Amount', digits_compute=dp.get_precision('extraschool_invoice'), readonly=True,
+                                store=True, track_visibility='onchange')
+    amount_received = fields.Float(string='Received', digits_compute=dp.get_precision('extraschool_invoice'),
+                                   readonly=True, store=True, track_visibility='onchange')
+    balance = fields.Float(digits_compute=dp.get_precision('extraschool_invoice'), string='Balance', readonly=True,
+                           store=True, track_visibility='onchange')
+    no_value = fields.Float('No value', default=0.0, readonly=True, track_visibility='onchange')
+    discount = fields.Float('Discount', readonly=True, track_visibility='onchange')
+    biller_id = fields.Many2one('extraschool.biller', 'Biller', required=False, ondelete='cascade', readonly=True,
+                                index=True, track_visibility='onchange')
+    filename = fields.Char('filename', size=20, readonly=True, invisible=True, track_visibility='onchange')
+    invoice_file = fields.Binary('File', readonly=True, invisible=True, track_visibility='onchange')
+    payment_ids = fields.One2many('extraschool.payment_reconciliation', 'invoice_id', 'Payments',
+                                  track_visibility='onchange')
+    invoice_line_ids = fields.One2many('extraschool.invoicedprestations', 'invoiceid', 'Details',
+                                       track_visibility='onchange')
+    refound_line_ids = fields.One2many('extraschool.refound_line', 'invoiceid', 'Refound', track_visibility='onchange')
     oldid = fields.Char('oldid', size=20, track_visibility='onchange')
-    activitycategoryid = fields.Many2many('extraschool.activitycategory', 'extraschool_invoice_activity_category_rel', store=True, auto_join=True, track_visibility='onchange')
+    activitycategoryid = fields.Many2many('extraschool.activitycategory', 'extraschool_invoice_activity_category_rel',
+                                          store=True, auto_join=True, track_visibility='onchange')
     period_from = fields.Date(related='biller_id.period_from', index=True, track_visibility='onchange')
     period_to = fields.Date(related='biller_id.period_to', index=True, track_visibility='onchange')
     payment_term = fields.Date('Payment term', track_visibility='onchange')
-    comment = fields.Text("Comment",default="", track_visibility='onchange')
-    last_reminder_id = fields.Many2one('extraschool.reminder', 'Last reminder',readonly=True, index = True, track_visibility='onchange')
+    comment = fields.Text("Comment", default="", track_visibility='onchange')
+    last_reminder_id = fields.Many2one('extraschool.reminder', 'Last reminder', readonly=True, index=True,
+                                       track_visibility='onchange')
     reminder_fees = fields.Boolean('Reminder fees', default=False, track_visibility='onchange')
     huissier = fields.Boolean('Huissier', default=False, track_visibility='onchange')
     fees_huissier = fields.Float('Fees Huissier', default=0.0, track_visibility='onchange')
@@ -89,27 +103,30 @@ class extraschool_invoice(models.Model):
 
     _sql_constraints = [
         ('structcom_uniq', 'unique(structcom)',
-            "The structured communication is already distributed. Please contact support-aes@imio.be"),
+         "The structured communication is already distributed. Please contact support-aes@imio.be"),
     ]
 
     @api.multi
     def _compute_balance(self):
         for invoice in self:
-            total = 0 if len(invoice.invoice_line_ids) == 0 else sum(line.total_price for line in invoice.invoice_line_ids)
+            total = 0 if len(invoice.invoice_line_ids) == 0 else sum(
+                line.total_price for line in invoice.invoice_line_ids)
             total = 0 if total < 0.0001 else total
-            reconcil = 0 if len(invoice.payment_ids) == 0 else sum(reconcil_line.amount for reconcil_line in invoice.payment_ids)
+            reconcil = 0 if len(invoice.payment_ids) == 0 else sum(
+                reconcil_line.amount for reconcil_line in invoice.payment_ids)
             reconcil = 0 if reconcil < 0.0001 else reconcil
             balance = total - reconcil - invoice.no_value_amount
             balance = 0 if balance < 0.0001 else balance
-            balance = round(balance,5) # MiCo used this to resolve a balance problem (hannut 21/08/2017)
-            invoice.write({'amount_total' : total,
-                           'amount_received' : reconcil,
-                           'balance' : balance
+            balance = round(balance, 5)  # MiCo used this to resolve a balance problem (hannut 21/08/2017)
+            invoice.write({'amount_total': total,
+                           'amount_received': reconcil,
+                           'balance': balance
                            })
 
     @api.multi
     def get_infos_childs(self):
-        return self.invoice_line_ids.sorted(key=lambda r: (r.childid,r.activity_occurrence_id.activityid.short_name,r.prestation_date))
+        return self.invoice_line_ids.sorted(
+            key=lambda r: (r.childid, r.activity_occurrence_id.activityid.short_name, r.prestation_date))
 
     @api.multi
     def get_today(self):
@@ -128,14 +145,6 @@ class extraschool_invoice(models.Model):
         return False if self.last_reminder_id and not self.reminder_fees else True
 
     @api.multi
-    def get_balance(self, activity_category_id):
-        if not self.invoice_line_ids.filtered(lambda r: r.activity_occurrence_id.activity_category_id.id):
-            return self.balance
-        else:
-            return sum(invoiced_line.total_price - invoiced_line.no_value_amount for invoiced_line in self.invoice_line_ids.filtered(
-                lambda r: r.activity_occurrence_id.activity_category_id.id == activity_category_id))
-
-    @api.multi
     def reconcil(self):
         payment_obj = self.env['extraschool.payment']
         payment_reconcil_obj = self.env['extraschool.payment_reconciliation']
@@ -145,45 +154,41 @@ class extraschool_invoice(models.Model):
             if invoice.balance != 0.00:
                 # todo: Check if the biller (invoices_date) <= today(). Do a cron to launch this method everyday.
                 # If there is a dominant payment
-                if (organizing_power.dominant_payment_activity_category_id):
-                    payment_ids = payment_obj.search([('parent_id','=',invoice.parentid.id),
-                                                      ('solde','>',0),
+                if organizing_power.dominant_payment_activity_category_id:
+                    payment_ids = payment_obj.search([('parent_id', '=', invoice.parentid.id),
+                                                      ('solde', '>', 0),
                                                       ]).sorted(key=lambda r: r.paymentdate)
 
                     count = 0
-                    solde = invoice.balance
 
-                    while count < len(payment_ids) and solde > 0:
-                        amount = solde if payment_ids[count].solde >= solde else payment_ids[count].solde
+                    while count < len(payment_ids) and invoice.balance > 0:
+                        amount = invoice.balance if payment_ids[count].solde >= invoice.balance else payment_ids[
+                            count].solde
                         payment_reconcil_obj.create({'payment_id': payment_ids[count].id,
                                                      'invoice_id': invoice.id,
                                                      'amount': amount,
                                                      'date': fields.Date.today(),
                                                      })
-                        solde -= amount
                         count += 1
+                        invoice._compute_balance()
                 else:
                     for invoice_category in invoice.activitycategoryid:
-                        payments = payment_obj.search([('parent_id','=',invoice.parentid.id),
+
+                        payments = payment_obj.search([('parent_id', '=', invoice.parentid.id),
                                                        ('activity_category_id', '=', invoice_category.id),
-                                                       ('solde','>',0),
+                                                       ('solde', '>', 0),
                                                        ]).sorted(key=lambda r: r.paymentdate)
 
                         zz = 0
-
-                        solde = invoice.get_balance(invoice_category.id)
-
-                        # bug : si paiement déjà reçu, tout le prépaiement est pris
-                        while zz < len(payments) and solde > 0:
-                            amount = solde if payments[zz].solde >= solde else payments[zz].solde
+                        while zz < len(payments) and invoice.balance > 0:
+                            amount = invoice.balance if payments[zz].solde >= invoice.balance else payments[zz].solde
                             payment_reconcil_obj.create({'payment_id': payments[zz].id,
                                                          'invoice_id': invoice.id,
                                                          'amount': amount,
                                                          'date': fields.Date.today(),
                                                          })
-                            solde -= amount
                             zz += 1
-
+                            invoice._compute_balance()
                 invoice._compute_balance()
 
         return {
@@ -233,7 +238,6 @@ class extraschool_invoice(models.Model):
 
         return sorted(res)
 
-
     def get_concerned_child(self):
         res = []
 
@@ -246,7 +250,7 @@ class extraschool_invoice(models.Model):
         return res
 
     @api.multi
-    def get_invoice_calendar(self, child_id = None, exclued_free=False):
+    def get_invoice_calendar(self, child_id=None, exclued_free=False):
         """
         Build a calendar of activities by child for this invoice
         :param child_id: The id of the child
@@ -269,22 +273,25 @@ class extraschool_invoice(models.Model):
                     for activity in activity_to_remove:
                         month['activity'].remove(activity)
 
-            zz=0
+            zz = 0
             for week in month['days']:
                 month['quantity'].append([])
 
                 for d in week:
-                    d={'day_id': d,
-                       'quantity': [],
-                       }
+                    d = {'day_id': d,
+                         'quantity': [],
+                         }
                     for activity in month['activity']:
                         d['quantity'].append(sum(self.invoice_line_ids.filtered(lambda r: r.childid.id == child_id
-                                                                                and r.prestation_date == '%s-%02d-%02d' % (month['year'],month['month'],d['day_id'])
-                                                                                and r.activity_activity_id.short_name == activity
+                                                                                          and r.prestation_date == '%s-%02d-%02d' % (
+                                                                                              month['year'],
+                                                                                              month['month'],
+                                                                                              d['day_id'])
+                                                                                          and r.activity_activity_id.short_name == activity
                                                                                 ).mapped('quantity')))
                     month['quantity'][zz].append(d)
 
-                zz+=1
+                zz += 1
 
         return concened_months
 
@@ -298,7 +305,7 @@ class extraschool_invoice(models.Model):
     def export_onyx_but(self):
         self.export_onyx()
 
-    def export_onyx_child_change(self,invoicedline, saved_child, reset_nbr_jour = False):
+    def export_onyx_child_change(self, invoicedline, saved_child, reset_nbr_jour=False):
         p = re.compile(r"([^0-9^,]*|.*\b11 novembre\b)[\s,]*([0-9]*)[\/\s]*([a-zA-Z]*[0-9]*)[\/\s]*([a-zA-Z]*)$")
 
         if reset_nbr_jour:
@@ -310,16 +317,17 @@ class extraschool_invoice(models.Model):
         saved_child['rn'] = invoicedline.childid.rn if invoicedline.childid.rn else ''
         saved_child['lastname'] = invoicedline.childid.lastname
         saved_child['firstname'] = invoicedline.childid.firstname
-        saved_child['birthdate'] = time.strftime('%d/%m/%Y',time.strptime(invoicedline.childid.birthdate,'%Y-%m-%d'))
+        saved_child['birthdate'] = time.strftime('%d/%m/%Y', time.strptime(invoicedline.childid.birthdate, '%Y-%m-%d'))
         saved_child['level'] = invoicedline.childid.levelid.leveltype if invoicedline.childid.levelid.leveltype else ''
         saved_child['child_class'] = invoicedline.childid.classid.name if invoicedline.childid.classid.name else ''
         saved_child['child_id'] = invoicedline.childid.id
         saved_child['street_code'] = invoicedline.placeid.street_code
         saved_child['amount'] = invoicedline.total_price
-        saved_child['fisc_amount'] = invoicedline.total_price if invoicedline.activity_activity_id.on_tax_certificate else 0
+        saved_child[
+            'fisc_amount'] = invoicedline.total_price if invoicedline.activity_activity_id.on_tax_certificate else 0
         saved_child['invoice_num'] = invoicedline.invoiceid.number
         saved_child['inv_date'] = invoicedline.prestation_date
-        saved_child['inv_date_str'] = time.strftime('%d/%m/%Y',time.strptime(invoicedline.prestation_date,'%Y-%m-%d'))
+        saved_child['inv_date_str'] = time.strftime('%d/%m/%Y', time.strptime(invoicedline.prestation_date, '%Y-%m-%d'))
         try:
             saved_child['splited_place_street'] = p.findall(invoicedline.placeid.street)
         except TypeError:
@@ -331,62 +339,60 @@ class extraschool_invoice(models.Model):
 
     def export_onyx(self):
         res = []
-        #split street
+        # split street
         p = re.compile(r"([^0-9^,]*|.*\b11 novembre\b)[\s,]*([0-9]*)[\/\s]*([a-zA-Z]*[0-9]*)[\/\s]*([a-zA-Z]*[0-9]*)$")
 
         splited_street = p.findall(self.parentid.street)
         if len(splited_street) == 0:
-            splited_street = [(splited_street,'','','','')]
-        #split rue ecole
-
+            splited_street = [(splited_street, '', '', '', '')]
+        # split rue ecole
 
         activities = self.env["extraschool.activity"].search([]).mapped('name')
 
-        #statique part
+        # statique part
         format_str = ""
-        format_str += "%7s\t" # matricule sur 7 char
-        format_str += "%s\t" # Nom du redev
-        format_str += "%s\t" # prenom du redev
-        format_str += "%s\t" # code rue (facultatif)
-        format_str += "%s\t" # libellé rue
-        format_str += "%s\t" # num
-        format_str += "%s\t" # boite
-        format_str += "%s\t" # index
-        format_str += "%04d\t" # code post sur 4 pos avec leading 0
-        format_str += "%s\t" # localité
-        format_str += "%s\t" # pays
-        format_str += "%s\t" # langue defaut F
-        format_str += "%s\t" # civilité
-        #adresse ecole
-        format_str += "%s\t" # code rue (facultatif)
-        format_str += "%s\t" # libellé rue
-        format_str += "%s\t" # num
-        format_str += "%s\t" # boite
-        format_str += "%s\t" # index
-        format_str += "%04d\t" # code post sur 4 pos avec leading 0
-        format_str += "%s\t" # localité
-        format_str += "%s\t" # from
-        format_str += "%s\t" # to
-        format_str += "%s\t" # comment
-        #separator
-        format_str += "%s\t" #separator
-        #dynamique part
-        format_str += "%s\t" # Num de fact
-        format_str += "%s\t" # id de l'enfant
-        format_str += "%s\t" # niveau de l'enfant (M/P)
-        format_str += "%s\t" # Nom de l'enfant
-        format_str += "%s\t" # prenom de l'enfant
-        format_str += "%s\t" # birtdate de l'enfant
-        format_str += "%7s\t" # matricule sur 7 char
-        format_str += "%s\t" # class de l'enfant
-        format_str += "%s\t" # date de présence
-#        format_str += "%s\t" # debug
-        format_str += "%s\t" # activity
-        format_str += "%s\t" # nbr j présences
-        format_str += "%.2f\t" # fisc amount
-        format_str += "%.2f\t" # amount
-        format_str += "%.2f" # quantity
-
+        format_str += "%7s\t"  # matricule sur 7 char
+        format_str += "%s\t"  # Nom du redev
+        format_str += "%s\t"  # prenom du redev
+        format_str += "%s\t"  # code rue (facultatif)
+        format_str += "%s\t"  # libellé rue
+        format_str += "%s\t"  # num
+        format_str += "%s\t"  # boite
+        format_str += "%s\t"  # index
+        format_str += "%04d\t"  # code post sur 4 pos avec leading 0
+        format_str += "%s\t"  # localité
+        format_str += "%s\t"  # pays
+        format_str += "%s\t"  # langue defaut F
+        format_str += "%s\t"  # civilité
+        # adresse ecole
+        format_str += "%s\t"  # code rue (facultatif)
+        format_str += "%s\t"  # libellé rue
+        format_str += "%s\t"  # num
+        format_str += "%s\t"  # boite
+        format_str += "%s\t"  # index
+        format_str += "%04d\t"  # code post sur 4 pos avec leading 0
+        format_str += "%s\t"  # localité
+        format_str += "%s\t"  # from
+        format_str += "%s\t"  # to
+        format_str += "%s\t"  # comment
+        # separator
+        format_str += "%s\t"  # separator
+        # dynamique part
+        format_str += "%s\t"  # Num de fact
+        format_str += "%s\t"  # id de l'enfant
+        format_str += "%s\t"  # niveau de l'enfant (M/P)
+        format_str += "%s\t"  # Nom de l'enfant
+        format_str += "%s\t"  # prenom de l'enfant
+        format_str += "%s\t"  # birtdate de l'enfant
+        format_str += "%7s\t"  # matricule sur 7 char
+        format_str += "%s\t"  # class de l'enfant
+        format_str += "%s\t"  # date de présence
+        #        format_str += "%s\t" # debug
+        format_str += "%s\t"  # activity
+        format_str += "%s\t"  # nbr j présences
+        format_str += "%.2f\t"  # fisc amount
+        format_str += "%.2f\t"  # amount
+        format_str += "%.2f"  # quantity
 
         format_activities_str = ""
         for activity in activities:
@@ -419,74 +425,84 @@ class extraschool_invoice(models.Model):
         saved_child['place'] = ''
         saved_child['quantity'] = 0.0
 
-
         total = 0
-        lines_ids = self.invoice_line_ids.filtered(lambda r: r.total_price > 0.0001).sorted(key=lambda r: "%s%s%s%s%s" % (r.childid.rn, r.childid.name, r.placeid.street_code, r.prestation_date, r.activity_activity_id.short_name))
+        lines_ids = self.invoice_line_ids.filtered(lambda r: r.total_price > 0.0001).sorted(
+            key=lambda r: "%s%s%s%s%s" % (
+                r.childid.rn, r.childid.name, r.placeid.street_code, r.prestation_date,
+                r.activity_activity_id.short_name))
 
         if len(lines_ids) == 0:
             return {'lines': res,
                     'exported_amount': total,
-                     }
+                    }
 
         for invoicedline in lines_ids:
             if zz == 0:
                 saved_child = self.export_onyx_child_change(invoicedline, saved_child, True)
                 str_line = ""
 
-            if (zz > 0 and (saved_child['saved_child'] != invoicedline.childid.name or saved_child['inv_date'] != invoicedline.prestation_date or saved_child['saved_activity'] != invoicedline.activity_activity_id.short_name))  or zz == len(self.invoice_line_ids) -1:
-                str_line = format_str % (self.parentid.rn if self.parentid.rn else "", # Matricule.
-                                        self.parentid.lastname,
-                                        self.parentid.firstname,
-                                        '', # code rue
-                                        splited_street[0][0], # libellé rue
-                                        splited_street[0][1], # num
-                                        splited_street[0][2], # boite
-                                        splited_street[0][3], # index
-                                        int(self.parentid.zipcode), #code post
-                                        self.parentid.city,
-                                        '', # pays
-                                        'F', # Langue
-                                        '', # civilité
-                                        saved_child['street_code'], #code rue place
-                                        saved_child['splited_place_street'][0][0], # libellé rue
-                                        saved_child['splited_place_street'][0][1], # num
-                                        saved_child['splited_place_street'][0][2], # boite
-                                        saved_child['splited_place_street'][0][3], # index
-                                        int(saved_child['place'].zipcode),
-                                        saved_child['place'].city,
-                                        time.strftime('%d/%m/%Y',time.strptime(self.biller_id.period_from,'%Y-%m-%d')),
-                                        time.strftime('%d/%m/%Y',time.strptime(self.biller_id.period_to,'%Y-%m-%d')),
-                                        '',
-                                        '#', # comment
-                                        saved_child['invoice_num'],
-                                        saved_child['child_id'],
-                                        saved_child['level'],
-                                        saved_child['lastname'],
-                                        saved_child['firstname'],
-                                        saved_child['birthdate'],
-                                        saved_child['rn'],
-                                        saved_child['child_class'],
-                                        saved_child['inv_date_str'],
-                                        saved_child['saved_activity'],
-                                        1 if saved_child['nbr_jour'] >= 1 and not saved_child['nbr_jour_printed'] else 0,
-                                        saved_child['fisc_amount'],
-                                        saved_child['amount'],
-                                        saved_child['quantity']
-                                        )
-                total+=saved_child['amount']
+            if (zz > 0 and (saved_child['saved_child'] != invoicedline.childid.name or saved_child[
+                'inv_date'] != invoicedline.prestation_date or saved_child[
+                                'saved_activity'] != invoicedline.activity_activity_id.short_name)) or zz == len(
+                self.invoice_line_ids) - 1:
+                str_line = format_str % (self.parentid.rn if self.parentid.rn else "",  # Matricule.
+                                         self.parentid.lastname,
+                                         self.parentid.firstname,
+                                         '',  # code rue
+                                         splited_street[0][0],  # libellé rue
+                                         splited_street[0][1],  # num
+                                         splited_street[0][2],  # boite
+                                         splited_street[0][3],  # index
+                                         int(self.parentid.zipcode),  # code post
+                                         self.parentid.city,
+                                         '',  # pays
+                                         'F',  # Langue
+                                         '',  # civilité
+                                         saved_child['street_code'],  # code rue place
+                                         saved_child['splited_place_street'][0][0],  # libellé rue
+                                         saved_child['splited_place_street'][0][1],  # num
+                                         saved_child['splited_place_street'][0][2],  # boite
+                                         saved_child['splited_place_street'][0][3],  # index
+                                         int(saved_child['place'].zipcode),
+                                         saved_child['place'].city,
+                                         time.strftime('%d/%m/%Y',
+                                                       time.strptime(self.biller_id.period_from, '%Y-%m-%d')),
+                                         time.strftime('%d/%m/%Y', time.strptime(self.biller_id.period_to, '%Y-%m-%d')),
+                                         '',
+                                         '#',  # comment
+                                         saved_child['invoice_num'],
+                                         saved_child['child_id'],
+                                         saved_child['level'],
+                                         saved_child['lastname'],
+                                         saved_child['firstname'],
+                                         saved_child['birthdate'],
+                                         saved_child['rn'],
+                                         saved_child['child_class'],
+                                         saved_child['inv_date_str'],
+                                         saved_child['saved_activity'],
+                                         1 if saved_child['nbr_jour'] >= 1 and not saved_child[
+                                             'nbr_jour_printed'] else 0,
+                                         saved_child['fisc_amount'],
+                                         saved_child['amount'],
+                                         saved_child['quantity']
+                                         )
+                total += saved_child['amount']
                 if saved_child['nbr_jour']:
                     saved_child['nbr_jour_printed'] = True
 
                 res.append(str_line)
 
-            #break on child, date or activity_short_name
-            if saved_child['saved_child'] != invoicedline.childid.name or saved_child['inv_date'] != invoicedline.prestation_date or saved_child['saved_activity'] != invoicedline.activity_activity_id.short_name:
-                #if break on child, date
-                if saved_child['saved_child'] != invoicedline.childid.name or saved_child['inv_date'] != invoicedline.prestation_date:
+            # break on child, date or activity_short_name
+            if saved_child['saved_child'] != invoicedline.childid.name or saved_child[
+                'inv_date'] != invoicedline.prestation_date or saved_child[
+                'saved_activity'] != invoicedline.activity_activity_id.short_name:
+                # if break on child, date
+                if saved_child['saved_child'] != invoicedline.childid.name or saved_child[
+                    'inv_date'] != invoicedline.prestation_date:
                     saved_child = self.export_onyx_child_change(invoicedline, saved_child, True)
                     str_line = ""
                 else:
-                    saved_child = self.export_onyx_child_change(invoicedline,saved_child)
+                    saved_child = self.export_onyx_child_change(invoicedline, saved_child)
                     str_line = ""
                     if invoicedline.activity_activity_id.on_tax_certificate:
                         saved_child['nbr_jour'] += 1
@@ -497,60 +513,60 @@ class extraschool_invoice(models.Model):
                         saved_child['fisc_amount'] += invoicedline.total_price
                     saved_child['amount'] += invoicedline.total_price
 
-            zz+=1
+            zz += 1
 
         if str_line == "":
             str_line = format_str % (self.parentid.rn or '',
-            self.parentid.lastname,
-            self.parentid.firstname,
-            '', # code rue
-            splited_street[0][0], # libellé rue
-            splited_street[0][1], # num
-            splited_street[0][2], # boite
-            splited_street[0][3], # index
-            int(self.parentid.zipcode), #code post
-            self.parentid.city,
-            '', # pays
-            'F', # Langue
-            '', # civilité
-            saved_child['street_code'], #code rue place
-            saved_child['splited_place_street'][0][0], # libellé rue
-            saved_child['splited_place_street'][0][1], # num
-            saved_child['splited_place_street'][0][2], # boite
-            saved_child['splited_place_street'][0][3], # index
-            int(saved_child['place'].zipcode),
-            saved_child['place'].city,
-            time.strftime('%d/%m/%Y',time.strptime(self.biller_id.period_from,'%Y-%m-%d')),
-            time.strftime('%d/%m/%Y',time.strptime(self.biller_id.period_to,'%Y-%m-%d')),
-            '',
-            '#', # comment
-            saved_child['invoice_num'],
-            saved_child['child_id'],
-            saved_child['level'],
-            saved_child['lastname'],
-            saved_child['firstname'],
-            saved_child['birthdate'],
-            saved_child['rn'] or '',
-            saved_child['child_class'] or '',
-            saved_child['inv_date_str'],
-            saved_child['saved_activity'],
-            1 if saved_child['nbr_jour'] >= 1 and not saved_child['nbr_jour_printed'] else 0,
-            saved_child['fisc_amount'],
-            saved_child['amount'],
-            saved_child['quantity'],
-                                        )
-            total+=saved_child['amount']
+                                     self.parentid.lastname,
+                                     self.parentid.firstname,
+                                     '',  # code rue
+                                     splited_street[0][0],  # libellé rue
+                                     splited_street[0][1],  # num
+                                     splited_street[0][2],  # boite
+                                     splited_street[0][3],  # index
+                                     int(self.parentid.zipcode),  # code post
+                                     self.parentid.city,
+                                     '',  # pays
+                                     'F',  # Langue
+                                     '',  # civilité
+                                     saved_child['street_code'],  # code rue place
+                                     saved_child['splited_place_street'][0][0],  # libellé rue
+                                     saved_child['splited_place_street'][0][1],  # num
+                                     saved_child['splited_place_street'][0][2],  # boite
+                                     saved_child['splited_place_street'][0][3],  # index
+                                     int(saved_child['place'].zipcode),
+                                     saved_child['place'].city,
+                                     time.strftime('%d/%m/%Y', time.strptime(self.biller_id.period_from, '%Y-%m-%d')),
+                                     time.strftime('%d/%m/%Y', time.strptime(self.biller_id.period_to, '%Y-%m-%d')),
+                                     '',
+                                     '#',  # comment
+                                     saved_child['invoice_num'],
+                                     saved_child['child_id'],
+                                     saved_child['level'],
+                                     saved_child['lastname'],
+                                     saved_child['firstname'],
+                                     saved_child['birthdate'],
+                                     saved_child['rn'] or '',
+                                     saved_child['child_class'] or '',
+                                     saved_child['inv_date_str'],
+                                     saved_child['saved_activity'],
+                                     1 if saved_child['nbr_jour'] >= 1 and not saved_child['nbr_jour_printed'] else 0,
+                                     saved_child['fisc_amount'],
+                                     saved_child['amount'],
+                                     saved_child['quantity'],
+                                     )
+            total += saved_child['amount']
             res.append(str_line)
 
         return {'lines': res,
                 'exported_amount': total,
-                 }
+                }
 
     @api.multi
     def set_tag(self, context):
         invoice_tag_obj = self.env['extraschool.invoice_tag']
         if not context['tag']:
-            self.tag = None # Plus de tag.
+            self.tag = None  # Plus de tag.
         elif context['tag'] == 'huissier':
             self.tag = invoice_tag_obj.search([('name', '=', 'Huissier')]).id  # Huissier.
         elif context['tag'] == 'plan_de_paiement':
