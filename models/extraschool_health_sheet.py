@@ -147,16 +147,16 @@ class extraschool_health_sheet(models.Model):
                         break
                 if create_diabete:
                     health_sheet.disease_ids.create({'health_id': health_sheet.id, 'disease':
-                        self.env['extraschool.disease_type'].search([('name', '=', u'Diabète')])[0].id, 'disease_text': 'd',
+                        self.env['extraschool.disease_type'].search([('name', '=', u'Diabète')])[0].id,
+                                                     'disease_text': 'd',
                                                      'gravity': 'f'})
 
-
-@api.model
-def create(self, vals):
-    if self.search([('child_id', '=', self._context.get('child_id'))]):
-        raise Warning("Une fiche santé existe déjà pour cet enfant !")
-    else:
-        return super(extraschool_health_sheet, self).create(vals)
+    @api.model
+    def create(self, vals):
+        if self.search([('child_id', '=', self._context.get('child_id'))]):
+            raise Warning("Une fiche santé existe déjà pour cet enfant !")
+        else:
+            return super(extraschool_health_sheet, self).create(vals)
 
 
 class extraschool_doctor(models.Model):
