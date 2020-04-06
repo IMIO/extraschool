@@ -92,7 +92,7 @@
                                 <separator string="Natation" colspan="2"/>
                                 <newline/>
                                     <field name="swim" widget='radio' options="{'horizontal': true}"/>
-                                    <field name="swim_level" widget='radio' options="{'horizontal': true}" attrs="{'invisible':[('swim', '=', 'non_renseigne')]}"/>
+                                    <field name="swim_level" widget='radio' options="{'horizontal': true}" attrs="{'invisible':[('swim', 'in', ('non_renseigne', 'non'))]}"/>
                                 </group>
                             </div>
                         </page>
