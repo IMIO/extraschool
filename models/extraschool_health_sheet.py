@@ -45,7 +45,6 @@ class extraschool_health_sheet(models.Model):
          ('O+', 'O+'),
          ('O-', 'O-'),
          ('inconnu', 'Inconnu')), string='Blood type')
-    tetanus = fields.Boolean(string='Tetanus', default=False)
     tetanus_selection = fields.Selection(
         (('non_renseigne', 'Non renseigné'),
          ('non', 'Non'),
@@ -53,7 +52,6 @@ class extraschool_health_sheet(models.Model):
     first_date_tetanus = fields.Date(string='First date tetanus')
     last_date_tetanus = fields.Date(string='Last date tetanus')
     contact_ids = fields.One2many('extraschool.other_contact', 'health_id', string='contact', )
-    allergy = fields.Boolean(string='Allergy', default=False)
     allergy_selection = fields.Selection(
         (('non_renseigne', 'Non renseigné'),
          ('non', 'Non'),
@@ -61,19 +59,16 @@ class extraschool_health_sheet(models.Model):
     allergy_ids = fields.Many2many('extraschool.allergy', 'extraschool_child_allergy_rel', 'child_id', 'allergy_id',
                                    'Allergy list')
     allergy_consequence = fields.Char(string='Allergy consequence')
-    handicap = fields.Boolean(string='Handicap', default=False)
     handicap_selection = fields.Selection(
         (('non_renseigne', 'Non renseigné'),
          ('non', 'Non'),
          ('oui', 'Oui')), default='non_renseigne', string='Handicap')
     type_handicap = fields.Char(string='Type of handicap')
-    specific_regime = fields.Boolean(string='Specific Regime', default=False)
     specific_regime_selection = fields.Selection(
         (('non_renseigne', 'Non renseigné'),
          ('non', 'Non'),
          ('oui', 'Oui')), default='non_renseigne', string='Specific Regime')
     specific_regime_text = fields.Char(string='Type specific regime')
-    activity_no_available = fields.Boolean(string='Activity no available', default=False)
     activity_no_available_selection = fields.Selection(
         (('non_renseigne', 'Non renseigné'),
          ('non', 'Non'),
@@ -109,11 +104,6 @@ class extraschool_health_sheet(models.Model):
         (('non_renseigne', 'Non renseigné'),
          ('non', 'Non'),
          ('oui', 'Oui')), default='non_renseigne', string='Arnica')
-    diabetique = fields.Boolean(string='Diabétique', default=False)
-    diabetique_selection = fields.Selection(
-        (('non_renseigne', 'Non renseigné'),
-         ('non', 'Non'),
-         ('oui', 'Oui')), default='non_renseigne', string='Diabétique')
     interdiction_contact_ids = fields.One2many('extraschool.interdiction_other_contact', 'health_id',
                                                string='Interdiction contact', )
     photo_general = fields.Selection(
@@ -125,31 +115,6 @@ class extraschool_health_sheet(models.Model):
          ('non', 'Non'),
          ('oui', 'Oui')), default='non_renseigne', string='Self medication general')
     medication_ids = fields.One2many('extraschool.medication', 'health_id')
-
-    @api.model
-    def update_health_sheet(self):
-        health_sheets = self.search([])
-        for health_sheet in health_sheets:
-            health_sheet.write({
-                'tetanus_selection': 'oui' if health_sheet.tetanus else health_sheet.tetanus_selection,
-                'allergy_selection': 'oui' if health_sheet.allergy else health_sheet.allergy_selection,
-                'handicap_selection': 'oui' if health_sheet.handicap else health_sheet.handicap_selection,
-                'specific_regime_selection': 'oui' if health_sheet.specific_regime else health_sheet.specific_regime_selection,
-                'activity_no_available_selection': 'oui' if health_sheet.activity_no_available else health_sheet.activity_no_available_selection,
-                'intervention_selection': 'oui' if health_sheet.intervention else health_sheet.intervention_selection,
-            })
-            if health_sheet.diabetique or health_sheet.diabetique_selection == u'oui':
-                create_diabete = True
-                diseases = health_sheet.disease_ids
-                for disease in diseases:
-                    if disease.disease.name == u'Diabète':
-                        create_diabete = False
-                        break
-                if create_diabete:
-                    health_sheet.disease_ids.create({'health_id': health_sheet.id, 'disease':
-                        self.env['extraschool.disease_type'].search([('name', '=', u'Diabète')])[0].id,
-                                                     'disease_text': 'd',
-                                                     'gravity': 'f'})
 
     @api.model
     def create(self, vals):
