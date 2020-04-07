@@ -624,7 +624,6 @@ class extraschool_invoice(models.Model):
                 break
         self._compute_balance()
 
-
 class extraschool_invoice_tag(models.Model):
     _name = 'extraschool.invoice_tag'
     _description = 'Different tag can be used but they all block the process of this invoice. No reminder and so on.'
