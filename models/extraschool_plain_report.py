@@ -146,94 +146,50 @@ class extraschool_plain_report(models.Model):
 
     @api.multi
     def _generate_childs_list(self, tags, prestation_ids, vals):
-        under_6 = {}
-        over_6 = {}
+        childs = {'under_6': {}, 'over_6': {}}
         tags['under_6'] = []
         tags['over_6'] = []
-        nb_under_6 = 0
-        nb_over_6 = 0
         tags['nb_child_mild'] = 0
         tags['nb_child_heavy'] = 0
         tags['nb_child_disadvantaged'] = 0
-
-        # todo simplifier l'algorithme et également dans le rapport ONE
         for prestation in prestation_ids:
-            age = prestation.childid.get_age()
-            if age >= 6:
-                if prestation.childid.id in over_6:
-                    over_6[prestation.childid.id]['prestation'] += 1
-                    over_6[prestation.childid.id]['price'] += prestation.invoiced_prestation_id.total_price
-                else:
-                    nb_over_6 += 1
-                    dates = [p.prestation_date for p in
-                             prestation_ids.filtered(
-                                 lambda r: r.childid == prestation.childid)]
-                    over_6[prestation.childid.id] = {'lastname': prestation.childid.lastname.upper(),
-                                                     'firstname': prestation.childid.firstname,
-                                                     'age': age,
-                                                     'prestation': 1,
-                                                     'price': prestation.invoiced_prestation_id.total_price,
-                                                     'nb': nb_over_6,
-                                                     'date_from': datetime.strptime(min(dates), '%Y-%m-%d').strftime(
-                                                         '%d/%m/%Y'),
-                                                     'date_to': datetime.strptime(max(dates), '%Y-%m-%d').strftime(
-                                                         '%d/%m/%Y')}
+            selected_list = 'under_6' if prestation.childid.get_age() <= 6 else 'over_6'
+            if prestation.childid.id not in childs[selected_list]:
+                dates = [p.prestation_date for p in prestation_ids.filtered(lambda r: r.childid == prestation.childid)]
+                childs[selected_list][prestation.childid.id] = {'lastname': prestation.childid.lastname.upper(),
+                                                                'firstname': prestation.childid.firstname,
+                                                                'age': prestation.childid.get_age(),
+                                                                'prestation': 1,
+                                                                'price': prestation.invoiced_prestation_id.total_price,
+                                                                'nb': len(childs[selected_list]) + 1,
+                                                                'date_from': datetime.strptime(min(dates),
+                                                                                               '%Y-%m-%d').strftime(
+                                                                    '%d/%m/%Y'),
+                                                                'date_to': datetime.strptime(max(dates),
+                                                                                             '%Y-%m-%d').strftime(
+                                                                    '%d/%m/%Y'),
+                                                                'days': (datetime.strptime(max(dates), '%Y-%m-%d')
+                                                                        - datetime.strptime(min(dates), '%Y-%m-%d')).days + 1}
+                if prestation.childid.health_sheet_ids:
+                    health_sheet = prestation.childid.health_sheet_ids[0]
+                    if health_sheet.handicap_selection == u'oui':
+                        if health_sheet.level_handicap == 'mild':
+                            childs[selected_list][prestation.childid.id]['mild'] = ' '
+                            tags['nb_child_mild'] += 1
+                        else:
+                            childs[selected_list][prestation.childid.id]['heavy'] = ' '
+                            tags['nb_child_heavy'] += 1
+                if prestation.childid.disadvantaged:
+                    childs[selected_list][prestation.childid.id]['disadvantaged'] = ' '
+                    tags['nb_child_disadvantaged'] += 1
+                tags[selected_list].append(childs[selected_list][prestation.childid.id])
 
-                    if prestation.childid.health_sheet_ids:
-                        health_sheet = prestation.childid.health_sheet_ids[0]
-                        if health_sheet.handicap_selection == u'oui':
-                            if health_sheet.level_handicap == 'mild':
-                                over_6[prestation.childid.id]['mild'] = ' '
-                                tags['nb_child_mild'] += 1
-                            else:
-                                over_6[prestation.childid.id]['heavy'] = ' '
-                                tags['nb_child_heavy'] += 1
+            childs[selected_list][prestation.childid.id]['prestation'] += 1
+            childs[selected_list][prestation.childid.id]['price'] += prestation.invoiced_prestation_id.total_price
 
-                    if prestation.childid.disadvantaged:
-                        over_6[prestation.childid.id]['disadvantaged'] = ' '
-                        tags['nb_child_disadvantaged'] += 1
-
-                    tags['over_6'].append(over_6[prestation.childid.id])
-
-            else:
-                if prestation.childid.id in under_6:
-                    under_6[prestation.childid.id]['prestation'] += 1
-                    under_6[prestation.childid.id]['price'] += prestation.invoiced_prestation_id.total_price
-                else:
-                    nb_under_6 += 1
-                    dates = [p.prestation_date for p in
-                             prestation_ids.filtered(
-                                 lambda r: r.childid == prestation.childid)]
-                    under_6[prestation.childid.id] = {'lastname': prestation.childid.lastname.upper(),
-                                                      'firstname': prestation.childid.firstname,
-                                                      'age': age,
-                                                      'prestation': 1,
-                                                      'price': prestation.invoiced_prestation_id.total_price,
-                                                      'nb': nb_under_6,
-                                                      'date_from': datetime.strptime(min(dates), '%Y-%m-%d').strftime(
-                                                         '%d/%m/%Y'),
-                                                     'date_to': datetime.strptime(max(dates), '%Y-%m-%d').strftime(
-                                                         '%d/%m/%Y')}
-
-                    if prestation.childid.health_sheet_ids:
-                        health_sheet = prestation.childid.health_sheet_ids[0]
-                        if health_sheet.handicap:
-                            if health_sheet.level_handicap == 'mild':
-                                under_6[prestation.childid.id]['mild'] = ' '
-                                tags['nb_child_mild'] += 1
-                            else:
-                                under_6[prestation.childid.id]['heavy'] = ' '
-                                tags['nb_child_heavy'] += 1
-
-                    if prestation.childid.disadvantaged:
-                        under_6[prestation.childid.id]['disadvantaged'] = ' '
-                        tags['nb_child_disadvantaged'] += 1
-
-                    tags['under_6'].append(under_6[prestation.childid.id])
-
-        tags['under_total'] = nb_under_6
-        tags['over_total'] = nb_over_6
-        tags['nb_child_valid'] = nb_under_6 + nb_over_6
+        tags['under_6_total'] = len(tags['under_6'])
+        tags['over_6_total'] = len(tags['over_6'])
+        tags['nb_child_valid'] = tags['under_6_total'] + tags['over_6_total']
         return tags
 
     # for the futur only... if there are a future for this class
