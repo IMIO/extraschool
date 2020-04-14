@@ -43,6 +43,7 @@
                                 <separator string="Handicap" colspan="4"/>
                                     <field name="handicap_selection" widget='radio' options="{'horizontal': true}"/>
                                     <field name="type_handicap" attrs="{'invisible':[('handicap_selection', '!=', 'oui')], 'required':[('handicap_selection', '=', 'oui')]}"/>
+                                    <field name="level_handicap" attrs="{'invisible':[('handicap_selection', '!=', 'oui')]}"/>
                                 <separator string="Régime alimentaire spécial" colspan="4"/>
                                     <field name="specific_regime_selection" widget='radio' options="{'horizontal': true}"/>
                                     <field name="specific_regime_text" attrs="{'invisible':[('specific_regime_selection', '!=', 'oui')], 'required':[('specific_regime_selection', '=', 'oui')]}"/>
@@ -100,7 +101,7 @@
                                     <field name="disease_ids" nolabel="1">
                                         <tree editable="bottom" string="Diseases">
                                             <field name="disease" required="1"/>
-                                            <field name="gravity" required="1"/>
+                                            <field name="gravity"/>
                                             <field name="disease_text" required="1"/>
                                         </tree>
                                     </field>

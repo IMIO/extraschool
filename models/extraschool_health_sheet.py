@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2019
+#    Copyright (C) 2008-2020
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
 #
@@ -64,6 +64,9 @@ class extraschool_health_sheet(models.Model):
          ('non', 'Non'),
          ('oui', 'Oui')), default='non_renseigne', string='Handicap')
     type_handicap = fields.Char(string='Type of handicap')
+    level_handicap = fields.Selection(
+        (('mild', 'Léger'),
+         ('heavy', 'Lourd')), string='Level of handicap')
     specific_regime_selection = fields.Selection(
         (('non_renseigne', 'Non renseigné'),
          ('non', 'Non'),
@@ -94,7 +97,6 @@ class extraschool_health_sheet(models.Model):
          ('moyen', 'Moyen'),
          ('difficilement', 'Difficilement'),
          ('non_renseigne', 'Non renseigné')), default='non_renseigne', string='Swim level')
-    intervention = fields.Boolean(string='Intervention', default=False)
     intervention_text = fields.Char(string='Type of intervention')
     intervention_selection = fields.Selection(
         (('non_renseigne', 'Non renseigné'),

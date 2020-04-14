@@ -70,6 +70,7 @@
                                 <field name="housephone" placeholder="Téléphone Maison"/>
                                 <field name="gsm" placeholder="GSM"/>
                                 <field name="email" placeholder="Email"/>
+                                <field name="fax" placeholder="Fax"/>
                             </div>
                         </group>
                     </page>
