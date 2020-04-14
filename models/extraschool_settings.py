@@ -35,7 +35,10 @@ class extraschool_one_settings(models.Model):
     _inherit = 'res.config.settings'
     _name = 'extraschool.onereport_settings'
 
-    name = fields.Char("Name" , required=True, default="One report template")
+    name = fields.Selection(
+        (('one_report', 'Rapport pour l\'ONE'),
+         ('plain_report', 'Rapport des plaines'))
+    )
     validity_from = fields.Date("Validity from")
     validity_to = fields.Date("Validity to")
     report_template = fields.Binary("Report template")

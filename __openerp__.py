@@ -21,25 +21,25 @@
 #
 ##############################################################################
 {
-    'name' : 'Extraschool',
-    'version' : '9.1.0.10',
-    'author' : 'Town of La Bruyère and Imio',
-    'depends' : ['base',
-                 'report',
-                 'mail',
-                 'decimal_precision',
-                 'web',
-                 ],
+    'name': 'Extraschool',
+    'version': '9.1.0.10',
+    'author': 'Town of La Bruyère and Imio',
+    'depends': ['base',
+                'report',
+                'mail',
+                'decimal_precision',
+                'web',
+                ],
 
     'css': [
         'static/src/css/test.css',
         'static/src/css/tpl_qrcodes_wizard_report.css',
     ],
-    'demo' : [],
-    'test' : [],
-    'data' : [
+    'demo': [],
+    'test': [],
+    'data': [
         'scripts/update_seq.xml',
-        'scripts/update_one_report.sql',
+        # 'scripts/update_one_report.sql',
         # 'scripts/update_activity_category.xml',
         'data/data_days.xml',
         'data/data_age_group.xml',
@@ -79,6 +79,7 @@
         'views/extraschool_place.xml',
         'views/extraschool_one_report.xml',
         'views/extraschool_subvention_report.xml',
+        'views/extraschool_plain_report.xml',
         'views/extraschool_pda_prestation_times.xml',
         'views/extraschool_pdaprestationtimes_correction_wizard.xml',
         'views/extraschool_prestationscheck_wizard.xml',
@@ -109,7 +110,7 @@
         'views/extraschool_annual_report.xml',
         'views/extraschool_refund_wizard.xml',
         'views/extraschool_res_users.xml',
-        #'views/widgets.xml',
+        # 'views/widgets.xml',
         'views/extraschool_config_smartphone.xml',
         'views/extraschool_query_sql.xml',
         # 'views/extraschool_qrconfig.xml',
@@ -184,7 +185,7 @@
         'report/reminder/reminder_text.xml',
         'report/parent_invoices_summary.xml'
     ],
-    'installable' : True,
+    'installable': True,
     'application': True,
-    'description' : "This module is to manage billing attendance for extra school activities",
+    'description': "This module is to manage billing attendance for extra school activities",
 }

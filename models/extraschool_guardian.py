@@ -41,15 +41,16 @@ class extraschool_guardian(models.Model):
 
     activitycategoryid = fields.Many2one('extraschool.activitycategory', 'Activity Category',
                                          track_visibility='onchange', default=_get_activity_category_id)
-    schoolimplantation = fields.Many2one('extraschool.schoolimplantation', 'School implantation', required=True, default=_get_schoolimplantation_id)
+    schoolimplantation = fields.Many2one('extraschool.schoolimplantation', 'School implantation', required=True,
+                                         default=_get_schoolimplantation_id)
     type = fields.Selection(
         (('accueillante', 'Accueillante'),
          ('animateur', 'Animateur'),
          ('responsable', "Responsable")),
         default='accueillante', string='Type')
-    name = fields.Char(compute='_name_compute',string='FullName', size=100, store=True)
+    name = fields.Char(compute='_name_compute', string='FullName', size=100, store=True)
     firstname = fields.Char('FirstName', size=50)
-    lastname = fields.Char('LastName', size=50 , required=True)
+    lastname = fields.Char('LastName', size=50, required=True)
     birthdate = fields.Date('Birthdate', track_visibility='onchange')
     tagid = fields.Char('Tag ID', size=50, track_visibility='onchange')
     otherref = fields.Char('Other ref')
@@ -61,6 +62,7 @@ class extraschool_guardian(models.Model):
     housephone = fields.Char('House Phone', size=20, track_visibility='onchange')
     gsm = fields.Char('GSM', size=20, track_visibility='onchange')
     email = fields.Char('Email', size=100, track_visibility='onchange')
+    fax = fields.Char('Fax')
     oldid = fields.Integer('oldid')
     brevete = fields.Boolean('Breveté', track_visibility='onchange')
     prestation_ids = fields.One2many('extraschool.guardianprestationtimes', 'guardianid')

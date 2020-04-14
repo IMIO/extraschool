@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2019
+#    Copyright (C) 2008-2020
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
 #
@@ -36,8 +36,8 @@ class extraschool_health_sheet(models.Model):
     comment = fields.Text(string='Comment')
     doctor_id = fields.Many2one('extraschool.doctor', string='Doctor', select=True)
     blood_type = fields.Selection(
-        (('AB+','AB+'),
-         ('AB-','AB-'),
+        (('AB+', 'AB+'),
+         ('AB-', 'AB-'),
          ('A+', 'A+'),
          ('A-', 'A-'),
          ('B+', 'B+'),
@@ -45,7 +45,6 @@ class extraschool_health_sheet(models.Model):
          ('O+', 'O+'),
          ('O-', 'O-'),
          ('inconnu', 'Inconnu')), string='Blood type')
-    tetanus = fields.Boolean(string='Tetanus', default=False)
     tetanus_selection = fields.Selection(
         (('non_renseigne', 'Non renseigné'),
          ('non', 'Non'),
@@ -53,33 +52,33 @@ class extraschool_health_sheet(models.Model):
     first_date_tetanus = fields.Date(string='First date tetanus')
     last_date_tetanus = fields.Date(string='Last date tetanus')
     contact_ids = fields.One2many('extraschool.other_contact', 'health_id', string='contact', )
-    allergy = fields.Boolean(string='Allergy', default=False)
     allergy_selection = fields.Selection(
         (('non_renseigne', 'Non renseigné'),
          ('non', 'Non'),
          ('oui', 'Oui')), default='non_renseigne', string='Allergy')
-    allergy_ids = fields.Many2many('extraschool.allergy', 'extraschool_child_allergy_rel', 'child_id', 'allergy_id', 'Allergy list')
+    allergy_ids = fields.Many2many('extraschool.allergy', 'extraschool_child_allergy_rel', 'child_id', 'allergy_id',
+                                   'Allergy list')
     allergy_consequence = fields.Char(string='Allergy consequence')
-    handicap = fields.Boolean(string='Handicap', default=False)
     handicap_selection = fields.Selection(
         (('non_renseigne', 'Non renseigné'),
          ('non', 'Non'),
          ('oui', 'Oui')), default='non_renseigne', string='Handicap')
     type_handicap = fields.Char(string='Type of handicap')
-    specific_regime = fields.Boolean(string='Specific Regime', default=False)
+    level_handicap = fields.Selection(
+        (('mild', 'Léger'),
+         ('heavy', 'Lourd')), string='Level of handicap')
     specific_regime_selection = fields.Selection(
         (('non_renseigne', 'Non renseigné'),
          ('non', 'Non'),
          ('oui', 'Oui')), default='non_renseigne', string='Specific Regime')
     specific_regime_text = fields.Char(string='Type specific regime')
-    activity_no_available = fields.Boolean(string='Activity no available', default=False)
     activity_no_available_selection = fields.Selection(
         (('non_renseigne', 'Non renseigné'),
          ('non', 'Non'),
          ('oui', 'Oui')), default='non_renseigne', string='Activity no available')
     activity_no_available_text = fields.Char(string='Type of activity no available')
     activity_no_available_reason = fields.Char(string='Reason of activity no available')
-    disease_ids = fields.One2many('extraschool.disease','health_id', 'disease_id')
+    disease_ids = fields.One2many('extraschool.disease', 'health_id', 'disease_id')
     facebook = fields.Selection(
         (('non_renseigne', 'Non renseigné'),
          ('non', 'Non'),
@@ -97,9 +96,7 @@ class extraschool_health_sheet(models.Model):
          ('bien', 'Bien'),
          ('moyen', 'Moyen'),
          ('difficilement', 'Difficilement'),
-         ('pas_du_tout', 'Pas du tout'),
          ('non_renseigne', 'Non renseigné')), default='non_renseigne', string='Swim level')
-    intervention = fields.Boolean(string='Intervention', default=False)
     intervention_text = fields.Char(string='Type of intervention')
     intervention_selection = fields.Selection(
         (('non_renseigne', 'Non renseigné'),
@@ -109,11 +106,6 @@ class extraschool_health_sheet(models.Model):
         (('non_renseigne', 'Non renseigné'),
          ('non', 'Non'),
          ('oui', 'Oui')), default='non_renseigne', string='Arnica')
-    diabetique = fields.Boolean(string='Diabétique', default=False)
-    diabetique_selection = fields.Selection(
-        (('non_renseigne', 'Non renseigné'),
-         ('non', 'Non'),
-         ('oui', 'Oui')), default='non_renseigne', string='Diabétique')
     interdiction_contact_ids = fields.One2many('extraschool.interdiction_other_contact', 'health_id',
                                                string='Interdiction contact', )
     photo_general = fields.Selection(
@@ -131,7 +123,8 @@ class extraschool_health_sheet(models.Model):
         if self.search([('child_id', '=', self._context.get('child_id'))]):
             raise Warning("Une fiche santé existe déjà pour cet enfant !")
         else:
-            return super(extraschool_health_sheet,self).create(vals)
+            return super(extraschool_health_sheet, self).create(vals)
+
 
 class extraschool_doctor(models.Model):
     _name = 'extraschool.doctor'
@@ -168,12 +161,12 @@ class extraschool_interdiction_other_contact(models.Model):
     contact_tel = fields.Char(string='Tél. contact', size=20)
     address_id = fields.Many2one('extraschool.address')
 
+
 class extraschool_allergy(models.Model):
     _name = 'extraschool.allergy'
     _description = 'Allergy'
 
     name = fields.Char(string='Allergie')
-    #consequence = fields.Char(string='Consequence')
 
 
 class extraschool_disease(models.Model):
@@ -184,6 +177,13 @@ class extraschool_disease(models.Model):
     disease = fields.Many2one('extraschool.disease_type', string='Disease')
     disease_text = fields.Char(string='Treatment')
     gravity = fields.Char('Gravity')
+
+
+class extraschool_disease_type(models.Model):
+    _name = 'extraschool.disease_type'
+    _description = 'Type of disease'
+
+    name = fields.Char(string='Disease')
 
 
 class extraschool_medication(models.Model):
@@ -198,9 +198,3 @@ class extraschool_medication(models.Model):
         (('non_renseigne', 'Non renseigné'),
          ('non', 'Non'),
          ('oui', 'Oui')), default='non_renseigne', string='Self medication')
-
-class extraschool_disease_type(models.Model):
-    _name = 'extraschool.disease_type'
-    _description = 'Type of disease'
-
-    name = fields.Char(string='Disease')

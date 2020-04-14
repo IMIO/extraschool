@@ -32,22 +32,19 @@
                                     <field name="blood_type" widget='radio' options="{'horizontal': true}"/>
                                     <newline/>
                                 <separator string="Tétanos" colspan="4"/>
-                                    <field name="tetanus" invisible="1"/>
                                     <field name="tetanus_selection" widget='radio' options="{'horizontal': true}"/>
                                     <newline/>
                                     <field name="first_date_tetanus" attrs="{'invisible':[('tetanus_selection', '!=', 'oui')]}"/>
                                     <field name="last_date_tetanus" attrs="{'invisible':[('tetanus_selection', '!=', 'oui')]}"/>
                                 <separator string="Allergie" colspan="4"/>
-                                    <field name="allergy" invisible="1"/>
                                     <field name="allergy_selection" widget='radio' options="{'horizontal': true}"/>
                                     <field name="allergy_ids" attrs="{'invisible':[('allergy_selection', '!=', 'oui')], 'required':[('allergy_selection', '=', 'oui')]}" widget="many2many_tags"/>
                                     <field name="allergy_consequence" attrs="{'invisible':[('allergy_selection', '!=', 'oui')]}"/>
                                 <separator string="Handicap" colspan="4"/>
-                                    <field name="handicap" invisible="1"/>
                                     <field name="handicap_selection" widget='radio' options="{'horizontal': true}"/>
                                     <field name="type_handicap" attrs="{'invisible':[('handicap_selection', '!=', 'oui')], 'required':[('handicap_selection', '=', 'oui')]}"/>
+                                    <field name="level_handicap" attrs="{'invisible':[('handicap_selection', '!=', 'oui')]}"/>
                                 <separator string="Régime alimentaire spécial" colspan="4"/>
-                                    <field name="specific_regime" invisible="1"/>
                                     <field name="specific_regime_selection" widget='radio' options="{'horizontal': true}"/>
                                     <field name="specific_regime_text" attrs="{'invisible':[('specific_regime_selection', '!=', 'oui')], 'required':[('specific_regime_selection', '=', 'oui')]}"/>
                             </group>
@@ -81,7 +78,6 @@
                                 <group>
                                 <separator string="Activité non praticables" colspan="2"/>
                                 <newline/>
-                                    <field name="activity_no_available" invisible="1"/>
                                     <field name="activity_no_available_selection" widget='radio' options="{'horizontal': true}"/>
                                     <field name="activity_no_available_text" attrs="{'invisible':[('activity_no_available_selection', '!=', 'oui')], 'required':[('activity_no_available_selection', '=', 'oui')]}"/>
                                     <field name="activity_no_available_reason" attrs="{'invisible':[('activity_no_available_selection', '!=', 'oui')]}"/>
@@ -92,7 +88,7 @@
                                 <separator string="Natation" colspan="2"/>
                                 <newline/>
                                     <field name="swim" widget='radio' options="{'horizontal': true}"/>
-                                    <field name="swim_level" widget='radio' options="{'horizontal': true}" attrs="{'invisible':[('swim', '=', 'non_renseigne')]}"/>
+                                    <field name="swim_level" widget='radio' options="{'horizontal': true}" attrs="{'invisible':[('swim', 'in', ('non_renseigne', 'non'))]}"/>
                                 </group>
                             </div>
                         </page>
@@ -105,7 +101,7 @@
                                     <field name="disease_ids" nolabel="1">
                                         <tree editable="bottom" string="Diseases">
                                             <field name="disease" required="1"/>
-                                            <field name="gravity" required="1"/>
+                                            <field name="gravity"/>
                                             <field name="disease_text" required="1"/>
                                         </tree>
                                     </field>
@@ -132,14 +128,8 @@
                             <div>
                                 <group>
                                 <separator string="Intervention grave ou maladie" colspan="2"/>
-                                    <field name="intervention" invisible="1"/>
                                     <field name="intervention_selection" widget='radio' options="{'horizontal': true}"/>
                                     <field name="intervention_text" attrs="{'invisible':[('intervention_selection', '!=', 'oui')], 'required':[('intervention_selection', '=', 'oui')]}"/>
-                                </group>
-                                <group>
-                                <!--<separator string="Diabète" colspan="2"/>
-                                    <field name="diabetique" invisible="1"/>
-                                    <field name="diabetique_selection" widget='radio' options="{'horizontal': true}"/>-->
                                 </group>
                             </div>
 						</page>

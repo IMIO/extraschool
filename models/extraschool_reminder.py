@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2019
+#    Copyright (C) 2008-2020
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot & Michael Colicchia & Jenny Pans - Imio (<http://www.imio.be>).
 #
@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields,_
+from openerp import models, api, fields, _
 import openerp.addons.decimal_precision as dp
 from datetime import date, datetime, timedelta as td
 
@@ -38,31 +38,61 @@ class extraschool_reminder(models.Model):
             res.append((reminder.id, reminder.parentid.name))
         return res
 
-    reminders_journal_item_id = fields.Many2one('extraschool.reminders_journal_item', 'Reminders journal item',ondelete='cascade', required=False)
-    reminders_journal_id = fields.Many2one('extraschool.remindersjournal', 'Reminders journal', ondelete='cascade', required=False)
+    reminders_journal_item_id = fields.Many2one('extraschool.reminders_journal_item', 'Reminders journal item',
+                                                ondelete='cascade', required=False)
+    reminders_journal_id = fields.Many2one('extraschool.remindersjournal', 'Reminders journal', ondelete='cascade',
+                                           required=False)
     parentid = fields.Many2one('extraschool.parent', 'Parent', required=False)
     remindersendmethod = fields.Selection(related="parentid.remindersendmethod", store=True)
-    #todo mettre à jour
-    amount = fields.Float('Amount',digits_compute=dp.get_precision('extraschool_reminder'),readonly=True, store=True)
+    # todo mettre à jour
+    amount = fields.Float(string='Amount', compute='_compute_amount', readonly=True)
     structcom = fields.Char('Structured Communication', size=50)
     school_implantation_id = fields.Many2one('extraschool.schoolimplantation', 'School implantation', required=False)
-    concerned_invoice_ids = fields.Many2many('extraschool.invoice','extraschool_reminder_invoice_rel', 'reminder_id', 'invoice_id','Concerned invoices')
-    # activity_category_id = fields.Many2one(related='reminders_journal_id.activity_category_id', string='Activity Category')
-    activity_category_ids = fields.Many2many(related='reminders_journal_id.activity_category_ids', string='Activities Category')
+    concerned_invoice_ids = fields.Many2many('extraschool.invoice', 'extraschool_reminder_invoice_rel', 'reminder_id',
+                                             'invoice_id', 'Concerned invoices')
+    activity_category_ids = fields.Many2many(related='reminders_journal_id.activity_category_ids',
+                                             string='Activities Category')
     payment_term = fields.Date('reminders_journal_item_id.payment_term')
     transmission_date = fields.Date('reminders_journal_id.transmission_date')
     fees_amount = fields.Integer(default=0.0)
-    balance = fields.Float('Solde',digits_compute=dp.get_precision('extraschool_reminder'),readonly=True, store=True)
-    amount_received = fields.Float(string='Received', compute='_get_amount_received',
+    balance_computed = fields.Float(string='Solde', compute='_compute_balance', readonly=True)
+    balance = fields.Float(default=0.0)
+    amount_received = fields.Float(string='Received', compute='_compute_amount_received',
                                    readonly=True)
 
     @api.multi
-    def _get_amount_received(self):
-        for reminder in self :
-            reminder.amount_received = reminder.amount - reminder.balance
+    def _compute_amount_received(self):
+        """
+        Compute amount received for invoices
+        :return: None
+        """
+        for reminder in self:
+            for invoice in reminder.concerned_invoice_ids:
+                reminder.amount_received += invoice.amount_received
+
+    @api.multi
+    def _compute_balance(self):
+        """
+        Compute amount received for invoices
+        :return: None
+        """
+        for reminder in self:
+            for invoice in reminder.concerned_invoice_ids:
+                reminder.balance_computed += invoice.balance
+                reminder.write({'balance': reminder.balance_computed})
+
+    @api.multi
+    def _compute_amount(self):
+        """
+        Compute amount received for invoices
+        :return: None
+        """
+        for reminder in self:
+            for invoice in reminder.concerned_invoice_ids:
+                reminder.amount += invoice.amount_total
 
     @api.multi
     def get_date(self, invoice_ids):
-        dates = invoice_ids.filtered(lambda r : r.biller_id.period_from)
+        dates = invoice_ids.filtered(lambda r: r.biller_id.period_from)
         return " %s au %s" % (datetime.strptime(dates[0].biller_id.period_from, '%Y-%m-%d').strftime('%d-%m-%Y'),
                               datetime.strptime(dates[-1].biller_id.period_to, '%Y-%m-%d').strftime('%d-%m-%Y'))

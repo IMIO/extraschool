@@ -34,9 +34,14 @@ class extraschool_place(models.Model):
     street = fields.Char('Street', size=50, track_visibility='onchange')
     zipcode = fields.Char('ZipCode', size=6, track_visibility='onchange')
     city = fields.Char('City', size=50, track_visibility='onchange')
-    schoolimplantation_ids = fields.Many2many('extraschool.schoolimplantation','extraschool_place_schoolimplantation_rel', 'place_id', 'schoolimplantation_id','School implantations')
+    schoolimplantation_ids = fields.Many2many('extraschool.schoolimplantation',
+                                              'extraschool_place_schoolimplantation_rel', 'place_id',
+                                              'schoolimplantation_id', 'School implantations')
     schedule = fields.Text('Schedule')
-    street_code = fields.Char('Street Code') # onyx
-    oldid = fields.Integer('oldid')                
+    street_code = fields.Char('Street Code')  # onyx
+    oldid = fields.Integer('oldid')
+    tel = fields.Char(String="Telephone", size=20)
+    fax = fields.Char(String="Fax")
+    email = fields.Char('Email', size=100, track_visibility='onchange')
 
 extraschool_place()

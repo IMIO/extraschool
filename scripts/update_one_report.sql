@@ -1,5 +1,5 @@
 UPDATE extraschool_onereport_settings
-SET name = 'One report template';
+SET name = 'one_report';
 
 --UPDATE extraschool_onereport_settings
 --SET name = 'Plain report template'
