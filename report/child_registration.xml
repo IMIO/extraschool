@@ -1,385 +1,553 @@
 <?xml version="1.0" ?>
 <odoo>
-	<data>
-		<template id="report_child_registration">
-		    <style type="text/css">
-		        .page{
-		    		width: 100%;
-		    		display: block;
-		    	}
-
-				.page table {
-		    		width: 100%;
-					font-size:11px;
-					border-width: 1px;
-					border-collapse: collapse;
-					margin-top: 1cm;
-				}
-				.page table th {
-                    text-align: center;
-					border-width: 1px;
-					padding: 8px;
-					border-style: solid;
-					background-color: #dedede;
-				}
-				.page table td {
-					border-width: 1px;
-					padding: 8px;
-					border-style: solid;
-				}
-				img {
-                    display: block;
-                    margin-left: auto;
-                    margin-right: auto;
-                    width: 15px;
-                    height: 15px;
-                    align: middle;
+    <data>
+        <template id="report_child_registration">
+            <style type="text/css">
+                .page{
+                width: 100%;
+                display: block;
                 }
 
-			</style>
-			<t t-foreach="docs" t-as="child_registration">
+                .page table {
+                width: 100%;
+                font-size:11px;
+                border-width: 1px;
+                border-collapse: collapse;
+                margin-top: 1cm;
+                }
+                .page table th {
+                text-align: center;
+                border-width: 1px;
+                padding: 8px;
+                border-style: solid;
+                background-color: #dedede;
+                }
+                .page table td {
+                border-width: 1px;
+                padding: 8px;
+                border-style: solid;
+                }
+                img {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                width: 15px;
+                height: 15px;
+                align: middle;
+                }
 
-		        <div class="page" style="width: 100%;display: block;">
-		            <h2>Inscription Maternelle</h2>
-		            <div>
-		            	<span>Implantation :</span>
-		            	<span t-field="child_registration.school_implantation_id.name"/>
-		            </div>
-		            <div>
-		            	<span>Semaine :</span>
-		            	<span t-field="child_registration.week"/> du : <span t-field="child_registration.date_from"/> au : <span t-field="child_registration.date_to"/>
-		            </div>
+            </style>
+            <t t-foreach="docs" t-as="child_registration">
 
-		            <table style="width: 100%;font-size:11px;border-width: 1px;border-collapse: collapse;margin-top: 1cm;">
-		            	<tr>
-	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Nom</th>
-	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Lundi</th>
-	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Mardi</th>
-	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Mercredi</th>
-	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Jeudi</th>
-	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Vendredi</th>
-		            	</tr>
-                        Nombre d'enfants <span t-raw="len(child_registration.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['M']))"/>
-		            	<t t-foreach="child_registration.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['M'])" t-as="child">
-		            		<t t-if="child.child_must_be_printed()">
-			            		<tr>
-									<td><h5><span t-field="child.child_id.name"/> <b><span t-esc="child.child_id.get_age()"/> ans</b></h5><i><b>
-										Parent: </b><span t-field="child.child_id.parentid.name"/></i>
-										<t t-if="child.child_id.parentid.housephone"><br></br>
-											<b>Tel Maison: </b><span t-field="child.child_id.parentid.housephone"/></t>
-										<t t-if="child.child_id.parentid.workphone"><br></br>
-										<b>Tel Travail: </b><span t-field="child.child_id.parentid.workphone"/></t>
-										<t t-if="child.child_id.parentid.gsm"><br></br>
-										<b>GSM: </b><span t-field="child.child_id.parentid.gsm"/></t>
-										<t t-if="child.child_id.comment"><br></br>
-										<i><b>A savoir: </b><span t-field="child.child_id.comment"/>
-											<br></br></i></t>
-									</td>
-									<td><span t-field="child.monday_activity_id.name"/><span t-if="child.monday"><img style="width:30;height:30px;margin-left:50%;margin-right:50%;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
-			            			<td><span t-field="child.tuesday_activity_id.name"/><span t-if="child.tuesday"><img style="width:30;height:30px;margin-left:50%;margin-right:50%;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
-			            			<td><span t-field="child.wednesday_activity_id.name"/><span t-if="child.wednesday"><img style="width:30;height:30px;margin-left:50%;margin-right:50%;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
-			            			<td><span t-field="child.thursday_activity_id.name"/><span t-if="child.thursday"><img style="width:30;height:30px;margin-left:50%;margin-right:50%;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
-			            			<td><span t-field="child.friday_activity_id.name"/><span t-if="child.friday"><img style="width:30;height:30px;margin-left:50%;margin-right:50%;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
-			            		</tr>
-							</t>
-		            	</t>
-		            </table>
-		        </div>
-		        <div class="page" style="width: 100%;display: block;">
-		            <h2>Inscription Primaire</h2>
-		            <div>
-		            	<span>Implantation :</span>
-		            	<span t-field="child_registration.school_implantation_id.name"/>
-		            </div>
-		            <div>
-		            	<span>semaine :</span>
-		            	<span t-field="child_registration.week"/> du : <span t-field="child_registration.date_from"/> au : <span t-field="child_registration.date_to"/>
-		            </div>
+                <div class="page" style="width: 100%;display: block;">
+                    <h2>Inscription Maternelle</h2>
+                    <div>
+                        <span>Implantation :</span>
+                        <span t-field="child_registration.school_implantation_id.name"/>
+                    </div>
+                    <div>
+                        <span>Semaine :</span>
+                        <span t-field="child_registration.week"/>
+                        du :
+                        <span t-field="child_registration.date_from"/>
+                        au :
+                        <span t-field="child_registration.date_to"/>
+                    </div>
+                    <t t-if="child_registration.activity_id">
+                        <div>
+                            <span>Activité :</span>
+                            <span t-field="child_registration.activity_id"/>
+                        </div>
+                    </t>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Lundi</th>
+                                <th scope="col">Mardi</th>
+                                <th scope="col">Mercredi</th>
+                                <th scope="col">Jeudi</th>
+                                <th scope="col">Vendredi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="child_registration.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['M','A'])"
+                               t-as="child">
+                                <t t-if="child.child_must_be_printed()">
+                                    <tr>
+                                        <td>
+                                            <h5>
+                                                <span t-field="child.child_id.name"/>
+                                                <b>
+                                                    <span t-esc="child.child_id.get_age()"/>
+                                                    ans
+                                                </b>
+                                            </h5>
+                                            <i>
+                                                <b>
+                                                    Parent:
+                                                </b>
+                                                <span t-field="child.child_id.parentid.name"/>
+                                            </i>
+                                            <t t-if="child.child_id.parentid.housephone">
+                                                <br></br>
+                                                <b>Tel Maison:</b>
+                                                <span t-field="child.child_id.parentid.housephone"/>
+                                            </t>
+                                            <t t-if="child.child_id.parentid.workphone">
+                                                <br></br>
+                                                <b>Tel Travail:</b>
+                                                <span t-field="child.child_id.parentid.workphone"/>
+                                            </t>
+                                            <t t-if="child.child_id.parentid.gsm">
+                                                <br></br>
+                                                <b>GSM:</b>
+                                                <span t-field="child.child_id.parentid.gsm"/>
+                                            </t>
+                                            <t t-if="child.child_id.comment">
+                                                <br></br>
+                                                <i>
+                                                    <b>A savoir:</b>
+                                                    <span t-field="child.child_id.comment"/>
+                                                    <br></br>
+                                                </i>
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <span t-field="child.monday_activity_id.name"/>
+                                            <span t-if="child.monday">X</span>
+                                        </td>
+                                        <td>
+                                            <span t-field="child.tuesday_activity_id.name"/>
+                                            <span t-if="child.tuesday">X</span>
+                                        </td>
+                                        <td>
+                                            <span t-field="child.wednesday_activity_id.name"/>
+                                            <span t-if="child.wednesday">X</span>
+                                        </td>
+                                        <td>
+                                            <span t-field="child.thursday_activity_id.name"/>
+                                            <span t-if="child.thursday">X</span>
+                                        </td>
+                                        <td>
+                                            <span t-field="child.friday_activity_id.name"/>
+                                            <span t-if="child.friday">X</span>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="page" style="width: 100%;display: block;">
+                    <h2>Inscription Primaire</h2>
+                    <div>
+                        <span>Implantation :</span>
+                        <span t-field="child_registration.school_implantation_id.name"/>
+                    </div>
+                    <div>
+                        <span>semaine :</span>
+                        <span t-field="child_registration.week"/>
+                        du :
+                        <span t-field="child_registration.date_from"/>
+                        au :
+                        <span t-field="child_registration.date_to"/>
+                    </div>
+                    <t t-if="child_registration.activity_id">
+                        <div>
+                            <span>Activité :</span>
+                            <span t-field="child_registration.activity_id"/>
+                        </div>
+                    </t>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Lundi</th>
+                                <th scope="col">Mardi</th>
+                                <th scope="col">Mercredi</th>
+                                <th scope="col">Jeudi</th>
+                                <th scope="col">Vendredi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="child_registration.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['P','A'])"
+                               t-as="child">
+                                <t t-if="child.child_must_be_printed()">
+                                    <tr>
+                                        <td>
+                                            <h5>
+                                                <span t-field="child.child_id.name"/>
+                                                <b>
+                                                    <span t-esc="child.child_id.get_age()"/>
+                                                    ans
+                                                </b>
+                                            </h5>
+                                            <i>
+                                                <b>
+                                                    Parent:
+                                                </b>
+                                                <span t-field="child.child_id.parentid.name"/>
+                                            </i>
+                                            <t t-if="child.child_id.parentid.housephone">
+                                                <br></br>
+                                                <b>Tel Maison:</b>
+                                                <span t-field="child.child_id.parentid.housephone"/>
+                                            </t>
+                                            <t t-if="child.child_id.parentid.workphone">
+                                                <br></br>
+                                                <b>Tel Travail:</b>
+                                                <span t-field="child.child_id.parentid.workphone"/>
+                                            </t>
+                                            <t t-if="child.child_id.parentid.gsm">
+                                                <br></br>
+                                                <b>GSM:</b>
+                                                <span t-field="child.child_id.parentid.gsm"/>
+                                            </t>
+                                            <t t-if="child.child_id.comment">
+                                                <br></br>
+                                                <i>
+                                                    <b>A savoir:</b>
+                                                    <span t-field="child.child_id.comment"/>
+                                                    <br></br>
+                                                </i>
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <span t-field="child.monday_activity_id.name"/>
+                                            <span t-if="child.monday">X</span>
+                                        </td>
+                                        <td>
+                                            <span t-field="child.tuesday_activity_id.name"/>
+                                            <span t-if="child.tuesday">X</span>
+                                        </td>
+                                        <td>
+                                            <span t-field="child.wednesday_activity_id.name"/>
+                                            <span t-if="child.wednesday">X</span>
+                                        </td>
+                                        <td>
+                                            <span t-field="child.thursday_activity_id.name"/>
+                                            <span t-if="child.thursday">X</span>
+                                        </td>
+                                        <td>
+                                            <span t-field="child.friday_activity_id.name"/>
+                                            <span t-if="child.friday">X</span>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </template>
 
-		            <table style="width: 100%;font-size:11px;border-width: 1px;border-collapse: collapse;margin-top: 1cm;">
-		            	<tr>
-	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Nom</th>
-	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Lundi</th>
-	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Mardi</th>
-	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Mercredi</th>
-	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Jeudi</th>
-	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Vendredi</th>
-		            	</tr>
-                        Nombre d'enfants <span t-raw="len(child_registration.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['P','A']))"/>
-		            	<t t-foreach="child_registration.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['P','A'])" t-as="child">
-		            		<t t-if="child.child_must_be_printed()">
-			            		<tr>
-									<td><h5><span t-field="child.child_id.name"/> <b><span t-esc="child.child_id.get_age()"/> ans</b></h5>
 
-                                        <i><b>    Parent: </b><span t-field="child.child_id.parentid.name"/></i>
-										<t t-if="child.child_id.parentid.housephone"><br></br>
-											<b>Tel Maison: </b><span t-field="child.child_id.parentid.housephone"/></t>
-										<t t-if="child.child_id.parentid.workphone"><br></br>
-										<b>Tel Travail: </b><span t-field="child.child_id.parentid.workphone"/></t>
-										<t t-if="child.child_id.parentid.gsm"><br></br>
-										<b>GSM: </b><span t-field="child.child_id.parentid.gsm"/></t>
-										<t t-if="child.child_id.comment"><br></br>
-										<i><b>A savoir: </b><span t-field="child.child_id.comment"/>
-											<br></br></i></t>
-									</td>
-									<td><span t-field="child.monday_activity_id.name"/><span t-if="child.monday"><img style="width:30;height:30px;margin-left:50%;margin-right:50%;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
-			            			<td><span t-field="child.tuesday_activity_id.name"/><span t-if="child.tuesday"><img style="width:30;height:30px;margin-left:50%;margin-right:50%;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
-			            			<td><span t-field="child.wednesday_activity_id.name"/><span t-if="child.wednesday"><img style="width:30;height:30px;margin-left:50%;margin-right:50%;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
-			            			<td><span t-field="child.thursday_activity_id.name"/><span t-if="child.thursday"><img style="width:30;height:30px;margin-left:50%;margin-right:50%;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
-			            			<td><span t-field="child.friday_activity_id.name"/><span t-if="child.friday"><img style="width:30;height:30px;margin-left:50%;margin-right:50%;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
-			            		</tr>
-							</t>
-		            	</t>
-		            </table>
-		        </div>
-			</t>
-		</template>
-
-
-		<report
-		    id="extraschool_child_registration_report"
-		    model="extraschool.child_registration"
-		    string="Inscriptions"
-		    report_type="qweb-pdf"
-		    name="extraschool.report_child_registration"
-		    attachment_use="False"
-		/>
-
-
-
-
-
-
-
-
-
-
+        <report
+            id="extraschool_child_registration_report"
+            model="extraschool.child_registration"
+            string="Inscriptions"
+            report_type="qweb-pdf"
+            name="extraschool.report_child_registration"
+            attachment_use="False"
+        />
 
 
         <template id="report_child_registration_without_child_information">
-		    <style type="text/css">
-		        .page{
-		    		width: 100%;
-		    		display: block;
-		    	}
-
-				.page table {
-		    		width: 100%;
-					font-size:11px;
-					border-width: 1px;
-					border-collapse: collapse;
-					margin-top: 1cm;
-				}
-				.page table th {
-                    text-align: center;
-					border-width: 1px;
-					padding: 8px;
-					border-style: solid;
-					background-color: #dedede;
-				}
-				.page table td {
-					border-width: 1px;
-					padding: 8px;
-					border-style: solid;
-				}
-				img {
-                    display: block;
-                    margin-left: auto;
-                    margin-right: auto;
-                    width: 15px;
-                    height: 15px;
-                    align: middle;
+            <style type="text/css">
+                .page{
+                width: 100%;
+                display: block;
                 }
 
-			</style>
-			<t t-foreach="docs" t-as="child_registration">
+                .page table {
+                width: 100%;
+                font-size:11px;
+                border-width: 1px;
+                border-collapse: collapse;
+                margin-top: 1cm;
+                }
+                .page table th {
+                text-align: center;
+                border-width: 1px;
+                padding: 8px;
+                border-style: solid;
+                background-color: #dedede;
+                }
+                .page table td {
+                border-width: 1px;
+                padding: 8px;
+                border-style: solid;
+                }
+                img {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                width: 15px;
+                height: 15px;
+                align: middle;
+                }
 
-		        <div class="page" style="width: 100%;display: block;">
-		            <h2>Inscription Maternelle</h2>
-		            <div>
-		            	<span>Implantation :</span>
-		            	<span t-field="child_registration.school_implantation_id.name"/>
-		            </div>
-		            <div>
-		            	<span>Semaine :</span>
-		            	<span t-field="child_registration.week"/> du : <span t-field="child_registration.date_from"/> au : <span t-field="child_registration.date_to"/>
-		            </div>
+            </style>
+            <t t-foreach="docs" t-as="child_registration">
 
-		            <table style="width: 100%;font-size:11px;border-width: 1px;border-collapse: collapse;margin-top: 1cm;">
-		            	<tr>
-	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Nom</th>
-	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Lundi</th>
-	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Mardi</th>
-	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Mercredi</th>
-	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Jeudi</th>
-	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Vendredi</th>
-		            	</tr>
-                        Nombre d'enfants <span t-raw="len(child_registration.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['M']))"/>
-		            	<t t-foreach="child_registration.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['M'])" t-as="child">
-		            		<t t-if="child.child_must_be_printed()">
-			            		<tr>
-									<td><h5><span t-field="child.child_id.name"/></h5>
-									</td>
-									<td><span t-field="child.monday_activity_id.name"/><span t-if="child.monday"><img style="width:30;height:30px;margin-left:50%;margin-right:50%;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
-			            			<td><span t-field="child.tuesday_activity_id.name"/><span t-if="child.tuesday"><img style="width:30;height:30px;margin-left:50%;margin-right:50%;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
-			            			<td><span t-field="child.wednesday_activity_id.name"/><span t-if="child.wednesday"><img style="width:30;height:30px;margin-left:50%;margin-right:50%;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
-			            			<td><span t-field="child.thursday_activity_id.name"/><span t-if="child.thursday"><img style="width:30;height:30px;margin-left:50%;margin-right:50%;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
-			            			<td><span t-field="child.friday_activity_id.name"/><span t-if="child.friday"><img style="width:30;height:30px;margin-left:50%;margin-right:50%;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
-			            		</tr>
-							</t>
-		            	</t>
-		            </table>
-		        </div>
-		        <div class="page" style="width: 100%;display: block;">
-		            <h2>Inscription Primaire</h2>
-		            <div>
-		            	<span>Implantation :</span>
-		            	<span t-field="child_registration.school_implantation_id.name"/>
-		            </div>
-		            <div>
-		            	<span>semaine :</span>
-		            	<span t-field="child_registration.week"/> du : <span t-field="child_registration.date_from"/> au : <span t-field="child_registration.date_to"/>
-		            </div>
-
-		            <table style="width: 100%;font-size:11px;border-width: 1px;border-collapse: collapse;margin-top: 1cm;">
-		            	<tr>
-	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Nom</th>
-	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Lundi</th>
-	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Mardi</th>
-	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Mercredi</th>
-	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Jeudi</th>
-	            			<th style="text-align: center;border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Vendredi</th>
-		            	</tr>
-                        Nombre d'enfants <span t-raw="len(child_registration.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['P','A']))"/>
-		            	<t t-foreach="child_registration.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['P','A'])" t-as="child">
-		            		<t t-if="child.child_must_be_printed()">
-			            		<tr>
-									<td><h5><span t-field="child.child_id.name"/></h5>
-									</td>
-									<td><span t-field="child.monday_activity_id.name"/><span t-if="child.monday"><img style="width:30;height:30px;margin-left:50%;margin-right:50%;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
-			            			<td><span t-field="child.tuesday_activity_id.name"/><span t-if="child.tuesday"><img style="width:30;height:30px;margin-left:50%;margin-right:50%;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
-			            			<td><span t-field="child.wednesday_activity_id.name"/><span t-if="child.wednesday"><img style="width:30;height:30px;margin-left:50%;margin-right:50%;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
-			            			<td><span t-field="child.thursday_activity_id.name"/><span t-if="child.thursday"><img style="width:30;height:30px;margin-left:50%;margin-right:50%;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
-			            			<td><span t-field="child.friday_activity_id.name"/><span t-if="child.friday"><img style="width:30;height:30px;margin-left:50%;margin-right:50%;" src="https://image.flaticon.com/icons/png/128/74/74414.png"></img></span></td>
-			            		</tr>
-							</t>
-		            	</t>
-		            </table>
-		        </div>
-			</t>
-		</template>
-
-
-		<report
-		    id="extraschool_child_registration_report_without_child_information"
-		    model="extraschool.child_registration"
-		    string="Inscriptions sans informations enfant"
-		    report_type="qweb-pdf"
-		    name="extraschool.report_child_registration_without_child_information"
-		    attachment_use="False"
-		/>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		<template id="report_child_registration_summary">
-
-		    <style type="text/css">
-		        .page{
-		    		width: 100%;
-		    		display: block;
-		    	}
-
-				.page table {
-		    		width: 100%;
-					font-size:11px;
-					border-width: 1px;
-					border-collapse: collapse;
-					margin-top: 1cm;
-				}
-				.page table th {
-					border-width: 1px;
-					padding: 8px;
-					border-style: solid;
-					background-color: #dedede;
-				}
-				.page table td {
-					border-width: 1px;
-					padding: 8px;
-					border-style: solid;
-				}
-
-			</style>
-			<t t-foreach="docs" t-as="child_registration">
-
-		        <div class="page" style="width: 100%;display: block;">
-		            <h2>Inscription</h2>
-		            <div>
-		            	<span>Implantation :</span>
-		            	<span t-field="child_registration.school_implantation_id.name"/>
-		            </div>
-		            <div>
-		            	<span>semaine :</span>
-		            	<span t-field="child_registration.week"/> du : <span t-field="child_registration.date_from"/> au : <span t-field="child_registration.date_to"/>
-		            </div>
-
-		            <table style="width: 100%;font-size:11px;border-width: 1px;border-collapse: collapse;margin-top: 1cm;">
-		            	<tr>
-	            			<th style="border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Description</th>
-	            			<th style="border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Lundi</th>
-	            			<th style="border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Mardi</th>
-	            			<th style="border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Mercredi</th>
-	            			<th style="border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Jeudi</th>
-	            			<th style="border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">Vendredi</th>
-		            	</tr>
-		            	<t t-set="summary" t-value="child_registration.get_summary()" />
-		            	<t t-foreach="summary" t-as="summary_item">
-		            		<tr>
-		            			<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-raw="summary_item"/></td>
-		            			<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-raw="summary[summary_item][0]"/></td>
-		            			<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-raw="summary[summary_item][1]"/></td>
-		            			<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-raw="summary[summary_item][2]"/></td>
-		            			<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-raw="summary[summary_item][3]"/></td>
-		            			<td style="border-width: 1px;padding: 8px;border-style: solid;"><span t-raw="summary[summary_item][4]"/></td>
-		            		</tr>
-		            	</t>
-		            </table>
-		        </div>
-			</t>
-
-		</template>
+                <div class="page" style="width: 100%;display: block;">
+                    <h2>Inscription Maternelle</h2>
+                    <div>
+                        <span>Implantation :</span>
+                        <span t-field="child_registration.school_implantation_id.name"/>
+                    </div>
+                    <div>
+                        <span>Semaine :</span>
+                        <span t-field="child_registration.week"/>
+                        du :
+                        <span t-field="child_registration.date_from"/>
+                        au :
+                        <span t-field="child_registration.date_to"/>
+                    </div>
+                    <t t-if="child_registration.activity_id">
+                        <div>
+                            <span>Activité :</span>
+                            <span t-field="child_registration.activity_id"/>
+                        </div>
+                    </t>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Lundi</th>
+                                <th scope="col">Mardi</th>
+                                <th scope="col">Mercredi</th>
+                                <th scope="col">Jeudi</th>
+                                <th scope="col">Vendredi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="child_registration.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['M','A'])"
+                               t-as="child">
+                                <t t-if="child.child_must_be_printed()">
+                                    <tr>
+                                        <td>
+                                            <span t-field="child.child_id.name"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="child.monday_activity_id.name"/>
+                                            <span t-if="child.monday">X</span>
+                                        </td>
+                                        <td>
+                                            <span t-field="child.tuesday_activity_id.name"/>
+                                            <span t-if="child.tuesday">X</span>
+                                        </td>
+                                        <td>
+                                            <span t-field="child.wednesday_activity_id.name"/>
+                                            <span t-if="child.wednesday">X</span>
+                                        </td>
+                                        <td>
+                                            <span t-field="child.thursday_activity_id.name"/>
+                                            <span t-if="child.thursday">X</span>
+                                        </td>
+                                        <td>
+                                            <span t-field="child.friday_activity_id.name"/>
+                                            <span t-if="child.friday">X</span>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="page" style="width: 100%;display: block;">
+                    <h2>Inscription Primaire</h2>
+                    <div>
+                        <span>Implantation :</span>
+                        <span t-field="child_registration.school_implantation_id.name"/>
+                    </div>
+                    <div>
+                        <span>semaine :</span>
+                        <span t-field="child_registration.week"/>
+                        du :
+                        <span t-field="child_registration.date_from"/>
+                        au :
+                        <span t-field="child_registration.date_to"/>
+                    </div>
+                    <div>
+                        <span>Nombre d'enfants :</span>
+                        <span
+                            t-raw="len(child_registration.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['P','A']))"/>
+                    </div>
+                    <t t-if="child_registration.activity_id">
+                        <div>
+                            <span>Activité :</span>
+                            <span t-field="child_registration.activity_id"/>
+                        </div>
+                    </t>
+                    <div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Lundi</th>
+                                    <th scope="col">Mardi</th>
+                                    <th scope="col">Mercredi</th>
+                                    <th scope="col">Jeudi</th>
+                                    <th scope="col">Vendredi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="child_registration.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['P','A'])"
+                                   t-as="child">
+                                    <t t-if="child.child_must_be_printed()">
+                                        <tr>
+                                            <td>
+                                                <span t-field="child.child_id.name"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="child.monday_activity_id.name"/>
+                                                <span t-if="child.monday">X</span>
+                                            </td>
+                                            <td>
+                                                <span t-field="child.tuesday_activity_id.name"/>
+                                                <span t-if="child.tuesday">X</span>
+                                            </td>
+                                            <td>
+                                                <span t-field="child.wednesday_activity_id.name"/>
+                                                <span t-if="child.wednesday">X</span>
+                                            </td>
+                                            <td>
+                                                <span t-field="child.thursday_activity_id.name"/>
+                                                <span t-if="child.thursday">X</span>
+                                            </td>
+                                            <td>
+                                                <span t-field="child.friday_activity_id.name"/>
+                                                <span t-if="child.friday">X</span>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </t>
+        </template>
 
 
-		<report
-		    id="extraschool_child_registration_summary_report"
-		    model="extraschool.child_registration"
-		    string="Résumé"
-		    report_type="qweb-pdf"
-		    name="extraschool.report_child_registration_summary"
-		    attachment_use="False"
-		/>
+        <report
+            id="extraschool_child_registration_report_without_child_information"
+            model="extraschool.child_registration"
+            string="Inscriptions sans informations enfant"
+            report_type="qweb-pdf"
+            name="extraschool.report_child_registration_without_child_information"
+            attachment_use="False"
+        />
 
-	</data>
+
+        <template id="report_child_registration_summary">
+
+            <style type="text/css">
+                .page{
+                width: 100%;
+                display: block;
+                }
+
+                .page table {
+                width: 100%;
+                font-size:11px;
+                border-width: 1px;
+                border-collapse: collapse;
+                margin-top: 1cm;
+                }
+                .page table th {
+                border-width: 1px;
+                padding: 8px;
+                border-style: solid;
+                background-color: #dedede;
+                }
+                .page table td {
+                border-width: 1px;
+                padding: 8px;
+                border-style: solid;
+                }
+
+            </style>
+            <t t-foreach="docs" t-as="child_registration">
+
+                <div class="page" style="width: 100%;display: block;">
+                    <h2>Inscription</h2>
+                    <div>
+                        <span>Implantation :</span>
+                        <span t-field="child_registration.school_implantation_id.name"/>
+                    </div>
+                    <div>
+                        <span>semaine :</span>
+                        <span t-field="child_registration.week"/>
+                        du :
+                        <span t-field="child_registration.date_from"/>
+                        au :
+                        <span t-field="child_registration.date_to"/>
+                    </div>
+
+                    <table
+                        style="width: 100%;font-size:11px;border-width: 1px;border-collapse: collapse;margin-top: 1cm;">
+                        <tr>
+                            <th style="border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">
+                                Description
+                            </th>
+                            <th style="border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">
+                                Lundi
+                            </th>
+                            <th style="border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">
+                                Mardi
+                            </th>
+                            <th style="border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">
+                                Mercredi
+                            </th>
+                            <th style="border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">
+                                Jeudi
+                            </th>
+                            <th style="border-width: 1px;padding: 8px;border-style: solid;background-color: #dedede;">
+                                Vendredi
+                            </th>
+                        </tr>
+                        <t t-set="summary" t-value="child_registration.get_summary()"/>
+                        <t t-foreach="summary" t-as="summary_item">
+                            <tr>
+                                <td style="border-width: 1px;padding: 8px;border-style: solid;">
+                                    <span t-raw="summary_item"/>
+                                </td>
+                                <td style="border-width: 1px;padding: 8px;border-style: solid;">
+                                    <span t-raw="summary[summary_item][0]"/>
+                                </td>
+                                <td style="border-width: 1px;padding: 8px;border-style: solid;">
+                                    <span t-raw="summary[summary_item][1]"/>
+                                </td>
+                                <td style="border-width: 1px;padding: 8px;border-style: solid;">
+                                    <span t-raw="summary[summary_item][2]"/>
+                                </td>
+                                <td style="border-width: 1px;padding: 8px;border-style: solid;">
+                                    <span t-raw="summary[summary_item][3]"/>
+                                </td>
+                                <td style="border-width: 1px;padding: 8px;border-style: solid;">
+                                    <span t-raw="summary[summary_item][4]"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </table>
+                </div>
+            </t>
+
+        </template>
+
+
+        <report
+            id="extraschool_child_registration_summary_report"
+            model="extraschool.child_registration"
+            string="Résumé"
+            report_type="qweb-pdf"
+            name="extraschool.report_child_registration_summary"
+            attachment_use="False"
+        />
+
+    </data>
 </odoo>
 
