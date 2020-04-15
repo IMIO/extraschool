@@ -92,7 +92,7 @@
 							<field name="comment"/>
 						</page>
                         <page string="Divers">
-                            <group col="4">
+                            <group col="2">
                                 <field name="to_go_alone"/>
                             </group>
                         </page>
