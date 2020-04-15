@@ -33,8 +33,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-14 11:49+0000\n"
-"PO-Revision-Date: 2020-04-14 13:55+0200\n"
+"POT-Creation-Date: 2020-04-15 13:59+0000\n"
+"PO-Revision-Date: 2020-04-15 16:01+0200\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -8923,15 +8923,12 @@ msgstr "<b style=\"float:left\">Nature de la créance : </b><b style=\"float:rig
 #: model:ir.ui.view,arch_db:extraschool.report_child_registration
 msgid ""
 "<b>\n"
-"\t\t\t\t\t\t\t\t\t\tParent: </b>"
+"                                                    Parent:\n"
+"                                                </b>"
 msgstr ""
 "<b>\n"
-"\t\t\t\t\t\t\t\t\t\tParent: </b>"
-
-#. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.report_child_registration
-msgid "<b>    Parent: </b>"
-msgstr "<b>    Parent: </b>"
+"                                                    Parent:\n"
+"                                                </b>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_your_ref_and_period
@@ -8962,8 +8959,8 @@ msgstr ""
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_child_registration
-msgid "<b>A savoir: </b>"
-msgstr "<b>A savoir: </b>"
+msgid "<b>A savoir:</b>"
+msgstr "<b>A savoir:</b>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_info_line_engis
@@ -9053,33 +9050,6 @@ msgid "<b>RAPPEL : FACTURES « ACCUEIL EXTRA SCOLAIRE »</b><br/><br/>"
 msgstr "<b>RAPPEL : FACTURES « ACCUEIL EXTRA SCOLAIRE »</b><br/><br/>"
 
 #. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.report_child_registration
-msgid ""
-"<br/>\n"
-"\t\t\t\t\t\t\t\t\t\t\t<b>Tel Maison: </b>"
-msgstr ""
-"<br/>\n"
-"\t\t\t\t\t\t\t\t\t\t\t<b>Tel Maison: </b>"
-
-#. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.report_child_registration
-msgid ""
-"<br/>\n"
-"\t\t\t\t\t\t\t\t\t\t<b>GSM: </b>"
-msgstr ""
-"<br/>\n"
-"\t\t\t\t\t\t\t\t\t\t<b>GSM: </b>"
-
-#. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.report_child_registration
-msgid ""
-"<br/>\n"
-"\t\t\t\t\t\t\t\t\t\t<b>Tel Travail: </b>"
-msgstr ""
-"<br/>\n"
-"\t\t\t\t\t\t\t\t\t\t<b>Tel Travail: </b>"
-
-#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.tpl_tax_certificate_detail_report
 msgid ""
 "<br/>\n"
@@ -9105,6 +9075,42 @@ msgid ""
 msgstr ""
 "<br/>\n"
 "\t\t\t\t<span>BIC : </span>"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_child_registration
+msgid ""
+"<br/>\n"
+"                                                <b>GSM:</b>"
+msgstr ""
+"<br/>\n"
+"                                                <b>GSM:</b>"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_child_registration
+msgid ""
+"<br/>\n"
+"                                                <b>Peut rentrer seul:</b>"
+msgstr ""
+"<br/>\n"
+"                                                <b>Peut rentrer seul:</b>"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_child_registration
+msgid ""
+"<br/>\n"
+"                                                <b>Tel Maison:</b>"
+msgstr ""
+"<br/>\n"
+"                                                <b>Tel Maison:</b>"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_child_registration
+msgid ""
+"<br/>\n"
+"                                                <b>Tel Travail:</b>"
+msgstr ""
+"<br/>\n"
+"                                                <b>Tel Travail:</b>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.tpl_parent_invoice_sumary_report
@@ -10194,6 +10200,12 @@ msgstr ""
 "L’Eveil avant la date d'échéance. Toute facture non contestée est considérée comme acceptée.</span>"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_child_registration
+#: model:ir.ui.view,arch_db:extraschool.report_child_registration_without_child_information
+msgid "<span>Activité :</span>"
+msgstr "<span>Activité :</span>"
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.tpl_taxe_certificate_wizard_report
 msgid "<span>Cadre II</span> (A remplir par l'institution, le milieu d'accueil, la crèche, la famille d'accueil, l'école maternelle ou primaire, le pouvoir organisateur de l'école maternelle ou primaire, le pouvoir public local, communautaire ou régional)"
 msgstr "<span>Cadre II</span> (A remplir par l'institution, le milieu d'accueil, la crèche, la famille d'accueil, l'école maternelle ou primaire, le pouvoir organisateur de l'école maternelle ou primaire, le pouvoir public local, communautaire ou régional)"
@@ -10222,6 +10234,11 @@ msgstr "<span>Compte :</span>"
 #: model:ir.ui.view,arch_db:extraschool.report_child_registration_without_child_information
 msgid "<span>Implantation :</span>"
 msgstr "<span>Implantation :</span>"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_child_registration_without_child_information
+msgid "<span>Nombre d'enfants :</span>"
+msgstr "<span>Nombre d'enfants :</span>"
 
 #. module: web
 #: model:ir.ui.view,arch_db:web.menu_secondary
@@ -14249,6 +14266,11 @@ msgstr "Impossible de mettre à jour le module '%s'. Il n'est pas installé."
 #, python-format
 msgid "Can only rename one field at a time!"
 msgstr "Vous ne pouvez renommer qu'un seul champ à la fois !"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_child_to_go_alone
+msgid "Can to go alone"
+msgstr "Peut rentrer seul"
 
 #. module: web_view_editor
 #. openerp-web
@@ -18330,7 +18352,7 @@ msgstr ""
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_disadvantaged
 msgid "Disadvantaged"
-msgstr "Disadvantaged"
+msgstr "Milieu défavorisé"
 
 #. modules: web_editor, web, web_kanban
 #. openerp-web
@@ -18723,6 +18745,7 @@ msgid "Display your network of certified people on your website"
 msgstr "Display your network of certified people on your website"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_child_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_health_sheet_form
 msgid "Divers"
 msgstr "Divers"
@@ -28981,17 +29004,12 @@ msgid "Nom/Prénom :"
 msgstr "Nom/Prénom :"
 
 #. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.report_child_registration
-#: model:ir.ui.view,arch_db:extraschool.report_child_registration_without_child_information
-msgid "Nombre d'enfants"
-msgstr "Nombre d'enfants"
-
-#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.tpl_taxe_certificate_wizard_report
 msgid "Nombre de jours de garde :"
 msgstr "Nombre de jours de garde :"
 
 #. module: extraschool
+#: selection:extraschool.child,to_go_alone:0
 #: selection:extraschool.health_sheet,activity_no_available_selection:0
 #: selection:extraschool.health_sheet,allergy_selection:0
 #: selection:extraschool.health_sheet,arnica:0
@@ -29026,6 +29044,7 @@ msgid "Non Valeur"
 msgstr "Non Valeur"
 
 #. module: extraschool
+#: selection:extraschool.child,to_go_alone:0
 #: selection:extraschool.health_sheet,activity_no_available_selection:0
 #: selection:extraschool.health_sheet,allergy_selection:0
 #: selection:extraschool.health_sheet,arnica:0
@@ -30271,6 +30290,7 @@ msgid "Other ref"
 msgstr "Autre référence"
 
 #. module: extraschool
+#: selection:extraschool.child,to_go_alone:0
 #: selection:extraschool.health_sheet,activity_no_available_selection:0
 #: selection:extraschool.health_sheet,allergy_selection:0
 #: selection:extraschool.health_sheet,arnica:0
@@ -36088,7 +36108,7 @@ msgstr "Statistique des activités"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_timecorrection_wizard_state
 #: model:ir.model.fields,field_description:mail.field_res_users_state_id
 msgid "State"
-msgstr "État"
+msgstr "Etat"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_country_state_code
