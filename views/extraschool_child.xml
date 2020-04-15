@@ -89,8 +89,13 @@
 					</group>
 					<notebook>
 						<page string="Comment">
-							<field name="comment" />
+							<field name="comment"/>
 						</page>
+                        <page string="Divers">
+                            <group col="4">
+                                <field name="to_go_alone"/>
+                            </group>
+                        </page>
                  	</notebook>
                     </sheet>
                     <div class="oe_chatter" groups="extraschool.extraschool_gods">

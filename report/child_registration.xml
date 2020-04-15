@@ -104,6 +104,11 @@
                                                 <b>GSM:</b>
                                                 <span t-field="child.child_id.parentid.gsm"/>
                                             </t>
+                                            <t t-if="child.child_id.to_go_alone">
+                                                <br></br>
+                                                <b>Peut rentrer seul:</b>
+                                                <span t-field="child.child_id.to_go_alone"/>
+                                            </t>
                                             <t t-if="child.child_id.comment">
                                                 <br></br>
                                                 <i>
@@ -203,6 +208,11 @@
                                                 <br></br>
                                                 <b>GSM:</b>
                                                 <span t-field="child.child_id.parentid.gsm"/>
+                                            </t>
+                                            <t t-if="child.child_id.to_go_alone">
+                                                <br></br>
+                                                <b>Peut rentrer seul:</b>
+                                                <span t-field="child.child_id.to_go_alone"/>
                                             </t>
                                             <t t-if="child.child_id.comment">
                                                 <br></br>

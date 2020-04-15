@@ -65,6 +65,10 @@ class extraschool_child(models.Model):
     old_level_id = fields.Many2one('extraschool.level', 'Old Level')
     old_class_id = fields.Many2one('extraschool.class', 'Old Class')
     disadvantaged = fields.Boolean(string='Disadvantaged', default=False)
+    to_go_alone = fields.Selection(
+        (('non_renseigne', 'Non renseigné'),
+         ('non', 'Non'),
+         ('oui', 'Oui')), default='non_renseigne', string='Can to go alone')
 
     def get_age(self):
         date_of_birth = datetime.strptime(self.birthdate, '%Y-%m-%d')
