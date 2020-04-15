@@ -108,6 +108,16 @@
                                                 <br></br>
                                                 <b>Peut rentrer seul:</b>
                                                 <span t-field="child.child_id.to_go_alone"/>
+                                                <br></br>
+                                            </t>
+                                            <t t-if="child.child_id.health_sheet_ids">
+                                                <b>Allergies:</b>
+                                                <br></br>
+                                                <t t-foreach="child.child_id.health_sheet_ids[0].allergy_ids"
+                                                   t-as="allergy">
+                                                    <span t-field="allergy.name"/>
+                                                    <br></br>
+                                                </t>
                                             </t>
                                             <t t-if="child.child_id.comment">
                                                 <br></br>
@@ -213,6 +223,16 @@
                                                 <br></br>
                                                 <b>Peut rentrer seul:</b>
                                                 <span t-field="child.child_id.to_go_alone"/>
+                                                <br></br>
+                                            </t>
+                                            <t t-if="child.child_id.health_sheet_ids">
+                                                <b>Allergies:</b>
+                                                <br></br>
+                                                <t t-foreach="child.child_id.health_sheet_ids[0].allergy_ids"
+                                                   t-as="allergy">
+                                                    <span t-field="allergy.name"/>
+                                                    <br></br>
+                                                </t>
                                             </t>
                                             <t t-if="child.child_id.comment">
                                                 <br></br>
