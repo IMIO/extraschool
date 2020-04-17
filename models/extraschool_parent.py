@@ -31,9 +31,6 @@ class extraschool_parent(models.Model):
     _description = 'Parent'
     _inherit = 'mail.thread'
     _order = 'lastname'
-    # _sql_constraints = [
-    #     ('mail_rn_uniq', 'unique(mail, rn)', 'Mail and rn must be unique'),
-    #     ]
 
     @api.depends('firstname', 'lastname')
     def _name_compute(self):
@@ -146,10 +143,10 @@ class extraschool_parent(models.Model):
     check_name = fields.Boolean(default=True)
     check_rn = fields.Boolean(default=True)
     tax_certificate_send_method = fields.Selection((('emailandmail', 'By mail and email'),
-                                          ('onlyemail', 'Only by email'),
-                                          ('onlybymail', 'Only by mail')),
-                                         'Tax certificate send method', required=True, default='onlybymail',
-                                         track_visibility='onchange')
+                                                    ('onlyemail', 'Only by email'),
+                                                    ('onlybymail', 'Only by mail')),
+                                                   'Tax certificate send method', required=True, default='onlybymail',
+                                                   track_visibility='onchange')
 
     @api.onchange('firstname', 'lastname')
     @api.multi
@@ -228,7 +225,6 @@ class extraschool_parent(models.Model):
 
     @api.model
     def create(self, vals):
-        # todo replace check par une contraite
         parent_obj = self.env['extraschool.parent']
         parents = parent_obj.search([('firstname', 'ilike', vals['firstname'].strip()),
                                      ('lastname', 'ilike', vals['lastname'].strip()),
@@ -239,6 +235,10 @@ class extraschool_parent(models.Model):
             for email in emails:
                 if not extraschool_helper.email_validation(email):
                     raise Warning("E-mail format invalid: {}.".format(email))
+
+        doublons = parent_obj.search(['|', ('rn', '=', vals['rn']), ('email', '=', vals['email'])])
+        if doublons:
+            raise Warning('There is already a parent with this email and rn')
 
         # Compute and store parent's commstruct for further use (search).
         parent_id = super(extraschool_parent, self).create(vals)
@@ -275,7 +275,7 @@ class extraschool_parent(models.Model):
 
     @api.multi
     def write(self, vals):
-        if 'check_rn' in vals and vals['check_rn'] == False:
+        if 'check_rn' in vals and vals['check_rn'] is False:
             raise Warning("Un parent possède déjà ce registre national.")
         if not self.check_rn:
             raise Warning("Un parent possède déjà ce registre national.")
