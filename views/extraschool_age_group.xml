@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="extraschool_AgedGroup_form" model="ir.ui.view">
+            <field name="name">extraschool.age_group.form</field>
+            <field name="model">extraschool.age_group</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group editable="bottom">
+                        <field name="age_from"/>
+                        <field name="age_to"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>
