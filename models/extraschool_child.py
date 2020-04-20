@@ -230,7 +230,25 @@ class extraschool_child(models.Model):
 
         return extraschool_child.get_child_for_smartphone(env['extraschool.child'], smartphone_id)
 
-class AgedGroup(models.Model):
-    _name="extraschool.age_group"
 
-    name = fields.Char()
+class AgedGroup(models.Model):
+    _name = "extraschool.age_group"
+
+    age_from = fields.Integer(required=True, default=0)
+    age_to = fields.Integer(required=True, default=0)
+    name = fields.Char(compute='_compute_name')
+
+    @api.multi
+    def verify_age(self, vals):
+        if vals['age_from'] > vals['age_to']:
+            raise Warning(_('There is an error in aged group'))
+
+    @api.multi
+    def _compute_name(self):
+        for rec in self:
+            rec.name = '{} à {} ans'.format(rec.age_from, rec.age_to)
+
+    @api.model
+    def create(self, vals):
+        self.verify_age(vals)
+        return super(AgedGroup, self).create(vals)
