@@ -16,20 +16,22 @@
 # 	* web_view_editor
 # 	* web_calendar
 # 	* base
-# 	* web_kanban_gauge
+# 	* portal
 # 	* report
 # 	* decimal_precision
 # 	* web_diagram
 # 	* web_planner
 # 	* web_kanban
 # 	* web_environment_ribbon
+# 	* web_kanban_gauge
+# 	* auth_signup
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-20 07:45+0000\n"
-"PO-Revision-Date: 2020-04-20 10:02+0200\n"
+"POT-Creation-Date: 2020-04-20 13:41+0000\n"
+"PO-Revision-Date: 2020-04-20 15:43+0200\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -386,35 +388,132 @@ msgstr ""
 "\n"
 "    "
 
-#. module: extraschool
-#: model:mail.template,body_html:extraschool.email_template_invoice
+#. module: portal
+#: model:mail.template,body_html:portal.mail_template_data_portal_welcome
 msgid ""
 "\n"
-"            <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
-"\n"
-"                <p>Bonjour ${object.parentid.name},</p>\n"
-"\n"
-"                <p>Vous trouverez en pièce jointe la facture correspondant aux activités de vos enfants</p>\n"
-"                <h2>Informations de paiement</h2>\n"
-"                <p>\n"
-"                    Num de compte : ${object.activitycategoryid.bankaccount}\n"
-"                    Com structurée : ${object.structcom}\n"
+"            \t<p>\n"
+"                    Dear ${object.user_id.name or ''},\n"
 "                </p>\n"
-"            </div>\n"
+"                <p>\n"
+"                    You have been given access to ${user.company_id.name}'s ${object.wizard_id.portal_id.name}.\n"
+"                </p>\n"
+"                <p>\n"
+"                    Your login account data is:\n"
+"                </p>\n"
+"                <ul>\n"
+"                    <li>Username: ${object.user_id.login or ''}</li>\n"
+"                </ul>\n"
+"                <ul>\n"
+"                    <li>Portal: <a href=\"${'portal_url' in ctx and ctx['portal_url'] or ''}\">${'portal_url' in ctx and ctx['portal_url'] or ''}</a></li>\n"
+"                </ul>\n"
+"                <ul>\n"
+"                \t<li>Database: ${'dbname' in ctx and ctx['dbname'] or ''}</li>\n"
+"                </ul>\n"
+"                <p>\n"
+"                \tYou can set or change your password via the following url:\n"
+"                </p>\n"
+"                <ul>\n"
+"                    <li><a href=\"${object.user_id.signup_url}\">${object.user_id.signup_url}</a></li>\n"
+"                </ul>\n"
+"                <p>\n"
+"                \t${object.wizard_id.welcome_message or ''}\n"
+"                </p>\n"
+"                <p>---<br />\n"
+"                    Odoo - Open Source Business Applications<br />\n"
+"                    http://www.odoo.com<br />\n"
+"                </p>\n"
+"            \n"
 "            "
 msgstr ""
 "\n"
-"            <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
-"\n"
-"                <p>Bonjour ${object.parentid.name},</p>\n"
-"\n"
-"                <p>Vous trouverez en pièce jointe la facture correspondant aux activités de vos enfants</p>\n"
-"                <h2>Informations de paiement</h2>\n"
-"                <p>\n"
-"                    Num de compte : ${object.activitycategoryid.bankaccount}\n"
-"                    Com structurée : ${object.structcom}\n"
+"            \t<p>\n"
+"                    Dear ${object.user_id.name or ''},\n"
 "                </p>\n"
-"            </div>\n"
+"                <p>\n"
+"                    You have been given access to ${user.company_id.name}'s ${object.wizard_id.portal_id.name}.\n"
+"                </p>\n"
+"                <p>\n"
+"                    Your login account data is:\n"
+"                </p>\n"
+"                <ul>\n"
+"                    <li>Username: ${object.user_id.login or ''}</li>\n"
+"                </ul>\n"
+"                <ul>\n"
+"                    <li>Portal: <a href=\"${'portal_url' in ctx and ctx['portal_url'] or ''}\">${'portal_url' in ctx and ctx['portal_url'] or ''}</a></li>\n"
+"                </ul>\n"
+"                <ul>\n"
+"                \t<li>Database: ${'dbname' in ctx and ctx['dbname'] or ''}</li>\n"
+"                </ul>\n"
+"                <p>\n"
+"                \tYou can set or change your password via the following url:\n"
+"                </p>\n"
+"                <ul>\n"
+"                    <li><a href=\"${object.user_id.signup_url}\">${object.user_id.signup_url}</a></li>\n"
+"                </ul>\n"
+"                <p>\n"
+"                \t${object.wizard_id.welcome_message or ''}\n"
+"                </p>\n"
+"                <p>---<br />\n"
+"                    Odoo - Open Source Business Applications<br />\n"
+"                    http://www.odoo.com<br />\n"
+"                </p>\n"
+"            \n"
+"            "
+
+#. module: auth_signup
+#: model:mail.template,body_html:auth_signup.set_password_email
+msgid ""
+"\n"
+"                \n"
+"                    <p>\n"
+"                        ${object.name},\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        You have been invited to connect to \"${object.company_id.name}\" in order to get access to your documents in Odoo.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        To accept the invitation, click on the following link:\n"
+"                    </p>\n"
+"                    <ul>\n"
+"                        <li><a href=\"${object.signup_url}\">Accept invitation to \"${object.company_id.name}\"</a></li>\n"
+"                    </ul>\n"
+"                    <p>\n"
+"                        Thanks,\n"
+"                    </p>\n"
+"                    <pre>\n"
+"--\n"
+"${object.company_id.name or ''}\n"
+"${object.company_id.email or ''}\n"
+"${object.company_id.phone or ''}\n"
+"                    </pre>\n"
+"                \n"
+"            "
+msgstr ""
+"\n"
+"                \n"
+"                    <p>\n"
+"                        ${object.name},\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Vous avez reçu une invitation pour rejoindre \"${object.company_id.name}\" afin d'avoir accès à vos documents dans Odoo.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Pour accepter cette invitation, cliquez sur le lien suivant :\n"
+"                    </p>\n"
+"                    <ul>\n"
+"                        <li><a href=\"${object.signup_url}\">Accepter l'invitation pour \"${object.company_id.name}\"</a></li>\n"
+"                    </ul>\n"
+"                    <p>\n"
+"                        Avec nos remerciements,\n"
+"                    </p>\n"
+"                    <pre>\n"
+"--\n"
+"${object.company_id.name or ''}\n"
+"${object.company_id.email or ''}\n"
+"${object.company_id.phone or ''}\n"
+"                    </pre>\n"
+"                \n"
 "            "
 
 #. module: base
@@ -876,10 +975,38 @@ msgstr ""
 "\n"
 "<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
 "\n"
-"    <p>Bonjour ${object.parent_id.name},</p>\n"
+"    <p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">Bonjour ${object.parent_id.name},</p>\n"
 "\n"
-"    <p>Vous trouverez en pièce jointe le détail du rappel de paiement</p>\n"
+"    <p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">Vous trouverez en pièce jointe le détail du rappel de paiement</p>\n"
 "\n"
+"</div>\n"
+"            "
+
+#. module: extraschool
+#: model:mail.template,body_html:extraschool.email_template_invoice
+msgid ""
+"\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"\n"
+"    <p>Bonjour ${object.parentid.name},</p>\n"
+"\n"
+"    <p>Vous trouverez en pièce jointe la facture correspondant aux activités de vos enfants</p>\n"
+"    <h2>Informations de paiement</h2>\n"
+"    <p>\n"
+"    \tNum de compte : ${object.activitycategoryid.bankaccount}\n"
+"    \tCom structurée : ${object.structcom}\n"
+"    </p>\n"
+"</div>\n"
+"            "
+msgstr ""
+"\n"
+"<div style=\"color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; background-color: rgb(255, 255, 255);\">\n"
+"\n"
+"    <p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">Bonjour ${object.parentid.name},</p>\n"
+"\n"
+"    <p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">Vous trouverez en pièce jointe la facture correspondant aux frais scolaires et/ou extrascolaires de votre(vos)\n"
+" enfant(s).</p><p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">Pour toutes informations complémentaires merci de transmettre un courriel à l'adresse <a href=\"mailto:stephanie.limbourg@mettet.be\" style=\"cursor:pointer;text-decoration-color:initial;text-decoration-style:initial;text-decoration-line:none;color:rgb(51, 122, 183);background-color:transparent;\">stephanie.limbourg@mettet.be</a></p><p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">Bien à vous.</p><p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\"><br></p><p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">M-N BOCART</p><p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">Directrice Financière</p><p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\"><br></p>\n"
+"    <h2 style=\"margin:0px 0px 4px 0px;font-size:1.5em;color:inherit;line-height:1.1;font-weight:bold;font-family:inherit;\">&nbsp;&nbsp;&nbsp; </h2>    \n"
 "</div>\n"
 "            "
 
@@ -899,12 +1026,29 @@ msgstr ""
 "\n"
 "<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
 "\n"
-"    <p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">Bonjour ${object.parentid.name},</p>\n"
+"    <p>Bonjour ${object.parentid.name},</p>\n"
 "\n"
-"    <p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">Vous trouverez en pièce jointe le détail du rappel de paiement</p>\n"
+"    <p>Vous trouverez en pièce jointe le détail du rappel de paiement</p>\n"
 "\n"
 "</div>\n"
 "            "
+
+#. module: auth_signup
+#: model:mail.template,body_html:auth_signup.reset_password_email
+msgid ""
+"\n"
+"<p>A password reset was requested for the Odoo account linked to this email.</p>\n"
+"\n"
+"<p>You may change your password by following <a href=\"${object.signup_url}\">this link</a>, which will remain valid during 24 hours.</p>\n"
+"\n"
+"<p>Note: If you do not expect this, you can safely ignore this email.</p>"
+msgstr ""
+"\n"
+"<p>Une demande de réinitialisation de mot de passe a été effectuée pour le compte Odoo lié à cette adresse courriel.</p>\n"
+"\n"
+"<p>Vous pouvez changer votre mot de passe en suivant <a href=\"${object.signup_url}\">ce lien</a>, qui sera valide pendant 24 heures.</p>\n"
+"\n"
+"<p>Remarque : si vous n'avez pas effectué cette demande, vous pouvez simplement ignorer ce message.</p>"
 
 #. module: base
 #: model:ir.module.module,description:base.module_report_intrastat
@@ -6270,7 +6414,12 @@ msgstr "${(object.activity_category_id.payment_invitation_email_subject or 'Paym
 #. module: extraschool
 #: model:mail.template,subject:extraschool.email_template_invoice
 msgid "${(object.activitycategoryid.invoiceemailsubject or 'Invoice')|safe}"
-msgstr "AES - Détail facture"
+msgstr "${(object.activitycategoryid[0].invoiceemailsubject or 'Invoice')|safe}"
+
+#. module: auth_signup
+#: model:mail.template,subject:auth_signup.set_password_email
+msgid "${object.company_id.name} invitation to connect on Odoo"
+msgstr "${object.company_id.name} vous invite à vous connecter à Odoo"
 
 #. module: mail
 #: model:mail.template,subject:mail.mail_template_data_notification_email_default
@@ -8963,6 +9112,11 @@ msgstr "<span>semaine :</span>"
 msgid "<span>std footer</span>"
 msgstr "<span>std footer</span>"
 
+#. module: auth_signup
+#: model:ir.ui.view,arch_db:auth_signup.res_users_form_view
+msgid "<strong>A password reset has been requested for this user. An email containing the following link has been sent:</strong>"
+msgstr "<strong>Une réinitialisation du mot de passe a été demandée pour cet utilisateur. Un courriel lui a été envoyé, contenant le lien suivant :</strong>"
+
 #. module: mail
 #: model:ir.ui.view,arch_db:mail.email_compose_message_wizard_form
 msgid ""
@@ -8975,6 +9129,11 @@ msgstr ""
 "pas uniquement les ids selectionnés dans la vue liste</strong><br/>\n"
 "Si vous voulez travailler uniquement avec les id sélectionnés, merci de décocher la\n"
 "case à cocher dans l'en-tête de la liste."
+
+#. module: auth_signup
+#: model:ir.ui.view,arch_db:auth_signup.res_users_form_view
+msgid "<strong>An invitation email containing the following subscription link has been sent:</strong>"
+msgstr "<strong>Une invitation a été envoyée par courriel. Elle contient le lien suivant pour s'abonner :</strong>"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.report_irmodeloverview
@@ -9682,9 +9841,10 @@ msgstr "Accès refusé"
 msgid "Access Error"
 msgstr "Erreur d'accès"
 
-#. modules: mail, base
+#. modules: mail, base, portal
 #: model:ir.model,name:base.model_res_groups
 #: model:ir.model,name:mail.model_res_groups
+#: model:ir.model,name:portal.model_res_groups
 msgid "Access Groups"
 msgstr "Groupes d'accès"
 
@@ -10721,9 +10881,19 @@ msgstr "Afin de trouver le bon numéro de semaine, Veuillez vous aider du champs
 msgid "After Amount"
 msgstr "Montant après"
 
-#. module: aes_api
+#. module: portal
+#: model:ir.ui.menu,name:portal.portal_after_sales
+msgid "After Sale Services"
+msgstr "Service après-vente"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_age_group_age_from
+msgid "Age from"
+msgstr "Age de début"
+
+#. modules: aes_api, extraschool
 #: model:ir.model.fields,field_description:aes_api.field_extraschool_activity_age_group
-#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_age_group
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_age_group
 msgid "Age group"
 msgstr "Groupe d'âge"
 
@@ -10731,6 +10901,11 @@ msgstr "Groupe d'âge"
 #: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_age_group_activity
 msgid "Age group activity"
 msgstr "Age group activity"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_age_group_age_to
+msgid "Age to"
+msgstr "Age de fin"
 
 #. module: extraschool
 #: model:ir.model,name:extraschool.model_extraschool_aged_balance_item
@@ -10989,6 +11164,11 @@ msgstr "Autoriser le caissier à ré-imprimer les tickets "
 msgid "Allow documents sharing"
 msgstr "Autoriser le partage de documents"
 
+#. module: auth_signup
+#: model:ir.model.fields,field_description:auth_signup.field_base_config_settings_auth_signup_uninvited
+msgid "Allow external users to sign up"
+msgstr "Autorise les utilisateurs externes à se connecter"
+
 #. module: base_setup
 #: model:ir.model.fields,field_description:base_setup.field_base_config_settings_module_google_calendar
 msgid "Allow the users to synchronize their calendar  with Google Calendar"
@@ -11125,6 +11305,12 @@ msgstr "Une chaîne de caractères arbitraire, interprétée par le client en fo
 msgid "An auto-installable module is automatically installed by the system when all its dependencies are satisfied. If the module has no dependency, it is always installed."
 msgstr "Un module d'auto-installable est installé automatiquement par le système lorsque toutes ses dépendances sont satisfaites. Si le module n'a pas de dépendance, il est systématiquement installé."
 
+#. module: auth_signup
+#: code:addons/auth_signup/controllers/main.py:64
+#, python-format
+msgid "An email has been sent with credentials to reset your password"
+msgstr "Un courriel a été envoyé avec les informations pour recréez votre mot de passe"
+
 #. module: extraschool
 #: code:addons/extraschool/models/extraschool_invoice.py:214
 #, python-format
@@ -11198,6 +11384,12 @@ msgstr "Année fiscale:"
 msgid "Anonymous"
 msgstr "Anonyme"
 
+#. module: auth_signup
+#: code:addons/auth_signup/controllers/main.py:40
+#, python-format
+msgid "Another user is already registered using this email address."
+msgstr "Un autre utilisateur est déjà enregistré avec cette adresse courriel."
+
 #. module: mail
 #: model:ir.model.fields,help:mail.field_mail_compose_message_no_auto_thread
 #: model:ir.model.fields,help:mail.field_mail_mail_no_auto_thread
@@ -11258,12 +11450,13 @@ msgstr "Termes de l'application"
 msgid "Applies to"
 msgstr "S'applique à"
 
-#. modules: mail, base, base_setup, web
+#. modules: mail, base, portal, base_setup, web
 #. openerp-web
 #: model:ir.ui.view,arch_db:base.res_config_view_base
 #: model:ir.ui.view,arch_db:base_setup.view_general_configuration
 #: model:ir.ui.view,arch_db:base_setup.view_sale_config_settings
 #: code:addons/mail/static/src/js/chatter.js:121
+#: model:ir.ui.view,arch_db:portal.wizard_view
 #: code:addons/web/static/src/xml/base.xml:1216
 #: code:addons/web/static/src/xml/base.xml:1236
 #, python-format
@@ -11699,6 +11892,12 @@ msgstr "Partenaires authentifiés"
 msgid "Authentication"
 msgstr "Authentification"
 
+#. module: auth_signup
+#: code:addons/auth_signup/controllers/main.py:114
+#, python-format
+msgid "Authentication Failed."
+msgstr "Authentification échouée."
+
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_auth_ldap
 msgid "Authentication via LDAP"
@@ -11955,6 +12154,12 @@ msgstr "B9 23 33 x 62 mm"
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_yvoir_piscine
 msgid "BIC:"
 msgstr "BIC:"
+
+#. module: auth_signup
+#: model:ir.ui.view,arch_db:auth_signup.reset_password
+#: model:ir.ui.view,arch_db:auth_signup.signup
+msgid "Back to Login"
+msgstr "Retour à la page d'authentification"
 
 #. module: web_editor
 #. openerp-web
@@ -12326,6 +12531,11 @@ msgstr "Biller ids"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_biller_report_id
 msgid "Biller report"
 msgstr "Rapport Facturier"
+
+#. module: portal
+#: model:ir.ui.menu,name:portal.portal_orders
+msgid "Billing"
+msgstr "Facturation"
 
 #. module: base
 #: selection:ir.property,type:0
@@ -12815,7 +13025,7 @@ msgstr "Canada"
 msgid "Canada - Accounting"
 msgstr "Comptabilité - Canada"
 
-#. modules: web, base_setup, web_planner, base_import, web_view_editor, web_kanban, web_calendar, web_editor, base, mail, extraschool
+#. modules: web, base_setup, web_planner, base_import, web_view_editor, web_kanban, web_calendar, web_editor, base, portal, mail, extraschool
 #. openerp-web
 #: model:ir.ui.view,arch_db:base.change_password_wizard_view
 #: model:ir.ui.view,arch_db:base.res_config_view_base
@@ -12837,6 +13047,7 @@ msgstr "Comptabilité - Canada"
 #: model:ir.ui.view,arch_db:mail.email_compose_message_wizard_form
 #: model:ir.ui.view,arch_db:mail.mail_wizard_invite_form
 #: model:ir.ui.view,arch_db:mail.view_mail_form
+#: model:ir.ui.view,arch_db:portal.wizard_view
 #: code:addons/web/static/src/js/framework/crash_manager.js:182
 #: code:addons/web/static/src/js/framework/dialog.js:176
 #: code:addons/web/static/src/js/views/form_common.js:1031
@@ -12920,6 +13131,12 @@ msgstr "La configuration ne peut pas être dupliquée!"
 #, python-format
 msgid "Cannot rename field to %s, because that field already exists!"
 msgstr "Impossible de renommer le champ en %s, ce champ existe déjà !"
+
+#. module: auth_signup
+#: code:addons/auth_signup/res_users.py:298
+#, python-format
+msgid "Cannot send email: user %s has no email address."
+msgstr "Impossible d'envoyer le courriel : l'utilisateur %s n'a pas d'adresse courriel."
 
 #. module: base
 #: code:addons/base/res/res_lang.py:198
@@ -14504,7 +14721,8 @@ msgstr "Paramétrez la passerelle de messagerie pour la réception"
 msgid "Configure your company data"
 msgstr "Configurer les données de la société"
 
-#. module: base
+#. modules: auth_signup, base
+#: model:ir.ui.view,arch_db:auth_signup.reset_password
 #: model:ir.ui.view,arch_db:base.view_base_module_upgrade
 msgid "Confirm"
 msgstr "Confirmer"
@@ -14515,6 +14733,11 @@ msgstr "Confirmer"
 #, python-format
 msgid "Confirm New Password:"
 msgstr "Confirmer le nouveau mot de passe :"
+
+#. module: auth_signup
+#: model:ir.ui.view,arch_db:auth_signup.fields
+msgid "Confirm Password"
+msgstr "Confirmez le mot de passe"
 
 #. module: web
 #. openerp-web
@@ -14549,6 +14772,11 @@ msgstr "Félicitations, votre boîte de réception est vide"
 #: model:ir.module.module,summary:base.module_hw_proxy
 msgid "Connect the Web Client to Hardware Peripherals"
 msgstr "Connecter le client Web aux périphériques matériels"
+
+#. module: auth_signup
+#: selection:res.users,state:0
+msgid "Connected"
+msgstr "Connecté"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.ir_mail_server_form
@@ -14609,11 +14837,12 @@ msgstr "Les contraintes de même nom sont uniques dans un module."
 msgid "Consumed by"
 msgstr "Consommé par"
 
-#. modules: base, extraschool
+#. modules: base, portal, extraschool
 #: model:ir.ui.view,arch_db:base.view_partner_simple_form
 #: selection:res.partner,type:0
 #: model:ir.ui.view,arch_db:extraschool.extraschool_guardian_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
+#: model:ir.model.fields,field_description:portal.field_portal_wizard_user_partner_id
 msgid "Contact"
 msgstr "Contact"
 
@@ -14667,13 +14896,14 @@ msgstr "Nom et prénom"
 msgid "Contact relation"
 msgstr "Lien parenté"
 
-#. modules: mail, base
+#. modules: mail, base, portal
 #: model:ir.model.fields,field_description:base.field_res_partner_child_ids
 #: model:ir.model.fields,field_description:base.field_res_users_child_ids
 #: model:ir.ui.menu,name:base.menu_config_address_book
 #: model:ir.ui.view,arch_db:base.view_partner_tree
 #: model:ir.actions.act_window,name:mail.action_contacts
 #: model:ir.ui.menu,name:mail.menu_contacts
+#: model:ir.ui.view,arch_db:portal.wizard_view
 msgid "Contacts"
 msgstr "Contacts"
 
@@ -14820,6 +15050,12 @@ msgstr "Costa Rica"
 msgid "Costa Rica - Accounting"
 msgstr "Comptabilité - Costa Rica"
 
+#. module: auth_signup
+#: code:addons/auth_signup/controllers/main.py:43
+#, python-format
+msgid "Could not create a new account."
+msgstr "Vous ne pouvez pas créer un nouveau compte."
+
 #. module: web
 #. openerp-web
 #: code:addons/web/static/src/js/views/form_widgets.js:1380
@@ -14840,6 +15076,12 @@ msgstr "Impossible de trouver la définition de cette vue"
 #, python-format
 msgid "Could not find id in dataset"
 msgstr "Id. non trouvé dans les données"
+
+#. module: auth_signup
+#: code:addons/auth_signup/controllers/main.py:66
+#, python-format
+msgid "Could not reset your password"
+msgstr "Impossible de réinitialiser votre mot de passe"
 
 #. module: web
 #. openerp-web
@@ -15175,7 +15417,7 @@ msgstr "Menus créés"
 msgid "Created Views"
 msgstr "Vues créées"
 
-#. modules: aes_api, web_planner, bus, base_import, web_tip, fetchmail, extraschool, web_editor, web_environment_ribbon, base_setup, base, report, mail, decimal_precision
+#. modules: aes_api, web_planner, bus, base_import, web_tip, fetchmail, extraschool, web_editor, web_environment_ribbon, base_setup, portal, base, report, mail, decimal_precision
 #: model:ir.model.fields,field_description:aes_api.field_aes_api_aes_api_create_uid
 #: model:ir.model.fields,field_description:aes_api.field_aes_api_available_spot_create_uid
 #: model:ir.model.fields,field_description:aes_api.field_aes_api_child_create_uid
@@ -15395,6 +15637,8 @@ msgstr "Vues créées"
 #: model:ir.model.fields,field_description:mail.field_mail_template_create_uid
 #: model:ir.model.fields,field_description:mail.field_mail_tracking_value_create_uid
 #: model:ir.model.fields,field_description:mail.field_mail_wizard_invite_create_uid
+#: model:ir.model.fields,field_description:portal.field_portal_wizard_create_uid
+#: model:ir.model.fields,field_description:portal.field_portal_wizard_user_create_uid
 #: model:ir.model.fields,field_description:report.field_report_create_uid
 #: model:ir.model.fields,field_description:report.field_report_paperformat_create_uid
 #: model:ir.model.fields,field_description:web_editor.field_web_editor_converter_test_sub_create_uid
@@ -15411,7 +15655,7 @@ msgstr "Créé par"
 msgid "Created by :"
 msgstr "Créé par :"
 
-#. modules: aes_api, web_planner, base_import, web_tip, fetchmail, decimal_precision, web_editor, web_environment_ribbon, base_setup, base, report, mail, extraschool
+#. modules: aes_api, web_planner, base_import, web_tip, fetchmail, decimal_precision, web_editor, web_environment_ribbon, base_setup, portal, base, report, mail, extraschool
 #: model:ir.model.fields,field_description:aes_api.field_aes_api_aes_api_create_date
 #: model:ir.model.fields,field_description:aes_api.field_aes_api_available_spot_create_date
 #: model:ir.model.fields,field_description:aes_api.field_aes_api_child_create_date
@@ -15629,6 +15873,8 @@ msgstr "Créé par :"
 #: model:ir.model.fields,field_description:mail.field_mail_template_create_date
 #: model:ir.model.fields,field_description:mail.field_mail_tracking_value_create_date
 #: model:ir.model.fields,field_description:mail.field_mail_wizard_invite_create_date
+#: model:ir.model.fields,field_description:portal.field_portal_wizard_create_date
+#: model:ir.model.fields,field_description:portal.field_portal_wizard_user_create_date
 #: model:ir.model.fields,field_description:report.field_report_create_date
 #: model:ir.model.fields,field_description:report.field_report_paperformat_create_date
 #: model:ir.model.fields,field_description:web_editor.field_web_editor_converter_test_sub_create_date
@@ -16841,7 +17087,7 @@ msgstr "Maladie"
 msgid "Display"
 msgstr "Afficher"
 
-#. modules: aes_api, web_planner, bus, base_import, web_tip, fetchmail, extraschool, web_editor, web_environment_ribbon, base_setup, base, report, mail, decimal_precision
+#. modules: aes_api, web_planner, bus, base_import, web_tip, fetchmail, extraschool, web_editor, web_environment_ribbon, base_setup, portal, base, report, mail, decimal_precision
 #: model:ir.model.fields,field_description:aes_api.field_aes_api_aes_api_display_name
 #: model:ir.model.fields,field_description:aes_api.field_aes_api_available_spot_display_name
 #: model:ir.model.fields,field_description:aes_api.field_aes_api_child_display_name
@@ -17097,6 +17343,8 @@ msgstr "Afficher"
 #: model:ir.model.fields,field_description:mail.field_mail_tracking_value_display_name
 #: model:ir.model.fields,field_description:mail.field_mail_wizard_invite_display_name
 #: model:ir.model.fields,field_description:mail.field_publisher_warranty_contract_display_name
+#: model:ir.model.fields,field_description:portal.field_portal_wizard_display_name
+#: model:ir.model.fields,field_description:portal.field_portal_wizard_user_display_name
 #: model:ir.model.fields,field_description:report.field_ir_qweb_field_barcode_display_name
 #: model:ir.model.fields,field_description:report.field_report_abstract_report_display_name
 #: model:ir.model.fields,field_description:report.field_report_display_name
@@ -17106,7 +17354,7 @@ msgstr "Afficher"
 #: model:ir.model.fields,field_description:web_planner.field_web_planner_display_name
 #: model:ir.model.fields,field_description:web_tip.field_web_tip_display_name
 msgid "Display Name"
-msgstr "Display Name"
+msgstr "Nom affiché"
 
 #. module: report
 #: model:ir.model.fields,field_description:report.field_report_paperformat_header_line
@@ -17728,7 +17976,7 @@ msgstr "Salvador"
 msgid "Element '%s' cannot be located in parent view"
 msgstr "L'élément '%s' ne peut être localisé dans la vue parente"
 
-#. modules: mail, web, base, base_setup, extraschool
+#. modules: web, base_setup, base, portal, mail, extraschool
 #: code:addons/base/res/res_company.py:118
 #: model:ir.model.fields,field_description:base.field_res_bank_email
 #: model:ir.model.fields,field_description:base.field_res_company_email
@@ -17744,7 +17992,9 @@ msgstr "L'élément '%s' ne peut être localisé dans la vue parente"
 #: model:ir.ui.view,arch_db:mail.view_mail_search
 #: model:ir.ui.view,arch_db:mail.view_server_action_form_template
 #: selection:mail.compose.message,message_type:0
-#: selection:mail.message,message_type:0 model:ir.ui.view,arch_db:web.login
+#: selection:mail.message,message_type:0
+#: model:ir.model.fields,field_description:portal.field_portal_wizard_user_email
+#: model:ir.ui.view,arch_db:web.login
 #, python-format
 msgid "Email"
 msgstr "Courriel"
@@ -17926,6 +18176,11 @@ msgstr "En quelle quantité ?"
 #: model:res.groups,name:base.group_light_multi_company
 msgid "Enable Light Multi Company"
 msgstr "Valider le Multi-sociétés Léger"
+
+#. module: auth_signup
+#: model:ir.model.fields,field_description:auth_signup.field_base_config_settings_auth_signup_reset_password
+msgid "Enable password reset from Login page"
+msgstr "Permettre la réinitialisation du mot de passe depuis la page de connexion"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_mainsettings_prestation_times_encodage_manuel_id
@@ -21041,7 +21296,7 @@ msgstr "Hongrie"
 msgid "IBAN Bank Accounts"
 msgstr "Comptes bancaires IBAN"
 
-#. modules: aes_api, web_planner, bus, base_import, web_tip, fetchmail, extraschool, web_editor, web_environment_ribbon, base_setup, base, report, mail, decimal_precision
+#. modules: aes_api, web_planner, bus, base_import, web_tip, fetchmail, extraschool, web_editor, web_environment_ribbon, base_setup, portal, base, report, mail, decimal_precision
 #. openerp-web
 #: model:ir.model.fields,field_description:aes_api.field_aes_api_aes_api_id
 #: model:ir.model.fields,field_description:aes_api.field_aes_api_available_spot_id
@@ -21301,6 +21556,8 @@ msgstr "Comptes bancaires IBAN"
 #: model:ir.model.fields,field_description:mail.field_mail_tracking_value_id
 #: model:ir.model.fields,field_description:mail.field_mail_wizard_invite_id
 #: model:ir.model.fields,field_description:mail.field_publisher_warranty_contract_id
+#: model:ir.model.fields,field_description:portal.field_portal_wizard_id
+#: model:ir.model.fields,field_description:portal.field_portal_wizard_user_id
 #: model:ir.model.fields,field_description:report.field_ir_qweb_field_barcode_id
 #: model:ir.model.fields,field_description:report.field_report_abstract_report_id
 #: model:ir.model.fields,field_description:report.field_report_id
@@ -21472,6 +21729,11 @@ msgstr "Si coché, les partenaires recevront un courriel les avertissant qu'ils 
 msgid "If checked, the user's signature will be appended to the text version of the message"
 msgstr "Si coché, la signature de l'utilisateur sera ajoutée à la version texte du message"
 
+#. module: portal
+#: model:ir.model.fields,help:portal.field_res_groups_is_portal
+msgid "If checked, this group is usable as a portal."
+msgstr "Si coché, ce groupe peut être utilisé comme portail."
+
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_mail_server_smtp_debug
 msgid "If enabled, the full output of SMTP sessions will be written to the server log at DEBUG level(this is very verbose and may include confidential info!)"
@@ -21606,6 +21868,11 @@ msgstr ""
 "Si cette vue est héritée,\n"
 "* Si 'vrai', la vue étend toujours son parent\n"
 "* Si 'false', la vue ne étend pas actuellement son parent, mais elle peut être activée"
+
+#. module: auth_signup
+#: model:ir.model.fields,help:auth_signup.field_base_config_settings_auth_signup_uninvited
+msgid "If unchecked, only invited users may sign up."
+msgstr "Si la case est décochée, seules les utilisateurs invités pourront se connecter."
 
 #. module: base
 #: model:ir.actions.act_window,help:base.action_country_state
@@ -21959,6 +22226,11 @@ msgstr "Entrée"
 #: model:ir.model.fields,field_description:base.field_ir_model_modules
 msgid "In Apps"
 msgstr "In Apps"
+
+#. module: portal
+#: model:ir.model.fields,field_description:portal.field_portal_wizard_user_in_portal
+msgid "In Portal"
+msgstr "Dans le portail"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_biller_in_creation
@@ -22606,6 +22878,12 @@ msgstr "Préfixe ou suffixe invalide pour la séquence '%s'"
 msgid "Invalid record set: should be called as model (without records) or on single-record recordset"
 msgstr "Ensemble d'enregistrements invalide: doit être appellé en tant que modèle (sans enregistrements) ou sur une seule fiche d'enregistrement"
 
+#. module: auth_signup
+#: code:addons/auth_signup/controllers/main.py:94
+#, python-format
+msgid "Invalid signup token"
+msgstr "La session d'authentification est invalide"
+
 #. module: mail
 #: code:addons/mail/controllers/main.py:43
 #, python-format
@@ -22649,6 +22927,11 @@ msgstr "Inventaire, Logistique, Gestion de stock"
 #, python-format
 msgid "Invitation"
 msgstr "Invitation"
+
+#. module: portal
+#: model:ir.model.fields,field_description:portal.field_portal_wizard_welcome_message
+msgid "Invitation Message"
+msgstr "Message d'invitation"
 
 #. module: mail
 #: code:addons/mail/wizard/invite.py:65
@@ -23368,7 +23651,7 @@ msgstr "Date du dernier message"
 msgid "Last Modification Date"
 msgstr "Date de dernière modification"
 
-#. modules: aes_api, web_planner, bus, base_import, web_tip, fetchmail, extraschool, web_editor, web_environment_ribbon, base_setup, base, report, mail, decimal_precision
+#. modules: aes_api, web_planner, bus, base_import, web_tip, fetchmail, extraschool, web_editor, web_environment_ribbon, base_setup, portal, base, report, mail, decimal_precision
 #: model:ir.model.fields,field_description:aes_api.field_aes_api_aes_api___last_update
 #: model:ir.model.fields,field_description:aes_api.field_aes_api_available_spot___last_update
 #: model:ir.model.fields,field_description:aes_api.field_aes_api_child___last_update
@@ -23625,6 +23908,8 @@ msgstr "Date de dernière modification"
 #: model:ir.model.fields,field_description:mail.field_mail_tracking_value___last_update
 #: model:ir.model.fields,field_description:mail.field_mail_wizard_invite___last_update
 #: model:ir.model.fields,field_description:mail.field_publisher_warranty_contract___last_update
+#: model:ir.model.fields,field_description:portal.field_portal_wizard___last_update
+#: model:ir.model.fields,field_description:portal.field_portal_wizard_user___last_update
 #: model:ir.model.fields,field_description:report.field_ir_qweb_field_barcode___last_update
 #: model:ir.model.fields,field_description:report.field_report___last_update
 #: model:ir.model.fields,field_description:report.field_report_abstract_report___last_update
@@ -23634,7 +23919,7 @@ msgstr "Date de dernière modification"
 #: model:ir.model.fields,field_description:web_planner.field_web_planner___last_update
 #: model:ir.model.fields,field_description:web_tip.field_web_tip___last_update
 msgid "Last Modified on"
-msgstr "Dernière modification"
+msgstr "Dernière modification le"
 
 #. module: bus
 #: model:ir.model.fields,field_description:bus.field_bus_presence_last_poll
@@ -23667,7 +23952,7 @@ msgstr "Dernier vu manyémany"
 msgid "Last Transmission Date"
 msgstr "Dernière date de transmission"
 
-#. modules: aes_api, web_planner, bus, base_import, web_tip, fetchmail, extraschool, web_editor, web_environment_ribbon, base_setup, base, report, mail, decimal_precision
+#. modules: aes_api, web_planner, bus, base_import, web_tip, fetchmail, extraschool, web_editor, web_environment_ribbon, base_setup, portal, base, report, mail, decimal_precision
 #: model:ir.model.fields,field_description:aes_api.field_aes_api_aes_api_write_uid
 #: model:ir.model.fields,field_description:aes_api.field_aes_api_available_spot_write_uid
 #: model:ir.model.fields,field_description:aes_api.field_aes_api_child_write_uid
@@ -23889,6 +24174,8 @@ msgstr "Dernière date de transmission"
 #: model:ir.model.fields,field_description:mail.field_mail_template_write_uid
 #: model:ir.model.fields,field_description:mail.field_mail_tracking_value_write_uid
 #: model:ir.model.fields,field_description:mail.field_mail_wizard_invite_write_uid
+#: model:ir.model.fields,field_description:portal.field_portal_wizard_user_write_uid
+#: model:ir.model.fields,field_description:portal.field_portal_wizard_write_uid
 #: model:ir.model.fields,field_description:report.field_report_paperformat_write_uid
 #: model:ir.model.fields,field_description:report.field_report_write_uid
 #: model:ir.model.fields,field_description:web_editor.field_web_editor_converter_test_sub_write_uid
@@ -23898,7 +24185,7 @@ msgstr "Dernière date de transmission"
 msgid "Last Updated by"
 msgstr "Derniere fois mis à jour par"
 
-#. modules: aes_api, web_planner, bus, base_import, web_tip, fetchmail, extraschool, web_editor, web_environment_ribbon, base_setup, base, report, mail, decimal_precision
+#. modules: aes_api, web_planner, bus, base_import, web_tip, fetchmail, extraschool, web_editor, web_environment_ribbon, base_setup, portal, base, report, mail, decimal_precision
 #: model:ir.model.fields,field_description:aes_api.field_aes_api_aes_api_write_date
 #: model:ir.model.fields,field_description:aes_api.field_aes_api_available_spot_write_date
 #: model:ir.model.fields,field_description:aes_api.field_aes_api_child_write_date
@@ -24119,6 +24406,8 @@ msgstr "Derniere fois mis à jour par"
 #: model:ir.model.fields,field_description:mail.field_mail_template_write_date
 #: model:ir.model.fields,field_description:mail.field_mail_tracking_value_write_date
 #: model:ir.model.fields,field_description:mail.field_mail_wizard_invite_write_date
+#: model:ir.model.fields,field_description:portal.field_portal_wizard_user_write_date
+#: model:ir.model.fields,field_description:portal.field_portal_wizard_write_date
 #: model:ir.model.fields,field_description:report.field_report_paperformat_write_date
 #: model:ir.model.fields,field_description:report.field_report_write_date
 #: model:ir.model.fields,field_description:web_editor.field_web_editor_converter_test_sub_write_date
@@ -24858,6 +25147,11 @@ msgstr "Identifiant"
 #: model:ir.ui.view,arch_db:fetchmail.view_email_server_form
 msgid "Login Information"
 msgstr "Information de connexion"
+
+#. module: portal
+#: model:ir.model.fields,field_description:portal.field_portal_wizard_user_user_id
+msgid "Login User"
+msgstr "Utilisateur"
 
 #. modules: base, extraschool
 #: model:ir.model.fields,field_description:base.field_res_company_logo
@@ -26784,6 +27078,11 @@ msgstr "Zone Neutre"
 msgid "Never"
 msgstr "Jamais"
 
+#. module: auth_signup
+#: selection:res.users,state:0
+msgid "Never Connected"
+msgstr "Jamais connecté"
+
 #. modules: web, web_diagram
 #. openerp-web
 #: code:addons/web/static/src/js/views/form_view.js:363
@@ -27349,6 +27648,11 @@ msgstr "Non valeurs"
 #: selection:extraschool.payment,paymenttype:0
 msgid "Non value"
 msgstr "Non valeur"
+
+#. module: portal
+#: model:ir.ui.view,arch_db:portal.group_search_view
+msgid "Non-Portal Groups"
+msgstr "Groupes non-portail"
 
 #. module: base
 #: code:addons/base/ir/ir_model.py:350
@@ -29147,7 +29451,8 @@ msgstr "Parents"
 msgid "Parser Class"
 msgstr "Classe d'Analyseur"
 
-#. modules: bus, base, base_setup, mail
+#. modules: bus, auth_signup, base, base_setup, mail
+#: model:ir.model,name:auth_signup.model_res_partner
 #: model:ir.model,name:base.model_res_partner
 #: model:ir.model.fields,field_description:base.field_res_company_partner_id
 #: model:ir.ui.view,arch_db:base.view_partner_address_form
@@ -29229,7 +29534,8 @@ msgstr "Partenaires "
 msgid "Pas du tout"
 msgstr "Pas du tout"
 
-#. modules: web, base, fetchmail
+#. modules: web, auth_signup, base, fetchmail
+#: model:ir.ui.view,arch_db:auth_signup.fields
 #: model:ir.model.fields,field_description:base.field_ir_mail_server_smtp_pass
 #: model:ir.model.fields,field_description:base.field_res_users_password
 #: model:ir.model.fields,field_description:fetchmail.field_fetchmail_server_password
@@ -29241,6 +29547,11 @@ msgstr "Mot de passe"
 #: model:ir.module.module,shortdesc:base.module_auth_crypt
 msgid "Password Encryption"
 msgstr "Chiffrement des mot de passe"
+
+#. module: auth_signup
+#: model:mail.template,subject:auth_signup.reset_password_email
+msgid "Password reset"
+msgstr "Réinitialisation du mot de passe"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_logging_path
@@ -30007,16 +30318,31 @@ msgstr "Emplacement du dialogue : bas, haut, gauche, droite"
 msgid "Port"
 msgstr "Port"
 
-#. module: base
+#. modules: base, portal
 #: model:ir.module.module,shortdesc:base.module_portal
 #: model:res.groups,name:base.group_portal
+#: model:ir.model.fields,field_description:portal.field_portal_wizard_portal_id
+#: model:ir.model.fields,field_description:portal.field_res_groups_is_portal
+#: model:ir.ui.menu,name:portal.portal_menu
 msgid "Portal"
 msgstr "Portail"
+
+#. module: portal
+#: model:ir.actions.act_window,name:portal.partner_wizard_action
+#: model:ir.model,name:portal.model_portal_wizard
+#: model:ir.ui.view,arch_db:portal.wizard_view
+msgid "Portal Access Management"
+msgstr "Gestion de l'accès au portail"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_portal_gamification
 msgid "Portal Gamification"
 msgstr "Portail Émulation"
+
+#. module: portal
+#: model:ir.ui.view,arch_db:portal.group_search_view
+msgid "Portal Groups"
+msgstr "Groupes du portail"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_portal_sale
@@ -30027,6 +30353,11 @@ msgstr "Portail Vente"
 #: model:ir.module.module,shortdesc:base.module_portal_stock
 msgid "Portal Stock"
 msgstr "Portail Stock"
+
+#. module: portal
+#: model:ir.model,name:portal.model_portal_wizard_user
+msgid "Portal User Config"
+msgstr "Paramétrage du portail utilisateur"
 
 #. module: base_setup
 #: model:ir.ui.view,arch_db:base_setup.view_general_configuration
@@ -30585,6 +30916,11 @@ msgstr "Projet"
 #: model:ir.module.module,shortdesc:base.module_rating_project
 msgid "Project Rating"
 msgstr "Évaluation de Projet"
+
+#. module: portal
+#: model:ir.ui.menu,name:portal.portal_projects
+msgid "Projects"
+msgstr "Projets"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_project
@@ -31920,6 +32256,11 @@ msgstr "Rapports"
 msgid "Reprise"
 msgstr "Reprise"
 
+#. module: extraschool
+#: model:ir.model,name:extraschool.model_extraschool_invoice_reprise_no_value
+msgid "Reprise pour aider sur les non valeurs"
+msgstr "Reprise pour aider sur les non valeurs"
+
 #. module: base
 #: model:ir.ui.view,arch_db:base.res_request_link-view
 #: model:ir.ui.view,arch_db:base.res_request_link_search_view
@@ -31957,12 +32298,23 @@ msgstr "Reset AND Check"
 msgid "Reset Confirmation"
 msgstr "Reinitialiser la confirmation"
 
+#. module: auth_signup
+#: model:ir.ui.view,arch_db:auth_signup.login
+msgid "Reset Password"
+msgstr "Réinitialiser le mot de passe"
+
 #. module: web_editor
 #. openerp-web
 #: code:addons/web_editor/static/src/xml/backend.xml:18
 #, python-format
 msgid "Reset from source"
 msgstr "Réinitialiser la source"
+
+#. module: auth_signup
+#: code:addons/auth_signup/res_users.py:257
+#, python-format
+msgid "Reset password: invalid username or email"
+msgstr "Veuillez réinitialiser votre mot de passe : nom d'utilisateur ou adresse courriel incorrects."
 
 #. module: web_editor
 #. openerp-web
@@ -32957,6 +33309,17 @@ msgstr "Sélectionner le signal de flux de travail à déclencher."
 msgid "Select this if you want to set company's address information  for this contact"
 msgstr "Sélectionner ceci pour indiquer l'adresse de la société de ce contact."
 
+#. module: portal
+#: model:ir.ui.view,arch_db:portal.wizard_view
+msgid ""
+"Select which contacts should belong to the portal in the list below.\n"
+"                        The email address of each selected contact must be valid and unique.\n"
+"                        If necessary, you can fix any contact's email address directly in the list."
+msgstr ""
+"Sélectionnez dans la liste ci-dessous les contacts qui doivent faire partie du portail.\n"
+"Les adresses courriels des contacts sélectionnés doivent être correctes et uniques.\n"
+"Si nécessaire, vous pouvez corriger ces adresses directement dans la liste."
+
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_model_fields_selectable
 msgid "Selectable"
@@ -33072,12 +33435,22 @@ msgstr "Envoyer le courriel (%s)"
 msgid "Send Now"
 msgstr "Envoyer maintenant"
 
+#. module: auth_signup
+#: model:ir.ui.view,arch_db:auth_signup.res_users_form_view
+msgid "Send Reset Password Instructions"
+msgstr "Envoyer les instructions de réinitialisation de mot de passe"
+
 #. module: mail
 #. openerp-web
 #: code:addons/mail/static/src/xml/chatter.xml:67
 #, python-format
 msgid "Send a message"
 msgstr "Envoyer un message"
+
+#. module: auth_signup
+#: model:ir.ui.view,arch_db:auth_signup.res_users_form_view
+msgid "Send an Invitation Email"
+msgstr "Inviter par courriel"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_invoice_search_view
@@ -33369,6 +33742,12 @@ msgstr "Pour des raisons de sécurité, les mots de passes vides ne sont pas aut
 msgid "Settings"
 msgstr "Configuration"
 
+#. module: portal
+#: code:addons/portal/wizard/portal_wizard.py:116
+#, python-format
+msgid "Several contacts have the same email: "
+msgstr "Plusieurs contacts ont la même adresse courriel :"
+
 #. module: base
 #: model:res.country,name:base.sc
 msgid "Seychelles"
@@ -33548,6 +33927,12 @@ msgstr "Bouton de la barre latérale pour ouvrir l'action"
 msgid "Sierra Leone"
 msgstr "Sierra Leone"
 
+#. module: auth_signup
+#: model:ir.ui.view,arch_db:auth_signup.login
+#: model:ir.ui.view,arch_db:auth_signup.signup
+msgid "Sign up"
+msgstr "S'enregistrer"
+
 #. module: base
 #: model:ir.model.fields,field_description:base.field_wkf_transition_signal
 msgid "Signal (Button Name)"
@@ -33618,6 +34003,36 @@ msgstr "Signature du responsable 2"
 #: model:ir.module.module,shortdesc:base.module_auth_signup
 msgid "Signup"
 msgstr "Signer"
+
+#. module: auth_signup
+#: model:ir.model.fields,field_description:auth_signup.field_res_partner_signup_expiration
+#: model:ir.model.fields,field_description:auth_signup.field_res_users_signup_expiration
+msgid "Signup Expiration"
+msgstr "Expiration de la session de connexion"
+
+#. module: auth_signup
+#: model:ir.model.fields,field_description:auth_signup.field_res_partner_signup_token
+#: model:ir.model.fields,field_description:auth_signup.field_res_users_signup_token
+msgid "Signup Token"
+msgstr "Session de connexion"
+
+#. module: auth_signup
+#: model:ir.model.fields,field_description:auth_signup.field_res_partner_signup_type
+#: model:ir.model.fields,field_description:auth_signup.field_res_users_signup_type
+msgid "Signup Token Type"
+msgstr "Type de jeton de connexion"
+
+#. module: auth_signup
+#: model:ir.model.fields,field_description:auth_signup.field_res_partner_signup_valid
+#: model:ir.model.fields,field_description:auth_signup.field_res_users_signup_valid
+msgid "Signup Token is Valid"
+msgstr "La session d'authentification est valide"
+
+#. module: auth_signup
+#: model:ir.model.fields,field_description:auth_signup.field_res_partner_signup_url
+#: model:ir.model.fields,field_description:auth_signup.field_res_users_signup_url
+msgid "Signup URL"
+msgstr "Url d'authentification"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_pos_discount
@@ -33847,6 +34262,18 @@ msgstr "Somalie"
 #: model:ir.model.fields,field_description:base_import.field_base_import_tests_models_preview_somevalue
 msgid "Some Value"
 msgstr "Une valeur"
+
+#. module: portal
+#: code:addons/portal/wizard/portal_wizard.py:113
+#, python-format
+msgid "Some contacts don't have a valid email: "
+msgstr "Des contacts ont une adresse courriel incorrecte :"
+
+#. module: portal
+#: code:addons/portal/wizard/portal_wizard.py:119
+#, python-format
+msgid "Some contacts have the same email as an existing portal user:"
+msgstr "Des contacts ont la même adresse courriel qu'un utilisateur existant du portail :"
 
 #. module: base_import
 #. openerp-web
@@ -34221,8 +34648,9 @@ msgstr "Nom de l'État"
 msgid "States"
 msgstr "États"
 
-#. modules: mail, aes_api, fetchmail, base
+#. modules: mail, auth_signup, aes_api, fetchmail, base
 #: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_status
+#: model:ir.model.fields,field_description:auth_signup.field_res_users_state
 #: model:ir.model.fields,field_description:base.field_base_language_install_state
 #: model:ir.model.fields,field_description:base.field_base_module_update_state
 #: model:ir.model.fields,field_description:base.field_ir_actions_todo_state
@@ -35084,6 +35512,11 @@ msgstr "Nom du modèle"
 msgid "Template Preview"
 msgstr "Aperçu du modèle"
 
+#. module: auth_signup
+#: model:ir.model.fields,field_description:auth_signup.field_base_config_settings_auth_signup_template_user_id
+msgid "Template user for new users created through signup"
+msgstr "Utilisateur modèle pour les nouveaux utilisateurs créés à travers signup"
+
 #. module: mail
 #: model:ir.actions.act_window,name:mail.action_email_template_tree_all
 #: model:ir.ui.menu,name:mail.menu_email_templates
@@ -35655,6 +36088,11 @@ msgstr "Le chemin vers le principal fichier du rapport ou du contrôleur (selon 
 msgid "The period must be higher than 0"
 msgstr "The period must be higher than 0"
 
+#. module: portal
+#: model:ir.model.fields,help:portal.field_portal_wizard_portal_id
+msgid "The portal that users can be added in or removed from."
+msgstr "Le portail auquel les utilisateurs peuvent être ajoutés ou enlevés."
+
 #. module: base
 #: model:ir.model.fields,help:base.field_ir_cron_priority
 msgid "The priority of the job, as an integer: 0 means higher priority, 10 means lower priority."
@@ -35890,6 +36328,12 @@ msgid "There is already an ONE report !"
 msgstr "Il existe déjà un rapport ONE pour ce trimestre et ce lieu d'accueil et cette année !"
 
 #. module: extraschool
+#: code:addons/extraschool/models/extraschool_child.py:244
+#, python-format
+msgid "There is an error in aged group"
+msgstr "There is an error in aged group"
+
+#. module: extraschool
 #: code:addons/extraschool/models/extraschool_one_report.py:200
 #: code:addons/extraschool/models/extraschool_plain_report.py:235
 #, python-format
@@ -35997,6 +36441,11 @@ msgstr "Cette commande SQL va créer le fichier CSV suivant :"
 #: selection:ir.actions.act_url,target:0
 msgid "This Window"
 msgstr "Cette fenêtre"
+
+#. module: auth_signup
+#: model:ir.model.fields,help:auth_signup.field_base_config_settings_auth_signup_reset_password
+msgid "This allows users to trigger a password reset from the Login page."
+msgstr "Permet à l'utilisateur de demander un changement de mot de passe depuis la page d'identification."
 
 #. module: aes_api
 #: code:addons/aes_api/models/child_registration.py:105
@@ -36145,6 +36594,16 @@ msgstr "This report is not loaded into the database: %s."
 #, python-format
 msgid "This resource is empty"
 msgstr "Cette ressource est vide"
+
+#. module: portal
+#: model:ir.ui.view,arch_db:portal.wizard_view
+msgid "This text is included in the email sent to new portal users."
+msgstr "Ce texte est inclus dans le courriel envoyé aux nouveaux utilisateurs du portail."
+
+#. module: portal
+#: model:ir.model.fields,help:portal.field_portal_wizard_welcome_message
+msgid "This text is included in the email sent to new users of the portal."
+msgstr "Ce texte est inclus dans les courriels envoyés aux nouveaux utilisateurs du portail."
 
 #. module: base
 #: model:ir.module.module,description:base.module_theme_bootswatch
@@ -36397,6 +36856,18 @@ msgstr ""
 "                        objects, so it's a good practice to prefix this \n"
 "                        \"External ID\" with the name of the application or \n"
 "                        table. (like 'company_1', 'person_1' instead of '1')"
+
+#. module: portal
+#: code:addons/portal/wizard/portal_wizard.py:122
+#, python-format
+msgid ""
+"To resolve this error, you can: \n"
+"- Correct the emails of the relevant contacts\n"
+"- Grant access only to contacts with unique emails"
+msgstr ""
+"Pour résoudre cette erreur, vous pouvez:\n"
+"- Corriger les adresses mails des contacts pertinents\n"
+"- N'autoriser l'accès qu'à des contacts ayant une adresse mail unique."
 
 #. module: web_editor
 #. openerp-web
@@ -37951,8 +38422,9 @@ msgstr "Filtres personnalisés"
 msgid "Username"
 msgstr "Nom d'utilisateur"
 
-#. modules: auth_crypt, web_settings_dashboard, base, bus, mail, extraschool
+#. modules: auth_crypt, web_settings_dashboard, base, portal, bus, mail, auth_signup, extraschool
 #: model:ir.model,name:auth_crypt.model_res_users
+#: model:ir.model,name:auth_signup.model_res_users
 #: model:ir.actions.act_window,name:base.action_res_users
 #: model:ir.model,name:base.model_res_users
 #: model:ir.model.fields,field_description:base.field_change_password_wizard_user_ids
@@ -37972,6 +38444,7 @@ msgstr "Nom d'utilisateur"
 #: model:ir.model.fields,field_description:bus.field_bus_presence_user_id
 #: model:ir.model,name:extraschool.model_res_users
 #: model:ir.model,name:mail.model_res_users
+#: model:ir.model.fields,field_description:portal.field_portal_wizard_user_ids
 #: model:ir.model,name:web_settings_dashboard.model_res_users
 msgid "Users"
 msgstr "Utilisateurs"
@@ -38905,8 +39378,9 @@ msgstr "Composant :"
 msgid "Window Actions"
 msgstr "Actions de fenêtres"
 
-#. module: base
+#. modules: base, portal
 #: model:ir.model.fields,field_description:base.field_change_password_user_wizard_id
+#: model:ir.model.fields,field_description:portal.field_portal_wizard_user_wizard_id
 msgid "Wizard"
 msgstr "Assistant"
 
@@ -39433,6 +39907,12 @@ msgstr "Vous devez sélectionner au moins un enregistrement"
 msgid "You must configure at least one field to import"
 msgstr "Vous devez paramétrer au moins un champ à importer"
 
+#. module: portal
+#: code:addons/portal/wizard/portal_wizard.py:194
+#, python-format
+msgid "You must have an email address in your User Preferences to send emails."
+msgstr "Vous devez avoir une adresse de courriel définie dans vos préférences utilisateur pour envoyer des courriels."
+
 #. module: web
 #. openerp-web
 #: code:addons/web/static/src/js/views/list_view.js:770
@@ -39519,6 +39999,22 @@ msgstr "Vous pourrez définir des droits d'accès supplémentaires à l'utilisat
 #: model:ir.ui.view,arch_db:base_setup.view_general_configuration
 msgid "You will find more options in your company details: address for the header and footer, overdue payments texts, etc."
 msgstr "D'autres options sont disponibles dans les détails de votre société : adresse pour les en-têtes et pieds de page, textes de relances de paiements, etc."
+
+#. module: auth_signup
+#: model:ir.ui.view,arch_db:auth_signup.fields
+#: model:ir.ui.view,arch_db:auth_signup.reset_password
+msgid "Your Email"
+msgstr "Votre courriel"
+
+#. module: auth_signup
+#: model:ir.ui.view,arch_db:auth_signup.fields
+msgid "Your Name"
+msgstr "Votre nom"
+
+#. module: portal
+#: model:mail.template,subject:portal.mail_template_data_portal_welcome
+msgid "Your Odoo account at ${user.company_id.name}"
+msgstr "Your Odoo account at ${user.company_id.name}"
 
 #. module: web
 #. openerp-web
@@ -39756,11 +40252,6 @@ msgid "aes_api.compute_invoice"
 msgstr "aes_api.compute_invoice"
 
 #. module: aes_api
-#: model:ir.model,name:aes_api.model_aes_api_health_sheet_mapping
-msgid "aes_api.health_sheet_mapping"
-msgstr "aes_api.health_sheet_mapping"
-
-#. module: aes_api
 #: model:ir.model,name:aes_api.model_aes_api_parent
 msgid "aes_api.parent"
 msgstr "aes_api.parent"
@@ -39865,7 +40356,8 @@ msgstr "avant le"
 msgid "avec en communication strucutrurée"
 msgstr "avec en communication strucutrurée"
 
-#. modules: mail, base_setup
+#. modules: mail, auth_signup, base_setup
+#: model:ir.model,name:auth_signup.model_base_config_settings
 #: model:ir.model,name:base_setup.model_base_config_settings
 #: model:ir.model,name:mail.model_base_config_settings
 msgid "base.config.settings"
@@ -40370,6 +40862,11 @@ msgstr "Ex. : Français"
 #: model:ir.ui.view,arch_db:base.view_company_form
 msgid "e.g. Global Business Solutions"
 msgstr "Ex. : Global Business Solutions"
+
+#. module: auth_signup
+#: model:ir.ui.view,arch_db:auth_signup.fields
+msgid "e.g. John Doe"
+msgstr "ex. John Doe"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_partner_form
