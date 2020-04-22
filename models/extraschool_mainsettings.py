@@ -626,4 +626,25 @@ class extraschool_mainsettings(models.Model):
                 tax_id.write({
                     'pdf_ready': True,
                 })
+
+    @api.multi
+    def delete_age_group(self):
+        for age_group in self.env['extraschool.age_group'].search([]):
+            if age_group.age_from == 0 and age_group.age_to == 0:
+                age_group.unlink()
+
+    @api.multi
+    def delete_doctors(self):
+        for doctor in self.env['extraschool.doctor'].search([]):
+            doctor.unlink()
+
+    @api.multi
+    def delete_allergies(self):
+        for allergy in self.env['extraschool.allergy'].search([]):
+            allergy.unlink()
+
+    @api.multi
+    def delete_disease_type(self):
+        for disease_type in self.env['extraschool.disease_type'].search([]):
+            disease_type.unlink()
     # endregion
