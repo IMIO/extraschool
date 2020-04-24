@@ -1,5 +1,0 @@
-<odoo>
-    <data>
-        <function name="update_place_ids" model="extraschool.one_report" />
-        </data>
-</odoo>

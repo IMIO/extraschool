@@ -90,14 +90,6 @@ class extraschool_one_report(models.Model):
     synthesis = fields.Boolean()
     not_created = fields.Boolean(default=True)
 
-    @api.model
-    def update_place_ids(self):
-        one_report_ids = self.env['extraschool.one_report'].search([])
-        for one_report in one_report_ids:
-            one_report.write({
-                'place_ids': [(6, 0, [one_report.placeid.id])]
-            })
-
     @api.onchange('place_ids', 'year', 'quarter')
     def _is_created(self):
         """

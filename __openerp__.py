@@ -41,7 +41,6 @@
         'scripts/update_seq.xml',
         # 'scripts/update_one_report.sql',
         # 'scripts/update_activity_category.xml',
-        'scripts/update_place_ids.xml',
         'data/data_days.xml',
         'data/data_health_sheet.xml',
         'data/data_init.xml',
