@@ -76,7 +76,6 @@ class extraschool_one_report(models.Model):
         for rec in self:
             rec.show_quarter = dict(rec._fields['quarter'].selection).get(int(rec.quarter))
 
-    placeid = fields.Many2one('extraschool.place')
     place_ids = fields.Many2many('extraschool.place')
     year = fields.Integer(required=True, default=datetime.now().year)
     quarter = fields.Selection(((1, '1er'), (2, '2eme'), (3, '3eme'), (4, '4eme')), required=True, default=_get_quarter)
@@ -89,15 +88,6 @@ class extraschool_one_report(models.Model):
     is_created = fields.Boolean(default=False, invisible=True)
     synthesis = fields.Boolean()
     not_created = fields.Boolean(default=True)
-
-    @api.model
-    def update_place_ids(self):
-        one_report_ids = self.env['extraschool.one_report'].search([])
-        for one_report in one_report_ids:
-            if one_report.placeid:
-                one_report.write({
-                    'place_ids': [(6, 0, [one_report.placeid.id])]
-                })
 
     @api.onchange('place_ids', 'year', 'quarter')
     def _is_created(self):
