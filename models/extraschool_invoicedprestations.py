@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2019
+#    Copyright (C) 2008-2020
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot & Michael Colicchia & Jenny Pans - Imio (<http://www.imio.be>).
 #
@@ -45,6 +45,7 @@ class extraschool_invoicedprestations(models.Model):
         related="activity_occurrence_id.activityid",
         store=True,
         index=True)
+    # use for hide button
     on_tax_certificate = fields.Boolean()
     description = fields.Char('Description')
     date_no_value = fields.Date(
