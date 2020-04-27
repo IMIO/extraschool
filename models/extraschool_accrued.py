@@ -31,7 +31,7 @@ class extraschoolAccrued(models.Model):
     biller_id = fields.Many2one('extraschool.biller')
     activity_category_id = fields.Many2one('extraschool.activitycategory')
     amount = fields.Float()
-    ref = fields.Char()
+    ref = fields.Char(string='Ref categ')
     amount_received = fields.Float(compute='_compute_amount_received')
 
     @api.multi
