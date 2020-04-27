@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record model="extraschool.allergy" id="extraschool_allergy_acariens">
+            <field name="name">Acariens</field>
+        </record>
+
+        <record model="extraschool.allergy" id="extraschool_allergy_allergenes">
+            <field name="name">Allergènes professionnels</field>
+        </record>
+
+        <record model="extraschool.allergy" id="extraschool_allergy_aliments">
+            <field name="name">Aliments</field>
+        </record>
+
+        <record model="extraschool.allergy" id="extraschool_allergy_animaux">
+            <field name="name">Animaux</field>
+        </record>
+
+        <record model="extraschool.allergy" id="extraschool_allergy_arbre">
+            <field name="name">Arbre</field>
+        </record>
+
+        <record model="extraschool.allergy" id="extraschool_allergy_graminees">
+            <field name="name">Graminées</field>
+        </record>
+
+        <record model="extraschool.allergy" id="extraschool_allergy_herbacees">
+            <field name="name">Herbacées</field>
+        </record>
+
+        <record model="extraschool.allergy" id="extraschool_allergy_insecte">
+            <field name="name">Insectes</field>
+        </record>
+
+        <record model="extraschool.allergy" id="extraschool_latex">
+            <field name="name">Latex</field>
+        </record>
+
+        <record model="extraschool.allergy" id="extraschool_allergy_medicaments">
+            <field name="name">Médicaments</field>
+        </record>
+
+        <record model="extraschool.allergy" id="extraschool_allergy_moisissures">
+            <field name="name">Moisissures et levures</field>
+        </record>
+
+        <record model="extraschool.allergy" id="extraschool_allergy_parasites">
+            <field name="name">Parasites</field>
+        </record>
+
+        <record model="extraschool.allergy" id="extraschool_allergy_poussiere">
+            <field name="name">Poussières de maison</field>
+        </record>
+
+
+    </data>
+</odoo>
