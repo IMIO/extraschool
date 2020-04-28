@@ -30,7 +30,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-27 09:00+0000\n"
-"PO-Revision-Date: 2020-04-27 11:15+0200\n"
+"PO-Revision-Date: 2020-04-27 15:47+0200\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -31295,7 +31295,7 @@ msgstr "Refaire"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_biller_other_ref
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_payment_reconciliation_biller_other_ref
 msgid "Ref"
-msgstr "Ref"
+msgstr "Ref categ"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_act_server_ref_object
