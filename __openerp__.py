@@ -140,6 +140,7 @@
         'report/invoice/invoice_std_body_activity_without_date.xml',
         'report/invoice/invoice_regroup_by_activity.xml',
         'report/invoice/invoice_regroup_by_activity_by_child.xml',
+        'report/invoice/invoice_regroup_by_activity_by_child_no_count_no_quantity.xml',
         'report/invoice/invoice_regroup_by_activity_by_child_by_day_enter_exit.xml',
         'report/invoice/invoice_regroup_by_activity_by_child_calendar_style.xml',
         'report/invoice/invoice_std_footer.xml',
