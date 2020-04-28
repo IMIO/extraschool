@@ -37,7 +37,7 @@
                     <field name="date_to"/>
                     <field name="comment"/>
                     <field name="state"/>
-                            <field name="error_duplicate_reg_line" invisible="1"/>
+                    <field name="error_duplicate_reg_line" invisible="1"/>
                 </tree>
             </field>
         </record>
@@ -124,7 +124,8 @@
                               default_order="child_level, child_id">
                             <field name="child_id"/>
                             <field name="child_level" readonly="True"/>
-                            <field name="monday_activity_id" options="{'no_create':True}"/>
+                            <field name="child_level_type" invisible="1"/>
+                            <field name="monday_activity_id" domain="[('leveltype', '=', child_level_type)]" options="{'no_create':True}"/>
                             <field name="tuesday_activity_id" options="{'no_create':True}"/>
                             <field name="wednesday_activity_id" options="{'no_create':True}"/>
                             <field name="thursday_activity_id" options="{'no_create':True}"/>

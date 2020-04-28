@@ -37,6 +37,7 @@ class extraschool_address(models.Model):
 
     @api.multi
     def _compute_address(self):
+        import wdb; wdb.set_trace()
         for address in self:
             address.full = ' '.join(
                 filter(None, (address.number, address.street, address.box_number, address.zip_code, address.city,

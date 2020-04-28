@@ -31,7 +31,7 @@ class extraschool_level(models.Model):
 
     name = fields.Char('Name', size=50)
     ordernumber = fields.Integer('ordernumber',required=True)
-    leveltype = fields.Selection((('M','Maternelle'),('P','Primaire'),('A','Autre')),'Level type',required=True)
-    oldid = fields.Integer('oldid')       
+    leveltype = fields.Selection((('M,P', 'Maternelle et Primaire'), ('M', 'Maternelle'), ('P', 'Primaire')), 'Level type', required=True)
+    oldid = fields.Integer('oldid')
 
 extraschool_level()
