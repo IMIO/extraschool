@@ -613,7 +613,8 @@ class extraschool_child_registration_line(models.Model):
     child_level_type = fields.Selection(related="child_id.levelid.leveltype", store=True)
     monday = fields.Boolean('Monday')
     monday_activity_id = fields.Many2one('extraschool.activity', string="Monday",
-                                         domain="[('selectable_on_registration_multi','=',True)]")
+                                         domain="[('selectable_on_registration_multi','=',True), "
+                                                "('leveltype', 'like', child_level_type)]")
     tuesday = fields.Boolean('Tuesday')
     tuesday_activity_id = fields.Many2one('extraschool.activity', string="Tuesday",
                                           domain="[('selectable_on_registration_multi','=',True)]")
