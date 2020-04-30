@@ -1,0 +1,76 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+        <template id="report_invoice_regroup_by_activity_by_child_no_count_no_quantity">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet"
+                      href="/extraschool/static/src/css/report_invoice_regroup_by_activity_by_child.css"/>
+            </xpath>
+            <div id="invoice_body">
+                <table>
+                    <tr>
+                        <th>Activité</th>
+                        <th class="col_quantity">Quantité</th>
+                        <th>Total</th>
+                    </tr>
+                    <t t-set="saved_child_id" t-value="0"/>
+                    <t t-set="saved_activity" t-value="'******'"/>
+                    <t t-set="saved_description" t-value="'*****'"/>
+                    <t t-set="activity_count" t-value="0"/>
+                    <t t-set="activity_amount" t-value="0"/>
+                    <t t-set="activity_time" t-value="0"/>
+
+                    <t t-foreach="invoice.invoice_line_ids.sorted(key=lambda r: (('%s%s') % (r.childid.name,r.activity_occurrence_id.activityid.short_name)))"
+                       t-as="invoice_line">
+                        <t t-if="saved_child_id != invoice_line.childid or saved_activity != invoice_line.activity_occurrence_id.activityid.short_name">
+                            <t t-if="activity_count != 0">
+                                <tr>
+                                    <td>
+                                        <span
+                                            t-esc="'%s - %s %s' % (saved_child_id.name if len(saved_child_id) else '',saved_activity if saved_activity != False else '',saved_description if saved_description != False else '')"/>
+                                    </td>
+                                    <td class="col_quantity amount">
+                                        <span t-esc="activity_count"/>
+                                    </td>
+                                    <td class="amount">
+                                        <span t-esc="'%.2f €' %  (activity_amount)"/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <t t-set="saved_child_id" t-value="invoice_line.childid"/>
+                            <t t-set="saved_activity"
+                               t-value="invoice_line.activity_occurrence_id.activityid.short_name"/>
+                            <t t-set="saved_description" t-value="invoice_line.description"/>
+                            <t t-set="activity_count" t-value="0"/>
+                            <t t-set="activity_amount" t-value="0"/>
+                            <t t-set="activity_time" t-value="0"/>
+                        </t>
+                        <t t-if="saved_activity == invoice_line.activity_occurrence_id.activityid.short_name">
+                            <t t-if="invoice_line.quantity > 0">
+                                <t t-set="activity_count" t-value="activity_count + 1"/>
+                                <t t-set="activity_amount" t-value="activity_amount + invoice_line.total_price"/>
+                                <t t-set="activity_time" t-value="activity_time + invoice_line.duration"/>
+                            </t>
+                        </t>
+                    </t>
+                    <t t-if="activity_count != 0">
+                        <tr>
+                            <td>
+                                <span
+                                    t-esc="'%s - %s %s' % (saved_child_id.name if len(saved_child_id) else '',saved_activity if saved_activity != False else '',saved_description if saved_description != False else '')"/>
+                            </td>
+                            <td class="col_quantity amount">
+                                <span t-esc="activity_count"/>
+                            </td>
+                            <td class="amount">
+                                <span t-esc="'%.2f €' %  (activity_amount)"/>
+                            </td>
+                        </tr>
+                    </t>
+
+                </table>
+            </div>
+        </template>
+    </data>
+</odoo>
+

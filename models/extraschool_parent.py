@@ -236,9 +236,13 @@ class extraschool_parent(models.Model):
                 if not extraschool_helper.email_validation(email):
                     raise Warning("E-mail format invalid: {}.".format(email))
 
-        doublons = parent_obj.search(['|', ('rn', '=', vals['rn']), ('email', '=', vals['email'])])
+        doublons = False
+        if vals['rn'] and vals['rn'] != '':
+            doublons = len(parent_obj.search([('rn', '=', vals['rn'])])) > 0
+        if vals['email'] and vals['email'] != '':
+            doublons = len(parent_obj.search([('email', '=', vals['email'])])) > 0
         if doublons:
-            raise Warning('There is already a parent with this email and rn')
+            raise Warning('There is already a parent with this email or rn')
 
         # Compute and store parent's commstruct for further use (search).
         parent_id = super(extraschool_parent, self).create(vals)

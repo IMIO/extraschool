@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2019
+#    Copyright (C) 2008-2020
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot & Michael Colicchia & Jenny Pans- Imio (<http://www.imio.be>).
 #
@@ -610,27 +610,35 @@ class extraschool_child_registration_line(models.Model):
     child_firstname = fields.Char(related="child_id.firstname", store=True)
     child_lastname = fields.Char(related="child_id.lastname", store=True)
     child_level = fields.Char(related="child_id.levelid.name", string="Niveau", store=True)
+    child_level_type = fields.Selection(related="child_id.levelid.leveltype", store=True)
     monday = fields.Boolean('Monday')
     monday_activity_id = fields.Many2one('extraschool.activity', string="Monday",
-                                         domain="[('selectable_on_registration_multi','=',True)]")
+                                         domain="[('selectable_on_registration_multi','=',True),"
+                                                "('leveltype', 'like', child_level_type)]")
     tuesday = fields.Boolean('Tuesday')
     tuesday_activity_id = fields.Many2one('extraschool.activity', string="Tuesday",
-                                          domain="[('selectable_on_registration_multi','=',True)]")
+                                          domain="[('selectable_on_registration_multi','=',True),"
+                                                 "('leveltype', 'like', child_level_type)]")
     wednesday = fields.Boolean('Wednesday')
     wednesday_activity_id = fields.Many2one('extraschool.activity', string="Wednesday",
-                                            domain="[('selectable_on_registration_multi','=',True)]")
+                                            domain="[('selectable_on_registration_multi','=',True),"
+                                                   "('leveltype', 'like', child_level_type)]")
     thursday = fields.Boolean('Thursday')
     thursday_activity_id = fields.Many2one('extraschool.activity', string="Thursday",
-                                           domain="[('selectable_on_registration_multi','=',True)]")
+                                           domain="[('selectable_on_registration_multi','=',True),"
+                                                  "('leveltype', 'like', child_level_type)]")
     friday = fields.Boolean('Friday')
     friday_activity_id = fields.Many2one('extraschool.activity', string="Friday",
-                                         domain="[('selectable_on_registration_multi','=',True)]")
+                                         domain="[('selectable_on_registration_multi','=',True),"
+                                                "('leveltype', 'like', child_level_type)]")
     saturday = fields.Boolean('Saturday')
     saturday_activity_id = fields.Many2one('extraschool.activity', string="Saturday",
-                                           domain="[('selectable_on_registration_multi','=',True)]")
+                                           domain="[('selectable_on_registration_multi','=',True),"
+                                                  "('leveltype', 'like', child_level_type)]")
     sunday = fields.Boolean('Sunday')
     sunday_activity_id = fields.Many2one('extraschool.activity', string="Sunday",
-                                         domain="[('selectable_on_registration_multi','=',True)]")
+                                         domain="[('selectable_on_registration_multi','=',True),"
+                                                "('leveltype', 'like', child_level_type)]")
     comment = fields.Char('Comment', track_visibility='onchange')
     error_duplicate_reg_line = fields.Boolean(string="Error", default=False)
 
