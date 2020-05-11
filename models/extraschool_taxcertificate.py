@@ -292,6 +292,7 @@ class extraschool_taxcertificate(models.Model):
 class extraschool_taxcertificate_item(models.Model):
     _name = 'extraschool.taxcertificate_item'
     _description = 'Taxcertificate item'
+    _inherit = 'mail.thread'
 
     name = fields.Char('Name')
     taxcertificate_id = fields.Many2one('extraschool.taxcertificate', string='Taxe certif', ondelete='cascade',
