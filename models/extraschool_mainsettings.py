@@ -456,10 +456,6 @@ class extraschool_mainsettings(models.Model):
         _logger.info("End of reconcil")
 
     @api.multi
-    def update_commstruct(self):
-        self.env['extraschool.parent'].update_commstruct()
-
-    @api.multi
     def reprise_signaletic(self):
         """
         First phase. Get all the infos from activity category and put them in organising power.

@@ -18,8 +18,6 @@
                                         type="object"/>
                             </page>
                             <page string="Fiche parent">
-                                <button name="update_commstruct" string="Update comm struct" icon="gtk-apply"
-                                        type="object"/>
                                 <group string="Mettre en majuscule l'adresse du parent" col="2">
                                     <button
                                         name="put_upper_address"

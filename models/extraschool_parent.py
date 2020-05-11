@@ -251,14 +251,6 @@ class extraschool_parent(models.Model):
 
         return parent_id
 
-    @api.model
-    def update_commstruct(self):
-        parent_ids = self.env['extraschool.parent'].search([])
-
-        for parent in parent_ids:
-            parent.write(
-                {'comstruct': parent.get_prepaid_comstruct(self.env['extraschool.activitycategory'].search([]))})
-
     def addpayment(self, cr, uid, ids, context=None):
         view_obj = self.pool.get('ir.ui.view')
         extraschool_payment_form2 = view_obj.search(cr, uid, [('model', '=', 'extraschool.payment'), \

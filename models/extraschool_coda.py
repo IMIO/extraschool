@@ -80,9 +80,6 @@ class extraschool_coda(models.Model):
         for r in self:
             r.amount_rejected = sum(rej.amount for rej in r.rejectids)
 
-    def format_comstruct(self,comstruct):
-        return ('+++%s/%s/%s+++' % (comstruct[0:3],comstruct[3:7],comstruct[7:12]))
-
     @api.model
     def create(self, vals):
         #to do refactoring suite api V8
