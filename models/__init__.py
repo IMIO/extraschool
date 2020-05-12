@@ -97,3 +97,4 @@ import extraschool_annual_report
 import extraschool_res_users
 import extraschool_address
 import extraschool_plain_report
+import extraschool_structured_communication

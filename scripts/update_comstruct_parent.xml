@@ -1,0 +1,5 @@
+<odoo>
+    <data>
+    	<function name="update_comstruct_parent" model="extraschool.parent"/>
+	</data>
+</odoo>

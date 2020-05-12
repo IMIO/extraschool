@@ -39,6 +39,7 @@
     'test': [],
     'data': [
         'scripts/update_seq.xml',
+        'scripts/update_comstruct_parent.xml',
         # 'scripts/update_one_report.sql',
         # 'scripts/update_activity_category.xml',
         'data/data_days.xml',
@@ -50,6 +51,7 @@
         'data/data_tags_invoice.xml',
         'security/extraschool_security.xml',
         'security/ir.model.access.csv',
+        'views/extraschool_structured_communication.xml',
         'views/extraschool_age_group.xml',
         'views/extraschool_activitycategory.xml',
         'views/extraschool_organising_power.xml',

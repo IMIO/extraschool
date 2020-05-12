@@ -139,6 +139,7 @@ class extraschool_parent(models.Model):
                                      track_visibility='onchange')
     comment = fields.Text('Comment', track_visibility='onchange')
     comstruct = fields.Char('Structured Communication', readonly=True)
+    structured_communications = fields.One2many("extraschool.structured_communication", "parent_id")
     country_id = fields.Many2one('res.country', string='Country', default=21, required=True)
     check_name = fields.Boolean(default=True)
     check_rn = fields.Boolean(default=True)
@@ -147,6 +148,18 @@ class extraschool_parent(models.Model):
                                                     ('onlybymail', 'Only by mail')),
                                                    'Tax certificate send method', required=True, default='onlybymail',
                                                    track_visibility='onchange')
+
+    @api.model
+    def update_comstruct_parent(self):
+        parents = self.env['extraschool.parent'].search([])
+        for parent in parents:
+            if parent.comstruct:
+                comstruct = parent.comstruct
+                if not parent.structured_communications:
+                    parent.structured_communications.create({
+                        'digits': parent.comstruct.replace("/", "").replace("+", ""),
+                        'parent_id': parent.id
+                    })
 
     @api.onchange('firstname', 'lastname')
     @api.multi

@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<odoo>
+	<data>
+        <record model="ir.ui.view" id="extraschool_structured_communication_tree">
+			<field name="name">extraschool.structured_communication.tree</field>
+			<field name="model">extraschool.structured_communication</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Structured communications">
+                    <field name="digits"/>
+   				</tree>
+			</field>
+		</record>
+    </data>
+</odoo>
