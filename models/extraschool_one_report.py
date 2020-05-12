@@ -189,7 +189,8 @@ class extraschool_one_report(models.Model):
         report_logoone_file.write(one_report_settings.one_logo.decode('base64'))
         report_template_file.close()
         report_logoone_file.close()
-        place = place_obj.search([('id', 'in', vals['place_ids'][0][2])])
+        if not vals['synthesis']:
+            place = place_obj.search([('id', 'in', vals['place_ids'][0][2])])
         strperiod_from = str(vals['year']) + '-' + str(vals['quarter'] * 3 - 2).zfill(2) + '-01'
         strperiod_to = str(vals['year']) + '-' + str(vals['quarter'] * 3).zfill(2) + '-' + str(
             self._monthdays(vals['year'], vals['quarter'] * 3)).zfill(2)
