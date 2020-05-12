@@ -174,7 +174,7 @@
                     <newline/>
                     <field name="comstruct"/>
                         <newline/>
-                    <field name="structured_communications" context="{'tree_view_ref': 'extraschool_structured_communication_tree'}"/>
+                    <field name="structured_communications"/>
                         <separator string="Factures de:"  colspan="4"/>
                         <field name="name" nolabel="1" style="font-size:16px" attrs="{'invisible':[('lastname','=',False),('firstname', '=', False)]}"/>
                         <field name="invoice_ids" nolabel="1" colspan="4">

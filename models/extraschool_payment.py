@@ -78,9 +78,6 @@ class extraschool_payment(models.Model):
         for record in self:
             record.solde = record.amount - sum(reconciliation.amount for reconciliation in record.payment_reconciliation_ids) - record.refund
 
-    def format_comstruct(self,comstruct):
-        return ('+++%s/%s/%s+++' % (comstruct[0:3],comstruct[3:7],comstruct[7:12]))
-
     def savepayment(self, cr, uid, ids, context=None):
         obj_payment = self.pool.get('extraschool.payment')
         form = self.read(cr,uid,ids,)[-1]

@@ -27,17 +27,16 @@ class extraschool_structured_communication(models.Model):
     _name = "extraschool.structured_communication"
     _description = 'Structured communication'
 
-    def name_get(self):
-        res = []
-        for digits in self:
-            res.append(self.get_formatted())
-        return res
-
     parent_id = fields.Many2one("extraschool.parent", "structured_communications")
     digits = fields.Char(size=12)
 
-    def get_formatted(self):
-        return "+++{}/{}/{}+++".format(self[0:3], self[3:7], self[7:12])
+    @staticmethod
+    def format(structured_communication):
+        if len(structured_communication) != 12:
+            raise Warning(_("Wrong structured communication (not 12 digits)"))
+        return "+++{}/{}/{}+++".format(structured_communication[0:3],
+                                       structured_communication[3:7],
+                                       structured_communication[7:12])
 
     def get_prefix(self):
         return self.digits[0:3]

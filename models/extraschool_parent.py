@@ -148,7 +148,7 @@ class extraschool_parent(models.Model):
                                                     ('onlybymail', 'Only by mail')),
                                                    'Tax certificate send method', required=True, default='onlybymail',
                                                    track_visibility='onchange')
-
+    # for migration only
     @api.model
     def update_comstruct_parent(self):
         parents = self.env['extraschool.parent'].search([])
@@ -322,8 +322,8 @@ class extraschool_parent(models.Model):
         com_struct_check_str = str(long(com_struct_prefix_str + com_struct_id_str) % 97).zfill(2)
         com_struct_check_str = com_struct_check_str if com_struct_check_str != '00' else '97'
 
-        return self.env['extraschool.payment'].format_comstruct(
-            '%s%s%s' % (com_struct_prefix_str, com_struct_id_str, com_struct_check_str))
+        return self.env["extraschool.structured_communication"].format(
+            ''.join((com_struct_prefix_str, com_struct_id_str, com_struct_check_str)))
 
     @api.multi
     def get_all_invoice_activity_category(self, invoice_id):
