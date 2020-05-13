@@ -20,10 +20,11 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+import base64
+import re
 
 from openerp import models, api, fields, _
-import base64
-from openerp.exceptions import except_orm, Warning, RedirectWarning
+from openerp.exceptions import Warning
 
 
 class extraschool_coda(models.Model):
@@ -92,7 +93,6 @@ class extraschool_coda(models.Model):
         if lines[0][127] != '2':
             raise Warning(_('ERROR: Wrong CODA version !!!'))
         # Check if coda already imported
-        import wdb; wdb.set_trace()
         bank_account = lines[1][5:21]
         date = '20' + lines[0][9:11] + '-' + lines[0][7:9] + '-' + lines[0][5:7]
         if self.search([
@@ -102,8 +102,10 @@ class extraschool_coda(models.Model):
             raise Warning(_('CODA already imported !!!'))
         # Check if valid account
         activitycategory_obj = self.env['extraschool.activitycategory']
-        activitycategory_ids = activitycategory_obj.search([('bankaccount', '=', bank_account)]).ids
-        if not activitycategory_ids:
+        # Get all bank account and remove no valids characters
+        accounts = [re.sub(r"[^a-zA-Z0-9]", "", account) for account in
+                    activitycategory_obj.search([]).mapped("bankaccount")]
+        if bank_account not in accounts:
             raise Warning(_('ERROR: The account number in this CODA file is not used in this application !!!'))
         ################################################################################################################
         # to do refactoring suite api V8
@@ -136,7 +138,6 @@ class extraschool_coda(models.Model):
                 if line[0] == '2':
                     if line[1] == '1':
                         # On récupère le montant
-                        import wdb; wdb.set_trace()
                         amount = eval(line[31:44] + '.' + line[44:47])
                         transfer_date = date
                         if line[62] == '1':
@@ -376,7 +377,7 @@ class extraschool_coda(models.Model):
 
         return super(extraschool_coda, self).create({
             'name': 'CODA ' + date,
-            'date': date,
+            'codadate': date,
             'codafile': vals['codafile'],
             'paymentids': [(6, 0, paymentids)],
             'rejectids': [(6, 0, rejectids)],
