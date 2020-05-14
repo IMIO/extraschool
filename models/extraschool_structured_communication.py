@@ -25,10 +25,11 @@ from openerp import models, api, fields, _
 
 class extraschool_structured_communication(models.Model):
     _name = "extraschool.structured_communication"
-    _description = 'Structured communication'
+    _description = "Structured communication"
 
     parent_id = fields.Many2one("extraschool.parent", "structured_communications")
     digits = fields.Char(size=12)
+    formatted = fields.Char(compute="_compute_formatted")
 
     @staticmethod
     def format(structured_communication):
@@ -37,6 +38,11 @@ class extraschool_structured_communication(models.Model):
         return "+++{}/{}/{}+++".format(structured_communication[0:3],
                                        structured_communication[3:7],
                                        structured_communication[7:12])
+
+    @api.multi
+    def _compute_formatted(self):
+        for structured_communication in self:
+            structured_communication.formatted = self.format(structured_communication.digits)
 
     def get_prefix(self):
         return self.digits[0:3]

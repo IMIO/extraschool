@@ -1,20 +1,20 @@
 <?xml version="1.0" ?>
 <odoo>
-	<data>
-       <record model="ir.ui.view" id="extraschool_parent_tree">
-			<field name="name">extraschool.parent.tree</field>
-			<field name="model">extraschool.parent</field>
-			<field name="type">tree</field>
-			<field name="arch" type="xml">
-				<tree string="Parent">
+    <data>
+        <record model="ir.ui.view" id="extraschool_parent_tree">
+            <field name="name">extraschool.parent.tree</field>
+            <field name="model">extraschool.parent</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Parent">
                     <field name="lastname"/>
                     <field name="firstname"/>
                     <field name="zipcode"/>
                     <field name="email"/>
                     <field name="rn"/>
-   				</tree>
-			</field>
-		</record>
+                </tree>
+            </field>
+        </record>
 
         <record id="parent_request_rule" model="ir.rule">
             <field name="name">parent Request Rule</field>
@@ -28,273 +28,285 @@
             <field name="model">extraschool.parent</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-            <form string="Parents">
-				<header>
-					<button name="wizard_action" string="Fusion" icon="gtk-apply" type="object" context="{'default_parent_id': id}" groups="extraschool.extraschool_fusion"/>
-            	</header>
-                <div class="alert alert-warning" attrs="{'invisible':[('check_name', '=', True)]}">
-                    Le nom et prénom de ce parent existe déjà. S'agit-il du même parent ?
-                </div>
-                <div class="alert alert-danger" attrs="{'invisible':[('check_rn', '=', True)]}">
-                    Un parent possède déjà ce registre national.
-                </div>
-                <field name="check_name" invisible="1" />
-                <field name="check_rn" invisible="1" />
-                <sheet>
-                    <div class="oe_right oe_button_box" name="buttons">
-                        <button name="get_invoice"
-                            string="Invoices"
-                            type="object"
-                            class="oe_inline oe_stat_button"
-                            icon="fa-book"
-                                />
-                        <button name="get_payment"
-                            string="Payments"
-                            type="object"
-                            class="oe_inline oe_stat_button"
-                            icon="fa-credit-card"
-                                />
-                        <button name="get_tax_certificate"
-                            string="Tax Certificates"
-                            type="object"
-                            class="oe_inline oe_stat_button"
-                            icon="fa-money"
-                                />
+                <form string="Parents">
+                    <header>
+                        <button name="wizard_action" string="Fusion" icon="gtk-apply" type="object"
+                                context="{'default_parent_id': id}" groups="extraschool.extraschool_fusion"/>
+                    </header>
+                    <div class="alert alert-warning" attrs="{'invisible':[('check_name', '=', True)]}">
+                        Le nom et prénom de ce parent existe déjà. S'agit-il du même parent ?
                     </div>
-                    <h2>
-                        <group>
-                            <field name="lastname" class="oe_inline" placeholder="Nom"/>
-                            <field name="firstname" class="oe_inline" placeholder="Prénom"/>
+                    <div class="alert alert-danger" attrs="{'invisible':[('check_rn', '=', True)]}">
+                        Un parent possède déjà ce registre national.
+                    </div>
+                    <field name="check_name" invisible="1"/>
+                    <field name="check_rn" invisible="1"/>
+                    <sheet>
+                        <div class="oe_right oe_button_box" name="buttons">
+                            <button name="get_invoice"
+                                    string="Invoices"
+                                    type="object"
+                                    class="oe_inline oe_stat_button"
+                                    icon="fa-book"
+                            />
+                            <button name="get_payment"
+                                    string="Payments"
+                                    type="object"
+                                    class="oe_inline oe_stat_button"
+                                    icon="fa-credit-card"
+                            />
+                            <button name="get_tax_certificate"
+                                    string="Tax Certificates"
+                                    type="object"
+                                    class="oe_inline oe_stat_button"
+                                    icon="fa-money"
+                            />
+                        </div>
+                        <h2>
+                            <group>
+                                <field name="lastname" class="oe_inline" placeholder="Nom"/>
+                                <field name="firstname" class="oe_inline" placeholder="Prénom"/>
+                            </group>
+                        </h2>
+                        <group col="4">
+                            <field name="isdisabled"/>
+                            <newline/>
+                            <field name="last_import_date" readonly="True"/>
+                            <field name="modified_since_last_import"/>
                         </group>
-                    </h2>
-				<group col="4">
-	            	<field name="isdisabled"/>
-                    <newline/>
-                    <field name="last_import_date" readonly="True"/>
-                    <field name="modified_since_last_import"/>
-	            </group>
-                <notebook>
-                <page string="Signaletic">
-                    <newline/>
-                    <field name="name" invisible="True"/>
-                    <field name="streetcode" invisible="True"/>
-                    <newline/>
-                    <group>
-                        <group>
-                            <label for="street" string="Address"/>
-                            <div>
-                                <field name="street" placeholder="Rue..." on_change="onchange_address(street,city)"/>
-                                <div>
-                                    <field name="zipcode" class="oe_inline" placeholder="Code Postal"/>
-                                    <field name="city" class="oe_inline" placeholder="Ville" on_change="onchange_address(street,city)"/>
-                                </div>
-                                <field name="country_id" placeholder="Country"/>
-                            </div>
-                        </group>
-                        <group>
-                            <label for="housephone" string="Contact"/>
-                            <div>
-                                <field name="housephone" placeholder="Téléphone Maison"/>
-                                <field name="workphone" placeholder="Téléphone Travail"/>
-                                <field name="gsm" placeholder="GSM"/>
-                                <field name="email" attrs="{'required':['|','|','|',('invoicesendmethod','=','onlyemail'),
+                        <notebook>
+                            <page string="Signaletic">
+                                <newline/>
+                                <field name="name" invisible="True"/>
+                                <field name="streetcode" invisible="True"/>
+                                <newline/>
+                                <group>
+                                    <group>
+                                        <label for="street" string="Address"/>
+                                        <div>
+                                            <field name="street" placeholder="Rue..."
+                                                   on_change="onchange_address(street,city)"/>
+                                            <div>
+                                                <field name="zipcode" class="oe_inline" placeholder="Code Postal"/>
+                                                <field name="city" class="oe_inline" placeholder="Ville"
+                                                       on_change="onchange_address(street,city)"/>
+                                            </div>
+                                            <field name="country_id" placeholder="Country"/>
+                                        </div>
+                                    </group>
+                                    <group>
+                                        <label for="housephone" string="Contact"/>
+                                        <div>
+                                            <field name="housephone" placeholder="Téléphone Maison"/>
+                                            <field name="workphone" placeholder="Téléphone Travail"/>
+                                            <field name="gsm" placeholder="GSM"/>
+                                            <field name="email" attrs="{'required':['|','|','|',('invoicesendmethod','=','onlyemail'),
                                                                             ('invoicesendmethod','=','emailandmail'),
                                                                             ('remindersendmethod','=','onlyemail'),
                                                                             ('remindersendmethod','=','emailandmail')]}"
-                                    placeholder="Email"
-                                />
-                            </div>
-                        </group>
-                        <group>
-                            <label for="rn" string="Registre National"/>
-                            <div>
-                                <field name="rn" class="oe_inline"/>
-                            </div>
-                        </group>
-                    </group>
-                </page>
-                <page string="Configuration">
-                    <group col="2">
-                        <field name="one_subvention_type"/>
-                        <newline/>
-                        <field name="invoicesendmethod"/>
-                        <newline/>
-                        <field name="remindersendmethod"/>
-                        <newline/>
-                        <field name="tax_certificate_send_method"/>
-                    </group>
-                </page>
-                <page string="Childs">
-                    <group col="4">
-                    	<field name="child_ids" nolabel="1">
-           					<form string="Child">
-                                <div class="oe_right oe_button_box" name="buttons">
-                                    <button name="get_presta"
-                                        string="Présences"
-                                        type="object"
-                                        class="oe_inline oe_stat_button"
-                                        icon="fa-qrcode"
+                                                   placeholder="Email"
                                             />
-                                </div>
-								<field name="name"  invisible="True"/>
-								<group col="4">
-								    <field name="isdisabled"/>
-				                    <newline/>
-				                    <field name="lastname"/>
-									<field name="firstname"/>
-				                    <newline/>
-				                    <field name="schoolimplantation"/>
-				                    <newline/>
-				                    <field name="childtypeid"/>
+                                        </div>
+                                    </group>
+                                    <group>
+                                        <label for="rn" string="Registre National"/>
+                                        <div>
+                                            <field name="rn" class="oe_inline"/>
+                                        </div>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Configuration">
+                                <group col="2">
+                                    <field name="one_subvention_type"/>
                                     <newline/>
-				                    <field name="levelid"/>
-				                    <newline/>
-				                    <field name="classid"/>
-				                    <field name="birthdate"/>
-				                    <field name="tagid"/>
+                                    <field name="invoicesendmethod"/>
                                     <newline/>
-                                    <field name="rn"/>
-				                    <newline/>
-				                    <field name="otherref"/>
-				                    <newline/>
-			                    </group>
-							</form>
-                    	</field>
-                    </group>
-                </page>
-                <page string="Invoices">
-                    <group col="4">
-                    <field name="totalinvoiced"/>
-                    <newline/>
-                    <field name="totalreceived"/>
-                    <newline/>
-                    <field name="totalbalance"/>
-                    <newline/>
-                    <field name="totalhuissier"/>
-                    <newline/>
-                    <field name="comstruct"/>
-                        <newline/>
-                    <field name="structured_communications"/>
-                        <separator string="Factures de:"  colspan="4"/>
-                        <field name="name" nolabel="1" style="font-size:16px" attrs="{'invisible':[('lastname','=',False),('firstname', '=', False)]}"/>
-                        <field name="invoice_ids" nolabel="1" colspan="4">
-	                    <tree string="Invoices"  create="false" delete="false" colors="red:tag IS NOT NULL;orange:last_reminder_id IS NOT NULL ">
-	                        <field name="activitycategoryid"/>
-	                        <field name="last_reminder_id" invisible="True"/>
-							<field name="structcom"/>
-	                        <field name="period_from"/>
-	                        <field name="period_to"/>
-	                        <field name="payment_term"/>
-	                        <field name="amount_total" sum="True"/>
-	                        <field name="amount_received" sum="True"/>
-                            <field name="no_value_amount" sum="True"/>
-                            <field name="balance"  sum="True"/>
-	                        <field name="tag"/>
-	                        <button
-                                name="reconcil"
-                                type="object"
-                                string="Reconcil"
-                                icon="terp-dolar"
-                                confirm="Do you really want to reconciliate this invoice ?"
-                                groups="extraschool.extraschool_accounting"
-                                attrs="{'invisible':[('balance', '=', 0.00)]}"
-                            />
-                            <button
-                                name="cancel_payment"
-                                type="object"
-                                string="Cancel Payment"
-                                icon="terp-gtk-stop"
-                                confirm="Do you really want to cancel payment on this invoice ?"
-                                groups="extraschool.extraschool_accounting"
-                                attrs="{'invisible':[('amount_received', '=', 0.00)]}"
-                            />
-	                    </tree>
-                    </field>
-                    </group>
-                </page>
-                <page string="Reminders">
-                    <group col="4">
-                    <field name="reminder_ids" nolabel="1">
-                    <tree string="Reminders" version="7.0" create="false" delete="false">
-                        <field name="reminders_journal_id"/>
-                        <field name="transmission_date"/>
-                        <field name="payment_term"/>
-                        <field name="amount"/>
-                    </tree>
-                    </field>
-                    </group>
-                </page>
-                <page string="Payment">
-                	<button name="extraschool.action_lbsc_payment_wizard" string="Add payment Wizard" icon="gtk-apply" type="action" context="{'default_parent_id': id}" groups="extraschool.extraschool_accounting"/>
-                	<field name="payment_ids">
-                		<tree editable="top" create="false" delete="false">
-                			<field name="paymentdate"  readonly="True"/>
-							<field name="paymenttype"  readonly="True"/>
-							<field name="structcom" readonly="True"/>
-							<field name="activity_category_id" widget="many2many_tags" readonly="True"/>
-							<field name="comment" />
-							<field name="amount" sum="True"  readonly="True"/>
-							<field name="solde"  sum="True"/>
-							<field name="refund"  sum="True" readonly="True"/>
-                            <button
-                                name="refunds"
-                                string="Refund"
-                                icon="stock_translate"
-                                type="object"
-                                groups="extraschool.extraschool_accounting"
-                                attrs="{'invisible':[('solde', '=', 0.00)]}"
-                            />
-                            <button
-                                name="cancel_refund"
-                                string="cancel Refund"
-                                icon="terp-gtk-stop"
-                                confirm="Do you really want to cancel the refund ?"
-                                type="object"
-                                groups="extraschool.extraschool_accounting"
-                                attrs="{'invisible':[('refund', '=', 0.00)]}"
-                            />
-                		</tree>
-                    </field>
-                 </page>
-                <page string="Payment status">
-                    <field name="payment_status_ids" readonly="True">
-                        <tree colors="red:solde &lt; 0;">
-                			<field name="activity_category_id" />
-							<field name="solde" sum="True"/>
-<!--                            <button name="move_prepaiement"-->
-<!--                                    string="Move prepaiement"-->
-<!--                                    icon="gtk-refresh"-->
-<!--                                    type="object"-->
-<!--                                    groups="extraschool.extraschool_accounting"/>-->
-                		</tree>
-                    </field>
-                 </page>
-                 <page string="Comment">
-                    <field name="comment" />
-                 </page>
+                                    <field name="remindersendmethod"/>
+                                    <newline/>
+                                    <field name="tax_certificate_send_method"/>
+                                </group>
+                            </page>
+                            <page string="Childs">
+                                <group col="4">
+                                    <field name="child_ids" nolabel="1">
+                                        <form string="Child">
+                                            <div class="oe_right oe_button_box" name="buttons">
+                                                <button name="get_presta"
+                                                        string="Présences"
+                                                        type="object"
+                                                        class="oe_inline oe_stat_button"
+                                                        icon="fa-qrcode"
+                                                />
+                                            </div>
+                                            <field name="name" invisible="True"/>
+                                            <group col="4">
+                                                <field name="isdisabled"/>
+                                                <newline/>
+                                                <field name="lastname"/>
+                                                <field name="firstname"/>
+                                                <newline/>
+                                                <field name="schoolimplantation"/>
+                                                <newline/>
+                                                <field name="childtypeid"/>
+                                                <newline/>
+                                                <field name="levelid"/>
+                                                <newline/>
+                                                <field name="classid"/>
+                                                <field name="birthdate"/>
+                                                <field name="tagid"/>
+                                                <newline/>
+                                                <field name="rn"/>
+                                                <newline/>
+                                                <field name="otherref"/>
+                                                <newline/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="Invoices">
+                                <group col="4">
+                                    <field name="totalinvoiced"/>
+                                    <newline/>
+                                    <field name="totalreceived"/>
+                                    <newline/>
+                                    <field name="totalbalance"/>
+                                    <newline/>
+                                    <field name="totalhuissier"/>
+                                    <newline/>
+                                    <field name="comstruct"/>
+                                    <separator string="Communications structurées : " colspan="4"/>
+                                    <field name="structured_communications" nolabel="1">
+                                        <tree>
+                                            <field name="formatted"/>
+                                        </tree>
+                                    </field>
+                                    <separator string="Factures de:" colspan="4"/>
+                                    <field name="name" nolabel="1" style="font-size:16px"
+                                           attrs="{'invisible':[('lastname','=',False),('firstname', '=', False)]}"/>
+                                    <field name="invoice_ids" nolabel="1" colspan="4">
+                                        <tree string="Invoices" create="false" delete="false"
+                                              colors="red:tag IS NOT NULL;orange:last_reminder_id IS NOT NULL ">
+                                            <field name="activitycategoryid"/>
+                                            <field name="last_reminder_id" invisible="True"/>
+                                            <field name="structcom"/>
+                                            <field name="period_from"/>
+                                            <field name="period_to"/>
+                                            <field name="payment_term"/>
+                                            <field name="amount_total" sum="True"/>
+                                            <field name="amount_received" sum="True"/>
+                                            <field name="no_value_amount" sum="True"/>
+                                            <field name="balance" sum="True"/>
+                                            <field name="tag"/>
+                                            <button
+                                                name="reconcil"
+                                                type="object"
+                                                string="Reconcil"
+                                                icon="terp-dolar"
+                                                confirm="Do you really want to reconciliate this invoice ?"
+                                                groups="extraschool.extraschool_accounting"
+                                                attrs="{'invisible':[('balance', '=', 0.00)]}"
+                                            />
+                                            <button
+                                                name="cancel_payment"
+                                                type="object"
+                                                string="Cancel Payment"
+                                                icon="terp-gtk-stop"
+                                                confirm="Do you really want to cancel payment on this invoice ?"
+                                                groups="extraschool.extraschool_accounting"
+                                                attrs="{'invisible':[('amount_received', '=', 0.00)]}"
+                                            />
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="Reminders">
+                                <group col="4">
+                                    <field name="reminder_ids" nolabel="1">
+                                        <tree string="Reminders" version="7.0" create="false" delete="false">
+                                            <field name="reminders_journal_id"/>
+                                            <field name="transmission_date"/>
+                                            <field name="payment_term"/>
+                                            <field name="amount"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="Payment">
+                                <button name="extraschool.action_lbsc_payment_wizard" string="Add payment Wizard"
+                                        icon="gtk-apply" type="action" context="{'default_parent_id': id}"
+                                        groups="extraschool.extraschool_accounting"/>
+                                <field name="payment_ids">
+                                    <tree editable="top" create="false" delete="false">
+                                        <field name="paymentdate" readonly="True"/>
+                                        <field name="paymenttype" readonly="True"/>
+                                        <field name="structcom" readonly="True"/>
+                                        <field name="activity_category_id" widget="many2many_tags" readonly="True"/>
+                                        <field name="comment"/>
+                                        <field name="amount" sum="True" readonly="True"/>
+                                        <field name="solde" sum="True"/>
+                                        <field name="refund" sum="True" readonly="True"/>
+                                        <button
+                                            name="refunds"
+                                            string="Refund"
+                                            icon="stock_translate"
+                                            type="object"
+                                            groups="extraschool.extraschool_accounting"
+                                            attrs="{'invisible':[('solde', '=', 0.00)]}"
+                                        />
+                                        <button
+                                            name="cancel_refund"
+                                            string="cancel Refund"
+                                            icon="terp-gtk-stop"
+                                            confirm="Do you really want to cancel the refund ?"
+                                            type="object"
+                                            groups="extraschool.extraschool_accounting"
+                                            attrs="{'invisible':[('refund', '=', 0.00)]}"
+                                        />
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Payment status">
+                                <field name="payment_status_ids" readonly="True">
+                                    <tree colors="red:solde &lt; 0;">
+                                        <field name="activity_category_id"/>
+                                        <field name="solde" sum="True"/>
+                                        <!--                            <button name="move_prepaiement"-->
+                                        <!--                                    string="Move prepaiement"-->
+                                        <!--                                    icon="gtk-refresh"-->
+                                        <!--                                    type="object"-->
+                                        <!--                                    groups="extraschool.extraschool_accounting"/>-->
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Comment">
+                                <field name="comment"/>
+                            </page>
 
 
-                 </notebook>
-                <!-- button name="return_action_to_open" type="object" context="{'xml_id':'action_extraschool_invoices'}" string="invoices" / -->
-                </sheet>
-                <div class="oe_chatter" groups="extraschool.extraschool_gods">
-                    <field name="message_follower_ids" widget="mail_followers"/>
-                    <field name="message_ids" widget="mail_thread"/>
-                </div>
-            </form>
+                        </notebook>
+                        <!-- button name="return_action_to_open" type="object" context="{'xml_id':'action_extraschool_invoices'}" string="invoices" / -->
+                    </sheet>
+                    <div class="oe_chatter" groups="extraschool.extraschool_gods">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
             </field>
         </record>
 
         <record id="extraschool_parent_search_view" model="ir.ui.view">
             <field name="name">extraschool_parent.search</field>
             <field name="model">extraschool.parent</field>
-            <field name="rn" />
+            <field name="rn"/>
             <field name="arch" type="xml">
                 <search string="Parent Search">
                     <field name="name"/>
                     <field name="comstruct"/>
                     <field name="email"/>
-                    <filter string="Actif" name="actif" icon="terp-accessories-archiver" domain="[('isdisabled','=',False)]"/>
+                    <filter string="Actif" name="actif" icon="terp-accessories-archiver"
+                            domain="[('isdisabled','=',False)]"/>
                 </search>
             </field>
         </record>
@@ -317,21 +329,21 @@
         </record>
 
         <record model="ir.actions.act_window.view" id="action_extraschool_parent_form">
-			<field name="name">Parent</field>
+            <field name="name">Parent</field>
             <field eval="2" name="sequence"/>
-			<field name="res_model">extraschool.parent</field>
+            <field name="res_model">extraschool.parent</field>
             <field name="view_mode">form</field>
-            <field name="view_id" ref="extraschool_parent_form" />
-            <field name="act_window_id" ref="action_extraschool_parent" />
-		</record>
+            <field name="view_id" ref="extraschool_parent_form"/>
+            <field name="act_window_id" ref="action_extraschool_parent"/>
+        </record>
 
         <record model="ir.actions.act_window.view" id="action_extraschool_parent_tree">
-			<field name="name">Parent</field>
+            <field name="name">Parent</field>
             <field eval="1" name="sequence"/>
-			<field name="res_model">extraschool.parent</field>
+            <field name="res_model">extraschool.parent</field>
             <field name="view_mode">tree</field>
-            <field name="view_id" ref="extraschool_parent_tree" />
-            <field name="act_window_id" ref="action_extraschool_parent" />
-		</record>
-	</data>
+            <field name="view_id" ref="extraschool_parent_tree"/>
+            <field name="act_window_id" ref="action_extraschool_parent"/>
+        </record>
+    </data>
 </odoo>
