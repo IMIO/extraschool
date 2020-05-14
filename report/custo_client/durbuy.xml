@@ -84,7 +84,7 @@
                 <div class="col-sm-12">
                     <div  style="border-width: 1px;display:block;border-style: solid;width: 100%;page-break-inside: avoid;font-size: 13px;">
                         <div id="payment_info">
-                            <span style="font-size: 15px;font-weight: bold;">Total à payer : <span style="float:right;"><t t-esc="'%.2f' %  (total)" /> €</span></span><br/>
+                            <span style="font-size: 15px;font-weight: bold;">Total à payer : <span style="float:right;"><t t-esc="'%.2f' %  (balance_computed)" /> €</span></span><br/>
                             <span>Échéance <span style="float:right;">avant le <t t-esc="payment_term" /></span></span><br/>
                             <span>Compte <span style="float:right;"><t t-esc="categ_id.bankaccount" /></span></span><br/>
                             <span>Communication structurée <span class="ecrit">obligatoire</span> <span style="float:right;"><t t-esc="reminder_com_struct"/></span></span>
