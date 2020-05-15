@@ -293,6 +293,7 @@ class extraschool_coda(models.Model):
                                     reject_cause = _('No valid structured Communication')
                             else:
                                 # Pre-paiements
+                                import wdb; wdb.set_trace()
                                 cr.execute(
                                     'select payment_invitation_com_struct_prefix from extraschool_activitycategory')
                                 prefixes = cr.dictfetchall()

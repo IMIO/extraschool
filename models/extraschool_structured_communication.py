@@ -27,9 +27,10 @@ class extraschool_structured_communication(models.Model):
     _name = "extraschool.structured_communication"
     _description = "Structured communication"
 
-    parent_id = fields.Many2one("extraschool.parent", "structured_communications")
-    digits = fields.Char(size=12)
-    formatted = fields.Char(compute="_compute_formatted")
+    parent_id = fields.Many2one("extraschool.parent", string="Parent", readonly=True)
+    digits = fields.Char(size=12, readonly=True)
+    formatted = fields.Char(compute="_compute_formatted", string="Structured communication")
+    activity_category_id = fields.Many2one("extraschool.activitycategory", string="Activity category", required=True, readonly=True)
 
     @staticmethod
     def format(structured_communication):
@@ -41,8 +42,8 @@ class extraschool_structured_communication(models.Model):
 
     @api.multi
     def _compute_formatted(self):
-        for structured_communication in self:
-            structured_communication.formatted = self.format(structured_communication.digits)
+        for rec in self:
+            rec.formatted = self.format(rec.digits)
 
     def get_prefix(self):
         return self.digits[0:3]

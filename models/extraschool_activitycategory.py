@@ -306,6 +306,12 @@ class extraschool_activitycategory(models.Model):
                          'type': type['type'],
                          'sequence': sequence_id.id})
 
+    def get_prefixes(self):
+        """
+        Return all activity category's prefixes into a tuple
+        """
+        return self.invoicecomstructprefix, self.remindercomstructprefix, self.payment_invitation_com_struct_prefix
+
     @api.model
     def create(self, vals):
         res = self.check_pay_invit_prefix(vals['payment_invitation_com_struct_prefix'])

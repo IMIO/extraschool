@@ -156,10 +156,20 @@ class extraschool_parent(models.Model):
             if parent.comstruct:
                 comstruct = parent.comstruct
                 if not parent.structured_communications:
+                    import wdb; wdb.set_trace()
+                    activity_category_id = self.env["extraschool.activitycategory"].search([("payment_invitation_com_struct_prefix", "=", comstruct[3:6])])
+                    others_categories = self.env["extraschool.activitycategory"].search([("id", "!=", activity_category_id.id)])
                     parent.structured_communications.create({
                         'digits': parent.comstruct.replace("/", "").replace("+", ""),
-                        'parent_id': parent.id
+                        'parent_id': parent.id,
+                        'activity_category_id': activity_category_id.id
                     })
+                    for activity_category in others_categories:
+                        parent.structured_communications.create({
+                            'digits': self.get_prepaid_comstruct(activity_category),
+                            'parent_id': parent.id,
+                            'activity_category_id': activity_category_id.id
+                        })
 
     @api.onchange('firstname', 'lastname')
     @api.multi
@@ -322,8 +332,7 @@ class extraschool_parent(models.Model):
         com_struct_check_str = str(long(com_struct_prefix_str + com_struct_id_str) % 97).zfill(2)
         com_struct_check_str = com_struct_check_str if com_struct_check_str != '00' else '97'
 
-        return self.env["extraschool.structured_communication"].format(
-            ''.join((com_struct_prefix_str, com_struct_id_str, com_struct_check_str)))
+        return com_struct_prefix_str, com_struct_id_str, com_struct_check_str
 
     @api.multi
     def get_all_invoice_activity_category(self, invoice_id):

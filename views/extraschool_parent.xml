@@ -174,11 +174,11 @@
                                     <field name="totalbalance"/>
                                     <newline/>
                                     <field name="totalhuissier"/>
-                                    <newline/>
-                                    <field name="comstruct"/>
-                                    <separator string="Communications structurées : " colspan="4"/>
+                                </group>
+                                    <separator string="Communications structurées : "/>
                                     <field name="structured_communications" nolabel="1">
-                                        <tree>
+                                        <tree create="false" delete="false">
+                                            <field name="activity_category_id"/>
                                             <field name="formatted"/>
                                         </tree>
                                     </field>
@@ -219,7 +219,6 @@
                                             />
                                         </tree>
                                     </field>
-                                </group>
                             </page>
                             <page string="Reminders">
                                 <group col="4">
