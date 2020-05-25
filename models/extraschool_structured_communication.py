@@ -28,9 +28,10 @@ class extraschool_structured_communication(models.Model):
     _description = "Structured communication"
 
     parent_id = fields.Many2one("extraschool.parent", string="Parent", readonly=True)
-    digits = fields.Char(size=12, readonly=True)
+    digits = fields.Char(size=12, readonly=True, required=True)
     formatted = fields.Char(compute="_compute_formatted", string="Structured communication")
-    activity_category_id = fields.Many2one("extraschool.activitycategory", string="Activity category", required=True, readonly=True)
+    activity_category_id = fields.Many2one("extraschool.activitycategory", string="Activity category", required=True,
+                                           readonly=True)
 
     @staticmethod
     def format(structured_communication):

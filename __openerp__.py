@@ -39,7 +39,7 @@
     'test': [],
     'data': [
         'scripts/update_seq.xml',
-        'scripts/update_comstruct_parent.xml',
+        # 'scripts/update_comstruct_parent.xml',
         # 'scripts/update_one_report.sql',
         # 'scripts/update_activity_category.xml',
         'data/data_days.xml',

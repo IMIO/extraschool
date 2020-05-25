@@ -302,7 +302,7 @@
             <field name="arch" type="xml">
                 <search string="Parent Search">
                     <field name="name"/>
-                    <field name="comstruct"/>
+                    <field name="structured_communications"/>
                     <field name="email"/>
                     <filter string="Actif" name="actif" icon="terp-accessories-archiver"
                             domain="[('isdisabled','=',False)]"/>

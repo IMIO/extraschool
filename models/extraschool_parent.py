@@ -21,8 +21,9 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
 from openerp.addons.extraschool.helper import lbutils, extraschool_helper
+
+from openerp import models, api, fields
 from openerp.exceptions import Warning
 
 
@@ -148,6 +149,7 @@ class extraschool_parent(models.Model):
                                                     ('onlybymail', 'Only by mail')),
                                                    'Tax certificate send method', required=True, default='onlybymail',
                                                    track_visibility='onchange')
+
     # for migration only
     @api.model
     def update_comstruct_parent(self):
@@ -156,9 +158,10 @@ class extraschool_parent(models.Model):
             if parent.comstruct:
                 comstruct = parent.comstruct
                 if not parent.structured_communications:
-                    import wdb; wdb.set_trace()
-                    activity_category_id = self.env["extraschool.activitycategory"].search([("payment_invitation_com_struct_prefix", "=", comstruct[3:6])])
-                    others_categories = self.env["extraschool.activitycategory"].search([("id", "!=", activity_category_id.id)])
+                    activity_category_id = self.env["extraschool.activitycategory"].search(
+                        [("payment_invitation_com_struct_prefix", "=", comstruct[3:6])])
+                    others_categories = self.env["extraschool.activitycategory"].search(
+                        [("id", "!=", activity_category_id.id)])
                     parent.structured_communications.create({
                         'digits': parent.comstruct.replace("/", "").replace("+", ""),
                         'parent_id': parent.id,
@@ -166,9 +169,9 @@ class extraschool_parent(models.Model):
                     })
                     for activity_category in others_categories:
                         parent.structured_communications.create({
-                            'digits': self.get_prepaid_comstruct(activity_category),
+                            'digits': parent.get_prepaid_comstruct(activity_category),
                             'parent_id': parent.id,
-                            'activity_category_id': activity_category_id.id
+                            'activity_category_id': activity_category.id
                         })
 
     @api.onchange('firstname', 'lastname')
@@ -267,10 +270,15 @@ class extraschool_parent(models.Model):
         if doublons:
             raise Warning('There is already a parent with this email or rn')
 
-        # Compute and store parent's commstruct for further use (search).
         parent_id = super(extraschool_parent, self).create(vals)
-        parent_id.write(
-            {'comstruct': parent_id.get_prepaid_comstruct(self.env['extraschool.activitycategory'].search([])[0])})
+        # Create all structured communications (one for each activity category)
+        activity_category_ids = self.env["extraschool.activitycategory"].search([])
+        for activity_category in activity_category_ids:
+            parent_id.structured_communications.create({
+                'digits': parent_id.get_prepaid_comstruct(activity_category),
+                'parent_id': parent_id.id,
+                'activity_category_id': activity_category.id
+            })
 
         return parent_id
 
@@ -332,7 +340,7 @@ class extraschool_parent(models.Model):
         com_struct_check_str = str(long(com_struct_prefix_str + com_struct_id_str) % 97).zfill(2)
         com_struct_check_str = com_struct_check_str if com_struct_check_str != '00' else '97'
 
-        return com_struct_prefix_str, com_struct_id_str, com_struct_check_str
+        return ''.join((com_struct_prefix_str, com_struct_id_str, com_struct_check_str))
 
     @api.multi
     def get_all_invoice_activity_category(self, invoice_id):
