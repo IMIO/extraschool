@@ -22,7 +22,7 @@
 ##############################################################################
 
 from openerp import models, api, fields, _
-    #    registration_only = fields.Boolean('Registration only')
+#    registration_only = fields.Boolean('Registration only')
 
 from openerp.api import Environment
 from openerp.exceptions import except_orm, Warning
@@ -36,6 +36,7 @@ import pdb
 from openerp.exceptions import except_orm, Warning, RedirectWarning
 
 import logging
+
 _logger = logging.getLogger(__name__)
 
 import extraschool_activityplanneddate
@@ -48,19 +49,32 @@ class extraschool_activity(models.Model):
 
     name = fields.Char('Name', required=True)
 
-    category_id = fields.Many2one('extraschool.activitycategory', 'Category', required=True, track_visibility='onchange')
+    category_id = fields.Many2one('extraschool.activitycategory', 'Category', required=True,
+                                  track_visibility='onchange')
     parent_id = fields.Many2one('extraschool.activity', 'Parent', index=True, track_visibility='onchange')
-    root_id = fields.Many2one('extraschool.activity', 'Root', compute='_compute_root_activity', store=True, index=True, track_visibility='onchange')
-    activity_child_ids = fields.One2many('extraschool.activity', 'parent_id', 'Activity child', track_visibility='onchange')
-    placeids = fields.Many2many('extraschool.place', 'extraschool_activity_place_rel', 'activity_id', 'place_id', 'Schoolcare place', required=True, track_visibility='onchange')
-    schoolimplantationids = fields.Many2many('extraschool.schoolimplantation', 'extraschool_activity_schoolimplantation_rel', 'activity_id', 'schoolimplantation_id', 'Schoolcare schoolimplantation', track_visibility='onchange')
+    root_id = fields.Many2one('extraschool.activity', 'Root', compute='_compute_root_activity', store=True, index=True,
+                              track_visibility='onchange')
+    activity_child_ids = fields.One2many('extraschool.activity', 'parent_id', 'Activity child',
+                                         track_visibility='onchange')
+    placeids = fields.Many2many('extraschool.place', 'extraschool_activity_place_rel', 'activity_id', 'place_id',
+                                'Schoolcare place', required=True, track_visibility='onchange')
+    schoolimplantationids = fields.Many2many('extraschool.schoolimplantation',
+                                             'extraschool_activity_schoolimplantation_rel', 'activity_id',
+                                             'schoolimplantation_id', 'Schoolcare schoolimplantation',
+                                             track_visibility='onchange')
     short_name = fields.Char('Short name', index=True, required=True)
-    childtype_ids = fields.Many2many('extraschool.childtype', 'extraschool_activity_childtype_rel', 'activity_id', 'childtype_id', 'Child type', track_visibility='onchange')
-    childregistration_ids = fields.One2many('extraschool.activitychildregistration', 'activity_id', 'Child registrations', track_visibility='onchange')
+    childtype_ids = fields.Many2many('extraschool.childtype', 'extraschool_activity_childtype_rel', 'activity_id',
+                                     'childtype_id', 'Child type', track_visibility='onchange')
+    childregistration_ids = fields.One2many('extraschool.activitychildregistration', 'activity_id',
+                                            'Child registrations', track_visibility='onchange')
     autoaddchilds = fields.Boolean('Auto add registered', track_visibility='onchange')
     onlyregisteredchilds = fields.Boolean('Only registered childs', index=True, track_visibility='onchange')
-    planneddates_ids = fields.Many2many('extraschool.activityplanneddate', 'extraschool_activity_activityplanneddate_rel', 'activity_id', 'activityplanneddate_id', 'Planned dates', track_visibility='onchange')
-    exclusiondates_ids = fields.Many2many('extraschool.activityexclusiondates', 'extraschool_activity_activityexclusiondates_rel', 'activity_id', 'activityexclusiondates_id', 'Exclusion dates', track_visibility='onchange')
+    planneddates_ids = fields.Many2many('extraschool.activityplanneddate',
+                                        'extraschool_activity_activityplanneddate_rel', 'activity_id',
+                                        'activityplanneddate_id', 'Planned dates', track_visibility='onchange')
+    exclusiondates_ids = fields.Many2many('extraschool.activityexclusiondates',
+                                          'extraschool_activity_activityexclusiondates_rel', 'activity_id',
+                                          'activityexclusiondates_id', 'Exclusion dates', track_visibility='onchange')
     days = fields.Selection(
         (
             ('0,1,2,3,4', 'All Monday to Friday'),
@@ -71,28 +85,37 @@ class extraschool_activity(models.Model):
             ('4', 'All Fridays'),
             ('0,1,3,4', 'All Mondays, Tuesdays, Thursday and Friday'),
             ('5', 'All Saturday'),
-         ),
+        ),
         'Days', required=True,
         track_visibility='onchange'
     )
-    leveltype = fields.Selection((('M,P', 'Maternelle et Primaire'), ('M', 'Maternelle'), ('P', 'Primaire')), 'Level type', required=True, track_visibility='onchange')
+    leveltype = fields.Selection((('M,P', 'Maternelle et Primaire'), ('M', 'Maternelle'), ('P', 'Primaire')),
+                                 'Level type', required=True, track_visibility='onchange')
     prest_from = fields.Float('From', index=True, required=True, track_visibility='onchange')
     prest_to = fields.Float('To', index=True, required=True, track_visibility='onchange')
     price = fields.Float('Price', digits=(7, 3), track_visibility='onchange')
     price_list_id = fields.Many2one('extraschool.price_list', 'Price List', track_visibility='onchange')
     period_duration = fields.Integer('Period Duration', track_visibility='onchange')
-    default_from_to = fields.Selection((('from', 'default_from_to From'), ('to', 'default_from_to To'), ('from_to', 'default_from_to From and To')), 'default_from_to Default From To', required=True, track_visibility='onchange')
+    default_from_to = fields.Selection(
+        (('from', 'default_from_to From'), ('to', 'default_from_to To'), ('from_to', 'default_from_to From and To')),
+        'default_from_to Default From To', required=True, track_visibility='onchange')
     default_from = fields.Float('Default from', track_visibility='onchange')
     default_to = fields.Float('Default to', track_visibility='onchange')
     fixedperiod = fields.Boolean('Fixed period', default=False)
     subsidizedbyone = fields.Boolean('Subsidized by one')
     on_tax_certificate = fields.Boolean('On tax certificate', select=True, track_visibility='onchange')
+    on_tax_certificate_selection = fields.Selection(
+        (("non_renseigne", "Non renseigné"),
+         ("non", "Non"),
+         ("oui", "Oui")), default="non_renseigne", string="On tax certificate")
     tarif_group_name = fields.Char('Tarif group name', index=True, track_visibility='onchange')
     validity_from = fields.Date('Validity from', index=True, required=True, track_visibility='onchange')
     validity_to = fields.Date('Validity to', index=True, required=True, track_visibility='onchange')
     selectable_on_registration = fields.Boolean('Selectable on registration form')
     selectable_on_registration_multi = fields.Boolean('Selectable on registration multi form')
-    warning_date = fields.Char('WARNING', default="ATTENTION, Modifier une activité peut impacter les présences déjà vérifiées ! Pour tous changements, Il est préférable de contacter directement Imio.", readonly=True)
+    warning_date = fields.Char('WARNING',
+                               default="ATTENTION, Modifier une activité peut impacter les présences déjà vérifiées ! Pour tous changements, Il est préférable de contacter directement Imio.",
+                               readonly=True)
     warning_visibility = fields.Boolean(track_visibility='onchange')
     expire_soon = fields.Boolean(compute='_get_expired_date')
     price_list_version_ids = fields.Many2many(
@@ -114,7 +137,8 @@ class extraschool_activity(models.Model):
     @api.multi
     def _get_price_list_version(self):
         for rec in self:
-            rec.price_list_version_ids = rec.env['extraschool.price_list_version'].search([('activity_ids', 'in', rec.id)])
+            rec.price_list_version_ids = rec.env['extraschool.price_list_version'].search(
+                [('activity_ids', 'in', rec.id)])
 
     @api.multi
     def get_occurrence(self):
@@ -127,7 +151,7 @@ class extraschool_activity(models.Model):
                 'target': 'current',
                 'limit': 50000,
                 'context': "{'group_by':'place_id'}",
-                'domain': [ ('activityid', '=',self.id),]
+                'domain': [('activityid', '=', self.id), ]
                 }
 
     @api.multi
@@ -155,7 +179,8 @@ class extraschool_activity(models.Model):
         hour = int(tstime)
         minute = int((tstime - hour) * 60)
         hour = hour - 1 if hour else 0
-        return datetime.strptime(tsdate + ' ' + str(hour).zfill(2) + ':' + str(minute).zfill(2) + ':00', DEFAULT_SERVER_DATETIME_FORMAT)
+        return datetime.strptime(tsdate + ' ' + str(hour).zfill(2) + ':' + str(minute).zfill(2) + ':00',
+                                 DEFAULT_SERVER_DATETIME_FORMAT)
 
     def populate_occurrence(self, date_from=None, date_to=None):
         cr, uid = self.env.cr, self.env.user.id
@@ -166,7 +191,8 @@ class extraschool_activity(models.Model):
                 for planneddate in activity.planneddates_ids:
                     for place in activity.placeids:
                         activityoccurrence.create({'place_id': place.id,
-                                                   'occurrence_date': datetime.strptime(planneddate.activitydate, DEFAULT_SERVER_DATE_FORMAT),
+                                                   'occurrence_date': datetime.strptime(planneddate.activitydate,
+                                                                                        DEFAULT_SERVER_DATE_FORMAT),
                                                    'activityid': activity.id,
                                                    'prest_from': activity.prest_from,
                                                    'prest_to': activity.prest_to,
@@ -187,7 +213,9 @@ class extraschool_activity(models.Model):
                 for day in range(delta.days + 1):
                     current_day_date = d1 + td(days=day)
                     if str(current_day_date.weekday()) in activity.days:
-                        cr.execute('select count(*) from extraschool_activity_activityexclusiondates_rel as ear inner join extraschool_activityexclusiondates as ea on ear.activityexclusiondates_id = ea.id where activity_id = %s and date_from <= %s and date_to >= %s', (activity.id, current_day_date, current_day_date))
+                        cr.execute(
+                            'select count(*) from extraschool_activity_activityexclusiondates_rel as ear inner join extraschool_activityexclusiondates as ea on ear.activityexclusiondates_id = ea.id where activity_id = %s and date_from <= %s and date_to >= %s',
+                            (activity.id, current_day_date, current_day_date))
                         exclu_activity_id = cr.fetchall()
                         if exclu_activity_id[0][0] == 0:
                             for place in activity.placeids:
@@ -217,8 +245,11 @@ class extraschool_activity(models.Model):
 
                                 # insert_data = insert_data.join('('+str(place.id)+','+str(current_day_date)+','+str(activity.id)+','+str(activity.prest_from)+','+str(activity.prest_to)+')')
                 if len(args):
-                    args_str = ','.join(cr.mogrify("(%s,%s,%s,current_timestamp,%s,%s,current_timestamp,%s,%s,%s,%s,%s,%s)", x) for x in args)
-                    cr.execute("insert into extraschool_activityoccurrence (create_uid,date_stop,date_start,create_date,name,write_uid,write_date,place_id,occurrence_date,activityid,prest_from,prest_to,activity_category_id) VALUES "+args_str)
+                    args_str = ','.join(
+                        cr.mogrify("(%s,%s,%s,current_timestamp,%s,%s,current_timestamp,%s,%s,%s,%s,%s,%s)", x) for x in
+                        args)
+                    cr.execute(
+                        "insert into extraschool_activityoccurrence (create_uid,date_stop,date_start,create_date,name,write_uid,write_date,place_id,occurrence_date,activityid,prest_from,prest_to,activity_category_id) VALUES " + args_str)
 
                     # get ids of created occu
                     cr.execute("""select id
@@ -238,11 +269,12 @@ class extraschool_activity(models.Model):
         # There goes the rabbit hole
         # # If there is an invoiced prestation for the activity.
         if (invoiced_obj.search(
-                [('activity_occurrence_id.activityid', '=', self.id)])):
+            [('activity_occurrence_id.activityid', '=', self.id)])):
             date_last_invoice = vals['validity_from'] if vals.get('validity_from') else self.validity_from
             activity_occurrence_ids = self.env['extraschool.activityoccurrence'].search([('activityid', '=', self.id),
-                ('occurrence_date', '>=', date_last_invoice),
-            ])
+                                                                                         ('occurrence_date', '>=',
+                                                                                          date_last_invoice),
+                                                                                         ])
         else:
             activity_occurrence_ids = self.env['extraschool.activityoccurrence'].search([('activityid', '=', self.id)])
             date_last_invoice = self.validity_from
@@ -341,19 +373,20 @@ class extraschool_activity(models.Model):
         if prest_from > prest_to:
             raise Warning(_("Validity to must be greater than validity from (hours)"))
 
-        #Check Planned Dates
+        # Check Planned Dates
         for planneddates_id in planneddates_ids:
-             if planneddates_id.activitydate < validity_from or planneddates_id.activitydate > validity_to:
-                 raise Warning(_("Planned Dates must be in the range of Validity_to and Validity_from (Planned)"))
+            if planneddates_id.activitydate < validity_from or planneddates_id.activitydate > validity_to:
+                raise Warning(_("Planned Dates must be in the range of Validity_to and Validity_from (Planned)"))
 
-        #Check Exclusion Dates
+        # Check Exclusion Dates
         for exclusiondates_id in exclusiondates_ids:
             if exclusiondates_id.date_from < validity_from or exclusiondates_id.date_to > validity_to:
                 raise Warning(_("Date_from must be in range of Validity_from and Validity_to (Exclusion)"))
 
-    @api.onchange('validity_from','validity_to','planneddates_ids','exclusiondates_ids','parent_id','placeids','leveltype','prest_from','prest_to','days')
+    @api.onchange('validity_from', 'validity_to', 'planneddates_ids', 'exclusiondates_ids', 'parent_id', 'placeids',
+                  'leveltype', 'prest_from', 'prest_to', 'days')
     @api.multi
-    def check_validity_from_invoice(self,origin_id=0):
+    def check_validity_from_invoice(self, origin_id=0):
         if not origin_id:
             origin_id = self._origin.id
         else:
@@ -363,9 +396,11 @@ class extraschool_activity(models.Model):
         invoiced_obj = self.env['extraschool.invoicedprestations']
         # If there is an invoiced prestation for the activity.
         if (invoiced_obj.search(
-                [('activity_occurrence_id.activityid', '=', origin_id)])):
+            [('activity_occurrence_id.activityid', '=', origin_id)])):
             # Get the date of the last invoice for this activity.
-            cr.execute("SELECT prestation_date FROM extraschool_invoicedprestations WHERE activity_activity_id = %s ORDER BY prestation_date DESC LIMIT 1" % (origin_id))
+            cr.execute(
+                "SELECT prestation_date FROM extraschool_invoicedprestations WHERE activity_activity_id = %s ORDER BY prestation_date DESC LIMIT 1" % (
+                    origin_id))
             # Trop lent.
             # date_last_invoice = invoiced_obj.search([('activity_activity_id', '=', self._origin.id)],
             #                                         order='prestation_date DESC', limit=1).prestation_date
@@ -386,14 +421,14 @@ class extraschool_activity(models.Model):
 
             # This will go through a specific process if there is one change in these fields.
             if 'validity_from' in vals \
-                    or 'validity_to' in vals \
-                    or 'planneddates_ids' in vals \
-                    or 'parent_id' in vals \
-                    or 'placeids' in vals \
-                    or 'leveltype' in vals \
-                    or 'prest_from' in vals \
-                    or 'prest_to' in vals \
-                    or 'days' in vals:
+                or 'validity_to' in vals \
+                or 'planneddates_ids' in vals \
+                or 'parent_id' in vals \
+                or 'placeids' in vals \
+                or 'leveltype' in vals \
+                or 'prest_from' in vals \
+                or 'prest_to' in vals \
+                or 'days' in vals:
                 # Follow the white rabbit.
                 activity.check_if_modifiable(vals)
 
@@ -426,5 +461,5 @@ class extraschool_activity(models.Model):
         else:
             return False
 
-extraschool_activity()
 
+extraschool_activity()
