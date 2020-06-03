@@ -347,7 +347,6 @@ class extraschool_invoice(models.Model):
         if len(splited_street) == 0:
             splited_street = [(splited_street, '', '', '', '')]
         # split rue ecole
-
         activities = self.env["extraschool.activity"].search([]).mapped('name')
 
         # statique part
@@ -436,14 +435,6 @@ class extraschool_invoice(models.Model):
             return {'lines': res,
                     'exported_amount': total,
                     }
-
-        # trier les lines ids par champs sélection pour afficher un message d'erreur
-        bad_lines_ids = lines_ids.filtered(
-            lambda r: r.activity_activity_id.on_tax_certificate_selection == "non_renseigne")
-        if bad_lines_ids:
-            activities_names = bad_lines_ids.mapped("activity_activity_id").mapped("name")
-            raise Warning(_("Missing information about tax certificate on these activities : \n\n {}".format(
-                "\n".join(activities_names))))
 
         for invoicedline in lines_ids:
             if zz == 0:
@@ -566,7 +557,6 @@ class extraschool_invoice(models.Model):
                                      )
             total += saved_child['amount']
             res.append(str_line)
-
         return {'lines': res,
                 'exported_amount': total,
                 }

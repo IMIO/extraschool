@@ -125,6 +125,14 @@ class extraschool_activity(models.Model):
     )
 
     @api.multi
+    def is_valid(self):
+        """
+        Check if activity is valid compared to today date
+        :return: validity of activity
+        """
+        return datetime.strptime(self.validity_from, "%Y-%m-%d").date() <= date.today() <= datetime.strptime(self.validity_to, "%Y-%m-%d").date()
+
+    @api.multi
     def is_activity_valid(self, date_from, date_to):
         """
         Check if activity is valid compared to dates

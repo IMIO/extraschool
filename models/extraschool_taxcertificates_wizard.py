@@ -56,7 +56,7 @@ class extraschool_taxcertificates_wizard(models.TransientModel):
                                             left join extraschool_invoice iii on iii.id = ppr.invoice_id
                                             left join extraschool_payment pp on pp.id = ppr.payment_id
                                             where ppr.date BETWEEN '%s' and '%s'
-                                                AND iii.balance = 0                                            
+                                                AND iii.balance = 0
                                 """ % (self.year+'-01-01',self.year+'-12-31')
 
         sql_concerned_invoice += parent_select
@@ -69,7 +69,7 @@ class extraschool_taxcertificates_wizard(models.TransientModel):
                                       left join extraschool_activity aa on aa.id = aao.activityid
                                     left join extraschool_invoice ii on ii.id = iip.invoiceid
                                     where invoiceid in (""" + sql_concerned_invoice + """)
-                                           and aa.on_tax_certificate = true
+                                           and aa.on_tax_certificate_selection = 'oui'
                                            and iip.childid = ip.childid
                                     ) as nbdays
                                     from extraschool_invoicedprestations ip
@@ -85,7 +85,7 @@ class extraschool_taxcertificates_wizard(models.TransientModel):
                                     group by i.parentid,par.firstname,par.lastname,par.street,par.zipcode,par.city,ip.childid,c.firstname,c.lastname,c.birthdate,si.name,sc.name
                                     having sum(total_price) > 0
                                     order by si.name,sc.name,i.parentid;
-                                
+
                                 """
 
         if not self.parentid:

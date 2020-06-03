@@ -112,8 +112,8 @@ class extraschool_biller(models.Model):
         res = []
         for biller in self:
             res.append((biller.id, _("Biller from %s to %s") % (
-            datetime.strptime(biller.period_from, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y"),
-            datetime.strptime(biller.period_to, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y"))))
+                datetime.strptime(biller.period_from, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y"),
+                datetime.strptime(biller.period_to, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y"))))
 
         return res
 
@@ -287,7 +287,7 @@ class extraschool_biller(models.Model):
             self.period_from).year) * 12 + fields.Date.from_string(self.period_to).month + 1
         months = [{'year': yr, 'month': mn} for (yr, mn) in (
             ((m - 1) / 12 + fields.Date.from_string(self.period_from).year, (m - 1) % 12 + 1) for m in
-        range(start_month, end_months)
+            range(start_month, end_months)
         )]
 
         return months
@@ -421,6 +421,18 @@ class extraschool_biller(models.Model):
         server.sendmail(email_from, email_to, msg.as_string())
         server.quit()
 
+    @api.multi
+    def check_activities_on_tax_certificate(self):
+        """
+        Check if there is activities with "non_renseigne" for on_tax_certificate_selection
+        """
+        activities = self.env["extraschool.activity"].search([]).filtered(
+            lambda r: r.is_valid() and r.on_tax_certificate_selection == "non_renseigne")
+        if activities:
+            activities_names = activities.mapped("name")
+            raise Warning(_(u"Missing information about tax certificate on these activities : \n\n {}".format(
+                u"\n".join(activities_names))))
+
     @api.one
     def export_onyx(self):
         output = ""
@@ -431,6 +443,7 @@ class extraschool_biller(models.Model):
         output += u"NOM\tPRENOM\tDATE DE NAISSANCE\tN° REGISTRE NATIONAL\tANNEE D'ETUDE\tDate accueil\t"
         output += u"activité\tNbr j presences\tfisc\ttotal\tquantité\n"
         total = 0
+        self.check_activities_on_tax_certificate()
         for invoice in self.invoice_ids.sorted(lambda r: r.parentid.rn):
             export = invoice.export_onyx()
             total += export['exported_amount']
@@ -439,8 +452,8 @@ class extraschool_biller(models.Model):
 
         attachment_obj = self.env['ir.attachment']
         filename = "Facturier_du_%s_au_%s__%s_aes_onyx.txt" % (
-        time.strftime('%d/%m/%Y', time.strptime(self.period_from, '%Y-%m-%d')),
-        time.strftime('%d/%m/%Y', time.strptime(self.period_to, '%Y-%m-%d')), total)
+            time.strftime('%d/%m/%Y', time.strptime(self.period_from, '%Y-%m-%d')),
+            time.strftime('%d/%m/%Y', time.strptime(self.period_to, '%Y-%m-%d')), total)
         attachment_obj.create({'res_model': 'extraschool.biller',
                                'res_id': self.id,
                                'datas': output.encode('utf-8').encode('base64'),
