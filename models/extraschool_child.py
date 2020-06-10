@@ -244,6 +244,12 @@ class AgedGroup(models.Model):
             raise Warning(_('There is an error in aged group'))
 
     @api.multi
+    def verify_if_already_exists(self, age_from, age_to):
+        if self.search([('age_from', '=', age_from), ('age_to', '=', age_to)]):
+            raise Warning(_('There is already an age group with theses values'))
+
+
+    @api.multi
     def _compute_name(self):
         for rec in self:
             rec.name = '{} à {} ans'.format(rec.age_from, rec.age_to)
@@ -251,4 +257,5 @@ class AgedGroup(models.Model):
     @api.model
     def create(self, vals):
         self.verify_age(vals)
+        self.verify_if_already_exists(vals['age_from'], vals['age_to'])
         return super(AgedGroup, self).create(vals)
