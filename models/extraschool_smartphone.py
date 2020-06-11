@@ -98,7 +98,7 @@ class extraschool_smartphone(models.Model):
     softwareurl_v9 = fields.Char('Software url', size=100, readonly=True, default='https://static.imio.be/aes/aesmobile.apk')
     transmissiontime = fields.Char('Transmission time', size=5, default=_get_default_transmissiontime)
     serveraddress = fields.Char('Server address', size=50, default=_get_default_serveraddress, readonly=True)
-    databasename = fields.Char('Database name', size=30, default=_get_default_databasename, readonly=False)
+    databasename = fields.Char('Database name', size=30, default=_get_default_databasename, readonly=True)
     username = fields.Char('User name', default=_get_default_username, readonly=True)
     userpassword = fields.Char('User password', default=_get_default_userpassword, readonly=True)
     scanmethod = fields.Selection((('Tag','Tag'),('QR','QR')),'Scan method', default=_get_default_scanmethod, readonly=True)
