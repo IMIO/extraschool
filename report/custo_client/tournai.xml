@@ -202,8 +202,7 @@
 					</t>
 					<tr>
 						<th colspan="2">TOTAUX</th>
-<!--						<th><span t-esc="'%.2f €' % (reminder.amount + (sum([summary_invoice.amount_received for summary_invoice in summary_invoice_ids])) + (sum([summary_invoice.no_value for summary_invoice in summary_invoice_ids])))" /></th>-->
-						<th><span t-esc="'%.2f €' % ((sum([summary_invoice.amount_received for summary_invoice in summary_invoice_ids])) + (sum([summary_invoice.no_value for summary_invoice in summary_invoice_ids])))" /></th>
+						<th><span t-esc="'%.2f €' % (sum([summary_invoice.amount_total for summary_invoice in summary_invoice_ids]))"/></th>
 						<th><span t-esc="'%.2f €' % (sum([summary_invoice.no_value_amount for summary_invoice in summary_invoice_ids]))"/></th>
 						<th><span t-esc="'%.2f €' % (sum([summary_invoice.amount_received for summary_invoice in summary_invoice_ids]))"/></th>
 						<th style="text-align:right;"><span t-esc="'%.2f €' % (sum([summary_invoice.balance for summary_invoice in summary_invoice_ids]))"/></th>
