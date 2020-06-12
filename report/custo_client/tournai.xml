@@ -12,7 +12,7 @@
                        Nos réf. : AES / <t t-esc="reminder.reminders_journal_id.name"/> / <t t-esc="parent_id.name" /><br/><br/><br/>
                         Cher Parent, <br/><br/>
                        Nous vous avons adressé les factures relatives aux frais scolaires de votre (vos) enfant(s) pour la période du <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/>.
-                       Nous constatons que vous êtes encore redevable d'un solde dû de <t t-esc="'%.2f €' % (amount)"/> envers l'Administration
+                       Nous constatons que vous êtes encore redevable d'un solde dû de <t t-esc="'%.2f €' % (balance_computed)"/> envers l'Administration
                        Communale de <t t-esc="categ_id.po_city" />, somme dont vous trouverez le détail ci-annexé.<br/><br/>
 
                        <b>Nous vous invitons à régler ce montant, pour le <t t-esc="payment_term" /> au plus tard, au bénéfice du compte (IBAN)
@@ -193,7 +193,7 @@
 									<td><span t-field="summary_invoice.number" /></td>
 									<td><span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_from,'%Y-%m-%d')))" /> - <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_to,'%Y-%m-%d')))" /></td>
 									<td><span t-esc="'%.2f €' % (summary_invoice.amount_total)"/></td>
-									<td><span t-esc="'%.2f €' % (summary_invoice.no_value)" /></td>
+									<td><span t-esc="'%.2f €' % (summary_invoice.no_value_amount)" /></td>
 									<td><span t-esc="'%.2f €' % (summary_invoice.amount_received)" /></td>
 									<td class="amount"><span t-esc="'%.2f €' % (summary_invoice.balance)" /></td>
 								</tr>
