@@ -109,21 +109,21 @@
                             <field name="prest_to" />
                             <field name="amount" />
                         </group>
-                        <notebook>
-                            <page string="Detail">
-                                <field name="tax_certificate_detail_ids">
-                                    <tree string="Detail" editable="top">
-                                        <field name="child_name" sum="true"/>
-                                        <field name="invoice_number" />
-                                        <field name="activity_name" />
-                                        <field name="prestation_date" />
-                                        <field name="time_scan" />
-                                        <field name="entry_exit" />
-                                        <field name="amount"/>
-                                    </tree>
-                                </field>
-                            </page>
-                        </notebook>
+<!--                        <notebook>-->
+<!--                            <page string="Detail">-->
+<!--                                <field name="tax_certificate_detail_ids">-->
+<!--                                    <tree string="Detail" editable="top">-->
+<!--                                        <field name="child_name" sum="true"/>-->
+<!--                                        <field name="invoice_number" />-->
+<!--                                        <field name="activity_name" />-->
+<!--                                        <field name="prestation_date" />-->
+<!--                                        <field name="time_scan" />-->
+<!--                                        <field name="entry_exit" />-->
+<!--                                        <field name="amount"/>-->
+<!--                                    </tree>-->
+<!--                                </field>-->
+<!--                            </page>-->
+<!--                        </notebook>-->
                     </sheet>
                     <div class="oe_chatter" groups="extraschool.extraschool_gods">
                         <field name="message_follower_ids" widget="mail_followers"/>
