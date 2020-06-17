@@ -31,6 +31,17 @@
 
        		</div>
 		</template>
+
+        <template id="report_invoice_your_ref_and_period_num_fact_one_row_title">
+        	<div style="width: 100%;display: block;margin: 0cm 0cm 0cm 0cm;font-size:12px;">
+                <div style="text-align: center;"><b><u>Facture de l'accueil extrascolaire</u></b></div><br/><br/>
+        		<div class="your_ref">
+        			Facture N°: <span t-field="invoice.number" />
+        			 - Période du <span t-field="invoice.biller_id.period_from" /> au <span t-field="invoice.biller_id.period_to" />
+        		</div>
+       		</div>
+		</template>
+
 	</data>
 </odoo>
 
