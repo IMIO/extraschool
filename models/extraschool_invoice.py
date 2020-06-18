@@ -309,7 +309,8 @@ class extraschool_invoice(models.Model):
         p = re.compile(r"([^0-9^,]*|.*\b11 novembre\b)[\s,]*([0-9]*)[\/\s]*([a-zA-Z]*[0-9]*)[\/\s]*([a-zA-Z]*)$")
 
         if reset_nbr_jour:
-            saved_child['nbr_jour'] = 1 if invoicedline.activity_activity_id.on_tax_certificate else 0
+            saved_child[
+                'nbr_jour'] = 1 if invoicedline.activity_activity_id.on_tax_certificate_selection == "oui" else 0
             saved_child['nbr_jour_printed'] = False
 
         saved_child['saved_activity'] = invoicedline.activity_activity_id.short_name
@@ -324,7 +325,7 @@ class extraschool_invoice(models.Model):
         saved_child['street_code'] = invoicedline.placeid.street_code
         saved_child['amount'] = invoicedline.total_price
         saved_child[
-            'fisc_amount'] = invoicedline.total_price if invoicedline.activity_activity_id.on_tax_certificate else 0
+            'fisc_amount'] = invoicedline.total_price if invoicedline.activity_activity_id.on_tax_certificate_selection == "oui" else 0
         saved_child['invoice_num'] = invoicedline.invoiceid.number
         saved_child['inv_date'] = invoicedline.prestation_date
         saved_child['inv_date_str'] = time.strftime('%d/%m/%Y', time.strptime(invoicedline.prestation_date, '%Y-%m-%d'))
@@ -346,7 +347,6 @@ class extraschool_invoice(models.Model):
         if len(splited_street) == 0:
             splited_street = [(splited_street, '', '', '', '')]
         # split rue ecole
-
         activities = self.env["extraschool.activity"].search([]).mapped('name')
 
         # statique part
@@ -504,11 +504,11 @@ class extraschool_invoice(models.Model):
                 else:
                     saved_child = self.export_onyx_child_change(invoicedline, saved_child)
                     str_line = ""
-                    if invoicedline.activity_activity_id.on_tax_certificate:
+                    if invoicedline.activity_activity_id.on_tax_certificate_selection == "oui":
                         saved_child['nbr_jour'] += 1
             else:
                 if zz > 0:
-                    if invoicedline.activity_activity_id.on_tax_certificate:
+                    if invoicedline.activity_activity_id.on_tax_certificate_selection == "oui":
                         saved_child['nbr_jour'] += 1
                         saved_child['fisc_amount'] += invoicedline.total_price
                     saved_child['amount'] += invoicedline.total_price
@@ -557,7 +557,6 @@ class extraschool_invoice(models.Model):
                                      )
             total += saved_child['amount']
             res.append(str_line)
-
         return {'lines': res,
                 'exported_amount': total,
                 }
@@ -623,6 +622,7 @@ class extraschool_invoice(models.Model):
                 payment.payment_id.compute_solde()
                 break
         self._compute_balance()
+
 
 class extraschool_invoice_tag(models.Model):
     _name = 'extraschool.invoice_tag'

@@ -4,7 +4,7 @@
 #    Extraschool
 #    Copyright (C) 2008-2020
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchial & Jenny Pans - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia & Jenny Pans - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -106,6 +106,7 @@ class extraschool_taxcertificate(models.Model):
     @api.model
     def create(self, vals):
         self._ensure_does_not_exists(vals)
+        self.env["extraschool.activity"].check_activities_on_tax_certificate()
         self._ensure_payment_reconciliation_exists(vals)
         vals[u'organising_power_id'] = self.env['extraschool.organising_power'].search([])[0].id
         cr, uid = self.env.cr, self.env.user.id
@@ -150,7 +151,7 @@ class extraschool_taxcertificate(models.Model):
                                     left join extraschool_invoice ii on ii.id = iip.invoiceid
                                     where invoiceid in (""" + sql_concerned_invoice + """)
                                     and prestation_date <= c.birthdate + interval '12 year'
-                                           and aa.on_tax_certificate = true
+                                           and aa.on_tax_certificate_selection = 'oui'
                                            and iip.childid = ip.childid
                                     ) as nbdays
                                     from extraschool_invoicedprestations ip
@@ -162,7 +163,7 @@ class extraschool_taxcertificate(models.Model):
                                     left join extraschool_schoolimplantation si on si.id = c.schoolimplantation
                                     left join extraschool_class sc on sc.id = c.classid
                                     where invoiceid in (""" + sql_concerned_invoice + """)
-                                           and a.on_tax_certificate = true
+                                           and a.on_tax_certificate_selection = 'oui'
                                            and prestation_date <= c.birthdate + interval '12 year'
                                     group by i.parentid,par.firstname,par.lastname,par.street,par.zipcode,par.city,ip.childid,c.firstname,c.lastname,c.birthdate,si.name,sc.name
                                     having sum(total_price - case when ip.no_value_amount is not null then ip.no_value_amount else 0 end) > 0
@@ -373,7 +374,7 @@ class extraschool_tax_certificate_detail(models.Model):
                                     ON pay.id = pay_rec.payment_id
                                     WHERE pay_rec.paymentdate BETWEEN '2019-01-01' AND '2019-12-31'
                                     AND inv.balance = 0 AND (inv.reminder_fees IS NULL OR inv.reminder_fees = false))
-                                    AND act.on_tax_certificate = TRUE
+                                    AND act.on_tax_certificate_selection = 'oui'
                                     AND prest.prestation_date <= c.birthdate + interval '12 year'
                     ORDER BY inv.number, prest.prestation_date, act.short_name, prest.prestation_time
 
