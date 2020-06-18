@@ -8,9 +8,9 @@
             <field name="arch" type="xml">
                 <form string="Child fusion wizard">
                     <group col="4" groups="base.group_erp_manager">
-                    	<field name="child_id"  invisible="1"/>
+                    	<field name="child_id"  invisible="0"/>
                     	<separator string="Enfant à fusionner" colspan="4"/>
-                    	<field name="child_ids"  colspan="4" nolabel="1"/>
+                    	<field name="child_ids"  colspan="4" nolabel="1" domain="[('id', '!=', child_id)]"/>
                     	<button name="fusion" string="Execute SQL" icon="gtk-apply" type="object"/>
                     </group>
                 </form>
