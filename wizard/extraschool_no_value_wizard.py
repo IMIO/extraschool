@@ -34,17 +34,20 @@ from datetime import date, datetime, timedelta as td
 from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
 
+
 class extraschoolNoValueWizard(models.TransientModel):
     _name = 'extraschool.no_value_wizard'
 
     def _get_invoiced_prestation(self):
+        """
+        Get invoiced prestations where total price > 0.00
+        :return: invoiced prestations
+        """
         invoiced_prestation_ids = self.env['extraschool.invoicedprestations'].search([
-            ('invoiceid', 'in', self.env.context.get('active_ids'))
-        ])
-        invoiced_prestation_ids = invoiced_prestation_ids.filtered(lambda r: r.total_price > 0.00)
+            ('invoiceid', 'in', self.env.context.get('active_ids')), ('total_price', '>', 0.00)])
 
         for invoiced_prestation in invoiced_prestation_ids:
-            invoiced_prestation.on_tax_certificate = invoiced_prestation.activity_activity_id.on_tax_certificate
+            invoiced_prestation.on_tax_certificate = False if invoiced_prestation.activity_activity_id.on_tax_certificate_selection == 'oui' else False
 
         return invoiced_prestation_ids
 
@@ -75,8 +78,6 @@ class extraschoolNoValueWizard(models.TransientModel):
             raise Warning(_("The amount of no value is superior of the total amount or is negative."))
         else:
             self.amount_total = round(fsum(x.no_value_amount for x in self.invoice_prestation_ids), 3)
-
-        # invoice_id = self.env['extraschool.invoice_prestation_ids'].browse(self.env.context.get('active_ids'))
 
     @api.multi
     def validate(self):
