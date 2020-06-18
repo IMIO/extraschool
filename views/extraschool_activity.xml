@@ -135,7 +135,7 @@
                     <page string="Finance" name="finance">
                         <group col="4">
                             <field name="short_name" />
-                            <field name="subsidizedbyone"/>
+                            <field name="subsidizedbyone_selection"/>
                             <field name="on_tax_certificate_selection" />
                             <field name="tarif_group_name" />
                         </group>

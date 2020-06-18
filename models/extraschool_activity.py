@@ -102,8 +102,10 @@ class extraschool_activity(models.Model):
     default_from = fields.Float('Default from', track_visibility='onchange')
     default_to = fields.Float('Default to', track_visibility='onchange')
     fixedperiod = fields.Boolean('Fixed period', default=False)
-    subsidizedbyone = fields.Boolean('Subsidized by one')
-    on_tax_certificate = fields.Boolean('On tax certificate', select=True, track_visibility='onchange')
+    subsidizedbyone_selection = fields.Selection(
+        (("non_renseigne", "Non renseigné"),
+         ("non", "Non"),
+         ("oui", "Oui")), default="non_renseigne", string="Subsidized by one")
     on_tax_certificate_selection = fields.Selection(
         (("non_renseigne", "Non renseigné"),
          ("non", "Non"),

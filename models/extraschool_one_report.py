@@ -134,7 +134,7 @@ class extraschool_one_report(models.Model):
                                 select distinct(childid) from extraschool_invoicedprestations left join extraschool_child on childid=extraschool_child.id where
                                 placeid in %s
                                 and prestation_date=%s
-                                and activity_occurrence_id in (select id from extraschool_activityoccurrence where activityid in (select id from extraschool_activity where subsidizedbyone=true))
+                                and activity_occurrence_id in (select id from extraschool_activityoccurrence where activityid in (select id from extraschool_activity where subsidizedbyone_selection='oui'))
                                 and levelid in (select id from extraschool_level where leveltype=%s)
                                 and extraschool_child.parentid in (select id from extraschool_parent where one_subvention_type=%s)
                                 ''', (tuple(placeids), currentdate, level, subvention_type))
@@ -148,7 +148,7 @@ class extraschool_one_report(models.Model):
                                 select count(distinct(childid)) as count_child from extraschool_invoicedprestations left join extraschool_child on childid=extraschool_child.id where
                                 placeid in %s
                                 and prestation_date>=%s and prestation_date<=%s
-                                and activity_occurrence_id in (select id from extraschool_activityoccurrence where activityid in (select id from extraschool_activity where subsidizedbyone=true))
+                                and activity_occurrence_id in (select id from extraschool_activityoccurrence where activityid in (select id from extraschool_activity where subsidizedbyone_selection='oui'))
                                 and levelid in (select id from extraschool_level where leveltype=%s)
                                 ''', (tuple(placeids), date_from, date_to, level))
 
@@ -161,7 +161,7 @@ class extraschool_one_report(models.Model):
                                 select distinct(childid) from extraschool_invoicedprestations left join extraschool_child on childid=extraschool_child.id where
                                 placeid = %s
                                 and prestation_date=%s
-                                and activity_occurrence_id in (select id from extraschool_activityoccurrence where activityid in (select id from extraschool_activity where subsidizedbyone=true))
+                                and activity_occurrence_id in (select id from extraschool_activityoccurrence where activityid in (select id from extraschool_activity where subsidizedbyone_selection='oui'))
                                 and levelid in (select id from extraschool_level where leveltype=%s)
                                 and extraschool_child.parentid in (select id from extraschool_parent where one_subvention_type=%s)
                                 ''', (placeid, currentdate, level, subvention_type))
@@ -175,7 +175,7 @@ class extraschool_one_report(models.Model):
                                 select count(distinct(childid)) as count_child from extraschool_invoicedprestations left join extraschool_child on childid=extraschool_child.id where
                                 placeid = %s
                                 and prestation_date>=%s and prestation_date<=%s
-                                and activity_occurrence_id in (select id from extraschool_activityoccurrence where activityid in (select id from extraschool_activity where subsidizedbyone=true))
+                                and activity_occurrence_id in (select id from extraschool_activityoccurrence where activityid in (select id from extraschool_activity where subsidizedbyone_selection='oui'))
                                 and levelid in (select id from extraschool_level where leveltype=%s)
                                 ''', (placeid, date_from, date_to, level))
 

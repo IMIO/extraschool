@@ -16,7 +16,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: extraschool_activity; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activity; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_activity (
@@ -234,7 +234,7 @@ COMMENT ON COLUMN extraschool_activity.prest_to IS 'To';
 
 
 --
--- Name: extraschool_activity_activityexclusiondates_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activity_activityexclusiondates_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_activity_activityexclusiondates_rel (
@@ -253,7 +253,7 @@ COMMENT ON TABLE extraschool_activity_activityexclusiondates_rel IS 'RELATION BE
 
 
 --
--- Name: extraschool_activity_activityplanneddate_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activity_activityplanneddate_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_activity_activityplanneddate_rel (
@@ -272,7 +272,7 @@ COMMENT ON TABLE extraschool_activity_activityplanneddate_rel IS 'RELATION BETWE
 
 
 --
--- Name: extraschool_activity_childposition_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activity_childposition_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_activity_childposition_rel (
@@ -291,7 +291,7 @@ COMMENT ON TABLE extraschool_activity_childposition_rel IS 'RELATION BETWEEN ext
 
 
 --
--- Name: extraschool_activity_childtype_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activity_childtype_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_activity_childtype_rel (
@@ -331,7 +331,7 @@ ALTER SEQUENCE extraschool_activity_id_seq OWNED BY extraschool_activity.id;
 
 
 --
--- Name: extraschool_activity_place_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activity_place_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_activity_place_rel (
@@ -350,7 +350,7 @@ COMMENT ON TABLE extraschool_activity_place_rel IS 'RELATION BETWEEN extraschool
 
 
 --
--- Name: extraschool_activity_schoolimplantation_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activity_schoolimplantation_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_activity_schoolimplantation_rel (
@@ -369,7 +369,7 @@ COMMENT ON TABLE extraschool_activity_schoolimplantation_rel IS 'RELATION BETWEE
 
 
 --
--- Name: extraschool_activitycategory; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activitycategory; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_activitycategory (
@@ -568,7 +568,7 @@ ALTER SEQUENCE extraschool_activitycategory_id_seq OWNED BY extraschool_activity
 
 
 --
--- Name: extraschool_activitycategory_place_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activitycategory_place_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_activitycategory_place_rel (
@@ -587,7 +587,7 @@ COMMENT ON TABLE extraschool_activitycategory_place_rel IS 'RELATION BETWEEN ext
 
 
 --
--- Name: extraschool_activitychildregistration; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activitychildregistration; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_activitychildregistration (
@@ -698,7 +698,7 @@ ALTER SEQUENCE extraschool_activitychildregistration_id_seq OWNED BY extraschool
 
 
 --
--- Name: extraschool_activityexclusiondates; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activityexclusiondates; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_activityexclusiondates (
@@ -785,7 +785,7 @@ ALTER SEQUENCE extraschool_activityexclusiondates_id_seq OWNED BY extraschool_ac
 
 
 --
--- Name: extraschool_activityoccurrence; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activityoccurrence; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_activityoccurrence (
@@ -899,7 +899,7 @@ COMMENT ON COLUMN extraschool_activityoccurrence.prest_from IS 'prest_from';
 
 
 --
--- Name: extraschool_activityoccurrence_cild_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activityoccurrence_cild_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_activityoccurrence_cild_rel (
@@ -939,7 +939,7 @@ ALTER SEQUENCE extraschool_activityoccurrence_id_seq OWNED BY extraschool_activi
 
 
 --
--- Name: extraschool_activityplanneddate; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activityplanneddate; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_activityplanneddate (
@@ -1018,7 +1018,7 @@ ALTER SEQUENCE extraschool_activityplanneddate_id_seq OWNED BY extraschool_activ
 
 
 --
--- Name: extraschool_biller; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_biller; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_biller (
@@ -1161,7 +1161,7 @@ ALTER SEQUENCE extraschool_biller_id_seq OWNED BY extraschool_biller.id;
 
 
 --
--- Name: extraschool_child; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_child; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_child (
@@ -1328,7 +1328,7 @@ ALTER SEQUENCE extraschool_child_id_seq OWNED BY extraschool_child.id;
 
 
 --
--- Name: extraschool_childposition; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_childposition; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_childposition (
@@ -1415,7 +1415,7 @@ ALTER SEQUENCE extraschool_childposition_id_seq OWNED BY extraschool_childpositi
 
 
 --
--- Name: extraschool_childsimport; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_childsimport; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_childsimport (
@@ -1510,7 +1510,7 @@ ALTER SEQUENCE extraschool_childsimport_id_seq OWNED BY extraschool_childsimport
 
 
 --
--- Name: extraschool_childsimportfilter; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_childsimportfilter; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_childsimportfilter (
@@ -1941,7 +1941,7 @@ ALTER SEQUENCE extraschool_childsimportfilter_id_seq OWNED BY extraschool_childs
 
 
 --
--- Name: extraschool_childsimportfilter_importlevelrule_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_childsimportfilter_importlevelrule_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_childsimportfilter_importlevelrule_rel (
@@ -1960,7 +1960,7 @@ COMMENT ON TABLE extraschool_childsimportfilter_importlevelrule_rel IS 'RELATION
 
 
 --
--- Name: extraschool_childsworkbook_wizard; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_childsworkbook_wizard; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_childsworkbook_wizard (
@@ -2071,7 +2071,7 @@ ALTER SEQUENCE extraschool_childsworkbook_wizard_id_seq OWNED BY extraschool_chi
 
 
 --
--- Name: extraschool_childtype; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_childtype; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_childtype (
@@ -2158,7 +2158,7 @@ ALTER SEQUENCE extraschool_childtype_id_seq OWNED BY extraschool_childtype.id;
 
 
 --
--- Name: extraschool_class; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_class; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_class (
@@ -2245,7 +2245,7 @@ ALTER SEQUENCE extraschool_class_id_seq OWNED BY extraschool_class.id;
 
 
 --
--- Name: extraschool_class_level_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_class_level_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_class_level_rel (
@@ -2264,7 +2264,7 @@ COMMENT ON TABLE extraschool_class_level_rel IS 'RELATION BETWEEN extraschool_cl
 
 
 --
--- Name: extraschool_coda; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_coda; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_coda (
@@ -2359,7 +2359,7 @@ ALTER SEQUENCE extraschool_coda_id_seq OWNED BY extraschool_coda.id;
 
 
 --
--- Name: extraschool_discount; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_discount; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_discount (
@@ -2449,7 +2449,7 @@ COMMENT ON COLUMN extraschool_discount.name IS 'Name';
 
 
 --
--- Name: extraschool_discount_activity_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_discount_activity_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_discount_activity_rel (
@@ -2468,7 +2468,7 @@ COMMENT ON TABLE extraschool_discount_activity_rel IS 'RELATION BETWEEN extrasch
 
 
 --
--- Name: extraschool_discount_childtype_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_discount_childtype_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_discount_childtype_rel (
@@ -2487,7 +2487,7 @@ COMMENT ON TABLE extraschool_discount_childtype_rel IS 'RELATION BETWEEN extrasc
 
 
 --
--- Name: extraschool_discount_discountrule_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_discount_discountrule_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_discount_discountrule_rel (
@@ -2527,7 +2527,7 @@ ALTER SEQUENCE extraschool_discount_id_seq OWNED BY extraschool_discount.id;
 
 
 --
--- Name: extraschool_discountrule; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_discountrule; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_discountrule (
@@ -2630,7 +2630,7 @@ ALTER SEQUENCE extraschool_discountrule_id_seq OWNED BY extraschool_discountrule
 
 
 --
--- Name: extraschool_guardian; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_guardian; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_guardian (
@@ -2733,7 +2733,7 @@ ALTER SEQUENCE extraschool_guardian_id_seq OWNED BY extraschool_guardian.id;
 
 
 --
--- Name: extraschool_guardianprestationtimes; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_guardianprestationtimes; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_guardianprestationtimes (
@@ -2844,7 +2844,7 @@ ALTER SEQUENCE extraschool_guardianprestationtimes_id_seq OWNED BY extraschool_g
 
 
 --
--- Name: extraschool_guardianprestationtimes_wizard; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_guardianprestationtimes_wizard; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_guardianprestationtimes_wizard (
@@ -2963,7 +2963,7 @@ ALTER SEQUENCE extraschool_guardianprestationtimes_wizard_id_seq OWNED BY extras
 
 
 --
--- Name: extraschool_importlevelrule; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_importlevelrule; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_importlevelrule (
@@ -3066,7 +3066,7 @@ ALTER SEQUENCE extraschool_importlevelrule_id_seq OWNED BY extraschool_importlev
 
 
 --
--- Name: extraschool_importreject; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_importreject; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_importreject (
@@ -3161,7 +3161,7 @@ ALTER SEQUENCE extraschool_importreject_id_seq OWNED BY extraschool_importreject
 
 
 --
--- Name: extraschool_initupdate_wizard; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_initupdate_wizard; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_initupdate_wizard (
@@ -3232,7 +3232,7 @@ ALTER SEQUENCE extraschool_initupdate_wizard_id_seq OWNED BY extraschool_initupd
 
 
 --
--- Name: extraschool_invoice; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_invoice; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_invoice (
@@ -3447,7 +3447,7 @@ ALTER SEQUENCE extraschool_invoice_id_seq OWNED BY extraschool_invoice.id;
 
 
 --
--- Name: extraschool_invoice_wizard; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_invoice_wizard; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_invoice_wizard (
@@ -3582,7 +3582,7 @@ ALTER SEQUENCE extraschool_invoice_wizard_id_seq OWNED BY extraschool_invoice_wi
 
 
 --
--- Name: extraschool_invoice_wizard_schoolimplantation_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_invoice_wizard_schoolimplantation_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_invoice_wizard_schoolimplantation_rel (
@@ -3601,7 +3601,7 @@ COMMENT ON TABLE extraschool_invoice_wizard_schoolimplantation_rel IS 'RELATION 
 
 
 --
--- Name: extraschool_invoicedprestations; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_invoicedprestations; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_invoicedprestations (
@@ -3728,7 +3728,7 @@ ALTER SEQUENCE extraschool_invoicedprestations_id_seq OWNED BY extraschool_invoi
 
 
 --
--- Name: extraschool_level; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_level; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_level (
@@ -3831,7 +3831,7 @@ ALTER SEQUENCE extraschool_level_id_seq OWNED BY extraschool_level.id;
 
 
 --
--- Name: extraschool_mainsettings; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_mainsettings; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_mainsettings (
@@ -3958,7 +3958,7 @@ ALTER SEQUENCE extraschool_mainsettings_id_seq OWNED BY extraschool_mainsettings
 
 
 --
--- Name: extraschool_one_report; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_one_report; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_one_report (
@@ -4064,7 +4064,7 @@ COMMENT ON COLUMN extraschool_one_report.nb_p_childs IS 'Nb p childs';
 
 
 --
--- Name: extraschool_one_report_day; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_one_report_day; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_one_report_day (
@@ -4154,7 +4154,7 @@ COMMENT ON COLUMN extraschool_one_report_day.nb_p_childs IS 'Nb p childs';
 
 
 --
--- Name: extraschool_one_report_day_child_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_one_report_day_child_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_one_report_day_child_rel (
@@ -4215,7 +4215,7 @@ ALTER SEQUENCE extraschool_one_report_id_seq OWNED BY extraschool_one_report.id;
 
 
 --
--- Name: extraschool_parent; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_parent; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_parent (
@@ -4406,7 +4406,7 @@ ALTER SEQUENCE extraschool_parent_id_seq OWNED BY extraschool_parent.id;
 
 
 --
--- Name: extraschool_payment; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_payment; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_payment (
@@ -4541,7 +4541,7 @@ ALTER SEQUENCE extraschool_payment_id_seq OWNED BY extraschool_payment.id;
 
 
 --
--- Name: extraschool_pdaprestationtimes; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_pdaprestationtimes; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_pdaprestationtimes (
@@ -4668,7 +4668,7 @@ ALTER SEQUENCE extraschool_pdaprestationtimes_id_seq OWNED BY extraschool_pdapre
 
 
 --
--- Name: extraschool_place; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_place; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_place (
@@ -4787,7 +4787,7 @@ ALTER SEQUENCE extraschool_place_id_seq OWNED BY extraschool_place.id;
 
 
 --
--- Name: extraschool_place_schoolimplantation_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_place_schoolimplantation_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_place_schoolimplantation_rel (
@@ -4806,7 +4806,7 @@ COMMENT ON TABLE extraschool_place_schoolimplantation_rel IS 'RELATION BETWEEN e
 
 
 --
--- Name: extraschool_prestation_times_encodage_manuel; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_prestation_times_encodage_manuel; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_prestation_times_encodage_manuel (
@@ -4901,7 +4901,7 @@ ALTER SEQUENCE extraschool_prestation_times_encodage_manuel_id_seq OWNED BY extr
 
 
 --
--- Name: extraschool_prestation_times_manuel; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_prestation_times_manuel; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_prestation_times_manuel (
@@ -5012,7 +5012,7 @@ ALTER SEQUENCE extraschool_prestation_times_manuel_id_seq OWNED BY extraschool_p
 
 
 --
--- Name: extraschool_prestation_times_of_the_day; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_prestation_times_of_the_day; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_prestation_times_of_the_day (
@@ -5115,7 +5115,7 @@ ALTER SEQUENCE extraschool_prestation_times_of_the_day_id_seq OWNED BY extrascho
 
 
 --
--- Name: extraschool_prestationscheck_wizard; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_prestationscheck_wizard; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_prestationscheck_wizard (
@@ -5218,7 +5218,7 @@ ALTER SEQUENCE extraschool_prestationscheck_wizard_id_seq OWNED BY extraschool_p
 
 
 --
--- Name: extraschool_prestationscheck_wizard_place_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_prestationscheck_wizard_place_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_prestationscheck_wizard_place_rel (
@@ -5237,7 +5237,7 @@ COMMENT ON TABLE extraschool_prestationscheck_wizard_place_rel IS 'RELATION BETW
 
 
 --
--- Name: extraschool_prestationtimes; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_prestationtimes; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_prestationtimes (
@@ -5396,7 +5396,7 @@ ALTER SEQUENCE extraschool_prestationtimes_id_seq OWNED BY extraschool_prestatio
 
 
 --
--- Name: extraschool_price_list; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_price_list; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_price_list (
@@ -5475,7 +5475,7 @@ ALTER SEQUENCE extraschool_price_list_id_seq OWNED BY extraschool_price_list.id;
 
 
 --
--- Name: extraschool_price_list_version; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_price_list_version; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_price_list_version (
@@ -5594,7 +5594,7 @@ ALTER SEQUENCE extraschool_price_list_version_id_seq OWNED BY extraschool_price_
 
 
 --
--- Name: extraschool_qrcodes_wizard; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_qrcodes_wizard; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_qrcodes_wizard (
@@ -5697,7 +5697,7 @@ ALTER SEQUENCE extraschool_qrcodes_wizard_id_seq OWNED BY extraschool_qrcodes_wi
 
 
 --
--- Name: extraschool_reject; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_reject; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_reject (
@@ -5824,7 +5824,7 @@ ALTER SEQUENCE extraschool_reject_id_seq OWNED BY extraschool_reject.id;
 
 
 --
--- Name: extraschool_reminder; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_reminder; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_reminder (
@@ -5975,7 +5975,7 @@ ALTER SEQUENCE extraschool_reminder_id_seq OWNED BY extraschool_reminder.id;
 
 
 --
--- Name: extraschool_reminder_invoice_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_reminder_invoice_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_reminder_invoice_rel (
@@ -5994,7 +5994,7 @@ COMMENT ON TABLE extraschool_reminder_invoice_rel IS 'RELATION BETWEEN extrascho
 
 
 --
--- Name: extraschool_remindersjournal; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_remindersjournal; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_remindersjournal (
@@ -6116,7 +6116,7 @@ COMMENT ON COLUMN extraschool_remindersjournal.write_uid IS 'Last Updated by';
 
 
 --
--- Name: extraschool_remindersjournal_biller_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_remindersjournal_biller_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_remindersjournal_biller_rel (
@@ -6156,7 +6156,7 @@ ALTER SEQUENCE extraschool_remindersjournal_id_seq OWNED BY extraschool_reminder
 
 
 --
--- Name: extraschool_remindertype; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_remindertype; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_remindertype (
@@ -6259,7 +6259,7 @@ ALTER SEQUENCE extraschool_remindertype_id_seq OWNED BY extraschool_remindertype
 
 
 --
--- Name: extraschool_scheduledtasks; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_scheduledtasks; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_scheduledtasks (
@@ -6330,7 +6330,7 @@ ALTER SEQUENCE extraschool_scheduledtasks_id_seq OWNED BY extraschool_scheduledt
 
 
 --
--- Name: extraschool_school; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_school; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_school (
@@ -6441,7 +6441,7 @@ ALTER SEQUENCE extraschool_school_id_seq OWNED BY extraschool_school.id;
 
 
 --
--- Name: extraschool_schoolimplantation; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_schoolimplantation; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_schoolimplantation (
@@ -6560,7 +6560,7 @@ ALTER SEQUENCE extraschool_schoolimplantation_id_seq OWNED BY extraschool_school
 
 
 --
--- Name: extraschool_smartphone; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_smartphone; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_smartphone (
@@ -6730,7 +6730,7 @@ COMMENT ON COLUMN extraschool_smartphone.transmissiontime IS 'Transmission time'
 
 
 --
--- Name: extraschool_smartphone_activitycategory_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_smartphone_activitycategory_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_smartphone_activitycategory_rel (
@@ -6770,7 +6770,7 @@ ALTER SEQUENCE extraschool_smartphone_id_seq OWNED BY extraschool_smartphone.id;
 
 
 --
--- Name: extraschool_taxcertificates_wizard; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_taxcertificates_wizard; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_taxcertificates_wizard (
@@ -6889,7 +6889,7 @@ ALTER SEQUENCE extraschool_taxcertificates_wizard_id_seq OWNED BY extraschool_ta
 
 
 --
--- Name: extraschool_timecorrection_wizard; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_timecorrection_wizard; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_timecorrection_wizard (
@@ -7000,7 +7000,7 @@ ALTER SEQUENCE extraschool_timecorrection_wizard_id_seq OWNED BY extraschool_tim
 
 
 --
--- Name: extraschool_timecorrection_wizard_place_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_timecorrection_wizard_place_rel; Type: TABLE; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE TABLE extraschool_timecorrection_wizard_place_rel (
@@ -7383,7 +7383,7 @@ ALTER TABLE ONLY extraschool_timecorrection_wizard ALTER COLUMN id SET DEFAULT n
 
 
 --
--- Name: extraschool_activity_activity_activity_id_activityexclusion_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activity_activity_activity_id_activityexclusion_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_activity_activityexclusiondates_rel
@@ -7391,7 +7391,7 @@ ALTER TABLE ONLY extraschool_activity_activityexclusiondates_rel
 
 
 --
--- Name: extraschool_activity_activity_activity_id_activityplannedda_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activity_activity_activity_id_activityplannedda_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_activity_activityplanneddate_rel
@@ -7399,7 +7399,7 @@ ALTER TABLE ONLY extraschool_activity_activityplanneddate_rel
 
 
 --
--- Name: extraschool_activity_childposi_activity_id_childposition_id_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activity_childposi_activity_id_childposition_id_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_activity_childposition_rel
@@ -7407,7 +7407,7 @@ ALTER TABLE ONLY extraschool_activity_childposition_rel
 
 
 --
--- Name: extraschool_activity_childtype_rel_activity_id_childtype_id_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activity_childtype_rel_activity_id_childtype_id_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_activity_childtype_rel
@@ -7415,7 +7415,7 @@ ALTER TABLE ONLY extraschool_activity_childtype_rel
 
 
 --
--- Name: extraschool_activity_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activity_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_activity
@@ -7423,7 +7423,7 @@ ALTER TABLE ONLY extraschool_activity
 
 
 --
--- Name: extraschool_activity_place_rel_activity_id_place_id_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activity_place_rel_activity_id_place_id_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_activity_place_rel
@@ -7431,7 +7431,7 @@ ALTER TABLE ONLY extraschool_activity_place_rel
 
 
 --
--- Name: extraschool_activity_schoolim_activity_id_schoolimplantatio_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activity_schoolim_activity_id_schoolimplantatio_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_activity_schoolimplantation_rel
@@ -7439,7 +7439,7 @@ ALTER TABLE ONLY extraschool_activity_schoolimplantation_rel
 
 
 --
--- Name: extraschool_activitycategory_p_activitycategory_id_place_id_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activitycategory_p_activitycategory_id_place_id_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_activitycategory_place_rel
@@ -7447,7 +7447,7 @@ ALTER TABLE ONLY extraschool_activitycategory_place_rel
 
 
 --
--- Name: extraschool_activitycategory_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activitycategory_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_activitycategory
@@ -7455,7 +7455,7 @@ ALTER TABLE ONLY extraschool_activitycategory
 
 
 --
--- Name: extraschool_activitychildregistration_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activitychildregistration_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_activitychildregistration
@@ -7463,7 +7463,7 @@ ALTER TABLE ONLY extraschool_activitychildregistration
 
 
 --
--- Name: extraschool_activityexclusiondates_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activityexclusiondates_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_activityexclusiondates
@@ -7471,7 +7471,7 @@ ALTER TABLE ONLY extraschool_activityexclusiondates
 
 
 --
--- Name: extraschool_activityoccurrenc_activityoccurrence_id_child_i_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activityoccurrenc_activityoccurrence_id_child_i_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_activityoccurrence_cild_rel
@@ -7479,7 +7479,7 @@ ALTER TABLE ONLY extraschool_activityoccurrence_cild_rel
 
 
 --
--- Name: extraschool_activityoccurrence_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activityoccurrence_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_activityoccurrence
@@ -7487,7 +7487,7 @@ ALTER TABLE ONLY extraschool_activityoccurrence
 
 
 --
--- Name: extraschool_activityplanneddate_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activityplanneddate_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_activityplanneddate
@@ -7495,7 +7495,7 @@ ALTER TABLE ONLY extraschool_activityplanneddate
 
 
 --
--- Name: extraschool_biller_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_biller_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_biller
@@ -7503,7 +7503,7 @@ ALTER TABLE ONLY extraschool_biller
 
 
 --
--- Name: extraschool_child_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_child_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_child
@@ -7511,7 +7511,7 @@ ALTER TABLE ONLY extraschool_child
 
 
 --
--- Name: extraschool_childposition_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_childposition_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_childposition
@@ -7519,7 +7519,7 @@ ALTER TABLE ONLY extraschool_childposition
 
 
 --
--- Name: extraschool_childsimport_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_childsimport_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_childsimport
@@ -7527,7 +7527,7 @@ ALTER TABLE ONLY extraschool_childsimport
 
 
 --
--- Name: extraschool_childsimportfilte_childsimportfilter_id_importl_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_childsimportfilte_childsimportfilter_id_importl_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_childsimportfilter_importlevelrule_rel
@@ -7535,7 +7535,7 @@ ALTER TABLE ONLY extraschool_childsimportfilter_importlevelrule_rel
 
 
 --
--- Name: extraschool_childsimportfilter_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_childsimportfilter_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_childsimportfilter
@@ -7543,7 +7543,7 @@ ALTER TABLE ONLY extraschool_childsimportfilter
 
 
 --
--- Name: extraschool_childsworkbook_wizard_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_childsworkbook_wizard_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_childsworkbook_wizard
@@ -7551,7 +7551,7 @@ ALTER TABLE ONLY extraschool_childsworkbook_wizard
 
 
 --
--- Name: extraschool_childtype_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_childtype_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_childtype
@@ -7559,7 +7559,7 @@ ALTER TABLE ONLY extraschool_childtype
 
 
 --
--- Name: extraschool_class_level_rel_class_id_level_id_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_class_level_rel_class_id_level_id_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_class_level_rel
@@ -7567,7 +7567,7 @@ ALTER TABLE ONLY extraschool_class_level_rel
 
 
 --
--- Name: extraschool_class_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_class_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_class
@@ -7575,7 +7575,7 @@ ALTER TABLE ONLY extraschool_class
 
 
 --
--- Name: extraschool_coda_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_coda_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_coda
@@ -7583,7 +7583,7 @@ ALTER TABLE ONLY extraschool_coda
 
 
 --
--- Name: extraschool_discount_activity_rel_discount_id_activity_id_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_discount_activity_rel_discount_id_activity_id_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_discount_activity_rel
@@ -7591,7 +7591,7 @@ ALTER TABLE ONLY extraschool_discount_activity_rel
 
 
 --
--- Name: extraschool_discount_childtype_rel_discount_id_childtype_id_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_discount_childtype_rel_discount_id_childtype_id_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_discount_childtype_rel
@@ -7599,7 +7599,7 @@ ALTER TABLE ONLY extraschool_discount_childtype_rel
 
 
 --
--- Name: extraschool_discount_discountru_discount_id_discountrule_id_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_discount_discountru_discount_id_discountrule_id_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_discount_discountrule_rel
@@ -7607,7 +7607,7 @@ ALTER TABLE ONLY extraschool_discount_discountrule_rel
 
 
 --
--- Name: extraschool_discount_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_discount_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_discount
@@ -7615,7 +7615,7 @@ ALTER TABLE ONLY extraschool_discount
 
 
 --
--- Name: extraschool_discountrule_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_discountrule_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_discountrule
@@ -7623,7 +7623,7 @@ ALTER TABLE ONLY extraschool_discountrule
 
 
 --
--- Name: extraschool_guardian_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_guardian_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_guardian
@@ -7631,7 +7631,7 @@ ALTER TABLE ONLY extraschool_guardian
 
 
 --
--- Name: extraschool_guardianprestationtimes_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_guardianprestationtimes_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_guardianprestationtimes
@@ -7639,7 +7639,7 @@ ALTER TABLE ONLY extraschool_guardianprestationtimes
 
 
 --
--- Name: extraschool_guardianprestationtimes_wizard_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_guardianprestationtimes_wizard_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_guardianprestationtimes_wizard
@@ -7647,7 +7647,7 @@ ALTER TABLE ONLY extraschool_guardianprestationtimes_wizard
 
 
 --
--- Name: extraschool_importlevelrule_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_importlevelrule_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_importlevelrule
@@ -7655,7 +7655,7 @@ ALTER TABLE ONLY extraschool_importlevelrule
 
 
 --
--- Name: extraschool_importreject_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_importreject_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_importreject
@@ -7663,7 +7663,7 @@ ALTER TABLE ONLY extraschool_importreject
 
 
 --
--- Name: extraschool_initupdate_wizard_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_initupdate_wizard_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_initupdate_wizard
@@ -7671,7 +7671,7 @@ ALTER TABLE ONLY extraschool_initupdate_wizard
 
 
 --
--- Name: extraschool_invoice_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_invoice_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_invoice
@@ -7679,7 +7679,7 @@ ALTER TABLE ONLY extraschool_invoice
 
 
 --
--- Name: extraschool_invoice_wizard_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_invoice_wizard_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_invoice_wizard
@@ -7687,7 +7687,7 @@ ALTER TABLE ONLY extraschool_invoice_wizard
 
 
 --
--- Name: extraschool_invoice_wizard_sc_invoice_wizard_id_schoolimpla_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_invoice_wizard_sc_invoice_wizard_id_schoolimpla_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_invoice_wizard_schoolimplantation_rel
@@ -7695,7 +7695,7 @@ ALTER TABLE ONLY extraschool_invoice_wizard_schoolimplantation_rel
 
 
 --
--- Name: extraschool_invoicedprestations_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_invoicedprestations_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_invoicedprestations
@@ -7703,7 +7703,7 @@ ALTER TABLE ONLY extraschool_invoicedprestations
 
 
 --
--- Name: extraschool_level_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_level_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_level
@@ -7711,7 +7711,7 @@ ALTER TABLE ONLY extraschool_level
 
 
 --
--- Name: extraschool_mainsettings_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_mainsettings_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_mainsettings
@@ -7719,7 +7719,7 @@ ALTER TABLE ONLY extraschool_mainsettings
 
 
 --
--- Name: extraschool_one_report_day_child_one_report_day_id_child_id_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_one_report_day_child_one_report_day_id_child_id_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_one_report_day_child_rel
@@ -7727,7 +7727,7 @@ ALTER TABLE ONLY extraschool_one_report_day_child_rel
 
 
 --
--- Name: extraschool_one_report_day_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_one_report_day_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_one_report_day
@@ -7735,7 +7735,7 @@ ALTER TABLE ONLY extraschool_one_report_day
 
 
 --
--- Name: extraschool_one_report_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_one_report_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_one_report
@@ -7743,7 +7743,7 @@ ALTER TABLE ONLY extraschool_one_report
 
 
 --
--- Name: extraschool_parent_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_parent_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_parent
@@ -7751,7 +7751,7 @@ ALTER TABLE ONLY extraschool_parent
 
 
 --
--- Name: extraschool_payment_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_payment_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_payment
@@ -7759,7 +7759,7 @@ ALTER TABLE ONLY extraschool_payment
 
 
 --
--- Name: extraschool_pdaprestationtimes_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_pdaprestationtimes_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_pdaprestationtimes
@@ -7767,7 +7767,7 @@ ALTER TABLE ONLY extraschool_pdaprestationtimes
 
 
 --
--- Name: extraschool_place_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_place_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_place
@@ -7775,7 +7775,7 @@ ALTER TABLE ONLY extraschool_place
 
 
 --
--- Name: extraschool_place_schoolimpla_place_id_schoolimplantation_i_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_place_schoolimpla_place_id_schoolimplantation_i_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_place_schoolimplantation_rel
@@ -7783,7 +7783,7 @@ ALTER TABLE ONLY extraschool_place_schoolimplantation_rel
 
 
 --
--- Name: extraschool_prestation_times_encodage_manuel_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_prestation_times_encodage_manuel_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_prestation_times_encodage_manuel
@@ -7791,7 +7791,7 @@ ALTER TABLE ONLY extraschool_prestation_times_encodage_manuel
 
 
 --
--- Name: extraschool_prestation_times_manuel_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_prestation_times_manuel_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_prestation_times_manuel
@@ -7799,7 +7799,7 @@ ALTER TABLE ONLY extraschool_prestation_times_manuel
 
 
 --
--- Name: extraschool_prestation_times_of_the_day_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_prestation_times_of_the_day_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_prestation_times_of_the_day
@@ -7807,7 +7807,7 @@ ALTER TABLE ONLY extraschool_prestation_times_of_the_day
 
 
 --
--- Name: extraschool_prestationscheck__prestationscheck_wizard_id_pl_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_prestationscheck__prestationscheck_wizard_id_pl_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_prestationscheck_wizard_place_rel
@@ -7815,7 +7815,7 @@ ALTER TABLE ONLY extraschool_prestationscheck_wizard_place_rel
 
 
 --
--- Name: extraschool_prestationscheck_wizard_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_prestationscheck_wizard_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_prestationscheck_wizard
@@ -7823,7 +7823,7 @@ ALTER TABLE ONLY extraschool_prestationscheck_wizard
 
 
 --
--- Name: extraschool_prestationtimes_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_prestationtimes_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_prestationtimes
@@ -7831,7 +7831,7 @@ ALTER TABLE ONLY extraschool_prestationtimes
 
 
 --
--- Name: extraschool_price_list_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_price_list_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_price_list
@@ -7839,7 +7839,7 @@ ALTER TABLE ONLY extraschool_price_list
 
 
 --
--- Name: extraschool_price_list_version_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_price_list_version_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_price_list_version
@@ -7847,7 +7847,7 @@ ALTER TABLE ONLY extraschool_price_list_version
 
 
 --
--- Name: extraschool_qrcodes_wizard_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_qrcodes_wizard_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_qrcodes_wizard
@@ -7855,7 +7855,7 @@ ALTER TABLE ONLY extraschool_qrcodes_wizard
 
 
 --
--- Name: extraschool_reject_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_reject_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_reject
@@ -7863,7 +7863,7 @@ ALTER TABLE ONLY extraschool_reject
 
 
 --
--- Name: extraschool_reminder_invoice_rel_reminder_id_invoice_id_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_reminder_invoice_rel_reminder_id_invoice_id_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_reminder_invoice_rel
@@ -7871,7 +7871,7 @@ ALTER TABLE ONLY extraschool_reminder_invoice_rel
 
 
 --
--- Name: extraschool_reminder_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_reminder_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_reminder
@@ -7879,7 +7879,7 @@ ALTER TABLE ONLY extraschool_reminder
 
 
 --
--- Name: extraschool_remindersjournal__remindersjournal_id_biller_id_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_remindersjournal__remindersjournal_id_biller_id_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_remindersjournal_biller_rel
@@ -7887,7 +7887,7 @@ ALTER TABLE ONLY extraschool_remindersjournal_biller_rel
 
 
 --
--- Name: extraschool_remindersjournal_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_remindersjournal_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_remindersjournal
@@ -7895,7 +7895,7 @@ ALTER TABLE ONLY extraschool_remindersjournal
 
 
 --
--- Name: extraschool_remindertype_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_remindertype_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_remindertype
@@ -7903,7 +7903,7 @@ ALTER TABLE ONLY extraschool_remindertype
 
 
 --
--- Name: extraschool_scheduledtasks_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_scheduledtasks_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_scheduledtasks
@@ -7911,7 +7911,7 @@ ALTER TABLE ONLY extraschool_scheduledtasks
 
 
 --
--- Name: extraschool_school_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_school_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_school
@@ -7919,7 +7919,7 @@ ALTER TABLE ONLY extraschool_school
 
 
 --
--- Name: extraschool_schoolimplantation_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_schoolimplantation_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_schoolimplantation
@@ -7927,7 +7927,7 @@ ALTER TABLE ONLY extraschool_schoolimplantation
 
 
 --
--- Name: extraschool_smartphone_activi_smartphone_id_activitycategor_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_smartphone_activi_smartphone_id_activitycategor_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_smartphone_activitycategory_rel
@@ -7935,7 +7935,7 @@ ALTER TABLE ONLY extraschool_smartphone_activitycategory_rel
 
 
 --
--- Name: extraschool_smartphone_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_smartphone_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_smartphone
@@ -7943,7 +7943,7 @@ ALTER TABLE ONLY extraschool_smartphone
 
 
 --
--- Name: extraschool_taxcertificates_wizard_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_taxcertificates_wizard_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_taxcertificates_wizard
@@ -7951,7 +7951,7 @@ ALTER TABLE ONLY extraschool_taxcertificates_wizard
 
 
 --
--- Name: extraschool_timecorrection_wi_prestationscheck_wizard_id_pl_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_timecorrection_wi_prestationscheck_wizard_id_pl_key; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_timecorrection_wizard_place_rel
@@ -7959,7 +7959,7 @@ ALTER TABLE ONLY extraschool_timecorrection_wizard_place_rel
 
 
 --
--- Name: extraschool_timecorrection_wizard_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_timecorrection_wizard_pkey; Type: CONSTRAINT; Schema: public; Owner: openerp; Tablespace:
 --
 
 ALTER TABLE ONLY extraschool_timecorrection_wizard
@@ -7967,357 +7967,357 @@ ALTER TABLE ONLY extraschool_timecorrection_wizard
 
 
 --
--- Name: extraschool_activity_activityexclusiondates_rel_activity_id_ind; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activity_activityexclusiondates_rel_activity_id_ind; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_activity_activityexclusiondates_rel_activity_id_ind ON extraschool_activity_activityexclusiondates_rel USING btree (activity_id);
 
 
 --
--- Name: extraschool_activity_activityexclusiondates_rel_activityexclusi; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activity_activityexclusiondates_rel_activityexclusi; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_activity_activityexclusiondates_rel_activityexclusi ON extraschool_activity_activityexclusiondates_rel USING btree (activityexclusiondates_id);
 
 
 --
--- Name: extraschool_activity_activityplanneddate_rel_activity_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activity_activityplanneddate_rel_activity_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_activity_activityplanneddate_rel_activity_id_index ON extraschool_activity_activityplanneddate_rel USING btree (activity_id);
 
 
 --
--- Name: extraschool_activity_activityplanneddate_rel_activityplanneddat; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activity_activityplanneddate_rel_activityplanneddat; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_activity_activityplanneddate_rel_activityplanneddat ON extraschool_activity_activityplanneddate_rel USING btree (activityplanneddate_id);
 
 
 --
--- Name: extraschool_activity_childposition_rel_activity_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activity_childposition_rel_activity_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_activity_childposition_rel_activity_id_index ON extraschool_activity_childposition_rel USING btree (activity_id);
 
 
 --
--- Name: extraschool_activity_childposition_rel_childposition_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activity_childposition_rel_childposition_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_activity_childposition_rel_childposition_id_index ON extraschool_activity_childposition_rel USING btree (childposition_id);
 
 
 --
--- Name: extraschool_activity_childtype_rel_activity_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activity_childtype_rel_activity_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_activity_childtype_rel_activity_id_index ON extraschool_activity_childtype_rel USING btree (activity_id);
 
 
 --
--- Name: extraschool_activity_childtype_rel_childtype_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activity_childtype_rel_childtype_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_activity_childtype_rel_childtype_id_index ON extraschool_activity_childtype_rel USING btree (childtype_id);
 
 
 --
--- Name: extraschool_activity_place_rel_activity_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activity_place_rel_activity_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_activity_place_rel_activity_id_index ON extraschool_activity_place_rel USING btree (activity_id);
 
 
 --
--- Name: extraschool_activity_place_rel_place_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activity_place_rel_place_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_activity_place_rel_place_id_index ON extraschool_activity_place_rel USING btree (place_id);
 
 
 --
--- Name: extraschool_activity_schoolimplantation_rel_activity_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activity_schoolimplantation_rel_activity_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_activity_schoolimplantation_rel_activity_id_index ON extraschool_activity_schoolimplantation_rel USING btree (activity_id);
 
 
 --
--- Name: extraschool_activity_schoolimplantation_rel_schoolimplantation_; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activity_schoolimplantation_rel_schoolimplantation_; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_activity_schoolimplantation_rel_schoolimplantation_ ON extraschool_activity_schoolimplantation_rel USING btree (schoolimplantation_id);
 
 
 --
--- Name: extraschool_activitycategory_place_rel_activitycategory_id_inde; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activitycategory_place_rel_activitycategory_id_inde; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_activitycategory_place_rel_activitycategory_id_inde ON extraschool_activitycategory_place_rel USING btree (activitycategory_id);
 
 
 --
--- Name: extraschool_activitycategory_place_rel_place_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activitycategory_place_rel_place_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_activitycategory_place_rel_place_id_index ON extraschool_activitycategory_place_rel USING btree (place_id);
 
 
 --
--- Name: extraschool_activityoccurrence_cild_rel_activityoccurrence_id_i; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activityoccurrence_cild_rel_activityoccurrence_id_i; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_activityoccurrence_cild_rel_activityoccurrence_id_i ON extraschool_activityoccurrence_cild_rel USING btree (activityoccurrence_id);
 
 
 --
--- Name: extraschool_activityoccurrence_cild_rel_child_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_activityoccurrence_cild_rel_child_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_activityoccurrence_cild_rel_child_id_index ON extraschool_activityoccurrence_cild_rel USING btree (child_id);
 
 
 --
--- Name: extraschool_childsimportfilter_importlevelrule_rel_childsimport; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_childsimportfilter_importlevelrule_rel_childsimport; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_childsimportfilter_importlevelrule_rel_childsimport ON extraschool_childsimportfilter_importlevelrule_rel USING btree (childsimportfilter_id);
 
 
 --
--- Name: extraschool_childsimportfilter_importlevelrule_rel_importlevelr; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_childsimportfilter_importlevelrule_rel_importlevelr; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_childsimportfilter_importlevelrule_rel_importlevelr ON extraschool_childsimportfilter_importlevelrule_rel USING btree (importlevelrule_id);
 
 
 --
--- Name: extraschool_class_level_rel_class_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_class_level_rel_class_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_class_level_rel_class_id_index ON extraschool_class_level_rel USING btree (class_id);
 
 
 --
--- Name: extraschool_class_level_rel_level_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_class_level_rel_level_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_class_level_rel_level_id_index ON extraschool_class_level_rel USING btree (level_id);
 
 
 --
--- Name: extraschool_discount_activity_rel_activity_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_discount_activity_rel_activity_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_discount_activity_rel_activity_id_index ON extraschool_discount_activity_rel USING btree (activity_id);
 
 
 --
--- Name: extraschool_discount_activity_rel_discount_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_discount_activity_rel_discount_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_discount_activity_rel_discount_id_index ON extraschool_discount_activity_rel USING btree (discount_id);
 
 
 --
--- Name: extraschool_discount_childtype_rel_childtype_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_discount_childtype_rel_childtype_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_discount_childtype_rel_childtype_id_index ON extraschool_discount_childtype_rel USING btree (childtype_id);
 
 
 --
--- Name: extraschool_discount_childtype_rel_discount_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_discount_childtype_rel_discount_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_discount_childtype_rel_discount_id_index ON extraschool_discount_childtype_rel USING btree (discount_id);
 
 
 --
--- Name: extraschool_discount_discountrule_rel_discount_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_discount_discountrule_rel_discount_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_discount_discountrule_rel_discount_id_index ON extraschool_discount_discountrule_rel USING btree (discount_id);
 
 
 --
--- Name: extraschool_discount_discountrule_rel_discountrule_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_discount_discountrule_rel_discountrule_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_discount_discountrule_rel_discountrule_id_index ON extraschool_discount_discountrule_rel USING btree (discountrule_id);
 
 
 --
--- Name: extraschool_invoice_wizard_schoolimplantation_rel_invoice_wizar; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_invoice_wizard_schoolimplantation_rel_invoice_wizar; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_invoice_wizard_schoolimplantation_rel_invoice_wizar ON extraschool_invoice_wizard_schoolimplantation_rel USING btree (invoice_wizard_id);
 
 
 --
--- Name: extraschool_invoice_wizard_schoolimplantation_rel_schoolimplant; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_invoice_wizard_schoolimplantation_rel_schoolimplant; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_invoice_wizard_schoolimplantation_rel_schoolimplant ON extraschool_invoice_wizard_schoolimplantation_rel USING btree (schoolimplantation_id);
 
 
 --
--- Name: extraschool_invoicedprestations_activityid_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_invoicedprestations_activityid_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_invoicedprestations_activityid_index ON extraschool_invoicedprestations USING btree (activityid);
 
 
 --
--- Name: extraschool_invoicedprestations_childid_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_invoicedprestations_childid_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_invoicedprestations_childid_index ON extraschool_invoicedprestations USING btree (childid);
 
 
 --
--- Name: extraschool_invoicedprestations_placeid_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_invoicedprestations_placeid_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_invoicedprestations_placeid_index ON extraschool_invoicedprestations USING btree (placeid);
 
 
 --
--- Name: extraschool_invoicedprestations_prestation_date_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_invoicedprestations_prestation_date_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_invoicedprestations_prestation_date_index ON extraschool_invoicedprestations USING btree (prestation_date);
 
 
 --
--- Name: extraschool_invoicedprestations_quantity_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_invoicedprestations_quantity_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_invoicedprestations_quantity_index ON extraschool_invoicedprestations USING btree (quantity);
 
 
 --
--- Name: extraschool_one_report_day_child_rel_child_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_one_report_day_child_rel_child_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_one_report_day_child_rel_child_id_index ON extraschool_one_report_day_child_rel USING btree (child_id);
 
 
 --
--- Name: extraschool_one_report_day_child_rel_one_report_day_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_one_report_day_child_rel_one_report_day_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_one_report_day_child_rel_one_report_day_id_index ON extraschool_one_report_day_child_rel USING btree (one_report_day_id);
 
 
 --
--- Name: extraschool_place_schoolimplantation_rel_place_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_place_schoolimplantation_rel_place_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_place_schoolimplantation_rel_place_id_index ON extraschool_place_schoolimplantation_rel USING btree (place_id);
 
 
 --
--- Name: extraschool_place_schoolimplantation_rel_schoolimplantation_id_; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_place_schoolimplantation_rel_schoolimplantation_id_; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_place_schoolimplantation_rel_schoolimplantation_id_ ON extraschool_place_schoolimplantation_rel USING btree (schoolimplantation_id);
 
 
 --
--- Name: extraschool_prestationscheck_wizard_place_rel_place_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_prestationscheck_wizard_place_rel_place_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_prestationscheck_wizard_place_rel_place_id_index ON extraschool_prestationscheck_wizard_place_rel USING btree (place_id);
 
 
 --
--- Name: extraschool_prestationscheck_wizard_place_rel_prestationscheck_; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_prestationscheck_wizard_place_rel_prestationscheck_; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_prestationscheck_wizard_place_rel_prestationscheck_ ON extraschool_prestationscheck_wizard_place_rel USING btree (prestationscheck_wizard_id);
 
 
 --
--- Name: extraschool_prestationtimes_childid_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_prestationtimes_childid_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_prestationtimes_childid_index ON extraschool_prestationtimes USING btree (childid);
 
 
 --
--- Name: extraschool_prestationtimes_es_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_prestationtimes_es_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_prestationtimes_es_index ON extraschool_prestationtimes USING btree (es);
 
 
 --
--- Name: extraschool_prestationtimes_prestation_date_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_prestationtimes_prestation_date_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_prestationtimes_prestation_date_index ON extraschool_prestationtimes USING btree (prestation_date);
 
 
 --
--- Name: extraschool_prestationtimes_prestation_time_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_prestationtimes_prestation_time_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_prestationtimes_prestation_time_index ON extraschool_prestationtimes USING btree (prestation_time);
 
 
 --
--- Name: extraschool_reminder_invoice_rel_invoice_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_reminder_invoice_rel_invoice_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_reminder_invoice_rel_invoice_id_index ON extraschool_reminder_invoice_rel USING btree (invoice_id);
 
 
 --
--- Name: extraschool_reminder_invoice_rel_reminder_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_reminder_invoice_rel_reminder_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_reminder_invoice_rel_reminder_id_index ON extraschool_reminder_invoice_rel USING btree (reminder_id);
 
 
 --
--- Name: extraschool_remindersjournal_biller_rel_biller_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_remindersjournal_biller_rel_biller_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_remindersjournal_biller_rel_biller_id_index ON extraschool_remindersjournal_biller_rel USING btree (biller_id);
 
 
 --
--- Name: extraschool_remindersjournal_biller_rel_remindersjournal_id_ind; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_remindersjournal_biller_rel_remindersjournal_id_ind; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_remindersjournal_biller_rel_remindersjournal_id_ind ON extraschool_remindersjournal_biller_rel USING btree (remindersjournal_id);
 
 
 --
--- Name: extraschool_smartphone_activitycategory_rel_activitycategory_id; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_smartphone_activitycategory_rel_activitycategory_id; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_smartphone_activitycategory_rel_activitycategory_id ON extraschool_smartphone_activitycategory_rel USING btree (activitycategory_id);
 
 
 --
--- Name: extraschool_smartphone_activitycategory_rel_smartphone_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_smartphone_activitycategory_rel_smartphone_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_smartphone_activitycategory_rel_smartphone_id_index ON extraschool_smartphone_activitycategory_rel USING btree (smartphone_id);
 
 
 --
--- Name: extraschool_timecorrection_wizard_place_rel_place_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_timecorrection_wizard_place_rel_place_id_index; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_timecorrection_wizard_place_rel_place_id_index ON extraschool_timecorrection_wizard_place_rel USING btree (place_id);
 
 
 --
--- Name: extraschool_timecorrection_wizard_place_rel_prestationscheck_wi; Type: INDEX; Schema: public; Owner: openerp; Tablespace: 
+-- Name: extraschool_timecorrection_wizard_place_rel_prestationscheck_wi; Type: INDEX; Schema: public; Owner: openerp; Tablespace:
 --
 
 CREATE INDEX extraschool_timecorrection_wizard_place_rel_prestationscheck_wi ON extraschool_timecorrection_wizard_place_rel USING btree (prestationscheck_wizard_id);
