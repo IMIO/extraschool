@@ -421,6 +421,18 @@ class extraschool_activity(models.Model):
         return self.validity_from
 
     @api.multi
+    def check_activities_on_tax_certificate(self):
+        """
+        Check if there is activities with "non_renseigne" for on_tax_certificate_selection
+        """
+        activities = self.search([]).filtered(
+            lambda r: r.is_valid() and r.on_tax_certificate_selection == "non_renseigne")
+        if activities:
+            activities_names = activities.mapped("name")
+            raise Warning(_(u"Missing information about tax certificate on these activities : \n\n {}".format(
+                u"\n".join(activities_names))))
+
+    @api.multi
     def write(self, vals):
         for activity in self:
             logging.info("# Modification of an activity -------------------")

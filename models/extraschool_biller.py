@@ -421,18 +421,6 @@ class extraschool_biller(models.Model):
         server.sendmail(email_from, email_to, msg.as_string())
         server.quit()
 
-    @api.multi
-    def check_activities_on_tax_certificate(self):
-        """
-        Check if there is activities with "non_renseigne" for on_tax_certificate_selection
-        """
-        activities = self.env["extraschool.activity"].search([]).filtered(
-            lambda r: r.is_valid() and r.on_tax_certificate_selection == "non_renseigne")
-        if activities:
-            activities_names = activities.mapped("name")
-            raise Warning(_(u"Missing information about tax certificate on these activities : \n\n {}".format(
-                u"\n".join(activities_names))))
-
     @api.one
     def export_onyx(self):
         output = ""
@@ -443,7 +431,7 @@ class extraschool_biller(models.Model):
         output += u"NOM\tPRENOM\tDATE DE NAISSANCE\tN° REGISTRE NATIONAL\tANNEE D'ETUDE\tDate accueil\t"
         output += u"activité\tNbr j presences\tfisc\ttotal\tquantité\n"
         total = 0
-        self.check_activities_on_tax_certificate()
+        self.env["extraschool.activity"].check_activities_on_tax_certificate()
         for invoice in self.invoice_ids.sorted(lambda r: r.parentid.rn):
             export = invoice.export_onyx()
             total += export['exported_amount']

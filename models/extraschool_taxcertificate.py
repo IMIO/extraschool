@@ -4,7 +4,7 @@
 #    Extraschool
 #    Copyright (C) 2008-2020
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchial & Jenny Pans - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia & Jenny Pans - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -106,6 +106,7 @@ class extraschool_taxcertificate(models.Model):
     @api.model
     def create(self, vals):
         self._ensure_does_not_exists(vals)
+        self.env["extraschool.activity"].check_activities_on_tax_certificate()
         self._ensure_payment_reconciliation_exists(vals)
         vals[u'organising_power_id'] = self.env['extraschool.organising_power'].search([])[0].id
         cr, uid = self.env.cr, self.env.user.id

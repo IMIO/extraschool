@@ -35,15 +35,15 @@ class extraschool_taxcertificates_wizard(models.TransientModel):
     taxcertificates = fields.Binary('File', readonly=True)
     state = fields.Selection([('init', 'Init'),
                               ('compute_taxcertificates', 'Compute taxcertificates')],
-                             'State', required=True, default = 'init'
+                             'State', required=True, default='init'
                              )
 
     def get_taxe_certificates(self):
-        cr,uid = self.env.cr, self.env.user.id
+        cr, uid = self.env.cr, self.env.user.id
 
         obj_config = self.env['extraschool.mainsettings']
-        config=obj_config.browse([1])
-        activitycat= self.activitycategory
+        config = obj_config.browse([1])
+        activitycat = self.activitycategory
 
         if not self.parentid:
             parent_select = ""
@@ -57,7 +57,7 @@ class extraschool_taxcertificates_wizard(models.TransientModel):
                                             left join extraschool_payment pp on pp.id = ppr.payment_id
                                             where ppr.date BETWEEN '%s' and '%s'
                                                 AND iii.balance = 0
-                                """ % (self.year+'-01-01',self.year+'-12-31')
+                                """ % (self.year + '-01-01', self.year + '-12-31')
 
         sql_concerned_invoice += parent_select
 
@@ -81,7 +81,7 @@ class extraschool_taxcertificates_wizard(models.TransientModel):
                                     left join extraschool_schoolimplantation si on si.id = c.schoolimplantation
                                     left join extraschool_class sc on sc.id = c.classid
                                     where invoiceid in (""" + sql_concerned_invoice + """)
-                                           and a.on_tax_certificate = true
+                                           and a.on_tax_certificate_selection = 'oui'
                                     group by i.parentid,par.firstname,par.lastname,par.street,par.zipcode,par.city,ip.childid,c.firstname,c.lastname,c.birthdate,si.name,sc.name
                                     having sum(total_price) > 0
                                     order by si.name,sc.name,i.parentid;
@@ -93,7 +93,7 @@ class extraschool_taxcertificates_wizard(models.TransientModel):
         else:
             parent_select = "p.parent_id = %s" % (self.parentid.id)
 
-        cr.execute(sql_concerned_attest,(sql_concerned_invoice,sql_concerned_invoice))
+        cr.execute(sql_concerned_attest, (sql_concerned_invoice, sql_concerned_invoice))
         childattestations = cr.dictfetchall()
 
         return childattestations
@@ -106,13 +106,13 @@ class extraschool_taxcertificates_wizard(models.TransientModel):
 
         report = self.env['report']._get_report_from_name('extraschool.tpl_taxe_certificate_wizard_report')
         datas = {
-        'ids': self.ids,
-        'model': report.model,
+            'ids': self.ids,
+            'model': report.model,
         }
 
         return {
-               'type': 'ir.actions.report.xml',
-               'report_name': 'extraschool.tpl_taxe_certificate_wizard_report',
-               'datas': datas,
-               'report_type': 'qweb-pdf',
-           }
+            'type': 'ir.actions.report.xml',
+            'report_name': 'extraschool.tpl_taxe_certificate_wizard_report',
+            'datas': datas,
+            'report_type': 'qweb-pdf',
+        }
