@@ -31,8 +31,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-18 14:11+0000\n"
-"PO-Revision-Date: 2020-06-18 16:19+0200\n"
+"POT-Creation-Date: 2020-06-18 14:26+0000\n"
+"PO-Revision-Date: 2020-06-18 16:33+0200\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -25298,7 +25298,7 @@ msgstr "Date de dernière modification"
 #: model:ir.model.fields,field_description:web_planner.field_web_planner___last_update
 #: model:ir.model.fields,field_description:web_tip.field_web_tip___last_update
 msgid "Last Modified on"
-msgstr "Dernière modification"
+msgstr "Last Modified on"
 
 #. module: bus
 #: model:ir.model.fields,field_description:bus.field_bus_presence_last_poll
@@ -25774,7 +25774,7 @@ msgstr "Derniere fois mis à jour par"
 #: model:ir.model.fields,field_description:web_planner.field_web_planner_write_date
 #: model:ir.model.fields,field_description:web_tip.field_web_tip_write_date
 msgid "Last Updated on"
-msgstr "Dernière mise à jour le"
+msgstr "Dernière mis à jour le"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_mainsettings_last_child_upgrade_levels
@@ -27611,7 +27611,7 @@ msgid ""
 "\n"
 " {}"
 msgstr ""
-"Certaines activités manquant de renseignement concernant les attestations fiscales (voir le champs sur l'attestation fiscale) : \n"
+"Sur l'attestation fiscale est en non renseigné sur ces activités : \n"
 "\n"
 " {}"
 
@@ -36087,7 +36087,7 @@ msgstr "Statistique des activités"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_timecorrection_wizard_state
 #: model:ir.model.fields,field_description:mail.field_res_users_state_id
 msgid "State"
-msgstr "Etat"
+msgstr "État"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_country_state_code
