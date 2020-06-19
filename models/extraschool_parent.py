@@ -242,7 +242,7 @@ class extraschool_parent(models.Model):
         if vals['email'] and vals['email'] != '':
             doublons = len(parent_obj.search([('email', '=', vals['email'])])) > 0
         if doublons:
-            raise Warning('There is already a parent with this email or rn')
+            raise Warning('There is already a parent with this email or rn {}{}'.format(vals['firstname'], vals['lastname']))
 
         # Compute and store parent's commstruct for further use (search).
         parent_id = super(extraschool_parent, self).create(vals)
