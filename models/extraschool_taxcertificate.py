@@ -20,6 +20,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from __future__ import division
 
 from openerp import models, api, fields, _
 from openerp.api import Environment
@@ -37,6 +38,17 @@ class extraschool_taxcertificate(models.Model):
     _description = 'Taxcertificate'
     _inherit = 'mail.thread'
 
+    @api.depends('count_pdf')
+    def generate_progress(self):
+        """
+        :return: Value for progress bar
+        """
+        for rec in self:
+            if len(rec.taxcertificate_item_ids) > 0:
+                rec.write({
+                    'generate_progress': rec.count_pdf / len(rec.taxcertificate_item_ids)
+                })
+
     title = fields.Char('Title', required=True)
     name = fields.Integer('Fiscal Year', required=True, select=True, track_visibility='onchange')
     doc_date = fields.Date('Document date', required=True, track_visibility='onchange')
@@ -46,7 +58,10 @@ class extraschool_taxcertificate(models.Model):
     )
 
     taxcertificate_item_ids = fields.One2many('extraschool.taxcertificate_item', 'taxcertificate_id', 'Details')
+    generate_progress = fields.Float(string="Generate progress", default=0.0, compute=generate_progress, store=True,
+                                     recompute=True)
     pdf_ready = fields.Boolean(string="Pdf ready", default=False)
+    count_pdf = fields.Integer(default=0)
 
     @api.multi
     def mail_invoices(self):
@@ -288,6 +303,37 @@ class extraschool_taxcertificate(models.Model):
                                           args=(cr, uid, thread_lock, sub_taxes, self.env.context))
                 threaded_report.append(thread)
                 thread.start()
+
+    # @api.multi
+    # def generate_pdf(self):
+    #     """
+    #     Generate or regenate all tax certificate item's PDF
+    #     :return: None
+    #     """
+    #     self.ensure_one()
+    #     self.env['ir.attachment'].search([('res_id', 'in', [i.id for i in self.taxcertificate_item_ids]),
+    #                                       ('res_model', '=', 'extraschool.taxcertificate_item')]).unlink()
+    #     cr, uid = self.env.cr, self.env.user.id
+    #     threaded_report = []
+    #     self.write({'pdf_ready': False})
+    #     self.env.invalidate_all()
+    #
+    #     lock = threading.Lock()
+    #     chunk_size = int(self.env['ir.config_parameter'].get_param('extraschool.report.thread.chunk', 200))
+    #
+    #     nrb_thread = len(self.taxcertificate_item_ids) / chunk_size + (
+    #         len(self.taxcertificate_item_ids) % chunk_size > 0)
+    #     thread_lock = [
+    #         len(self.taxcertificate_item_ids) / chunk_size + (len(self.taxcertificate_item_ids) % chunk_size > 0),
+    #         threading.Lock(),
+    #         self.id]
+    #     for zz in range(0, nrb_thread):
+    #         sub_taxes = [i.id for i in self.taxcertificate_item_ids[zz * chunk_size:(zz + 1) * chunk_size]]
+    #         if len(sub_taxes):
+    #             thread = threading.Thread(target=self.generate_pdf_thread,
+    #                                       args=(cr, uid, thread_lock, sub_taxes, self.env.context))
+    #             threaded_report.append(thread)
+    #             thread.start()
 
 
 class extraschool_taxcertificate_item(models.Model):
