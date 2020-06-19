@@ -166,6 +166,7 @@
                                         string="Supprimer les allergies"
                                         icon="gtk-apply"
                                         type="object"
+                                        confirm="Voulez-vous vraiment supprimer toutes les allergies ?"
                                     />
                                     <button
                                         name="delete_disease_type"
