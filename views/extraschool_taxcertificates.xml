@@ -98,16 +98,16 @@
             <field name="model">extraschool.taxcertificate_item</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <form string="Tax Certificate" create="false" edit="false">
+                <form string="Tax Certificate" create="false">
                     <sheet>
                         <group col="4">
-                            <field name="name" />
-                            <field name="parent_id" />
-                            <field name="child_id" />
-                            <field name="nbr_day" />
-                            <field name="prest_from" />
-                            <field name="prest_to" />
-                            <field name="amount" />
+                            <field name="name" readonly="1"/>
+                            <field name="parent_id" readonly="1"/>
+                            <field name="child_id" readonly="1"/>
+                            <field name="nbr_day" readonly="1"/>
+                            <field name="prest_from" readonly="1"/>
+                            <field name="prest_to" readonly="1"/>
+                            <field name="amount" readonly="1"/>
                         </group>
 <!--                        <notebook>-->
 <!--                            <page string="Detail">-->
