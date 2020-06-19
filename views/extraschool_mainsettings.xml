@@ -44,6 +44,15 @@
                                         type="object"
                                     />
                                 </group>
+                                <group string="Mettre en majuscule le nom des parents" col="2">
+                                    <button
+                                        name="upper_parents_lastname"
+                                        string="Mettre les noms en majuscule"
+                                        icon="gtk-apply"
+                                        type="object"
+                                        confirm="Voulez-vous vraiment mettre en majuscule le nom de tous les parents ?"
+                                    />
+                                </group>
                             </page>
                             <page string="Fiche Enfant">
                                 <group string="RN pour l'import ONYX" col="2">
@@ -52,6 +61,15 @@
                                         string="Mettre le RN pour l'import ONYX"
                                         icon="gtk-apply"
                                         type="object"
+                                    />
+                                </group>
+                                <group string="Mettre en majuscule le nom des enfants" col="2">
+                                    <button
+                                        name="upper_childs_lastname"
+                                        string="Mettre les noms en majuscule"
+                                        icon="gtk-apply"
+                                        type="object"
+                                        confirm="Voulez-vous vraiment mettre en majuscule le nom de tous les enfants ?"
                                     />
                                 </group>
                             </page>
@@ -128,18 +146,20 @@
                                         type="object"
                                     />
                                 </group>
-                                <group string="Spécial MSG">
+                                <group string="Portail parent">
                                     <button
                                         name="delete_age_group"
                                         string="Supprimer les groupes d'âges = 0 - 0"
                                         icon="gtk-apply"
                                         type="object"
+                                        confirm="Voulez-vous vraiment supprimer les groupes d'âges 0 - 0 ?"
                                     />
                                     <button
                                         name="delete_doctors"
                                         string="Supprimer les médecins"
                                         icon="gtk-apply"
                                         type="object"
+                                        confirm="Voulez-vous vraiment supprimer tous les médecins ?"
                                     />
                                     <button
                                         name="delete_allergies"
@@ -152,6 +172,7 @@
                                         string="Supprimer tous les types de maladies"
                                         icon="gtk-apply"
                                         type="object"
+                                        confirm="Voulez-vous vraiment supprimer tous les types de maladies ?"
                                     />
                                 </group>
                             </page>

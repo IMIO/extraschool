@@ -590,6 +590,22 @@ class extraschool_mainsettings(models.Model):
                 })
 
     @api.multi
+    def upper_parents_lastname(self):
+        parent_ids = self.env["extraschool.parent"].search([]).filtered(lambda r: r.lastname != r.lastname.upper())
+        for parent_id in parent_ids:
+            parent_id.write({
+                'lastname': parent_id.lastname.upper()
+            })
+
+    @api.multi
+    def upper_childs_lastname(self):
+        child_ids = self.env["extraschool.child"].search([]).filtered(lambda r: r.lastname != r.lastname.upper())
+        for child_id in child_ids:
+            child_id.write({
+                'lastname': child_id.lastname.upper()
+            })
+
+    @api.multi
     def put_rn_onyx_child(self):
         child_ids = self.env['extraschool.child'].search([])
         for child_id in child_ids:

@@ -259,3 +259,4 @@ class AgedGroup(models.Model):
         self.verify_age(vals)
         self.verify_if_already_exists(vals['age_from'], vals['age_to'])
         return super(AgedGroup, self).create(vals)
+
