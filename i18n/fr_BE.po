@@ -31,8 +31,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-18 14:26+0000\n"
-"PO-Revision-Date: 2020-06-18 16:33+0200\n"
+"POT-Creation-Date: 2020-06-22 14:00+0000\n"
+"PO-Revision-Date: 2020-06-22 16:09+0200\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -10771,7 +10771,7 @@ msgid "A payer avant le"
 msgstr "A payer avant le"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_coda.py:222
+#: code:addons/extraschool/models/extraschool_coda.py:226
 #, python-format
 msgid "A reminder has been found but the amount is not corresponding to balances of invoices"
 msgstr "A reminder has been found but the amount is not corresponding to balances of invoices"
@@ -12510,7 +12510,7 @@ msgid "Amount accepted"
 msgstr "Montant accepté"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_coda.py:171
+#: code:addons/extraschool/models/extraschool_coda.py:175
 #, python-format
 msgid "Amount greather than invoice balance"
 msgstr "Amount greather than invoice balance"
@@ -14114,7 +14114,7 @@ msgid "CODA File"
 msgstr "Fichier CODA"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_coda.py:103
+#: code:addons/extraschool/models/extraschool_coda.py:107
 #, python-format
 msgid "CODA already imported !!!"
 msgstr "Ce fichier CODA a déjà été importé"
@@ -19105,13 +19105,19 @@ msgid "E-mail Error"
 msgstr "Erreur de courriel"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_coda.py:114
+#: code:addons/extraschool/models/extraschool_parent.py:256
+#, python-format
+msgid "E-mail format invalid: {}."
+msgstr "E-mail invalide : {}"
+
+#. module: extraschool
+#: code:addons/extraschool/models/extraschool_coda.py:118
 #, python-format
 msgid "ERROR: The account number in this CODA file is not used in this application !!!"
 msgstr "Le numéro de compte dans ce fichier CODA n'est pas utilisé par cette application"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_coda.py:112
+#: code:addons/extraschool/models/extraschool_coda.py:116
 #, python-format
 msgid "ERROR: Wrong CODA version !!!"
 msgstr "Mauvaise version CODA"
@@ -27498,8 +27504,23 @@ msgstr "Mettre en majuscule l'adresse du parent"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
+msgid "Mettre en majuscule le nom des enfants"
+msgstr "Mettre en majuscule le nom des enfants"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
+msgid "Mettre en majuscule le nom des parents"
+msgstr "Mettre en majuscule le nom des parents"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
 msgid "Mettre le RN pour l'import ONYX"
 msgstr "Mettre le RN pour l'import ONYX"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
+msgid "Mettre les noms en majuscule"
+msgstr "Mettre les noms en majuscule"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_child_registration_form
@@ -28720,12 +28741,6 @@ msgstr "Non valeur assistant"
 msgid "No app installed"
 msgstr "Pas d'applications installées"
 
-#. module: extraschool
-#: code:addons/extraschool/models/extraschool_coda.py:93
-#, python-format
-msgid "No coda file!"
-msgstr "Il n'y a pas de fichier CODA"
-
 #. module: web
 #. openerp-web
 #: code:addons/web/static/src/js/views/graph_widget.js:96
@@ -28844,7 +28859,7 @@ msgid "No starred message"
 msgstr "Pas de messages mis en favoris"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_coda.py:141
+#: code:addons/extraschool/models/extraschool_coda.py:145
 #, python-format
 msgid "No structured Communication"
 msgstr "No structured Communication"
@@ -28857,9 +28872,9 @@ msgid "No threading for answers"
 msgstr "Pas de suivi dans le fil pour les réponses"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_coda.py:197
-#: code:addons/extraschool/models/extraschool_coda.py:278
-#: code:addons/extraschool/models/extraschool_coda.py:322
+#: code:addons/extraschool/models/extraschool_coda.py:201
+#: code:addons/extraschool/models/extraschool_coda.py:282
+#: code:addons/extraschool/models/extraschool_coda.py:326
 #, python-format
 msgid "No valid structured Communication"
 msgstr "No valid structured Communication"
@@ -30800,7 +30815,7 @@ msgid "Parent name"
 msgstr "Nom du parent"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_coda.py:294
+#: code:addons/extraschool/models/extraschool_coda.py:298
 #, python-format
 msgid "Parent not found"
 msgstr "Parent not found"
@@ -31734,6 +31749,11 @@ msgstr "Emplacement du dialogue : bas, haut, gauche, droite"
 #: model:ir.model.fields,field_description:fetchmail.field_fetchmail_server_port
 msgid "Port"
 msgstr "Port"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
+msgid "Portail parent"
+msgstr "Portail parent"
 
 #. modules: base, portal
 #: model:ir.module.category,name:base.module_category_portal
@@ -36008,11 +36028,6 @@ msgstr "Mode de division"
 msgid "Sponsors, Tracks, Agenda, Event News"
 msgstr "Sponsors, Tracks, Agenda, Event News"
 
-#. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
-msgid "Spécial MSG"
-msgstr "Spécial MSG"
-
 #. module: base
 #: model:res.partner.title,shortcut:base.res_partner_title_sir
 msgid "Sr."
@@ -37184,7 +37199,7 @@ msgid "The code of the language must be unique !"
 msgstr "Le code de la langue doit être unique"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_coda.py:227
+#: code:addons/extraschool/models/extraschool_coda.py:231
 #, python-format
 msgid "The communication is outdated. Another reminder has been created."
 msgstr "The communication is outdated. Another reminder has been created."
@@ -37780,6 +37795,18 @@ msgstr "There are too many rows (%s rows, limit: 65535) to export as Excel 97-20
 msgid "There has been an error on the cleaning of old level id"
 msgstr "There has been an error on the cleaning of old level id"
 
+#. module: extraschool
+#: code:addons/extraschool/models/extraschool_parent.py:246
+#, python-format
+msgid "There is already a parent with this RN"
+msgstr "Il existe déjà un parent avec ce numéro national !"
+
+#. module: extraschool
+#: code:addons/extraschool/models/extraschool_parent.py:267
+#, python-format
+msgid "There is already a parent with this email"
+msgstr "Il existe déjà un parent avec cet email !"
+
 #. module: base
 #: code:addons/base/ir/ir_filters.py:79
 #, python-format
@@ -37803,6 +37830,12 @@ msgstr "Ce groupe d'âge existe déjà !"
 #, python-format
 msgid "There is an error in aged group"
 msgstr "There is an error in aged group"
+
+#. module: extraschool
+#: code:addons/extraschool/models/extraschool_coda.py:88
+#, python-format
+msgid "There is no CODA file !"
+msgstr "Il n'y a pas de fichier de CODA !"
 
 #. module: extraschool
 #: code:addons/extraschool/models/extraschool_one_report.py:208
@@ -37886,6 +37919,12 @@ msgstr ""
 #: model:ir.model.fields,help:base.field_res_lang_iso_code
 msgid "This ISO code is the name of po files to use for translations"
 msgstr "Ce code ISO est le nom des fichiers po utilisés pour les traductions"
+
+#. module: extraschool
+#: code:addons/extraschool/models/extraschool_parent.py:235
+#, python-format
+msgid "This RN is not valid"
+msgstr "Ce numéro national n'est pas valide. Il doit être du format suivant : 01234567890"
 
 #. module: base_import
 #. openerp-web
@@ -39777,6 +39816,13 @@ msgstr "Utilisez le modèle de base de l'action"
 msgid "Use the format '%s'"
 msgstr "Utilisez le format '%s'"
 
+#. module: extraschool
+#: code:addons/extraschool/models/extraschool_parent.py:101
+#: model:ir.model.fields,help:extraschool.field_extraschool_parent_rn
+#, fuzzy, python-format
+msgid "Use this format : 12345678912"
+msgstr "Utilisez le format '%s'"
+
 #. module: share
 #: model:ir.ui.view,arch_db:share.share_step2_form
 msgid "Use this link"
@@ -40304,9 +40350,39 @@ msgid "Votre compte famille présente"
 msgstr "Votre compte famille présente"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
+msgid "Voulez-vous vraiment mettre en majuscule le nom de tous les enfants ?"
+msgstr "Voulez-vous vraiment mettre en majuscule le nom de tous les enfants ?"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
+msgid "Voulez-vous vraiment mettre en majuscule le nom de tous les parents ?"
+msgstr "Voulez-vous vraiment mettre en majuscule le nom de tous les parents ?"
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_invoice_form
 msgid "Voulez-vous vraiment supprimer définitivement cette facture ? Les présences liées à celle-ci ne seront plus facturables. Confirmation de la manipulation ?"
 msgstr "Voulez-vous vraiment supprimer définitivement cette facture ? Les présences liées à celle-ci ne seront plus facturables. Confirmation de la manipulation ?"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
+msgid "Voulez-vous vraiment supprimer les groupes d'âges 0 - 0 ?"
+msgstr "Voulez-vous vraiment supprimer les groupes d'âges 0 - 0 ?"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
+msgid "Voulez-vous vraiment supprimer tous les médecins ?"
+msgstr "Voulez-vous vraiment supprimer tous les médecins ?"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
+msgid "Voulez-vous vraiment supprimer tous les types de maladies ?"
+msgstr "Voulez-vous vraiment supprimer tous les types de maladies ?"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
+msgid "Voulez-vous vraiment supprimer toutes les allergies ?"
+msgstr "Voulez-vous vraiment supprimer toutes les allergies ?"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_warning_date
