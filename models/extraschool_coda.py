@@ -83,14 +83,18 @@ class extraschool_coda(models.Model):
     def format_comstruct(self,comstruct):
         return ('+++%s/%s/%s+++' % (comstruct[0:3],comstruct[3:7],comstruct[7:12]))
 
+    def _ensure_coda_file_exists(self, vals):
+        if not vals['codafile']:
+            raise Warning(_("There is no CODA file !"))
+
     @api.model
     def create(self, vals):
+        self._ensure_coda_file_exists(vals)
         #to do refactoring suite api V8
         cr = self.env.cr
         paymentids = []
         rejectids = []
-        if not vals['codafile']:
-            raise Warning(_("There is no CODA file !"))
+
         lines = unicode(base64.decodestring(vals['codafile']), 'windows-1252', 'strict').split('\n')
         bankaccount = lines[1][5:21]
         codadate = '20'+lines[0][9:11]+'-'+lines[0][7:9]+'-'+lines[0][5:7]
