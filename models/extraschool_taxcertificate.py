@@ -58,8 +58,7 @@ class extraschool_taxcertificate(models.Model):
     )
 
     taxcertificate_item_ids = fields.One2many('extraschool.taxcertificate_item', 'taxcertificate_id', 'Details')
-    generate_progress = fields.Float(string="Generate progress", default=0.0, compute=generate_progress, store=True,
-                                     recompute=True)
+    generate_progress = fields.Float(string="Generate progress", default=0.0, compute=generate_progress)
     pdf_ready = fields.Boolean(string="Pdf ready", default=False)
     count_pdf = fields.Integer(default=0)
 
@@ -118,12 +117,45 @@ class extraschool_taxcertificate(models.Model):
         if not payments_reconciliation:
             raise Warning(_('There are not payment reconciliation'))
 
+    def _get_concerned_invoices(self):
+        pass
+
+    def _get_child_attestations(self):
+        pass
+
+    def _generate_items(self, childattestations, vals):
+        """
+        :param childattestations:
+        :param vals:
+        :return: An array with
+        """
+        attest_item_ids = []
+        attest_item_obj = self.env['extraschool.taxcertificate_item']
+        count = 1
+        import wdb
+        wdb.set_trace()
+        parent_ids = self.env['extraschool.parent'].browse(childattestations.mapped('parendid'))
+        for attest in childattestations:
+            # send_method = \
+            #     self.env['extraschool.parent'].search([('id', '=', attest['parentid'])]).mapped('invoicesendmethod')[
+            #         0].encode("UTF-8")
+            attest_item_ids.append(attest_item_obj.create({'name': count,
+                                                           'parent_id': attest['parentid'],
+                                                           'child_id': attest['childid'],
+                                                           'nbr_day': attest['nbdays'],
+                                                           'amount': attest['amount'],
+                                                           'tax_certificate_send_method': send_method,
+                                                           'organising_power_id':
+                                                               self.env['extraschool.organising_power'].search([])[0].id
+                                                           }).id)
+            count += 1
+        return attest_item_ids
+
     @api.model
     def create(self, vals):
         self._ensure_does_not_exists(vals)
         self.env["extraschool.activity"].check_activities_on_tax_certificate()
         self._ensure_payment_reconciliation_exists(vals)
-        vals[u'organising_power_id'] = self.env['extraschool.organising_power'].search([])[0].id
         cr, uid = self.env.cr, self.env.user.id
 
         # UPDATE RECONCIL DATE IF NEEDED
@@ -191,24 +223,24 @@ class extraschool_taxcertificate(models.Model):
 
         childattestations = cr.dictfetchall()
 
-        attest_item_ids = []
-        attest_item_obj = self.env['extraschool.taxcertificate_item']
-        zz = 1
-        for attest in childattestations:
-            send_method = \
-                self.env['extraschool.parent'].search([('id', '=', attest['parentid'])]).mapped('invoicesendmethod')[
-                    0].encode("UTF-8")
-            attest_item_ids.append(attest_item_obj.create({'name': zz,
-                                                           'parent_id': attest['parentid'],
-                                                           'child_id': attest['childid'],
-                                                           'nbr_day': attest['nbdays'],
-                                                           'amount': attest['amount'],
-                                                           'tax_certificate_send_method': send_method,
-                                                           'organising_power_id': vals[u'organising_power_id']
-                                                           }).id)
-            zz += 1
+        # attest_item_ids = []
+        # attest_item_obj = self.env['extraschool.taxcertificate_item']
+        # count = 1
+        # for attest in childattestations:
+        #     send_method = \
+        #         self.env['extraschool.parent'].search([('id', '=', attest['parentid'])]).mapped('invoicesendmethod')[
+        #             0].encode("UTF-8")
+        #     attest_item_ids.append(attest_item_obj.create({'name': count,
+        #                                                    'parent_id': attest['parentid'],
+        #                                                    'child_id': attest['childid'],
+        #                                                    'nbr_day': attest['nbdays'],
+        #                                                    'amount': attest['amount'],
+        #                                                    'tax_certificate_send_method': send_method,
+        #                                                    'organising_power_id': vals[u'organising_power_id']
+        #                                                    }).id)
+        #     count += 1
 
-        vals['taxcertificate_item_ids'] = [(6, 0, attest_item_ids)]
+        vals['taxcertificate_item_ids'] = [(6, 0, self._generate_items(childattestations, vals))]
 
         taxe_certif = super(extraschool_taxcertificate, self).create(vals)
         taxe_certif.generate_pdf()
@@ -290,10 +322,10 @@ class extraschool_taxcertificate(models.Model):
         lock = threading.Lock()
         chunk_size = int(self.env['ir.config_parameter'].get_param('extraschool.report.thread.chunk', 200))
 
-        nrb_thread = len(self.taxcertificate_item_ids) / chunk_size + (
+        nrb_thread = len(self.taxcertificate_item_ids) // chunk_size + (
             len(self.taxcertificate_item_ids) % chunk_size > 0)
         thread_lock = [
-            len(self.taxcertificate_item_ids) / chunk_size + (len(self.taxcertificate_item_ids) % chunk_size > 0),
+            len(self.taxcertificate_item_ids) // chunk_size + (len(self.taxcertificate_item_ids) % chunk_size > 0),
             threading.Lock(),
             self.id]
         for zz in range(0, nrb_thread):
@@ -303,6 +335,34 @@ class extraschool_taxcertificate(models.Model):
                                           args=(cr, uid, thread_lock, sub_taxes, self.env.context))
                 threaded_report.append(thread)
                 thread.start()
+
+    # @api.one
+    # def generate_pdf(self):
+    #
+    #     cr, uid = self.env.cr, self.env.user.id
+    #     threaded_report = []
+    #
+    #     self.env['ir.attachment'].search([('res_id', 'in', [i.id for i in self.taxcertificate_item_ids]),
+    #                                       ('res_model', '=', 'extraschool.taxcertificate_item')]).unlink()
+    #     self.pdf_ready = False
+    #     self.env.invalidate_all()
+    #
+    #     lock = threading.Lock()
+    #     chunk_size = int(self.env['ir.config_parameter'].get_param('extraschool.report.thread.chunk', 200))
+    #
+    #     nrb_thread = len(self.taxcertificate_item_ids) / chunk_size + (
+    #         len(self.taxcertificate_item_ids) % chunk_size > 0)
+    #     thread_lock = [
+    #         len(self.taxcertificate_item_ids) / chunk_size + (len(self.taxcertificate_item_ids) % chunk_size > 0),
+    #         threading.Lock(),
+    #         self.id]
+    #     for zz in range(0, nrb_thread):
+    #         sub_taxes = [i.id for i in self.taxcertificate_item_ids[zz * chunk_size:(zz + 1) * chunk_size]]
+    #         if len(sub_taxes):
+    #             thread = threading.Thread(target=self.generate_pdf_thread,
+    #                                       args=(cr, uid, thread_lock, sub_taxes, self.env.context))
+    #             threaded_report.append(thread)
+    #             thread.start()
 
     # @api.multi
     # def generate_pdf(self):
