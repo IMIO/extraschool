@@ -76,7 +76,7 @@ class extraschool_child_registration(models.Model):
                                   track_visibility='onchange')
     week = fields.Integer('Week', required=True, readonly=True, states={'draft': [('readonly', False)]},
                           help='Afin de trouver le bon numéro de semaine, Veuillez vous aider du champs situé juste en dessous afin de trouver le numéro de semaine. Une fois le numéro mis, l\'application recherchera et encodera toute seule les bonnes dates du numéro de semaine (Du lundi au vendredi)',
-                          track_visibility='onchange')
+                          track_visibility='onchange', default=datetime.now().date().isocalendar()[1])
     date_from = fields.Date('Date from', required=True, readonly=True, states={'draft': [('readonly', False)]},
                             track_visibility='onchange')
     date_to = fields.Date('Date to', required=True, readonly=True, states={'draft': [('readonly', False)]},
