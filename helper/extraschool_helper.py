@@ -57,12 +57,20 @@ def timeit(method):
 
 def email_validation(email):
     """
-    Verify that an email is in the correct format with a regex.
+    Verify if email is valid
+    :param email: email
+    :return: True if valid, False otherwise
     """
-    if re.match('^[a-zA-Z0-9.+_%-]+@[a-zA-Z0-9._%-]+\\.[a-zA-Z]{2,6}$', email) is not None:
-        return True
-    else:
-        return False
+    return re.match('^[a-zA-Z0-9.+_%-]+@[a-zA-Z0-9._%-]+\\.[a-zA-Z]{2,6}$', email) is not None
+
+
+def rn_validation(rn):
+    """
+    Verify if RN is valid
+    :param rn: National registration number
+    :return: True if valid, False otherwise
+    """
+    return re.match('^[0-9]{11}$', rn) is not None
 
 
 def calculate_age(date_of_birth):

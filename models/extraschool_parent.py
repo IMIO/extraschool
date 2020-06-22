@@ -2,9 +2,9 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2019
+#    Copyright (C) 2008-2020
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot - Imio (<http://www.imio.be>).
+#    Michael Michot & Jenny Pans- Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
+from openerp import models, api, fields, _
 from openerp.addons.extraschool.helper import lbutils, extraschool_helper
 from openerp.exceptions import Warning
 
@@ -97,7 +97,8 @@ class extraschool_parent(models.Model):
     #         record.total_reminder_fees = cr.fetchall()[0][0]
 
     name = fields.Char(compute='_name_compute', string='FullName', search='_search_fullname', size=100)
-    rn = fields.Char('RN', track_visibility='onchange')
+    rn = fields.Char('RN', track_visibility='onchange',
+                     help=_("Use this format : 12345678912"))
     firstname = fields.Char('FirstName', size=50, required=True, track_visibility='onchange')
     lastname = fields.Char('LastName', size=50, required=True, track_visibility='onchange')
     street = fields.Char('Street', size=50, required=True, track_visibility='onchange')
@@ -223,28 +224,62 @@ class extraschool_parent(models.Model):
             'target': 'new',
         }
 
+    @api.multi
+    def _valid_rn(self, rn):
+        """
+        Check if RN is valid. If not, raise warning.
+        :param rn: National registration number
+        :return: None
+        """
+        if not extraschool_helper.rn_validation(rn):
+            raise Warning(_("This RN is not valid"))
+
+    @api.multi
+    def _ensure_not_duplicates_rn(self, rn):
+        """
+        Raise warning if there is already a parent with this RN
+        :param rn: National registration number of parent
+        :return: None
+        """
+        duplicates = self.search([("rn", "=", rn)])
+        if duplicates:
+            raise Warning(_("There is already a parent with this RN"))
+
+    @api.multi
+    def _valid_email(self, email):
+        """
+        Check if email is valid. If not, raise warning
+        :param email: email
+        :return: None
+        """
+        if not extraschool_helper.email_validation(email):
+            raise Warning(_("E-mail format invalid: {}.".format(email)))
+
+    @api.multi
+    def _ensure_not_duplicates_email(self, email):
+        """
+        Raise warning if there is already a parent with this email
+        :param email: email of parent
+        :return: None
+        """
+        duplicates = self.search([('email', '=', email)])
+        if duplicates:
+            raise Warning(_("There is already a parent with this email"))
+
     @api.model
     def create(self, vals):
-        parent_obj = self.env['extraschool.parent']
-        parents = parent_obj.search([('firstname', 'ilike', vals['firstname'].strip()),
-                                     ('lastname', 'ilike', vals['lastname'].strip()),
-                                     ])
+        """
+        Create a parent
+        :param vals: values for create parent
+        :return: None
+        """
+        if vals["rn"]:
+            self._valid_rn(vals["rn"])
+            self._ensure_not_duplicates_rn(vals["rn"])
+        if vals['email'] is not False:
+            self._valid_email(vals["email"])
+            self._ensure_not_duplicates_email(vals["email"])
 
-        if vals['email'] is not False and vals['email'] != '' and vals['email'] != ' ':
-            emails = vals['email'].split(',')
-            for email in emails:
-                if not extraschool_helper.email_validation(email):
-                    raise Warning("E-mail format invalid: {}.".format(email))
-
-        doublons = False
-        if vals['rn'] and vals['rn'] != '':
-            doublons = len(parent_obj.search([('rn', '=', vals['rn'])])) > 0
-        if vals['email'] and vals['email'] != '':
-            doublons = len(parent_obj.search([('email', '=', vals['email'])])) > 0
-        if doublons:
-            raise Warning('There is already a parent with this email or rn {}{}'.format(vals['firstname'], vals['lastname']))
-
-        # Compute and store parent's commstruct for further use (search).
         parent_id = super(extraschool_parent, self).create(vals)
         parent_id.write(
             {'comstruct': parent_id.get_prepaid_comstruct(self.env['extraschool.activitycategory'].search([])[0])})
