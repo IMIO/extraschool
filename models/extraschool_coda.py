@@ -90,7 +90,7 @@ class extraschool_coda(models.Model):
         paymentids = []
         rejectids = []
         if not vals['codafile']:
-            raise Warning(_('No coda file!','ERROR: No CODA File !!!'))
+            raise Warning(_("There is no CODA file !"))
         lines = unicode(base64.decodestring(vals['codafile']), 'windows-1252', 'strict').split('\n')
         bankaccount = lines[1][5:21]
         codadate = '20'+lines[0][9:11]+'-'+lines[0][7:9]+'-'+lines[0][5:7]
