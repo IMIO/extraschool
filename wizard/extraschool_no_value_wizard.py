@@ -47,7 +47,7 @@ class extraschoolNoValueWizard(models.TransientModel):
             ('invoiceid', 'in', self.env.context.get('active_ids')), ('total_price', '>', 0.00)])
 
         for invoiced_prestation in invoiced_prestation_ids:
-            invoiced_prestation.on_tax_certificate = False if invoiced_prestation.activity_activity_id.on_tax_certificate_selection == 'oui' else False
+            invoiced_prestation.on_tax_certificate = True if invoiced_prestation.activity_activity_id.on_tax_certificate_selection == 'oui' else False
 
         return invoiced_prestation_ids
 
