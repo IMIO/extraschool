@@ -59,6 +59,17 @@ class extraschool_reminder(models.Model):
     balance = fields.Float(default=0.0)
     amount_received = fields.Float(string='Received', compute='_compute_amount_received',
                                    readonly=True)
+    no_values = fields.Float(string="No values", compute="_compute_no_values", readonly=True)
+
+    @api.multi
+    def _compute_no_values(self):
+        """
+        Compute no_values for invoices
+        :return: None
+        """
+        for reminder in self:
+            for invoice in reminder.concerned_invoice_ids:
+                reminder.no_values += invoice.no_value_amount
 
     @api.multi
     def _compute_amount_received(self):

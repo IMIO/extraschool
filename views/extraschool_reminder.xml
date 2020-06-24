@@ -40,6 +40,7 @@
                     <field name="school_implantation_id"/>
                     <field name="amount" sum="True"/>
                     <field name="amount_received" sum="True"/>
+                    <field name="no_values" sum="True"/>
                     <field name="balance_computed" sum="True"/>
                     <field name="structcom"/>
                 </tree>
