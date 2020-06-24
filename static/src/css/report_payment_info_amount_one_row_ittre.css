@@ -38,6 +38,16 @@
     width: 50%;
 }
 
+#total>div.balance {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+#total>div.amount_total {
+    font-weight: bold;
+    font-size: 16px;
+}
+
 #total>div.to_pay {
     font-weight: bold;
 }

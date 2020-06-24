@@ -68,7 +68,8 @@
                         <t t-set="name" t-value="reminder.reminders_journal_item_id.reminder_type_id.name"/>
 						<t t-set="total" t-value="reminder.amount"/>
 						<t t-set="fees" t-value="reminder.reminders_journal_item_id.reminder_type_id.fees_amount"/>
-						<t t-set="received" t-value="0"/>
+						<t t-set="received" t-value="reminder.amount_received"/>
+						<t t-set="no_values" t-value="reminder.no_values"/>
                         <t t-set="schoolimplantationid" t-value="reminder.school_implantation_id"/>
 						<t t-set="balance" t-value="reminder.amount"/>
                         <t t-set="balance_computed" t-value="reminder.balance"/>
