@@ -101,97 +101,84 @@ class extraschool_biller(models.Model):
 
     @api.depends('invoice_ids.amount_received')
     def _compute_received(self):
-        for record in self:
-            record.received = sum(invoice.amount_received for invoice in record.invoice_ids)
+        """
+        Compute amount received for each invoice
+        :return: None
+        """
+        for biller in self:
+            biller.received = sum(invoice.amount_received for invoice in biller.invoice_ids)
 
     @api.depends('invoice_ids.balance')
     def _compute_balance(self):
-        for record in self:
-            record.balance = sum(invoice.balance for invoice in record.invoice_ids)
+        """
+        Compute balance for each invoice
+        :return: None
+        """
+        for biller in self:
+            biller.balance = sum(invoice.balance for invoice in biller.invoice_ids)
 
     @api.depends('invoice_ids.no_value_amount')
     def _compute_novalue(self):
-        for record in self:
-            record.novalue = sum(invoice.no_value_amount for invoice in record.invoice_ids)
+        """
+        Compute no value for each invoice
+        :return: None
+        """
+        for biller in self:
+            biller.novalue = sum(invoice.no_value_amount for invoice in biller.invoice_ids)
 
     @api.depends('invoice_ids')
     def _compute_nbinvoices(self):
-        for record in self:
-            record.nbinvoices = len(self.invoice_ids)
+        """
+        Compute invoices number
+        :return: None
+        """
+        for biller in self:
+            biller.nbinvoices = len(self.invoice_ids)
+
+    @api.multi
+    def _ensure_delete_one_biller(self):
+        """
+        Check if only one biller is selected, raise warning otherwise
+        :return: None
+        """
+        if len(self) > 1:
+            raise Warning(_("You can delete only one biller at a time !"))
+
+    @api.multi
+    def _ensure_delete_last_biller(self):
+        """
+        Check if this is the last biller, raise warning otherwise
+        :return: None
+        """
+        if self.search([]).sorted(key=lambda r: r.id)[-1].id != self.id:
+            raise Warning(_("You can only delete the last biller !"))
+
+    @api.multi
+    def _unlink_invoices(self):
+        """
+        Delete invoices's payments reconciliation and invoices
+        :return: None
+        """
+        count = 1
+        # we use a variable because size of invoice_ids is decremented for each invoice deleted
+        nb_invoices = len(self.invoice_ids)
+        for invoice in self.invoice_ids:
+            invoice.payment_ids.unlink()
+            invoice.unlink()
+            _logger.info("[{}/{}] invoices deleted".format(count, nb_invoices))
+            count += 1
 
     @api.multi
     def unlink(self):
+        """
+        Delete the biller (included invoices, payments)
+        :return: id of biller
+        """
         self.env.invalidate_all()
-        if len(self) > 1:
-            raise Warning(_("You can delete only one biller at a time !!!"))
-
-        if self.search([]).sorted(key=lambda r: r.id)[-1].id != self.id:
-            raise Warning(_("You can only delete the last biller !!!"))
-
-        _logger.info("%s invoices to delete" % len(self.invoice_ids))
-        count = 1
-        total_invoice = len(self.invoice_ids)
-        for invoice in self.invoice_ids:
-            _logger.info("[%s/%s] payment reconcil" % (count, total_invoice))
-            invoice.payment_ids.unlink()
-            count += 1
-
-        # invoicelastcomstruct = str(self.invoice_ids.sorted(key=lambda r: r.id)[0].number)[-5:]
-        #
-        # for activity_category in self.activitycategoryid:
-        #     activity_category.sequence_ids.search([('type', '=', 'invoice'),
-        #                                              ('year', '=', self.get_from_year()),]).sequence.number_next = invoicelastcomstruct
-
-        count = 1
-        for invoice in self.invoice_ids:
-            _logger.info("[%s/%s] invoices deleted" % (count, total_invoice))
-            invoice.unlink()
-            count += 1
-
+        self._ensure_delete_one_biller()
+        self._ensure_delete_last_biller()
+        self._unlink_invoices()
         return super(extraschool_biller, self).unlink()
-
-    @api.one
-    def sendmails(self):
-        # to do refactoring et netoyage suite au passage api V8
-        cr, uid = self.env.cr, self.env.user.id
-        ids = [self.id]
-
-        mail_mail = self.env['mail.mail']
-        ir_attachment = self.env['ir.attachment']
-        invoice_obj = self.env['extraschool.invoice']
-        parent_obj = self.env['extraschool.parent']
-        biller_obj = self.env['extraschool.biller']
-        activitycategory_obj = self.env['extraschool.activitycategory']
-        invoice_ids = self.invoice_ids.ids
-        biller = biller_obj.read(cr, uid, ids, ['activitycategoryid'])[0]
-        activitycat = activitycategory_obj.read(cr, uid, [biller['activitycategoryid'][0]],
-                                                ['invoiceemailtext', 'invoiceemailsubject', 'invoiceemailaddress'])[0]
-        for invoice_id in invoice_ids:
-            invoice = invoice_obj.read(cr, uid, [invoice_id], ['parentid', 'filename', 'invoice_file'])[0]
-            parent = parent_obj.read(cr, uid, [invoice['parentid'][0]], ['email', 'invoicesendmethod'])[0]
-            if parent['invoicesendmethod'] != 'onlybymail':
-                emails = str(parent['email']).split(';')
-                for email in emails:
-                    email = email.strip()
-                    if re.match("^.+\\@(\\[?)[a-zA-Z0-9\\-\\.]+\\.([a-zA-Z]{2,3}|[0-9]{1,3})(\\]?)$", email) != None:
-                        mail_id = mail_mail.create(cr, uid, {
-                            'email_from': activitycat['invoiceemailaddress'],
-                            'email_to': email,
-                            'subject': activitycat['invoiceemailsubject'],
-                            'body_html': '<pre>%s</pre>' % activitycat['invoiceemailtext']})
-                        attachment_data = {
-                            'name': invoice['filename'],
-                            'datas_fname': invoice['filename'],
-                            'datas': invoice['invoice_file'],
-                            'res_model': mail_mail._name,
-                            'res_id': mail_id,
-                        }
-                        attachment_id = ir_attachment.create(cr, uid, attachment_data)
-                        mail_mail.write(cr, uid, mail_id, {'attachment_ids': [(6, 0, [attachment_id])]})
-                        mail_mail.send(cr, uid, [mail_id])
-                        ir_attachment.unlink(cr, uid, [attachment_id])
-                        mail_mail.unlink(cr, uid, [mail_id])
-        return False
 
     @api.multi
     def mail_invoices(self):
@@ -258,7 +245,12 @@ class extraschool_biller(models.Model):
 
                 }
 
+    # todo refactoring
     def get_concerned_months(self):
+        """
+        Get concerned months by biller
+        :return: months
+        """
         start_month = fields.Date.from_string(self.period_from).month
         end_months = (fields.Date.from_string(self.period_to).year - fields.Date.from_string(
             self.period_from).year) * 12 + fields.Date.from_string(self.period_to).month + 1
@@ -271,6 +263,10 @@ class extraschool_biller(models.Model):
 
     @api.multi
     def get_from_year(self):
+        """
+        Get from year of biller
+        :return: from year
+        """
         return fields.Date.from_string(self.period_from).year
 
     @api.model
