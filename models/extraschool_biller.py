@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2019
+#    Copyright (C) 2008-2020
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot & Michael Colicchia & Jenny Pans - Imio (<http://www.imio.be>).
 #
@@ -51,7 +51,6 @@ class extraschool_biller(models.Model):
     _name = 'extraschool.biller'
     _description = 'Biller'
     _inherit = 'mail.thread'
-
     _order = "id desc"
 
     activitycategoryid = fields.Many2many('extraschool.activitycategory', 'extraschool_biller_activity_category_rel',
@@ -81,46 +80,24 @@ class extraschool_biller(models.Model):
         required=False)
 
     @api.multi
-    def biller_refactor(self):
-        cr = self.env.cr
-        cr.execute("SELECT DISTINCT(ep.prestation_times_of_the_day_id) "
-                   "FROM extraschool_prestationtimes AS ep "
-                   "WHERE prestation_date BETWEEN '2017-01-01' AND '2017-03-31' "
-                   "AND invoiced_prestation_id IS NULL;"
-                   )
-        pod = cr.fetchall()
-
-        arg = []
-
-        for prestation_time_delete in pod:
-            prestation_time_check = self.env['extraschool.prestationtimes'].search([
-                ('prestation_times_of_the_day_id', 'in', prestation_time_delete),
-                ('invoiced_prestation_id', '!=', 'Null')
-            ])
-            if prestation_time_check:
-                to_delete = self.env['extraschool.prestationtimes'].search([
-                    ('prestation_times_of_the_day_id', 'in', prestation_time_delete),
-                    ('invoiced_prestation_id', '=', 'Null')
-                ])
-
-                arg.append(to_delete.ids)
-
-        self.env['extraschool.prestationtimes'].search(['id', 'in', arg]).unlink(True)
-
-    @api.multi
     def name_get(self):
-        res = []
-        for biller in self:
-            res.append((biller.id, _("Biller from %s to %s") % (
-                datetime.strptime(biller.period_from, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y"),
-                datetime.strptime(biller.period_to, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y"))))
-
-        return res
+        """
+        Create a name for this record based on period
+        :return: Textual representation for this record
+        """
+        self.ensure_one()
+        return [(self.id, _("Biller from {} to {}".format(
+            datetime.strptime(self.period_from, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y"),
+            datetime.strptime(self.period_to, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y"))))]
 
     @api.depends('invoice_ids.amount_total')
     def _compute_total(self):
-        for record in self:
-            record.total = sum(invoice.amount_total for invoice in record.invoice_ids)
+        """
+        Compute for each biller, sum of all invoices.
+        :return: None
+        """
+        for biller in self:
+            biller.total = sum(invoice.amount_total for invoice in biller.invoice_ids)
 
     @api.depends('invoice_ids.amount_received')
     def _compute_received(self):
