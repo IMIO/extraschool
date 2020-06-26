@@ -88,3 +88,9 @@ def calculate_birthdate_from_age(age_group):
     date_from = today_date - relativedelta(years=int(splitted_age_group[2]))
     date_to = today_date - relativedelta(years=int(splitted_age_group[0]))
     return [date_from, date_to]
+
+
+def split_list(alist, wanted_parts=1):
+
+    length = len(alist)
+    return [alist[i * length // wanted_parts: (i + 1) * length // wanted_parts] for i in range(wanted_parts)]

@@ -6,14 +6,7 @@
             <field name="model">extraschool.invoice_wizard</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-<!--                <div class="alert alert-info" attrs="{'invisible':[('isready', '!=', True)]}">-->
-<!--                    A biller is curently in creation. You will recieve an Email when the biller is completed.-->
-<!--                    In the meantime, here is a picture of a cat slightly annoyed:-->
-<!--                </div>-->
-<!--                <div attrs="{'invisible':[('isready', '!=', True)]}">-->
-<!--                    <img style="width:100px;" src="https://orig00.deviantart.net/affd/f/2013/229/b/0/image_by_xxspiritwolf2000xx-d6ikyan.jpg"/>-->
-<!--                </div>-->
-                <form string="invoice Wizard"><!-- attrs="{'invisible':[('isready', '!=', False)]}">-->
+                <form string="invoice Wizard">
                     <sheet>
                         <field name="warning_smartphone" nolabel="1" class="alert alert-info" attrs="{'invisible':[('warning_visibility', '!=', True)]}"/>
                         <div class="alert alert-danger" attrs="{'invisible':[('check_manual', '=', True)]}">
@@ -29,7 +22,6 @@
                             Il n'y a pas de présences à facturer pour cette période
                         </div>
                         <field name="state" invisible="1" />
-                        <field name="isready" invisible="1" />
                         <field name="check_manual" invisible="1" />
                         <field name="check_registration" invisible="1" />
                         <field name="check_prestation" invisible="1" />

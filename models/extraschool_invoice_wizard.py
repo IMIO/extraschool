@@ -85,9 +85,6 @@ class extraschool_invoice_wizard(models.TransientModel):
         school_implantation_ids = self.env['extraschool.schoolimplantation'].search([]).mapped('id')
         return school_implantation_ids
 
-    def _get_status(self):
-        return True if self.env['extraschool.biller'].search([('in_creation', '=', True)]) else False
-
     schoolimplantationid = fields.Many2many(comodel_name='extraschool.schoolimplantation',
                                relation='extraschool_invoice_wizard_schoolimplantation_rel',
                                column1='invoice_wizard_id',
@@ -106,7 +103,6 @@ class extraschool_invoice_wizard(models.TransientModel):
                               ('compute_invoices', 'Compute invoices')],
                              'State', required=True, default='init'
                              )
-    isready = fields.Boolean(default=_get_status)
     warning_smartphone = fields.Char('WARNING',
                                  default="Attention, il y a un ou plusieurs smartphone(s) qui n'a / n'ont pas transmis. Vérifier avant de générer votre facturier ! ",
                                  readonly=True)

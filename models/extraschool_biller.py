@@ -21,20 +21,21 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _, SUPERUSER_ID
-from openerp.api import Environment
-import re
+from __future__ import division
+import threading
+import uuid
+
 import smtplib
-from email.MIMEMultipart import MIMEMultipart
+from datetime import datetime
 from email.MIMEText import MIMEText
 
-from datetime import date, datetime, timedelta as td
-from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
-                           DEFAULT_SERVER_DATETIME_FORMAT)
-from openerp.exceptions import except_orm, Warning, RedirectWarning
-import threading
-
-import base64
+from email.MIMEMultipart import MIMEMultipart
+from openerp import models, api, fields, _
+from openerp.api import Environment
+from openerp.exceptions import Warning
+from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT)
+from openerp import release
+from openerp import sql_db
 
 try:
     import cStringIO as StringIO
@@ -72,7 +73,6 @@ class extraschool_biller(models.Model):
     biller_file = fields.Binary('File', readonly=True)
     pdf_ready = fields.Boolean(string="Pdf ready", default=False)
     oldid = fields.Integer('oldid')
-    in_creation = fields.Boolean(default=True)
     reminder_journal_id = fields.Many2one(
         'extraschool.remindersjournal',
         'Reminders journal',
@@ -301,60 +301,35 @@ class extraschool_biller(models.Model):
             return {}
 
     @api.multi
-    def _split_list(self, alist, wanted_parts=1):
+    def _delete_pdf(self):
         """
-        :param alist: A list of ids
-        :param wanted_parts: A number of parts for threading
-        :return: A list of list of ids
+        Delete all of biller's invoices
+        :return: None
         """
-        length = len(alist)
-        return [alist[i * length // wanted_parts: (i + 1) * length // wanted_parts] for i in range(wanted_parts)]
-
-    # @api.one
-    # def generate_pdf(self):
-    #     cr, uid = self.env.cr, self.env.user.id
-    #     threaded_report = []
-    #
-    #     self.env['ir.attachment'].search([('res_id', 'in', [i.id for i in self.invoice_ids]),
-    #                                       ('res_model', '=', 'extraschool.invoice')]).unlink()
-    #
-    #     self.pdf_ready = False
-    #     self.env.invalidate_all()
-    #
-    #     count = 0
-    #
-    #     list = self.env['extraschool.invoice'].browse(self.invoice_ids.ids)
-    #     splitted_ids = _split_list(list, 50)
-    #     for
-    #         count = count + 1
-    #         _logger.info("generate pdf %s count: %s" % (invoice.id, count))
-    #         self.env['report'].get_pdf(invoice, 'extraschool.invoice_report_layout')
-    #
-    #     self.pdf_ready = True
-    #     self.in_creation = False
-    #
-    #     self.send_mail_completed()
-
-    @api.one
-    def generate_pdf(self):
-        cr, uid = self.env.cr, self.env.user.id
-        threaded_report = []
-
-        self.env['ir.attachment'].search([('res_id', 'in', [i.id for i in self.invoice_ids]),
+        self.ensure_one()
+        self.env['ir.attachment'].search([('res_id', 'in', self.invoice_ids.mapped("id")),
                                           ('res_model', '=', 'extraschool.invoice')]).unlink()
 
+    @api.multi
+    def generate_pdf(self):
+        """
+        Generate PDF for biller's invoices
+        :return: None
+        """
+        # cr, uid = self.env.cr, self.env.user.id
+        # threaded_report = []
+        self.ensure_one()
+        self._delete_pdf()
+
         self.pdf_ready = False
-        self.env.invalidate_all()
-
+        # self.env.invalidate_all()
         count = 0
-
-        for invoice in self.env['extraschool.invoice'].browse(self.invoice_ids.ids):
+        for invoice in self.invoice_ids:
             count = count + 1
-            _logger.info("generate pdf %s count: %s" % (invoice.id, count))
             self.env['report'].get_pdf(invoice, 'extraschool.invoice_report_layout')
+            _logger.info("generate pdf {} count: {}".format(invoice.id, count))
 
         self.pdf_ready = True
-        self.in_creation = False
 
         self.send_mail_completed()
 
