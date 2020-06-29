@@ -274,7 +274,7 @@ class extraschool_parent(models.Model):
         :return: None
         """
         if vals["rn"]:
-            self._valid_rn(vals["rn"])
+            # self._valid_rn(vals["rn"])
             self._ensure_not_duplicates_rn(vals["rn"])
         if vals['email']:
             self._valid_email(vals["email"])
