@@ -264,7 +264,11 @@ class extraschool_parent(models.Model):
         """
         duplicates = self.search([('email', '=', email)])
         if duplicates:
-            raise Warning(_("There is already a parent with this email"))
+            raise Warning(_(
+                "There is already a parent with this email. Information of this parent : {} {} {} {}".format(self.id,
+                                                                                                             self.firstname,
+                                                                                                             self.lastname,
+                                                                                                             self.email)))
 
     @api.model
     def create(self, vals):
