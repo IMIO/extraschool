@@ -241,15 +241,20 @@ class extraschool_remindersjournal(models.Model):
         for key in invoice_dict:
             logging.info("### [{}/{}] reminder created...".format(count, len(invoice_dict)))
             count += 1
+        # 244
+            if len(self.activity_category_ids) > 1:
+                activity_category = self.env["extraschool.organising_power"].browse(1).dominant_activity_category_id
+            else:
+                activity_category = invoice_obj.browse(invoice_dict[key][0]).activitycategoryid.get_next_comstruct(
+                    'reminder', invoice_obj.browse(invoice_dict[key][0]).biller_id.get_from_year(), False, True)[
+                    'com_struct']
 
             reminder = self.env['extraschool.reminder'].create(
                 {'reminders_journal_item_id': reminders_journal_item_id.id,
                  'reminders_journal_id': self.id,
                  'parentid': key,
                  'school_implantation_id': invoice_obj.browse(invoice_dict[key][0]).schoolimplantationid.id,
-                 'structcom': invoice_obj.browse(invoice_dict[key][0]).activitycategoryid.get_next_comstruct(
-                     'reminder', invoice_obj.browse(invoice_dict[key][0]).biller_id.get_from_year(), False, True)[
-                     'com_struct'],
+                 'structcom': activity_category,
                  'amount': sum([invoice_obj.browse(invoice).balance for invoice in invoice_dict[key]]),
                  'concerned_invoice_ids': [(6, 0, invoice_dict[key])],
                  })
