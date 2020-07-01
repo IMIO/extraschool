@@ -244,7 +244,6 @@ class extraschool_activitycategory(models.Model):
 
     @api.multi
     def get_next_comstruct(self, type, year, sequence_id=False, manual=False):
-
         # Added a refund comstruct.
         if type == 'refund':
             next_id = self.env['extraschool.invoice'].search([('structcom', 'like', '+++000')], order='number DESC',
