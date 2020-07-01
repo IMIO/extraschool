@@ -668,16 +668,17 @@ class extraschool_child_registration_line(models.Model):
                         res['sunday'] = True
             return res
 
-    def child_must_be_printed(self):
-        if not any((self.monday_activity_id.id, self.tuesday_activity_id.id, self.wednesday_activity_id.id,
-                    self.thursday_activity_id.id, self.friday_activity_id.id)) and not any((self.monday,
-                                                                                            self.tuesday,
-                                                                                            self.wednesday,
-                                                                                            self.thursday,
-                                                                                            self.friday)):
-            return False
-        else:
-            return True
+    # Se référer au ticket SUP-13643
+    # def child_must_be_printed(self):
+    #     if not any((self.monday_activity_id.id, self.tuesday_activity_id.id, self.wednesday_activity_id.id,
+    #                 self.thursday_activity_id.id, self.friday_activity_id.id)) and not any((self.monday,
+    #                                                                                         self.tuesday,
+    #                                                                                         self.wednesday,
+    #                                                                                         self.thursday,
+    #                                                                                         self.friday)):
+    #         return False
+    #     else:
+    #         return True
 
 
 class extraschool_day(models.Model):

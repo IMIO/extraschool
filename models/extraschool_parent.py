@@ -256,15 +256,19 @@ class extraschool_parent(models.Model):
             raise Warning(_("E-mail format invalid: {}.".format(email)))
 
     @api.multi
-    def _ensure_not_duplicates_email(self, email):
+    def _ensure_not_duplicates_email(self, vals):
         """
         Raise warning if there is already a parent with this email
         :param email: email of parent
         :return: None
         """
-        duplicates = self.search([('email', '=', email)])
+        duplicates = self.search([('email', '=', vals['email'])])
         if duplicates:
-            raise Warning(_("There is already a parent with this email"))
+            raise Warning(_(
+                "There is already a parent with this email. Information of this parent : {} {} {}".format(
+                    vals['firstname'],
+                    vals['lastname'],
+                    vals['email'])))
 
     @api.model
     def create(self, vals):
@@ -278,7 +282,7 @@ class extraschool_parent(models.Model):
             self._ensure_not_duplicates_rn(vals["rn"])
         if vals['email']:
             self._valid_email(vals["email"])
-            self._ensure_not_duplicates_email(vals["email"])
+            self._ensure_not_duplicates_email(vals)
 
         parent_id = super(extraschool_parent, self).create(vals)
         parent_id.write(

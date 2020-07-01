@@ -73,83 +73,81 @@
                         <tbody>
                             <t t-foreach="child_registration.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['M','A'])"
                                t-as="child">
-                                <t t-if="child.child_must_be_printed()">
-                                    <tr>
-                                        <td>
-                                            <h5>
-                                                <span t-field="child.child_id.name"/>
-                                                <b>
-                                                    <span t-esc="child.child_id.get_age()"/>
-                                                    ans
-                                                </b>
-                                            </h5>
+                                <tr>
+                                    <td>
+                                        <h5>
+                                            <span t-field="child.child_id.name"/>
+                                            <b>
+                                                <span t-esc="child.child_id.get_age()"/>
+                                                ans
+                                            </b>
+                                        </h5>
+                                        <i>
+                                            <b>
+                                                Parent:
+                                            </b>
+                                            <span t-field="child.child_id.parentid.name"/>
+                                        </i>
+                                        <t t-if="child.child_id.parentid.housephone">
+                                            <br></br>
+                                            <b>Tel Maison:</b>
+                                            <span t-field="child.child_id.parentid.housephone"/>
+                                        </t>
+                                        <t t-if="child.child_id.parentid.workphone">
+                                            <br></br>
+                                            <b>Tel Travail:</b>
+                                            <span t-field="child.child_id.parentid.workphone"/>
+                                        </t>
+                                        <t t-if="child.child_id.parentid.gsm">
+                                            <br></br>
+                                            <b>GSM:</b>
+                                            <span t-field="child.child_id.parentid.gsm"/>
+                                        </t>
+                                        <t t-if="child.child_id.to_go_alone">
+                                            <br></br>
+                                            <b>Peut rentrer seul:</b>
+                                            <span t-field="child.child_id.to_go_alone"/>
+                                            <br></br>
+                                        </t>
+                                        <t t-if="child.child_id.health_sheet_ids">
+                                            <b>Allergies:</b>
+                                            <br></br>
+                                            <t t-foreach="child.child_id.health_sheet_ids[0].allergy_ids"
+                                               t-as="allergy">
+                                                <span t-field="allergy.name"/>
+                                                <br></br>
+                                            </t>
+                                        </t>
+                                        <t t-if="child.child_id.comment">
+                                            <br></br>
                                             <i>
-                                                <b>
-                                                    Parent:
-                                                </b>
-                                                <span t-field="child.child_id.parentid.name"/>
+                                                <b>A savoir:</b>
+                                                <span t-field="child.child_id.comment"/>
+                                                <br></br>
                                             </i>
-                                            <t t-if="child.child_id.parentid.housephone">
-                                                <br></br>
-                                                <b>Tel Maison:</b>
-                                                <span t-field="child.child_id.parentid.housephone"/>
-                                            </t>
-                                            <t t-if="child.child_id.parentid.workphone">
-                                                <br></br>
-                                                <b>Tel Travail:</b>
-                                                <span t-field="child.child_id.parentid.workphone"/>
-                                            </t>
-                                            <t t-if="child.child_id.parentid.gsm">
-                                                <br></br>
-                                                <b>GSM:</b>
-                                                <span t-field="child.child_id.parentid.gsm"/>
-                                            </t>
-                                            <t t-if="child.child_id.to_go_alone">
-                                                <br></br>
-                                                <b>Peut rentrer seul:</b>
-                                                <span t-field="child.child_id.to_go_alone"/>
-                                                <br></br>
-                                            </t>
-                                            <t t-if="child.child_id.health_sheet_ids">
-                                                <b>Allergies:</b>
-                                                <br></br>
-                                                <t t-foreach="child.child_id.health_sheet_ids[0].allergy_ids"
-                                                   t-as="allergy">
-                                                    <span t-field="allergy.name"/>
-                                                    <br></br>
-                                                </t>
-                                            </t>
-                                            <t t-if="child.child_id.comment">
-                                                <br></br>
-                                                <i>
-                                                    <b>A savoir:</b>
-                                                    <span t-field="child.child_id.comment"/>
-                                                    <br></br>
-                                                </i>
-                                            </t>
-                                        </td>
-                                        <td>
-                                            <span t-field="child.monday_activity_id.name"/>
-                                            <span t-if="child.monday">X</span>
-                                        </td>
-                                        <td>
-                                            <span t-field="child.tuesday_activity_id.name"/>
-                                            <span t-if="child.tuesday">X</span>
-                                        </td>
-                                        <td>
-                                            <span t-field="child.wednesday_activity_id.name"/>
-                                            <span t-if="child.wednesday">X</span>
-                                        </td>
-                                        <td>
-                                            <span t-field="child.thursday_activity_id.name"/>
-                                            <span t-if="child.thursday">X</span>
-                                        </td>
-                                        <td>
-                                            <span t-field="child.friday_activity_id.name"/>
-                                            <span t-if="child.friday">X</span>
-                                        </td>
-                                    </tr>
-                                </t>
+                                        </t>
+                                    </td>
+                                    <td>
+                                        <span t-field="child.monday_activity_id.name"/>
+                                        <span t-if="child.monday">X</span>
+                                    </td>
+                                    <td>
+                                        <span t-field="child.tuesday_activity_id.name"/>
+                                        <span t-if="child.tuesday">X</span>
+                                    </td>
+                                    <td>
+                                        <span t-field="child.wednesday_activity_id.name"/>
+                                        <span t-if="child.wednesday">X</span>
+                                    </td>
+                                    <td>
+                                        <span t-field="child.thursday_activity_id.name"/>
+                                        <span t-if="child.thursday">X</span>
+                                    </td>
+                                    <td>
+                                        <span t-field="child.friday_activity_id.name"/>
+                                        <span t-if="child.friday">X</span>
+                                    </td>
+                                </tr>
                             </t>
                         </tbody>
                     </table>
@@ -188,83 +186,81 @@
                         <tbody>
                             <t t-foreach="child_registration.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['P','A'])"
                                t-as="child">
-                                <t t-if="child.child_must_be_printed()">
-                                    <tr>
-                                        <td>
-                                            <h5>
-                                                <span t-field="child.child_id.name"/>
-                                                <b>
-                                                    <span t-esc="child.child_id.get_age()"/>
-                                                    ans
-                                                </b>
-                                            </h5>
+                                <tr>
+                                    <td>
+                                        <h5>
+                                            <span t-field="child.child_id.name"/>
+                                            <b>
+                                                <span t-esc="child.child_id.get_age()"/>
+                                                ans
+                                            </b>
+                                        </h5>
+                                        <i>
+                                            <b>
+                                                Parent:
+                                            </b>
+                                            <span t-field="child.child_id.parentid.name"/>
+                                        </i>
+                                        <t t-if="child.child_id.parentid.housephone">
+                                            <br></br>
+                                            <b>Tel Maison:</b>
+                                            <span t-field="child.child_id.parentid.housephone"/>
+                                        </t>
+                                        <t t-if="child.child_id.parentid.workphone">
+                                            <br></br>
+                                            <b>Tel Travail:</b>
+                                            <span t-field="child.child_id.parentid.workphone"/>
+                                        </t>
+                                        <t t-if="child.child_id.parentid.gsm">
+                                            <br></br>
+                                            <b>GSM:</b>
+                                            <span t-field="child.child_id.parentid.gsm"/>
+                                        </t>
+                                        <t t-if="child.child_id.to_go_alone">
+                                            <br></br>
+                                            <b>Peut rentrer seul:</b>
+                                            <span t-field="child.child_id.to_go_alone"/>
+                                            <br></br>
+                                        </t>
+                                        <t t-if="child.child_id.health_sheet_ids">
+                                            <b>Allergies:</b>
+                                            <br></br>
+                                            <t t-foreach="child.child_id.health_sheet_ids[0].allergy_ids"
+                                               t-as="allergy">
+                                                <span t-field="allergy.name"/>
+                                                <br></br>
+                                            </t>
+                                        </t>
+                                        <t t-if="child.child_id.comment">
+                                            <br></br>
                                             <i>
-                                                <b>
-                                                    Parent:
-                                                </b>
-                                                <span t-field="child.child_id.parentid.name"/>
+                                                <b>A savoir:</b>
+                                                <span t-field="child.child_id.comment"/>
+                                                <br></br>
                                             </i>
-                                            <t t-if="child.child_id.parentid.housephone">
-                                                <br></br>
-                                                <b>Tel Maison:</b>
-                                                <span t-field="child.child_id.parentid.housephone"/>
-                                            </t>
-                                            <t t-if="child.child_id.parentid.workphone">
-                                                <br></br>
-                                                <b>Tel Travail:</b>
-                                                <span t-field="child.child_id.parentid.workphone"/>
-                                            </t>
-                                            <t t-if="child.child_id.parentid.gsm">
-                                                <br></br>
-                                                <b>GSM:</b>
-                                                <span t-field="child.child_id.parentid.gsm"/>
-                                            </t>
-                                            <t t-if="child.child_id.to_go_alone">
-                                                <br></br>
-                                                <b>Peut rentrer seul:</b>
-                                                <span t-field="child.child_id.to_go_alone"/>
-                                                <br></br>
-                                            </t>
-                                            <t t-if="child.child_id.health_sheet_ids">
-                                                <b>Allergies:</b>
-                                                <br></br>
-                                                <t t-foreach="child.child_id.health_sheet_ids[0].allergy_ids"
-                                                   t-as="allergy">
-                                                    <span t-field="allergy.name"/>
-                                                    <br></br>
-                                                </t>
-                                            </t>
-                                            <t t-if="child.child_id.comment">
-                                                <br></br>
-                                                <i>
-                                                    <b>A savoir:</b>
-                                                    <span t-field="child.child_id.comment"/>
-                                                    <br></br>
-                                                </i>
-                                            </t>
-                                        </td>
-                                        <td>
-                                            <span t-field="child.monday_activity_id.name"/>
-                                            <span t-if="child.monday">X</span>
-                                        </td>
-                                        <td>
-                                            <span t-field="child.tuesday_activity_id.name"/>
-                                            <span t-if="child.tuesday">X</span>
-                                        </td>
-                                        <td>
-                                            <span t-field="child.wednesday_activity_id.name"/>
-                                            <span t-if="child.wednesday">X</span>
-                                        </td>
-                                        <td>
-                                            <span t-field="child.thursday_activity_id.name"/>
-                                            <span t-if="child.thursday">X</span>
-                                        </td>
-                                        <td>
-                                            <span t-field="child.friday_activity_id.name"/>
-                                            <span t-if="child.friday">X</span>
-                                        </td>
-                                    </tr>
-                                </t>
+                                        </t>
+                                    </td>
+                                    <td>
+                                        <span t-field="child.monday_activity_id.name"/>
+                                        <span t-if="child.monday">X</span>
+                                    </td>
+                                    <td>
+                                        <span t-field="child.tuesday_activity_id.name"/>
+                                        <span t-if="child.tuesday">X</span>
+                                    </td>
+                                    <td>
+                                        <span t-field="child.wednesday_activity_id.name"/>
+                                        <span t-if="child.wednesday">X</span>
+                                    </td>
+                                    <td>
+                                        <span t-field="child.thursday_activity_id.name"/>
+                                        <span t-if="child.thursday">X</span>
+                                    </td>
+                                    <td>
+                                        <span t-field="child.friday_activity_id.name"/>
+                                        <span t-if="child.friday">X</span>
+                                    </td>
+                                </tr>
                             </t>
                         </tbody>
                     </table>
@@ -355,33 +351,31 @@
                         <tbody>
                             <t t-foreach="child_registration.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['M','A'])"
                                t-as="child">
-                                <t t-if="child.child_must_be_printed()">
-                                    <tr>
-                                        <td>
-                                            <span t-field="child.child_id.name"/>
-                                        </td>
-                                        <td>
-                                            <span t-field="child.monday_activity_id.name"/>
-                                            <span t-if="child.monday">X</span>
-                                        </td>
-                                        <td>
-                                            <span t-field="child.tuesday_activity_id.name"/>
-                                            <span t-if="child.tuesday">X</span>
-                                        </td>
-                                        <td>
-                                            <span t-field="child.wednesday_activity_id.name"/>
-                                            <span t-if="child.wednesday">X</span>
-                                        </td>
-                                        <td>
-                                            <span t-field="child.thursday_activity_id.name"/>
-                                            <span t-if="child.thursday">X</span>
-                                        </td>
-                                        <td>
-                                            <span t-field="child.friday_activity_id.name"/>
-                                            <span t-if="child.friday">X</span>
-                                        </td>
-                                    </tr>
-                                </t>
+                                <tr>
+                                    <td>
+                                        <span t-field="child.child_id.name"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="child.monday_activity_id.name"/>
+                                        <span t-if="child.monday">X</span>
+                                    </td>
+                                    <td>
+                                        <span t-field="child.tuesday_activity_id.name"/>
+                                        <span t-if="child.tuesday">X</span>
+                                    </td>
+                                    <td>
+                                        <span t-field="child.wednesday_activity_id.name"/>
+                                        <span t-if="child.wednesday">X</span>
+                                    </td>
+                                    <td>
+                                        <span t-field="child.thursday_activity_id.name"/>
+                                        <span t-if="child.thursday">X</span>
+                                    </td>
+                                    <td>
+                                        <span t-field="child.friday_activity_id.name"/>
+                                        <span t-if="child.friday">X</span>
+                                    </td>
+                                </tr>
                             </t>
                         </tbody>
                     </table>
@@ -426,33 +420,31 @@
                             <tbody>
                                 <t t-foreach="child_registration.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['P','A'])"
                                    t-as="child">
-                                    <t t-if="child.child_must_be_printed()">
-                                        <tr>
-                                            <td>
-                                                <span t-field="child.child_id.name"/>
-                                            </td>
-                                            <td>
-                                                <span t-field="child.monday_activity_id.name"/>
-                                                <span t-if="child.monday">X</span>
-                                            </td>
-                                            <td>
-                                                <span t-field="child.tuesday_activity_id.name"/>
-                                                <span t-if="child.tuesday">X</span>
-                                            </td>
-                                            <td>
-                                                <span t-field="child.wednesday_activity_id.name"/>
-                                                <span t-if="child.wednesday">X</span>
-                                            </td>
-                                            <td>
-                                                <span t-field="child.thursday_activity_id.name"/>
-                                                <span t-if="child.thursday">X</span>
-                                            </td>
-                                            <td>
-                                                <span t-field="child.friday_activity_id.name"/>
-                                                <span t-if="child.friday">X</span>
-                                            </td>
-                                        </tr>
-                                    </t>
+                                    <tr>
+                                        <td>
+                                            <span t-field="child.child_id.name"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="child.monday_activity_id.name"/>
+                                            <span t-if="child.monday">X</span>
+                                        </td>
+                                        <td>
+                                            <span t-field="child.tuesday_activity_id.name"/>
+                                            <span t-if="child.tuesday">X</span>
+                                        </td>
+                                        <td>
+                                            <span t-field="child.wednesday_activity_id.name"/>
+                                            <span t-if="child.wednesday">X</span>
+                                        </td>
+                                        <td>
+                                            <span t-field="child.thursday_activity_id.name"/>
+                                            <span t-if="child.thursday">X</span>
+                                        </td>
+                                        <td>
+                                            <span t-field="child.friday_activity_id.name"/>
+                                            <span t-if="child.friday">X</span>
+                                        </td>
+                                    </tr>
                                 </t>
                             </tbody>
                         </table>
