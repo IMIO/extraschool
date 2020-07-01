@@ -462,5 +462,308 @@
             </div>
 		</template>
 
+
+
+        <template id="report_healthy_yvoir">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_healthy_mt_st_guibert.css"/>
+            </xpath>
+            <div style="font-size:12px;">
+                <t t-if="health_sheet">
+                <div style="text-align: center;">
+                    <h4><b>Fiche santé de <span t-field="child.name"/></b></h4>
+                </div>
+                <p><b><u>Participant</u></b></p>
+                <div>
+                    Lieu de la plaine : <!--<span t-field="place_id"/>--><br/>
+                    Date de la plaine : <!--<span t-field="date_from"/> au <span t-field="date_to"/>--><br/>
+                    Nom de l'enfant : <span t-field="child.lastname"/><br/>
+                    Prénom : <span t-field="child.firstname"/><br/>
+                    Date de naissance : <span t-field="child.birthdate"/><br/>
+                    Nom de l’école fréquentée : <span t-field="child.schoolimplantation.name"/><br/>
+                    Classe : <span t-field="child.levelid.name"/><br/>
+                    Nom du chef de famille : <span t-field="child.parentid.name"/><br/>
+                    Adresse : <span t-field="child.parentid.street"/><br/>
+                    Code postal : <span t-field="child.parentid.zipcode"/> <br/>
+                    Téléphone maison : <t t-if="child.parentid.housephone"><span t-field="child.parentid.housephone"/></t><br/>
+                    Téléphone travail : <t t-if="child.parentid.workphone"><span t-field="child.parentid.workphone"/></t><br/>
+                    GSM : <t t-if="child.parentid.gsm"><span t-field="child.parentid.gsm"/></t><br/><br/>
+
+                    Heure d’arrivée : <br/>
+                    heure de sortie : <br/>
+                    Personnes autorisées à reprendre l'enfant :
+                    <t t-if="health_sheet.contact_ids">
+                        <table>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Adresse</th>
+                                <th>Relation</th>
+                            </tr>
+                            <t t-foreach="health_sheet.contact_ids" t-as="contact">
+                                <tr>
+                                    <tr>
+                                        <td><t t-if="contact.contact_name"><span t-field="contact.contact_name" /></t></td>
+                                        <td><t t-if="contact.address_id"><span t-field="contact.address_id" /></t></td>
+                                        <td><t t-if="contact.contact_relation"><span t-field="contact.contact_relation" /></t></td>
+                                    </tr>
+                                </tr>
+                            </t>
+                        </table>
+                    </t>
+                    <t t-if="not health_sheet.contact_ids">
+                        <table>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Adresse</th>
+                                <th>Relation</th>
+                            </tr>
+                                <tr>
+                                    <tr>
+                                        <td style="padding:15px; 0px; 15px; 0px">  </td>
+                                        <td style="padding:15px; 0px; 15px; 0px">  </td>
+                                        <td style="padding:15px; 0px; 15px; 0px">  </td>
+                                    </tr>
+                                </tr>
+                        </table><br/><br/>
+                    </t>
+                    <br/>
+                <p><b><u>Repas</u></b></p>
+
+                <p>Y-a-t-il des aliments qu’il/elle ne digère pas ? <t t-if="health_sheet.specific_regime_selection == 'non'">OUI / <b>NON</b></t>
+                                                                             <t t-if="health_sheet.specific_regime_selection == 'oui'"><b>OUI </b>/ NON  Si oui, Lequel ?<br/>
+                                                                             <span t-field="health_sheet.specific_regime_text"/></t>
+                                                                             <t t-if="health_sheet.specific_regime_selection == 'non_renseigne'"> OUI / NON <br/><br/>  Si oui, Lequel ?</t></p>
+
+                <p>Y-a-t-il des allergies ?
+                        <t t-if="health_sheet.allergy_selection == 'non'">NON</t>
+                        <t t-if="health_sheet.allergy_selection == 'oui'">OUI</t>
+                        <t t-if="health_sheet.allergy_selection == 'non_renseigne'"> </t>
+                </p>
+                <t t-if="health_sheet.allergy_selection == 'oui'">Si oui, à quoi ? <br/>
+                    <t t-foreach="health_sheet.allergy_ids" t-as="allergy">
+                        <span t-field="allergy.name"/><br/>
+                    </t>
+                </t>
+
+                <p><b><u>Santé</u></b></p>
+
+                Nom du médecin traitant : <span t-field="health_sheet.doctor_id.name"/> <br/>
+                Adresse : <span t-field="health_sheet.doctor_id.street"/>  <span t-field="health_sheet.doctor_id.zipcode"/>  <span t-field="health_sheet.doctor_id.city"/><br/>
+                GSM: <span t-field="health_sheet.doctor_id.doctor_gsm"/><br/><br/>
+                A-t-il/elle subi une maladie ou intervention grave ? <t t-if="health_sheet.intervention_selection == 'non'">OUI / <b>NON</b></t>
+                <t t-if="health_sheet.intervention_selection == 'oui'"><b>OUI </b>/ NON  Si oui, Lequel ?<br/>
+                    <span t-field="health_sheet.intervention_text"/></t>
+                <t t-if="health_sheet.intervention_selection == 'non_renseigne'"> OUI / NON <br/><br/>  Si oui, Lequel ?</t><br/><br/>
+
+                <t t-if="health_sheet.disease_ids">
+                        <table>
+                            <tr>
+                                <th>Nom de la maladie</th>
+                                <th>Gravité</th>
+                                <th>Traitement</th>
+                            </tr>
+                            <t t-foreach="health_sheet.disease_ids" t-as="diseases">
+                                <tr>
+                                    <tr>
+                                        <td><span t-field="diseases.disease" /></td>
+                                        <td><span t-field="diseases.gravity" /></td>
+                                        <td><span t-field="diseases.disease_text" /></td>
+                                    </tr>
+                                </tr>
+                            </t>
+                        </table>
+                    </t>
+                    <t t-if="not health_sheet.disease_ids">
+                        <table>
+                            <tr>
+                                <th>Nom de la maladie</th>
+                                <th>Gravité</th>
+                                <th>Traitement</th>
+                            </tr>
+                                <tr>
+                                    <tr>
+                                        <td style="padding:15px; 0px; 15px; 0px">  </td>
+                                        <td style="padding:15px; 0px; 15px; 0px">  </td>
+                                        <td style="padding:15px; 0px; 15px; 0px">  </td>
+                                    </tr>
+                                </tr>
+                        </table><br/>
+                    </t>
+
+                    <p>Le participant a-t-il une allergie ?
+                            <t t-if="health_sheet.allergy_selection == 'non'">NON</t>
+                            <t t-if="health_sheet.allergy_selection == 'oui'">OUI</t>
+                            <t t-if="health_sheet.allergy_selection == 'non_renseigne'"> OUI / NON</t>
+                    </p>
+                    <br/>
+                    <p>Si oui, à quoi ? </p>
+                    <t t-if="health_sheet.allergy_selection == 'oui'">
+                        <t t-foreach="health_sheet.allergy_ids" t-as="allergy">
+                            <span t-field="allergy.name"/><br/>
+                        </t>
+                    </t><br/>
+
+                    <p>Le participant doit-il prendre des <b>médicaments</b> ?
+                    <t t-if="health_sheet.medication_ids">
+                        <table>
+                            <tr>
+                                <th>Nom du médicament</th>
+                                <th>En quelle quantité ?</th>
+                                <th>Quand ?</th>
+                            </tr>
+                            <t t-foreach="health_sheet.medication_ids" t-as="medication">
+                                <tr>
+                                    <tr>
+                                        <td><span t-field="medication.name" /></td>
+                                        <td><span t-field="medication.quantity" /></td>
+                                        <td><span t-field="medication.period" /></td>
+                                    </tr>
+                                </tr>
+                            </t>
+                        </table>
+                    </t>
+                    <t t-if="not health_sheet.medication_ids">
+                        <table>
+                            <tr>
+                                <th>Nom du médicament</th>
+                                <th>En quelle quantité ?</th>
+                                <th>Quand ?</th>
+                            </tr>
+                                <tr>
+                                    <tr>
+                                        <td style="padding:15px; 0px; 15px; 0px">  </td>
+                                        <td style="padding:15px; 0px; 15px; 0px">  </td>
+                                        <td style="padding:15px; 0px; 15px; 0px">  </td>
+                                    </tr>
+                                </tr>
+                        </table><br/>
+                    </t>
+
+                    <p>Souffre-t-il/elle d’un handicap ? <t t-if="health_sheet.handicap_selection == 'non'">OUI / <b>NON</b></t>
+                         <t t-if="health_sheet.handicap_selection == 'oui'"><b>OUI </b>/ NON  Si oui, Lequel ?<br/>
+                         <span t-field="health_sheet.type_handicap"/></t>
+                         <t t-if="health_sheet.handicap_selection == 'non_renseigne'"> OUI / NON <br/><br/>  Si oui, Lequel ?</t></p><br/>
+
+                    </p>
+
+                    <p>Le participant est-il en ordre de vaccination contre le <b>tétanos ?</b> <t t-if="health_sheet.tetanus_selection == 'non'">OUI / <b>NON</b></t>
+                                                                                                    <t t-if="health_sheet.tetanus_selection == 'oui'"><b>OUI </b>/ NON</t> <br/>
+                                            Date 1er injection : <t t-if="health_sheet.first_date_tetanus"><span t-field="health_sheet.first_date_tetanus"/></t><br/>
+                                            Date dernier rappel : <t t-if="health_sheet.last_date_tetanus"><span t-field="health_sheet.last_date_tetanus"/></t>
+                                                                                                    <t t-if="health_sheet.tetanus_selection == 'non_renseigne'"> OUI / NON</t></p>
+
+                    <p>
+                        Avez-vous d’autres renseignements utiles à transmettre aux responsables des plaines ?<br/>
+                        <t t-if="health_sheet.comment"><span t-field="health_sheet.comment"/></t>
+                    </p>
+                </div>
+            </t>
+            </div>
+
+            <t t-if="not health_sheet">
+                <div style="text-align: center;">
+                    <h4><b>Fiche santé de <span t-field="child.name"/></b></h4>
+                </div>
+                <p><b><u>Participant</u></b></p>
+                <div style="width: 100%; display: block;">
+                    <div>
+                        Lieu de la plaine : <!--<span t-field="place_id.name"/>--><br/>
+                        Date de la plaine : <!--<span t-field="date_from"/> au <span t-field="date_to"/>--><br/>
+                        Nom de l'enfant : <span t-field="child.lastname"/><br/>
+                        Prénom : <span t-field="child.firstname"/><br/>
+                        Date de naissance : <span t-field="child.birthdate"/><br/>
+                        Nom de l’école fréquentée : <span t-field="child.schoolimplantation.name"/><br/>
+                        Classe : <span t-field="child.levelid.name"/><br/>
+                        Nom du chef de famille : <span t-field="child.parentid.name"/><br/>
+                        Adresse : <span t-field="child.parentid.street"/><br/>
+                        Code postal : <span t-field="child.parentid.zipcode"/> <br/>
+                        Téléphone maison : <t t-if="child.parentid.housephone"><span t-field="child.parentid.housephone"/></t><br/>
+                        Téléphone travail : <t t-if="child.parentid.workphone"><span t-field="child.parentid.workphone"/></t><br/>
+                        GSM : <t t-if="child.parentid.gsm"><span t-field="child.parentid.gsm"/></t><br/><br/>
+
+                        Heure d’arrivée : <br/>
+                        heure de sortie : <br/>
+                        Personnes autorisées à reprendre l'enfant :
+                            <table>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Adresse</th>
+                                    <th>Relation</th>
+                                </tr>
+                                    <tr>
+                                        <tr>
+                                            <td style="padding:15px; 0px; 15px; 0px">  </td>
+                                            <td style="padding:15px; 0px; 15px; 0px">  </td>
+                                            <td style="padding:15px; 0px; 15px; 0px">  </td>
+                                        </tr>
+                                    </tr>
+                            </table><br/>
+                        </div>
+
+                <p><b><u>Repas</u></b></p>
+
+                Y-a-t-il des aliments qu’il/elle ne digère pas ? OUI / NON     Si oui, Lequel ? <br/>
+
+                <p>Y-a-t-il des allergies ?     Si oui, à quoi ? </p>
+
+                <p><b><u>Santé</u></b></p>
+
+                <div>
+                    Nom du médecin traitant :  <br/>
+                    Adresse : <br/>
+                    GSM: <br/><br/>
+                    A-t-il/elle subi une maladie ou intervention grave ?
+                    OUI / NON <br/>  Si oui, Lequel ?
+                    <br/>
+                    <table>
+                        <tr>
+                            <th>Nom de la maladie</th>
+                            <th>Gravité</th>
+                            <th>Traitement</th>
+                        </tr>
+                            <tr>
+                                <tr>
+                                    <td style="padding:15px; 0px; 15px; 0px">  </td>
+                                    <td style="padding:15px; 0px; 15px; 0px">  </td>
+                                    <td style="padding:15px; 0px; 15px; 0px">  </td>
+                                </tr>
+                            </tr>
+                    </table><br/>
+
+                    <p>Le participant a-t-il une allergie ?  OUI / NON     Si oui, à quoi ? </p>
+
+                    Le participant doit-il prendre des <b>médicaments</b> ?
+                        <table>
+                            <tr>
+                                <th>Nom du médicament</th>
+                                <th>En quelle quantité ?</th>
+                                <th>Quand ?</th>
+                            </tr>
+                                <tr>
+                                    <tr>
+                                        <td style="padding:15px; 0px; 15px; 0px">  </td>
+                                        <td style="padding:15px; 0px; 15px; 0px">  </td>
+                                        <td style="padding:15px; 0px; 15px; 0px">  </td>
+                                    </tr>
+                                </tr>
+                        </table><br/>
+
+                    <p>Souffre-t-il/elle d’un handicap ? OUI / NON     Si oui, Lequel ?<br/>
+                    </p>
+
+                    Le participant est-il en ordre de vaccination contre le tétanos ? OUI / NON  <br/>
+                                            Date 1er injection :<br/>
+                                            Date dernier rappel :
+
+                    <p>
+                        Avez-vous d’autres renseignements utiles à transmettre aux responsables des plaines ?
+
+                    </p>
+                </div>
+                </div>
+
+                </t>
+		</template>
+
 	</data>
 </odoo>
