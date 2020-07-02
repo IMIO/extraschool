@@ -656,6 +656,29 @@
                         Avez-vous d’autres renseignements utiles à transmettre aux responsables des plaines ?<br/>
                         <t t-if="health_sheet.comment"><span t-field="health_sheet.comment"/></t>
                     </p>
+                    <p>
+                        Je soussigné ................... donne mon accord pour l’inscription de la personne précitée aux conditions prescrites.  Les informations que j’ai fournies dans cette « Fiche Santé » sont réputées exactes et complètes.  L’organisateur ne sera nullement incriminé pour des faits ou éléments n’ayant pas été annotés dans ce document.<br/><br/>
+
+                    Je soussigné donne procuration aux responsables de l’accueil extrascolaire pour prendre en mon nom les mesures médicales qui s’avèreraient nécessaires.<br/><br/>
+
+
+
+                    <b><u>Règlement</u></b><br/><br/>
+
+
+
+                    Tout changement d’adresse doit être signalé directement au service compétent.<br/>
+
+                    Toute inscription est payante. <b>Le payement doit être effectué dés réception de la facture mais pas avant</b><br/>
+
+                    Toute absence non signalée sera comptabilisée comme présence.<br/>
+
+                    Nous avons bien pris connaissance du règlement d’ordre intérieur des plaines communales.<br/><br/>
+
+
+
+                    Merci.
+                    </p>
                 </div>
             </t>
             </div>
@@ -759,6 +782,31 @@
                         Avez-vous d’autres renseignements utiles à transmettre aux responsables des plaines ?
 
                     </p>
+
+                    <p>
+                        Je soussigné ................... donne mon accord pour l’inscription de la personne précitée aux conditions prescrites.  Les informations que j’ai fournies dans cette « Fiche Santé » sont réputées exactes et complètes.  L’organisateur ne sera nullement incriminé pour des faits ou éléments n’ayant pas été annotés dans ce document.<br/><br/>
+
+                    Je soussigné donne procuration aux responsables de l’accueil extrascolaire pour prendre en mon nom les mesures médicales qui s’avèreraient nécessaires.<br/><br/>
+
+
+
+                    <b><u>Règlement</u></b><br/><br/>
+
+
+
+                    Tout changement d’adresse doit être signalé directement au service compétent.<br/>
+
+                    Toute inscription est payante. <b>Le payement doit être effectué dés réception de la facture mais pas avant</b><br/>
+
+                    Toute absence non signalée sera comptabilisée comme présence.<br/>
+
+                    Nous avons bien pris connaissance du règlement d’ordre intérieur des plaines communales.<br/><br/>
+
+
+
+                    Merci.
+                    </p>
+
                 </div>
                 </div>
 
