@@ -182,6 +182,10 @@ class extraschool_biller(models.Model):
 
     @api.multi
     def mail_invoices(self):
+        """
+        Get invoices to send by mail
+        :return: Tree and form view with invoices to send by mail
+        """
 
         return {'name': 'Invoices',
                 'type': 'ir.actions.act_window',
@@ -198,7 +202,10 @@ class extraschool_biller(models.Model):
 
     @api.multi
     def email_invoices(self):
-
+        """
+        Get invoices to send by email
+        :return: Tree and form view with invoices to send by email
+        """
         return {'name': 'Invoices',
                 'type': 'ir.actions.act_window',
                 'res_model': 'extraschool.invoice',
@@ -215,7 +222,10 @@ class extraschool_biller(models.Model):
 
     @api.multi
     def all_invoices(self):
-
+        """
+        Get all biller's invoices
+        :return: Tree and form view with all biller's invoices
+        """
         return {'name': 'Invoices',
                 'type': 'ir.actions.act_window',
                 'res_model': 'extraschool.invoice',
@@ -230,7 +240,10 @@ class extraschool_biller(models.Model):
 
     @api.multi
     def all_pdf(self):
-
+        """
+        Get all invoices's PDF
+        :return: Tree and form view with all invoices's PDF
+        """
         return {'name': 'Docs',
                 'type': 'ir.actions.act_window',
                 'res_model': 'ir.attachment',
@@ -268,6 +281,29 @@ class extraschool_biller(models.Model):
         :return: from year
         """
         return fields.Date.from_string(self.period_from).year
+
+    @api.multi
+    def generate_pdf(self):
+        """
+        Generate PDF for biller's invoices
+        :return: None
+        """
+        # cr, uid = self.env.cr, self.env.user.id
+        # threaded_report = []
+        self.ensure_one()
+        self._delete_pdf()
+        self.pdf_ready = False
+        # clear cache
+        self.env.invalidate_all()
+        count = 0
+        for invoice in self.invoice_ids:
+            count = count + 1
+            self.env['report'].get_pdf(invoice, 'extraschool.invoice_report_layout')
+            _logger.info("generate pdf {} count: {}".format(invoice.id, count))
+
+        self.pdf_ready = True
+
+        self.send_mail_completed()
 
     @api.model
     def generate_pdf_thread(self, cr, uid, thread_lock, invoices_ids, context=None):
@@ -311,48 +347,14 @@ class extraschool_biller(models.Model):
                                           ('res_model', '=', 'extraschool.invoice')]).unlink()
 
     @api.multi
-    def generate_pdf(self):
+    def send_email(self, message):
         """
-        Generate PDF for biller's invoices
+        Send an email to user who billing (billing status information)
+        :param message: Message to send to user
         :return: None
         """
-        # cr, uid = self.env.cr, self.env.user.id
-        # threaded_report = []
-        self.ensure_one()
-        self._delete_pdf()
-
-        self.pdf_ready = False
-        # self.env.invalidate_all()
-        count = 0
-        for invoice in self.invoice_ids:
-            count = count + 1
-            self.env['report'].get_pdf(invoice, 'extraschool.invoice_report_layout')
-            _logger.info("generate pdf {} count: {}".format(invoice.id, count))
-
-        self.pdf_ready = True
-
-        self.send_mail_completed()
-
-    @api.multi
-    def send_mail_error(self, message):
-        message = """
-        Cet Email automatique vous a été envoyé car il y a eu un erreur lors de la facturation (voir ci-dessous):\n
-        Raison: {}\n
-        """.format(message.encode('utf-8'))
-
-        self.send_email(message)
-
-    @api.multi
-    def send_mail_completed(self):
-        message = "Cet Email automatique vous a été envoyé pour vous informez que votre facturier a bien été créé."
-
-        self.send_email(message)
-
-    @api.multi
-    def send_email(self, message):
-        user_id = self.env['res.users'].search([('id', '=', self._uid)]).partner_id.id
-        email_to = self.env['res.partner'].search([('id', '=', user_id)]).email.encode('utf-8')
         email_from = "noreply@imio.be"
+        email_to = self.env["res.users"].browse(self.env.uid).partner_id.email.encode('utf-8')
 
         msg = MIMEMultipart()
         msg['From'] = email_from
@@ -369,17 +371,46 @@ class extraschool_biller(models.Model):
         server.sendmail(email_from, email_to, msg.as_string())
         server.quit()
 
-    @api.one
+    @api.multi
+    def send_mail_error(self, error):
+        """
+        Send an email while an error occurred
+        :param error: error occurred
+        :return: None
+        """
+        message = """
+        Cet Email automatique vous a été envoyé car il y a eu un erreur lors de la facturation (voir ci-dessous):\n
+        Raison: {}\n
+        """.format(error.encode('utf-8'))
+        self.send_email(message)
+
+    @api.multi
+    def send_mail_completed(self):
+        """
+        Send an email while billing finished
+        :return: None
+        """
+        message = "Cet Email automatique vous a été envoyé pour vous informez que votre facturier a bien été créé."
+        self.send_email(message)
+
+    # todo refactoring
+    @api.multi
     def export_onyx(self):
+        """
+        Export biller's invoices to a file for ONYX
+        (See https://www.civadis.be/index.php/297-produits-services/logiciels/finances/taxes/onyx) for information
+        about ONYX.
+        :return: None
+        """
+        self.ensure_one()
+        self.env["extraschool.activity"].check_activities_on_tax_certificate()
         output = ""
-        line = ""
         output += u"MATRICULE\tNom du Responsable\tPrénom du Responsable\tCode rue\tLibellé rue\t"
         output += u"Numéro\tBoîte\tIndex\tCode postal\tLocalité\tPays\tLangue du redevable\tCivilité\tCode rue\tLibellé rue\t"
         output += u"Numéro\tBoîte\tIndex\tCode postal\tLocalité\tDate debut\tdate fin\tCommentaires\tsepar\tN fact\tN°\tM/P\t"
         output += u"NOM\tPRENOM\tDATE DE NAISSANCE\tN° REGISTRE NATIONAL\tANNEE D'ETUDE\tDate accueil\t"
         output += u"activité\tNbr j presences\tfisc\ttotal\tquantité\n"
         total = 0
-        self.env["extraschool.activity"].check_activities_on_tax_certificate()
         for invoice in self.invoice_ids.sorted(lambda r: r.parentid.rn):
             export = invoice.export_onyx()
             total += export['exported_amount']
@@ -397,13 +428,22 @@ class extraschool_biller(models.Model):
                                'name': filename,
                                })
 
-    @api.one
+    @api.multi
     def compute_discount(self):
+        """
+        Compute discount
+        :return: None
+        """
+        self.ensure_one()
         for discount in self.env['extraschool.discount.version'].search([]):
             discount.discount_forfait_week(self)
 
     @api.multi
     def pay_all(self):
+        """
+        Pay all biller's invoices (create payment and reconciliation)
+        :return: None
+        """
         for invoice_id in self.invoice_ids:
             payment_id = self.env['extraschool.payment'].create({
                 'parent_id': invoice_id.parentid.id,
