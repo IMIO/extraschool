@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-from __future__ import division
+# from __future__ import division
 import threading
 import uuid
 
@@ -85,10 +85,12 @@ class extraschool_biller(models.Model):
         Create a name for this record based on period
         :return: Textual representation for this record
         """
-        self.ensure_one()
-        return [(self.id, _("Biller from {} to {}".format(
-            datetime.strptime(self.period_from, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y"),
-            datetime.strptime(self.period_to, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y"))))]
+        res = []
+        for biller in self:
+            res.append((biller.id, _("Biller from {} to {}".format(
+                datetime.strptime(biller.period_from, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y"),
+                datetime.strptime(biller.period_to, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y")))))
+        return res
 
     @api.depends('invoice_ids.amount_total')
     def _compute_total(self):
@@ -186,7 +188,6 @@ class extraschool_biller(models.Model):
         Get invoices to send by mail
         :return: Tree and form view with invoices to send by mail
         """
-
         return {'name': 'Invoices',
                 'type': 'ir.actions.act_window',
                 'res_model': 'extraschool.invoice',
