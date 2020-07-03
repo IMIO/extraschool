@@ -91,6 +91,12 @@ def calculate_birthdate_from_age(age_group):
 
 
 def split_list(alist, wanted_parts=1):
-
+    """
+    Split a list into lists (accorded to wanted_parts)
+    Usefull for multi threading
+    :param alist: a list
+    :param wanted_parts: lists number wanted
+    :return: lists in function to wanted_parts
+    """
     length = len(alist)
     return [alist[i * length // wanted_parts: (i + 1) * length // wanted_parts] for i in range(wanted_parts)]
