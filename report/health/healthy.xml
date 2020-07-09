@@ -497,13 +497,15 @@
                             <tr>
                                 <th>Nom</th>
                                 <th>Adresse</th>
+                                <th>Téléphone</th>
                                 <th>Relation</th>
                             </tr>
                             <t t-foreach="health_sheet.contact_ids" t-as="contact">
                                 <tr>
                                     <tr>
                                         <td><t t-if="contact.contact_name"><span t-field="contact.contact_name" /></t></td>
-                                        <td><t t-if="contact.address_id"><span t-field="contact.address_id" /></t></td>
+                                        <td><t t-if="contact.address_id.full"><span t-field="contact.address_id.full" /></t></td>
+                                        <td><t t-if="contact.contact_tel"><span t-field="contact.contact_tel" /></t></td>
                                         <td><t t-if="contact.contact_relation"><span t-field="contact.contact_relation" /></t></td>
                                     </tr>
                                 </tr>
@@ -515,10 +517,12 @@
                             <tr>
                                 <th>Nom</th>
                                 <th>Adresse</th>
+                                <th>Téléphone</th>
                                 <th>Relation</th>
                             </tr>
                                 <tr>
                                     <tr>
+                                        <td style="padding:15px; 0px; 15px; 0px">  </td>
                                         <td style="padding:15px; 0px; 15px; 0px">  </td>
                                         <td style="padding:15px; 0px; 15px; 0px">  </td>
                                         <td style="padding:15px; 0px; 15px; 0px">  </td>
@@ -549,6 +553,7 @@
 
                 Nom du médecin traitant : <span t-field="health_sheet.doctor_id.name"/> <br/>
                 Adresse : <span t-field="health_sheet.doctor_id.street"/>  <span t-field="health_sheet.doctor_id.zipcode"/>  <span t-field="health_sheet.doctor_id.city"/><br/>
+                Téléphone: <span t-field="health_sheet.doctor_id.doctor_contact"/><br/>
                 GSM: <span t-field="health_sheet.doctor_id.doctor_gsm"/><br/><br/>
                 A-t-il/elle subi une maladie ou intervention grave ? <t t-if="health_sheet.intervention_selection == 'non'">OUI / <b>NON</b></t>
                 <t t-if="health_sheet.intervention_selection == 'oui'"><b>OUI </b>/ NON  Si oui, Lequel ?<br/>
@@ -711,10 +716,12 @@
                                 <tr>
                                     <th>Nom</th>
                                     <th>Adresse</th>
+                                    <th>Téléphone</th>
                                     <th>Relation</th>
                                 </tr>
                                     <tr>
                                         <tr>
+                                            <td style="padding:15px; 0px; 15px; 0px">  </td>
                                             <td style="padding:15px; 0px; 15px; 0px">  </td>
                                             <td style="padding:15px; 0px; 15px; 0px">  </td>
                                             <td style="padding:15px; 0px; 15px; 0px">  </td>
@@ -734,6 +741,7 @@
                 <div>
                     Nom du médecin traitant :  <br/>
                     Adresse : <br/>
+                    Téléphone : <br/>
                     GSM: <br/><br/>
                     A-t-il/elle subi une maladie ou intervention grave ?
                     OUI / NON <br/>  Si oui, Lequel ?
