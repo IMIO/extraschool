@@ -24458,7 +24458,7 @@ msgstr "Mode d'envoi des factures"
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_invoice_search_view
 msgid "Invoice's number"
-msgstr "Invoice's number"
+msgstr "Numéro de facture"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_no_value_wizard_form
