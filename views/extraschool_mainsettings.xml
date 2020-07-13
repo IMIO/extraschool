@@ -176,14 +176,6 @@
                                         confirm="Voulez-vous vraiment supprimer tous les types de maladies ?"
                                     />
                                 </group>
-                                <group string="DEBUG neufchateau">
-                                    <button
-                                        name="debug_neufchateau"
-                                        string="ff"
-                                        icon="gtk-apply"
-                                        type="object"
-                                    />
-                                </group>
                             </page>
                             <page string="from presta of the day">
                                 <button name="reset" string="Reset" icon="gtk-apply" type="object"/>
