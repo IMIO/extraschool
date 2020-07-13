@@ -21,18 +21,17 @@
 #
 ##############################################################################
 
+# from __future__ import division
+
 import smtplib
 import threading
-import uuid
+from datetime import datetime
+from email.MIMEText import MIMEText
+
 import openerp
 import openerp.release
 import openerp.sql_db
 import openerp.tools
-
-# from __future__ import division
-from datetime import datetime
-from email.MIMEText import MIMEText
-
 from email.MIMEMultipart import MIMEMultipart
 from openerp import models, api, fields, _
 from openerp.addons.extraschool.helper import extraschool_helper
@@ -80,6 +79,7 @@ class extraschool_biller(models.Model):
         'Reminders journal',
         ondelete='cascade',
         required=False)
+    current_pdf_number = fields.Integer(default=0)
 
     @api.multi
     def name_get(self):
@@ -303,54 +303,41 @@ class extraschool_biller(models.Model):
         #     count = count + 1
         #     self.env['report'].get_pdf(invoice, 'extraschool.invoice_report_layout')
         #     _logger.info("generate pdf {} count: {}".format(invoice.id, count))
-        A, B, C = extraschool_helper.split_list(self.invoice_ids.ids, 3)
-        A_calculation = threading.Thread(target=self._run_process, args=(self.id, A))
-        B_calculation = threading.Thread(target=self._run_process, args=(self.id, B))
-        C_calculation = threading.Thread(target=self._run_process, args=(self.id, C))
-        A_calculation.start()
-        B_calculation.start()
-        C_calculation.start()
+        # wanted_parts = int(0.25 * len(self.invoice_ids))
+        # list_invoice_ids = []
+        # A, B, C = extraschool_helper.split_list(self.invoice_ids.ids, 3)
+        # A_calculation = threading.Thread(target=self._run_process, args=(self.id, A))
+        # B_calculation = threading.Thread(target=self._run_process, args=(self.id, B))
+        # C_calculation = threading.Thread(target=self._run_process, args=(self.id, C))
+        # A_calculation.start()
+        # B_calculation.start()
+        # C_calculation.start()
+        for invoice in self.invoice_ids:
+            thread = threading.Thread(target=self._run_process, args=(self.id, invoice.id))
+            thread.start()
 
         self.pdf_ready = True
         # self.send_mail_completed()
+
+    # def _run_process(self, active_id, list_of_ids):
+    #     with api.Environment.manage():
+    #         with openerp.registry(self.env.cr.dbname).cursor() as new_cr:
+    #             new_env = api.Environment(new_cr, self.env.uid, self.env.context)
+    #             # biller = new_env["extraschool.biller"].browse(active_id)
+    #             for invoice in new_env["extraschool.invoice"].browse(list_of_ids):
+    #                 #  problem with concurrent update
+    #                 # biller.write({"current_pdf_number": biller.current_pdf_number + 1})
+    #                 new_env['report'].get_pdf(invoice, 'extraschool.invoice_report_layout')
 
     def _run_process(self, active_id, list_of_ids):
         with api.Environment.manage():
             with openerp.registry(self.env.cr.dbname).cursor() as new_cr:
                 new_env = api.Environment(new_cr, self.env.uid, self.env.context)
+                # biller = new_env["extraschool.biller"].browse(active_id)
                 for invoice in new_env["extraschool.invoice"].browse(list_of_ids):
+                    #  problem with concurrent update
+                    # biller.write({"current_pdf_number": biller.current_pdf_number + 1})
                     new_env['report'].get_pdf(invoice, 'extraschool.invoice_report_layout')
-
-    # @api.model
-    # def generate_pdf_thread(self, cr, uid, thread_lock, invoices_ids, context=None):
-    #     """
-    #     @param self: The object pointer.
-    #     @param cr: A database cursor
-    #     @param uid: ID of the user currently logged in
-    #     @param ids: List of IDs selected
-    #     @param context: A standard dictionary
-    #     """
-    #     time.sleep(5)
-    #     with Environment.manage():
-    #         # As this function is in a new thread, i need to open a new cursor, because the old one may be closed
-    #         new_cr = self.pool.cursor()
-    #         new_env = Environment(new_cr, uid, context)
-    #         count = 0
-    #         report = new_env['report']
-    #         for invoice in new_env['extraschool.invoice'].browse(invoices_ids):
-    #             count = count + 1
-    #             _logger.info("generate pdf %s count: %s" % (invoice.id, count))
-    #             report.get_pdf(invoice, 'extraschool.invoice_report_layout')
-    #
-    #         thread_lock[1].acquire()
-    #         thread_lock[0] -= 1
-    #         if thread_lock[0] == 0:
-    #             new_env['extraschool.biller'].browse(thread_lock[2]).pdf_ready = True
-    #
-    #         thread_lock[1].release()
-    #         new_cr.commit()
-    #         new_cr.close()
-    #         return {}
 
     @api.multi
     def _delete_pdf(self):
@@ -359,6 +346,7 @@ class extraschool_biller(models.Model):
         :return: None
         """
         self.ensure_one()
+        self.write({"current_pdf_number": 0})
         self.env['ir.attachment'].search([('res_id', 'in', self.invoice_ids.mapped("id")),
                                           ('res_model', '=', 'extraschool.invoice')]).unlink()
 
