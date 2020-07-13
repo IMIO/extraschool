@@ -663,4 +663,15 @@ class extraschool_mainsettings(models.Model):
     def delete_disease_type(self):
         for disease_type in self.env['extraschool.disease_type'].search([]):
             disease_type.unlink()
+
+    @api.multi
+    def debug_neufchateau(self):
+        cr,uid = self.env.cr, self.env.user.id
+
+        dup_sql = """UPDATE extraschool_activity
+                     SET on_tax_certificate_selection = 'non'
+                     WHERE id = 12
+                     """
+
+        self.env.cr.execute(dup_sql, ())
     # endregion
