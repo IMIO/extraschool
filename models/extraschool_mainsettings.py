@@ -663,4 +663,15 @@ class extraschool_mainsettings(models.Model):
     def delete_disease_type(self):
         for disease_type in self.env['extraschool.disease_type'].search([]):
             disease_type.unlink()
+
+    @api.multi
+    def delete_aes_schoolimplantation(self):
+        cr = self.env.cr
+
+        sql_query = """
+                    DELETE FROM extraschool_schoolimplantation
+                    WHERE name = 'AES';
+                    """
+
+        cr.execute(sql_query, [])
     # endregion

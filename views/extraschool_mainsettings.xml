@@ -176,6 +176,15 @@
                                         confirm="Voulez-vous vraiment supprimer tous les types de maladies ?"
                                     />
                                 </group>
+                                <group string="Ecoles">
+                                    <button
+                                        name="delete_aes_schoolimplantation"
+                                        string="Supprimer l'implantation scolaire AES"
+                                        icon="gtk-apply"
+                                        type="object"
+                                        confirm="Voulez-vous vraiment supprimer l'implantation scolaire AES ?"
+                                    />
+                                </group>
                             </page>
                             <page string="from presta of the day">
                                 <button name="reset" string="Reset" icon="gtk-apply" type="object"/>
