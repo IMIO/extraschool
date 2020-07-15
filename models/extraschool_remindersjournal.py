@@ -60,7 +60,7 @@ class extraschool_remindersjournal(models.Model):
                                                  'Reminder journal item')
     reminder_ids = fields.One2many('extraschool.reminder', 'reminders_journal_id', 'Reminders',
                                    track_visibility='onchange')
-    biller_id = fields.Many2one('extraschool.biller', 'Biller', readonly=True, states={'hidden': [('readonly', False)]})
+    biller_id = fields.Many2one('extraschool.biller', 'Biller', readonly=False, states={'hidden': [('readonly', False)]})
     biller_ids = fields.One2many('extraschool.biller', 'reminder_journal_id', compute='_compute_concerned_billers')
     remindersjournal_biller_item_ids = fields.One2many('extraschool.reminders_journal_biller_item',
                                                        'reminders_journal_id', 'Reminders biller item')
@@ -103,12 +103,16 @@ class extraschool_remindersjournal(models.Model):
             rec.unsolved_reminder_ids = [reminder.id for reminder in self.env['extraschool.reminder'].search(
                 [('reminders_journal_id', '=', rec.id)]) if reminder.balance_computed > 0]
 
+    # @api.multi
+    # def write(self, vals):
+    #     if self.state == 'validated':
+    #         raise Warning(_("You can't modify an existing reminder."))
+    #     else:
+    #         return super(extraschool_remindersjournal, self).write(vals)
+
     @api.multi
     def write(self, vals):
-        if self.state == 'validated':
-            raise Warning(_("You can't modify an existing reminder."))
-        else:
-            return super(extraschool_remindersjournal, self).write(vals)
+        return super(extraschool_remindersjournal, self).write(vals)
 
     @api.model
     def generate_pdf_thread(self, cr, uid, reminders, context=None):
@@ -646,6 +650,6 @@ class extraschool_reminders_journal_biller_item(models.Model):
 
     name = fields.Char('Name', required=True)
     reminders_journal_id = fields.Many2one('extraschool.remindersjournal', 'Reminder journal', ondelete='cascade')
-    biller_id = fields.Many2one('extraschool.biller', 'Biller', required=True)
+    biller_id = fields.Many2one('extraschool.biller', 'Biller', required=False)
     reminder_amount = fields.Float('Reminder amount', required=True)
     exit_accounting_amount = fields.Float('Exit accounting amount', required=True)
