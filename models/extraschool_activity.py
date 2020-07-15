@@ -429,8 +429,8 @@ class extraschool_activity(models.Model):
             lambda r: r.is_valid() and r.on_tax_certificate_selection == "non_renseigne")
         if activities:
             activities_names = activities.mapped("name")
-            raise Warning(_(u"Missing information about tax certificate on these activities : \n\n {}".format(
-                u"\n".join(activities_names))))
+            raise Warning(_(u"Missing information about tax certificate on these activities : \n\n {}").format(
+                u"\n".join(activities_names)))
 
     @api.multi
     def write(self, vals):
