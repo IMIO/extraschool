@@ -60,7 +60,7 @@ class extraschool_remindersjournal(models.Model):
                                                  'Reminder journal item')
     reminder_ids = fields.One2many('extraschool.reminder', 'reminders_journal_id', 'Reminders',
                                    track_visibility='onchange')
-    biller_id = fields.Many2one('extraschool.biller', 'Biller', readonly=False, states={'hidden': [('readonly', False)]})
+    biller_id = fields.Many2one('extraschool.biller', 'Biller', readonly=True, states={'hidden': [('readonly', False)]})
     biller_ids = fields.One2many('extraschool.biller', 'reminder_journal_id', compute='_compute_concerned_billers')
     remindersjournal_biller_item_ids = fields.One2many('extraschool.reminders_journal_biller_item',
                                                        'reminders_journal_id', 'Reminders biller item')
