@@ -147,6 +147,10 @@
                             </t>
                         </t>
 
+                        <t t-if="not child.health_sheet_ids">
+                            <t t-set="health_sheet" t-value="None"/>
+                        </t>
+
                         <div class="header">
                             <t t-foreach="organising_power.healthy_inscription_report_id.inline_report_ids.filtered(lambda r: r.section == 'a_header')"
                                t-as="tmpl">
