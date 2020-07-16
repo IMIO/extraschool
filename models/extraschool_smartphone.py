@@ -49,7 +49,7 @@ class extraschool_smartphone(models.Model):
     def _get_default_userpassword(self):
         if len(self.env['extraschool.config_smartphone'].search([])) == 0:
             raise Warning(_("Ther is no configuration for create smartphone"))
-        else :
+        else:
             return self.env['extraschool.config_smartphone'].search([])[-1].userpassword
 
     def _get_default_maxtimedelta(self):
@@ -66,7 +66,7 @@ class extraschool_smartphone(models.Model):
         # Else we take the last transmissiontime and we add 5 minutes to it.
         else:
             last_transmission = smartphone_obj.search([], order='transmissiontime DESC', limit=1).transmissiontime
-            last_transmission = datetime.strptime(last_transmission, "%H:%M") + timedelta(minutes = 5)
+            last_transmission = datetime.strptime(last_transmission, "%H:%M") + timedelta(minutes=5)
             return last_transmission.strftime("%H:%M")
 
     def _get_default_scanmethod(self):
@@ -84,7 +84,8 @@ class extraschool_smartphone(models.Model):
     def _get_last_transmission(self):
         for rec in self:
             last_transmission_date = self.env['extraschool.pda_transmission'].search([('smartphone_id', '=', rec.id)],
-                                                                   order='transmission_date_from DESC', limit=1).transmission_date_from
+                                                                                     order='transmission_date_from DESC',
+                                                                                     limit=1).transmission_date_from
             rec.lasttransmissiondate = last_transmission_date
 
     name = fields.Char('Name', size=50)
@@ -93,16 +94,19 @@ class extraschool_smartphone(models.Model):
                                               'extraschool_smartphone_activitycategory_rel', 'smartphone_id',
                                               'activitycategory_id', 'Activity categories', readonly=True)
 
-
-    lasttransmissiondate = fields.Datetime('Last Transmission Date', compute=_get_last_transmission, store=False, readonly=True)
-    softwareurl_v9 = fields.Char('Software url', size=100, readonly=True, default='https://static.imio.be/aes/aesmobile.apk')
+    lasttransmissiondate = fields.Datetime('Last Transmission Date', compute=_get_last_transmission, store=False,
+                                           readonly=True)
+    softwareurl_v9 = fields.Char('Software url', size=100, readonly=True,
+                                 default='https://static.imio.be/aes/aesmobile.apk')
     transmissiontime = fields.Char('Transmission time', size=5, default=_get_default_transmissiontime)
     serveraddress = fields.Char('Server address', size=50, default=_get_default_serveraddress, readonly=True)
     databasename = fields.Char('Database name', size=30, default=_get_default_databasename, readonly=True)
     username = fields.Char('User name', default=_get_default_username, readonly=True)
     userpassword = fields.Char('User password', default=_get_default_userpassword, readonly=True)
-    scanmethod = fields.Selection((('Tag','Tag'),('QR','QR')),'Scan method', default=_get_default_scanmethod, readonly=True)
-    transfertmethod = fields.Selection((('WIFI','WIFI'),('3G','3G')),'Transfert method', default=_get_default_transfertmethod)
+    scanmethod = fields.Selection((('Tag', 'Tag'), ('QR', 'QR')), 'Scan method', default=_get_default_scanmethod,
+                                  readonly=True)
+    transfertmethod = fields.Selection((('WIFI', 'WIFI'), ('3G', '3G')), 'Transfert method',
+                                       default=_get_default_transfertmethod)
     qrdownload = fields.Binary('QR Download', readonly=True)
     qrconfig = fields.Binary('QR Config', readonly=True)
     oldversion = fields.Boolean('Old version', default=_get_default_oldversion)
@@ -115,17 +119,18 @@ class extraschool_smartphone(models.Model):
     smartphone_detail_log_ids = fields.One2many('extraschool.smartphone_detail_log', 'smartphone_id')
 
     @api.one
-    def update_qr_code(self,vals):
-        value='cfg;' + str(self.id) + ';' + self.transmissiontime + ';' + self.serveraddress + ';' + self.databasename + ';' + self.username + ';' + self.userpassword + ';' + self.scanmethod + ';' + self.transfertmethod+ ';' + self.cfgpassword+ ';'
+    def update_qr_code(self, vals):
+        value = 'cfg;' + str(
+            self.id) + ';' + self.transmissiontime + ';' + self.serveraddress + ';' + self.databasename + ';' + self.username + ';' + self.userpassword + ';' + self.scanmethod + ';' + self.transfertmethod + ';' + self.cfgpassword + ';'
         if self.manualok:
-            value=value+'1'
+            value = value + '1'
         else:
-            value=value+'0'
+            value = value + '0'
 
         barcode = createBarcodeImageInMemory(
-                'QR', value=value, format='png', width=400, height=400,
-                humanReadable = 0
-            )
+            'QR', value=value, format='png', width=400, height=400,
+            humanReadable=0
+        )
         vals['qrconfig'] = base64.b64encode(barcode)
 
     @api.one
@@ -141,21 +146,22 @@ class extraschool_smartphone(models.Model):
             self.softwareversion = "Aucune info"
 
     @api.model
-    def create(self,vals):
+    def create(self, vals):
         res = super(extraschool_smartphone, self).create(vals)
         res.write({})
         return res
 
     @api.multi
-    def write(self,vals):
-        #transmission is finished
+    def write(self, vals):
+        # transmission is finished
         # Todo: See if we still need this.
         if 'lasttransmissiondate' in vals:
-            #reset presta of the day if needed
+            # reset presta of the day if needed
             for smartphone in self:
                 if smartphone.pda_transmission_ids:
                     pod_to_check_ids = []
-                    for presta in smartphone.pda_transmission_ids.sorted(key=lambda r: r.transmission_date_from)[-1].pda_prestation_times_ids:
+                    for presta in smartphone.pda_transmission_ids.sorted(key=lambda r: r.transmission_date_from)[
+                        -1].pda_prestation_times_ids:
                         if presta.prestation_times_of_the_day_id.id not in pod_to_check_ids:
                             pod_to_check_ids.append(presta.prestation_times_of_the_day_id.id)
                     self.env['extraschool.prestation_times_of_the_day'].browse(pod_to_check_ids).reset()
@@ -167,7 +173,7 @@ class extraschool_smartphone(models.Model):
         return super(extraschool_smartphone, self).write(vals)
 
     @api.multi
-    def copy(self,vals):
+    def copy(self, vals):
         res = super(extraschool_smartphone, self).copy(vals)
         res.write({})
         return res
@@ -176,7 +182,8 @@ class extraschool_smartphone(models.Model):
     def ws_verif_transmition(self):
         return_dict = {'return_state': 1,
                        'return_log': ''}
-        smartphone_error = self.search([('lasttransmissiondate', '<', (datetime.today() - timedelta(1)).strftime("%Y-%m-%d 00:00:00"))])
+        smartphone_error = self.search(
+            [('lasttransmissiondate', '<', (datetime.today() - timedelta(1)).strftime("%Y-%m-%d 00:00:00"))])
         if len(smartphone_error):
             return_dict['return_state'] = 0
             for smartphone in smartphone_error:
@@ -184,20 +191,20 @@ class extraschool_smartphone(models.Model):
 
         return return_dict
 
-##############################################################################
-#
-#    AESMobile
-#    Copyright (C) 2018
-#    Colicchia Michaël & Delaere Olivier - Imio (<http://www.imio.be>).
-#
-##############################################################################
+    ##############################################################################
+    #
+    #    AESMobile
+    #    Copyright (C) 2018
+    #    Colicchia Michaël & Delaere Olivier - Imio (<http://www.imio.be>).
+    #
+    ##############################################################################
 
     @api.multi
     def set_smartphone_error(self, smartphone_id, error, string_error):
 
         type = "Children" if error == 1 else "Guardians"
 
-        _logger.error( "Smartphone id: " + smartphone_id + "Error number: " + type + "Error message: " + string_error)
+        _logger.error("Smartphone id: " + smartphone_id + "Error number: " + type + "Error message: " + string_error)
 
     @staticmethod
     def set_error(cr, uid, smartphone_id, error, string_error, context=None):
@@ -214,6 +221,7 @@ class extraschool_smartphone(models.Model):
 
         return True
 
+
 class extraschool_pda_transmission(models.Model):
     _name = 'extraschool.pda_transmission'
     _description = 'PDA pda_transmission'
@@ -228,8 +236,9 @@ class extraschool_pda_transmission(models.Model):
                               ('error', 'error'),
                               ('pending', 'Pending'),
                               ('ended', 'Ended')],
-                              'validated', default='init'
-                              )
+                             'validated', default='init'
+                             )
+
 
 class extraschool_smartphone_log(models.Model):
     _name = 'extraschool.smartphone_log'
@@ -256,57 +265,28 @@ class extraschool_smartphone_detail_log(models.Model):
             try:
                 date = datetime.strptime(str(line['datetime']), '%Y%m%dT%H%M%S')
             except:
-                date = 'Could not format date: {}'.format(line['timestamp'])
+                date = line.get('datetime', 'Error : no date time')
 
-            error_message = "Error message for Smartphone logs"
-            message_decode = line['message']
-            imei = line['phone_imei']
-            try:
-                imei = imei.encode('utf-8')
-            except :
-                imei = 'Error decode'
-            try:
-                message_decode.encode('utf-8')
-            except:
-                message_decode = "Error encoding message log"
-            try:
-                message_log = '{} Smartphone id: {} version: {} logger: {} message: {} ###### serial: {} imei: {}'.format(
-                    str(date),
-                    smartphone_id,
-                    message["app_version"],
-                    line['logger'],
-                    message_decode,
-                    line['phone_serial'],
-                    imei,
-                )
-            except:
-                message_log = "There has been an error on the construction of the log message"
-            if "INFO" in line['level']:
-                try:
-                    _logger.info(message_log)
-                except:
-                    _logger.error(error_message)
+            message_log = u'{} Smartphone id: {} version: {} logger: {} message: {} ###### serial: {} imei: {}'.format(
+                str(date),
+                smartphone_id,
+                message["app_version"],
+                line['logger'],
+                line['message'],
+                line.get('phone_serial', 'no serial'),
+                line.get('phone_imei', 'no imei'),
+            )
+            log_level = line.get('level', 'ERROR')
+            if "INFO" in log_level:
+                _logger.info(message_log)
 
-            elif "WARN" in line['level']:
-                try:
-                    _logger.warning(message_log)
-                except:
-                    _logger.error(error_message)
+            elif "WARN" in log_level:
+                _logger.warning(message_log)
             else:
-                try:
-                    _logger.error(message_log)
-                    _logger.error(message)
-                except:
-                    _logger.error(error_message)
-
-        if "app_version" in message:
-            app_version = message["app_version"]
-        else:
-            app_version = False
+                _logger.error(message_log)
 
         smartphone_obj = self.env['extraschool.smartphone'].search([('id', '=', smartphone_id)])
-        smartphone_obj.update_app_version(app_version)
-
+        smartphone_obj.update_app_version(message.get("app_version", False))
 
     @staticmethod
     def send_log(cr, uid, message, smartphone_id, context=None):
@@ -320,4 +300,3 @@ class extraschool_smartphone_detail_log(models.Model):
         extraschool_smartphone_detail_log.print_log(env['extraschool.smartphone_detail_log'], message, smartphone_id)
 
         return True
-
