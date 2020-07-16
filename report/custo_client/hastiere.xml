@@ -87,7 +87,7 @@
 					   <t t-esc="'%.2f €' % (amount)"/>, et ce, malgré le courrier de rappel du <t t-esc="datetime.datetime.strptime(reminder.reminders_journal_id.based_reminder_id.transmission_date, '%Y-%m-%d').strftime('%d-%m-%Y')"/>, qui vous a déjà été adressé. Veuillez trouver en annexe le détail de ce montant.<br/><br/>
 
 						<b>Par la présente, nous vous mettons en demeure de payer ce montant de <t t-esc="'%.2f €' % (amount)"/> pour le <t t-esc="payment_term" />
-						au plus tard, au bénéfice du compte (IBAN) n° BE25 0960 2105 5182 (code BIC : GKCCBEBB),
+						au plus tard, au bénéfice du compte (IBAN) n° <span t-field="categ_id.bankaccount"/> (code BIC : <span t-field="categ_id.bank_bic"/>),
 						avec la communication structurée suivante : <t t-esc="com_struct" />.</b><br/><br/>
 
 						Si entretemps, la somme a été réglée, veuillez considérer cette mise en demeure comme nulle et non avenue.<br/><br/>
