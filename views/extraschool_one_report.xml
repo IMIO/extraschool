@@ -22,6 +22,9 @@
             <field name="arch" type="xml">
                 <form string="ONE Report">
                     <sheet>
+                        <div class="alert alert-info" attrs="{'invisible':[('is_created', '=', True)]}">
+                            Attention veuillez vérifier que vous avez bien facturé toute la période concernée par ce rapport ONE.
+                        </div>
                         <div class="alert alert-danger" attrs="{'invisible':[('not_created', '=', True)]}">
                             Attention il existe déjà un rapport ONE concernant ce lieu d'accueil et ce trimestre
                         </div>

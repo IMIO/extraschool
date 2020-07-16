@@ -119,7 +119,7 @@
                     <sheet>
                         <div class="alert alert-info text-center col-2"
                              attrs="{'invisible':[('state', '=', 'validated')]}">
-                            Attention, veuillez vérifier que les paiements soient à jour
+                            Attention, veuillez vérifier que les paiements sont à jour
                         </div>
                         <div class="oe_right oe_button_box" name="buttons">
                             <button name="mail_reminders"
