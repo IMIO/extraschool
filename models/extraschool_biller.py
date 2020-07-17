@@ -303,17 +303,10 @@ class extraschool_biller(models.Model):
         #     count = count + 1
         #     self.env['report'].get_pdf(invoice, 'extraschool.invoice_report_layout')
         #     _logger.info("generate pdf {} count: {}".format(invoice.id, count))
-        # wanted_parts = int(0.25 * len(self.invoice_ids))
-        # list_invoice_ids = []
-        # A, B, C = extraschool_helper.split_list(self.invoice_ids.ids, 3)
-        # A_calculation = threading.Thread(target=self._run_process, args=(self.id, A))
-        # B_calculation = threading.Thread(target=self._run_process, args=(self.id, B))
-        # C_calculation = threading.Thread(target=self._run_process, args=(self.id, C))
-        # A_calculation.start()
-        # B_calculation.start()
-        # C_calculation.start()
-        for invoice in self.invoice_ids:
-            thread = threading.Thread(target=self._run_process, args=(self.id, invoice.id))
+        wanted_parts = int(0.25 * len(self.invoice_ids))
+        list_invoice_ids = extraschool_helper.split_list(self.invoice_ids.ids, wanted_parts)
+        for list_invoice in list_invoice_ids:
+            thread = threading.Thread(target=self._run_process, args=(self.id, list_invoice))
             thread.start()
 
         self.pdf_ready = True
