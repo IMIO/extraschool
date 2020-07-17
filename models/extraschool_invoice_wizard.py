@@ -110,19 +110,16 @@ class extraschool_invoice_wizard(models.TransientModel):
                               ('compute_invoices', 'Compute invoices')],
                              'State', required=True, default='init'
                              )
-    warning_smartphone = fields.Char('WARNING',
-                                     default="Attention, il y a un ou plusieurs smartphone(s) qui n'a / n'ont pas transmis. Vérifier avant de générer votre facturier ! ",
-                                     readonly=True)
     warning_visibility = fields.Boolean(track_visibility='onchange')
-    check_manual = fields.Boolean(default=False)
-    check_registration = fields.Boolean(default=False)
+    check_manual = fields.Boolean(default=True)
+    check_registration = fields.Boolean(default=True)
     check_prestation = fields.Boolean(default=True)
     check_invoice = fields.Boolean(default=True)
     generate_pdf = fields.Boolean(default=True)
 
-    ########################################################################################################################
+    ####################################################################################################################
     #   HELPER to the invoicing and output to the user what needs to be done before invoicing.
-    ########################################################################################################################
+    ####################################################################################################################
 
     @api.onchange('activitycategory', 'period_from', 'period_to')
     @api.multi
@@ -148,60 +145,63 @@ class extraschool_invoice_wizard(models.TransientModel):
     @api.multi
     def _check_invoice(self):
         """
-        Check if there are any invoices to compute.
-        :return: True if so, False otherwise
+        Check if there are any invoices to to compute.
+        :return: False if no invoices to compute. True if so.
         """
         sql_check_presta_to_invoice = """select count(*) as to_invoice_count
-                                    from extraschool_prestationtimes ept
-                                    left join extraschool_child c on ept.childid = c.id
-                                    where ept.prestation_date between %s and %s
-                                        and verified = True
-                                        and invoiced_prestation_id is NULL
-                                        and activity_category_id IN %s
-                                        and c.schoolimplantation in %s
-                                ;"""
+                                     from extraschool_prestationtimes ept
+                                     left join extraschool_child c on ept.childid = c.id
+                                     where ept.prestation_date between %s and %s
+                                         and verified = True
+                                         and invoiced_prestation_id is NULL
+                                         and activity_category_id IN %s
+                                         and c.schoolimplantation in %s
+                                 ;"""
+
         self.env.cr.execute(sql_check_presta_to_invoice, (
             self.period_from, self.period_to, tuple(self.activitycategory.ids), tuple(self.schoolimplantationid.ids),))
         to_invoice_count = self.env.cr.dictfetchall()
-        return to_invoice_count[0]['to_invoice_count'] > 0L
+
+        return to_invoice_count[0]['to_invoice_count']
 
     @api.multi
     def _check_prestation(self):
         """
         Check if all prestation have been verified
-        :return: True if all prestation verified, False otherwise
+        :return: False if prestation to be verified. True if not.
         """
         sql_check_verified = """select count(*) as verified_count
-                                    from extraschool_prestationtimes ept
-                                    left join extraschool_child c on ept.childid = c.id
-                                    where ept.prestation_date between %s and %s
-                                        and verified = False
-                                        and activity_category_id IN %s
-                                        and c.schoolimplantation in %s
-                                ;"""
+                                     from extraschool_prestationtimes ept
+                                     left join extraschool_child c on ept.childid = c.id
+                                     where ept.prestation_date between %s and %s
+                                         and verified = False
+                                         and activity_category_id IN %s
+                                         and c.schoolimplantation in %s
+                                 ;"""
 
         self.env.cr.execute(sql_check_verified, (
             self.period_from, self.period_to, tuple(self.activitycategory.ids), tuple(self.schoolimplantationid.ids),))
         verified_count = self.env.cr.dictfetchall()
-        return verified_count[0]['verified_count'] == 0L
+
+        return not verified_count[0]['verified_count']
 
     @api.multi
     def _check_manual_encodage(self):
         """
         Check if manual scan needs to be validated
-        :return: True if so, False otherwise
+        :return: False if so. True if not.
         """
         manuel_encodage_ids = self.env['extraschool.prestation_times_encodage_manuel'].search(
             [('state', '!=', 'validated'),
              ('date_of_the_day', '>=', self.period_from),
              ('date_of_the_day', '<=', self.period_to), ])
-        return len(manuel_encodage_ids) > 0
+        return not len(manuel_encodage_ids)
 
     @api.multi
     def _check_registration(self):
         """
         Check if registration needs to be validated
-        :return: True if so, False otherwise
+        :return: False if so. True if not.
         """
         child_reg_ids = self.env['extraschool.child_registration'].search([('state', '!=', 'validated'),
                                                                            ('activity_id.category_id.id', 'in',
@@ -213,266 +213,35 @@ class extraschool_invoice_wizard(models.TransientModel):
                                                                            ('date_to', '<=', self.period_to),
                                                                            ])
 
-        return len(child_reg_ids) > 0
+        return not len(child_reg_ids)
 
-    ########################################################################################################################
+    ####################################################################################################################
     #   Start of the invoicing.
-    ########################################################################################################################
-    def _compute_invoices(self):
-        cr, uid = self.env.cr, self.env.user.id
+    ####################################################################################################################
 
-    def get_sql_position_querry(self):
-        sql = {'byparent': """(select min(id)
-                                from extraschool_childposition
-                                where position = (select count(*) + 1
-                                 from extraschool_child ec
-                                 where  i.parentid = ec.parentid
-                                    and ec.id <> ip.childid
-                                    and ec.birthdate <= (select birthdate from extraschool_child where id = ip.childid)
-                                    and ec.rn <> (select rn from extraschool_child where id = ip.childid)
-                                    and ec.isdisabled = False
-                                    ))
-                            """,
-               'byparentwp': """(select min(cp.id)
-                                from extraschool_childposition cp
-                                where position = (select count(distinct ep.childid) + 1
-                                 from extraschool_prestationtimes ep
-                                 left join extraschool_child ec on ep.childid = ec.id
-                                 left join extraschool_activityoccurrence aao on aao.id = ep.activity_occurrence_id
-                                 left join extraschool_activity aa on aa.id = aao.activityid
-                                 where  ep.parent_id = i.parentid
-                                    and (
-                                          (
-                                            tarif_group_name is null and
-                                            ep.activity_occurrence_id = ip.activity_occurrence_id
-                                          ) or
-                                          (
-                                            tarif_group_name is not null
-                                            and tarif_group_name = aa.tarif_group_name
-                                            and ep.prestation_date = ip.prestation_date)
+    @api.multi
+    def _ensure_can_invoice(self, biller):
+        # Check if all manuel encodage are validated.
+        if self.check_manual:
+            message = "Il y a au moins un encodage manuel non vérifié pour cette période"
+            biller.send_mail_error(_(message))
+            raise Warning(_(message))
 
-                                        )
-                                    and invoiced_prestation_id is not NULL
-                                    and ep.childid <> ip.childid
-                                    and ec.birthdate <= (select birthdate from extraschool_child where id = ip.childid)
-                                    and ec.isdisabled = False
-                                    )
-                                    -
-                                    (select count(distinct ep.childid)
-                                     from extraschool_prestationtimes ep
-                                     left join extraschool_child ec on ep.childid = ec.id
-                                     left join extraschool_activityoccurrence aao on aao.id = ep.activity_occurrence_id
-                                     left join extraschool_activity aa on aa.id = aao.activityid
-                                     where  ep.parent_id = i.parentid
-                                        and (
-                                              (
-                                                tarif_group_name is null and
-                                                ep.activity_occurrence_id = ip.activity_occurrence_id
-                                              ) or
-                                              (
-                                                tarif_group_name is not null
-                                                and tarif_group_name = aa.tarif_group_name
-                                                and ep.prestation_date = ip.prestation_date)
+        # Check if all child registration are validated.
+        if self.check_registration:
+            message = "Il y a au moins une fiche d'inscription non validée pour cette période"
+            biller.send_mail_error(_(message))
+            raise Warning(_(message))
 
-                                            )
-                                        and invoiced_prestation_id is not NULL
-                                        and ep.childid > ip.childid
-                                        and ec.birthdate = (select birthdate from extraschool_child where id = ip.childid)
-                                        and ec.isdisabled = False
-                                        )
-                                    )
-                            """,
-               'byparent_nb_childs': """(select min(id)
-                                from extraschool_childposition
-                                where position = (select count(*)
-                                 from extraschool_child ec
-                                 where  i.parentid = ec.parentid
-                                 and ec.isdisabled = False
-                                    ))
-                            """,
+        if self._check_prestation:
+            message = "At least one prestations is not verified !!!"
+            biller.send_mail_error(_(message))
+            raise Warning(_(message))
 
-               'byparent_nb_childs_wp': """(select min(id)
-                                from extraschool_childposition
-                                where position = (select count(distinct childid)
-                                 from extraschool_prestationtimes ep
-                                 left join extraschool_child ec on ep.childid = ec.id
-                                 left join extraschool_activityoccurrence aao on aao.id = ep.activity_occurrence_id
-                                 left join extraschool_activity aa on aa.id = aao.activityid
-                                 where  ep.parent_id = i.parentid
-                                    and (
-                                          (
-                                            tarif_group_name is null and
-                                            ep.activity_occurrence_id = ip.activity_occurrence_id
-                                          ) or
-                                          (
-                                            tarif_group_name is not null
-                                            and tarif_group_name = aa.tarif_group_name
-                                            and ep.prestation_date = ip.prestation_date)
-
-                                        )
-                                    and invoiced_prestation_id is not NULL
-                                    and ec.isdisabled = False
-                            """,
-
-               'byaddress': """(select min(id)
-                                    from extraschool_childposition
-                                    where position = (select count(*) + 1
-                                     from extraschool_child ec
-                                     left join extraschool_parent pp on pp.id = ec.parentid
-                                     where  pp.streetcode = p.streetcode
-                                        and ec.id <> ip.childid
-                                        and ec.birthdate <= (select birthdate from extraschool_child where id = ip.childid)
-                                        and ec.isdisabled = False
-                                        ))
-                            """,
-               'byaddresswp': """(select min(cp.id)
-                                from extraschool_childposition cp
-                                where position = (select count(distinct ep.childid) + 1
-                                 from extraschool_prestationtimes ep
-                                 left join extraschool_child ec on ep.childid = ec.id
-                                 left join extraschool_parent pp on pp.id = ep.parent_id
-                                 left join extraschool_activityoccurrence aao on aao.id = ep.activity_occurrence_id
-                                 left join extraschool_activity aa on aa.id = aao.activityid
-                                 where  pp.streetcode = p.streetcode
-                                    and (
-                                          (
-                                            tarif_group_name is null and
-                                            ep.activity_occurrence_id = ip.activity_occurrence_id
-                                          ) or
-                                          (
-                                            tarif_group_name is not null
-                                            and tarif_group_name = aa.tarif_group_name
-                                            and ep.prestation_date = ip.prestation_date)
-
-                                        )
-                                    and invoiced_prestation_id is not NULL
-                                    and ep.childid <> ip.childid
-                                    and ec.birthdate <= (select birthdate from extraschool_child where id = ip.childid)
-                                    and ec.isdisabled = False
-                                    )
-                                    -
-                                    (select count(distinct ep.childid)
-                                     from extraschool_prestationtimes ep
-                                     left join extraschool_child ec on ep.childid = ec.id
-                                     left join extraschool_parent pp on pp.id = ep.parent_id
-                                     left join extraschool_activityoccurrence aao on aao.id = ep.activity_occurrence_id
-                                     left join extraschool_activity aa on aa.id = aao.activityid
-                                     where  pp.streetcode = p.streetcode
-                                        and (
-                                              (
-                                                tarif_group_name is null and
-                                                ep.activity_occurrence_id = ip.activity_occurrence_id
-                                              ) or
-                                              (
-                                                tarif_group_name is not null
-                                                and tarif_group_name = aa.tarif_group_name
-                                                and ep.prestation_date = ip.prestation_date)
-
-                                            )
-                                        and invoiced_prestation_id is not NULL
-                                        and ep.childid > ip.childid
-                                        and ec.birthdate = (select birthdate from extraschool_child where id = ip.childid)
-                                        and ec.isdisabled = False
-                                        )
-                                    )
-                            """,
-               'by_address_by_activity': """(select min(cp.id)
-                         from extraschool_childposition cp
-                         where position = (select count(distinct ep.childid) + 1
-                          from extraschool_prestationtimes ep
-                          left join extraschool_child ec on ep.childid = ec.id
-                          left join extraschool_parent pp on pp.id = ep.parent_id
-                          left join extraschool_activityoccurrence aao on aao.id = ep.activity_occurrence_id
-                          left join extraschool_activity aa on aa.id = aao.activityid
-                          where  pp.streetcode = p.streetcode
-                             and (
-                                   (
-                                     tarif_group_name is null and
-                                     (ep.activity_occurrence_id = ip.activity_occurrence_id
-                                     or
-                                     ip.activity_activity_id = (select activityid from extraschool_activityoccurrence where id = ep.activity_occurrence_id)
-                                     )
-                                   ) or
-                                   (
-                                     tarif_group_name is not null
-                                     and tarif_group_name = aa.tarif_group_name
-                                     and ep.prestation_date = ip.prestation_date)
-
-                                 )
-                             and invoiced_prestation_id is not NULL
-                             and ep.childid <> ip.childid
-                             and ec.birthdate <= (select birthdate from extraschool_child where id = ip.childid)
-                             and ec.isdisabled = False
-                             AND ip.prestation_date = ep.prestation_date
-                             )
-                             -
-                             (select count(distinct ep.childid)
-                              from extraschool_prestationtimes ep
-                              left join extraschool_child ec on ep.childid = ec.id
-                              left join extraschool_parent pp on pp.id = ep.parent_id
-                              left join extraschool_activityoccurrence aao on aao.id = ep.activity_occurrence_id
-                              left join extraschool_activity aa on aa.id = aao.activityid
-                              where  pp.streetcode = p.streetcode
-                                 and (
-                                       (
-                                         tarif_group_name is null and
-                                         (ep.activity_occurrence_id = ip.activity_occurrence_id
-                                         or
-                                         ip.activity_activity_id = (select activityid from extraschool_activityoccurrence where id = ep.activity_occurrence_id)
-                                         )
-                                       ) or
-                                       (
-                                         tarif_group_name is not null
-                                         and tarif_group_name = aa.tarif_group_name
-                                         and ep.prestation_date = ip.prestation_date)
-
-                                     )
-                                 and invoiced_prestation_id is not NULL
-                                 and ep.childid > ip.childid
-                                 and ec.birthdate = (select birthdate from extraschool_child where id = ip.childid)
-                                 and ec.isdisabled = False
-                                 AND ip.prestation_date = ep.prestation_date
-                                 )
-                             )
-                     """,
-               'byaddress_nb_childs': """(select min(id)
-                                    from extraschool_childposition
-                                    where position = (select count(*)
-                                     from extraschool_child ec
-                                     left join extraschool_parent pp on pp.id = ec.parentid
-                                     where  pp.streetcode = p.streetcode
-                                     and ec.isdisabled = False
-                                        ))
-                            """,
-
-               'byaddress_nb_childs_wp': """(select min(id)
-                                    from extraschool_childposition
-                                    where position = (select count(distinct childid)
-                                     from extraschool_prestationtimes ep
-                                     left join extraschool_child ec on ep.childid = ec.id
-                                     left join extraschool_parent pp on pp.id = ec.parentid
-                                     left join extraschool_activityoccurrence aao on aao.id = ep.activity_occurrence_id
-                                     left join extraschool_activity aa on aa.id = aao.activityid
-                                     where  pp.streetcode = p.streetcode
-                                        and (
-                                          (
-                                            tarif_group_name is null and
-                                            ep.activity_occurrence_id = ip.activity_occurrence_id
-                                          ) or
-                                          (
-                                            tarif_group_name is not null
-                                            and tarif_group_name = aa.tarif_group_name
-                                            and ep.prestation_date = ip.prestation_date)
-
-                                        )
-                                        and invoiced_prestation_id is not NULL
-                                        and ec.isdisabled = False
-                                        ))
-                            """,
-
-               }
-
-        return sql.get(self.env['extraschool.activitycategory'].search([])[0].childpositiondetermination)
+        if self._check_invoice:
+            message = "There is no presta to invoice !!!"
+            biller.send_mail_error(_(message))
+            raise Warning(_(message))
 
     @api.multi
     def _new_compute_invoices(self):
@@ -492,65 +261,7 @@ class extraschool_invoice_wizard(models.TransientModel):
                                     'activitycategoryid': [(6, False, self.activitycategory.ids)]
                                     })
 
-        # Check if all manuel encodage are validated.
-        if self._check_manual_encodage():
-            message = "Il y a au moins un encodage manuel non vérifié pour cette période"
-            biller.send_mail_error(_(message))
-            raise Warning(_(message))
-
-        # Check if all child registration are validated.
-        if self._check_registration():
-            message = "Il y a au moins une fiche d'inscription non validée pour cette période"
-            biller.send_mail_error(_(message))
-            raise Warning(_(message))
-
-        # check if all presta are verified
-        sql_check_verified = """select count(*) as verified_count
-                                    from extraschool_prestationtimes ept
-                                    left join extraschool_child c on ept.childid = c.id
-                                    where ept.prestation_date between %s and %s
-                                        and verified = False
-                                        and activity_category_id IN %s
-                                        and c.schoolimplantation IN %s
-                                ;"""
-
-        self.env.cr.execute(sql_check_verified, (self.period_from,
-                                                 self.period_to,
-                                                 tuple(self.activitycategory.ids),
-                                                 tuple(self.schoolimplantationid.ids),
-                                                 )
-                            )
-
-        verified_count = self.env.cr.dictfetchall()
-
-        if verified_count[0]['verified_count']:
-            message = "At least one prestations is not verified !!!"
-            biller.send_mail_error(_(message))
-            raise Warning(_(message))
-
-        # check if there are presta to invoice
-        sql_check_presta_to_invoice = """select count(*) as to_invoice_count
-                                    from extraschool_prestationtimes ept
-                                    left join extraschool_child c on ept.childid = c.id
-                                    where ept.prestation_date between %s and %s
-                                        and verified = True
-                                        and invoiced_prestation_id is NULL
-                                        and activity_category_id IN %s
-                                        and c.schoolimplantation IN %s
-                                ;"""
-
-        self.env.cr.execute(sql_check_presta_to_invoice, (self.period_from,
-                                                          self.period_to,
-                                                          tuple(self.activitycategory.ids),
-                                                          tuple(self.schoolimplantationid.ids),
-                                                          )
-                            )
-        to_invoice_count = self.env.cr.dictfetchall()
-
-        if not to_invoice_count[0]['to_invoice_count']:
-            message = "There is no presta to invoice !!!"
-            biller.send_mail_error(_(message))
-            raise Warning(_(message))
+        self._ensure_can_invoice(biller)
 
         # search parent to be invoiced
         sql_mega_invoicing = """select c.schoolimplantation as schoolimplantation, ept.parent_id as parent_id, childid, min(activity_occurrence_id) activity_occurrence_id,
