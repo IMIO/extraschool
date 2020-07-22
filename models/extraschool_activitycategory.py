@@ -185,52 +185,32 @@ class extraschool_activitycategory(models.Model):
         return True
 
     @api.multi
-    def get_sequence(self, type, year, manual=False, dominant=False):
+    def get_sequence(self, type, year):
         """
-        :param type: type of activity
-        :param year: year of activity
-        :param manual: is manual invoice
-        :return: sequence of activity
+        Get a sequence for this activity category, by type and year
+        :param type: invoice or reminder
+        :param year: desired year
+        :return: sequence
         """
+        self.ensure_one()
+        sequence_id = self.sequence_ids.search([('type', '=', type),
+                                                ('year', '=', year),
+                                                ('activity_category_id', '=', self.id),
+                                                ])
+        if not sequence_id:
+            sequence_id = self.env['ir.sequence'].create({'name': "%s - %s - %s" % (self.name, type, year),
+                                                          'active': True,
+                                                          'prefix': "%s" % (("%s" % year)[-2:]),
+                                                          'padding': 5})
+            sequence_id = self.env["extraschool.activitycategory.sequence"].create({
+                "name": "{} - {} - {}".format(self.name, type, year),
+                "activity_category_id": self.id,
+                "year": year,
+                "type": type,
+                "sequence": sequence_id.id
+            })
 
-        if manual:
-            sequence_id = self.sequence_ids.search([('type', '=', type),
-                                                    ('year', '=', year),
-                                                    ('activity_category_id', '=', self.id),
-                                                    ])
-        elif dominant:
-            sequence_id = self.sequence_ids.search([('type', '=', type),
-                                                    ('year', '=', year),
-                                                    ('activity_category_id', '=', self.env['extraschool.organising_power'].search([])[0].dominant_activity_category_id.id),
-                                                    ])
-        else:
-            sequence_id = self.sequence_ids.search([('type', '=', type),
-                                                    ('year', '=', year),
-                                                    ('activity_category_id', '=', self.id),
-                                                    ])
-
-        if len(sequence_id) == 0:
-            # sequence doesn't exist, look for previous year seq to copy it
-            sequence_id = self.sequence_ids.search([('type', '=', type),
-                                                    ('year', '=', year - 1), ])
-
-            if len(sequence_id):
-                sequence_id = self.env['ir.sequence'].create({'name': "%s - %s - %s" % (self.name, type, year),
-                                                              'active': True,
-                                                              'prefix': "%s" % (("%s" % (year))[-2:]),
-                                                              'padding': 5})
-
-                # categ_sequence_id = self.sequence_ids.create({'name': "%s - %s - %s" % (self.name, type, year),
-                #                                               'activity_category_id': self.id,
-                #                                               'year': "%s" % (year),
-                #                                               'type': type,
-                #                                               'sequence': sequence_id.id})
-            else:
-                raise Warning(_("Sequence not defined"))
-        else:
-            sequence_id = sequence_id.sequence
-
-        return sequence_id
+        return sequence_id.sequence
 
     @api.multi
     def get_next_sequence_id(self, sequence, type):
@@ -243,7 +223,7 @@ class extraschool_activitycategory(models.Model):
         return com_struct_id_str
 
     @api.multi
-    def get_next_comstruct(self, type, year, sequence_id=False, manual=False):
+    def get_next_comstruct(self, type, year, sequence_id=False):
         # Added a refund comstruct.
         if type == 'refund':
             next_id = self.env['extraschool.invoice'].search([('structcom', 'like', '+++000')], order='number DESC',
@@ -253,9 +233,10 @@ class extraschool_activitycategory(models.Model):
             return {"num": next_id,
                     "com_struct": '+++000/%s/%s+++' % (datetime.now().strftime("%m%d"), datetime.now().strftime("%Y"),),
                     }
-
+        import wdb
+        wdb.set_trace()
         if not sequence_id:
-            sequence_id = self.get_sequence(type, year, manual)
+            sequence_id = self.get_sequence(type, year)
 
         com_struct_id_str = sequence_id.next_by_id()
 
