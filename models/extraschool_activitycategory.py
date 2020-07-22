@@ -233,8 +233,6 @@ class extraschool_activitycategory(models.Model):
             return {"num": next_id,
                     "com_struct": '+++000/%s/%s+++' % (datetime.now().strftime("%m%d"), datetime.now().strftime("%Y"),),
                     }
-        import wdb
-        wdb.set_trace()
         if not sequence_id:
             sequence_id = self.get_sequence(type, year)
 
