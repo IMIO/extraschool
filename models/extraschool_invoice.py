@@ -103,7 +103,7 @@ class extraschool_invoice(models.Model):
 
     _sql_constraints = [
         ('structcom_uniq', 'unique(structcom)',
-         "The structured communication is already distributed. Please contact support-aes@imio.be"),
+         _("The structured communication is already distributed. Please contact support-aes@imio.be")),
     ]
 
     @api.multi
