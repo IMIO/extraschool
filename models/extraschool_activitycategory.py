@@ -198,10 +198,16 @@ class extraschool_activitycategory(models.Model):
                                                 ('activity_category_id', '=', self.id),
                                                 ])
         if not sequence_id:
-            sequence_id = self.env['ir.sequence'].create({'name': "%s - %s - %s" % (self.name, type, year),
-                                                          'active': True,
-                                                          'prefix': "%s" % (("%s" % year)[-2:]),
-                                                          'padding': 5})
+            # sequence doesn't exist, look for previous year seq to copy it
+            sequence_id = self.sequence_ids.search([('type', '=', type),
+                                                    ('year', '=', year - 1),
+                                                    ("activity_category_id", "=", self.id)]).sequence
+            if not sequence_id:
+                sequence_id = self.env['ir.sequence'].create({'name': "%s - %s - %s" % (self.name, type, year),
+                                                              'active': True,
+                                                              'prefix': "%s" % (("%s" % year)[-2:]),
+                                                              'padding': 5})
+
             sequence_id = self.env["extraschool.activitycategory.sequence"].create({
                 "name": "{} - {} - {}".format(self.name, type, year),
                 "activity_category_id": self.id,
