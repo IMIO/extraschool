@@ -2,9 +2,9 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2019
+#    Copyright (C) 2008-2020
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia & Jenny Pans- Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -21,59 +21,52 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
-from openerp.api import Environment
-import cStringIO
-import base64
-import os
+from openerp import models, api, fields, _
+from openerp.exceptions import Warning
+
 
 class extraschool_qrcodes_wizard(models.TransientModel):
     _name = 'extraschool.qrcodes_wizard'
 
-
     quantity = fields.Integer('Quantity to print')
-    print_type = fields.Selection((('qrcode','Qr Code'),('logo','Logo'),),'Print Type', required=True)
+    print_type = fields.Selection((('qrcode', 'Qr Code'), ('logo', 'Logo'),), 'Print Type', required=True)
     last_id = fields.Integer('Last id')
     name = fields.Char('File Name', size=16, readonly=True)
     print_value = fields.Boolean('Print QrCode value')
     logo = fields.Binary()
     format = fields.Selection([('extraschool.tpl_qrcodes_wizard_report', 'Standard'),
-                             ('extraschool.tpl_qrcodes_precut_wizard_report', 'Precut')],
-                            'Format', required=True, default='extraschool.tpl_qrcodes_wizard_report'
-                            )
+                               ('extraschool.tpl_qrcodes_precut_wizard_report', 'Precut')],
+                              'Format', required=True, default='extraschool.tpl_qrcodes_wizard_report'
+                              )
     state = fields.Selection([('init', 'Init'),
-                             ('print_qrcodes', 'Print QRCodes')],
-                            'State', required=True, default='init'
-                            )
-    # qr_config = fields.Many2one('extraschool.qrconfig', string='QR Config')
+                              ('print_qrcodes', 'Print QRCodes')],
+                             'State', required=True, default='init'
+                             )
 
+    @api.multi
+    def _ensure_quantity(self):
+        if self.quantity <= 0:
+            raise Warning(_("Quantity must be superior than 0"))
 
     @api.multi
     def action_print_qrcodes(self):
-
+        self._ensure_quantity()
         report = self.env['report']._get_report_from_name('extraschool.tpl_qrcodes_wizard_report')
         config = self.env['extraschool.mainsettings'].browse([1])
-        #get last qrcode value from config
+        # get last qrcode value from config
         self.last_id = config.lastqrcodenbr + 1
 
-        #SET last qrcode value to config
+        # SET last qrcode value to config
         config.lastqrcodenbr = config.lastqrcodenbr + self.quantity
 
         datas = {
-        'ids': self.ids,
-        'model': report.model,
+            'ids': self.ids,
+            'model': report.model,
         }
 
         return {
-               'type': 'ir.actions.report.xml',
-               'report_name': self.format,
-               'datas': datas,
-               'report_type': 'qweb-pdf',
-           }
-
-# class extraschool_qrconfig(models.TransientModel):
-#     _name='extraschool.qrconfig'
-#
-#     name = fields.Char('Name')
-#     qr_logo_size = fields.Char('Size of QR code logo', default="qrcode_img")
-#     qr_name_size = fields.Char('Size of QR code name', default='qr_child_name')
+            'type': 'ir.actions.report.xml',
+            'report_name': self.format,
+            'datas': datas,
+            'report_type': 'qweb-pdf',
+        }
