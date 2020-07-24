@@ -21,7 +21,14 @@
                 <field name="url">http://docs.imio.be/aes/</field>
         </record>
 
+        <record id="aes_support" model="ir.actions.act_url">
+                <field name="name">Support AES</field>
+                <field name="type">ir.actions.act_url</field>
+                <field name="url">https://support.imio.be/</field>
+        </record>
+
         <menuitem action="aes_doc" name="Documentation AES" id="menu_aes_doc" sequence="1"/>
+        <menuitem action="aes_support" name="Support AES" id="menu_aes_support" sequence="2"/>
         <menuitem name="Extraschool" id="menu_extraschool" sequence="0"/>
 		<menuitem name="Signaletics" id="extraschool_menu_signaletics" parent="menu_extraschool" sequence="10"/>
 		<menuitem name="Childs" parent="extraschool_menu_signaletics" id="extraschool_menu_child" action="action_extraschool_child"/>
