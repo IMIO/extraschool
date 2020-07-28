@@ -246,7 +246,7 @@
             <field name="name">Child registration</field>
             <field name="res_model">extraschool.child_registration</field>
             <field name="view_type">form</field>
-            <field name="domain">[('activity_id','!=',False),]</field>
+            <field name="domain">[('activity_id','!=',False),('age_group', '=', False)]</field>
         </record>
 
         <record model="ir.actions.act_window.view" id="action_extraschool_child_registration_tree">
@@ -271,7 +271,7 @@
             <field name="res_model">extraschool.child_registration</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="domain">[('activity_id','=',False),]</field>
+            <field name="domain">[('activity_id','=',False),('age_group', '=', False)]</field>
         </record>
 
         <record model="ir.actions.act_window.view" id="action_extraschool_child_registration_tree_multi">

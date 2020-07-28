@@ -107,6 +107,10 @@ class extraschool_child_registration(models.Model):
     ])
     comment = fields.Text('Comment', track_visibility='onchange')
 
+    age_group = fields.Many2one(
+        'extraschool.age_group',
+    )
+
     @api.onchange('date_to', 'date_from')
     @api.multi
     def check_date(self):
