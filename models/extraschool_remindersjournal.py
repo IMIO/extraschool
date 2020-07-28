@@ -253,7 +253,7 @@ class extraschool_remindersjournal(models.Model):
                  'parentid': key,
                  'school_implantation_id': invoice_obj.browse(invoice_dict[key][0]).schoolimplantationid.id,
                  'structcom': activity_category.get_next_comstruct(
-                     'reminder', invoice_obj.browse(invoice_dict[key][0]).biller_id.get_from_year(), False, True)[
+                     'reminder', invoice_obj.browse(invoice_dict[key][0]).biller_id.get_from_year(), False)[
                      'com_struct'],
                  'amount': sum([invoice_obj.browse(invoice).balance for invoice in invoice_dict[key]]),
                  'concerned_invoice_ids': [(6, 0, invoice_dict[key])],
@@ -277,7 +277,7 @@ class extraschool_remindersjournal(models.Model):
                     biller_is_made = True
 
                 next_invoice_num = activity_category.get_next_comstruct('invoice', self.biller_id.get_from_year(),
-                                                                        False, True)
+                                                                        False)
                 fees_invoice = invoice_obj.create(
                     {'name': _('invoice_%s') % (next_invoice_num['num'],),
                      'number': next_invoice_num['num'],
@@ -444,7 +444,7 @@ class extraschool_remindersjournal(models.Model):
                              'structcom': activity_category.get_next_comstruct('reminder',
                                                                                fields.Date.from_string(
                                                                                    self.transmission_date).year,
-                                                                               False, True)['com_struct']
+                                                                               False)['com_struct']
                              })
                         if reminder_type.fees_type == 'fix':
                             if biller_id == -1:
@@ -458,7 +458,7 @@ class extraschool_remindersjournal(models.Model):
 
                             next_invoice_num = activity_category.get_next_comstruct('invoice',
                                                                                     self.biller_id.get_from_year(),
-                                                                                    False, True)
+                                                                                    False)
                             # create fees invoice
                             fees_invoice = inv_obj.create({'name': _('invoice_%s') % (next_invoice_num['num'],),
                                                            'number': next_invoice_num['num'],
