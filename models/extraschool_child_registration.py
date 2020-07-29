@@ -24,7 +24,7 @@
 from openerp import models, api, fields, _
 from openerp.exceptions import except_orm, Warning, RedirectWarning
 from openerp.addons.extraschool.helper import extraschool_helper
-from datetime import date, datetime, timedelta as td
+from datetime import date, datetime, timedelta as td, timedelta
 from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
 import logging
@@ -110,6 +110,20 @@ class extraschool_child_registration(models.Model):
     age_group = fields.Many2one(
         'extraschool.age_group',
     )
+
+    @staticmethod
+    def get_start_date(year, week):
+        first_day = datetime(year, 1, 1)
+        first_day = first_day - timedelta(first_day.weekday())
+        dlt = timedelta(days=(week - 1) * 7)
+        return first_day + dlt
+
+    @staticmethod
+    def get_end_date(year, week):
+        first_day = datetime(year, 1, 1)
+        first_day = first_day - timedelta(first_day.weekday())
+        dlt = timedelta(days=(week - 1) * 7)
+        return first_day + dlt + timedelta(days=6)
 
     @api.onchange('date_to', 'date_from')
     @api.multi
