@@ -7,6 +7,7 @@
             <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree string="child registration" colors="red:error_duplicate_reg_line==True">
+                    <field name="number_childs"/>
                     <field name="school_implantation_id"/>
                     <field name="class_id"/>
                     <field name="levelid"/>
@@ -15,7 +16,6 @@
                     <field name="week"/>
                     <field name="date_from"/>
                     <field name="date_to"/>
-                    <!--<field name="age_group"/>-->
                     <field name="state"/>
                     <field name="error_duplicate_reg_line" invisible="1"/>
                 </tree>
