@@ -335,6 +335,7 @@ class extraschool_invoice(models.Model):
             raise Warning(_("There is no street on the place."))
         saved_child['place'] = invoicedline.placeid
         saved_child['quantity'] = invoicedline.quantity
+        saved_child['schoolimplantation'] = invoicedline.childid.schoolimplantation.name
 
         return saved_child
 
@@ -392,7 +393,8 @@ class extraschool_invoice(models.Model):
         format_str += "%s\t"  # nbr j présences
         format_str += "%.2f\t"  # fisc amount
         format_str += "%.2f\t"  # amount
-        format_str += "%.2f"  # quantity
+        format_str += "%.2f\t"  # quantity
+        format_str += "%s"  # school implantation of child
 
         format_activities_str = ""
         for activity in activities:
@@ -424,6 +426,7 @@ class extraschool_invoice(models.Model):
         saved_child['splited_place_street'] = []
         saved_child['place'] = ''
         saved_child['quantity'] = 0.0
+        saved_child['schoolimplantation'] = ""
 
         total = 0
         lines_ids = self.invoice_line_ids.filtered(lambda r: r.total_price > 0.0001).sorted(
@@ -484,7 +487,8 @@ class extraschool_invoice(models.Model):
                                              'nbr_jour_printed'] else 0,
                                          saved_child['fisc_amount'],
                                          saved_child['amount'],
-                                         saved_child['quantity']
+                                         saved_child['quantity'],
+                                         saved_child['schoolimplantation'],
                                          )
                 total += saved_child['amount']
                 if saved_child['nbr_jour']:
@@ -554,6 +558,7 @@ class extraschool_invoice(models.Model):
                                      saved_child['fisc_amount'],
                                      saved_child['amount'],
                                      saved_child['quantity'],
+                                     saved_child['schoolimplantation'],
                                      )
             total += saved_child['amount']
             res.append(str_line)
