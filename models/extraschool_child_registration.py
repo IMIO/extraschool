@@ -36,6 +36,7 @@ class extraschool_child_registration(models.Model):
     _name = 'extraschool.child_registration'
     _description = 'Child registration'
     _inherit = 'mail.thread'
+    _order = 'date_from desc'
 
     @api.multi
     def name_get(self):
