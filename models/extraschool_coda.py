@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2019
+#    Copyright (C) 2008-2020
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
 #
