@@ -28,6 +28,7 @@ import logging
 
 _logger = logging.getLogger(__name__)
 
+
 class extraschool_mainsettings(models.Model):
     _name = 'extraschool.mainsettings'
     _description = 'Main Settings'
@@ -65,12 +66,14 @@ class extraschool_mainsettings(models.Model):
     childid = fields.Many2one('extraschool.child', 'Child')
     prestation_date = fields.Date('Date')
     prestation_time = fields.Float('Time')
-    type = fields.Selection((('pda','Smartphone'),
-                           ('manuel','Encodage manuel')),'Type', default='pda' )
-    prestation_times_encodage_manuel_id = fields.Many2one('extraschool.prestation_times_encodage_manuel', 'Encodage Manuel',ondelete='cascade')
-    es = fields.Selection((('E','In'),
-                           ('S','Out')),'ES' )
-    prestation_times_of_the_day_id = fields.Many2one('extraschool.prestation_times_of_the_day', 'Prestation of the day',ondelete='cascade')
+    type = fields.Selection((('pda', 'Smartphone'),
+                             ('manuel', 'Encodage manuel')), 'Type', default='pda')
+    prestation_times_encodage_manuel_id = fields.Many2one('extraschool.prestation_times_encodage_manuel',
+                                                          'Encodage Manuel', ondelete='cascade')
+    es = fields.Selection((('E', 'In'),
+                           ('S', 'Out')), 'ES')
+    prestation_times_of_the_day_id = fields.Many2one('extraschool.prestation_times_of_the_day', 'Prestation of the day',
+                                                     ondelete='cascade')
     pda_transmission_id = fields.Many2one('extraschool.pda_transmission', 'Transmission')
     reminder_journal_id = fields.Many2one(
         'extraschool.remindersjournal'
@@ -104,7 +107,8 @@ class extraschool_mainsettings(models.Model):
         cr.execute(sql_query, (self.date_from, self.date_to))
         prestation_ids = cr.fetchall()
 
-        prestations = self.env['extraschool.prestation_times_of_the_day'].browse([prestation_id[0] for prestation_id in prestation_ids])
+        prestations = self.env['extraschool.prestation_times_of_the_day'].browse(
+            [prestation_id[0] for prestation_id in prestation_ids])
 
         logging.info("#Check POD without occurrence starting {} ....".format(len(prestations)))
         for presta in prestations:
@@ -124,7 +128,8 @@ class extraschool_mainsettings(models.Model):
         count = 0
         logging.info("#Reset and check starting....")
         for prestation_id in prestation_ids:
-            test = self.env['extraschool.prestation_times_of_the_day'].search([('prestationtime_ids', 'in', prestation_id)])
+            test = self.env['extraschool.prestation_times_of_the_day'].search(
+                [('prestationtime_ids', 'in', prestation_id)])
             if test:
                 count += 1
                 test.reset()
@@ -135,9 +140,8 @@ class extraschool_mainsettings(models.Model):
     def generate_coda(self):
         logging.info("#Generation of CODA file")
 
-
-
-        header_1 = "00000" + self.coda_date[8:10] + self.coda_date[5:7] + self.coda_date[2:4] + "30005        57181261  COMMUNE D'ASSESSE         BBRUBEBB   00000000000 00000                                       2"
+        header_1 = "00000" + self.coda_date[8:10] + self.coda_date[5:7] + self.coda_date[
+                                                                          2:4] + "30005        57181261  COMMUNE D'ASSESSE         BBRUBEBB   00000000000 00000                                       2"
         header_2 = "12171BE22363125809747                  EUR0000000160997990140917COMMUNE D'ASSESSE         Compte  vue                       171"
 
         amount = self.amount.split('.')
@@ -149,7 +153,7 @@ class extraschool_mainsettings(models.Model):
         for char in self.communication:
             if char != '/':
                 naked_comm += char
-        amount_line = "2100010000090545069I099002624  " + euros + cents +"0190917001500001101" + naked_comm + "                                      19091717101 0"
+        amount_line = "2100010000090545069I099002624  " + euros + cents + "0190917001500001101" + naked_comm + "                                      19091717101 0"
 
         filler = "2200010000                                                     NOTPROVIDED                        GKCCBEBB                   1 0"
 
@@ -352,6 +356,7 @@ class extraschool_mainsettings(models.Model):
             self.clean_old_level_id()
 
             self.date_revert_upgrade = datetime.now()
+
     # endregion
 
     @api.one
@@ -369,7 +374,7 @@ class extraschool_mainsettings(models.Model):
     def check(self):
         self.merge_pod_dup()
         for reg in self.env['extraschool.prestation_times_of_the_day'].search(
-                [('id', 'in', self._context.get('active_ids')), ]):
+            [('id', 'in', self._context.get('active_ids')), ]):
             reg.check()
 
         return True
@@ -440,7 +445,6 @@ class extraschool_mainsettings(models.Model):
         pod_error_ids = [doublon['id'] for doublon in pod_errors]
 
         self.env['extraschool.prestation_times_of_the_day'].browse(pod_error_ids).reset()
-
 
     @api.multi
     def reset_biller(self):
@@ -525,7 +529,7 @@ class extraschool_mainsettings(models.Model):
         child_ids = self.env['extraschool.child'].search([('isdisabled', '=', False)])
 
         for child_id in child_ids:
-            if child_id.levelid.name == level.name :
+            if child_id.levelid.name == level.name:
                 child_id.childtypeid = type
 
                 child_id.write({
@@ -577,17 +581,17 @@ class extraschool_mainsettings(models.Model):
         for parent_id in parent_ids:
             print parent_id.rn
             new_rn = parent_id.rn
-            if parent_id.rn :
+            if parent_id.rn:
                 if ' ' in parent_id.rn:
                     new_rn = parent_id.rn.replace(' ', '')
-                if '-' in parent_id.rn :
-                    new_rn = parent_id.rn.replace('-','')
+                if '-' in parent_id.rn:
+                    new_rn = parent_id.rn.replace('-', '')
                 if '.' in parent_id.rn:
                     new_rn = parent_id.rn.replace('.', '')
                 print "neeeeeeeeex", new_rn
             parent_id.write({
-                    'rn': new_rn,
-                })
+                'rn': new_rn,
+            })
 
     @api.multi
     def upper_parents_lastname(self):
@@ -620,8 +624,8 @@ class extraschool_mainsettings(models.Model):
                     new_rn = child_id.rn.replace('.', '')
                 print new_rn
             child_id.write({
-                    'rn': new_rn,
-                })
+                'rn': new_rn,
+            })
 
     @api.multi
     def pdf_to_true(self):
@@ -674,4 +678,19 @@ class extraschool_mainsettings(models.Model):
                     """
 
         cr.execute(sql_query, [])
+
+    @api.multi
+    def post_child_meal(self):
+        self.env["extraschool.child_registration_meal"].add_registration_child_meal({'child_id': '1137',
+                                                                                     'meals': ['_25-08-2020_potage',
+                                                                                               '_07-08-2020_potage',
+                                                                                               '_18-08-2020_potage',
+                                                                                               '_24-08-2020_potage',
+                                                                                               '_27-08-2020_repas',
+                                                                                               '_26-08-2020_repas'],
+                                                                                     'form_id': '59'})
+
+    @api.multi
+    def get_child_meal(self):
+        pass
     # endregion

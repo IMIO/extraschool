@@ -104,6 +104,24 @@
                                     </group>
                                 </group>
                             </page>
+                            <page string="DEBUG Meal">
+                                <group string="Tester repas">
+                                    <button
+                                        name="post_child_meal"
+                                        string="post child meal"
+                                        icon="gtk-apply"
+                                        type="object"
+                                        confirm="Es-tu sûre Coralie ? Cette action est irréversible !"
+                                    />
+                                    <button
+                                        name="get_child_meal"
+                                        string="get child meal"
+                                        icon="gtk-apply"
+                                        type="object"
+                                        confirm="Es-tu sûre Coralie ? Cette action est irréversible !"
+                                    />
+                                </group>
+                            </page>
                             <page string="Bouton pour Coralie &lt;3">
                                 <group string="Supprimer présences" col="2">
                                     <group>
