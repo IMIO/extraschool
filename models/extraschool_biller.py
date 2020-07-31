@@ -139,6 +139,10 @@ class extraschool_biller(models.Model):
         for biller in self:
             biller.nbinvoices = len(self.invoice_ids)
 
+    @api.model
+    def get_last(self):
+        return max(self.search([]))
+
     @api.multi
     def _ensure_delete_one_biller(self):
         """
@@ -298,18 +302,18 @@ class extraschool_biller(models.Model):
         self.pdf_ready = False
         # clear cache
         self.env.invalidate_all()
-        # count = 0
-        # for invoice in self.invoice_ids:
-        #     count = count + 1
-        #     self.env['report'].get_pdf(invoice, 'extraschool.invoice_report_layout')
-        #     _logger.info("generate pdf {} count: {}".format(invoice.id, count))
-        wanted_parts = int(0.25 * len(self.invoice_ids))
-        list_invoice_ids = extraschool_helper.split_list(self.invoice_ids.ids, wanted_parts)
-        for list_invoice in list_invoice_ids:
-            thread = threading.Thread(target=self._run_process, args=(self.id, list_invoice))
-            thread.start()
-
-        self.pdf_ready = True
+        count = 0
+        for invoice in self.invoice_ids:
+            count = count + 1
+            self.env['report'].get_pdf(invoice, 'extraschool.invoice_report_layout')
+            _logger.info("generate pdf {} count: {}".format(invoice.id, count))
+        # wanted_parts = int(0.25 * len(self.invoice_ids))
+        # list_invoice_ids = extraschool_helper.split_list(self.invoice_ids.ids, wanted_parts)
+        # for list_invoice in list_invoice_ids:
+        #     thread = threading.Thread(target=self._run_process, args=(self.id, list_invoice))
+        #     thread.start()
+        #
+        # self.pdf_ready = True
         # self.send_mail_completed()
 
     # def _run_process(self, active_id, list_of_ids):

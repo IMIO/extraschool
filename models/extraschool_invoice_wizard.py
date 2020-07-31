@@ -116,6 +116,22 @@ class extraschool_invoice_wizard(models.TransientModel):
     check_prestation = fields.Boolean(default=True)
     check_invoice = fields.Boolean(default=True)
     generate_pdf = fields.Boolean(default=True)
+    last_biller = fields.Many2one("extraschool.biller", 'Last biller', compute="_compute_last_biller", readonly=True)
+    can_invoice = fields.Boolean(default=False)
+
+    @api.onchange('last_biller')
+    @api.multi
+    def _compute_last_biller(self):
+        for rec in self:
+            self.last_biller = self.env["extraschool.biller"].get_last().id
+
+    # @api.onchange('last_biller')
+    # @api.multi
+    # def _compute_can_invoice(self):
+    #     for rec in self:
+    #         can_invoice = True
+    #         if rec.last_biller:
+    #             if rec.last_biller.
 
     ####################################################################################################################
     #   HELPER to the invoicing and output to the user what needs to be done before invoicing.
@@ -233,12 +249,12 @@ class extraschool_invoice_wizard(models.TransientModel):
             # biller.send_mail_error(_(message))
             raise Warning(_(message))
 
-        if not self._check_prestation:
+        if not self.check_prestation:
             message = "At least one prestations is not verified !!!"
             # biller.send_mail_error(_(message))
             raise Warning(_(message))
 
-        if not self._check_invoice:
+        if not self.check_invoice:
             message = "There is no presta to invoice !!!"
             # biller.send_mail_error(_(message))
             raise Warning(_(message))
@@ -347,9 +363,6 @@ class extraschool_invoice_wizard(models.TransientModel):
                                      invoice_line['activity_occurrence_id'],
                                      duration,
                                      ))
-
-        import wdb
-        wdb.set_trace()
         if len(invoice['lines']):
             args.append(invoice)
 
@@ -677,4 +690,6 @@ class extraschool_invoice_wizard(models.TransientModel):
 
     @api.multi
     def action_compute_invoices(self):
+        if not self.can_invoice:
+            raise Warning(_("You can't invoice yet !"))
         return self._new_compute_invoices()
