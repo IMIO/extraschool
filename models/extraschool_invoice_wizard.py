@@ -222,25 +222,25 @@ class extraschool_invoice_wizard(models.TransientModel):
     @api.multi
     def _ensure_can_invoice(self, biller):
         # Check if all manuel encodage are validated.
-        if self.check_manual:
+        if not self.check_manual:
             message = "Il y a au moins un encodage manuel non vérifié pour cette période"
-            biller.send_mail_error(_(message))
+            # biller.send_mail_error(_(message))
             raise Warning(_(message))
 
         # Check if all child registration are validated.
-        if self.check_registration:
+        if not self.check_registration:
             message = "Il y a au moins une fiche d'inscription non validée pour cette période"
-            biller.send_mail_error(_(message))
+            # biller.send_mail_error(_(message))
             raise Warning(_(message))
 
-        if self._check_prestation:
+        if not self._check_prestation:
             message = "At least one prestations is not verified !!!"
-            biller.send_mail_error(_(message))
+            # biller.send_mail_error(_(message))
             raise Warning(_(message))
 
-        if self._check_invoice:
+        if not self._check_invoice:
             message = "There is no presta to invoice !!!"
-            biller.send_mail_error(_(message))
+            # biller.send_mail_error(_(message))
             raise Warning(_(message))
 
     @api.multi
@@ -312,36 +312,14 @@ class extraschool_invoice_wizard(models.TransientModel):
         args = []
         invoice = False
         lines = []
-        # invoice_id = [] NEW WAY
         for invoice_line in invoice_lines:
             if saved_parent_id != invoice_line[
-                'parent_id']:  # or saved_schoolimplantation_id != invoice_line['schoolimplantation']:
+                'parent_id']:
                 saved_parent_id = invoice_line['parent_id']
                 saved_schoolimplantation_id = invoice_line['schoolimplantation']
                 next_invoice_num = self.env['extraschool.activitycategory'].search(
                     [('id', '=', invoice_line['activity_category_id'])]).get_next_comstruct('invoice', year,
                                                                                             sequence_id)
-                #                 invoice = inv_obj.with_context(ctx).create({'name' : _('invoice_%s') % (next_invoice_num['num'],),
-                #                                             'number' : next_invoice_num['num'],
-                #                                             'parentid' : saved_parent_id,
-                #                                             'biller_id' : biller.id,
-                #                                             'activitycategoryid': self.activitycategory.id,
-                #                                             'schoolimplantationid': saved_schoolimplantation_id,
-                #                                             'payment_term': biller.payment_term,
-                #                                             'structcom': next_invoice_num['com_struct']})
-                # NEW WAY
-                # id = self.env['extraschool.invoice'].create({
-                #     'name': ('invoice_%s') % (next_invoice_num['num'],),
-                #     'number': next_invoice_num['num'],
-                #     'parentid': saved_parent_id,
-                #     'biller_id': biller.id,
-                #     'activitycategoryid': self.activitycategory,
-                #     'schoolimplantationid': saved_schoolimplantation_id,
-                #     'payment_term': biller.payment_term,
-                #     'structcom': next_invoice_num['com_struct'],
-                # })
-                #
-                # invoice_id.append(id)
 
                 if invoice:
                     args.append(invoice)
@@ -370,6 +348,8 @@ class extraschool_invoice_wizard(models.TransientModel):
                                      duration,
                                      ))
 
+        import wdb
+        wdb.set_trace()
         if len(invoice['lines']):
             args.append(invoice)
 
