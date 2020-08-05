@@ -66,39 +66,6 @@
             </field>
         </record>
 
-        <record model="ir.ui.view" id="extraschool_reminders_journal_biller_item_tree">
-            <field name="name">extraschool.reminder.journal.biller.item.tree</field>
-            <field name="model">extraschool.reminders_journal_biller_item</field>
-            <field name="type">tree</field>
-            <field name="arch" type="xml">
-                <tree string="Reminder biller journal">
-                    <field name="name"/>
-                    <field name="reminders_journal_id"/>
-                    <field name="biller_id"/>
-                    <field name="reminder_amount" sum="True"/>
-                    <field name="exit_accounting_amount" sum="True"/>
-                </tree>
-            </field>
-        </record>
-
-        <record model="ir.ui.view" id="extraschool_reminders_journal_biller_item_form">
-            <field name="name">extraschool.reminder.journal.biller.item.form</field>
-            <field name="model">extraschool.reminders_journal_biller_item</field>
-            <field name="type">form</field>
-            <field name="arch" type="xml">
-                <form string="Reminder biller journal">
-                    <group col="4">
-                        <field name="name"/>
-                        <field name="reminders_journal_id"/>
-                        <field name="biller_id"/>
-                        <newline/>
-                        <field name="reminder_amount" sum="True"/>
-                        <field name="exit_accounting_amount" sum="True"/>
-                    </group>
-                </form>
-            </field>
-        </record>
-
         <record model="ir.ui.view" id="extraschool_reminders_journal_form">
             <field name="name">extraschool.remindersjournal.form</field>
             <field name="model">extraschool.remindersjournal</field>
@@ -111,7 +78,7 @@
                                 context="{'wizard': False}"/>
                         <button name="generate_pdf" string="Re-Print" type="object" states='validated'
                                 class="oe_highlight"/>
-                        <button name="delete" string="Delete" type="object" states='validated' class="oe_highlight"
+                        <button name="unlink" string="Delete" type="object" states='validated' class="oe_highlight"
                                 group="admin"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft, validated"
                                states="draft, validated"/>

@@ -62,8 +62,6 @@ class extraschool_remindersjournal(models.Model):
                                    track_visibility='onchange')
     biller_id = fields.Many2one('extraschool.biller', 'Biller', readonly=True, states={'hidden': [('readonly', False)]})
     biller_ids = fields.One2many('extraschool.biller', 'reminder_journal_id', compute='_compute_concerned_billers')
-    remindersjournal_biller_item_ids = fields.One2many('extraschool.reminders_journal_biller_item',
-                                                       'reminders_journal_id', 'Reminders biller item')
     ready_to_print = fields.Boolean(String='Ready to print', default=False)
     date_from = fields.Date(string='Date from', readonly=True,
                             states={'hidden': [('readonly', False)], 'draft': [('readonly', False)]},
@@ -99,20 +97,13 @@ class extraschool_remindersjournal(models.Model):
 
     @api.multi
     def _compute_unsolved_reminder_method(self):
+        """
+        Search unpaid reminders for display
+        :return: None
+        """
         for rec in self:
             rec.unsolved_reminder_ids = [reminder.id for reminder in self.env['extraschool.reminder'].search(
                 [('reminders_journal_id', '=', rec.id)]) if reminder.balance_computed > 0]
-
-    # @api.multi
-    # def write(self, vals):
-    #     if self.state == 'validated':
-    #         raise Warning(_("You can't modify an existing reminder."))
-    #     else:
-    #         return super(extraschool_remindersjournal, self).write(vals)
-
-    @api.multi
-    def write(self, vals):
-        return super(extraschool_remindersjournal, self).write(vals)
 
     @api.model
     def generate_pdf_thread(self, cr, uid, reminders, context=None):
@@ -157,25 +148,25 @@ class extraschool_remindersjournal(models.Model):
                 threaded_report.append(thread)
                 thread.start()
 
-    # @api.multi
-    # def delete(self):
-    #     self.reminder_ids.unlink()
-    #     self.reminders_journal_item_ids.unlink()
-
-    # Called from remindersjournal.validate()
     @api.multi
-    def _next_reminder(self):
-        logging.info("Initiating Next Reminder method")
-        biller_is_made = False
-        invoice_obj = self.env['extraschool.invoice']
-        # Get the information of the reminder this one is based on.
-
+    def _ensure_reminder_type_exists(self):
         # Get the next reminder_type
         reminder_type = self.env['extraschool.remindertype'].search(
             [('selected_type_id', '=', self.based_reminder_id.reminders_journal_item_ids.reminder_type_id.id)])
-
         if not reminder_type:
             raise Warning(_("There is no next reminder."))
+        return reminder_type
+
+    @api.multi
+    def _next_reminder(self):
+        """
+        When reminders journal is based on another reminder, this function is called.
+        :return: None
+        """
+        logging.info("Initiating Next Reminder method")
+        reminder_type = self._ensure_reminder_type_exists()
+        biller_is_made = False
+        invoice_obj = self.env['extraschool.invoice']
 
         # Return id[0], balance[1] and parentid[2] of all the invoices that were not paid for the last reminder.
         cr = self.env.cr
@@ -527,26 +518,6 @@ class extraschool_remindersjournal(models.Model):
                                                          'reminder_id': invoice['reminder_id']
                                                          })
 
-        # update biller summary
-        get_biller_summary_sql = """select distinct(i.biller_id) as biller_id,sum(i.balance) as reminder_amount,
-                                                case when sum(rl.amount) is null then 0 else sum(rl.amount) end as refound_amount
-                                            from extraschool_reminder r
-                                            left join extraschool_invoice i on i.last_reminder_id = r.id
-                                            left join extraschool_refound_line rl on i.id = rl.invoiceid and rl.reminder_id = r.id
-                                            where r.reminders_journal_id = %s
-                                            group by i.biller_id
-                                        """
-        self.env.cr.execute(get_biller_summary_sql, (self.id,))
-        biller_summary_ids = self.env.cr.dictfetchall()
-
-        for biller_summary in biller_summary_ids:
-            self.env['extraschool.reminders_journal_biller_item'].create(
-                {'name': "%s - %s" % (self.name, biller_summary['reminder_amount']),
-                 'reminders_journal_id': self.id,
-                 'biller_id': biller_summary['biller_id'],
-                 'reminder_amount': biller_summary['reminder_amount'],
-                 'exit_accounting_amount': biller_summary['refound_amount']})
-
         self.env.cr.commit()
         self.generate_pdf()
         self.state = "validated"
@@ -613,6 +584,13 @@ class extraschool_remindersjournal(models.Model):
                 }
 
     @api.multi
+    def write(self, vals):
+        if self.state == 'validated':
+            raise Warning(_("You can't modify an existing reminder."))
+        else:
+            return super(extraschool_remindersjournal, self).write(vals)
+
+    @api.multi
     def unlink(self):
         for reminder_journal_item in self.reminders_journal_item_ids:
             if reminder_journal_item.reminder_type_id.bailiff:
@@ -642,14 +620,3 @@ class extraschool_remindersjournal_item(models.Model):
                                            required=True)
     payment_term = fields.Date('Payment term', required=True)
     amount = fields.Float('Amount', required=True)
-
-
-class extraschool_reminders_journal_biller_item(models.Model):
-    _name = 'extraschool.reminders_journal_biller_item'
-    _description = 'Reminders journal biller item'
-
-    name = fields.Char('Name', required=True)
-    reminders_journal_id = fields.Many2one('extraschool.remindersjournal', 'Reminder journal', ondelete='cascade')
-    biller_id = fields.Many2one('extraschool.biller', 'Biller', required=False)
-    reminder_amount = fields.Float('Reminder amount', required=True)
-    exit_accounting_amount = fields.Float('Exit accounting amount', required=True)
