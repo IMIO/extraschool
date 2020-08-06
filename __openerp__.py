@@ -50,6 +50,7 @@
         'data/data_tags_invoice.xml',
         'security/extraschool_security.xml',
         'security/ir.model.access.csv',
+        'views/extraschool_remindertype.xml',
         'views/extraschool_age_group.xml',
         'views/extraschool_activitycategory.xml',
         'views/extraschool_organising_power.xml',

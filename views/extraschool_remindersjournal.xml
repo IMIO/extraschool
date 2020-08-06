@@ -1,55 +1,6 @@
 <?xml version="1.0" ?>
 <odoo>
     <data>
-        <record model="ir.ui.view" id="extraschool_reminder_type_form">
-            <field name="name">extraschool.reminder_type.form</field>
-            <field name="model">extraschool.remindertype</field>
-            <field name="type">form</field>
-            <field name="arch" type="xml">
-                <form string="Reminders Type">
-                    <group col="4">
-                        <field name="name"/>
-                        <newline/>
-                        <field name="out_of_accounting"/>
-                        <field name="bailiff"/>
-                    </group>
-                    <group col="4" attrs="{'invisible':[('out_of_accounting', '=', True)]}">
-                        <field name="fees_type" attrs="{'required':[('out_of_accounting', '!=', 'True')]}"/>
-                        <field name="fees_amount"
-                               attrs="{'invisible':[('fees_type', '=', 'free')], 'required':[('fees_type', '!=', 'free')]}"/>
-                        <field name="fees_description"
-                               attrs="{'invisible':[('fees_type', '=', 'free')], 'required':[('fees_type', '!=', 'free')]}"/>
-                    </group>
-                    <group col="4">
-                        <field name="mail_template_id"/>
-                        <field name="report_id"/>
-                        <field name="text" colspan="4" widget="html"/>
-                        <separator string="Selection" colspan="4"/>
-                        <field name="select_reminder_type"/>
-                        <field name="selected_type_id" domain="[('activity_category_id','=', activity_category_id )]" attrs="{'invisible':[('select_reminder_type', '=', False)]}"/>
-                        <newline/>
-                        <field name="delay"/>
-                        <field name="minimum_balance"/>
-                        <field name="minimum_general_balance"/>
-                        <field name="payment_term_in_day"/>
-                    </group>
-                </form>
-            </field>
-        </record>
-        <record model="ir.ui.view" id="extraschool_reminder_type_tree">
-            <field name="name">extraschool.reminder.type.tree</field>
-            <field name="model">extraschool.remindertype</field>
-            <field name="type">tree</field>
-            <field name="arch" type="xml">
-                <tree string="Reminders Type">
-                    <field name="sequence" widget="handle"/>
-                    <field name="name"/>
-                    <field name="fees_type"/>
-                    <field name="fees_amount"/>
-                    <field name="out_of_accounting"/>
-                </tree>
-            </field>
-        </record>
 
         <record model="ir.ui.view" id="extraschool_reminder_journal_tree">
             <field name="name">extraschool.reminder.journal.tree</field>
@@ -66,39 +17,6 @@
             </field>
         </record>
 
-        <record model="ir.ui.view" id="extraschool_reminders_journal_biller_item_tree">
-            <field name="name">extraschool.reminder.journal.biller.item.tree</field>
-            <field name="model">extraschool.reminders_journal_biller_item</field>
-            <field name="type">tree</field>
-            <field name="arch" type="xml">
-                <tree string="Reminder biller journal">
-                    <field name="name"/>
-                    <field name="reminders_journal_id"/>
-                    <field name="biller_id"/>
-                    <field name="reminder_amount" sum="True"/>
-                    <field name="exit_accounting_amount" sum="True"/>
-                </tree>
-            </field>
-        </record>
-
-        <record model="ir.ui.view" id="extraschool_reminders_journal_biller_item_form">
-            <field name="name">extraschool.reminder.journal.biller.item.form</field>
-            <field name="model">extraschool.reminders_journal_biller_item</field>
-            <field name="type">form</field>
-            <field name="arch" type="xml">
-                <form string="Reminder biller journal">
-                    <group col="4">
-                        <field name="name"/>
-                        <field name="reminders_journal_id"/>
-                        <field name="biller_id"/>
-                        <newline/>
-                        <field name="reminder_amount" sum="True"/>
-                        <field name="exit_accounting_amount" sum="True"/>
-                    </group>
-                </form>
-            </field>
-        </record>
-
         <record model="ir.ui.view" id="extraschool_reminders_journal_form">
             <field name="name">extraschool.remindersjournal.form</field>
             <field name="model">extraschool.remindersjournal</field>
@@ -108,10 +26,12 @@
 
                     <header>
                         <button name="validate" string="Valider" type="object" states='draft' class="oe_highlight"
-                                context="{'wizard': False}"/>
+                                context="{'wizard': False}"
+                                confirm="Valider le journal des rappels ? Attention que si des paiements non pas été
+                                encodés, ils ne seront pas pris en compte dans les rappels !"/>
                         <button name="generate_pdf" string="Re-Print" type="object" states='validated'
                                 class="oe_highlight"/>
-                        <button name="delete" string="Delete" type="object" states='validated' class="oe_highlight"
+                        <button name="unlink" string="Delete" type="object" states='validated' class="oe_highlight"
                                 group="admin"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft, validated"
                                states="draft, validated"/>
