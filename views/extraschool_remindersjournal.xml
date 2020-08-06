@@ -27,7 +27,7 @@
                     <header>
                         <button name="validate" string="Valider" type="object" states='draft' class="oe_highlight"
                                 context="{'wizard': False}"
-                                confirm="Valider le journal des rappels ? Attention que si des paiements non pas été
+                                confirm="Valider le journal des rappels ? Attention que si des paiements n'ont pas été
                                 encodés, ils ne seront pas pris en compte dans les rappels !"/>
                         <button name="generate_pdf" string="Re-Print" type="object" states='validated'
                                 class="oe_highlight"/>
