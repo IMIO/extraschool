@@ -172,7 +172,6 @@ class extraschool_remindersjournal(models.Model):
         if reminder_type.fees_type == 'fix':
             self._create_fees_biller()
             for reminder in self.reminder_ids:
-                reminder.write({'fees_amount': reminder_type.fees_amount, })
                 next_invoice_num = activity_category.get_next_comstruct('invoice', self.biller_id.get_from_year())
                 fees_invoice = self.env["extraschool.invoice"].create(
                     {'name': _('invoice_%s') % (next_invoice_num['num'],),
@@ -191,6 +190,8 @@ class extraschool_remindersjournal(models.Model):
                                                                     'quantity': 1,
                                                                     'total_price': reminder_type.fees_amount,
                                                                     })
+                reminder.write({'fees_amount': reminder_type.fees_amount,
+                                'concerned_invoice_ids': [(4, [fees_invoice.id])]})
 
                 logging.info("####Computing balance...")
                 for invoice in self.biller_id.invoice_ids:
@@ -454,7 +455,7 @@ class extraschool_remindersjournal(models.Model):
                                                            'number': next_invoice_num['num'],
                                                            'parentid': parent_id,
                                                            'biller_id': biller_id,
-                                                           'activitycategoryid': self.activity_category_ids.ids,
+                                                           'activitycategoryid': [(6, False, self.activity_category_ids.ids)],
                                                            'structcom': next_invoice_num['com_struct'],
                                                            'last_reminder_id': reminder.id,
                                                            'reminder_fees': True,
@@ -463,7 +464,7 @@ class extraschool_remindersjournal(models.Model):
                                                            })
                             concerned_invoice_ids.append(fees_invoice.id)
                             inv_line_obj.create({'invoiceid': fees_invoice.id,
-                                                 'description': reminder_type.fees_description if reminder_type.fees_description != False else 'Frais de rappel',
+                                                 'description': reminder_type.fees_description if reminder_type.fees_description else 'Frais de rappel',
                                                  'unit_price': reminder_type.fees_amount,
                                                  'quantity': 1,
                                                  'total_price': reminder_type.fees_amount,

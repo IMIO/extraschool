@@ -693,4 +693,14 @@ class extraschool_mainsettings(models.Model):
     @api.multi
     def get_child_meal(self):
         pass
+
+    @api.multi
+    def debug_assesse(self):
+        invoices = self.env["extraschool.biller"].browse(235).invoice_ids
+        reminders = self.env["extraschool.remindersjournal"].browse(21).reminder_ids
+        for invoice in invoices:
+            for reminder in reminders:
+                if reminder.parentid == invoice.parentid:
+                    reminder.write({'concerned_invoice_ids': [(4, [invoice.id])]})
+                    break
     # endregion
