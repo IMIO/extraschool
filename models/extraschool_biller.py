@@ -78,6 +78,7 @@ class extraschool_biller(models.Model):
         'Reminders journal',
         ondelete='cascade',
         required=False)
+    fees = fields.Boolean(default=False, string="Fees")
 
     @api.multi
     def name_get(self):

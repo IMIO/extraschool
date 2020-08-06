@@ -2,9 +2,9 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2019
+#    Copyright (C) 2008-2020
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia  & Jenny Pans - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -33,7 +33,7 @@ class extraschool_remindertype(models.Model):
     activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity category')
     fees_type = fields.Selection([('free','Free'),('fix','Fixed amount'),], 'Reminder cost type',required=True)
     fees_amount = fields.Float('Fees amount')
-    fees_description = fields.Char('Fees description')
+    fees_description = fields.Char('Fees description', default="Frais de rappel")
     mail_template_id = fields.Many2one('mail.template', 'Email template')
     report_id = fields.Many2one('extraschool.report', 'Document report')
     text = fields.Text('Text')
