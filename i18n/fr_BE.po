@@ -33,8 +33,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-07 07:53+0000\n"
-"PO-Revision-Date: 2020-08-07 09:55+0200\n"
+"POT-Creation-Date: 2020-08-07 15:31+0000\n"
+"PO-Revision-Date: 2020-08-07 17:34+0200\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -9123,6 +9123,23 @@ msgstr ""
 "\t\t\t\t<span>BIC : </span>"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_constraint_assesse
+msgid ""
+"<br/>\n"
+"\n"
+"\n"
+"                <span class=\"title\">Détail de la dette :</span>\n"
+"                <br/>\n"
+"                <br/>"
+msgstr ""
+"<br/>\n"
+"\n"
+"\n"
+"                <span class=\"title\">Détail de la dette :</span>\n"
+"                <br/>\n"
+"                <br/>"
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_child_registration
 msgid ""
 "<br/>\n"
@@ -9600,6 +9617,27 @@ msgstr ""
 "                Adresse :"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_constraint_assesse
+msgid ""
+"<br/>\n"
+"                Contrainte non fiscale décernée en exécution des articles L1124-40 et L1124-43 du Code de la démocratie\n"
+"                locale et de la décentralisation, du Décret du 18.04.2013 (MB 22.08.2013) modifiant certaines\n"
+"                dispositions du CDLD, notamment ses articles 26 et 53.\n"
+"                <br/>\n"
+"                <br/>\n"
+"\n"
+"                Vu la décision du collège communal du"
+msgstr ""
+"<br/>\n"
+"                Contrainte non fiscale décernée en exécution des articles L1124-40 et L1124-43 du Code de la démocratie\n"
+"                locale et de la décentralisation, du Décret du 18.04.2013 (MB 22.08.2013) modifiant certaines\n"
+"                dispositions du CDLD, notamment ses articles 26 et 53.\n"
+"                <br/>\n"
+"                <br/>\n"
+"\n"
+"                Vu la décision du collège communal du"
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_healthy_yvoir
 msgid ""
 "<br/>\n"
@@ -9616,6 +9654,17 @@ msgid ""
 msgstr ""
 "<br/>\n"
 "                Téléphone:"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_assesse_tableau_rappel
+msgid ""
+"<br/>\n"
+"            Contrainte non fiscale visée et rendue exécutoire par le Collège Communal d‘Assesse en sa\n"
+"            séance du"
+msgstr ""
+"<br/>\n"
+"            Contrainte non fiscale visée et rendue exécutoire par le Collège Communal d‘Assesse en sa\n"
+"            séance du"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_hastiere_text_med
@@ -10096,6 +10145,11 @@ msgstr ""
 "<span class=\"o_stat_text\">Supprimer</span>\n"
 "<span class=\"o_stat_text\">Action contextuelle</span>"
 
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_constraint_assesse
+msgid "<span class=\"object\">Objet:</span>"
+msgstr "<span class=\"object\">Objet:</span>"
+
 #. module: web
 #: model:ir.ui.view,arch_db:web.menu_secondary
 msgid "<span class=\"oe_logo_edit\">Edit Company data</span>"
@@ -10106,6 +10160,34 @@ msgstr "<span class=\"oe_logo_edit\">Modifier les données de la société</span
 #: model:ir.ui.view,arch_db:extraschool.report_double_sign_no_style_ittre2
 msgid "<span class=\"sign_elem\">Par le Collège :</span>"
 msgstr "<span class=\"sign_elem\">Par le Collège :</span>"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_constraint_assesse
+msgid ""
+"<span class=\"title\" style=\"padding-right:30px;\">Identification du redevable:</span>\n"
+"                    <br/>\n"
+"                    <br/>"
+msgstr ""
+"<span class=\"title\" style=\"padding-right:30px;\">Identification du redevable:</span>\n"
+"                    <br/>\n"
+"                    <br/>"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_assesse_tableau_rappel
+msgid ""
+"<span class=\"title\">Détail des sommes dûes :</span>\n"
+"                <br/>\n"
+"                <br/>\n"
+"\n"
+"                <br/>\n"
+"                <br/>"
+msgstr ""
+"<span class=\"title\">Détail des sommes dûes :</span>\n"
+"                <br/>\n"
+"                <br/>\n"
+"\n"
+"                <br/>\n"
+"                <br/>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_no_value
@@ -10270,6 +10352,17 @@ msgstr "<span class=\"zz_label\">Total</span>"
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_durbuy_med
 msgid "<span style=\"float:right;\">Frais de rappel</span>"
 msgstr "<span style=\"float:right;\">Frais de rappel</span>"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_assesse_tableau_rappel
+msgid ""
+"<span style=\"font-decoration:underline; font-size: 15px;\">Liste des factures couvrant cette\n"
+"                        période\n"
+"                    </span>"
+msgstr ""
+"<span style=\"font-decoration:underline; font-size: 15px;\">Liste des factures couvrant cette\n"
+"                        période\n"
+"                    </span>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_tableau_rappel
@@ -14505,6 +14598,11 @@ msgstr "Date"
 msgid "COMMUNE DE BURDINNE"
 msgstr "COMMUNE DE BURDINNE"
 
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_constraint_assesse
+msgid "CONTRAINTE NON FISCALE"
+msgstr "CONTRAINTE NON FISCALE"
+
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_crm
 msgid "CRM"
@@ -16716,6 +16814,7 @@ msgstr "SA"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_pdaprestationtimes_correction_wizard_form
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_assesse_tableau_rappel
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_tableau_rappel
 msgid "Correction"
 msgstr "Correction"
@@ -18076,6 +18175,11 @@ msgid "Date du paiement"
 msgstr "Date du paiement"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_constraint_assesse
+msgid "Date du recommandé :"
+msgstr "Date du recommandé :"
+
+#. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activityexclusiondates_date_from
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_date_from
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_horaire_guardian_wizard_validity_from
@@ -18248,11 +18352,6 @@ msgstr "Jours"
 msgid "Deactivate"
 msgstr "Désactiver"
 
-#. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
-msgid "Debug assesse"
-msgstr "Debug assesse"
-
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_mail_server_smtp_debug
 msgid "Debugging"
@@ -18290,6 +18389,11 @@ msgstr "Configuration de la précision décimale"
 #: model:ir.model.fields,field_description:base.field_res_lang_decimal_point
 msgid "Decimal Separator"
 msgstr "Séparateur décimal"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_remindertype_decision_date
+msgid "Decision date use in report"
+msgstr "Date de décision du Collège"
 
 #. modules: web_editor, mail, base
 #. openerp-web
@@ -20747,6 +20851,7 @@ msgid "Facture N°:"
 msgstr "Facture N°:"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_assesse_tableau_rappel
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_tableau_rappel
 msgid "Facture n°"
 msgstr "Facture n°"
@@ -26589,13 +26694,21 @@ msgstr ""
 "\t\t\t\t\t\tenfance, avant la date d'échéance. Toute facture non contestée est considérée comme acceptée."
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_assesse
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_impaye_assesse
+msgid ""
+"Les factures suivantes sont toujours en attente de paiement. Nous vous prions de bien vouloir\n"
+"                        procéder à leur(s) règlement(s) dans les meilleurs délais."
+msgstr ""
+"Les factures suivantes sont toujours en attente de paiement. Nous vous prions de bien vouloir\n"
+"                        procéder à leur(s) règlement(s) dans les meilleurs délais."
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_all_invoice_summary
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary
-#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_assesse
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_com_struc_facture
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_flv
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_impaye
-#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_impaye_assesse
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_yvoir
 msgid "Les factures suivantes sont toujours en attente de paiement. Nous vous prions de bien vouloir procéder à leur(s) règlement(s) dans les meilleurs délais."
 msgstr "Les factures suivantes sont toujours en attente de paiement. Nous vous prions de bien vouloir procéder à leur(s) règlement(s) dans les meilleurs délais."
@@ -26706,6 +26819,11 @@ msgstr "Type de niveau"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_level_form
 msgid "Levels"
 msgstr "Niveaux"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_constraint_assesse
+msgid "Libellé de la créance :"
+msgstr "Libellé de la créance :"
 
 #. module: base
 #: model:res.country,name:base.lr
@@ -28486,6 +28604,7 @@ msgstr "Mongolie / монгол"
 #: model:ir.ui.view,arch_db:extraschool.report_coda_report
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_assesse
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_assesse_tableau_rappel
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_clavier
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_com_struc_facture
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_durbuy
@@ -28536,6 +28655,11 @@ msgstr "Montant total"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_annual_report_total_fees
 msgid "Montant total des frais de rappels"
 msgstr "Montant total des frais de rappels"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_constraint_assesse
+msgid "Montant total dû :"
+msgstr "Montant total dû :"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.tpl_taxe_certificate_wizard_report
@@ -31084,6 +31208,7 @@ msgid "Page:"
 msgstr "Page :"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_assesse_tableau_rappel
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_tableau_rappel
 msgid "Paiement"
 msgstr "Paiement"
@@ -33141,6 +33266,7 @@ msgid "Période du"
 msgstr "Période du"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_assesse_tableau_rappel
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_tableau_rappel
 msgid "Période facturée"
 msgstr "Période facturée"
@@ -33553,6 +33679,11 @@ msgid "Recipients"
 msgstr "Destinataires"
 
 #. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_remindertype_recommended_date
+msgid "Recommended date use in report"
+msgstr "Date du recommandé"
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_invoice_tree
 #: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
@@ -33756,6 +33887,11 @@ msgstr "Inscriptions"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
 msgid "Registre National"
 msgstr "Numéro de registre national"
+
+#. module: extraschool
+#: model:ir.model.fields,field_description:extraschool.field_extraschool_remindertype_regulation_date
+msgid "Regulation date use in report"
+msgstr "Date du règlement"
 
 #. module: extraschool
 #: selection:extraschool.payment,paymenttype:0
@@ -34616,6 +34752,11 @@ msgstr "Fédération de Russie"
 #: model:res.country,name:base.rw
 msgid "Rwanda"
 msgstr "Rwanda"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_constraint_assesse
+msgid "Règlement en vigueur (ou règlement concerné) :"
+msgstr "Règlement en vigueur (ou règlement concerné) :"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.tpl_parent_invoice_sumary_report
@@ -36292,6 +36433,7 @@ msgid "Solde"
 msgstr "Solde"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_assesse_tableau_rappel
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_tableau_rappel
 msgid "Solde restant dû"
 msgstr "Solde restant dû"
@@ -37294,6 +37436,7 @@ msgid "TLS (STARTTLS)"
 msgstr "TLS (STARTTLS)"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_assesse_tableau_rappel
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_tableau_rappel
 msgid "TOTAUX"
 msgstr "TOTAUX"
@@ -44613,6 +44756,73 @@ msgstr "les changements non sauvés seront perdus."
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_remindersjournal_state
 msgid "validated"
 msgstr "validé"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_constraint_assesse
+msgid ""
+"visant et rendant exécutoire la présente contrainte, et\n"
+"                renvoyant à la Directrice Financière l’émission et la signature de celle-ci;\n"
+"                <br/>\n"
+"                <br/>\n"
+"\n"
+"                Je soussignée, Caroline ETIENNE, Directrice Financière de la Commune d’Assesse, agissant en exécution de\n"
+"                l’article L1124-40 1er, relatif au recouvrement des créances non fiscales, et de toutes autres\n"
+"                dispositions légales, réglementaires et constitutionnelles relatives au recouvrement et au\n"
+"                contentieux;\n"
+"                <br/>\n"
+"                <br/>\n"
+"\n"
+"                DÉLIVRE et SIGNE LA PRÉSENTE CONTRAINTE à charge du redevable cité ci-dessous, laquelle vaut titre\n"
+"                exécutoire en vertu de la décision susvisée du Collège communal,\n"
+"                <br/>\n"
+"                <br/>\n"
+"\n"
+"                MANDATE et ORDONNE à Maître CHARTIER Roland, Huissier de Justice à 5503 DINANT (Sorinnes), de se rendre\n"
+"                au domicile du contribuable plus amplement désigné ci-dessous, lequel est en défaut de paiement de\n"
+"                créance(s) non fiscale(s) en principal, intérêts et frais reprises en dernier feuillet, et de procéder à\n"
+"                sa signification, suivie d’un commandement de payer à l’expiration du délai de recours contre la\n"
+"                présente contrainte, à peine d’exécution par voie de saisie conformément aux dispositions du Code\n"
+"                Judiciaire et, le cas échéant, de le poursuivre par toute voie de droit ainsi que toute personne qui\n"
+"                pourrait être poursuivie en vertu de la présente contrainte et des dispositions légales susvisées.\n"
+"                <br/>\n"
+"                <br/>\n"
+"\n"
+"                Le contribuable retardataire dispose d’un délai d’un mois dès signification de la présente contrainte\n"
+"                non fiscale pour introduire un recours devant les cours et tribunaux compétents.\n"
+"                <br/>\n"
+"                <br/>"
+msgstr ""
+"visant et rendant exécutoire la présente contrainte, et\n"
+"                renvoyant à la Directrice Financière l’émission et la signature de celle-ci;\n"
+"                <br/>\n"
+"                <br/>\n"
+"\n"
+"                Je soussignée, Caroline ETIENNE, Directrice Financière de la Commune d’Assesse, agissant en exécution de\n"
+"                l’article L1124-40 1er, relatif au recouvrement des créances non fiscales, et de toutes autres\n"
+"                dispositions légales, réglementaires et constitutionnelles relatives au recouvrement et au\n"
+"                contentieux;\n"
+"                <br/>\n"
+"                <br/>\n"
+"\n"
+"                DÉLIVRE et SIGNE LA PRÉSENTE CONTRAINTE à charge du redevable cité ci-dessous, laquelle vaut titre\n"
+"                exécutoire en vertu de la décision susvisée du Collège communal,\n"
+"                <br/>\n"
+"                <br/>\n"
+"\n"
+"                MANDATE et ORDONNE à Maître CHARTIER Roland, Huissier de Justice à 5503 DINANT (Sorinnes), de se rendre\n"
+"                au domicile du contribuable plus amplement désigné ci-dessous, lequel est en défaut de paiement de\n"
+"                créance(s) non fiscale(s) en principal, intérêts et frais reprises en dernier feuillet, et de procéder à\n"
+"                sa signification, suivie d’un commandement de payer à l’expiration du délai de recours contre la\n"
+"                présente contrainte, à peine d’exécution par voie de saisie conformément aux dispositions du Code\n"
+"                Judiciaire et, le cas échéant, de le poursuivre par toute voie de droit ainsi que toute personne qui\n"
+"                pourrait être poursuivie en vertu de la présente contrainte et des dispositions légales susvisées.\n"
+"                <br/>\n"
+"                <br/>\n"
+"\n"
+"                Le contribuable retardataire dispose d’un délai d’un mois dès signification de la présente contrainte\n"
+"                non fiscale pour introduire un recours devant les cours et tribunaux compétents.\n"
+"                <br/>\n"
+"                <br/>"
 
 #. module: web_editor
 #: model:ir.model,name:web_editor.model_web_editor_converter_test
