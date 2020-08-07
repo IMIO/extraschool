@@ -13,6 +13,9 @@
                         <newline/>
                         <field name="out_of_accounting"/>
                         <field name="bailiff"/>
+                        <field name="decision_date"/>
+                        <field name="regulation_date"/>
+                        <field name="recommended_date"/>
                     </group>
                     <group col="4" attrs="{'invisible':[('out_of_accounting', '=', True)]}">
                         <field name="fees_type" attrs="{'required':[('out_of_accounting', '!=', 'True')]}"/>

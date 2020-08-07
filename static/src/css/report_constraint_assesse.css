@@ -1,0 +1,13 @@
+.object {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.title {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.centered {
+    text-align: center;
+}

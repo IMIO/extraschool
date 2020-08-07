@@ -124,15 +124,6 @@
                             </page>
                             <page string="Bouton pour Coralie &lt;3">
                                 <group string="Supprimer présences" col="2">
-                                       <group>
-                                        <button
-                                            name="debug_assesse"
-                                            string="Debug assesse"
-                                            icon="gtk-apply"
-                                            type="object"
-                                            confirm="Es-tu sûre Coralie ? Cette action est irréversible !"
-                                        />
-                                    </group>
                                     <group>
                                         <field name="limit_date_delete_presta"/>
                                         <button
