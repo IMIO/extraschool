@@ -1,34 +1,34 @@
 <?xml version="1.0" ?>
 <odoo>
-	<data>
-		<template id="reminder_report_layout" inherit_id="report.layout"  primary="True">
+    <data>
+        <template id="reminder_report_layout" inherit_id="report.layout" primary="True">
 
             <xpath expr="//head" position="inside">
-	            <style type="text/css">
-					body {
-					  font-family: arial !important;
-					}
+                <style type="text/css">
+                    body {
+                    font-family: arial !important;
+                    }
 
-					body.container {
-	            	  margin: 0px 15mm 0px Opx;
-	            	  padding: 0px;
-					}
+                    body.container {
+                    margin: 0px 15mm 0px Opx;
+                    padding: 0px;
+                    }
 
-	            	.header{
-	            		padding-right: 15mm;
-	            	}
+                    .header{
+                    padding-right: 15mm;
+                    }
 
-	            	.page{
-	            		padding-right: 15mm;
-	            	}
-	            </style>
+                    .page{
+                    padding-right: 15mm;
+                    }
+                </style>
 
-	            <link href="/web/static/lib/bootstrap/css/bootstrap.css" rel="stylesheet"/>
-		        <link href="/website/static/src/css/website.css" rel="stylesheet"/>
-		        <link href="/web/static/lib/fontawesome/css/font-awesome.css" rel="stylesheet"/>
+                <link href="/web/static/lib/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+                <link href="/website/static/src/css/website.css" rel="stylesheet"/>
+                <link href="/web/static/lib/fontawesome/css/font-awesome.css" rel="stylesheet"/>
             </xpath>
-        	<xpath expr="//head" position="inside">
-              <script src="/extraschool/static/src/js/pagination_hide.js"></script>
+            <xpath expr="//head" position="inside">
+                <script src="/extraschool/static/src/js/pagination_hide.js"></script>
             </xpath>
 
             <xpath expr="//body" position="attributes">
@@ -36,147 +36,178 @@
             </xpath>
 
             <xpath expr="//html" position="attributes">
-		    	<attribute name="t-att-data-report-margin-top">docs[0].reminders_journal_item_id.reminder_type_id.report_id.paper_format_id.margin_top</attribute>
-		        <attribute name="t-att-data-report-margin-bottom">docs[0].reminders_journal_item_id.reminder_type_id.report_id.paper_format_id.margin_bottom</attribute>
-		        <attribute name="t-att-data-report-margin-right">docs[0].reminders_journal_item_id.reminder_type_id.report_id.paper_format_id.margin_right</attribute>
-		        <attribute name="t-att-data-report-margin-left">docs[0].reminders_journal_item_id.reminder_type_id.report_id.paper_format_id.margin_left</attribute>
-		    </xpath>
+                <attribute name="t-att-data-report-margin-top">
+                    docs[0].reminders_journal_item_id.reminder_type_id.report_id.paper_format_id.margin_top
+                </attribute>
+                <attribute name="t-att-data-report-margin-bottom">
+                    docs[0].reminders_journal_item_id.reminder_type_id.report_id.paper_format_id.margin_bottom
+                </attribute>
+                <attribute name="t-att-data-report-margin-right">
+                    docs[0].reminders_journal_item_id.reminder_type_id.report_id.paper_format_id.margin_right
+                </attribute>
+                <attribute name="t-att-data-report-margin-left">
+                    docs[0].reminders_journal_item_id.reminder_type_id.report_id.paper_format_id.margin_left
+                </attribute>
+            </xpath>
 
             <xpath expr="//body" position="attributes">
-				<attribute name="t-att-class">container</attribute>
-		    </xpath>
+                <attribute name="t-att-class">container</attribute>
+            </xpath>
 
             <xpath expr="//body" position="inside">
-				<div id="reminder">
-					<t t-foreach="docs" t-as="reminder">
-                        <h1></h1>
+                <div id="reminder">
+                    <t t-foreach="docs" t-as="reminder">
                         <t t-set="activity_category" t-value="docs[0].activity_category_ids[0]"/>
                         <t t-set="organising_power" t-value="docs[0].activity_category_ids[0].organising_power_id"/>
-						<t t-set="logo" t-value="organising_power.logo"/>
-						<t t-set="slogan" t-value="organising_power.slogan"/>
-						<t t-set="amount_int" t-value="int(reminder.amount)"/>
-						<t t-set="amount" t-value="reminder.amount"/>
+                        <t t-set="logo" t-value="organising_power.logo"/>
+                        <t t-set="slogan" t-value="organising_power.slogan"/>
+                        <t t-set="amount_int" t-value="int(reminder.amount)"/>
+                        <t t-set="amount" t-value="reminder.amount"/>
                         <t t-set="logo_reminder" t-value="reminder.activity_category_ids[0].logo_reminder"/>
-						<t t-set="amount_dec" t-value="int(round((reminder.amount-int(reminder.amount))*100))"/>
-			        	<t t-set="bankaccount" t-value="reminder.reminders_journal_id.activity_category_ids[0].bankaccount"/>
-						<t t-set="bank_bic" t-value="reminder.reminders_journal_id.activity_category_ids[0].bank_bic"/>
-						<t t-set="bank_address" t-value="reminder.reminders_journal_id.activity_category_ids[0].bank_address"/>
-						<t t-set="bank_zip" t-value="reminder.reminders_journal_id.activity_category_ids[0].bank_zip"/>
-						<t t-set="bank_city" t-value="reminder.reminders_journal_id.activity_category_ids[0].bank_city"/>
-						<t t-set="com_struct" t-value="reminder.structcom"/>
-                        <t t-set="reminder_type" t-value="reminder.reminders_journal_item_id.reminder_type_id.fees_type"/>
+                        <t t-set="amount_dec" t-value="int(round((reminder.amount-int(reminder.amount))*100))"/>
+                        <t t-set="bankaccount"
+                           t-value="reminder.reminders_journal_id.activity_category_ids[0].bankaccount"/>
+                        <t t-set="bank_bic" t-value="reminder.reminders_journal_id.activity_category_ids[0].bank_bic"/>
+                        <t t-set="bank_address"
+                           t-value="reminder.reminders_journal_id.activity_category_ids[0].bank_address"/>
+                        <t t-set="bank_zip" t-value="reminder.reminders_journal_id.activity_category_ids[0].bank_zip"/>
+                        <t t-set="bank_city"
+                           t-value="reminder.reminders_journal_id.activity_category_ids[0].bank_city"/>
+                        <t t-set="com_struct" t-value="reminder.structcom"/>
+                        <t t-set="reminder_type"
+                           t-value="reminder.reminders_journal_item_id.reminder_type_id.fees_type"/>
                         <t t-set="name" t-value="reminder.reminders_journal_item_id.reminder_type_id.name"/>
-						<t t-set="total" t-value="reminder.amount"/>
-						<t t-set="fees" t-value="reminder.reminders_journal_item_id.reminder_type_id.fees_amount"/>
-						<t t-set="received" t-value="reminder.amount_received"/>
-						<t t-set="no_values" t-value="reminder.no_values"/>
+                        <t t-set="total" t-value="reminder.amount"/>
+                        <t t-set="fees" t-value="reminder.reminders_journal_item_id.reminder_type_id.fees_amount"/>
+                        <t t-set="received" t-value="reminder.amount_received"/>
+                        <t t-set="no_values" t-value="reminder.no_values"/>
                         <t t-set="schoolimplantationid" t-value="reminder.school_implantation_id"/>
-						<t t-set="balance" t-value="reminder.amount"/>
+                        <t t-set="balance" t-value="reminder.balance"/>
                         <t t-set="balance_computed" t-value="reminder.balance"/>
-						<t t-set="payment_term" t-value="'%s' % (time.strftime('%d-%m-%Y',time.strptime(reminder.reminders_journal_item_id.payment_term,'%Y-%m-%d')))"/>
+                        <t t-set="payment_term"
+                           t-value="'%s' % (time.strftime('%d-%m-%Y',time.strptime(reminder.reminders_journal_item_id.payment_term,'%Y-%m-%d')))"/>
 
-						<t t-set="comment" t-value="'%s%s' % ('','')"/>
-						<t t-set="doc_date" t-value="'%s, le %s' % (reminder.reminders_journal_id.activity_category_ids[0].po_city,time.strftime('%d-%m-%Y',time.strptime(reminder.reminders_journal_id.transmission_date,'%Y-%m-%d')))"/>
+                        <t t-set="comment" t-value="'%s%s' % ('','')"/>
+                        <t t-set="doc_date"
+                           t-value="'%s, le %s' % (reminder.reminders_journal_id.activity_category_ids[0].po_city,time.strftime('%d-%m-%Y',time.strptime(reminder.reminders_journal_id.transmission_date,'%Y-%m-%d')))"/>
 
-						<t t-set="addresse" t-value="reminder.parentid"/>
-						<t t-set="po_addresse" t-value="organising_power"/>
+                        <t t-set="addresse" t-value="reminder.parentid"/>
+                        <t t-set="po_addresse" t-value="organising_power"/>
 
-						<t t-set="parent_id" t-value="reminder.parentid"/>
-						<t t-set="categ_id" t-value="reminder.reminders_journal_id.activity_category_ids[0]"/>
+                        <t t-set="parent_id" t-value="reminder.parentid"/>
+                        <t t-set="categ_id" t-value="reminder.reminders_journal_id.activity_category_ids[0]"/>
 
                         <!-- Reminder Resp 1-->
-						<t t-set="resp_fct" t-value="organising_power.po_rappel_name"/>
-						<t t-set="resp_name" t-value="organising_power.po_rappel_fct"/>
-						<t t-set="resp_sign" t-value="organising_power.po_rappel_sign"/>
+                        <t t-set="resp_fct" t-value="organising_power.po_rappel_name"/>
+                        <t t-set="resp_name" t-value="organising_power.po_rappel_fct"/>
+                        <t t-set="resp_sign" t-value="organising_power.po_rappel_sign"/>
 
                         <!-- Reminder Resp 2 -->
                         <t t-set="resp_reminder_fct2" t-value="organising_power.po_rappel_name2"/>
-						<t t-set="resp_reminder_name2" t-value="organising_power.po_rappel_fct2"/>
-						<t t-set="resp_reminder_sign2" t-value="organising_power.po_rappel_sign2"/>
+                        <t t-set="resp_reminder_name2" t-value="organising_power.po_rappel_fct2"/>
+                        <t t-set="resp_reminder_sign2" t-value="organising_power.po_rappel_sign2"/>
 
                         <!-- Stamp -->
-						<t t-set="po_stamp" t-value="organising_power.po_stamp"/>
+                        <t t-set="po_stamp" t-value="organising_power.po_stamp"/>
 
                         <!-- Image Sign Resp 1 -->
-						<t t-set="resp_sign_img" t-value="organising_power.po_sign_img"/>
+                        <t t-set="resp_sign_img" t-value="organising_power.po_sign_img"/>
 
                         <!-- Invoice Resp 2 -->
-						<t t-set="resp2_fct" t-value="organising_power.po_resp2_name"/>
-						<t t-set="resp2_name" t-value="organising_power.po_resp2_fct"/>
-						<t t-set="resp2_sign" t-value="organising_power.po_resp2_sign"/>
+                        <t t-set="resp2_fct" t-value="organising_power.po_resp2_name"/>
+                        <t t-set="resp2_name" t-value="organising_power.po_resp2_fct"/>
+                        <t t-set="resp2_sign" t-value="organising_power.po_resp2_sign"/>
 
-                        <t t-set="resp3_fct" t-value="reminder.reminders_journal_id.activity_category_ids[0].po_resp_name"/>
-						<t t-set="resp3_name" t-value="reminder.reminders_journal_id.activity_category_ids[0].po_resp_fct"/>
-						<t t-set="resp3_sign_img" t-value="reminder.reminders_journal_id.activity_category_ids[0].po_sign_img"/>
+                        <t t-set="resp3_fct"
+                           t-value="reminder.reminders_journal_id.activity_category_ids[0].po_resp_name"/>
+                        <t t-set="resp3_name"
+                           t-value="reminder.reminders_journal_id.activity_category_ids[0].po_resp_fct"/>
+                        <t t-set="resp3_sign_img"
+                           t-value="reminder.reminders_journal_id.activity_category_ids[0].po_sign_img"/>
 
-						<t t-set="html_text" t-value="reminder.reminders_journal_item_id.reminder_type_id.text"/>
-						<t t-set="reminder_com_struct" t-value="reminder.structcom"/>
-						<t t-set="summary_invoice_ids" t-value="reminder.concerned_invoice_ids"/>
+                        <t t-set="html_text" t-value="reminder.reminders_journal_item_id.reminder_type_id.text"/>
+                        <t t-set="reminder_com_struct" t-value="reminder.structcom"/>
+                        <t t-set="summary_invoice_ids" t-value="reminder.concerned_invoice_ids"/>
+                        <t t-if="reminder.reminders_journal_item_id.reminder_type_id.decision_date">
+                            <t t-set="decision_date"
+                               t-value="time.strftime('%d.%m.%Y',time.strptime(reminder.reminders_journal_item_id.reminder_type_id.decision_date,'%Y-%m-%d'))"/>
+                        </t>
+                        <t t-if="reminder.reminders_journal_item_id.reminder_type_id.regulation_date">
+                            <t t-set="regulation_date"
+                               t-value="time.strftime('%d.%m.%Y',time.strptime(reminder.reminders_journal_item_id.reminder_type_id.regulation_date,'%Y-%m-%d'))"/>
+                        </t>
+                        <t t-if="reminder.reminders_journal_item_id.reminder_type_id.recommended_date">
+                            <t t-set="recommended_date"
+                               t-value="time.strftime('%d.%m.%Y',time.strptime(reminder.reminders_journal_item_id.reminder_type_id.recommended_date,'%Y-%m-%d'))"/>
+                        </t>
 
-						<div class="header">
-		        			<t t-foreach="reminder.reminders_journal_item_id.reminder_type_id.report_id.inline_report_ids.filtered(lambda r: r.section == 'a_header')" t-as="tmpl">
-				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">
-			        				<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
-								</div>
-								<t t-if="tmpl.visibility == False">
-									<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
-								</t>
-							</t>
-			       		</div>
-			        	<div class="page">
-			        		<t t-foreach="reminder.reminders_journal_item_id.reminder_type_id.report_id.inline_report_ids.filtered(lambda r: r.section == 'b_body')" t-as="tmpl">
-				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">
-			        				<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
-								</div>
-								<t t-if="tmpl.visibility == False">
-									<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
-								</t>
-							</t>
-			       		</div>
-			        	<div class="footer">
-			        		<t t-foreach="reminder.reminders_journal_item_id.reminder_type_id.report_id.inline_report_ids.filtered(lambda r: r.section == 'c_footer')" t-as="tmpl">
-				        		<div  t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">
-			        				<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
-								</div>
-								<t t-if="tmpl.visibility == False">
-									<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
-								</t>
-							</t>
-			       		</div>
-				    </t>
-				</div>
-			</xpath>
-		</template>
-	</data>
-	<data noupdate="1">
-		<record id="paperformat_aes_reminder" model="report.paperformat">
-    		<field name="name">reminder</field>
-    		<field name="default" eval="True"/>
-   			<field name="format">A4</field>
-    		<field name="orientation">Portrait</field>
-    		<field name="margin_top">40</field>
-    		<field name="margin_bottom">15</field>
-    		<field name="margin_left">15</field>
-    		<field name="margin_right">15</field>
-    		<field name="header_line" eval="False"/>
-    		<field name="header_spacing">35</field>
-    		<field name="dpi">90</field>
-		</record>
-	</data>
-	<data>
-		<report
-		    id="extraschool_reminder_std"
-		    model="extraschool.reminder"
-		    string="reminder"
-		    report_type="qweb-pdf"
-		    name="extraschool.reminder_report_layout"
-		    attachment_use="False"
-		/>
+                        <div class="header">
+                            <t t-foreach="reminder.reminders_journal_item_id.reminder_type_id.report_id.inline_report_ids.filtered(lambda r: r.section == 'a_header')"
+                               t-as="tmpl">
+                                <div t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">
+                                    <t t-call="extraschool.{{tmpl.inline_report_id.name}}"/>
+                                </div>
+                                <t t-if="tmpl.visibility == False">
+                                    <t t-call="extraschool.{{tmpl.inline_report_id.name}}"/>
+                                </t>
+                            </t>
+                        </div>
+                        <div class="page">
+                            <t t-foreach="reminder.reminders_journal_item_id.reminder_type_id.report_id.inline_report_ids.filtered(lambda r: r.section == 'b_body')"
+                               t-as="tmpl">
+                                <div t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">
+                                    <t t-call="extraschool.{{tmpl.inline_report_id.name}}"/>
+                                </div>
+                                <t t-if="tmpl.visibility == False">
+                                    <t t-call="extraschool.{{tmpl.inline_report_id.name}}"/>
+                                </t>
+                            </t>
+                        </div>
+                        <div class="footer">
+                            <t t-foreach="reminder.reminders_journal_item_id.reminder_type_id.report_id.inline_report_ids.filtered(lambda r: r.section == 'c_footer')"
+                               t-as="tmpl">
+                                <div t-if="tmpl.visibility" t-attf-class="{{tmpl.visibility}}">
+                                    <t t-call="extraschool.{{tmpl.inline_report_id.name}}"/>
+                                </div>
+                                <t t-if="tmpl.visibility == False">
+                                    <t t-call="extraschool.{{tmpl.inline_report_id.name}}"/>
+                                </t>
+                            </t>
+                        </div>
+                    </t>
+                </div>
+            </xpath>
+        </template>
+    </data>
+    <data noupdate="1">
+        <record id="paperformat_aes_reminder" model="report.paperformat">
+            <field name="name">reminder</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">15</field>
+            <field name="margin_right">15</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">35</field>
+            <field name="dpi">90</field>
+        </record>
+    </data>
+    <data>
+        <report
+            id="extraschool_reminder_std"
+            model="extraschool.reminder"
+            string="reminder"
+            report_type="qweb-pdf"
+            name="extraschool.reminder_report_layout"
+            attachment_use="False"
+        />
 
-		<record id="extraschool_reminder_std" model="ir.actions.report.xml">
-    		<field name="paperformat_id" ref="paperformat_aes_reminder"/>
-		</record>
+        <record id="extraschool_reminder_std" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="paperformat_aes_reminder"/>
+        </record>
 
-	</data>
+    </data>
 </odoo>
 

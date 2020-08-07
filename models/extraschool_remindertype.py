@@ -20,6 +20,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from datetime import datetime
 
 from openerp import models, api, fields
 
@@ -45,6 +46,9 @@ class extraschool_remindertype(models.Model):
     out_of_accounting = fields.Boolean(string="Out of accounting")
     bailiff = fields.Boolean(string='Put to bailiff', default=False, help="Ceci permet d'affecter un tag \"huissier\" sur toutes les factures de ce niveau")
     minimum_general_balance = fields.Float('Minimum general balance', default=0.0, help="Ceci est le montant minimum TOTAL des factures à sortir en rappel")
+    decision_date = fields.Date(string="Decision date use in report", default=datetime.today())
+    regulation_date = fields.Date(string="Regulation date use in report", default=datetime.today())
+    recommended_date = fields.Date(string="Recommended date use in report", default=datetime.today())
 
     @api.onchange('out_of_accounting')
     def onchange_week(self):

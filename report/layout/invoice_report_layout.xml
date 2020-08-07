@@ -211,6 +211,7 @@
 						<t t-set="total" t-value="invoice.amount_total"/>
 						<t t-set="received" t-value="invoice.amount_received"/>
 						<t t-set="balance" t-value="invoice.balance"/>
+                        <t t-set="balance_computed" t-value="invoice.balance"/>
 						<t t-set="comment" t-value="'%s%s' % (invoice.biller_id.comment if invoice.biller_id.comment != False else '',invoice.comment if invoice.comment != False else '')"/>
 						<t t-set="doc_date" t-value="'%s, le %s' % (categ_id.po_city,time.strftime('%d-%m-%Y',time.strptime(invoice.biller_id.period_to,'%Y-%m-%d')))"/>
 
