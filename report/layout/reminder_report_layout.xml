@@ -89,7 +89,7 @@
 
                         <t t-set="comment" t-value="'%s%s' % ('','')"/>
                         <t t-set="doc_date"
-                           t-value="'%s, le %s' % (reminder.reminders_journal_id.activity_category_ids[0].po_city,time.strftime('%d-%m-%Y',time.strptime(reminder.reminders_journal_id.transmission_date,'%Y-%m-%d')))"/>
+                           t-value="'%s, le %s' % (organising_power.po_city,time.strftime('%d-%m-%Y',time.strptime(reminder.reminders_journal_id.transmission_date,'%Y-%m-%d')))"/>
 
                         <t t-set="addresse" t-value="reminder.parentid"/>
                         <t t-set="po_addresse" t-value="organising_power"/>
