@@ -14,14 +14,14 @@
 					<span t-field="po_addresse.po_tel" />
 					<span t-raw="po_addresse.po_addresse_free_text" />
 				</div>
-				<div class="aes_adresse_block customer">
+				<div id="aes_block_customer" class="aes_adresse_block customer">
 					<span t-field="addresse.name" />
 					<span t-field="addresse.street" />
 					<span><t t-esc="addresse.zipcode" /> <t t-esc="addresse.city" /></span>
 				</div>
 			</div>
 		</template>
-        
+
         <template id="report_adresse_just_address_no_style">
             <xpath expr="//head" position="inside">
                 <link rel="stylesheet" href="/extraschool/static/src/css/report_adresse_no_style.css"/>

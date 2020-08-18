@@ -2,6 +2,18 @@
 <odoo>
     <data>
 
+        <template id="report_adresse_no_style_comment_assesse" inherit_id="extraschool.report_adresse_no_style_comment"
+                  primary="True">
+            <xpath expr="//div[@id='aes_block_customer']" position="replace">
+                <div class="aes_adresse_block customer">
+                    <p>CHARTIER Roland</p>
+                    <p>Huissier de Justice</p>
+                    <p>Zoning de la Voie Cuivrée, 34</p>
+                    <p>BE-5503 DINANT (SORINNES)</p>
+                </div>
+            </xpath>
+        </template>
+
         <template id="report_constraint_assesse">
             <xpath expr="//head" position="inside">
                 <link rel="stylesheet" href="/extraschool/static/src/css/report_constraint_assesse.css"/>
