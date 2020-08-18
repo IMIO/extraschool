@@ -108,7 +108,7 @@
                                 <newline/>
                                 <field name="reminderemailtext" />
                                 <separator string="Reminder type" colspan="4"/>
-                                <field name="reminer_type_ids"  nolabel="1" colspan="4"/>
+                                <field name="reminer_type_ids" nolabel="1" colspan="4" context="{'activity_category_id': active_id}"/>
                             </group>
                         </page>
                         <page string="Pre Payment">

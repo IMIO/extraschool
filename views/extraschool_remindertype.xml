@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-	<data>
+    <data>
 
-      <record model="ir.ui.view" id="extraschool_reminder_type_form">
+        <record model="ir.ui.view" id="extraschool_reminder_type_form">
             <field name="name">extraschool.reminder_type.form</field>
             <field name="model">extraschool.remindertype</field>
             <field name="type">form</field>
@@ -30,7 +30,9 @@
                         <field name="text" colspan="4" widget="html"/>
                         <separator string="Selection" colspan="4"/>
                         <field name="select_reminder_type"/>
-                        <field name="selected_type_id" domain="[('activity_category_id','=', activity_category_id )]" attrs="{'invisible':[('select_reminder_type', '=', False)]}"/>
+                        <field name="selected_type_id"
+                               domain="[('activity_category_id','=', context.get('activity_category_id'))]"
+                               attrs="{'invisible':[('select_reminder_type', '=', False)]}"/>
                         <newline/>
                         <field name="delay"/>
                         <field name="minimum_balance"/>
