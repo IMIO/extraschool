@@ -21,10 +21,11 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
-from openerp.exceptions import except_orm, Warning, RedirectWarning
-from openerp import tools
 from datetime import datetime
+
+from openerp import models, api, fields, _
+from openerp import tools
+
 
 class extraschool_payment(models.Model):
     _name = 'extraschool.payment'
@@ -143,32 +144,6 @@ class extraschool_payment(models.Model):
             'type': 'ir.actions.client',
             'tag': 'reload',
         }
-
-
-class extraschool_refund_wizard(models.Model):
-    _name = 'extraschool.refund_wizard'
-
-    amount = fields.Float(string='Amount to refund', required=True)
-    comment = fields.Char(string='Comment about the refund', required=True)
-
-    @api.multi
-    def refund(self):
-        if self.amount > self._context.get('amount'):
-            raise Warning(_('You cannot refund more than the actual amount'))
-        elif self.amount < 0.01:
-            raise Warning(_('Please input a number greater than 0.01'))
-        else:
-            self.env['extraschool.payment'].search([('id', '=', self._context.get('payment_id'))]).refund += self.amount
-            comment = self.env['extraschool.payment'].search([('id', '=', self._context.get('payment_id'))]).comment
-            if comment:
-                self.env['extraschool.payment'].search([('id', '=', self._context.get('payment_id'))]).comment += self.env['extraschool.helper'].add_date_user(self.comment)
-            else:
-                self.env['extraschool.payment'].search([('id', '=', self._context.get('payment_id'))]).comment = self.env['extraschool.helper'].add_date_user(self.comment)
-
-            return {
-                'type': 'ir.actions.client',
-                'tag': 'reload',
-            }
 
 class extraschool_payment_reconciliation(models.Model):
     _name = 'extraschool.payment_reconciliation'

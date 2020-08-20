@@ -4,7 +4,7 @@
 #    Extraschool
 #    Copyright (C) 2008-2020
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Jenny Pans- Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia & Jenny Pans- Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -90,12 +90,6 @@ class extraschool_parent(models.Model):
                        (record.id,))
             record.totalhuissier = cr.fetchall()[0][0]
 
-    # def _compute_total_reminder_fees (self):
-    #     cr = self.env.cr
-    #     for record in self:
-    #         cr.execute('select sum(fees_amount) from extraschool_reminder where parentid=%s',(record.id,))
-    #         record.total_reminder_fees = cr.fetchall()[0][0]
-
     name = fields.Char(compute='_name_compute', string='FullName', search='_search_fullname', size=100)
     rn = fields.Char('RN', track_visibility='onchange',
                      help=_("Use this format : 12345678912"))
@@ -114,8 +108,10 @@ class extraschool_parent(models.Model):
                                          'Invoice send method', required=True, default='onlybymail',
                                          track_visibility='onchange')
     streetcode = fields.Char('Street code', size=50, track_visibility='onchange')
-    child_ids = fields.One2many('extraschool.child', 'parentid', 'childs', readonly=True)
-    invoice_ids = fields.One2many('extraschool.invoice', 'parentid', 'invoices', track_visibility='onchange')
+    child_ids = fields.One2many(comodel_name='extraschool.child', inverse_name='parentid', string='childs',
+                                readonly=True)
+    invoice_ids = fields.One2many(comodel_name='extraschool.invoice', inverse_name='parentid', string='invoices',
+                                  track_visibility='onchange')
     remindersendmethod = fields.Selection((('emailandmail', 'By mail and email'),
                                            ('onlyemail', 'Only by email'),
                                            ('onlybymail', 'Only by mail')),
@@ -124,14 +120,14 @@ class extraschool_parent(models.Model):
     one_subvention_type = fields.Selection((('sf', 'operating grants'),
                                             ('sdp', 'positive differentiation grants')),
                                            required=True, default='sf', track_visibility='onchange')
-    reminder_ids = fields.One2many('extraschool.reminder', 'parentid', 'reminders', readonly=True)
+    reminder_ids = fields.One2many(comodel_name='extraschool.reminder', inverse_name='parentid', string='reminders',
+                                   readonly=True)
     totalinvoiced = fields.Float(compute='_compute_totalinvoiced', string="Total invoiced")
     totalreceived = fields.Float(compute='_compute_totalreceived', string="Total received")
     totalbalance = fields.Float(compute='_compute_totalbalance', string="Total balance")
-    # total_reminder_fees = fields.Float(compute='_compute_total_reminder_fees', string="Total reminder fees")
     totalhuissier = fields.Float(compute='_compute_totalhuissier', string="Total huissier", track_visibility='onchange')
-    payment_ids = fields.One2many('extraschool.payment', 'parent_id')
-    payment_status_ids = fields.One2many('extraschool.payment_status_report', 'parent_id')
+    payment_ids = fields.One2many(comodel_name='extraschool.payment', inverse_name='parent_id')
+    payment_status_ids = fields.One2many(comodel_name='extraschool.payment_status_report', inverse_name='parent_id')
     last_import_date = fields.Datetime('Import date', readonly=True, track_visibility='onchange')
     modified_since_last_import = fields.Boolean('Modified since last import')
     isdisabled = fields.Boolean('Disabled', track_visibility='onchange')
@@ -140,7 +136,7 @@ class extraschool_parent(models.Model):
                                      track_visibility='onchange')
     comment = fields.Text('Comment', track_visibility='onchange')
     comstruct = fields.Char('Structured Communication', readonly=True)
-    country_id = fields.Many2one('res.country', string='Country', default=21, required=True)
+    country_id = fields.Many2one(comodel_name='res.country', string='Country', default=21, required=True)
     check_name = fields.Boolean(default=True)
     check_rn = fields.Boolean(default=True)
     tax_certificate_send_method = fields.Selection((('emailandmail', 'By mail and email'),
