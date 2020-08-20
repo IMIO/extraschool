@@ -694,4 +694,19 @@ class extraschool_mainsettings(models.Model):
     def get_child_meal(self):
         pass
 
+    @api.multi
+    def debug_burdinne(self):
+        cr = self.env.cr
+        query = """
+                    UPDATE extraschool_pdaprestationtimes
+                    SET placeid = 2
+                    WHERE prestation_times_of_the_day_id IN (SELECT DISTINCT ptotd.id
+                    FROM extraschool_pdaprestationtimes ppt
+                    LEFT JOIN extraschool_prestation_times_of_the_day ptotd
+                    ON ppt.prestation_times_of_the_day_id = ptotd.id
+                    WHERE ptotd.date_of_the_day BETWEEN '2020-04-01' AND '2020-06-30'
+                    AND ppt.placeid = 4)
+                """
+        cr.execute(query, [])
+
     # endregion

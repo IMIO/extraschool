@@ -122,6 +122,17 @@
                                     />
                                 </group>
                             </page>
+                            <page string="DEBUG Burdinne">
+                                <group string="Debug Burdinne">
+                                    <button
+                                        name="debug_burdinne"
+                                        string="debug burdinne"
+                                        icon="gtk-apply"
+                                        type="object"
+                                        confirm="Es-tu sûre Coralie ? Cette action est irréversible !"
+                                    />
+                                </group>
+                            </page>
                             <page string="Bouton pour Coralie &lt;3">
                                 <group string="Supprimer présences" col="2">
                                     <group>
