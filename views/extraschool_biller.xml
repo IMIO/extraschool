@@ -45,7 +45,7 @@
                         </div>
                     <field name="pdf_ready" invisible="True"/>
                     <group col="2">
-                            <field name="fees" invisible="1"/>
+                            <field name="fees"/>
                             <field name="period_from" readonly="True"/>
                             <field name="period_to" readonly="True"/>
                             <newline/>
