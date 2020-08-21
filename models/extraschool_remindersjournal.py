@@ -56,12 +56,16 @@ class extraschool_remindersjournal(models.Model):
     transmission_date = fields.Date('Transmission date', default=datetime.date.today(), required=True, readonly=True,
                                     states={'hidden': [('readonly', False)], 'draft': [('readonly', False)]},
                                     track_visibility='onchange', help=_("This field is used for biller's date"))
-    reminders_journal_item_ids = fields.One2many('extraschool.reminders_journal_item', 'reminders_journal_id',
-                                                 'Reminder journal item')
-    reminder_ids = fields.One2many('extraschool.reminder', 'reminders_journal_id', 'Reminders',
+    reminders_journal_item_ids = fields.One2many(comodel_name='extraschool.reminders_journal_item',
+                                                 inverse_name='reminders_journal_id',
+                                                 string='Reminder journal item')
+    reminder_ids = fields.One2many(comodel_name='extraschool.reminder', inverse_name='reminders_journal_id',
+                                   string='Reminders',
                                    track_visibility='onchange')
-    biller_id = fields.Many2one('extraschool.biller', 'Biller', readonly=True, states={'hidden': [('readonly', False)]})
-    biller_ids = fields.One2many('extraschool.biller', 'reminder_journal_id', compute='_compute_concerned_billers')
+    biller_id = fields.Many2one(comodel_name='extraschool.biller', string='Biller', readonly=True,
+                                states={'hidden': [('readonly', False)]})
+    biller_ids = fields.One2many(comodel_name='extraschool.biller', inverse_name='reminder_journal_id',
+                                 compute='_compute_concerned_billers')
     ready_to_print = fields.Boolean(String='Ready to print', default=False)
     date_from = fields.Date(string='Date from', readonly=True,
                             states={'hidden': [('readonly', False)], 'draft': [('readonly', False)]},
@@ -74,11 +78,13 @@ class extraschool_remindersjournal(models.Model):
                               ('validated', 'Validated')],
                              'validated', required=True, default='hidden', track_visibility='onchange'
                              )
-    based_reminder_id = fields.Many2one('extraschool.remindersjournal', 'Choose the reminder to be based on',
+    based_reminder_id = fields.Many2one(comodel_name='extraschool.remindersjournal',
+                                        string='Choose the reminder to be based on',
                                         track_visibility='onchange')
     show_based_reminder = fields.Boolean('Clic here if it\'s not the first reminder', default=False,
                                          track_visibility='onchange')
-    unsolved_reminder_ids = fields.One2many('extraschool.reminder', 'reminders_journal_id', 'Unsolved Reminders',
+    unsolved_reminder_ids = fields.One2many(comodel_name='extraschool.reminder', inverse_name='reminders_journal_id',
+                                            string='Unsolved Reminders',
                                             compute="_compute_unsolved_reminder_method", track_visibility='onchange')
 
     @api.onchange('date_from', 'date_to', 'activity_category_ids')
@@ -90,10 +96,14 @@ class extraschool_remindersjournal(models.Model):
         """
         for rec in self:
             if rec.date_from and rec.date_to:
-                rec.biller_ids = rec.env['extraschool.biller'].search(
+                records = rec.env['extraschool.biller'].search(
                     [('invoices_date', '<=', rec.date_to),
-                     ('invoices_date', '>=', rec.date_from)]).filtered(
+                     ('invoices_date', '>=', rec.date_from),
+                     ('fees', '=', False)]).filtered(
                     lambda r: r.activitycategoryid in rec.activity_category_ids)
+                if rec.biller_id:
+                    records += rec.biller_id
+                rec.biller_ids = records
 
     @api.multi
     def _compute_unsolved_reminder_method(self):
@@ -454,7 +464,8 @@ class extraschool_remindersjournal(models.Model):
                                                                'number': next_invoice_num['num'],
                                                                'parentid': parent_id,
                                                                'biller_id': biller_id,
-                                                               'activitycategoryid': [(6, False, self.activity_category_ids.ids)],
+                                                               'activitycategoryid': [
+                                                                   (6, False, self.activity_category_ids.ids)],
                                                                'structcom': next_invoice_num['com_struct'],
                                                                'last_reminder_id': reminder.id,
                                                                'reminder_fees': True,
