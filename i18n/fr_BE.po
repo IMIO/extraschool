@@ -33,8 +33,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-07 15:31+0000\n"
-"PO-Revision-Date: 2020-08-07 17:34+0200\n"
+"POT-Creation-Date: 2020-08-21 10:05+0000\n"
+"PO-Revision-Date: 2020-08-21 12:16+0200\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -7761,7 +7761,7 @@ msgid "%p - Equivalent of either AM or PM."
 msgstr "%p - AM ou PM"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_payment.py:66
+#: code:addons/extraschool/models/extraschool_payment.py:67
 #, python-format
 msgid "%s %s"
 msgstr "%s %s"
@@ -13850,6 +13850,11 @@ msgid "B9  23  33 x 62 mm"
 msgstr "B9 23 33 x 62 mm"
 
 #. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_adresse_no_style_comment_assesse
+msgid "BE-5503 DINANT (SORINNES)"
+msgstr "BE-5503 DINANT (SORINNES)"
+
+#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_invoice_one_row_durbuy
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row
 #: model:ir.ui.view,arch_db:extraschool.report_payment_info_amount_one_row_hannut
@@ -14564,6 +14569,11 @@ msgstr "Octets,Ko,Mo,Go,To,Po,Eo,Zo,Yo"
 #: selection:report.paperformat,format:0
 msgid "C5E 24  163 x 229 mm"
 msgstr "C5E 24  163 x 229 mm"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_adresse_no_style_comment_assesse
+msgid "CHARTIER Roland"
+msgstr "CHARTIER Roland"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_coda_codadate
@@ -19643,7 +19653,7 @@ msgid "E-mail Error"
 msgstr "Erreur de courriel"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_parent.py:256
+#: code:addons/extraschool/models/extraschool_parent.py:252
 #, python-format
 msgid "E-mail format invalid: {}."
 msgstr "E-mail invalide : {}"
@@ -21041,7 +21051,7 @@ msgstr "Régions"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_biller_fees
 msgid "Fees"
-msgstr "Fees"
+msgstr "Frais"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_fees_huissier
@@ -23198,6 +23208,11 @@ msgstr ""
 #: model:ir.ui.view,arch_db:extraschool.extraschool_invoice_form
 msgid "Huissier"
 msgstr "Huissier"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_adresse_no_style_comment_assesse
+msgid "Huissier de Justice"
+msgstr "Huissier de Justice"
 
 #. module: base
 #: model:ir.module.category,name:base.module_category_human_resources
@@ -32292,7 +32307,7 @@ msgid "Please enter save field list name"
 msgstr "Veuillez choisir un nom pour cette liste de champs"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_payment.py:159
+#: code:addons/extraschool/wizard/extraschool_refund_wizard.py:38
 #, python-format
 msgid "Please input a number greater than 0.01"
 msgstr "Please input a number greater than 0.01"
@@ -38369,7 +38384,7 @@ msgstr ""
 "(Type de document: %s, Opération: %s)"
 
 #. module: base
-#: code:addons/fields.py:935
+#: code:addons/fields.py:946
 #, python-format
 msgid "The second argument of the many2many field %s must be a SQL table !You used %s, which is not a valid SQL table name."
 msgstr "Le deuxième argument du champ many2many %s doit être une table SQL ! Vous utilisez %s, qui n'est pas le nom d'une table SQL valide."
@@ -38539,13 +38554,13 @@ msgid "There has been an error on the cleaning of old level id"
 msgstr "There has been an error on the cleaning of old level id"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_parent.py:246
+#: code:addons/extraschool/models/extraschool_parent.py:242
 #, python-format
 msgid "There is already a parent with this RN"
 msgstr "Il existe déjà un parent avec ce numéro national !"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_parent.py:268
+#: code:addons/extraschool/models/extraschool_parent.py:264
 #, python-format
 msgid "There is already a parent with this email. Information of this parent : {} {} {}"
 msgstr "There is already a parent with this email. Information of this parent : {} {} {}"
@@ -38664,7 +38679,7 @@ msgid "This ISO code is the name of po files to use for translations"
 msgstr "Ce code ISO est le nom des fichiers po utilisés pour les traductions"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_parent.py:235
+#: code:addons/extraschool/models/extraschool_parent.py:231
 #, python-format
 msgid "This RN is not valid"
 msgstr "Ce numéro national n'est pas valide. Il doit être du format suivant : 01234567890"
@@ -40567,7 +40582,7 @@ msgid "Use the format '%s'"
 msgstr "Utilisez le format '%s'"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_parent.py:101
+#: code:addons/extraschool/models/extraschool_parent.py:95
 #: model:ir.model.fields,help:extraschool.field_extraschool_parent_rn
 #, python-format
 msgid "Use this format : 12345678912"
@@ -41201,7 +41216,7 @@ msgid "Warning"
 msgstr "Avertissement"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_prestation_times_of_the_day.py:487
+#: code:addons/extraschool/models/extraschool_prestation_times_of_the_day.py:509
 #, python-format
 msgid "Warning : No presta found"
 msgstr "Warning : No presta found"
@@ -42082,7 +42097,7 @@ msgid "You can use this wizard to change the terminologies for customers in the 
 msgstr "Vous pouvez lancer cet assistant pour modifier dans toute l'application  la terminologie que vous souhaitez utiliser pour les clients."
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_remindersjournal.py:589
+#: code:addons/extraschool/models/extraschool_remindersjournal.py:588
 #, python-format
 msgid "You can't modify an existing reminder."
 msgstr "Vous ne pouvez pas modifier un rappel existant"
@@ -42136,7 +42151,7 @@ msgid "You cannot leave any password empty."
 msgstr "Vous ne pouvez pas laisser un mot de passe vide."
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_payment.py:157
+#: code:addons/extraschool/wizard/extraschool_refund_wizard.py:36
 #, python-format
 msgid "You cannot refund more than the actual amount"
 msgstr "You cannot refund more than the actual amount"
@@ -42426,6 +42441,11 @@ msgstr "Code postal"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_schoolimplantation_zipcode
 msgid "ZipCode"
 msgstr "Code Postal"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_adresse_no_style_comment_assesse
+msgid "Zoning de la Voie Cuivrée, 34"
+msgstr "Zoning de la Voie Cuivrée, 34"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_base_import_language
@@ -43257,7 +43277,7 @@ msgstr ""
 "                                            La présente attestation est valable pour la période du 01/01/2019 au 31/12/2019<br/><br/>"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_remindersjournal.py:516
+#: code:addons/extraschool/models/extraschool_remindersjournal.py:515
 #, python-format
 msgid "exit from accounting"
 msgstr "exit from accounting"
@@ -43623,7 +43643,7 @@ msgstr "Echéance"
 #: code:addons/extraschool/models/extraschool_manuel_invoice_wizard.py:99
 #: code:addons/extraschool/models/extraschool_negatif_payment_correction_wizard.py:61
 #: code:addons/extraschool/models/extraschool_remindersjournal.py:177
-#: code:addons/extraschool/models/extraschool_remindersjournal.py:454
+#: code:addons/extraschool/models/extraschool_remindersjournal.py:453
 #, python-format
 msgid "invoice_%s"
 msgstr "invoice_%s"
