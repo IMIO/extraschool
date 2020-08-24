@@ -24,7 +24,7 @@
 from openerp import models, api, fields, _
 
 
-class extraschool_refund_wizard(models.Model):
+class extraschool_refund_wizard(models.TransientModel):
     _name = 'extraschool.refund_wizard'
 
     amount = fields.Float(string='Amount to refund', required=True)
@@ -41,7 +41,8 @@ class extraschool_refund_wizard(models.Model):
                 self.env['extraschool.payment'].search(
                     [('id', '=', self._context.get('payment_id'))]).refund += self._context.get('amount')
             else:
-                self.env['extraschool.payment'].search([('id', '=', self._context.get('payment_id'))]).refund += self.amount
+                self.env['extraschool.payment'].search(
+                    [('id', '=', self._context.get('payment_id'))]).refund += self.amount
             comment = self.env['extraschool.payment'].search([('id', '=', self._context.get('payment_id'))]).comment
             if comment:
                 self.env['extraschool.payment'].search([('id', '=', self._context.get('payment_id'))]).comment += \

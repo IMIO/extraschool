@@ -68,7 +68,6 @@
         'views/extraschool_guardianprestationtimes.xml',
         'views/extraschool_guardian.xml',
         'views/extraschool_initupdate_wizard.xml',
-        'views/extraschool_invoice_wizard.xml',
         'views/extraschool_invoice.xml',
         'views/extraschool_mainsettings.xml',
         'views/extraschool_manuel_invoice_wizard.xml',
@@ -118,6 +117,7 @@
         # 'views/extraschool_qrconfig.xml',
         'views/extraschool_prestation_times_history.xml',
         'wizard/views/extraschool_no_value_wizard.xml',
+        'wizard/views/extraschool_invoice_wizard.xml',
         'views/extraschool_view.xml',
 
         'report/biller/biller_summary_no_style.xml',

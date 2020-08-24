@@ -2,9 +2,9 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2019
+#    Copyright (C) 2008-2020
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia & Jenny Pans - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -42,10 +42,8 @@ import extraschool_importreject
 import extraschool_initupdate_wizard
 import extraschool_invoice
 import extraschool_invoicedprestations
-import extraschool_invoice_wizard
 import extraschool_mainsettings
 import extraschool_manuel_invoice_wizard
-# import extraschool_move_prepaiement
 import extraschool_negatif_payment_correction_wizard
 import extraschool_pdaprestationtimes
 import extraschool_pdaprestationtimes_correction_wizard
