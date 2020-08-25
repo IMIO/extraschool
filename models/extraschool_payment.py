@@ -108,15 +108,17 @@ class extraschool_payment(models.Model):
         reste = amount
         tmp_payment_reconciliation_ids = []
         for invoice in invoices:
+            if reste == 0:
+                break
             #compute reconcil amount
             if reste >= invoice.balance:
-                reconcil_amout = invoice.balance
+                reconcil_amount = invoice.balance
             else:
-                reconcil_amout = reste
-            reste -= reconcil_amout
+                reconcil_amount = reste
+            reste -= reconcil_amount
 
             tmp_payment_reconciliation_ids.append({'invoice_id': invoice.id,
-                                                   'amount': reconcil_amout,
+                                                   'amount': reconcil_amount,
                                                    'date': fields.Date.today(),
                                                    })
         return tmp_payment_reconciliation_ids
