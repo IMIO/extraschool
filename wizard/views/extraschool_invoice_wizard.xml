@@ -1,21 +1,25 @@
 <?xml version="1.0" ?>
 <odoo>
-	<data>
+    <data>
         <record model="ir.ui.view" id="extraschool_invoice_wizard_form">
             <field name="name">extraschool.invoice.wizard.form</field>
             <field name="model">extraschool.invoice_wizard</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-<!--                <div class="alert alert-info" attrs="{'invisible':[('isready', '!=', True)]}">-->
-<!--                    A biller is curently in creation. You will recieve an Email when the biller is completed.-->
-<!--                    In the meantime, here is a picture of a cat slightly annoyed:-->
-<!--                </div>-->
-<!--                <div attrs="{'invisible':[('isready', '!=', True)]}">-->
-<!--                    <img style="width:100px;" src="https://orig00.deviantart.net/affd/f/2013/229/b/0/image_by_xxspiritwolf2000xx-d6ikyan.jpg"/>-->
-<!--                </div>-->
+                <!--                <div class="alert alert-info" attrs="{'invisible':[('isready', '!=', True)]}">-->
+                <!--                    A biller is curently in creation. You will recieve an Email when the biller is completed.-->
+                <!--                    In the meantime, here is a picture of a cat slightly annoyed:-->
+                <!--                </div>-->
+                <!--                <div attrs="{'invisible':[('isready', '!=', True)]}">-->
+                <!--                    <img style="width:100px;" src="https://orig00.deviantart.net/affd/f/2013/229/b/0/image_by_xxspiritwolf2000xx-d6ikyan.jpg"/>-->
+                <!--                </div>-->
                 <form string="invoice Wizard"><!-- attrs="{'invisible':[('isready', '!=', False)]}">-->
                     <sheet>
-                        <field name="warning_smartphone" nolabel="1" class="alert alert-info" attrs="{'invisible':[('warning_visibility', '!=', True)]}"/>
+                        <div class="alert alert-info text-center col-2"
+                             attrs="{'invisible':['|', ('warning_visibility', '=', False)]}">
+                            Attention, il y a un ou plusieurs smartphone(s) qui n'a / n'ont pas transmis. Vérifier avant
+                            de générer votre facturier !
+                        </div>
                         <div class="alert alert-danger" attrs="{'invisible':[('check_manual', '=', True)]}">
                             Il y a au moins un <b>encodage manuel</b> non vérifié pour cette période
                         </div>
@@ -28,38 +32,41 @@
                         <div class="alert alert-warning" attrs="{'invisible':[('check_invoice', '=', True)]}">
                             Il n'y a pas de présences à facturer pour cette période
                         </div>
-                        <field name="state" invisible="1" />
-                        <field name="isready" invisible="1" />
-                        <field name="check_manual" invisible="1" />
-                        <field name="check_registration" invisible="1" />
-                        <field name="check_prestation" invisible="1" />
-                        <field name="check_invoice" invisible="1" />
-                        <field name="warning_visibility" invisible="1" />
+                        <field name="state" invisible="1"/>
+                        <field name="isready" invisible="1"/>
+                        <field name="check_manual" invisible="1"/>
+                        <field name="check_registration" invisible="1"/>
+                        <field name="check_prestation" invisible="1"/>
+                        <field name="check_invoice" invisible="1"/>
+                        <field name="warning_visibility" invisible="1"/>
                         <group states="init">
                             <field name="schoolimplantationid" invisible="1"/>
-                            <newline />
+                            <newline/>
                             <field name="activitycategory" widget="many2many_tags" options="{'no_create':True}"/>
-                            <newline />
+                            <newline/>
                             <field name="generate_pdf"/>
-                            <newline />
-                            <field name="period_from" /><field name="period_to" />
-                            <newline />
-                            <field name="invoice_date" /><field name="invoice_term" />
+                            <newline/>
+                            <field name="period_from"/>
+                            <field name="period_to"/>
+                            <newline/>
+                            <field name="invoice_date"/>
+                            <field name="invoice_term"/>
                         </group>
                         <group states="compute_invoices">
                             <field name="name" invisible="1" colspan="4"/>
                             <field name="invoices" nolabel="1" readonly="1" filename="name" colspan="4"/>
-                            <label string="Ok" />
+                            <label string="Ok"/>
                         </group>
                         <separator string="" colspan="4"/>
                         <group colspan="4" col="3">
-                            <button name="action_compute_invoices" string="Compute invoices" icon="gtk-apply" type="object"
-                                states="init"
+                            <button name="action_compute_invoices" string="Compute invoices" icon="gtk-apply"
+                                    type="object"
+                                    states="init"
                             />
                         </group>
-                        <label string="" colspan="4" />
-                        <label string="" colspan="4" />
-                        <label string="" colspan="4" />
+                        <label string="" colspan="4"/>
+                        <label string="" colspan="4"/>
+                        <label string="" colspan="4"/>
                     </sheet>
                 </form>
             </field>
@@ -72,5 +79,5 @@
             <field name="view_mode">form</field>
             <field name="target">inline</field>
         </record>
-	</data>
+    </data>
 </odoo>

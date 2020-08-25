@@ -21,20 +21,18 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
-from openerp.exceptions import except_orm, Warning, RedirectWarning
-from openerp.api import Environment
-import openerp.addons.decimal_precision as dp
-from openerp import tools
-import datetime
-import time
-from datetime import date, datetime, timedelta as td
 import calendar
-import re
-from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
-                           DEFAULT_SERVER_DATETIME_FORMAT)
-
+import datetime
 import logging
+import re
+import time
+from datetime import datetime
+
+import openerp.addons.decimal_precision as dp
+
+from openerp import models, api, fields, _
+from openerp.exceptions import Warning
+from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT)
 
 _logger = logging.getLogger(__name__)
 
@@ -54,12 +52,14 @@ class extraschool_invoice(models.Model):
         return res
 
     name = fields.Char('Name', size=20, readonly=True, default='Facture', track_visibility='onchange')
-    schoolimplantationid = fields.Many2one('extraschool.schoolimplantation', 'School implantation', required=False,
+    schoolimplantationid = fields.Many2one(comodel_name='extraschool.schoolimplantation', string='School implantation',
+                                           required=False,
                                            readonly=True, index=True, track_visibility='onchange')
-    classid = fields.Many2one('extraschool.class', 'Class', required=False,
+    classid = fields.Many2one(comodel_name='extraschool.class', string='Class', required=False,
                               domain="[('schoolimplantation','=',schoolimplantationid)]", index=True,
                               track_visibility='onchange')
-    parentid = fields.Many2one('extraschool.parent', 'Parent', required=False, index=True, track_visibility='onchange')
+    parentid = fields.Many2one(comodel_name='extraschool.parent', string='Parent', required=False, index=True,
+                               track_visibility='onchange')
     invoicesendmethod = fields.Selection(related="parentid.invoicesendmethod", store=True, track_visibility='onchange')
     number = fields.Integer('Number', readonly=True, track_visibility='onchange')
     structcom = fields.Char('Structured Communication', size=50, readonly=True, required=True,
@@ -72,28 +72,35 @@ class extraschool_invoice(models.Model):
                            store=True, track_visibility='onchange')
     no_value = fields.Float('No value', default=0.0, readonly=True, track_visibility='onchange')
     discount = fields.Float('Discount', readonly=True, track_visibility='onchange')
-    biller_id = fields.Many2one('extraschool.biller', 'Biller', required=False, ondelete='cascade', readonly=True,
+    biller_id = fields.Many2one(comodel_name='extraschool.biller', string='Biller', required=False, ondelete='cascade',
+                                readonly=True,
                                 index=True, track_visibility='onchange')
     filename = fields.Char('filename', size=20, readonly=True, invisible=True, track_visibility='onchange')
     invoice_file = fields.Binary('File', readonly=True, invisible=True, track_visibility='onchange')
-    payment_ids = fields.One2many('extraschool.payment_reconciliation', 'invoice_id', 'Payments',
+    payment_ids = fields.One2many(comodel_name='extraschool.payment_reconciliation', inverse_name='invoice_id',
+                                  string='Payments',
                                   track_visibility='onchange')
-    invoice_line_ids = fields.One2many('extraschool.invoicedprestations', 'invoiceid', 'Details',
+    invoice_line_ids = fields.One2many(comodel_name='extraschool.invoicedprestations', inverse_name='invoiceid',
+                                       string='Details',
                                        track_visibility='onchange')
-    refound_line_ids = fields.One2many('extraschool.refound_line', 'invoiceid', 'Refound', track_visibility='onchange')
+    refound_line_ids = fields.One2many(comodel_name='extraschool.refound_line', inverse_name='invoiceid',
+                                       string='Refound', track_visibility='onchange')
     oldid = fields.Char('oldid', size=20, track_visibility='onchange')
-    activitycategoryid = fields.Many2many('extraschool.activitycategory', 'extraschool_invoice_activity_category_rel',
-                                          store=True, auto_join=True, track_visibility='onchange')
+    activitycategoryid = fields.Many2many(comodel_name='extraschool.activitycategory',
+                                          relation='extraschool_invoice_activity_category_rel', auto_join=True,
+                                          track_visibility='onchange')
     period_from = fields.Date(related='biller_id.period_from', index=True, track_visibility='onchange')
     period_to = fields.Date(related='biller_id.period_to', index=True, track_visibility='onchange')
     payment_term = fields.Date('Payment term', track_visibility='onchange')
     comment = fields.Text("Comment", default="", track_visibility='onchange')
-    last_reminder_id = fields.Many2one('extraschool.reminder', 'Last reminder', readonly=True, index=True,
+    last_reminder_id = fields.Many2one(comodel_name='extraschool.reminder', string='Last reminder', readonly=True,
+                                       index=True,
                                        track_visibility='onchange')
     reminder_fees = fields.Boolean('Reminder fees', default=False, track_visibility='onchange')
     huissier = fields.Boolean('Huissier', default=False, track_visibility='onchange')
     fees_huissier = fields.Float('Fees Huissier', default=0.0, track_visibility='onchange')
-    tag = fields.Many2one('extraschool.invoice_tag', 'Tag', readonly=True, track_visibility='onchange')
+    tag = fields.Many2one(comodel_name='extraschool.invoice_tag', string='Tag', readonly=True,
+                          track_visibility='onchange')
 
     no_value_amount = fields.Float(
         string='No value amount',
@@ -215,19 +222,20 @@ class extraschool_invoice(models.Model):
 
     @api.multi
     def cancel_and_invoice_after(self):
-        self.ensure_one()
-        self.full_no_value()
-        for line in self.invoice_line_ids:
-            line.prestation_ids.write({
-                'invoiced_prestation_id': None,
-            })
-        self.cancel_payment()
+        for rec in self:
+            rec.full_no_value()
+            for line in rec.invoice_line_ids:
+                line.prestation_ids.write({
+                    'invoiced_prestation_id': None,
+                })
+            rec.cancel_payment()
 
     @api.multi
     def cancel(self):
-        self.ensure_one()
-        self.full_no_value()
-        self.cancel_payment()
+        for rec in self:
+            rec.ensure_one()
+            rec.full_no_value()
+            rec.cancel_payment()
 
     def get_concerned_short_name(self):
         res = []
