@@ -102,5 +102,14 @@
 				</div>
 			</div>
 		</template>
+
+        <template id="report_reminder_footer_ohey">
+            <div class="col-sm-12" style="text-align: center; margin-top:100px;">
+                <span>Place Roi Baudouin, 80 | 5350 Ohey</span><br/>
+                <span>Tel: 085/ 61 12 31 | Fax: 085/ 61 31 28</span><br/>
+                <span>www.ohey.be</span><br/>
+            </div>
+        </template>
+
 	</data>
 </odoo>
