@@ -13,7 +13,6 @@
 # 	* mail
 # 	* document
 # 	* extraschool
-# 	* odoo-report_pdf_both_sides
 # 	* fetchmail
 # 	* base_import
 # 	* web_view_editor
@@ -33,8 +32,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 10:05+0000\n"
-"PO-Revision-Date: 2020-08-21 12:16+0200\n"
+"POT-Creation-Date: 2020-08-26 11:41+0000\n"
+"PO-Revision-Date: 2020-08-26 13:43+0200\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -433,40 +432,40 @@ msgid ""
 "            \n"
 "            "
 msgstr ""
-"\n"
-"            \t<p>\n"
-"                    Dear ${object.user_id.name or ''},\n"
+"<p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">\n"
+"            t</p><p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">\n"
+"                    Bonjour ${object.user_id.name or ''},\n"
 "                </p>\n"
-"                <p>\n"
-"                    You have been given access to ${user.company_id.name}'s ${object.wizard_id.portal_id.name}.\n"
+"                <p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">\n"
+"                    On vous a donné accès à ${object.wizard_id.portal_id.name} de ${user.company_id.name}.\n"
 "                </p>\n"
-"                <p>\n"
-"                    Your login account data is:\n"
+"                <p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">\n"
+"                    Vos informations de connexion sont :\n"
 "                </p>\n"
-"                <ul>\n"
-"                    <li>Username: ${object.user_id.login or ''}</li>\n"
+"                <ul style=\"margin:0px 0 10px 0;\">\n"
+"                    <li>utilisateur : ${object.user_id.login or ''}</li>\n"
 "                </ul>\n"
-"                <ul>\n"
-"                    <li>Portal: <a href=\"${'portal_url' in ctx and ctx['portal_url'] or ''}\">${'portal_url' in ctx and ctx['portal_url'] or ''}</a></li>\n"
+"                <ul style=\"margin:0px 0 10px 0;\">\n"
+"                    <li>Portail: <a href=\"${'portal_url' in ctx and ctx['portal_url'] or ''}\" style=\"cursor:pointer;text-decoration-color:initial;text-decoration-style:initial;text-decoration-line:none;color:rgb(51, 122, 183);background-color:transparent;\">${'portal_url' in ctx and ctx['portal_url'] or ''}</a></li>\n"
 "                </ul>\n"
-"                <ul>\n"
-"                \t<li>Database: ${'dbname' in ctx and ctx['dbname'] or ''}</li>\n"
+"                <ul style=\"margin:0px 0 10px 0;\">\n"
+"                t<li>Base de données : ${'dbname' in ctx and ctx['dbname'] or ''}</li>\n"
 "                </ul>\n"
-"                <p>\n"
-"                \tYou can set or change your password via the following url:\n"
+"                <p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">\n"
+"                tVous pouvez choisir ou changer votre mot de passe avec le lien suivant :\n"
 "                </p>\n"
-"                <ul>\n"
-"                    <li><a href=\"${object.user_id.signup_url}\">${object.user_id.signup_url}</a></li>\n"
+"                <ul style=\"margin:0px 0 10px 0;\">\n"
+"                    <li><a href=\"${object.user_id.signup_url}\" style=\"cursor:pointer;text-decoration-color:initial;text-decoration-style:initial;text-decoration-line:none;color:rgb(51, 122, 183);background-color:transparent;\">${object.user_id.signup_url}</a></li>\n"
 "                </ul>\n"
-"                <p>\n"
-"                \t${object.wizard_id.welcome_message or ''}\n"
+"                <p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">\n"
+"                t${object.wizard_id.welcome_message or ''}\n"
 "                </p>\n"
-"                <p>---<br />\n"
-"                    Odoo - Open Source Business Applications<br />\n"
-"                    http://www.odoo.com<br />\n"
+"                <p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">---<br>\n"
+"                    Odoo - Applications de gestion libres<br>\n"
+"                    http://www.odoo.com<br>\n"
 "                </p>\n"
 "            \n"
-"            "
+"            <p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\"></p>"
 
 #. module: auth_signup
 #: model:mail.template,body_html:auth_signup.set_password_email
@@ -499,23 +498,22 @@ msgid ""
 msgstr ""
 "\n"
 "                \n"
-"                    <p>\n"
+"                    <p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">\n"
 "                        ${object.name},\n"
 "                    </p>\n"
-"                    <p>\n"
+"                    <p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">\n"
 "                        Vous avez reçu une invitation pour rejoindre \"${object.company_id.name}\" afin d'avoir accès à vos documents dans Odoo.\n"
 "                    </p>\n"
-"                    <p>\n"
+"                    <p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">\n"
 "                        Pour accepter cette invitation, cliquez sur le lien suivant :\n"
 "                    </p>\n"
-"                    <ul>\n"
-"                        <li><a href=\"${object.signup_url}\">Accepter l'invitation pour \"${object.company_id.name}\"</a></li>\n"
+"                    <ul style=\"margin:0px 0 10px 0;\">\n"
+"                        <li><a href=\"${object.signup_url}\" style=\"cursor:pointer;text-decoration-color:initial;text-decoration-style:initial;text-decoration-line:none;color:rgb(51, 122, 183);background-color:transparent;\">Accepter l'invitation pour \"${object.company_id.name}\"</a></li>\n"
 "                    </ul>\n"
-"                    <p>\n"
+"                    <p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">\n"
 "                        Avec nos remerciements,\n"
 "                    </p>\n"
-"                    <pre>\n"
-"--\n"
+"                    <pre style=\"padding:10px 0px 3px 0px;margin:0px 0px 10px 0px;border-bottom-left-radius:4px;border-bottom-right-radius:4px;border-top-right-radius:4px;border-top-left-radius:4px;border-image-repeat:initial;border-image-outset:initial;border-image-width:initial;border-image-slice:initial;border-image-source:initial;border-left-color:initial;border-bottom-color:initial;border-right-color:initial;border-top-color:initial;border-left-style:none;border-bottom-style:none;border-right-style:none;border-top-style:none;border-left-width:initial;border-bottom-width:initial;border-right-width:initial;border-top-width:initial;background-color:rgb(255, 255, 255);color:rgb(51, 51, 51);overflow-wrap:break-word;word-break:break-all;line-height:1.42857;font-size:13px;font-family:Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace;overflow-y:auto;overflow-x:auto;\">--\n"
 "${object.company_id.name or ''}\n"
 "${object.company_id.email or ''}\n"
 "${object.company_id.phone or ''}\n"
@@ -968,11 +966,11 @@ msgstr ""
 "\n"
 "<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
 "\n"
-"    <p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">Bonjour ${object.parent_id.name},</p>\n"
+"    <p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Bonjour ${object.parent_id.name},</p>\n"
 "\n"
-"    <p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">Nous vous invitons à pré-payer l'activité ${object.activity_category_id.name} de vos enfants</p>\n"
+"    <p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Nous vous invitons à pré-payer l'activité ${object.activity_category_id.name} de vos enfants</p>\n"
 "    <h2 style=\"margin:0px 0px 4px 0px;font-size:1.5em;color:inherit;line-height:1.1;font-weight:bold;font-family:inherit;\">Informations de paiement</h2>\n"
-"    <p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">\n"
+"    <p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">\n"
 "    tNum de compte : ${object.activity_category_id.bankaccount}\n"
 "    tCom structurée : ${object.com_struct}\n"
 "    </p>    \n"
@@ -996,19 +994,13 @@ msgid ""
 "</div>\n"
 "            "
 msgstr ""
-"\n"
 "<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
 "\n"
-"    <p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Bonjour ${object.parentid.name},</p>\n"
+"    <p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">Bonjour,</p>\n"
 "\n"
-"    <p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Vous trouverez en pièce jointe la facture correspondant aux activités de vos enfants</p>\n"
-"    <h2 style=\"margin:0px 0px 4px 0px;font-size:1.5em;color:inherit;line-height:1.1;font-weight:bold;font-family:inherit;\">Informations de paiement</h2>\n"
-"    <p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">\n"
-"    tNum de compte : ${object.activitycategoryid.bankaccount}\n"
-"    tCom structurée : ${object.structcom}\n"
-"    </p>    \n"
-"</div>\n"
-"            "
+"    <p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">Vous trouverez en pièce jointe la facture correspondant aux activités d'été de vos enfants</p>\n"
+"    <h2 style=\"margin:0px 0px 4px 0px;font-size:1.5em;color:inherit;line-height:1.1;font-weight:bold;font-family:inherit;\">Je vous souhaite bonne réception.</h2><h2 style=\"margin:0px 0px 4px 0px;font-size:1.5em;color:inherit;line-height:1.1;font-weight:bold;font-family:inherit;\"><br></h2><h2 style=\"margin:0px 0px 4px 0px;font-size:1.5em;color:inherit;line-height:1.1;font-weight:bold;font-family:inherit;\">Hernandez Laurent</h2><h2 style=\"margin:0px 0px 4px 0px;font-size:1.5em;color:inherit;line-height:1.1;font-weight:bold;font-family:inherit;\">Oh...Extra!</h2>    \n"
+"</div>"
 
 #. module: extraschool
 #: model:mail.template,body_html:extraschool.email_template_tax_certificate
@@ -1026,9 +1018,9 @@ msgstr ""
 "\n"
 "<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
 "\n"
-"    <p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">Bonjour ${object.parent_id.name},</p>\n"
+"    <p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;margin:0px 0px 10px 0px;\">Bonjour ${object.parent_id.name},</p>\n"
 "\n"
-"    <p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">Vous trouverez en pièce jointe votre attestation fiscale. </p><p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\"><br></p><p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">Cordialement,<br></p>\n"
+"    <p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;margin:0px 0px 10px 0px;\">Vous trouverez en pièce jointe votre attestation fiscale. </p><p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;margin:0px 0px 10px 0px;\"><br></p><p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;margin:0px 0px 10px 0px;\">Cordialement, </p><p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;margin:0px 0px 10px 0px;\"><br></p><p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;margin:0px 0px 10px 0px;\">Hernandez Laurent</p>\n"
 "\n"
 "</div>\n"
 "            "
@@ -1049,9 +1041,9 @@ msgstr ""
 "\n"
 "<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
 "\n"
-"    <p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Bonjour ${object.parentid.name},</p>\n"
+"    <p>Bonjour ${object.parentid.name},</p>\n"
 "\n"
-"    <p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Vous trouverez en pièce jointe le détail du rapple de paiement</p>\n"
+"    <p>Vous trouverez en pièce jointe le détail du rapple de paiement</p>\n"
 "   \n"
 "</div>\n"
 "            "
@@ -1067,11 +1059,11 @@ msgid ""
 "<p>Note: If you do not expect this, you can safely ignore this email.</p>"
 msgstr ""
 "\n"
-"<p>A password reset was requested for the Odoo account linked to this email.</p>\n"
+"<p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">Une demande de réinitialisation de mot de passe a été effectuée pour le compte Odoo lié à cette adresse.</p>\n"
 "\n"
-"<p>You may change your password by following <a href=\"${object.signup_url}\">this link</a>, which will remain valid during 24 hours.</p>\n"
+"<p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">Vous pouvez changer votre mot de passe en suivant <a href=\"${object.signup_url}\" style=\"cursor:pointer;text-decoration-color:initial;text-decoration-style:initial;text-decoration-line:none;color:rgb(51, 122, 183);background-color:transparent;\">ce lien</a>.</p>\n"
 "\n"
-"<p>Note: If you do not expect this, you can safely ignore this email.</p>"
+"<p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">Remarque : si vous n'avez pas effectué cette demande, vous pouvez simplement ignorer ce message.</p>"
 
 #. module: base
 #: model:ir.module.module,description:base.module_report_intrastat
@@ -2906,26 +2898,6 @@ msgstr ""
 "Rend disponible la configuration de l’application des connaissances depuis l'endroit où vous\n"
 "pouvez installer les modules de gestion documentaire ou de wiki caché.\n"
 "    "
-
-#. module: base
-#: model:ir.module.module,description:base.module_im_chat
-msgid ""
-"\n"
-"Instant Messaging\n"
-"=================\n"
-"\n"
-"Allows users to chat with each other in real time. Find other users easily and\n"
-"chat in real time. It support several chats in parallel.\n"
-"        "
-msgstr ""
-"\n"
-"Messagerie instantanée\n"
-"=================\n"
-"\n"
-"Permet aux utilisateurs de discuter les uns avec les autres en temps réel. \n"
-"Trouvez d'autres utilisateurs facilement et dialoguez en temps réel. \n"
-"Supporte plusieurs conversations en parallèle.\n"
-"        "
 
 #. module: base
 #: model:ir.module.module,description:base.module_google_drive
@@ -5113,61 +5085,6 @@ msgstr ""
 "\n"
 "The module adds the possibility to synchronize Google Calendar with OpenERP\n"
 "===========================================================================\n"
-
-#. module: base
-#: model:ir.module.module,description:base.module_sale_journal
-msgid ""
-"\n"
-"The sales journal modules allows you to categorise your sales and deliveries (picking lists) between different journals.\n"
-"========================================================================================================================\n"
-"\n"
-"This module is very helpful for bigger companies that works by departments.\n"
-"\n"
-"You can use journal for different purposes, some examples:\n"
-"----------------------------------------------------------\n"
-"    * isolate sales of different departments\n"
-"    * journals for deliveries by truck or by UPS\n"
-"\n"
-"Journals have a responsible and evolves between different status:\n"
-"-----------------------------------------------------------------\n"
-"    * draft, open, cancel, done.\n"
-"\n"
-"Batch operations can be processed on the different journals to confirm all sales\n"
-"at once, to validate or invoice packing.\n"
-"\n"
-"It also supports batch invoicing methods that can be configured by partners and sales orders, examples:\n"
-"-------------------------------------------------------------------------------------------------------\n"
-"    * daily invoicing\n"
-"    * monthly invoicing\n"
-"\n"
-"Some statistics by journals are provided.\n"
-"    "
-msgstr ""
-"\n"
-"The sales journal modules allows you to categorise your sales and deliveries (picking lists) between different journals.\n"
-"========================================================================================================================\n"
-"\n"
-"This module is very helpful for bigger companies that works by departments.\n"
-"\n"
-"You can use journal for different purposes, some examples:\n"
-"----------------------------------------------------------\n"
-"    * isolate sales of different departments\n"
-"    * journals for deliveries by truck or by UPS\n"
-"\n"
-"Journals have a responsible and evolves between different status:\n"
-"-----------------------------------------------------------------\n"
-"    * draft, open, cancel, done.\n"
-"\n"
-"Batch operations can be processed on the different journals to confirm all sales\n"
-"at once, to validate or invoice packing.\n"
-"\n"
-"It also supports batch invoicing methods that can be configured by partners and sales orders, examples:\n"
-"-------------------------------------------------------------------------------------------------------\n"
-"    * daily invoicing\n"
-"    * monthly invoicing\n"
-"\n"
-"Some statistics by journals are provided.\n"
-"    "
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_fr_pos_cert
@@ -7575,7 +7492,7 @@ msgstr "${(object.activity_category_id.payment_invitation_email_subject or 'Paym
 #. module: extraschool
 #: model:mail.template,subject:extraschool.email_template_invoice
 msgid "${(object.activitycategoryid.invoiceemailsubject or 'Invoice')|safe}"
-msgstr "AES - Détail facture"
+msgstr "Facture"
 
 #. module: auth_signup
 #: model:mail.template,subject:auth_signup.set_password_email
@@ -7843,11 +7760,6 @@ msgstr "&lt;!DOCTYPE html&gt;"
 #: model:ir.ui.view,arch_db:web.webclient_bootstrap
 msgid "&lt;![endif]--&gt;"
 msgstr "&lt;![endif]--&gt;"
-
-#. module: board
-#: model:ir.actions.act_window,help:board.open_board_my_dash_action
-msgid "&lt;div class=\"oe_empty_custom_dashboard\"&gt;<br>                  &lt;p&gt;<br>                    &lt;b&gt;Your personal dashboard is empty.&lt;/b&gt;<br>                  &lt;/p&gt;&lt;p&gt;<br>                    To add your first report into this dashboard, go to any<br>                    menu, switch to list or graph view, and click &lt;i&gt;'Add to<br>                    Dashboard'&lt;/i&gt; in the extended search options.<br>                  &lt;/p&gt;&lt;p&gt;<br>                    You can filter and group data before inserting into the<br>                    dashboard using the search options.<br>                  &lt;/p&gt;<br>              &lt;/div&gt;<br>"
-msgstr "&lt;div class=\"oe_empty_custom_dashboard\"&gt;<br>                  &lt;p&gt;<br>                    &lt;b&gt;Your personal dashboard is empty.&lt;/b&gt;<br>                  &lt;/p&gt;&lt;p&gt;<br>                    To add your first report into this dashboard, go to any<br>                    menu, switch to list or graph view, and click &lt;i&gt;'Add to<br>                    Dashboard'&lt;/i&gt; in the extended search options.<br>                  &lt;/p&gt;&lt;p&gt;<br>                    You can filter and group data before inserting into the<br>                    dashboard using the search options.<br>                  &lt;/p&gt;<br>              &lt;/div&gt;<br>"
 
 #. module: board
 #. openerp-web
@@ -9095,6 +9007,11 @@ msgstr "<b>Période du : </b>"
 msgid "<b>RAPPEL : FACTURES « ACCUEIL EXTRA SCOLAIRE »</b><br/><br/>"
 msgstr "<b>RAPPEL : FACTURES « ACCUEIL EXTRA SCOLAIRE »</b><br/><br/>"
 
+#. module: board
+#: model:ir.actions.act_window,help:board.open_board_my_dash_action
+msgid "<b>Your personal dashboard is empty.</b>"
+msgstr "Votre tableau de bord personel est vide"
+
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.tpl_tax_certificate_detail_report
 msgid ""
@@ -10053,6 +9970,11 @@ msgid ""
 msgstr ""
 "<i>« J'autorise le médecin à prendre les décisions qu'il juge urgentes et indispensables pour assurer l'état de santé de\n"
 "                    l'enfant, même s'il s'agit d'une intervention chirurgicale à défaut de pouvoir être contacté personnellement. »</i>"
+
+#. module: mail
+#: model:mail.template,body_html:mail.email_template_partner
+msgid "<p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\"><br></p>"
+msgstr "<p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\"><br></p>"
 
 #. module: mail
 #: model:ir.ui.view,arch_db:mail.email_compose_message_wizard_form
@@ -12857,8 +12779,7 @@ msgstr "Allow users to import data from CSV/XLS/XLSX/ODS files"
 msgid "Allowed Companies"
 msgstr "Sociétés autorisées"
 
-#. modules: report, odoo-report_pdf_both_sides
-#: model:ir.model,name:odoo-report_pdf_both_sides.model_report_paperformat
+#. module: report
 #: model:ir.model,name:report.model_report_paperformat
 msgid "Allows customization of a report."
 msgstr "Allows customization of a report."
@@ -12933,6 +12854,12 @@ msgid "Amount accepted"
 msgstr "Montant accepté"
 
 #. module: extraschool
+#: code:addons/extraschool/models/extraschool_payment_wizard.py:86
+#, python-format
+msgid "Amount can't be equal to 0"
+msgstr "Le montant du paiement ne peut être égal à 0."
+
+#. module: extraschool
 #: code:addons/extraschool/models/extraschool_coda.py:175
 #, python-format
 msgid "Amount greather than invoice balance"
@@ -12990,7 +12917,7 @@ msgid "An email notification with instructions has been sent to the following pe
 msgstr "An email notification with instructions has been sent to the following people:"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_invoice.py:214
+#: code:addons/extraschool/models/extraschool_invoice.py:221
 #, python-format
 msgid "An error occured, please contact an adminsitrator"
 msgstr "Une erreur est survenue .. Merci de contacter l'administrateur"
@@ -13106,11 +13033,6 @@ msgstr "Magasin d'applications"
 #: model:ir.model.fields,help:base.field_res_company_rml_header1
 msgid "Appears by default on the top right corner of your printed documents (report header)."
 msgstr "Apparaît par défaut dans le coin en haut à droite de vos documents imprimés (en-tête de rapport)."
-
-#. module: base
-#: model:ir.module.module,shortdesc:base.module_hr_applicant_document
-msgid "Applicant Resumes and Letters"
-msgstr "Applicant Resumes and Letters"
 
 #. module: base
 #: code:addons/base/res/res_users.py:813
@@ -13425,15 +13347,17 @@ msgid "Associations: Members"
 msgstr "Associations: Members"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_invoice_wizard.py:888
+#: code:addons/extraschool/wizard/extraschool_invoice_wizard.py:794
 #, python-format
 msgid ""
 "At least one price list is missing !!!\n"
 " "
-msgstr "Au moins une liste de prix est manquante !"
+msgstr ""
+"At least one price list is missing !!!\n"
+" "
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_payment_wizard.py:95
+#: code:addons/extraschool/models/extraschool_payment_wizard.py:97
 #, python-format
 msgid "At least one reconciliation line is not correct : amount greater than balance"
 msgstr "At least one reconciliation line is not correct : amount greater than balance"
@@ -13535,6 +13459,15 @@ msgstr "Attention il existe déjà un rapport ONE concernant ce lieu d'accueil e
 #: model:ir.ui.view,arch_db:extraschool.extraschool_one_report_form
 msgid "Attention veuillez vérifier que vous avez bien facturé toute la période concernée par ce rapport ONE."
 msgstr "Attention veuillez vérifier que vous avez bien facturé toute la période concernée par ce rapport ONE."
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.extraschool_invoice_wizard_form
+msgid ""
+"Attention, il y a un ou plusieurs smartphone(s) qui n'a / n'ont pas transmis. Vérifier avant\n"
+"                            de générer votre facturier !"
+msgstr ""
+"Attention, il y a un ou plusieurs smartphone(s) qui n'a / n'ont pas transmis. Vérifier avant\n"
+"                            de générer votre facturier !"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_reminders_journal_form
@@ -14380,11 +14313,6 @@ msgstr "Bosnie-Herzégovine"
 #: selection:base.language.install,lang:0
 msgid "Bosnian / bosanski jezik"
 msgstr "Bosniaque / bosanski jezik"
-
-#. module: odoo-report_pdf_both_sides
-#: model:ir.model.fields,field_description:odoo-report_pdf_both_sides.field_report_paperformat_both_sides
-msgid "Both sides"
-msgstr "Both sides"
 
 #. module: base
 #: model:res.country,name:base.bw
@@ -16201,7 +16129,6 @@ msgstr "Communication pour les paiements :"
 #: model:ir.ui.view,arch_db:extraschool.report_biller_detail_lierneux_no_style
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_com_struc_facture
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_flv
-#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_hannut
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_yvoir
 msgid "Communication structurée"
 msgstr "Communication structurée"
@@ -18286,7 +18213,7 @@ msgid "Date to"
 msgstr "Jusqu'au"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_remindersjournal.py:323
+#: code:addons/extraschool/models/extraschool_remindersjournal.py:333
 #, python-format
 msgid "Date to must be bigger than date from !!!"
 msgstr "La date de fin doit être supérieure ou égal à la date de début !"
@@ -18893,11 +18820,6 @@ msgid "Discount"
 msgstr "Réduction"
 
 #. module: extraschool
-#: model:ir.model,name:extraschool.model_extraschool_discountrule
-msgid "Discount Rule"
-msgstr "Règles de réductions"
-
-#. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoicedprestations_discount_value
 msgid "Discount value"
 msgstr "Discount value"
@@ -18953,7 +18875,7 @@ msgstr "Maladie"
 msgid "Display"
 msgstr "Afficher"
 
-#. modules: base_setup, odoo-report_pdf_both_sides, web_planner, bus, base_import, web_tip, fetchmail, extraschool, web_editor, web_environment_ribbon, base, portal, board, report, mail, document, decimal_precision
+#. modules: base_setup, web_planner, bus, base_import, web_tip, fetchmail, extraschool, web_editor, web_environment_ribbon, base, portal, board, report, mail, document, decimal_precision
 #: model:ir.model.fields,field_description:base.field__unknown_display_name
 #: model:ir.model.fields,field_description:base.field_base_language_export_display_name
 #: model:ir.model.fields,field_description:base.field_base_language_import_display_name
@@ -18969,7 +18891,7 @@ msgstr "Afficher"
 #: model:ir.model.fields,field_description:base.field_ir_act_window_display_name
 #: model:ir.model.fields,field_description:base.field_ir_act_window_view_display_name
 #: model:ir.model.fields,field_description:base.field_ir_actions_display_name
-#: model:ir.model.fields,field_description:base.field_ir_actions_display_name_3526
+#: model:ir.model.fields,field_description:base.field_ir_actions_display_name_3349
 #: model:ir.model.fields,field_description:base.field_ir_actions_todo_display_name
 #: model:ir.model.fields,field_description:base.field_ir_autovacuum_display_name
 #: model:ir.model.fields,field_description:base.field_ir_config_parameter_display_name
@@ -19201,11 +19123,11 @@ msgstr "Afficher"
 #: model:ir.model.fields,field_description:mail.field_publisher_warranty_contract_display_name
 #: model:ir.model.fields,field_description:mail.field_res_groups_display_name
 #: model:ir.model.fields,field_description:mail.field_res_users_display_name
-#: model:ir.model.fields,field_description:odoo-report_pdf_both_sides.field_report_paperformat_display_name
 #: model:ir.model.fields,field_description:portal.field_portal_wizard_display_name
 #: model:ir.model.fields,field_description:portal.field_portal_wizard_user_display_name
 #: model:ir.model.fields,field_description:report.field_ir_qweb_field_barcode_display_name
 #: model:ir.model.fields,field_description:report.field_report_abstract_report_display_name
+#: model:ir.model.fields,field_description:report.field_report_paperformat_display_name
 #: model:ir.model.fields,field_description:web_editor.field_web_editor_converter_test_sub_display_name
 #: model:ir.model.fields,field_description:web_environment_ribbon.field_web_environment_ribbon_backend_display_name
 #: model:ir.model.fields,field_description:web_planner.field_web_planner_display_name
@@ -19978,7 +19900,7 @@ msgstr "Adresse mél où rediriger les réponses..."
 
 #. module: mail
 #: model:ir.model,name:mail.model_mail_compose_message
-#: model:ir.model,name:mail.model_mail_compose_message_openupgrade_3396
+#: model:ir.model,name:mail.model_mail_compose_message_openupgrade_3402
 msgid "Email composition wizard"
 msgstr "Assistant de composition de courriel"
 
@@ -20700,7 +20622,7 @@ msgstr "Vue étendue"
 #: model:ir.model.fields,field_description:base.field_ir_act_url_xml_id
 #: model:ir.model.fields,field_description:base.field_ir_act_window_xml_id
 #: model:ir.model.fields,field_description:base.field_ir_actions_xml_id
-#: model:ir.model.fields,field_description:base.field_ir_actions_xml_id_3525
+#: model:ir.model.fields,field_description:base.field_ir_actions_xml_id_3661
 #: model:ir.model.fields,field_description:base.field_ir_module_category_xml_id
 #: model:ir.model.fields,field_description:base.field_ir_ui_view_xml_id
 #: model:ir.ui.view,arch_db:base.view_window_action_form
@@ -20709,7 +20631,7 @@ msgstr "Vue étendue"
 #: code:addons/base_import/static/src/xml/import.xml:74
 #, python-format
 msgid "External ID"
-msgstr "Identifiant externe"
+msgstr "ID Externe"
 
 #. module: base_import
 #. openerp-web
@@ -20877,11 +20799,6 @@ msgstr "Facture(s) impayée(s)"
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_durbuy
 msgid "Facture(s) échue(s) ou en attente de paiement"
 msgstr "Facture(s) échue(s) ou en attente de paiement"
-
-#. module: extraschool
-#: model:mail.template,report_name:extraschool.email_template_invoice
-msgid "Facture.pdf"
-msgstr "Facture.pdf"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_organising_power_form
@@ -21357,7 +21274,7 @@ msgstr "Format de fichier"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_qrcodes_wizard_name
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_taxcertificates_wizard_name
 msgid "File Name"
-msgstr "Fichier"
+msgstr "Nom du Fichier"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_attachment_file_size
@@ -24603,11 +24520,6 @@ msgid "Instances"
 msgstr "Instances"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_im_chat
-msgid "Instant Messaging"
-msgstr "Instant Messaging"
-
-#. module: base
 #: model:ir.module.module,description:base.module_bus
 msgid "Instant Messaging Bus allow you to send messages to users, in live."
 msgstr "Instant Messaging Bus allow you to send messages to users, in live."
@@ -25002,7 +24914,7 @@ msgid "Invoice email text"
 msgstr "Texte E-mail factures"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_invoice.py:51
+#: code:addons/extraschool/models/extraschool_invoice.py:49
 #, python-format
 msgid "Invoice from %s to %s"
 msgstr "Invoice from %s to %s"
@@ -25085,11 +24997,6 @@ msgstr "Invoicing"
 #: model:ir.module.category,name:base.module_category_account_voucher
 msgid "Invoicing & Payments"
 msgstr "Facturation et règlements"
-
-#. module: base
-#: model:ir.module.module,shortdesc:base.module_sale_journal
-msgid "Invoicing Journals"
-msgstr "Journaux de facturation"
 
 #. module: base
 #: model:res.country,name:base.ir
@@ -25672,7 +25579,7 @@ msgstr "Date du dernier message"
 msgid "Last Modification Date"
 msgstr "Date de dernière modification"
 
-#. modules: base_setup, odoo-report_pdf_both_sides, web_planner, bus, base_import, web_tip, fetchmail, extraschool, web_editor, web_environment_ribbon, base, portal, board, report, mail, document, decimal_precision
+#. modules: base_setup, web_planner, bus, base_import, web_tip, fetchmail, extraschool, web_editor, web_environment_ribbon, base, portal, board, report, mail, document, decimal_precision
 #: model:ir.model.fields,field_description:base.field__unknown___last_update
 #: model:ir.model.fields,field_description:base.field_base_language_export___last_update
 #: model:ir.model.fields,field_description:base.field_base_language_import___last_update
@@ -25688,7 +25595,7 @@ msgstr "Date de dernière modification"
 #: model:ir.model.fields,field_description:base.field_ir_act_window___last_update
 #: model:ir.model.fields,field_description:base.field_ir_act_window_view___last_update
 #: model:ir.model.fields,field_description:base.field_ir_actions___last_update
-#: model:ir.model.fields,field_description:base.field_ir_actions___last_update_3527
+#: model:ir.model.fields,field_description:base.field_ir_actions___last_update_3350
 #: model:ir.model.fields,field_description:base.field_ir_actions_todo___last_update
 #: model:ir.model.fields,field_description:base.field_ir_autovacuum___last_update
 #: model:ir.model.fields,field_description:base.field_ir_config_parameter___last_update
@@ -25921,17 +25828,17 @@ msgstr "Date de dernière modification"
 #: model:ir.model.fields,field_description:mail.field_res_groups___last_update
 #: model:ir.model.fields,field_description:mail.field_res_partner___last_update
 #: model:ir.model.fields,field_description:mail.field_res_users___last_update
-#: model:ir.model.fields,field_description:odoo-report_pdf_both_sides.field_report_paperformat___last_update
 #: model:ir.model.fields,field_description:portal.field_portal_wizard___last_update
 #: model:ir.model.fields,field_description:portal.field_portal_wizard_user___last_update
 #: model:ir.model.fields,field_description:report.field_ir_qweb_field_barcode___last_update
 #: model:ir.model.fields,field_description:report.field_report_abstract_report___last_update
+#: model:ir.model.fields,field_description:report.field_report_paperformat___last_update
 #: model:ir.model.fields,field_description:web_editor.field_web_editor_converter_test_sub___last_update
 #: model:ir.model.fields,field_description:web_environment_ribbon.field_web_environment_ribbon_backend___last_update
 #: model:ir.model.fields,field_description:web_planner.field_web_planner___last_update
 #: model:ir.model.fields,field_description:web_tip.field_web_tip___last_update
 msgid "Last Modified on"
-msgstr "Dernière modification"
+msgstr "Last Modified on"
 
 #. module: bus
 #: model:ir.model.fields,field_description:bus.field_bus_presence_last_poll
@@ -29753,6 +29660,11 @@ msgid "Non valeur:"
 msgstr "Non valeur:"
 
 #. module: extraschool
+#: model:ir.model,name:extraschool.model_extraschool_refound_line
+msgid "Non valeurs"
+msgstr "Non valeurs"
+
+#. module: extraschool
 #: selection:extraschool.payment,paymenttype:0
 msgid "Non value"
 msgstr "Non valeur"
@@ -30750,11 +30662,6 @@ msgid "Open: "
 msgstr "Ouvrir : "
 
 #. module: base
-#: model:ir.module.module,summary:base.module_im_chat
-msgid "OpenERP Chat"
-msgstr "OpenERP Chat"
-
-#. module: base
 #: model:ir.module.module,shortdesc:base.module_web_api
 msgid "OpenERP Web API"
 msgstr "API Web OpenERP"
@@ -31614,7 +31521,7 @@ msgstr "Classe d'Analyseur"
 #: selection:base.setup.terminology,partner:0
 #: model:ir.model,name:bus.model_res_partner
 #: model:ir.model,name:mail.model_res_partner
-#: model:ir.model,name:mail.model_res_partner_openupgrade_3398
+#: model:ir.model,name:mail.model_res_partner_openupgrade_3404
 msgid "Partner"
 msgstr "Partenaire"
 
@@ -33569,11 +33476,6 @@ msgid "Rappel"
 msgstr "Rappel"
 
 #. module: extraschool
-#: model:mail.template,report_name:extraschool.email_template_reminder
-msgid "Rappel.pdf"
-msgstr "Rappel.pdf"
-
-#. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_organising_power_form
 msgid "Rappels"
 msgstr "Rappels"
@@ -33711,7 +33613,7 @@ msgid "Reconcil Date"
 msgstr "Date de réconciliation"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_payment_wizard.py:99
+#: code:addons/extraschool/models/extraschool_payment_wizard.py:101
 #, python-format
 msgid "Reconcil amount MUST be less than payment amount"
 msgstr "Reconcil amount MUST be less than payment amount"
@@ -34317,7 +34219,7 @@ msgstr "Adresse courriel de réponse. Définir le champ reply_to contourne la cr
 msgid "Reply-To"
 msgstr "Répondre à"
 
-#. modules: report, base, extraschool, odoo-report_pdf_both_sides
+#. modules: report, base, extraschool
 #. openerp-web
 #: model:ir.module.module,shortdesc:base.module_report
 #: model:ir.ui.view,arch_db:base.act_report_xml_search_view
@@ -34329,7 +34231,6 @@ msgstr "Répondre à"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_inline_report_inline_report_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_inline_report_report_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_one_report_report
-#: model:ir.model,name:odoo-report_pdf_both_sides.model_report
 #: code:addons/report/static/src/js/qwebactionmanager.js:76
 #: code:addons/report/static/src/js/qwebactionmanager.js:84
 #: code:addons/report/static/src/js/qwebactionmanager.js:91
@@ -35320,11 +35221,6 @@ msgstr "Vue de recherche"
 #: model:ir.ui.view,arch_db:report.act_report_xml_view_inherit
 msgid "Search associated QWeb views"
 msgstr "Rechercher les vues QWeb associées"
-
-#. module: base
-#: model:ir.module.module,summary:base.module_hr_applicant_document
-msgid "Search job applications by Index content."
-msgstr "Search job applications by Index content."
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.view_module_filter
@@ -36841,7 +36737,7 @@ msgstr "Statistique des activités"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_timecorrection_wizard_state
 #: model:ir.model.fields,field_description:mail.field_res_users_state_id
 msgid "State"
-msgstr "Etat"
+msgstr "État"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_country_state_code
@@ -38417,7 +38313,7 @@ msgid "The state code in max. three chars."
 msgstr "Code de l'état, avec au plus trois caractères."
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_invoice.py:106
+#: code:addons/extraschool/models/extraschool_invoice.py:113
 #: sql_constraint:extraschool.invoice:0
 #, python-format
 msgid "The structured communication is already distributed. Please contact support-aes@imio.be"
@@ -38603,19 +38499,19 @@ msgid "There is no ONE report configuration"
 msgstr "Il n'y a pas de configuration ou plus de date de validité correcte"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_invoice_wizard.py:614
+#: code:addons/extraschool/wizard/extraschool_invoice_wizard.py:569
 #, python-format
 msgid "There is no dominant activity category"
-msgstr "Il n'existe pas de catégorie dominante dans le pouvoir organisateur !"
+msgstr "There is no dominant activity category"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_remindersjournal.py:308
+#: code:addons/extraschool/models/extraschool_remindersjournal.py:318
 #, python-format
 msgid "There is no dominant activity category !"
 msgstr "Il n'existe pas de catégorie dominante dans le pouvoir organisateur !"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_remindersjournal.py:157
+#: code:addons/extraschool/models/extraschool_remindersjournal.py:167
 #, python-format
 msgid "There is no next reminder."
 msgstr "Il n'y a pas de rappel suivant"
@@ -38639,7 +38535,7 @@ msgid "There is no reference field '%s' found for '%s'"
 msgstr "Il n'y a aucun champ de référence \"%s\" trouvé pour \"%s\""
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_invoice.py:335
+#: code:addons/extraschool/models/extraschool_invoice.py:343
 #, python-format
 msgid "There is no street on the place."
 msgstr "Il n'y a pas de rue."
@@ -38652,7 +38548,7 @@ msgid "There was a problem while uploading your file"
 msgstr "Il y a eu un problème lors de l'envoi du fichier"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_remindersjournal.py:318
+#: code:addons/extraschool/models/extraschool_remindersjournal.py:328
 #, python-format
 msgid "These activity doesn't have any type of reminders : {}"
 msgstr "Cette activité ne possède pas de type de rappels : {}"
@@ -38883,15 +38779,6 @@ msgstr ""
 "            Vous pouvez choisir d'exporter toutes les données ou uniquement les champs pouvant être réimportés après modification."
 
 #. module: base
-#: model:ir.module.module,description:base.module_hr_applicant_document
-msgid ""
-"This module allows you to search job applications by content\n"
-"    of resumes and letters."
-msgstr ""
-"This module allows you to search job applications by content\n"
-"    of resumes and letters."
-
-#. module: base
 #: model:ir.model.fields,field_description:base.field_res_lang_thousands_sep
 msgid "Thousands Separator"
 msgstr "Séparateur des milliers"
@@ -39056,6 +38943,17 @@ msgstr "A Faire"
 #: selection:ir.translation,state:0
 msgid "To Translate"
 msgstr "À traduire"
+
+#. module: board
+#: model:ir.actions.act_window,help:board.open_board_my_dash_action
+msgid ""
+"To add your first report into this dashboard, go to any\n"
+"                    menu, switch to list or graph view, and click <i>'Add to\n"
+"                    Dashboard'</i> in the extended search options."
+msgstr ""
+"Afin d'ajouter votre premier rapport dans ce tableau de bord, aller vers\n"
+"n'importe quel menu, changez pour la vue liste ou graphique, appuyez sur <i>'Ajoutez au\n"
+"tableau de bord'</i> dans les options de recherche avancées."
 
 #. module: base
 #: selection:ir.module.module,state:0
@@ -41162,7 +41060,6 @@ msgstr "Voulez-vous vraiment supprimer toutes les allergies ?"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_warning_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_warning_biller
-#: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_wizard_warning_smartphone
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_prestation_times_encodage_manuel_warning_biller
 msgid "WARNING"
 msgstr "ATTENTION"
@@ -41649,11 +41546,6 @@ msgstr "Indique que les valeurs de ce champ peuvent êtres traduites (active le 
 msgid "Who can follow the group's activities?"
 msgstr "Qui peut suivre les activités du groupe? "
 
-#. module: mail
-#: model:mail.channel,name:mail.channel_all_employees
-msgid "Whole Company"
-msgstr "Toute la société"
-
 #. module: base_import
 #. openerp-web
 #: code:addons/base_import/static/src/xml/import.xml:83
@@ -41692,8 +41584,7 @@ msgstr "Assistant"
 msgid "Wizards to be Launched"
 msgstr "Assistants à activer"
 
-#. modules: report, odoo-report_pdf_both_sides
-#: code:addons/odoo-report_pdf_both_sides/report_pdf_both_sides.py:220
+#. module: report
 #: code:addons/report/models/report.py:464
 #, python-format
 msgid "Wkhtmltopdf failed (error code: %s). Message: %s"
@@ -42021,6 +41912,13 @@ msgstr "You can delete only one biller at a time !"
 msgid "You can either upload a file from your computer or copy/paste an internet link to your file"
 msgstr "Vous pouvez, soit télécharger un fichier à partir de votre ordinateur soit copier / coller un lien Internet vers votre fichier"
 
+#. module: board
+#: model:ir.actions.act_window,help:board.open_board_my_dash_action
+msgid ""
+"You can filter and group data before inserting into the\n"
+"                    dashboard using the search options."
+msgstr "Vous pouvez filtrer et regrouper les données avant de les insérer dans le tableau de bord en utilisant les options de recherche."
+
 #. module: mail
 #. openerp-web
 #: code:addons/mail/static/src/xml/thread.xml:29
@@ -42097,7 +41995,7 @@ msgid "You can use this wizard to change the terminologies for customers in the 
 msgstr "Vous pouvez lancer cet assistant pour modifier dans toute l'application  la terminologie que vous souhaitez utiliser pour les clients."
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_remindersjournal.py:588
+#: code:addons/extraschool/models/extraschool_remindersjournal.py:611
 #, python-format
 msgid "You can't modify an existing reminder."
 msgstr "Vous ne pouvez pas modifier un rappel existant"
@@ -43277,7 +43175,7 @@ msgstr ""
 "                                            La présente attestation est valable pour la période du 01/01/2019 au 31/12/2019<br/><br/>"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_remindersjournal.py:515
+#: code:addons/extraschool/models/extraschool_remindersjournal.py:538
 #, python-format
 msgid "exit from accounting"
 msgstr "exit from accounting"
@@ -43642,8 +43540,8 @@ msgstr "Echéance"
 #: code:addons/extraschool/models/extraschool_manuel_invoice_wizard.py:78
 #: code:addons/extraschool/models/extraschool_manuel_invoice_wizard.py:99
 #: code:addons/extraschool/models/extraschool_negatif_payment_correction_wizard.py:61
-#: code:addons/extraschool/models/extraschool_remindersjournal.py:177
-#: code:addons/extraschool/models/extraschool_remindersjournal.py:453
+#: code:addons/extraschool/models/extraschool_remindersjournal.py:187
+#: code:addons/extraschool/models/extraschool_remindersjournal.py:475
 #, python-format
 msgid "invoice_%s"
 msgstr "invoice_%s"
@@ -43660,7 +43558,6 @@ msgstr "Numéro de facture"
 
 #. module: extraschool
 #: model:ir.model,name:extraschool.model_extraschool_invoicedprestations
-#: model:ir.model,name:extraschool.model_extraschool_refound_line
 msgid "invoiced Prestations"
 msgstr "Présences facturées"
 
@@ -44760,7 +44657,7 @@ msgstr "une avance de"
 #: model:ir.model.fields,field_description:decimal_precision.field_decimal_precision_test_float_4
 #: model:ir.model.fields,field_description:web_editor.field_web_editor_converter_test_sub_name
 msgid "unknown"
-msgstr "unknown"
+msgstr "inconnu"
 
 #. module: web_editor
 #. openerp-web

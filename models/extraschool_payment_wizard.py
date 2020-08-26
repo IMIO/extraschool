@@ -82,6 +82,8 @@ class extraschool_payment_wizard(models.TransientModel):
 
     @api.multi
     def next(self):
+        if self.amount == 0.0:
+            raise Warning(_("Amount can't be equal to 0"))
         # check if reconcil amount on line is never greater than balance
         reconciliation_error = 0
         total = 0
