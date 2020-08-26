@@ -394,7 +394,9 @@ class extraschool_remindersjournal(models.Model):
                     invoices_to_delete = invoice
                 else:
                     invoices_to_delete += invoice
-        return invoices - invoices_to_delete
+        if invoices_to_delete is not None:
+            invoices -= invoices_to_delete
+        return invoices
 
     @api.multi
     def validate(self):
