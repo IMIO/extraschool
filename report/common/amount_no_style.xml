@@ -10,6 +10,13 @@
                     <div class="amount">
                         <span class="zz_label">Total</span>
                         <span class="amount">
+                            <t t-esc="'%.2f' %  (amount)"/>
+                            €
+                        </span>
+                    </div>
+                    <div class="amount" t-if="reminder_type == 'fix'">
+                        <span class="zz_label">Total</span>
+                        <span class="amount">
                             <t t-esc="'%.2f' %  (amount - fees)"/>
                             €
                         </span>

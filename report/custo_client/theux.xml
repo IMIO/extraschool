@@ -1,19 +1,122 @@
 <?xml version="1.0" ?>
 <odoo>
     <data>
-		<template id="report_mail_parent">
+        <template id="report_mail_parent">
             <xpath expr="//head" position="inside">
                 <link rel="stylesheet" href="/extraschool/static/src/css/report_parent_credit.css"/>
             </xpath>
-				<div>
-                    <p>
+            <div>
+                <p>
                     <t t-if="parent_id.email">
-                        A partir du mois de mai 2020 et sans réaction de votre part, votre facture vous sera envoyée uniquement sur votre adresse e-mail suivante : <span t-field="parent_id.email" /><br/>
-                        A défaut, soit vous communiquez une adresse e-mail à l’agent traitant (<u>laure.defosse@theux.be</u>) pour recevoir les prochaines factures, soit vous recevrez votre facture par le biais du journal de classe ou par pli postal.
+                        A partir du mois de mai 2020 et sans réaction de votre part, votre facture vous sera envoyée
+                        uniquement sur votre adresse e-mail suivante :
+                        <span t-field="parent_id.email"/>
+                        <br/>
+                        A défaut, soit vous communiquez une adresse e-mail à l’agent traitant (<u>
+                        laure.defosse@theux.be</u>) pour recevoir les prochaines factures, soit vous recevrez votre
+                        facture par le biais du journal de classe ou par pli postal.
                     </t>
-                    </p>
-				</div>
-		</template>
+                </p>
+            </div>
+        </template>
+
+        <template id="report_reminder_bank_account_theux">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_reminder_theux.css"/>
+            </xpath>
+            <div id="invoice_summary">
+                <p>Je suppose qu’il s’agit d’un oubli de votre part.</p>
+                <p>Merci de bien vouloir verser ce montant sur le compte de l’Administration communale n° BE93 0910
+                    0045 0067 avec la mention «Frais scolaires + nom et prénom de l’enfant».
+                </p>
+                <p>A défaut de réaction ou de paiement dans la huitaine, je me verrai forcé d’entamer d’autres
+                    démarches tous frais à votre charge.
+                </p>
+                <p>Recevez, Madame, Monsieur, l’expression de mes sentiments les meilleurs.</p>
+                <p style="text-align: right;">Le Directeur financier,</p>
+                <p style="text-align: right;">André BIELEN</p>
+            </div>
+        </template>
+
+        <template id="report_invoice_summary_theux">
+            <t t-set="count" t-value="0"/>
+            <t t-foreach="summary_invoice_ids" t-as="summary_invoice">
+                <t t-if="summary_invoice.id != invoice_id">
+                    <t t-set="count" t-value="count+1"/>
+                </t>
+            </t>
+            <t t-if="count">
+                <xpath expr="//head" position="inside">
+                    <link rel="stylesheet"
+                          href="/extraschool/static/src/css/report_invoice_summary_tournai_tableau_rappel.css"/>
+                </xpath>
+                <div id="invoice_summary">
+                    <table>
+                        <tr>
+                            <th>Facture n°</th>
+                            <th>Période facturée</th>
+                            <th>Montant</th>
+                            <th>Correction</th>
+                            <th>Paiement</th>
+                            <th>Solde restant dû</th>
+                        </tr>
+                        <t t-foreach="summary_invoice_ids.sorted(key=lambda r: r.number)" t-as="summary_invoice">
+                            <tr>
+                                <t t-if="summary_invoice.id != invoice_id">
+                                    <t t-if="summary_invoice.reminder_fees == False">
+                                        <tr>
+                                            <td>
+                                                <span t-esc="summary_invoice.number"/>
+                                            </td>
+                                            <td>
+                                                <span
+                                                    t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_from,'%Y-%m-%d')))"/>
+                                                -
+                                                <span
+                                                    t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_to,'%Y-%m-%d')))"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="'%.2f €' % (summary_invoice.amount_total)"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="'%.2f €' % (summary_invoice.no_value_amount)"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="'%.2f €' % (summary_invoice.amount_received)"/>
+                                            </td>
+                                            <td class="amount">
+                                                <span t-esc="'%.2f €' % (summary_invoice.balance)"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </tr>
+                        </t>
+                        <tr>
+                            <th colspan="2">TOTAUX</th>
+                            <th>
+                                <span
+                                    t-esc="'%.2f €' % (sum([summary_invoice.amount_total for summary_invoice in summary_invoice_ids]))"/>
+                            </th>
+                            <th>
+                                <span
+                                    t-esc="'%.2f €' % (sum([summary_invoice.no_value_amount for summary_invoice in summary_invoice_ids]))"/>
+                            </th>
+                            <th>
+                                <span
+                                    t-esc="'%.2f €' % (sum([summary_invoice.amount_received for summary_invoice in summary_invoice_ids]))"/>
+                            </th>
+                            <th style="text-align:right;">
+                                <span
+                                    t-esc="'%.2f €' % (sum([summary_invoice.balance for summary_invoice in summary_invoice_ids]))"/>
+                            </th>
+                        </tr>
+
+                    </table>
+                </div>
+            </t>
+
+        </template>
 
     </data>
 </odoo>
