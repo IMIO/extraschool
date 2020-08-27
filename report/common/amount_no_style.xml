@@ -10,7 +10,7 @@
                     <div class="amount">
                         <span class="zz_label">Total</span>
                         <span class="amount">
-                            <t t-esc="'%.2f' %  (amount)"/>
+                            <t t-esc="'%.2f' %  (total)"/>
                             €
                         </span>
                     </div>
