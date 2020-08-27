@@ -216,24 +216,48 @@ envers la               Commune des sommes ci-après.
             </xpath>
 			<div id="total_row">
 				<div id="total">
-					<div class="amount">
-					  	<span class="zz_label">Total</span><span class="amount"><t t-esc="'%.2f' %  (total)" /> €</span>
-					</div>
-					<div class="amount">
-					   	<span class="zz_label">Reçu</span><span class="amount"><t t-esc="'%.2f' %  (received)" /> €</span>
-					</div>
+                    <div class="amount">
+                        <span class="zz_label">Total</span>
+                        <span class="amount">
+                            <t t-esc="'%.2f' %  (total)"/>
+                            €
+                        </span>
+                    </div>
+                    <div class="amount" t-if="received != 0">
+                        <span class="zz_label">Reçu</span>
+                        <span class="amount">
+                            <t t-esc="'%.2f' %  (received)"/>
+                            €
+                        </span>
+                    </div>
                     <div class="amount" t-if="reminder_type == 'fix'">
-                        <span class="zz_label">Frais de rappel</span><span class="amount"><t t-esc="'%.2f' %  (fees)" /> €</span>
+                        <span class="zz_label">Frais de rappel</span>
+                        <span class="amount">
+                            <t t-esc="'%.2f' %  (fees)"/>
+                            €
+                        </span>
                     </div>
                     <div class="amount to_pay" t-if="reminder_type == 'fix'">
-                        <span class="zz_label">Solde</span><span class="amount"><t t-esc="'%.2f' %  (balance + fees)" /> €</span>
+                        <span class="zz_label">Solde</span>
+                        <span class="amount">
+                            <t t-esc="'%.2f' %  (balance_computed)"/>
+                            €
+                        </span>
                     </div>
-					<div class="amount to_pay" t-if="reminder_type == 'free'">
-						<span class="zz_label">Solde</span><span class="amount"><t t-esc="'%.2f' %  (balance)" /> €</span>
-					</div>
-					<div class="amount to_pay" t-if="not reminder_type">
-						<span class="zz_label">Solde</span><span class="amount"><t t-esc="'%.2f' %  (balance)" /> €</span>
-					</div>
+                    <div class="amount to_pay" t-if="reminder_type == 'free'">
+                        <span class="zz_label">Solde</span>
+                        <span class="amount">
+                            <t t-esc="'%.2f' %  (balance_computed)"/>
+                            €
+                        </span>
+                    </div>
+                    <div class="amount to_pay" t-if="not reminder_type">
+                        <span class="zz_label">Solde</span>
+                        <span class="amount">
+                            <t t-esc="'%.2f' %  (balance)"/>
+                            €
+                        </span>
+                    </div>
 					<div class="amount to_pay">
 					 	<span> A payer avant le <t t-esc="payment_term" /></span> <br/><br/>
                         <div style="border-top: black 1px solid;">
