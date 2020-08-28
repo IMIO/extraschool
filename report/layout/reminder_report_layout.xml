@@ -57,6 +57,7 @@
             <xpath expr="//body" position="inside">
                 <div id="reminder">
                     <t t-foreach="docs" t-as="reminder">
+                        <t t-set="biller_id" t-value="reminder.reminders_journal_id.biller_id"/>
                         <t t-set="activity_category" t-value="docs[0].activity_category_ids[0]"/>
                         <t t-set="organising_power" t-value="docs[0].activity_category_ids[0].organising_power_id"/>
                         <t t-set="logo" t-value="organising_power.logo"/>
