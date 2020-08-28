@@ -26,8 +26,10 @@
             </xpath>
             <div id="invoice_summary">
                 <p>Je suppose qu’il s’agit d’un oubli de votre part.</p>
-                <p>Merci de bien vouloir verser ce montant sur le compte de l’Administration communale n° BE93 0910
-                    0045 0067 avec la mention «Frais scolaires + nom et prénom de l’enfant».
+                <p>Merci de bien vouloir verser ce montant sur le compte de l’Administration communale n°
+                    <t t-esc="categ_id.bankaccount"/>
+                    avec la communicaton structurée
+                    <t t-esc="parent_id.get_prepaid_comstruct(categ_id)"/>.
                 </p>
                 <p>A défaut de réaction ou de paiement dans la huitaine, je me verrai forcé d’entamer d’autres
                     démarches tous frais à votre charge.
