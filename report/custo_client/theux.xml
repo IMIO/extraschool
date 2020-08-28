@@ -29,7 +29,7 @@
                 <p>Merci de bien vouloir verser ce montant sur le compte de l’Administration communale n°
                     <t t-esc="categ_id.bankaccount"/>
                     avec la communicaton structurée
-                    <t t-esc="parent_id.get_prepaid_comstruct(categ_id)"/>.
+                    <t t-esc="com_struct"/>.
                 </p>
                 <p>A défaut de réaction ou de paiement dans la huitaine, je me verrai forcé d’entamer d’autres
                     démarches tous frais à votre charge.
