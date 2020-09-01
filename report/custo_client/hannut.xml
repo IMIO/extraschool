@@ -229,7 +229,7 @@
                                                 <span t-field="summary_invoice.payment_term"/>
                                             </td>
                                             <td class="amount">
-                                                <span t-esc="'%.2f €' %  (summary_invoice.amount_total)"/>
+                                                <span t-esc="'%.2f €' %  (summary_invoice.balance)"/>
                                             </td>
 
                                         </tr>
@@ -291,17 +291,17 @@
                     <div class="amount">
                         <span class="zz_label">Total</span>
                         <span class="amount">
-                            <t t-esc="'%.2f' %  (amount - fees)"/>
+                            <t t-esc="'%.2f' %  (balance_computed - fees)"/>
                             €
                         </span>
                     </div>
-                    <div class="amount" t-if="received != 0">
+                    <!--<div class="amount" t-if="received != 0">
                         <span class="zz_label">Reçu</span>
                         <span class="amount">
                             <t t-esc="'%.2f' %  (received)"/>
                             €
                         </span>
-                    </div>
+                    </div>-->
                     <div class="amount" t-if="reminder_type == 'fix'">
                         <span class="zz_label">Frais de rappel</span>
                         <span class="amount">
