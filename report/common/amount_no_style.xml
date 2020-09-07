@@ -7,7 +7,7 @@
             </xpath>
             <div id="total_row">
                 <div id="total">
-                    <div class="amount">
+                    <div class="amount" t-if="reminder_type == 'free'">
                         <span class="zz_label">Total</span>
                         <span class="amount">
                             <t t-esc="'%.2f' %  (total)"/>
