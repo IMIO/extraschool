@@ -27,6 +27,7 @@
                         <t t-set="activity_category" t-value="docs[0].activitycategoryid[0]"/>
                     </t>
 					<t t-foreach="docs" t-as="invoice">
+                        <t t-set="invoice" t-value="invoice"/>
                         <t t-set="activity_category" t-value="docs[0].activitycategoryid[0]"/>
 						<t t-set="logo" t-value="organising_power.logo"/>
                         <t t-set="logo2" t-value="organising_power.logo2"/>
