@@ -1,112 +1,263 @@
 <?xml version="1.0" ?>
 <odoo>
-	<data>
+    <data>
 
         <template id="report_invoice_summary_flv">
             <xpath expr="//head" position="inside">
                 <link rel="stylesheet" href="/extraschool/static/src/css/report_invoice_summary_yvoir.css"/>
             </xpath>
-			<t t-set="zz" t-value="0" />
-			<t t-foreach="summary_invoice_ids" t-as="summary_invoice">
-				<t t-if="summary_invoice.id != invoice_id">
-					<t t-set="zz" t-value="zz+1" />
-				</t>
-			</t>
-			<t t-if="zz" >
-	        	<div id="invoice_summary" >
-	        		<h2><span t-esc="summary_invoice_title" /></h2>
-	        		<p>Les factures suivantes sont toujours en attente de paiement. Nous vous prions de bien vouloir procéder à leur(s) règlement(s) dans les meilleurs délais.</p>
-	        		<table>
-	        			<tr>
-		        			<th>Période</th>
-		        			<th>Facture</th>
-		        			<th>Echéance</th>
-		        			<th>Communication structurée</th>
-							<th>Montant</th>
-						</tr>
-		       			<t t-foreach="summary_invoice_ids.sorted(key=lambda r: r.number)" t-as="summary_invoice">
-	        				<tr>
-	        					<t t-if="summary_invoice.id != invoice_id">
-                                <t t-if="summary_invoice.activitycategoryid == activity_category">
-	        					<t t-if="summary_invoice.reminder_fees == False">
-	        						<tr>
-				       					<td><span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_from,'%Y-%m-%d')))" /> - <span t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_to,'%Y-%m-%d')))" /></td>
-			        					<td><span t-field="summary_invoice.number" /></td>
-				       					<td><span t-field="summary_invoice.payment_term" /></td>
-										<td><t t-esc="parent_id.get_prepaid_comstruct(categ_id)" /></td>
-				       					<td class="amount"><span t-esc="'%.2f €' %  (summary_invoice.balance)" /></td>
+            <t t-set="zz" t-value="0"/>
+            <t t-foreach="summary_invoice_ids" t-as="summary_invoice">
+                <t t-if="summary_invoice.id != invoice_id">
+                    <t t-set="zz" t-value="zz+1"/>
+                </t>
+            </t>
+            <t t-if="zz">
+                <div id="invoice_summary">
+                    <h2>
+                        <span t-esc="summary_invoice_title"/>
+                    </h2>
+                    <p>Les factures suivantes sont toujours en attente de paiement. Nous vous prions de bien vouloir
+                        procéder à leur(s) règlement(s) dans les meilleurs délais.
+                    </p>
+                    <table>
+                        <tr>
+                            <th>Période</th>
+                            <th>Facture</th>
+                            <th>Echéance</th>
+                            <th>Communication structurée</th>
+                            <th>Montant</th>
+                        </tr>
+                        <t t-foreach="summary_invoice_ids.sorted(key=lambda r: r.number)" t-as="summary_invoice">
+                            <tr>
+                                <t t-if="summary_invoice.id != invoice_id">
+                                    <t t-if="summary_invoice.activitycategoryid == activity_category">
+                                        <t t-if="summary_invoice.reminder_fees == False">
+                                            <tr>
+                                                <td>
+                                                    <span
+                                                        t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_from,'%Y-%m-%d')))"/>
+                                                    -
+                                                    <span
+                                                        t-esc="'%s' % (time.strftime('%d-%m-%Y',time.strptime(summary_invoice.biller_id.period_to,'%Y-%m-%d')))"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="summary_invoice.number"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="summary_invoice.payment_term"/>
+                                                </td>
+                                                <td>
+                                                    <t t-esc="parent_id.get_prepaid_comstruct(categ_id)"/>
+                                                </td>
+                                                <td class="amount">
+                                                    <span t-esc="'%.2f €' %  (summary_invoice.balance)"/>
+                                                </td>
 
-	        						</tr>
-								</t>
-	        					<t t-if="summary_invoice.reminder_fees == True">
-	        						<t t-foreach="summary_invoice.invoice_line_ids" t-as="invoice_line">
-	        							<tr>
-					       					<td></td>
-				        					<td><span t-field="invoice_line.description" /></td>
-					       					<td><span t-field="summary_invoice.payment_term" /></td>
-											<td><t t-esc="parent_id.get_prepaid_comstruct(categ_id)" /></td>
-					       					<td class="amount"><span t-esc="TODO" /></td>
-											<!--<td class="amount"><span t-esc="'%.2f €' %  (invoice_line.balance)" /></td>-->
-				       					</tr>
-	        						</t>
-								</t>
+                                            </tr>
+                                        </t>
+                                        <t t-if="summary_invoice.reminder_fees == True">
+                                            <t t-foreach="summary_invoice.invoice_line_ids" t-as="invoice_line">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <span t-field="invoice_line.description"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-field="summary_invoice.payment_term"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="parent_id.get_prepaid_comstruct(categ_id)"/>
+                                                    </td>
+                                                    <td class="amount">
+                                                        <span t-esc="TODO"/>
+                                                    </td>
+                                                    <!--<td class="amount"><span t-esc="'%.2f €' %  (invoice_line.balance)" /></td>-->
+                                                </tr>
+                                            </t>
+                                        </t>
+                                    </t>
                                 </t>
-								</t>
-		       				</tr>
-		        		</t>
+                            </tr>
+                        </t>
 
-	        		</table>
-	       		</div>
-			</t>
-		</template>
+                    </table>
+                </div>
+            </t>
+        </template>
 
         <template id="report_flv_report_parent_credit" inherit_id="extraschool.report_parent_credit" primary="True">
-			<xpath expr="//div[@id='aes_html_parent_credit']" position="replace">
-		    	<div class="aes_html_parent_credit">
-					<h4>Pour rappel,</h4>
-		    		<p>Votre compte famille présente
-		    			<t t-if="total_balance_per_activity_category > 0.001">
-		    				<span class="aes_credit_solde">un solde à payer de <t t-esc="'%.2f' %  (total_balance_per_activity_category)" />€</span>
-		    			</t>
-		    			<t t-if="total_balance_per_activity_category &lt; 0.001">
-		    				<span class="aes_credit_solde">une avance de <t t-esc="'%.2f' %  (parent_id.payment_status_ids[0].solde)" />€</span>
-		    			</t>
-		    		</p>
+            <xpath expr="//div[@id='aes_html_parent_credit']" position="replace">
+                <div class="aes_html_parent_credit">
+                    <h4>Pour rappel,</h4>
+                    <p>Votre compte famille présente
+                        <t t-if="total_balance_per_activity_category > 0.001">
+                            <span class="aes_credit_solde">un solde à payer de<t
+                                t-esc="'%.2f' %  (total_balance_per_activity_category)"/>€
+                            </span>
+                        </t>
+                        <t t-if="total_balance_per_activity_category &lt; 0.001">
+                            <span class="aes_credit_solde">une avance de<t
+                                t-esc="'%.2f' %  (parent_id.payment_status_ids[0].solde)"/>€
+                            </span>
+                        </t>
+                    </p>
 
-				</div>
-			</xpath>
-		</template>
+                </div>
+            </xpath>
+        </template>
 
         <template id="report_invoice_summary_flv_text_rappel">
             <xpath expr="//head" position="inside">
                 <link rel="stylesheet" href="/extraschool/static/src/css/report_invoice_summary_tournai_reminder.css"/>
             </xpath>
-              <div id="invoice_summary">
-                 <p>
-                     Objet: Factures AES pour la période du <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/>
-                         - <b>RAPPEL</b><br/>
-                       Nos réf. : AES / <t t-esc="reminder.reminders_journal_id.name"/> / <t t-esc="parent_id.name" /><br/><br/><br/>
-                        Cher Parent, <br/><br/>
-                       Nous vous avons adressé les factures relatives aux frais extrascolaires de votre (vos) enfant(s) pour la période du <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/>.
-                       Nous constatons que vous êtes encore redevable d'un solde dû de <t t-esc="'%.2f €' % (amount)"/> envers l'Administration
-                       Communale de <t t-esc="categ_id.po_city" />, somme dont vous trouverez le détail ci-annexé.<br/><br/>
+            <div id="invoice_summary">
+                <p>
+                    Objet: Factures AES pour la période du
+                    <t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/>
+                    -
+                    <b>RAPPEL</b>
+                    <br/>
+                    Nos réf. : AES /
+                    <t t-esc="reminder.reminders_journal_id.name"/>
+                    /
+                    <t t-esc="parent_id.name"/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    Cher Parent,
+                    <br/>
+                    <br/>
+                    Nous vous avons adressé les factures relatives aux frais extrascolaires de votre (vos) enfant(s)
+                    pour la période du<t t-esc="reminder.get_date(reminder.concerned_invoice_ids)"/>.
+                    Nous constatons que vous êtes encore redevable d'un solde dû de
+                    <t t-esc="'%.2f €' % (amount)"/>
+                    envers l'Administration
+                    Communale de<t t-esc="categ_id.po_city"/>, somme dont vous trouverez le détail ci-annexé.
+                    <br/>
+                    <br/>
 
-                       <b>Nous vous invitons à régler ce montant, pour le <t t-esc="payment_term" /> au plus tard, au bénéfice du compte (IBAN)
-                           n° <t t-esc="categ_id.bankaccount" /> (code BIC : GKCCBEBB), avec la communication structurée suivante : <t t-esc="com_struct" />.</b><br/><br/>
+                    <b>Nous vous invitons à régler ce montant, pour le
+                        <t t-esc="payment_term"/>
+                        au plus tard, au bénéfice du compte (IBAN)
+                        n°
+                        <t t-esc="categ_id.bankaccount"/>
+                        (code BIC : GKCCBEBB), avec la communication structurée suivante :<t t-esc="com_struct"/>.
+                    </b>
+                    <br/>
+                    <br/>
 
-                       Si le paiement a été effectué entre-temps, nous vous remercions de ne pas tenir compte du présent courrier.<br/>
+                    Si le paiement a été effectué entre-temps, nous vous remercions de ne pas tenir compte du présent
+                    courrier.
+                    <br/>
 
-                       Si vous souhaitez solliciter un plan de paiement, nous vous invitons à prendre contact avec notre service. <br/><br/>
+                    Si vous souhaitez solliciter un plan de paiement, nous vous invitons à prendre contact avec notre
+                    service.
+                    <br/>
+                    <br/>
 
-                       Au terme de celui-ci, un second rappel sera envoyé par recommandé sur lequel seront appliqués des frais de 10,00€.<br/>
-                        A défaut de paiement dans les délais prescrits, le directeur financier envoie une contrainte visée et rendue exécutoire par le collège communal.
-                     Une telle contrainte est signifiée par exploit d'huissier. Cet exploit interrompt la prescription. Un recours contre cet exploit peut être introduit dans le mois de la signification par requête ou par citation.<br/>
+                    Au terme de celui-ci, un second rappel sera envoyé par recommandé sur lequel seront appliqués des
+                    frais de 10,00€.
+                    <br/>
+                    A défaut de paiement dans les délais prescrits, le directeur financier envoie une contrainte visée
+                    et rendue exécutoire par le collège communal.
+                    Une telle contrainte est signifiée par exploit d'huissier. Cet exploit interrompt la prescription.
+                    Un recours contre cet exploit peut être introduit dans le mois de la signification par requête ou
+                    par citation.
+                    <br/>
 
-                       Vous souhaitant bonne réception de la présente, nous vous prions de croire, Cher Parent, à l'assurance de
-                       notre considération distinguée.
+                    Vous souhaitant bonne réception de la présente, nous vous prions de croire, Cher Parent, à
+                    l'assurance de
+                    notre considération distinguée.
                 </p>
-             </div>
-		</template>
+            </div>
+        </template>
+
+        <template id="report_payment_info_amount_one_row_fosses">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_payment_info_amount_one_row.css"/>
+            </xpath>
+            <div id="total_row">
+                <div id="payment_info">
+                    <span>Compte:
+                        <b>
+                            <t t-esc="categ_id.bankaccount"/>
+                        </b>
+                    </span>
+                    <br/>
+                    <span>BIC:
+                        <t t-esc="categ_id.bank_bic"/>
+                    </span>
+                    <br/>
+                    <div class="com_struct">
+                        <span>Communication structurée <b>obligatoire</b>:
+                            <br/>
+                            <b>
+                                <t t-esc="com_struct"/>
+                            </b>
+                        </span>
+                    </div>
+                </div>
+                <div id="total">
+                    <div class="amount">
+                        <span class="zz_label">Total</span>
+                        <span class="amount">
+                            <t t-esc="'%.2f' %  (total)"/>
+                            €
+                        </span>
+                    </div>
+                    <div class="amount">
+                        <span class="zz_label">Reçu</span>
+                        <span class="amount">
+                            <t t-esc="'%.2f' %  (received)"/>
+                            €
+                        </span>
+                    </div>
+                    <div class="amount" t-if="reminder_type == 'fix'">
+                        <span class="zz_label">Frais de rappel</span>
+                        <span class="amount">
+                            <t t-esc="'%.2f' %  (fees)"/>
+                            €
+                        </span>
+                    </div>
+                    <div class="amount" t-if="no_value">
+                        <span class="zz_label">Non-valeur</span>
+                        <span class="amount">
+                            <t t-esc="'%.2f' %  (no_value)"/>
+                            €
+                        </span>
+                    </div>
+                    <div class="amount to_pay" t-if="reminder_type == 'fix'">
+                        <span class="zz_label">Solde</span>
+                        <span class="amount">
+                            <t t-esc="'%.2f' %  (balance + fees)"/>
+                            €
+                        </span>
+                    </div>
+                    <div class="amount to_pay" t-if="reminder_type == 'free'">
+                        <span class="zz_label">Solde</span>
+                        <span class="amount">
+                            <t t-esc="'%.2f' %  (balance)"/>
+                            €
+                        </span>
+                    </div>
+                    <div class="amount to_pay" t-if="not reminder_type">
+                        <span class="zz_label">Solde</span>
+                        <span class="amount">
+                            <t t-esc="'%.2f' %  (balance)"/>
+                            €
+                        </span>
+                    </div>
+                    <div class="amount to_pay">
+                        <b>
+                            <span>A payer avant le
+                                <t t-esc="payment_term"/>
+                            </span>
+                        </b>
+                    </div>
+                </div>
+            </div>
+        </template>
 
     </data>
 </odoo>
