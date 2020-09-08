@@ -710,4 +710,14 @@ class extraschool_mainsettings(models.Model):
     def get_child_meal(self):
         pass
 
+    @api.multi
+    def create_debug(self):
+        import wdb
+        wdb.set_trace()
+        pass
+
+    @api.multi
+    def script_assesse(self):
+        self.env["extraschool.invoice"].browse(15795)._compute_balance()
+
     # endregion
