@@ -238,10 +238,6 @@
                                 <button name="create_debug" string="Debug" icon="gtk-apply"
                                         type="object"/>
                             </page>
-                            <page string="DEBUG WDB">
-                                <button name="script_assesse" string="Debug assesse" icon="gtk-apply"
-                                        type="object"/>
-                            </page>
                         </notebook>
                     </sheet>
                 </form>

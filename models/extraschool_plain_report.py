@@ -153,7 +153,7 @@ class extraschool_plain_report(models.Model):
         tags['nb_child_heavy'] = 0
         tags['nb_child_disadvantaged'] = 0
         for prestation in prestation_ids:
-            selected_list = 'under_6' if prestation.childid.get_age() <= 6 else 'over_6'
+            selected_list = 'under_6' if prestation.childid.get_age() < 6 else 'over_6'
             if prestation.childid.id not in childs[selected_list]:
                 dates = [p.prestation_date for p in prestation_ids.filtered(lambda r: r.childid == prestation.childid)]
                 childs[selected_list][prestation.childid.id] = {'lastname': prestation.childid.lastname.upper(),

@@ -716,8 +716,5 @@ class extraschool_mainsettings(models.Model):
         wdb.set_trace()
         pass
 
-    @api.multi
-    def script_assesse(self):
-        self.env["extraschool.invoice"].browse(15795)._compute_balance()
 
     # endregion

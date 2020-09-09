@@ -259,5 +259,16 @@
             </div>
         </template>
 
+        <template id="report_adresse_no_style_comment2_fosses" inherit_id="extraschool.report_adresse_no_style_comment2" primary="True">
+            <xpath expr="//div[@id='aes_po_adresse']" position="replace">
+             	<div id="aes_block_customer" class="aes_adresse_block customer">
+                    <span>ENVOI PAR RECOMMANDE</span>
+					<span t-field="addresse.name" />
+					<span t-field="addresse.street" />
+					<span><t t-esc="addresse.zipcode" /> <t t-esc="addresse.city" /></span>
+				</div>
+            </xpath>
+        </template>
+
     </data>
 </odoo>
