@@ -142,7 +142,7 @@ class extraschool_remindersjournal(models.Model):
                      'number': next_invoice_num['num'],
                      'parentid': reminder.parentid.id,
                      'biller_id': self.biller_id.id,
-                     'activitycategoryid': [(6, False, self.activity_category_ids.ids)],
+                     'activitycategoryid': [(6, 0, self.activity_category_ids.ids)],
                      'structcom': next_invoice_num['com_struct'],
                      'last_reminder_id': reminder.id,
                      'reminder_fees': True,
