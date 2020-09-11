@@ -2,9 +2,9 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2019
+#    Copyright (C) 2008-2020
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia & Jenny Pans - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -21,18 +21,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields
-
-    
-class extraschool_report(models.Model):
-    _name = 'extraschool.report'
-    _description = 'Report'
-    _order = 'name'
-
-    name = fields.Char('Name', size=50, required=True)
-    report_type_id = fields.Many2one('ir.actions.report.xml', 'Report type', required=True)
-    inline_report_ids = fields.One2many('extraschool.inline_report','report_id', ondelete='cascade')
-    paper_format_id = fields.Many2one('report.paperformat', 'Paper format', required=True)
+from openerp import models, fields
 
 
 class extraschool_inline_report(models.Model):
@@ -40,14 +29,14 @@ class extraschool_inline_report(models.Model):
     _description = 'Report'
     _order = 'section asc,sequence asc'
 
-
     name = fields.Char('Name', size=50, required=True)
-    report_id = fields.Many2one('extraschool.report', 'Report', ondelete='cascade')
+    report_id = fields.Many2one(comodel_name='extraschool.report', string='Report', ondelete='cascade')
     sequence = fields.Integer('Sequence', help="Gives the sequence order when displaying a list.")
-    inline_report_id = fields.Many2one('ir.ui.view', 'Report', required=True, ondelete='cascade')
-    section = fields.Selection([('a_header','Header'),
-                                ('b_body','Body'),
-                                ('c_footer','Footer'),], required=True)
+    inline_report_id = fields.Many2one(comodel_name='ir.ui.view', string='Report', required=True, ondelete='cascade')
+    section = fields.Selection([('a_header', 'Header'),
+                                ('b_body', 'Body'),
+                                ('c_footer', 'Footer'), ], required=True)
     page_break_after = fields.Boolean(string="Page break after", default=False)
-    visibility = fields.Selection([('hide_firstpage','Hidden on first page'),('show_firstpage','First page only'),('show_lastpage','Last page only'),])
+    visibility = fields.Selection([('hide_firstpage', 'Hidden on first page'), ('show_firstpage', 'First page only'),
+                                   ('show_lastpage', 'Last page only'), ])
     verso = fields.Boolean(default=False)

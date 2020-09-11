@@ -97,6 +97,7 @@
 								</t>
 							</t>
 			       		</div>
+
 			        	<div class="page">
 			        		<t t-foreach="activity_category.invoice_report_id.inline_report_ids.filtered(lambda r: r.section == 'b_body')" t-as="tmpl">
 				        		<t t-set="sub_report_content" t-value="True"/>
@@ -107,12 +108,11 @@
 									<t t-call="extraschool.{{tmpl.inline_report_id.name}}" />
 								</t>
 								<t t-if="tmpl.page_break_after and sub_report_content">
-									<div class="break"></div>
+                                    <div class="break"/>
 								</t>
 							</t>
 
 			       		</div>
-
 
 			        	<div class="footer">
 			        		<t t-foreach="activity_category.invoice_report_id.inline_report_ids.filtered(lambda r: r.section == 'c_footer')" t-as="tmpl">

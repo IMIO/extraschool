@@ -60,7 +60,6 @@ import extraschool_subvention_report
 import extraschool_price_list
 import extraschool_qrcodes_wizard
 import extraschool_refound_line
-import extraschool_report
 import extraschool_report_hack
 import extraschool_reject
 import extraschool_reminder
@@ -95,3 +94,4 @@ import extraschool_annual_report
 import extraschool_res_users
 import extraschool_address
 import extraschool_plain_report
+import report

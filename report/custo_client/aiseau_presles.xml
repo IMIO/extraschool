@@ -1,0 +1,156 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+
+        <template id="report_article_100">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_article_100.css"/>
+            </xpath>
+            <div class="article_100">
+                    <p><b><u>Article 100 du décret du 24/07/1997 définissant les missions prioritaires de l'enseignement
+                    fondamental et de l'enseignement secondaire et organisant les structures propres à les atteindre,
+                    dit décret « Missions »</u></b></p>
+                    <p><b>§ 1er. </b>Des dotations et des subventions de fonctionnement annuelles et forfaitaires sont accordées
+                    pour couvrir les frais afférents au fonctionnement et à l'équipement des écoles, et à la
+                    distribution gratuite de manuels et de fournitures scolaires aux élèves soumis à l'obligation
+                    scolaire.</p>
+                    <p><b>§ 2.</b> Dans l’Enseignement maternel, ordinaire et spécialisé, aucun minerval direct ou indirect ne
+                    peut être perçu. Sans préjudice du paragraphe 3, un pouvoir organisateur ne peut en aucun cas
+                    formuler lors de l’inscription ou lors de la poursuite de la scolarisation dans une école une
+                    demande de paiement, directe ou indirecte, facultative ou obligatoire, sous forme d’argent, de
+                    services ou de fournitures.
+                    Dans l’Enseignement primaire et secondaire, ordinaire et spécialisé, aucun minervalt direct ou
+                    indirect ne peut être perçu hors les cas prévus d'une part par l'article 12, § 1erbis de la loi du
+                    29 mai 1959 modifiant certaines dispositions de la législation de l'enseignement, d'autre part par
+                    l'article 59, § 1er, de la loi du 21 juin 1985 concernant l'enseignement. Sans préjudice des
+                    dispositions du présent alinéa et des paragraphes 4 à 6, un pouvoir organisateur ne peut en aucun
+                    cas formuler lors de l’inscription ou lors de la poursuite de la scolarisation dans une école une
+                    demande de paiement, directe ou indirecte, facultative ou obligatoire, sous forme d’argent, de
+                        services ou de fournitures.</p>
+                    <p><b>§ 3.</b> Dans l’Enseignement maternel, ordinaire et spécialisé, sans préjudice des alinéas 2 et 3, aucun
+                    frais scolaire ne peut être perçu et aucune fourniture scolaire ne peut être réclamée aux parents ou
+                    à la personne investie de l’autorité parentale, directement ou indirectement.
+                    Seuls les frais scolaires suivants, appréciés au coût réel, peuvent être perçus :
+                    1° les droits d'accès à la piscine ainsi que les déplacements qui y sont liés ;
+                    2° les droits d’accès aux activités culturelles et sportives s'inscrivant dans le projet pédagogique
+                    du pouvoir organisateur ou dans le projet d'établissement ainsi que les déplacements qui y sont
+                    liés. Le Gouvernement arrête le montant total maximal toutes taxes comprises qu’une école peut
+                    réclamer par élève pour une année d’étude, un groupe d’années d’étude et/ou pour l’ensemble des
+                    années d’étude de l’enseignement maternel;
+                    3° les frais liés aux séjours pédagogiques, avec ou sans nuitées, organisés par l’école et
+                    s'inscrivant dans le projet pédagogique du pouvoir organisateur ou dans le projet d'établissement
+                    ainsi que les déplacements qui y sont liés. Le Gouvernement fixe le montant total maximal toutes
+                    taxes comprises qu’une école peut réclamer par élève pour une année d’étude, un groupe d’années
+                    d’étude et/ou pour l’ensemble des années d’étude de l’enseignement maternel.
+                    Seules les fournitures scolaires suivantes ne sont pas fournies par les écoles :
+                    1° le cartable non garni ;
+                    2° le plumier non garni;
+                    3° les tenues vestimentaires et sportives usuelles de l’élève.
+                    Aucun fournisseur ou marque de fournitures scolaires, de tenues vestimentaires ou sportives usuelles
+                    ou prescriptions qui aboutissent au même effet ne peut être imposé aux parents ou à la personne
+                    investie de l’autorité parentale.
+                    Les frais scolaires autorisés visés à l’alinéa 2, 1° à 3°, ne peuvent pas être cumulés en vue d’un
+                    paiement forfaitaire et unique. Ils sont imputés à des services précis et effectivement organisés.
+                    Les montants fixés en application de l’alinéa 2, 2° et 3°, sont annuellement indexés en appliquant
+                    aux montants de l'année civile précédente le rapport entre l'indice général des prix à la
+                    consommation de janvier de l'année civile en cours et l'indice de janvier de l'année civile
+                        précédente.</p>
+                    <p><b>§ 4.</b> Dans l’enseignement primaire, ordinaire et spécialisé, ne sont pas considérés comme perception
+                    d’un minerval les frais scolaires appréciés au coût réel suivants :
+                    1° les droits d'accès à la piscine ainsi que les déplacements qui y sont liés ;
+                    2° les droits d'accès aux activités culturelles et sportives s'inscrivant dans le projet pédagogique
+                    du pouvoir organisateur ou dans le projet d'établissement ainsi que les déplacements qui y sont
+                    liés. Le Gouvernement fixe le montant total maximal toutes taxes comprises qu’une école peut
+                    réclamer par élève pour une année d’étude, un groupe d’années d’étude et/ou sur l’ensemble des
+                    années d’étude de l’enseignement primaire;
+                    3° les frais liés aux séjours pédagogiques, avec ou sans nuitées, organisés par l’école et
+                    s'inscrivant dans le projet pédagogique du pouvoir organisateur ou dans le projet d'établissement
+                    ainsi que les déplacements qui y sont liés. Le
+                    Gouvernement fixe le montant total maximal toutes taxes comprises qu’une école peut réclamer par
+                    élève pour une année d’étude, un groupe d’années d’étude et/ou sur l’ensemble des années d’étude de
+                    l’enseignement primaire.
+                    Aucun fournisseur ou marque de fournitures scolaires, de tenues vestimentaires ou sportives usuelles
+                    ou prescriptions qui aboutissent au même effet ne peut être imposé aux parents ou à la personne
+                    investie de l’autorité parentale.
+                    Les frais scolaires autorisés visés à l’alinéa 2, 1° à 3°, ne peuvent pas être cumulés en vue d’un
+                    paiement forfaitaire et unique. Ils sont imputés à des services précis et effectivement organisés.
+                    Les montants fixés en application de l’alinéa 1er, 2 et 3°, sont indexés annuellement en appliquant
+                    aux montants de l'année civile précédente le rapport entre l'indice général des prix à la
+                    consommation de janvier de l'année civile en cours et l'indice de janvier de l'année civile
+                        précédente.</p>
+                    <p><b>§ 5.</b> Dans l’enseignement secondaire, ordinaire et spécialisé, ne sont pas considérés comme
+                    perception d’un minerval les frais scolaires appréciés au coût réel suivants :
+                    1° les droits d'accès à la piscine ainsi que les déplacements qui y sont liés;
+                    2° les droits d’accès aux activités culturelles et sportives s'inscrivant dans le projet pédagogique
+                    du pouvoir organisateur ou dans le projet d'établissement ainsi que les déplacements qui y sont
+                    liés. Le Gouvernement fixe le montant total maximal toutes taxes comprises qu’une école peut
+                    réclamer par élève pour une année d’étude, un groupe d’années d’étude et/ou sur l’ensemble des
+                    années d’étude de l’enseignement secondaire;
+                    3° les photocopies distribuées aux élèves; sur avis conforme du Conseil général de concertation pour
+                    l'enseignement secondaire, le Gouvernement arrête le montant maximum du coût des photocopies par
+                    élève qui peut être réclamé au cours d’une année scolaire ;
+                    4° le prêt de livres scolaires, d'équipements personnels et d'outillage ;
+                    5° les frais liés aux séjours pédagogiques, avec ou sans nuitées, organisés par l’école et
+                    s'inscrivant dans le projet pédagogique du pouvoir organisateur ou dans le projet d'établissement
+                    ainsi que les déplacements qui y sont liés. Le Gouvernement fixe le montant total maximal toutes
+                    taxes comprises qu’une école peut réclamer par élève pour une année d’étude, un groupe d’années
+                    d’étude et/ou sur l’ensemble des années d’étude de l’enseignement secondaire.
+                    Aucun fournisseur ou marque de fournitures scolaires, de tenues vestimentaires ou sportives usuelles
+                    ou prescriptions qui aboutissent au même effet ne peut être imposé aux parents ou à la personne
+                    investie de l’autorité parentale.
+                    Les frais scolaires autorisés visés à l’alinéa 2, 1° à 5°, ne peuvent pas être cumulés en vue d’un
+                    paiement forfaitaire et unique. Ils sont imputés à des services précis et effectivement organisés.
+                    Les montants fixés en application de l’alinéa 1er, 2° et 5°, sont indexés annuellement en appliquant
+                    aux montants de l'année civile précédente le rapport entre l'indice général des prix à la
+                    consommation de janvier de l'année civile en cours et l'indice de janvier de l'année civile
+                        précédente.</p>
+                <p><b>§ 6</b>. Dans l’enseignement primaire et secondaire, ordinaire et spécialisé, les frais scolaires
+                    suivants peuvent être proposés à l'élève s'il est majeur, ou à ses parents ou à la personne investie
+                    de l'autorité parentale, s'il est mineur, pour autant que le caractère facultatif ait été
+                    explicitement été porté à leur connaissance :
+                    1° les achats groupés ;
+                    2° les frais de participation à des activités facultatives ;
+                    3° les abonnements à des revues ;
+                        Ils sont proposés à leur coût réel pour autant qu'ils soient liés au projet pédagogique.</p>
+                <p><b>§ 7</b>. Les pouvoirs organisateurs sont tenus, dans la perception des frais, de respecter les
+                    dispositions de l'article 11.
+                    Les pouvoirs organisateurs n’impliquent pas les élèves mineurs dans le processus de paiement et dans
+                    le dialogue qu'ils entretiennent avec les parents ou la personne investie de l'autorité parentale à
+                    propos des frais scolaires et des décomptes périodiques.
+                    Le non-paiement des frais ne peut en aucun cas constituer, pour l'élève, un motif de refus
+                    d'inscription ou d'exclusion définitive ou de toute autre sanction même si ceux-ci figurent dans le
+                    projet pédagogique ou dans le projet d’établissement.
+                    Les pouvoirs organisateurs peuvent, dans l’enseignement primaire et secondaire, ordinaire et
+                    spécialisé, mettre en place un paiement correspondant au coût moyen réel des frais scolaires visés
+                    aux paragraphes 4 et 5.
+                    Dans l'enseignement obligatoire, aucun droit ou frais, direct ou indirect, ne peut être demandé à
+                    l'élève, à ses parents ou à la personne investie de l'autorité parentale, pour la délivrance de ses
+                        diplômes et certificats d'enseignement ou de son bulletin scolaire.</p>
+                    <p><b>§ 8.</b> La référence légale et le texte intégral du présent article sont reproduits dans le règlement
+                    d’ordre intérieur de chaque école ainsi que sur l’estimation des frais réclamés visés à l’article
+                    101, § 1er, et les décomptes périodiques visés à l’article 101, §2.
+                    <b><u>Décision du Conseil communal du 29 avril 2019 – 45è objet, portant règlement redevance pour
+                    l’organisation d’activités, de sorties et de séjours pédagogiques pour les enfants des écoles
+                        communales de l’entité,</u></b> établissant pour les exercices 2019 à 2025, une redevance communale relative
+                    à l’organisation d’activités, sorties et séjours pédagogiques pour les enfants des écoles communales
+                    de l’entité d’Aiseau-Presles. Le montant de la redevance est fixé au prix coûtant suivant le marché
+                    public passé avec une entreprise privée ou suivant le bon de commande, déduction faite des
+                    participations financières éventuelles, divisé par le nombre d’enfants participant. Les redevances
+                    sont dues par les parents ou les représentants légaux du ou des enfant(s) inscrit(s) dans les
+                    différentes écoles communales de l’entité qui bénéficient de ces services. La redevance est payable
+                    dans les 30 jours calendrier, à dater du 3ème jour ouvrable de la date d’envoi de la facture sur le
+                    compte renseigné sur ladite facture ouvert au nom de l’Administration Communale d’Aiseau-Presles. A
+                    défaut de paiement dans les délais, le recouvrement de la redevance sera poursuivi conformément à
+                    l’article L1124-40 du Code de la Démocratie Locale et de la Décentralisation. La mise en demeure
+                    préalable au commandement par voie de huissier, envoyée par recommandé, fera l’objet de frais
+                        administratifs d’un montant de 10 € répercutés auprès du redevable.</p>
+                <p><b><u>Réclamation</u></b>:
+                    Toute réclamation peut être introduite endéans le délai de 15 jours de réception de la facture, le
+                    cachet de la poste faisant foi le cas échéant, à l’attention du Collège communal, par écrit
+                    (courrier ou email) en mentionnant l’identité du réclamant, la référence de la facture et les moyens
+                    justifiant la contestation.</p>
+            </div>
+        </template>
+
+    </data>
+</odoo>

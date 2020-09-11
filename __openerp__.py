@@ -185,6 +185,7 @@
         'report/custo_client/ittre.xml',
         'report/custo_client/mettet.xml',
         'report/custo_client/fosses_la_ville.xml',
+        'report/custo_client/aiseau_presles.xml',
         'report/reminder/reminder_text.xml',
         'report/parent_invoices_summary.xml'
     ],
