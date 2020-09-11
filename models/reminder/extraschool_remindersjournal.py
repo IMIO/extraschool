@@ -496,6 +496,7 @@ class extraschool_remindersjournal(models.Model):
         self.env.cr.commit()
         self.generate_pdf()
         self.state = "validated"
+
         return True
 
     @api.multi
