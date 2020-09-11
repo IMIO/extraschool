@@ -73,9 +73,10 @@ class extraschool_biller(models.Model):
     pdf_ready = fields.Boolean(string="Pdf ready", default=False)
     oldid = fields.Integer('oldid')
     in_creation = fields.Boolean(default=True)
-    reminder_journal_id = fields.Many2one(
-        comodel_name='extraschool.remindersjournal',
-        string='Reminders journal',
+    reminder_journal_id = fields.One2many(
+        comodel_name="extraschool.remindersjournal",
+        inverse_name="biller_id",
+        string="Reminders journal",
         ondelete='cascade')
     fees = fields.Boolean(default=False, string="Fees", track_visibility="onchange")
 
@@ -148,8 +149,9 @@ class extraschool_biller(models.Model):
         Check if this is the last biller, raise warning otherwise
         :return: None
         """
-        if self.search([]).sorted(key=lambda r: r.id)[-1].id != self.id:
-            raise Warning(_("You can only delete the last biller !"))
+        if not self.reminder_journal_id:
+            if self.search([]).sorted(key=lambda r: r.id)[-1].id != self.id:
+                raise Warning(_("You can only delete the last biller !"))
 
     @api.multi
     def _unlink_invoices(self):
@@ -346,7 +348,7 @@ class extraschool_biller(models.Model):
 
         count = 0
 
-        for invoice in self.env['extraschool.invoice'].browse(self.invoice_ids.ids):
+        for invoice in self.invoice_ids:
             count = count + 1
             _logger.info("generate pdf %s count: %s" % (invoice.id, count))
             self.env['report'].get_pdf(invoice, 'extraschool.invoice_report_layout')

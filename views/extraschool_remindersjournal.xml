@@ -70,12 +70,12 @@
                         </div>
                         <group col="4">
                             <field name="name"/>
+                            <field name="show_based_reminder"/>
                             <field name="activity_category_ids" options="{'no_create':True}" widget="many2many_tags"
                                    attrs="{'invisible':[('show_based_reminder', '=', True)], 'required':[('show_based_reminder', '=', False)]}"/>
                             <field name="date_from" attrs="{'invisible':[('show_based_reminder', '=', True)]}"/>
                             <field name="date_to" attrs="{'invisible':[('show_based_reminder', '=', True)]}"/>
                             <field name="transmission_date"/>
-                            <field name="show_based_reminder"/>
                             <field name="based_reminder_id" options="{'no_create':True}"
                                    attrs="{'invisible':[('show_based_reminder', '=', False)], 'required':[('show_based_reminder', '=', True)]}"/>
                             <field name="biller_id" readonly="True"/>

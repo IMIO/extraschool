@@ -23,7 +23,6 @@
 
 import datetime
 import logging
-import threading
 
 from openerp import models, api, fields, _
 from openerp.exceptions import Warning
@@ -125,7 +124,8 @@ class extraschool_remindersjournal(models.Model):
                                                                 'activitycategoryid': [(6, False,
                                                                                         self.activity_category_ids.ids)],
                                                                 'invoices_date': self.transmission_date,
-                                                                'fees': True
+                                                                'fees': True,
+                                                                'reminder_journal_id': [(4, self.id)]
                                                                 })
 
     @api.multi
@@ -154,14 +154,9 @@ class extraschool_remindersjournal(models.Model):
                                                                     'quantity': 1,
                                                                     'total_price': reminder_type.fees_amount,
                                                                     })
+                fees_invoice._compute_balance()
                 reminder.write({'fees_amount': reminder_type.fees_amount,
                                 'concerned_invoice_ids': [(4, [fees_invoice.id])]})
-
-            invoice_number = 0
-            for invoice in self.biller_id.invoice_ids:
-                invoice_number += 1
-                logging.info("Compute balance {} of {}".format(invoice_number, len(self.biller_id.invoice_ids)))
-                invoice._compute_balance()
 
     @api.multi
     def _create_reminders_journal_item(self, reminder_type, amount_dict):
@@ -578,6 +573,8 @@ class extraschool_remindersjournal(models.Model):
                 for reminder in reminder_ids:
                     self.env['extraschool.invoice'].search([('last_reminder_id', '=', reminder.id)]).write(
                         {'tag': None})
+
+        self.biller_id.unlink()
 
         return super(extraschool_remindersjournal, self).unlink()
 
