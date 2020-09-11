@@ -20,6 +20,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 from datetime import datetime
 
 from openerp import models, api, fields
@@ -31,21 +32,24 @@ class extraschool_remindertype(models.Model):
 
     name = fields.Char('name', required=True)
     sequence = fields.Integer('Order')
-    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity category')
-    fees_type = fields.Selection([('free','Free'),('fix','Fixed amount'),], 'Reminder cost type',required=True)
+    activity_category_id = fields.Many2one(comodel_name='extraschool.activitycategory', string='Activity category')
+    fees_type = fields.Selection([('free', 'Free'), ('fix', 'Fixed amount'), ], 'Reminder cost type', required=True)
     fees_amount = fields.Float('Fees amount')
     fees_description = fields.Char('Fees description', default="Frais de rappel")
-    mail_template_id = fields.Many2one('mail.template', 'Email template')
-    report_id = fields.Many2one('extraschool.report', 'Document report')
+    mail_template_id = fields.Many2one(comodel_name='mail.template', string='Email template')
+    report_id = fields.Many2one(comodel_name='extraschool.report', string='Document report')
     text = fields.Text('Text')
     select_reminder_type = fields.Boolean(string='Select a reminder type')
-    selected_type_id = fields.Many2one('extraschool.remindertype', 'Reminder type to select')
+    selected_type_id = fields.Many2one(comodel_name='extraschool.remindertype', string='Reminder type to select')
     delay = fields.Integer('Delay')
     payment_term_in_day = fields.Integer('payment_term_in_day')
-    minimum_balance = fields.Float('Minimum balance', default=0.01, help="Ceci est le montant minimum des factures à sortir en rappel (concerne donc facture par facture)")
+    minimum_balance = fields.Float('Minimum balance', default=0.01,
+                                   help="Ceci est le montant minimum des factures à sortir en rappel (concerne donc facture par facture)")
     out_of_accounting = fields.Boolean(string="Out of accounting")
-    bailiff = fields.Boolean(string='Put to bailiff', default=False, help="Ceci permet d'affecter un tag \"huissier\" sur toutes les factures de ce niveau")
-    minimum_general_balance = fields.Float('Minimum general balance', default=0.0, help="Ceci est le montant minimum TOTAL des factures à sortir en rappel")
+    bailiff = fields.Boolean(string='Put to bailiff', default=False,
+                             help="Ceci permet d'affecter un tag \"huissier\" sur toutes les factures de ce niveau")
+    minimum_general_balance = fields.Float('Minimum general balance', default=0.0,
+                                           help="Ceci est le montant minimum TOTAL des factures à sortir en rappel")
     decision_date = fields.Date(string="Decision date use in report", default=datetime.today())
     regulation_date = fields.Date(string="Regulation date use in report", default=datetime.today())
     recommended_date = fields.Date(string="Recommended date use in report", default=datetime.today())
@@ -55,7 +59,3 @@ class extraschool_remindertype(models.Model):
         self.fees_type = 'free'
         self.fees_amount = 0
         self.fees_description = False
-
-
-
-

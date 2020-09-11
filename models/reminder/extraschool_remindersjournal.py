@@ -21,28 +21,14 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
 import datetime
-import threading
-from openerp.api import Environment
-from openerp.exceptions import except_orm, Warning, RedirectWarning
 import logging
+import threading
+
+from openerp import models, api, fields, _
+from openerp.exceptions import Warning
 
 _logger = logging.getLogger(__name__)
-
-
-class reminder_report_pdf_thread(threading.Thread):
-    def __init__(self, cr, uid, reminder_ids, context=None):
-        self.cr = cr
-        self.uid = uid
-        self.reminder_ids = reminder_ids
-        self.context = context
-        threading.Thread.__init__(self)
-
-    def run(self):
-        reminder = self.env['extraschool.reminder']
-        report = self.env['report']
-        report.get_pdf(reminder.browse(self.reminder_ids), 'extraschool.reminder_report_layout')
 
 
 class extraschool_remindersjournal(models.Model):
@@ -51,7 +37,7 @@ class extraschool_remindersjournal(models.Model):
     _inherit = 'mail.thread'
 
     name = fields.Char('Name', required=True, track_visibility='onchange')
-    activity_category_ids = fields.Many2many('extraschool.activitycategory', required=True, readonly=True,
+    activity_category_ids = fields.Many2many(comodel_name='extraschool.activitycategory', required=True, readonly=True,
                                              states={'hidden': [('readonly', False)], 'draft': [('readonly', False)]})
     transmission_date = fields.Date('Transmission date', default=datetime.date.today(), required=True, readonly=True,
                                     states={'hidden': [('readonly', False)], 'draft': [('readonly', False)]},
@@ -115,48 +101,13 @@ class extraschool_remindersjournal(models.Model):
             rec.unsolved_reminder_ids = [reminder.id for reminder in self.env['extraschool.reminder'].search(
                 [('reminders_journal_id', '=', rec.id)]) if reminder.balance_computed > 0]
 
-    @api.model
-    def generate_pdf_thread(self, cr, uid, reminders, context=None):
-        """
-        @param self: The object pointer.
-        @param cr: A database cursor
-        @param uid: ID of the user currently logged in
-        @param ids: List of IDs selected
-        @param context: A standard dictionary
-        """
-        with Environment.manage():
-            # As this function is in a new thread, i need to open a new cursor, because the old one may be closed.
-            new_cr = self.pool.cursor()
-            env = Environment(new_cr, uid, context)
-
-            report = self.pool.get('report')
-            for reminder in reminders:
-                logging.info("generate pdf {}".format(reminder.id))
-                env['report'].get_pdf(reminder, 'extraschool.reminder_report_layout')
-
-            new_cr.commit()
-            new_cr.close()
-            return {}
-
     @api.multi
     def generate_pdf(self):
-        self.ensure_one()
-        cr, uid = self.env.cr, self.env.user.id
-
         self.env['ir.attachment'].search([('res_id', 'in', [i.id for i in self.reminder_ids]),
                                           ('res_model', '=', 'extraschool.reminder')]).unlink()
-
         self.env.invalidate_all()
-
-        threaded_report = []
-        chunk_size = 50
-        for zz in range(0, len(self.reminder_ids) / chunk_size + 1):
-            sub_reminders = self.reminder_ids[zz * chunk_size:(zz + 1) * chunk_size]
-            if len(sub_reminders):
-                thread = threading.Thread(target=self.generate_pdf_thread,
-                                          args=(cr, uid, sub_reminders, self.env.context))
-                threaded_report.append(thread)
-                thread.start()
+        for reminder in self.reminder_ids:
+            self.env['report'].get_pdf(reminder, 'extraschool.reminder_report_layout')
 
     @api.multi
     def _ensure_reminder_type_exists(self):
@@ -181,7 +132,10 @@ class extraschool_remindersjournal(models.Model):
     def _create_fees_if_needed(self, reminder_type, activity_category):
         if reminder_type.fees_type == 'fix':
             self._create_fees_biller()
+            reminder_number = 0
             for reminder in self.reminder_ids:
+                logging.info("Create fees {} of {}".format(reminder_number, len(self.reminder_ids)))
+                reminder_number += 1
                 next_invoice_num = activity_category.get_next_comstruct('invoice', self.biller_id.get_from_year())
                 fees_invoice = self.env["extraschool.invoice"].create(
                     {'name': _('invoice_%s') % (next_invoice_num['num'],),
@@ -203,9 +157,11 @@ class extraschool_remindersjournal(models.Model):
                 reminder.write({'fees_amount': reminder_type.fees_amount,
                                 'concerned_invoice_ids': [(4, [fees_invoice.id])]})
 
-                logging.info("####Computing balance...")
-                for invoice in self.biller_id.invoice_ids:
-                    invoice._compute_balance()
+            invoice_number = 0
+            for invoice in self.biller_id.invoice_ids:
+                invoice_number += 1
+                logging.info("Compute balance {} of {}".format(invoice_number, len(self.biller_id.invoice_ids)))
+                invoice._compute_balance()
 
     @api.multi
     def _create_reminders_journal_item(self, reminder_type, amount_dict):
@@ -632,15 +588,3 @@ class extraschool_remindersjournal(models.Model):
             rec.activity_category_ids = rec.based_reminder_id.activity_category_ids
         rec['state'] = 'draft'
         return rec
-
-
-class extraschool_remindersjournal_item(models.Model):
-    _name = 'extraschool.reminders_journal_item'
-    _description = 'Reminders journal item'
-
-    name = fields.Char('Name', required=True)
-    reminder_type_id = fields.Many2one('extraschool.remindertype', 'Reminder type', required=True)
-    reminders_journal_id = fields.Many2one('extraschool.remindersjournal', 'Reminder journal', ondelete='cascade',
-                                           required=True)
-    payment_term = fields.Date('Payment term', required=True)
-    amount = fields.Float('Amount', required=True)

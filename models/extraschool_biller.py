@@ -53,14 +53,14 @@ class extraschool_biller(models.Model):
     _inherit = 'mail.thread'
     _order = "id desc"
 
-    activitycategoryid = fields.Many2many('extraschool.activitycategory', 'extraschool_biller_activity_category_rel',
+    activitycategoryid = fields.Many2many(comodel_name='extraschool.activitycategory', relation='extraschool_biller_activity_category_rel',
                                           string='Activity Category', track_visibility='onchange')
-    accrued_ids = fields.One2many('extraschool.accrued', 'biller_id')
+    accrued_ids = fields.One2many(comodel_name='extraschool.accrued', inverse_name='biller_id')
     period_from = fields.Date('Period from')
     period_to = fields.Date('Period to')
     payment_term = fields.Date('Payment term')
     invoices_date = fields.Date('Invoices date')
-    invoice_ids = fields.One2many('extraschool.invoice', 'biller_id', 'invoices')
+    invoice_ids = fields.One2many(comodel_name='extraschool.invoice', inverse_name='biller_id', string='invoices')
     total = fields.Float(compute='_compute_total', string="Total", track_visibility='onchange')
     received = fields.Float(compute='_compute_received', string="Received", track_visibility='onchange')
     novalue = fields.Float(compute='_compute_novalue', string="No Value", track_visibility='onchange')
@@ -74,10 +74,9 @@ class extraschool_biller(models.Model):
     oldid = fields.Integer('oldid')
     in_creation = fields.Boolean(default=True)
     reminder_journal_id = fields.Many2one(
-        'extraschool.remindersjournal',
-        'Reminders journal',
-        ondelete='cascade',
-        required=False)
+        comodel_name='extraschool.remindersjournal',
+        string='Reminders journal',
+        ondelete='cascade')
     fees = fields.Boolean(default=False, string="Fees", track_visibility="onchange")
 
     @api.multi

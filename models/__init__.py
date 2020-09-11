@@ -62,9 +62,6 @@ import extraschool_qrcodes_wizard
 import extraschool_refound_line
 import extraschool_report_hack
 import extraschool_reject
-import extraschool_reminder
-import extraschool_remindersjournal
-import extraschool_remindertype
 import extraschool_smartphone
 import extraschool_taxcertificate
 import extraschool_taxcertificates_wizard
@@ -95,3 +92,4 @@ import extraschool_res_users
 import extraschool_address
 import extraschool_plain_report
 import report
+import reminder
