@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2019
+#    Copyright (C) 2008-2020
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot & Michael Colicchia & Jenny Pans - Imio (<http://www.imio.be>).
 #
@@ -21,8 +21,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
-#from openerp.addons.extraschool.helper import extraschool_helper
+from openerp import models, fields
 
 
 class extraschool_organising_power(models.Model):

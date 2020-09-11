@@ -33,35 +33,10 @@ class extraschool_activitycategory(models.Model):
     _description = 'Activities categories'
 
     name = fields.Char('Name', size=50)
-    po_name = fields.Char('Name of PO')
-    po_street = fields.Char('Street')
-    po_zipcode = fields.Char('ZipCode')
-    po_city = fields.Char('City')
-    po_sign = fields.Binary('Signature')
-    po_resp_name = fields.Char('Name of resp')
-    po_resp_fct = fields.Char('Fct of resp')
-    po_resp2_sign = fields.Binary('Signature of resp2')
-    po_resp2_name = fields.Char('Name of resp2')
-    po_resp2_fct = fields.Char('Fct of resp2')
 
-    po_attestation_name = fields.Char('Name of resp tax certificate')
-    po_attestation_fct = fields.Char('Fct of resp tax certificate')
-    po_attestation_sign = fields.Binary('Signature of resp tax certificate')
-
-    po_rappel_name = fields.Char('Name of resp reminder')
-    po_rappel_fct = fields.Char('Fct of resp reminder')
-    po_rappel_sign = fields.Binary('Signature of resp reminder')
-
-    po_stamp = fields.Binary('sta   mp')
-    po_sign_img = fields.Binary('Signature image')
-
-    po_email = fields.Char('email')
-    po_tel = fields.Char('tel')
-    po_addresse_free_text = fields.Char('Adresse texte libre')
-    po_addresse_free_text2 = fields.Char('Adresse texte libre 2')
-
-    organising_power_id = fields.Many2one('extraschool.organising_power', 'Organising Power', required=True)
-    accrued_ids = fields.One2many('extraschool.accrued', 'activity_category_id')
+    organising_power_id = fields.Many2one(comodel_name='extraschool.organising_power', string='Organising Power',
+                                          required=True)
+    accrued_ids = fields.One2many(comodel_name='extraschool.accrued', inverse_name='activity_category_id')
 
     childpositiondetermination = fields.Selection((('byparent', 'by parent'),
                                                    ('byparentwp', 'by parent (only childs with prestations)'),
@@ -78,9 +53,10 @@ class extraschool_activitycategory(models.Model):
                                                     'by address and by activity (only childs with prestations'),
                                                    ), 'Child position determination', required=True)
 
-    activities = fields.One2many('extraschool.activity', 'category_id', 'Activities')
-    placeids = fields.Many2many('extraschool.place', 'extraschool_activitycategory_place_rel', 'activitycategory_id',
-                                'place_id', 'Schoolcare place')
+    activities = fields.One2many(comodel_name='extraschool.activity', inverse_name='category_id', string='Activities')
+    placeids = fields.Many2many(comodel_name='extraschool.place', relation='extraschool_activitycategory_place_rel',
+                                column1='activitycategory_id',
+                                column2='place_id', string='Schoolcare place')
 
     priorityorder = fields.Integer('Priority order')
     invoicetemplate = fields.Char('Invoice Template', size=50, default='facture.odt')
@@ -96,7 +72,8 @@ class extraschool_activitycategory(models.Model):
     reminderemailaddress = fields.Char('Reminder email address', size=50)
     reminderemailsubject = fields.Char('Reminder email subject', size=50)
     reminderemailtext = fields.Text('Reminder email text')
-    reminer_type_ids = fields.One2many('extraschool.remindertype', 'activity_category_id', 'Reminder type')
+    reminer_type_ids = fields.One2many(comodel_name='extraschool.remindertype', inverse_name='activity_category_id',
+                                       string='Reminder type')
 
     bankaccount = fields.Char('Bank account')
     bank_bic = fields.Char('Bank BIC')
@@ -107,18 +84,20 @@ class extraschool_activitycategory(models.Model):
     taxcertificatetemplate = fields.Char('Tax Certificate Template', size=50)
     tax_certificate_code = fields.Char()
 
-    invoice_report_id = fields.Many2one('extraschool.report', 'Invoice report')
-    invoice_detail_report_id = fields.Many2one('extraschool.report', 'Invoice detail report')
-    biller_report_id = fields.Many2one('extraschool.report', 'Biller report')
-    qrcode_report_id = fields.Many2one('extraschool.report', string='QRCode report')
-    payment_invitation_report_id = fields.Many2one('extraschool.report', 'Payment invitation report')
+    invoice_report_id = fields.Many2one(comodel_name='extraschool.report', string='Invoice report')
+    invoice_detail_report_id = fields.Many2one(comodel_name='extraschool.report', string='Invoice detail report')
+    biller_report_id = fields.Many2one(comodel_name='extraschool.report', string='Biller report')
+    qrcode_report_id = fields.Many2one(comodel_name='extraschool.report', string='QRCode report')
+    payment_invitation_report_id = fields.Many2one(comodel_name='extraschool.report',
+                                                   string='Payment invitation report')
     payment_invitation_email_subject = fields.Char('Payment invitation Email subject')
     payment_invitation_com_struct_prefix = fields.Char('Payment invitation Comstruct prefix', size=3, required=True)
     payment_invitation_courrier_text = fields.Text('Payment invitation courrier text')
     logo = fields.Binary()
     logo_reminder = fields.Binary()
     slogan = fields.Char('Slogan', size=50)
-    sequence_ids = fields.One2many('extraschool.activitycategory.sequence', 'activity_category_id', string='Sequences')
+    sequence_ids = fields.One2many(comodel_name='extraschool.activitycategory.sequence',
+                                   inverse_name='activity_category_id', string='Sequences')
     max_school_implantation = fields.Integer()
 
     def check_invoice_prefix(self, invoicecomstructprefix):
