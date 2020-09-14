@@ -187,8 +187,12 @@ class extraschool_plain_report(models.Model):
             childs[selected_list][prestation.childid.id]['prestation'] += 1
             childs[selected_list][prestation.childid.id]['price'] += prestation.invoiced_prestation_id.total_price
 
-        tags['under_6_total'] = len(tags['under_6'])
-        tags['over_6_total'] = len(tags['over_6'])
+        tags['under_6_total'] = 0
+        for child in tags["under_6"]:
+            tags["under_6_total"] += child.get("days")
+        tags['over_6_total'] = 0
+        for child in tags["over_6"]:
+            tags["over_6_total"] += child.get("days")
         tags['nb_child_valid'] = tags['under_6_total'] + tags['over_6_total']
         return tags
 
