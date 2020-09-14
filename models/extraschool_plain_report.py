@@ -159,17 +159,15 @@ class extraschool_plain_report(models.Model):
                 childs[selected_list][prestation.childid.id] = {'lastname': prestation.childid.lastname.upper(),
                                                                 'firstname': prestation.childid.firstname,
                                                                 'age': prestation.childid.get_age(),
-                                                                'prestation': 1,
-                                                                'price': prestation.invoiced_prestation_id.total_price,
+                                                                'prestation': 0,
+                                                                'price': 0,
                                                                 'nb': len(childs[selected_list]) + 1,
                                                                 'date_from': datetime.strptime(min(dates),
                                                                                                '%Y-%m-%d').strftime(
                                                                     '%d/%m/%Y'),
                                                                 'date_to': datetime.strptime(max(dates),
                                                                                              '%Y-%m-%d').strftime(
-                                                                    '%d/%m/%Y'),
-                                                                'days': (datetime.strptime(max(dates), '%Y-%m-%d')
-                                                                        - datetime.strptime(min(dates), '%Y-%m-%d')).days + 1}
+                                                                    '%d/%m/%Y')}
                 if prestation.childid.health_sheet_ids:
                     health_sheet = prestation.childid.health_sheet_ids[0]
                     if health_sheet.handicap_selection == u'oui':
@@ -189,10 +187,10 @@ class extraschool_plain_report(models.Model):
 
         tags['under_6_total'] = 0
         for child in tags["under_6"]:
-            tags["under_6_total"] += child.get("days")
+            tags["under_6_total"] += child.get("prestation")
         tags['over_6_total'] = 0
         for child in tags["over_6"]:
-            tags["over_6_total"] += child.get("days")
+            tags["over_6_total"] += child.get("prestation")
         tags['nb_child_valid'] = tags['under_6_total'] + tags['over_6_total']
         return tags
 
