@@ -61,7 +61,7 @@
                         <t t-set="activity_category" t-value="docs[0].activity_category_ids[0]"/>
                         <t t-set="organising_power" t-value="docs[0].activity_category_ids[0].organising_power_id"/>
                         <t t-set="logo" t-value="organising_power.logo"/>
-                        <t t-set="slogan" t-value="organising_power.slogan"/>
+                        <t t-set="slogan" t-value="docs[0].activity_category_ids[0].organising_power_id.slogan"/>
                         <t t-set="amount_int" t-value="int(reminder.amount)"/>
                         <t t-set="amount" t-value="reminder.amount"/>
                         <t t-set="logo_reminder" t-value="reminder.activity_category_ids[0].logo_reminder"/>

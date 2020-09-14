@@ -575,7 +575,8 @@ class extraschool_remindersjournal(models.Model):
                     self.env['extraschool.invoice'].search([('last_reminder_id', '=', reminder.id)]).write(
                         {'tag': None})
 
-        self.biller_id.unlink()
+        if self.biller_id:
+            self.biller_id.unlink()
 
         return super(extraschool_remindersjournal, self).unlink()
 
