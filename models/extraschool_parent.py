@@ -278,7 +278,7 @@ class extraschool_parent(models.Model):
             self._ensure_not_duplicates_rn(vals["rn"])
         if vals['email']:
             self._valid_email(vals["email"])
-            self._ensure_not_duplicates_email(vals)
+            # self._ensure_not_duplicates_email(vals)
 
         parent_id = super(extraschool_parent, self).create(vals)
         parent_id.write(
