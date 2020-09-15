@@ -157,6 +157,8 @@ class extraschool_plain_report(models.Model):
         tags['nb_days_disadvantaged'] = 0
         tags['nb_days_mild'] = 0
         tags['nb_days_heavy'] = 0
+        tags['total_price_under'] = 0
+        tags['total_price_over'] = 0
         for prestation in prestation_ids:
             selected_list = 'under_6' if prestation.childid.get_age() < 6 else 'over_6'
             if prestation.childid.id not in childs[selected_list]:
@@ -192,6 +194,10 @@ class extraschool_plain_report(models.Model):
 
             childs[selected_list][prestation.childid.id]['prestation'] += 1
             childs[selected_list][prestation.childid.id]['price'] += prestation.invoiced_prestation_id.total_price
+            if selected_list == 'under_6':
+                tags['total_price_under'] += prestation.invoiced_prestation_id.total_price
+            else:
+                tags['total_price_over'] += prestation.invoiced_prestation_id.total_price
 
         tags['under_6_total'] = 0
         for child in tags["under_6"]:
@@ -211,7 +217,7 @@ class extraschool_plain_report(models.Model):
                 tags['nb_days_heavy'] += child.get("prestation")
             if child.get("disadvantaged_bool"):
                 tags['nb_days_disadvantaged'] += child.get("prestation")
-        tags['nb_child_valid'] = (tags['under_6_total'] + tags['over_6_total']) - (
+        tags['nb_child_valid'] = (len(tags['under_6']) + len(tags['over_6'])) - (
             tags['nb_child_mild'] + tags['nb_child_heavy'] + tags['nb_child_disadvantaged'])
         tags['nb_days_valid'] = tags['under_6_total'] + tags['over_6_total'] - tags['nb_days_mild'] - tags[
             'nb_days_heavy'] - tags['nb_days_disadvantaged']
