@@ -133,7 +133,7 @@
                     Nous constatons que vous êtes encore redevable d'un solde dû de
                     <t t-esc="'%.2f €' % (amount)"/>
                     envers l'Administration
-                    Communale de<t t-esc="categ_id.po_city"/>, somme dont vous trouverez le détail ci-annexé.
+                    Communale de<t t-esc="organising_power.po_city"/>, somme dont vous trouverez le détail ci-annexé.
                     <br/>
                     <br/>
 
