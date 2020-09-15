@@ -20,12 +20,14 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import models, api, fields, _
-from openerp.exceptions import Warning, RedirectWarning
 import base64
 import os
-from datetime import datetime, time
+from datetime import datetime
+
 from docxtpl import DocxTemplate
+
+from openerp import models, api, fields, _
+from openerp.exceptions import Warning
 
 
 class extraschool_plain_report(models.Model):
@@ -152,6 +154,9 @@ class extraschool_plain_report(models.Model):
         tags['nb_child_mild'] = 0
         tags['nb_child_heavy'] = 0
         tags['nb_child_disadvantaged'] = 0
+        tags['nb_days_disadvantaged'] = 0
+        tags['nb_days_mild'] = 0
+        tags['nb_days_heavy'] = 0
         for prestation in prestation_ids:
             selected_list = 'under_6' if prestation.childid.get_age() < 6 else 'over_6'
             if prestation.childid.id not in childs[selected_list]:
@@ -173,12 +178,15 @@ class extraschool_plain_report(models.Model):
                     if health_sheet.handicap_selection == u'oui':
                         if health_sheet.level_handicap == 'mild':
                             childs[selected_list][prestation.childid.id]['mild'] = ' '
+                            childs[selected_list][prestation.childid.id].update(mild_bool=True)
                             tags['nb_child_mild'] += 1
                         else:
                             childs[selected_list][prestation.childid.id]['heavy'] = ' '
+                            childs[selected_list][prestation.childid.id].update(heavy_bool=True)
                             tags['nb_child_heavy'] += 1
                 if prestation.childid.disadvantaged:
                     childs[selected_list][prestation.childid.id]['disadvantaged'] = ' '
+                    childs[selected_list][prestation.childid.id].update(disadvantaged_bool=True)
                     tags['nb_child_disadvantaged'] += 1
                 tags[selected_list].append(childs[selected_list][prestation.childid.id])
 
@@ -188,10 +196,25 @@ class extraschool_plain_report(models.Model):
         tags['under_6_total'] = 0
         for child in tags["under_6"]:
             tags["under_6_total"] += child.get("prestation")
+            if child.get("mild_bool"):
+                tags['nb_days_mild'] += child.get("prestation")
+            if child.get("heavy_bool"):
+                tags['nb_days_heavy'] += child.get("prestation")
+            if child.get("disadvantaged_bool"):
+                tags['nb_days_disadvantaged'] += child.get("prestation")
         tags['over_6_total'] = 0
         for child in tags["over_6"]:
             tags["over_6_total"] += child.get("prestation")
-        tags['nb_child_valid'] = tags['under_6_total'] + tags['over_6_total']
+            if child.get("mild_bool"):
+                tags['nb_days_mild'] += child.get("prestation")
+            if child.get("heavy_bool"):
+                tags['nb_days_heavy'] += child.get("prestation")
+            if child.get("disadvantaged_bool"):
+                tags['nb_days_disadvantaged'] += child.get("prestation")
+        tags['nb_child_valid'] = (tags['under_6_total'] + tags['over_6_total']) - (
+            tags['nb_child_mild'] + tags['nb_child_heavy'] + tags['nb_child_disadvantaged'])
+        tags['nb_days_valid'] = tags['under_6_total'] + tags['over_6_total'] - tags['nb_days_mild'] - tags[
+            'nb_days_heavy'] - tags['nb_days_disadvantaged']
         return tags
 
     # for the futur only... if there are a future for this class
