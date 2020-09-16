@@ -256,6 +256,12 @@ class extraschool_invoice_wizard(models.TransientModel):
                                     and ec.isdisabled = False
                                     ))
                             """,
+               'byparent_without_la_ribambelle': """(SELECT COUNT(*)
+                                                        FROM extraschool_child c
+                                                        LEFT JOIN extraschool_schoolimplantation si
+                                                        ON c.schoolimplantation = si.id
+                                                        WHERE si.id != 8 AND i.parentid = c.parentid)
+                                                 """,
                'byparentwp': """(select min(cp.id)
                                 from extraschool_childposition cp
                                 where position = (select count(distinct ep.childid) + 1
@@ -588,19 +594,20 @@ class extraschool_invoice_wizard(models.TransientModel):
                     args.append(invoice)
 
                 invoice = self.env["extraschool.invoice"].create({"number": next_invoice_num['num'],
-                           "name": "invoice_{}".format(next_invoice_num['num']),
-                           "parentid": saved_parent_id,
-                           "biller_id": biller.id,
-                           "activitycategoryid": [(6, 0, self.activitycategory.ids)],
-                           "schoolimplantationid": saved_schoolimplantation_id,
-                           "payment_term": biller.payment_term,
-                           "structcom": next_invoice_num["com_struct"],
-                           'invoice_line_ids': []})
+                                                                  "name": "invoice_{}".format(next_invoice_num['num']),
+                                                                  "parentid": saved_parent_id,
+                                                                  "biller_id": biller.id,
+                                                                  "activitycategoryid": [
+                                                                      (6, 0, self.activitycategory.ids)],
+                                                                  "schoolimplantationid": saved_schoolimplantation_id,
+                                                                  "payment_term": biller.payment_term,
+                                                                  "structcom": next_invoice_num["com_struct"],
+                                                                  'invoice_line_ids': []})
 
             invoice.write({
                 "invoice_line_ids": [(0, 0, {"childid": invoice_line["childid"],
-                       "activity_occurrence_id": invoice_line["activity_occurrence_id"],
-                       "duration": self._calcul_duration(invoice_line["duration"])})]
+                                             "activity_occurrence_id": invoice_line["activity_occurrence_id"],
+                                             "duration": self._calcul_duration(invoice_line["duration"])})]
             })
 
         if len(invoice.invoice_line_ids) > 0:

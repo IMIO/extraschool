@@ -39,6 +39,7 @@ class extraschool_activitycategory(models.Model):
     accrued_ids = fields.One2many(comodel_name='extraschool.accrued', inverse_name='activity_category_id')
 
     childpositiondetermination = fields.Selection((('byparent', 'by parent'),
+                                                   ('byparent_without_la_ribambelle', 'by parent without la ribambelle'),
                                                    ('byparentwp', 'by parent (only childs with prestations)'),
                                                    ('byparent_nb_childs', 'by parent (position replaced by nbr childs'),
                                                    ('byparent_nb_childs_wp',
