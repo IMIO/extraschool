@@ -189,7 +189,7 @@
                             <div class="qrcode">
 				           		<t t-if="i &lt; len(docs)">
 				           			<img class="qrcode_img" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', docs[i].action_gentagid()[0], 300, 300)" />
-					           		<span class="qr_guardian_name"><t t-esc="docs[i].name"/></span>
+					           		<p class="qr_guardian_name"><t t-esc="docs[i].name"/></p>
 								</t>
 				           	</div>
 						</t>
