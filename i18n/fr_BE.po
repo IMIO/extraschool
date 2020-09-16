@@ -29,8 +29,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-14 13:56+0000\n"
-"PO-Revision-Date: 2020-09-14 15:57+0200\n"
+"POT-Creation-Date: 2020-09-16 12:15+0000\n"
+"PO-Revision-Date: 2020-09-16 14:19+0200\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1005,9 +1005,9 @@ msgstr ""
 "\n"
 "<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
 "\n"
-"    <p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Bonjour ${object.parentid.name},</p>\n"
+"    <p>Bonjour ${object.parent_id.name},</p>\n"
 "\n"
-"    <p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Vous trouverez en pièce jointe votre attestation fiscale. </p><p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\"><br></p><p style=\"margin:0px 0px 10px 0px;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\">Cordialement,<br></p>\n"
+"    <p>Vous trouverez en pièce jointe le détail du rappel de paiement</p>\n"
 "\n"
 "</div>\n"
 "            "
@@ -1026,11 +1026,9 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"<div style=\"background-color: rgb(255, 255, 255);\">\n"
 "\n"
-"    <p>Bonjour ${object.parentid.name},</p>\n"
-"\n"
-"    <p>Vous trouverez en pièce jointe le détail du rappel de paiement</p>\n"
+"    <p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;\">Madame,Monsieur,&nbsp;${(object.parent_id.name)}</p><p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\"><font color=\"#222222\">Suite à un problème technique indépendant de la volonté de l’administration communale d’Ittre, l’attestation fiscale pour les frais de garderie qui vous a été adressée par mail le 27/03/2019 n’est pas correcte. Veuillez ne pas tenir compte de cet envoi et effacer le mail reçu.</font></p><p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\"><font color=\"#222222\">L’attestation correcte vous sera envoyée très prochainement.</font></p><p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\"><font color=\"#222222\">Veuillez nous excuser pour les désagréments causés.</font></p><p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\"><font color=\"#222222\">Service support</font></p><p style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\"><font color=\"#222222\">iMio scrl</font></p>\n"
 "\n"
 "</div>\n"
 "            "
@@ -10439,7 +10437,7 @@ msgid "A payer avant le"
 msgstr "A payer avant le"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_coda.py:226
+#: code:addons/extraschool/models/extraschool_coda.py:228
 #, python-format
 msgid "A reminder has been found but the amount is not corresponding to balances of invoices"
 msgstr "A reminder has been found but the amount is not corresponding to balances of invoices"
@@ -12125,7 +12123,7 @@ msgid "Amount can't be equal to 0"
 msgstr "Le montant du paiement ne peut être égal à 0."
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_coda.py:175
+#: code:addons/extraschool/models/extraschool_coda.py:177
 #, python-format
 msgid "Amount greather than invoice balance"
 msgstr "Amount greather than invoice balance"
@@ -12589,7 +12587,7 @@ msgid "Associations: Members"
 msgstr "Associations: membres"
 
 #. module: extraschool
-#: code:addons/extraschool/wizard/extraschool_invoice_wizard.py:794
+#: code:addons/extraschool/wizard/extraschool_invoice_wizard.py:801
 #, python-format
 msgid ""
 "At least one price list is missing !!!\n"
@@ -12725,11 +12723,6 @@ msgstr "Attestation Courrier"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_taxcertificate_form
 msgid "Attestation Email"
 msgstr "Attestation Email"
-
-#. module: extraschool
-#: model:mail.template,report_name:extraschool.email_template_tax_certificate
-msgid "AttestationFiscale.pdf"
-msgstr "AttestationFiscale.pdf"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_organising_power_form
@@ -13408,7 +13401,7 @@ msgstr "Facturier"
 #: code:addons/extraschool/models/extraschool_biller.py:87
 #, python-format
 msgid "Biller from %s to %s"
-msgstr "Biller from %s to %s"
+msgstr "Facturier du %s au %s"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_accrued_biller_id
@@ -13732,7 +13725,7 @@ msgid "CODA File"
 msgstr "Fichier CODA"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_coda.py:107
+#: code:addons/extraschool/models/extraschool_coda.py:109
 #, python-format
 msgid "CODA already imported !!!"
 msgstr "Ce fichier CODA a déjà été importé"
@@ -18663,13 +18656,13 @@ msgid "E-mail format invalid: {}."
 msgstr "E-mail invalide : {}"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_coda.py:118
+#: code:addons/extraschool/models/extraschool_coda.py:120
 #, python-format
 msgid "ERROR: The account number in this CODA file is not used in this application !!!"
 msgstr "Le numéro de compte dans ce fichier CODA n'est pas utilisé par cette application"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_coda.py:116
+#: code:addons/extraschool/models/extraschool_coda.py:118
 #, python-format
 msgid "ERROR: Wrong CODA version !!!"
 msgstr "Mauvaise version CODA"
@@ -28379,7 +28372,7 @@ msgid "No starred message"
 msgstr "Pas de messages mis en favoris"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_coda.py:145
+#: code:addons/extraschool/models/extraschool_coda.py:147
 #, python-format
 msgid "No structured Communication"
 msgstr "No structured Communication"
@@ -28392,9 +28385,9 @@ msgid "No threading for answers"
 msgstr "Pas de suivi dans le fil pour les réponses"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_coda.py:201
-#: code:addons/extraschool/models/extraschool_coda.py:282
-#: code:addons/extraschool/models/extraschool_coda.py:326
+#: code:addons/extraschool/models/extraschool_coda.py:203
+#: code:addons/extraschool/models/extraschool_coda.py:284
+#: code:addons/extraschool/models/extraschool_coda.py:328
 #, python-format
 msgid "No valid structured Communication"
 msgstr "No valid structured Communication"
@@ -30335,7 +30328,7 @@ msgid "Parent name"
 msgstr "Nom du parent"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_coda.py:298
+#: code:addons/extraschool/models/extraschool_coda.py:300
 #, python-format
 msgid "Parent not found"
 msgstr "Parent not found"
@@ -32346,7 +32339,7 @@ msgstr "Range"
 #: model:mail.template,subject:extraschool.email_template_reminder
 #: model:mail.template,subject:extraschool.email_template_tax_certificate
 msgid "Rappel"
-msgstr "Attestation fiscale"
+msgstr "Erreur d'envois des attestation fiscale garderie"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_organising_power_form
@@ -33201,6 +33194,11 @@ msgstr "Rapports"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
 msgid "Reprise"
 msgstr "Reprise"
+
+#. module: extraschool
+#: model:ir.model,name:extraschool.model_extraschool_invoice_reprise_no_value
+msgid "Reprise pour aider sur les non valeurs"
+msgstr "Reprise pour aider sur les non valeurs"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.res_request_link-view
@@ -36668,7 +36666,7 @@ msgid "The code of the language must be unique !"
 msgstr "Le code de la langue doit être unique"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_coda.py:231
+#: code:addons/extraschool/models/extraschool_coda.py:233
 #, python-format
 msgid "The communication is outdated. Another reminder has been created."
 msgstr "The communication is outdated. Another reminder has been created."
@@ -37310,13 +37308,13 @@ msgstr "Il n'y a pas de fichier de CODA !"
 
 #. module: extraschool
 #: code:addons/extraschool/models/extraschool_one_report.py:208
-#: code:addons/extraschool/models/extraschool_plain_report.py:235
+#: code:addons/extraschool/models/extraschool_plain_report.py:266
 #, python-format
 msgid "There is no ONE report configuration"
 msgstr "Il n'y a pas de configuration ou plus de date de validité correcte"
 
 #. module: extraschool
-#: code:addons/extraschool/wizard/extraschool_invoice_wizard.py:569
+#: code:addons/extraschool/wizard/extraschool_invoice_wizard.py:575
 #, python-format
 msgid "There is no dominant activity category"
 msgstr "There is no dominant activity category"
@@ -37334,7 +37332,7 @@ msgid "There is no next reminder."
 msgstr "There is no next reminder."
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_plain_report.py:214
+#: code:addons/extraschool/models/extraschool_plain_report.py:245
 #, python-format
 msgid "There is no prestationstimes for this dates."
 msgstr "There is no prestationstimes for this dates."
@@ -41040,7 +41038,7 @@ msgid "Your are not allowed to delete a validated registration !!"
 msgstr "Vérifiez que la fiche est en mode brouillon et que celle-ci n'est pas facturé"
 
 #. module: extraschool
-#: code:addons/extraschool/models/extraschool_plain_report.py:227
+#: code:addons/extraschool/models/extraschool_plain_report.py:258
 #: code:addons/extraschool/models/extraschool_subvention_report.py:144
 #, python-format
 msgid "Your dates are not ok. Please Check your dates."
@@ -41520,12 +41518,17 @@ msgstr "par parent (seulement enfants avec présences)"
 #. module: extraschool
 #: selection:extraschool.activitycategory,childpositiondetermination:0
 msgid "by parent (position replaced by nbr childs"
-msgstr "by parent (position replaced by nbr childs"
+msgstr "by parent (position remplacée par le nombre d'enfants)"
 
 #. module: extraschool
 #: selection:extraschool.activitycategory,childpositiondetermination:0
 msgid "by parent (position replaced by nbr childs with prestations"
 msgstr "Par parent (Position remplacée par le nombre d'enfants présent)"
+
+#. module: extraschool
+#: selection:extraschool.activitycategory,childpositiondetermination:0
+msgid "by parent without la ribambelle"
+msgstr "Par parent sans la Ribambelle"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_parent_form
