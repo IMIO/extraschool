@@ -15,8 +15,8 @@
 }
 .qr_school_name{
     position: absolute;
-    font-size: 11px;
-    top: 10mm;
+    font-size: 9px;
+    top: 9mm;
     left: 19mm;
     text-align: center;
     width: 35mm;
@@ -25,7 +25,7 @@
 
 .qr_level{
     position: absolute;
-    font-size: 11px;
+    font-size: 10px;
     top: 15mm;
     left: 19mm;
     text-align: center;
