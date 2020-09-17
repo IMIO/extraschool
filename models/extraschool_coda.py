@@ -89,8 +89,6 @@ class extraschool_coda(models.Model):
 
     @api.model
     def create(self, vals):
-        import wdb
-        wdb.set_trace()
         self._ensure_coda_file_exists(vals)
         #to do refactoring suite api V8
         cr = self.env.cr
