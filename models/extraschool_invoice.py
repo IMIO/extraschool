@@ -368,7 +368,7 @@ class extraschool_invoice(models.Model):
         format_str += "%s\t"  # num
         format_str += "%s\t"  # boite
         format_str += "%s\t"  # index
-        format_str += "%04d\t"  # code post sur 4 pos avec leading 0
+        format_str += "%s\t"  # code post sur 4 pos avec leading 0
         format_str += "%s\t"  # localité
         format_str += "%s\t"  # pays
         format_str += "%s\t"  # langue defaut F
@@ -379,7 +379,7 @@ class extraschool_invoice(models.Model):
         format_str += "%s\t"  # num
         format_str += "%s\t"  # boite
         format_str += "%s\t"  # index
-        format_str += "%04d\t"  # code post sur 4 pos avec leading 0
+        format_str += "%s\t"  # code post sur 4 pos avec leading 0
         format_str += "%s\t"  # localité
         format_str += "%s\t"  # from
         format_str += "%s\t"  # to
@@ -464,7 +464,7 @@ class extraschool_invoice(models.Model):
                                          splited_street[0][1],  # num
                                          splited_street[0][2],  # boite
                                          splited_street[0][3],  # index
-                                         int(self.parentid.zipcode),  # code post
+                                         self.parentid.zipcode,  # code post
                                          self.parentid.city,
                                          '',  # pays
                                          'F',  # Langue
@@ -474,7 +474,7 @@ class extraschool_invoice(models.Model):
                                          saved_child['splited_place_street'][0][1],  # num
                                          saved_child['splited_place_street'][0][2],  # boite
                                          saved_child['splited_place_street'][0][3],  # index
-                                         int(saved_child['place'].zipcode),
+                                         saved_child['place'].zipcode,
                                          saved_child['place'].city,
                                          time.strftime('%d/%m/%Y',
                                                        time.strptime(self.biller_id.period_from, '%Y-%m-%d')),
@@ -536,7 +536,7 @@ class extraschool_invoice(models.Model):
                                      splited_street[0][1],  # num
                                      splited_street[0][2],  # boite
                                      splited_street[0][3],  # index
-                                     int(self.parentid.zipcode),  # code post
+                                     self.parentid.zipcode,  # code post
                                      self.parentid.city,
                                      '',  # pays
                                      'F',  # Langue
@@ -546,7 +546,7 @@ class extraschool_invoice(models.Model):
                                      saved_child['splited_place_street'][0][1],  # num
                                      saved_child['splited_place_street'][0][2],  # boite
                                      saved_child['splited_place_street'][0][3],  # index
-                                     int(saved_child['place'].zipcode),
+                                     saved_child['place'].zipcode,
                                      saved_child['place'].city,
                                      time.strftime('%d/%m/%Y', time.strptime(self.biller_id.period_from, '%Y-%m-%d')),
                                      time.strftime('%d/%m/%Y', time.strptime(self.biller_id.period_to, '%Y-%m-%d')),

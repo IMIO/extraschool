@@ -122,9 +122,9 @@ class extraschool_invoice_wizard(models.TransientModel):
     check_invoice = fields.Boolean(default=True)
     generate_pdf = fields.Boolean(default=True)
 
-    ########################################################################################################################
+    ####################################################################################################################
     #   HELPER to the invoicing and output to the user what needs to be done before invoicing.
-    ########################################################################################################################
+    ####################################################################################################################
 
     @api.onchange('activitycategory', 'period_from', 'period_to')
     @api.multi
