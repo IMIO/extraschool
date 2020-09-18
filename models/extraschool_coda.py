@@ -327,13 +327,14 @@ class extraschool_coda(models.Model):
 
                                         for reconciliation in payment_id._get_reconciliation_list(parentid, _prefix, 1,
                                                                                                   amount, True):
-                                            payment_reconciliation_obj.create({'payment_id': payment_id.id,
-                                                                               'invoice_id': reconciliation[
-                                                                                   'invoice_id'],
-                                                                               'date': transfertdate,
-                                                                               # todo: si date facture <= coda: date coda sinon date facture
-                                                                               'amount': reconciliation['amount']})
-                                            invoice_obj.browse(reconciliation['invoice_id'])._compute_balance()
+                                            if reconciliation.get("amount") > 0.0:
+                                                payment_reconciliation_obj.create({'payment_id': payment_id.id,
+                                                                                   'invoice_id': reconciliation[
+                                                                                       'invoice_id'],
+                                                                                   'date': transfertdate,
+                                                                                   # todo: si date facture <= coda: date coda sinon date facture
+                                                                                   'amount': reconciliation['amount']})
+                                                invoice_obj.browse(reconciliation['invoice_id'])._compute_balance()
 
                                         paymentids.append(payment_id.id)
                                 else:

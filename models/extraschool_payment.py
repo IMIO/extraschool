@@ -113,8 +113,6 @@ class extraschool_payment(models.Model):
         reste = amount
         tmp_payment_reconciliation_ids = []
         for invoice in invoices:
-            if from_coda and reste == 0:
-                break
             # compute reconcil amount
             if reste >= invoice.balance:
                 reconcil_amount = invoice.balance

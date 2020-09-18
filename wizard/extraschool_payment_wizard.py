@@ -107,7 +107,6 @@ class extraschool_payment_wizard(models.TransientModel):
     @api.multi
     def create_payment(self):
         payment = self.env['extraschool.payment']
-
         payment = payment.create({
             'parent_id': self.parent_id.id,
             'paymentdate': self.payment_date,  # This is Coda date.
@@ -124,24 +123,15 @@ class extraschool_payment_wizard(models.TransientModel):
         payment_reconciliation = self.env['extraschool.payment_reconciliation']
 
         for reconciliation in self.payment_reconciliation_ids:
-            payment_reconciliation.create({
-                'payment_id': payment.id,
-                'invoice_id': reconciliation.invoice_id.id,
-                'amount': reconciliation.amount,
-                'date': fields.Date.today()
-            })  # Todo: si la date facture <= coda: date coda sinon date facture
+            if reconciliation.amount > 0.0:
+                payment_reconciliation.create({
+                    'payment_id': payment.id,
+                    'invoice_id': reconciliation.invoice_id.id,
+                    'amount': reconciliation.amount,
+                    'date': fields.Date.today()
+                })  # Todo: si la date facture <= coda: date coda sinon date facture
 
-            reconciliation.invoice_id._compute_balance()
+                reconciliation.invoice_id._compute_balance()
 
         return {}
 
-
-class extraschool_payment_wizard_reconcil(models.TransientModel):
-    _name = 'extraschool.payment_wizard_reconcil'
-
-    payment_wizard_id = fields.Many2one("extraschool.payment_wizard")
-    invoice_id = fields.Many2one("extraschool.invoice")
-    invoice_balance = fields.Float(related="invoice_id.balance", string="Balance")
-    amount = fields.Float('Amount', digits_compute=dp.get_precision('extraschool_invoice'), required=True)
-    tag = fields.Many2one(related='invoice_id.tag', store=True)
-    number_id = fields.Integer('Number', related='invoice_id.number', readonly=True)

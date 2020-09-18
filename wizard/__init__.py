@@ -39,3 +39,4 @@ from . import extraschool_qrcodes_wizard
 from . import extraschool_taxcertificates_wizard
 from . import extraschool_timecorrection_wizard
 from . import extraschool_prestation_times_encodage_manuel_wizard
+from . import extraschool_payment_wizard_reconcil
