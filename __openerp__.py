@@ -2,9 +2,9 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2019
+#    Copyright (C) 2008-2020
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia & Jenny Pans - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -20,6 +20,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 {
     'name': 'Extraschool',
     'version': '9.1.0.10',
@@ -39,59 +40,47 @@
     'test': [],
     'data': [
         'scripts/update_seq.xml',
-        # 'scripts/update_one_report.sql',
-        # 'scripts/update_activity_category.xml',
+
         'data/data_days.xml',
         'data/data_health_sheet.xml',
         'data/data_health_sheet_allergy.xml',
         'data/data_init.xml',
         'data/data_level.xml',
-        'security/extraschool_security.xml',
         'data/data_tags_invoice.xml',
+
+        'security/extraschool_security.xml',
         'security/extraschool_security.xml',
         'security/ir.model.access.csv',
+
         'views/extraschool_remindertype.xml',
         'views/extraschool_age_group.xml',
         'views/extraschool_activitycategory.xml',
         'views/extraschool_organising_power.xml',
         'views/extraschool_activity.xml',
         'views/extraschool_activityoccurrence.xml',
-        'views/extraschool_activity_occurrence_correction_wizard.xml',
         'views/extraschool_accrued.xml',
         'views/extraschool_biller.xml',
         'views/extraschool_childsimportfilter.xml',
         'views/extraschool_childsimport.xml',
-        'views/extraschool_childsworkbook_wizard.xml',
-        'report/child_qrcode.xml',
         'views/extraschool_coda.xml',
         'views/extraschool_discount.xml',
         'views/extraschool_guardianprestationtimes.xml',
         'views/extraschool_guardian.xml',
-        'views/extraschool_initupdate_wizard.xml',
         'views/extraschool_invoice.xml',
         'views/extraschool_mainsettings.xml',
-        'views/extraschool_manuel_invoice_wizard.xml',
-        'views/extraschool_negatif_payment_correction_wizard.xml',
-        # 'views/extraschool_move_prepaiement.xml',
         'views/extraschool_parent.xml',
-        'views/extraschool_parent_fusion_wizard.xml',
         'views/extraschool_payment.xml',
-        'views/extraschool_payment_wizard.xml',
         'views/extraschool_place.xml',
         'views/extraschool_one_report.xml',
         'views/extraschool_subvention_report.xml',
         'views/extraschool_plain_report.xml',
         'views/extraschool_pda_prestation_times.xml',
-        'views/extraschool_pdaprestationtimes_correction_wizard.xml',
-        'views/extraschool_prestationscheck_wizard.xml',
         'views/extraschool_prestationtimes.xml',
         'views/extraschool_prestation_times_of_the_day.xml',
         'views/extraschool_prestation_times_encodage_manuel.xml',
-        'views/extraschool_prestation_times_encodage_manuel_wizard.xml',
         'views/extraschool_presta_stat.xml',
         'views/extraschool_presta_activity.xml',
         'views/extraschool_price_list.xml',
-        'views/extraschool_qrcodes_wizard.xml',
         'views/extraschool_report.xml',
         'views/extraschool_reminder.xml',
         'views/extraschool_remindersjournal.xml',
@@ -103,21 +92,14 @@
         'views/extraschool_class.xml',
         'views/extraschool_level.xml',
         'views/extraschool_child.xml',
-        'views/extraschool_child_fusion_wizard.xml',
         'views/extraschool_child_registration.xml',
-        'views/extraschool_child_registration_wizard.xml',
         'views/extraschool_health_sheet.xml',
         'views/extraschool_settings.xml',
         'views/extraschool_annual_report.xml',
-        'views/extraschool_refund_wizard.xml',
         'views/extraschool_res_users.xml',
-        # 'views/widgets.xml',
         'views/extraschool_config_smartphone.xml',
         'views/extraschool_query_sql.xml',
-        # 'views/extraschool_qrconfig.xml',
         'views/extraschool_prestation_times_history.xml',
-        'wizard/views/extraschool_no_value_wizard.xml',
-        'wizard/views/extraschool_invoice_wizard.xml',
         'views/extraschool_view.xml',
 
         'report/biller/biller_summary_no_style.xml',
@@ -187,7 +169,26 @@
         'report/custo_client/fosses_la_ville.xml',
         'report/custo_client/aiseau_presles.xml',
         'report/reminder/reminder_text.xml',
-        'report/parent_invoices_summary.xml'
+        'report/parent_invoices_summary.xml',
+        'report/child_qrcode.xml',
+
+        'wizard/views/extraschool_payment_wizard.xml',
+        'wizard/views/extraschool_refund_wizard.xml',
+        'wizard/views/extraschool_no_value_wizard.xml',
+        'wizard/views/extraschool_invoice_wizard.xml',
+        'wizard/views/extraschool_activity_occurrence_correction_wizard.xml',
+        'wizard/views/extraschool_parent_fusion_wizard.xml',
+        'wizard/views/extraschool_child_registration_wizard.xml',
+        'wizard/views/extraschool_childsworkbook_wizard.xml',
+        'wizard/views/extraschool_initupdate_wizard.xml',
+        'wizard/views/extraschool_manuel_invoice_wizard.xml',
+        'wizard/views/extraschool_negatif_payment_correction_wizard.xml',
+        'wizard/views/extraschool_child_fusion_wizard.xml',
+        'wizard/views/extraschool_pdaprestationtimes_correction_wizard.xml',
+        'wizard/views/extraschool_prestationscheck_wizard.xml',
+        'wizard/views/extraschool_prestation_times_encodage_manuel_wizard.xml',
+        'wizard/views/extraschool_qrcodes_wizard.xml',
+
     ],
     'installable': True,
     'application': True,
