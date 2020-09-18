@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2019
+#    Copyright (C) 2008-2020
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
 #    Michael Michot & Michael Colicchia & Jenny Pans - Imio (<http://www.imio.be>).
 #
@@ -33,21 +33,30 @@ class extraschool_prestationtimes(models.Model):
     _description = 'Prestation Times'
     _order = 'prestation_date,prestation_time,activity_occurrence_id,es'
 
-    placeid = fields.Many2one('extraschool.place', 'Schoolcare Place', required=False, Index=True)
-    childid = fields.Many2one('extraschool.child', 'Child', domain="[('isdisabled','=',False)]", required=False, select=True, ondelete='restrict')
+    placeid = fields.Many2one(comodel_name='extraschool.place', string='Schoolcare Place', required=False, Index=True)
+    childid = fields.Many2one(comodel_name='extraschool.child', string='Child', domain="[('isdisabled','=',False)]",
+                              required=False,
+                              select=True, ondelete='restrict')
     parent_id = fields.Many2one(related='childid.parentid', store=True, select=True)
     prestation_date = fields.Date('Date', select=True, Index=True)
     prestation_time = fields.Float('Time', select=True, Index=True, required=True)
-    es = fields.Selection((('E','In'), ('S','Out')),'es' , select=True)
-    exit_all = fields.Boolean('Exit all',default=False)
+    es = fields.Selection((('E', 'In'), ('S', 'Out')), string='es', select=True)
+    exit_all = fields.Boolean('Exit all', default=False)
     manualy_encoded = fields.Boolean('Manualy encoded', readonly=True)
-    verified = fields.Boolean('Verified',default=False, select=True)
+    verified = fields.Boolean('Verified', default=False, select=True)
     error_msg = fields.Char('Error', size=255)
-    activity_occurrence_id = fields.Many2one('extraschool.activityoccurrence', 'Activity occurrence', select=True)
+    activity_occurrence_id = fields.Many2one(comodel_name='extraschool.activityoccurrence',
+                                             string='Activity occurrence', select=True)
     activity_name = fields.Char(related='activity_occurrence_id.activityname')
-    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category', required=True, select=True)
-    prestation_times_of_the_day_id = fields.Many2one('extraschool.prestation_times_of_the_day', 'Prestation of the day',ondelete='restrict')
-    invoiced_prestation_id = fields.Many2one('extraschool.invoicedprestations', string='Invoiced prestation', Index="True")
+    activity_category_id = fields.Many2one(comodel_name='extraschool.activitycategory', string='Activity Category',
+                                           required=True,
+                                           select=True)
+    prestation_times_of_the_day_id = fields.Many2one(comodel_name='extraschool.prestation_times_of_the_day',
+                                                     string='Prestation of the day',
+                                                     ondelete='restrict')
+    invoiced_prestation_id = fields.Many2one(comodel_name='extraschool.invoicedprestations',
+                                             string='Invoiced prestation',
+                                             Index="True")
 
     @api.model
     def create(self, vals):
@@ -58,32 +67,31 @@ class extraschool_prestationtimes(models.Model):
         prestation_times_of_the_day_obj = self.env['extraschool.prestation_times_of_the_day']
         prestation_times_obj = self.env['extraschool.prestationtimes']
 
-
-        prestaion_times_ids = prestation_times_obj.search([('placeid.id', '=',vals['placeid']),
-                                                                 ('childid.id', '=',vals['childid']),
-                                                                 ('prestation_date', '=',vals['prestation_date']),
-                                                                 ('prestation_time', '=',vals['prestation_time']),
-                                                                 ('es', '=',vals['es']),
-                                                                 ])
+        prestaion_times_ids = prestation_times_obj.search([('placeid.id', '=', vals['placeid']),
+                                                           ('childid.id', '=', vals['childid']),
+                                                           ('prestation_date', '=', vals['prestation_date']),
+                                                           ('prestation_time', '=', vals['prestation_time']),
+                                                           ('es', '=', vals['es']),
+                                                           ])
 
         if not 'prestation_times_of_the_day_id' in vals:
             prestation_times_of_the_day_ids = prestation_times_of_the_day_obj.search([
                 # ('activity_category_id.id', '=', vals['activity_category_id']),
-                                                                                      ('child_id.id', '=', vals['childid']),
-                                                                                      ('date_of_the_day', '=', vals['prestation_date']),
-                                                                                    ])
+                ('child_id.id', '=', vals['childid']),
+                ('date_of_the_day', '=', vals['prestation_date']),
+            ])
             if not prestation_times_of_the_day_ids:
                 vals['prestation_times_of_the_day_id'] = prestation_times_of_the_day_obj.create({
                     # 'activity_category_id' : vals['activity_category_id'],
-                                                                                                 'child_id' : vals['childid'],
-                                                                                                 'date_of_the_day' : vals['prestation_date'],
-                                                                                                 'verified' : False,
-                                                               }).id
-            else :
+                    'child_id': vals['childid'],
+                    'date_of_the_day': vals['prestation_date'],
+                    'verified': False,
+                }).id
+            else:
                 vals['prestation_times_of_the_day_id'] = prestation_times_of_the_day_ids.id
 
-        if prestaion_times_ids: #if same presta exist than update
-            if 'exit_all' in vals :
+        if prestaion_times_ids:  # if same presta exist than update
+            if 'exit_all' in vals:
                 if vals['exit_all'] == False:
                     if prestaion_times_ids.exit_all:
                         vals['exit_all'] = True
@@ -107,10 +115,11 @@ class extraschool_prestationtimes(models.Model):
 
             seen = set()
             seen_add = seen.add
-            pod_ids = [presta.prestation_times_of_the_day_id for presta in self if not (presta.prestation_times_of_the_day_id in seen or seen_add(presta.prestation_times_of_the_day_id))]
+            pod_ids = [presta.prestation_times_of_the_day_id for presta in self if not (
+                presta.prestation_times_of_the_day_id in seen or seen_add(presta.prestation_times_of_the_day_id))]
 
             for pod in pod_ids:
-                pod.prestationtime_ids.write({'verified':False})
+                pod.prestationtime_ids.write({'verified': False})
 
             return super(extraschool_prestationtimes, self).unlink()
 
@@ -121,6 +130,3 @@ class extraschool_prestationtimes(models.Model):
                 self.es = 'S'
             else:
                 self.es = 'E'
-
-
-
