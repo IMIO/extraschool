@@ -2,9 +2,9 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2019
+#    Copyright (C) 2008-2020
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia  & Jenny Pans - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -33,22 +33,23 @@ class extraschool_payment_wizard(models.TransientModel):
 
     payment_date = fields.Date('Date', default=datetime.now(), required=True)
     amount = fields.Float('Amount', digits_compute=dp.get_precision('extraschool_invoice'), required=True)
-    reconciliation_amount_balance = fields.Float(compute="_compute_reconciliation_amount_balance", string='Amount to reconcil')
+    reconciliation_amount_balance = fields.Float(compute="_compute_reconciliation_amount_balance",
+                                                 string='Amount to reconcil')
     reconciliation_amount = fields.Float(compute="_compute_reconciliation_amount", string='Amount reconcilied')
-    parent_id = fields.Many2one("extraschool.parent")
-    activity_category_id = fields.Many2one('extraschool.activitycategory', required=True)
-    # activity_category_id = fields.Many2many('extraschool.activitycategory', 'extraschool_payment_wizard_activity_category_rel', required=True)
-    payment_reconciliation_ids = fields.One2many('extraschool.payment_wizard_reconcil','payment_wizard_id')
-    reject_id = fields.Many2one('extraschool.reject', string='Reject')
+    parent_id = fields.Many2one(comodel_name="extraschool.parent")
+    activity_category_id = fields.Many2one(comodel_name='extraschool.activitycategory', required=True)
+    payment_reconciliation_ids = fields.One2many(comodel_name='extraschool.payment_wizard_reconcil',
+                                                 inverse_name='payment_wizard_id')
+    reject_id = fields.Many2one(comodel_name='extraschool.reject', string='Reject')
     comment = fields.Char('Comment')
     state = fields.Selection(
         [('init', 'Init'),
-        ('print_payment', 'Print payment'),
-        ('print_reconciliation', 'Print reconciliation')],
-        'State', required=True, default='init',
-        )
+         ('print_payment', 'Print payment'),
+         ('print_reconciliation', 'Print reconciliation')],
+        string='State', required=True, default='init',
+    )
 
-    @api.onchange('parent_id','amount','activity_category_id')
+    @api.onchange('parent_id', 'amount', 'activity_category_id')
     def _on_change_payment_type(self):
 
         self.payment_reconciliation_ids = [(5, 0, 0)]
@@ -78,7 +79,8 @@ class extraschool_payment_wizard(models.TransientModel):
     @api.depends('payment_reconciliation_ids')
     def _compute_reconciliation_amount(self):
         for payment in self:
-            payment.reconciliation_amount = sum(reconcil_line.amount for reconcil_line in payment.payment_reconciliation_ids)
+            payment.reconciliation_amount = sum(
+                reconcil_line.amount for reconcil_line in payment.payment_reconciliation_ids)
 
     @api.multi
     def next(self):
@@ -90,7 +92,7 @@ class extraschool_payment_wizard(models.TransientModel):
 
         for payment_reconciliation in self.payment_reconciliation_ids:
             total += payment_reconciliation.amount
-            if float_compare(payment_reconciliation.amount,payment_reconciliation.invoice_balance,2) > 0:
+            if float_compare(payment_reconciliation.amount, payment_reconciliation.invoice_balance, 2) > 0:
                 reconciliation_error += 1
 
         if reconciliation_error:
@@ -139,8 +141,7 @@ class extraschool_payment_wizard_reconcil(models.TransientModel):
 
     payment_wizard_id = fields.Many2one("extraschool.payment_wizard")
     invoice_id = fields.Many2one("extraschool.invoice")
-    invoice_balance = fields.Float(related="invoice_id.balance", string = "Balance")
+    invoice_balance = fields.Float(related="invoice_id.balance", string="Balance")
     amount = fields.Float('Amount', digits_compute=dp.get_precision('extraschool_invoice'), required=True)
     tag = fields.Many2one(related='invoice_id.tag', store=True)
-    number_id = fields.Integer('Number',related='invoice_id.number', readonly=True)
-
+    number_id = fields.Integer('Number', related='invoice_id.number', readonly=True)
