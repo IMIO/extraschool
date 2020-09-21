@@ -2,9 +2,9 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2019
+#    Copyright (C) 2008-2020
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia & Jenny Pans - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -28,9 +28,10 @@ class extraschool_child_fusion_wizard(models.TransientModel):
     _name = 'extraschool.child_fusion_wizard'
     _description = 'Child fusion wizard'
 
-    child_id = fields.Many2one('extraschool.child', 'Child')
-    child_ids = fields.Many2many('extraschool.child', 'extraschool_child_fusion_rel', 'child_fusion_id',
-                                  'child_id', 'Child_fusion')
+    child_id = fields.Many2one(comodel_name='extraschool.child', string='Child')
+    child_ids = fields.Many2many(comodel_name='extraschool.child', relation='extraschool_child_fusion_rel',
+                                 column1='child_fusion_id',
+                                 column2='child_id', string='Child_fusion')
 
     @api.multi
     def fusion(self):
@@ -53,7 +54,6 @@ class extraschool_child_fusion_wizard(models.TransientModel):
         # Delete POTD with the same prestation date.
         self.delete_potd(self.child_id.id)
 
-
         # List of childs to delete.
         child_to_delete_ids = self.env['extraschool.child'].search(
             [('id', 'in', [child.id for child in self.child_ids])])
@@ -61,7 +61,7 @@ class extraschool_child_fusion_wizard(models.TransientModel):
         # Delete childs
         if len(child_to_delete_ids):
             sql_delete_child = """delete from extraschool_child
-                                  where id in (""" + ','.join(map(str, child_to_delete_ids.ids)) + """)                             
+                                  where id in (""" + ','.join(map(str, child_to_delete_ids.ids)) + """)
                                 """
             self.env.cr.execute(sql_delete_child)
 
@@ -76,7 +76,7 @@ class extraschool_child_fusion_wizard(models.TransientModel):
         self.last_potd_id = 0
         potd_to_delete = []
         for potd in self.env['extraschool.prestation_times_of_the_day'].search(
-                [('child_id', '=', child_id)]).filtered('date_of_the_day'):
+            [('child_id', '=', child_id)]).filtered('date_of_the_day'):
             if potd.date_of_the_day == previous_date:
                 self.fusion_potd(potd.id, potd.date_of_the_day, child_id)
                 potd_to_delete.append(self.last_potd_id)
@@ -90,7 +90,7 @@ class extraschool_child_fusion_wizard(models.TransientModel):
                 [('id', '=', potd_to_delete)]).unlink()
 
     @api.multi
-    def fusion_potd(self,potd_id, date_of_the_day, child_id):
+    def fusion_potd(self, potd_id, date_of_the_day, child_id):
         """
         Fusion of potd with the same child id and prestation date.
         :param potd_id: New id of POTD
@@ -98,7 +98,9 @@ class extraschool_child_fusion_wizard(models.TransientModel):
         :param child_id: id used for the domain
         :return: None
         """
-        self.env['extraschool.prestationtimes'].search([('childid', '=', child_id), ('prestation_date', '=', date_of_the_day)]).write(
+        self.env['extraschool.prestationtimes'].search(
+            [('childid', '=', child_id), ('prestation_date', '=', date_of_the_day)]).write(
             {'prestation_times_of_the_day_id': potd_id})
-        self.env['extraschool.pdaprestationtimes'].search([('childid', '=', child_id), ('prestation_date', '=', date_of_the_day)]).write(
+        self.env['extraschool.pdaprestationtimes'].search(
+            [('childid', '=', child_id), ('prestation_date', '=', date_of_the_day)]).write(
             {'prestation_times_of_the_day_id': potd_id})
