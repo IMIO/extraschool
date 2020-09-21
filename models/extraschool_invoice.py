@@ -133,7 +133,7 @@ class extraschool_invoice(models.Model):
     @api.multi
     def get_infos_childs(self):
         return self.invoice_line_ids.sorted(
-            key=lambda r: (r.childid, r.activity_occurrence_id.activityid.short_name, r.prestation_date))
+            key=lambda r: (r.childid.id, r.activity_occurrence_id.activityid.short_name, r.prestation_date))
 
     @api.multi
     def get_today(self):

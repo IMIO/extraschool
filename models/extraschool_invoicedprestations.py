@@ -30,16 +30,17 @@ class extraschool_invoicedprestations(models.Model):
     _name = 'extraschool.invoicedprestations'
     _description = 'invoiced Prestations'
 
-    invoiceid = fields.Many2one('extraschool.invoice', 'invoice',ondelete='cascade', index=True)
-    childid = fields.Many2one('extraschool.child', 'Child', required=False, select=True)
-    child_position_id = fields.Many2one('extraschool.childposition', 'Child position', required=False, select=True)
-    placeid = fields.Many2one(related='activity_occurrence_id.place_id', store=True, select=True)
-    prestation_date = fields.Date(related='activity_occurrence_id.occurrence_date', store=True, select=True)
+    invoiceid = fields.Many2one(comodel_name='extraschool.invoice', string='invoice', ondelete='cascade', index=True)
+    childid = fields.Many2one(comodel_name='extraschool.child', string='Child', required=False, index=True)
+    child_position_id = fields.Many2one(comodel_name='extraschool.childposition', string='Child position',
+                                        required=False, index=True)
+    placeid = fields.Many2one(related='activity_occurrence_id.place_id', store=True, index=True)
+    prestation_date = fields.Date(related='activity_occurrence_id.occurrence_date', store=True, index=True)
     activity_occurrence_id = fields.Many2one(
-        'extraschool.activityoccurrence',
-        'Activity occurrence',
+        comodel_name='extraschool.activityoccurrence',
+        string='Activity occurrence',
         required=False,
-        select=True,
+        index=True,
         ondelete='restrict')
     activity_activity_id = fields.Many2one(
         related="activity_occurrence_id.activityid",
@@ -68,15 +69,15 @@ class extraschool_invoicedprestations(models.Model):
     discount_value = fields.Float(
         'Discount value',
         digits_compute=dp.get_precision('extraschool_invoice_line'),
-        default= 0
+        default=0
     )
     price_list_version_id = fields.Many2one(
-        'extraschool.price_list_version',
+        comodel_name='extraschool.price_list_version',
         ondelete='restrict'
     )
     prestation_ids = fields.One2many(
-        'extraschool.prestationtimes',
-        'invoiced_prestation_id',
+        comodel_name='extraschool.prestationtimes',
+        inverse_name='invoiced_prestation_id',
         ondelete='restrict'
     )
 
@@ -85,7 +86,7 @@ class extraschool_invoicedprestations(models.Model):
     no_value_date = fields.Date()
     no_value_description = fields.Text()
 
-    def float_time_to_str(self,float_val):
+    def float_time_to_str(self, float_val):
         factor = float_val < 0 and -1 or 1
         val = abs(float_val)
         return "%02d:%02d" % (factor * int(math.floor(val)), int(round((val % 1) * 60)))
@@ -93,29 +94,31 @@ class extraschool_invoicedprestations(models.Model):
     def get_child_entry(self):
 
         presta_obj = self.env['extraschool.prestationtimes']
-        #get child presta
+        # get child presta
         presta_ids = presta_obj.search([("childid", "=", self.childid.id),
-                                        ("activity_occurrence_id.activityid.short_name", "=", self.activity_occurrence_id.activityid.short_name),
+                                        ("activity_occurrence_id.activityid.short_name", "=",
+                                         self.activity_occurrence_id.activityid.short_name),
                                         ("prestation_date", "=", self.prestation_date),
                                         ("es", "=", "E")
                                         ])
         if presta_ids:
-            #sort on time
+            # sort on time
             presta_ids = presta_ids.sorted(key=lambda r: r.prestation_time)
             return self.float_time_to_str(presta_ids[0].prestation_time)
         else:
             return False
 
     def get_child_exit(self):
-        #get child presta
+        # get child presta
         presta_obj = self.env['extraschool.prestationtimes']
         presta_ids = presta_obj.search([("childid", "=", self.childid.id),
-                                        ("activity_occurrence_id.activityid.short_name", "=", self.activity_occurrence_id.activityid.short_name),
+                                        ("activity_occurrence_id.activityid.short_name", "=",
+                                         self.activity_occurrence_id.activityid.short_name),
                                         ("prestation_date", "=", self.prestation_date),
                                         ("es", "=", "S")
                                         ])
         if presta_ids:
-            #sort on time
+            # sort on time
             presta_ids = presta_ids.sorted(key=lambda r: r.prestation_time, reverse=True)
             return self.float_time_to_str(presta_ids[0].prestation_time)
         else:

@@ -1,6 +1,7 @@
 <?xml version="1.0" ?>
 <odoo>
 	<data>
+
 		<template id="report_invoice_regroup_by_activity_by_child_by_day_enter_exit">
 		    <xpath expr="//head" position="inside">
                 <link rel="stylesheet" href="/extraschool/static/src/css/report_invoice_regroup_by_activity_by_child_by_day.css"/>

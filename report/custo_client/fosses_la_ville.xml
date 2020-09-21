@@ -173,100 +173,18 @@
             </div>
         </template>
 
-        <template id="report_payment_info_amount_one_row_fosses">
-            <xpath expr="//head" position="inside">
-                <link rel="stylesheet" href="/extraschool/static/src/css/report_payment_info_amount_one_row.css"/>
-            </xpath>
-            <div id="total_row">
-                <div id="payment_info">
-                    <span>Compte:
-                        <b>
-                            <t t-esc="categ_id.bankaccount"/>
-                        </b>
-                    </span>
-                    <br/>
-                    <span>BIC:
-                        <t t-esc="categ_id.bank_bic"/>
-                    </span>
-                    <br/>
-                    <div class="com_struct">
-                        <span>Communication structurée <b>obligatoire</b>:
-                            <br/>
-                            <b>
-                                <t t-esc="com_struct"/>
-                            </b>
-                        </span>
-                    </div>
-                </div>
-                <div id="total">
-                    <div class="amount">
-                        <span class="zz_label">Total</span>
-                        <span class="amount">
-                            <t t-esc="'%.2f' %  (total)"/>
-                            €
-                        </span>
-                    </div>
-                    <div class="amount">
-                        <span class="zz_label">Reçu</span>
-                        <span class="amount">
-                            <t t-esc="'%.2f' %  (received)"/>
-                            €
-                        </span>
-                    </div>
-                    <div class="amount" t-if="reminder_type == 'fix'">
-                        <span class="zz_label">Frais de rappel</span>
-                        <span class="amount">
-                            <t t-esc="'%.2f' %  (fees)"/>
-                            €
-                        </span>
-                    </div>
-                    <div class="amount" t-if="no_value">
-                        <span class="zz_label">Non-valeur</span>
-                        <span class="amount">
-                            <t t-esc="'%.2f' %  (no_value)"/>
-                            €
-                        </span>
-                    </div>
-                    <div class="amount to_pay" t-if="reminder_type == 'fix'">
-                        <span class="zz_label">Solde</span>
-                        <span class="amount">
-                            <t t-esc="'%.2f' %  (balance + fees)"/>
-                            €
-                        </span>
-                    </div>
-                    <div class="amount to_pay" t-if="reminder_type == 'free'">
-                        <span class="zz_label">Solde</span>
-                        <span class="amount">
-                            <t t-esc="'%.2f' %  (balance)"/>
-                            €
-                        </span>
-                    </div>
-                    <div class="amount to_pay" t-if="not reminder_type">
-                        <span class="zz_label">Solde</span>
-                        <span class="amount">
-                            <t t-esc="'%.2f' %  (balance)"/>
-                            €
-                        </span>
-                    </div>
-                    <div class="amount to_pay">
-                        <b>
-                            <span>A payer avant le
-                                <t t-esc="payment_term"/>
-                            </span>
-                        </b>
-                    </div>
-                </div>
-            </div>
-        </template>
-
-        <template id="report_adresse_no_style_comment2_fosses" inherit_id="extraschool.report_adresse_no_style_comment2" primary="True">
+        <template id="report_adresse_no_style_comment2_fosses" inherit_id="extraschool.report_adresse_no_style_comment2"
+                  primary="True">
             <xpath expr="//div[@id='aes_block_customer']" position="replace">
-             	<div id="aes_block_customer" class="aes_adresse_block customer">
+                <div id="aes_block_customer" class="aes_adresse_block customer">
                     <span>ENVOI PAR RECOMMANDE</span>
-					<span t-field="addresse.name" />
-					<span t-field="addresse.street" />
-					<span><t t-esc="addresse.zipcode" /> <t t-esc="addresse.city" /></span>
-				</div>
+                    <span t-field="addresse.name"/>
+                    <span t-field="addresse.street"/>
+                    <span>
+                        <t t-esc="addresse.zipcode"/>
+                        <t t-esc="addresse.city"/>
+                    </span>
+                </div>
             </xpath>
         </template>
 

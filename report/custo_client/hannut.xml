@@ -45,7 +45,7 @@
                     <h4>Pour rappel,</h4>
                     <p>Votre compte famille présente
                         <t t-if="parent_id.totalbalance > 0.001">
-                            <span class="aes_credit_solde">un solde à payer de<t
+                            <span class="aes_credit_solde">un solde à payer de <t
                                 t-esc="'%.2f' %  (parent_id.totalbalance)"/>€
                             </span>
                         </t>
