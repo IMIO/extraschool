@@ -199,6 +199,7 @@
                         <t t-if="len(invoice.activitycategoryid) > 1">
                             <t t-set="categ_id" t-value="invoice.activitycategoryid[0].organising_power_id.dominant_activity_category_id"/>
                         </t>
+                        <t t-set="organising_power" t-value="invoice.activitycategoryid[0].organising_power_id"/>
 						<t t-set="logo" t-value="categ_id.logo"/>
 						<t t-set="slogan" t-value="categ_id.slogan"/>
 						<t t-set="amount_int" t-value="int(invoice.amount_total)"/>
@@ -221,15 +222,15 @@
 
 						<t t-set="parent_id" t-value="invoice.parentid"/>
 
-						<t t-set="resp_fct" t-value="categ_id.po_resp_name"/>
-						<t t-set="resp_name" t-value="categ_id.po_resp_fct"/>
-						<t t-set="resp_sign" t-value="categ_id.po_sign"/>
-						<t t-set="resp_sign_img" t-value="categ_id.po_sign_img"/>
-						<t t-set="po_stamp" t-value="categ_id.po_stamp"/>
+						<t t-set="resp_fct" t-value="organising_power.po_resp_name"/>
+						<t t-set="resp_name" t-value="organising_power.po_resp_fct"/>
+						<t t-set="resp_sign" t-value="organising_power.po_sign"/>
+						<t t-set="resp_sign_img" t-value="organising_power.po_sign_img"/>
+						<t t-set="po_stamp" t-value="organising_power.po_stamp"/>
 
-						<t t-set="resp2_fct" t-value="categ_id.po_resp2_name"/>
-						<t t-set="resp2_name" t-value="categ_id.po_resp2_fct"/>
-						<t t-set="resp2_sign" t-value="categ_id.po_resp2_sign"/>
+						<t t-set="resp2_fct" t-value="organising_power.po_resp2_name"/>
+						<t t-set="resp2_name" t-value="organising_power.po_resp2_fct"/>
+						<t t-set="resp2_sign" t-value="organising_power.po_resp2_sign"/>
 						<t t-set="summary_invoice_title" t-value="'Facture(s) échue(s)'"/>
 						<t t-set="invoice_id" t-value="invoice.id"/>
 						<t t-set="all_invoice_ids" t-value="invoice.parentid.invoice_ids.filtered(lambda r: r.balance &gt; 0.01 and not r.huissier)"/>
