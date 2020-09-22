@@ -52,7 +52,7 @@ class extraschool_childsimport(models.Model):
         obj_class = self.pool.get('extraschool.class')
         obj_levelrule = self.pool.get('extraschool.importlevelrule')
         obj_childtype = self.pool.get('extraschool.childtype')
-        childtypeid = obj_childtype.search(cr, uid, [('name', '=', 'aucun')])[0]
+        childtypeid = obj_childtype.browse(1)
         importfilter=obj_filter.read(cr, uid, [vals['childsimportfilter']],
                                                     ['startrow',
                                                      'childrncolumn',
@@ -260,7 +260,7 @@ class extraschool_childsimport(models.Model):
                                      childfirstname:%s
                                      childbirthdate:%s
                                      childlevelid:%s
-                                     parentlastname:%s                                     
+                                     parentlastname:%s
                                     """ % (curr_row+1,childlastname,childfirstname,childbirthdate,childlevelid,parentlastname))
                 else:
                     if importfilter['childrncolumn'] <> 0 and childrn:
