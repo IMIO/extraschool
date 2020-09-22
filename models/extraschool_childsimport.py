@@ -52,7 +52,7 @@ class extraschool_childsimport(models.Model):
         obj_class = self.pool.get('extraschool.class')
         obj_levelrule = self.pool.get('extraschool.importlevelrule')
         obj_childtype = self.pool.get('extraschool.childtype')
-        childtypeid = obj_childtype.browse(1)
+        childtypeid = obj_childtype.search(cr, uid, [('name', '=', 'aucun')])[0]
         importfilter=obj_filter.read(cr, uid, [vals['childsimportfilter']],
                                                     ['startrow',
                                                      'childrncolumn',
