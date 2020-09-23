@@ -40,6 +40,7 @@
     'test': [],
     'data': [
         'scripts/update_seq.xml',
+        'scripts/update_main_settings.sql',
 
         'data/data_days.xml',
         'data/data_health_sheet.xml',
