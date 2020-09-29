@@ -36,7 +36,7 @@
                     <div class="alert alert-warning" attrs="{'invisible':[('check_name', '=', True)]}">
                         Le nom et prénom de cet enfant existe déjà. S'agit-il du même enfant ?
                     </div>
-                    <div class="alert alert-danger" attrs="{'invisible':[('check_rn', '=', True)]}">
+                    <div class="alert alert-info" attrs="{'invisible':[('check_rn', '=', True)]}">
                         Un enfant possède déjà ce registre national.
                     </div>
                     <field name="check_name" invisible="1" />
