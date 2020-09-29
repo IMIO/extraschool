@@ -63,6 +63,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">Nom</th>
+                                <th scope="col">Niveau</th>
                                 <th scope="col">Lundi</th>
                                 <th scope="col">Mardi</th>
                                 <th scope="col">Mercredi</th>
@@ -128,6 +129,9 @@
                                         </t>
                                     </td>
                                     <td>
+                                        <span t-field="child.child_level"/>
+                                    </td>
+                                    <td>
                                         <span t-field="child.monday_activity_id.name"/>
                                         <span t-if="child.monday">X</span>
                                     </td>
@@ -176,6 +180,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">Nom</th>
+                                <th scope="col">Niveau</th>
                                 <th scope="col">Lundi</th>
                                 <th scope="col">Mardi</th>
                                 <th scope="col">Mercredi</th>
@@ -239,6 +244,9 @@
                                                 <br></br>
                                             </i>
                                         </t>
+                                    </td>
+                                    <td>
+                                        <span t-field="child.child_level"/>
                                     </td>
                                     <td>
                                         <span t-field="child.monday_activity_id.name"/>
@@ -341,6 +349,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">Nom</th>
+                                <th scope="col">Niveau</th>
                                 <th scope="col">Lundi</th>
                                 <th scope="col">Mardi</th>
                                 <th scope="col">Mercredi</th>
@@ -354,6 +363,9 @@
                                 <tr>
                                     <td>
                                         <span t-field="child.child_id.name"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="child.child_level"/>
                                     </td>
                                     <td>
                                         <span t-field="child.monday_activity_id.name"/>
@@ -410,6 +422,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Nom</th>
+                                    <th scope="col">Niveau</th>
                                     <th scope="col">Lundi</th>
                                     <th scope="col">Mardi</th>
                                     <th scope="col">Mercredi</th>
@@ -423,6 +436,9 @@
                                     <tr>
                                         <td>
                                             <span t-field="child.child_id.name"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="child.child_level"/>
                                         </td>
                                         <td>
                                             <span t-field="child.monday_activity_id.name"/>
