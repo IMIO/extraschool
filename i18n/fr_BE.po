@@ -13,6 +13,7 @@
 # 	* mail
 # 	* document
 # 	* extraschool
+# 	* aes_api
 # 	* odoo-report_pdf_both_sides
 # 	* fetchmail
 # 	* base_import
@@ -33,8 +34,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-21 08:29+0000\n"
-"PO-Revision-Date: 2020-09-21 10:32+0200\n"
+"POT-Creation-Date: 2020-10-01 08:58+0000\n"
+"PO-Revision-Date: 2020-10-01 10:59+0200\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -8225,6 +8226,7 @@ msgstr "- Factures relative(s) aux repas et garderies scolaires pour la période
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_your_ref_and_period_num_fact_one_row
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_your_ref_and_period_num_fact_one_row_ittre
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_your_ref_and_period_num_fact_one_row_title
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_your_ref_and_period_num_fact_one_row_title_repas
 msgid "- Période du"
 msgstr "- Période du"
 
@@ -9021,6 +9023,11 @@ msgstr ""
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_your_ref_and_period_num_fact_one_row_title
 msgid "<b><u>Facture de l'accueil extrascolaire</u></b>"
 msgstr "<b><u>Facture de l'accueil extrascolaire</u></b>"
+
+#. module: extraschool
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_your_ref_and_period_num_fact_one_row_title_repas
+msgid "<b><u>Facture repas / piscine</u></b>"
+msgstr "<b><u>Facture repas / piscine</u></b>"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_healthy_yvoir
@@ -12185,7 +12192,9 @@ msgstr "ID Action :"
 msgid "Action Name"
 msgstr "Nom de l'action"
 
-#. modules: mail, extraschool
+#. modules: mail, aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_message_needaction_4574
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_message_needaction_4612
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_message_needaction
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_biller_message_needaction
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_message_needaction
@@ -12410,8 +12419,9 @@ msgstr "Liste de prix"
 msgid "Activities price list version"
 msgstr "Version de liste de prix"
 
-#. modules: mail, base, extraschool, web_diagram
+#. modules: mail, aes_api, web_diagram, extraschool, base
 #. openerp-web
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoiced_prestations_temporary_activity_activity_id
 #: model:ir.model.fields,field_description:base.field_wkf_workitem_act_id
 #: model:ir.ui.view,arch_db:base.view_workflow_activity_form
 #: model:ir.ui.view,arch_db:base.view_workflow_activity_tree
@@ -12471,7 +12481,8 @@ msgstr "Catégories d'activités"
 msgid "Activity category"
 msgstr "Catégorie d'activité"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoice_temporary_activity_category_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_accrued_activity_category_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_sequence_activity_category_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_manuel_invoice_wizard_activity_category_id
@@ -12496,7 +12507,11 @@ msgstr "Activités liées"
 msgid "Activity exclusion dates"
 msgstr "Dates exclues"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_activity_id_4592
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_activity_id_4632
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_sub_activity_activity_id
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_week_activity_activity_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_activity_id
 msgid "Activity id"
 msgstr "Activité"
@@ -12516,7 +12531,8 @@ msgstr "L'enfant a-t-il des interdictions pour certaines activités ?"
 msgid "Activity occurences"
 msgstr "Activity occurences"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoiced_prestations_temporary_activity_occurrence_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_occurrence_child_registration_activity_occurrence_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoicedprestations_activity_occurrence_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_prestation_times_history_activity_occurrence_id
@@ -13046,7 +13062,9 @@ msgstr "Affero GPL-3"
 msgid "Afghanistan, Islamic State of"
 msgstr "République Islamique d'Afghanistan"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,help:aes_api.field_extraschool_child_registration_week_4591
+#: model:ir.model.fields,help:aes_api.field_extraschool_child_registration_week_4631
 #: model:ir.model.fields,help:extraschool.field_extraschool_child_registration_week
 msgid "Afin de trouver le bon numéro de semaine, Veuillez vous aider du champs situé juste en dessous afin de trouver le numéro de semaine. Une fois le numéro mis, l'application recherchera et encodera toute seule les bonnes dates du numéro de semaine (Du lundi au vendredi)"
 msgstr "Afin de trouver le bon numéro de semaine, Veuillez vous aider du champs situé juste en dessous afin de trouver le numéro de semaine. Une fois le numéro mis, l'application recherchera et encodera toute seule les bonnes dates du numéro de semaine (Du lundi au vendredi)"
@@ -13066,10 +13084,18 @@ msgstr "Service après-vente"
 msgid "Age from"
 msgstr "Age de début"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_activity_age_group
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_age_group_4579
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_age_group_4619
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_age_group
 msgid "Age group"
 msgstr "Groupe d'âge"
+
+#. module: aes_api
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_age_group_activity
+msgid "Age group activity"
+msgstr "Age group activity"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_age_group_age_to
@@ -13123,6 +13149,11 @@ msgstr "Ajout des enfants"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_stat_activity_form
 msgid "Ajouter"
 msgstr "Ajouter"
+
+#. module: aes_api
+#: model:ir.ui.view,arch_db:aes_api.extraschool_child_registration_form_plaine
+msgid "Ajouter un enfant"
+msgstr "Ajouter un enfant"
 
 #. module: base
 #: model:res.country,name:base.al
@@ -13423,7 +13454,8 @@ msgstr "Samoa américaines"
 msgid "Amharic / አምሃርኛ"
 msgstr "Amharique / አምሃርኛ"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoice_temporary_amount_total
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_accrued_amount
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_annual_report_item_amount
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_amount_total
@@ -14294,6 +14326,11 @@ msgstr "Autre"
 msgid "Autres contacts"
 msgstr "Autres contacts"
 
+#. module: aes_api
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_availab_spot_id
+msgid "Availab spot id"
+msgstr "Availab spot id"
+
 #. module: web
 #. openerp-web
 #: code:addons/web/static/src/xml/base.xml:1326
@@ -14433,7 +14470,8 @@ msgstr "Bahamas"
 msgid "Bahrain"
 msgstr "Bahreïn"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoice_temporary_balance
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_biller_balance
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_balance
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_payment_wizard_reconcil_invoice_balance
@@ -15490,7 +15528,6 @@ msgstr "Nom de la catégorie"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_impaye
-#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_impaye_assesse
 msgid "Catégorie"
 msgstr "Catégorie"
 
@@ -15541,7 +15578,9 @@ msgstr "Ceci est le montant minimum des factures à sortir en rappel (concerne d
 msgid "Ceci permet d'affecter un tag \"huissier\" sur toutes les factures de ce niveau"
 msgstr "Ceci permet d'affecter un tag \"huissier\" sur toutes les factures de ce niveau"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,help:aes_api.field_extraschool_child_registration_day_ids_4606
+#: model:ir.model.fields,help:aes_api.field_extraschool_child_registration_day_ids_4646
 #: model:ir.model.fields,help:extraschool.field_extraschool_child_registration_day_ids
 msgid "Ceci permet de précocher pour tous les enfants, les jours que l'on souhaite"
 msgstr "Ceci permet de précocher pour tous les enfants, les jours que l'on souhaite"
@@ -15899,7 +15938,9 @@ msgstr "Checked"
 msgid "Checksum/SHA1"
 msgstr "Somme de Contrôle/SHA1"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model,name:aes_api.model_extraschool_child
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoiced_prestations_temporary_childid
 #: selection:extraschool.discount.version,apply_on:0
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_child
 #: model:ir.model,name:extraschool.model_extraschool_child
@@ -16015,7 +16056,9 @@ msgstr "Nom colonne prénom enfant"
 msgid "Child fusion wizard"
 msgstr "Child fusion wizard"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_child_id
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_child_id_4657
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_line_child_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_prestation_times_manuel_child_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_prestation_times_of_the_day_child_id
@@ -16067,7 +16110,8 @@ msgstr "Colonne autre ref enfant"
 msgid "Child other ref column name"
 msgstr "Nom colonne autre ref"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoiced_prestations_temporary_child_position_id
 #: model:ir.model,name:extraschool.model_extraschool_childposition
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoicedprestations_child_position_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_price_list_version_child_position_ids
@@ -16085,25 +16129,37 @@ msgstr "Détermination de la position de l'enfant"
 msgid "Child prestation times"
 msgstr "Présences des enfants"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model,name:aes_api.model_extraschool_child_registration_meal
+#: model:ir.model,name:aes_api.model_extraschool_child_registration_plain
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_child_registration
 #: model:ir.model,name:extraschool.model_extraschool_child_registration
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activityoccurrence_child_registration_ids
 msgid "Child registration"
 msgstr "Inscriptions"
 
-#. module: extraschool
+#. module: aes_api
+#: model:ir.actions.act_window,name:aes_api.action_extraschool_child_registration_plain2
+msgid "Child registration Plaine"
+msgstr "Inscription des enfants à la plaine"
+
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_available_spot_child_registration_id
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_child_registration_id_4685
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_line_child_registration_id
 msgid "Child registration id"
 msgstr "Inscription"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model,name:aes_api.model_extraschool_child_registration_line_plain
 #: model:ir.model,name:extraschool.model_extraschool_child_registration_line
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_occurrence_child_registration_child_registration_line_id
 msgid "Child registration line"
 msgstr "Ligne d'inscription"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_child_registration_line_ids_4578
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_child_registration_line_ids_4616
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_child_registration_line_ids
 msgid "Child registration line ids"
 msgstr "Liste des inscriptions"
@@ -16327,7 +16383,8 @@ msgstr "Réclamations sur les livraisons"
 msgid "Claims Management"
 msgstr "Gestion des réclamations"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoice_temporary_class_id
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_class
 #: model:ir.model,name:extraschool.model_extraschool_class
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_classid
@@ -16341,7 +16398,9 @@ msgstr "Gestion des réclamations"
 msgid "Class"
 msgstr "Classe"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_class_id_4602
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_class_id_4643
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_class_id
 msgid "Class id"
 msgstr "Classe"
@@ -16656,7 +16715,10 @@ msgstr "Adresses des destinataires, séparées par des virgules"
 msgid "Comma-separated recipient addresses (placeholders may be used here)"
 msgstr "Adresses des destinataires séparées par des virgules (des variables peuvent être utilisées ici)"
 
-#. modules: mail, base, extraschool
+#. modules: mail, aes_api, extraschool, base
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_comment_4571
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_comment_4609
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_comment_4649
 #: model:ir.model.fields,field_description:base.field_res_groups_comment
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_biller_comment
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_comment
@@ -17790,7 +17852,20 @@ msgstr "Menus créés"
 msgid "Created Views"
 msgstr "Vues créées"
 
-#. modules: base_setup, web_planner, bus, base_import, web_tip, fetchmail, extraschool, web_editor, web_environment_ribbon, base, portal, board, report, mail, decimal_precision
+#. modules: aes_api, web_planner, bus, base_import, web_tip, fetchmail, extraschool, web_editor, web_environment_ribbon, base_setup, portal, board, base, report, mail, decimal_precision
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_aes_api_create_uid
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_available_spot_create_uid
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_child_create_uid
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_compute_invoice_create_uid
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoice_temporary_create_uid
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoiced_prestations_temporary_create_uid
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_parent_create_uid
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_tools_create_uid
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_create_uid_4581
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_create_uid_4621
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_create_uid_4659
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_sub_activity_create_uid
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_week_activity_create_uid
 #: model:ir.model.fields,field_description:base.field_base_language_export_create_uid
 #: model:ir.model.fields,field_description:base.field_base_language_import_create_uid
 #: model:ir.model.fields,field_description:base.field_base_language_install_create_uid
@@ -18018,7 +18093,20 @@ msgstr "Créé par"
 msgid "Created by :"
 msgstr "Créé par :"
 
-#. modules: base_setup, web_planner, base_import, web_tip, fetchmail, decimal_precision, web_editor, web_environment_ribbon, base, portal, board, report, mail, extraschool
+#. modules: aes_api, web_planner, base_import, web_tip, fetchmail, extraschool, web_editor, web_environment_ribbon, base_setup, portal, board, base, report, mail, decimal_precision
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_aes_api_create_date
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_available_spot_create_date
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_child_create_date
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_compute_invoice_create_date
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoice_temporary_create_date
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoiced_prestations_temporary_create_date
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_parent_create_date
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_tools_create_date
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_create_date_4573
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_create_date_4611
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_create_date_4651
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_sub_activity_create_date
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_week_activity_create_date
 #: model:ir.model.fields,field_description:base.field_base_language_export_create_date
 #: model:ir.model.fields,field_description:base.field_base_language_import_create_date
 #: model:ir.model.fields,field_description:base.field_base_language_install_create_date
@@ -18644,7 +18732,8 @@ msgstr "Identifiant de la base de données  de l'enregistrement auquel cela s'ap
 msgid "Database name"
 msgstr "Nom base de données"
 
-#. modules: mail, base, extraschool
+#. modules: mail, aes_api, extraschool, base
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoiced_prestations_temporary_prestation_date
 #: model:ir.model.fields,field_description:base.field_res_currency_date
 #: model:ir.model.fields,field_description:base.field_res_currency_rate_name
 #: model:ir.model.fields,field_description:base.field_res_partner_date
@@ -18733,7 +18822,9 @@ msgstr "Date du paiement"
 msgid "Date du recommandé :"
 msgstr "Date du recommandé :"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_date_from_4586
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_date_from_4626
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activityexclusiondates_date_from
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_date_from
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_horaire_guardian_wizard_validity_from
@@ -18745,11 +18836,17 @@ msgstr "Date du recommandé :"
 msgid "Date from"
 msgstr "Date du"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoiced_prestations_temporary_date_no_value
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoicedprestations_date_no_value
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_no_value_wizard_date_no_value
 msgid "Date of no value"
 msgstr "Date de la non valeur"
+
+#. module: aes_api
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_sub_activity_activity_date
+msgid "Date of the activity"
+msgstr "Date of the activity"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_prestation_times_encodage_manuel_date_of_the_day
@@ -18757,7 +18854,9 @@ msgstr "Date de la non valeur"
 msgid "Date of the day"
 msgstr "Date du jour"
 
-#. modules: mail, extraschool
+#. modules: mail, aes_api, extraschool
+#: model:ir.model.fields,help:aes_api.field_extraschool_child_registration_message_last_post_4587
+#: model:ir.model.fields,help:aes_api.field_extraschool_child_registration_message_last_post_4627
 #: model:ir.model.fields,help:extraschool.field_extraschool_activity_message_last_post
 #: model:ir.model.fields,help:extraschool.field_extraschool_biller_message_last_post
 #: model:ir.model.fields,help:extraschool.field_extraschool_child_message_last_post
@@ -18816,7 +18915,9 @@ msgstr "Date de fin"
 msgid "Date str"
 msgstr "Date"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_date_to_4597
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_date_to_4637
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_occurrence_correction_wizard_date_to
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activityexclusiondates_date_to
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_date_to
@@ -18892,7 +18993,9 @@ msgstr "Jour de l'année: %(doy)s"
 msgid "Day: %(day)s"
 msgstr "Jour: %(day)s"
 
-#. modules: base, extraschool
+#. modules: aes_api, extraschool, base
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_day_ids_4606
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_day_ids_4646
 #: selection:ir.cron,interval_type:0
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_days
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_day_ids
@@ -19209,7 +19312,8 @@ msgstr "Dernière date :"
 msgid "Desactive"
 msgstr "Désactiver"
 
-#. modules: mail, base, extraschool
+#. modules: mail, aes_api, extraschool, base
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoiced_prestations_temporary_description
 #: model:ir.model.fields,field_description:base.field_ir_attachment_description
 #: model:ir.model.fields,field_description:base.field_ir_mail_server_name
 #: model:ir.model.fields,field_description:base.field_ir_module_category_description
@@ -19427,7 +19531,9 @@ msgstr "Annuler"
 msgid "Discard edition"
 msgstr "Annuler l'édition"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoice_temporary_discount
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoiced_prestations_temporary_discount
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_discount
 #: model:ir.model,name:extraschool.model_extraschool_discount
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_discount_version_discount_id
@@ -19441,7 +19547,8 @@ msgstr "Réduction"
 msgid "Discount Rule"
 msgstr "Règles de réductions"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoiced_prestations_temporary_discount_value
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoicedprestations_discount_value
 msgid "Discount value"
 msgstr "Discount value"
@@ -19497,7 +19604,20 @@ msgstr "Maladie"
 msgid "Display"
 msgstr "Afficher"
 
-#. modules: base_setup, odoo-report_pdf_both_sides, web_planner, bus, base_import, web_tip, fetchmail, extraschool, web_editor, web_environment_ribbon, base, portal, board, report, mail, document, decimal_precision
+#. modules: aes_api, odoo-report_pdf_both_sides, web_planner, bus, base_import, web_tip, fetchmail, extraschool, web_editor, web_environment_ribbon, base_setup, portal, board, base, report, mail, document, decimal_precision
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_aes_api_display_name
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_available_spot_display_name
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_child_display_name
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_compute_invoice_display_name
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoice_temporary_display_name
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoiced_prestations_temporary_display_name
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_parent_display_name
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_tools_display_name
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_display_name_4583
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_display_name_4623
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_display_name_4660
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_sub_activity_display_name
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_week_activity_display_name
 #: model:ir.model.fields,field_description:base.field__unknown_display_name
 #: model:ir.model.fields,field_description:base.field_base_language_export_display_name
 #: model:ir.model.fields,field_description:base.field_base_language_import_display_name
@@ -20053,7 +20173,9 @@ msgstr "Télécharger xls"
 msgid "Dr."
 msgstr "Dr."
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: selection:extraschool.child_registration_meal,state:0
+#: selection:extraschool.child_registration_plain,state:0
 #: selection:extraschool.child_registration,state:0
 #: selection:extraschool.prestation_times_encodage_manuel,state:0
 #: selection:extraschool.remindersjournal,state:0
@@ -20136,7 +20258,8 @@ msgstr "Duplicated registration\n"
 msgid "Duplicating workflows is not possible, please create a new workflow"
 msgstr "Dupliquer un workflow est impossible, veuillez créer un nouveau workflow"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoiced_prestations_temporary_duration
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoicedprestations_duration
 msgid "Duration"
 msgstr "Horaire cumulé"
@@ -20177,6 +20300,15 @@ msgstr "Constructeur d'expression dynamique"
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_tournai_huissier
 msgid "Débiteur :"
 msgstr "Débiteur :"
+
+#. module: aes_api
+#: model:ir.ui.view,arch_db:aes_api.extraschool_child_registration_form_plaine
+msgid ""
+"Désolé il ne\n"
+"                        reste plus de place"
+msgstr ""
+"Désolé il ne\n"
+"                        reste plus de place"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_regroup_by_activity_by_child_by_day
@@ -20256,7 +20388,6 @@ msgstr "Timor Oriental"
 #: model:ir.ui.view,arch_db:extraschool.report_all_invoice_summary_dinant
 #: model:ir.ui.view,arch_db:extraschool.report_all_invoice_summary_hannut_facture
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary
-#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_assesse
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_clavier
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_com_struc_facture
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_durbuy
@@ -20267,7 +20398,6 @@ msgstr "Timor Oriental"
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_gras
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_hannut
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_impaye
-#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_impaye_assesse
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_invoice_ferrieres
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_ittre
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_ittre2
@@ -20832,8 +20962,11 @@ msgstr "Équipements, biens, matériel interne, suivi d'allocation"
 msgid "Eritrea"
 msgstr "Érythrée"
 
-#. modules: web, extraschool
+#. modules: web, aes_api, extraschool
 #. openerp-web
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_error_duplicate_reg_line_4605
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_error_duplicate_reg_line_4645
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_error_duplicate_reg_line_4689
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_error_duplicate_reg_line
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_line_error_duplicate_reg_line
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_prestation_times_history_error_msg
@@ -21371,7 +21504,6 @@ msgstr "Facturation"
 #: model:ir.ui.view,arch_db:extraschool.report_all_invoice_summary_dinant
 #: model:ir.ui.view,arch_db:extraschool.report_all_invoice_summary_hannut_facture
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary
-#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_assesse
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_clavier
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_com_struc_facture
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_durbuy
@@ -21384,7 +21516,6 @@ msgstr "Facturation"
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_gras
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_hannut
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_impaye
-#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_impaye_assesse
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_invoice_ferrieres
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_ittre
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_ittre2
@@ -21401,6 +21532,7 @@ msgstr "Facture"
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_your_ref_and_period_num_fact_one_row
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_your_ref_and_period_num_fact_one_row_ittre
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_your_ref_and_period_num_fact_one_row_title
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_your_ref_and_period_num_fact_one_row_title_repas
 msgid "Facture N°:"
 msgstr "Facture N°:"
 
@@ -21413,7 +21545,6 @@ msgstr "Facture n°"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_impaye
-#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_impaye_assesse
 msgid "Facture(s) impayée(s)"
 msgstr "Facture(s) impayée(s)"
 
@@ -22082,7 +22213,8 @@ msgstr "Date de la première injection"
 msgid "First page only"
 msgstr "Seulement sur la première page "
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_child_firstname_4683
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_firstname
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_line_child_firstname
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_guardian_firstname
@@ -22194,7 +22326,9 @@ msgstr "Suivre"
 msgid "Follow these implementation guides to get the most out of Odoo."
 msgstr "Suivre ces guides d'implémentation pour obtenir le meilleur d'Odoo."
 
-#. modules: mail, extraschool
+#. modules: mail, aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_message_follower_ids_4572
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_message_follower_ids_4610
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_message_follower_ids
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_biller_message_follower_ids
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_message_follower_ids
@@ -22220,7 +22354,9 @@ msgstr "Suivre ces guides d'implémentation pour obtenir le meilleur d'Odoo."
 msgid "Followers"
 msgstr "Abonnés"
 
-#. modules: mail, extraschool
+#. modules: mail, aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_message_channel_ids_4575
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_message_channel_ids_4613
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_message_channel_ids
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_biller_message_channel_ids
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_message_channel_ids
@@ -22243,7 +22379,9 @@ msgstr "Abonnés"
 msgid "Followers (Channels)"
 msgstr "Abonnés (Canaux)"
 
-#. modules: mail, extraschool
+#. modules: mail, aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_message_partner_ids_4576
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_message_partner_ids_4614
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_message_partner_ids
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_biller_message_partner_ids
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_message_partner_ids
@@ -22477,6 +22615,11 @@ msgstr "Couleur d'avant plan"
 msgid "Form"
 msgstr "Formulaire"
 
+#. module: aes_api
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_form_id
+msgid "Form id"
+msgstr "Form id"
+
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_qrcodes_wizard_format
 msgid "Format"
@@ -22533,7 +22676,9 @@ msgstr "France - VAT Anti-Fraud Certification (CGI 286 I-3 bis) - Sale Closings"
 msgid "France - VAT Anti-Fraud Certification for Point of Sale (CGI 286 I-3 bis)"
 msgstr "France - VAT Anti-Fraud Certification for Point of Sale (CGI 286 I-3 bis)"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_available_spot_free
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_available_spot
 #: selection:extraschool.remindertype,fees_type:0
 msgid "Free"
 msgstr "Libre"
@@ -22590,11 +22735,18 @@ msgstr "Terres Australes Françaises"
 msgid "Frequently Asked Questions"
 msgstr "Frequently Asked Questions"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_friday_4675
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_friday_activity_id_4667
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_line_friday
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_line_friday_activity_id
 msgid "Friday"
 msgstr "Vendredi"
+
+#. module: aes_api
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_friday_id
+msgid "Friday id"
+msgstr "Friday id"
 
 #. modules: mail, base, extraschool
 #: model:ir.model.fields,field_description:base.field_ir_sequence_date_range_date_from
@@ -22608,6 +22760,11 @@ msgstr "Vendredi"
 #: model:ir.model.fields,field_description:mail.field_mail_message_email_from
 msgid "From"
 msgstr "De"
+
+#. module: aes_api
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_from_portal
+msgid "From portal"
+msgstr "From portal"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.ir_access_view_search
@@ -23369,7 +23526,8 @@ msgstr "Entêtes"
 msgid "Health Sheet"
 msgstr "Health Sheet"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model,name:aes_api.model_extraschool_health_sheet
 #: model:ir.model,name:extraschool.model_extraschool_health_sheet
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_disease_health_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_interdiction_other_contact_health_id
@@ -23546,6 +23704,11 @@ msgstr "Heure de la présence"
 #: model:ir.model.fields,field_description:mail.field_mail_message_subtype_hidden
 msgid "Hidden"
 msgstr "Masqué"
+
+#. module: aes_api
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_hidden_activity_id
+msgid "Hidden activity id"
+msgstr "Hidden activity id"
 
 #. module: extraschool
 #: selection:extraschool.inline_report,visibility:0
@@ -23780,8 +23943,21 @@ msgstr "Hongrie"
 msgid "IBAN Bank Accounts"
 msgstr "Comptes bancaires IBAN"
 
-#. modules: base_setup, web_planner, bus, base_import, web_tip, fetchmail, extraschool, web_editor, web_environment_ribbon, base, portal, board, report, mail, decimal_precision
+#. modules: aes_api, web_planner, bus, base_import, web_tip, fetchmail, extraschool, web_editor, web_environment_ribbon, base_setup, portal, board, base, report, mail, decimal_precision
 #. openerp-web
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_aes_api_id
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_available_spot_id
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_child_id
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_compute_invoice_id
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoice_temporary_id
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoiced_prestations_temporary_id
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_parent_id
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_tools_id
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_id_4588
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_id_4628
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_id_4664
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_sub_activity_id
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_week_activity_id
 #: model:ir.model.fields,field_description:base.field__unknown_id
 #: model:ir.model.fields,field_description:base.field_base_language_export_id
 #: model:ir.model.fields,field_description:base.field_base_language_import_id
@@ -24149,7 +24325,9 @@ msgstr "Si SSL requis"
 msgid "If checked and the action is bound to a model, it will only appear in the More menu on list views"
 msgstr "Si vérifiée et si l'action est liée à un modèle, cela apparaîtra uniquement dans le menu supplémentaire des vues de liste"
 
-#. modules: mail, extraschool
+#. modules: mail, aes_api, extraschool
+#: model:ir.model.fields,help:aes_api.field_extraschool_child_registration_message_unread_4607
+#: model:ir.model.fields,help:aes_api.field_extraschool_child_registration_message_unread_4647
 #: model:ir.model.fields,help:extraschool.field_extraschool_activity_message_unread
 #: model:ir.model.fields,help:extraschool.field_extraschool_biller_message_unread
 #: model:ir.model.fields,help:extraschool.field_extraschool_child_message_unread
@@ -24172,7 +24350,9 @@ msgstr "Si vérifiée et si l'action est liée à un modèle, cela apparaîtra u
 msgid "If checked new messages require your attention."
 msgstr "Si coché, de nouveaux messages demandent votre attention."
 
-#. modules: mail, extraschool
+#. modules: mail, aes_api, extraschool
+#: model:ir.model.fields,help:aes_api.field_extraschool_child_registration_message_needaction_4574
+#: model:ir.model.fields,help:aes_api.field_extraschool_child_registration_message_needaction_4612
 #: model:ir.model.fields,help:extraschool.field_extraschool_activity_message_needaction
 #: model:ir.model.fields,help:extraschool.field_extraschool_biller_message_needaction
 #: model:ir.model.fields,help:extraschool.field_extraschool_child_message_needaction
@@ -24893,6 +25073,11 @@ msgstr "Informations médicales"
 msgid "Informations personnelles"
 msgstr "Informations personnelles"
 
+#. module: aes_api
+#: model:ir.ui.view,arch_db:aes_api.view_organising_powewr_form
+msgid "Informations pour le portail parent"
+msgstr "Informations pour le portail parent"
+
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_organising_power_form
 msgid "Informations sur les attestations fiscales"
@@ -25036,6 +25221,11 @@ msgstr "Inscription Primaire"
 #: model:ir.actions.report.xml,name:extraschool.extraschool_child_registration_report
 msgid "Inscriptions"
 msgstr "Inscriptions"
+
+#. module: extraschool
+#: model:ir.ui.menu,name:extraschool.extraschool_child_registration_form_plaine
+msgid "Inscriptions aux plaines"
+msgstr "Inscriptions aux plaines"
 
 #. module: extraschool
 #: model:ir.actions.report.xml,name:extraschool.extraschool_child_registration_report_without_child_information
@@ -25652,7 +25842,9 @@ msgstr "Irlande"
 msgid "Irreversible Lock Date"
 msgstr "Irreversible Lock Date"
 
-#. modules: mail, extraschool
+#. modules: mail, aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_message_is_follower_4584
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_message_is_follower_4624
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_message_is_follower
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_biller_message_is_follower
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_message_is_follower
@@ -25702,6 +25894,11 @@ msgstr "Is a Vendor"
 #: model:ir.model.fields,field_description:mail.field_mail_channel_is_member
 msgid "Is a member"
 msgstr "Est un membre"
+
+#. module: aes_api
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_activity_portal_available
+msgid "Is available for a parent on his portail"
+msgstr "Est accessible par le portail parent"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_one_report_is_created
@@ -25983,7 +26180,8 @@ msgstr "Conserver l'original"
 msgid "Kenya"
 msgstr "Kenya"
 
-#. module: base
+#. modules: aes_api, base
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_organising_power_key
 #: model:ir.model.fields,field_description:base.field_ir_config_parameter_key
 #: model:ir.model.fields,field_description:base.field_ir_ui_view_key
 #: model:ir.ui.view,arch_db:base.view_ir_config_search
@@ -26190,7 +26388,9 @@ msgstr "Dernière date de rapatriement"
 msgid "Last Invoice structured comunication number"
 msgstr "Dernier n° de communication structurée (Factures)"
 
-#. modules: mail, extraschool
+#. modules: mail, aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_message_last_post_4587
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_message_last_post_4627
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_message_last_post
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_biller_message_last_post
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_message_last_post
@@ -26218,7 +26418,20 @@ msgstr "Date du dernier message"
 msgid "Last Modification Date"
 msgstr "Date de dernière modification"
 
-#. modules: base_setup, odoo-report_pdf_both_sides, web_planner, bus, base_import, web_tip, fetchmail, extraschool, web_editor, web_environment_ribbon, base, portal, board, report, mail, document, decimal_precision
+#. modules: aes_api, odoo-report_pdf_both_sides, web_planner, bus, base_import, web_tip, fetchmail, extraschool, web_editor, web_environment_ribbon, base_setup, portal, board, base, report, mail, document, decimal_precision
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_aes_api___last_update
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_available_spot___last_update
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_child___last_update
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_compute_invoice___last_update
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoice_temporary___last_update
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoiced_prestations_temporary___last_update
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_parent___last_update
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_tools___last_update
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration___last_update_4585
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration___last_update_4625
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line___last_update_4662
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_sub_activity___last_update
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_week_activity___last_update
 #: model:ir.model.fields,field_description:base.field__unknown___last_update
 #: model:ir.model.fields,field_description:base.field_base_language_export___last_update
 #: model:ir.model.fields,field_description:base.field_base_language_import___last_update
@@ -26510,7 +26723,20 @@ msgstr "Dernier vu manyémany"
 msgid "Last Transmission Date"
 msgstr "Dernière date de transmission"
 
-#. modules: base_setup, web_planner, bus, base_import, web_tip, fetchmail, extraschool, web_editor, web_environment_ribbon, base, portal, board, report, mail, decimal_precision
+#. modules: aes_api, web_planner, bus, base_import, web_tip, fetchmail, extraschool, web_editor, web_environment_ribbon, base_setup, portal, board, base, report, mail, decimal_precision
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_aes_api_write_uid
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_available_spot_write_uid
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_child_write_uid
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_compute_invoice_write_uid
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoice_temporary_write_uid
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoiced_prestations_temporary_write_uid
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_parent_write_uid
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_tools_write_uid
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_write_uid_4674
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_write_uid_4599
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_write_uid_4639
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_sub_activity_write_uid
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_week_activity_write_uid
 #: model:ir.model.fields,field_description:base.field_base_language_export_write_uid
 #: model:ir.model.fields,field_description:base.field_base_language_import_write_uid
 #: model:ir.model.fields,field_description:base.field_base_language_install_write_uid
@@ -26733,7 +26959,20 @@ msgstr "Dernière date de transmission"
 msgid "Last Updated by"
 msgstr "Derniere fois mis à jour par"
 
-#. modules: base_setup, web_planner, bus, base_import, web_tip, fetchmail, extraschool, web_editor, web_environment_ribbon, base, portal, board, report, mail, decimal_precision
+#. modules: aes_api, web_planner, bus, base_import, web_tip, fetchmail, extraschool, web_editor, web_environment_ribbon, base_setup, portal, board, base, report, mail, decimal_precision
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_aes_api_write_date
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_available_spot_write_date
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_child_write_date
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_compute_invoice_write_date
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoice_temporary_write_date
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoiced_prestations_temporary_write_date
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_parent_write_date
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_tools_write_date
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_write_date_4682
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_write_date_4596
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_write_date_4636
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_sub_activity_write_date
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_week_activity_write_date
 #: model:ir.model.fields,field_description:base.field_base_language_export_write_date
 #: model:ir.model.fields,field_description:base.field_base_language_import_write_date
 #: model:ir.model.fields,field_description:base.field_base_language_install_write_date
@@ -26985,7 +27224,8 @@ msgstr "Dernière page uniquement"
 msgid "Last reminder"
 msgstr "Dernier rappel"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_child_lastname_4654
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_lastname
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_line_child_lastname
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_guardian_lastname
@@ -27255,9 +27495,7 @@ msgstr ""
 "\t\t\t\t\t\tenfance, avant la date d'échéance. Toute facture non contestée est considérée comme acceptée."
 
 #. module: extraschool
-#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_assesse
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_flv
-#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_impaye_assesse
 msgid ""
 "Les factures suivantes sont toujours en attente de paiement. Nous vous prions de bien vouloir\n"
 "                        procéder à leur(s) règlement(s) dans les meilleurs délais."
@@ -27349,7 +27587,9 @@ msgstr "Permet d'installer divers outils intéressants, mais facultatifs : par e
 msgid "Letter 2 8.5 x 11 inches, 215.9 x 279.4 mm"
 msgstr "Letter 2 8.5 x 11 pouces, 215.9 x 279.4 mm"
 
-#. modules: base, extraschool
+#. modules: aes_api, extraschool, base
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_levelid_4595
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_levelid_4635
 #: model:ir.model.fields,field_description:base.field_ir_logging_level
 #: model:ir.ui.view,arch_db:base.ir_logging_search_view
 #: model:ir.model,name:extraschool.model_extraschool_level
@@ -27375,7 +27615,8 @@ msgstr "Level of handicap"
 msgid "Level to not upgrade"
 msgstr "Niveau à ne pas bouger"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_child_level_type_4676
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_leveltype
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_line_child_level_type
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_level_leveltype
@@ -28379,7 +28620,9 @@ msgstr "Publipostage"
 msgid "Mass Mailing Campaigns"
 msgstr "Mass Mailing Campaigns"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: selection:extraschool.child_registration_meal,select_per_level:0
+#: selection:extraschool.child_registration_plain,select_per_level:0
 #: selection:extraschool.activity,leveltype:0
 #: selection:extraschool.child_registration,select_per_level:0
 #: selection:extraschool.level,leveltype:0
@@ -28647,7 +28890,9 @@ msgstr "Identifiant unique de message"
 msgid "Message-Id"
 msgstr "ID du message"
 
-#. modules: mail, fetchmail, extraschool
+#. modules: mail, aes_api, fetchmail, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_message_ids_4580
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_message_ids_4620
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_message_ids
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_biller_message_ids
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_message_ids
@@ -28723,6 +28968,11 @@ msgstr "Mettre PDF à True"
 #: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
 msgid "Mettre adresses en majuscule"
 msgstr "Mettre adresses en majuscule"
+
+#. module: aes_api
+#: model:ir.ui.view,arch_db:aes_api.extraschool_child_registration_form_plaine
+msgid "Mettre en brouillon"
+msgstr "Mettre en brouillon"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_mainsettings_form
@@ -29156,10 +29406,17 @@ msgstr "Moldavie"
 msgid "Monaco"
 msgstr "Monaco"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_monday_4673
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_monday_activity_id_4678
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_line_monday
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_line_monday_activity_id
 msgid "Monday"
+msgstr "Lundi"
+
+#. module: aes_api
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_monday_id
+msgid "Monday id"
 msgstr "Lundi"
 
 #. module: base
@@ -29181,7 +29438,6 @@ msgstr "Mongolie / монгол"
 #: model:ir.ui.view,arch_db:extraschool.report_biller_detail_lierneux_no_style
 #: model:ir.ui.view,arch_db:extraschool.report_coda_report
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary
-#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_assesse
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_assesse_tableau_rappel
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_clavier
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_com_struc_facture
@@ -29193,7 +29449,6 @@ msgstr "Mongolie / монгол"
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_gras
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_hannut
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_impaye
-#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_impaye_assesse
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_invoice_ferrieres
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_ittre
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_ittre2
@@ -29453,8 +29708,9 @@ msgstr "NE CLIQUER SUR CE BOUTTON QUE LORSQU'IL EST NECESSAIRE DE FAIRE UNE MISE
 msgid "NON"
 msgstr "NON"
 
-#. modules: web, web_planner, base_import, fetchmail, base, report, mail, extraschool
+#. modules: web, aes_api, web_planner, base_import, fetchmail, base, report, mail, extraschool
 #. openerp-web
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoice_temporary_name
 #: model:ir.model.fields,field_description:base.field_ir_act_report_xml_name
 #: model:ir.model.fields,field_description:base.field_ir_actions_name
 #: model:ir.model.fields,field_description:base.field_ir_actions_name_258
@@ -29529,6 +29785,11 @@ msgstr "NON"
 msgid "Name"
 msgstr "Nom"
 
+#. module: aes_api
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_organising_power_name_for_query_string
+msgid "Name for query"
+msgstr "Nom pour la requête"
+
 #. module: mail
 #: model:ir.model.fields,help:mail.field_mail_compose_message_record_name
 #: model:ir.model.fields,help:mail.field_mail_mail_record_name
@@ -29566,6 +29827,11 @@ msgstr "Nom du responsable"
 msgid "Name of resp2"
 msgstr "Nom du responsable 2"
 
+#. module: aes_api
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_sub_activity_name
+msgid "Name of the activity"
+msgstr "Name of the activity"
+
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_medication_name
 msgid "Name of the medication"
@@ -29590,6 +29856,11 @@ msgstr "Name of the tag"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_organising_power_town
 msgid "Name of the town"
 msgstr "Commune"
+
+#. module: aes_api
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_week_activity_name
+msgid "Name of the week"
+msgstr "Nom de la semaine"
 
 #. module: mail
 #: model:ir.model.fields,help:mail.field_email_template_preview_report_name
@@ -29933,10 +30204,13 @@ msgstr "Nigéria"
 msgid "Niue"
 msgstr "Niué"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_child_level_4680
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_line_child_level
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_smartphone_detail_log_level
 #: model:ir.ui.view,arch_db:extraschool.extraschool_taxcertificate_item_view_search
+#: model:ir.ui.view,arch_db:extraschool.report_child_registration
+#: model:ir.ui.view,arch_db:extraschool.report_child_registration_without_child_information
 msgid "Niveau"
 msgstr "Niveau"
 
@@ -30073,6 +30347,12 @@ msgstr "Aucun message ne correspond à votre recherche. Essayez de changer les f
 msgid "No metadata available"
 msgstr "No metadata available"
 
+#. module: aes_api
+#: code:addons/aes_api/models/child_registration.py:573
+#, python-format
+msgid "No more places are available"
+msgstr "Plus de place disponible"
+
 #. module: web
 #. openerp-web
 #: code:addons/web/static/src/js/views/form_common.js:245
@@ -30146,7 +30426,7 @@ msgstr "Aucune valeur trouvé pour le champ %s avec valeur %s"
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_reminder_no_values
 msgid "No values"
-msgstr "No values"
+msgstr "Non valeurs"
 
 #. module: web
 #. openerp-web
@@ -30556,7 +30836,9 @@ msgstr ""
 msgid "Number"
 msgstr "Numéro"
 
-#. modules: mail, extraschool
+#. modules: mail, aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_message_needaction_counter_4608
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_message_needaction_counter_4648
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_message_needaction_counter
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_biller_message_needaction_counter
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_message_needaction_counter
@@ -30589,12 +30871,16 @@ msgstr "Number of Apps"
 msgid "Number of Calls"
 msgstr "Nombre d'appels"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_number_childs_4600
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_number_childs_4640
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_number_childs
 msgid "Number of childs"
 msgstr "Nombre d'élèves"
 
-#. modules: mail, extraschool
+#. modules: mail, aes_api, extraschool
+#: model:ir.model.fields,help:aes_api.field_extraschool_child_registration_message_needaction_counter_4608
+#: model:ir.model.fields,help:aes_api.field_extraschool_child_registration_message_needaction_counter_4648
 #: model:ir.model.fields,help:extraschool.field_extraschool_activity_message_needaction_counter
 #: model:ir.model.fields,help:extraschool.field_extraschool_biller_message_needaction_counter
 #: model:ir.model.fields,help:extraschool.field_extraschool_child_message_needaction_counter
@@ -30627,7 +30913,19 @@ msgstr "Nombre de modules ajoutés"
 msgid "Number of modules updated"
 msgstr "Nombre de modules mis à jour"
 
-#. modules: mail, extraschool
+#. module: aes_api
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_activity_spot_number
+msgid "Number of spot available for an activity"
+msgstr "Nombre de places disponibles pour une activité"
+
+#. module: aes_api
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_week_activity_week
+msgid "Number of the week"
+msgstr "Numéro de la semaine"
+
+#. modules: mail, aes_api, extraschool
+#: model:ir.model.fields,help:aes_api.field_extraschool_child_registration_message_unread_counter_4590
+#: model:ir.model.fields,help:aes_api.field_extraschool_child_registration_message_unread_counter_4630
 #: model:ir.model.fields,help:extraschool.field_extraschool_activity_message_unread_counter
 #: model:ir.model.fields,help:extraschool.field_extraschool_biller_message_unread_counter
 #: model:ir.model.fields,help:extraschool.field_extraschool_child_message_unread_counter
@@ -30941,6 +31239,11 @@ msgstr ""
 "Office de la Naissance et de l'Enfance<br/>\n"
 "                                            Chaussée de Charleroi, 95<br/>\n"
 "                                            1060 BRUXELLES<br/><br/>"
+
+#. module: aes_api
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_official
+msgid "Official"
+msgstr "Official"
 
 #. modules: bus, mail
 #. openerp-web
@@ -31449,7 +31752,9 @@ msgstr "Liste ordonnée"
 msgid "Organisation de jeunesse reconnue"
 msgstr "Organisation de jeunesse reconnue"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_organising_power_id_4603
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_organising_power_id_4644
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_organising_power
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_organising_power_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_organising_power_id
@@ -31460,7 +31765,8 @@ msgstr "Organisation de jeunesse reconnue"
 msgid "Organising Power"
 msgstr "Pouvoir organisateur"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model,name:aes_api.model_extraschool_organising_power
 #: model:ir.model,name:extraschool.model_extraschool_organising_power
 msgid "Organising Power that contains all activities"
 msgstr "Organising Power that contains all activities"
@@ -31906,7 +32212,8 @@ msgstr "Paramètre de stockage"
 msgid "Paramètres techniques"
 msgstr "Paramètres techniques"
 
-#. modules: mail, extraschool
+#. modules: mail, aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoice_temporary_parentid
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_parent
 #: model:ir.actions.report.xml,name:extraschool.extraschool_parent
 #: model:ir.model,name:extraschool.model_extraschool_parent
@@ -32563,14 +32870,16 @@ msgstr "Percent"
 msgid "Period"
 msgstr "Période"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoiced_prestations_temporary_period_duration
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_period_duration
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoicedprestations_period_duration
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_price_list_version_period_duration
 msgid "Period Duration"
 msgstr "Durée de la période"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoiced_prestations_temporary_period_tolerance
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoicedprestations_period_tolerance
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_price_list_version_period_tolerance
 msgid "Period Tolerance"
@@ -32710,7 +33019,8 @@ msgstr "Îles Pitcairn"
 msgid "Pivot"
 msgstr "Tableau croisé dynamique"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoiced_prestations_temporary_place_id
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_place
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitychildregistration_place_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activityoccurrence_place_id
@@ -32734,7 +33044,9 @@ msgstr "Lieux d'accueil"
 msgid "Place check"
 msgstr "Place check"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_place_id_4577
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_place_id_4615
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_place_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_encodage_manuel_validation_wizard_place_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_prestation_times_encodage_manuel_place_id
@@ -32780,6 +33092,11 @@ msgstr "Rapport de plaines"
 #: model:ir.model,name:extraschool.model_extraschool_plain_report
 msgid "Plain report"
 msgstr "Rapport de plaines"
+
+#. module: aes_api
+#: model:ir.ui.view,arch_db:aes_api.view_activity_form
+msgid "Plaine"
+msgstr "Plaine"
 
 #. module: extraschool
 #: selection:extraschool.plain_report,camps_radio:0
@@ -32898,6 +33215,12 @@ msgstr "Merci de noter que tous les enregistrements qui respectent votre critèr
 #, python-format
 msgid "Please provide valid email addresses"
 msgstr "Donner des adresses e-mail valides SVP"
+
+#. module: aes_api
+#: code:addons/aes_api/models/child_registration.py:326
+#, python-format
+msgid "Please select a child"
+msgstr "Sélectionnez un enfant"
 
 #. module: web
 #. openerp-web
@@ -33271,7 +33594,8 @@ msgstr "Historique des présences supprimées"
 msgid "Prestation Times"
 msgstr "Présences"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoiced_prestations_temporary_prestation_ids
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_guardian_prestation_ids
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoicedprestations_prestation_ids
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_refound_line_prestation_ids
@@ -33393,7 +33717,9 @@ msgstr "Aperçu du rapport RML"
 msgid "Preview of"
 msgstr "Aperçu de"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoiced_prestations_temporary_total_price
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoiced_prestations_temporary_unit_price
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_price
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoicedprestations_total_price
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoicedprestations_unit_price
@@ -33434,7 +33760,8 @@ msgstr "Liste de prix"
 msgid "Price list version"
 msgstr "Price list version"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoiced_prestations_temporary_price_list_version_id
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoicedprestations_price_list_version_id
 msgid "Price list version id"
 msgstr "Version de liste de prix"
@@ -33444,7 +33771,9 @@ msgstr "Version de liste de prix"
 msgid "Prices Visible Discounts"
 msgstr "Prix ​​avec remises visibles"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: selection:extraschool.child_registration_meal,select_per_level:0
+#: selection:extraschool.child_registration_plain,select_per_level:0
 #: selection:extraschool.activity,leveltype:0
 #: selection:extraschool.child_registration,select_per_level:0
 #: selection:extraschool.level,leveltype:0
@@ -33804,7 +34133,6 @@ msgstr "expression Python"
 #: model:ir.ui.view,arch_db:extraschool.report_all_invoice_summary_dinant
 #: model:ir.ui.view,arch_db:extraschool.report_all_invoice_summary_hannut_facture
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary
-#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_assesse
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_clavier
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_com_struc_facture
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_durbuy
@@ -33817,7 +34145,6 @@ msgstr "expression Python"
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_gras
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_hannut
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_impaye
-#: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_impaye_assesse
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_invoice_ferrieres
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_ittre
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_summary_ittre2
@@ -33932,7 +34259,8 @@ msgstr "Quand ?"
 msgid "Quand ?"
 msgstr "Quand ?"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoiced_prestations_temporary_quantity
 #: selection:extraschool.discount.version,quantity_type:0
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoicedprestations_quantity
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_medication_quantity
@@ -34209,7 +34537,9 @@ msgstr "Lecture seule"
 msgid "Readonly field"
 msgstr "Champ en lecture seule"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: selection:extraschool.child_registration_meal,state:0
+#: selection:extraschool.child_registration_plain,state:0
 #: selection:extraschool.child_registration,state:0
 msgid "Ready"
 msgstr "A valider"
@@ -34224,7 +34554,8 @@ msgstr "Ready to print"
 msgid "Reason of activity no available"
 msgstr "Raisons des activités non praticables"
 
-#. modules: mail, extraschool
+#. modules: mail, aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoice_temporary_amount_received
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_biller_received
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_amount_received
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_reminder_amount_received
@@ -34402,6 +34733,11 @@ msgstr "Refaire"
 msgid "Ref"
 msgstr "Ref categ"
 
+#. module: aes_api
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_organising_power_aged_reference
+msgid "Reference date to compute age of a child"
+msgstr "Reference date to compute age of a child"
+
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_act_server_ref_object
 msgid "Reference record"
@@ -34435,6 +34771,11 @@ msgstr "Non valeurs"
 msgid "Refund"
 msgstr "Remboursement"
 
+#. module: aes_api
+#: model:ir.ui.view,arch_db:aes_api.extraschool_child_registration_form_plaine
+msgid "Refuser"
+msgstr "Refuser"
+
 #. module: base
 #: code:addons/base/res/res_company.py:121
 #, python-format
@@ -34457,7 +34798,8 @@ msgstr "Inscription du"
 msgid "Registration to"
 msgstr "au"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.ui.view,arch_db:aes_api.extraschool_child_registration_form_plaine
 #: model:ir.ui.menu,name:extraschool.extraschool_menu_registrations
 #: model:ir.ui.view,arch_db:extraschool.extraschool_child_registration_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_child_registration_form_multi
@@ -35564,10 +35906,17 @@ msgstr "Saint-Marin"
 msgid "Sanitized Account Number"
 msgstr "Numéro de compte désinfecté"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_saturday_4658
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_saturday_activity_id_4670
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_line_saturday
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_line_saturday_activity_id
 msgid "Saturday"
+msgstr "Samedi"
+
+#. module: aes_api
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_saturday_id
+msgid "Saturday id"
 msgstr "Samedi"
 
 #. module: base
@@ -35732,7 +36081,8 @@ msgstr "Ecole"
 msgid "School Implantation"
 msgstr "Implantation scolaire"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoice_temporary_school_implantation_id
 #: model:ir.model,name:extraschool.model_extraschool_schoolimplantation
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_schoolimplantation
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_childsimport_schoolimplantation
@@ -35747,7 +36097,9 @@ msgstr "Implantation scolaire"
 msgid "School implantation"
 msgstr "Implantation scolaire"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_school_implantation_id_4593
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_school_implantation_id_4633
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_school_implantation_id
 msgid "School implantation id"
 msgstr "Implantation scolaire"
@@ -36003,7 +36355,9 @@ msgstr "Choisissez un élément"
 msgid "Select from files"
 msgstr "Sélectionner depuis les dossiers"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_select_per_level_4582
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_select_per_level_4622
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_select_per_level
 msgid "Select per level"
 msgstr "Sélection groupée"
@@ -36607,6 +36961,11 @@ msgstr "Raccourci"
 msgid "Show active currencies"
 msgstr "Afficher les devises actives"
 
+#. module: aes_api
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_show_button_validate
+msgid "Show button validate"
+msgstr "Show button validate"
+
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_parent_fusion_wizard_show_comment
 msgid "Show comment"
@@ -37162,6 +37521,11 @@ msgstr "Activité source. Lorsque cette activité est terminée, la condition es
 msgid "Source term"
 msgstr "Source term"
 
+#. module: aes_api
+#: model:ir.ui.view,arch_db:aes_api.view_activity_form
+msgid "Sous activités"
+msgstr "Sous activités"
+
 #. module: extraschool
 #: selection:extraschool.plain_report,camps_radio:0
 #: selection:extraschool.subvention_report,camps_radio:0
@@ -37420,7 +37784,8 @@ msgstr "Nom de l'État"
 msgid "States"
 msgstr "États"
 
-#. modules: mail, auth_signup, base, fetchmail
+#. modules: mail, auth_signup, aes_api, fetchmail, base
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_status
 #: model:ir.model.fields,field_description:auth_signup.field_res_users_state
 #: model:ir.model.fields,field_description:base.field_base_language_install_state
 #: model:ir.model.fields,field_description:base.field_base_module_update_state
@@ -37593,6 +37958,11 @@ msgstr "Préfix"
 msgid "Style"
 msgstr "Style"
 
+#. module: aes_api
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_activity_sub_activity_ids
+msgid "Sub activity ids"
+msgstr "Sub activity ids"
+
 #. modules: mail, base
 #: model:ir.model.fields,field_description:base.field_ir_act_server_sub_model_object_field
 #: model:ir.model.fields,field_description:mail.field_email_template_preview_sub_model_object_field
@@ -37750,10 +38120,17 @@ msgstr "Résumé"
 msgid "Summary:"
 msgstr "Résumé :"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_sunday_4666
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_sunday_activity_id_4650
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_line_sunday
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_line_sunday_activity_id
 msgid "Sunday"
+msgstr "Dimanche"
+
+#. module: aes_api
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_sunday_id
+msgid "Sunday id"
 msgstr "Dimanche"
 
 #. module: web_editor
@@ -38058,6 +38435,11 @@ msgstr "Étiquette"
 msgid "Tag ID"
 msgstr "N° de badge"
 
+#. module: aes_api
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_multi_activity
+msgid "Tag to know if registration is multi activities or not"
+msgstr "Tag to know if registration is multi activities or not"
+
 #. modules: mail, base
 #: model:ir.model.fields,field_description:base.field_res_partner_category_id_794
 #: model:ir.model.fields,field_description:mail.field_res_users_category_id
@@ -38086,6 +38468,11 @@ msgstr "Tadjikistan"
 #, python-format
 msgid "Take a minute to get a coffee,<br />because it's loading..."
 msgstr "Prenez une minute pour boire un café, <br /> car le chargement est en cours…"
+
+#. module: aes_api
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_available_spot_taken
+msgid "Taken"
+msgstr "Taken"
 
 #. module: base
 #: model:res.country,name:base.tz
@@ -39127,6 +39514,12 @@ msgstr "Il existe déjà un parent avec ce numéro national !"
 msgid "There is already a parent with this email. Information of this parent : {} {} {}"
 msgstr "There is already a parent with this email. Information of this parent : {} {} {}"
 
+#. module: aes_api
+#: code:addons/aes_api/models/child_registration.py:590
+#, python-format
+msgid "There is already a registration with these informations"
+msgstr "There is already a registration with these informations"
+
 #. module: base
 #: code:addons/base/ir/ir_filters.py:79
 #, python-format
@@ -39175,6 +39568,20 @@ msgstr "There is no dominant activity category"
 #, python-format
 msgid "There is no dominant activity category !"
 msgstr "There is no dominant activity category !"
+
+#. module: aes_api
+#: code:addons/aes_api/models/child_registration_line.py:145
+#: code:addons/aes_api/models/child_registration_line.py:156
+#, python-format
+msgid "There is no key or name for query"
+msgstr "Il n'y a pas de clef ou de nom pour la requête"
+
+#. module: aes_api
+#: code:addons/aes_api/models/child_registration_line.py:185
+#: code:addons/aes_api/models/child_registration_line.py:201
+#, python-format
+msgid "There is no limit on the activity."
+msgstr "There is no limit on the activity."
 
 #. module: extraschool
 #: code:addons/extraschool/models/reminder/extraschool_remindersjournal.py:117
@@ -39262,6 +39669,12 @@ msgstr "Cette fenêtre"
 #: model:ir.model.fields,help:auth_signup.field_base_config_settings_auth_signup_reset_password
 msgid "This allows users to trigger a password reset from the Login page."
 msgstr "Permet à l'utilisateur de demander un changement de mot de passe depuis la page d'identification."
+
+#. module: aes_api
+#: code:addons/aes_api/models/child_registration.py:341
+#, python-format
+msgid "This child is already registered for this week"
+msgstr "Cet enfant est déjà inscrit pour cette semaine et cette activité"
 
 #. module: base
 #: code:addons/base/ir/ir_model.py:464
@@ -39463,11 +39876,23 @@ msgstr "Séparateur des milliers"
 msgid "Thread"
 msgstr "Discussion"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_thursday_4656
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_thursday_activity_id_4661
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_line_thursday
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_line_thursday_activity_id
 msgid "Thursday"
 msgstr "Jeudi"
+
+#. module: aes_api
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_thursday_id
+msgid "Thursday id"
+msgstr "Jeudi"
+
+#. module: aes_api
+#: model:ir.ui.view,arch_db:aes_api.view_activity_form
+msgid "Thèmes"
+msgstr "Thèmes"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_guardianprestationtimes_prestation_time
@@ -39764,8 +40189,9 @@ msgstr "Marge supérieure (mm)"
 msgid "Topics discussed in this group..."
 msgstr "Sujets discutés dans ce groupe..."
 
-#. modules: web, extraschool
+#. modules: web, aes_api, extraschool
 #. openerp-web
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_available_spot_total
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_biller_total
 #: model:ir.ui.view,arch_db:extraschool.report_biller_detail_no_style
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_regroup_by_activity
@@ -40151,10 +40577,17 @@ msgstr "Connexion en cours..."
 msgid "Très bien"
 msgstr "Très bien"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_tuesday_4652
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_tuesday_activity_id_4690
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_line_tuesday
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_line_tuesday_activity_id
 msgid "Tuesday"
+msgstr "Mardi"
+
+#. module: aes_api
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_tuesday_id
+msgid "Tuesday id"
 msgstr "Mardi"
 
 #. module: base
@@ -40695,7 +41128,9 @@ msgstr "Liste désordonnée"
 msgid "Unpaid Reminders"
 msgstr "Rappels impayés"
 
-#. modules: mail, extraschool
+#. modules: mail, aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_message_unread_4607
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_message_unread_4647
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_message_unread
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_biller_message_unread
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_message_unread
@@ -40719,7 +41154,9 @@ msgstr "Rappels impayés"
 msgid "Unread Messages"
 msgstr "Messages non lus"
 
-#. modules: mail, extraschool
+#. modules: mail, aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_message_unread_counter_4590
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_message_unread_counter_4630
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_message_unread_counter
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_biller_message_unread_counter
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_message_unread_counter
@@ -41304,7 +41741,9 @@ msgstr "N° de validation de TVA"
 msgid "Validate"
 msgstr "Valider"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: selection:extraschool.child_registration_meal,state:0
+#: selection:extraschool.child_registration_plain,state:0
 #: selection:extraschool.child_registration,state:0
 #: selection:extraschool.prestation_times_encodage_manuel,state:0
 #: selection:extraschool.remindersjournal,state:0
@@ -41324,7 +41763,8 @@ msgstr "Validation"
 msgid "Validation Error"
 msgstr "Erreur de validation"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.ui.view,arch_db:aes_api.extraschool_child_registration_form_plaine
 #: model:ir.ui.view,arch_db:extraschool.extraschool_child_registration_form_multi
 #: model:ir.ui.view,arch_db:extraschool.extraschool_reminders_journal_form
 msgid "Valider"
@@ -41721,7 +42161,9 @@ msgstr "Voulez-vous vraiment supprimer tous les types de maladies ?"
 msgid "Voulez-vous vraiment supprimer toutes les allergies ?"
 msgstr "Voulez-vous vraiment supprimer toutes les allergies ?"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_warning_biller_4601
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_warning_biller_4642
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_warning_date
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_warning_biller
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_prestation_times_encodage_manuel_warning_biller
@@ -41792,7 +42234,9 @@ msgstr "Couleur d'avertissement"
 msgid "Warning Messages and Alerts"
 msgstr "Messages d'avertissement et d'alerte"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_warning_visibility_4598
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_warning_visibility_4638
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activity_warning_visibility
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_warning_visibility
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_wizard_warning_visibility
@@ -42022,14 +42466,23 @@ msgstr "Site Web pour les Partenaires ou les Sociétés"
 msgid "Website:"
 msgstr "Site Web :"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_wednesday_4655
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_wednesday_activity_id_4681
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_line_wednesday
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_line_wednesday_activity_id
 msgid "Wednesday"
 msgstr "Mercredi"
 
-#. modules: web, extraschool, web_calendar
+#. module: aes_api
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_wednesday_id
+msgid "Wednesday id"
+msgstr "Mercredi"
+
+#. modules: web, aes_api, extraschool, web_calendar
 #. openerp-web
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_week_4591
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_week_4631
 #: selection:extraschool.discount.version,period:0
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_week
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_guardian_prestation_times_report_week
@@ -42046,6 +42499,11 @@ msgstr "Semaine"
 #, python-format
 msgid "Week "
 msgstr "Semaine "
+
+#. module: aes_api
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_activity_week_activity_ids
+msgid "Week activity ids"
+msgstr "Week activity ids"
 
 #. module: base
 #: model:ir.ui.view,arch_db:base.sequence_view
@@ -42321,6 +42779,11 @@ msgstr "Transition de flux de travail"
 msgid "Workflow Workitems"
 msgstr "Éléments de travail du flux de travail"
 
+#. module: aes_api
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_line_workflow_number
+msgid "Workflow number"
+msgstr "Workflow number"
+
 #. module: base
 #: model:ir.actions.act_window,name:base.action_workflow_form
 #: model:ir.ui.menu,name:base.menu_workflow
@@ -42491,8 +42954,9 @@ msgstr "Y-a-t-il des allergies ?"
 msgid "Y-a-t-il des allergies ?     Si oui, à quoi ?"
 msgstr "Y-a-t-il des allergies ?     Si oui, à quoi ?"
 
-#. modules: web, extraschool
+#. modules: web, aes_api, extraschool
 #. openerp-web
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_year
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_activitycategory_sequence_year
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_aged_balance_item_year
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_one_report_year
@@ -43062,7 +43526,8 @@ msgstr "Droit(s) constaté(s)"
 msgid "active"
 msgstr "Activer"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model,name:aes_api.model_extraschool_activity
 #: model:ir.model,name:extraschool.model_extraschool_activity
 msgid "activity"
 msgstr "Activité"
@@ -43113,6 +43578,36 @@ msgstr "Activité"
 msgid "activityoccurrence"
 msgstr "activityoccurrence"
 
+#. module: aes_api
+#: model:ir.model,name:aes_api.model_aes_api_aes_api
+msgid "aes_api.aes_api"
+msgstr "aes_api.aes_api"
+
+#. module: aes_api
+#: model:ir.model,name:aes_api.model_aes_api_available_spot
+msgid "aes_api.available_spot"
+msgstr "aes_api.available_spot"
+
+#. module: aes_api
+#: model:ir.model,name:aes_api.model_aes_api_child
+msgid "aes_api.child"
+msgstr "aes_api.child"
+
+#. module: aes_api
+#: model:ir.model,name:aes_api.model_aes_api_compute_invoice
+msgid "aes_api.compute_invoice"
+msgstr "aes_api.compute_invoice"
+
+#. module: aes_api
+#: model:ir.model,name:aes_api.model_aes_api_parent
+msgid "aes_api.parent"
+msgstr "aes_api.parent"
+
+#. module: aes_api
+#: model:ir.model,name:aes_api.model_aes_api_tools
+msgid "aes_api.tools"
+msgstr "aes_api.tools"
+
 #. module: web_editor
 #. openerp-web
 #: code:addons/web_editor/static/src/xml/editor.xml:180
@@ -43150,6 +43645,7 @@ msgstr "à la ligne %d"
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_your_ref_and_period_num_fact_one_row
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_your_ref_and_period_num_fact_one_row_ittre
 #: model:ir.ui.view,arch_db:extraschool.report_invoice_your_ref_and_period_num_fact_one_row_title
+#: model:ir.ui.view,arch_db:extraschool.report_invoice_your_ref_and_period_num_fact_one_row_title_repas
 #: model:ir.ui.view,arch_db:extraschool.tpl_guardian_horaire_wizard_report
 #: model:ir.ui.view,arch_db:extraschool.tpl_parent_invoice_sumary_report
 msgid "au"
@@ -43417,7 +43913,8 @@ msgstr "Annuler le remboursement"
 msgid "child"
 msgstr "Enfant"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.ui.view,arch_db:aes_api.extraschool_child_registration_tree_plaine
 #: model:ir.ui.view,arch_db:extraschool.extraschool_child_registration_tree
 #: model:ir.ui.view,arch_db:extraschool.extraschool_child_registration_tree_multi
 msgid "child registration"
@@ -43428,7 +43925,8 @@ msgstr "child registration"
 msgid "child_name"
 msgstr "Nom de l'enfant"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.ui.view,arch_db:aes_api.extraschool_child_registration_form_plaine
 #: model:ir.ui.view,arch_db:extraschool.extraschool_child_registration_form
 #: model:ir.ui.view,arch_db:extraschool.extraschool_child_registration_form_multi
 msgid "child_registration"
@@ -44052,6 +44550,11 @@ msgstr "extraschool.qrconfig"
 msgid "extraschool.refund_wizard"
 msgstr "extraschool.refund_wizard"
 
+#. module: aes_api
+#: model:ir.model,name:aes_api.model_extraschool_sub_activity
+msgid "extraschool.sub_activity"
+msgstr "extraschool.sub_activity"
+
 #. module: extraschool
 #: model:ir.model,name:extraschool.model_extraschool_subvention_report
 msgid "extraschool.subvention_report"
@@ -44066,6 +44569,11 @@ msgstr "extraschool.taxcertificates_wizard"
 #: model:ir.model,name:extraschool.model_extraschool_timecorrection_wizard
 msgid "extraschool.timecorrection_wizard"
 msgstr "extraschool.timecorrection_wizard"
+
+#. module: aes_api
+#: model:ir.model,name:aes_api.model_extraschool_week_activity
+msgid "extraschool.week_activity"
+msgstr "extraschool.week_activity"
 
 #. module: extraschool
 #: model:ir.ui.view,arch_db:extraschool.extraschool_activityoccurrence_search_view
@@ -44196,7 +44704,8 @@ msgstr "note interne..."
 msgid "inverser"
 msgstr "inverser"
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_aes_api_invoiced_prestations_temporary_invoice_id
 #: model:ir.model,name:extraschool.model_extraschool_invoice
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoicedprestations_invoiceid
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_refound_line_invoiceid
@@ -44216,6 +44725,11 @@ msgstr "Facturation"
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_wizard_invoice_date
 msgid "invoice date"
 msgstr "Date de la facture"
+
+#. module: aes_api
+#: model:ir.model,name:aes_api.model_aes_api_invoice_temporary
+msgid "invoice temporary table"
+msgstr "invoice temporary table"
 
 #. module: extraschool
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_invoice_wizard_invoice_term
@@ -44247,6 +44761,11 @@ msgstr "Numéro de facture"
 #: model:ir.model,name:extraschool.model_extraschool_refound_line
 msgid "invoiced Prestations"
 msgstr "Présences facturées"
+
+#. module: aes_api
+#: model:ir.model,name:aes_api.model_aes_api_invoiced_prestations_temporary
+msgid "invoiced Prestations temporary table"
+msgstr "invoiced Prestations temporary table"
 
 #. module: extraschool
 #: model:ir.actions.act_window,name:extraschool.action_extraschool_invoices
@@ -45346,7 +45865,9 @@ msgstr "unknown"
 msgid "unsaved changes will be lost."
 msgstr "les changements non sauvés seront perdus."
 
-#. module: extraschool
+#. modules: aes_api, extraschool
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_state_4589
+#: model:ir.model.fields,field_description:aes_api.field_extraschool_child_registration_state_4629
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_child_registration_state
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_coda_state
 #: model:ir.model.fields,field_description:extraschool.field_extraschool_pda_transmission_state
