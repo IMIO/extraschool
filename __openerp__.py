@@ -148,6 +148,7 @@
         'report/common/spacer_2cm.xml',
         'report/common/invoice_summary.xml',
         'report/common/payment_info_amount_one_row.xml',
+
         'report/custo_client/assesse.xml',
         'report/custo_client/hannut.xml',
         'report/custo_client/theux.xml',
@@ -168,6 +169,8 @@
         'report/custo_client/mettet.xml',
         'report/custo_client/fosses_la_ville.xml',
         'report/custo_client/aiseau_presles.xml',
+        'report/custo_client/profondeville.xml',
+
         'report/reminder/reminder_text.xml',
         'report/parent_invoices_summary.xml',
         'report/child_qrcode.xml',

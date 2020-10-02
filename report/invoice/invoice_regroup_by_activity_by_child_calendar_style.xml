@@ -228,6 +228,133 @@
         		</t>
        		</div>
 		</template>
+
+        <template id="report_invoice_regroup_by_activity_by_child_calendar_one_line_style_with_sigle">
+		    <style type="text/css">
+
+		    	#invoice_body {
+		    		width: 100%;
+		    		clear: both;
+		    	}
+
+		    	#invoice_body div {
+		    		page-break-inside: avoid;
+		    		width: 100%;
+		    		clear: both;
+		    	}
+
+				#invoice_body div table {
+		    		page-break-inside: avoid;
+		    		width: 100%;
+					font-size:10px;
+					border-width: 1px;
+					border-collapse: collapse;
+		    		page-break-inside: avoid;
+				}
+				#invoice_body div table th {
+					border-width: 1px;
+					padding: 1px;
+					border-style: solid;
+		    		text-align: center;
+				}
+		    	.weekend{
+					background-color: #dedede;
+		    	}
+				#invoice_body div table td {
+					border-width: 1px;
+					padding: 1px;
+					border-style: solid;
+		    		text-align: center;
+				}
+
+		    	#invoice_body div table td ul{
+					padding-left: 3px;
+		    		padding-right: 3px;
+				}
+
+		    	.quantity{
+		    		min-width: 3%;
+		    	}
+
+				#invoice_body div table td.amount {
+		    		text-align: right;
+		    		width: 20%;
+				}
+				#invoice_body ul{
+ 				    list-style:none;
+ 				    margin-bottom: 0;
+				}
+
+		    	div#invoice_body div b span {
+				    font-size: 12px;
+				}
+			</style>
+			<t t-set="weekend" t-value="False" />
+        	<div id="invoice_body">
+        	    <t t-set="dayname" t-value="['lundi','mardi','mercredi','jeudi','vendredi','samedi','dimanche']"/>
+        	    <t t-set="monthname" t-value="['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre']"/>
+        		<t t-foreach="invoice.get_concerned_child()" t-as="child">
+        		    <div>
+        		    <b><span t-esc="child.name"/></b>
+		       		<t t-foreach="invoice.get_invoice_calendar(child.id)" t-as="month">
+	        		    <table>
+		        			<tr>
+			        			<th><span t-esc="monthname[month['month']-1]" /></th>
+			        			<t t-foreach="month['days']" t-as="month_days">
+			        				<t t-set="zz" t-value="1" />
+			        				<t t-foreach="month_days" t-as="d">
+			        					<t t-set="weekend" t-value="False" />
+				        				<t t-if= "zz &gt; 5">
+				        					<t t-set="weekend" t-value="'weekend'" />
+										</t>
+				        				<th t-if= "d &gt; 0" t-attf-class="quantity {{weekend}}"><span t-esc="d" /></th>
+			        					<t t-set="zz" t-value="zz+1" />
+			        				</t>
+		        				</t>
+							</tr>
+							<tr>
+			       				<td>
+			       					<ul>
+				       					<t t-foreach="month['activity']" t-as="activity">
+				       						<li><span t-esc="activity" /></li>
+				       					</t>
+			       					</ul>
+			       				</td>
+			       				<t t-set="weekend" t-value="toto" />
+			       				<t t-foreach="month['quantity']" t-as="week">
+			       					<t t-set="zz" t-value="1" />
+			       					<t t-foreach="week" t-as="day">
+			       						<t t-set="weekend" t-value="False" />
+			       						<t t-if= "zz &gt; 5">
+			       							<t t-set="weekend" t-value="'weekend'" />
+			       						</t>
+				       					<t t-if= "day['day_id'] != 0">
+				       						<td t-attf-class="quantity {{weekend}}">
+				       							<ul>
+						       						<t t-foreach="day['quantity']" t-as="quantity">
+							        					<li>
+							        						<t t-if= "quantity != 0">
+							        							<t-span t-esc="quantity" />‘
+							        						</t>
+							        						<t t-if= "quantity == 0">
+							        							<![CDATA[&nbsp;]]>
+							        						</t>
+							        					</li>
+							        				</t>
+				       							</ul>
+				       						</td>
+				       					</t>
+				       					<t t-set="zz" t-value="zz+1" />
+				       				</t>
+		        				</t>
+				       		</tr>
+						</table>
+					</t>
+					</div>
+        		</t>
+       		</div>
+		</template>
+
 		<template id="report_invoice_regroup_by_activity_by_child_calendar_one_line_style_x">
             <xpath expr="//head" position="inside">
                 <link rel="stylesheet" href="/extraschool/static/src/css/report_invoice_regroup_by_activity_by_child_calendar_one_line_style_x.css"/>
