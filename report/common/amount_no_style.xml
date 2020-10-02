@@ -10,14 +10,14 @@
                     <div class="amount" t-if="reminder_type == 'free'">
                         <span class="zz_label">Total</span>
                         <span class="amount">
-                            <t t-esc="'%.2f' %  (total)"/>
+                            <t t-esc="'%.2f' %  (balance)"/>
                             €
                         </span>
                     </div>
                     <div class="amount" t-if="reminder_type == 'fix'">
                         <span class="zz_label">Total</span>
                         <span class="amount">
-                            <t t-esc="'%.2f' %  (amount - fees)"/>
+                            <t t-esc="'%.2f' %  (balance - fees)"/>
                             €
                         </span>
                     </div>
@@ -76,14 +76,14 @@
                     <div class="amount" t-if="reminder_type == 'free'">
                         <span class="zz_label">Total</span>
                         <span class="amount">
-                            <t t-esc="'%.2f' %  (total)"/>
+                            <t t-esc="'%.2f' %  (balance)"/>
                             €
                         </span>
                     </div>
                     <div class="amount" t-if="reminder_type == 'fix'">
                         <span class="zz_label">Total</span>
                         <span class="amount">
-                            <t t-esc="'%.2f' %  (amount - fees)"/>
+                            <t t-esc="'%.2f' %  (balance - fees)"/>
                             €
                         </span>
                     </div>
