@@ -154,7 +154,7 @@
                                 groups="extraschool.extraschool_admin, extraschool.extraschool_accounting,extraschool.extraschool_direction"/>
                         <button name="validate" string="Validate" type="object" states='to_validate'
                                 class="oe_highlight"
-                                groups="extraschool.extraschool_admin, extraschool.extraschool_accounting"
+                                groups="extraschool.extraschool_admin, extraschool.extraschool_accounting, extraschool.extraschool_direction"
                                 context="{'wizard': False}"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft,to_validate,validated"/>
                     </header>
