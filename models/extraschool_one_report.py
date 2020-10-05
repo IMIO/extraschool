@@ -201,7 +201,7 @@ class extraschool_one_report(models.Model):
         one_report_settings = one_report_settings_obj.search(
             [('validity_from', '<=', vals['transmissiondate']),
              ('validity_to', '>=', vals['transmissiondate']),
-             ('name', '=', 'One report template')
+             ('name', '=', 'one_report')
              ])
 
         if not one_report_settings:
