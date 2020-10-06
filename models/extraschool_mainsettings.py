@@ -681,34 +681,13 @@ class extraschool_mainsettings(models.Model):
 
     @api.multi
     def post_child_meal(self):
-        self.env["extraschool.child_registration_meal"].add_registration_child_meal({'child_id': '3',
-                                                                                     'meals': ['_01-09-2020_repas',
-                                                                                               '_02-09-2020_nothing',
-                                                                                               '_03-09-2020_potage',
-                                                                                               '_04-09-2020_nothing',
-                                                                                               '_07-09-2020_nothing',
-                                                                                               '_08-09-2020_nothing',
-                                                                                               '_09-09-2020_repas',
-                                                                                               '_10-09-2020_nothing',
-                                                                                               '_11-09-2020_nothing',
-                                                                                               '_14-09-2020_repas',
-                                                                                               '_15-09-2020_nothing',
-                                                                                               '_16-09-2020_repas',
-                                                                                               '_17-09-2020_nothing',
-                                                                                               '_18-09-2020_nothing',
-                                                                                               '_21-09-2020_nothing',
-                                                                                               '_22-09-2020_repas',
-                                                                                               '_23-09-2020_nothing',
-                                                                                               '_24-09-2020_nothing',
-                                                                                               '_25-09-2020_repas',
-                                                                                               '_28-09-2020_repas',
-                                                                                               '_29-09-2020_nothing',
-                                                                                               '_30-09-2020_nothing'],
+        self.env["extraschool.child_registration_meal"].add_registration_child_meal({'child_id': '1142',
+                                                                                     'meals': ['_08-10-2020_repas'],
                                                                                      'form_id': '59'})
 
     @api.multi
-    def get_child_meal(self):
-        pass
+    def get_child_meals(self):
+        self.env["extraschool.child_registration_meal"].get_child_meals({"id": "1142"})
 
     @api.multi
     def create_debug(self):

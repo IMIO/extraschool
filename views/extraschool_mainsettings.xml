@@ -114,7 +114,7 @@
                                         confirm="Es-tu sûre Coralie ? Cette action est irréversible !"
                                     />
                                     <button
-                                        name="get_child_meal"
+                                        name="get_child_meals"
                                         string="get child meal"
                                         icon="gtk-apply"
                                         type="object"
