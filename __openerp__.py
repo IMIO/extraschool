@@ -100,7 +100,6 @@
         'views/extraschool_config_smartphone.xml',
         'views/extraschool_query_sql.xml',
         'views/extraschool_prestation_times_history.xml',
-        'views/extraschool_view.xml',
 
         'report/biller/biller_summary_no_style.xml',
         'report/biller/biller_detail_no_style.xml',
@@ -191,6 +190,8 @@
         'wizard/views/extraschool_prestationscheck_wizard.xml',
         'wizard/views/extraschool_prestation_times_encodage_manuel_wizard.xml',
         'wizard/views/extraschool_qrcodes_wizard.xml',
+
+        'views/extraschool_view.xml'
 
     ],
     'installable': True,
