@@ -169,6 +169,7 @@
         'report/custo_client/fosses_la_ville.xml',
         'report/custo_client/aiseau_presles.xml',
         'report/custo_client/profondeville.xml',
+        'report/custo_client/orpjauche.xml',
 
         'report/reminder/reminder_text.xml',
         'report/parent_invoices_summary.xml',

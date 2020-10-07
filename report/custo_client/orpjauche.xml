@@ -1,0 +1,62 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+        <template id="report_activity_categ_invoice_comment_no_style_orp_jauche">
+            <div
+                style="font-family: arial; font-size:11px; page-break-inside: avoid;display: block;width: 100%;padding: 0 0 0 0px;margin 0 0 0 0;">
+                <p>
+                    <t t-raw="comment_activity"/>
+                </p>
+            </div>
+        </template>
+
+        <template id="report_activity_categ_invoice_comment2_no_style_orp_jauche">
+            <div
+                style="font-family: arial; font-size:11px; page-break-inside: avoid;display: block;width: 100%;padding: 0 0 0 0px;margin 0 0 0 0;">
+                <p>
+                    <t t-raw="activity_category.invoice_comment2"/>
+                </p>
+            </div>
+        </template>
+    </data>
+
+    <template id="report_invoice_your_ref_and_period_num_fact_one_row_title_orp_jauche">
+        <div style="font-family:arial;width: 100%;display: block;margin: 0cm 0cm 0cm 0cm;font-size:11px;">
+            <div style="text-align: center;">
+                <b>
+                    <u>Facture de l'accueil extrascolaire</u>
+                </b>
+            </div>
+            <br/>
+            <br/>
+            <div class="your_ref">
+                Facture N°:
+                <span t-field="invoice.number"/>
+                - Période du
+                <span t-field="invoice.biller_id.period_from"/>
+                au
+                <span t-field="invoice.biller_id.period_to"/>
+            </div>
+        </div>
+    </template>
+
+    <template id="report_invoice_your_ref_and_period_num_fact_one_row_title_repas_orp_jauche">
+        <div style="font-family:arial;width: 100%;display: block;margin: 0cm 0cm 0cm 0cm;font-size:11px;">
+            <div style="text-align: center;">
+                <b>
+                    <u>Facture repas / piscine</u>
+                </b>
+            </div>
+            <br/>
+            <br/>
+            <div class="your_ref">
+                Facture N°:
+                <span t-field="invoice.number"/>
+                - Période du
+                <span t-field="invoice.biller_id.period_from"/>
+                au
+                <span t-field="invoice.biller_id.period_to"/>
+            </div>
+        </div>
+    </template>
+</odoo>
