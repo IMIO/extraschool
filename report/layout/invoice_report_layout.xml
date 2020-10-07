@@ -93,6 +93,11 @@
                         <t t-set="resp2_fct" t-value="organising_power.po_resp2_name"/>
                         <t t-set="resp2_name" t-value="organising_power.po_resp2_fct"/>
                         <t t-set="resp2_sign" t-value="organising_power.po_resp2_sign"/>
+
+                        <t t-set="resp3_fct" t-value="organising_power.po_resp3_name"/>
+                        <t t-set="resp3_name" t-value="organising_power.po_resp3_fct"/>
+                        <t t-set="resp3_sign" t-value="organising_power.po_resp3_sign"/>
+
                         <t t-set="summary_invoice_title" t-value="'Facture(s) échue(s)'"/>
                         <t t-set="invoice_id" t-value="invoice.id"/>
                         <t t-set="all_invoice_ids"
@@ -105,6 +110,8 @@
                            t-value="invoice.parentid.get_all_invoice_activity_category(invoice_id)"/>
                         <t t-set="total_balance_per_activity_category"
                            t-value="invoice.parentid.get_sum_invoice_by_activity_category(invoice_id)"/>
+
+                        <t t-set="date_college" t-value="time.strftime('%d-%m-%Y',time.strptime(activity_category.date_college,'%Y-%m-%d'))"/>
 
                         <div class="header">
                             <t t-foreach="activity_category.invoice_report_id.inline_report_ids.filtered(lambda r: r.section == 'a_header')"

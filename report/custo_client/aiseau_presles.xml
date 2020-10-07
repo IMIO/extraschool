@@ -128,8 +128,9 @@
                         diplômes et certificats d'enseignement ou de son bulletin scolaire.</p>
                     <p><b>§ 8.</b> La référence légale et le texte intégral du présent article sont reproduits dans le règlement
                     d’ordre intérieur de chaque école ainsi que sur l’estimation des frais réclamés visés à l’article
-                    101, § 1er, et les décomptes périodiques visés à l’article 101, §2.
-                    <b><u>Décision du Conseil communal du 29 avril 2019 – 45è objet, portant règlement redevance pour
+                    101, § 1er, et les décomptes périodiques visés à l’article 101, §2.</p>
+                <p>
+                        <b><u>Décision du Conseil communal du 29 avril 2019 – 45è objet, portant règlement redevance pour
                     l’organisation d’activités, de sorties et de séjours pédagogiques pour les enfants des écoles
                         communales de l’entité,</u></b> établissant pour les exercices 2019 à 2025, une redevance communale relative
                     à l’organisation d’activités, sorties et séjours pédagogiques pour les enfants des écoles communales
@@ -143,7 +144,8 @@
                     défaut de paiement dans les délais, le recouvrement de la redevance sera poursuivi conformément à
                     l’article L1124-40 du Code de la Démocratie Locale et de la Décentralisation. La mise en demeure
                     préalable au commandement par voie de huissier, envoyée par recommandé, fera l’objet de frais
-                        administratifs d’un montant de 10 € répercutés auprès du redevable.</p>
+                        administratifs d’un montant de 10 € répercutés auprès du redevable.
+                </p>
                 <p><b><u>Réclamation</u></b>:
                     Toute réclamation peut être introduite endéans le délai de 15 jours de réception de la facture, le
                     cachet de la poste faisant foi le cas échéant, à l’attention du Collège communal, par écrit
@@ -161,6 +163,93 @@
         		</div>
        		</div>
 		</template>
+
+        <template id="report_adresse_no_style_aiseau_presles" inherit_id="extraschool.report_adresse_no_style" primary="True">
+			<xpath expr="//div[@id='aes_po_adresse']" position="replace">
+				<div class="aes_adresse_block po" id="aes_po_adresse">
+					<span style="font-size: 12px;" t-raw="po_addresse.po_addresse_free_text" />
+				</div>
+			</xpath>
+			<xpath expr="//div[@class='aes_adresse_block customer']" position="replace">
+				<div class="aes_adresse_block customer">
+                    <span t-field="addresse.name"/>
+                    <span>(Famille: <t t-raw="child_id.childid.lastname"/>)</span>
+
+					<span t-field="addresse.street" />
+					<span><t t-esc="addresse.zipcode" /> <t t-esc="addresse.city" /></span>
+				</div>
+			</xpath>
+		</template>
+
+        <template id="report_invoice_regroup_by_activity_by_child_calendar_one_line_style_x_aiseau_presles">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_invoice_regroup_by_activity_by_child_calendar_one_line_style_x.css"/>
+            </xpath>
+			<t t-set="weekend" t-value="False" />
+        	<div id="invoice_body">
+        	    <t t-set="dayname" t-value="['lundi','mardi','mercredi','jeudi','vendredi','samedi','dimanche']"/>
+        	    <t t-set="monthname" t-value="['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre']"/>
+        		<t t-foreach="invoice.get_concerned_child()" t-as="child">
+        		    <div>
+        		    <b><span style="font-size: 12px;" t-esc="child.name"/></b>
+		       		<t t-foreach="invoice.get_invoice_calendar(child.id)" t-as="month">
+	        		    <table>
+		        			<tr>
+			        			<th><span t-esc="monthname[month['month']-1]" /></th>
+			        			<t t-foreach="month['days']" t-as="month_days">
+			        				<t t-set="zz" t-value="1" />
+			        				<t t-foreach="month_days" t-as="d">
+			        					<t t-set="weekend" t-value="False" />
+				        				<t t-if= "zz &gt; 5">
+				        					<t t-set="weekend" t-value="'weekend'" />
+										</t>
+				        				<th t-if= "d &gt; 0" t-attf-class="quantity {{weekend}}"><span t-esc="d" /></th>
+			        					<t t-set="zz" t-value="zz+1" />
+			        				</t>
+		        				</t>
+							</tr>
+							<tr>
+			       				<td>
+			       					<ul>
+				       					<t t-foreach="month['activity']" t-as="activity">
+				       						<li><span t-esc="activity" /></li>
+				       					</t>
+			       					</ul>
+			       				</td>
+			       				<t t-set="weekend" t-value="toto" />
+			       				<t t-foreach="month['quantity']" t-as="week">
+			       					<t t-set="zz" t-value="1" />
+			       					<t t-foreach="week" t-as="day">
+			       						<t t-set="weekend" t-value="False" />
+			       						<t t-if= "zz &gt; 5">
+			       							<t t-set="weekend" t-value="'weekend'" />
+			       						</t>
+				       					<t t-if= "day['day_id'] != 0">
+				       						<td t-attf-class="quantity {{weekend}}">
+				       							<ul>
+						       						<t t-foreach="day['quantity']" t-as="quantity">
+							        					<li>
+							        						<t t-if= "quantity != 0">
+							        							X
+							        						</t>
+							        						<t t-if= "quantity == 0">
+							        							<![CDATA[&nbsp;]]>
+							        						</t>
+							        					</li>
+							        				</t>
+				       							</ul>
+				       						</td>
+				       					</t>
+				       					<t t-set="zz" t-value="zz+1" />
+				       				</t>
+		        				</t>
+				       		</tr>
+						</table>
+					</t>
+					</div>
+        		</t>
+       		</div>
+       </template>
 
     </data>
 </odoo>

@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+
+        <template id="report_triple_sign_no_style">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/report_reminder_sign.css"/>
+            </xpath>
+
+            <t t-if="not po_stamp">
+                <div>
+                    <span class="sign_elem">Par le Collège<br/>en date du :
+                        <span t-esc="date_college"/>
+                    </span>
+                </div>
+            </t>
+
+            <div id="doc_resp_sign">
+                <div id="sign_resp1">
+                    <div>
+                        <span class="sign_elem" t-esc="resp_fct"/>
+                        <span class="sign_elem" t-esc="resp_name"/>
+                        <t t-if="resp_sign">
+                            <img class="sign_img" t-attf-src="data:image/jpeg;base64,{{resp_sign}}"/>
+                        </t>
+                    </div>
+                </div>
+
+                <div id="sign_resp2">
+                    <div>
+                        <span class="sign_elem" t-esc="resp2_fct"/>
+                        <span class="sign_elem" t-esc="resp2_name"/>
+                        <t t-if="resp2_sign">
+                            <img class="sign_img" t-attf-src="data:image/jpeg;base64,{{resp2_sign}}"/>
+                        </t>
+                    </div>
+                </div>
+
+                <div id="sign_resp3">
+                    <div>
+                        <span class="sign_elem" t-esc="resp3_fct"/>
+                        <span class="sign_elem" t-esc="resp3_name"/>
+                        <t t-if="resp3_sign">
+                            <img class="sign_img" t-attf-src="data:image/jpeg;base64,{{resp3_sign}}"/>
+                        </t>
+                    </div>
+                </div>
+            </div>
+
+        </template>
+
+    </data>
+</odoo>

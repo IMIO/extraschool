@@ -144,6 +144,7 @@
         'report/common/sign_no_style.xml',
         'report/common/sign_img_no_style.xml',
         'report/common/double_sign_no_style.xml',
+        'report/common/triple_sign_no_style.xml',
         'report/common/spacer_2cm.xml',
         'report/common/invoice_summary.xml',
         'report/common/payment_info_amount_one_row.xml',

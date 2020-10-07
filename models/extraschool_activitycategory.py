@@ -100,6 +100,7 @@ class extraschool_activitycategory(models.Model):
     sequence_ids = fields.One2many(comodel_name='extraschool.activitycategory.sequence',
                                    inverse_name='activity_category_id', string='Sequences')
     max_school_implantation = fields.Integer()
+    date_college = fields.Date(default=datetime.now())
 
     def check_invoice_prefix(self, invoicecomstructprefix):
         res = {'return_val': True,

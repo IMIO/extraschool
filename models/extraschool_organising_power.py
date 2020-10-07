@@ -51,13 +51,18 @@ class extraschool_organising_power(models.Model):
     po_addresse_free_text2 = fields.Char('Adresse texte libre 2')
 
     po_stamp = fields.Binary('stamp')
-    po_sign_img = fields.Binary('Signature image')
 
+    po_sign_img = fields.Binary('Signature image')
     po_resp_name = fields.Char('Name of resp')
     po_resp_fct = fields.Char('Fct of resp')
+
     po_resp2_sign = fields.Binary('Signature of resp2')
     po_resp2_name = fields.Char('Name of resp2')
     po_resp2_fct = fields.Char('Fct of resp2')
+
+    po_resp3_name = fields.Char('Name of resp')
+    po_resp3_fct = fields.Char('Fct of resp')
+    po_resp3_sign = fields.Binary('Signature of resp3')
 
     po_rappel_name = fields.Char('Name of resp reminder')
     po_rappel_fct = fields.Char('Fct of resp reminder')

@@ -84,6 +84,7 @@
                                 <field name="invoiceemailaddress" />
                                 <newline/>
                                 <field name="invoiceemailsubject" />
+                                <field name="date_college"/>
                                 <newline/>
                                 <separator string="Text de l email" colspan="4"/>
                                 <field name="invoiceemailtext"  nolabel="1" colspan="4" />
