@@ -31,7 +31,7 @@
                 <span class="qr_child_name"><t t-esc="name"/></span>
 		</template>
 
-        <template id="qrcode_name_child_classic_25mm_verso">
+        <template id="qrcode_name_child_classic_35mm25mm_verso">
             <style type="text/css">
                 .qrcode_img_logo {
                     position: absolute;
@@ -124,6 +124,16 @@
                 <img class="qrcode_img" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR',tagid, 300, 300)" />
                 <span class="qr_child_name"><t t-esc="name"/></span>
                 <span class="qr_school_name"><t t-esc="school"/></span>
+		</template>
+
+
+        <template id="qrcode_name_child_classic_35mm_with_id_badge">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet" href="/extraschool/static/src/css/qrcode_name_child_classic_35mm_with_schoolname.css"/>
+            </xpath>
+                <!--div are exteriorize to be able to construct the page and display it correctly. wkhtmltopdf needs divs-->
+                <img class="qrcode_img" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR',tagid, 300, 300)" />
+                <span class="qr_child_name"><t t-esc="numero_badge"/></span>
 		</template>
 
         <template id="qrcode_name_child_classic_35mm_with_schoolname_and_level">
