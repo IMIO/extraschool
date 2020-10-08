@@ -1,4 +1,4 @@
-#invoice_summary{
+#invoice_summary {
     width: 100%;
     display: block;
     margin: 0cm 0cm 0cm 0cm;
@@ -7,3 +7,15 @@
     text-justify: inter-word;
     font-size: 14px;
  }
+
+h5 {
+    font-weight: bold;
+    font-size: 12px;
+    text-decoration: underline;
+    font-style: italic;
+    margin-bottom: 15px;
+}
+
+b {
+    font-weight: bold;
+}
