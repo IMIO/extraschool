@@ -133,31 +133,89 @@ class extraschool_prestation_times_of_the_day(models.Model):
                     logging.info("Temps estimé restant: {}".format(avg_time))
                     time_list = []
                 total -= 1
-                # Check if presta is not invoiced
-                if len(presta.prestationtime_ids.filtered(lambda r: r.invoiced_prestation_id.id is not False).ids) == 0:
-                    presta.prestationtime_ids.unlink()
-                    for pda_presta in presta.pda_prestationtime_ids.filtered(lambda r: r.active):
-                        presta.prestationtime_ids.create({'placeid': pda_presta.placeid.id,
-                                                          'childid': pda_presta.childid.id,
-                                                          'prestation_date': pda_presta.prestation_date,
-                                                          'prestation_time': pda_presta.prestation_time,
-                                                          'es': pda_presta.es,
-                                                          'activity_category_id': pda_presta.activitycategoryid.id,
-                                                          })
+                invoiced_activity_category = self.get_invoiced_activity_category()
+                # Récupérer les catégories d'activités qui sont facturées
+                presta.prestationtime_ids.filtered(lambda r: r.invoiced_prestation_id.id is False).unlink()
+                for pda_presta in presta.pda_prestationtime_ids.filtered(
+                    lambda r: r.active and r.activitycategoryid.id not in invoiced_activity_category):
+                    presta.prestationtime_ids.create({'placeid': pda_presta.placeid.id,
+                                                      'childid': pda_presta.childid.id,
+                                                      'prestation_date': pda_presta.prestation_date,
+                                                      'prestation_time': pda_presta.prestation_time,
+                                                      'es': pda_presta.es,
+                                                      'activity_category_id': pda_presta.activitycategoryid.id,
+                                                      })
 
-                    reg_ids = self.env['extraschool.activity_occurrence_child_registration'].search(
-                        [('child_id', '=', presta.child_id.id),
-                         ('activity_occurrence_id.occurrence_date', '=', presta.date_of_the_day),
-                         # ('activity_occurrence_id.activity_category_id', '=', presta.activity_category_id.id),
-                         ])
-                    for reg in reg_ids:
-                        if reg.activity_occurrence_id.activityid.autoaddchilds:
-                            reg.activity_occurrence_id.add_presta(reg.activity_occurrence_id, reg.child_id.id, None,
-                                                                  False)
-                    presta.verified = False
-                    presta.checked = False
+                reg_ids = self.env['extraschool.activity_occurrence_child_registration'].search(
+                    [('child_id', '=', presta.child_id.id),
+                     ('activity_occurrence_id.occurrence_date', '=', presta.date_of_the_day),
+                     ('activity_occurrence_id.activity_category_id.id', 'not in', invoiced_activity_category),
+                     ])
+                for reg in reg_ids:
+                    if reg.activity_occurrence_id.activityid.autoaddchilds:
+                        reg.activity_occurrence_id.add_presta(reg.activity_occurrence_id, reg.child_id.id, None,
+                                                              False)
+                presta.verified = False
+                presta.checked = False
 
                 time_list.append(time.time() - start_time)
+
+    # @api.multi
+    # def reset(self):
+    #     for rec in self:
+    #         rec.place_check = True
+    #         total = len(rec)
+    #         time_list = []
+    #         for presta in rec:
+    #             start_time = time.time()
+    #
+    #             if len(time_list) == 50:
+    #                 avg_time = float(sum(time_list) / len(time_list)) * total
+    #                 avg_time = time.strftime('%M:%S', time.gmtime(avg_time))
+    #                 logging.info("Temps estimé restant: {}".format(avg_time))
+    #                 time_list = []
+    #             total -= 1
+    #             # Check if presta is not invoiced
+    #             import wdb
+    #             wdb.set_trace()
+    #             """
+    #             Les grands points :
+    #
+    #                 - Supprimer les présences
+    #                 - Pour chaque pda_prestationtime actif, on crée les présences
+    #                 - Pour chaque activity_occurrence_child_registration, on crée des présences
+    #
+    #             Nouveau flux :
+    #
+    #                 - Supprimer les présences qui ne sont pas facturées
+    #                 - pour chaque pda, on crée la présence si elle n'existe pas déjà
+    #                 - pour chaque activity_occurrence_child_registration, pour chaque catégorie, on fait quelque chose si
+    #                 ce n'est pas facturé
+    #             """
+    #             if len(presta.prestationtime_ids.filtered(lambda r: r.invoiced_prestation_id.id is not False).ids) == 0:
+    #                 presta.prestationtime_ids.unlink()
+    #                 for pda_presta in presta.pda_prestationtime_ids.filtered(lambda r: r.active):
+    #                     presta.prestationtime_ids.create({'placeid': pda_presta.placeid.id,
+    #                                                       'childid': pda_presta.childid.id,
+    #                                                       'prestation_date': pda_presta.prestation_date,
+    #                                                       'prestation_time': pda_presta.prestation_time,
+    #                                                       'es': pda_presta.es,
+    #                                                       'activity_category_id': pda_presta.activitycategoryid.id,
+    #                                                       })
+    #
+    #                 reg_ids = self.env['extraschool.activity_occurrence_child_registration'].search(
+    #                     [('child_id', '=', presta.child_id.id),
+    #                      ('activity_occurrence_id.occurrence_date', '=', presta.date_of_the_day),
+    #                      # ('activity_occurrence_id.activity_category_id', '=', presta.activity_category_id.id),
+    #                      ])
+    #                 for reg in reg_ids:
+    #                     if reg.activity_occurrence_id.activityid.autoaddchilds:
+    #                         reg.activity_occurrence_id.add_presta(reg.activity_occurrence_id, reg.child_id.id, None,
+    #                                                               False)
+    #                 presta.verified = False
+    #                 presta.checked = False
+    #
+    #             time_list.append(time.time() - start_time)
 
     @api.onchange('prestationtime_ids', 'pda_prestationtime_ids')
     def on_change_prestationtime_ids(self):
@@ -628,22 +686,39 @@ class extraschool_prestation_times_of_the_day(models.Model):
             presta.check()
             presta.checked = True
 
+    @api.multi
+    def get_prestationtimes_by_activity_category(self, activity_category):
+        return self.prestationtime_ids.filtered(lambda r: r.activity_category_id.id == activity_category.id)
 
-class extraschool_prestation_times_history(models.Model):
-    _name = 'extraschool.prestation_times_history'
+    @api.multi
+    def get_invoiced_prestationtimes_by_activity_category(self, activity_category):
+        return self.get_prestationtimes_by_activity_category(activity_category).filtered(
+            lambda r: r.invoiced_prestation_id.id is not False)
 
-    placeid = fields.Many2one('extraschool.place', 'Schoolcare Place')
-    childid = fields.Many2one('extraschool.child', 'Child')
-    parent_id = fields.Many2one(related='childid.parentid')
-    prestation_date = fields.Date('Date')
-    prestation_time = fields.Float('Time')
-    es = fields.Selection((('E', 'In'), ('S', 'Out')), 'es')
-    exit_all = fields.Boolean('Exit all', default=False)
-    manualy_encoded = fields.Boolean('Manualy encoded')
-    verified = fields.Boolean('Verified', default=False)
-    error_msg = fields.Char('Error', size=255)
-    activity_occurrence_id = fields.Many2one('extraschool.activityoccurrence', 'Activity occurrence')
-    activity_name = fields.Char(related='activity_occurrence_id.activityname')
-    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category')
-    prestation_times_of_the_day_id = fields.Many2one('extraschool.prestation_times_of_the_day', 'Prestation of the day')
-    invoiced_prestation_id = fields.Many2one('extraschool.invoicedprestations', string='Invoiced prestation')
+    @api.multi
+    def get_invoiced_activity_category(self):
+        activities_categories = []
+        for activity_category in self.prestationtime_ids.mapped("activity_category_id"):
+            if len(self.get_invoiced_prestationtimes_by_activity_category(activity_category)) > 0:
+                activities_categories.append(activity_category.id)
+        return activities_categories
+
+    class extraschool_prestation_times_history(models.Model):
+        _name = 'extraschool.prestation_times_history'
+
+        placeid = fields.Many2one('extraschool.place', 'Schoolcare Place')
+        childid = fields.Many2one('extraschool.child', 'Child')
+        parent_id = fields.Many2one(related='childid.parentid')
+        prestation_date = fields.Date('Date')
+        prestation_time = fields.Float('Time')
+        es = fields.Selection((('E', 'In'), ('S', 'Out')), 'es')
+        exit_all = fields.Boolean('Exit all', default=False)
+        manualy_encoded = fields.Boolean('Manualy encoded')
+        verified = fields.Boolean('Verified', default=False)
+        error_msg = fields.Char('Error', size=255)
+        activity_occurrence_id = fields.Many2one('extraschool.activityoccurrence', 'Activity occurrence')
+        activity_name = fields.Char(related='activity_occurrence_id.activityname')
+        activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category')
+        prestation_times_of_the_day_id = fields.Many2one('extraschool.prestation_times_of_the_day',
+                                                         'Prestation of the day')
+        invoiced_prestation_id = fields.Many2one('extraschool.invoicedprestations', string='Invoiced prestation')
