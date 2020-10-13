@@ -35,6 +35,7 @@
                                     <!--Initialize variables here.-->
                                     <t t-set="name" t-value="docs[i].name"/>
                                     <t t-set="firstname" t-value="docs[i].firstname"/>
+                                    <t t-set="numero_badge" t-value="docs[i].tagid"/>
                                     <t t-set="lastname" t-value="docs[i].lastname"/>
                                     <t t-set="school" t-value="docs[i].schoolimplantation.name"/>
                                     <t t-set="level" t-value="docs[i].levelid.name"/>
