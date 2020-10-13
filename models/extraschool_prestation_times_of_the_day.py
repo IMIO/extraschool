@@ -261,17 +261,11 @@ class extraschool_prestation_times_of_the_day(models.Model):
         es = ['E', 'S']
         last_occu = None
         zz = 0
-        activity_ids = []
         self.activity_to_delete = 0
 
         # Get all the activity ID from the prestations.
-        for presta in self.prestationtime_ids.sorted(key=lambda r: (r.prestation_time)):
-            if presta.activity_occurrence_id.activityid.id not in activity_ids:
-                activity_ids.append(presta.activity_occurrence_id.activityid.id)
-
-        # Get the activity object sorted by prest_to for better search.
-        activity_range = self.env['extraschool.activity'].search([('id', 'in', activity_ids)]).sorted(
-            key=lambda r: (r.prest_to))
+        activity_range = self.prestationtime_ids.mapped("activity_occurrence_id").mapped("activityid").sorted(
+            lambda r: r.prest_to)
 
         # Compare 2 activities at a time. If they have the same prest_to and prest_from
         # And if one of them has autoaddchilds=True it will delete the prestation from the other activity.
@@ -292,7 +286,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
                     lambda r: r.activity_occurrence_id.activityid.id == self.activity_to_delete).unlink()
 
         for presta in self.prestationtime_ids.sorted(
-            key=lambda r: ("%s%s" % (('%.2f' % (r.prestation_time)).zfill(5), 1 if r.es == 'E' else 0))):
+            lambda r: ("%s%s" % (('%.2f' % r.prestation_time).zfill(5), 1 if r.es == 'E' else 0))):
             i = zz % 2
             # check alternate E / S
 
@@ -560,25 +554,25 @@ class extraschool_prestation_times_of_the_day(models.Model):
 
     @api.multi
     def check(self):
-        # Check if presta is not invoiced
-        if len(self.prestationtime_ids.filtered(lambda r: r.invoiced_prestation_id.id is not False).ids) == 0:
-            # if no presta than warning and exit
-            if not self.prestationtime_ids:
-                self._add_comment(_("Warning : No presta found"), True)
-                self.verified = True
-                return True
-
-            #
-            str_prestation_ids = str(self.prestationtime_ids.ids).replace('[', '(').replace(']', ')')
+        if len(self.prestationtime_ids) > 0:
+            # match prestation with activity occurrence
             for prestation in self.prestationtime_ids.filtered(lambda r: not r.activity_occurrence_id):
                 self.env['extraschool.prestationscheck_wizard']._prestation_activity_occurrence_completion(prestation)
+            # use in sql query
+            str_prestation_ids = str(self.prestationtime_ids.ids).replace('[', '(').replace(']', ')')
             # Get list of distinct root_id of prestation time for those occurrence activities.
             self.env.cr.execute(
-                "select distinct(root_id) from extraschool_prestationtimes ep left join extraschool_activityoccurrence o on ep.activity_occurrence_id = o.id left join extraschool_activity a on o.activityid = a.id where a.root_id > 0 and ep.id in " + str_prestation_ids)
+                "select distinct(root_id) "
+                "from extraschool_prestationtimes ep "
+                "left join extraschool_activityoccurrence o "
+                "on ep.activity_occurrence_id = o.id "
+                "left join extraschool_activity a "
+                "on o.activityid = a.id "
+                "where a.root_id > 0 and ep.id in " + str_prestation_ids)
 
             prestationtimes = self.env.cr.dictfetchall()
             root_ids = [r['root_id'] for r in prestationtimes]
-
+            #
             for root_activity in self.env['extraschool.activity'].browse(root_ids):
                 start_time = self._completion_entry(root_activity)
                 stop_time = self._completion_exit(root_activity)
@@ -591,28 +585,8 @@ class extraschool_prestation_times_of_the_day(models.Model):
                     # an error has been found and added to comment field
                     self.verified = False
         else:
-            str_prestation_ids = str(self.prestationtime_ids.ids).replace('[', '(').replace(']', ')')
-            for prestation in self.prestationtime_ids.filtered(lambda r: not r.activity_occurrence_id):
-                self.env['extraschool.prestationscheck_wizard']._prestation_activity_occurrence_completion(prestation)
-
-            # Get list of distinct root_id of prestation time for those occurrence activities.
-            self.env.cr.execute(
-                "select distinct(root_id) from extraschool_prestationtimes ep left join extraschool_activityoccurrence o on ep.activity_occurrence_id = o.id left join extraschool_activity a on o.activityid = a.id where a.root_id > 0 and ep.id in " + str_prestation_ids)
-
-            prestationtimes = self.env.cr.dictfetchall()
-            root_ids = [r['root_id'] for r in prestationtimes]
-
-            for root_activity in self.env['extraschool.activity'].browse(root_ids):
-                start_time = self._completion_entry(root_activity)
-                stop_time = self._completion_exit(root_activity)
-
-                if start_time and stop_time:
-                    start_time.verified = True
-                    stop_time.verified = True
-                    self._occu_completion(start_time, stop_time, None, True, None)
-                else:
-                    # an error has been found and added to comment field
-                    self.verified = False
+            self._add_comment(_("Warning : No presta found"), True)
+            self.verified = True
 
         self.last_check_entry_exit()
 
@@ -627,6 +601,90 @@ class extraschool_prestation_times_of_the_day(models.Model):
             self.env.cr.commit()
 
         return self.verified
+
+    # @api.multi
+    # def check(self):
+    #     import wdb
+    #     wdb.set_trace()
+    #     # Check if presta is not invoiced
+    #     if len(self.prestationtime_ids.filtered(lambda r: r.invoiced_prestation_id.id is not False).ids) == 0:
+    #         # if no presta than warning and exit
+    #         if not self.prestationtime_ids:
+    #             self._add_comment(_("Warning : No presta found"), True)
+    #             self.verified = True
+    #             return True
+    #
+    #         for prestation in self.prestationtime_ids.filtered(lambda r: not r.activity_occurrence_id):
+    #             self.env['extraschool.prestationscheck_wizard']._prestation_activity_occurrence_completion(prestation)
+    #         # use in sql query
+    #         str_prestation_ids = str(self.prestationtime_ids.ids).replace('[', '(').replace(']', ')')
+    #         # Get list of distinct root_id of prestation time for those occurrence activities.
+    #         self.env.cr.execute(
+    #             "select distinct(root_id) "
+    #             "from extraschool_prestationtimes ep "
+    #             "left join extraschool_activityoccurrence o "
+    #             "on ep.activity_occurrence_id = o.id "
+    #             "left join extraschool_activity a "
+    #             "on o.activityid = a.id "
+    #             "where a.root_id > 0 and ep.id in " + str_prestation_ids)
+    #
+    #         prestationtimes = self.env.cr.dictfetchall()
+    #         root_ids = [r['root_id'] for r in prestationtimes]
+    #
+    #         for root_activity in self.env['extraschool.activity'].browse(root_ids):
+    #             start_time = self._completion_entry(root_activity)
+    #             stop_time = self._completion_exit(root_activity)
+    #
+    #             if start_time and stop_time:
+    #                 start_time.verified = True
+    #                 stop_time.verified = True
+    #                 self._occu_completion(start_time, stop_time, None, True, None)
+    #             else:
+    #                 # an error has been found and added to comment field
+    #                 self.verified = False
+    #     else:
+    #         for prestation in self.prestationtime_ids.filtered(lambda r: not r.activity_occurrence_id):
+    #             self.env['extraschool.prestationscheck_wizard']._prestation_activity_occurrence_completion(prestation)
+    #
+    #         str_prestation_ids = str(self.prestationtime_ids.ids).replace('[', '(').replace(']', ')')
+    #         # Get list of distinct root_id of prestation time for those occurrence activities.
+    #         self.env.cr.execute(
+    #             "select distinct(root_id) "
+    #             "from extraschool_prestationtimes ep "
+    #             "left join extraschool_activityoccurrence o "
+    #             "on ep.activity_occurrence_id = o.id "
+    #             "left join extraschool_activity a "
+    #             "on o.activityid = a.id "
+    #             "where a.root_id > 0 and ep.id in " + str_prestation_ids)
+    #
+    #         prestationtimes = self.env.cr.dictfetchall()
+    #         root_ids = [r['root_id'] for r in prestationtimes]
+    #
+    #         for root_activity in self.env['extraschool.activity'].browse(root_ids):
+    #             start_time = self._completion_entry(root_activity)
+    #             stop_time = self._completion_exit(root_activity)
+    #
+    #             if start_time and stop_time:
+    #                 start_time.verified = True
+    #                 stop_time.verified = True
+    #                 self._occu_completion(start_time, stop_time, None, True, None)
+    #             else:
+    #                 # an error has been found and added to comment field
+    #                 self.verified = False
+    #
+    #     self.last_check_entry_exit()
+    #
+    #     if len(self.prestationtime_ids.filtered(lambda r: r.verified is False).ids) or len(self.prestationtime_ids) % 2:
+    #         self.verified = False
+    #     # Check if the place_ids are correct.
+    #     elif not self.check_place():
+    #         self.verified = False
+    #         self.place_check = False
+    #     else:
+    #         self.verified = True
+    #         self.env.cr.commit()
+    #
+    #     return self.verified
 
     ##############################################################################
     #   Verification that all place ids are the same for the occurrence activity #
@@ -703,22 +761,23 @@ class extraschool_prestation_times_of_the_day(models.Model):
                 activities_categories.append(activity_category.id)
         return activities_categories
 
-    class extraschool_prestation_times_history(models.Model):
-        _name = 'extraschool.prestation_times_history'
 
-        placeid = fields.Many2one('extraschool.place', 'Schoolcare Place')
-        childid = fields.Many2one('extraschool.child', 'Child')
-        parent_id = fields.Many2one(related='childid.parentid')
-        prestation_date = fields.Date('Date')
-        prestation_time = fields.Float('Time')
-        es = fields.Selection((('E', 'In'), ('S', 'Out')), 'es')
-        exit_all = fields.Boolean('Exit all', default=False)
-        manualy_encoded = fields.Boolean('Manualy encoded')
-        verified = fields.Boolean('Verified', default=False)
-        error_msg = fields.Char('Error', size=255)
-        activity_occurrence_id = fields.Many2one('extraschool.activityoccurrence', 'Activity occurrence')
-        activity_name = fields.Char(related='activity_occurrence_id.activityname')
-        activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category')
-        prestation_times_of_the_day_id = fields.Many2one('extraschool.prestation_times_of_the_day',
-                                                         'Prestation of the day')
-        invoiced_prestation_id = fields.Many2one('extraschool.invoicedprestations', string='Invoiced prestation')
+class extraschool_prestation_times_history(models.Model):
+    _name = 'extraschool.prestation_times_history'
+
+    placeid = fields.Many2one('extraschool.place', 'Schoolcare Place')
+    childid = fields.Many2one('extraschool.child', 'Child')
+    parent_id = fields.Many2one(related='childid.parentid')
+    prestation_date = fields.Date('Date')
+    prestation_time = fields.Float('Time')
+    es = fields.Selection((('E', 'In'), ('S', 'Out')), 'es')
+    exit_all = fields.Boolean('Exit all', default=False)
+    manualy_encoded = fields.Boolean('Manualy encoded')
+    verified = fields.Boolean('Verified', default=False)
+    error_msg = fields.Char('Error', size=255)
+    activity_occurrence_id = fields.Many2one('extraschool.activityoccurrence', 'Activity occurrence')
+    activity_name = fields.Char(related='activity_occurrence_id.activityname')
+    activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category')
+    prestation_times_of_the_day_id = fields.Many2one('extraschool.prestation_times_of_the_day',
+                                                     'Prestation of the day')
+    invoiced_prestation_id = fields.Many2one('extraschool.invoicedprestations', string='Invoiced prestation')
