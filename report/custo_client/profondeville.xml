@@ -13,5 +13,66 @@
        		</div>
 		</template>
 
+		<template id="report_all_invoice_summary_hannut_facture" inherit_id="extraschool.report_all_invoice_summary"
+                  primary="True">
+            <xpath expr="//div[@id='invoice_summary']" position="replace">
+                <div id="invoice_summary">
+                    <h2>Facture(s) échue(s) ou en attente de paiement</h2>
+                    <p>Les factures suivantes sont toujours en attente de paiement. Nous vous prions de bien vouloir
+                        procéder à leur(s) règlement(s) dans les meilleurs délais. Si un paiement mentionné dans le
+                        tableau ci-dessous et notre courrier devaient se croiser, veuillez considérer ce paiement comme
+                        nul et non avenu.
+						La facture reprenant la date du 01.09.2020 corresponds à votre Solde AP School non payé.
+                    </p>
+                    <table>
+                        <tr>
+                            <th>Période</th>
+                            <th>Facture</th>
+                            <th>Echéance</th>
+                            <th>Montant</th>
+                        </tr>
+                        <t t-foreach="all_invoice_ids.sorted(key=lambda r: r.number)" t-as="summary_invoice">
+                            <tr>
+                                <t t-if="summary_invoice.id != invoice_id">
+                                    <!--<t t-if="summary_invoice.reminder_fees == False">-->
+                                    <tr>
+                                        <td>
+                                            <span
+                                                t-esc="'%s' % (time.strftime('%d/%m/%Y',time.strptime(summary_invoice.biller_id.period_from,'%Y-%m-%d')))"/>
+                                            -
+                                            <span
+                                                t-esc="'%s' % (time.strftime('%d/%m/%Y',time.strptime(summary_invoice.biller_id.period_to,'%Y-%m-%d')))"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="summary_invoice.number"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="summary_invoice.payment_term"/>
+                                        </td>
+                                        <td class="amount">
+                                            <span t-esc="'%.2f€' %  (summary_invoice.balance)"/>
+                                        </td>
+
+                                    </tr>
+                                    <!--</t>-->
+                                    <!--<t t-if="summary_invoice.reminder_fees == True">-->
+                                    <!--<t t-foreach="summary_invoice.invoice_line_ids" t-as="invoice_line">-->
+                                    <!--<tr>-->
+                                    <!--<td></td>-->
+                                    <!--<td><span t-field="invoice_line.description" /></td>-->
+                                    <!--<td><span t-field="summary_invoice.payment_term" /></td>-->
+                                    <!--<td class="amount"><span t-esc="'%.2f€' %  (invoice_line.balance)" /></td>-->
+                                    <!--</tr>-->
+                                    <!--</t>-->
+                                    <!--</t>-->
+                                </t>
+                            </tr>
+                        </t>
+
+                    </table>
+                </div>
+            </xpath>
+        </template>
+
     </data>
 </odoo>
