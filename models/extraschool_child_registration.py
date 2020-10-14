@@ -154,49 +154,48 @@ class extraschool_child_registration(models.Model):
                 child.sunday = False
         else:
             for day in self.day_ids:
-                day = day.id
-                if day == 1:
+                if day.name == 'Lundi':
                     for child in self.child_registration_line_ids:
                         child.monday = True
-                elif day == 2:
+                elif day.name == 'Mardi':
                     for child in self.child_registration_line_ids:
                         child.tuesday = True
-                elif day == 3:
+                elif day.name == 'Mercredi':
                     for child in self.child_registration_line_ids:
                         child.wednesday = True
-                elif day == 4:
+                elif day.name == 'Jeudi':
                     for child in self.child_registration_line_ids:
                         child.thursday = True
-                elif day == 5:
+                elif day.name == 'Vendredi':
                     for child in self.child_registration_line_ids:
                         child.friday = True
-                elif day == 6:
+                elif day.name == 'Samedi':
                     for child in self.child_registration_line_ids:
                         child.saturday = True
-                elif day == 7:
+                elif day.name == 'Dimanche':
                     for child in self.child_registration_line_ids:
                         child.sunday = True
-                list.append(day)
+                list.append(day.name)
 
-                if 1 not in list:
+                if 'Lundi' not in list:
                     for child in self.child_registration_line_ids:
                         child.monday = False
-                if 2 not in list:
+                if 'Mardi' not in list:
                     for child in self.child_registration_line_ids:
                         child.tuesday = False
-                if 3 not in list:
+                if 'Mercredi' not in list:
                     for child in self.child_registration_line_ids:
                         child.wednesday = False
-                if 4 not in list:
+                if 'Jeudi' not in list:
                     for child in self.child_registration_line_ids:
                         child.thursday = False
-                if 5 not in list:
+                if 'Vendredi' not in list:
                     for child in self.child_registration_line_ids:
                         child.friday = False
-                if 6 not in list:
+                if 'Samedi' not in list:
                     for child in self.child_registration_line_ids:
                         child.saturday = False
-                if 7 not in list:
+                if 'Dimanche' not in list:
                     for child in self.child_registration_line_ids:
                         child.sunday = False
 
