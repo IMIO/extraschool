@@ -176,7 +176,7 @@ class extraschool_biller(models.Model):
         """
         self.env.invalidate_all()
         self._ensure_delete_one_biller()
-        self._ensure_delete_last_biller()
+        # self._ensure_delete_last_biller()
         self._unlink_invoices()
         return super(extraschool_biller, self).unlink()
 
