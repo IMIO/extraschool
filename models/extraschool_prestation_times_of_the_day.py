@@ -134,7 +134,6 @@ class extraschool_prestation_times_of_the_day(models.Model):
                     time_list = []
                 total -= 1
                 invoiced_activity_category = self.get_invoiced_activity_category()
-                # Récupérer les catégories d'activités qui sont facturées
                 presta.prestationtime_ids.filtered(lambda r: r.invoiced_prestation_id.id is False).unlink()
                 for pda_presta in presta.pda_prestationtime_ids.filtered(
                     lambda r: r.active and r.activitycategoryid.id not in invoiced_activity_category):
@@ -159,63 +158,6 @@ class extraschool_prestation_times_of_the_day(models.Model):
                 presta.checked = False
 
                 time_list.append(time.time() - start_time)
-
-    # @api.multi
-    # def reset(self):
-    #     for rec in self:
-    #         rec.place_check = True
-    #         total = len(rec)
-    #         time_list = []
-    #         for presta in rec:
-    #             start_time = time.time()
-    #
-    #             if len(time_list) == 50:
-    #                 avg_time = float(sum(time_list) / len(time_list)) * total
-    #                 avg_time = time.strftime('%M:%S', time.gmtime(avg_time))
-    #                 logging.info("Temps estimé restant: {}".format(avg_time))
-    #                 time_list = []
-    #             total -= 1
-    #             # Check if presta is not invoiced
-    #             import wdb
-    #             wdb.set_trace()
-    #             """
-    #             Les grands points :
-    #
-    #                 - Supprimer les présences
-    #                 - Pour chaque pda_prestationtime actif, on crée les présences
-    #                 - Pour chaque activity_occurrence_child_registration, on crée des présences
-    #
-    #             Nouveau flux :
-    #
-    #                 - Supprimer les présences qui ne sont pas facturées
-    #                 - pour chaque pda, on crée la présence si elle n'existe pas déjà
-    #                 - pour chaque activity_occurrence_child_registration, pour chaque catégorie, on fait quelque chose si
-    #                 ce n'est pas facturé
-    #             """
-    #             if len(presta.prestationtime_ids.filtered(lambda r: r.invoiced_prestation_id.id is not False).ids) == 0:
-    #                 presta.prestationtime_ids.unlink()
-    #                 for pda_presta in presta.pda_prestationtime_ids.filtered(lambda r: r.active):
-    #                     presta.prestationtime_ids.create({'placeid': pda_presta.placeid.id,
-    #                                                       'childid': pda_presta.childid.id,
-    #                                                       'prestation_date': pda_presta.prestation_date,
-    #                                                       'prestation_time': pda_presta.prestation_time,
-    #                                                       'es': pda_presta.es,
-    #                                                       'activity_category_id': pda_presta.activitycategoryid.id,
-    #                                                       })
-    #
-    #                 reg_ids = self.env['extraschool.activity_occurrence_child_registration'].search(
-    #                     [('child_id', '=', presta.child_id.id),
-    #                      ('activity_occurrence_id.occurrence_date', '=', presta.date_of_the_day),
-    #                      # ('activity_occurrence_id.activity_category_id', '=', presta.activity_category_id.id),
-    #                      ])
-    #                 for reg in reg_ids:
-    #                     if reg.activity_occurrence_id.activityid.autoaddchilds:
-    #                         reg.activity_occurrence_id.add_presta(reg.activity_occurrence_id, reg.child_id.id, None,
-    #                                                               False)
-    #                 presta.verified = False
-    #                 presta.checked = False
-    #
-    #             time_list.append(time.time() - start_time)
 
     @api.onchange('prestationtime_ids', 'pda_prestationtime_ids')
     def on_change_prestationtime_ids(self):
@@ -562,13 +504,13 @@ class extraschool_prestation_times_of_the_day(models.Model):
             str_prestation_ids = str(self.prestationtime_ids.ids).replace('[', '(').replace(']', ')')
             # Get list of distinct root_id of prestation time for those occurrence activities.
             self.env.cr.execute(
-                "select distinct(root_id) "
-                "from extraschool_prestationtimes ep "
-                "left join extraschool_activityoccurrence o "
-                "on ep.activity_occurrence_id = o.id "
-                "left join extraschool_activity a "
-                "on o.activityid = a.id "
-                "where a.root_id > 0 and ep.id in " + str_prestation_ids)
+                "SELECT DISTINCT(root_id) "
+                "FROM extraschool_prestationtimes ep "
+                "LEFT JOIN extraschool_activityoccurrence o "
+                "ON ep.activity_occurrence_id = o.id "
+                "LEFT JOIN extraschool_activity a "
+                "ON o.activityid = a.id "
+                "WHERE a.root_id > 0 AND ep.id IN " + str_prestation_ids)
 
             prestationtimes = self.env.cr.dictfetchall()
             root_ids = [r['root_id'] for r in prestationtimes]
@@ -601,90 +543,6 @@ class extraschool_prestation_times_of_the_day(models.Model):
             self.env.cr.commit()
 
         return self.verified
-
-    # @api.multi
-    # def check(self):
-    #     import wdb
-    #     wdb.set_trace()
-    #     # Check if presta is not invoiced
-    #     if len(self.prestationtime_ids.filtered(lambda r: r.invoiced_prestation_id.id is not False).ids) == 0:
-    #         # if no presta than warning and exit
-    #         if not self.prestationtime_ids:
-    #             self._add_comment(_("Warning : No presta found"), True)
-    #             self.verified = True
-    #             return True
-    #
-    #         for prestation in self.prestationtime_ids.filtered(lambda r: not r.activity_occurrence_id):
-    #             self.env['extraschool.prestationscheck_wizard']._prestation_activity_occurrence_completion(prestation)
-    #         # use in sql query
-    #         str_prestation_ids = str(self.prestationtime_ids.ids).replace('[', '(').replace(']', ')')
-    #         # Get list of distinct root_id of prestation time for those occurrence activities.
-    #         self.env.cr.execute(
-    #             "select distinct(root_id) "
-    #             "from extraschool_prestationtimes ep "
-    #             "left join extraschool_activityoccurrence o "
-    #             "on ep.activity_occurrence_id = o.id "
-    #             "left join extraschool_activity a "
-    #             "on o.activityid = a.id "
-    #             "where a.root_id > 0 and ep.id in " + str_prestation_ids)
-    #
-    #         prestationtimes = self.env.cr.dictfetchall()
-    #         root_ids = [r['root_id'] for r in prestationtimes]
-    #
-    #         for root_activity in self.env['extraschool.activity'].browse(root_ids):
-    #             start_time = self._completion_entry(root_activity)
-    #             stop_time = self._completion_exit(root_activity)
-    #
-    #             if start_time and stop_time:
-    #                 start_time.verified = True
-    #                 stop_time.verified = True
-    #                 self._occu_completion(start_time, stop_time, None, True, None)
-    #             else:
-    #                 # an error has been found and added to comment field
-    #                 self.verified = False
-    #     else:
-    #         for prestation in self.prestationtime_ids.filtered(lambda r: not r.activity_occurrence_id):
-    #             self.env['extraschool.prestationscheck_wizard']._prestation_activity_occurrence_completion(prestation)
-    #
-    #         str_prestation_ids = str(self.prestationtime_ids.ids).replace('[', '(').replace(']', ')')
-    #         # Get list of distinct root_id of prestation time for those occurrence activities.
-    #         self.env.cr.execute(
-    #             "select distinct(root_id) "
-    #             "from extraschool_prestationtimes ep "
-    #             "left join extraschool_activityoccurrence o "
-    #             "on ep.activity_occurrence_id = o.id "
-    #             "left join extraschool_activity a "
-    #             "on o.activityid = a.id "
-    #             "where a.root_id > 0 and ep.id in " + str_prestation_ids)
-    #
-    #         prestationtimes = self.env.cr.dictfetchall()
-    #         root_ids = [r['root_id'] for r in prestationtimes]
-    #
-    #         for root_activity in self.env['extraschool.activity'].browse(root_ids):
-    #             start_time = self._completion_entry(root_activity)
-    #             stop_time = self._completion_exit(root_activity)
-    #
-    #             if start_time and stop_time:
-    #                 start_time.verified = True
-    #                 stop_time.verified = True
-    #                 self._occu_completion(start_time, stop_time, None, True, None)
-    #             else:
-    #                 # an error has been found and added to comment field
-    #                 self.verified = False
-    #
-    #     self.last_check_entry_exit()
-    #
-    #     if len(self.prestationtime_ids.filtered(lambda r: r.verified is False).ids) or len(self.prestationtime_ids) % 2:
-    #         self.verified = False
-    #     # Check if the place_ids are correct.
-    #     elif not self.check_place():
-    #         self.verified = False
-    #         self.place_check = False
-    #     else:
-    #         self.verified = True
-    #         self.env.cr.commit()
-    #
-    #     return self.verified
 
     ##############################################################################
     #   Verification that all place ids are the same for the occurrence activity #

@@ -1,20 +1,20 @@
 <?xml version="1.0" ?>
 <odoo>
-	<data>
+    <data>
         <record model="ir.ui.view" id="extraschool_prestation_times_of_the_day_tree">
-			<field name="name">prestation_times_of_the_day.tree</field>
-			<field name="model">extraschool.prestation_times_of_the_day</field>
-			<field name="type">tree</field>
-			<field name="arch" type="xml">
-				<tree string="prestation_times_of_the_day" colors="red:verified==False" create="false">
-					<field name="date_of_the_day" />
-					<field name="child_id"/>
-					<!--<field name="activity_category_id" />-->
-					<field name="verified"/>
-					<field name="checked"/>
-				</tree>
-			</field>
-		</record>
+            <field name="name">prestation_times_of_the_day.tree</field>
+            <field name="model">extraschool.prestation_times_of_the_day</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="prestation_times_of_the_day" colors="red:verified==False" create="false">
+                    <field name="date_of_the_day"/>
+                    <field name="child_id"/>
+                    <!--<field name="activity_category_id" />-->
+                    <field name="verified"/>
+                    <field name="checked"/>
+                </tree>
+            </field>
+        </record>
 
         <record id="potd_request_rule" model="ir.rule">
             <field name="name">POTD Request Rule</field>
@@ -23,19 +23,21 @@
             <field name="groups" eval="[(4, ref('extraschool.extraschool_direction_rgpd'))]"/>
         </record>
 
-		<record model="ir.ui.view" id="extraschool_prestation_times_of_the_day_form">
-			<field name="name">prestation_times_of_the_day.form</field>
-			<field name="model">extraschool.prestation_times_of_the_day</field>
-			<field name="type">form</field>
-			<field name="arch" type="xml">
-				<form string="prestation_times_of_the_day" create="false">
-					<header>
-						<button name="reset" group="admin" string="Reset" icon="gtk-apply" type="object" />
-						<button name="check" group="admin" string="Check" icon="gtk-apply" type="object" />
-						<button name="delete_pod" groups="extraschool.extraschool_gods" string="Delete" class="oe_highlight" type="object" />
-						<button name="uniform_school" groups="extraschool.extraschool_ittre" string="Uniformiser Ecole" class="oe_highlight" type="object" />
-					</header>
-					<sheet>
+        <record model="ir.ui.view" id="extraschool_prestation_times_of_the_day_form">
+            <field name="name">prestation_times_of_the_day.form</field>
+            <field name="model">extraschool.prestation_times_of_the_day</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="prestation_times_of_the_day" create="false">
+                    <header>
+                        <button name="reset" group="admin" string="Reset" icon="gtk-apply" type="object"/>
+                        <button name="check" group="admin" string="Check" icon="gtk-apply" type="object"/>
+                        <button name="delete_pod" groups="extraschool.extraschool_gods" string="Delete"
+                                class="oe_highlight" type="object"/>
+                        <button name="uniform_school" groups="extraschool.extraschool_ittre" string="Uniformiser Ecole"
+                                class="oe_highlight" type="object"/>
+                    </header>
+                    <sheet>
                         <div class="alert alert-danger" attrs="{'invisible':[('verified', '=', True)]}">
                             Cette présence n'est pas vérifiée.
                         </div>
@@ -46,104 +48,112 @@
                             Veuillez vérifier que les lieux d'accueil soient corrects.
                         </div>
                         <field name="place_check" invisible="True"/>
-                        <group col="4">
-						<newline/>
-	                    <field name="child_id"  readonly="True"/>
-	                    <field name="child_level"  readonly="True"/>
-                        <newline/>
-                        <field name="date_of_the_day"  readonly="True"/>
-                        <field name="verified" invisible="True"/>
-                        <newline/>
-	                    <field name="comment" />
-						<field name="schoolimplantation" invisible="True"/>
-		                <separator string="Computed prestations" colspan="4"/>
-	                    <field name="prestationtime_ids" nolabel="1" colspan="4">
-	                    	<tree string="prestation_times" colors="red:verified==False" editable="bottom">
-                                <field name="activity_category_id" />
-                                <field name="placeid" />
-		                   		<field name="activity_occurrence_id" />
-	                    		<field name="prestation_time"  widget="float_time"/>
-	                    		<button name="invert_es" string="inverser" icon="gtk-refresh" type="object" />
-	                    		<field name="es" />
-	                    		<field name="exit_all"  readonly="True"/>
-	                    		<field name="verified" />
-	                    		<field name="invoiced_prestation_id" readonly="True"/>
-	                    		<field name="error_msg"  readonly="True"/>
-	                    	</tree>
-	                    	<form string="prestation_times" colors="red:verified==False">
-	                    		<group>
-		                    		<field name="childid" />
-		                    		<field name="placeid" />
-			                   		<field name="activity_occurrence_id" />
-		                    		<field name="prestation_time"  widget="float_time"/>
-		                    		<field name="es" />
-		                    		<field name="exit_all" />
-		                    		<field name="verified" />
-		                    		<field name="error_msg" />
-	                    		</group>
-	                    	</form>
-	                    </field>
-		                <separator string="PDA prestations" colspan="4"/>
-		            </group>
-	                <group expand="1" col="4">
-	                    <field name="pda_prestationtime_ids" nolabel="1" colspan="4" options='{"reload_on_button": True}'>
-	                    	<tree string="prestation_times" colors="red:active == False" editable="bottom">
-								<field name="active" invisible="1"/>
-                                <!--<field name="activitycategoryid"/>-->
-								<field name="type" readonly="1"/>
-								<field name="create_date" readonly="1"/>
-		                   		<field name="childid" readonly="1"/>
-	                    		<field name="placeid" readonly="1"/>
-	                    		<field name="prestation_time"  widget="float_time" readonly="1"/>
-	                    		<field name="es" />
-								<button name="desactive" string="Desactive" type="object" groups="extraschool.extraschool_direction" attrs="{'invisible':[('active', '=', False)]}"/>
-								<button name="desactive" string="Active" type="object" groups="extraschool.extraschool_direction" attrs="{'invisible':[('active', '=', True)]}"/>
-	                    	</tree>
-	                    </field>
-	                </group>
-					</sheet>
-				</form>
-			</field>
-		</record>
+                        <group>
+                            <newline/>
+                            <field name="child_id" readonly="True"/>
+                            <field name="child_level" readonly="True"/>
+                            <newline/>
+                            <field name="date_of_the_day" readonly="True"/>
+                            <field name="verified" invisible="True"/>
+                            <newline/>
+                            <field name="comment"/>
+                            <field name="schoolimplantation" invisible="True"/>
+                            <separator string="Computed prestations" colspan="4"/>
+                            <field name="prestationtime_ids" nolabel="1" colspan="4">
+                                <tree string="prestation_times" colors="red:verified==False" editable="bottom">
+                                    <field name="activity_category_id"/>
+                                    <field name="placeid"/>
+                                    <field name="activity_occurrence_id"/>
+                                    <field name="prestation_time" widget="float_time"/>
+                                    <button name="invert_es" string="inverser" icon="gtk-refresh" type="object"/>
+                                    <field name="es"/>
+                                    <field name="exit_all" readonly="True"/>
+                                    <field name="verified"/>
+                                    <field name="invoiced_prestation_id" readonly="True"/>
+                                    <field name="error_msg" readonly="True"/>
+                                </tree>
+                                <form string="prestation_times" colors="red:verified==False">
+                                    <group>
+                                        <field name="childid"/>
+                                        <field name="placeid"/>
+                                        <field name="activity_occurrence_id"/>
+                                        <field name="prestation_time" widget="float_time"/>
+                                        <field name="es"/>
+                                        <field name="exit_all"/>
+                                        <field name="verified"/>
+                                        <field name="error_msg"/>
+                                    </group>
+                                </form>
+                            </field>
+                            <separator string="PDA prestations" colspan="4"/>
+                        </group>
+                        <group expand="1" col="4">
+                            <field name="pda_prestationtime_ids" nolabel="1" colspan="4"
+                                   options='{"reload_on_button": True}'>
+                                <tree string="prestation_times" colors="red:active == False" editable="bottom">
+                                    <field name="active" invisible="1"/>
+                                    <!--<field name="activitycategoryid"/>-->
+                                    <field name="type" readonly="1"/>
+                                    <field name="create_date" readonly="1"/>
+                                    <field name="childid" readonly="1"/>
+                                    <field name="placeid" readonly="1"/>
+                                    <field name="prestation_time" widget="float_time" readonly="1"/>
+                                    <field name="es"/>
+                                    <button name="desactive" string="Desactive" type="object"
+                                            groups="extraschool.extraschool_direction"
+                                            attrs="{'invisible':[('active', '=', False)]}"/>
+                                    <button name="desactive" string="Active" type="object"
+                                            groups="extraschool.extraschool_direction"
+                                            attrs="{'invisible':[('active', '=', True)]}"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
 
         <record id="prestation_times_of_the_day_search_view" model="ir.ui.view">
             <field name="name">prestation_times_of_the_day.search</field>
             <field name="model">extraschool.prestation_times_of_the_day</field>
             <field name="arch" type="xml">
                 <search string="prestation_times_of_the_day search">
-                   <field name="child_id" string="child"/>
-                   <field name="date_of_the_day" string="Date du jour"/>
-                   <filter string="not verified" name="not_verified" icon="terp-accessories-archiver" domain="[('verified','=',False)]"/>
-                   <group  expand='0' string='Group by...'>
-                       <filter string='Child' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'child_id'}"/>
-                       <filter string='School Implantation' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'schoolimplantation'}"/>
-                   </group>
+                    <field name="child_id" string="child"/>
+                    <field name="date_of_the_day" string="Date du jour"/>
+                    <filter string="not verified" name="not_verified" icon="terp-accessories-archiver"
+                            domain="[('verified','=',False)]"/>
+                    <group expand='0' string='Group by...'>
+                        <filter string='Child' icon="terp-stock_symbol-selection" domain="[]"
+                                context="{'group_by' : 'child_id'}"/>
+                        <filter string='School Implantation' icon="terp-stock_symbol-selection" domain="[]"
+                                context="{'group_by' : 'schoolimplantation'}"/>
+                    </group>
                 </search>
             </field>
         </record>
 
         <record model="ir.actions.act_window" id="action_extraschool_prestation_times_of_the_day">
-			<field name="name">Prestations_of_the_day</field>
-			<field name="res_model">extraschool.prestation_times_of_the_day</field>
-			<field name="view_type">form</field>
-		</record>
+            <field name="name">Prestations_of_the_day</field>
+            <field name="res_model">extraschool.prestation_times_of_the_day</field>
+            <field name="view_type">form</field>
+        </record>
 
         <record model="ir.actions.act_window" id="action_extraschool_prestation_times_of_the_day_tree">
-			<field name="name">Prestations_of_the_day.tree</field>
-			<field name="res_model">extraschool.prestation_times_of_the_day</field>
-			<field name="view_type">form</field>
-			<field name="view_id" ref="extraschool_prestation_times_of_the_day_tree"/>
+            <field name="name">Prestations_of_the_day.tree</field>
+            <field name="res_model">extraschool.prestation_times_of_the_day</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="extraschool_prestation_times_of_the_day_tree"/>
             <field name="search_view_id" ref="prestation_times_of_the_day_search_view"/>
-		</record>
+        </record>
 
         <record model="ir.actions.act_window" id="action_extraschool_prestation_times_of_the_day_tree_not_verified">
-			<field name="name">Prestations_of_the_day.tree</field>
-			<field name="res_model">extraschool.prestation_times_of_the_day</field>
-			<field name="view_type">form</field>
-			<field name="view_id" ref="extraschool_prestation_times_of_the_day_tree"/>
+            <field name="name">Prestations_of_the_day.tree</field>
+            <field name="res_model">extraschool.prestation_times_of_the_day</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="extraschool_prestation_times_of_the_day_tree"/>
             <field name="search_view_id" ref="prestation_times_of_the_day_search_view"/>
-			<field name="context">{'search_default_not_verified':1}</field>
-		</record>
+            <field name="context">{'search_default_not_verified':1}</field>
+        </record>
 
-	</data>
+    </data>
 </odoo>
