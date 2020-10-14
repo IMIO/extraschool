@@ -2,9 +2,9 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2019
+#    Copyright (C) 2008-2020
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia & Jenny Pans - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -133,29 +133,29 @@ class extraschool_prestation_times_of_the_day(models.Model):
                     logging.info("Temps estimé restant: {}".format(avg_time))
                     time_list = []
                 total -= 1
-                # Check if presta is not invoiced
-                if len(presta.prestationtime_ids.filtered(lambda r: r.invoiced_prestation_id.id is not False).ids) == 0:
-                    presta.prestationtime_ids.unlink()
-                    for pda_presta in presta.pda_prestationtime_ids.filtered(lambda r: r.active):
-                        presta.prestationtime_ids.create({'placeid': pda_presta.placeid.id,
-                                                          'childid': pda_presta.childid.id,
-                                                          'prestation_date': pda_presta.prestation_date,
-                                                          'prestation_time': pda_presta.prestation_time,
-                                                          'es': pda_presta.es,
-                                                          'activity_category_id': pda_presta.activitycategoryid.id,
-                                                          })
+                invoiced_activity_category = self.get_invoiced_activity_category()
+                presta.prestationtime_ids.filtered(lambda r: r.invoiced_prestation_id.id is False).unlink()
+                for pda_presta in presta.pda_prestationtime_ids.filtered(
+                    lambda r: r.active and r.activitycategoryid.id not in invoiced_activity_category):
+                    presta.prestationtime_ids.create({'placeid': pda_presta.placeid.id,
+                                                      'childid': pda_presta.childid.id,
+                                                      'prestation_date': pda_presta.prestation_date,
+                                                      'prestation_time': pda_presta.prestation_time,
+                                                      'es': pda_presta.es,
+                                                      'activity_category_id': pda_presta.activitycategoryid.id,
+                                                      })
 
-                    reg_ids = self.env['extraschool.activity_occurrence_child_registration'].search(
-                        [('child_id', '=', presta.child_id.id),
-                         ('activity_occurrence_id.occurrence_date', '=', presta.date_of_the_day),
-                         # ('activity_occurrence_id.activity_category_id', '=', presta.activity_category_id.id),
-                         ])
-                    for reg in reg_ids:
-                        if reg.activity_occurrence_id.activityid.autoaddchilds:
-                            reg.activity_occurrence_id.add_presta(reg.activity_occurrence_id, reg.child_id.id, None,
-                                                                  False)
-                    presta.verified = False
-                    presta.checked = False
+                reg_ids = self.env['extraschool.activity_occurrence_child_registration'].search(
+                    [('child_id', '=', presta.child_id.id),
+                     ('activity_occurrence_id.occurrence_date', '=', presta.date_of_the_day),
+                     ('activity_occurrence_id.activity_category_id.id', 'not in', invoiced_activity_category),
+                     ])
+                for reg in reg_ids:
+                    if reg.activity_occurrence_id.activityid.autoaddchilds:
+                        reg.activity_occurrence_id.add_presta(reg.activity_occurrence_id, reg.child_id.id, None,
+                                                              False)
+                presta.verified = False
+                presta.checked = False
 
                 time_list.append(time.time() - start_time)
 
@@ -203,17 +203,11 @@ class extraschool_prestation_times_of_the_day(models.Model):
         es = ['E', 'S']
         last_occu = None
         zz = 0
-        activity_ids = []
         self.activity_to_delete = 0
 
         # Get all the activity ID from the prestations.
-        for presta in self.prestationtime_ids.sorted(key=lambda r: (r.prestation_time)):
-            if presta.activity_occurrence_id.activityid.id not in activity_ids:
-                activity_ids.append(presta.activity_occurrence_id.activityid.id)
-
-        # Get the activity object sorted by prest_to for better search.
-        activity_range = self.env['extraschool.activity'].search([('id', 'in', activity_ids)]).sorted(
-            key=lambda r: (r.prest_to))
+        activity_range = self.prestationtime_ids.mapped("activity_occurrence_id").mapped("activityid").sorted(
+            lambda r: r.prest_to)
 
         # Compare 2 activities at a time. If they have the same prest_to and prest_from
         # And if one of them has autoaddchilds=True it will delete the prestation from the other activity.
@@ -234,7 +228,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
                     lambda r: r.activity_occurrence_id.activityid.id == self.activity_to_delete).unlink()
 
         for presta in self.prestationtime_ids.sorted(
-            key=lambda r: ("%s%s" % (('%.2f' % (r.prestation_time)).zfill(5), 1 if r.es == 'E' else 0))):
+            lambda r: ("%s%s" % (('%.2f' % r.prestation_time).zfill(5), 1 if r.es == 'E' else 0))):
             i = zz % 2
             # check alternate E / S
 
@@ -502,25 +496,25 @@ class extraschool_prestation_times_of_the_day(models.Model):
 
     @api.multi
     def check(self):
-        # Check if presta is not invoiced
-        if len(self.prestationtime_ids.filtered(lambda r: r.invoiced_prestation_id.id is not False).ids) == 0:
-            # if no presta than warning and exit
-            if not self.prestationtime_ids:
-                self._add_comment(_("Warning : No presta found"), True)
-                self.verified = True
-                return True
-
-            #
-            str_prestation_ids = str(self.prestationtime_ids.ids).replace('[', '(').replace(']', ')')
+        if len(self.prestationtime_ids) > 0:
+            # match prestation with activity occurrence
             for prestation in self.prestationtime_ids.filtered(lambda r: not r.activity_occurrence_id):
                 self.env['extraschool.prestationscheck_wizard']._prestation_activity_occurrence_completion(prestation)
+            # use in sql query
+            str_prestation_ids = str(self.prestationtime_ids.ids).replace('[', '(').replace(']', ')')
             # Get list of distinct root_id of prestation time for those occurrence activities.
             self.env.cr.execute(
-                "select distinct(root_id) from extraschool_prestationtimes ep left join extraschool_activityoccurrence o on ep.activity_occurrence_id = o.id left join extraschool_activity a on o.activityid = a.id where a.root_id > 0 and ep.id in " + str_prestation_ids)
+                "SELECT DISTINCT(root_id) "
+                "FROM extraschool_prestationtimes ep "
+                "LEFT JOIN extraschool_activityoccurrence o "
+                "ON ep.activity_occurrence_id = o.id "
+                "LEFT JOIN extraschool_activity a "
+                "ON o.activityid = a.id "
+                "WHERE a.root_id > 0 AND ep.id IN " + str_prestation_ids)
 
             prestationtimes = self.env.cr.dictfetchall()
             root_ids = [r['root_id'] for r in prestationtimes]
-
+            #
             for root_activity in self.env['extraschool.activity'].browse(root_ids):
                 start_time = self._completion_entry(root_activity)
                 stop_time = self._completion_exit(root_activity)
@@ -533,28 +527,8 @@ class extraschool_prestation_times_of_the_day(models.Model):
                     # an error has been found and added to comment field
                     self.verified = False
         else:
-            str_prestation_ids = str(self.prestationtime_ids.ids).replace('[', '(').replace(']', ')')
-            for prestation in self.prestationtime_ids.filtered(lambda r: not r.activity_occurrence_id):
-                self.env['extraschool.prestationscheck_wizard']._prestation_activity_occurrence_completion(prestation)
-
-            # Get list of distinct root_id of prestation time for those occurrence activities.
-            self.env.cr.execute(
-                "select distinct(root_id) from extraschool_prestationtimes ep left join extraschool_activityoccurrence o on ep.activity_occurrence_id = o.id left join extraschool_activity a on o.activityid = a.id where a.root_id > 0 and ep.id in " + str_prestation_ids)
-
-            prestationtimes = self.env.cr.dictfetchall()
-            root_ids = [r['root_id'] for r in prestationtimes]
-
-            for root_activity in self.env['extraschool.activity'].browse(root_ids):
-                start_time = self._completion_entry(root_activity)
-                stop_time = self._completion_exit(root_activity)
-
-                if start_time and stop_time:
-                    start_time.verified = True
-                    stop_time.verified = True
-                    self._occu_completion(start_time, stop_time, None, True, None)
-                else:
-                    # an error has been found and added to comment field
-                    self.verified = False
+            self._add_comment(_("Warning : No presta found"), True)
+            self.verified = True
 
         self.last_check_entry_exit()
 
@@ -628,6 +602,23 @@ class extraschool_prestation_times_of_the_day(models.Model):
             presta.check()
             presta.checked = True
 
+    @api.multi
+    def get_prestationtimes_by_activity_category(self, activity_category):
+        return self.prestationtime_ids.filtered(lambda r: r.activity_category_id.id == activity_category.id)
+
+    @api.multi
+    def get_invoiced_prestationtimes_by_activity_category(self, activity_category):
+        return self.get_prestationtimes_by_activity_category(activity_category).filtered(
+            lambda r: r.invoiced_prestation_id.id is not False)
+
+    @api.multi
+    def get_invoiced_activity_category(self):
+        activities_categories = []
+        for activity_category in self.prestationtime_ids.mapped("activity_category_id"):
+            if len(self.get_invoiced_prestationtimes_by_activity_category(activity_category)) > 0:
+                activities_categories.append(activity_category.id)
+        return activities_categories
+
 
 class extraschool_prestation_times_history(models.Model):
     _name = 'extraschool.prestation_times_history'
@@ -645,5 +636,6 @@ class extraschool_prestation_times_history(models.Model):
     activity_occurrence_id = fields.Many2one('extraschool.activityoccurrence', 'Activity occurrence')
     activity_name = fields.Char(related='activity_occurrence_id.activityname')
     activity_category_id = fields.Many2one('extraschool.activitycategory', 'Activity Category')
-    prestation_times_of_the_day_id = fields.Many2one('extraschool.prestation_times_of_the_day', 'Prestation of the day')
+    prestation_times_of_the_day_id = fields.Many2one('extraschool.prestation_times_of_the_day',
+                                                     'Prestation of the day')
     invoiced_prestation_id = fields.Many2one('extraschool.invoicedprestations', string='Invoiced prestation')
