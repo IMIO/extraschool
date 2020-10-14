@@ -133,7 +133,7 @@ class extraschool_prestation_times_of_the_day(models.Model):
                     logging.info("Temps estimé restant: {}".format(avg_time))
                     time_list = []
                 total -= 1
-                invoiced_activity_category = self.get_invoiced_activity_category()
+                invoiced_activity_category = self.get_invoiced_activity_category(rec)
                 presta.prestationtime_ids.filtered(lambda r: r.invoiced_prestation_id.id is False).unlink()
                 for pda_presta in presta.pda_prestationtime_ids.filtered(
                     lambda r: r.active and r.activitycategoryid.id not in invoiced_activity_category):
@@ -602,20 +602,20 @@ class extraschool_prestation_times_of_the_day(models.Model):
             presta.check()
             presta.checked = True
 
-    @api.multi
+    @staticmethod
     def get_prestationtimes_by_activity_category(self, activity_category):
         return self.prestationtime_ids.filtered(lambda r: r.activity_category_id.id == activity_category.id)
 
-    @api.multi
+    @staticmethod
     def get_invoiced_prestationtimes_by_activity_category(self, activity_category):
-        return self.get_prestationtimes_by_activity_category(activity_category).filtered(
+        return self.get_prestationtimes_by_activity_category(self, activity_category).filtered(
             lambda r: r.invoiced_prestation_id.id is not False)
 
-    @api.multi
+    @staticmethod
     def get_invoiced_activity_category(self):
         activities_categories = []
         for activity_category in self.prestationtime_ids.mapped("activity_category_id"):
-            if len(self.get_invoiced_prestationtimes_by_activity_category(activity_category)) > 0:
+            if len(self.get_invoiced_prestationtimes_by_activity_category(self, activity_category)) > 0:
                 activities_categories.append(activity_category.id)
         return activities_categories
 
