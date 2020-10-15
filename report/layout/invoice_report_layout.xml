@@ -111,7 +111,8 @@
                         <t t-set="total_balance_per_activity_category"
                            t-value="invoice.parentid.get_sum_invoice_by_activity_category(invoice_id)"/>
 
-                        <t t-set="date_college" t-value="time.strftime('%d-%m-%Y',time.strptime(activity_category.date_college,'%Y-%m-%d'))"/>
+                        <t t-set="date_college"
+                           t-value="time.strftime('%d-%m-%Y',time.strptime(activity_category.date_college,'%Y-%m-%d'))"/>
 
                         <div class="header">
                             <t t-foreach="activity_category.invoice_report_id.inline_report_ids.filtered(lambda r: r.section == 'a_header')"
