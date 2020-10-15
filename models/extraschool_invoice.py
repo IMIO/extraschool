@@ -303,6 +303,52 @@ class extraschool_invoice(models.Model):
 
         return concened_months
 
+    @api.multi
+    def get_invoice_calendar_duration(self, child_id=None, exclued_free=False):
+        """
+        Build a calendar of activities by child for this invoice
+        :param child_id: The id of the child
+        :param exclued_free: True if you want to exclued free activities. False by default
+        :return: Dictionnary of concerned month with the duration of presences by day and name of activities.
+        """
+        concened_months = self.biller_id.get_concerned_months()
+        for month in concened_months:
+            month['days'] = calendar.monthcalendar(month['year'], month['month'])
+            month['activity'] = self.get_concerned_short_name()
+            month['duration'] = []
+
+            if exclued_free:
+                activity_to_remove = []
+                for activity in month['activity']:
+                    if self.isfree(activity):
+                        activity_to_remove.append(activity)
+
+                if activity_to_remove:
+                    for activity in activity_to_remove:
+                        month['activity'].remove(activity)
+
+            zz = 0
+            for week in month['days']:
+                month['duration'].append([])
+
+                for d in week:
+                    d = {'day_id': d,
+                         'duration': [],
+                         }
+                    for activity in month['activity']:
+                        d['duration'].append(sum(self.invoice_line_ids.filtered(lambda r: r.childid.id == child_id
+                                                                                          and r.prestation_date == '%s-%02d-%02d' % (
+                                                                                              month['year'],
+                                                                                              month['month'],
+                                                                                              d['day_id'])
+                                                                                          and r.activity_activity_id.short_name == activity
+                                                                                ).mapped('duration')))
+                    month['duration'][zz].append(d)
+
+                zz += 1
+
+        return concened_months
+
     def isfree(self, activity_name):
         for line in self.invoice_line_ids.filtered(lambda r: r.activity_activity_id.short_name == activity_name):
             if line.total_price == 0.00:

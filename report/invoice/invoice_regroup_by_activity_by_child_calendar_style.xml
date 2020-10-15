@@ -296,7 +296,7 @@
         		<t t-foreach="invoice.get_concerned_child()" t-as="child">
         		    <div>
         		    <b><span t-esc="child.name"/></b>
-		       		<t t-foreach="invoice.get_invoice_calendar(child.id)" t-as="month">
+		       		<t t-foreach="invoice.get_invoice_calendar_duration(child.id)" t-as="month">
 	        		    <table>
 		        			<tr>
 			        			<th><span t-esc="monthname[month['month']-1]" /></th>
@@ -307,7 +307,7 @@
 				        				<t t-if= "zz &gt; 5">
 				        					<t t-set="weekend" t-value="'weekend'" />
 										</t>
-				        				<th t-if= "d &gt; 0" t-attf-class="quantity {{weekend}}"><span t-esc="d" /></th>
+				        				<th t-if= "d &gt; 0" t-attf-class="duration {{weekend}}"><span t-esc="d" /></th>
 			        					<t t-set="zz" t-value="zz+1" />
 			        				</t>
 		        				</t>
@@ -321,7 +321,7 @@
 			       					</ul>
 			       				</td>
 			       				<t t-set="weekend" t-value="toto" />
-			       				<t t-foreach="month['quantity']" t-as="week">
+			       				<t t-foreach="month['duration']" t-as="week">
 			       					<t t-set="zz" t-value="1" />
 			       					<t t-foreach="week" t-as="day">
 			       						<t t-set="weekend" t-value="False" />
@@ -329,14 +329,14 @@
 			       							<t t-set="weekend" t-value="'weekend'" />
 			       						</t>
 				       					<t t-if= "day['day_id'] != 0">
-				       						<td t-attf-class="quantity {{weekend}}">
+				       						<td t-attf-class="duration {{weekend}}">
 				       							<ul>
-						       						<t t-foreach="day['quantity']" t-as="quantity">
+						       						<t t-foreach="day['duration']" t-as="duration">
 							        					<li>
-							        						<t t-if= "quantity != 0">
-							        							<t-span t-esc="quantity" />‘
+							        						<t t-if= "duration != 0">
+							        							<t-span t-esc="duration" />‘
 							        						</t>
-							        						<t t-if= "quantity == 0">
+							        						<t t-if= "duration == 0">
 							        							<![CDATA[&nbsp;]]>
 							        						</t>
 							        					</li>
