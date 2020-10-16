@@ -4,7 +4,7 @@
 #    Extraschool
 #    Copyright (C) 2008-2020
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchia & Jenny Pans - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia & Jenny Pans & François Burniaux - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -32,7 +32,7 @@ import openerp.addons.decimal_precision as dp
 
 from openerp import models, api, fields, _
 from openerp.exceptions import Warning
-from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT)
+from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT, math)
 
 _logger = logging.getLogger(__name__)
 
@@ -134,6 +134,29 @@ class extraschool_invoice(models.Model):
     def get_infos_childs(self):
         return self.invoice_line_ids.sorted(
             key=lambda r: (r.childid.id, r.prestation_date, r.get_child_entry()))
+
+    def float_time_to_str(self, float_val):
+        factor = float_val < 0 and -1 or 1
+        val = abs(float_val)
+        return "%02d:%02d" % (factor * int(math.floor(val)), int(round((val % 1) * 60)))
+
+    @api.multi
+    def get_infos_childs_performance(self):
+        prestation_line_lst = []
+        for invoice_line in self.invoice_line_ids.sorted(key=lambda r: r.prestation_date):
+            is_short_name = True
+            for prestation in invoice_line.prestation_ids:
+                if is_short_name:
+                    module = prestation.prestation_times_of_the_day_id.prestationtime_ids.filtered(lambda
+                            r: r.prestation_time and r.es == 'E' and r.activity_occurrence_id.activityid.short_name == invoice_line.activity_occurrence_id.activityid.short_name)[0]
+                    entry = module.prestation_time
+                    exit = prestation.prestation_times_of_the_day_id.prestationtime_ids.filtered(lambda
+                            r: r.prestation_time and r.es == 'S' and r.activity_occurrence_id.activityid.short_name == invoice_line.activity_occurrence_id.activityid.short_name)[-1].prestation_time
+                    prestation_line_lst.append((module, self.float_time_to_str(entry), self.float_time_to_str(exit)))
+                    is_short_name = False
+                # import wdb
+                # wdb.set_trace()
+        return prestation_line_lst
 
     @api.multi
     def get_today(self):

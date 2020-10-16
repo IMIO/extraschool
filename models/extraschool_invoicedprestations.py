@@ -4,7 +4,7 @@
 #    Extraschool
 #    Copyright (C) 2008-2020
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchia & Jenny Pans - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia & Jenny Pans & François Burniaux - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -92,7 +92,6 @@ class extraschool_invoicedprestations(models.Model):
         return "%02d:%02d" % (factor * int(math.floor(val)), int(round((val % 1) * 60)))
 
     def get_child_entry(self):
-
         presta_obj = self.env['extraschool.prestationtimes']
         # get child presta
         presta_ids = presta_obj.search([("childid", "=", self.childid.id),
@@ -110,6 +109,7 @@ class extraschool_invoicedprestations(models.Model):
 
     def get_child_exit(self):
         # get child presta
+        # wdb voir présence
         presta_obj = self.env['extraschool.prestationtimes']
         presta_ids = presta_obj.search([("childid", "=", self.childid.id),
                                         ("activity_occurrence_id.activityid.short_name", "=",
@@ -123,6 +123,12 @@ class extraschool_invoicedprestations(models.Model):
             return self.float_time_to_str(presta_ids[0].prestation_time)
         else:
             return False
+
+    def get_child_entry_performance(self):
+        return self.float_time_to_str(self.prestation_ids.filtered(lambda r: r.es == 'E'))
+
+    def get_child_exit_performance(self):
+        return self.float_time_to_str(self.prestation_ids.filtered(lambda r: r.es == 'S').prestation_time)
 
     @api.multi
     def write(self, vals):

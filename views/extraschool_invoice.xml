@@ -140,6 +140,7 @@
 			                <page string="Details">
 	   		                    <field name="invoice_line_ids" readonly="True">
 	   		                    	<tree>
+                                        <field name="id"/>
 	   		                    		<field name="childid" />
 	   		                    		<field name="activity_occurrence_id" />
 	   		                    		<field name="child_position_id"/>
