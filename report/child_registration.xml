@@ -72,7 +72,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <t t-foreach="child_registration.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['M','A'])"
+                                <t t-foreach="child_registration.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['M','A']).sorted(key=lambda r: (r.child_level, r.child_lastname))"
                                    t-as="child">
                                     <tr>
                                         <td>
@@ -191,7 +191,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <t t-foreach="child_registration.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['P','A'])"
+                                <t t-foreach="child_registration.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['P','A']).sorted(key=lambda r: (r.child_level, r.child_lastname))"
                                    t-as="child">
                                     <tr>
                                         <td>
@@ -362,7 +362,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <t t-foreach="child_registration.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['M','A'])"
+                                <t t-foreach="child_registration.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['M','A']).sorted(key=lambda r: (r.child_level, r.child_lastname))"
                                    t-as="child">
                                     <tr>
                                         <td>
@@ -437,7 +437,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <t t-foreach="child_registration.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['P','A'])"
+                                    <t t-foreach="child_registration.child_registration_line_ids.filtered(lambda r: r.child_id.levelid.leveltype in ['P','A']).sorted(key=lambda r: (r.child_level, r.child_lastname))"
                                        t-as="child">
                                         <tr>
                                             <td>
