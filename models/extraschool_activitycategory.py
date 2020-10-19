@@ -189,7 +189,7 @@ class extraschool_activitycategory(models.Model):
                                                               'padding': 5})
 
             sequence_id = self.env["extraschool.activitycategory.sequence"].create({
-                "name": "{} - {} - {}".format(self.name, type, year),
+                "name": "{} - {} - {}".format(self.name.encode('utf8'), type, year),
                 "activity_category_id": self.id,
                 "year": year,
                 "type": type,
