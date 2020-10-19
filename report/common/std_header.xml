@@ -134,24 +134,6 @@
             </div>
         </template>
 
-        <template id="report_std_header_logo_big">
-            <xpath expr="//head" position="inside">
-                <link rel="stylesheet" href="/extraschool/static/src/css/report_std_header_bigger.css"/>
-            </xpath>
-            <div id="aes_header">
-                <div class="row">
-                    <div id="b_logo">
-                        <img class="logo" t-attf-src="data:image/jpeg;base64,{{logo}}"/>
-                    </div>
-                    <div id="b_date">
-                        <span class="doc_date" style="font-size: 12px;">
-                            <t t-esc="doc_date"/>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </template>
-
         <template id="report_2_logo_std_header">
             <xpath expr="//head" position="inside">
                 <link rel="stylesheet" href="/extraschool/static/src/css/report_std_header.css"/>
