@@ -111,7 +111,8 @@
                         <t t-set="total_balance_per_activity_category"
                            t-value="invoice.parentid.get_sum_invoice_by_activity_category(invoice_id)"/>
 
-                        <t t-set="date_college" t-value="time.strftime('%d-%m-%Y',time.strptime(activity_category.date_college,'%Y-%m-%d'))"/>
+                        <t t-set="date_college"
+                           t-value="time.strftime('%d-%m-%Y',time.strptime(activity_category.date_college,'%Y-%m-%d'))"/>
 
                         <div class="header">
                             <t t-foreach="activity_category.invoice_report_id.inline_report_ids.filtered(lambda r: r.section == 'a_header')"
@@ -264,6 +265,7 @@
                         <t t-set="po_addresse" t-value="categ_id.organising_power_id"/>
 
                         <t t-set="parent_id" t-value="invoice.parentid"/>
+                        <t t-set="logo" t-value="organising_power.logo"/>
 
                         <t t-set="resp_fct" t-value="organising_power.po_resp_name"/>
                         <t t-set="resp_name" t-value="organising_power.po_resp_fct"/>

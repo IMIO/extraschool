@@ -103,7 +103,7 @@
             <xpath expr="//span[@class='doc_date']" position="before">
                 <t t-if="schoolimplantationid">
                     <span class="implantation">
-                        <t t-esc="schoolimplantationid.id	"/>
+                        <t t-esc="schoolimplantationid.id"/>
                     </span>
                     <br/>
                     <br/>
