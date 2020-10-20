@@ -1,169 +1,196 @@
 <?xml version="1.0" ?>
 <odoo>
-	<data>
-		<template id="report_std_header">
+    <data>
+        <template id="report_std_header">
             <xpath expr="//head" position="inside">
                 <link rel="stylesheet" href="/extraschool/static/src/css/report_std_header.css"/>
             </xpath>
-		    <div id="aes_header">
-		    	<div class="row">
-		    		<div id="b_logo">
-						<img class="logo" t-attf-src="data:image/jpeg;base64,{{logo}}"/>
-		    		</div>
-		    		<div id="b_date">
-						<span class="doc_date" style="font-size: 12px;"><t t-esc="doc_date" /></span>
-		    		</div>
-		    	</div>
-		    	<div class="row" >
-			    	<span class="slogan"><t t-esc="slogan" /></span>
-				</div>
-			</div>
-		</template>
+            <div id="aes_header">
+                <div class="row">
+                    <div id="b_logo">
+                        <img class="logo" t-attf-src="data:image/jpeg;base64,{{logo}}"/>
+                    </div>
+                    <div id="b_date">
+                        <span class="doc_date" style="font-size: 12px;">
+                            <t t-esc="doc_date"/>
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <span class="slogan">
+                        <t t-esc="slogan"/>
+                    </span>
+                </div>
+            </div>
+        </template>
 
-		<template id="report_std_header_name_right">
-		    <style type="text/css">
-		        #aes_header{
-		    		width: 100%;
-					display: block;
-					clear: both;
-					position: relative;
+        <template id="report_std_header_name_right">
+            <style type="text/css">
+                #aes_header{
+                width: 100%;
+                display: block;
+                clear: both;
+                position: relative;
 
-		    	}
-		    	#aes_header>div.row{
-		    		width: 100%;
-		    	}
+                }
+                #aes_header>div.row{
+                width: 100%;
+                }
 
-		    	#b_logo{
-		    		float: left;
-		    	}
-		    	#b_slogan{
-		    		float: left;
-					margin-top: 10px;
-					width: 50%;
+                #b_logo{
+                float: left;
+                }
+                #b_slogan{
+                float: left;
+                margin-top: 10px;
+                width: 50%;
 
-		    	}
+                }
 
-		    	#b_date{
-		    		text-align: right;
-					margin-top: 10px;
-					min-width: 9cm;
-					position: absolute;
-					right: 2em;
-					top: 5%;
+                #b_date{
+                text-align: right;
+                margin-top: 10px;
+                min-width: 9cm;
+                position: absolute;
+                right: 2em;
+                top: 5%;
 
-				}
+                }
 
-				.logo {
-					width: 25mm;
-					display: inline-block;
-					float: left;
-				}
+                .logo {
+                width: 25mm;
+                display: inline-block;
+                float: left;
+                }
 
-		    	.doc_date{
-		    		font-size: 14px;
-		    	}
+                .doc_date{
+                font-size: 14px;
+                }
 
-		    	.implantation{
-		    		font-size: 7px;
-		    	}
-		    </style>
+                .implantation{
+                font-size: 7px;
+                }
+            </style>
 
-		    <div id="aes_header">
-		    	<div class="row">
-		    		<div id="b_logo">
-						<img class="logo" t-attf-src="data:image/jpeg;base64,{{logo}}"/>
-		    		</div>
-		    		<div id="b_slogan">
-						<span class="slogan"><t t-esc="slogan" /></span>
-		    		</div>
-					<div id="b_date">
-						<span class="doc_date"><t t-esc="doc_date" /></span>
-					</div>
-		    	</div>
-			</div>
-		</template>
+            <div id="aes_header">
+                <div class="row">
+                    <div id="b_logo">
+                        <img class="logo" t-attf-src="data:image/jpeg;base64,{{logo}}"/>
+                    </div>
+                    <div id="b_slogan">
+                        <span class="slogan">
+                            <t t-esc="slogan"/>
+                        </span>
+                    </div>
+                    <div id="b_date">
+                        <span class="doc_date">
+                            <t t-esc="doc_date"/>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </template>
 
 
-		<template id="report_std_header_no_date" inherit_id="extraschool.report_std_header" primary="True">
+        <template id="report_std_header_no_date" inherit_id="extraschool.report_std_header" primary="True">
 
-			<xpath expr="//span[@class='doc_date']" position="replace">
-			</xpath>
-		</template>
+            <xpath expr="//span[@class='doc_date']" position="replace">
+            </xpath>
+        </template>
 
-		<template id="report_std_header_ref_school" inherit_id="extraschool.report_std_header" primary="True">
+        <template id="report_std_header_ref_school" inherit_id="extraschool.report_std_header" primary="True">
 
-			<xpath expr="//span[@class='doc_date']" position="before">
+            <xpath expr="//span[@class='doc_date']" position="before">
                 <t t-if="schoolimplantationid">
-                    <span class="implantation"><t t-esc="schoolimplantationid.id	"/></span><br/><br/>
+                    <span class="implantation">
+                        <t t-esc="schoolimplantationid.id"/>
+                    </span>
+                    <br/>
+                    <br/>
                 </t>
-			</xpath>
-		</template>
+            </xpath>
+        </template>
 
         <template id="report_std_header_ref_school_logo_big">
             <xpath expr="//head" position="inside">
                 <link rel="stylesheet" href="/extraschool/static/src/css/report_std_header_bigger.css"/>
             </xpath>
             <div id="aes_header">
-		    	<div class="row">
-		    		<div id="b_logo">
-						<img class="logo" t-attf-src="data:image/jpeg;base64,{{logo}}"/>
-		    		</div>
-		    		<div id="b_date">
-                        <span class="implantation"><t t-esc="schoolimplantationid.id" /></span><br/><br/>
-						<span class="doc_date" style="font-size: 12px;"><t t-esc="doc_date" /></span>
-		    		</div>
-		    	</div>
-			</div>
-		</template>
+                <div class="row">
+                    <div id="b_logo">
+                        <img class="logo" t-attf-src="data:image/jpeg;base64,{{logo}}"/>
+                    </div>
+                    <div id="b_date">
+                        <span class="implantation">
+                            <t t-esc="schoolimplantationid.id"/>
+                        </span>
+                        <br/>
+                        <br/>
+                        <span class="doc_date" style="font-size: 12px;">
+                            <t t-esc="doc_date"/>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </template>
 
         <template id="report_2_logo_std_header">
             <xpath expr="//head" position="inside">
                 <link rel="stylesheet" href="/extraschool/static/src/css/report_std_header.css"/>
             </xpath>
-		    <div id="aes_header">
-		    	<div class="row">
-		    		<div id="b_logo">
-						<img class="logo" t-attf-src="data:image/jpeg;base64,{{logo}}"/>
+            <div id="aes_header">
+                <div class="row">
+                    <div id="b_logo">
+                        <img class="logo" t-attf-src="data:image/jpeg;base64,{{logo}}"/>
                         <img class="logo" t-attf-src="data:image/jpeg;base64,{{logo2}}"/>
-		    		</div>
-		    		<div id="b_date">
+                    </div>
+                    <div id="b_date">
                         <t t-esc="schoolimplantationid.id"/>
-						<span class="doc_date" style="font-size: 12px;"><t t-esc="doc_date" /></span>
-		    		</div>
-		    	</div>
-		    	<div class="row" >
-			    	<span class="slogan"><t t-esc="slogan" /></span>
-				</div>
-			</div>
-		</template>
+                        <span class="doc_date" style="font-size: 12px;">
+                            <t t-esc="doc_date"/>
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <span class="slogan">
+                        <t t-esc="slogan"/>
+                    </span>
+                </div>
+            </div>
+        </template>
 
 
         <template id="report_std_header_name_right_tournai">
-		    <xpath expr="//head" position="inside">
+            <xpath expr="//head" position="inside">
                 <link rel="stylesheet" href="/extraschool/static/src/css/report_std_header_name_right.css"/>
             </xpath>
-		    <div id="aes_header">
-		    	<div class="row">
-		    		<div id="b_logo2">
-						<img class="logo2" t-attf-src="data:image/jpeg;base64,{{logo}}"/>
-		    		</div>
+            <div id="aes_header">
+                <div class="row">
+                    <div id="b_logo2">
+                        <img class="logo2" t-attf-src="data:image/jpeg;base64,{{logo}}"/>
+                    </div>
                     <div id="b_slogan">
                         <div id="b_slogan1">
-                            <span class="slogan1"><t t-esc="slogan" /></span>
+                            <span class="slogan1">
+                                <t t-esc="slogan"/>
+                            </span>
                         </div>
                         <div id="b_slogan2">
-                            Direction financière et comptable<br/>
+                            Direction financière et comptable
+                            <br/>
                             Service Recouvrement
                         </div>
                     </div>
-					<div id="b_date">
-						<span class="doc_date"><t t-esc="doc_date" /></span>
-					</div>
-		    	</div>
-			</div>
-		</template>
+                    <div id="b_date">
+                        <span class="doc_date">
+                            <t t-esc="doc_date"/>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </template>
 
 
-	</data>
+    </data>
 </odoo>
 
