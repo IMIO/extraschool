@@ -19,6 +19,25 @@
 			</div>
 		</template>
 
+
+		<template id="report_parent_credit_without_moins">
+		    <xpath expr="//head" position="inside">
+                    <link rel="stylesheet" href="/extraschool/static/src/css/report_parent_credit.css"/>
+                </xpath>
+	    	<div id="aes_html_parent_credit" class="aes_html_parent_credit">
+				<h4>Pour rappel,</h4>
+	    		<p>Après comptabilisation de cette facture, votre compte famille présente
+	    			<t t-if="parent_id.totalbalance > 0.001">
+	    				<span class="aes_credit_solde">un solde de <t t-esc="'%.2f' %  (parent_id.totalbalance)" />€</span>
+	    			</t>
+	    			<t t-if="parent_id.totalbalance &lt; 0.001">
+	    				<span class="aes_credit_solde">un solde restant de <t t-esc="'%.2f' % (sum([total.solde for total in parent_id.payment_status_ids]))" />€</span>
+	    			</t>
+	    		</p>
+
+			</div>
+		</template>
+
 	</data>
 </odoo>
 
