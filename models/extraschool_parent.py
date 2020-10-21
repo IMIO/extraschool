@@ -175,6 +175,19 @@ class extraschool_parent(models.Model):
                 }
 
     @api.multi
+    def get_reminders(self):
+        return {'name': 'Rappels',
+                'type': 'ir.actions.act_window',
+                'res_model': 'extraschool.reminder',
+                'view_type': 'form',
+                'view_mode': 'tree,form',
+                'nodestroy': False,
+                'target': 'current',
+                'limit': 50000,
+                'domain': [('parentid', '=', self.id), ]
+                }
+
+    @api.multi
     def get_tax_certificate(self):
         return {'name': 'Attestation fiscale',
                 'type': 'ir.actions.act_window',
