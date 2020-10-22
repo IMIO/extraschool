@@ -130,32 +130,44 @@ class extraschool_invoice(models.Model):
                            'balance': balance
                            })
 
-    @api.multi
-    def get_infos_childs(self):
-        return self.invoice_line_ids.sorted(
-            key=lambda r: (r.childid.id, r.prestation_date, r.get_child_entry()))
-
     def float_time_to_str(self, float_val):
         factor = float_val < 0 and -1 or 1
         val = abs(float_val)
         return "%02d:%02d" % (factor * int(math.floor(val)), int(round((val % 1) * 60)))
 
     @api.multi
-    def get_infos_childs_performance(self):
+    def get_infos_childs(self):
+        """
+        Fonction qui permet de récupérer les lignes de factures pour un client. Pour chaque ligne de facture, on récupère les prestations d'entrée et de sortie.
+        Attention, on filtre sur les types d'activités pour prendre l'activité au plus tôt et l'activité au plus tard.
+        :return:
+            Retour d'un quadruplet:
+                - l'id de la ligne de facture
+                - l'heure d'entrée au plus tôt
+                - l'heure de sortie au plus tard
+                - le prix total de la ligne de facture
+        :rtype:
+            Liste des lignes de factures ordonnées par client et par date de prestation
+        """
         prestation_line_lst = []
-        for invoice_line in self.invoice_line_ids.sorted(key=lambda r: r.prestation_date):
+        for invoice_line in self.invoice_line_ids.sorted(key=lambda r: (r.childid.id, r.prestation_date)):
             is_short_name = True
             for prestation in invoice_line.prestation_ids:
                 if is_short_name:
                     module = prestation.prestation_times_of_the_day_id.prestationtime_ids.filtered(lambda
-                            r: r.prestation_time and r.es == 'E' and r.activity_occurrence_id.activityid.short_name == invoice_line.activity_occurrence_id.activityid.short_name)[0]
+                                                                                                       r: r.prestation_time and r.es == 'E' and r.activity_occurrence_id.activityid.short_name == invoice_line.activity_occurrence_id.activityid.short_name)[
+                        0]
                     entry = module.prestation_time
                     exit = prestation.prestation_times_of_the_day_id.prestationtime_ids.filtered(lambda
-                            r: r.prestation_time and r.es == 'S' and r.activity_occurrence_id.activityid.short_name == invoice_line.activity_occurrence_id.activityid.short_name)[-1].prestation_time
-                    prestation_line_lst.append((module, self.float_time_to_str(entry), self.float_time_to_str(exit)))
+                                                                                                     r: r.prestation_time and r.es == 'S' and r.activity_occurrence_id.activityid.short_name == invoice_line.activity_occurrence_id.activityid.short_name)[
+                        -1].prestation_time
                     is_short_name = False
-                # import wdb
-                # wdb.set_trace()
+                    if invoice_line.total_price:
+                        prestation_line_lst.append(
+                            (invoice_line, self.float_time_to_str(entry), self.float_time_to_str(exit),
+                             invoice_line.total_price))
+        # import wdb
+        # wdb.set_trace()
         return prestation_line_lst
 
     @api.multi
