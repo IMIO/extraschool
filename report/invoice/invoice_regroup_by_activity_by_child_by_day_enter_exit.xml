@@ -31,52 +31,50 @@
                     <t t-set="activity_entry" t-value="'00:00'"/>
                     <t t-set="activity_exit" t-value="'00:00'"/>
                     <tbody>
-                        <t t-foreach="invoice.get_infos_childs()" t-as="invoice_line">
-                            <t t-if="saved_child_id != invoice_line.childid or saved_activity != invoice_line.activity_occurrence_id.activityid.short_name or saved_activity_date != invoice_line.prestation_date">
-                                <t t-if="activity_count != 0">
-                                    <tr>
-                                        <td>
-                                            <span t-esc="invoice.id"/>
-                                        </td>
-                                        <td>
-                                            <span t-esc="invoice_line.id"/>
-                                        </td>
-                                        <td>
-                                            <span
-                                                t-esc="'%s - %s %s' % (saved_child_id.name if saved_child_id != False else '',saved_activity if saved_activity != False else '',saved_description if saved_description != False else '')"/>
-                                        </td>
-                                        <td>
-                                            <span t-esc="saved_activity_date_str"/>
-                                        </td>
-                                        <td>
-                                            <span t-esc="activity_entry"/>
-                                        </td>
-                                        <td>
-                                            <span t-esc="activity_exit"/>
-                                        </td>
-                                        <td class="amount">
-                                            <span t-esc="'%.2f €' %  (activity_amount)"/>
-                                        </td>
-                                    </tr>
-                                </t>
-                                <t t-set="saved_child_id" t-value="invoice_line.childid"/>
-                                <t t-set="saved_activity"
-                                   t-value="invoice_line.activity_occurrence_id.activityid.short_name"/>
-                                <t t-set="saved_description" t-value="invoice_line.description"/>
-                                <t t-set="saved_activity_date" t-value="invoice_line.prestation_date"/>
-                                <t t-set="saved_activity_date_str" t-value="'%s' % (invoice_line.prestation_date)"/>
-                                <!--<t t-set="saved_activity_date_str" t-value="'%s' % (invoice_line.prestation_date.strftime('%d-%m-%Y'))"/>-->
-                                <t t-set="activity_count" t-value="0"/>
-                                <t t-set="activity_amount" t-value="0"/>
-                                <t t-set="activity_time" t-value="0"/>
-                                <t t-set="activity_entry" t-value="invoice_line.get_child_entry()"/>
-                                <t t-set="activity_exit" t-value="invoice_line.get_child_exit()"/>
+                        <t t-foreach="invoice.get_infos_childs_performance()" t-as="prestation_time">
+                            <t t-if="activity_count != 0">
+                                <tr>
+                                    <td>
+                                        <span t-esc="invoice.id"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="prestation_time[0].id"/>
+                                    </td>
+                                    <td>
+                                        <span
+                                            t-esc="'%s - %s %s' % (saved_child_id.name if saved_child_id != False else '',saved_activity if saved_activity != False else '',saved_description if saved_description != False else '')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="saved_activity_date_str"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="prestation_time[1]"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="prestation_time[2]"/>
+                                    </td>
+                                    <td class="amount">
+                                        <span t-esc="'%.2f €' %  (activity_amount)"/>
+                                    </td>
+                                </tr>
                             </t>
-                            <t t-if="saved_activity == invoice_line.activity_occurrence_id.activityid.short_name">
-                                <t t-set="activity_count" t-value="activity_count + 1"/>
-                                <t t-set="activity_amount" t-value="activity_amount + invoice_line.total_price"/>
-                                <t t-set="activity_time" t-value="activity_time + invoice_line.duration"/>
-                            </t>
+                            <t t-set="saved_child_id" t-value="prestation_time[0].childid"/>
+                            <t t-set="saved_activity"
+                               t-value="prestation_time[0].activity_occurrence_id.activityid.short_name"/>
+                            <t t-set="saved_description" t-value="invoiced_prestation_id.description"/>
+                            <t t-set="saved_activity_date" t-value="prestation_time[0].prestation_date"/>
+                            <t t-set="saved_activity_date_str" t-value="'%s' % (prestation_time[0].prestation_date)"/>
+                            <!--<t t-set="saved_activity_date_str" t-value="'%s' % (prestation_time[0].prestation_date.strftime('%d-%m-%Y'))"/>-->
+                            <t t-set="activity_count" t-value="0"/>
+                            <t t-set="activity_amount" t-value="0"/>
+                            <t t-set="activity_time" t-value="0"/>
+                            <!--                                <t t-set="activity_entry" t-value="prestation_time[0].get_child_entry()"/>-->
+                            <!--                                <t t-set="activity_exit" t-value="prestation_time[0].get_child_exit()"/>-->
+                        </t>
+                        <t t-if="saved_activity == prestation_time[0].activity_occurrence_id.activityid.short_name">
+                            <t t-set="activity_count" t-value="activity_count + 1"/>
+                            <t t-set="activity_amount" t-value="activity_amount + prestation_time[0].total_price"/>
+                            <t t-set="activity_time" t-value="activity_time + prestation_time[0].duration"/>
                         </t>
                         <t t-if="activity_count != 0">
                             <t t-set="saved_activity_date_str" t-value="'%s' % (saved_activity_date)"/>
@@ -136,7 +134,7 @@
                     <t t-set="activity_exit" t-value="'00:00'"/>
                     <tbody>
                         <span
-                            t-esc="len(invoice.invoice_line_ids.sorted(key=lambda r: r.prestation_date))"/>
+                            t-esc="len(invoice.prestation_time[0]_ids.sorted(key=lambda r: r.prestation_date))"/>
                         <t t-foreach="invoice.get_infos_childs_performance()" t-as="prestation_time">
                             <t t-if="activity_count != 0">
                                 <tr>
@@ -246,38 +244,36 @@
                     <t t-set="activity_amount" t-value="0"/>
                     <t t-set="activity_time" t-value="0"/>
                     <tbody>
-                        <t t-foreach="invoice.get_infos_childs()" t-as="invoice_line">
-                            <t t-if="saved_child_id != invoice_line.childid or saved_activity != invoice_line.activity_occurrence_id.activityid.short_name or saved_activity_date != invoice_line.prestation_date">
-                                <t t-if="activity_count != 0">
-                                    <tr>
-                                        <td>
-                                            <span
-                                                t-esc="'%s - %s %s' % (saved_child_id.name if saved_child_id != False else '',saved_activity if saved_activity != False else '',saved_description if saved_description != False else '')"/>
-                                        </td>
-                                        <td>
-                                            <span t-esc="saved_activity_date_str"/>
-                                        </td>
-                                        <td class="amount">
-                                            <span t-esc="'%.2f €' %  (activity_amount)"/>
-                                        </td>
-                                    </tr>
-                                </t>
-                                <t t-set="saved_child_id" t-value="invoice_line.childid"/>
-                                <t t-set="saved_activity"
-                                   t-value="invoice_line.activity_occurrence_id.activityid.short_name"/>
-                                <t t-set="saved_description" t-value="invoice_line.description"/>
-                                <t t-set="saved_activity_date" t-value="invoice_line.prestation_date"/>
-                                <t t-set="saved_activity_date_str" t-value="'%s' % (invoice_line.prestation_date)"/>
-                                <!--<t t-set="saved_activity_date_str" t-value="'%s' % (invoice_line.prestation_date.strftime('%d-%m-%Y'))"/>-->
-                                <t t-set="activity_count" t-value="0"/>
-                                <t t-set="activity_amount" t-value="0"/>
-                                <t t-set="activity_time" t-value="0"/>
+                        <t t-foreach="invoice.get_infos_childs_performance()" t-as="prestation_time">
+                            <t t-if="activity_count != 0">
+                                <tr>
+                                    <td>
+                                        <span
+                                            t-esc="'%s - %s %s' % (saved_child_id.name if saved_child_id != False else '',saved_activity if saved_activity != False else '',saved_description if saved_description != False else '')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="saved_activity_date_str"/>
+                                    </td>
+                                    <td class="amount">
+                                        <span t-esc="'%.2f €' %  (activity_amount)"/>
+                                    </td>
+                                </tr>
                             </t>
-                            <t t-if="saved_activity == invoice_line.activity_occurrence_id.activityid.short_name">
-                                <t t-set="activity_count" t-value="activity_count + 1"/>
-                                <t t-set="activity_amount" t-value="activity_amount + invoice_line.total_price"/>
-                                <t t-set="activity_time" t-value="activity_time + invoice_line.duration"/>
-                            </t>
+                            <t t-set="saved_child_id" t-value="prestation_time[0].childid"/>
+                            <t t-set="saved_activity"
+                               t-value="prestation_time[0].activity_occurrence_id.activityid.short_name"/>
+                            <t t-set="saved_description" t-value="invoiced_prestation_id.description"/>
+                            <t t-set="saved_activity_date" t-value="prestation_time[0].prestation_date"/>
+                            <t t-set="saved_activity_date_str" t-value="'%s' % (prestation_time[0].prestation_date)"/>
+                            <!--<t t-set="saved_activity_date_str" t-value="'%s' % (prestation_time[0].prestation_date.strftime('%d-%m-%Y'))"/>-->
+                            <t t-set="activity_count" t-value="0"/>
+                            <t t-set="activity_amount" t-value="0"/>
+                            <t t-set="activity_time" t-value="0"/>
+                        </t>
+                        <t t-if="saved_activity == prestation_time[0].activity_occurrence_id.activityid.short_name">
+                            <t t-set="activity_count" t-value="activity_count + 1"/>
+                            <t t-set="activity_amount" t-value="activity_amount + prestation_time[0].total_price"/>
+                            <t t-set="activity_time" t-value="activity_time + prestation_time[0].duration"/>
                         </t>
                         <t t-if="activity_count != 0">
                             <t t-set="saved_activity_date_str" t-value="'%s' % (saved_activity_date)"/>
