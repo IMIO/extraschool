@@ -13,7 +13,7 @@
        		</div>
 		</template>
 
-		<template id="report_all_invoice_summary_hannut_facture" inherit_id="extraschool.report_all_invoice_summary"
+		<template id="report_all_invoice_summary_facture_profondeville" inherit_id="extraschool.report_all_invoice_summary"
                   primary="True">
             <xpath expr="//div[@id='invoice_summary']" position="replace">
                 <div id="invoice_summary">
