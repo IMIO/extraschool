@@ -60,7 +60,7 @@
                         <t t-set="received" t-value="invoice.amount_received"/>
                         <t t-set="balance" t-value="invoice.balance"/>
                         <t t-set="payment_term"
-                           t-value="'%s' % (time.strftime('%d-%m-%Y',time.strptime(invoice.biller_id.payment_term,'%Y-%m-%d')))"/>
+                           t-value="'%s' % (time.strftime('%d-%m-%Y',time.strptime(invoice.payment_term,'%Y-%m-%d')))"/>
                         <t t-set="schoolimplantationid" t-value="invoice.schoolimplantationid"/>
 
                         <t t-set="comment"
@@ -101,11 +101,11 @@
                         <t t-set="summary_invoice_title" t-value="'Facture(s) échue(s)'"/>
                         <t t-set="invoice_id" t-value="invoice.id"/>
                         <t t-set="all_invoice_ids"
-                           t-value="invoice.parentid.invoice_ids.filtered(lambda r: r.balance &gt; 0.001 and not r.huissier)"/>
+                           t-value="invoice.parentid.invoice_ids.filtered(lambda r: r.balance &gt; 0.001 and r.tag.name != 'Huissier')"/>
                         <t t-set="summary_invoice_ids"
-                           t-value="invoice.parentid.invoice_ids.filtered(lambda r: r.balance &gt; 0.01 and r.is_echue() and not r.huissier)"/>
+                           t-value="invoice.parentid.invoice_ids.filtered(lambda r: r.balance &gt; 0.01 and r.is_echue() and r.tag.name != 'Huissier')"/>
                         <t t-set="summary_invoice_ids_no_reminder"
-                           t-value="invoice.parentid.invoice_ids.filtered(lambda r: r.balance &gt; 0.01 and r.is_echue() and not r.huissier and r.is_echue_and_not_reminder())"/>
+                           t-value="invoice.parentid.invoice_ids.filtered(lambda r: r.balance &gt; 0.01 and r.is_echue() and r.tag.name != 'Huissier' and r.is_echue_and_not_reminder())"/>
                         <t t-set="invoice_per_activity_category_ids"
                            t-value="invoice.parentid.get_all_invoice_activity_category(invoice_id)"/>
                         <t t-set="total_balance_per_activity_category"
@@ -284,7 +284,7 @@
                         <t t-set="summary_invoice_ids"
                            t-value="invoice.parentid.invoice_ids.filtered(lambda r: r.balance &gt; 0.01 and r.is_echue() and not r.huissier)"/>
                         <t t-set="payment_term"
-                           t-value="'%s' % (time.strftime('%d-%m-%Y',time.strptime(invoice.biller_id.payment_term,'%Y-%m-%d')))"/>
+                           t-value="'%s' % (time.strftime('%d-%m-%Y',time.strptime(invoice.payment_term,'%Y-%m-%d')))"/>
 
                         <div class="header">
                             <t t-foreach="categ_id.invoice_detail_report_id.inline_report_ids.filtered(lambda r: r.section == 'a_header')"

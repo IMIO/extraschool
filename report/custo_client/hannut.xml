@@ -99,7 +99,7 @@
                             <th>Echéance</th>
                             <th>Montant</th>
                         </tr>
-                        <t t-foreach="all_invoice_ids.sorted(key=lambda r: r.number).filtered(lambda r: r.tag != 'huissier')" t-as="summary_invoice">
+                        <t t-foreach="all_invoice_ids.sorted(key=lambda r: r.number)" t-as="summary_invoice">
                             <tr>
                                 <t t-if="summary_invoice.id != invoice_id">
                                     <!--<t t-if="summary_invoice.reminder_fees == False">-->

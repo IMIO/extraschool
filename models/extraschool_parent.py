@@ -4,7 +4,7 @@
 #    Extraschool
 #    Copyright (C) 2008-2020
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchia & Jenny Pans- Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia & Jenny Pans & François Burniaux - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -61,34 +61,20 @@ class extraschool_parent(models.Model):
             return res
         return False
 
-    def _compute_totalinvoiced(self):
-        cr = self.env.cr
-        for record in self:
-            cr.execute('select sum(amount_total) from extraschool_invoice where parentid=%s', (record.id,))
-            record.totalinvoiced = cr.fetchall()[0][0]
-
-    def _compute_totalreceived(self):
-        cr = self.env.cr
-        for record in self:
-            cr.execute('select sum(amount_received) from extraschool_invoice where parentid=%s', (record.id,))
-            record.totalreceived = cr.fetchall()[0][0]
-
-    def _compute_totalbalance(self):
-        cr = self.env.cr
-        for record in self:
-            cr.execute(
-                'select sum(balance) from extraschool_invoice where parentid=%s and (huissier = False or huissier is Null)',
-                (record.id,))
-            invoice = cr.fetchall()[0][0]
-            invoice = invoice if invoice else 0.0
-            record.totalbalance = invoice
-
-    def _compute_totalhuissier(self):
-        cr = self.env.cr
-        for record in self:
-            cr.execute('select sum(balance) from extraschool_invoice where parentid=%s and huissier = True',
-                       (record.id,))
-            record.totalhuissier = cr.fetchall()[0][0]
+    @api.depends('invoice_ids')
+    def _compute_total_invoice(self):
+        """
+        Fonction qui permet de calculer:
+        - Le montant total des factures
+        - Le montant total reçu
+        - Le montant total du solde restant dû (en enlevant les factures envoyées chez le huissier)
+        - Le montant total envoyé chez le huissier
+        """
+        for rec in self:
+            rec.totalinvoiced = sum(r.amount_total for r in rec.invoice_ids)
+            rec.totalreceived = sum(r.amount_received for r in rec.invoice_ids)
+            rec.totalbalance = sum(r.balance for r in rec.invoice_ids.filtered(lambda r: r.tag.name != 'Huissier'))
+            rec.totalhuissier = sum(r.balance for r in rec.invoice_ids.filtered(lambda r: r.tag.name == 'Huissier'))
 
     name = fields.Char(compute='_name_compute', string='FullName', search='_search_fullname', size=100)
     rn = fields.Char('RN', track_visibility='onchange',
@@ -122,10 +108,10 @@ class extraschool_parent(models.Model):
                                            required=True, default='sf', track_visibility='onchange')
     reminder_ids = fields.One2many(comodel_name='extraschool.reminder', inverse_name='parentid', string='reminders',
                                    readonly=True)
-    totalinvoiced = fields.Float(compute='_compute_totalinvoiced', string="Total invoiced")
-    totalreceived = fields.Float(compute='_compute_totalreceived', string="Total received")
-    totalbalance = fields.Float(compute='_compute_totalbalance', string="Total balance")
-    totalhuissier = fields.Float(compute='_compute_totalhuissier', string="Total huissier", track_visibility='onchange')
+    totalinvoiced = fields.Float(compute='_compute_total_invoice', string="Total invoiced")
+    totalreceived = fields.Float(compute='_compute_total_invoice', string="Total received")
+    totalbalance = fields.Float(compute='_compute_total_invoice', string="Total balance")
+    totalhuissier = fields.Float(compute='_compute_total_invoice', string="Total huissier", track_visibility='onchange')
     payment_ids = fields.One2many(comodel_name='extraschool.payment', inverse_name='parent_id')
     payment_status_ids = fields.One2many(comodel_name='extraschool.payment_status_report', inverse_name='parent_id')
     last_import_date = fields.Datetime('Import date', readonly=True, track_visibility='onchange')
