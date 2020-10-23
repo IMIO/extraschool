@@ -54,6 +54,21 @@
             </xpath>
         </template>
 
+        <template id="report_invoice_regroup_by_activity_by_child">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet"
+                      href="/extraschool/static/src/css/report_invoice_regroup_by_activity_by_child.css"/>
+            </xpath>
+            <xpath expr="//th[2]" position="replace">
+                <th class="col_quantity">Quantité</th>
+            </xpath>
+            <xpath expr="//td[2]" position="replace">
+                <td class="col_quantity amount">
+                    <span t-esc="activity_count"/>
+                </td>
+            </xpath>
+        </template>
+
         <template id="report_invoice_regroup_by_activity_by_child_no_quantity"
                   inherit_id="extraschool.report_invoice_regroup_by_activity_by_child" primary="True">
 
