@@ -154,7 +154,7 @@ class extraschool_remindersjournal(models.Model):
                                                                     'quantity': 1,
                                                                     'total_price': reminder_type.fees_amount,
                                                                     })
-                fees_invoice._compute_balance()
+                #TODO tester montant facture
                 reminder.write({'fees_amount': reminder_type.fees_amount,
                                 'concerned_invoice_ids': [(4, [fees_invoice.id])]})
 
@@ -468,8 +468,7 @@ class extraschool_remindersjournal(models.Model):
                 else:
                     reminders_journal_item_id.unlink()
 
-                if biller_id > 0:
-                    self.biller_id.invoice_ids._compute_balance()
+                #TODO tester montant facture
 
         # update invoice to exit from accounting
         get_invoice_exit_sql = """select r.id as reminder_id, i.id as invoice_id,i.balance

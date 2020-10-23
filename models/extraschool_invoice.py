@@ -64,13 +64,12 @@ class extraschool_invoice(models.Model):
     number = fields.Integer('Number', readonly=True, track_visibility='onchange')
     structcom = fields.Char('Structured Communication', size=50, readonly=True, required=True,
                             track_visibility='onchange')
-    amount_total = fields.Float(string='Amount', digits_compute=dp.get_precision('extraschool_invoice'), readonly=True,
+    amount_total = fields.Float(compute="_compute_amount", string='Amount', digits_compute=dp.get_precision('extraschool_invoice'), readonly=True,
                                 store=True, track_visibility='onchange')
-    amount_received = fields.Float(string='Received', digits_compute=dp.get_precision('extraschool_invoice'),
+    amount_received = fields.Float(compute="_compute_amount", string='Received', digits_compute=dp.get_precision('extraschool_invoice'),
                                    readonly=True, store=True, track_visibility='onchange')
-    balance = fields.Float(digits_compute=dp.get_precision('extraschool_invoice'), string='Balance', readonly=True,
+    balance = fields.Float(compute="_compute_amount", digits_compute=dp.get_precision('extraschool_invoice'), string='Balance', readonly=True,
                            store=True, track_visibility='onchange')
-    no_value = fields.Float('No value', default=0.0, readonly=True, track_visibility='onchange')
     discount = fields.Float('Discount', readonly=True, track_visibility='onchange')
     biller_id = fields.Many2one(comodel_name='extraschool.biller', string='Biller', required=False, ondelete='cascade',
                                 readonly=True,
@@ -108,27 +107,44 @@ class extraschool_invoice(models.Model):
         readonly=True,
     )
 
+    payments_non_reconcil_ids = fields.One2many(related="parentid.payment_ids", comodel_name="extraschool.payment", inverse_name="parent_id",
+                                                string="Payment non reconcil")
+
     _sql_constraints = [
         ('structcom_uniq', 'unique(structcom)',
          _("The structured communication is already distributed. Please contact support-aes@imio.be")),
     ]
 
+    # @api.multi
+    # def _compute_balance(self):
+    #     for invoice in self:
+    #         total = 0 if len(invoice.invoice_line_ids) == 0 else sum(
+    #             line.total_price for line in invoice.invoice_line_ids)
+    #         total = 0 if total < 0.0001 else total
+    #         reconcil = 0 if len(invoice.payment_ids) == 0 else sum(
+    #             reconcil_line.amount for reconcil_line in invoice.payment_ids)
+    #         reconcil = 0 if reconcil < 0.0001 else reconcil
+    #         balance = total - reconcil - invoice.no_value_amount
+    #         balance = 0 if balance < 0.0001 else balance
+    #         balance = round(balance, 5)  # MiCo used this to resolve a balance problem (hannut 21/08/2017)
+    #         invoice.write({'amount_total': total,
+    #                        'amount_received': reconcil,
+    #                        'balance': balance
+    #                        })
+
     @api.multi
-    def _compute_balance(self):
-        for invoice in self:
-            total = 0 if len(invoice.invoice_line_ids) == 0 else sum(
-                line.total_price for line in invoice.invoice_line_ids)
-            total = 0 if total < 0.0001 else total
-            reconcil = 0 if len(invoice.payment_ids) == 0 else sum(
-                reconcil_line.amount for reconcil_line in invoice.payment_ids)
-            reconcil = 0 if reconcil < 0.0001 else reconcil
-            balance = total - reconcil - invoice.no_value_amount
-            balance = 0 if balance < 0.0001 else balance
-            balance = round(balance, 5)  # MiCo used this to resolve a balance problem (hannut 21/08/2017)
-            invoice.write({'amount_total': total,
-                           'amount_received': reconcil,
-                           'balance': balance
-                           })
+    @api.depends('invoice_line_ids', 'no_value_amount', 'payment_ids')
+    def _compute_amount(self):
+        """
+        Fonction qui calcule:
+        - les montants des lignes de factures
+        - les montants reçus par le client
+        - le solde restant dû
+        """
+        for rec in self:
+            rec.amount_total = sum(line.total_price for line in rec.invoice_line_ids)
+            rec.amount_received = sum(reconcil_line.amount for reconcil_line in rec.payment_ids)
+            rec.balance = max(rec.amount_total - rec.amount_received - rec.no_value_amount, 0)
 
     @api.multi
     def get_infos_childs(self):
@@ -145,7 +161,7 @@ class extraschool_invoice(models.Model):
 
     @api.multi
     def is_echue(self):
-        return True if self.payment_term < fields.Datetime.now() else False
+        return self.payment_term < fields.Datetime.now()
 
     @api.multi
     def is_echue_and_not_reminder(self):
@@ -153,50 +169,22 @@ class extraschool_invoice(models.Model):
 
     @api.multi
     def reconcil(self):
-        payment_obj = self.env['extraschool.payment']
-        payment_reconcil_obj = self.env['extraschool.payment_reconciliation']
         organizing_power = self.env['extraschool.organising_power'].search([])[0]
+
+        def _reconcil_by_activity(self, activity):
+            payment_ids = self.payments_non_reconcil_ids.filtered(lambda p: p.activity_category_id == activity)
+            payment_ids_with_solde = payment_ids.filtered(lambda p: p.solde > 0).sorted(key=lambda r: r.paymentdate)
+            for payment in payment_ids_with_solde:
+                amount = invoice.balance if payment.solde >= invoice.balance else payment.solde
+            invoice.payment_ids.create({'payment_id': payment.id, 'invoice_id': invoice.id, 'amount': amount, 'date': fields.Date.today()})
+
         for invoice in self:
-            invoice._compute_balance()
-            if invoice.balance != 0.00:
-                # todo: Check if the biller (invoices_date) <= today(). Do a cron to launch this method everyday.
-                # If there is a dominant payment
+            if invoice.balance:
                 if organizing_power.dominant_payment_activity_category_id:
-                    payment_ids = payment_obj.search([('parent_id', '=', invoice.parentid.id),
-                                                      ('solde', '>', 0),
-                                                      ]).sorted(key=lambda r: r.paymentdate)
-
-                    count = 0
-
-                    while count < len(payment_ids) and invoice.balance > 0:
-                        amount = invoice.balance if payment_ids[count].solde >= invoice.balance else payment_ids[
-                            count].solde
-                        payment_reconcil_obj.create({'payment_id': payment_ids[count].id,
-                                                     'invoice_id': invoice.id,
-                                                     'amount': amount,
-                                                     'date': fields.Date.today(),
-                                                     })
-                        count += 1
-                        invoice._compute_balance()
+                    _reconcil_by_activity(self, organizing_power.dominant_payment_activity_category_id)
                 else:
                     for invoice_category in invoice.activitycategoryid:
-
-                        payments = payment_obj.search([('parent_id', '=', invoice.parentid.id),
-                                                       ('activity_category_id', '=', invoice_category.id),
-                                                       ('solde', '>', 0),
-                                                       ]).sorted(key=lambda r: r.paymentdate)
-
-                        zz = 0
-                        while zz < len(payments) and invoice.balance > 0:
-                            amount = invoice.balance if payments[zz].solde >= invoice.balance else payments[zz].solde
-                            payment_reconcil_obj.create({'payment_id': payments[zz].id,
-                                                         'invoice_id': invoice.id,
-                                                         'amount': amount,
-                                                         'date': fields.Date.today(),
-                                                         })
-                            zz += 1
-                            invoice._compute_balance()
-                invoice._compute_balance()
+                        _reconcil_by_activity(self, invoice_category)
 
         return {
             'type': 'ir.actions.client',
@@ -216,7 +204,7 @@ class extraschool_invoice(models.Model):
             self.write({
                 'no_value_amount': self.amount_total
             })
-            self._compute_balance()
+            #TODO tester montant facture
         except:
             raise Warning(_("An error occured, please contact an adminsitrator"))
 
@@ -638,7 +626,7 @@ class extraschool_invoice(models.Model):
         for payment in self.payment_ids:
             payment.unlink()
 
-        self._compute_balance()
+        #TODO tester montant facture
 
         return {
             'type': 'ir.actions.client',
@@ -680,7 +668,7 @@ class extraschool_invoice(models.Model):
                 payment.amount -= overfull
                 payment.payment_id.compute_solde()
                 break
-        self._compute_balance()
+        #TODO tester montant facture
 
 
 class extraschool_invoice_tag(models.Model):

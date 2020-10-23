@@ -196,7 +196,7 @@ class extraschool_coda(models.Model):
                                                                        'date': transfertdate,
                                                                        # Todo: si date facture <= coda: date coda sinon date facture
                                                                        'amount': amount})
-                                    invoice._compute_balance()
+                                    #TODO tester montant facture
                                     paymentids.append(payment_id.id)
                             else:
                                 reject = True
@@ -282,7 +282,7 @@ class extraschool_coda(models.Model):
                                                                                'date': transfertdate,
                                                                                # todo: si date facture <= coda: date coda sinon date facture
                                                                                'amount': invoice.balance})
-                                            invoice._compute_balance()
+                                            #TODO tester montant facture
                                             paymentids.append(payment_id.id)
                                 else:
                                     reject = True;
@@ -334,7 +334,7 @@ class extraschool_coda(models.Model):
                                                                                    'date': transfertdate,
                                                                                    # todo: si date facture <= coda: date coda sinon date facture
                                                                                    'amount': reconciliation['amount']})
-                                                invoice_obj.browse(reconciliation['invoice_id'])._compute_balance()
+                                                #TODO tester montant facture
 
                                         paymentids.append(payment_id.id)
                                 else:

@@ -42,7 +42,7 @@ class extraschool_discount(models.Model):
             for line in invoice.invoice_line_ids:
                 if line.price_list_version_id.max_price > 0 and line.total_price > line.price_list_version_id.max_price:
                     line.total_price = line.price_list_version_id.max_price
-                    invoice._compute_balance()
+                    #TODO tester montant facture
         return True
 
 class extraschool_discount_version(models.Model):
@@ -145,4 +145,4 @@ class extraschool_discount_version(models.Model):
                     if line_id.invoiceid.id not in invoice_to_compute:
                         invoice_to_compute.append(line_id.invoiceid.id)
 
-            self.env['extraschool.invoice'].search([('id', 'in', invoice_to_compute)])._compute_balance()
+            #TODO tester montant facture

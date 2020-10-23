@@ -444,4 +444,5 @@ class extraschool_biller(models.Model):
                                                                                     'invoice_id': invoice_id.id,
                                                                                     'amount': invoice_id.balance,
                                                                                     'date': self.period_to})
-            reconciliation.invoice_id._compute_balance()
+
+            # TODO tester montant facture

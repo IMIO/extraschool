@@ -98,7 +98,7 @@ class extraschoolNoValueWizard(models.TransientModel):
             if invoice_id.no_value_amount > invoice_id.balance:
                 invoice_id.correction_payment_reconciliation(overfull)
 
-            invoice_id._compute_balance()
+            #TODO tester montant facture
 
             return True
 

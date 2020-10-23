@@ -18,8 +18,6 @@
                     <field name="balance"/>
                     <field name="discount"/>
                     <field name="no_value_amount"/>
-                    <field name="no_value"/>
-                    <!--<field name="huissier"/>                    	                    -->
                     <field name="tag"/>
                     <button name="reconcil" type="object" string="Reconcil" groups="extraschool.extraschool_accounting"/>
 				</tree>
@@ -121,7 +119,6 @@
                                 <newline/>
                                 <field name="payment_term" readonly="True"/>
                                 <field name="structcom"/>
-                                <field name="no_value" style="color:red;"/>
                                 <group>
                                     <field name="tag"/>
                                 </group>
@@ -186,6 +183,7 @@
 			                            <field name="account"/>
 			                        </tree>
 			                    </field>
+                                <field name="payments_non_reconcil_ids"/>
 			                </page>
 	   		                <page string="Refounds">
 	   		                    <field name="refound_line_ids">

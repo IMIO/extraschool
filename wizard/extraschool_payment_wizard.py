@@ -131,7 +131,7 @@ class extraschool_payment_wizard(models.TransientModel):
                     'date': fields.Date.today()
                 })  # Todo: si la date facture <= coda: date coda sinon date facture
 
-                reconciliation.invoice_id._compute_balance()
+                #TODO tester montant facture
 
         return {}
 
