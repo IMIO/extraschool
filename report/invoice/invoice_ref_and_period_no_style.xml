@@ -2,14 +2,13 @@
 <odoo>
 	<data>
 		<template id="report_invoice_your_ref_and_period">
-        	<div styme="width: 100%;display: block;margin: 0cm 0cm 0cm 0cm;">
+        	<div style="width: 100%;display: block;margin: 0cm 0cm 0cm 0cm;">
         		<div class="your_ref">
         			<b>Notre référence : </b><span t-field="invoice.name" />
         		</div>
         		<div class="invoice_period">
         			<b>Période du : </b><span t-field="invoice.biller_id.period_from" /><b> au </b><span t-field="invoice.biller_id.period_to" />
         		</div>
-
        		</div>
 		</template>
 

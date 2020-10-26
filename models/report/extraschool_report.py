@@ -32,5 +32,5 @@ class extraschool_report(models.Model):
     name = fields.Char('Name', size=50, required=True)
     report_type_id = fields.Many2one(comodel_name='ir.actions.report.xml', string='Report type', required=True)
     inline_report_ids = fields.One2many(comodel_name='extraschool.inline_report', inverse_name='report_id',
-                                        ondelete='cascade')
+                                        ondelete='cascade', copy=True)
     paper_format_id = fields.Many2one(comodel_name='report.paperformat', string='Paper format', required=True)
