@@ -24,6 +24,14 @@
             </div>
         </template>
 
+        <template id="report_std_header_logo_categ" inherit_id="report_std_header">
+            <xpath expr="//div[@id='b_logo']" position="replace">
+                <div id="b_logo">
+                    <img class="logo" t-attf-src="data:image/jpeg;base64,{{logo_categ}}"/>
+                </div>
+            </xpath>
+        </template>
+
         <template id="report_std_header_name_right">
             <style type="text/css">
                 #aes_header{

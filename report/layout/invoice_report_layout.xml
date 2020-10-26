@@ -27,18 +27,17 @@
 
             <xpath expr="//body" position="inside">
                 <div id="invoice">
-
-                    <t t-set="organising_power" t-value="docs[0].activitycategoryid[0].organising_power_id"/>
-                    <t t-if="len(docs[0].activitycategoryid) > 1">
-                        <t t-set="activity_category"
-                           t-value="docs[0].activitycategoryid[0].organising_power_id.dominant_activity_category_id"/>
-                    </t>
-                    <t t-if="len(docs[0].activitycategoryid) == 1">
-                        <t t-set="activity_category" t-value="docs[0].activitycategoryid[0]"/>
-                    </t>
                     <t t-foreach="docs" t-as="invoice">
+                        <t t-set="organising_power" t-value="docs[0].activitycategoryid[0].organising_power_id"/>
+                        <t t-if="len(docs[0].activitycategoryid) == 1">
+                            <t t-set="activity_category" t-value="docs[0].activitycategoryid[0]"/>
+                        </t>
+                        <t t-if="len(docs[0].activitycategoryid) > 1">
+                            <t t-set="activity_category"
+                               t-value="docs[0].activitycategoryid[0].organising_power_id.dominant_activity_category_id"/>
+                        </t>
+                        <t t-set="logo_categ" t-value="activity_category.logo"/>
                         <t t-set="invoice" t-value="invoice"/>
-                        <t t-set="activity_category" t-value="docs[0].activitycategoryid[0]"/>
                         <t t-set="logo" t-value="organising_power.logo"/>
                         <t t-set="logo2" t-value="organising_power.logo2"/>
                         <t t-set="slogan" t-value="organising_power.slogan"/>
@@ -241,7 +240,7 @@
                                t-value="invoice.activitycategoryid[0].organising_power_id.dominant_activity_category_id"/>
                         </t>
                         <t t-set="organising_power" t-value="invoice.activitycategoryid[0].organising_power_id"/>
-                        <t t-set="logo" t-value="categ_id.logo"/>
+                        <t t-set="logo_categ" t-value="categ_id.logo"/>
                         <t t-set="slogan" t-value="categ_id.slogan"/>
                         <t t-set="amount_int" t-value="int(invoice.amount_total)"/>
                         <t t-set="amount_dec"
