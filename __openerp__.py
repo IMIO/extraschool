@@ -117,7 +117,6 @@
         'report/layout/reminder_report_layout.xml',
         'report/layout/qrcode_report_layout.xml',
         'report/layout/healthy_report_layout.xml',
-        'report/layout/invoice_report_layout_performance.xml',
         'report/health/healthy.xml',
         'report/invoice/invoice_std_body.xml',
         'report/invoice/invoice_std_body_activity_without_date.xml',

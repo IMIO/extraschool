@@ -200,9 +200,5 @@
             <t t-esc="decision_date"/>
         </template>
 
-        <template id="test_performance">
-
-        </template>
-
     </data>
 </odoo>

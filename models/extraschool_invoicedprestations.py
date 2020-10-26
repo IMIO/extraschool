@@ -91,45 +91,6 @@ class extraschool_invoicedprestations(models.Model):
         val = abs(float_val)
         return "%02d:%02d" % (factor * int(math.floor(val)), int(round((val % 1) * 60)))
 
-    def get_child_entry(self):
-        presta_obj = self.env['extraschool.prestationtimes']
-        # get child presta
-        presta_ids = presta_obj.search([("childid", "=", self.childid.id),
-                                        ("activity_occurrence_id.activityid.short_name", "=",
-                                         self.activity_occurrence_id.activityid.short_name),
-                                        ("prestation_date", "=", self.prestation_date),
-                                        ("es", "=", "E")
-                                        ])
-        if presta_ids:
-            # sort on time
-            presta_ids = presta_ids.sorted(key=lambda r: r.prestation_time)
-            return self.float_time_to_str(presta_ids[0].prestation_time)
-        else:
-            return False
-
-    def get_child_exit(self):
-        # get child presta
-        # wdb voir présence
-        presta_obj = self.env['extraschool.prestationtimes']
-        presta_ids = presta_obj.search([("childid", "=", self.childid.id),
-                                        ("activity_occurrence_id.activityid.short_name", "=",
-                                         self.activity_occurrence_id.activityid.short_name),
-                                        ("prestation_date", "=", self.prestation_date),
-                                        ("es", "=", "S")
-                                        ])
-        if presta_ids:
-            # sort on time
-            presta_ids = presta_ids.sorted(key=lambda r: r.prestation_time, reverse=True)
-            return self.float_time_to_str(presta_ids[0].prestation_time)
-        else:
-            return False
-
-    def get_child_entry_performance(self):
-        return self.float_time_to_str(self.prestation_ids.filtered(lambda r: r.es == 'E'))
-
-    def get_child_exit_performance(self):
-        return self.float_time_to_str(self.prestation_ids.filtered(lambda r: r.es == 'S').prestation_time)
-
     @api.multi
     def write(self, vals):
 
