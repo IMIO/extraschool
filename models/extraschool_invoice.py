@@ -166,8 +166,6 @@ class extraschool_invoice(models.Model):
                         prestation_line_lst.append(
                             (invoice_line, self.float_time_to_str(entry), self.float_time_to_str(exit),
                              invoice_line.total_price))
-        # import wdb
-        # wdb.set_trace()
         return prestation_line_lst
 
     @api.multi
