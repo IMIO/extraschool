@@ -2,9 +2,9 @@
 ##############################################################################
 #
 #    Extraschool
-#    Copyright (C) 2008-2019
+#    Copyright (C) 2008-2020
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchia- Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia & Jenny Pans - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -21,25 +21,16 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
-#    registration_only = fields.Boolean('Registration only')
+import logging
+import time
+from datetime import date, datetime, timedelta as td
 
-from openerp.api import Environment
-from openerp.exceptions import except_orm, Warning
+from openerp import models, api, fields, _
+from openerp.exceptions import Warning
 from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
                            DEFAULT_SERVER_DATETIME_FORMAT)
 
-from openerp.tools.misc import profile
-from datetime import date, datetime, timedelta as td
-import time
-import pdb
-from openerp.exceptions import except_orm, Warning, RedirectWarning
-
-import logging
-
 _logger = logging.getLogger(__name__)
-
-import extraschool_activityplanneddate
 
 
 class extraschool_activity(models.Model):
@@ -123,6 +114,9 @@ class extraschool_activity(models.Model):
         string="Versions on price list",
         compute='_get_price_list_version'
     )
+    # price_list_version_max_price = fields.One2many(comodel_name="extraschool.price_list_version",
+    #                                                inverse_name="activity_for_max_price",
+    #                                                string="Price list version max price")
 
     @api.multi
     def is_valid(self):
@@ -130,7 +124,8 @@ class extraschool_activity(models.Model):
         Check if activity is valid compared to today date
         :return: validity of activity
         """
-        return datetime.strptime(self.validity_from, "%Y-%m-%d").date() <= date.today() <= datetime.strptime(self.validity_to, "%Y-%m-%d").date()
+        return datetime.strptime(self.validity_from, "%Y-%m-%d").date() <= date.today() <= datetime.strptime(
+            self.validity_to, "%Y-%m-%d").date()
 
     @api.multi
     def is_activity_valid(self, date_from, date_to):

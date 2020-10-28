@@ -187,21 +187,6 @@ class extraschool_payment_status_report(models.Model):
     nbr_actif_child = fields.Integer('Nbr actif child')
     reminder_to_pay = fields.Boolean('Reminder to pay')
 
-    # payment_date = fields.Date('Payment Date', select=True)
-
-    # @api.multi
-    # def move_prepaiement(self):
-    #     return {
-    #         'name': 'Mouvement de prépaiement',
-    #         'domain': [],
-    #         'res_model': 'extraschool.move_prepaiement',
-    #         'type': 'ir.actions.act_window',
-    #         'view_mode': 'form',
-    #         'view_type': 'form',
-    #         'context': {},
-    #         'target': 'new',
-    #     }
-
     # This is the view we use.
     def init(self, cr):
         # Drop before a new view.
@@ -281,44 +266,53 @@ class extraschool_aged_balance(models.TransientModel):
 
         items = []
         sql_aged_balance = """
-            select b_year,
-                (select sum(amount_total)::numeric(10,2)
-                from extraschool_invoice i
-                left join extraschool_biller b on i.biller_id = b.id
-                where extract(YEAR from period_to) = b_year
-                ) as total_fact,
-                (select sum(no_value)::numeric(10,2)
-                from extraschool_invoice i
-                left join extraschool_biller b on i.biller_id = b.id
-                where extract(YEAR from period_to) = b_year
-                ) as no_value,
-                (select sum(amount)::numeric(10,2)
-                from extraschool_refound_line rl
-                left join extraschool_invoice i on rl.invoiceid = i.id
-                left join extraschool_biller b on i.biller_id = b.id
-                where extract(YEAR from period_to) = b_year and rl.date <= %s
-                ) as aged_no_value,
-                (select sum(amount)::numeric(10,2)
-                from extraschool_payment_reconciliation pr
-                left join extraschool_biller b on pr.biller_id = b.id
-                where pr.date <= %s and extract(YEAR from period_to) = b_year) as received
-            from
-                (select extract(YEAR from period_to) as b_year
-                from extraschool_biller b
-                group by extract(YEAR from period_to)) as t_b_year
-            order by b_year
-        """
+                            SELECT b_year,
+
+                              (SELECT sum(amount_total)::numeric(10, 2)
+                               FROM extraschool_invoice i
+                               LEFT JOIN extraschool_biller b ON i.biller_id = b.id
+                               WHERE extract(YEAR
+                                             FROM period_to) = b_year ) AS total_fact,
+
+                              (SELECT sum(no_value)::numeric(10, 2)
+                               FROM extraschool_invoice i
+                               LEFT JOIN extraschool_biller b ON i.biller_id = b.id
+                               WHERE extract(YEAR
+                                             FROM period_to) = b_year ) AS no_value,
+
+                               (SELECT sum(no_value_amount)::numeric(10, 2)
+                               FROM extraschool_invoice i
+                               LEFT JOIN extraschool_biller b ON i.biller_id = b.id
+                               WHERE extract(YEAR
+                                             FROM period_to) = b_year ) AS no_value_amount,
+
+                              (SELECT sum(amount)::numeric(10, 2)
+                               FROM extraschool_payment_reconciliation pr
+                               LEFT JOIN extraschool_biller b ON pr.biller_id = b.id
+                               WHERE pr.date <= %s
+                                 AND extract(YEAR
+                                             FROM period_to) = b_year) AS received
+                            FROM
+                              (SELECT extract(YEAR
+                                              FROM period_to) AS b_year
+                               FROM extraschool_biller b
+                               GROUP BY extract(YEAR
+                                                FROM period_to)) AS t_b_year
+                            ORDER BY b_year
+                            """
         tmp_item_ids = []
-        self.env.cr.execute(sql_aged_balance, (self.aged_date, self.aged_date))
+        self.env.cr.execute(sql_aged_balance, [self.aged_date])
         for item in self.env.cr.dictfetchall():
             item['total_fact'] = item['total_fact'] if item['total_fact'] else 0
-            item['aged_no_value'] = item['aged_no_value'] if item['aged_no_value'] else 0
+            item['no_value'] = item['no_value'] if item['no_value'] else 0
+            item['no_value_amount'] = item['no_value_amount'] if item['no_value_amount'] else 0
             item['received'] = item['received'] if item['received'] else 0
             tmp_item_ids.append((0, 0, {'year': item['b_year'],
                                         'total_fact': item['total_fact'],
-                                        'total_no_value': item['aged_no_value'],
+                                        'total_no_value': item['no_value'],
+                                        'total_no_value_amount': item['no_value_amount'],
                                         'total_received': item['received'],
-                                        'total_balance': item['total_fact'] - item['aged_no_value'] - item['received'],
+                                        'total_balance': item['total_fact'] - item['no_value_amount'] - item['received'],
                                         }))
 
         self.aged_balance_item_ids = tmp_item_ids
@@ -328,9 +322,10 @@ class extraschool_aged_balance_item(models.TransientModel):
     _name = 'extraschool.aged_balance_item'
     _description = 'Aged balance'
 
-    aged_balance_id = fields.Many2one('extraschool.aged_balance')
-    year = fields.Integer(string='Year')
-    total_fact = fields.Float('Total fact')
-    total_no_value = fields.Float('Total no value')
-    total_received = fields.Float('Total received')
-    total_balance = fields.Float('Total Balance')
+    aged_balance_id = fields.Many2one(comodel_name='extraschool.aged_balance', string="Aged balance")
+    year = fields.Integer(string="Year")
+    total_fact = fields.Float(string="Total fact")
+    total_no_value = fields.Float(string="Total no value")
+    total_no_value_amount = fields.Float(string="Total no value amount")
+    total_received = fields.Float(string="Total received")
+    total_balance = fields.Float(string="Total Balance")

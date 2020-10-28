@@ -53,25 +53,26 @@ class extraschool_biller(models.Model):
     _inherit = 'mail.thread'
     _order = "id desc"
 
-    activitycategoryid = fields.Many2many(comodel_name='extraschool.activitycategory', relation='extraschool_biller_activity_category_rel',
+    activitycategoryid = fields.Many2many(comodel_name='extraschool.activitycategory',
+                                          relation='extraschool_biller_activity_category_rel',
                                           string='Activity Category', track_visibility='onchange')
     accrued_ids = fields.One2many(comodel_name='extraschool.accrued', inverse_name='biller_id')
-    period_from = fields.Date('Period from')
-    period_to = fields.Date('Period to')
-    payment_term = fields.Date('Payment term')
-    invoices_date = fields.Date('Invoices date')
-    invoice_ids = fields.One2many(comodel_name='extraschool.invoice', inverse_name='biller_id', string='invoices')
-    total = fields.Float(compute='_compute_total', string="Total", track_visibility='onchange')
-    received = fields.Float(compute='_compute_received', string="Received", track_visibility='onchange')
-    novalue = fields.Float(compute='_compute_novalue', string="No Value", track_visibility='onchange')
-    balance = fields.Float(compute='_compute_balance', string="Balance", track_visibility='onchange')
-    nbinvoices = fields.Integer(compute='_compute_nbinvoices', string="Nb of invoices", )
-    other_ref = fields.Char("Ref")
-    comment = fields.Text("Comment", default="")
-    filename = fields.Char('filename', size=20, readonly=True)
-    biller_file = fields.Binary('File', readonly=True)
+    period_from = fields.Date(string='Period from')
+    period_to = fields.Date(string='Period to')
+    payment_term = fields.Date(string='Payment term')
+    invoices_date = fields.Date(string='Invoices date')
+    invoice_ids = fields.One2many(comodel_name='extraschool.invoice', inverse_name='biller_id', string='invoices', index=True)
+    total = fields.Float(compute='_compute_biller', string="Total", track_visibility='onchange', store=True)
+    received = fields.Float(compute='_compute_biller', string="Received", track_visibility='onchange', store=True)
+    novalue = fields.Float(compute='_compute_biller', string="No Value", track_visibility='onchange', store=True)
+    balance = fields.Float(compute='_compute_biller', string="Balance", track_visibility='onchange', store=True)
+    nbinvoices = fields.Integer(compute='_compute_biller', string="Nb of invoices", store=True)
+    other_ref = fields.Char(string="Ref")
+    comment = fields.Text(string="Comment", default="")
+    filename = fields.Char(string='filename', size=20, readonly=True)
+    biller_file = fields.Binary(string='File', readonly=True)
     pdf_ready = fields.Boolean(string="Pdf ready", default=False)
-    oldid = fields.Integer('oldid')
+    oldid = fields.Integer(string='oldid')
     in_creation = fields.Boolean(default=True)
     reminder_journal_id = fields.One2many(
         comodel_name="extraschool.remindersjournal",
@@ -79,6 +80,11 @@ class extraschool_biller(models.Model):
         string="Reminders journal",
         ondelete='cascade')
     fees = fields.Boolean(default=False, string="Fees", track_visibility="onchange")
+
+    @api.model
+    def update_biller(self):
+        for biller in self.env["extraschool.biller"].search([]):
+            biller._compute_biller()
 
     @api.multi
     def name_get(self):
@@ -89,50 +95,15 @@ class extraschool_biller(models.Model):
                 datetime.strptime(biller.period_to, DEFAULT_SERVER_DATE_FORMAT).strftime("%d-%m-%Y"))))
         return res
 
-    @api.depends('invoice_ids.amount_total')
-    def _compute_total(self):
-        """
-        Compute for each biller, sum of all invoices.
-        :return: None
-        """
-        for biller in self:
-            biller.total = sum(invoice.amount_total for invoice in biller.invoice_ids)
-
-    @api.depends('invoice_ids.amount_received')
-    def _compute_received(self):
-        """
-        Compute amount received for each invoice
-        :return: None
-        """
-        for biller in self:
-            biller.received = sum(invoice.amount_received for invoice in biller.invoice_ids)
-
-    @api.depends('invoice_ids.balance')
-    def _compute_balance(self):
-        """
-        Compute balance for each invoice
-        :return: None
-        """
-        for biller in self:
-            biller.balance = sum(invoice.balance for invoice in biller.invoice_ids)
-
-    @api.depends('invoice_ids.no_value_amount')
-    def _compute_novalue(self):
-        """
-        Compute no value for each invoice
-        :return: None
-        """
-        for biller in self:
-            biller.novalue = sum(invoice.no_value_amount for invoice in biller.invoice_ids)
-
-    @api.depends('invoice_ids')
-    def _compute_nbinvoices(self):
-        """
-        Compute invoices number
-        :return: None
-        """
-        for biller in self:
-            biller.nbinvoices = len(self.invoice_ids)
+    @api.depends("invoice_ids.amount_total", "invoice_ids.amount_received", "invoice_ids.balance",
+                 "invoice_ids.no_value_amount", "invoice_ids")
+    def _compute_biller(self):
+        for rec in self:
+            rec.total = sum(invoice.amount_total for invoice in rec.invoice_ids)
+            rec.received = sum(invoice.amount_received for invoice in rec.invoice_ids)
+            rec.balance = sum(invoice.balance for invoice in rec.invoice_ids)
+            rec.novalue = sum(invoice.no_value_amount for invoice in rec.invoice_ids)
+            rec.nbinvoices = len(rec.invoice_ids)
 
     @api.multi
     def _ensure_delete_one_biller(self):
@@ -299,41 +270,6 @@ class extraschool_biller(models.Model):
             new_cr.commit()
             new_cr.close()
             return {}
-
-    @api.multi
-    def _split_list(self, alist, wanted_parts=1):
-        """
-        :param alist: A list of ids
-        :param wanted_parts: A number of parts for threading
-        :return: A list of list of ids
-        """
-        length = len(alist)
-        return [alist[i * length // wanted_parts: (i + 1) * length // wanted_parts] for i in range(wanted_parts)]
-
-    # @api.one
-    # def generate_pdf(self):
-    #     cr, uid = self.env.cr, self.env.user.id
-    #     threaded_report = []
-    #
-    #     self.env['ir.attachment'].search([('res_id', 'in', [i.id for i in self.invoice_ids]),
-    #                                       ('res_model', '=', 'extraschool.invoice')]).unlink()
-    #
-    #     self.pdf_ready = False
-    #     self.env.invalidate_all()
-    #
-    #     count = 0
-    #
-    #     list = self.env['extraschool.invoice'].browse(self.invoice_ids.ids)
-    #     splitted_ids = _split_list(list, 50)
-    #     for
-    #         count = count + 1
-    #         _logger.info("generate pdf %s count: %s" % (invoice.id, count))
-    #         self.env['report'].get_pdf(invoice, 'extraschool.invoice_report_layout')
-    #
-    #     self.pdf_ready = True
-    #     self.in_creation = False
-    #
-    #     self.send_mail_completed()
 
     @api.one
     def generate_pdf(self):

@@ -60,7 +60,6 @@ class extraschool_activitycategory(models.Model):
                                 column2='place_id', string='Schoolcare place')
 
     priorityorder = fields.Integer('Priority order')
-    invoicetemplate = fields.Char('Invoice Template', size=50, default='facture.odt')
     invoicecomstructprefix = fields.Char('Invoice Comstruct prefix', size=3, required=True)
     invoicelastcomstruct = fields.Integer('Last Invoice structured comunication number')
     invoiceemailaddress = fields.Char('Invoice email address', size=50)

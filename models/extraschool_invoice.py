@@ -715,6 +715,17 @@ class extraschool_invoice(models.Model):
                 break
         self._compute_balance()
 
+    @api.multi
+    def unlink(self):
+        """
+        Delete invoice (included payments)
+        :return: id of invoice
+        """
+        # mettre à jour le prépaiement
+        for payment in self.payment_ids:
+            payment.unlink()
+        return super(extraschool_invoice, self).unlink()
+
 
 class extraschool_invoice_tag(models.Model):
     _name = 'extraschool.invoice_tag'

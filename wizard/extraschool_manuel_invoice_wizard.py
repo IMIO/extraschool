@@ -73,7 +73,7 @@ class extraschool_manuel_invoice_wizard(models.TransientModel):
             if self.invoice_child:
                 for child in parent.child_ids:
                     if child.levelid.leveltype in self.leveltype and child.isdisabled == False and (self.invoice_all_children == True or (child.create_date >= self.validity_from and child.create_date <= self.validity_to)):
-                        next_invoice_num = self.activity_category_id[0].get_next_comstruct('invoice', biller.get_from_year(), False, True)
+                        next_invoice_num = self.activity_category_id[0].get_next_comstruct('invoice', biller.get_from_year(), False)
 
                         invoice = inv_obj.create({'name' : _('invoice_%s') % (next_invoice_num['num'],),
                                     'number' : next_invoice_num['num'],
@@ -95,7 +95,7 @@ class extraschool_manuel_invoice_wizard(models.TransientModel):
                         invoice_ids.append(invoice.id)
 
             else:
-                next_invoice_num = self.activity_category_id[0].get_next_comstruct('invoice', biller.get_from_year(), False, True)
+                next_invoice_num = self.activity_category_id[0].get_next_comstruct('invoice', biller.get_from_year(), False)
                 invoice = inv_obj.create({'name' : _('invoice_%s') % (next_invoice_num['num'],),
                                 'number' : next_invoice_num['num'],
                                 'parentid' : parent.id,
