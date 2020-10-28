@@ -29,7 +29,7 @@ class extraschool_activitychildregistration(models.Model):
     _description = 'activity child registration'
 
     child_id = fields.Many2one('extraschool.child', 'Child', required=True)
-    place_id = fields.Many2one('extraschool.place', 'Place', required=True)        
+    place_id = fields.Many2one('extraschool.place', 'Place', required=True)
     activity_id = fields.Many2one('extraschool.activity', 'Activity')
     registration_from = fields.Date('Registration from', required=True)
     registration_to = fields.Date('Registration to', required=True)
@@ -37,8 +37,8 @@ class extraschool_activitychildregistration(models.Model):
     def name_get(self):
         res=[]
         for reg in self:
-            res.append((reg.id, reg.child_id.name + ' - ' + reg.place_id.name))    
+            res.append((reg.id, reg.child_id.name + ' - ' + reg.place_id.name))
 
-        return res          
+        return res
 
 extraschool_activitychildregistration()

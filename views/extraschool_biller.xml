@@ -41,7 +41,6 @@
                             <button name="mail_invoices" string="Factures courrier" type="object" class="oe_inline oe_stat_button" icon="fa-print"/>
                             <button name="email_invoices" string="Email factures" type="object" class="oe_inline oe_stat_button" icon="fa-envelope-o"/>
                             <button name="all_invoices" string="Toutes les factures" type="object" class="oe_inline oe_stat_button" icon="fa-files-o"/>
-                            <button name="all_pdf" string="Docs" type="object" class="oe_inline oe_stat_button" icon="fa-files-o" groups="base.group_erp_manager"/>
                         </div>
                     <field name="pdf_ready" invisible="True"/>
                     <group col="2">

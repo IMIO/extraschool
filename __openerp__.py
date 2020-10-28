@@ -22,9 +22,9 @@
 ##############################################################################
 
 {
-    'name': 'Extraschool',
-    'version': '9.1.0.10',
-    'author': 'Town of La Bruyère and Imio',
+    'name': 'AES',
+    'version': '2.0',
+    'author': 'Commune de la Bruyère et Imio',
     'depends': ['base',
                 'report',
                 'mail',
@@ -40,6 +40,7 @@
     'test': [],
     'data': [
         'scripts/update_seq.xml',
+        'scripts/update_biller.xml', # à supprimer
 
         'data/data_days.xml',
         'data/data_health_sheet.xml',
@@ -197,5 +198,5 @@
     ],
     'installable': True,
     'application': True,
-    'description': "This module is to manage billing attendance for extra school activities",
+    'description': "Ce module gère les activités extra-scolaire ainsi que la facturation",
 }

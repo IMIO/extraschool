@@ -50,7 +50,7 @@
                             </span>
                         </t>
                         <t t-if="parent_id.totalbalance &lt; 0.001">
-                            <span class="aes_credit_solde">une avance de<t
+                            <span class="aes_credit_solde">une avance de <t
                                 t-esc="'%.2f' %  (parent_id.payment_status_ids[0].solde)"/>€
                             </span>
                         </t>

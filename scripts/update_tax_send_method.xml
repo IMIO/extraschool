@@ -1,5 +1,5 @@
 <odoo>
     <data>
-        <function name="update_tax_and_send_method" model="extraschool.parent" />
-        </data>
+        <function name="update_tax_and_send_method" model="extraschool.parent"/>
+    </data>
 </odoo>

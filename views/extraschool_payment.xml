@@ -348,6 +348,7 @@
                      <field name="year" />
                      <field name="total_fact" sum="True"/>
                      <field name="total_no_value" sum="True"/>
+                     <field name="total_no_value_amount" sum="True"/>
                      <field name="total_received"  sum="True"/>
                      <field name="total_balance"  sum="True"/>
 				</tree>

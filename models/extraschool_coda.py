@@ -4,7 +4,7 @@
 #    Extraschool
 #    Copyright (C) 2008-2020
 #    Jean-Michel Abé - Town of La Bruyère (<http://www.labruyere.be>)
-#    Michael Michot & Michael Colicchia - Imio (<http://www.imio.be>).
+#    Michael Michot & Michael Colicchia & Jenny Pans - Imio (<http://www.imio.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -34,7 +34,6 @@ class extraschool_coda(models.Model):
     name = fields.Char('Name', size=20)
     codafile = fields.Binary('CODA File')
     codadate = fields.Date('CODA Date', readonly=True)
-    # amountperyear = fields.Text(compute='_compute_amountperyear', string="Amount per year")
     amount_accepted = fields.Float(compute='_compute_amount_accepted', string="Amount accepted")
     amount_rejected = fields.Float(compute='_compute_amount_rejected', string="Amount rejected")
 
@@ -194,7 +193,6 @@ class extraschool_coda(models.Model):
                                     payment_reconciliation_obj.create({'payment_id': payment_id.id,
                                                                        'invoice_id': invoice.id,
                                                                        'date': transfertdate,
-                                                                       # Todo: si date facture <= coda: date coda sinon date facture
                                                                        'amount': amount})
                                     invoice._compute_balance()
                                     paymentids.append(payment_id.id)
@@ -225,7 +223,7 @@ class extraschool_coda(models.Model):
                                     has_invoice = self.env['extraschool.invoice'].search(
                                         [('last_reminder_id', '=', reminder.id)])
 
-                                    if amount != round(totaldue, 2):
+                                    if amount > round(totaldue, 2):
                                         reject = True
                                         rejectcause = _(
                                             'A reminder has been found but the amount is not corresponding to balances of invoices')
@@ -237,31 +235,6 @@ class extraschool_coda(models.Model):
                                             'The communication is outdated. Another reminder has been created.')
 
                                     else:
-                                        # if fees_to_pay:
-                                        #     # Create a payment for the fees.
-                                        #     payment_id = payment_obj.create({'parent_id': reminder.parentid.id,
-                                        #                                      'paymentdate': transfertdate,
-                                        #                                      'structcom_prefix': _prefix,
-                                        #                                      'structcom': communication,
-                                        #                                      'paymenttype': '1',
-                                        #                                      'comment': 'Paiement des frais de rappel',
-                                        #                                      'account': parentaccount,
-                                        #                                      'name': name,
-                                        #                                      'adr1': adr1,
-                                        #                                      'adr2': adr2,
-                                        #                                      'solde': 0.0,
-                                        #                                      'amount': reminder.reminders_journal_item_id.reminder_type_id.fees_amount})
-                                        #
-                                        #     invoice = self.env['extraschool.invoice'].search([('last_reminder_id', '=', reminder.id), ('reminder_fees', '=', True)])
-                                        #
-                                        #     payment_reconciliation_obj.create({'payment_id': payment_id.id,
-                                        #                                        'invoice_id': invoice.id,
-                                        #                                        'date': transfertdate,
-                                        #                                        # todo: si date facture <= coda: date coda sinon date facture
-                                        #                                        'amount': invoice.balance})
-                                        #     invoice._compute_balance()
-                                        #     paymentids.append(payment_id.id)
-
                                         # todo: paramètrage des paiements des rappels. Apure fees en premier, toutes les factures avant fees
                                         for invoice in reminder.concerned_invoice_ids:
                                             activity_category = activitycategory_obj.search(
@@ -280,7 +253,6 @@ class extraschool_coda(models.Model):
                                             payment_reconciliation_obj.create({'payment_id': payment_id.id,
                                                                                'invoice_id': invoice.id,
                                                                                'date': transfertdate,
-                                                                               # todo: si date facture <= coda: date coda sinon date facture
                                                                                'amount': invoice.balance})
                                             invoice._compute_balance()
                                             paymentids.append(payment_id.id)
@@ -332,7 +304,6 @@ class extraschool_coda(models.Model):
                                                                                    'invoice_id': reconciliation[
                                                                                        'invoice_id'],
                                                                                    'date': transfertdate,
-                                                                                   # todo: si date facture <= coda: date coda sinon date facture
                                                                                    'amount': reconciliation['amount']})
                                                 invoice_obj.browse(reconciliation['invoice_id'])._compute_balance()
 

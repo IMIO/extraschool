@@ -1,0 +1,5 @@
+<odoo>
+    <data>
+        <function name="update_biller" model="extraschool.biller"/>
+    </data>
+</odoo>

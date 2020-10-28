@@ -60,13 +60,6 @@
                                     class="oe_inline oe_stat_button"
                                     icon="fa-files-o"
                             />
-                            <button name="all_pdf"
-                                    string="Docs"
-                                    type="object"
-                                    class="oe_inline oe_stat_button"
-                                    icon="fa-files-o"
-                                    groups="base.group_erp_manager"
-                            />
                         </div>
                         <group>
                             <field name="show_based_reminder"/>

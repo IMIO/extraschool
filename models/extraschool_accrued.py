@@ -28,33 +28,29 @@ class extraschoolAccrued(models.Model):
     _name = 'extraschool.accrued'
     _description = 'Droit constatés'
 
-    biller_id = fields.Many2one('extraschool.biller')
-    activity_category_id = fields.Many2one('extraschool.activitycategory')
-    amount = fields.Float()
-    ref = fields.Char()
-    amount_received = fields.Float(compute='_compute_amount_received')
+    biller_id = fields.Many2one(comodel_name="extraschool.biller", string="Biller")
+    activity_category_id = fields.Many2one(comodel_name="extraschool.activitycategory", string="Activity category")
+    amount = fields.Float(string="Amount")
+    ref = fields.Char(string="Ref categ")
+    amount_received = fields.Float(compute="_compute_amount_received", string="Amount received", store=True)
 
     @api.multi
-    def get_invoiced_prestations(self):
-        invoices = self.biller_id.invoice_ids.filtered(lambda r: r.balance == 0 and r.amount_received > 0)
-        invoiced_prestations = []
-        for invoice in invoices:
-            invoiced_prestations += invoice.invoice_line_ids.filtered(
-                lambda r: r.activity_activity_id.category_id == self.activity_category_id)
-        return invoiced_prestations
-
-    @api.multi
+    @api.depends("biller_id.balance")
     def _compute_amount_received(self):
-        if len(self) > 1:
-            for rec in self:
-                invoiced_prestations = rec.get_invoiced_prestations()
-                amount_received = 0
-                for invoiced_prestation in invoiced_prestations:
-                    no_value_amount = invoiced_prestation.no_value_amount
-                    total_price = invoiced_prestation.total_price
-                    discount_value = invoiced_prestation.discount_value
-                    if no_value_amount < total_price:
-                        amount_received += (total_price - discount_value)
-                        if no_value_amount > 0.0:
-                            amount_received -= no_value_amount
-                rec.amount_received = amount_received
+        cr = self.env.cr
+        for rec in self:
+            if rec.biller_id and rec.activity_category_id:
+                cr.execute(
+                            """
+                            SELECT COALESCE(SUM(ip.total_price),0) + COALESCE(SUM(ip.discount_value),0) - COALESCE(SUM(ip.no_value_amount),0) AS "amount_received"
+                            FROM extraschool_invoicedprestations ip
+                            LEFT JOIN extraschool_invoice i
+                                ON ip.invoiceid = i.id
+                            LEFT JOIN extraschool_activity a
+                                ON a.id = ip.activity_activity_id
+                            LEFT JOIN extraschool_activitycategory ac
+                                ON a.category_id = ac.id
+                            WHERE ac.id = '%s'  AND i.balance = 0 AND i.amount_received > 0 AND i.biller_id = '%s'
+                            """ % (rec.activity_category_id.id, rec.biller_id.id)
+                         )
+                rec.amount_received = cr.dictfetchall()[0].get("amount_received")
