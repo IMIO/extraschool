@@ -81,11 +81,6 @@ class extraschool_biller(models.Model):
         ondelete='cascade')
     fees = fields.Boolean(default=False, string="Fees", track_visibility="onchange")
 
-    @api.model
-    def update_biller(self):
-        for biller in self.env["extraschool.biller"].search([]):
-            biller._compute_biller()
-
     @api.multi
     def name_get(self):
         res = []

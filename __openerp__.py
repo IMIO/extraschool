@@ -40,7 +40,6 @@
     'test': [],
     'data': [
         'scripts/update_seq.xml',
-        'scripts/update_biller.xml', # à supprimer
 
         'data/data_days.xml',
         'data/data_health_sheet.xml',
